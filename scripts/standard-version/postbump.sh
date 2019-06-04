@@ -3,8 +3,8 @@ VERSION=$(cat ./package.json | grep -m 1 "version" | sed -E 's/.*"([^"]+)".*/\1/
 
 rm -rf ./dist
 
-npm run build
-npm run build:legacy
+npm run --silent build -- --bail --display none
+npm run --silent build:legacy -- --bail --display none
 
 head -n 1 ./dist/messaging.js > ./dist/messaging@"$VERSION".js
 echo "//# sourceMappingURL=messaging@${VERSION}.js.map" >> ./dist/messaging@"$VERSION".js
