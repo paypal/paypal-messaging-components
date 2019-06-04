@@ -1,0 +1,12 @@
+.message__messaging {
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.message__logo-container {
+    width: 120px;
+}
+
+.message__headline span:only-child {
+    white-space: nowrap;
+}

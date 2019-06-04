@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .messages > div {
+                margin-bottom: 20px;
+            }
+
+            iframe {
+                width: 100%;
+                height: 600px;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="messages"></div>
+        <script>
+            const allImages = [
+                ['1169x50', 'BLKWHTYLRG'],
+                ['1169x50', 'BLUWHTYLRG'],
+                ['1169x50', 'WHTBLUYLRG'],
+                ['1169x50', 'WHTBLUNLRG'],
+                ['160x600', 'BLKWHTYMED'],
+                ['160x600', 'BLUWHTYMED'],
+                ['160x600', 'WHTBLUYMED'],
+                ['160x600', 'WHTBLUNMED'],
+                ['180x150', 'BLKWHTYSML'],
+                ['180x150', 'BLUWHTYSML'],
+                ['180x150', 'WHTBLUYSML'],
+                ['180x150', 'WHTBLUNSML'],
+                ['300x250', 'BLKWHTYMED'],
+                ['300x250', 'BLUWHTYMED'],
+                ['300x250', 'WHTBLUYMED'],
+                ['300x250', 'WHTBLUNSML'],
+                ['728x90', 'BLKWHTYLRG'],
+                ['728x90', 'BLUWHTYLRG'],
+                ['728x90', 'WHTBLUYLRG'],
+                ['728x90', 'WHTBLUNLRG'],
+
+                // AL SAC - Finance Portal Borderless
+                '1169x51',
+                '1169x52',
+                '1169x50',
+                '160x601',
+                '161x600',
+                '160x602',
+                '180x151',
+                '180x152',
+                '181x150',
+                '300x251',
+                '300x252',
+                '301x250',
+                '728x91',
+                '729x90',
+                '730x90',
+
+                // BL NI Banners V
+                '90x136',
+                '190x50',
+                '228x128',
+                '240x60',
+                '999x70',
+                '250x52',
+                '260x72',
+                '274x97',
+                '280x42',
+                '289x110',
+                '300x600',
+                '184x153',
+                // '184x153',
+                '768x70',
+                '336x280',
+                '790x70',
+                '338x65',
+                '375x50',
+                '467x58',
+                '650x60',
+                '678x279',
+                '180x150',
+
+                // BL FP NI Banners
+                // '180x150',
+                '190x100',
+                '191x101',
+                '234x400',
+                '234x60',
+                '236x61',
+                '250x250',
+                '280x280',
+                '300x250',
+                '300x50',
+                // '336x280',
+                '468x60',
+                '540x200',
+                '728x90',
+                '800x66',
+                '120x240',
+                '120x600',
+                '120x90',
+                '150x100',
+                '151x101',
+                '160x600',
+                '170x100'
+            ];
+
+            allImages.forEach(attrs => {
+                const messages = document.querySelector('.messages');
+                const script = document.createElement('script');
+                script.setAttribute('type', 'text/javascript');
+                script.setAttribute('data-pp-payerid', 'DEV00000000NI');
+                script.setAttribute('data-pp-cartamt', '500');
+
+                script.text = `
+                    (function (d, t) {
+                        "use strict";
+                        var s = d.getElementsByTagName(t)[0], n = d.createElement(t);
+                        n.src = "../messaging.js"; // '//paypal.adtag.where.com/merchant.js'
+                        s.parentNode.insertBefore(n, s);
+                    }(document, "script"));
+                `;
+
+                if (Array.isArray(attrs)) {
+                    const [dimension, style] = attrs;
+                    script.setAttribute('data-pp-placementtype', dimension);
+                    script.setAttribute('data-pp-style', style);
+                } else {
+                    script.setAttribute('data-pp-placementtype', attrs);
+                }
+
+                messages.appendChild(script);
+            });
+        </script>
+    </body>
+</html>

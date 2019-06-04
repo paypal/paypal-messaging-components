@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="./messaging.js"></script>
+
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            h2 {
+                background: #2d2d2d;
+                color: white;
+                margin: 0;
+                padding: 0.3rem;
+            }
+
+            h4 {
+                background: #ccc;
+                margin: 0;
+                padding: 0.1rem 0.3rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container"></div>
+        <script>
+            var devAccounts = [
+                'DEV00000000NI',
+                'DEV000NINONUS',
+                'DEV0000000EAZ',
+                'DEV0000000EAG',
+                'DEV0000000PSZ',
+                'DEV0000000PSG',
+                'DEV0000000PMZ',
+                'DEV0000000PMG'
+            ];
+
+            var container = document.querySelector('.container');
+
+            // prettier-ignore
+            var logoTypes = [
+                'primary', 
+                'alternative', 
+                'inline', 
+                'none'
+            ];
+
+            // prettier-ignore
+            var logoPositions = [
+                'left', 
+                'right', 
+                'top'
+            ];
+
+            devAccounts.forEach(function(account) {
+                var h2 = document.createElement('h2');
+                h2.innerText = account;
+                container.appendChild(h2);
+
+                logoTypes.forEach(function(type) {
+                    logoPositions.forEach(function(position) {
+                        var h4 = document.createElement('h4');
+                        h4.innerText = type + ' && ' + position;
+                        container.appendChild(h4);
+
+                        var wrapper = document.createElement('div');
+                        container.appendChild(wrapper);
+
+                        paypal.Message.render(
+                            {
+                                account: account,
+                                amount: 3000,
+                                style: {
+                                    layout: 'text',
+                                    logo: {
+                                        type: type,
+                                        position: position
+                                    },
+                                    text: {
+                                        color: 'black'
+                                    }
+                                }
+                            },
+                            wrapper
+                        );
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
