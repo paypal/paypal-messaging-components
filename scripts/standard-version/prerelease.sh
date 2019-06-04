@@ -1,10 +1,6 @@
 #!/bin/bash
-current_branch() {
-    return "$(git rev-parse --abbrev-ref HEAD)"
-}
-
-[ current_branch != "release" ] && git checkout release
-[ current_branch != "release" ] && {
+[ "$(git rev-parse --abbrev-ref HEAD)" != "release" ] && git checkout release
+[ "$(git rev-parse --abbrev-ref HEAD)" != "release" ] && {
     echo "Must release from release branch. Please stash or commit your curent changes" >&2
     exit 1
 }
