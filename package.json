@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "0.3.6",
+    "version": "0.3.7",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
