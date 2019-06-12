@@ -122,16 +122,7 @@ function insertFlexStyle(wrapper, ratioPreset, layout) {
                 .${wrapperClass}::before {
                     padding-top: ${toCSSValue(ratio)};
                     content: '';
-                    width: 1px;
-                    margin-left: -1px;
-                    float: left;
-                    height: 0;
-                }
-        
-                .${wrapperClass}::after {
-                    content: '';
-                    display: table;
-                    clear: both;
+                    display: block;
                 }
         
                 .${wrapperClass} iframe {
