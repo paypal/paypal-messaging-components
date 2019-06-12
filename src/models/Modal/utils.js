@@ -1,6 +1,7 @@
 export function initParent() {
     // Viewport
     const parentHead = window.parent.document.head;
+    const parentBody = window.parent.document.body;
 
     const originalViewport = (() => {
         const parentViewport = window.parent.document.getElementsByName('viewport')[0];
@@ -15,6 +16,12 @@ export function initParent() {
             return basicViewport;
         }
 
+        // If the viewport is in the body, move it to the head
+        // ex: http://horticulturesource.com/
+        if (parentBody.contains(parentViewport)) {
+            parentHead.appendChild(parentViewport);
+        }
+
         return parentViewport;
     })();
 
@@ -24,7 +31,6 @@ export function initParent() {
         'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no';
 
     // Body style
-    const parentBody = window.parent.document.body;
     const originalBodyStyles = parentBody.getAttribute('style');
 
     const onOpen = () => {

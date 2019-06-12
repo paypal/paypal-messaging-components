@@ -1,11 +1,12 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
-import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import objectValues from 'core-js-pure/stable/object/values';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';
+import { logger, ERRORS } from '../../services/logger';
 import createContainer from '../../utils/container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
@@ -15,13 +16,13 @@ function createModal(options) {
     const wrapper = window.top.document.createElement('div');
     const [iframe, { insertMarkup }] = createContainer('iframe');
     const [parentOpen, parentClose] = initParent();
-    const { track } = options;
+    const { track, clickUrl } = options;
     const [state, setState] = createState({
         status: 'CLOSED'
     });
 
     function getModalType() {
-        if (startsWith(options.offerType, 'NI')) {
+        if (stringStartsWith(options.offerType, 'NI')) {
             return 'NI';
         }
 
@@ -63,6 +64,11 @@ function createModal(options) {
     }
 
     function ensureReady() {
+        if (state.error) {
+            // eslint-disable-next-line no-use-before-define
+            return prepModal(true);
+        }
+
         return state.modalProm;
     }
 
@@ -71,8 +77,13 @@ function createModal(options) {
 
         if (state.status === 'CLOSED' || state.status === 'CLOSING') {
             setState({ status: 'OPENING' });
-
             ensureReady().then(() => {
+                if (state.error) {
+                    setState({ status: 'CLOSED' });
+                    window.open(clickUrl, '_blank');
+                    return;
+                }
+
                 wrapper.style.display = 'block';
                 // Ensure iframe has been painted so that it's focusable in Firefox
                 // Focus iframe window so that keyboard events interact with the modal
@@ -235,6 +246,16 @@ function createModal(options) {
                 });
 
                 addModalEventHandlers();
+            })
+            .catch(err => {
+                logger.error({
+                    message: ERRORS.MODAL_LOAD_FAILURE,
+                    err
+                });
+
+                setState({
+                    error: true
+                });
             });
     }
 
@@ -247,7 +268,7 @@ function createModal(options) {
     );
     iframe.setAttribute(
         'style',
-        'position: absolute; top: 0; left: 0; overflow: hidden; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;'
+        'position: absolute; top: 0; left: 0; overflow: hidden; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; display: block;'
     );
 
     wrapper.appendChild(iframe);
@@ -269,7 +290,7 @@ const getModal = memoizeOnProps(createModal, ['account', 'amount', 'offerType'])
 
 export default {
     init({ options, meta, events, track }) {
-        if (options._legacy && meta.offerType === 'NI') {
+        if (options._legacy && stringStartsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {
                 const { target } = evt;
 
