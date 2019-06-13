@@ -3,7 +3,9 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, ERRORS } from '../logger';
 import publicKey from './public.key';
-import { memoize, objectGet } from '../../utils';
+import { memoize, objectGet, objectFlattenToArray } from '../../utils';
+
+const DELIMITER = '|-|-|';
 
 function str2ab(str) {
     const bufView = new Uint8Array(str.length);
@@ -35,13 +37,27 @@ function logCustomValidationError(account, style, err) {
     }
 }
 
+// Alphabetizes keys and returns their values as a string
+function getObjectValuesAsString(obj) {
+    return objectFlattenToArray(obj, '', DELIMITER)
+        .sort()
+        .reduce((accum, val) => {
+            const newString = accum + val.split(DELIMITER)[1];
+            return newString;
+        }, '');
+}
+
+function stringToBeSigned(account, styles) {
+    return `${account}${getObjectValuesAsString(styles)}`;
+}
+
 /**
  * Will validate custom banner styling based on the pre-validated hash of the account
  * and custom styles string being passsed into the render call
  * @param {String} account The account number passed in from the render call
  * @param {Object} style Object containing the styles passed in from the render call
  */
-function validateSign(sign, account, markup) {
+function validateSign(sign, account, styles) {
     return new ZalgoPromise(resolve => {
         // Validate signature and styles
         try {
@@ -49,8 +65,7 @@ function validateSign(sign, account, markup) {
             if (__DEMO__ && stringIncludes(window.location.host, 'paypal.com')) {
                 return resolve(true);
             }
-
-            const message = str2ab(`${account}${markup}`);
+            const message = str2ab(`${stringToBeSigned(account, styles)}`);
             const signature = str2ab(window.atob(sign));
             const binaryDer = str2ab(window.atob(publicKey));
 
@@ -113,10 +128,23 @@ function fetcher(url) {
     });
 }
 
-function getCustomTemplate(sign, account, source) {
+// Removes sign, flattened, and possibly ratio if undefined from the style object.  Returns everything else.
+function trimStyles(obj) {
+    const styleObject = { ...obj };
+    delete styleObject.sign;
+    delete styleObject._flattened;
+    if (styleObject.ratio === undefined) {
+        delete styleObject.ratio;
+    }
+    return styleObject;
+}
+
+function getCustomTemplate(sign, account, styles) {
+    const styleObject = trimStyles(styles);
+    const source = styles.markup;
     const markupProm = ZalgoPromise.resolve(source.match(/^(?:(https?:\/\/)|\.{0,2}\/)/) ? fetcher(source) : source);
     return markupProm.then(markup =>
-        validateSign(sign, account, markup).then(validated => {
+        validateSign(sign, account, styleObject).then(validated => {
             if (!validated) {
                 logCustomValidationError(account, markup);
             }

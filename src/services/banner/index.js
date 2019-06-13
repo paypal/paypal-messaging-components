@@ -84,9 +84,7 @@ export default function getBannerMarkup(options) {
     }
 
     const sign = objectGet(options, 'style.sign');
-    const markup = objectGet(options, 'style.markup');
-
-    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, markup)]).then(
+    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)]).then(
         ([data, template]) => {
             if (typeof data.markup === 'object') {
                 // eslint-disable-next-line no-param-reassign
