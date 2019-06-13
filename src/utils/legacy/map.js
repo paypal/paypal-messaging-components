@@ -126,7 +126,7 @@ export const htmlEZPMap = [
 ];
 
 // [<PAYER_ID>, <PUB_ID>]
-export const customBannerLEMap = [
+export const customBannerLEs = [
     ['35NBB9X6Z4UV4', 'ae448a026d'],
     ['4P9TSD9APDTT6', '9483cfbbc4'],
     ['A96ZUTUZAMETY', '6fd53e600b'],
@@ -135,7 +135,17 @@ export const customBannerLEMap = [
     ['KWRJULYJN7PAQ', 'e8cebeca35'],
     ['R2AQ6GECMNWVA', '2f242b9904'],
     ['RCNQL2J33NC54', 'df8729dd2c'],
-    ['TCE2H9EMJKVTL', 'c78836e69a'],
-    ['UL8SSCYBGT8N2'],
-    ['XCARJ2AJDDSRG']
+    ['TCE2H9EMJKVTL', 'c78836e69a']
 ];
+
+export const customBannerMap = {
+    '35NBB9X6Z4UV4': ['x728x90'],
+    '4P9TSD9APDTT6': ['x468x60'],
+    A96ZUTUZAMETY: ['x310x100'],
+    GNPYYLVLCUVFY: ['x234x100', 'x310x100'],
+    HYRTLNXT9H2PG: ['x260x72'],
+    KWRJULYJN7PAQ: ['x800x66'],
+    R2AQ6GECMNWVA: ['x468x60'],
+    RCNQL2J33NC54: ['x234x60', 'x800x66'],
+    TCE2H9EMJKVTL: ['x170x100']
+};
