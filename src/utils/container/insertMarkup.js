@@ -6,13 +6,14 @@ import Template from '../../models/Template';
 
 function insertStringIntoIframe(container, markup) {
     return new ZalgoPromise(resolve => {
-        const iframeWindow = container.contentWindow;
         const markupWithStyle = `<style>body{margin:0;padding:0;overflow:hidden;}</style>${markup}`;
 
         container.srcdoc = markupWithStyle; // eslint-disable-line no-param-reassign
         // Must be set again to refire reload event in IE
         container.src = 'about:blank'; // eslint-disable-line no-param-reassign
         container.addEventListener('load', function onload() {
+            const iframeWindow = container.contentWindow;
+
             // Fallback for IE and Edge since they don't support iframe srcdoc
             if (iframeWindow.document.body.children.length === 0) {
                 container.removeEventListener('load', onload); // Ensure onload does not fire again after writing the document

@@ -29,7 +29,7 @@
         "release:minor": "npm run release -- --release-as minor",
         "release:major": "npm run release -- --release-as major",
         "start": "npm run dev",
-        "test": "echo \"Add jest test script\""
+        "test": "jest"
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
@@ -42,6 +42,7 @@
         "eslint": "^5.8.0",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.3.0",
+        "eslint-import-resolver-jest": "^2.1.1",
         "eslint-plugin-import": "^2.14.0",
         "eslint-plugin-prettier": "^3.0.0",
         "got": "^9.6.0",

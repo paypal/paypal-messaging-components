@@ -6,7 +6,7 @@ import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import { logger } from '../../services/logger';
 import { objectFlattenToArray } from '../../utils';
 
-const Types = {
+export const Types = {
     ANY: 'ANY',
     STRING: 'STRING',
     BOOLEAN: 'BOOLEAN',
@@ -24,7 +24,7 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-const VALID_STYLE_OPTIONS = {
+export const VALID_STYLE_OPTIONS = {
     text: {
         logo: {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
@@ -58,7 +58,7 @@ const logInvalidType = (location, expectedType, val) =>
     );
 
 function validateType(expectedType, val) {
-    if (TypeMap[expectedType] === Types.BOOLEAN) {
+    if (expectedType === Types.BOOLEAN) {
         return typeof val === 'boolean';
     }
 
@@ -90,9 +90,10 @@ function getValidVal(typeArr, val, location) {
                         .join('", "')
                         .replace(/\|[\w|]+/g, '')}"] but received "${val}".`
                 );
-            } else {
-                return validVal.split('|')[0];
+                return validVals[0];
             }
+
+            return validVal.split('|')[0];
         }
 
         return val;

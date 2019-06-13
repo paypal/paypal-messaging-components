@@ -108,7 +108,7 @@ export function createState(initialState = {}) {
  */
 export function objectDiff(original, updated) {
     return objectEntries(updated).reduce((accumulator, [key, val]) => {
-        if (!original[key]) {
+        if (original[key] === undefined && updated[key] !== undefined) {
             return {
                 ...accumulator,
                 [key]: val

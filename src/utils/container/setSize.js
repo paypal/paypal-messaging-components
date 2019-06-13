@@ -261,7 +261,7 @@ export default curry((container, { wrapper, options }) => {
             // appropriate amount of lines
             requestAnimationFrame(() =>
                 requestAnimationFrame(() => {
-                    container.setAttribute('height', container.contentWindow.document.documentElement.scrollHeight); // container.contentWindow.document.documentElement.scrollHeight);
+                    container.setAttribute('height', container.contentWindow.document.documentElement.scrollHeight);
                 })
             );
         };
