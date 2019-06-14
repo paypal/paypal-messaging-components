@@ -1,4 +1,5 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, ERRORS } from '../logger';
@@ -122,7 +123,7 @@ function fetcher(url) {
 
 // Removes sign, flattened, and possibly ratio if undefined from the style object.  Returns everything else.
 function trimStyles(obj) {
-    const styleObject = Object.entries(obj).reduce((accum, kvp) => {
+    const styleObject = objectEntries(obj).reduce((accum, kvp) => {
         if (kvp[1] !== undefined) {
             const tempObj = {};
             // eslint-disable-next-line prefer-destructuring
