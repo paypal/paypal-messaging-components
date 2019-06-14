@@ -5,8 +5,6 @@ import { logger, ERRORS } from '../logger';
 import publicKey from './public.key';
 import { memoize, objectGet, objectFlattenToArray } from '../../utils';
 
-const DELIMITER = '|-|-|';
-
 function str2ab(str) {
     const bufView = new Uint8Array(str.length);
     for (let i = str.length; i >= 0; i -= 1) {
@@ -39,16 +37,9 @@ function logCustomValidationError(account, style, err) {
 
 // Alphabetizes keys and returns their values as a string
 function getObjectValuesAsString(obj) {
-    return objectFlattenToArray(obj, '', DELIMITER)
+    return objectFlattenToArray(obj)
         .sort()
-        .reduce((accum, val) => {
-            const newString = accum + val.split(DELIMITER)[1];
-            return newString;
-        }, '');
-}
-
-function stringToBeSigned(account, styles) {
-    return `${account}${getObjectValuesAsString(styles)}`;
+        .join('');
 }
 
 /**
@@ -65,7 +56,8 @@ function validateSign(sign, account, styles) {
             if (__DEMO__ && stringIncludes(window.location.host, 'paypal.com')) {
                 return resolve(true);
             }
-            const message = str2ab(`${stringToBeSigned(account, styles)}`);
+
+            const message = str2ab(`${account}${getObjectValuesAsString(styles)}`);
             const signature = str2ab(window.atob(sign));
             const binaryDer = str2ab(window.atob(publicKey));
 
@@ -130,12 +122,21 @@ function fetcher(url) {
 
 // Removes sign, flattened, and possibly ratio if undefined from the style object.  Returns everything else.
 function trimStyles(obj) {
-    const styleObject = { ...obj };
-    delete styleObject.sign;
+    const styleObject = Object.entries(obj).reduce((accum, kvp) => {
+        if (kvp[1] !== undefined) {
+            const tempObj = {};
+            // eslint-disable-next-line prefer-destructuring
+            tempObj[kvp[0]] = kvp[1];
+            return {
+                ...accum,
+                ...tempObj
+            };
+        }
+        return {
+            ...accum
+        };
+    }, {});
     delete styleObject._flattened;
-    if (styleObject.ratio === undefined) {
-        delete styleObject.ratio;
-    }
     return styleObject;
 }
 

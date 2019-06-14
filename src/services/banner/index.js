@@ -83,7 +83,7 @@ export default function getBannerMarkup(options) {
         return memoFetcher(options);
     }
 
-    const sign = objectGet(options, 'style.sign');
+    const sign = objectGet(options, 'sign');
     return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)]).then(
         ([data, template]) => {
             if (typeof data.markup === 'object') {
