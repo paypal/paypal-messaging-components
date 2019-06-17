@@ -121,7 +121,8 @@ export default function toNewPipeline(ppScript) {
                     _legacy: typeNI !== 'flex' && typeEZP !== 'flex',
                     account,
                     amount: kvs.currency_value,
-                    style: styleConfig
+                    style: styleConfig,
+                    countryCode: 'US'
                 },
                 span
             );

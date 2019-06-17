@@ -1,9 +1,10 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, ERRORS } from '../logger';
 import publicKey from './public.key';
-import { memoize, objectGet } from '../../utils';
+import { memoize, objectGet, objectFlattenToArray } from '../../utils';
 
 function str2ab(str) {
     const bufView = new Uint8Array(str.length);
@@ -35,13 +36,20 @@ function logCustomValidationError(account, style, err) {
     }
 }
 
+// Alphabetizes keys and returns their values as a string
+function getObjectValuesAsString(obj) {
+    return objectFlattenToArray(obj)
+        .sort()
+        .join('');
+}
+
 /**
  * Will validate custom banner styling based on the pre-validated hash of the account
  * and custom styles string being passsed into the render call
  * @param {String} account The account number passed in from the render call
  * @param {Object} style Object containing the styles passed in from the render call
  */
-function validateSign(sign, account, markup) {
+function validateSign(sign, account, styles) {
     return new ZalgoPromise(resolve => {
         // Validate signature and styles
         try {
@@ -50,7 +58,7 @@ function validateSign(sign, account, markup) {
                 return resolve(true);
             }
 
-            const message = str2ab(`${account}${markup}`);
+            const message = str2ab(`${account}${getObjectValuesAsString(styles)}`);
             const signature = str2ab(window.atob(sign));
             const binaryDer = str2ab(window.atob(publicKey));
 
@@ -113,10 +121,26 @@ function fetcher(url) {
     });
 }
 
-function getCustomTemplate(sign, account, source) {
+// Removes sign, flattened, and possibly ratio if undefined from the style object.  Returns everything else.
+function trimStyles(obj) {
+    const styleObject = objectEntries(obj).reduce((accum, [key, val]) => {
+        return val !== undefined
+            ? {
+                  ...accum,
+                  [key]: val
+              }
+            : accum;
+    }, {});
+    delete styleObject._flattened;
+    return styleObject;
+}
+
+function getCustomTemplate(sign, account, styles) {
+    const styleObject = trimStyles(styles);
+    const source = styles.markup;
     const markupProm = ZalgoPromise.resolve(source.match(/^(?:(https?:\/\/)|\.{0,2}\/)/) ? fetcher(source) : source);
     return markupProm.then(markup =>
-        validateSign(sign, account, markup).then(validated => {
+        validateSign(sign, account, styleObject).then(validated => {
             if (!validated) {
                 logCustomValidationError(account, markup);
             }

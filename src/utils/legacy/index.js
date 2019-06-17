@@ -289,7 +289,6 @@ export default function scanLegacyScripts() {
         if ((payerId || pubId) && dimensions) {
             const ppScript = new PPScript(script);
             // Attempt to render through messaging.js pipeline
-
             const success = toNewPipeline(ppScript);
 
             // Fallback to legacy pipeline
