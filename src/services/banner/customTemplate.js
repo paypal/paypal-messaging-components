@@ -123,19 +123,13 @@ function fetcher(url) {
 
 // Removes sign, flattened, and possibly ratio if undefined from the style object.  Returns everything else.
 function trimStyles(obj) {
-    const styleObject = objectEntries(obj).reduce((accum, kvp) => {
-        if (kvp[1] !== undefined) {
-            const tempObj = {};
-            // eslint-disable-next-line prefer-destructuring
-            tempObj[kvp[0]] = kvp[1];
-            return {
-                ...accum,
-                ...tempObj
-            };
-        }
-        return {
-            ...accum
-        };
+    const styleObject = objectEntries(obj).reduce((accum, [key, val]) => {
+        return val !== undefined
+            ? {
+                  ...accum,
+                  [key]: val
+              }
+            : accum;
     }, {});
     delete styleObject._flattened;
     return styleObject;
