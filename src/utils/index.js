@@ -223,7 +223,7 @@ export function objectMerge(a, b) {
  * @param {String} prefix Prefix for current option property
  * @returns {Array<String>} Array of options as string
  */
-export function objectFlattenToArray(options, prefix = '') {
+export function objectFlattenToArray(options, prefix = '', delimiter = ':') {
     return objectEntries(options).reduce((accumulator, [key, val]) => {
         switch (typeof val) {
             case 'object': {
@@ -231,7 +231,7 @@ export function objectFlattenToArray(options, prefix = '') {
             }
             case 'string':
             default: {
-                return [...accumulator, `${prefix}${key}:${val}`];
+                return [...accumulator, `${prefix}${key}${delimiter}${val}`];
             }
         }
     }, []);

@@ -20,7 +20,8 @@ const TypeMap = {
 };
 
 const VALID_OPTIONS = {
-    onRender: [Types.FUNCTION]
+    onRender: [Types.FUNCTION],
+    sign: [Types.STRING]
 };
 
 // Combination of all valid style option combinations
@@ -46,7 +47,6 @@ const VALID_STYLE_OPTIONS = {
         border: [Types.BOOLEAN, [true, false]]
     },
     custom: {
-        sign: [Types.STRING],
         markup: [Types.STRING],
         ratio: [Types.ANY]
     }
