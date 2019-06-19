@@ -140,7 +140,7 @@ function getCustomTemplate(sign, account, styles) {
     const source = styles.markup;
     const markupProm = ZalgoPromise.resolve(source.match(/^(?:(https?:\/\/)|\.{0,2}\/)/) ? fetcher(source) : source);
     return markupProm.then(markup =>
-        validateSign(sign, account, styleObject).then(validated => {
+        validateSign(sign, account, { ...styleObject, markup }).then(validated => {
             if (!validated) {
                 logCustomValidationError(account, markup);
             }
