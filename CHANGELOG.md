@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/paypal/paypal-messaging-components/compare/v0.4.0...v0.4.1) (2019-06-19)
+
+
+### Bug Fixes
+
+* use fetched custom markup to validate sign ([45dc002](https://github.com/paypal/paypal-messaging-components/commit/45dc002))
+
+
+
 ## [0.4.0](https://github.com/paypal/paypal-messaging-components/compare/v0.3.7...v0.4.0) (2019-06-17)
 
 
