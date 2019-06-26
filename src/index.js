@@ -1,63 +1,33 @@
-import objectAssign from 'core-js-pure/stable/object/assign';
 import { getMerchantID, getSDKScript } from '@paypal/sdk-client/src';
+import { globalState } from './utils/globalState';
+import Messages from './controllers/bootstrap';
+import { getInlineOptions } from './controllers/render';
 
-import render, { getInlineOptions } from './controllers/render';
-import scanLegacyScripts from './utils/legacy';
-import { objectGet } from './utils';
-
-const isBrowser = () => !!window;
-const globalConfig = {};
-
-const Messages = config => ({ render: selector => render({ ...globalConfig, ...config }, selector) });
-
-objectAssign(Messages, {
-    render: (config = {}, selector) => render({ ...globalConfig, ...config }, selector),
-    setGlobalConfig: (config = {}) => objectAssign(globalConfig, config)
-});
-
-// Check for window object in case imported into server side rendered app
-if (isBrowser()) {
-    // __LEGACY__ variable injected by webpack. If target build is merchant.js value will be true, otherwise false.
-    // Webpack will tree shake this when build not targeting merchant.js
-    if (__LEGACY__) {
-        scanLegacyScripts();
+// Populate global config options
+if (__SDK__) {
+    // TODO: Update to client ID when imadserver supports it
+    Messages.setGlobalConfig({ account: getMerchantID() });
+    const script = getSDKScript();
+    if (script) {
+        Messages.setGlobalConfig(getInlineOptions(script));
+    }
+} else {
+    // eslint-disable-next-line compat/compat
+    const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
+    if (script) {
+        Messages.setGlobalConfig(getInlineOptions(script));
     }
 
-    // Setup global library state
-    Object.defineProperty(Messages, '__state__', {
-        value: objectGet(window, 'paypal.Messages.__state__') || { nextId: 0, globalConfig },
-        enumerable: false,
-        writable: false
-    });
-    // If multiple instances of library on page, copy from what is globally stored
-    objectAssign(globalConfig, objectGet(window, 'paypal.Messages.__state__.globalConfig'));
+    // Alias for pilot merchant support
+    window.paypal.Message = Messages;
+}
 
-    // Populate global config options
-    if (__SDK__) {
-        // TODO: Update to client ID when imadserver supports it
-        [globalConfig.account] = getMerchantID();
-        const script = getSDKScript();
-        if (script) {
-            objectAssign(globalConfig, getInlineOptions(script));
-        }
+// Requires a merchant account to render a message
+if (globalState.globalConfig.account) {
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
     } else {
-        // eslint-disable-next-line compat/compat
-        const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
-        if (script) {
-            objectAssign(globalConfig, getInlineOptions(script));
-        }
-
-        // Alias for pilot merchant support
-        window.paypal.Message = Messages;
-    }
-
-    // Requires a merchant account to render a message
-    if (globalConfig.account) {
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
-        } else {
-            Messages.render({ _auto: true });
-        }
+        Messages.render({ _auto: true });
     }
 }
 
