@@ -2,7 +2,7 @@ const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({
     __MODULE_VERSION__: version,
-    __BANNER_URL__: env.mockImadserv ? '/proxy/imadserver/upstream' : 'https://www.paypal.com/imadserver/upstream',
+    __BANNER_URL__: env.mockImadserv ? '/imadserver/upstream' : 'https://www.paypal.com/imadserver/upstream',
     __MODAL_URL__: env.devModal ? './modals' : 'https://www.paypalobjects.com/upstream/assets/messaging/modal',
     __LOGGING_URL__: env.devPPCredit
         ? 'http://localhost.paypal.com:8000/ppcredit/messagingLogger'
