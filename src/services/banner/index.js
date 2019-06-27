@@ -1,4 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps, objectGet } from '../../utils';
@@ -30,7 +31,6 @@ function fetcher({ account, amount, countryCode }) {
         // Fire off JSONP request
         const rootUrl = __BANNER_URL__;
         const queryParams = {
-            pub_id: account,
             dimensions: PLACEMENT,
             currency_value: amount,
             format: 'HTML',
@@ -47,8 +47,10 @@ function fetcher({ account, amount, countryCode }) {
 
         const queryString = objectEntries(queryParams)
             .filter(([, val]) => val)
-            .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
-            .slice(1);
+            .reduce(
+                (accumulator, [key, val]) => `${accumulator}&${key}=${val}`,
+                stringStartsWith(account, 'client-id') ? `client_id=${account.slice(10)}` : `pub_id=${account}`
+            );
         const script = document.createElement('script');
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;

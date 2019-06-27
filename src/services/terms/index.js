@@ -1,11 +1,14 @@
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps } from '../../utils';
 
 function assembleUrl({ account, amount }) {
     const baseUrl = __TERMS_URL__;
-    // const queries = [`mid=5RPH2FV9D46RG`];
-    const queries = ['json=true', `mid=${account}`];
+    const queries = [
+        'json=true',
+        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`
+    ];
 
     // TODO: Look to dynamically set these values as we push for location driven logic
     queries.push('country=US');

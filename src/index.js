@@ -1,5 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import { getMerchantID, getSDKScript } from '@paypal/sdk-client/src';
+import { getClientID, getSDKScript } from '@paypal/sdk-client/src';
 
 import render, { getInlineOptions } from './controllers/render';
 import scanLegacyScripts from './utils/legacy';
@@ -35,7 +35,7 @@ if (isBrowser()) {
     // Populate global config options
     if (__SDK__) {
         // TODO: Update to client ID when imadserver supports it
-        [globalConfig.account] = getMerchantID();
+        globalConfig.account = `client-id:${getClientID()}`;
         const script = getSDKScript();
         if (script) {
             objectAssign(globalConfig, getInlineOptions(script));
