@@ -98,7 +98,7 @@ export const logger = {
     },
     track: sendBeacon,
     warn(...messages) {
-        console.warn(['PayPal Messages'], ...messages);
+        console.warn('[PayPal Messages]', ...messages);
     }
 };
 
