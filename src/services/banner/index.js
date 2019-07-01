@@ -1,7 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet } from '../../utils';
+import { memoizeOnProps, objectGet, objectMerge } from '../../utils';
 import { logger, EVENTS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
@@ -76,21 +76,6 @@ function fetcher({ account, amount, countryCode }) {
     });
 }
 
-function getCustomRatio(template) {
-    const attribute = 'customRatio=';
-    const closingTag = '">';
-    const strStart = template.indexOf(attribute);
-    console.log(strStart);
-    if (strStart !== -1) {
-        const strEnd = template.indexOf(closingTag);
-        console.log(strEnd);
-        const ratio = template.substring(strStart + attribute.length + 1, strEnd + closingTag.length - 2);
-        console.log(ratio);
-        return ratio;
-    }
-    return undefined;
-}
-
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
 
 export default function getBannerMarkup(options) {
@@ -98,18 +83,19 @@ export default function getBannerMarkup(options) {
         return memoFetcher(options);
     }
 
-    const sign = objectGet(options, 'sign');
-    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)]).then(
-        ([data, template]) => {
-            if (typeof data.markup === 'object') {
-                // eslint-disable-next-line no-param-reassign
-                // options.style.ratio = getCustomRatio(template);
-                // eslint-disable-next-line no-param-reassign
-                data.markup.template = template;
-                // eslint-disable-next-line no-param-reassign
-                data.markup.ratio = getCustomRatio(template);
-            }
-            return data;
+    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
+        if (typeof data.markup === 'object') {
+            // eslint-disable-next-line no-param-reassign
+            data.markup.template = template;
+            //
+            const customOptions = { style: { ratio: '1x1' } };
+            // eslint-disable-next-line no-param-reassign
+            // options.style = { ...options.style, ...customOptions.style };
+            // options = { ...options, ...customOptions };
+
+            console.log(objectMerge(options, customOptions));
         }
-    );
+        return { markup: data.markup, options };
+        // return data;
+    });
 }
