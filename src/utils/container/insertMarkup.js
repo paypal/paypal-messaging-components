@@ -82,6 +82,7 @@ function handleLegacy(container, markup, options) {
 export default curry(
     (container, { markup, options }) =>
         new ZalgoPromise(resolve => {
+            console.log(options);
             if (container.tagName === 'IFRAME') {
                 if (typeof markup === 'string') {
                     insertStringIntoIframe(container, markup).then(resolve);

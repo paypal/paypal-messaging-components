@@ -36,6 +36,13 @@ const onRendered = ({ options: { onRender, id } }) => {
     }
 };
 
+function updateRatio(args) {
+    if (args.markup.ratio) {
+        args.options.style.ratio = args.markup.ratio;
+    }
+    return args;
+}
+
 const Banner = {
     create(initialOptions, inputWrapper) {
         logger.info(EVENTS.MESSAGE_CREATE_INITIATED, {
@@ -60,6 +67,7 @@ const Banner = {
                 .then(
                     pipe(
                         partial(objectAssign, { options }), // Object(markup, options)
+                        updateRatio,
                         insertMarkup // Promise<Object(meta)>
                     )
                 )
@@ -76,7 +84,6 @@ const Banner = {
                 .catch(err => logger.error({ error: `${err}` }));
 
             logger.waitFor(renderProm);
-
             updateOptions(options);
         }
 
