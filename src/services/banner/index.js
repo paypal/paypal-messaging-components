@@ -22,7 +22,7 @@ const LOCALE_MAP = {
  * @param {Object} options Banner options
  * @returns {Promise<string>} Banner Markup
  */
-function fetcher({ account, amount, countryCode }) {
+function fetcher({ account, amount, id, countryCode }) {
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `_c${Math.floor(Math.random() * 10 ** 19)}`;
@@ -53,17 +53,15 @@ function fetcher({ account, amount, countryCode }) {
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;
         // LOGGER: Initiated
-        logger.info(EVENTS.MESSAGE_FETCH_INITIATED, {
-            account,
-            amount
+        logger.info(EVENTS.MESSAGE_FETCH_START, {
+            id
         });
         document.head.appendChild(script);
 
         window.paypal[callbackName] = markup => {
             // LOGGER: Received
-            logger.info(EVENTS.MESSAGE_FETCH_RECEIVED, {
-                account,
-                amount
+            logger.info(EVENTS.MESSAGE_FETCH_END, {
+                id
             });
             document.head.removeChild(script);
             delete window.paypal[callbackName];

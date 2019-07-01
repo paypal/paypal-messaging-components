@@ -1,4 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
 import { logger, EVENTS } from '../../services/logger';
@@ -27,9 +28,7 @@ function concatTracker(obj) {
 }
 
 const onRendered = ({ options: { onRender, id } }) => {
-    logger.info(EVENTS.MESSAGE_RENDERED, {
-        id
-    });
+    logger.info(EVENTS.MESSAGE_RENDERED, { id });
 
     if (onRender) {
         onRender();
@@ -38,7 +37,7 @@ const onRendered = ({ options: { onRender, id } }) => {
 
 const Banner = {
     create(initialOptions, inputWrapper) {
-        logger.info(EVENTS.MESSAGE_CREATE_INITIATED, {
+        logger.info(EVENTS.MESSAGE_CREATE, {
             id: initialOptions.id,
             options: initialOptions
         });
@@ -78,6 +77,7 @@ const Banner = {
             logger.waitFor(renderProm);
 
             updateOptions(options);
+            return renderProm;
         }
 
         function update(newOptions) {
@@ -88,19 +88,20 @@ const Banner = {
             if (shouldUpdate) {
                 clearEvents();
                 // LOGGER: starting update
-                logger.info(EVENTS.MESSAGE_UPDATE_INITIATED, {
+                logger.info(EVENTS.MESSAGE_UPDATE, {
                     id: updatedOptions.id,
                     options: newOptions
                 });
-                render(updatedOptions);
+                return render(updatedOptions);
             }
+            return ZalgoPromise.resolve();
         }
 
         // Iframe must be in the DOM otherwise the markup cannot be placed inside
         inputWrapper.appendChild(wrapper);
-        render(currentOptions);
 
         return {
+            renderProm: render(currentOptions),
             wrapper,
             container,
             update
@@ -111,17 +112,15 @@ const Banner = {
 export default {
     init(wrapper, options) {
         if (banners.has(wrapper)) {
-            banners.get(wrapper).update(options);
-        } else {
-            const banner = Banner.create(options, wrapper);
-            banners.set(wrapper, banner);
-
-            // LOGGER: appending empty iframe - waiting for banner
-            logger.info(EVENTS.IFRAME_CREATED, {
-                id: options.id
-            });
+            return banners.get(wrapper).update(options);
         }
 
-        return banners.get(wrapper).update;
+        const banner = Banner.create(options, wrapper);
+        banners.set(wrapper, banner);
+
+        // LOGGER: appending empty iframe - waiting for banner
+        logger.info(EVENTS.MESSAGE_CONTAINER, { id: options.id });
+
+        return banner.renderProm;
     }
 };

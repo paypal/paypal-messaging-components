@@ -6,12 +6,13 @@ import sendBeacon from './sendBeacon';
 
 const FLUSH_INTERVAL = 3000;
 export const EVENTS = {
-    STARTING_MESSAGE_RENDER: 'Starting_Message_Render',
-    IFRAME_CREATED: 'iFrame_Created',
-    MESSAGE_FETCH_INITIATED: 'Message_Fetch_Initiated',
-    MESSAGE_FETCH_RECEIVED: 'Message_Fetch_Received',
-    MESSAGE_CREATE_INITIATED: 'Message_Create_Initiated',
-    MESSAGE_UPDATE_INITIATED: 'Message_Update_Initiated',
+    MESSAGES_RENDER_START: 'Messages_Render_Start',
+    MESSAGES_RENDER_END: 'Messages_Render_End',
+    MESSAGE_CREATE: 'Message_Create',
+    MESSAGE_CONTAINER: 'Message_Container',
+    MESSAGE_FETCH_START: 'Message_Fetch_Start',
+    MESSAGE_FETCH_END: 'Message_Fetch_End',
+    MESSAGE_UPDATE: 'Message_Update',
     MESSAGE_RENDERED: 'Message_Rendered',
     ERROR: 'ERROR',
     FLUSH: 'FLUSH',

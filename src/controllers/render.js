@@ -1,5 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import startsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, EVENTS } from '../services/logger';
 import Banner from '../models/Banner';
@@ -90,13 +91,16 @@ function bootstrapBanners(selector, options) {
 
         return true;
     });
+    const renderId = window.paypal.Messages.__state__.nextRenderId;
+    window.paypal.Messages.__state__.nextRenderId += 1;
 
-    logger.info(EVENTS.STARTING_MESSAGE_RENDER, {
+    logger.info(EVENTS.MESSAGES_RENDER_START, {
+        r_id: renderId,
         url: window.location.href,
         selector: selectorType
     });
 
-    const updateFns = containers.map(container => {
+    const renderProms = containers.map(container => {
         const totalOptions = objectMerge(options, getInlineOptions(container));
 
         if (!container.hasAttribute('data-pp-id')) {
@@ -104,18 +108,16 @@ function bootstrapBanners(selector, options) {
             window.paypal.Messages.__state__.nextId += 1;
         }
 
-        totalOptions.id = container.getAttribute('data-pp-id');
+        totalOptions.id = `${container.getAttribute('data-pp-id')}-${renderId}`;
 
-        return [Banner.init(container, totalOptions), container, totalOptions];
+        return Banner.init(container, totalOptions);
     });
 
-    return newOptions =>
-        updateFns.forEach(([updateBanner, container, prevOptions]) => {
-            const totalOptions = objectMerge(prevOptions, objectMerge(newOptions, getInlineOptions(container)));
-            totalOptions.id = container.getAttribute('data-pp-id');
-
-            updateBanner(totalOptions);
+    return ZalgoPromise.all(renderProms).then(() => {
+        logger.info(EVENTS.MESSAGES_RENDER_END, {
+            r_id: renderId
         });
+    });
 }
 
 /**
