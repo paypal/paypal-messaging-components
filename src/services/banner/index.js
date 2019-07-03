@@ -1,7 +1,9 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-param-reassign */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet, objectMerge } from '../../utils';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../utils';
 import { logger, EVENTS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
@@ -22,7 +24,8 @@ const LOCALE_MAP = {
  * @param {Object} options Banner options
  * @returns {Promise<string>} Banner Markup
  */
-function fetcher({ account, amount, countryCode }) {
+function fetcher(options) {
+    const { account, amount, countryCode } = options;
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `_c${Math.floor(Math.random() * 10 ** 19)}`;
@@ -68,12 +71,25 @@ function fetcher({ account, amount, countryCode }) {
             document.head.removeChild(script);
             delete window.paypal[callbackName];
             try {
-                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
+                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')), options });
             } catch (err) {
-                resolve({ markup });
+                resolve({ markup, options });
             }
         };
     });
+}
+
+/**
+ * Extract annotations from markup into a single options object
+ * @param {string} markup String of banner HTML markup
+ * @returns {Object} Banner annotations
+ */
+function getBannerOptions(markup) {
+    const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
+    if (annotationsString) {
+        return JSON.parse(annotationsString[1]);
+    }
+    return {};
 }
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
@@ -85,17 +101,12 @@ export default function getBannerMarkup(options) {
 
     return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
         if (typeof data.markup === 'object') {
-            // eslint-disable-next-line no-param-reassign
             data.markup.template = template;
-            //
-            const customOptions = { style: { ratio: '1x1' } };
-            // eslint-disable-next-line no-param-reassign
-            // options.style = { ...options.style, ...customOptions.style };
-            // options = { ...options, ...customOptions };
 
-            console.log(objectMerge(options, customOptions));
+            const bannerOptions = getBannerOptions(template);
+            options = objectMerge(options, { ...bannerOptions });
+            options.style._flattened = objectFlattenToArray(options.style);
         }
         return { markup: data.markup, options };
-        // return data;
     });
 }

@@ -4,7 +4,6 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import { logger } from '../../services/logger';
-import { objectFlattenToArray } from '../../utils';
 
 const Types = {
     ANY: 'ANY',
@@ -194,8 +193,6 @@ export default function validateOptions({ id, account, amount, countryCode, styl
     } else {
         validOptions.style = getValidStyleOptions(style);
     }
-
-    validOptions.style._flattened = objectFlattenToArray(validOptions.style);
 
     objectAssign(validOptions, populateDefaults(VALID_OPTIONS, otherOptions, ''));
 

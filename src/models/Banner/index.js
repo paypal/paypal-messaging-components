@@ -62,7 +62,7 @@ const Banner = {
                 )
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, options, events }), // Object(meta, wrapper, options, events)
+                        partial(objectAssign, { wrapper, events }), // Object(meta, wrapper, options, events)
                         concatTracker, // Object(meta, wrapper, options, events, track)
                         passThrough(Modal.init), // Object(meta, wrapper, options, events, track)
                         passThrough(setSize), // Object(meta, wrapper, options, events, track)
