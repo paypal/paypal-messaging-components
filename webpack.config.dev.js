@@ -11,10 +11,10 @@ const PORT = 8080;
 module.exports = (env = {}) => {
     const config = env.standalone
         ? getWebpackConfig({
-              entry: './src/index.js',
+              entry: env.legacy ? './src/legacy/index.js' : './src/index.js',
               filename: env.legacy ? 'merchant.js' : 'messaging.js',
               libraryTarget: 'window',
-              modulename: ['paypal', 'Messages'],
+              modulename: env.legacy ? undefined : ['paypal', 'Messages'],
               debug: true,
               minify: true,
               env: 'local',

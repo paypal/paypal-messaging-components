@@ -1,21 +1,10 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
-import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { logger, EVENTS } from '../services/logger';
 import Banner from '../models/Banner';
-import { objectMerge } from '../utils';
-
-function flattenedToObject(option, attributeValue) {
-    const firstIndex = option.indexOf('-');
-    if (firstIndex === -1) {
-        return { [option]: attributeValue };
-    }
-
-    const key = option.slice(0, firstIndex);
-    const val = option.slice(firstIndex + 1);
-
-    return { [key]: flattenedToObject(val, attributeValue) };
-}
+import { objectMerge, flattenedToObject, isElement } from '../utils';
+import { globalState, setGlobalState } from '../utils/globalState';
 
 /**
  * Return options object from valid container data attributes
@@ -24,7 +13,7 @@ function flattenedToObject(option, attributeValue) {
  */
 export function getInlineOptions(container) {
     const dataOptions = arrayFrom(container.attributes)
-        .filter(({ nodeName }) => startsWith(nodeName, 'data-pp-'))
+        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
@@ -48,19 +37,13 @@ export function getInlineOptions(container) {
     return objectMerge(dataOptions, { style: { markup } });
 }
 
-function isElement(el) {
-    return typeof HTMLElement === 'object'
-        ? el instanceof HTMLElement
-        : el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
-}
-
 /**
  * Render Banner into all selector container elements
  * @param {string|HTMLElement|Array<HTMLElement>} selector CSS selector
  * @param {Object} options Banner options
  * @returns {void}
  */
-function bootstrapBanners(selector, options) {
+export default function render(options, selector = '[data-pp-message]') {
     let containers;
     let selectorType;
     if (typeof selector === 'string') {
@@ -100,11 +83,28 @@ function bootstrapBanners(selector, options) {
         const totalOptions = objectMerge(options, getInlineOptions(container));
 
         if (!container.hasAttribute('data-pp-id')) {
-            container.setAttribute('data-pp-id', window.paypal.Messages.__state__.nextId);
-            window.paypal.Messages.__state__.nextId += 1;
+            container.setAttribute('data-pp-id', globalState.nextId);
+            setGlobalState({ nextId: (globalState.nextId += 1) });
         }
 
         totalOptions.id = container.getAttribute('data-pp-id');
+
+        const observer = new MutationObserver(mutationList => {
+            const newConfig = mutationList.reduce((accumulator, mutation) => {
+                if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
+
+                return {
+                    ...accumulator,
+                    ...flattenedToObject(
+                        mutation.attributeName.slice(8),
+                        mutation.target.getAttribute(mutation.attributeName)
+                    )
+                };
+            }, {});
+
+            Banner.init(container, newConfig);
+        });
+        observer.observe(container, { attributes: true });
 
         return [Banner.init(container, totalOptions), container, totalOptions];
     });
@@ -116,14 +116,4 @@ function bootstrapBanners(selector, options) {
 
             updateBanner(totalOptions);
         });
-}
-
-/**
- * Render Banner into all selector container elements
- * @param {Object} options Banner options
- * @param {string} selector CSS selector
- * @returns {Function} Re-render banner with updated options
- */
-export default function render(options, selector = '[data-pp-message]') {
-    return bootstrapBanners(selector, options);
 }
