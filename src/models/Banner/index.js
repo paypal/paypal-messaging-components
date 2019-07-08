@@ -2,10 +2,10 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
-import { logger, EVENTS } from '../../services/logger';
+import { EVENTS } from '../../services/logger';
 import createContainer from '../../utils/container';
 import validateOptions from './validateOptions';
-import { createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../utils';
+import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();
@@ -13,7 +13,7 @@ const banners = new Map();
 function concatTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
     const { clickUrl, impressionUrl } = obj.meta;
-    const track = logger.track({
+    const track = obj.logger.track({
         uuid,
         urls: {
             DEFAULT: clickUrl,
@@ -27,20 +27,23 @@ function concatTracker(obj) {
     return objectAssign(obj, { track });
 }
 
-const onRendered = ({ options: { onRender, id } }) => {
-    logger.info(EVENTS.MESSAGE_RENDERED, { id });
+const assignToField = curry((field, object) => ({ [field]: object }));
 
+const asyncAssign = curry((fn, obj) =>
+    fn(obj).then(props => {
+        return { ...obj, ...props };
+    })
+);
+
+const onRendered = ({ options: { onRender } }) => {
     if (onRender) {
         onRender();
     }
 };
 
 const Banner = {
-    create(initialOptions, inputWrapper) {
-        logger.info(EVENTS.MESSAGE_CREATE, {
-            id: initialOptions.id,
-            options: initialOptions
-        });
+    create(initialOptions, inputWrapper, logger) {
+        logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
         const isLegacy = currentOptions._legacy;
 
@@ -53,31 +56,38 @@ const Banner = {
         const wrapper = isLegacy ? container : document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
+        const logAfter = curry((fn, name, args) => {
+            const returnVal = fn(args);
+            logger.info(name);
+            return returnVal;
+        });
+
         function render(totalOptions) {
-            const options = validateOptions(totalOptions);
-            const renderProm = getBannerMarkup(options) // Promise<Object(markup)>
+            logger.info(EVENTS.RENDER_START);
+            return pipe(
+                validateOptions(logger), // Object()
+                passThrough(updateOptions), // Object()
+                assignToField('options'), // Object(options)
+                partial(objectAssign, { logger }), // Object(options, logger)
+                getBannerMarkup // Promise<Object(markup, options)>
+            )(totalOptions)
                 .then(
                     pipe(
-                        partial(objectAssign, { options }), // Object(markup, options)
-                        insertMarkup // Promise<Object(meta)>
+                        partial(objectAssign, { logger }), // Promise<Object(markup, options, logger)>
+                        asyncAssign(logAfter(insertMarkup, EVENTS.INSERT)) // Promise<Object(meta)>
                     )
                 )
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, options, events }), // Object(meta, wrapper, options, events)
+                        partial(objectAssign, { wrapper, events, logger }), // Object(meta, wrapper, options, events)
                         concatTracker, // Object(meta, wrapper, options, events, track)
-                        passThrough(Modal.init), // Object(meta, wrapper, options, events, track)
-                        passThrough(setSize), // Object(meta, wrapper, options, events, track)
-                        passThrough(runStats),
-                        onRendered
+                        passThrough(logAfter(Modal.init, EVENTS.MODAL)), // Object(meta, wrapper, options, events, track)
+                        passThrough(logAfter(setSize, EVENTS.SIZE)), // Object(meta, wrapper, options, events, track)
+                        passThrough(logAfter(runStats, EVENTS.STATS)),
+                        logAfter(onRendered, EVENTS.RENDER_END)
                     )
                 )
                 .catch(err => logger.error({ error: `${err}` }));
-
-            logger.waitFor(renderProm);
-
-            updateOptions(options);
-            return renderProm;
         }
 
         function update(newOptions) {
@@ -85,13 +95,11 @@ const Banner = {
             const diff = objectDiff(currentOptions, updatedOptions);
             const shouldUpdate = Object.keys(diff).length > 0;
 
+            logger.info(EVENTS.UPDATE, { willUpdate: shouldUpdate });
+
             if (shouldUpdate) {
                 clearEvents();
                 // LOGGER: starting update
-                logger.info(EVENTS.MESSAGE_UPDATE, {
-                    id: updatedOptions.id,
-                    options: newOptions
-                });
                 return render(updatedOptions);
             }
             return ZalgoPromise.resolve();
@@ -110,17 +118,22 @@ const Banner = {
 };
 
 export default {
-    init(wrapper, options) {
+    init(wrapper, options, logger) {
+        logger.start({ options });
+
         if (banners.has(wrapper)) {
-            return banners.get(wrapper).update(options);
+            return banners
+                .get(wrapper)
+                .update(options, logger)
+                .then(logger.end);
         }
 
-        const banner = Banner.create(options, wrapper);
+        const banner = Banner.create(options, wrapper, logger);
         banners.set(wrapper, banner);
 
         // LOGGER: appending empty iframe - waiting for banner
-        logger.info(EVENTS.MESSAGE_CONTAINER, { id: options.id });
+        logger.info(EVENTS.CONTAINER);
 
-        return banner.renderProm;
+        return banner.renderProm.then(logger.end);
     }
 };

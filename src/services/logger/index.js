@@ -1,22 +1,24 @@
-import objectValues from 'core-js-pure/stable/object/values';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import { ZalgoPromise } from 'zalgo-promise';
+import stringPadStart from 'core-js-pure/stable/string/pad-start';
 
+import { createState } from '../../utils';
 import sendBeacon from './sendBeacon';
 
-const FLUSH_INTERVAL = 3000;
 export const EVENTS = {
-    MESSAGES_RENDER_START: 'Messages_Render_Start',
-    MESSAGES_RENDER_END: 'Messages_Render_End',
-    MESSAGE_CREATE: 'Message_Create',
-    MESSAGE_CONTAINER: 'Message_Container',
-    MESSAGE_FETCH_START: 'Message_Fetch_Start',
-    MESSAGE_FETCH_END: 'Message_Fetch_End',
-    MESSAGE_UPDATE: 'Message_Update',
-    MESSAGE_RENDERED: 'Message_Rendered',
-    ERROR: 'ERROR',
-    FLUSH: 'FLUSH',
-    FLUSH_CAP: 'FLUSH_CAP'
+    START: 'Start',
+    END: 'End',
+    RENDER_START: 'Render_Start',
+    RENDER_END: 'Render_End',
+    CREATE: 'Create',
+    CONTAINER: 'Container',
+    VALIDATE: 'Validate',
+    FETCH_START: 'Fetch_Start',
+    FETCH_END: 'Fetch_End',
+    INSERT: 'Insert',
+    MODAL: 'Modal',
+    SIZE: 'Size',
+    STATS: 'Stats',
+    UPDATE: 'Update',
+    ERROR: 'ERROR'
 };
 
 export const ERRORS = {
@@ -27,88 +29,73 @@ export const ERRORS = {
     MODAL_LOAD_FAILURE: 'Modal failed to initialize.'
 };
 
-const logs = [];
-const pendingEvents = [];
-
-function prepareLogs(payload) {
-    const possibleEvents = objectValues(EVENTS);
-
-    return payload.reduce((accumulator, log) => {
-        if (arrayIncludes(possibleEvents, log.event)) {
-            accumulator[log.event] = accumulator[log.event] || [];
-            const organizedLog = { ...log };
-            delete organizedLog.event;
-            accumulator[log.event].push(organizedLog);
-        }
-
-        return accumulator;
-    }, {});
+function formatLogs(logs) {
+    return logs.map(log => {
+        const name = log.event;
+        const newLog = { ...log };
+        delete newLog.event;
+        return Object.keys(newLog).length > 0 ? [name, newLog] : name;
+    });
 }
 
-let flushCount = 0;
 const FLUSH_MAX = 3;
 
-export const logger = {
-    flush(immediate = false) {
-        if (flushCount >= FLUSH_MAX) return ZalgoPromise.resolve();
+export const Logger = {
+    create(id, selector, type) {
+        const [state, setState] = createState({ count: 1, history: [], logs: [] });
 
-        return (immediate
-            ? ZalgoPromise.resolve()
-            : ZalgoPromise.all(pendingEvents).then(() => {
-                  pendingEvents.length = 0;
-              })
-        ).then(() => {
-            if (logs.length === 0) return;
-
-            logs.push({
-                event: EVENTS.FLUSH,
-                flushType: immediate ? 'immediate' : 'normal'
-            });
-
-            flushCount += 1;
-
-            if (flushCount === FLUSH_MAX) {
-                logs.push({
-                    event: EVENTS.FLUSH_CAP,
-                    cap: FLUSH_MAX
-                });
-            }
-
+        function flush() {
             const payload = {
                 version: __MODULE_VERSION__,
-                events: prepareLogs(logs)
+                url: window.location.href,
+                selector,
+                type,
+                id: `${id}-${stringPadStart(state.count, 4, '0')}`,
+                history: state.history,
+                events: formatLogs(state.logs)
             };
-            logs.length = 0;
+
+            if (state.count === FLUSH_MAX) {
+                payload.max = true;
+            }
+
+            setState({ count: state.count + 1, logs: [] });
 
             // TODO: Handle error
             const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = () => {
+                if (xhttp.readyState === 4) {
+                    // console.log(xhttp.getResponseHeader('Paypal-Debug-Id'));
+                }
+            };
             xhttp.open('POST', __LOGGING_URL__, true);
             xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhttp.send(JSON.stringify({ data: payload }));
-        });
+        }
+
+        const logger = {
+            start(data) {
+                logger.info(EVENTS.START, { t: Date.now(), ...data });
+            },
+            end(data) {
+                logger.info(EVENTS.END, { t: Date.now(), ...data });
+                flush();
+            },
+            info(event, data = {}) {
+                setState({ logs: [...state.logs, { event, ...data }] });
+            },
+            error(data) {
+                logger.info(EVENTS.ERROR, data);
+            },
+            track: sendBeacon,
+            warn(...messages) {
+                console.warn('[Messaging.js]', ...messages);
+            }
+        };
+
+        return logger;
     },
-    info(event, data = {}) {
-        logs.push({ event, ...data });
-    },
-    error(data) {
-        logger.info(EVENTS.ERROR, data);
-        logger.flush(true);
-    },
-    waitFor(prom) {
-        pendingEvents.push(prom);
-    },
-    track: sendBeacon,
     warn(...messages) {
         console.warn('[Messaging.js]', ...messages);
     }
 };
-
-let flushing = false;
-setInterval(() => {
-    if (flushing) return;
-
-    flushing = true;
-    logger.flush().then(() => {
-        flushing = false;
-    });
-}, FLUSH_INTERVAL);

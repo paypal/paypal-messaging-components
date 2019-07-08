@@ -6,7 +6,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';
-import { logger, ERRORS } from '../../services/logger';
+// import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../../utils/container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
@@ -247,11 +247,12 @@ function createModal(options) {
 
                 addModalEventHandlers();
             })
-            .catch(err => {
-                logger.error({
-                    message: ERRORS.MODAL_LOAD_FAILURE,
-                    err
-                });
+            .catch(() => {
+                // TODO: Implement Modal logger
+                // logger.error({
+                //     message: ERRORS.MODAL_LOAD_FAILURE,
+                //     err
+                // });
 
                 setState({
                     error: true

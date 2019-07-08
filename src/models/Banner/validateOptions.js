@@ -3,8 +3,8 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
-import { logger } from '../../services/logger';
-import { objectFlattenToArray } from '../../utils';
+import { objectFlattenToArray, curry } from '../../utils';
+import { EVENTS } from '../../services/logger';
 
 const Types = {
     ANY: 'ANY',
@@ -52,7 +52,7 @@ const VALID_STYLE_OPTIONS = {
     }
 };
 
-const logInvalidType = (location, expectedType, val) =>
+const logInvalidType = (logger, location, expectedType, val) =>
     logger.warn(
         `Invalid option value (${location}). Expected type "${expectedType}" but instead received "${typeof val}".`
     );
@@ -73,7 +73,7 @@ function validateType(expectedType, val) {
     return true;
 }
 
-function getValidVal(typeArr, val, location) {
+function getValidVal(logger, typeArr, val, location) {
     const [type, validVals = []] = typeArr;
 
     if (val === undefined) {
@@ -98,7 +98,7 @@ function getValidVal(typeArr, val, location) {
         return val;
     }
 
-    logInvalidType(location, TypeMap[type], val);
+    logInvalidType(logger, location, TypeMap[type], val);
     return validVals[0];
 }
 
@@ -109,18 +109,18 @@ function getValidVal(typeArr, val, location) {
  * @param {Object} options User style options
  * @returns {Object} Object with user style options or default values if missing
  */
-function populateDefaults(defaults, options, prefix = 'style.') {
+function populateDefaults(logger, defaults, options, prefix = 'style.') {
     return objectEntries(defaults).reduce((accumulator, [key, val]) => {
         if (Array.isArray(val)) {
             return {
                 ...accumulator,
-                [key]: getValidVal(val, options[key], `${prefix}${key}`)
+                [key]: getValidVal(logger, val, options[key], `${prefix}${key}`)
             };
         }
 
         return {
             ...accumulator,
-            [key]: populateDefaults(defaults[key], options[key] || {}, `${prefix}${key}.`)
+            [key]: populateDefaults(logger, defaults[key], options[key] || {}, `${prefix}${key}.`)
         };
     }, {});
 }
@@ -130,10 +130,10 @@ function populateDefaults(defaults, options, prefix = 'style.') {
  * @param {Object} options User style options
  * @returns {Object} Object containing only valid style options
  */
-function getValidStyleOptions(options) {
+function getValidStyleOptions(logger, options) {
     return {
         layout: options.layout,
-        ...populateDefaults(VALID_STYLE_OPTIONS[options.layout], options)
+        ...populateDefaults(logger, VALID_STYLE_OPTIONS[options.layout], options)
     };
 }
 
@@ -143,11 +143,11 @@ function getValidStyleOptions(options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default function validateOptions({ id, account, amount, countryCode, style, _legacy, ...otherOptions }) {
+export default curry((logger, { id, account, amount, countryCode, style, _legacy, ...otherOptions }) => {
     const validOptions = { _legacy, id };
 
     if (typeof account !== 'string') {
-        logInvalidType('account', 'string', account);
+        logInvalidType(logger, 'account', 'string', account);
     } else if (account.length !== 13 && account.length !== 10) {
         logger.warn('Invalid option value (account). Ensure the correct Merchant Account ID has been entered.');
     } else {
@@ -184,20 +184,22 @@ export default function validateOptions({ id, account, amount, countryCode, styl
                 )}"] but received "${style.layout}".`
             );
         } else if (style !== undefined) {
-            logInvalidType('style', 'object', style);
+            logInvalidType(logger, 'style', 'object', style);
         }
 
         // Get the default settings for a text banner
-        validOptions.style = getValidStyleOptions({
+        validOptions.style = getValidStyleOptions(logger, {
             layout: 'text'
         });
     } else {
-        validOptions.style = getValidStyleOptions(style);
+        validOptions.style = getValidStyleOptions(logger, style);
     }
 
     validOptions.style._flattened = objectFlattenToArray(validOptions.style);
 
-    objectAssign(validOptions, populateDefaults(VALID_OPTIONS, otherOptions, ''));
+    objectAssign(validOptions, populateDefaults(logger, VALID_OPTIONS, otherOptions, ''));
+
+    logger.info(EVENTS.VALIDATE, { options: validOptions });
 
     return validOptions;
-}
+});

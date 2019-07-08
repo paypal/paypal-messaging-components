@@ -2,7 +2,6 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, ERRORS } from '../logger';
 import publicKey from './public.key';
 import { memoize, objectGet, objectFlattenToArray } from '../../utils';
 
@@ -12,28 +11,6 @@ function str2ab(str) {
         bufView[i] = str.charCodeAt(i);
     }
     return bufView.buffer;
-}
-
-function logCustomValidationError(account, style, err) {
-    if (err) {
-        logger.warn(err);
-        logger.error({
-            message: err,
-            account,
-            customStyle: style.styles,
-            sign: style.sign
-        });
-    } else {
-        logger.warn(
-            'Invalid custom styles. Please ensure the correct account number, styles, and signature have been entered. Banner has been hidden.'
-        );
-        logger.error({
-            message: ERRORS.INVALID_STYLE_OPTIONS,
-            account,
-            customStyle: style.custom,
-            sign: style.sign
-        });
-    }
 }
 
 // Alphabetizes keys and returns their values as a string
@@ -142,7 +119,7 @@ function getCustomTemplate(sign, account, styles) {
     return markupProm.then(markup =>
         validateSign(sign, account, { ...styleObject, markup }).then(validated => {
             if (!validated) {
-                logCustomValidationError(account, markup);
+                // logCustomValidationError(account, markup);
             }
 
             return validated ? markup : '';

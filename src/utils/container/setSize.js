@@ -4,7 +4,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectGet } from '../index';
 import events from './events';
-import { logger, ERRORS } from '../../services/logger';
+import { ERRORS } from '../../services/logger';
 
 const ratioMap = {
     '1x1': [
@@ -231,7 +231,7 @@ function getContainerWidth(wrapper) {
     return parentWidth;
 }
 
-export default curry((container, { wrapper, options }) => {
+export default curry((container, { wrapper, options, logger }) => {
     if (container.tagName !== 'IFRAME') return;
 
     const layout = objectGet(options, 'style.layout');

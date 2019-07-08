@@ -10,7 +10,7 @@ import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
 import getMutations, { getDataByTag } from './mutations';
 import Logo from './logos';
-import { logger, ERRORS } from '../../services/logger';
+import { ERRORS } from '../../services/logger';
 
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
@@ -329,7 +329,6 @@ function createCustomTemplateNode({ data, meta, template }) {
         );
     } catch (err) {
         // TODO: Improve error message
-        logger.warn(err);
     }
 
     return newTemplate;

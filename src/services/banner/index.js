@@ -1,8 +1,9 @@
+import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet } from '../../utils';
-import { logger, EVENTS } from '../logger';
+import { memoizeOnProps, objectGet, passThrough, pipe, partial } from '../../utils';
+import { EVENTS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
 // Specific dimensions tied to JSON banners in Campaign Studio
@@ -22,7 +23,7 @@ const LOCALE_MAP = {
  * @param {Object} options Banner options
  * @returns {Promise<string>} Banner Markup
  */
-function fetcher({ account, amount, id, countryCode }) {
+function fetcher({ account, amount, countryCode }) {
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `_c${Math.floor(Math.random() * 10 ** 19)}`;
@@ -52,17 +53,9 @@ function fetcher({ account, amount, id, countryCode }) {
         const script = document.createElement('script');
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;
-        // LOGGER: Initiated
-        logger.info(EVENTS.MESSAGE_FETCH_START, {
-            id
-        });
         document.head.appendChild(script);
 
         window.paypal[callbackName] = markup => {
-            // LOGGER: Received
-            logger.info(EVENTS.MESSAGE_FETCH_END, {
-                id
-            });
             document.head.removeChild(script);
             delete window.paypal[callbackName];
             try {
@@ -76,20 +69,28 @@ function fetcher({ account, amount, id, countryCode }) {
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
 
-export default function getBannerMarkup(options) {
+export default function getBannerMarkup({ options, logger }) {
+    // LOGGER: Initiated
+    logger.info(EVENTS.FETCH_START);
+
+    const endLog = pipe(
+        passThrough(() => logger.info(EVENTS.FETCH_END)),
+        partial(objectAssign, { options })
+    );
+
     if (objectGet(options, 'style.layout') !== 'custom') {
-        return memoFetcher(options);
+        return memoFetcher(options).then(endLog);
     }
 
     const sign = objectGet(options, 'sign');
-    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)]).then(
-        ([data, template]) => {
+    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)])
+        .then(([data, template]) => {
             if (typeof data.markup === 'object') {
                 // eslint-disable-next-line no-param-reassign
                 data.markup.template = template;
             }
 
             return data;
-        }
-    );
+        })
+        .then(endLog);
 }

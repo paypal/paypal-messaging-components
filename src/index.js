@@ -25,7 +25,7 @@ if (isBrowser()) {
 
     // Setup global library state
     Object.defineProperty(Messages, '__state__', {
-        value: objectGet(window, 'paypal.Messages.__state__') || { nextId: 0, nextRenderId: 0, globalConfig },
+        value: objectGet(window, 'paypal.Messages.__state__') || { nextId: 1, globalConfig },
         enumerable: false,
         writable: false
     });
