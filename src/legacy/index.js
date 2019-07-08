@@ -276,33 +276,31 @@ function ensureProperAttributes(el) {
     });
 }
 
-export default function scanLegacyScripts() {
-    const scripts = arrayFrom(document.getElementsByTagName('script'));
+const scripts = arrayFrom(document.getElementsByTagName('script'));
 
-    return scripts.some(script => {
-        ensureProperAttributes(script);
+scripts.some(script => {
+    ensureProperAttributes(script);
 
-        const pubId = script.getAttribute('data-pp_pub_id');
-        const payerId = script.getAttribute('data-pp_payer_id');
-        const dimensions = script.getAttribute('data-pp_dimensions');
+    const pubId = script.getAttribute('data-pp_pub_id');
+    const payerId = script.getAttribute('data-pp_payer_id');
+    const dimensions = script.getAttribute('data-pp_dimensions');
 
-        if ((payerId || pubId) && dimensions) {
-            const ppScript = new PPScript(script);
-            // Attempt to render through messaging.js pipeline
-            const success = toNewPipeline(ppScript);
+    if ((payerId || pubId) && dimensions) {
+        const ppScript = new PPScript(script);
+        // Attempt to render through messaging.js pipeline
+        const success = toNewPipeline(ppScript);
 
-            // Fallback to legacy pipeline
-            if (!success) {
-                const ad = new Ad(ppScript.getKVs());
-                ppScript.injectAd(ad);
-                ppScript.registerListeners();
-                ppScript.ad.request();
-                ppScript.destroyDom();
-            }
-
-            return true;
+        // Fallback to legacy pipeline
+        if (!success) {
+            const ad = new Ad(ppScript.getKVs());
+            ppScript.injectAd(ad);
+            ppScript.registerListeners();
+            ppScript.ad.request();
+            ppScript.destroyDom();
         }
 
-        return false;
-    });
-}
+        return true;
+    }
+
+    return false;
+});

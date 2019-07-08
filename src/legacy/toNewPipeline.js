@@ -1,7 +1,7 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 
-import render from '../../controllers/render';
+import Messages from '../controllers/bootstrap';
 import {
     colorMap,
     ratioMap,
@@ -122,16 +122,13 @@ export default function toNewPipeline(ppScript) {
 
         // Wait until next tick to ensure that window.paypal has been populated when render() is called
         setTimeout(() => {
-            render(
-                {
-                    _legacy: typeNI !== 'flex' && typeEZP !== 'flex',
-                    account,
-                    amount: kvs.currency_value,
-                    style: styleConfig,
-                    countryCode: 'US'
-                },
-                span
-            );
+            Messages({
+                _legacy: typeNI !== 'flex' && typeEZP !== 'flex',
+                account,
+                amount: kvs.currency_value,
+                style: styleConfig,
+                countryCode: 'US'
+            }).render(span);
         }, 0);
         ppScript.destroyDom();
 

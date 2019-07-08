@@ -5,6 +5,9 @@ import { memoizeOnProps, objectGet } from '../../utils';
 import { logger, EVENTS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
+// Using same JSONP callback namespace as original merchant.js
+window.__PP = window.__PP || {};
+
 // Specific dimensions tied to JSON banners in Campaign Studio
 // Swap the placement tag when changes for banners and messaging.js are required in sync
 const PLACEMENT = 'x200x51';
@@ -25,7 +28,7 @@ const LOCALE_MAP = {
 function fetcher({ account, amount, countryCode }) {
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
-        const callbackName = `_c${Math.floor(Math.random() * 10 ** 19)}`;
+        const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // Fire off JSONP request
         const rootUrl = __BANNER_URL__;
@@ -36,7 +39,7 @@ function fetcher({ account, amount, countryCode }) {
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
-            call: `paypal.${callbackName}`
+            call: `__PP.${callbackName}`
         };
 
         // Country code is optional. MORS will default to merchant's country by default
@@ -59,14 +62,14 @@ function fetcher({ account, amount, countryCode }) {
         });
         document.head.appendChild(script);
 
-        window.paypal[callbackName] = markup => {
+        window.__PP[callbackName] = markup => {
             // LOGGER: Received
             logger.info(EVENTS.MESSAGE_FETCH_RECEIVED, {
                 account,
                 amount
             });
             document.head.removeChild(script);
-            delete window.paypal[callbackName];
+            delete window.__PP[callbackName];
             try {
                 resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
             } catch (err) {
