@@ -1,3 +1,4 @@
+import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 
 import Messages from '../controllers/bootstrap';
@@ -10,7 +11,8 @@ import {
     dimensions,
     htmlNIMap,
     htmlEZPMap,
-    customBannerLEMap
+    customBannerLEs,
+    customBannerMap
 } from './map';
 
 /**
@@ -21,12 +23,7 @@ import {
  * @param {String} account Merchant ID to exclude custom LE banners
  * @returns {Array<String>} [typeNI, typeEZP, dimension, style]
  */
-function getSupportedAttributes(dimension, style, account) {
-    // TODO: This will capture standard banners on LE sites
-    if (customBannerLEMap.some(IDs => IDs.includes(account))) {
-        return [];
-    }
-
+function getSupportedAttributes(dimension, style) {
     // All legacy banners with style tag are image banners
     if (style) {
         if (styles[dimension] && arrayIncludes(styles[dimension], style)) {
@@ -106,9 +103,18 @@ function getStyleConfig(typeNI, typeEZP, dimension, style) {
 export default function toNewPipeline(ppScript) {
     const kvs = ppScript.getKVs();
     const account = kvs.payer_id || kvs.pub_id;
-    const [typeNI, typeEZP, dimension, style] = getSupportedAttributes(kvs.dimensions, kvs.style, account);
+    const [typeNI, typeEZP, dimension, style] = getSupportedAttributes(kvs.dimensions, kvs.style);
 
     if (dimension) {
+        const customLEAccount = arrayFind(customBannerLEs, ids => arrayIncludes(ids, account));
+        if (customLEAccount) {
+            const [payerId] = customLEAccount;
+            // If this merchant has a custom banner of this dimension, we should fallback to legacy pipeline
+            if (arrayIncludes(customBannerMap[payerId], dimension)) {
+                return false;
+            }
+        }
+
         const styleConfig = getStyleConfig(typeNI, typeEZP, dimension, style);
         const span = document.createElement('span');
 
