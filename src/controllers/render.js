@@ -4,6 +4,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { logger, EVENTS } from '../services/logger';
 import Banner from '../models/Banner';
 import { objectMerge, flattenedToObject, isElement } from '../utils';
+import { globalState, setGlobalState } from '../utils/globalState';
 
 /**
  * Return options object from valid container data attributes
@@ -42,7 +43,7 @@ export function getInlineOptions(container) {
  * @param {Object} options Banner options
  * @returns {void}
  */
-function bootstrapBanners(selector, options) {
+export default function render(options, selector = '[data-pp-message]') {
     let containers;
     let selectorType;
     if (typeof selector === 'string') {
@@ -82,8 +83,8 @@ function bootstrapBanners(selector, options) {
         const totalOptions = objectMerge(options, getInlineOptions(container));
 
         if (!container.hasAttribute('data-pp-id')) {
-            container.setAttribute('data-pp-id', window.paypal.Messages.__state__.nextId);
-            window.paypal.Messages.__state__.nextId += 1;
+            container.setAttribute('data-pp-id', globalState.nextId);
+            setGlobalState({ nextId: (globalState.nextId += 1) });
         }
 
         totalOptions.id = container.getAttribute('data-pp-id');
@@ -115,14 +116,4 @@ function bootstrapBanners(selector, options) {
 
             updateBanner(totalOptions);
         });
-}
-
-/**
- * Render Banner into all selector container elements
- * @param {Object} options Banner options
- * @param {string} selector CSS selector
- * @returns {Function} Re-render banner with updated options
- */
-export default function render(options, selector = '[data-pp-message]') {
-    return bootstrapBanners(selector, options);
 }

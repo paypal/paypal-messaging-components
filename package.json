@@ -21,6 +21,7 @@
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.demo",
+        "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.demo --env.legacy",
         "dev:prod": "webpack-dev-server",
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
