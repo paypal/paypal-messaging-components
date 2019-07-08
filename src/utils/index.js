@@ -1,6 +1,8 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 /**
  * Memoize a function based on all arguments
@@ -290,4 +292,35 @@ export function isElement(el) {
     return typeof HTMLElement === 'object'
         ? el instanceof HTMLElement
         : el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
+}
+
+/**
+ * Return options object from valid container data attributes
+ * @param {HTMLElement} container Container element with data attributes
+ * @returns {Object} Options object
+ */
+export function getInlineOptions(container) {
+    const dataOptions = arrayFrom(container.attributes)
+        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
+        .reduce((accumulator, { nodeName, nodeValue }) => {
+            if (nodeValue) {
+                return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
+            }
+
+            return accumulator;
+        }, {});
+
+    if (
+        !container.firstElementChild ||
+        container.firstElementChild.tagName !== 'SCRIPT' ||
+        container.firstElementChild.getAttribute('type') !== 'text/template'
+    ) {
+        return dataOptions;
+    }
+
+    // For custom banners with inline markup
+    const markup = container.firstElementChild.textContent.trim();
+    container.removeChild(container.firstElementChild);
+
+    return objectMerge(dataOptions, { style: { markup } });
 }

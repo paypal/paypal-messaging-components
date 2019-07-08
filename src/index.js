@@ -1,38 +1,5 @@
-import { getClientID, getSDKScript } from '@paypal/sdk-client/src';
-import { globalState, setGlobalState } from './utils/globalState';
-import Messages from './controllers/bootstrap';
-import { getInlineOptions } from './controllers/render';
-
-// Populate global config options
-if (__MESSAGES__.__SDK__) {
-    const script = getSDKScript();
-    if (script) {
-        setGlobalState({
-            globalConfig: {
-                account: `client-id:${getClientID()}`,
-                ...getInlineOptions(script)
-            }
-        });
-    }
-} else {
-    // eslint-disable-next-line compat/compat
-    const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
-    if (script) {
-        Messages.setGlobalConfig(getInlineOptions(script));
-    }
-
-    // Alias for pilot merchant support
-    window.paypal.Message = Messages;
-}
-
-// Requires a merchant account to render a message
-if (globalState.globalConfig.account) {
-    if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
-    } else {
-        Messages.render({ _auto: true });
-    }
-}
-
+import { setup } from './interface/messages';
 // eslint-disable-next-line import/prefer-default-export
-export { Messages };
+export { Messages } from './interface/messages';
+
+setup();

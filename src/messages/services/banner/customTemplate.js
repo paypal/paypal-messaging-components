@@ -4,7 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, ERRORS } from '../logger';
 import publicKey from './public.key';
-import { memoize, objectGet, objectFlattenToArray } from '../../utils';
+import { memoize, objectGet, objectFlattenToArray } from '../../../utils';
 
 function str2ab(str) {
     const bufView = new Uint8Array(str.length);

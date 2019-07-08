@@ -5,7 +5,7 @@ import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { logger } from '../../services/logger';
-import { objectFlattenToArray } from '../../utils';
+import { objectFlattenToArray } from '../../../utils';
 
 const Types = {
     ANY: 'ANY',

@@ -4,7 +4,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringEndsWith from 'core-js-pure/stable/string/ends-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 
-import { curry, memoize, objectGet, objectMerge } from '../../utils';
+import { curry, memoize, objectGet, objectMerge } from '../../../utils';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';

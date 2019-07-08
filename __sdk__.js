@@ -2,7 +2,7 @@ const globals = require('./globals');
 
 module.exports = {
     messages: {
-        entry: './src/index',
+        entry: './src/interface/messages',
         staticNamespace: '__messages__',
         globals: globals()
     }

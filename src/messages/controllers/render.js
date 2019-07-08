@@ -3,39 +3,8 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { logger, EVENTS } from '../services/logger';
 import Banner from '../models/Banner';
-import { objectMerge, flattenedToObject, isElement } from '../utils';
-import { globalState, setGlobalState } from '../utils/globalState';
-
-/**
- * Return options object from valid container data attributes
- * @param {HTMLElement} container Container element with data attributes
- * @returns {Object} Options object
- */
-export function getInlineOptions(container) {
-    const dataOptions = arrayFrom(container.attributes)
-        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
-        .reduce((accumulator, { nodeName, nodeValue }) => {
-            if (nodeValue) {
-                return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
-            }
-
-            return accumulator;
-        }, {});
-
-    if (
-        !container.firstElementChild ||
-        container.firstElementChild.tagName !== 'SCRIPT' ||
-        container.firstElementChild.getAttribute('type') !== 'text/template'
-    ) {
-        return dataOptions;
-    }
-
-    // For custom banners with inline markup
-    const markup = container.firstElementChild.textContent.trim();
-    container.removeChild(container.firstElementChild);
-
-    return objectMerge(dataOptions, { style: { markup } });
-}
+import { objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
+import { globalState, setGlobalState } from '../../utils/globalState';
 
 /**
  * Render Banner into all selector container elements

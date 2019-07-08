@@ -1,7 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps } from '../../utils';
+import { memoizeOnProps } from '../../../utils';
 
 function assembleUrl({ account, amount }) {
     const baseUrl = __MESSAGES__.__TERMS_URL__;

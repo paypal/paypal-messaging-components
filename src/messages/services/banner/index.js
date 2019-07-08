@@ -2,7 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet } from '../../utils';
+import { memoizeOnProps, objectGet } from '../../../utils';
 import { logger, EVENTS } from '../logger';
 import getCustomTemplate from './customTemplate';
 

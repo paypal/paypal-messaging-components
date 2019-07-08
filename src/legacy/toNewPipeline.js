@@ -1,7 +1,7 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 
-import Messages from '../controllers/bootstrap';
+import { Messages } from '../interface/messages';
 import {
     colorMap,
     ratioMap,
