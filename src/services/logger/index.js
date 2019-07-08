@@ -45,11 +45,15 @@ export const Logger = {
         const [state, setState] = createState({ count: 1, history: [], logs: [] });
 
         function flush() {
+            if (state.count > FLUSH_MAX) return;
+
+            const subType = state.logs.find(({ event }) => event === 'Create' || event === 'Update');
+
             const payload = {
                 version: __MODULE_VERSION__,
                 url: window.location.href,
                 selector,
-                type,
+                type: `${type}${subType ? `-${subType.event}` : ''}`,
                 id: `${id}-${stringPadStart(state.count, 4, '0')}`,
                 history: state.history,
                 events: formatLogs(state.logs)

@@ -108,7 +108,8 @@ export function createState(initialState = {}) {
  */
 export function objectDiff(original, updated) {
     return objectEntries(updated).reduce((accumulator, [key, val]) => {
-        if (!original[key]) {
+        // If key does not exist on original object and check against key with value of undefined or null
+        if (!original[key] && original[key] !== val) {
             return {
                 ...accumulator,
                 [key]: val

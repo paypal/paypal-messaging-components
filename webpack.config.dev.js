@@ -25,8 +25,7 @@ module.exports = (env = {}) => {
         open: true,
         overlay: true,
         watchContentBase: true,
-        before: mockImadserv,
-        https: !env.devModal && !env.devTerms
+        before: mockImadserv
     };
 
     return config;
