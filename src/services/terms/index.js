@@ -4,7 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 import { memoizeOnProps } from '../../utils';
 
 function assembleUrl({ account, amount }) {
-    const baseUrl = __TERMS_URL__;
+    const baseUrl = __MESSAGES__.__TERMS_URL__;
     const queries = [
         'json=true',
         stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`

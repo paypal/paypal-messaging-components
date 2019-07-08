@@ -54,7 +54,7 @@ function validateSign(sign, account, styles) {
         // Validate signature and styles
         try {
             // If using demo build, check if PayPal domain
-            if (__DEMO__ && stringIncludes(window.location.host, 'paypal.com')) {
+            if (__MESSAGES__.__DEMO__ && stringIncludes(window.location.host, 'paypal.com')) {
                 return resolve(true);
             }
 

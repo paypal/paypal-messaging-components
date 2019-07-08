@@ -4,7 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 import { memoizeOnProps } from '../../utils';
 
 function assembleUrl(offerType) {
-    const baseUrl = __MODAL_URL__;
+    const baseUrl = __MESSAGES__.__MODAL_URL__;
     const modalType = startsWith(offerType, 'NI') ? 'ni' : 'ezp';
 
     return `${baseUrl}/${modalType}.html`;

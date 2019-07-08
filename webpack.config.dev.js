@@ -9,8 +9,18 @@ const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
-    const config = env.sdk
+    const config = env.standalone
         ? getWebpackConfig({
+              entry: './src/index.js',
+              filename: env.legacy ? 'merchant.js' : 'messaging.js',
+              libraryTarget: 'window',
+              modulename: ['paypal', 'Messages'],
+              debug: true,
+              minify: true,
+              env: 'local',
+              vars: globals(env)
+          })
+        : getWebpackConfig({
               entry: './paypal.dev.js',
               filename: `${FILE_NAME}.js`,
               debug: true,
@@ -27,23 +37,13 @@ module.exports = (env = {}) => {
                   __VERSION__: '1.0.55',
                   __COMPONENTS__: ['messages']
               }
-          })
-        : getWebpackConfig({
-              entry: './src/index.js',
-              filename: env.legacy ? 'merchant.js' : 'messaging.js',
-              libraryTarget: 'window',
-              modulename: ['paypal', 'Messages'],
-              debug: true,
-              minify: true,
-              env: 'local',
-              vars: { ...globals(env), __SDK__: false }
           });
 
-    config.output.libraryExport = env.sdk ? '' : 'Messages';
+    config.output.libraryExport = env.standalone ? 'Messages' : '';
     config.devServer = {
         contentBase: './demo',
         publicPath: '/',
-        openPage: env.sdk ? '' : env.legacy ? 'legacy.html' : 'standalone.html', // eslint-disable-line no-nested-ternary
+        openPage: env.standalone ? (env.legacy && 'legacy.html') || 'standalone.html' : '',
         compress: true,
         host: 'localhost.paypal.com',
         port: 8080,

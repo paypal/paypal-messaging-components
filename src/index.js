@@ -19,7 +19,7 @@ objectAssign(Messages, {
 if (isBrowser()) {
     // __LEGACY__ variable injected by webpack. If target build is merchant.js value will be true, otherwise false.
     // Webpack will tree shake this when build not targeting merchant.js
-    if (__LEGACY__) {
+    if (__MESSAGES__.__LEGACY__) {
         scanLegacyScripts();
     }
 
@@ -33,7 +33,7 @@ if (isBrowser()) {
     objectAssign(globalConfig, objectGet(window, 'paypal.Messages.__state__.globalConfig'));
 
     // Populate global config options
-    if (__SDK__) {
+    if (__MESSAGES__.__SDK__) {
         // TODO: Update to client ID when imadserver supports it
         globalConfig.account = `client-id:${getClientID()}`;
         const script = getSDKScript();

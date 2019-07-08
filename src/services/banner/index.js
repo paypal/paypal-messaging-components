@@ -29,7 +29,7 @@ function fetcher({ account, amount, countryCode }) {
         const callbackName = `_c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // Fire off JSONP request
-        const rootUrl = __BANNER_URL__;
+        const rootUrl = __MESSAGES__.__BANNER_URL__;
         const queryParams = {
             dimensions: PLACEMENT,
             currency_value: amount,
