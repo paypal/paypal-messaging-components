@@ -4,7 +4,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../utils';
-import { logger, EVENTS } from '../logger';
+import { logger, EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
 // Specific dimensions tied to JSON banners in Campaign Studio
@@ -87,7 +87,12 @@ function fetcher(options) {
 function getBannerOptions(markup) {
     const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
     if (annotationsString) {
-        return JSON.parse(annotationsString[1]);
+        try {
+            const bannerOptions = JSON.parse(annotationsString[1]);
+            return bannerOptions;
+        } catch (err) {
+            throw new Error(ERRORS.INVALID_CUSTOM_BANNER_JSON);
+        }
     }
     return {};
 }
@@ -104,8 +109,14 @@ export default function getBannerMarkup(options) {
             data.markup.template = template;
 
             const bannerOptions = getBannerOptions(template);
-            options = objectMerge(options, { ...bannerOptions });
-            options.style._flattened = objectFlattenToArray(options.style);
+            if (!bannerOptions) {
+                return null;
+            }
+
+            const mergedOptions = objectMerge(options, bannerOptions);
+            mergedOptions.style._flattened = objectFlattenToArray(mergedOptions.style);
+
+            return { markup: data.markup, options: mergedOptions };
         }
         return { markup: data.markup, options };
     });

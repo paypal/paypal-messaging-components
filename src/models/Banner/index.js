@@ -56,9 +56,9 @@ const Banner = {
 
         function render(totalOptions) {
             const options = validateOptions(totalOptions);
-            const renderProm = getBannerMarkup(options) // Promise<Object({ markup, options })>
+            const renderProm = getBannerMarkup(options) // Promise<Object( markup, options )>
                 .then(
-                    insertMarkup // Promise<Object(meta)>
+                    insertMarkup // Promise<Object(meta, options)>
                 )
                 .then(
                     pipe(

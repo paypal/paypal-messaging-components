@@ -22,9 +22,12 @@ function fetcher(url) {
 }
 
 function getCustomTemplate(styles) {
+    let markupRegex = /https:\/\/www\.paypalobjects\.com/;
+    if (__DEMO__) {
+        markupRegex = /^(?:(https?:\/\/)|\.{0,2}\/)/;
+    }
     const source = styles.markup;
-    const markupProm = ZalgoPromise.resolve(source.match(/^(?:(https?:\/\/)|\.{0,2}\/)/) ? fetcher(source) : source);
-    return markupProm.then(markup => markup);
+    return ZalgoPromise.resolve(source.match(markupRegex) ? fetcher(source) : null);
 }
 
 export default memoize(getCustomTemplate);
