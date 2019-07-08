@@ -1,22 +1,10 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
-import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { logger, EVENTS } from '../services/logger';
 import Banner from '../models/Banner';
-import { objectMerge } from '../utils';
+import { objectMerge, flattenedToObject, isElement } from '../utils';
 import { globalState, setGlobalState } from '../utils/globalState';
-
-function flattenedToObject(option, attributeValue) {
-    const firstIndex = option.indexOf('-');
-    if (firstIndex === -1) {
-        return { [option]: attributeValue };
-    }
-
-    const key = option.slice(0, firstIndex);
-    const val = option.slice(firstIndex + 1);
-
-    return { [key]: flattenedToObject(val, attributeValue) };
-}
 
 /**
  * Return options object from valid container data attributes
@@ -25,7 +13,7 @@ function flattenedToObject(option, attributeValue) {
  */
 export function getInlineOptions(container) {
     const dataOptions = arrayFrom(container.attributes)
-        .filter(({ nodeName }) => startsWith(nodeName, 'data-pp-'))
+        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
@@ -47,12 +35,6 @@ export function getInlineOptions(container) {
     container.removeChild(container.firstElementChild);
 
     return objectMerge(dataOptions, { style: { markup } });
-}
-
-function isElement(el) {
-    return typeof HTMLElement === 'object'
-        ? el instanceof HTMLElement
-        : el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
 }
 
 /**
@@ -106,6 +88,23 @@ export default function render(options, selector = '[data-pp-message]') {
         }
 
         totalOptions.id = container.getAttribute('data-pp-id');
+
+        const observer = new MutationObserver(mutationList => {
+            const newConfig = mutationList.reduce((accumulator, mutation) => {
+                if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
+
+                return {
+                    ...accumulator,
+                    ...flattenedToObject(
+                        mutation.attributeName.slice(8),
+                        mutation.target.getAttribute(mutation.attributeName)
+                    )
+                };
+            }, {});
+
+            Banner.init(container, newConfig);
+        });
+        observer.observe(container, { attributes: true });
 
         return [Banner.init(container, totalOptions), container, totalOptions];
     });
