@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Messaging.js Dev Sandbox</title>
+        <title>Merchant.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     </head>
     <body>
         <div>
             <script
-                src="./merchant.js"
+                type="text/javascript"
                 data-pp-pubid="DEV000NINONUS"
                 data-pp-placementtype="728x90"
                 data-pp-style="BLUWHTYLRG"
-            ></script>
+            >
+                (function(d, t) {
+                    'use strict';
+                    var s = d.getElementsByTagName(t)[0],
+                        n = d.createElement(t);
+                    n.src = './merchant.js';
+                    s.parentNode.insertBefore(n, s);
+                })(document, 'script');
+            </script>
         </div>
     </body>
 </html>
