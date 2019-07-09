@@ -105,12 +105,12 @@ export default function getBannerMarkup(options) {
 
     return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
         if (typeof data.markup === 'object') {
+            if (template === '') {
+                logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
+            }
             data.markup.template = template;
 
             const bannerOptions = getBannerOptions(template);
-            if (!bannerOptions) {
-                return null;
-            }
 
             const mergedOptions = objectMerge(options, bannerOptions);
             mergedOptions.style._flattened = objectFlattenToArray(mergedOptions.style);

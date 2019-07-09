@@ -1,4 +1,5 @@
 import { ZalgoPromise } from 'zalgo-promise';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { memoize } from '../../utils';
 
@@ -24,9 +25,11 @@ function fetcher(url) {
 function getCustomTemplate(styles) {
     const source = styles.markup;
     if (__DEMO__) {
-        return ZalgoPromise.resolve(source.startsWith('http') || source.startsWith('./') ? fetcher(source) : source);
+        return ZalgoPromise.resolve(
+            stringStartsWith(source, 'http') || stringStartsWith(source, './') ? fetcher(source) : source
+        );
     }
-    return ZalgoPromise.resolve(String.prototype.startsWith('https://www.paypalobjects.com') ? fetcher(source) : null);
+    return ZalgoPromise.resolve(stringStartsWith(source, 'https://www.paypalobjects.com') ? fetcher(source) : '');
 }
 
 export default memoize(getCustomTemplate);
