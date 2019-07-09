@@ -22,12 +22,11 @@ function fetcher(url) {
 }
 
 function getCustomTemplate(styles) {
-    let markupRegex = /https:\/\/www\.paypalobjects\.com/;
-    if (__DEMO__) {
-        markupRegex = /^(?:(https?:\/\/)|\.{0,2}\/)/;
-    }
     const source = styles.markup;
-    return ZalgoPromise.resolve(source.match(markupRegex) ? fetcher(source) : null);
+    if (__DEMO__) {
+        return ZalgoPromise.resolve(source.startsWith('http') || source.startsWith('./') ? fetcher(source) : source);
+    }
+    return ZalgoPromise.resolve(String.prototype.startsWith('https://www.paypalobjects.com') ? fetcher(source) : null);
 }
 
 export default memoize(getCustomTemplate);

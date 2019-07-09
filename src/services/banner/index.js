@@ -88,8 +88,7 @@ function getBannerOptions(markup) {
     const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
     if (annotationsString) {
         try {
-            const bannerOptions = JSON.parse(annotationsString[1]);
-            return bannerOptions;
+            return JSON.parse(annotationsString[1]);
         } catch (err) {
             throw new Error(ERRORS.INVALID_CUSTOM_BANNER_JSON);
         }
