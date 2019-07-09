@@ -1,6 +1,6 @@
 import { getClientID, getSDKScript } from '@paypal/sdk-client/src';
 
-import { globalState, setGlobalState } from '../utils/globalState';
+import { globalState } from '../utils/globalState';
 import Messages from '../messages';
 import { getInlineOptions } from '../utils';
 
@@ -9,11 +9,9 @@ export function setup() {
     if (__MESSAGES__.__SDK__) {
         const script = getSDKScript();
         if (script) {
-            setGlobalState({
-                globalConfig: {
-                    account: `client-id:${getClientID()}`,
-                    ...getInlineOptions(script)
-                }
+            Messages.setGlobalConfig({
+                account: `client-id:${getClientID()}`,
+                ...getInlineOptions(script)
             });
         }
     } else {
@@ -28,7 +26,7 @@ export function setup() {
     }
 
     // Requires a merchant account to render a message
-    if (globalState.globalConfig.account) {
+    if (globalState.config.account) {
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
         } else {

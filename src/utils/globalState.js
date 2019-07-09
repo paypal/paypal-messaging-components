@@ -1,9 +1,7 @@
 import { createState } from './index';
 
 // eslint-disable-next-line import/prefer-default-export
-export const [globalState, setGlobalState] = createState(
-    window.__paypal_messages_state__ || { nextId: 0, globalConfig: {} }
-);
+export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { nextId: 0, config: {} });
 
 Object.defineProperty(window, '__paypal_messages_state__', {
     value: globalState,
