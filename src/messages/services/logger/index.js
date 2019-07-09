@@ -23,7 +23,8 @@ export const ERRORS = {
     HIDDEN: 'Overflow fallback failed.  Hiding banner.',
     INVALID_STYLE_OPTIONS: 'Invalid account, styles, signature combination.',
     INVALID_LEGACY_BANNER: 'Invalid legacy banner placement/offerType combination',
-    MODAL_LOAD_FAILURE: 'Modal failed to initialize.'
+    MODAL_LOAD_FAILURE: 'Modal failed to initialize.',
+    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative'
 };
 
 const logs = [];

@@ -1,9 +1,11 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-param-reassign */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet } from '../../../utils';
-import { logger, EVENTS } from '../logger';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../../utils';
+import { logger, EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
 // Using same JSONP callback namespace as original merchant.js
@@ -26,7 +28,8 @@ const LOCALE_MAP = {
  * @param {Object} options Banner options
  * @returns {Promise<string>} Banner Markup
  */
-function fetcher({ account, amount, countryCode }) {
+function fetcher(options) {
+    const { account, amount, countryCode } = options;
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
@@ -73,12 +76,29 @@ function fetcher({ account, amount, countryCode }) {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
             try {
-                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
+                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')), options });
             } catch (err) {
-                resolve({ markup });
+                resolve({ markup, options });
             }
         };
     });
+}
+
+/**
+ * Extract annotations from markup into a single options object
+ * @param {string} markup String of banner HTML markup
+ * @returns {Object} Banner annotations
+ */
+function getBannerOptions(markup) {
+    const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
+    if (annotationsString) {
+        try {
+            return JSON.parse(annotationsString[1]);
+        } catch (err) {
+            throw new Error(ERRORS.INVALID_CUSTOM_BANNER_JSON);
+        }
+    }
+    return {};
 }
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
@@ -88,15 +108,20 @@ export default function getBannerMarkup(options) {
         return memoFetcher(options);
     }
 
-    const sign = objectGet(options, 'sign');
-    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(sign, options.account, options.style)]).then(
-        ([data, template]) => {
-            if (typeof data.markup === 'object') {
-                // eslint-disable-next-line no-param-reassign
-                data.markup.template = template;
+    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
+        if (typeof data.markup === 'object') {
+            if (template === '') {
+                logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
             }
+            data.markup.template = template;
 
-            return data;
+            const bannerOptions = getBannerOptions(template);
+
+            const mergedOptions = objectMerge(options, bannerOptions);
+            mergedOptions.style._flattened = objectFlattenToArray(mergedOptions.style);
+
+            return { markup: data.markup, options: mergedOptions };
         }
-    );
+        return { markup: data.markup, options };
+    });
 }

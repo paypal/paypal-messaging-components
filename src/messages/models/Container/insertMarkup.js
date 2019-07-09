@@ -21,7 +21,7 @@ function insertStringIntoIframe(container, markup) {
                 iframeWindow.document.close();
             }
 
-            resolve({ meta: { ...iframeWindow.meta } });
+            resolve(iframeWindow.meta);
         });
     });
 }
@@ -32,7 +32,6 @@ function insertJsonIntoIframe(container, markup, options) {
         // element innerHTML and writing to iframe document as string to parse html
         const iframeWindow = container.contentWindow;
         const { meta } = markup;
-
         const templateNode = Template.getTemplateNode(options, markup);
         const newNode = iframeWindow.document.importNode(templateNode, true);
 
@@ -60,7 +59,7 @@ function insertJsonIntoIframe(container, markup, options) {
         arrayFrom(newNode.children).forEach(el => iframeWindow.document.body.appendChild(el));
 
         ZalgoPromise.all(proms).then(() => {
-            resolve({ meta });
+            resolve(meta);
         });
     });
 }
@@ -84,12 +83,12 @@ export default curry(
         new ZalgoPromise(resolve => {
             if (container.tagName === 'IFRAME') {
                 if (typeof markup === 'string') {
-                    insertStringIntoIframe(container, markup).then(resolve);
+                    insertStringIntoIframe(container, markup).then(meta => resolve({ meta, options }));
                 } else {
-                    insertJsonIntoIframe(container, markup, options).then(resolve);
+                    insertJsonIntoIframe(container, markup, options).then(meta => resolve({ meta, options }));
                 }
             } else {
-                resolve(handleLegacy(container, markup, options));
+                resolve({ meta: handleLegacy(container, markup, options), options });
             }
         })
 );
