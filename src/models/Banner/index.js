@@ -56,16 +56,13 @@ const Banner = {
 
         function render(totalOptions) {
             const options = validateOptions(totalOptions);
-            const renderProm = getBannerMarkup(options) // Promise<Object(markup)>
+            const renderProm = getBannerMarkup(options) // Promise<Object( markup, options )>
                 .then(
-                    pipe(
-                        partial(objectAssign, { options }), // Object(markup, options)
-                        insertMarkup // Promise<Object(meta)>
-                    )
+                    insertMarkup // Promise<Object(meta, options)>
                 )
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, options, events }), // Object(meta, wrapper, options, events)
+                        partial(objectAssign, { wrapper, events }), // Object(meta, wrapper, options, events)
                         concatTracker, // Object(meta, wrapper, options, events, track)
                         passThrough(Modal.init), // Object(meta, wrapper, options, events, track)
                         passThrough(setSize), // Object(meta, wrapper, options, events, track)
@@ -76,7 +73,6 @@ const Banner = {
                 .catch(err => logger.error({ error: `${err}` }));
 
             logger.waitFor(renderProm);
-
             updateOptions(options);
         }
 
