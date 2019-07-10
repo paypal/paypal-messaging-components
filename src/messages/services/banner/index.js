@@ -1,10 +1,8 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable no-param-reassign */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../../utils';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, passThrough } from '../../../utils';
 import { logger, EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
@@ -104,24 +102,23 @@ function getBannerOptions(markup) {
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
 
 export default function getBannerMarkup(options) {
-    if (objectGet(options, 'style.layout') !== 'custom') {
-        return memoFetcher(options);
-    }
+    return (objectGet(options, 'style.layout') !== 'custom'
+        ? memoFetcher(options)
+        : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
+              if (typeof data.markup === 'object') {
+                  if (template === '') {
+                      logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
+                  }
+                  data.markup.template = template; // eslint-disable-line no-param-reassign
 
-    return ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
-        if (typeof data.markup === 'object') {
-            if (template === '') {
-                logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
-            }
-            data.markup.template = template;
+                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(template)) };
+              }
 
-            const bannerOptions = getBannerOptions(template);
-
-            const mergedOptions = objectMerge(options, bannerOptions);
-            mergedOptions.style._flattened = objectFlattenToArray(mergedOptions.style);
-
-            return { markup: data.markup, options: mergedOptions };
-        }
-        return { markup: data.markup, options };
-    });
+              return { markup: data.markup, options };
+          })
+    ).then(
+        passThrough(data => {
+            data.options.style._flattened = objectFlattenToArray(data.options.style); // eslint-disable-line no-param-reassign
+        })
+    );
 }
