@@ -11,7 +11,7 @@ module.exports = (env = {}) => {
         web: true,
         minify: true,
         analyze: env.analyze,
-        vars: { ...globals(env), __SDK__: false }
+        vars: globals(env)
     });
 
     config.output.libraryExport = 'Messages';

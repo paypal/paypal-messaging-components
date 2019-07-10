@@ -2,7 +2,7 @@
     "meta": {
         "offerType": "NI",
         "impressionUrl": "$impression_tracking_url$",
-        "clickUrl": "$click_tracking_url$&landing_url=https://www.securecheckout.billmelater.com/paycapture-content/fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html"
+        "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/ppclander"
     },
 
     "data": {

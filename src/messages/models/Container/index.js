@@ -1,7 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 
+import { curry } from '../../../utils';
 import events, { clearEvents } from './events';
-import { curry } from '../index';
 import insertMarkup from './insertMarkup';
 import runStats from './stats';
 import setSize from './setSize';

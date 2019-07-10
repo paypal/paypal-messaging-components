@@ -2,6 +2,7 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { logger } from '../../services/logger';
 
@@ -147,7 +148,7 @@ export default function validateOptions({ id, account, amount, countryCode, styl
 
     if (typeof account !== 'string') {
         logInvalidType('account', 'string', account);
-    } else if (account.length !== 13 && account.length !== 10) {
+    } else if (account.length !== 13 && account.length !== 10 && !stringStartsWith(account, 'client-id:')) {
         logger.warn('Invalid option value (account). Ensure the correct Merchant Account ID has been entered.');
     } else {
         validOptions.account = account;

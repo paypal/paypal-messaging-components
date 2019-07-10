@@ -75,14 +75,14 @@ export const logger = {
             }
 
             const payload = {
-                version: __MODULE_VERSION__,
+                version: __MESSAGES__.__VERSION__,
                 events: prepareLogs(logs)
             };
             logs.length = 0;
 
             // TODO: Handle error
             const xhttp = new XMLHttpRequest();
-            xhttp.open('POST', __LOGGING_URL__, true);
+            xhttp.open('POST', __MESSAGES__.__LOGGING_URL__, true);
             xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhttp.send(JSON.stringify({ data: payload }));
         });
@@ -99,7 +99,7 @@ export const logger = {
     },
     track: sendBeacon,
     warn(...messages) {
-        console.warn('[Messaging.js]', ...messages);
+        console.warn('[PayPal Messages]', ...messages);
     }
 };
 

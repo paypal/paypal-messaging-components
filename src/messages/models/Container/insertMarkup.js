@@ -1,8 +1,8 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { curry } from '../index';
-import Template from '../../models/Template';
+import { curry } from '../../../utils';
+import Template from '../Template';
 
 function insertStringIntoIframe(container, markup) {
     return new ZalgoPromise(resolve => {

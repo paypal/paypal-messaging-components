@@ -2,9 +2,9 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 
 import getBannerMarkup from '../../services/banner';
 import { logger, EVENTS } from '../../services/logger';
-import createContainer from '../../utils/container';
+import createContainer from '../Container';
 import validateOptions from './validateOptions';
-import { createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../utils';
+import { createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();

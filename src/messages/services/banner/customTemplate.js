@@ -1,7 +1,7 @@
-import { ZalgoPromise } from 'zalgo-promise';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoize } from '../../utils';
+import { memoize } from '../../../utils';
 
 function fetcher(url) {
     return new ZalgoPromise(resolve => {
@@ -24,7 +24,7 @@ function fetcher(url) {
 
 function getCustomTemplate(styles) {
     const source = styles.markup;
-    if (__DEMO__) {
+    if (__MESSAGES__.__DEMO__) {
         return ZalgoPromise.resolve(
             stringStartsWith(source, 'http') || stringStartsWith(source, './') ? fetcher(source) : source
         );

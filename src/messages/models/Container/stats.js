@@ -1,6 +1,6 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { curry } from '../index';
+import { curry } from '../../../utils';
 
 /**
  * Check if an element is within the current viewport

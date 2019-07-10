@@ -7,10 +7,10 @@ import { ZalgoPromise } from 'zalgo-promise';
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';
 import { logger, ERRORS } from '../../services/logger';
-import createContainer from '../../utils/container';
+import createContainer from '../Container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
-import { createState, memoizeOnProps } from '../../utils';
+import { createState, memoizeOnProps } from '../../../utils';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');

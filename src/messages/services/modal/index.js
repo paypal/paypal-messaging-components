@@ -1,16 +1,16 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps } from '../../utils';
+import { memoizeOnProps } from '../../../utils';
 
-function assembleUrl({ offerType }) {
-    const baseUrl = __MODAL_URL__;
+function assembleUrl(offerType) {
+    const baseUrl = __MESSAGES__.__MODAL_URL__;
     const modalType = startsWith(offerType, 'NI') ? 'ni' : 'ezp';
 
     return `${baseUrl}/${modalType}.html`;
 }
 
-function fetcher(options) {
+function fetcher({ offerType }) {
     return new ZalgoPromise((resolve, reject) => {
         const xhttp = new XMLHttpRequest();
 
@@ -26,9 +26,9 @@ function fetcher(options) {
             }
         };
 
-        xhttp.open('GET', assembleUrl(options), true);
+        xhttp.open('GET', assembleUrl(offerType), true);
         xhttp.send();
     });
 }
 
-export default memoizeOnProps(fetcher, ['account', 'offerType', 'amount']);
+export default memoizeOnProps(fetcher, ['offerType']);

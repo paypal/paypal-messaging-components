@@ -2,7 +2,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry, objectGet } from '../index';
+import { curry, objectGet } from '../../../utils';
 import events from './events';
 import { logger, ERRORS } from '../../services/logger';
 
