@@ -1,6 +1,8 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 /**
  * Memoize a function based on all arguments
@@ -114,7 +116,7 @@ export function objectDiff(original, updated) {
                 [key]: val
             };
         }
-        if (typeof val !== 'object') {
+        if (typeof val !== 'object' || val === null) {
             if (val !== original[key]) {
                 return {
                     ...accumulator,
@@ -188,32 +190,42 @@ export function objectClone(a) {
 export function objectMerge(a, b) {
     const clone = objectClone(a);
 
-    return (function deepMerge(c, d) {
-        return objectEntries(d).reduce((accumulator, [key, val]) => {
+    return (function deepMerge(targetObject, mergingObject) {
+        return objectEntries(mergingObject).reduce((accumulator, [key, val]) => {
+            // Just overwrite if val is an array
             if (Array.isArray(val)) {
                 return {
                     ...accumulator,
                     [key]: [...val]
                 };
             }
-            if (typeof val === 'object' && (!c[key] || typeof c[key] !== 'object' || Array.isArray(c[key]))) {
+
+            // Overwrite if non-existent on targetObject or not an object
+            if (
+                typeof val === 'object' &&
+                val !== null &&
+                (!targetObject[key] || typeof targetObject[key] !== 'object' || Array.isArray(targetObject[key]))
+            ) {
                 return {
                     ...accumulator,
                     [key]: objectClone(val)
                 };
             }
-            if (typeof val === 'object') {
+
+            // Set value to deep merge of 2 objects
+            if (typeof val === 'object' && val !== null) {
                 return {
                     ...accumulator,
-                    [key]: deepMerge(c[key], val)
+                    [key]: deepMerge(targetObject[key], val)
                 };
             }
 
+            // Set new key value
             return {
                 ...accumulator,
                 [key]: val
             };
-        }, c);
+        }, targetObject);
     })(clone, b);
 }
 
@@ -250,4 +262,65 @@ export function objectGet(object, propString) {
             typeof accumulator === 'object' || typeof accumulator === 'function' ? accumulator[prop] : undefined,
         object
     );
+}
+
+/**
+ * Convert a string representation of an object path and value to an object
+ * @param {String} option Object string path representation
+ * @param {*} attributeValue Value to set on the object path
+ * @param {String} delimiter Object nesting delimiter
+ * @returns {Object} New nested object with provided value
+ */
+export function flattenedToObject(option, attributeValue, delimiter = '-') {
+    const firstIndex = option.indexOf(delimiter);
+    if (firstIndex === -1) {
+        return { [option]: attributeValue };
+    }
+
+    const key = option.slice(0, firstIndex);
+    const val = option.slice(firstIndex + 1);
+
+    return { [key]: flattenedToObject(val, attributeValue) };
+}
+
+/**
+ * Check if object is an HTMLElement instance
+ * @param {HTMLElement} el Element to check
+ * @returns {Boolean} Is an HTMLElement
+ */
+export function isElement(el) {
+    return typeof HTMLElement === 'object'
+        ? el instanceof HTMLElement
+        : el && typeof el === 'object' && el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
+}
+
+/**
+ * Return options object from valid container data attributes
+ * @param {HTMLElement} container Container element with data attributes
+ * @returns {Object} Options object
+ */
+export function getInlineOptions(container) {
+    const dataOptions = arrayFrom(container.attributes)
+        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
+        .reduce((accumulator, { nodeName, nodeValue }) => {
+            if (nodeValue) {
+                return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
+            }
+
+            return accumulator;
+        }, {});
+
+    if (
+        !container.firstElementChild ||
+        container.firstElementChild.tagName !== 'SCRIPT' ||
+        container.firstElementChild.getAttribute('type') !== 'text/template'
+    ) {
+        return dataOptions;
+    }
+
+    // For custom banners with inline markup
+    const markup = container.firstElementChild.textContent.trim();
+    container.removeChild(container.firstElementChild);
+
+    return objectMerge(dataOptions, { style: { markup } });
 }

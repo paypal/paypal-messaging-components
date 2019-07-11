@@ -16,12 +16,12 @@
         "globals.js"
     ],
     "scripts": {
-        "build": "webpack",
-        "build:legacy": "webpack --env.legacy",
-        "build:analyze": "webpack --env.analyze",
-        "build:demo": "webpack --env.demo",
-        "dev": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.demo",
-        "dev:prod": "webpack-dev-server",
+        "build": "webpack --env.standalone",
+        "build:legacy": "webpack --env.legacy --env.standalone",
+        "build:analyze": "webpack --env.analyze --env.standalone",
+        "dev": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv",
+        "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.standalone",
+        "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.legacy --env.standalone",
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
         "release": "standard-version --no-verify --commit-all",
