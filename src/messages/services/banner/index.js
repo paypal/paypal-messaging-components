@@ -21,6 +21,24 @@ const LOCALE_MAP = {
     DE: 'de_DE'
 };
 
+function mutateMarkup(markup) {
+    const content = markup.touchpoint_messages[0].messages[0].content.json;
+    const tracking = markup.touchpoint_messages[0].messages[0].tracking_details;
+    const mutatedMarkup = {
+        data: {
+            disclaimer: JSON.parse(content.disclaimer),
+            headline: JSON.parse(content.headline),
+            subHeadline: JSON.parse(content.subHeadline)
+        },
+        meta: {
+            clickUrl: tracking.click_url,
+            impressionUrl: tracking.impression_url,
+            offerType: JSON.parse(content.meta).offerType
+        }
+    };
+    return mutatedMarkup;
+}
+
 /**
  * Fetch banner markup from imadserver via JSONP
  * @param {Object} options Banner options
@@ -73,8 +91,13 @@ function fetcher(options) {
             });
             document.head.removeChild(script);
             delete window.__PP[callbackName];
+
+            const parsedMarkup = JSON.parse(markup.replace(/<\/?div>/g, ''));
             try {
-                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')), options });
+                resolve({
+                    markup: parsedMarkup.touchpoint_messages ? mutateMarkup(parsedMarkup) : parsedMarkup,
+                    options
+                });
             } catch (err) {
                 resolve({ markup, options });
             }
@@ -110,7 +133,6 @@ export default function getBannerMarkup(options) {
                       logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
                   }
                   data.markup.template = template; // eslint-disable-line no-param-reassign
-
                   return { markup: data.markup, options: objectMerge(options, getBannerOptions(template)) };
               }
 

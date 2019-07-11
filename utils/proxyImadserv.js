@@ -9,7 +9,8 @@ const devAccountMap = {
     DEV0000000PSZ: 'pala:single:eqz',
     DEV0000000PSG: 'pala:single:gtz',
     DEV0000000PMZ: 'pala:multi:eqz',
-    DEV0000000PMG: 'pala:multi:gtz'
+    DEV0000000PMG: 'pala:multi:gtz',
+    PS_TEST: 'ps'
 };
 
 module.exports = function proxyImadserv(app) {
@@ -29,6 +30,7 @@ module.exports = function proxyImadserv(app) {
                     (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
                     banner
                 )
+                .replace(/\\/g, '\\\\')
                 .replace(/"/g, '\\"')
                 .replace(/\r\n|\r|\n/g, '');
             const wrappedMarkup = `${call}("<div>${populatedBanner}</div>")`;
