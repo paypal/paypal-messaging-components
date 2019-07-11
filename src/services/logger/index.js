@@ -59,17 +59,13 @@ export const Logger = {
                 events: formatLogs(state.logs)
             };
 
-            if (state.count === FLUSH_MAX) {
-                payload.max = true;
-            }
-
             setState({ count: state.count + 1, logs: [] });
 
             // TODO: Handle error
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = () => {
                 if (xhttp.readyState === 4) {
-                    // console.log(xhttp.getResponseHeader('Paypal-Debug-Id'));
+                    setState({ history: [...state.history, xhttp.getResponseHeader('Paypal-Debug-Id')].slice(-5) });
                 }
             };
             xhttp.open('POST', __LOGGING_URL__, true);
