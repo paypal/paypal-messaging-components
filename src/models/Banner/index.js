@@ -87,7 +87,7 @@ const Banner = {
                         logAfter(onRendered, EVENTS.RENDER_END)
                     )
                 )
-                .catch(err => logger.error({ error: `${err}` }));
+                .catch(err => logger.error({ name: `${err}` }) || err.onEnd);
         }
 
         function update(newOptions) {
@@ -121,11 +121,18 @@ export default {
     init(wrapper, options, logger) {
         logger.start({ options });
 
+        const endLog = onComplete => {
+            logger.end();
+            if (typeof onComplete === 'function') {
+                onComplete();
+            }
+        };
+
         if (banners.has(wrapper)) {
             return banners
                 .get(wrapper)
                 .update(options, logger)
-                .then(logger.end);
+                .then(endLog);
         }
 
         const banner = Banner.create(options, wrapper, logger);
@@ -134,6 +141,6 @@ export default {
         // LOGGER: appending empty iframe - waiting for banner
         logger.info(EVENTS.CONTAINER);
 
-        return banner.renderProm.then(logger.end);
+        return banner.renderProm.then(endLog);
     }
 };

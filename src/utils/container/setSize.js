@@ -290,10 +290,12 @@ export default curry((container, { wrapper, options, logger }) => {
                 wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
                 wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
 
+                const error = new Error(ERRORS.OVERFLOW);
+                // onEnd callback will be called after completing the current logger
                 // Not importing 'render' to prevent cyclical dependencies
-                window.paypal.Messages().render(wrapper.parentNode);
+                error.onEnd = () => window.paypal.Messages().render(wrapper.parentNode);
 
-                throw new Error(ERRORS.OVERFLOW);
+                throw error;
             }
         } else {
             setDimensions();
