@@ -13,8 +13,9 @@ const devAccountMap = {
 };
 
 module.exports = function proxyImadserv(app) {
-    app.get('/proxy/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0, pub_id: account } = req.query;
+    app.get('/imadserver/upstream', (req, res) => {
+        const { call, currency_value: amount = 0 } = req.query;
+        const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
             const morsVars = {
