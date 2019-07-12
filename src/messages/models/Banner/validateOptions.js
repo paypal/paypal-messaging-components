@@ -4,7 +4,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry } from '../../../utils';
+import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 
 const Types = {
@@ -198,7 +198,7 @@ export default curry((logger, { id, account, amount, countryCode, style, _legacy
 
     objectAssign(validOptions, populateDefaults(logger, VALID_OPTIONS, otherOptions, ''));
 
-    logger.info(EVENTS.VALIDATE, { options: validOptions });
+    logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });
 
     return validOptions;
 });
