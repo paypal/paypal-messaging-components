@@ -6,20 +6,25 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';
-// import { logger, ERRORS } from '../../services/logger';
+import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
 import { createState, memoizeOnProps } from '../../../utils';
+import { globalState, setGlobalState } from '../../../utils/globalState';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');
+    wrapper.setAttribute('data-pp-id', globalState.nextId);
+
     const [iframe, { insertMarkup }] = createContainer('iframe');
     const [parentOpen, parentClose] = initParent();
     const { track, clickUrl } = options;
     const [state, setState] = createState({
         status: 'CLOSED'
     });
+    const logger = Logger.create(globalState.nextId, '__internal__', 'Modal');
+    setGlobalState({ nextId: (globalState.nextId += 1) });
 
     function getModalType() {
         if (stringStartsWith(options.offerType, 'NI')) {
@@ -238,6 +243,8 @@ function createModal(options) {
     }
 
     function prepModal(ignoreCache = false) {
+        logger.start();
+
         return getModalMarkup(options, ignoreCache)
             .then(insertMarkup)
             .then(() => {
@@ -248,16 +255,10 @@ function createModal(options) {
                 addModalEventHandlers();
             })
             .catch(() => {
-                // TODO: Implement Modal logger
-                // logger.error({
-                //     message: ERRORS.MODAL_LOAD_FAILURE,
-                //     err
-                // });
-
-                setState({
-                    error: true
-                });
-            });
+                logger.error({ message: ERRORS.MODAL_LOAD_FAILURE });
+                setState({ error: true });
+            })
+            .then(() => logger.end());
     }
 
     // Accessibility tags
