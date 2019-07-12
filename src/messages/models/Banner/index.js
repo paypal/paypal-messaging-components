@@ -87,7 +87,7 @@ const Banner = {
                         logAfter(onRendered, EVENTS.RENDER_END)
                     )
                 )
-                .catch(err => logger.error({ name: `${err}` }) || err.onEnd);
+                .catch(err => logger.error({ name: `${err.message}` }) || err.onEnd);
         }
 
         function update(newOptions) {

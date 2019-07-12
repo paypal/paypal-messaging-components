@@ -18,16 +18,16 @@ export const EVENTS = {
     SIZE: 'Size',
     STATS: 'Stats',
     UPDATE: 'Update',
-    ERROR: 'ERROR'
+    ERROR: 'Error'
 };
 
 export const ERRORS = {
-    OVERFLOW: 'Banner Overflow detected.',
-    HIDDEN: 'Overflow fallback failed.  Hiding banner.',
-    INVALID_STYLE_OPTIONS: 'Invalid account, styles, signature combination.',
-    INVALID_LEGACY_BANNER: 'Invalid legacy banner placement/offerType combination',
-    MODAL_LOAD_FAILURE: 'Modal failed to initialize.',
-    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative'
+    MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
+    MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
+    MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
+    MODAL_FAIL: 'MODAL_FAIL',
+    CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
+    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
 };
 
 function formatLogs(logs) {

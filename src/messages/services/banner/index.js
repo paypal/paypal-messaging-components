@@ -78,15 +78,16 @@ function fetcher(options) {
  * @param {string} markup String of banner HTML markup
  * @returns {Object} Banner annotations
  */
-function getBannerOptions(markup) {
+function getBannerOptions(logger, markup) {
     const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
     if (annotationsString) {
         try {
             return JSON.parse(annotationsString[1]);
         } catch (err) {
-            throw new Error(ERRORS.INVALID_CUSTOM_BANNER_JSON);
+            logger.error({ name: ERRORS.CUSTOM_JSON_OPTIONS_FAIL });
         }
     }
+
     return {};
 }
 
@@ -100,11 +101,11 @@ export default function getBannerMarkup({ options, logger }) {
         : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
               if (typeof data.markup === 'object') {
                   if (template === '') {
-                      logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
+                      logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
                   }
                   data.markup.template = template; // eslint-disable-line no-param-reassign
 
-                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(template)) };
+                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(logger, template)) };
               }
 
               return { markup: data.markup, options };

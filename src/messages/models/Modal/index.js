@@ -255,7 +255,7 @@ function createModal(options) {
                 addModalEventHandlers();
             })
             .catch(() => {
-                logger.error({ message: ERRORS.MODAL_LOAD_FAILURE });
+                logger.error({ name: ERRORS.MODAL_FAIL });
                 setState({ error: true });
             })
             .then(() => logger.end());

@@ -382,7 +382,7 @@ function createTemplateNode(options, markup) {
         }
 
         if (!type) {
-            throw new Error(ERRORS.INVALID_LEGACY_BANNER);
+            throw new Error(ERRORS.MESSAGE_INVALID_LEGACY);
         }
     }
 

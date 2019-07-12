@@ -271,7 +271,7 @@ export default curry((container, { wrapper, options, logger }) => {
                 objectGet(options, 'style.logo.position') === 'top' &&
                 objectGet(options, 'style.logo.type') === 'primary'
             ) {
-                logger.error({ message: ERRORS.HIDDEN });
+                logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                 logger.warn(
                     `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
                 );
@@ -290,7 +290,7 @@ export default curry((container, { wrapper, options, logger }) => {
                 wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
                 wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
 
-                const error = new Error(ERRORS.OVERFLOW);
+                const error = new Error(ERRORS.MESSAGE_OVERFLOW);
                 // onEnd callback will be called after completing the current logger
                 // Not importing 'render' to prevent cyclical dependencies
                 error.onEnd = () => window.paypal.Messages().render(wrapper.parentNode);
