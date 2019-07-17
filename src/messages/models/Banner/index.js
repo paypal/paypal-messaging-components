@@ -56,38 +56,37 @@ const Banner = {
         const wrapper = isLegacy ? container : document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
-        const logAfter = curry((fn, name, args) => {
-            const returnVal = fn(args);
+        const logBefore = curry((fn, name, args) => {
             logger.info(name);
-            return returnVal;
+            return fn(args);
         });
 
         function render(totalOptions) {
             logger.info(EVENTS.RENDER_START);
+
             return pipe(
                 validateOptions(logger), // Object()
                 passThrough(updateOptions), // Object()
                 assignToField('options'), // Object(options)
                 partial(objectAssign, { logger }), // Object(options, logger)
-                getBannerMarkup // Promise<Object(markup, options)>
+                getBannerMarkup // Promise<Object(markup, options, logger)>
             )(totalOptions)
                 .then(
                     pipe(
                         partial(objectAssign, { logger }), // Promise<Object(markup, options, logger)>
-                        asyncAssign(logAfter(insertMarkup, EVENTS.INSERT)) // Promise<Object(meta)>
+                        asyncAssign(logBefore(insertMarkup, EVENTS.INSERT)) // Promise<Object(meta, options)>
                     )
                 )
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, events, logger }), // Object(meta, wrapper, options, events)
-                        concatTracker, // Object(meta, wrapper, options, events, track)
-                        passThrough(logAfter(Modal.init, EVENTS.MODAL)), // Object(meta, wrapper, options, events, track)
-                        passThrough(logAfter(setSize, EVENTS.SIZE)), // Object(meta, wrapper, options, events, track)
-                        passThrough(logAfter(runStats, EVENTS.STATS)),
-                        logAfter(onRendered, EVENTS.RENDER_END)
+                        partial(objectAssign, { wrapper, events, logger }), // Object(meta, wrapper, options, events, logger)
+                        concatTracker, // Object(meta, wrapper, options, events, logger, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(meta, wrapper, options, events, logger, track)
+                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(meta, wrapper, options, events, logger, track)
+                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(meta, wrapper, options, events, logger, track)
+                        logBefore(onRendered, EVENTS.RENDER_END)
                     )
-                )
-                .catch(err => logger.error({ name: `${err.message}` }) || err.onEnd);
+                );
         }
 
         function update(newOptions) {
@@ -99,9 +98,10 @@ const Banner = {
 
             if (shouldUpdate) {
                 clearEvents();
-                // LOGGER: starting update
+
                 return render(updatedOptions);
             }
+
             return ZalgoPromise.resolve();
         }
 
@@ -121,26 +121,25 @@ export default {
     init(wrapper, options, logger) {
         logger.start({ options });
 
-        const endLog = onComplete => {
-            logger.end();
-            if (typeof onComplete === 'function') {
-                onComplete();
-            }
-        };
-
+        let renderProm;
         if (banners.has(wrapper)) {
-            return banners
-                .get(wrapper)
-                .update(options, logger)
-                .then(endLog);
+            renderProm = banners.get(wrapper).update(options, logger);
+        } else {
+            const banner = Banner.create(options, wrapper, logger);
+            banners.set(wrapper, banner);
+            // LOGGER: appending empty iframe - waiting for banner
+            logger.info(EVENTS.CONTAINER);
+
+            ({ renderProm } = banner);
         }
 
-        const banner = Banner.create(options, wrapper, logger);
-        banners.set(wrapper, banner);
+        return renderProm.then(logger.end).catch(err => {
+            logger.error({ name: err.message });
+            logger.end();
 
-        // LOGGER: appending empty iframe - waiting for banner
-        logger.info(EVENTS.CONTAINER);
-
-        return banner.renderProm.then(endLog);
+            if (typeof err.onEnd === 'function') {
+                err.onEnd();
+            }
+        });
     }
 };
