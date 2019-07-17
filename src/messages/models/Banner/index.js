@@ -94,6 +94,11 @@ const Banner = {
 
         // Iframe must be in the DOM otherwise the markup cannot be placed inside
         inputWrapper.appendChild(wrapper);
+        if (!isLegacy) {
+            // Must be after appending iframe into DOM to prevent immediate re-render
+            // Used to repopulate iframe if moved throughout the DOM
+            container.addEventListener('load', () => render(currentOptions));
+        }
         render(currentOptions);
 
         return {
