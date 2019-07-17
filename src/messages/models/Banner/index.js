@@ -2,13 +2,14 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
-import { EVENTS } from '../../services/logger';
+import { Logger, EVENTS } from '../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
 import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();
+const loggers = new Map();
 
 function concatTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
@@ -118,12 +119,17 @@ const Banner = {
 };
 
 export default {
-    init(wrapper, options, logger) {
+    init(wrapper, selectorType, options) {
+        const logger = (loggers.has(wrapper)
+            ? loggers
+            : loggers.set(wrapper, Logger.create(options.id, selectorType, 'Message'))
+        ).get(wrapper);
+
         logger.start({ options });
 
         let renderProm;
         if (banners.has(wrapper)) {
-            renderProm = banners.get(wrapper).update(options, logger);
+            renderProm = banners.get(wrapper).update(options);
         } else {
             const banner = Banner.create(options, wrapper, logger);
             banners.set(wrapper, banner);

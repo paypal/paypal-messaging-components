@@ -7,8 +7,6 @@ import Banner from '../models/Banner';
 import { objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
 import { globalState, setGlobalState } from '../../utils/globalState';
 
-const loggers = new Map();
-
 /**
  * Render Banner into all selector container elements
  * @param {string|HTMLElement|Array<HTMLElement>} selector CSS selector
@@ -48,11 +46,6 @@ export default function render(options, selector = '[data-pp-message]') {
 
     return ZalgoPromise.all(
         containers.map(container => {
-            const logger = (loggers.has(container)
-                ? loggers
-                : loggers.set(container, Logger.create(globalState.nextId, selectorType, 'Message'))
-            ).get(container);
-
             const totalOptions = objectMerge(options, getInlineOptions(container));
 
             if (!container.hasAttribute('data-pp-id')) {
@@ -73,13 +66,13 @@ export default function render(options, selector = '[data-pp-message]') {
                     };
                 }, {});
 
-                Banner.init(container, newConfig, logger);
+                Banner.init(container, selectorType, newConfig);
             });
             observer.observe(container, { attributes: true });
 
             totalOptions.id = container.getAttribute('data-pp-id');
 
-            return Banner.init(container, totalOptions, logger);
+            return Banner.init(container, selectorType, totalOptions);
         })
     );
 }
