@@ -111,10 +111,10 @@ const Banner = {
 
 export default {
     init(wrapper, selectorType, options) {
-        const logger = (loggers.has(wrapper)
-            ? loggers
-            : loggers.set(wrapper, Logger.create(options.id, selectorType, 'Message'))
-        ).get(wrapper);
+        if (!loggers.has(wrapper)) {
+            loggers.set(wrapper, Logger.create(options.id, selectorType, 'Message'));
+        }
+        const logger = loggers.get(wrapper);
 
         logger.start({ options });
 

@@ -1,4 +1,5 @@
 import stringPadStart from 'core-js-pure/stable/string/pad-start';
+import arrayFind from 'core-js-pure/stable/array/find';
 
 import { createState } from '../../../utils';
 import sendBeacon from './sendBeacon';
@@ -48,7 +49,7 @@ export const Logger = {
         function flush() {
             if (state.count > FLUSH_MAX) return;
 
-            const subType = state.logs.find(({ event }) => event === 'Create' || event === 'Update');
+            const subType = arrayFind(state.logs, ({ event }) => event === 'Create' || event === 'Update');
 
             const payload = {
                 version: __MESSAGES__.__VERSION__,
