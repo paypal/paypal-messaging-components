@@ -70,7 +70,7 @@ const Banner = {
                         onRendered
                     )
                 )
-                .catch(err => logger.error({ error: `${err}` }));
+                .catch(err => console.log(err) || logger.error({ error: `${err}` }));
 
             logger.waitFor(renderProm);
             updateOptions(options);

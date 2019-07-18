@@ -4,7 +4,7 @@ describe('on Events from events listeners', () => {
     let domEvent;
     let IframeEvent;
     // eslint-disable-next-line global-require
-    let eventClass = require('src/utils/container/events');
+    let eventClass = require('src/messages/models/Container/events');
 
     beforeEach(() => {
         document.addEventListener = jest.fn();
@@ -12,7 +12,7 @@ describe('on Events from events listeners', () => {
         window.removeEventListener = jest.fn();
         document.removeEventListener = jest.fn();
         // eslint-disable-next-line global-require
-        eventClass = require('src/utils/container/events');
+        eventClass = require('src/messages/models/Container/events');
         handler = jest.fn();
 
         container = {

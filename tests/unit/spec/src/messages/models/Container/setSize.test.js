@@ -1,7 +1,7 @@
-import setSize from 'src/utils/container/setSize';
-import { logger } from 'src/services/logger';
+import setSize from 'src/messages/models/Container/setSize';
+import { logger } from 'src/messages/services/logger';
 
-jest.mock('src/services/logger', () => ({
+jest.mock('src/messages/services/logger', () => ({
     logger: {
         error: jest.fn(),
         warn: jest.fn()
@@ -10,11 +10,11 @@ jest.mock('src/services/logger', () => ({
 }));
 
 const mockEventsOn = jest.fn();
-jest.mock('src/utils/container/events', () => () => ({
+jest.mock('src/messages/models/Container/events', () => () => ({
     on: mockEventsOn
 }));
 
-jest.mock('src/controllers/render', () => jest.fn());
+jest.mock('src/messages/controllers/render', () => jest.fn());
 
 const originalCreateElement = document.createElement;
 const mockElement = tagName => {

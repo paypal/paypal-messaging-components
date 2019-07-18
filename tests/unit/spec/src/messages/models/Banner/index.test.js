@@ -1,10 +1,10 @@
-import Banner from 'src/models/Banner';
-import Modal from 'src/models/Modal';
-import getBannerMarkup from 'src/services/banner';
-import { logger, EVENTS } from 'src/services/logger';
+import Banner from 'src/messages/models/Banner';
+import Modal from 'src/messages/models/Modal';
+import getBannerMarkup from 'src/messages/services/banner';
+import { logger, EVENTS } from 'src/messages/services/logger';
 
-jest.mock('src/services/logger', () => {
-    const originalLogger = require.requireActual('src/services/logger');
+jest.mock('src/messages/services/logger', () => {
+    const originalLogger = require.requireActual('src/messages/services/logger');
 
     return {
         ...originalLogger,
@@ -16,27 +16,41 @@ jest.mock('src/services/logger', () => {
     };
 });
 
-jest.mock('src/models/Modal', () => ({
+jest.mock('src/messages/models/Modal', () => ({
     init: jest.fn()
 }));
 
-jest.mock('src/services/banner', () => jest.fn().mockResolvedValue());
+jest.mock('src/messages/services/banner', () =>
+    jest.fn(options => {
+        const config = {
+            options: {
+                ...options
+            }
+        };
+        config.options.style._flattened = [];
+
+        return Promise.resolve(config);
+    })
+);
 
 const mockContainerFns = {
-    insertMarkup: jest.fn().mockResolvedValue({
-        meta: {
-            offerType: 'NI',
-            clickUrl: '',
-            impressionUrl: ''
-        }
-    }),
+    insertMarkup: jest.fn(config =>
+        Promise.resolve({
+            ...config,
+            meta: {
+                offerType: 'NI',
+                clickUrl: '',
+                impressionUrl: ''
+            }
+        })
+    ),
     setSize: jest.fn(),
     events: {},
     runStats: jest.fn(),
     clearEvents: jest.fn()
 };
 
-jest.mock('src/utils/container', () => () => [global.document.createElement('div'), mockContainerFns]);
+jest.mock('src/messages/models/Container', () => () => [global.document.createElement('div'), mockContainerFns]);
 
 describe('Banner model', () => {
     const mockWrapper = {

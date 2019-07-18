@@ -11,7 +11,7 @@ import {
     objectMerge,
     objectFlattenToArray,
     objectGet
-} from 'src/utils/index';
+} from 'src/utils';
 
 describe('container util methods', () => {
     it('should return memoize', () => {

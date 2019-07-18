@@ -1,4 +1,4 @@
-import stats from 'src/utils/container/stats';
+import stats from 'src/messages/models/Container/stats';
 
 describe('stats', () => {
     let track;

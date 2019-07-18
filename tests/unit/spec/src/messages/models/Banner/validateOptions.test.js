@@ -1,7 +1,7 @@
-import validateOptions, { VALID_STYLE_OPTIONS } from 'src/models/Banner/validateOptions';
-import { logger } from 'src/services/logger';
+import validateOptions, { VALID_STYLE_OPTIONS } from 'src/messages/models/Banner/validateOptions';
+import { logger } from 'src/messages/services/logger';
 
-jest.mock('src/services/logger', () => ({
+jest.mock('src/messages/services/logger', () => ({
     logger: {
         warn: jest.fn()
     }
@@ -43,9 +43,6 @@ describe('validateOptions passed in to render function', () => {
         Object.entries(validOptions).forEach(([key, val]) => {
             expect(validated[key]).toBe(val);
         });
-
-        expect(validated.style._flattened).toContain(`logo.type:${type}`);
-        expect(validated.style._flattened).toContain(`logo.position:${position}`);
     });
 
     describe('invalid top level config values', () => {

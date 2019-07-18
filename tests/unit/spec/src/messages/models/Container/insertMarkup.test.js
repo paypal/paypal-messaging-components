@@ -1,7 +1,7 @@
-import insertMarkup from 'src/utils/container/insertMarkup';
+import insertMarkup from 'src/messages/models/Container/insertMarkup';
 
 const mockTemplate = document.createElement('div');
-jest.mock('src/models/Template', () => ({
+jest.mock('src/messages/models/Template', () => ({
     getTemplateNode: jest.fn((options, markup) => {
         mockTemplate.innerHTML = `<div>${markup.data.headline}</div>`;
         return mockTemplate;

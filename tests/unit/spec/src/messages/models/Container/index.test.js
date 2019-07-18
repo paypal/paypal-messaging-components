@@ -1,16 +1,18 @@
-import createContainer from 'src/utils/container';
+import createContainer from 'src/messages/models/Container';
 
-jest.mock('src/utils/container/events', () => ({
+jest.mock('src/messages/models/Container/events', () => ({
     __esModule: true,
     default: jest.fn(container => () => ({ name: 'events', container })),
     clearEvents: jest.fn(container => ({ name: 'clearEvents', container }))
 }));
 
-jest.mock('src/utils/container/insertMarkup', () => jest.fn(container => () => ({ name: 'insertMarkup', container })));
+jest.mock('src/messages/models/Container/insertMarkup', () =>
+    jest.fn(container => () => ({ name: 'insertMarkup', container }))
+);
 
-jest.mock('src/utils/container/stats', () => jest.fn(container => () => ({ name: 'stats', container })));
+jest.mock('src/messages/models/Container/stats', () => jest.fn(container => () => ({ name: 'stats', container })));
 
-jest.mock('src/utils/container/setSize', () => jest.fn(container => () => ({ name: 'setSize', container })));
+jest.mock('src/messages/models/Container/setSize', () => jest.fn(container => () => ({ name: 'setSize', container })));
 
 describe('createContainer', () => {
     it('should create an iframe', () => {
