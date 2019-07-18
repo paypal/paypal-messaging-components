@@ -5,14 +5,7 @@
         "browser": true
     },
     "globals": {
-        "__MODULE_VERSION__": true,
-        "__SDK__": true,
-        "__BANNER_URL__": true,
-        "__MODAL_URL__": true,
-        "__LOGGING_URL__": true,
-        "__LEGACY__": true,
-        "__DEMO__": true,
-        "__TERMS_URL__": true
+        "__MESSAGES__": true
     },
     "plugins": ["prettier"],
     "rules": {

@@ -5713,4 +5713,4 @@
         }
     ]).Messages
 );
-//# sourceMappingURL=merchant.js.map
+//# sourceMappingURL=merchant@1.0.0.js.map
