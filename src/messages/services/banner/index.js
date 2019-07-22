@@ -22,8 +22,8 @@ const LOCALE_MAP = {
 };
 
 function mutateMarkup(markup) {
-    const content = markup.touchpoint_messages[0].messages[0].content.json;
-    const tracking = markup.touchpoint_messages[0].messages[0].tracking_details;
+    const content = markup.content.json;
+    const tracking = markup.tracking_details;
     const mutatedMarkup = {
         data: {
             disclaimer: JSON.parse(content.disclaimer),
@@ -95,7 +95,11 @@ function fetcher(options) {
             const parsedMarkup = JSON.parse(markup.replace(/<\/?div>/g, ''));
             try {
                 resolve({
-                    markup: parsedMarkup.touchpoint_messages ? mutateMarkup(parsedMarkup) : parsedMarkup,
+                    // Mutate Markup handles personalization studio json response
+                    markup:
+                        parsedMarkup.content && parsedMarkup.tracking_details
+                            ? mutateMarkup(parsedMarkup)
+                            : parsedMarkup,
                     options
                 });
             } catch (err) {

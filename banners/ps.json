@@ -1,29 +1,15 @@
 {
-    "touchpoint_messages": [
-        {
-            "touchpoint_code": "UCCU_200x51",
-            "view_name": "mercue:upstream:banner",
-            "messages": [
-                {
-                    "id": "6711752088789770546",
-                    "rank": 1,
-                    "priority_score": "100.0",
-                    "content_type": "JSON",
-                    "content": {
-                        "json": {
-                            "meta": "{         \"offerType\": \"NI\",         \"lander\": \"https://www.paypal.com/ppclander\"     }",
-                            "subHeadline": "[[\"Check out with PayPal and choose PayPal Credit.\", [\"default\", \"small\"]]]",
-                            "headline": "[             [\"Buy now. Pay over time.\", [\"default\", \"xsmall\", \"small\"]],             [                 [\"No Interest if paid in full in 6 months\", [\"on purchases of $99+\", \"weak\"]],                 [\"medium\", \"large\", \"xlarge\"]             ]         ]",
-                            "disclaimer": "[             [\"See terms\", [\"default\", \"xsmall\"]],             [[\"US customers only. Subject to credit approval\", [\"See terms\", \"em\"]], [\"legacy-medium\"]],             [                 \"Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months. Minimum monthly payments required.\",                 [\"xlarge\"]             ]         ]"
-                        }
-                    },
-                    "tracking_details": {
-                        "impression_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1562852903&fdata=OBcGAzRHBBYcHAQeSFRMKk90PRgwNE9jVWhoGjAsS0gtRmY2LV4kdFVEdBkyAS9HcCRJR3UAXV9MQVlDHkReWlljeVx3ZlhjV2poTjY-Aw1MRgd5eQR.ZEVQYAphUHNRaV1fUXMCWVBYUU5RDBoEDk90CUtkZ1lzR358XWlwUl5VXnBvaAd8Y1VGdhlwC2pHEUVJKQ1kJDI8UUxTDFQdBA84LEtkEU9jGyw7DCwtUBwdFDMqPVMlbxYGO1Y0GmpHckVJFi9eCUdYMExReDYuPzFneVo9ZF9jV2poTjogC0hMJ2Z5F3wbHCAidBlySWoFMBRJRwMWTFZYUU5RDBADDgohaEsFcE9zQH14X2t7U11dRmZ7eRMrNB0DdBkRSWoDICo.VQpDHCpYUU5RDAEdBgcxaEsFcE90QXlwWmt-WlldXn9vagVwY0FVdBlySWoQcEUoR2IEQ1ZYUU5RDAEeS08VaEt0ZFhwTnx7Vml7S0hORmYxNkY-MCsOMRlwKGpHZ1JfUHIFXlVOQVpIGUxeXltkfUtkck9jHyc9GTwXCQYJAmZ5GBNpAAQUIUo0CSZGARYNFSZZGQscHhlRDFZMSwc7PQ83Dh0nBxY7CiotHkhMJ2Z5PlMkJhFGdBtwSSIIJQULEjBSHEdYMExRHVtdS092aEsmPhssAjswTngIS0g4NGZ5exNpIAcCMWc0ED8DIwoJCi9OTEc5UUwWTBkeD090aktkGD0dNQUALBIcIjs4RmYYeRMuNBgUMBlwS2pHIRYNFSZZDBIQHwMvWQwdD090CUtkZ1lyQHx8V2x.WVBeXnJoagFxbFVGdhlwHCwUOABJRwMWTFBOQFRFHEFUWVpteltyZF1wR31oTnppSwQGEyAqPUMhMVVGFRlwDXpSMAdRUXIGWwRJEQ9BGRRYUlhncVgnNwgkEC8vCzhpS0pMRiozLFU6MBIOMRlwKGpHNFVcByAOWldIRg9ATBdcXg9gcVx3aVwgEC8vCT8uDghMRmR5eUQ7IR0DdBkRSWoDYFAJBXoAXFdPEl0RT0RZC1ttf1h9YwwkEC8vCT8sC0hMRGZ5KlMmPlVGFRlwWWpHckVJFTZVMgURHkxRbVRMPz4GHTgAECNjV2poTiw7DxsyADIxPBNpFVVGO009BGpHckVJEzBSHzkKFR4DRBoDNQkgIA5kcC5jVyc8AzVpS0pMRjU9PlssdFUndBkzCypfaFQKBW4CDAUYXVlCHRdAUw1le0dwMA8jFSooWTstXwxMRmR5eVc8dFUndBkSJAIjHzA3Lw5nPyMqIyQ.Yw&cks=MzFkNmFmM2ZhODBlNWRlNDNmZTk1MTMxNjk5MDBkYTg&e=1.0",
-                        "click_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1562852903&fdata=OBcGAzRHBBYcHAQeSFRMKk90PRgwNE9jVWhoGjAsS0gtRmY2LV4kdFVEdBkyAS9HcCRJR3UAXV9MQVlDHkReWlljeVx3ZlhjV2poTjY-Aw1MRgd5eQR.ZEVQYAphUHNRaV1fUXMCWVBYUU5RDBoEDk90CUtkZ1lzR358XWlwUl5VXnBvaAd8Y1VGdhlwC2pHEUVJKQ1kJDI8UUxTDFQdBA84LEtkEU9jGyw7DCwtUBwdFDMqPVMlbxYGO1Y0GmpHckVJFi9eCUdYMExReDYuPzFneVo9ZF9jV2poTjogC0hMJ2Z5F3wbHCAidBlySWoFMBRJRwMWTFZYUU5RDBADDgohaEsFcE9zQH14X2t7U11dRmZ7eRMrNB0DdBkRSWoDICo.VQpDHCpYUU5RDAEdBgcxaEsFcE90QXlwWmt-WlldXn9vagVwY0FVdBlySWoQcEUoR2IEQ1ZYUU5RDAEeS08VaEt0ZFhwTnx7Vml7S0hORmYxNkY-MCsOMRlwKGpHZ1JfUHIFXlVOQVpIGUxeXltkfUtkck9jHyc9GTwXCQYJAmZ5GBNpAAQUIUo0CSZGARYNFSZZGQscHhlRDFZMSwc7PQ83Dh0nBxY7CiotHkhMJ2Z5PlMkJhFGdBtwSSIIJQULEjBSHEdYMExRHVtdS092aEsmPhssAjswTngIS0g4NGZ5exNpIAcCMWc0ED8DIwoJCi9OTEc5UUwWTBkeD090aktkGD0dNQUALBIcIjs4RmYYeRMuNBgUMBlwS2pHIRYNFSZZDBIQHwMvWQwdD090CUtkZ1lyQHx8V2x.WVBeXnJoagFxbFVGdhlwHCwUOABJRwMWTFBOQFRFHEFUWVpteltyZF1wR31oTnppSwQGEyAqPUMhMVVGFRlwDXpSMAdRUXIGWwRJEQ9BGRRYUlhncVgnNwgkEC8vCzhpS0pMRiozLFU6MBIOMRlwKGpHNFVcByAOWldIRg9ATBdcXg9gcVx3aVwgEC8vCT8uDghMRmR5eUQ7IR0DdBkRSWoDYFAJBXoAXFdPEl0RT0RZC1ttf1h9YwwkEC8vCT8sC0hMRGZ5KlMmPlVGFRlwWWpHckVJFTZVMgURHkxRbVRMPz4GHTgAECNjV2poTiw7DxsyADIxPBNpFVVGO009BGpHckVJEzBSHzkKFR4DRBoDNQkgIA5kcC5jVyc8AzVpS0pMRjU9PlssdFUndBkzCypfaFQKBW4CDAUYXVlCHRdAUw1le0dwMA8jFSooWTstXwxMRmR5eVc8dFUndBkSJAIlGg&cks=NTk2YmI2OWYyY2Q0YzAzNWVlYThhNzg5YWQ4MDdhMWU&e=1.0",
-                        "dismiss_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1562852903&fdata=OBcGAzRHBBYcHAQeSFRMKk90PRgwNE9jVWhoGjAsS0gtRmY2LV4kdFVEdBkyAS9HcCRJR3UAXV9MQVlDHkReWlljeVx3ZlhjV2poTjY-Aw1MRgd5eQR.ZEVQYAphUHNRaV1fUXMCWVBYUU5RDBoEDk90CUtkZ1lzR358XWlwUl5VXnBvaAd8Y1VGdhlwC2pHEUVJKQ1kJDI8UUxTDFQdBA84LEtkEU9jGyw7DCwtUBwdFDMqPVMlbxYGO1Y0GmpHckVJFi9eCUdYMExReDYuPzFneVo9ZF9jV2poTjogC0hMJ2Z5F3wbHCAidBlySWoFMBRJRwMWTFZYUU5RDBADDgohaEsFcE9zQH14X2t7U11dRmZ7eRMrNB0DdBkRSWoDICo.VQpDHCpYUU5RDAEdBgcxaEsFcE90QXlwWmt-WlldXn9vagVwY0FVdBlySWoQcEUoR2IEQ1ZYUU5RDAEeS08VaEt0ZFhwTnx7Vml7S0hORmYxNkY-MCsOMRlwKGpHZ1JfUHIFXlVOQVpIGUxeXltkfUtkck9jHyc9GTwXCQYJAmZ5GBNpAAQUIUo0CSZGARYNFSZZGQscHhlRDFZMSwc7PQ83Dh0nBxY7CiotHkhMJ2Z5PlMkJhFGdBtwSSIIJQULEjBSHEdYMExRHVtdS092aEsmPhssAjswTngIS0g4NGZ5exNpIAcCMWc0ED8DIwoJCi9OTEc5UUwWTBkeD090aktkGD0dNQUALBIcIjs4RmYYeRMuNBgUMBlwS2pHIRYNFSZZDBIQHwMvWQwdD090CUtkZ1lyQHx8V2x.WVBeXnJoagFxbFVGdhlwHCwUOABJRwMWTFBOQFRFHEFUWVpteltyZF1wR31oTnppSwQGEyAqPUMhMVVGFRlwDXpSMAdRUXIGWwRJEQ9BGRRYUlhncVgnNwgkEC8vCzhpS0pMRiozLFU6MBIOMRlwKGpHNFVcByAOWldIRg9ATBdcXg9gcVx3aVwgEC8vCT8uDghMRmR5eUQ7IR0DdBkRSWoDYFAJBXoAXFdPEl0RT0RZC1ttf1h9YwwkEC8vCT8sC0hMRGZ5KlMmPlVGFRlwWWpHckVJFTZVMgURHkxRbVRMPz4GHTgAECNjV2poTiw7DxsyADIxPBNpFVVGO009BGpHckVJEzBSHzkKFR4DRBoDNQkgIA5kcC5jVyc8AzVpS0pMRjU9PlssdFUndBkzCypfaFQKBW4CDAUYXVlCHRdAUw1le0dwMA8jFSooWTstXwxMRmR5eVc8dFUndBkVIRgrGDc7&cks=MjUzMDc2ZmVhMmU0YmZjZjhjMWEzMjA0NjVhNmVmNjE&e=1.0"
-                    }
-                }
-            ]
+    "content": {
+        "json": {
+            "meta": "{         \"offerType\": \"PALA:MULTI:GTZ\",         \"lander\": \"https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments\"     }",
+            "subHeadline": "[             [\"Check out with PayPal and choose PayPal Credit.\", [\"default\", \"small\"]],             [                 \"Make 36 Easy Payments as low as $7.14/month for est. total pymts of $257.33.\",                 [\"legacy-large\"]             ]         ]",
+            "headline": "[             [[[\"As low as\", \"weak\"], \"$7.14/mo\"], [\"default\", \"xsmall\"]],             [[[\"Pay as low as\", \"weak\"], \"$7.14/mo\"], [\"small\", \"medium\", \"large\", \"xlarge\"]],             [\"Enjoy Easy Payments.\", [\"legacy-xsmall\"]]         ]",
+            "disclaimer": "[             [\"See terms\", [\"default\", \"xsmall\"]],             [[\"Minimum purchase required. Subject to credit approval.\", [\"See terms\", \"em\"]], [\"legacy-medium\"]],             [[\"Min purch req'd. Subject to credit approval.\", [\"See terms\", \"em\"]], [\"legacy-medium.2\"]]         ]"
         }
-    ]
+    },
+    "tracking_details": {
+        "impression_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1563296888&fdata=OBcGAzRHBBYcHAQeSFRMKk90PRgwNE9jVWhoGjAsS0gtRmY2LV4kdFVEdBkyAS9HcCRJR3UAXV9MQVlDHkReWlljeVx3ZlhjV2poTjY-... dwQSx-DTpxWltMRmR5eVc8dFUndBkSJAIjHzA3Lw5nPyMqIyQ.Yw&cks=ODA5OTVlOGZjYWI1ZGJkOTdmNTE1OGNlMGYyY2ZkNzQ&e=1.0",
+        "click_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1563296888&fdata=OBcGAzRHBBYcHAQeSFRMKk90PRgwNE9jVWhoGjAsS0gtRmY2LV4kdFVEdBkyAS9HcCRJR3UAXV9MQVlDHkReWlljeVx3ZlhjV2poTjY-Aw1MRgd5eQR.ZEdfYg1hW3heZlZYUncAWlFY... x-DTpxWltMRmR5eVc8dFUndBkSJAIlGg&cks=ZmMwY2U3MzQ4ZTliODkwZTAwYThlMWQzMDMxNTEzODU&e=1.0",
+        "dismiss_url": "https://msmaster.qa.paypal.com:22243/ptrk//?v=3.0&t=1563296888&fdata=OBcGAzRHB... ZjNTkyNTA1YTM4NjRmYjVmZTVjN2NjNTNmYjdiZjU&e=1.0"
+    }
 }
