@@ -243,7 +243,14 @@ function createModal(options) {
     }
 
     function prepModal(ignoreCache = false) {
-        logger.start();
+        // Account required in the start event on the server-side
+        logger.start({
+            options: {
+                account: options.account,
+                message_id: options.id,
+                offerType: options.offerType
+            }
+        });
 
         return getModalMarkup(options, ignoreCache)
             .then(insertMarkup)
