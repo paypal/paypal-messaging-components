@@ -1,7 +1,7 @@
 import stringPadStart from 'core-js-pure/stable/string/pad-start';
 import arrayFind from 'core-js-pure/stable/array/find';
 
-import { createState } from '../../../utils';
+import { createState, objectGet } from '../../../utils';
 import sendBeacon from './sendBeacon';
 
 export const EVENTS = {
@@ -43,20 +43,20 @@ function formatLogs(logs) {
 const FLUSH_MAX = 3;
 
 export const Logger = {
-    create(id, selector, type) {
-        const [state, setState] = createState({ count: 1, history: [], logs: [] });
+    create({ id, account, selector, type }) {
+        const [state, setState] = createState({ count: 1, account, history: [], logs: [] });
 
         function flush() {
             if (state.count > FLUSH_MAX) return;
 
             const subType = arrayFind(state.logs, ({ event }) => event === 'Create' || event === 'Update');
-
             const payload = {
                 version: __MESSAGES__.__VERSION__,
                 url: window.location.href,
                 selector,
                 type: `${type}${subType ? `-${subType.event}` : ''}`,
                 id: `${id}-${stringPadStart(state.count, 4, '0')}`,
+                account: state.account,
                 history: state.history,
                 events: formatLogs(state.logs)
             };
@@ -77,6 +77,9 @@ export const Logger = {
 
         const logger = {
             start(data) {
+                if (objectGet(data, 'options.account') && state.account !== data.options.account) {
+                    setState({ account: data.account });
+                }
                 logger.info(EVENTS.START, { t: Date.now(), ...data });
             },
             end(data) {

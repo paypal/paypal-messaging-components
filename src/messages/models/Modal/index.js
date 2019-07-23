@@ -23,7 +23,12 @@ function createModal(options) {
     const [state, setState] = createState({
         status: 'CLOSED'
     });
-    const logger = Logger.create(globalState.nextId, '__internal__', 'Modal');
+    const logger = Logger.create({
+        id: globalState.nextId,
+        account: options.account,
+        selector: '__internal__',
+        type: 'Modal'
+    });
     setGlobalState({ nextId: (globalState.nextId += 1) });
 
     function getModalType() {
@@ -247,8 +252,9 @@ function createModal(options) {
         logger.start({
             options: {
                 account: options.account,
-                message_id: options.id,
-                offerType: options.offerType
+                offerType: options.offerType,
+                amount: options.amount,
+                message_id: options.id
             }
         });
 
