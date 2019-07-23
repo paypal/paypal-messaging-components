@@ -92,18 +92,26 @@ function fetcher(options) {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
 
-            const parsedMarkup = JSON.parse(markup.replace(/<\/?div>/g, ''));
-            try {
+            if (typeof markup === 'object') {
                 resolve({
                     // Mutate Markup handles personalization studio json response
-                    markup:
-                        parsedMarkup.content && parsedMarkup.tracking_details
-                            ? mutateMarkup(parsedMarkup)
-                            : parsedMarkup,
+                    markup: markup.content && markup.tracking_details ? mutateMarkup(markup) : markup,
                     options
                 });
-            } catch (err) {
-                resolve({ markup, options });
+            } else {
+                try {
+                    const parsedMarkup = JSON.parse(markup.replace(/<\/?div>/g, ''));
+                    resolve({
+                        // Mutate Markup handles personalization studio json response
+                        markup:
+                            parsedMarkup.content && parsedMarkup.tracking_details
+                                ? mutateMarkup(parsedMarkup)
+                                : parsedMarkup,
+                        options
+                    });
+                } catch (err) {
+                    resolve({ markup, options });
+                }
             }
         };
     });
