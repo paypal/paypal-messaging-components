@@ -99,6 +99,8 @@ const Banner = {
 
         // Iframe must be in the DOM otherwise the markup cannot be placed inside
         inputWrapper.appendChild(wrapper);
+        // LOGGER: appending empty iframe - waiting for banner
+        logger.info(EVENTS.CONTAINER);
 
         return {
             renderProm: render(currentOptions),
@@ -132,8 +134,6 @@ export default {
         } else {
             const banner = Banner.create(options, wrapper, logger);
             banners.set(wrapper, banner);
-            // LOGGER: appending empty iframe - waiting for banner
-            logger.info(EVENTS.CONTAINER);
 
             ({ renderProm } = banner);
         }
