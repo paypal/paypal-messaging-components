@@ -22,6 +22,28 @@ const LOCALE_MAP = {
     DE: 'de_DE'
 };
 
+function mutateMarkup(markup) {
+    try {
+        const content = markup.content.json;
+        const tracking = markup.tracking_details;
+        const mutatedMarkup = {
+            data: {
+                disclaimer: JSON.parse(content.disclaimer),
+                headline: JSON.parse(content.headline),
+                subHeadline: JSON.parse(content.subHeadline)
+            },
+            meta: {
+                clickUrl: tracking.click_url,
+                impressionUrl: tracking.impression_url,
+                offerType: JSON.parse(content.meta).offerType
+            }
+        };
+        return mutatedMarkup;
+    } catch (err) {
+        throw new Error(ERRORS.MESSAGE_INVALID_MARKUP);
+    }
+}
+
 /**
  * Fetch banner markup from imadserver via JSONP
  * @param {Object} options Banner options
@@ -64,10 +86,17 @@ function fetcher(options) {
         window.__PP[callbackName] = markup => {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
-            try {
-                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
-            } catch (err) {
-                resolve({ markup });
+
+            // Handles markup for v2, v1, v0
+            if (typeof markup === 'object') {
+                // Mutate Markup handles personalization studio json response
+                resolve({ markup: mutateMarkup(markup) });
+            } else {
+                try {
+                    resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
+                } catch (err) {
+                    resolve({ markup });
+                }
             }
         };
     });
