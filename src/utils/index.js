@@ -110,7 +110,8 @@ export function createState(initialState = {}) {
  */
 export function objectDiff(original, updated) {
     return objectEntries(updated).reduce((accumulator, [key, val]) => {
-        if (original[key] === undefined && updated[key] !== undefined) {
+        // If key does not exist on original object and check against key with value of undefined or null
+        if (!original[key] && original[key] !== val) {
             return {
                 ...accumulator,
                 [key]: val
@@ -323,4 +324,18 @@ export function getInlineOptions(container) {
     container.removeChild(container.firstElementChild);
 
     return objectMerge(dataOptions, { style: { markup } });
+}
+
+/**
+ * Create a new error with a special onEnd attribute that
+ * will be called after the error has been handled
+ * @param {String} message Error message
+ * @param {Function} cb Callback function
+ */
+export function createCallbackError(message, cb) {
+    const error = new Error(message);
+    // onEnd callback will be called after completing the current logger
+    error.onEnd = cb;
+
+    return error;
 }

@@ -1,13 +1,5 @@
 import setSize from 'src/messages/models/Container/setSize';
-import { logger } from 'src/messages/services/logger';
-
-jest.mock('src/messages/services/logger', () => ({
-    logger: {
-        error: jest.fn(),
-        warn: jest.fn()
-    },
-    ERRORS: {}
-}));
+import { ERRORS } from 'src/messages/services/logger';
 
 const mockEventsOn = jest.fn();
 jest.mock('src/messages/models/Container/events', () => () => ({
@@ -47,13 +39,6 @@ const mockContainer = {
 
 const originalGetComputedStyle = window.getComputedStyle;
 
-const mockGlobalRender = jest.fn();
-window.paypal = {
-    Messages: () => ({
-        render: mockGlobalRender
-    })
-};
-
 describe('setSize', () => {
     beforeEach(() => {
         mockEventsOn.mockClear();
@@ -77,6 +62,10 @@ describe('setSize', () => {
                     layout: 'flex',
                     ratio: '20x1'
                 }
+            },
+            logger: {
+                error: jest.fn(),
+                warn: jest.fn()
             }
         };
 
@@ -93,6 +82,10 @@ describe('setSize', () => {
                 style: {
                     layout: 'text'
                 }
+            },
+            logger: {
+                error: jest.fn(),
+                warn: jest.fn()
             }
         };
 
@@ -126,6 +119,10 @@ describe('setSize', () => {
                 style: {
                     layout: 'text'
                 }
+            },
+            logger: {
+                error: jest.fn(),
+                warn: jest.fn()
             }
         };
 
@@ -164,6 +161,10 @@ describe('setSize', () => {
                 style: {
                     layout: 'text'
                 }
+            },
+            logger: {
+                error: jest.fn(),
+                warn: jest.fn()
             }
         };
 
@@ -181,11 +182,13 @@ describe('setSize', () => {
         });
 
         const setSizeCall = () => setSize(mockContainer, mockRender);
-        expect(setSizeCall).toThrow();
-
-        await new Promise(resolve => setTimeout(() => resolve(), 100));
-
-        expect(mockGlobalRender).toHaveBeenCalledTimes(1);
+        expect(setSizeCall).toThrow(
+            expect.objectContaining({
+                name: 'Error',
+                message: ERRORS.MESSAGE_OVERFLOW,
+                onEnd: expect.any(Function)
+            })
+        );
     });
 
     it('should hide a banner where the container is too small and it has logo.type:primary and logo.position:top', async () => {
@@ -199,6 +202,10 @@ describe('setSize', () => {
                         position: 'top'
                     }
                 }
+            },
+            logger: {
+                error: jest.fn(),
+                warn: jest.fn()
             }
         };
 
@@ -216,7 +223,7 @@ describe('setSize', () => {
         });
 
         setSize(mockContainer, mockRender);
-        expect(logger.error).toHaveBeenCalledTimes(1);
+        expect(mockRender.logger.error).toHaveBeenCalledTimes(1);
         expect(mockContainer.setAttribute).toHaveBeenCalledWith('data-pp-message-hidden', 'true');
     });
 });

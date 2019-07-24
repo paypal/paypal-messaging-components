@@ -3,6 +3,14 @@ import getTerms from 'src/messages/services/terms';
 
 jest.mock('src/messages/services/modal', () => jest.fn().mockResolvedValue(''));
 jest.mock('src/messages/services/terms', () => jest.fn().mockResolvedValue(''));
+jest.mock('src/messages/services/logger', () => ({
+    Logger: {
+        create: () => ({
+            start: jest.fn(),
+            end: jest.fn()
+        })
+    }
+}));
 jest.mock('src/messages/models/Modal/termsTable', () => () => '');
 
 const mockIframe = document.createElement('iframe');

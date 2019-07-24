@@ -6,20 +6,30 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';
-import { logger, ERRORS } from '../../services/logger';
+import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
 import { createState, memoizeOnProps } from '../../../utils';
+import { globalState, setGlobalState } from '../../../utils/globalState';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');
+    wrapper.setAttribute('data-pp-id', globalState.nextId);
+
     const [iframe, { insertMarkup }] = createContainer('iframe');
     const [parentOpen, parentClose] = initParent();
     const { track, clickUrl } = options;
     const [state, setState] = createState({
         status: 'CLOSED'
     });
+    const logger = Logger.create({
+        id: globalState.nextId,
+        account: options.account,
+        selector: '__internal__',
+        type: 'Modal'
+    });
+    setGlobalState({ nextId: (globalState.nextId += 1) });
 
     function getModalType() {
         if (stringStartsWith(options.offerType, 'NI')) {
@@ -238,6 +248,16 @@ function createModal(options) {
     }
 
     function prepModal(ignoreCache = false) {
+        // Account required in the start event on the server-side
+        logger.start({
+            options: {
+                account: options.account,
+                offerType: options.offerType,
+                amount: options.amount,
+                message_id: options.id
+            }
+        });
+
         return getModalMarkup(options, ignoreCache)
             .then(insertMarkup)
             .then(() => {
@@ -247,16 +267,11 @@ function createModal(options) {
 
                 addModalEventHandlers();
             })
-            .catch(err => {
-                logger.error({
-                    message: ERRORS.MODAL_LOAD_FAILURE,
-                    err
-                });
-
-                setState({
-                    error: true
-                });
-            });
+            .catch(() => {
+                logger.error({ name: ERRORS.MODAL_FAIL });
+                setState({ error: true });
+            })
+            .then(() => logger.end());
     }
 
     // Accessibility tags

@@ -2,9 +2,9 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry, objectGet } from '../../../utils';
+import { curry, objectGet, createCallbackError } from '../../../utils';
 import events from './events';
-import { logger, ERRORS } from '../../services/logger';
+import { ERRORS } from '../../services/logger';
 
 const ratioMap = {
     '1x1': [
@@ -231,7 +231,7 @@ function getContainerWidth(wrapper) {
     return parentWidth;
 }
 
-export default curry((container, { wrapper, options }) => {
+export default curry((container, { wrapper, options, logger }) => {
     if (container.tagName !== 'IFRAME') return;
 
     const layout = objectGet(options, 'style.layout');
@@ -271,7 +271,7 @@ export default curry((container, { wrapper, options }) => {
                 objectGet(options, 'style.logo.position') === 'top' &&
                 objectGet(options, 'style.logo.type') === 'primary'
             ) {
-                logger.error({ message: ERRORS.HIDDEN });
+                logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                 logger.warn(
                     `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
                 );
@@ -284,16 +284,13 @@ export default curry((container, { wrapper, options }) => {
                         'style.layout'
                     )} requires a width of at least ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
                 );
-
-                // Highest priority styles
-                wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
-                wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
-                wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
-
-                // Not importing 'render' to prevent cyclical dependencies
-                window.paypal.Messages().render(wrapper.parentNode);
-
-                throw new Error(ERRORS.OVERFLOW);
+                // Thrown error skips the rest of the render pipeline and is caught at the end
+                throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {
+                    // Highest priority styles, will re-render from attribute observer
+                    wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
+                    wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
+                    wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
+                });
             }
         } else {
             setDimensions();
