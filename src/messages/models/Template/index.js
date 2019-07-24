@@ -357,6 +357,56 @@ function createImageTemplateNode(style, { meta }) {
 }
 
 /**
+ * IMPORTANT: This function is fragile and very dependent on how
+ * IE handles sizing containers with specific style property values
+ * @param {HTMLElement} container Container element
+ * @returns {Number} Container width
+ */
+const getContentWidth = container => {
+    const contentContainer = container.querySelector('.message__content');
+    const contentStyles = window.getComputedStyle(contentContainer);
+    const children = arrayFrom(contentContainer.children);
+    const properties = [
+        'margin-left',
+        'border-left-width',
+        'padding-left',
+        'width',
+        'padding-right',
+        'border-right-width',
+        'margin-right'
+    ];
+
+    // When the display is flex, we are stacking the child components horizontally.
+    // We calculate the total width by adding the width of all the children.
+    if (stringIncludes(contentStyles.getPropertyValue('display'), 'flex')) {
+        return Math.round(
+            children.reduce((accumulator, child) => {
+                const childStyles = window.getComputedStyle(child);
+                return (
+                    accumulator +
+                    properties.reduce(
+                        (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                        0
+                    )
+                );
+            }, 0)
+        );
+    }
+
+    // If the display is not flex, it should be block to stack the child components vertically.
+    // We use display block instead of flex because IE does not support the column orientation very well.
+    // We calculate the width of the container by the largest width of all the stacked children.
+    return Math.max(
+        ...children.map(child => {
+            const childStyles = window.getComputedStyle(child);
+            return Math.round(
+                properties.reduce((accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)), 0)
+            );
+        })
+    );
+};
+
+/**
  * Create a new template DOM element
  * @param {Object} options Banner options, including style rules to be applied to the template
  * @param {Array} data Content data to be inserted into the template
@@ -445,6 +495,15 @@ function createTemplateNode(options, markup) {
         prependStyle(newTemplate, prefixStyles(mutationRules.styles.join('')));
     }
     prependStyle(newTemplate, prefixStyles(styleRules.join('\n')));
+
+    // Determine minimum possible width before content overflow
+    newTemplate.style.opacity = 0;
+    newTemplate.style.width = 0;
+    newTemplate.style.height = 0;
+    newTemplate.style.overflow = 'hidden';
+    document.body.appendChild(newTemplate);
+    newTemplate.width = getContentWidth(newTemplate);
+    document.body.removeChild(newTemplate);
 
     return newTemplate;
 }
