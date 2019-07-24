@@ -4,121 +4,28 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringEndsWith from 'core-js-pure/stable/string/ends-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 
-import { curry, memoize, objectGet, objectMerge } from '../../../utils';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
 import getMutations, { getDataByTag } from './mutations';
 import Logo from './logos';
 import { ERRORS } from '../../services/logger';
+import {
+    curry,
+    memoize,
+    objectGet,
+    objectMerge,
+    getElement,
+    prependStyle,
+    prependText,
+    appendText,
+    appendImage
+} from '../../../utils';
 
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
 const imageTemplate = document.createElement('div');
 imageTemplate.innerHTML = imageTemplateMarkup;
-
-/**
- * Search for the first element of specified class name
- * @param {HTMLElement} container Container to search for element
- * @param {String} className Base element class name without prefix
- * @returns {HTMLElement} Matched element
- */
-const getElement = curry(
-    (prefix, container, className) => container.getElementsByClassName(`${prefix}__${className}`)[0]
-);
-
-/**
- * Create a new style element and prepend it to the container
- * @param {HTMLElement} container Container element to prepend new style
- * @param {String} text Text content of the style element
- * @returns {void}
- */
-const prependStyle = curry((container, text) => {
-    const elem = document.createElement('style');
-    elem.textContent = text;
-    container.insertBefore(elem, container.firstChild);
-});
-
-/**
- * Append text data into the container element
- * @param {HTMLElement} container Container element to append text
- * @param {any} obj Various inputs representing text to be appended
- * @returns {void}
- */
-const appendText = curry((container, obj) => {
-    if (Array.isArray(obj)) {
-        obj.forEach(elem => container.appendChild(elem));
-    } else if (obj instanceof HTMLElement) {
-        container.appendChild(obj);
-    } else if (typeof obj === 'string') {
-        const span = document.createElement('span');
-        span.innerHTML = obj;
-        container.appendChild(span);
-    } else if (obj === false) {
-        container.parentNode.removeChild(container);
-    }
-});
-
-/**
- * Append text data into the container element
- * @param {HTMLElement} container Container element to append text
- * @param {any} obj Various inputs representing text to be appended
- * @returns {void}
- */
-const prependText = curry((container, obj) => {
-    if (Array.isArray(obj)) {
-        [...obj].reverse().forEach(elem => container.insertBefore(elem, container.firstChild));
-    } else if (obj instanceof HTMLElement) {
-        container.insertBefore(obj, container.firstChild);
-    } else if (typeof obj === 'string') {
-        const span = document.createElement('span');
-        span.innerHTML = obj;
-        container.insertBefore(span, container.firstChild);
-    } else if (obj === false) {
-        container.parentNode.removeChild(container);
-    }
-});
-
-/**
- * Append a new image into the container element
- * @param {HTMLElement} container Container element to append image
- * @param {String} url Image src attribute
- * @param {String} alt Image alt attribute
- * @param {String} srcset Image srcset attribute
- * @returns {void}
- */
-const appendImage = curry((container, url, alt = 'PayPal Credit', srcset) => {
-    if (typeof url === 'string') {
-        const logo = new Image();
-        logo.alt = alt;
-        logo.className = 'message__logo';
-        logo.src = url;
-
-        if (srcset) {
-            logo.srcset = srcset;
-        }
-
-        container.appendChild(logo);
-    } else if (Array.isArray(url)) {
-        const [src, width, height] = url;
-        const logo = new Image();
-        logo.src = src;
-        logo.alt = alt;
-
-        const svgWrapper = document.createElement('div');
-        svgWrapper.className = 'message__logo message__logo--svg';
-
-        const canvas = document.createElement('canvas');
-        canvas.height = height;
-        canvas.width = width;
-
-        svgWrapper.appendChild(logo);
-        svgWrapper.appendChild(canvas);
-        container.appendChild(svgWrapper);
-    } else {
-        container.parentNode.removeChild(container);
-    }
-}, 2); // Need to manually set curry arity because of default parameters and transpiling
 
 function splitSpan(span, breakWord) {
     const text = span.innerText;
