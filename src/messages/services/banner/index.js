@@ -21,6 +21,28 @@ const LOCALE_MAP = {
     DE: 'de_DE'
 };
 
+function mutateMarkup(markup) {
+    try {
+        const content = markup.content.json;
+        const tracking = markup.tracking_details;
+        const mutatedMarkup = {
+            data: {
+                disclaimer: JSON.parse(content.disclaimer),
+                headline: JSON.parse(content.headline),
+                subHeadline: JSON.parse(content.subHeadline)
+            },
+            meta: {
+                clickUrl: tracking.click_url,
+                impressionUrl: tracking.impression_url,
+                offerType: JSON.parse(content.meta).offerType
+            }
+        };
+        return mutatedMarkup;
+    } catch (err) {
+        throw new Error(ERRORS.INVALID_MARKUP_FORMAT);
+    }
+}
+
 /**
  * Fetch banner markup from imadserver via JSONP
  * @param {Object} options Banner options
@@ -73,10 +95,23 @@ function fetcher(options) {
             });
             document.head.removeChild(script);
             delete window.__PP[callbackName];
-            try {
-                resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')), options });
-            } catch (err) {
-                resolve({ markup, options });
+
+            // Handles markup for v2, v1, v0
+            if (typeof markup === 'object') {
+                resolve({
+                    // Mutate Markup handles personalization studio json response
+                    markup: markup.content && markup.tracking_details ? mutateMarkup(markup) : markup,
+                    options
+                });
+            } else {
+                try {
+                    resolve({
+                        markup: JSON.parse(markup.replace(/<\/?div>/g, '')),
+                        options
+                    });
+                } catch (err) {
+                    resolve({ markup, options });
+                }
             }
         };
     });
@@ -110,7 +145,6 @@ export default function getBannerMarkup(options) {
                       logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
                   }
                   data.markup.template = template; // eslint-disable-line no-param-reassign
-
                   return { markup: data.markup, options: objectMerge(options, getBannerOptions(template)) };
               }
 

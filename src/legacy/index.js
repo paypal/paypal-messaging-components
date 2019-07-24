@@ -213,7 +213,7 @@ class Ad {
     }
 
     request() {
-        this.script = new JSONPRequest(`https://www.paypal.com/imadserver/upstream${this.queryString}`);
+        this.script = new JSONPRequest(`${__MESSAGES__.__BANNER_URL__}${this.queryString}`);
     }
 
     initQueryString() {
