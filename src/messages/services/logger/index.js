@@ -24,7 +24,8 @@ export const ERRORS = {
     INVALID_STYLE_OPTIONS: 'Invalid account, styles, signature combination.',
     INVALID_LEGACY_BANNER: 'Invalid legacy banner placement/offerType combination',
     MODAL_LOAD_FAILURE: 'Modal failed to initialize.',
-    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative'
+    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative',
+    INVALID_MARKUP_FORMAT: 'Invalid markup format detected'
 };
 
 const logs = [];
