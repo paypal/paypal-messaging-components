@@ -97,7 +97,10 @@ const Banner = {
         if (!isLegacy) {
             // Must be after appending iframe into DOM to prevent immediate re-render
             // Used to repopulate iframe if moved throughout the DOM
-            container.addEventListener('load', () => render(currentOptions));
+            container.addEventListener('load', () => {
+                clearEvents();
+                render(currentOptions);
+            });
         }
         render(currentOptions);
 
