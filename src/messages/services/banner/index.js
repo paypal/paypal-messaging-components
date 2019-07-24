@@ -1,9 +1,10 @@
+import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, passThrough } from '../../../utils';
-import { logger, EVENTS, ERRORS } from '../logger';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, passThrough, partial } from '../../../utils';
+import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 
 // Using same JSONP callback namespace as original merchant.js
@@ -39,7 +40,7 @@ function mutateMarkup(markup) {
         };
         return mutatedMarkup;
     } catch (err) {
-        throw new Error(ERRORS.INVALID_MARKUP_FORMAT);
+        throw new Error(ERRORS.MESSAGE_INVALID_MARKUP);
     }
 }
 
@@ -80,37 +81,21 @@ function fetcher(options) {
         const script = document.createElement('script');
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;
-        // LOGGER: Initiated
-        logger.info(EVENTS.MESSAGE_FETCH_INITIATED, {
-            account,
-            amount
-        });
         document.head.appendChild(script);
 
         window.__PP[callbackName] = markup => {
-            // LOGGER: Received
-            logger.info(EVENTS.MESSAGE_FETCH_RECEIVED, {
-                account,
-                amount
-            });
             document.head.removeChild(script);
             delete window.__PP[callbackName];
 
             // Handles markup for v2, v1, v0
             if (typeof markup === 'object') {
-                resolve({
-                    // Mutate Markup handles personalization studio json response
-                    markup: markup.content && markup.tracking_details ? mutateMarkup(markup) : markup,
-                    options
-                });
+                // Mutate Markup handles personalization studio json response
+                resolve({ markup: mutateMarkup(markup) });
             } else {
                 try {
-                    resolve({
-                        markup: JSON.parse(markup.replace(/<\/?div>/g, '')),
-                        options
-                    });
+                    resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
                 } catch (err) {
-                    resolve({ markup, options });
+                    resolve({ markup });
                 }
             }
         };
@@ -122,36 +107,41 @@ function fetcher(options) {
  * @param {string} markup String of banner HTML markup
  * @returns {Object} Banner annotations
  */
-function getBannerOptions(markup) {
+function getBannerOptions(logger, markup) {
     const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
     if (annotationsString) {
         try {
             return JSON.parse(annotationsString[1]);
         } catch (err) {
-            throw new Error(ERRORS.INVALID_CUSTOM_BANNER_JSON);
+            logger.error({ name: ERRORS.CUSTOM_JSON_OPTIONS_FAIL });
         }
     }
+
     return {};
 }
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
 
-export default function getBannerMarkup(options) {
+export default function getBannerMarkup({ options, logger }) {
+    logger.info(EVENTS.FETCH_START);
+
     return (objectGet(options, 'style.layout') !== 'custom'
-        ? memoFetcher(options)
+        ? memoFetcher(options).then(partial(objectAssign, { options }))
         : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
               if (typeof data.markup === 'object') {
                   if (template === '') {
-                      logger.error({ message: ERRORS.INVALID_STYLE_OPTIONS });
+                      logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
                   }
                   data.markup.template = template; // eslint-disable-line no-param-reassign
-                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(template)) };
+
+                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(logger, template)) };
               }
 
               return { markup: data.markup, options };
           })
     ).then(
         passThrough(data => {
+            logger.info(EVENTS.FETCH_END);
             data.options.style._flattened = objectFlattenToArray(data.options.style); // eslint-disable-line no-param-reassign
         })
     );

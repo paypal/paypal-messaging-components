@@ -10,7 +10,7 @@ import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
 import getMutations, { getDataByTag } from './mutations';
 import Logo from './logos';
-import { logger, ERRORS } from '../../services/logger';
+import { ERRORS } from '../../services/logger';
 
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
@@ -329,7 +329,6 @@ function createCustomTemplateNode({ data, meta, template }) {
         );
     } catch (err) {
         // TODO: Improve error message
-        logger.warn(err);
     }
 
     return newTemplate;
@@ -383,7 +382,7 @@ function createTemplateNode(options, markup) {
         }
 
         if (!type) {
-            throw new Error(ERRORS.INVALID_LEGACY_BANNER);
+            throw new Error(ERRORS.MESSAGE_INVALID_LEGACY);
         }
     }
 
