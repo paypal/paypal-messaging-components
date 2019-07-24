@@ -111,8 +111,6 @@ const Banner = {
             });
         }
 
-        render(currentOptions);
-
         return {
             renderProm: render(currentOptions),
             wrapper,
