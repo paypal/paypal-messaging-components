@@ -1,26 +1,35 @@
+import { fireEvent } from '@testing-library/dom';
+import createContainer from 'utils/createContainer';
+import eventsOn from 'src/messages/models/Container/events';
 import stats from 'src/messages/models/Container/stats';
 
+window.getComputedStyle = () => ({
+    getPropertyValue: () => 'auto'
+});
+
+const createMockRenderObject = container => ({
+    events: eventsOn(container),
+    track: jest.fn(),
+    options: {
+        amount: 10
+    }
+});
+
 describe('stats', () => {
-    let track;
-    let events;
-    let container;
-    let options;
-    beforeEach(() => {
-        window.getComputedStyle = jest.fn(() => ({
-            getPropertyValue: jest.fn(() => 'auto')
-        }));
-        track = jest.fn();
-        options = { amount: 10 };
-        events = { on: jest.fn(), clear: jest.fn() };
-        container = {
-            tagName: 'IFRAME',
-            getBoundingClientRect: jest.fn(() => ({ left: 100, right: 20, top: 30, bottom: 25 })),
-            hasAttribute: jest.fn(() => 'mockAttribute')
-        };
+    afterEach(() => {
+        document.body.innerHTML = '';
     });
 
-    it('when viewport is visible', async done => {
-        stats(container, { events, options, track });
+    it('Fires standard payload and attaches events', async () => {
+        const { container } = createContainer('iframe');
+        container.getBoundingClientRect = () => ({
+            left: 100,
+            right: 20,
+            top: 30,
+            bottom: 25
+        });
+        const mockRenderObject = createMockRenderObject(container);
+        const eventsOnSpy = jest.spyOn(mockRenderObject.events, 'on');
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
@@ -34,22 +43,32 @@ describe('stats', () => {
             blocked: true
         };
 
-        await new Promise(resolve => {
-            setTimeout(resolve, 200);
-        });
-        expect(events.on).toHaveBeenCalledTimes(2);
-        expect(track).toHaveBeenCalledTimes(2);
-        const trackCalls = track.mock.calls;
-        expect(trackCalls[0]).toEqual([payload, 'mockAttribute']);
-        expect(trackCalls[1]).toEqual(['MORS_IMPRESSION']);
-        const eventsCalls = events.on.mock.calls;
-        expect(eventsCalls[0][0]).toEqual('click');
-        expect(eventsCalls[1][0]).toEqual('hover');
-        done();
-    }, 9000);
-    it('when viewport is not visible', async done => {
+        stats(container, mockRenderObject);
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        expect(mockRenderObject.track).toHaveBeenCalledTimes(2);
+        expect(mockRenderObject.track).toHaveBeenNthCalledWith(1, payload, false);
+        expect(mockRenderObject.track).toHaveBeenNthCalledWith(2, 'MORS_IMPRESSION');
+
+        expect(eventsOnSpy).toHaveBeenCalledTimes(2);
+        expect(eventsOnSpy).toHaveBeenCalledWith('click', expect.any(Function));
+        expect(eventsOnSpy).toHaveBeenCalledWith('hover', expect.any(Function));
+        expect(eventsOnSpy).not.toHaveBeenCalledWith('scroll', expect.any(Function));
+    });
+
+    it('Fires scroll event when loads below fold and scrolls into view', async () => {
         window.innerHeight = 10;
-        stats(container, { events, options, track });
+
+        const { container } = createContainer('iframe');
+        container.getBoundingClientRect = () => ({
+            left: 100,
+            right: 20,
+            top: 30,
+            bottom: 25
+        });
+        const mockRenderObject = createMockRenderObject(container);
+        const eventsOnSpy = jest.spyOn(mockRenderObject.events, 'on');
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
@@ -63,77 +82,72 @@ describe('stats', () => {
             blocked: true
         };
 
-        await new Promise(resolve => {
-            setTimeout(resolve, 200);
+        stats(container, mockRenderObject);
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        expect(mockRenderObject.track).toHaveBeenCalledTimes(2);
+        expect(mockRenderObject.track).toHaveBeenCalledWith(payload, false);
+        expect(mockRenderObject.track).toHaveBeenCalledWith('MORS_IMPRESSION');
+
+        expect(eventsOnSpy).toHaveBeenCalledTimes(3);
+        expect(eventsOnSpy).toHaveBeenCalledWith('click', expect.any(Function));
+        expect(eventsOnSpy).toHaveBeenCalledWith('hover', expect.any(Function));
+        expect(eventsOnSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+
+        container.getBoundingClientRect = () => ({
+            left: 100,
+            right: 20,
+            top: 0,
+            bottom: 5
         });
-        expect(events.on).toHaveBeenCalledTimes(3);
-        expect(track).toHaveBeenCalledTimes(2);
-        const trackCalls = track.mock.calls;
-        expect(trackCalls[0]).toEqual([payload, 'mockAttribute']);
-        expect(trackCalls[1]).toEqual(['MORS_IMPRESSION']);
-        const eventsCalls = events.on.mock.calls;
-        expect(eventsCalls[0][0]).toEqual('scroll');
-        expect(eventsCalls[1][0]).toEqual('click');
-        expect(eventsCalls[2][0]).toEqual('hover');
-        done();
-    }, 9000);
 
-    it('when viewport is not visible and scroll event called', async done => {
-        stats(container, { events, options, track });
+        fireEvent.scroll(window);
 
-        await new Promise(resolve => {
-            setTimeout(resolve, 200);
+        expect(mockRenderObject.track).toHaveBeenCalledTimes(3);
+        expect(mockRenderObject.track).toHaveBeenLastCalledWith({
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'scroll',
+            visible: true
         });
-        expect(events.on).toHaveBeenCalledTimes(3);
-        track.mockClear();
-        window.innerHeight = 768;
-        const eventsCalls = events.on.mock.calls;
-        expect(eventsCalls[0][0]).toEqual('scroll');
-        eventsCalls[0][1]();
-        expect(track).toHaveBeenCalledTimes(1);
-        expect(events.clear).toHaveBeenCalledWith('scroll');
-        const trackCalls = track.mock.calls;
-        expect(trackCalls[0]).toEqual([{ et: 'CLIENT_IMPRESSION', event_type: 'scroll', visible: true }]);
-        done();
-    }, 9000);
-    it('when viewport is not visible and click event called', async done => {
-        window.innerHeight = 10;
-        stats(container, { events, options, track });
+    });
 
-        await new Promise(resolve => {
-            setTimeout(resolve, 200);
+    it('Fires click event when message clicked', () => {
+        const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
+        const mockRenderObject = createMockRenderObject(container);
+
+        stats(container, mockRenderObject);
+
+        expect(mockRenderObject.track).not.toHaveBeenCalledWith('MORS_CLICK');
+
+        fireEvent.click(getByText(/test/i));
+
+        expect(mockRenderObject.track).toHaveBeenCalledWith({
+            et: 'CLICK',
+            event_type: 'click',
+            link: 'Banner Wrapper'
         });
-        expect(events.on).toHaveBeenCalledTimes(3);
+        expect(mockRenderObject.track).toHaveBeenCalledWith('MORS_CLICK');
+    });
 
-        track.mockClear();
+    it('Fires hover event when message hovered', () => {
+        const { container } = createContainer('iframe', '<h1>test</h1>');
+        const mockRenderObject = createMockRenderObject(container);
 
-        const eventsCalls = events.on.mock.calls;
-        expect(eventsCalls[1][0]).toEqual('click');
-        eventsCalls[1][1]();
-        expect(track).toHaveBeenCalledTimes(2);
-        const trackCalls = track.mock.calls;
-        expect(trackCalls[0]).toEqual([{ et: 'CLICK', event_type: 'click', link: 'Banner Wrapper' }]);
-        expect(trackCalls[1]).toEqual(['MORS_CLICK']);
-        done();
-    }, 9000);
-    it('when viewport is not visible and hover event called', async done => {
-        window.innerHeight = 10;
-        stats(container, { events, options, track });
+        stats(container, mockRenderObject);
 
-        await new Promise(resolve => {
-            setTimeout(resolve, 200);
+        const trackCalls = mockRenderObject.track.mock.calls.length;
+
+        fireEvent.mouseOver(container);
+
+        expect(mockRenderObject.track).toHaveBeenCalledTimes(trackCalls + 1);
+        expect(mockRenderObject.track).toHaveBeenCalledWith({
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'hover'
         });
-        expect(events.on).toHaveBeenCalledTimes(3);
 
-        track.mockClear();
+        fireEvent.mouseOver(container);
 
-        const eventsCalls = events.on.mock.calls;
-        expect(eventsCalls[2][0]).toEqual('hover');
-        eventsCalls[2][1]();
-        expect(track).toHaveBeenCalledTimes(1);
-        const trackCalls = track.mock.calls;
-        expect(trackCalls[0]).toEqual([{ et: 'CLIENT_IMPRESSION', event_type: 'hover' }]);
-        expect(events.clear).toHaveBeenCalledWith('hover');
-        done();
-    }, 9000);
+        expect(mockRenderObject.track).toHaveBeenCalledTimes(trackCalls + 1);
+    });
 });

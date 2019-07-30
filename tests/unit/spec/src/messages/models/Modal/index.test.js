@@ -1,7 +1,14 @@
-import Modal from 'src/messages/models/Modal';
-import getTerms from 'src/messages/services/terms';
+import { getByRole, fireEvent, within, wait } from '@testing-library/dom';
 
-jest.mock('src/messages/services/modal', () => jest.fn().mockResolvedValue(''));
+import createContainer from 'utils/createContainer';
+import mockEzpModal from 'src/../demo/modals/ezp.html';
+import mockNiModal from 'src/../demo/modals/ni.html';
+import eventsOn from 'src/messages/models/Container/events';
+import Modal from 'src/messages/models/Modal';
+
+jest.mock('src/messages/services/modal', () =>
+    jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
+);
 jest.mock('src/messages/services/terms', () => jest.fn().mockResolvedValue(''));
 jest.mock('src/messages/services/logger', () => ({
     Logger: {
@@ -13,270 +20,157 @@ jest.mock('src/messages/services/logger', () => ({
 }));
 jest.mock('src/messages/models/Modal/termsTable', () => () => '');
 
-const mockIframe = document.createElement('iframe');
-
-jest.mock('src/messages/models/Container', () => () => [mockIframe, { insertMarkup: jest.fn().mockResolvedValue() }]);
-
-const mockElement = (tagName = 'div', className = '') => {
-    const div = document.createElement(tagName);
-
-    div.className = className;
-
-    jest.spyOn(div, 'addEventListener');
-
-    return div;
-};
-
-const mockAccordion = () => {
-    const accordion = mockElement('div', 'show');
-    const header = mockElement('h3');
-    const content = mockElement('div', 'accordion-content');
-    content.style.setProperty('max-height', '100px');
-    accordion.appendChild(header);
-    accordion.appendChild(content);
-
-    return accordion;
-};
-
-const mockModalElements = {};
-
-const mockParentOpen = jest.fn();
-const mockParentClose = jest.fn();
-jest.mock('src/messages/models/Modal/utils', () => ({
-    initParent: () => [mockParentOpen, mockParentClose],
-    getModalElements: () => mockModalElements
-}));
+const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY:GTZ' } = {}) => ({
+    meta: {
+        offerType
+    },
+    options: {
+        id: 0,
+        amount: 100,
+        account
+    },
+    events: eventsOn(container),
+    track: jest.fn()
+});
 
 describe('Modal methods', () => {
-    const track = jest.fn();
-
-    const mockContentWindowFocus = jest.fn();
-    const mockBlur = jest.fn();
-
-    const events = {
-        on: jest.fn()
-    };
-
-    const initModal = async account => {
-        Modal.init({
-            meta: {
-                offerType: 'EZP:ANY:GTZ'
-            },
-            options: {
-                id: 0,
-                _legacy: false,
-                amount: 100,
-                countryCode: 'US',
-                onRender: () => {},
-                account
-            },
-            events,
-            track
-        });
-
-        // wait for modal to fully initialize
-        return new Promise(resolve => setTimeout(() => resolve(events.on.mock.calls[0][1]), 0));
-    };
-
-    const openModal = async open => {
-        Object.defineProperty(mockIframe.contentWindow, 'focus', {
-            value: mockContentWindowFocus
-        });
-        Object.defineProperty(mockIframe, 'blur', {
-            value: mockBlur
-        });
-
-        open({
-            preventDefault: () => {}
-        });
-
-        // Wait for modal open to complete
-        await new Promise(resolve => setTimeout(() => resolve(), 100));
-    };
-
-    beforeEach(() => {
-        const contentWrapper = mockElement();
-        const overlay = mockElement();
-        overlay.appendChild(contentWrapper);
-
-        Object.assign(mockModalElements, {
-            window: mockIframe.contentWindow,
-            contentWrapper,
-            overlay,
-            closeButton: mockElement(),
-            header: mockElement(),
-            accordions: [mockAccordion(), mockAccordion()],
-            modalContainer: mockElement(),
-            headerContainer: mockElement(),
-            ezpTab: mockElement('div', 'selected'),
-            niTab: mockElement(),
-            ezpContent: mockElement('div', 'show'),
-            niContent: mockElement(),
-            calculateButton: mockElement(),
-            amountInput: mockElement('input'),
-            loader: mockElement(),
-            financeTermsTable: mockElement()
-        });
-
-        mockParentOpen.mockClear();
-        mockParentClose.mockClear();
-
-        track.mockClear();
-
-        getTerms.mockClear();
-
-        mockContentWindowFocus.mockClear();
-        mockBlur.mockClear();
-
-        events.on.mockClear();
+    afterEach(() => {
+        document.body.innerHTML = '';
     });
 
-    it('should create a modal', async () => {
-        await initModal('0000000000001');
+    it('Initializes a new modal', () => {
+        const { container } = createContainer('iframe', '<h1>test</h1>');
 
-        const {
-            closeButton,
-            overlay,
-            contentWrapper,
-            accordions,
-            niTab,
-            ezpTab,
-            amountInput,
-            calculateButton
-        } = mockModalElements;
+        expect(document.body.children.length).toBe(1);
 
-        // Ensure event handlers have been added
-        expect(closeButton.addEventListener).toHaveBeenCalledTimes(1);
-        expect(overlay.addEventListener).toHaveBeenCalledTimes(1);
-        expect(contentWrapper.addEventListener).toHaveBeenCalledTimes(2);
+        Modal.init(createMockRenderObject(container, { account: '1' }));
 
-        accordions.forEach(accordion => {
-            const header = accordion.getElementsByTagName('h3')[0];
-            expect(header.addEventListener).toHaveBeenCalledTimes(1);
-
-            const content = accordion.getElementsByClassName('accordion-content')[0];
-            expect(content.style.maxHeight).toBe('100px');
-        });
-
-        expect(niTab.addEventListener).toHaveBeenCalledTimes(1);
-        expect(ezpTab.addEventListener).toHaveBeenCalledTimes(1);
-
-        expect(amountInput.addEventListener).toHaveBeenCalledTimes(1);
-        expect(calculateButton.addEventListener).toHaveBeenCalledTimes(1);
+        expect(document.body.children.length).toBe(2);
+        expect(getByRole(document.body, 'alertdialog')).toBeInTheDocument();
     });
 
-    it('should open and close a modal', async () => {
-        await initModal('0000000000002').then(openModal);
+    it('Reuses the same modal', () => {
+        const { container } = createContainer('iframe', '<h1>test</h1>');
+        const { container: container2 } = createContainer('iframe', '<h1>test</h1>');
 
-        const { closeButton, accordions, niTab, ezpTab, modalContainer, niContent, ezpContent } = mockModalElements;
+        expect(document.body.children.length).toBe(2);
 
-        // Ensure opening actions have occurred
-        const openFPTIEvt = track.mock.calls[0][0];
-        expect(openFPTIEvt.et).toBe('CLIENT_IMPRESSION');
-        expect(openFPTIEvt.event_type).toBe('modal-open');
+        Modal.init(createMockRenderObject(container, { account: '2' }));
+        Modal.init(createMockRenderObject(container2, { account: '2' }));
 
-        expect(modalContainer.classList.values()).toContain('show');
-        expect(mockParentOpen).toHaveBeenCalledTimes(1);
-        expect(mockContentWindowFocus).toHaveBeenCalledTimes(1);
-
-        accordions.forEach(accordion => {
-            const content = accordion.getElementsByClassName('accordion-content')[0];
-
-            expect(accordion.className).not.toContain('show');
-            expect(content.style.maxHeight).toBe('');
-        });
-
-        const closeEvt = new MouseEvent('click');
-        closeButton.dispatchEvent(closeEvt);
-
-        // Wait for modal close to complete
-        await new Promise(resolve => setTimeout(() => resolve(), 450));
-
-        // Ensure closing actions have occurred
-        const closeFPTIEvt = track.mock.calls[1][0];
-        expect(closeFPTIEvt.et).toBe('CLICK');
-        expect(closeFPTIEvt.event_type).toBe('modal-close');
-        expect(closeFPTIEvt.link).toBe('Close Button');
-
-        expect(modalContainer.classList.values()).not.toContain('show');
-        expect(mockBlur).toHaveBeenCalledTimes(1);
-        expect(mockParentClose).toHaveBeenCalledTimes(1);
-
-        // Wait for modal close animation to complete
-        await new Promise(resolve => setTimeout(() => resolve(), 450));
-
-        expect(niTab.classList.values()).not.toContain('selected');
-        expect(niContent.classList.values()).not.toContain('show');
-        expect(ezpTab.classList.values()).toContain('selected');
-        expect(ezpContent.classList.values()).toContain('show');
+        expect(document.body.children.length).toBe(3);
+        expect(getByRole(document.body, 'alertdialog')).toBeInTheDocument();
     });
 
-    it('should react to accordion, tab, and amount events properly', async () => {
-        await initModal('0000000000003').then(openModal);
+    it('Opens modal when message clicked', async () => {
+        const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
 
-        const { niTab, amountInput, niContent, accordions } = mockModalElements;
+        Modal.init(createMockRenderObject(container, { account: '3' }));
 
-        // Click EZP tab
-        const tabEvt = new MouseEvent('click');
-        niTab.dispatchEvent(tabEvt);
+        const modal = getByRole(document.body, 'alertdialog');
+        const modalContainer = modal.querySelector('iframe');
+        modalContainer.contentWindow.focus = jest.fn();
 
-        expect(niTab.classList.values()).toContain('selected');
-        expect(niContent.classList.values()).toContain('show');
+        expect(modal).toBeInTheDocument();
+        expect(modal).not.toBeVisible();
 
-        // Ensure closing actions have occurred
-        const tabFPTIEvt = track.mock.calls[1][0];
-        expect(tabFPTIEvt.et).toBe('CLICK');
-        expect(tabFPTIEvt.event_type).toBe('modal-tab');
+        fireEvent.click(getByText(/test/i));
 
-        const accordionEvt = new MouseEvent('click');
-        const header = accordions[0].getElementsByTagName('h3')[0];
-        header.dispatchEvent(accordionEvt);
-
-        const content = accordions[0].getElementsByClassName('accordion-content')[0];
-        expect(accordions[0].classList.values()).toContain('show');
-        expect(content.style.maxHeight).not.toBe('');
-
-        const amountEnterEvt = document.createEvent('HTMLEvents');
-        amountEnterEvt.initEvent('keydown', false, true);
-        amountEnterEvt.key = 'Enter';
-        amountInput.dispatchEvent(amountEnterEvt);
-
-        expect(getTerms).toHaveBeenCalledTimes(2);
+        await wait(() => expect(modal).toBeVisible());
     });
 
-    it('should close a modal using escape key', async () => {
-        await initModal('0000000000004').then(openModal);
+    it('Closes modal via escape key, close button click, and overlay click', async () => {
+        const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
 
-        const closeEvt = new KeyboardEvent('keyup', {
-            key: 'Escape'
-        });
-        mockIframe.contentWindow.dispatchEvent(closeEvt);
+        Modal.init(createMockRenderObject(container, { account: '4' }));
 
-        // Wait for modal close to complete
-        await new Promise(resolve => setTimeout(() => resolve(), 450));
+        const modal = getByRole(document.body, 'alertdialog');
+        const modalContainer = modal.querySelector('iframe');
+        modalContainer.contentWindow.focus = jest.fn();
 
-        // Ensure closing actions have occurred
-        const closeFPTIEvt = track.mock.calls[1][0];
-        expect(closeFPTIEvt.et).toBe('CLICK');
-        expect(closeFPTIEvt.event_type).toBe('modal-close');
-        expect(closeFPTIEvt.link).toBe('Escape Key');
+        const { getByLabelText } = within(modalContainer.contentDocument.body);
+
+        fireEvent.click(getByText(/test/i));
+
+        await wait(() => expect(modal).toBeVisible());
+
+        fireEvent.keyUp(modalContainer.contentWindow, { key: 'Escape', code: 27 });
+
+        await wait(() => expect(modal).not.toBeVisible());
+
+        fireEvent.click(getByText(/test/i));
+
+        await wait(() => expect(modal).toBeVisible());
+
+        fireEvent.click(getByLabelText(/close/i));
+
+        await wait(() => expect(modal).not.toBeVisible());
+
+        fireEvent.click(getByText(/test/i));
+
+        await wait(() => expect(modal).toBeVisible());
+
+        fireEvent.click(modalContainer.contentDocument.querySelector('.modal__content-wrapper'));
+
+        await wait(() => expect(modal).not.toBeVisible());
     });
 
-    it('should close a modal using escape key', async () => {
-        await initModal('0000000000005').then(openModal);
+    it('Switch between tabs', async () => {
+        const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
 
-        const { contentWrapper } = mockModalElements;
+        Modal.init(createMockRenderObject(container, { account: '5' }));
 
-        const closeEvt = new MouseEvent('click', { bubbles: true });
-        contentWrapper.dispatchEvent(closeEvt);
+        const modal = getByRole(document.body, 'alertdialog');
+        const modalContainer = modal.querySelector('iframe');
+        modalContainer.contentWindow.focus = jest.fn();
 
-        // Wait for modal close to complete
-        await new Promise(resolve => setTimeout(() => resolve(), 450));
+        fireEvent.click(getByText(/test/i));
 
-        // Ensure closing actions have occurred
-        const closeFPTIEvt = track.mock.calls[1][0];
-        expect(closeFPTIEvt.et).toBe('CLICK');
-        expect(closeFPTIEvt.event_type).toBe('modal-close');
-        expect(closeFPTIEvt.link).toBe('Modal Overlay');
+        await wait(() => expect(modal).toBeVisible());
+
+        // Unable to use expect().toBeVisible() inside modal due to issue with JSDOM
+        // applying CSS cascade improperly https://github.com/jsdom/jsdom/issues/2160
+        const ezpTab = modalContainer.contentDocument.getElementById('ezp-tab');
+        const niTab = modalContainer.contentDocument.getElementById('ni-tab');
+        const ezpContent = modalContainer.contentDocument.getElementById('ezp-content');
+        const niContent = modalContainer.contentDocument.getElementById('ni-content');
+
+        expect(ezpContent).toHaveClass('show');
+        expect(niContent).not.toHaveClass('show');
+
+        fireEvent.click(niTab);
+
+        expect(ezpContent).not.toHaveClass('show');
+        expect(niContent).toHaveClass('show');
+
+        fireEvent.click(ezpTab);
+
+        expect(ezpContent).toHaveClass('show');
+        expect(niContent).not.toHaveClass('show');
+    });
+
+    it('Toggles accordions', async () => {
+        const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
+
+        Modal.init(createMockRenderObject(container, { account: '6' }));
+
+        const modal = getByRole(document.body, 'alertdialog');
+        const modalContainer = modal.querySelector('iframe');
+        modalContainer.contentWindow.focus = jest.fn();
+
+        fireEvent.click(getByText(/test/i));
+
+        await wait(() => expect(modal).toBeVisible());
+
+        // TODO: Use more semantic ways for interacting with these elements
+        const accordion = modalContainer.contentDocument.querySelector('.accordion');
+        const accordionTitle = accordion.querySelector('h3');
+
+        // FIXME: Why is "show" present by default but then removed when the modal is opened?
+        await wait(() => expect(accordion).not.toHaveClass('show'));
+
+        fireEvent.click(accordionTitle);
+
+        expect(accordion).toHaveClass('show');
     });
 });

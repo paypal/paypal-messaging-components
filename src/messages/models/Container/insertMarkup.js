@@ -6,24 +6,20 @@ import Template from '../Template';
 
 function insertStringIntoIframe(container, markup) {
     return new ZalgoPromise(resolve => {
-        const markupWithStyle = `<style>body{margin:0;padding:0;overflow:hidden;}</style>${markup}`;
+        const iframeWindow = container.contentWindow;
 
-        container.srcdoc = markupWithStyle; // eslint-disable-line no-param-reassign
-        // Must be set again to refire reload event in IE
-        container.src = 'about:blank'; // eslint-disable-line no-param-reassign
-        container.addEventListener('load', function onload() {
-            const iframeWindow = container.contentWindow;
+        iframeWindow.document.body.innerHTML = `<style>body{margin:0;padding:0;overflow:hidden;}</style>${markup}`;
 
-            // Fallback for IE and Edge since they don't support iframe srcdoc
-            if (iframeWindow.document.body.children.length === 0) {
-                container.removeEventListener('load', onload); // Ensure onload does not fire again after writing the document
-                iframeWindow.document.open('text/html', 'replace');
-                iframeWindow.document.write(markupWithStyle);
-                iframeWindow.document.close();
-            }
+        // innerHTML will not execute scripts
+        arrayFrom(iframeWindow.document.getElementsByTagName('script')).forEach(script => {
+            const newScript = iframeWindow.document.createElement('script');
+            newScript.text = script.text;
 
-            resolve(iframeWindow.meta);
+            script.parentNode.insertBefore(newScript, script);
+            script.parentNode.removeChild(script);
         });
+
+        resolve(iframeWindow.meta);
     });
 }
 

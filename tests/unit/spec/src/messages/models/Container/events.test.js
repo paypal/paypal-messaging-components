@@ -1,189 +1,306 @@
-describe('on Events from events listeners', () => {
-    let container;
-    let handler;
-    let domEvent;
-    let IframeEvent;
-    // eslint-disable-next-line global-require
-    let eventClass = require('src/messages/models/Container/events');
+import { fireEvent } from '@testing-library/dom';
 
-    beforeEach(() => {
-        document.addEventListener = jest.fn();
-        window.addEventListener = jest.fn();
-        window.removeEventListener = jest.fn();
-        document.removeEventListener = jest.fn();
-        // eslint-disable-next-line global-require
-        eventClass = require('src/messages/models/Container/events');
-        handler = jest.fn();
+import createContainer from 'utils/createContainer';
+import eventsOn, { clearEvents } from 'src/messages/models/Container/events';
 
-        container = {
-            tagName: 'IFRAME',
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            contentWindow: {
-                addEventListener: jest.fn(),
-                removeEventListener: jest.fn(),
-                document: {
-                    body: {
-                        removeEventListener: jest.fn(),
-                        addEventListener: jest.fn()
-                    }
-                }
-            }
-        };
-        IframeEvent = {
-            target: {
-                ownerDocument: {
-                    defaultView: {
-                        frameElement: container
-                    }
-                }
-            }
-        };
-        domEvent = {
-            target: {},
-            currentTarget: container
-        };
+describe('events.js', () => {
+    afterEach(() => {
+        document.body.innerHTML = '';
     });
-    it('addEventListenerTo should return an object with on and clear function defined', () => {
-        const events = eventClass.default(container);
-        const keys = Object.keys(events);
-        expect(keys[0]).toEqual('on');
-        expect(keys[1]).toEqual('clear');
-        eventClass.clearEvents(container);
+
+    it("Contains 'on' and 'clear' functions", () => {
+        const container = document.createElement('iframe');
+        document.body.appendChild(container);
+        const events = eventsOn(container);
+
+        expect(events).toEqual(
+            expect.objectContaining({
+                on: expect.any(Function),
+                clear: expect.any(Function)
+            })
+        );
     });
+
     describe('click events', () => {
-        it('when tagNAme is IFRAME', () => {
-            const events = eventClass.default(container);
-            events.on('click', handler);
-            expect(container.contentWindow.document.body.addEventListener).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
-        it('when tagName is not iframe', () => {
-            container.tagName = 'div';
-            const events = eventClass.default(container);
-            events.on('click', handler);
-            expect(container.addEventListener).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
+        it('Adds and clears click event with iframe container', () => {
+            const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
 
-        it(' call onClick function', () => {
-            container.tagName = 'IFRAME';
-            const events = eventClass.default(container);
             events.on('click', handler);
-            const clickEvent = container.contentWindow.document.body.addEventListener.mock.calls;
 
-            clickEvent[0][1](IframeEvent);
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.click(getByText(/test/i));
+
             expect(handler).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
-        it('when tagName is not iframe', () => {
-            container.tagName = 'div';
-            const events = eventClass.default(container);
-            events.on('click', handler);
-            const clickEvent = container.addEventListener.mock.calls;
 
-            clickEvent[0][1](domEvent);
+            events.clear('click');
+
+            fireEvent.click(getByText(/test/i));
+
             expect(handler).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
+
+            events.on('click', handler);
+
+            fireEvent.click(getByText(/test/i));
+
+            expect(handler).toHaveBeenCalledTimes(2);
+        });
+
+        it('Adds and clears click event with div container', () => {
+            const { container, getByText } = createContainer('div', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('click', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.click(getByText(/test/i));
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.clear('click');
+
+            fireEvent.click(getByText(/test/i));
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('click', handler);
+
+            fireEvent.click(getByText(/test/i));
+
+            expect(handler).toHaveBeenCalledTimes(2);
         });
     });
+
     describe('scroll events', () => {
-        it('when scroll event triggered', () => {
-            const events = eventClass.default(container);
-            events.on('scroll', handler);
-            expect(window.addEventListener).toHaveBeenCalledTimes(1);
-            const clickEvent = window.addEventListener.mock.calls;
+        it('Adds and clears scroll event with iframe container', () => {
+            const { container } = createContainer('iframe', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
 
-            clickEvent[0][1](IframeEvent);
-            expect(handler).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
-    });
-    describe('hover events', () => {
-        it('when hover event triggered', () => {
-            const evt = { target: container };
-            const events = eventClass.default(container);
-            events.on('hover', handler);
-            expect(document.addEventListener).toHaveBeenCalledTimes(1);
-            const clickEvent = document.addEventListener.mock.calls;
+            events.on('scroll', handler);
 
-            clickEvent[0][1](evt);
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.scroll(window);
+
             expect(handler).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
-    });
-    describe('message events', () => {
-        it('when message event triggered', () => {
-            const evt = { orign: window.top.location.origin, source: { frameElement: container } };
-            const events = eventClass.default(container);
-            events.on('message', handler);
-            expect(window.addEventListener).toHaveBeenCalledTimes(1);
-            const clickEvent = window.addEventListener.mock.calls;
-            clickEvent[0][1](evt);
-            expect(clickEvent[0][0]).toEqual('message');
-            eventClass.clearEvents(container);
-        });
-    });
-    describe('resize events', () => {
-        it('when resize event triggered', () => {
-            const evt = { target: { frameElement: container } };
-            const events = eventClass.default(container);
-            events.on('resize', handler);
-            expect(container.contentWindow.addEventListener).toHaveBeenCalledTimes(1);
-            const clickEvent = container.contentWindow.addEventListener.mock.calls;
-            clickEvent[0][1](evt);
-            expect(clickEvent[0][0]).toEqual('resize');
-            expect(handler).toHaveBeenCalledTimes(1);
-            eventClass.clearEvents(container);
-        });
-    });
-    describe('clear All events', () => {
-        it('perform clear events on scroll', () => {
-            const events = eventClass.default(container);
-            events.on('scroll', handler);
-            eventClass.clearEvents(container);
-            expect(window.removeEventListener).toHaveBeenCalledTimes(2);
-            expect(container.contentWindow.removeEventListener).toHaveBeenCalledTimes(2);
-        });
-        it('perform clear events on hover', () => {
-            const events = eventClass.default(container);
-            events.on('hover', handler);
-            eventClass.clearEvents(container);
-            expect(document.removeEventListener).toHaveBeenCalledTimes(1);
-            expect(container.contentWindow.removeEventListener).toHaveBeenCalledTimes(2);
-        });
-    });
-    describe('clear events', () => {
-        it('scroll', () => {
-            const events = eventClass.default(container);
-            events.on('scroll', handler);
+
             events.clear('scroll');
 
-            expect(window.removeEventListener).toHaveBeenCalledTimes(1);
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('scroll', handler);
+
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(2);
         });
-        it('hover', () => {
-            const events = eventClass.default(container);
+
+        it('Adds and clears scroll event with div container', () => {
+            const { container } = createContainer('div', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('scroll', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.clear('scroll');
+
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('scroll', handler);
+
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    describe('hover events', () => {
+        it('Adds and clears hover event with iframe container', () => {
+            const { container } = createContainer('iframe', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
             events.on('hover', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
             events.clear('hover');
-            expect(document.removeEventListener).toHaveBeenCalledTimes(1);
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('hover', handler);
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(2);
         });
-        it('click', () => {
-            const events = eventClass.default(container);
-            events.on('click', handler);
-            events.clear('click');
-            expect(container.contentWindow.removeEventListener).toHaveBeenCalledTimes(1);
+
+        it('Adds and clears hover event with div container', () => {
+            const { container } = createContainer('div', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('hover', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.clear('hover');
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('hover', handler);
+
+            fireEvent.mouseOver(container);
+
+            expect(handler).toHaveBeenCalledTimes(2);
         });
-        it('resize', () => {
-            const events = eventClass.default(container);
+    });
+
+    describe('resize events', () => {
+        it('Adds and clears resize event with iframe container', () => {
+            const { container } = createContainer('iframe', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
             events.on('resize', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
             events.clear('resize');
-            expect(container.contentWindow.removeEventListener).toHaveBeenCalledTimes(1);
+
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(1);
+
+            events.on('resize', handler);
+
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(2);
         });
-        it('message', () => {
-            const events = eventClass.default(container);
-            events.on('message', handler);
-            events.clear('message');
-            expect(window.removeEventListener).toHaveBeenCalledTimes(1);
+
+        it('Does not fire resize event with div container', () => {
+            const { container } = createContainer('div', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('resize', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent(window, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('clear all events', () => {
+        it('removes all events from iframe container', () => {
+            const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('click', handler);
+            events.on('hover', handler);
+            events.on('scroll', handler);
+            events.on('resize', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(4);
+
+            clearEvents(container);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(4);
+
+            events.on('click', handler);
+            events.on('hover', handler);
+            events.on('scroll', handler);
+            events.on('resize', handler);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+            fireEvent(container.contentWindow, new Event('resize'));
+
+            expect(handler).toHaveBeenCalledTimes(8);
+        });
+
+        it('removes all events from div container', () => {
+            const { container, getByText } = createContainer('div', '<h1>test</h1>');
+            const events = eventsOn(container);
+            const handler = jest.fn();
+
+            events.on('click', handler);
+            events.on('hover', handler);
+            events.on('scroll', handler);
+
+            expect(handler).toHaveBeenCalledTimes(0);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(3);
+
+            clearEvents(container);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(3);
+
+            events.on('click', handler);
+            events.on('hover', handler);
+            events.on('scroll', handler);
+
+            fireEvent.click(getByText(/test/i));
+            fireEvent.mouseOver(container);
+            fireEvent.scroll(window);
+
+            expect(handler).toHaveBeenCalledTimes(6);
         });
     });
 });

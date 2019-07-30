@@ -121,14 +121,14 @@ const appendImage = curry((container, url, alt = 'PayPal Credit', srcset) => {
 }, 2); // Need to manually set curry arity because of default parameters and transpiling
 
 function splitSpan(span, breakWord) {
-    const text = span.innerText;
+    const text = span.textContent;
     const breakIndex = text.indexOf(breakWord) + breakWord.length;
     const s1 = span.cloneNode();
-    s1.innerText = text.slice(0, breakIndex).trim();
+    s1.textContent = text.slice(0, breakIndex).trim();
 
     if (text.length !== breakIndex) {
         const s2 = span.cloneNode();
-        s2.innerText = text.slice(breakIndex).trim();
+        s2.textContent = text.slice(breakIndex).trim();
         return [s1, s2];
     }
 
@@ -149,7 +149,7 @@ function createLineBreaks(breaks, markup) {
     const availableBreaks = [...breaks];
 
     markup.forEach(currentSpan => {
-        const text = currentSpan.innerText;
+        const text = currentSpan.textContent;
         const containedBreaks = [];
 
         while (stringIncludes(text, availableBreaks[0])) {
@@ -166,7 +166,7 @@ function createLineBreaks(breaks, markup) {
         }
 
         const startSpan = document.createElement('span');
-        startSpan.innerText = text;
+        startSpan.textContent = text;
         startSpan.className = 'br';
 
         const breakSpans = containedBreaks.reduce(
@@ -195,11 +195,11 @@ function replace(replacements, markup) {
     markup.forEach(span => {
         const text = replacements.reduce(
             (accumulator, [substr, replacement]) => accumulator.replace(substr, replacement),
-            span.innerText
+            span.textContent
         );
 
         // eslint-disable-next-line no-param-reassign
-        span.innerText = text;
+        span.textContent = text;
     });
 }
 
@@ -210,9 +210,9 @@ function getMarkup(textData, options = {}) {
         const span = document.createElement('span');
 
         if (Array.isArray(text)) {
-            [span.innerText, span.className] = text;
+            [span.textContent, span.className] = text;
         } else {
-            span.innerText = text;
+            span.textContent = text;
         }
 
         return span;
@@ -412,9 +412,9 @@ function createTemplateNode(options, markup) {
     }
     if (objectGet(options, 'style.logo.type') === 'none') {
         const span = document.createElement('span');
-        span.innerText = 'with ';
+        span.textContent = 'with ';
         const strong = document.createElement('strong');
-        strong.innerText = 'PayPal Credit.';
+        strong.textContent = 'PayPal Credit.';
         span.appendChild(strong);
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);

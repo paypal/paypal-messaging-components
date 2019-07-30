@@ -34,16 +34,21 @@ export function initParent() {
     const originalBodyStyles = parentBody.getAttribute('style');
 
     const onOpen = () => {
-        parentHead.removeChild(originalViewport);
-        parentHead.appendChild(modalViewport);
+        // Protect against multiple modals opening edge-case
+        if (parentHead.contains(originalViewport)) {
+            parentHead.removeChild(originalViewport);
+            parentHead.appendChild(modalViewport);
+        }
 
         parentBody.style.overflow = 'hidden';
         parentBody.style.msOverflowStyle = 'scrollbar';
     };
 
     const onClose = () => {
-        parentHead.removeChild(modalViewport);
-        parentHead.appendChild(originalViewport);
+        if (parentHead.contains(modalViewport)) {
+            parentHead.removeChild(modalViewport);
+            parentHead.appendChild(originalViewport);
+        }
 
         if (originalBodyStyles) {
             parentBody.setAttribute('style', originalBodyStyles);

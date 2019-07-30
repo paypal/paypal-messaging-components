@@ -1,229 +1,157 @@
+import createContainer from 'utils/createContainer';
 import setSize from 'src/messages/models/Container/setSize';
+import template from 'src/messages/models/Template/template.html';
 import { ERRORS } from 'src/messages/services/logger';
 
-const mockEventsOn = jest.fn();
-jest.mock('src/messages/models/Container/events', () => () => ({
-    on: mockEventsOn
-}));
+// Mocks needed to fake size calculations in JSDOM
+async function injectSpies({ container, wrapperWidth = 50, display = 'flex' }, cb) {
+    const spies = [
+        jest.spyOn(HTMLDivElement.prototype, 'offsetWidth', 'get').mockImplementation(() => wrapperWidth),
+        jest.spyOn(window, 'getComputedStyle').mockImplementation(() => ({
+            getPropertyValue: prop => (prop === 'display' ? display : 2)
+        })),
+        jest.spyOn(container, 'offsetParent', 'get').mockImplementation(() => document.body),
+        jest.spyOn(container.contentWindow.document.documentElement, 'scrollHeight', 'get').mockImplementation(() => 10)
+    ];
 
-jest.mock('src/messages/controllers/render', () => jest.fn());
+    await cb();
 
-const originalCreateElement = document.createElement;
-const mockElement = tagName => {
-    const element = originalCreateElement.call(document, tagName);
-
-    Object.defineProperty(element, 'offsetWidth', {
-        value: 30
-    });
-
-    return element;
-};
-
-const mockContainer = {
-    tagName: 'IFRAME',
-    contentDocument: {
-        querySelector: () => ({
-            className: '.message__content',
-            children: [{ className: '.message__logo-container' }, { className: '.message__headline' }]
-        })
-    },
-    contentWindow: {
-        document: {
-            documentElement: {
-                scrollHeight: 10
-            }
-        }
-    },
-    setAttribute: jest.fn()
-};
-
-const originalGetComputedStyle = window.getComputedStyle;
+    spies.forEach(spy => spy.mockRestore());
+}
 
 describe('setSize', () => {
-    beforeEach(() => {
-        mockEventsOn.mockClear();
-        mockContainer.setAttribute.mockClear();
-
-        Object.defineProperty(document, 'createElement', {
-            value: mockElement
-        });
-
-        Object.defineProperty(window, 'getComputedStyle', {
-            value: originalGetComputedStyle
-        });
+    afterEach(() => {
+        document.body.innerHTML = '';
     });
 
-    it('should add flex styles for flex banners', () => {
-        const container = document.createElement('iframe');
-        const mockRender = {
-            wrapper: document.createElement('span'),
-            options: {
-                style: {
-                    layout: 'flex',
-                    ratio: '20x1'
-                }
-            },
-            logger: {
-                error: jest.fn(),
-                warn: jest.fn()
-            }
-        };
-
-        setSize(container, mockRender);
-
-        expect(mockRender.wrapper.getElementsByTagName('style')).toHaveLength(1);
-        expect(container.getAttribute('style')).not.toBeNull();
-    });
-
-    it('should calculate the correct dimensions for a flex layout banner', async () => {
-        const mockRender = {
-            wrapper: mockElement('div'),
-            options: {
-                style: {
-                    layout: 'text'
-                }
-            },
-            logger: {
-                error: jest.fn(),
-                warn: jest.fn()
-            }
-        };
-
-        const wrapperParent = mockElement('div');
-        wrapperParent.appendChild(mockRender.wrapper);
-
-        Object.defineProperty(window, 'getComputedStyle', {
-            value: () => ({
-                getPropertyValue: prop => (prop === 'display' ? 'flex' : 2)
-            })
-        });
-
-        setSize(mockContainer, mockRender);
-        await new Promise(resolve => setTimeout(() => resolve(), 100));
-
-        expect(mockContainer.setAttribute).toHaveBeenCalledWith('height', 10);
-        expect(mockEventsOn.mock.calls[0][0]).toBe('resize');
-
-        // Width should be set to the total width of the children
-        expect(
-            mockContainer.setAttribute.mock.calls.some(
-                call => call[0] === 'style' && call[1].includes('min-width: 28px')
-            )
-        ).toBe(true);
-    });
-
-    it('should calculate the correct dimensions for a block layout banner', async () => {
-        const mockRender = {
-            wrapper: mockElement('div'),
-            options: {
-                style: {
-                    layout: 'text'
-                }
-            },
-            logger: {
-                error: jest.fn(),
-                warn: jest.fn()
-            }
-        };
-
-        const wrapperParent = mockElement('div');
-        wrapperParent.appendChild(mockRender.wrapper);
-
-        Object.defineProperty(window, 'getComputedStyle', {
-            value: ({ className }) => ({
-                getPropertyValue: prop => {
-                    if (prop === 'display') return 'block';
-                    if (className === '.message__logo-container') return 1;
-                    if (className === '.message__headline') return 2;
-                    return '';
-                }
-            })
-        });
-
-        setSize(mockContainer, mockRender);
-        await new Promise(resolve => setTimeout(() => resolve(), 100));
-
-        expect(mockContainer.setAttribute).toHaveBeenCalledWith('height', 10);
-        expect(mockEventsOn.mock.calls[0][0]).toBe('resize');
-
-        // Width should be set to the maximum width of the children
-        expect(
-            mockContainer.setAttribute.mock.calls.some(
-                call => call[0] === 'style' && call[1].includes('min-width: 14px')
-            )
-        ).toBe(true);
-    });
-
-    it('should re-render a banner when the container is too small', async () => {
-        const mockRender = {
-            wrapper: mockElement('div'),
-            options: {
-                style: {
-                    layout: 'text'
-                }
-            },
-            logger: {
-                error: jest.fn(),
-                warn: jest.fn()
-            }
-        };
-
-        const wrapperParent = mockElement('div');
-        wrapperParent.appendChild(mockRender.wrapper);
-
-        Object.defineProperty(window, 'getComputedStyle', {
-            value: () => ({
-                getPropertyValue: prop => {
-                    if (prop === 'display') return 'block';
-
-                    return 30;
-                }
-            })
-        });
-
-        const setSizeCall = () => setSize(mockContainer, mockRender);
-        expect(setSizeCall).toThrow(
-            expect.objectContaining({
-                name: 'Error',
-                message: ERRORS.MESSAGE_OVERFLOW,
-                onEnd: expect.any(Function)
-            })
-        );
-    });
-
-    it('should hide a banner where the container is too small and it has logo.type:primary and logo.position:top', async () => {
-        const mockRender = {
-            wrapper: mockElement('div'),
-            options: {
-                style: {
-                    layout: 'text',
-                    logo: {
-                        type: 'primary',
-                        position: 'top'
+    describe('Flex Layout', () => {
+        it('Adds flex styles for flex banners', () => {
+            const { container } = createContainer('iframe');
+            const { container: wrapper } = createContainer('span', container);
+            const mockRenderObject = {
+                wrapper,
+                options: {
+                    style: {
+                        layout: 'flex',
+                        ratio: '20x1'
                     }
                 }
-            },
-            logger: {
-                error: jest.fn(),
-                warn: jest.fn()
-            }
-        };
+            };
 
-        const wrapperParent = mockElement('div');
-        wrapperParent.appendChild(mockRender.wrapper);
+            expect(wrapper.getElementsByTagName('style')).toHaveLength(0);
+            expect(wrapper).not.toHaveClass('pp-flex--20x1');
 
-        Object.defineProperty(window, 'getComputedStyle', {
-            value: () => ({
-                getPropertyValue: prop => {
-                    if (prop === 'display') return 'block';
+            setSize(container, mockRenderObject);
 
-                    return 30;
+            expect(wrapper.getElementsByTagName('style')).toHaveLength(1);
+            expect(wrapper.getElementsByTagName('style')[0]).toHaveTextContent('padding-top: 5%');
+            expect(wrapper).toHaveClass('pp-flex--20x1');
+        });
+    });
+
+    describe('Text Layout', () => {
+        it('Calculates correct dimensions with flex styles', async () => {
+            const { container: wrapper } = createContainer('span');
+            const { container } = createContainer('iframe', { parent: wrapper, body: template });
+            const mockRenderObject = {
+                wrapper,
+                options: {
+                    style: {
+                        layout: 'text'
+                    }
                 }
-            })
+            };
+
+            await injectSpies({ container }, async () => {
+                setSize(container, mockRenderObject);
+
+                await new Promise(res => setTimeout(res, 100));
+
+                expect(container).toHaveAttribute('height', '10');
+                expect(container.getAttribute('style')).toContain('min-width: 28px');
+            });
         });
 
-        setSize(mockContainer, mockRender);
-        expect(mockRender.logger.error).toHaveBeenCalledTimes(1);
-        expect(mockContainer.setAttribute).toHaveBeenCalledWith('data-pp-message-hidden', 'true');
+        it('Calculates correct dimensions with block styles', async () => {
+            const { container: wrapper } = createContainer('span');
+            const { container } = createContainer('iframe', { parent: wrapper, body: template });
+            const mockRenderObject = {
+                wrapper,
+                options: {
+                    style: {
+                        layout: 'text'
+                    }
+                }
+            };
+
+            await injectSpies({ container, display: 'block' }, async () => {
+                setSize(container, mockRenderObject);
+
+                await new Promise(res => setTimeout(res, 100));
+
+                expect(container).toHaveAttribute('height', '10');
+                expect(container.getAttribute('style')).toContain('min-width: 14px');
+            });
+        });
+
+        it('Throws error when container overflows', async () => {
+            const { container: wrapper } = createContainer('span');
+            const { container } = createContainer('iframe', { parent: wrapper, body: template });
+            const mockRenderObject = {
+                wrapper,
+                options: {
+                    style: {
+                        layout: 'text',
+                        logo: {
+                            type: 'alternative'
+                        }
+                    }
+                },
+                logger: {
+                    warn: jest.fn(),
+                    error: jest.fn()
+                }
+            };
+
+            await injectSpies({ container, wrapperWidth: 10 }, () => {
+                expect(() => setSize(container, mockRenderObject)).toThrow(
+                    expect.objectContaining({
+                        name: 'Error',
+                        message: ERRORS.MESSAGE_OVERFLOW,
+                        onEnd: expect.any(Function)
+                    })
+                );
+            });
+        });
+
+        it('Hides message when fallback message overflows', async () => {
+            const { container: wrapper } = createContainer('span');
+            const { container } = createContainer('iframe', { parent: wrapper, body: template });
+            const mockRenderObject = {
+                wrapper,
+                options: {
+                    style: {
+                        layout: 'text',
+                        logo: {
+                            type: 'primary',
+                            position: 'top'
+                        }
+                    }
+                },
+                logger: {
+                    warn: jest.fn(),
+                    error: jest.fn()
+                }
+            };
+
+            await injectSpies({ container, wrapperWidth: 10 }, async () => {
+                setSize(container, mockRenderObject);
+
+                await new Promise(res => setTimeout(res, 100));
+
+                expect(container).toHaveAttribute('height', '0');
+                expect(mockRenderObject.logger.error).toHaveBeenCalledTimes(1);
+            });
+        });
     });
 });
