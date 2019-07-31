@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/paypal/paypal-messaging-components/compare/v1.0.0...v1.0.1) (2019-07-31)
+
+
+### Bug Fixes
+
+* prevent invalid option value passing through validation ([#16](https://github.com/paypal/paypal-messaging-components/issues/16)) ([dc81e06](https://github.com/paypal/paypal-messaging-components/commit/dc81e06))
+
+
+
 ### [1.0.0](https://github.com/paypal/paypal-messaging-components/compare/v0.4.1...v1.0.0) (2019-07-11)
 
 ### Bug Fixes
