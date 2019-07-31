@@ -8,7 +8,7 @@ A messaging component allowing easy integration of PayPal Credit Messages onto y
 
 ## Dev Docs
 
-**TODO:** Link to developer docs
+See [**developer.paypal.com/docs/limited-release/sdk-credit-messaging**](https://developer.paypal.com/docs/limited-release/sdk-credit-messaging/)
 
 ---
 

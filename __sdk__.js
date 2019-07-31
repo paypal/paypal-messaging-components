@@ -1,9 +1,9 @@
 const globals = require('./globals');
 
 module.exports = {
-    'finance-messaging': {
-        entry: './src/index',
-        staticNamespace: '__finance_messaging__',
+    messages: {
+        entry: './src/interface/messages',
+        staticNamespace: '__messages__',
         globals: globals()
     }
 };
