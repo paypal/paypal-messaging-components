@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/paypal/paypal-messaging-components/compare/v1.0.0...v1.0.2) (2019-07-31)
+
+
+### Bug Fixes
+
+* pass currency code to imadserv ([#23](https://github.com/paypal/paypal-messaging-components/issues/23)) ([980f23a](https://github.com/paypal/paypal-messaging-components/commit/980f23a))
+* prevent invalid option value passing through validation ([#16](https://github.com/paypal/paypal-messaging-components/issues/16)) ([cff36cb](https://github.com/paypal/paypal-messaging-components/commit/cff36cb))
+
+
+
 ### [1.0.1](https://github.com/paypal/paypal-messaging-components/compare/v1.0.0...v1.0.1) (2019-07-31)
 
 
