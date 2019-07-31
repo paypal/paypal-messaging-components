@@ -1,18 +1,20 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
-import { logger, EVENTS } from '../../services/logger';
+import { Logger, EVENTS } from '../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
-import { createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
+import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();
+const loggers = new Map();
 
-function concatTracker(obj) {
+function setupTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
     const { clickUrl, impressionUrl } = obj.meta;
-    const track = logger.track({
+    const track = obj.logger.track({
         uuid,
         urls: {
             DEFAULT: clickUrl,
@@ -23,25 +25,22 @@ function concatTracker(obj) {
         }
     });
 
-    return objectAssign(obj, { track });
+    return { track };
 }
 
-const onRendered = ({ options: { onRender, id } }) => {
-    logger.info(EVENTS.MESSAGE_RENDERED, {
-        id
-    });
+const assignToProp = curry((field, object) => ({ [field]: object }));
+const assignFn = curry((fn, obj) => ({ ...obj, ...fn(obj) }));
+const asyncAssignFn = curry((fn, obj) => fn(obj).then(props => ({ ...obj, ...props })));
 
+const onRendered = ({ options: { onRender } }) => {
     if (onRender) {
         onRender();
     }
 };
 
 const Banner = {
-    create(initialOptions, inputWrapper) {
-        logger.info(EVENTS.MESSAGE_CREATE_INITIATED, {
-            id: initialOptions.id,
-            options: initialOptions
-        });
+    create(initialOptions, inputWrapper, logger) {
+        logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
         const isLegacy = currentOptions._legacy;
 
@@ -54,26 +53,32 @@ const Banner = {
         const wrapper = isLegacy ? container : document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
+        const logBefore = curry((fn, name, args) => {
+            logger.info(name);
+            return fn(args);
+        });
+
         function render(totalOptions) {
-            const options = validateOptions(totalOptions);
-            const renderProm = getBannerMarkup(options) // Promise<Object( markup, options )>
-                .then(
-                    insertMarkup // Promise<Object(meta, options)>
-                )
+            logger.info(EVENTS.RENDER_START);
+
+            return pipe(
+                validateOptions(logger), // Object()
+                passThrough(updateOptions), // Object()
+                assignToProp('options'), // Object(options)
+                partial(objectAssign, { logger }), // Object(options, logger)
+                asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, markup)>
+            )(totalOptions)
+                .then(asyncAssignFn(logBefore(insertMarkup, EVENTS.INSERT))) // Promise<Object(options, logger, markup, meta)>
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, events }), // Object(meta, wrapper, options, events)
-                        concatTracker, // Object(meta, wrapper, options, events, track)
-                        passThrough(Modal.init), // Object(meta, wrapper, options, events, track)
-                        passThrough(setSize), // Object(meta, wrapper, options, events, track)
-                        passThrough(runStats),
-                        onRendered
+                        partial(objectAssign, { wrapper, events }), // Object(options, logger, markup, meta, wrapper, events)
+                        assignFn(setupTracker), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        logBefore(onRendered, EVENTS.RENDER_END)
                     )
-                )
-                .catch(err => logger.error({ error: `${err}` }));
-
-            logger.waitFor(renderProm);
-            updateOptions(options);
+                );
         }
 
         function update(newOptions) {
@@ -81,22 +86,24 @@ const Banner = {
             const diff = objectDiff(currentOptions, updatedOptions);
             const shouldUpdate = Object.keys(diff).length > 0;
 
+            logger.info(EVENTS.UPDATE, { willUpdate: shouldUpdate });
+
             if (shouldUpdate) {
                 clearEvents();
-                // LOGGER: starting update
-                logger.info(EVENTS.MESSAGE_UPDATE_INITIATED, {
-                    id: updatedOptions.id,
-                    options: newOptions
-                });
-                render(updatedOptions);
+
+                return render(updatedOptions);
             }
+
+            return ZalgoPromise.resolve();
         }
 
         // Iframe must be in the DOM otherwise the markup cannot be placed inside
         inputWrapper.appendChild(wrapper);
-        render(currentOptions);
+        // LOGGER: appending empty iframe - waiting for banner
+        logger.info(EVENTS.CONTAINER);
 
         return {
+            renderProm: render(currentOptions),
             wrapper,
             container,
             update
@@ -105,19 +112,39 @@ const Banner = {
 };
 
 export default {
-    init(wrapper, options) {
+    init(wrapper, selectorType, options) {
+        if (!loggers.has(wrapper)) {
+            loggers.set(
+                wrapper,
+                Logger.create({
+                    id: options.id,
+                    account: options.account,
+                    selector: selectorType,
+                    type: 'Message'
+                })
+            );
+        }
+        const logger = loggers.get(wrapper);
+
+        logger.start({ options });
+
+        let renderProm;
         if (banners.has(wrapper)) {
-            banners.get(wrapper).update(options);
+            renderProm = banners.get(wrapper).update(options);
         } else {
-            const banner = Banner.create(options, wrapper);
+            const banner = Banner.create(options, wrapper, logger);
             banners.set(wrapper, banner);
 
-            // LOGGER: appending empty iframe - waiting for banner
-            logger.info(EVENTS.IFRAME_CREATED, {
-                id: options.id
-            });
+            ({ renderProm } = banner);
         }
 
-        return banners.get(wrapper).update;
+        return renderProm.then(logger.end).catch(err => {
+            logger.error({ name: err.message });
+            logger.end();
+
+            if (typeof err.onEnd === 'function') {
+                err.onEnd();
+            }
+        });
     }
 };

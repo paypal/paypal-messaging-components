@@ -1,7 +1,8 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, EVENTS } from '../services/logger';
+import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
 import { objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
 import { globalState, setGlobalState } from '../../utils/globalState';
@@ -25,13 +26,13 @@ export default function render(options, selector = '[data-pp-message]') {
         containers = [...selector];
         selectorType = 'Array<HTMLElement>';
     } else {
-        return logger.warn('Invalid selector', selector);
+        return Logger.warn('Invalid selector', selector);
     }
 
     containers = containers.filter(container => {
         // Ensure container is in the DOM in order for proper iframe population
         if (!container.ownerDocument.body.contains(container)) {
-            logger.warn('Skipping container. Must be in the document:', container);
+            Logger.warn('Skipping container. Must be in the document:', container);
             return false;
         }
 
@@ -43,46 +44,35 @@ export default function render(options, selector = '[data-pp-message]') {
         return true;
     });
 
-    logger.info(EVENTS.STARTING_MESSAGE_RENDER, {
-        url: window.location.href,
-        selector: selectorType
-    });
+    return ZalgoPromise.all(
+        containers.map(container => {
+            const totalOptions = objectMerge(options, getInlineOptions(container));
 
-    const updateFns = containers.map(container => {
-        const totalOptions = objectMerge(options, getInlineOptions(container));
+            if (!container.hasAttribute('data-pp-id')) {
+                container.setAttribute('data-pp-id', globalState.nextId);
+                setGlobalState({ nextId: (globalState.nextId += 1) });
+            }
 
-        if (!container.hasAttribute('data-pp-id')) {
-            container.setAttribute('data-pp-id', globalState.nextId);
-            setGlobalState({ nextId: (globalState.nextId += 1) });
-        }
+            const observer = new MutationObserver(mutationList => {
+                const newConfig = mutationList.reduce((accumulator, mutation) => {
+                    if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
 
-        totalOptions.id = container.getAttribute('data-pp-id');
+                    return {
+                        ...accumulator,
+                        ...flattenedToObject(
+                            mutation.attributeName.slice(8),
+                            mutation.target.getAttribute(mutation.attributeName)
+                        )
+                    };
+                }, {});
 
-        const observer = new MutationObserver(mutationList => {
-            const newConfig = mutationList.reduce((accumulator, mutation) => {
-                if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
+                Banner.init(container, selectorType, newConfig);
+            });
+            observer.observe(container, { attributes: true });
 
-                return {
-                    ...accumulator,
-                    ...flattenedToObject(
-                        mutation.attributeName.slice(8),
-                        mutation.target.getAttribute(mutation.attributeName)
-                    )
-                };
-            }, {});
-
-            Banner.init(container, newConfig);
-        });
-        observer.observe(container, { attributes: true });
-
-        return [Banner.init(container, totalOptions), container, totalOptions];
-    });
-
-    return newOptions =>
-        updateFns.forEach(([updateBanner, container, prevOptions]) => {
-            const totalOptions = objectMerge(prevOptions, objectMerge(newOptions, getInlineOptions(container)));
             totalOptions.id = container.getAttribute('data-pp-id');
 
-            updateBanner(totalOptions);
-        });
+            return Banner.init(container, selectorType, totalOptions);
+        })
+    );
 }

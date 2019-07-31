@@ -1,114 +1,107 @@
-import objectValues from 'core-js-pure/stable/object/values';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import { ZalgoPromise } from 'zalgo-promise';
+import stringPadStart from 'core-js-pure/stable/string/pad-start';
+import arrayFind from 'core-js-pure/stable/array/find';
 
+import { createState, objectGet } from '../../../utils';
 import sendBeacon from './sendBeacon';
 
-const FLUSH_INTERVAL = 3000;
 export const EVENTS = {
-    STARTING_MESSAGE_RENDER: 'Starting_Message_Render',
-    IFRAME_CREATED: 'iFrame_Created',
-    MESSAGE_FETCH_INITIATED: 'Message_Fetch_Initiated',
-    MESSAGE_FETCH_RECEIVED: 'Message_Fetch_Received',
-    MESSAGE_CREATE_INITIATED: 'Message_Create_Initiated',
-    MESSAGE_UPDATE_INITIATED: 'Message_Update_Initiated',
-    MESSAGE_RENDERED: 'Message_Rendered',
-    ERROR: 'ERROR',
-    FLUSH: 'FLUSH',
-    FLUSH_CAP: 'FLUSH_CAP'
+    START: 'Start',
+    END: 'End',
+    RENDER_START: 'Render_Start',
+    RENDER_END: 'Render_End',
+    CREATE: 'Create',
+    CONTAINER: 'Container',
+    VALIDATE: 'Validate',
+    FETCH_START: 'Fetch_Start',
+    FETCH_END: 'Fetch_End',
+    INSERT: 'Insert',
+    MODAL: 'Modal',
+    SIZE: 'Size',
+    STATS: 'Stats',
+    UPDATE: 'Update',
+    ERROR: 'Error'
 };
 
 export const ERRORS = {
-    OVERFLOW: 'Banner Overflow detected.',
-    HIDDEN: 'Overflow fallback failed.  Hiding banner.',
-    INVALID_STYLE_OPTIONS: 'Invalid account, styles, signature combination.',
-    INVALID_LEGACY_BANNER: 'Invalid legacy banner placement/offerType combination',
-    MODAL_LOAD_FAILURE: 'Modal failed to initialize.',
-    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative'
+    MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
+    MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
+    MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
+    MESSAGE_INVALID_MARKUP: 'MESSAGE_INVALID_MARKUP',
+    MODAL_FAIL: 'MODAL_FAIL',
+    CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
+    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
 };
 
-const logs = [];
-const pendingEvents = [];
-
-function prepareLogs(payload) {
-    const possibleEvents = objectValues(EVENTS);
-
-    return payload.reduce((accumulator, log) => {
-        if (arrayIncludes(possibleEvents, log.event)) {
-            accumulator[log.event] = accumulator[log.event] || [];
-            const organizedLog = { ...log };
-            delete organizedLog.event;
-            accumulator[log.event].push(organizedLog);
-        }
-
-        return accumulator;
-    }, {});
+function formatLogs(logs) {
+    return logs.map(log => {
+        const name = log.event;
+        const newLog = { ...log };
+        delete newLog.event;
+        return Object.keys(newLog).length > 0 ? [name, newLog] : name;
+    });
 }
 
-let flushCount = 0;
 const FLUSH_MAX = 3;
 
-export const logger = {
-    flush(immediate = false) {
-        if (flushCount >= FLUSH_MAX) return ZalgoPromise.resolve();
+export const Logger = {
+    create({ id, account, selector, type }) {
+        const [state, setState] = createState({ count: 1, account, history: [], logs: [] });
 
-        return (immediate
-            ? ZalgoPromise.resolve()
-            : ZalgoPromise.all(pendingEvents).then(() => {
-                  pendingEvents.length = 0;
-              })
-        ).then(() => {
-            if (logs.length === 0) return;
+        function flush() {
+            if (state.count > FLUSH_MAX) return;
 
-            logs.push({
-                event: EVENTS.FLUSH,
-                flushType: immediate ? 'immediate' : 'normal'
-            });
-
-            flushCount += 1;
-
-            if (flushCount === FLUSH_MAX) {
-                logs.push({
-                    event: EVENTS.FLUSH_CAP,
-                    cap: FLUSH_MAX
-                });
-            }
-
+            const subType = arrayFind(state.logs, ({ event }) => event === 'Create' || event === 'Update');
             const payload = {
                 version: __MESSAGES__.__VERSION__,
-                events: prepareLogs(logs)
+                url: window.location.href,
+                selector,
+                type: `${type}${subType ? `-${subType.event}` : ''}`,
+                id: `${id}-${stringPadStart(state.count, 4, '0')}`,
+                account: state.account,
+                history: state.history,
+                events: formatLogs(state.logs)
             };
-            logs.length = 0;
+
+            setState({ count: state.count + 1, logs: [] });
 
             // TODO: Handle error
             const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = () => {
+                if (xhttp.readyState === 4) {
+                    setState({ history: [...state.history, xhttp.getResponseHeader('Paypal-Debug-Id')].slice(-5) });
+                }
+            };
             xhttp.open('POST', __MESSAGES__.__LOGGING_URL__, true);
             xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhttp.send(JSON.stringify({ data: payload }));
-        });
+        }
+
+        const logger = {
+            start(data) {
+                if (objectGet(data, 'options.account') && state.account !== data.options.account) {
+                    setState({ account: data.account });
+                }
+                logger.info(EVENTS.START, { t: Date.now(), ...data });
+            },
+            end(data) {
+                logger.info(EVENTS.END, { t: Date.now(), ...data });
+                flush();
+            },
+            info(event, data = {}) {
+                setState({ logs: [...state.logs, { event, ...data }] });
+            },
+            error(data) {
+                logger.info(EVENTS.ERROR, data);
+            },
+            track: sendBeacon,
+            warn(...messages) {
+                console.warn('[PayPal Messages]', ...messages);
+            }
+        };
+
+        return logger;
     },
-    info(event, data = {}) {
-        logs.push({ event, ...data });
-    },
-    error(data) {
-        logger.info(EVENTS.ERROR, data);
-        logger.flush(true);
-    },
-    waitFor(prom) {
-        pendingEvents.push(prom);
-    },
-    track: sendBeacon,
     warn(...messages) {
         console.warn('[PayPal Messages]', ...messages);
     }
 };
-
-let flushing = false;
-setInterval(() => {
-    if (flushing) return;
-
-    flushing = true;
-    logger.flush().then(() => {
-        flushing = false;
-    });
-}, FLUSH_INTERVAL);
