@@ -226,7 +226,8 @@ class Ad {
             format: 'HTML',
             presentation_types: 'HTML',
             locale: 'en_US',
-            country_code: 'US'
+            country_code: 'US',
+            currency_code: 'USD'
         };
 
         if (this.variant === 'MERCHANT') {
