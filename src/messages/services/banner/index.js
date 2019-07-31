@@ -60,6 +60,7 @@ function fetcher(options) {
         const queryParams = {
             dimensions: PLACEMENT,
             currency_value: amount,
+            currency_code: 'USD',
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
