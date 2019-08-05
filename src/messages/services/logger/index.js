@@ -68,12 +68,19 @@ export const Logger = {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = () => {
                 if (xhttp.readyState === 4) {
-                    setState({ history: [...state.history, xhttp.getResponseHeader('Paypal-Debug-Id')].slice(-5) });
+                    // Same correlation id duplicated in prod
+                    const [corrId] = (xhttp.getResponseHeader('Paypal-Debug-Id') || '').split(',');
+                    setState({ history: [...state.history, corrId].slice(-5) });
                 }
             };
             xhttp.open('POST', __MESSAGES__.__LOGGING_URL__, true);
             xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            // Some sites setting Array.prototype.toJSON causing non-standard JSON stringify
+            // ex: https://www.interpunk.com/
+            const temp = Array.prototype.toJSON;
+            delete Array.prototype.toJSON;
             xhttp.send(JSON.stringify({ data: payload }));
+            Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native
         }
 
         const logger = {
@@ -81,10 +88,11 @@ export const Logger = {
                 if (objectGet(data, 'options.account') && state.account !== data.options.account) {
                     setState({ account: data.account });
                 }
-                logger.info(EVENTS.START, { t: Date.now(), ...data });
+                // Dat.now() altered on some sites: https://www.hydropool.com
+                logger.info(EVENTS.START, { t: new Date().getTime(), ...data });
             },
             end(data) {
-                logger.info(EVENTS.END, { t: Date.now(), ...data });
+                logger.info(EVENTS.END, { t: new Date().getTime(), ...data });
                 flush();
             },
             info(event, data = {}) {
