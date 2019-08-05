@@ -3,13 +3,13 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 
 import ni from './ni';
-import niNonUs from './ni:non-us';
-import ezpAnyEqz from './ezp:any:eqz';
-import ezpAnyGtz from './ezp:any:gtz';
-import palaMultiEqz from './pala:multi:eqz';
-import palaMultiGtz from './pala:multi:gtz';
-import palaSingleEqz from './pala:single:eqz';
-import palaSingleGtz from './pala:single:gtz';
+import niNonUs from './ni_non-us';
+import ezpAnyEqz from './ezp_any_eqz';
+import ezpAnyGtz from './ezp_any_gtz';
+import palaMultiEqz from './pala_multi_eqz';
+import palaMultiGtz from './pala_multi_gtz';
+import palaSingleEqz from './pala_single_eqz';
+import palaSingleGtz from './pala_single_gtz';
 
 export function getDataByTag(data, tag) {
     let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
