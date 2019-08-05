@@ -88,7 +88,7 @@ export const Logger = {
                 if (objectGet(data, 'options.account') && state.account !== data.options.account) {
                     setState({ account: data.account });
                 }
-                // Dat.now() altered on some sites: https://www.hydropool.com
+                // Date.now() altered on some sites: https://www.hydropool.com
                 logger.info(EVENTS.START, { t: new Date().getTime(), ...data });
             },
             end(data) {
