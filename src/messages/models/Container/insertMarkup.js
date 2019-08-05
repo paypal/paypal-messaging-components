@@ -75,7 +75,7 @@ function handleLegacy(container, markup, options) {
 
     arrayFrom(templateNode.children).forEach(el => container.appendChild(el.cloneNode(true)));
 
-    return { meta };
+    return meta;
 }
 
 export default curry(
