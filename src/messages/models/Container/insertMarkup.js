@@ -48,15 +48,19 @@ function insertJsonIntoIframe(container, markup, options) {
             styleElem.parentNode.removeChild(styleElem);
         });
 
-        // Clear out any existing children from iframe
-        while (iframeWindow.document.body.firstChild) {
-            iframeWindow.document.body.removeChild(iframeWindow.document.body.firstChild);
-        }
-
-        arrayFrom(newNode.children).forEach(el => iframeWindow.document.body.appendChild(el));
-
         ZalgoPromise.all(proms).then(() => {
-            resolve(meta);
+            // RAF to prevent element swap flicker
+            requestAnimationFrame(() => {
+                // Clear out any existing children from iframe
+                while (iframeWindow.document.body.firstChild) {
+                    iframeWindow.document.body.removeChild(iframeWindow.document.body.firstChild);
+                }
+
+                arrayFrom(newNode.children).forEach(el => iframeWindow.document.body.appendChild(el));
+
+                meta.minWidth = templateNode.width;
+                resolve(meta);
+            });
         });
     });
 }

@@ -52,30 +52,30 @@
                 return {}.hasOwnProperty.call(e, n);
             }),
             (t.p = ''),
-            t((t.s = 155))
+            t((t.s = 162))
         );
     })([
         function(e, n, t) {
-            e.exports = t(143);
+            e.exports = t(142);
         },
         function(e, n, t) {
-            e.exports = t(138);
+            e.exports = t(139);
         },
         function(e, n, t) {
-            e.exports = t(111);
+            e.exports = t(112);
         },
         function(e, n, t) {
-            e.exports = t(109);
+            e.exports = t(110);
         },
         function(e, n, t) {
             'use strict';
             var o = t(8),
-                i = t(102).f,
-                a = t(103),
-                r = t(15),
-                s = t(34),
-                l = t(16),
-                c = t(14),
+                i = t(103).f,
+                r = t(104),
+                a = t(16),
+                s = t(35),
+                l = t(17),
+                c = t(15),
                 u = function(e) {
                     var n = function(n, t, o) {
                         if (this instanceof e) {
@@ -104,13 +104,13 @@
                     y,
                     _ = e.target,
                     w = e.global,
-                    v = e.stat,
-                    x = e.proto,
-                    b = w ? o : v ? o[_] : (o[_] || {}).prototype,
-                    E = w ? r : r[_] || (r[_] = {}),
+                    x = e.stat,
+                    v = e.proto,
+                    b = w ? o : x ? o[_] : (o[_] || {}).prototype,
+                    E = w ? a : a[_] || (a[_] = {}),
                     P = E.prototype;
                 for (m in n)
-                    (t = !a(w ? m : _ + (v ? '.' : '#') + m, e.forced) && b && c(b, m)),
+                    (t = !r(w ? m : _ + (x ? '.' : '#') + m, e.forced) && b && c(b, m)),
                         (p = E[m]),
                         t && (g = e.noTargetGet ? (y = i(b, m)) && y.value : b[m]),
                         (f = t && g ? g : n[m]),
@@ -120,33 +120,33 @@
                                     ? s(f, o)
                                     : e.wrap && t
                                     ? u(f)
-                                    : x && 'function' == typeof f
+                                    : v && 'function' == typeof f
                                     ? s(Function.call, f)
                                     : f),
                             (e.sham || (f && f.sham) || (p && p.sham)) && l(h, 'sham', !0),
                             (E[m] = h),
-                            x &&
-                                (c(r, (d = _ + 'Prototype')) || l(r, d, {}),
-                                (r[d][m] = f),
+                            v &&
+                                (c(a, (d = _ + 'Prototype')) || l(a, d, {}),
+                                (a[d][m] = f),
                                 e.real && P && !P[m] && l(P, m, f)));
             };
         },
         function(e, n, t) {
             var o = t(8),
                 i = t(38),
-                a = t(50),
-                r = t(121),
+                r = t(51),
+                a = t(122),
                 s = o.Symbol,
                 l = i('wks');
             e.exports = function(e) {
-                return l[e] || (l[e] = (r && s[e]) || (r ? s : a)('Symbol.' + e));
+                return l[e] || (l[e] = (a && s[e]) || (a ? s : r)('Symbol.' + e));
             };
         },
         function(e, n, t) {
-            e.exports = t(136);
+            e.exports = t(149);
         },
         function(e, n, t) {
-            e.exports = t(100);
+            e.exports = t(101);
         },
         function(e, n) {
             var t = 'object',
@@ -161,14 +161,20 @@
                 Function('return this')();
         },
         function(e, n) {
+            e.exports = function(e) {
+                if (null == e) throw TypeError("Can't call method on " + e);
+                return e;
+            };
+        },
+        function(e, n) {
             e.exports =
                 "@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 200;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n";
         },
         function(e, n, t) {
-            e.exports = t(144);
+            e.exports = t(137);
         },
         function(e, n, t) {
-            var o = t(12);
+            var o = t(13);
             e.exports = !o(function() {
                 return (
                     7 !=
@@ -204,48 +210,39 @@
             e.exports = {};
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(27),
-                a = t(24);
+            var o = t(12),
+                i = t(26),
+                r = t(23);
             e.exports = o
                 ? function(e, n, t) {
-                      return i.f(e, n, a(1, t));
+                      return i.f(e, n, r(1, t));
                   }
                 : function(e, n, t) {
                       return (e[n] = t), e;
                   };
         },
-        function(e, n) {
-            e.exports = function(e) {
-                if (null == e) throw TypeError("Can't call method on " + e);
-                return e;
-            };
-        },
         function(e, n, t) {
-            e.exports = t(141);
-        },
-        function(e, n, t) {
-            e.exports = t(151);
-        },
-        function(e, n, t) {
-            var o = t(13);
-            e.exports = function(e) {
-                if (!o(e)) throw TypeError(String(e) + ' is not an object');
-                return e;
-            };
-        },
-        function(e, n, t) {
-            var o = t(36),
+            var o = t(27),
                 i = Math.min;
             e.exports = function(e) {
                 return e > 0 ? i(o(e), 9007199254740991) : 0;
             };
         },
         function(e, n, t) {
-            e.exports = t(53);
+            e.exports = t(41);
         },
         function(e, n, t) {
-            e.exports = t(153);
+            e.exports = t(158);
+        },
+        function(e, n, t) {
+            var o = t(14);
+            e.exports = function(e) {
+                if (!o(e)) throw TypeError(String(e) + ' is not an object');
+                return e;
+            };
+        },
+        function(e, n, t) {
+            e.exports = t(160);
         },
         function(e, n) {
             e.exports = function(e, n) {
@@ -253,8 +250,8 @@
             };
         },
         function(e, n, t) {
-            var o = t(32),
-                i = t(17);
+            var o = t(33),
+                i = t(9);
             e.exports = function(e) {
                 return o(i(e));
             };
@@ -266,15 +263,15 @@
             };
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(45),
-                a = t(20),
-                r = t(33),
+            var o = t(12),
+                i = t(46),
+                r = t(21),
+                a = t(34),
                 s = Object.defineProperty;
             n.f = o
                 ? s
                 : function(e, n, t) {
-                      if ((a(e), (n = r(n, !0)), a(t), i))
+                      if ((r(e), (n = a(n, !0)), r(t), i))
                           try {
                               return s(e, n, t);
                           } catch (e) {}
@@ -282,14 +279,24 @@
                       return 'value' in t && (e[n] = t.value), e;
                   };
         },
+        function(e, n) {
+            var t = Math.ceil,
+                o = Math.floor;
+            e.exports = function(e) {
+                return isNaN((e = +e)) ? 0 : (e > 0 ? o : t)(e);
+            };
+        },
         function(e, n, t) {
-            var o = t(17);
+            var o = t(9);
             e.exports = function(e) {
                 return Object(o(e));
             };
         },
         function(e, n) {
             e.exports = {};
+        },
+        function(e, n, t) {
+            e.exports = t(154);
         },
         function(e, n) {
             e.exports =
@@ -299,8 +306,8 @@
             'use strict';
             var o = {}.propertyIsEnumerable,
                 i = Object.getOwnPropertyDescriptor,
-                a = i && !o.call({ 1: 2 }, 1);
-            n.f = a
+                r = i && !o.call({ 1: 2 }, 1);
+            n.f = r
                 ? function(e) {
                       var n = i(this, e);
                       return !!n && n.enumerable;
@@ -308,19 +315,19 @@
                 : o;
         },
         function(e, n, t) {
-            var o = t(12),
-                i = t(26),
-                a = ''.split;
+            var o = t(13),
+                i = t(25),
+                r = ''.split;
             e.exports = o(function() {
                 return !Object('z').propertyIsEnumerable(0);
             })
                 ? function(e) {
-                      return 'String' == i(e) ? a.call(e, '') : Object(e);
+                      return 'String' == i(e) ? r.call(e, '') : Object(e);
                   }
                 : Object;
         },
         function(e, n, t) {
-            var o = t(13);
+            var o = t(14);
             e.exports = function(e, n) {
                 if (!o(e)) return e;
                 var t, i;
@@ -331,7 +338,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(104);
+            var o = t(105);
             e.exports = function(e, n, t) {
                 if ((o(e), void 0 === n)) return e;
                 switch (t) {
@@ -358,8 +365,8 @@
             };
         },
         function(e, n, t) {
-            var o = t(106),
-                i = t(48);
+            var o = t(107),
+                i = t(49);
             e.exports =
                 Object.keys ||
                 function(e) {
@@ -367,25 +374,18 @@
                 };
         },
         function(e, n) {
-            var t = Math.ceil,
-                o = Math.floor;
-            e.exports = function(e) {
-                return isNaN((e = +e)) ? 0 : (e > 0 ? o : t)(e);
-            };
-        },
-        function(e, n) {
             e.exports = {};
         },
         function(e, n, t) {
             var o = t(8),
-                i = t(117),
-                a = t(39),
-                r = o['__core-js_shared__'] || i('__core-js_shared__', {});
+                i = t(118),
+                r = t(39),
+                a = o['__core-js_shared__'] || i('__core-js_shared__', {});
             (e.exports = function(e, n) {
-                return r[e] || (r[e] = void 0 !== n ? n : {});
+                return a[e] || (a[e] = void 0 !== n ? n : {});
             })('versions', []).push({
                 version: '3.1.3',
-                mode: a ? 'pure' : 'global',
+                mode: r ? 'pure' : 'global',
                 copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
             });
         },
@@ -394,14 +394,24 @@
         },
         function(e, n, t) {
             var o = t(38),
-                i = t(50),
-                a = o('keys');
+                i = t(51),
+                r = o('keys');
             e.exports = function(e) {
-                return a[e] || (a[e] = i(e));
+                return r[e] || (r[e] = i(e));
             };
         },
         function(e, n, t) {
-            var o = t(140);
+            var o = t(16),
+                i = t(8),
+                r = function(e) {
+                    return 'function' == typeof e ? e : void 0;
+                };
+            e.exports = function(e, n) {
+                return arguments.length < 2 ? r(o[e]) || r(i[e]) : (o[e] && o[e][n]) || (i[e] && i[e][n]);
+            };
+        },
+        function(e, n, t) {
+            var o = t(141);
             e.exports = function(e) {
                 if (o(e)) throw TypeError("The method doesn't accept regular expressions");
                 return e;
@@ -430,15 +440,15 @@
                 '/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */\n\n.message__content {\n    display: flex;\n    padding-right: 1rem;\n}\n\n.message__logo-container {\n    flex: 0 0 33%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.message__logo {\n    width: 60%;\n}\n\n.message__messaging {\n    flex: 1 1 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: flex-start;\n}\n\n.message__messaging > * {\n    width: 100%;\n}\n\n.message__headline {\n    font-size: 5vw;\n    line-height: 1;\n    margin-bottom: 0.2em;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    font-size: 10px;\n    line-height: 1.1;\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1.5rem;\n        margin-bottom: 0.5rem;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n        line-height: 1;\n        padding-right: 8%;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 520px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        margin: 0 0 2% 0;\n        font-size: 3.7vw;\n        padding-right: 2%;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 640px) {\n    .message__headline {\n        font-size: 1.7rem;\n    }\n}\n';
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(12),
-                a = t(46);
+            var o = t(12),
+                i = t(13),
+                r = t(47);
             e.exports =
                 !o &&
                 !i(function() {
                     return (
                         7 !=
-                        Object.defineProperty(a('div'), 'a', {
+                        Object.defineProperty(r('div'), 'a', {
                             get: function() {
                                 return 7;
                             }
@@ -448,30 +458,30 @@
         },
         function(e, n, t) {
             var o = t(8),
-                i = t(13),
-                a = o.document,
-                r = i(a) && i(a.createElement);
+                i = t(14),
+                r = o.document,
+                a = i(r) && i(r.createElement);
             e.exports = function(e) {
-                return r ? a.createElement(e) : {};
+                return a ? r.createElement(e) : {};
             };
         },
         function(e, n, t) {
-            var o = t(25),
-                i = t(21),
-                a = t(107),
-                r = function(e) {
-                    return function(n, t, r) {
+            var o = t(24),
+                i = t(18),
+                r = t(108),
+                a = function(e) {
+                    return function(n, t, a) {
                         var s,
                             l = o(n),
                             c = i(l.length),
-                            u = a(r, c);
+                            u = r(a, c);
                         if (e && t != t) {
                             for (; c > u; ) if ((s = l[u++]) != s) return !0;
                         } else for (; c > u; u++) if ((e || u in l) && l[u] === t) return e || u || 0;
                         return !e && -1;
                     };
                 };
-            e.exports = { includes: r(!0), indexOf: r(!1) };
+            e.exports = { includes: a(!0), indexOf: a(!1) };
         },
         function(e, n) {
             e.exports = [
@@ -485,14 +495,14 @@
             ];
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(35),
-                a = t(25),
-                r = t(31).f,
+            var o = t(12),
+                i = t(36),
+                r = t(24),
+                a = t(32).f,
                 s = function(e) {
                     return function(n) {
-                        for (var t, s = a(n), l = i(s), c = l.length, u = 0, d = []; c > u; )
-                            (t = l[u++]), (o && !r.call(s, t)) || d.push(e ? [t, s[t]] : s[t]);
+                        for (var t, s = r(n), l = i(s), c = l.length, u = 0, d = []; c > u; )
+                            (t = l[u++]), (o && !a.call(s, t)) || d.push(e ? [t, s[t]] : s[t]);
                         return d;
                     };
                 };
@@ -509,15 +519,15 @@
             'use strict';
             var o,
                 i,
-                a,
-                r = t(52),
-                s = t(16),
-                l = t(14),
+                r,
+                a = t(53),
+                s = t(17),
+                l = t(15),
                 c = t(5),
                 u = t(39),
                 d = c('iterator'),
                 m = !1;
-            [].keys && ('next' in (a = [].keys()) ? (i = r(r(a))) !== Object.prototype && (o = i) : (m = !0)),
+            [].keys && ('next' in (r = [].keys()) ? (i = a(a(r))) !== Object.prototype && (o = i) : (m = !0)),
                 null == o && (o = {}),
                 u ||
                     l(o, d) ||
@@ -527,13 +537,13 @@
                 (e.exports = { IteratorPrototype: o, BUGGY_SAFARI_ITERATORS: m });
         },
         function(e, n, t) {
-            var o = t(14),
+            var o = t(15),
                 i = t(28),
-                a = t(40),
-                r = t(120),
-                s = a('IE_PROTO'),
+                r = t(40),
+                a = t(121),
+                s = r('IE_PROTO'),
                 l = Object.prototype;
-            e.exports = r
+            e.exports = a
                 ? Object.getPrototypeOf
                 : function(e) {
                       return (
@@ -549,33 +559,23 @@
                   };
         },
         function(e, n, t) {
-            var o = t(15),
-                i = t(8),
-                a = function(e) {
-                    return 'function' == typeof e ? e : void 0;
-                };
-            e.exports = function(e, n) {
-                return arguments.length < 2 ? a(o[e]) || a(i[e]) : (o[e] && o[e][n]) || (i[e] && i[e][n]);
-            };
-        },
-        function(e, n, t) {
-            var o = t(27).f,
-                i = t(16),
-                a = t(14),
-                r = t(125),
+            var o = t(26).f,
+                i = t(17),
+                r = t(15),
+                a = t(126),
                 s = t(5)('toStringTag'),
-                l = r !== {}.toString;
+                l = a !== {}.toString;
             e.exports = function(e, n, t, c) {
                 if (e) {
                     var u = t ? e : e.prototype;
-                    a(u, s) || o(u, s, { configurable: !0, value: n }), c && l && i(u, 'toString', r);
+                    r(u, s) || o(u, s, { configurable: !0, value: n }), c && l && i(u, 'toString', a);
                 }
             };
         },
         function(e, n, t) {
-            var o = t(26),
+            var o = t(25),
                 i = t(5)('toStringTag'),
-                a =
+                r =
                     'Arguments' ==
                     o(
                         (function() {
@@ -583,7 +583,7 @@
                         })()
                     );
             e.exports = function(e) {
-                var n, t, r;
+                var n, t, a;
                 return void 0 === e
                     ? 'Undefined'
                     : null === e
@@ -595,18 +595,21 @@
                           } catch (e) {}
                       })((n = Object(e)), i))
                     ? t
-                    : a
+                    : r
                     ? o(n)
-                    : 'Object' == (r = o(n)) && 'function' == typeof n.callee
+                    : 'Object' == (a = o(n)) && 'function' == typeof n.callee
                     ? 'Arguments'
-                    : r;
+                    : a;
             };
         },
         function(e, n) {
             e.exports = function() {};
         },
         function(e, n, t) {
-            e.exports = t(149);
+            e.exports = t(143);
+        },
+        function(e, n, t) {
+            e.exports = t(156);
         },
         function(e, n) {
             e.exports =
@@ -772,50 +775,50 @@
                 '* {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n\n.message__logo--svg {\n    position: relative;\n}\n\n.message__logo--svg img {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n.message__logo--svg canvas {\n    display: block;\n    width: 100%;\n    visibility: hidden;\n}\n';
         },
         function(e, n, t) {
-            t(101);
-            var o = t(15);
+            t(102);
+            var o = t(16);
             e.exports = o.Object.assign;
         },
         function(e, n, t) {
             var o = t(4),
-                i = t(105);
+                i = t(106);
             o({ target: 'Object', stat: !0, forced: Object.assign !== i }, { assign: i });
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(31),
+            var o = t(12),
+                i = t(32),
+                r = t(23),
                 a = t(24),
-                r = t(25),
-                s = t(33),
-                l = t(14),
-                c = t(45),
+                s = t(34),
+                l = t(15),
+                c = t(46),
                 u = Object.getOwnPropertyDescriptor;
             n.f = o
                 ? u
                 : function(e, n) {
-                      if (((e = r(e)), (n = s(n, !0)), c))
+                      if (((e = a(e)), (n = s(n, !0)), c))
                           try {
                               return u(e, n);
                           } catch (e) {}
-                      if (l(e, n)) return a(!i.f.call(e, n), e[n]);
+                      if (l(e, n)) return r(!i.f.call(e, n), e[n]);
                   };
         },
         function(e, n, t) {
-            var o = t(12),
+            var o = t(13),
                 i = /#|\.prototype\./,
-                a = function(e, n) {
-                    var t = s[r(e)];
+                r = function(e, n) {
+                    var t = s[a(e)];
                     return t == c || (t != l && ('function' == typeof n ? o(n) : !!n));
                 },
-                r = (a.normalize = function(e) {
+                a = (r.normalize = function(e) {
                     return String(e)
                         .replace(i, '.')
                         .toLowerCase();
                 }),
-                s = (a.data = {}),
-                l = (a.NATIVE = 'N'),
-                c = (a.POLYFILL = 'P');
-            e.exports = a;
+                s = (r.data = {}),
+                l = (r.NATIVE = 'N'),
+                c = (r.POLYFILL = 'P');
+            e.exports = r;
         },
         function(e, n) {
             e.exports = function(e) {
@@ -825,13 +828,13 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(11),
-                i = t(12),
-                a = t(35),
-                r = t(108),
-                s = t(31),
+            var o = t(12),
+                i = t(13),
+                r = t(36),
+                a = t(109),
+                s = t(32),
                 l = t(28),
-                c = t(32),
+                c = t(33),
                 u = Object.assign;
             e.exports =
                 !u ||
@@ -844,13 +847,13 @@
                         'abcdefghijklmnopqrst'.split('').forEach(function(e) {
                             n[e] = e;
                         }),
-                        7 != u({}, e)[t] || 'abcdefghijklmnopqrst' != a(u({}, n)).join('')
+                        7 != u({}, e)[t] || 'abcdefghijklmnopqrst' != r(u({}, n)).join('')
                     );
                 })
                     ? function(e, n) {
-                          for (var t = l(e), i = arguments.length, u = 1, d = r.f, m = s.f; i > u; )
+                          for (var t = l(e), i = arguments.length, u = 1, d = a.f, m = s.f; i > u; )
                               for (
-                                  var f, p = c(arguments[u++]), g = d ? a(p).concat(d(p)) : a(p), h = g.length, y = 0;
+                                  var f, p = c(arguments[u++]), g = d ? r(p).concat(d(p)) : r(p), h = g.length, y = 0;
                                   h > y;
 
                               )
@@ -860,40 +863,40 @@
                     : u;
         },
         function(e, n, t) {
-            var o = t(14),
-                i = t(25),
-                a = t(47).indexOf,
-                r = t(37);
+            var o = t(15),
+                i = t(24),
+                r = t(48).indexOf,
+                a = t(37);
             e.exports = function(e, n) {
                 var t,
                     s = i(e),
                     l = 0,
                     c = [];
-                for (t in s) !o(r, t) && o(s, t) && c.push(t);
-                for (; n.length > l; ) o(s, (t = n[l++])) && (~a(c, t) || c.push(t));
+                for (t in s) !o(a, t) && o(s, t) && c.push(t);
+                for (; n.length > l; ) o(s, (t = n[l++])) && (~r(c, t) || c.push(t));
                 return c;
             };
         },
         function(e, n, t) {
-            var o = t(36),
+            var o = t(27),
                 i = Math.max,
-                a = Math.min;
+                r = Math.min;
             e.exports = function(e, n) {
                 var t = o(e);
-                return t < 0 ? i(t + n, 0) : a(t, n);
+                return t < 0 ? i(t + n, 0) : r(t, n);
             };
         },
         function(e, n) {
             n.f = Object.getOwnPropertySymbols;
         },
         function(e, n, t) {
-            t(110);
-            var o = t(15);
+            t(111);
+            var o = t(16);
             e.exports = o.Object.entries;
         },
         function(e, n, t) {
             var o = t(4),
-                i = t(49).entries;
+                i = t(50).entries;
             o(
                 { target: 'Object', stat: !0 },
                 {
@@ -904,22 +907,22 @@
             );
         },
         function(e, n, t) {
-            t(112), t(129);
-            var o = t(15);
+            t(113), t(130);
+            var o = t(16);
             e.exports = o.Array.from;
         },
         function(e, n, t) {
             'use strict';
-            var o = t(113).charAt,
-                i = t(114),
-                a = t(118),
-                r = i.set,
+            var o = t(114).charAt,
+                i = t(115),
+                r = t(119),
+                a = i.set,
                 s = i.getterFor('String Iterator');
-            a(
+            r(
                 String,
                 'String',
                 function(e) {
-                    r(this, { type: 'String Iterator', string: String(e), index: 0 });
+                    a(this, { type: 'String Iterator', string: String(e), index: 0 });
                 },
                 function() {
                     var e,
@@ -933,12 +936,12 @@
             );
         },
         function(e, n, t) {
-            var o = t(36),
-                i = t(17),
-                a = function(e) {
+            var o = t(27),
+                i = t(9),
+                r = function(e) {
                     return function(n, t) {
-                        var a,
-                            r,
+                        var r,
+                            a,
                             s = String(i(n)),
                             l = o(t),
                             c = s.length;
@@ -946,33 +949,33 @@
                             ? e
                                 ? ''
                                 : void 0
-                            : (a = s.charCodeAt(l)) < 55296 ||
-                              a > 56319 ||
+                            : (r = s.charCodeAt(l)) < 55296 ||
+                              r > 56319 ||
                               l + 1 === c ||
-                              (r = s.charCodeAt(l + 1)) < 56320 ||
-                              r > 57343
+                              (a = s.charCodeAt(l + 1)) < 56320 ||
+                              a > 57343
                             ? e
                                 ? s.charAt(l)
-                                : a
+                                : r
                             : e
                             ? s.slice(l, l + 2)
-                            : r - 56320 + ((a - 55296) << 10) + 65536;
+                            : a - 56320 + ((r - 55296) << 10) + 65536;
                     };
                 };
-            e.exports = { codeAt: a(!1), charAt: a(!0) };
+            e.exports = { codeAt: r(!1), charAt: r(!0) };
         },
         function(e, n, t) {
             var o,
                 i,
-                a,
-                r = t(115),
+                r,
+                a = t(116),
                 s = t(8),
-                l = t(13),
-                c = t(16),
-                u = t(14),
+                l = t(14),
+                c = t(17),
+                u = t(15),
                 d = t(40),
                 m = t(37);
-            if (r) {
+            if (a) {
                 var f = new (0, s.WeakMap)(),
                     p = f.get,
                     g = f.has,
@@ -983,7 +986,7 @@
                     (i = function(e) {
                         return p.call(f, e) || {};
                     }),
-                    (a = function(e) {
+                    (r = function(e) {
                         return g.call(f, e);
                     });
             } else {
@@ -995,16 +998,16 @@
                     (i = function(e) {
                         return u(e, y) ? e[y] : {};
                     }),
-                    (a = function(e) {
+                    (r = function(e) {
                         return u(e, y);
                     });
             }
             e.exports = {
                 set: o,
                 get: i,
-                has: a,
+                has: r,
                 enforce: function(e) {
-                    return a(e) ? i(e) : o(e, {});
+                    return r(e) ? i(e) : o(e, {});
                 },
                 getterFor: function(e) {
                     return function(n) {
@@ -1018,9 +1021,9 @@
         },
         function(e, n, t) {
             var o = t(8),
-                i = t(116),
-                a = o.WeakMap;
-            e.exports = 'function' == typeof a && /native code/.test(i.call(a));
+                i = t(117),
+                r = o.WeakMap;
+            e.exports = 'function' == typeof r && /native code/.test(i.call(r));
         },
         function(e, n, t) {
             var o = t(38);
@@ -1028,7 +1031,7 @@
         },
         function(e, n, t) {
             var o = t(8),
-                i = t(16);
+                i = t(17);
             e.exports = function(e, n) {
                 try {
                     i(o, e, n);
@@ -1041,16 +1044,16 @@
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(119),
-                a = t(52),
-                r = t(126),
+                i = t(120),
+                r = t(53),
+                a = t(127),
                 s = t(54),
-                l = t(16),
-                c = t(128),
+                l = t(17),
+                c = t(129),
                 u = t(5),
                 d = t(39),
                 m = t(29),
-                f = t(51),
+                f = t(52),
                 p = f.IteratorPrototype,
                 g = f.BUGGY_SAFARI_ITERATORS,
                 h = u('iterator'),
@@ -1059,11 +1062,11 @@
                 };
             e.exports = function(e, n, t, u, f, _, w) {
                 i(t, n, u);
-                var v,
-                    x,
+                var x,
+                    v,
                     b,
                     E = function(e) {
-                        if (e === f && I) return I;
+                        if (e === f && T) return T;
                         if (!g && e in R) return R[e];
                         switch (e) {
                             case 'keys':
@@ -1081,57 +1084,57 @@
                     A = !1,
                     R = e.prototype,
                     z = R[h] || R['@@iterator'] || (f && R[f]),
-                    I = (!g && z) || E(f),
-                    T = ('Array' == n && R.entries) || z;
+                    T = (!g && z) || E(f),
+                    O = ('Array' == n && R.entries) || z;
                 if (
-                    (T &&
-                        ((v = a(T.call(new e()))),
+                    (O &&
+                        ((x = r(O.call(new e()))),
                         p !== Object.prototype &&
-                            v.next &&
-                            (d || a(v) === p || (r ? r(v, p) : 'function' != typeof v[h] && l(v, h, y)),
-                            s(v, P, !0, !0),
+                            x.next &&
+                            (d || r(x) === p || (a ? a(x, p) : 'function' != typeof x[h] && l(x, h, y)),
+                            s(x, P, !0, !0),
                             d && (m[P] = y))),
                     'values' == f &&
                         z &&
                         'values' !== z.name &&
                         ((A = !0),
-                        (I = function() {
+                        (T = function() {
                             return z.call(this);
                         })),
-                    (d && !w) || R[h] === I || l(R, h, I),
-                    (m[n] = I),
+                    (d && !w) || R[h] === T || l(R, h, T),
+                    (m[n] = T),
                     f)
                 )
-                    if (((x = { values: E('values'), keys: _ ? I : E('keys'), entries: E('entries') }), w))
-                        for (b in x) (!g && !A && b in R) || c(R, b, x[b]);
-                    else o({ target: n, proto: !0, forced: g || A }, x);
-                return x;
+                    if (((v = { values: E('values'), keys: _ ? T : E('keys'), entries: E('entries') }), w))
+                        for (b in v) (!g && !A && b in R) || c(R, b, v[b]);
+                    else o({ target: n, proto: !0, forced: g || A }, v);
+                return v;
             };
         },
         function(e, n, t) {
             'use strict';
-            var o = t(51).IteratorPrototype,
-                i = t(122),
-                a = t(24),
-                r = t(54),
+            var o = t(52).IteratorPrototype,
+                i = t(123),
+                r = t(23),
+                a = t(54),
                 s = t(29),
                 l = function() {
                     return this;
                 };
             e.exports = function(e, n, t) {
                 var c = n + ' Iterator';
-                return (e.prototype = i(o, { next: a(1, t) })), r(e, c, !1, !0), (s[c] = l), e;
+                return (e.prototype = i(o, { next: r(1, t) })), a(e, c, !1, !0), (s[c] = l), e;
             };
         },
         function(e, n, t) {
-            var o = t(12);
+            var o = t(13);
             e.exports = !o(function() {
                 function e() {}
                 return (e.prototype.constructor = null), Object.getPrototypeOf(new e()) !== e.prototype;
             });
         },
         function(e, n, t) {
-            var o = t(12);
+            var o = t(13);
             e.exports =
                 !!Object.getOwnPropertySymbols &&
                 !o(function() {
@@ -1139,18 +1142,18 @@
                 });
         },
         function(e, n, t) {
-            var o = t(20),
-                i = t(123),
-                a = t(48),
-                r = t(37),
-                s = t(124),
-                l = t(46),
+            var o = t(21),
+                i = t(124),
+                r = t(49),
+                a = t(37),
+                s = t(125),
+                l = t(47),
                 c = t(40)('IE_PROTO'),
                 u = function() {},
                 d = function() {
                     var e,
                         n = l('iframe'),
-                        t = a.length;
+                        t = r.length;
                     for (
                         n.style.display = 'none',
                             s.appendChild(n),
@@ -1162,7 +1165,7 @@
                         t--;
 
                     )
-                        delete d.prototype[a[t]];
+                        delete d.prototype[r[t]];
                     return d();
                 };
             (e.exports =
@@ -1176,23 +1179,23 @@
                         void 0 === n ? t : i(t, n)
                     );
                 }),
-                (r[c] = !0);
+                (a[c] = !0);
         },
         function(e, n, t) {
-            var o = t(11),
-                i = t(27),
-                a = t(20),
-                r = t(35);
+            var o = t(12),
+                i = t(26),
+                r = t(21),
+                a = t(36);
             e.exports = o
                 ? Object.defineProperties
                 : function(e, n) {
-                      a(e);
-                      for (var t, o = r(n), s = o.length, l = 0; s > l; ) i.f(e, (t = o[l++]), n[t]);
+                      r(e);
+                      for (var t, o = a(n), s = o.length, l = 0; s > l; ) i.f(e, (t = o[l++]), n[t]);
                       return e;
                   };
         },
         function(e, n, t) {
-            var o = t(53);
+            var o = t(41);
             e.exports = o('document', 'documentElement');
         },
         function(e, n, t) {
@@ -1208,8 +1211,8 @@
                         : i.toString);
         },
         function(e, n, t) {
-            var o = t(20),
-                i = t(127);
+            var o = t(21),
+                i = t(128);
             e.exports =
                 Object.setPrototypeOf ||
                 ('__proto__' in {}
@@ -1221,33 +1224,33 @@
                               (e = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__').set).call(t, []),
                                   (n = t instanceof Array);
                           } catch (e) {}
-                          return function(t, a) {
-                              return o(t), i(a), n ? e.call(t, a) : (t.__proto__ = a), t;
+                          return function(t, r) {
+                              return o(t), i(r), n ? e.call(t, r) : (t.__proto__ = r), t;
                           };
                       })()
                     : void 0);
         },
         function(e, n, t) {
-            var o = t(13);
+            var o = t(14);
             e.exports = function(e) {
                 if (!o(e) && null !== e) throw TypeError("Can't set " + String(e) + ' as a prototype');
                 return e;
             };
         },
         function(e, n, t) {
-            var o = t(16);
+            var o = t(17);
             e.exports = function(e, n, t, i) {
                 i && i.enumerable ? (e[n] = t) : o(e, n, t);
             };
         },
         function(e, n, t) {
             var o = t(4),
-                i = t(130);
+                i = t(131);
             o(
                 {
                     target: 'Array',
                     stat: !0,
-                    forced: !t(135)(function(e) {
+                    forced: !t(136)(function(e) {
                         Array.from(e);
                     })
                 },
@@ -1256,13 +1259,13 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(34),
+            var o = t(35),
                 i = t(28),
-                a = t(131),
                 r = t(132),
-                s = t(21),
-                l = t(133),
-                c = t(134);
+                a = t(133),
+                s = t(18),
+                l = t(134),
+                c = t(135);
             e.exports = function(e) {
                 var n,
                     t,
@@ -1275,69 +1278,69 @@
                     h = void 0 !== g,
                     y = 0,
                     _ = c(m);
-                if ((h && (g = o(g, p > 2 ? arguments[2] : void 0, 2)), null == _ || (f == Array && r(_))))
+                if ((h && (g = o(g, p > 2 ? arguments[2] : void 0, 2)), null == _ || (f == Array && a(_))))
                     for (t = new f((n = s(m.length))); n > y; y++) l(t, y, h ? g(m[y], y) : m[y]);
                 else
                     for (d = _.call(m), t = new f(); !(u = d.next()).done; y++)
-                        l(t, y, h ? a(d, g, [u.value, y], !0) : u.value);
+                        l(t, y, h ? r(d, g, [u.value, y], !0) : u.value);
                 return (t.length = y), t;
             };
         },
         function(e, n, t) {
-            var o = t(20);
+            var o = t(21);
             e.exports = function(e, n, t, i) {
                 try {
                     return i ? n(o(t)[0], t[1]) : n(t);
                 } catch (n) {
-                    var a = e.return;
-                    throw (void 0 !== a && o(a.call(e)), n);
+                    var r = e.return;
+                    throw (void 0 !== r && o(r.call(e)), n);
                 }
             };
         },
         function(e, n, t) {
             var o = t(5),
                 i = t(29),
-                a = o('iterator'),
-                r = Array.prototype;
+                r = o('iterator'),
+                a = Array.prototype;
             e.exports = function(e) {
-                return void 0 !== e && (i.Array === e || r[a] === e);
+                return void 0 !== e && (i.Array === e || a[r] === e);
             };
         },
         function(e, n, t) {
             'use strict';
-            var o = t(33),
-                i = t(27),
-                a = t(24);
+            var o = t(34),
+                i = t(26),
+                r = t(23);
             e.exports = function(e, n, t) {
-                var r = o(n);
-                r in e ? i.f(e, r, a(0, t)) : (e[r] = t);
+                var a = o(n);
+                a in e ? i.f(e, a, r(0, t)) : (e[a] = t);
             };
         },
         function(e, n, t) {
             var o = t(55),
                 i = t(29),
-                a = t(5)('iterator');
+                r = t(5)('iterator');
             e.exports = function(e) {
-                if (null != e) return e[a] || e['@@iterator'] || i[o(e)];
+                if (null != e) return e[r] || e['@@iterator'] || i[o(e)];
             };
         },
         function(e, n, t) {
             var o = t(5)('iterator'),
                 i = !1;
             try {
-                var a = 0,
-                    r = {
+                var r = 0,
+                    a = {
                         next: function() {
-                            return { done: !!a++ };
+                            return { done: !!r++ };
                         },
                         return: function() {
                             i = !0;
                         }
                     };
-                (r[o] = function() {
+                (a[o] = function() {
                     return this;
                 }),
-                    Array.from(r, function() {
+                    Array.from(a, function() {
                         throw 2;
                     });
             } catch (e) {}
@@ -1345,29 +1348,29 @@
                 if (!n && !i) return !1;
                 var t = !1;
                 try {
-                    var a = {};
-                    (a[o] = function() {
+                    var r = {};
+                    (r[o] = function() {
                         return {
                             next: function() {
                                 return { done: (t = !0) };
                             }
                         };
                     }),
-                        e(a);
+                        e(r);
                 } catch (e) {}
                 return t;
             };
         },
         function(e, n, t) {
-            t(137);
-            var o = t(22);
+            t(138);
+            var o = t(19);
             e.exports = o('Array', 'includes');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(47).includes,
-                a = t(56);
+                i = t(48).includes,
+                r = t(56);
             o(
                 { target: 'Array', proto: !0 },
                 {
@@ -1376,28 +1379,28 @@
                     }
                 }
             ),
-                a('includes');
+                r('includes');
         },
         function(e, n, t) {
-            t(139);
-            var o = t(22);
+            t(140);
+            var o = t(19);
             e.exports = o('String', 'startsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(21),
-                a = t(41),
-                r = t(17),
-                s = t(42),
+                i = t(18),
+                r = t(42),
+                a = t(9),
+                s = t(43),
                 l = ''.startsWith,
                 c = Math.min;
             o(
                 { target: 'String', proto: !0, forced: !s('startsWith') },
                 {
                     startsWith: function(e) {
-                        var n = String(r(this));
-                        a(e);
+                        var n = String(a(this));
+                        r(e);
                         var t = i(c(arguments.length > 1 ? arguments[1] : void 0, n.length)),
                             o = String(e);
                         return l ? l.call(n, o, t) : n.slice(t, t + o.length) === o;
@@ -1406,30 +1409,13 @@
             );
         },
         function(e, n, t) {
-            var o = t(13),
-                i = t(26),
-                a = t(5)('match');
+            var o = t(14),
+                i = t(25),
+                r = t(5)('match');
             e.exports = function(e) {
                 var n;
-                return o(e) && (void 0 !== (n = e[a]) ? !!n : 'RegExp' == i(e));
+                return o(e) && (void 0 !== (n = e[r]) ? !!n : 'RegExp' == i(e));
             };
-        },
-        function(e, n, t) {
-            t(142);
-            var o = t(15);
-            e.exports = o.Object.values;
-        },
-        function(e, n, t) {
-            var o = t(4),
-                i = t(49).values;
-            o(
-                { target: 'Object', stat: !0 },
-                {
-                    values: function(e) {
-                        return i(e);
-                    }
-                }
-            );
         },
         function(e, n, t) {
             'undefined' != typeof self && self,
@@ -1496,20 +1482,20 @@
                         }
                         Object.defineProperty(n, '__esModule', { value: !0 });
                         var i = [],
-                            a = [],
-                            r = 0,
+                            r = [],
+                            a = 0,
                             s = void 0;
                         function l() {
-                            if (!r && s) {
+                            if (!a && s) {
                                 var e = s;
                                 (s = null), e.resolve();
                             }
                         }
                         function c() {
-                            r += 1;
+                            a += 1;
                         }
                         function u() {
-                            (r -= 1), l();
+                            (a -= 1), l();
                         }
                         var d = (function() {
                             function e(n) {
@@ -1526,23 +1512,23 @@
                                 ) {
                                     var o = void 0,
                                         i = void 0,
-                                        a = !1,
                                         r = !1,
+                                        a = !1,
                                         s = !1;
                                     c();
                                     try {
                                         n(
                                             function(e) {
-                                                s ? t.resolve(e) : ((a = !0), (o = e));
+                                                s ? t.resolve(e) : ((r = !0), (o = e));
                                             },
                                             function(e) {
-                                                s ? t.reject(e) : ((r = !0), (i = e));
+                                                s ? t.reject(e) : ((a = !0), (i = e));
                                             }
                                         );
                                     } catch (e) {
                                         return u(), void this.reject(e);
                                     }
-                                    u(), (s = !0), a ? this.resolve(o) : r && this.reject(i);
+                                    u(), (s = !0), r ? this.resolve(o) : a && this.reject(i);
                                 }
                             }
                             return (
@@ -1572,7 +1558,7 @@
                                                                 setTimeout(function() {
                                                                     throw e;
                                                                 }, 1);
-                                                            for (var t = 0; t < a.length; t++) a[t](e, n);
+                                                            for (var t = 0; t < r.length; t++) r[t](e, n);
                                                         }
                                                     })(e, n);
                                             }, 1),
@@ -1587,12 +1573,12 @@
                                     var n = this,
                                         t = this.resolved,
                                         i = this.rejected,
-                                        a = this.handlers;
+                                        r = this.handlers;
                                     if (!this.dispatching && (t || i)) {
                                         (this.dispatching = !0), c();
                                         for (
-                                            var r = function(r) {
-                                                    var s = a[r],
+                                            var a = function(a) {
+                                                    var s = r[a],
                                                         l = s.onSuccess,
                                                         c = s.onError,
                                                         u = s.promise,
@@ -1630,11 +1616,11 @@
                                                         : u.resolve(d);
                                                 },
                                                 s = 0;
-                                            s < a.length;
+                                            s < r.length;
                                             s++
                                         )
-                                            r(s);
-                                        (a.length = 0), (this.dispatching = !1), u();
+                                            a(s);
+                                        (r.length = 0), (this.dispatching = !1), u();
                                     }
                                 }),
                                 (e.prototype.then = function(n, t) {
@@ -1703,17 +1689,17 @@
                                 (e.all = function(n) {
                                     var t = new e(),
                                         i = n.length,
-                                        a = [];
-                                    if (!i) return t.resolve(a), t;
+                                        r = [];
+                                    if (!i) return t.resolve(r), t;
                                     for (
-                                        var r = function(r) {
-                                                var s = n[r];
+                                        var a = function(a) {
+                                                var s = n[a];
                                                 if (s instanceof e) {
-                                                    if (s.resolved) return (a[r] = s.value), (i -= 1), 'continue';
-                                                } else if (!o(s)) return (a[r] = s), (i -= 1), 'continue';
+                                                    if (s.resolved) return (r[a] = s.value), (i -= 1), 'continue';
+                                                } else if (!o(s)) return (r[a] = s), (i -= 1), 'continue';
                                                 e.resolve(s).then(
                                                     function(e) {
-                                                        (a[r] = e), 0 == (i -= 1) && t.resolve(a);
+                                                        (r[a] = e), 0 == (i -= 1) && t.resolve(r);
                                                     },
                                                     function(e) {
                                                         t.reject(e);
@@ -1724,8 +1710,8 @@
                                         s < n.length;
                                         s++
                                     )
-                                        r(s);
-                                    return 0 === i && t.resolve(a), t;
+                                        a(s);
+                                    return 0 === i && t.resolve(r), t;
                                 }),
                                 (e.hash = function(n) {
                                     var t = {};
@@ -1747,10 +1733,10 @@
                                 (e.onPossiblyUnhandledException = function(e) {
                                     return (function(e) {
                                         return (
-                                            a.push(e),
+                                            r.push(e),
                                             {
                                                 cancel: function() {
-                                                    a.splice(a.indexOf(e), 1);
+                                                    r.splice(r.indexOf(e), 1);
                                                 }
                                             }
                                         );
@@ -1790,36 +1776,98 @@
                 }));
         },
         function(e, n, t) {
-            t(145);
-            var o = t(22);
+            t(144);
+            var o = t(19);
+            e.exports = o('String', 'padStart');
+        },
+        function(e, n, t) {
+            'use strict';
+            var o = t(4),
+                i = t(145).start;
+            o(
+                { target: 'String', proto: !0, forced: t(147) },
+                {
+                    padStart: function(e) {
+                        return i(this, e, arguments.length > 1 ? arguments[1] : void 0);
+                    }
+                }
+            );
+        },
+        function(e, n, t) {
+            var o = t(18),
+                i = t(146),
+                r = t(9),
+                a = Math.ceil,
+                s = function(e) {
+                    return function(n, t, s) {
+                        var l,
+                            c,
+                            u = String(r(n)),
+                            d = u.length,
+                            m = void 0 === s ? ' ' : String(s),
+                            f = o(t);
+                        return f <= d || '' == m
+                            ? u
+                            : ((c = i.call(m, a((l = f - d) / m.length))).length > l && (c = c.slice(0, l)),
+                              e ? u + c : c + u);
+                    };
+                };
+            e.exports = { start: s(!1), end: s(!0) };
+        },
+        function(e, n, t) {
+            'use strict';
+            var o = t(27),
+                i = t(9);
+            e.exports =
+                ''.repeat ||
+                function(e) {
+                    var n = String(i(this)),
+                        t = '',
+                        r = o(e);
+                    if (r < 0 || r == 1 / 0) throw RangeError('Wrong number of repetitions');
+                    for (; r > 0; (r >>>= 1) && (n += n)) 1 & r && (t += n);
+                    return t;
+                };
+        },
+        function(e, n, t) {
+            var o = t(148);
+            e.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(o);
+        },
+        function(e, n, t) {
+            var o = t(41);
+            e.exports = o('navigator', 'userAgent') || '';
+        },
+        function(e, n, t) {
+            t(150);
+            var o = t(19);
             e.exports = o('Array', 'find');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(146).find,
-                a = t(56),
-                r = !0;
+                i = t(151).find,
+                r = t(56),
+                a = !0;
             'find' in [] &&
                 Array(1).find(function() {
-                    r = !1;
+                    a = !1;
                 }),
                 o(
-                    { target: 'Array', proto: !0, forced: r },
+                    { target: 'Array', proto: !0, forced: a },
                     {
                         find: function(e) {
                             return i(this, e, arguments.length > 1 ? arguments[1] : void 0);
                         }
                     }
                 ),
-                a('find');
+                r('find');
         },
         function(e, n, t) {
-            var o = t(34),
-                i = t(32),
-                a = t(28),
-                r = t(21),
-                s = t(147),
+            var o = t(35),
+                i = t(33),
+                r = t(28),
+                a = t(18),
+                s = t(152),
                 l = [].push,
                 c = function(e) {
                     var n = 1 == e,
@@ -1832,17 +1880,17 @@
                         for (
                             var y,
                                 _,
-                                w = a(f),
-                                v = i(w),
-                                x = o(p, g, 3),
-                                b = r(v.length),
+                                w = r(f),
+                                x = i(w),
+                                v = o(p, g, 3),
+                                b = a(x.length),
                                 E = 0,
                                 P = h || s,
                                 A = n ? P(f, b) : t ? P(f, 0) : void 0;
                             b > E;
                             E++
                         )
-                            if ((m || E in v) && ((_ = x((y = v[E]), E, w)), e))
+                            if ((m || E in x) && ((_ = v((y = x[E]), E, w)), e))
                                 if (n) A[E] = _;
                                 else if (_)
                                     switch (e) {
@@ -1870,22 +1918,22 @@
             };
         },
         function(e, n, t) {
-            var o = t(13),
-                i = t(148),
-                a = t(5)('species');
+            var o = t(14),
+                i = t(153),
+                r = t(5)('species');
             e.exports = function(e, n) {
                 var t;
                 return (
                     i(e) &&
                         ('function' != typeof (t = e.constructor) || (t !== Array && !i(t.prototype))
-                            ? o(t) && null === (t = t[a]) && (t = void 0)
+                            ? o(t) && null === (t = t[r]) && (t = void 0)
                             : (t = void 0)),
                     new (void 0 === t ? Array : t)(0 === n ? 0 : n)
                 );
             };
         },
         function(e, n, t) {
-            var o = t(26);
+            var o = t(25);
             e.exports =
                 Array.isArray ||
                 function(e) {
@@ -1893,25 +1941,42 @@
                 };
         },
         function(e, n, t) {
-            t(150);
-            var o = t(22);
+            t(155);
+            var o = t(16);
+            e.exports = o.Object.values;
+        },
+        function(e, n, t) {
+            var o = t(4),
+                i = t(50).values;
+            o(
+                { target: 'Object', stat: !0 },
+                {
+                    values: function(e) {
+                        return i(e);
+                    }
+                }
+            );
+        },
+        function(e, n, t) {
+            t(157);
+            var o = t(19);
             e.exports = o('String', 'endsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(21),
-                a = t(41),
-                r = t(17),
-                s = t(42),
+                i = t(18),
+                r = t(42),
+                a = t(9),
+                s = t(43),
                 l = ''.endsWith,
                 c = Math.min;
             o(
                 { target: 'String', proto: !0, forced: !s('endsWith') },
                 {
                     endsWith: function(e) {
-                        var n = String(r(this));
-                        a(e);
+                        var n = String(a(this));
+                        r(e);
                         var t = arguments.length > 1 ? arguments[1] : void 0,
                             o = i(n.length),
                             s = void 0 === t ? o : c(i(t), o),
@@ -1922,27 +1987,27 @@
             );
         },
         function(e, n, t) {
-            t(152);
-            var o = t(22);
+            t(159);
+            var o = t(19);
             e.exports = o('String', 'includes');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(41),
-                a = t(17);
+                i = t(42),
+                r = t(9);
             o(
-                { target: 'String', proto: !0, forced: !t(42)('includes') },
+                { target: 'String', proto: !0, forced: !t(43)('includes') },
                 {
                     includes: function(e) {
-                        return !!~String(a(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
+                        return !!~String(r(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
                     }
                 }
             );
         },
         function(e, n, t) {
-            t(154);
-            var o = t(15);
+            t(161);
+            var o = t(16);
             e.exports = o.Number.isNaN;
         },
         function(e, n, t) {
@@ -1970,23 +2035,23 @@
                         return e;
                     }).apply(this, arguments);
             }
-            function a(e, n) {
+            function r(e, n) {
                 if (null == e) return {};
                 var t,
                     o,
                     i = {},
-                    a = Object.keys(e);
-                for (o = 0; o < a.length; o++) n.indexOf((t = a[o])) >= 0 || (i[t] = e[t]);
+                    r = Object.keys(e);
+                for (o = 0; o < r.length; o++) n.indexOf((t = r[o])) >= 0 || (i[t] = e[t]);
                 return i;
             }
             t.r(o),
                 t.d(o, 'WeakMap', function() {
-                    return v;
+                    return x;
                 });
-            var r = { MOCK: 'mock:', FILE: 'file:', ABOUT: 'about:' },
+            var a = { MOCK: 'mock:', FILE: 'file:', ABOUT: 'about:' },
                 s = 'Call was rejected by callee.\r\n';
             function l(e) {
-                return void 0 === e && (e = window), e.location.protocol === r.ABOUT;
+                return void 0 === e && (e = window), e.location.protocol === a.ABOUT;
             }
             function c(e) {
                 try {
@@ -1999,15 +2064,15 @@
                 if (!n) throw new Error('Can not read window location');
                 var t = n.protocol;
                 if (!t) throw new Error('Can not read window protocol');
-                if (t === r.FILE) return r.FILE + '//';
-                if (t === r.ABOUT) {
+                if (t === a.FILE) return a.FILE + '//';
+                if (t === a.ABOUT) {
                     var o = (function(e) {
                         if ((void 0 === e && (e = window), e))
                             try {
                                 if (e.parent && e.parent !== e) return e.parent;
                             } catch (e) {}
                     })(e);
-                    return o && c() ? u(o) : r.ABOUT + '//';
+                    return o && c() ? u(o) : a.ABOUT + '//';
                 }
                 var i = n.host;
                 if (!i) throw new Error('Can not read window host');
@@ -2015,7 +2080,7 @@
             }
             function d(e) {
                 var n = u((e = e || window));
-                return n && e.mockDomain && 0 === e.mockDomain.indexOf(r.MOCK) ? e.mockDomain : n;
+                return n && e.mockDomain && 0 === e.mockDomain.indexOf(a.MOCK) ? e.mockDomain : n;
             }
             var m = [],
                 f = [];
@@ -2142,7 +2207,7 @@
             var y,
                 _ = Object.defineProperty,
                 w = Date.now() % 1e9,
-                v = (function() {
+                x = (function() {
                     function e() {
                         if (
                             ((this.name = void 0),
@@ -2203,10 +2268,10 @@
                                         : _(e, o, { value: [e, n], writable: !0 }));
                                 } catch (e) {}
                             this._cleanupClosedWindows();
-                            var a = this.keys,
-                                r = this.values,
-                                s = h(a, e);
-                            -1 === s ? (a.push(e), r.push(n)) : (r[s] = n);
+                            var r = this.keys,
+                                a = this.values,
+                                s = h(r, e);
+                            -1 === s ? (r.push(e), a.push(n)) : (a[s] = n);
                         }),
                         (n.get = function(e) {
                             if (!e) throw new Error('WeakMap expected key');
@@ -2499,34 +2564,34 @@
                     ORDER_VAULT: 'order-vault'
                 }).CLIENT_ID
             ] = 'abcxyz123');
-            var x = t(7),
-                b = t.n(x),
+            var v = t(7),
+                b = t.n(v),
                 E = t(3),
                 P = t.n(E),
                 A = t(2),
                 R = t.n(A),
-                z = t(6),
-                I = t.n(z),
-                T = t(1),
-                O = t.n(T);
+                z = t(11),
+                T = t.n(z),
+                O = t(1),
+                I = t.n(O);
             function S(e) {
                 var n = new Map();
                 return function() {
                     for (var t = arguments.length, o = new Array(t), i = 0; i < t; i++) o[i] = arguments[i];
-                    var a = JSON.stringify(o);
-                    return n.has(a) || n.set(a, e.apply(void 0, o)), n.get(a);
+                    var r = JSON.stringify(o);
+                    return n.has(r) || n.set(r, e.apply(void 0, o)), n.get(r);
                 };
             }
             function L(e, n) {
                 var t = new Map();
                 return function(o, i) {
                     void 0 === i && (i = !1);
-                    var a = JSON.stringify(
+                    var r = JSON.stringify(
                         n.map(function(e) {
                             return o[e];
                         })
                     );
-                    return (t.has(a) && !i) || t.set(a, e(o)), t.get(a);
+                    return (t.has(r) && !i) || t.set(r, e(o)), t.get(r);
                 };
             }
             function C(e) {
@@ -2541,7 +2606,7 @@
                 return (
                     void 0 === n && (n = e.length),
                     function t() {
-                        for (var o = arguments.length, i = new Array(o), a = 0; a < o; a++) i[a] = arguments[a];
+                        for (var o = arguments.length, i = new Array(o), r = 0; r < o; r++) i[r] = arguments[r];
                         return i.length < n
                             ? function() {
                                   for (var e = arguments.length, n = new Array(e), o = 0; o < e; o++)
@@ -2562,34 +2627,42 @@
                         : n;
                 };
             }
-            function k(e) {
+            function k() {
+                for (var e = arguments.length, n = new Array(e), t = 0; t < e; t++) n[t] = arguments[t];
+                return function(e) {
+                    return n.reduce(function(e, n) {
+                        return n(e);
+                    }, e);
+                };
+            }
+            function j(e) {
                 void 0 === e && (e = {});
                 var n = i({}, e);
                 return [n, C(b.a, n)];
             }
-            function j(e) {
+            function W(e) {
                 return P()(e).reduce(function(e, n) {
                     var t,
                         o,
-                        a,
-                        r = n[0],
+                        r,
+                        a = n[0],
                         s = n[1];
                     return Array.isArray(s)
-                        ? i({}, e, (((o = {})[r] = [].concat(s)), o))
-                        : i({}, e, 'object' == typeof s ? (((a = {})[r] = j(s)), a) : (((t = {})[r] = s), t));
+                        ? i({}, e, (((o = {})[a] = [].concat(s)), o))
+                        : i({}, e, 'object' == typeof s ? (((r = {})[a] = W(s)), r) : (((t = {})[a] = s), t));
                 }, {});
             }
-            function W(e, n) {
+            function H(e, n) {
                 return (function e(n, t) {
                     return P()(t).reduce(function(t, o) {
-                        var a,
-                            r,
+                        var r,
+                            a,
                             s,
                             l,
                             c = o[0],
                             u = o[1];
                         return Array.isArray(u)
-                            ? i({}, t, (((r = {})[c] = [].concat(u)), r))
+                            ? i({}, t, (((a = {})[c] = [].concat(u)), a))
                             : 'object' != typeof u ||
                               null === u ||
                               (n[c] && 'object' == typeof n[c] && !Array.isArray(n[c]))
@@ -2598,41 +2671,41 @@
                                   t,
                                   'object' == typeof u && null !== u
                                       ? (((l = {})[c] = e(n[c], u)), l)
-                                      : (((a = {})[c] = u), a)
+                                      : (((r = {})[c] = u), r)
                               )
-                            : i({}, t, (((s = {})[c] = j(u)), s));
+                            : i({}, t, (((s = {})[c] = W(u)), s));
                     }, n);
-                })(j(e), n);
+                })(W(e), n);
             }
-            function H(e, n) {
+            function B(e, n) {
                 return n.split('.').reduce(function(e, n) {
                     return 'object' == typeof e || 'function' == typeof e ? e[n] : void 0;
                 }, e);
             }
-            function B(e, n, t) {
+            function D(e, n, t) {
                 var o;
                 void 0 === t && (t = '-');
                 var i,
-                    a = e.indexOf(t);
-                if (-1 === a) return ((i = {})[e] = n), i;
-                var r = e.slice(0, a),
-                    s = e.slice(a + 1);
-                return ((o = {})[r] = B(s, n)), o;
+                    r = e.indexOf(t);
+                if (-1 === r) return ((i = {})[e] = n), i;
+                var a = e.slice(0, r),
+                    s = e.slice(r + 1);
+                return ((o = {})[a] = D(s, n)), o;
             }
-            function D(e) {
+            function Y(e) {
                 return 'object' == typeof HTMLElement
                     ? e instanceof HTMLElement
                     : e && 'object' == typeof e && null !== e && 1 === e.nodeType && 'string' == typeof e.nodeName;
             }
-            function Y(e) {
+            function G(e) {
                 var n = R()(e.attributes)
                     .filter(function(e) {
                         var n = e.nodeName;
-                        return O()(n, 'data-pp-');
+                        return I()(n, 'data-pp-');
                     })
                     .reduce(function(e, n) {
                         var t = n.nodeValue;
-                        return t ? W(e, B(n.nodeName.replace('data-pp-', ''), t)) : e;
+                        return t ? H(e, D(n.nodeName.replace('data-pp-', ''), t)) : e;
                     }, {});
                 if (
                     !e.firstElementChild ||
@@ -2641,341 +2714,435 @@
                 )
                     return n;
                 var t = e.firstElementChild.textContent.trim();
-                return e.removeChild(e.firstElementChild), W(n, { style: { markup: t } });
+                return e.removeChild(e.firstElementChild), H(n, { style: { markup: t } });
             }
-            var G = k(window.__paypal_messages_state__ || { nextId: 0, config: {} }),
-                F = G[0],
-                U = G[1];
+            var U = j(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
+                F = U[0],
+                V = U[1];
             Object.defineProperty(window, '__paypal_messages_state__', {
                 value: F,
                 enumerable: !1,
                 configurable: !0,
                 writable: !1
             });
-            var V = t(18),
-                Z = t.n(V),
-                K = t(0),
-                J = N(function(e, n, t) {
+            var Z = t(0),
+                K = t(57),
+                J = t.n(K),
+                q = t(6),
+                $ = t.n(q),
+                Q = N(function(e, n, t) {
                     var o = e.uuid,
-                        a = e.urls;
+                        r = e.urls;
                     void 0 === t && (t = !1);
-                    var r = new window.Image();
+                    var a = new window.Image();
                     if ('object' == typeof n) {
                         var s = i({}, n, { uuid: t ? o + '::banner.hidden:true' : o }),
                             l = P()(s).reduce(function(e, n) {
                                 return e + '&' + n[0] + '=' + n[1];
                             }, '');
-                        r.src = (a[n.et] || a.DEFAULT) + '&bdata=' + encodeURIComponent(l.slice(1));
-                    } else 'string' == typeof n && (r.src = a[n] || a.DEFAULT);
+                        a.src = (r[n.et] || r.DEFAULT) + '&bdata=' + encodeURIComponent(l.slice(1));
+                    } else 'string' == typeof n && (a.src = r[n] || r.DEFAULT);
                 }, 2),
-                q = {
-                    STARTING_MESSAGE_RENDER: 'Starting_Message_Render',
-                    IFRAME_CREATED: 'iFrame_Created',
-                    MESSAGE_FETCH_INITIATED: 'Message_Fetch_Initiated',
-                    MESSAGE_FETCH_RECEIVED: 'Message_Fetch_Received',
-                    MESSAGE_CREATE_INITIATED: 'Message_Create_Initiated',
-                    MESSAGE_UPDATE_INITIATED: 'Message_Update_Initiated',
-                    MESSAGE_RENDERED: 'Message_Rendered',
-                    ERROR: 'ERROR',
-                    FLUSH: 'FLUSH',
-                    FLUSH_CAP: 'FLUSH_CAP'
+                X = {
+                    START: 'Start',
+                    END: 'End',
+                    RENDER_START: 'Render_Start',
+                    RENDER_END: 'Render_End',
+                    CREATE: 'Create',
+                    CONTAINER: 'Container',
+                    VALIDATE: 'Validate',
+                    FETCH_START: 'Fetch_Start',
+                    FETCH_END: 'Fetch_End',
+                    INSERT: 'Insert',
+                    MODAL: 'Modal',
+                    SIZE: 'Size',
+                    STATS: 'Stats',
+                    UPDATE: 'Update',
+                    ERROR: 'Error'
                 },
-                $ = {
-                    OVERFLOW: 'Banner Overflow detected.',
-                    HIDDEN: 'Overflow fallback failed.  Hiding banner.',
-                    INVALID_STYLE_OPTIONS: 'Invalid account, styles, signature combination.',
-                    INVALID_LEGACY_BANNER: 'Invalid legacy banner placement/offerType combination',
-                    MODAL_LOAD_FAILURE: 'Modal failed to initialize.',
-                    INVALID_CUSTOM_BANNER_JSON: 'Invalid JSON in custom banner creative'
+                ee = {
+                    MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
+                    MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
+                    MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
+                    MESSAGE_INVALID_MARKUP: 'MESSAGE_INVALID_MARKUP',
+                    MODAL_FAIL: 'MODAL_FAIL',
+                    CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
+                    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
                 },
-                Q = [],
-                X = [];
-            function ee(e) {
-                var n = Z()(q);
-                return e.reduce(function(e, t) {
-                    if (I()(n, t.event)) {
-                        e[t.event] = e[t.event] || [];
-                        var o = i({}, t);
-                        delete o.event, e[t.event].push(o);
-                    }
-                    return e;
-                }, {});
-            }
-            var ne = 0,
-                te = {
-                    flush: function(e) {
-                        return (
-                            void 0 === e && (e = !1),
-                            ne >= 3
-                                ? K.ZalgoPromise.resolve()
-                                : (e
-                                      ? K.ZalgoPromise.resolve()
-                                      : K.ZalgoPromise.all(X).then(function() {
-                                            X.length = 0;
-                                        })
-                                  ).then(function() {
-                                      if (0 !== Q.length) {
-                                          Q.push({ event: q.FLUSH, flushType: e ? 'immediate' : 'normal' }),
-                                              3 === (ne += 1) && Q.push({ event: q.FLUSH_CAP, cap: 3 });
-                                          var n = { version: '1.0.0', events: ee(Q) };
-                                          Q.length = 0;
-                                          var t = new XMLHttpRequest();
-                                          t.open('POST', 'https://www.paypal.com/ppcredit/messagingLogger', !0),
-                                              t.setRequestHeader('Content-Type', 'application/json;charset=UTF-8'),
-                                              t.send(JSON.stringify({ data: n }));
-                                      }
-                                  })
-                        );
+                ne = {
+                    create: function(e) {
+                        var n = e.id,
+                            t = e.selector,
+                            o = e.type,
+                            r = j({ count: 1, account: e.account, history: [], logs: [] }),
+                            a = r[0],
+                            s = r[1],
+                            l = {
+                                start: function(e) {
+                                    B(e, 'options.account') &&
+                                        a.account !== e.options.account &&
+                                        s({ account: e.account }),
+                                        l.info(X.START, i({ t: Date.now() }, e));
+                                },
+                                end: function(e) {
+                                    l.info(X.END, i({ t: Date.now() }, e)),
+                                        (function() {
+                                            if (!(a.count > 3)) {
+                                                var e,
+                                                    r = $()(a.logs, function(e) {
+                                                        var n = e.event;
+                                                        return 'Create' === n || 'Update' === n;
+                                                    }),
+                                                    l = {
+                                                        version: '1.0.3',
+                                                        url: window.location.href,
+                                                        selector: t,
+                                                        type: o + (r ? '-' + r.event : ''),
+                                                        id: n + '-' + J()(a.count, 4, '0'),
+                                                        account: a.account,
+                                                        history: a.history,
+                                                        events:
+                                                            ((e = a.logs),
+                                                            e.map(function(e) {
+                                                                var n = e.event,
+                                                                    t = i({}, e);
+                                                                return (
+                                                                    delete t.event,
+                                                                    Object.keys(t).length > 0 ? [n, t] : n
+                                                                );
+                                                            }))
+                                                    };
+                                                s({ count: a.count + 1, logs: [] });
+                                                var c = new XMLHttpRequest();
+                                                (c.onreadystatechange = function() {
+                                                    4 === c.readyState &&
+                                                        s({
+                                                            history: []
+                                                                .concat(a.history, [
+                                                                    c.getResponseHeader('Paypal-Debug-Id')
+                                                                ])
+                                                                .slice(-5)
+                                                        });
+                                                }),
+                                                    c.open(
+                                                        'POST',
+                                                        'https://www.paypal.com/ppcredit/messagingLogger',
+                                                        !0
+                                                    ),
+                                                    c.setRequestHeader(
+                                                        'Content-Type',
+                                                        'application/json;charset=UTF-8'
+                                                    ),
+                                                    c.send(JSON.stringify({ data: l }));
+                                            }
+                                        })();
+                                },
+                                info: function(e, n) {
+                                    void 0 === n && (n = {}), s({ logs: [].concat(a.logs, [i({ event: e }, n)]) });
+                                },
+                                error: function(e) {
+                                    l.info(X.ERROR, e);
+                                },
+                                track: Q,
+                                warn: function() {
+                                    for (var e, n = arguments.length, t = new Array(n), o = 0; o < n; o++)
+                                        t[o] = arguments[o];
+                                    (e = console).warn.apply(e, ['[PayPal Messages]'].concat(t));
+                                }
+                            };
+                        return l;
                     },
-                    info: function(e, n) {
-                        void 0 === n && (n = {}), Q.push(i({ event: e }, n));
-                    },
-                    error: function(e) {
-                        te.info(q.ERROR, e), te.flush(!0);
-                    },
-                    waitFor: function(e) {
-                        X.push(e);
-                    },
-                    track: J,
                     warn: function() {
                         for (var e, n = arguments.length, t = new Array(n), o = 0; o < n; o++) t[o] = arguments[o];
                         (e = console).warn.apply(e, ['[PayPal Messages]'].concat(t));
                     }
                 },
-                oe = !1;
-            setInterval(function() {
-                oe ||
-                    ((oe = !0),
-                    te.flush().then(function() {
-                        oe = !1;
-                    }));
-            }, 3e3);
-            var ie = S(function(e) {
-                var n,
-                    t = e.markup;
-                return K.ZalgoPromise.resolve(
-                    O()(t, 'https://www.paypalobjects.com')
-                        ? ((n = t),
-                          new K.ZalgoPromise(function(e) {
-                              var t = new XMLHttpRequest();
-                              (t.onreadystatechange = function() {
-                                  if (4 === t.readyState)
-                                      switch (t.status) {
-                                          case 200:
-                                              e(t.responseText);
-                                              break;
-                                          default:
-                                              e('');
-                                      }
-                              }),
-                                  t.open('GET', n, !0),
-                                  t.send();
-                          }))
-                        : ''
-                );
-            });
+                te = S(function(e) {
+                    var n,
+                        t = e.markup;
+                    return Z.ZalgoPromise.resolve(
+                        I()(t, 'https://www.paypalobjects.com')
+                            ? ((n = t),
+                              new Z.ZalgoPromise(function(e) {
+                                  var t = new XMLHttpRequest();
+                                  (t.onreadystatechange = function() {
+                                      if (4 === t.readyState)
+                                          switch (t.status) {
+                                              case 200:
+                                                  e(t.responseText);
+                                                  break;
+                                              default:
+                                                  e('');
+                                          }
+                                  }),
+                                      t.open('GET', n, !0),
+                                      t.send();
+                              }))
+                            : ''
+                    );
+                });
             window.__PP = window.__PP || {};
-            var ae = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
-            function re(e) {
-                var n = e.match(/^<!--([\s\S]+?)-->/);
-                if (n)
+            var oe = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
+            function ie(e) {
+                try {
+                    var n = e.content.json,
+                        t = e.tracking_details;
+                    return {
+                        data: {
+                            disclaimer: JSON.parse(n.disclaimer),
+                            headline: JSON.parse(n.headline),
+                            subHeadline: JSON.parse(n.subHeadline)
+                        },
+                        meta: {
+                            clickUrl: t.click_url,
+                            impressionUrl: t.impression_url,
+                            offerType: JSON.parse(n.meta).offerType
+                        }
+                    };
+                } catch (e) {
+                    throw new Error(ee.MESSAGE_INVALID_MARKUP);
+                }
+            }
+            function re(e, n) {
+                var t = n.match(/^<!--([\s\S]+?)-->/);
+                if (t)
                     try {
-                        return JSON.parse(n[1]);
-                    } catch (e) {
-                        throw new Error($.INVALID_CUSTOM_BANNER_JSON);
+                        return JSON.parse(t[1]);
+                    } catch (n) {
+                        e.error({ name: ee.CUSTOM_JSON_OPTIONS_FAIL });
                     }
                 return {};
             }
-            var se = L(
-                    function(e) {
-                        var n = e.account,
-                            t = e.amount,
-                            o = e.countryCode;
-                        return new K.ZalgoPromise(function(i) {
-                            var a = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
-                                r = {
-                                    dimensions: 'x200x51',
-                                    currency_value: t,
-                                    format: 'HTML',
-                                    presentation_types: 'HTML',
-                                    ch: 'UPSTREAM',
-                                    call: '__PP.' + a
-                                };
-                            o && ae[o] && ((r.country_code = o), (r.locale = ae[o]));
-                            var s = P()(r)
-                                    .filter(function(e) {
-                                        return e[1];
-                                    })
-                                    .reduce(
-                                        function(e, n) {
-                                            return e + '&' + n[0] + '=' + n[1];
-                                        },
-                                        O()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
-                                    ),
-                                l = document.createElement('script');
-                            (l.async = !0),
-                                (l.src = 'https://www.paypal.com/imadserver/upstream?' + s),
-                                te.info(q.MESSAGE_FETCH_INITIATED, { account: n, amount: t }),
-                                document.head.appendChild(l),
-                                (window.__PP[a] = function(o) {
-                                    te.info(q.MESSAGE_FETCH_RECEIVED, { account: n, amount: t }),
-                                        document.head.removeChild(l),
-                                        delete window.__PP[a];
+            var ae = L(
+                function(e) {
+                    var n = e.account,
+                        t = e.amount,
+                        o = e.countryCode;
+                    return new Z.ZalgoPromise(function(e) {
+                        var i = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
+                            r = {
+                                dimensions: 'x200x51',
+                                currency_value: t,
+                                currency_code: 'USD',
+                                format: 'HTML',
+                                presentation_types: 'HTML',
+                                ch: 'UPSTREAM',
+                                call: '__PP.' + i
+                            };
+                        o && oe[o] && ((r.country_code = o), (r.locale = oe[o]));
+                        var a = P()(r)
+                                .filter(function(e) {
+                                    return e[1];
+                                })
+                                .reduce(
+                                    function(e, n) {
+                                        return e + '&' + n[0] + '=' + n[1];
+                                    },
+                                    I()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
+                                ),
+                            s = document.createElement('script');
+                        (s.async = !0),
+                            (s.src = 'https://www.paypal.com/imadserver/upstream?' + a),
+                            document.head.appendChild(s),
+                            (window.__PP[i] = function(n) {
+                                if ((document.head.removeChild(s), delete window.__PP[i], 'object' == typeof n))
+                                    e({ markup: ie(n) });
+                                else
                                     try {
-                                        i({ markup: JSON.parse(o.replace(/<\/?div>/g, '')), options: e });
-                                    } catch (n) {
-                                        i({ markup: o, options: e });
+                                        e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
+                                    } catch (t) {
+                                        e({ markup: n });
                                     }
-                                });
-                        });
-                    },
-                    ['account', 'amount', 'countryCode']
-                ),
-                le = { click: new Map(), message: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
-            function ce(e) {
+                            });
+                    });
+                },
+                ['account', 'amount', 'countryCode']
+            );
+            function se(e) {
+                var n = e.options,
+                    t = e.logger;
+                return (
+                    t.info(X.FETCH_START),
+                    ('custom' !== B(n, 'style.layout')
+                        ? ae(n).then(C(b.a, { options: n }))
+                        : Z.ZalgoPromise.all([ae(n), te(n.style)]).then(function(e) {
+                              var o = e[0],
+                                  i = e[1];
+                              return 'object' == typeof o.markup
+                                  ? ('' === i && t.error({ name: ee.CUSTOM_TEMPLATE_FAIL }),
+                                    (o.markup.template = i),
+                                    { markup: o.markup, options: H(n, re(t, i)) })
+                                  : { markup: o.markup, options: n };
+                          })
+                    ).then(
+                        M(function(e) {
+                            t.info(X.FETCH_END),
+                                (e.options.style._flattened = (function e(n, t, o) {
+                                    return (
+                                        void 0 === t && (t = ''),
+                                        void 0 === o && (o = ':'),
+                                        P()(n).reduce(function(n, i) {
+                                            var r = i[0],
+                                                a = i[1];
+                                            switch (typeof a) {
+                                                case 'object':
+                                                    return [].concat(n, e(a, '' + t + r + '.'));
+                                                case 'string':
+                                                default:
+                                                    return [].concat(n, ['' + t + r + o + a]);
+                                            }
+                                        }, [])
+                                    );
+                                })(e.options.style));
+                        })
+                    )
+                );
+            }
+            var le = t(30),
+                ce = t.n(le),
+                ue = { click: new Map(), message: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
+            function de(e) {
                 e.origin === window.top.location.origin &&
                     e.source === (e.source.frameElement && e.source.frameElement.contentWindow) &&
-                    le.message.has(e.source.frameElement) &&
-                    le.message.get(e.source.frameElement)(e);
+                    ue.message.has(e.source.frameElement) &&
+                    ue.message.get(e.source.frameElement)(e);
             }
-            function ue(e) {
-                le.resize.has(e.target.frameElement) && le.resize.get(e.target.frameElement)(e);
+            function me(e) {
+                ue.resize.has(e.target.frameElement) && ue.resize.get(e.target.frameElement)(e);
             }
-            function de(e) {
-                le.scroll.forEach(function(n) {
+            function fe(e) {
+                ue.scroll.forEach(function(n) {
                     return n(e);
                 });
             }
-            function me(e) {
-                le.hover.has(e.target) && le.hover.get(e.target)(e);
-            }
-            function fe(e) {
-                e.target.ownerDocument && le.click.has(e.target.ownerDocument.defaultView.frameElement)
-                    ? le.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
-                    : le.click.has(e.currentTarget) && le.click.get(e.currentTarget)(e);
-            }
             function pe(e) {
+                ue.hover.has(e.target) && ue.hover.get(e.target)(e);
+            }
+            function ge(e) {
+                e.target.ownerDocument && ue.click.has(e.target.ownerDocument.defaultView.frameElement)
+                    ? ue.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
+                    : ue.click.has(e.currentTarget) && ue.click.get(e.currentTarget)(e);
+            }
+            function he(e) {
                 return {
                     on: function(n, t) {
                         ('IFRAME' === e.tagName || ('resize' !== n && 'message' !== n)) &&
                             (function(e, n, t) {
                                 if (
                                     ((function(e, n) {
-                                        'scroll' === e && 0 === le.scroll.size
-                                            ? window.addEventListener('scroll', de)
-                                            : 'hover' === e && 0 === le.hover.size
-                                            ? document.addEventListener('mouseover', me)
-                                            : 'message' === e && 0 === le.message.size
-                                            ? window.addEventListener('message', ce)
-                                            : 'resize' !== e || le[e].has(n)
+                                        'scroll' === e && 0 === ue.scroll.size
+                                            ? window.addEventListener('scroll', fe)
+                                            : 'hover' === e && 0 === ue.hover.size
+                                            ? document.addEventListener('mouseover', pe)
+                                            : 'message' === e && 0 === ue.message.size
+                                            ? window.addEventListener('message', de)
+                                            : 'resize' !== e || ue[e].has(n)
                                             ? 'click' !== e ||
-                                              le[e].has(n) ||
+                                              ue[e].has(n) ||
                                               ('IFRAME' === n.tagName
-                                                  ? n.contentWindow.document.body.addEventListener('click', fe)
-                                                  : n.addEventListener('click', fe))
-                                            : n.contentWindow.addEventListener('resize', ue);
+                                                  ? n.contentWindow.document.body.addEventListener('click', ge)
+                                                  : n.addEventListener('click', ge))
+                                            : n.contentWindow.addEventListener('resize', me);
                                     })(e, n),
-                                    le[e].has(n))
+                                    ue[e].has(n))
                                 ) {
-                                    var o = le[e].get(n);
-                                    le[e].set(n, function(e) {
+                                    var o = ue[e].get(n);
+                                    ue[e].set(n, function(e) {
                                         o(e), t(e);
                                     });
-                                } else le[e].set(n, t);
+                                } else ue[e].set(n, t);
                             })(n, e, t);
                     },
                     clear: function(n) {
-                        le[n].delete(e),
-                            'scroll' === n && 0 === le.scroll.size
-                                ? window.removeEventListener('scroll', de)
-                                : 'hover' === n && 0 === le.hover.size
-                                ? document.removeEventListener('mouseover', me)
+                        ue[n].delete(e),
+                            'scroll' === n && 0 === ue.scroll.size
+                                ? window.removeEventListener('scroll', fe)
+                                : 'hover' === n && 0 === ue.hover.size
+                                ? document.removeEventListener('mouseover', pe)
                                 : 'click' === n
                                 ? 'IFRAME' === e.tagName
-                                    ? e.contentWindow.removeEventListener('click', fe)
-                                    : e.removeEventListener('click', fe)
+                                    ? e.contentWindow.removeEventListener('click', ge)
+                                    : e.removeEventListener('click', ge)
                                 : 'IFRAME' === e.tagName &&
                                   ('resize' === n
-                                      ? e.contentWindow.removeEventListener('resize', ue)
+                                      ? e.contentWindow.removeEventListener('resize', me)
                                       : 'message' === n &&
-                                        0 === le.message.size &&
-                                        window.removeEventListener('message', ce));
+                                        0 === ue.message.size &&
+                                        window.removeEventListener('message', de));
                     }
                 };
             }
-            var ge = t(10),
-                he = t.n(ge),
-                ye = t(57),
+            var ye = t(58),
                 _e = t.n(ye),
-                we = t(19),
-                ve = t.n(we),
-                xe = t(58),
-                be = t.n(xe),
-                Ee = t(59),
+                we = t(20),
+                xe = t.n(we),
+                ve = t(59),
+                be = t.n(ve),
+                Ee = t(60),
                 Pe = t.n(Ee),
-                Ae = t(30),
+                Ae = t(31),
                 Re = t.n(Ae),
-                ze = t(9),
-                Ie = t.n(ze),
-                Te = t(60),
-                Oe = t.n(Te),
-                Se = t(61),
+                ze = t(10),
+                Te = t.n(ze),
+                Oe = t(61),
+                Ie = t.n(Oe),
+                Se = t(62),
                 Le = t.n(Se),
-                Ce = t(43),
+                Ce = t(44),
                 Ne = t.n(Ce),
-                Me = t(62),
+                Me = t(63),
                 ke = t.n(Me),
-                je = t(63),
+                je = t(64),
                 We = t.n(je),
-                He = t(64),
+                He = t(65),
                 Be = t.n(He),
-                De = t(65),
+                De = t(66),
                 Ye = t.n(De),
-                Ge = t(66),
-                Fe = t.n(Ge),
-                Ue = t(67),
-                Ve = t.n(Ue),
+                Ge = t(67),
+                Ue = t.n(Ge),
+                Fe = t(68),
+                Ve = t.n(Fe),
                 Ze = [
-                    ['default', [Ie.a, Re.a, Oe.a].join('\n')],
+                    ['default', [Te.a, Re.a, Ie.a].join('\n')],
                     ['logo.type:primary', Ye.a],
                     ['logo.type:alternative', Le.a],
                     ['logo.type:inline', Ne.a],
                     ['logo.type:none', [Ne.a, ke.a].join('\n')],
                     ['logo.position:right', We.a],
                     ['logo.position:top', Be.a],
-                    ['logo.type:alternative && logo.position:top', Fe.a],
+                    ['logo.type:alternative && logo.position:top', Ue.a],
                     ['text.color:white', Ve.a]
                 ],
-                Ke = t(68),
+                Ke = t(69),
                 Je = t.n(Ke),
-                qe = t(69),
+                qe = t(70),
                 $e = t.n(qe),
-                Qe = t(70),
+                Qe = t(71),
                 Xe = t.n(Qe),
-                en = t(44),
+                en = t(45),
                 nn = t.n(en),
-                tn = t(71),
+                tn = t(72),
                 on = t.n(tn),
-                an = t(72),
-                rn = t.n(an),
-                sn = t(73),
+                rn = t(73),
+                an = t.n(rn),
+                sn = t(74),
                 ln = t.n(sn),
-                cn = t(74),
+                cn = t(75),
                 un = t.n(cn),
-                dn = t(75),
+                dn = t(76),
                 mn = t.n(dn),
-                fn = t(76),
+                fn = t(77),
                 pn = t.n(fn),
-                gn = t(77),
+                gn = t(78),
                 hn = t.n(gn),
-                yn = t(78),
+                yn = t(79),
                 _n = t.n(yn),
                 wn = [
-                    ['default', [Ie.a, Re.a, Je.a].join('\n')],
+                    ['default', [Te.a, Re.a, Je.a].join('\n')],
                     ['ratio:1x1', $e.a],
                     ['ratio:1x4', Xe.a],
                     ['ratio:8x1', [nn.a, on.a].join('\n')],
-                    ['ratio:20x1', [nn.a, rn.a].join('\n')],
+                    ['ratio:20x1', [nn.a, an.a].join('\n')],
                     ['color:blue', ln.a],
                     ['color:gray', un.a],
                     ['color:black', pn.a],
@@ -2983,53 +3150,53 @@
                     ['color:white-no-border', _n.a],
                     ['color:blue && ratio:1x4', mn.a]
                 ],
-                vn = t(79),
-                xn = t.n(vn),
-                bn = t(80),
+                xn = t(80),
+                vn = t.n(xn),
+                bn = t(81),
                 En = t.n(bn),
-                Pn = t(81),
+                Pn = t(82),
                 An = t.n(Pn),
-                Rn = t(82),
+                Rn = t(83),
                 zn = t.n(Rn),
-                In = t(83),
-                Tn = t.n(In),
-                On = t(84),
-                Sn = t.n(On),
-                Ln = t(85),
+                Tn = t(84),
+                On = t.n(Tn),
+                In = t(85),
+                Sn = t.n(In),
+                Ln = t(86),
                 Cn = t.n(Ln),
-                Nn = t(86),
+                Nn = t(87),
                 Mn = t.n(Nn),
-                kn = t(87),
+                kn = t(88),
                 jn = t.n(kn),
-                Wn = t(88),
+                Wn = t(89),
                 Hn = t.n(Wn),
-                Bn = t(89),
+                Bn = t(90),
                 Dn = t.n(Bn),
-                Yn = t(90),
+                Yn = t(91),
                 Gn = t.n(Yn),
-                Fn = t(91),
-                Un = t.n(Fn),
-                Vn = t(92),
+                Un = t(92),
+                Fn = t.n(Un),
+                Vn = t(93),
                 Zn = t.n(Vn),
-                Kn = t(93),
+                Kn = t(94),
                 Jn = t.n(Kn),
-                qn = t(94),
+                qn = t(95),
                 $n = t.n(qn),
-                Qn = t(95),
+                Qn = t(96),
                 Xn = t.n(Qn),
-                et = t(96),
+                et = t(97),
                 nt = t.n(et),
-                tt = t(97),
+                tt = t(98),
                 ot = t.n(tt),
-                it = t(98),
-                at = {
+                it = t(99),
+                rt = {
                     x168x374: { styles: Sn.a, vertical: !0 },
                     x765x60: { styles: jn.a },
                     x1000x50: { styles: Hn.a, termsIcon: !0 },
                     x234x100: { styles: Cn.a, reverseLogo: !0 },
                     x310x100: { styles: Mn.a, reverseLogo: !0 },
                     x1000x36: { styles: Dn.a, termsIcon: !0 },
-                    x120x90: { styles: Un.a, termsIcon: !0 },
+                    x120x90: { styles: Fn.a, termsIcon: !0 },
                     x234x60: { styles: Zn.a, reverseLogo: !0, termsIcon: !0 },
                     x250x250: { styles: Jn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
                     x300x50: { styles: $n.a, reverseLogo: !0 },
@@ -3039,12 +3206,12 @@
                     x540x200: { styles: ot.a, reverseLogo: !0, termsIcon: !0 },
                     x170x100: { styles: t.n(it).a, termsIcon: !0 }
                 },
-                rt = Object.keys(at).map(function(e) {
-                    var n = at[e],
+                at = Object.keys(rt).map(function(e) {
+                    var n = rt[e],
                         t = e.slice(1),
                         o = t.split('x'),
                         i = o[1],
-                        a =
+                        r =
                             '\n        .message {\n            width: ' +
                             o[0] +
                             'px;\n            min-height: ' +
@@ -3053,23 +3220,23 @@
                             i +
                             'px;\n        }\n    ';
                     return (
-                        n.vertical && (a = '' + a + An.a),
-                        n.reverseLogo && (a = '' + a + En.a),
-                        n.vertical && n.reverseLogo && (a = '' + a + zn.a),
-                        n.termsIcon && (a = '' + a + Tn.a),
-                        ['size:' + t, a]
+                        n.vertical && (r = '' + r + An.a),
+                        n.reverseLogo && (r = '' + r + En.a),
+                        n.vertical && n.reverseLogo && (r = '' + r + zn.a),
+                        n.termsIcon && (r = '' + r + On.a),
+                        ['size:' + t, r]
                     );
                 }),
-                st = Object.keys(at).map(function(e) {
-                    return ['size:' + e.slice(1), at[e].styles];
+                st = Object.keys(rt).map(function(e) {
+                    return ['size:' + e.slice(1), rt[e].styles];
                 }),
-                lt = [['default', [Ie.a, xn.a].join('\n')]].concat(rt, st),
-                ct = t(99),
+                lt = [['default', [Te.a, vn.a].join('\n')]].concat(at, st),
+                ct = t(100),
                 ut = {
                     'layout:text': Ze,
                     'layout:flex': wn,
                     'layout:legacy': lt,
-                    'layout:custom': [['default', [Ie.a, t.n(ct).a].join('\n')]]
+                    'layout:custom': [['default', [Te.a, t.n(ct).a].join('\n')]]
                 },
                 dt = {
                     PRIMARY: {
@@ -3700,7 +3867,7 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                vt = {
+                xt = {
                     'layout:text': [
                         [
                             'default',
@@ -3758,7 +3925,7 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                xt = {
+                vt = {
                     'layout:text': [
                         ['default', { logo: dt.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: [140, 210] }],
@@ -3801,24 +3968,24 @@
                     ]
                 };
             function bt(e, n) {
-                var t = he()(e, function(e) {
+                var t = $()(e, function(e) {
                     var t = e[1];
-                    return I()(t, n);
+                    return T()(t, n);
                 });
                 if (t) return t[0];
-                if (ve()(n, '.')) {
+                if (xe()(n, '.')) {
                     var o = n.split('.', 1)[0];
                     if (
-                        (t = he()(e, function(e) {
+                        (t = $()(e, function(e) {
                             var n = e[1];
-                            return I()(n, o);
+                            return T()(n, o);
                         }))
                     )
                         return t[0];
                 }
-                return he()(e, function(e) {
+                return $()(e, function(e) {
                     var n = e[1];
-                    return I()(n, 'default');
+                    return T()(n, 'default');
                 })[0];
             }
             var Et = document.createElement('div');
@@ -3843,7 +4010,7 @@
                         (t.innerHTML = n), e.appendChild(t);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                It = N(function(e, n) {
+                Tt = N(function(e, n) {
                     if (Array.isArray(n))
                         []
                             .concat(n)
@@ -3857,7 +4024,7 @@
                         (t.innerHTML = n), e.insertBefore(t, e.firstChild);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                Tt = N(function(e, n, t, o) {
+                Ot = N(function(e, n, t, o) {
                     if ((void 0 === t && (t = 'PayPal Credit'), 'string' == typeof n)) {
                         var i = new Image();
                         (i.alt = t),
@@ -3866,18 +4033,18 @@
                             o && (i.srcset = o),
                             e.appendChild(i);
                     } else if (Array.isArray(n)) {
-                        var a = n[0],
-                            r = n[1],
+                        var r = n[0],
+                            a = n[1],
                             s = n[2],
                             l = new Image();
-                        (l.src = a), (l.alt = t);
+                        (l.src = r), (l.alt = t);
                         var c = document.createElement('div');
                         c.className = 'message__logo message__logo--svg';
                         var u = document.createElement('canvas');
-                        (u.height = s), (u.width = r), c.appendChild(l), c.appendChild(u), e.appendChild(c);
+                        (u.height = s), (u.width = a), c.appendChild(l), c.appendChild(u), e.appendChild(c);
                     } else e.parentNode.removeChild(e);
                 }, 2);
-            function Ot(e) {
+            function It(e) {
                 return e
                     .reduce(function(e, n) {
                         return [].concat(e, [n, document.createTextNode(' ')]);
@@ -3904,19 +4071,19 @@
                         (function(e, t) {
                             var o = [].concat(n.br);
                             t.forEach(function(e) {
-                                for (var n = e.innerText, t = []; ve()(n, o[0]); ) t.push(o[0]), o.shift();
+                                for (var n = e.innerText, t = []; xe()(n, o[0]); ) t.push(o[0]), o.shift();
                                 if (0 === t.length || (1 === t.length && _e()(n, t[0]))) return e.classList.add('br');
                                 var i = document.createElement('span');
                                 (i.innerText = n), (i.className = 'br');
-                                var a = t.reduce(
+                                var r = t.reduce(
                                     function(e, n) {
                                         var t = (function(e, n) {
                                             var t = e.innerText,
                                                 o = t.indexOf(n) + n.length,
                                                 i = e.cloneNode();
                                             if (((i.innerText = t.slice(0, o).trim()), t.length !== o)) {
-                                                var a = e.cloneNode();
-                                                return (a.innerText = t.slice(o).trim()), [i, a];
+                                                var r = e.cloneNode();
+                                                return (r.innerText = t.slice(o).trim()), [i, r];
                                             }
                                             return [i];
                                         })(e[e.length - 1], n);
@@ -3926,13 +4093,13 @@
                                 );
                                 return (
                                     (e.innerHTML = ''),
-                                    a.forEach(function(n) {
+                                    r.forEach(function(n) {
                                         e.appendChild(n), e.appendChild(document.createTextNode(' '));
                                     })
                                 );
                             });
                         })(0, o),
-                    Ot(o)
+                    It(o)
                 );
             }
             var Lt = N(function(e, n, t) {
@@ -3940,24 +4107,24 @@
                         !1 !== t &&
                         ('string' != typeof t && 'object' != typeof t
                             ? null
-                            : Ot(
+                            : It(
                                   (o = 'string' == typeof t ? [{ tag: t }] : Array.isArray(t) ? t : [t]).map(function(
                                       t
                                   ) {
                                       var i,
-                                          r = document.createElement('span');
-                                      if ((o.length > 1 && r.setAttribute('class', 'multi'), 'string' == typeof t))
-                                          (i = St(bt(e[n], t))), r.classList.add('tag--' + t.split('.', 1)[0]);
+                                          a = document.createElement('span');
+                                      if ((o.length > 1 && a.setAttribute('class', 'multi'), 'string' == typeof t))
+                                          (i = St(bt(e[n], t))), a.classList.add('tag--' + t.split('.', 1)[0]);
                                       else {
                                           var s = t.tag,
-                                              l = a(t, ['tag']);
-                                          (i = St(bt(e[n], s), l)), r.classList.add('tag--' + s.split('.', 1)[0]);
+                                              l = r(t, ['tag']);
+                                          (i = St(bt(e[n], s), l)), a.classList.add('tag--' + s.split('.', 1)[0]);
                                       }
                                       return (
                                           i.forEach(function(e) {
-                                              return r.appendChild(e);
+                                              return a.appendChild(e);
                                           }),
-                                          r
+                                          a
                                       );
                                   })
                               ))
@@ -3968,15 +4135,15 @@
                     return t.reduce(
                         function(t, o) {
                             var i = o[0],
-                                a = o[1],
-                                r = i.split(' && ');
+                                r = o[1],
+                                a = i.split(' && ');
                             return 'default' === i ||
-                                r.every(function(n) {
-                                    return I()(e, n);
+                                a.every(function(n) {
+                                    return T()(e, n);
                                 })
                                 ? n === Array
-                                    ? [].concat(t, [a])
-                                    : W(t, a)
+                                    ? [].concat(t, [r])
+                                    : H(t, r)
                                 : t;
                         },
                         n === Array ? [] : {}
@@ -3984,55 +4151,53 @@
                 }),
                 Nt = {
                     getTemplateNode: S(function(e, n) {
-                        var t = H(e, 'style.layout');
+                        var t = B(e, 'style.layout');
                         if ('custom' === t)
                             return (function(e) {
                                 var t = n.data,
                                     o = n.meta,
                                     i = n.template,
-                                    a = document.createElement('div'),
-                                    r = o.offerType;
-                                if ('' === i) return a;
+                                    r = document.createElement('div'),
+                                    a = o.offerType;
+                                if ('' === i) return r;
                                 try {
                                     var s = i.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, n) {
                                         var o = n.split('.'),
                                             i = o[0],
-                                            a = o.slice(1).join('.');
+                                            r = o.slice(1).join('.');
                                         if ('logo' === i) {
-                                            var r = document.createElement('div');
-                                            return Tt(r, H(dt, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
+                                            var a = document.createElement('div');
+                                            return Ot(a, B(dt, r.toUpperCase()), 'PayPal Credit logo'), a.innerHTML;
                                         }
-                                        return St(bt(t[i], a)).reduce(function(e, n) {
+                                        return St(bt(t[i], r)).reduce(function(e, n) {
                                             return '' + e + (n.outerHTML || ' ');
                                         }, '');
                                     });
-                                    (a.innerHTML = s),
-                                        he()(R()(a.children), function(e) {
+                                    (r.innerHTML = s),
+                                        $()(R()(r.children), function(e) {
                                             return 'STYLE' !== e.tagName;
-                                        }).classList.add('offer--' + r.replace(/:/g, '-').toLowerCase());
-                                } catch (e) {
-                                    te.warn(e);
-                                }
-                                return a;
+                                        }).classList.add('offer--' + a.replace(/:/g, '-').toLowerCase());
+                                } catch (e) {}
+                                return r;
                             })();
-                        var o = H(e, 'style._flattened'),
-                            i = H(n, 'meta.offerType'),
-                            a = H(n, 'data');
+                        var o = B(e, 'style._flattened'),
+                            i = B(n, 'meta.offerType'),
+                            r = B(n, 'data');
                         if ('legacy' === t) {
-                            var r = H(e, 'style.typeNI'),
-                                s = H(e, 'style.typeEZP'),
-                                l = 'NI' === i.split(':')[0] ? r : s;
+                            var a = B(e, 'style.typeNI'),
+                                s = B(e, 'style.typeEZP'),
+                                l = 'NI' === i.split(':')[0] ? a : s;
                             if ('image' === l)
                                 return (function(e, t) {
                                     var o = n.meta,
                                         i = Pt.cloneNode(!0),
-                                        a = At('pp-legacy', i),
-                                        r = ['link', 'pixel'].map(a),
-                                        s = r[0],
-                                        l = r[1],
-                                        c = H(e, 'size'),
-                                        u = H(e, 'color'),
-                                        d = H(e, 'border');
+                                        r = At('pp-legacy', i),
+                                        a = ['link', 'pixel'].map(r),
+                                        s = a[0],
+                                        l = a[1],
+                                        c = B(e, 'size'),
+                                        u = B(e, 'color'),
+                                        d = B(e, 'border');
                                     s.setAttribute('href', o.clickUrl), l.setAttribute('href', o.impressionUrl);
                                     var m = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy',
                                         f = 'none' === u ? '' : '-' + u + (!0 === d ? '' : '-no-border'),
@@ -4040,9 +4205,9 @@
                                         g = [1, 1.5, 2].map(function(e) {
                                             return m + '/' + p + '@' + e + 'x.png ' + e + 'x';
                                         });
-                                    return Tt(s, m + '/' + p + '@1x.png', 'PayPal Credit Message', g.join(', ')), i;
+                                    return Ot(s, m + '/' + p + '@1x.png', 'PayPal Credit Message', g.join(', ')), i;
                                 })(e.style);
-                            if (!l) throw new Error($.INVALID_LEGACY_BANNER);
+                            if (!l) throw new Error(ee.MESSAGE_INVALID_LEGACY);
                         }
                         var c = Ct(o),
                             u = c(
@@ -4058,9 +4223,9 @@
                                         case 'PALA:MULTI:GTZ':
                                             return wt[n];
                                         case 'PALA:SINGLE:EQZ':
-                                            return vt[n];
-                                        case 'PALA:SINGLE:GTZ':
                                             return xt[n];
+                                        case 'PALA:SINGLE:GTZ':
+                                            return vt[n];
                                         case 'NI:NON-US':
                                             return gt[n];
                                         case 'NI':
@@ -4070,7 +4235,7 @@
                                 })(0, 'layout:' + t)
                             ),
                             d = c(Array, ut['layout:' + t]),
-                            m = Lt(a),
+                            m = Lt(r),
                             f = Et.cloneNode(!0),
                             p = At('message', f),
                             g = ['logo-container', 'headline', 'sub-headline', 'disclaimer'].map(p),
@@ -4081,18 +4246,18 @@
                         if (
                             (zt(y, m('headline', u.headline)),
                             zt(_, m('subHeadline', u.subHeadline)),
-                            It(w, m('disclaimer', u.disclaimer)),
-                            Tt(h, u.logo, 'PayPal Credit logo'),
-                            'inline' === H(e, 'style.logo.type') && y.appendChild(h),
-                            'none' === H(e, 'style.logo.type'))
+                            Tt(w, m('disclaimer', u.disclaimer)),
+                            Ot(h, u.logo, 'PayPal Credit logo'),
+                            'inline' === B(e, 'style.logo.type') && y.appendChild(h),
+                            'none' === B(e, 'style.logo.type'))
                         ) {
-                            var v = document.createElement('span');
-                            v.innerText = 'with ';
-                            var x = document.createElement('strong');
-                            (x.innerText = 'PayPal Credit.'),
-                                v.appendChild(x),
+                            var x = document.createElement('span');
+                            x.innerText = 'with ';
+                            var v = document.createElement('strong');
+                            (v.innerText = 'PayPal Credit.'),
+                                x.appendChild(v),
                                 y.appendChild(document.createTextNode(' ')),
-                                y.appendChild(v);
+                                y.appendChild(x);
                         }
                         u.messageWidth &&
                             ('number' == typeof u.messageWidth
@@ -4119,17 +4284,17 @@
                     R()(i.children).forEach(function(n) {
                         return e.appendChild(n.cloneNode(!0));
                     }),
-                    { meta: o }
+                    o
                 );
             }
             var kt = N(function(e, n) {
                 var t = n.markup,
                     o = n.options;
-                return new K.ZalgoPromise(function(n) {
+                return new Z.ZalgoPromise(function(n) {
                     'IFRAME' === e.tagName
                         ? 'string' == typeof t
                             ? (function(e, n) {
-                                  return new K.ZalgoPromise(function(t) {
+                                  return new Z.ZalgoPromise(function(t) {
                                       var o = e.contentWindow,
                                           i = '<style>body{margin:0;padding:0;overflow:hidden;}</style>' + n;
                                       (e.srcdoc = i),
@@ -4147,13 +4312,13 @@
                                   return n({ meta: e, options: o });
                               })
                             : (function(e, n, t) {
-                                  return new K.ZalgoPromise(function(o) {
+                                  return new Z.ZalgoPromise(function(o) {
                                       var i = e.contentWindow,
-                                          a = n.meta,
-                                          r = Nt.getTemplateNode(t, n),
-                                          s = i.document.importNode(r, !0),
+                                          r = n.meta,
+                                          a = Nt.getTemplateNode(t, n),
+                                          s = i.document.importNode(a, !0),
                                           l = R()(s.getElementsByTagName('img')).map(function(e) {
-                                              return new K.ZalgoPromise(function(n) {
+                                              return new Z.ZalgoPromise(function(n) {
                                                   return e.addEventListener('load', n);
                                               });
                                           });
@@ -4171,8 +4336,8 @@
                                       R()(s.children).forEach(function(e) {
                                           return i.document.body.appendChild(e);
                                       }),
-                                          K.ZalgoPromise.all(l).then(function() {
-                                              o(a);
+                                          Z.ZalgoPromise.all(l).then(function() {
+                                              o(r);
                                           });
                                   });
                               })(e, t, o).then(function(e) {
@@ -4191,18 +4356,18 @@
                     var t = n.options.amount,
                         o = n.events,
                         i = n.track,
-                        a = e.getBoundingClientRect(),
-                        r = {
+                        r = e.getBoundingClientRect(),
+                        a = {
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'stats',
-                            pos_x: Math.round(a.left),
-                            pos_y: Math.round(a.top),
+                            pos_x: Math.round(r.left),
+                            pos_y: Math.round(r.top),
                             browser_width: window.innerWidth,
                             browser_height: window.innerHeight,
                             visible: jt(e),
                             amount: t
                         };
-                    r.visible ||
+                    a.visible ||
                         o.on('scroll', function() {
                             jt(e) &&
                                 (o.clear('scroll'), i({ et: 'CLIENT_IMPRESSION', event_type: 'scroll', visible: !0 }));
@@ -4218,7 +4383,7 @@
                                     'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -1000px !important;'
                                 );
                             var n = void 0 !== window.getComputedStyle ? window.getComputedStyle(e) : void 0;
-                            return new K.ZalgoPromise(function(t) {
+                            return new Z.ZalgoPromise(function(t) {
                                 !(function o(i) {
                                     return i <= 0
                                         ? (window.document.body.removeChild(e), t(!1))
@@ -4240,8 +4405,8 @@
                                 })(5);
                             });
                         })().then(function(n) {
-                            (r.adblock = n),
-                                (r.blocked = (function(e) {
+                            (a.adblock = n),
+                                (a.blocked = (function(e) {
                                     if ('function' == typeof window.getComputedStyle) {
                                         var n = window.getComputedStyle(e);
                                         if (
@@ -4261,7 +4426,7 @@
                                         0 === e.offsetHeight
                                     );
                                 })(e)),
-                                i(r, e.hasAttribute('data-pp-message-hidden')),
+                                i(a, e.hasAttribute('data-pp-message-hidden')),
                                 i('MORS_IMPRESSION');
                         }),
                         o.on('click', function() {
@@ -4303,9 +4468,9 @@
                     ? o.reduce(
                           function(e, n) {
                               return (
-                                  O()(n, '@')
+                                  I()(n, '@')
                                       ? (e.breakpoint = n.slice(1))
-                                      : O()(n, '[') && (e.width = n.slice(1, -1).split(',')),
+                                      : I()(n, '[') && (e.width = n.slice(1, -1).split(',')),
                                   e
                               );
                           },
@@ -4315,15 +4480,18 @@
             }
             var Yt = N(function(e, n) {
                     var t = n.wrapper,
-                        o = n.options;
+                        o = n.options,
+                        i = n.logger;
                     if ('IFRAME' === e.tagName) {
-                        var i = H(o, 'style.layout'),
-                            a = H(o, 'style.ratio');
-                        if (('flex' !== i && 'custom' !== i) || !a) {
-                            e.setAttribute('style', 'width: ' + ('custom' !== i ? 0 : '`100%') + '; border: none;'),
+                        var r,
+                            a,
+                            s = B(o, 'style.layout'),
+                            l = B(o, 'style.ratio');
+                        if (('flex' !== s && 'custom' !== s) || !l) {
+                            e.setAttribute('style', 'width: ' + ('custom' !== s ? 0 : '`100%') + '; border: none;'),
                                 e.setAttribute('height', 0),
                                 t.removeAttribute('class');
-                            var r = (function(e) {
+                            var c = (function(e) {
                                     var n = document.createElement('div');
                                     n.setAttribute('style', 'width: 100%; overflow: hidden');
                                     var t = document.createElement('div');
@@ -4333,8 +4501,8 @@
                                     var o = n.offsetWidth;
                                     return e.parentNode.removeChild(n), o;
                                 })(t),
-                                s =
-                                    'custom' !== i && null !== e.offsetParent
+                                u =
+                                    'custom' !== s && null !== e.offsetParent
                                         ? (function(e) {
                                               var n = e.contentDocument.querySelector('.message__content'),
                                                   t = window.getComputedStyle(n),
@@ -4348,7 +4516,7 @@
                                                       'border-right-width',
                                                       'margin-right'
                                                   ];
-                                              return ve()(t.getPropertyValue('display'), 'flex')
+                                              return xe()(t.getPropertyValue('display'), 'flex')
                                                   ? Math.round(
                                                         o.reduce(function(e, n) {
                                                             var t = window.getComputedStyle(n);
@@ -4373,8 +4541,8 @@
                                                     );
                                           })(e)
                                         : 0,
-                                l = function() {
-                                    e.setAttribute('style', 'width: 100%; border: none; min-width: ' + s + 'px;'),
+                                d = function() {
+                                    e.setAttribute('style', 'width: 100%; border: none; min-width: ' + u + 'px;'),
                                         requestAnimationFrame(function() {
                                             return requestAnimationFrame(function() {
                                                 e.setAttribute(
@@ -4384,32 +4552,34 @@
                                             });
                                         });
                                 };
-                            if (r < s && 'custom' !== i) {
-                                if ('top' !== H(o, 'style.logo.position') || 'primary' !== H(o, 'style.logo.type'))
-                                    throw (te.warn(
+                            if (c < u && 'custom' !== s) {
+                                if ('top' !== B(o, 'style.logo.position') || 'primary' !== B(o, 'style.logo.type'))
+                                    throw (i.warn(
                                         'Message Overflow. PayPal Credit Message of layout type ' +
-                                            H(o, 'style.layout') +
+                                            B(o, 'style.layout') +
                                             ' requires a width of at least ' +
-                                            s +
+                                            u +
                                             'px. Current container is ' +
-                                            r +
+                                            c +
                                             'px. Attempting fallback message.'
                                     ),
-                                    t.parentNode.setAttribute('data-pp-style-layout', 'text'),
-                                    t.parentNode.setAttribute('data-pp-style-logo-type', 'primary'),
-                                    t.parentNode.setAttribute('data-pp-style-logo-position', 'top'),
-                                    window.paypal.Messages().render(t.parentNode),
-                                    new Error($.OVERFLOW));
-                                te.error({ message: $.HIDDEN }),
-                                    te.warn(
+                                    (r = function() {
+                                        t.parentNode.setAttribute('data-pp-style-layout', 'text'),
+                                            t.parentNode.setAttribute('data-pp-style-logo-type', 'primary'),
+                                            t.parentNode.setAttribute('data-pp-style-logo-position', 'top');
+                                    }),
+                                    ((a = new Error(ee.MESSAGE_OVERFLOW)).onEnd = r),
+                                    a);
+                                i.error({ name: ee.MESSAGE_HIDDEN }),
+                                    i.warn(
                                         'Message hidden. PayPal Credit Message fallback requires minimum width of ' +
-                                            s +
+                                            u +
                                             'px. Current container is ' +
-                                            r +
+                                            c +
                                             'px. Message hidden.'
                                     ),
                                     e.setAttribute('data-pp-message-hidden', 'true');
-                            } else l(), pe(e).on('resize', l);
+                            } else d(), he(e).on('resize', d);
                         } else
                             !(function(e, n, t) {
                                 var o = [];
@@ -4419,19 +4589,19 @@
                                     ? (o = n.map(Dt))
                                     : 'string' == typeof n && (o = [Dt(n)]);
                                 var i = 'pp-flex--' + o.slice(-1)[0].ratio,
-                                    a = o.reduce(function(e, n) {
+                                    r = o.reduce(function(e, n) {
                                         var t = n.breakpoint,
                                             o = n.ratio,
-                                            a = n.width;
+                                            r = n.width;
                                         return '' === e
                                             ? '\n                .' +
                                                   i +
                                                   ' {\n                    display: block;\n                    width: 100%;\n                    ' +
-                                                  (Array.isArray(a)
+                                                  (Array.isArray(r)
                                                       ? '\n                                min-width: ' +
-                                                        Bt(a[0]) +
+                                                        Bt(r[0]) +
                                                         ';\n                                max-width: ' +
-                                                        Bt(a[1]) +
+                                                        Bt(r[1]) +
                                                         ';'
                                                       : '') +
                                                   '\n                    box-sizing: border-box;\n                    position: relative;\n                }\n        \n                .' +
@@ -4447,13 +4617,13 @@
                                               '\n            @media (min-width: ' +
                                               Bt(t) +
                                               ') {\n                ' +
-                                              (Array.isArray(a)
+                                              (Array.isArray(r)
                                                   ? '\n                            .' +
                                                     i +
                                                     ' {\n                                min-width: ' +
-                                                    Bt(a[0]) +
+                                                    Bt(r[0]) +
                                                     ';\n                                max-width: ' +
-                                                    Bt(a[1]) +
+                                                    Bt(r[1]) +
                                                     ';\n                            }'
                                                   : '') +
                                               '\n                .' +
@@ -4463,9 +4633,9 @@
                                               ';\n                }\n            }\n        '
                                             : e;
                                     }, ''),
-                                    r = document.createElement('style');
-                                (r.textContent = a), e.setAttribute('class', i), e.appendChild(r);
-                            })(t, a, i),
+                                    a = document.createElement('style');
+                                (a.textContent = r), e.setAttribute('class', i), e.appendChild(a);
+                            })(t, l, s),
                                 e.setAttribute('style', 'width: 100%; border: none;'),
                                 e.removeAttribute('height');
                     }
@@ -4476,14 +4646,14 @@
                         e.contentWindow.postMessage(t, window.top.location.origin);
                     }
                 });
-            function Ft(e) {
+            function Ut(e) {
                 var n = document.createElement(e);
                 'iframe' === e &&
                     (n.setAttribute('title', 'PayPal Credit Promotion Message'),
                     n.setAttribute('style', 'width: 0; border: none;'),
                     n.setAttribute('src', 'about:blank'),
                     n.setAttribute('height', 0));
-                var t = P()({ insertMarkup: kt, setSize: Yt, runStats: Wt, postMessage: Gt, events: pe }).reduce(
+                var t = P()({ insertMarkup: kt, setSize: Yt, runStats: Wt, postMessage: Gt, events: he }).reduce(
                     function(e, t) {
                         var o;
                         return i({}, e, (((o = {})[t[0]] = (0, t[1])(n)), o));
@@ -4493,123 +4663,165 @@
                 return (
                     (t.clearEvents = function() {
                         return (function(e) {
-                            Z()(le).forEach(function(n) {
+                            ce()(ue).forEach(function(n) {
                                 return n.delete(e);
                             }),
-                                0 === le.scroll.size && window.removeEventListener('scroll', de),
-                                0 === le.hover.size && document.removeEventListener('mouseover', me),
-                                0 === le.message.size && window.removeEventListener('message', ce),
+                                0 === ue.scroll.size && window.removeEventListener('scroll', fe),
+                                0 === ue.hover.size && document.removeEventListener('mouseover', pe),
+                                0 === ue.message.size && window.removeEventListener('message', de),
                                 'IFRAME' === e.tagName
-                                    ? (e.contentWindow.removeEventListener('resize', ue),
-                                      e.contentWindow.removeEventListener('click', fe))
-                                    : e.removeEventListener('click', fe);
+                                    ? (e.contentWindow.removeEventListener('resize', me),
+                                      e.contentWindow.removeEventListener('click', ge))
+                                    : e.removeEventListener('click', ge);
                         })(n);
                     }),
                     [n, t]
                 );
             }
-            var Ut,
-                Vt = t(23),
-                Zt = t.n(Vt),
-                Kt = { ANY: 'ANY', STRING: 'STRING', BOOLEAN: 'BOOLEAN', FUNCTION: 'FUNCTION' },
-                Jt =
-                    (((Ut = {})[Kt.STRING] = 'string'),
-                    (Ut[Kt.BOOLEAN] = 'boolean'),
-                    (Ut[Kt.FUNCTION] = 'function'),
-                    Ut),
-                qt = { onRender: [Kt.FUNCTION], sign: [Kt.STRING] },
-                $t = {
+            var Ft = t(22),
+                Vt = t.n(Ft),
+                Zt = {
+                    ANY: 'ANY',
+                    STRING: 'STRING',
+                    BOOLEAN: 'BOOLEAN',
+                    NUMBER: 'NUMBER',
+                    FUNCTION: 'FUNCTION',
+                    OBJECT: 'OBJECT'
+                },
+                Kt = { id: [Zt.STRING], _legacy: [Zt.BOOLEAN], onRender: [Zt.FUNCTION] },
+                Jt = {
                     text: {
                         logo: {
-                            type: [Kt.STRING, ['primary', 'alternative', 'inline', 'none']],
-                            position: [Kt.STRING, ['left', 'right', 'top']]
+                            type: [Zt.STRING, ['primary', 'alternative', 'inline', 'none']],
+                            position: [Zt.STRING, ['left', 'right', 'top']]
                         },
-                        text: { color: [Kt.STRING, ['black', 'white']] }
+                        text: { color: [Zt.STRING, ['black', 'white']] }
                     },
                     flex: {
-                        color: [Kt.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-                        ratio: [Kt.STRING, ['1x1', '1x4', '8x1', '20x1']]
+                        color: [Zt.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
+                        ratio: [Zt.STRING, ['1x1', '1x4', '8x1', '20x1']]
                     },
                     legacy: {
-                        typeNI: [Kt.STRING, ['', 'image', 'html']],
-                        typeEZP: [Kt.STRING, ['', 'html']],
-                        size: [Kt.STRING],
-                        color: [Kt.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-                        border: [Kt.BOOLEAN, [!0, !1]]
+                        typeNI: [Zt.STRING, ['', 'image', 'html']],
+                        typeEZP: [Zt.STRING, ['', 'html']],
+                        size: [Zt.STRING],
+                        color: [Zt.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
+                        border: [Zt.BOOLEAN, [!0, !1]]
                     },
-                    custom: { markup: [Kt.STRING], ratio: [Kt.ANY] }
+                    custom: { markup: [Zt.STRING], ratio: [Zt.ANY] }
                 },
-                Qt = function(e, n, t) {
-                    return te.warn(
-                        'Invalid option value (' +
-                            e +
-                            '). Expected type "' +
-                            n +
-                            '" but instead received "' +
-                            typeof t +
-                            '".'
+                qt = function(e, n, t) {
+                    return e.warn('Invalid option value (' + n + '). ' + t);
+                },
+                $t = function(e, n, t, o) {
+                    return qt(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
+                },
+                Qt = function(e, n, t, o) {
+                    return qt(
+                        e,
+                        n,
+                        'Expected one of ["' + t.join('", "').replace(/\|[\w|]+/g, '') + '"] but received "' + o + '".'
                     );
                 };
-            function Xt(e, n, t) {
+            function Xt(e, n) {
+                switch (e) {
+                    case Zt.STRING:
+                        return 'string' == typeof n;
+                    case Zt.BOOLEAN:
+                        return 'boolean' == typeof n;
+                    case Zt.NUMBER:
+                        return 'number' == typeof n && !Vt()(n);
+                    case Zt.FUNCTION:
+                        return 'function' == typeof n;
+                    case Zt.OBJECT:
+                        return 'object' == typeof n && null !== n;
+                    case Zt.ANY:
+                        return !0;
+                    default:
+                        return !1;
+                }
+            }
+            function eo(e, n, t, o) {
                 return (
-                    void 0 === t && (t = 'style.'),
-                    P()(e).reduce(function(o, a) {
-                        var r,
-                            s,
+                    void 0 === o && (o = 'style.'),
+                    P()(n).reduce(function(r, a) {
+                        var s,
                             l = a[0],
                             c = a[1];
-                        return Array.isArray(c)
-                            ? i(
-                                  {},
-                                  o,
-                                  (((s = {})[l] = (function(e, n, t) {
-                                      var o = e[0],
-                                          i = e[1],
-                                          a = void 0 === i ? [] : i;
-                                      if (void 0 === n) return a[0];
-                                      if (
-                                          (function(e, n) {
-                                              return Jt[o] === Kt.BOOLEAN
-                                                  ? 'boolean' == typeof n
-                                                  : o === Kt.FUNCTION
-                                                  ? 'function' == typeof n
-                                                  : o !== Kt.STRING || 'string' == typeof n;
-                                          })(0, n)
-                                      ) {
-                                          if (o === Kt.STRING && a.length > 0) {
-                                              var r = he()(a, function(e) {
-                                                  return e.split('|').some(function(e) {
-                                                      return e === n;
-                                                  });
-                                              });
-                                              if (void 0 !== r) return r.split('|')[0];
-                                              te.warn(
-                                                  'Invalid option value (' +
-                                                      t +
-                                                      '). Expected one of ["' +
-                                                      a.join('", "').replace(/\|[\w|]+/g, '') +
-                                                      '"] but received "' +
-                                                      n +
-                                                      '".'
-                                              );
-                                          }
-                                          return n;
-                                      }
-                                      return Qt(t, Jt[o], n), a[0];
-                                  })(c, n[l], '' + t + l)),
-                                  s)
-                              )
-                            : i({}, o, (((r = {})[l] = Xt(e[l], n[l] || {}, '' + t + l + '.')), r));
+                        if (Array.isArray(c)) {
+                            var u,
+                                d = (function(e, n, t, o) {
+                                    var i = n[0],
+                                        r = n[1],
+                                        a = void 0 === r ? [] : r;
+                                    if (void 0 === t) return a[0];
+                                    if (Xt(i, t)) {
+                                        if (i === Zt.STRING && a.length > 0) {
+                                            var s = $()(a, function(e) {
+                                                return e.split('|').some(function(e) {
+                                                    return e === t;
+                                                });
+                                            });
+                                            return void 0 === s
+                                                ? (Qt(e, o, a, t), a[0].split('|')[0])
+                                                : s.split('|')[0];
+                                        }
+                                        return t;
+                                    }
+                                    return $t(e, o, i, t), a[0];
+                                })(e, c, t[l], '' + o + l);
+                            return void 0 === d ? r : i({}, r, (((u = {})[l] = d), u));
+                        }
+                        return i({}, r, (((s = {})[l] = eo(e, n[l], t[l] || {}, '' + o + l + '.')), s));
                     }, {})
                 );
             }
-            function eo(e) {
-                return i({ layout: e.layout }, Xt($t[e.layout], e));
+            function no(e, n) {
+                return i({ layout: n.layout }, eo(e, Jt[n.layout], n));
             }
-            var no = L(
+            var to = N(function(e, n) {
+                    var t = n.account,
+                        o = n.amount,
+                        i = n.countryCode,
+                        a = n.style,
+                        s = r(n, ['account', 'amount', 'countryCode', 'style']),
+                        l = eo(e, Kt, s, '');
+                    if (
+                        (Xt(Zt.STRING, t)
+                            ? 13 === t.length || 10 === t.length || I()(t, 'client-id:')
+                                ? (l.account = t)
+                                : qt(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
+                            : $t(e, 'account', Zt.STRING, t),
+                        void 0 !== o)
+                    ) {
+                        var c = Number(o);
+                        Xt(Zt.NUMBER, c)
+                            ? c < 0
+                                ? qt(e, 'amount', 'Ensure value is a positive number.')
+                                : (l.amount = c)
+                            : $t(e, 'amount', Zt.NUMBER, o);
+                    }
+                    return (
+                        void 0 !== i &&
+                            (Xt(Zt.STRING, i)
+                                ? 2 !== i.length
+                                    ? qt(e, 'countryCode', 'Country code should be 2 characters.')
+                                    : (l.countryCode = i)
+                                : $t(e, 'countryCode', Zt.STRING, i)),
+                        Xt(Zt.OBJECT, a) && Xt(Zt.STRING, a.layout) && Jt[a.layout]
+                            ? (l.style = no(e, a))
+                            : (Xt(Zt.OBJECT, a)
+                                  ? Qt(e, 'style.layout', Object.keys(Jt), a.layout)
+                                  : void 0 !== a && $t(e, 'style', Zt.OBJECT, a),
+                              (l.style = no(e, { layout: 'text' }))),
+                        e.info(X.VALIDATE, { options: W(l) }),
+                        l
+                    );
+                }),
+                oo = L(
                     function(e) {
                         var n = e.offerType;
-                        return new K.ZalgoPromise(function(e, t) {
+                        return new Z.ZalgoPromise(function(e, t) {
                             var o = new XMLHttpRequest();
                             (o.onreadystatechange = function() {
                                 if (4 === o.readyState)
@@ -4626,7 +4838,7 @@
                                     (function(e) {
                                         return (
                                             'https://www.paypalobjects.com/upstream/assets/messaging/modal/' +
-                                            (O()(e, 'NI') ? 'ni' : 'ezp') +
+                                            (I()(e, 'NI') ? 'ni' : 'ezp') +
                                             '.html'
                                         );
                                     })(n),
@@ -4637,42 +4849,42 @@
                     },
                     ['offerType']
                 ),
-                to = L(
+                io = L(
                     function(e) {
-                        return new K.ZalgoPromise(function(n) {
+                        return new Z.ZalgoPromise(function(n) {
                             var t,
                                 o,
                                 i,
-                                a,
-                                r = new XMLHttpRequest();
-                            (r.onreadystatechange = function() {
-                                if (4 === r.readyState)
-                                    switch (r.status) {
+                                r,
+                                a = new XMLHttpRequest();
+                            (a.onreadystatechange = function() {
+                                if (4 === a.readyState)
+                                    switch (a.status) {
                                         case 200:
-                                            n(JSON.parse(r.responseText));
+                                            n(JSON.parse(a.responseText));
                                             break;
                                         default:
                                             n({ error: !0 });
                                     }
                             }),
-                                r.open(
+                                a.open(
                                     'GET',
                                     ((o = (t = e).account),
                                     (i = t.amount),
-                                    (a = ['json=true', O()(o, 'client-id') ? 'cid=' + o.slice(10) : 'mid=' + o]).push(
+                                    (r = ['json=true', I()(o, 'client-id') ? 'cid=' + o.slice(10) : 'mid=' + o]).push(
                                         'country=US'
                                     ),
-                                    a.push('currency=USD'),
-                                    i && a.push('amount=' + i),
-                                    'https://www.paypal.com/ppcredit/finance/terms?' + a.join('&')),
+                                    r.push('currency=USD'),
+                                    i && r.push('amount=' + i),
+                                    'https://www.paypal.com/ppcredit/finance/terms?' + r.join('&')),
                                     !0
                                 ),
-                                r.send();
+                                a.send();
                         });
                     },
                     ['account', 'amount']
                 ),
-                oo = function(e, n) {
+                ro = function(e, n) {
                     return 'INST' === n.type
                         ? '<tr>\n            ' +
                               ('pala' === e.type
@@ -4695,7 +4907,7 @@
                               '\n        </tr>'
                         : '';
                 },
-                io = function(e) {
+                ao = function(e) {
                     return e.max_amount !== e.default_max_amount
                         ? '<div style="text-align: center; padding-bottom: 15px; display: table; padding-top: 10px; "><span style="display: inline-block; vertical-align: middle; "><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"><path fill="none" fill-rule="evenodd" stroke="#9DA3A6" stroke-linecap="round" stroke-linejoin="round" d="M9.526 10.474v7.579c4.71-.034 8.527-3.817 8.527-8.527a8.526 8.526 0 1 0-11.834 7.862"></path></svg></span><p style="display: inline; font-size: 13px; color: #2c2e2f; padding-left: 5px; font-family: PayPalSansSmall; font-weight: 400 ">$' +
                               e.max_amount +
@@ -4704,11 +4916,11 @@
                               ' or less.</p></div>'
                         : '<p style="text-align: center">No offers are available for this amount. Please enter a new amount.</p>';
                 };
-            function ao(e, n) {
+            function so(e, n) {
                 var t = e.contentDocument.getElementById('content-wrapper'),
                     o = e.contentDocument.getElementById('modal__overlay'),
-                    a = e.contentDocument.getElementById('close-btn'),
-                    r = e.contentDocument.getElementById('header'),
+                    r = e.contentDocument.getElementById('close-btn'),
+                    a = e.contentDocument.getElementById('header'),
                     s = e.contentDocument.getElementsByClassName('accordion'),
                     l = e.contentDocument.getElementById('modal-container'),
                     c = e.contentDocument.getElementsByClassName('modal__header-container')[0];
@@ -4717,8 +4929,8 @@
                         window: e.contentWindow,
                         contentWrapper: t,
                         overlay: o,
-                        closeButton: a,
-                        header: r,
+                        closeButton: r,
+                        header: a,
                         accordions: s,
                         modalContainer: l,
                         headerContainer: c
@@ -4739,13 +4951,14 @@
                     })(e, n)
                 );
             }
-            var ro = L(
+            var lo = L(
                     function(e) {
-                        var n = window.top.document.createElement('div'),
-                            t = Ft('iframe'),
+                        var n = window.top.document.createElement('div');
+                        n.setAttribute('data-pp-id', F.nextId);
+                        var t = Ut('iframe'),
                             o = t[0],
-                            a = t[1].insertMarkup,
-                            r = (function() {
+                            r = t[1].insertMarkup,
+                            a = (function() {
                                 var e = window.parent.document.head,
                                     n = window.parent.document.body,
                                     t = (function() {
@@ -4775,25 +4988,32 @@
                                     }
                                 ];
                             })(),
-                            s = r[0],
-                            l = r[1],
+                            s = a[0],
+                            l = a[1],
                             c = e.track,
                             u = e.clickUrl,
-                            d = k({ status: 'CLOSED' }),
+                            d = j({ status: 'CLOSED' }),
                             m = d[0],
-                            f = d[1];
-                        function p() {
-                            return O()(e.offerType, 'NI') ? 'NI' : 'EZP';
+                            f = d[1],
+                            p = ne.create({
+                                id: F.nextId,
+                                account: e.account,
+                                selector: '__internal__',
+                                type: 'Modal'
+                            });
+                        function g() {
+                            return I()(e.offerType, 'NI') ? 'NI' : 'EZP';
                         }
-                        var g = function(e, n) {
+                        V({ nextId: (F.nextId += 1) });
+                        var h = function(e, n) {
                             return c({
                                 et: 'modal-open' === e ? 'CLIENT_IMPRESSION' : 'CLICK',
                                 link: n,
-                                modal: p(),
+                                modal: g(),
                                 event_type: e
                             });
                         };
-                        function h() {
+                        function y() {
                             R()(m.elements.accordions).forEach(function(e) {
                                 e.classList.remove('show'),
                                     e
@@ -4801,25 +5021,25 @@
                                         .style.setProperty('max-height', null);
                             });
                         }
-                        function y(e) {
+                        function _(e) {
                             var n = {
                                     'NI Tab': [m.elements.niTab, m.elements.niContent],
                                     'EZP Tab': [m.elements.ezpTab, m.elements.ezpContent]
                                 },
                                 t = n[e][0];
-                            Z()(n).forEach(function(e) {
+                            ce()(n).forEach(function(e) {
                                 var n = e[0],
                                     o = e[1];
                                 n.classList.toggle('selected', n === t), o.classList.toggle('show', n === t);
                             }),
-                                g('modal-tab', e),
-                                h();
+                                h('modal-tab', e),
+                                y();
                         }
-                        function _() {
-                            return m.error ? b(!0) : m.modalProm;
+                        function w() {
+                            return m.error ? E(!0) : m.modalProm;
                         }
-                        function w(e) {
-                            return new K.ZalgoPromise(function(t, i) {
+                        function x(e) {
+                            return new Z.ZalgoPromise(function(t, i) {
                                 'OPEN' === m.status || 'OPENING' === m.status
                                     ? (f({ status: 'CLOSING' }),
                                       m.elements.modalContainer.classList.remove('show'),
@@ -4828,9 +5048,9 @@
                                               o.blur(),
                                               f({ status: 'CLOSED' }),
                                               l(),
-                                              'EZP' === p() &&
+                                              'EZP' === g() &&
                                                   setTimeout(function() {
-                                                      y('EZP Tab');
+                                                      _('EZP Tab');
                                                   }, 350),
                                               t();
                                       }, e || 0))
@@ -4838,15 +5058,15 @@
                             });
                         }
                         function v(e) {
-                            w(350), g('modal-close', e);
+                            x(350), h('modal-close', e);
                         }
-                        function x(n) {
+                        function b(n) {
                             var t = +n;
                             return (
-                                Zt()(t) || (m.elements.amountInput.value = t.toFixed(2)),
+                                Vt()(t) || (m.elements.amountInput.value = t.toFixed(2)),
                                 m.elements.loader.style.setProperty('opacity', 1),
                                 m.elements.financeTermsTable.style.setProperty('opacity', 0.4),
-                                to(i({}, e, { amount: n })).then(function(e) {
+                                io(i({}, e, { amount: n })).then(function(e) {
                                     m.elements.loader.style.setProperty('opacity', 0),
                                         m.elements.financeTermsTable.style.setProperty('opacity', 1),
                                         (m.elements.financeTermsTable.innerHTML = (function(e) {
@@ -4866,26 +5086,34 @@
                                                   (e.options && e.options.length > 0 && 'N/A' !== e.options
                                                       ? e.options
                                                             .map(function(n) {
-                                                                return oo(e, n);
+                                                                return ro(e, n);
                                                             })
                                                             .join('')
                                                       : '') +
                                                   '\n            </tbody>\n        </table>\n        ' +
                                                   (e.options && 0 !== e.options.length && 'N/A' !== e.options
                                                       ? ''
-                                                      : io(e)) +
+                                                      : ao(e)) +
                                                   '\n        <p id="terms-note">The monthly payment shown is an estimated amount and may not include taxes and shipping</p>\n    ';
                                         })(e));
                                 })
                             );
                         }
-                        function b(n) {
+                        function E(n) {
                             return (
                                 void 0 === n && (n = !1),
-                                no(e, n)
-                                    .then(a)
+                                p.start({
+                                    options: {
+                                        account: e.account,
+                                        offerType: e.offerType,
+                                        amount: e.amount,
+                                        message_id: e.id
+                                    }
+                                }),
+                                oo(e, n)
+                                    .then(r)
                                     .then(function() {
-                                        f({ elements: ao(o, p()) }),
+                                        f({ elements: so(o, g()) }),
                                             (function() {
                                                 m.elements.closeButton.addEventListener('click', function() {
                                                     v('Close Button');
@@ -4919,16 +5147,16 @@
                                                         ('Escape' !== e.key && 'Esc' !== e.key && 27 !== e.charCode) ||
                                                             v('Escape Key');
                                                     }),
-                                                    'EZP' === p())
+                                                    'EZP' === g())
                                                 ) {
                                                     m.elements.niTab.addEventListener('click', function() {
-                                                        return y('NI Tab');
+                                                        return _('NI Tab');
                                                     }),
                                                         m.elements.ezpTab.addEventListener('click', function() {
-                                                            return y('EZP Tab');
+                                                            return _('EZP Tab');
                                                         });
                                                     var n = function() {
-                                                        x(m.elements.amountInput.value);
+                                                        b(m.elements.amountInput.value);
                                                     };
                                                     m.elements.amountInput.addEventListener('keydown', function(e) {
                                                         var t = e.key,
@@ -4937,10 +5165,10 @@
                                                             'Enter' === t && n();
                                                         else {
                                                             var i = o.value,
-                                                                a = o.selectionStart,
-                                                                r = i ? '' + i.slice(0, a) + t + i.slice(a) : t;
+                                                                r = o.selectionStart,
+                                                                a = i ? '' + i.slice(0, r) + t + i.slice(r) : t;
                                                             (function(e) {
-                                                                if (Zt()(Number(e))) return !1;
+                                                                if (Vt()(Number(e))) return !1;
                                                                 var n = e.split('.'),
                                                                     t = n[0],
                                                                     o = n[1];
@@ -4948,7 +5176,7 @@
                                                                     (void 0 === t ? '' : t).length <= 5 &&
                                                                     (void 0 === o ? '' : o).length <= 2
                                                                 );
-                                                            })(r) && ((o.value = r), o.setSelectionRange(a + 1, a + 1)),
+                                                            })(a) && ((o.value = a), o.setSelectionRange(r + 1, r + 1)),
                                                                 e.preventDefault();
                                                         }
                                                     }),
@@ -4956,8 +5184,11 @@
                                                 }
                                             })();
                                     })
-                                    .catch(function(e) {
-                                        te.error({ message: $.MODAL_LOAD_FAILURE, err: e }), f({ error: !0 });
+                                    .catch(function() {
+                                        p.error({ name: ee.MODAL_FAIL }), f({ error: !0 });
+                                    })
+                                    .then(function() {
+                                        return p.end();
                                     })
                             );
                         }
@@ -4974,45 +5205,45 @@
                             ),
                             n.appendChild(o),
                             window.top.document.body.appendChild(n),
-                            f({ modalProm: b() }),
-                            'EZP' === p() &&
-                                _().then(function() {
-                                    return x(e.amount);
+                            f({ modalProm: E() }),
+                            'EZP' === g() &&
+                                w().then(function() {
+                                    return b(e.amount);
                                 }),
                             {
                                 open: function(e) {
                                     e.preventDefault(),
                                         ('CLOSED' !== m.status && 'CLOSING' !== m.status) ||
                                             (f({ status: 'OPENING' }),
-                                            _().then(function() {
+                                            w().then(function() {
                                                 if (m.error)
                                                     return f({ status: 'CLOSED' }), void window.open(u, '_blank');
                                                 (n.style.display = 'block'),
                                                     requestAnimationFrame(function() {
                                                         return requestAnimationFrame(function() {
-                                                            h(),
+                                                            y(),
                                                                 o.contentWindow.focus(),
                                                                 f({ status: 'OPEN' }),
                                                                 s(),
                                                                 m.elements.modalContainer.classList.add('show'),
-                                                                g('modal-open');
+                                                                h('modal-open');
                                                         });
                                                     });
                                             }));
                                 },
-                                close: w
+                                close: x
                             }
                         );
                     },
                     ['account', 'amount', 'offerType']
                 ),
-                so = {
+                co = {
                     init: function(e) {
                         var n = e.options,
                             t = e.meta,
                             o = e.events,
-                            a = e.track;
-                        if (n._legacy && O()(t.offerType, 'NI'))
+                            r = e.track;
+                        if (n._legacy && I()(t.offerType, 'NI'))
                             o.on('click', function(e) {
                                 var n = e.target;
                                 'IMG' === n.tagName && 'A' === n.parentNode.tagName
@@ -5025,37 +5256,54 @@
                                     : window.open(t.clickUrl, '_blank');
                             });
                         else {
-                            var r = ro(i({}, n, {}, t, { track: a }));
-                            o.on('click', r.open);
+                            var a = lo(i({}, n, {}, t, { track: r }));
+                            o.on('click', a.open);
                         }
                     }
                 },
-                lo = new Map();
-            function co(e) {
+                uo = new Map(),
+                mo = new Map();
+            function fo(e) {
                 var n = (e.meta && e.meta.offerType) + '::' + e.options.style._flattened.sort().join('::'),
-                    t = e.meta,
-                    o = te.track({
+                    t = e.meta;
+                return {
+                    track: e.logger.track({
                         uuid: n,
                         urls: { DEFAULT: t.clickUrl, MORS_IMPRESSION: t.impressionUrl + '&idx=' + e.options.id }
-                    });
-                return b()(e, { track: o });
+                    })
+                };
             }
-            var uo = function(e) {
-                    var n = e.options,
-                        t = n.onRender;
-                    te.info(q.MESSAGE_RENDERED, { id: n.id }), t && t();
+            var po = N(function(e, n) {
+                    var t;
+                    return ((t = {})[e] = n), t;
+                }),
+                go = N(function(e, n) {
+                    return i({}, n, {}, e(n));
+                }),
+                ho = N(function(e, n) {
+                    return e(n).then(function(e) {
+                        return i({}, n, {}, e);
+                    });
+                }),
+                yo = function(e) {
+                    var n = e.options.onRender;
+                    n && n();
                 },
-                mo = {
-                    init: function(e, n) {
-                        if (lo.has(e)) lo.get(e).update(n);
+                _o = {
+                    init: function(e, n, t) {
+                        mo.has(e) ||
+                            mo.set(e, ne.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
+                        var o,
+                            r = mo.get(e);
+                        if ((r.start({ options: t }), uo.has(e))) o = uo.get(e).update(t);
                         else {
-                            var t = (function(e, n) {
-                                te.info(q.MESSAGE_CREATE_INITIATED, { id: e.id, options: e });
-                                var t = k(e),
-                                    o = t[0],
-                                    r = t[1],
-                                    s = o._legacy,
-                                    l = Ft(s ? 'div' : 'iframe'),
+                            var a = (function(e, n, t) {
+                                t.info(X.CREATE);
+                                var o = j(e),
+                                    r = o[0],
+                                    a = o[1],
+                                    s = r._legacy,
+                                    l = Ut(s ? 'div' : 'iframe'),
                                     c = l[0],
                                     u = l[1],
                                     d = u.insertMarkup,
@@ -5064,146 +5312,52 @@
                                     p = u.runStats,
                                     g = u.clearEvents,
                                     h = s ? c : document.createElement('span');
-                                function y(e) {
-                                    var n = (function(n) {
-                                            var t = e.id,
-                                                o = e.account,
-                                                i = e.amount,
-                                                r = e.countryCode,
-                                                s = e.style,
-                                                l = e._legacy,
-                                                c = a(e, [
-                                                    'id',
-                                                    'account',
-                                                    'amount',
-                                                    'countryCode',
-                                                    'style',
-                                                    '_legacy'
-                                                ]),
-                                                u = { _legacy: l, id: t };
-                                            if (
-                                                ('string' != typeof o
-                                                    ? Qt('account', 'string', o)
-                                                    : 13 === o.length || 10 === o.length || O()(o, 'client-id:')
-                                                    ? (u.account = o)
-                                                    : te.warn(
-                                                          'Invalid option value (account). Ensure the correct Merchant Account ID has been entered.'
-                                                      ),
-                                                void 0 !== i)
-                                            ) {
-                                                var d = Number(i);
-                                                Zt()(d)
-                                                    ? te.warn(
-                                                          'Invalid option value (amount). Ensure value is a number.'
-                                                      )
-                                                    : d < 0
-                                                    ? te.warn(
-                                                          'Invalid option value (amount). Ensure value is a positive number.'
-                                                      )
-                                                    : (u.amount = d);
-                                            }
-                                            return (
-                                                void 0 !== r &&
-                                                    ('string' != typeof r
-                                                        ? te.warn(
-                                                              'Invalid option value (countryCode). Ensure value is a string.'
-                                                          )
-                                                        : 2 !== r.length
-                                                        ? te.warn(
-                                                              'Invalid option value (countryCode). Country code should be 2 characters.'
-                                                          )
-                                                        : (u.countryCode = r)),
-                                                'object' == typeof s && 'string' == typeof s.layout && $t[s.layout]
-                                                    ? (u.style = eo(s))
-                                                    : ('object' == typeof s
-                                                          ? te.warn(
-                                                                'Invalid option value (style.layout). Expected one of ["' +
-                                                                    Object.keys($t).join('", "') +
-                                                                    '"] but received "' +
-                                                                    s.layout +
-                                                                    '".'
-                                                            )
-                                                          : void 0 !== s && Qt('style', 'object', s),
-                                                      (u.style = eo({ layout: 'text' }))),
-                                                b()(u, Xt(qt, c, '')),
-                                                u
-                                            );
-                                        })(),
-                                        t = (function(e) {
-                                            return ('custom' !== H(e, 'style.layout')
-                                                ? se(e)
-                                                : K.ZalgoPromise.all([se(e), ie(e.style)]).then(function(n) {
-                                                      var t = n[0],
-                                                          o = n[1];
-                                                      return 'object' == typeof t.markup
-                                                          ? ('' === o && te.error({ message: $.INVALID_STYLE_OPTIONS }),
-                                                            (t.markup.template = o),
-                                                            { markup: t.markup, options: W(e, re(o)) })
-                                                          : { markup: t.markup, options: e };
-                                                  })
-                                            ).then(
-                                                M(function(e) {
-                                                    e.options.style._flattened = (function e(n, t, o) {
-                                                        return (
-                                                            void 0 === t && (t = ''),
-                                                            void 0 === o && (o = ':'),
-                                                            P()(n).reduce(function(n, i) {
-                                                                var a = i[0],
-                                                                    r = i[1];
-                                                                switch (typeof r) {
-                                                                    case 'object':
-                                                                        return [].concat(n, e(r, '' + t + a + '.'));
-                                                                    case 'string':
-                                                                    default:
-                                                                        return [].concat(n, ['' + t + a + o + r]);
-                                                                }
-                                                            }, [])
-                                                        );
-                                                    })(e.options.style);
-                                                })
-                                            );
-                                        })(n)
-                                            .then(d)
+                                h !== c && h.appendChild(c);
+                                var y = N(function(e, n, o) {
+                                    return t.info(n), e(o);
+                                });
+                                function _(e) {
+                                    return (
+                                        t.info(X.RENDER_START),
+                                        k(to(t), M(a), po('options'), C(b.a, { logger: t }), ho(se))(e)
+                                            .then(ho(y(d, X.INSERT)))
                                             .then(
-                                                (function() {
-                                                    for (var e = arguments.length, n = new Array(e), t = 0; t < e; t++)
-                                                        n[t] = arguments[t];
-                                                    return function(e) {
-                                                        return n.reduce(function(e, n) {
-                                                            return n(e);
-                                                        }, e);
-                                                    };
-                                                })(C(b.a, { wrapper: h, events: f }), co, M(so.init), M(m), M(p), uo)
+                                                k(
+                                                    C(b.a, { wrapper: h, events: f }),
+                                                    go(fo),
+                                                    M(y(co.init, X.MODAL)),
+                                                    M(y(m, X.SIZE)),
+                                                    M(y(p, X.STATS)),
+                                                    y(yo, X.RENDER_END)
+                                                )
                                             )
-                                            .catch(function(e) {
-                                                return te.error({ error: '' + e });
-                                            });
-                                    te.waitFor(t), r(n);
+                                    );
                                 }
                                 return (
-                                    h !== c && h.appendChild(c),
                                     n.appendChild(h),
-                                    y(o),
+                                    t.info(X.CONTAINER),
                                     {
+                                        renderProm: _(r),
                                         wrapper: h,
                                         container: c,
                                         update: function(e) {
-                                            var n = W(o, e),
-                                                t = (function e(n, t) {
+                                            var n = H(r, e),
+                                                o = (function e(n, t) {
                                                     return P()(t).reduce(function(t, o) {
-                                                        var a,
-                                                            r,
+                                                        var r,
+                                                            a,
                                                             s = o[0],
                                                             l = o[1];
-                                                        if (!n[s]) return i({}, t, (((a = {})[s] = l), a));
+                                                        if (!n[s] && n[s] !== l)
+                                                            return i({}, t, (((r = {})[s] = l), r));
                                                         if ('object' != typeof l || null === l)
-                                                            return l !== n[s] ? i({}, t, (((r = {})[s] = l), r)) : t;
+                                                            return l !== n[s] ? i({}, t, (((a = {})[s] = l), a)) : t;
                                                         if (Array.isArray(l)) {
                                                             var c;
                                                             if (Array.isArray(n[s])) {
                                                                 var u,
                                                                     d = l.filter(function(e) {
-                                                                        return !I()(n[s], e);
+                                                                        return !T()(n[s], e);
                                                                     });
                                                                 return d.length > 0
                                                                     ? i({}, t, (((u = {})[s] = d), u))
@@ -5217,90 +5371,93 @@
                                                             ? i({}, t, (((m = {})[s] = f), m))
                                                             : t;
                                                     }, {});
-                                                })(o, n);
-                                            Object.keys(t).length > 0 &&
-                                                (g(),
-                                                te.info(q.MESSAGE_UPDATE_INITIATED, { id: n.id, options: e }),
-                                                y(n));
+                                                })(r, n),
+                                                a = Object.keys(o).length > 0;
+                                            return (
+                                                t.info(X.UPDATE, { willUpdate: a }),
+                                                a ? (g(), _(n)) : Z.ZalgoPromise.resolve()
+                                            );
                                         }
                                     }
                                 );
-                            })(n, e);
-                            lo.set(e, t), te.info(q.IFRAME_CREATED, { id: n.id });
+                            })(t, e, r);
+                            uo.set(e, a), (o = a.renderProm);
                         }
-                        return lo.get(e).update;
+                        return o.then(r.end).catch(function(e) {
+                            r.error({ name: e.message }), r.end(), 'function' == typeof e.onEnd && e.onEnd();
+                        });
                     }
                 };
-            function fo(e, n) {
+            function wo(e, n) {
                 var t, o;
                 if ((void 0 === n && (n = '[data-pp-message]'), 'string' == typeof n))
                     (t = R()(document.querySelectorAll(n))), (o = n);
-                else if (D(n)) (t = [n]), (o = 'HTMLElement');
+                else if (Y(n)) (t = [n]), (o = 'HTMLElement');
                 else {
-                    if (!Array.isArray(n) || !n.every(D)) return te.warn('Invalid selector', n);
+                    if (!Array.isArray(n) || !n.every(Y)) return ne.warn('Invalid selector', n);
                     (t = [].concat(n)), (o = 'Array<HTMLElement>');
                 }
-                (t = t.filter(function(n) {
-                    return n.ownerDocument.body.contains(n)
-                        ? !e._auto || !n.hasAttribute('data-pp-id')
-                        : (te.warn('Skipping container. Must be in the document:', n), !1);
-                })),
-                    te.info(q.STARTING_MESSAGE_RENDER, { url: window.location.href, selector: o });
-                var a = t.map(function(n) {
-                    var t = W(e, Y(n));
-                    return (
-                        n.hasAttribute('data-pp-id') ||
-                            (n.setAttribute('data-pp-id', F.nextId), U({ nextId: (F.nextId += 1) })),
-                        (t.id = n.getAttribute('data-pp-id')),
-                        new MutationObserver(function(e) {
-                            var t = e.reduce(function(e, n) {
-                                return O()(n.attributeName, 'data-pp-')
-                                    ? i({}, e, {}, B(n.attributeName.slice(8), n.target.getAttribute(n.attributeName)))
-                                    : e;
-                            }, {});
-                            mo.init(n, t);
-                        }).observe(n, { attributes: !0 }),
-                        [mo.init(n, t), n, t]
-                    );
-                });
-                return function(e) {
-                    return a.forEach(function(n) {
-                        var t = n[0],
-                            o = n[1],
-                            i = W(n[2], W(e, Y(o)));
-                        (i.id = o.getAttribute('data-pp-id')), t(i);
-                    });
-                };
+                return (
+                    (t = t.filter(function(n) {
+                        return n.ownerDocument.body.contains(n)
+                            ? !e._auto || !n.hasAttribute('data-pp-id')
+                            : (ne.warn('Skipping container. Must be in the document:', n), !1);
+                    })),
+                    Z.ZalgoPromise.all(
+                        t.map(function(n) {
+                            var t = H(e, G(n));
+                            return (
+                                n.hasAttribute('data-pp-id') ||
+                                    (n.setAttribute('data-pp-id', F.nextId), V({ nextId: (F.nextId += 1) })),
+                                new MutationObserver(function(e) {
+                                    var t = e.reduce(function(e, n) {
+                                        return I()(n.attributeName, 'data-pp-')
+                                            ? i(
+                                                  {},
+                                                  e,
+                                                  {},
+                                                  D(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
+                                              )
+                                            : e;
+                                    }, {});
+                                    _o.init(n, o, t);
+                                }).observe(n, { attributes: !0 }),
+                                (t.id = n.getAttribute('data-pp-id')),
+                                _o.init(n, o, t)
+                            );
+                        })
+                    )
+                );
             }
-            var po = function(e) {
+            var xo = function(e) {
                 return {
                     render: function(n) {
-                        return fo(i({}, F.config, {}, e), n);
+                        return wo(i({}, F.config, {}, e), n);
                     }
                 };
             };
-            b()(po, {
+            b()(xo, {
                 render: function(e, n) {
-                    return void 0 === e && (e = {}), fo(i({}, F.config, {}, e), n);
+                    return void 0 === e && (e = {}), wo(i({}, F.config, {}, e), n);
                 },
                 setGlobalConfig: function(e) {
-                    return void 0 === e && (e = {}), U({ config: i({}, F.config, {}, e) });
+                    return void 0 === e && (e = {}), V({ config: i({}, F.config, {}, e) });
                 }
             });
-            var go,
-                ho = po;
+            var vo,
+                bo = xo;
             t.d(n, 'Messages', function() {
-                return ho;
+                return bo;
             }),
-                (go = document.currentScript || document.querySelector('script[src$="messaging.js"]')) &&
-                    ho.setGlobalConfig(Y(go)),
-                (window.paypal.Message = ho),
+                (vo = document.currentScript || document.querySelector('script[src$="messaging.js"]')) &&
+                    bo.setGlobalConfig(G(vo)),
+                (window.paypal.Message = bo),
                 F.config.account &&
                     ('loading' === document.readyState
                         ? window.addEventListener('DOMContentLoaded', function() {
-                              return ho.render({ _auto: !0 });
+                              return bo.render({ _auto: !0 });
                           })
-                        : ho.render({ _auto: !0 }));
+                        : bo.render({ _auto: !0 }));
         }
     ]).Messages);
-//# sourceMappingURL=messaging@1.0.0.js.map
+//# sourceMappingURL=messaging@1.0.3.js.map

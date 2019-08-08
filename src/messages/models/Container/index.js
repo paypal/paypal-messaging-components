@@ -10,7 +10,7 @@ export default function createContainer(type) {
 
     if (type === 'iframe') {
         container.setAttribute('title', 'PayPal Credit Promotion Message');
-        container.setAttribute('style', 'width: 0; border: none;');
+        container.setAttribute('style', 'width: 100%; border: none;');
         container.setAttribute('src', 'about:blank');
         container.setAttribute('height', 0);
     }

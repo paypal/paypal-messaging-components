@@ -1,5 +1,3 @@
-import arrayFrom from 'core-js-pure/stable/array/from';
-import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectGet, createCallbackError } from '../../../utils';
@@ -163,56 +161,6 @@ function insertFlexStyle(wrapper, ratioPreset, layout) {
     wrapper.appendChild(flexStyle);
 }
 
-/**
- * IMPORTANT: This function is fragile and very dependent on how
- * IE handles sizing containers with specific style property values
- * @param {HTMLElement} container Container element
- * @returns {Number} Container width
- */
-const getContentWidth = container => {
-    const contentContainer = container.contentDocument.querySelector('.message__content');
-    const contentStyles = window.getComputedStyle(contentContainer);
-    const children = arrayFrom(contentContainer.children);
-    const properties = [
-        'margin-left',
-        'border-left-width',
-        'padding-left',
-        'width',
-        'padding-right',
-        'border-right-width',
-        'margin-right'
-    ];
-
-    // When the display is flex, we are stacking the child components horizontally.
-    // We calculate the total width by adding the width of all the children.
-    if (stringIncludes(contentStyles.getPropertyValue('display'), 'flex')) {
-        return Math.round(
-            children.reduce((accumulator, child) => {
-                const childStyles = window.getComputedStyle(child);
-                return (
-                    accumulator +
-                    properties.reduce(
-                        (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
-                        0
-                    )
-                );
-            }, 0)
-        );
-    }
-
-    // If the display is not flex, it should be block to stack the child components vertically.
-    // We use display block instead of flex because IE does not support the column orientation very well.
-    // We calculate the width of the container by the largest width of all the stacked children.
-    return Math.max(
-        ...children.map(child => {
-            const childStyles = window.getComputedStyle(child);
-            return Math.round(
-                properties.reduce((accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)), 0)
-            );
-        })
-    );
-};
-
 function getContainerWidth(wrapper) {
     const div = document.createElement('div');
     // Add an explicit size, to prevent incorrect size calculation when merchant styles leak into this div
@@ -231,7 +179,7 @@ function getContainerWidth(wrapper) {
     return parentWidth;
 }
 
-export default curry((container, { wrapper, options, logger }) => {
+export default curry((container, { wrapper, options, logger, meta }) => {
     if (container.tagName !== 'IFRAME') return;
 
     const layout = objectGet(options, 'style.layout');
@@ -242,28 +190,18 @@ export default curry((container, { wrapper, options, logger }) => {
         container.setAttribute('style', `width: 100%; border: none;`);
         container.removeAttribute('height');
     } else {
+        const minBannerContentWidth = meta.minWidth || 0;
         // Reset iframe incase of rerender using same container
-        container.setAttribute('style', `width: ${layout !== 'custom' ? 0 : '`100%'}; border: none;`);
-        container.setAttribute('height', 0);
+        container.setAttribute('style', `width: 100%; border: none; min-width: ${minBannerContentWidth}px;`);
         // If a banner is rerendered from 'flex' to 'text' the wrapper will still have the ratio wrapper class applied
         wrapper.removeAttribute('class');
 
         const parentContainerWidth = getContainerWidth(wrapper);
         // container.offsetParent to check if container is nested inside 'display: none'
-        const minBannerContentWidth =
-            layout !== 'custom' && container.offsetParent !== null ? getContentWidth(container) : 0;
 
-        // TODO: Is this firing too many times?
         const setDimensions = () => {
-            container.setAttribute('style', `width: 100%; border: none; min-width: ${minBannerContentWidth}px;`);
-            // TODO: Is there a better way to do this? Waiting for iframe width to be set and rendered to calculate
-            // inner iframe content height so that text banners heights are calculate after text has flowed to the
-            // appropriate amount of lines
-            requestAnimationFrame(() =>
-                requestAnimationFrame(() => {
-                    container.setAttribute('height', container.contentWindow.document.documentElement.scrollHeight);
-                })
-            );
+            // TODO: Setting the height causes this to fire again
+            container.setAttribute('height', container.contentWindow.document.body.lastChild.offsetHeight); // container.contentWindow.document.documentElement.scrollHeight);
         };
 
         if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
