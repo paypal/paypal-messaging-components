@@ -11,7 +11,7 @@ async function injectSpies({ container, wrapperWidth = 50, display = 'flex' }, c
             getPropertyValue: prop => (prop === 'display' ? display : 2)
         })),
         jest.spyOn(container, 'offsetParent', 'get').mockImplementation(() => document.body),
-        jest.spyOn(container.contentWindow.document.documentElement, 'scrollHeight', 'get').mockImplementation(() => 10)
+        jest.spyOn(container.contentWindow.document.body.lastChild, 'offsetHeight', 'get').mockImplementation(() => 10)
     ];
 
     await cb();
@@ -59,6 +59,9 @@ describe('setSize', () => {
                     style: {
                         layout: 'text'
                     }
+                },
+                meta: {
+                    minWidth: 20
                 }
             };
 
@@ -68,7 +71,7 @@ describe('setSize', () => {
                 await new Promise(res => setTimeout(res, 100));
 
                 expect(container).toHaveAttribute('height', '10');
-                expect(container.getAttribute('style')).toContain('min-width: 28px');
+                expect(container.getAttribute('style')).toContain('min-width: 20px');
             });
         });
 
@@ -81,6 +84,9 @@ describe('setSize', () => {
                     style: {
                         layout: 'text'
                     }
+                },
+                meta: {
+                    minWidth: 20
                 }
             };
 
@@ -90,7 +96,7 @@ describe('setSize', () => {
                 await new Promise(res => setTimeout(res, 100));
 
                 expect(container).toHaveAttribute('height', '10');
-                expect(container.getAttribute('style')).toContain('min-width: 14px');
+                expect(container.getAttribute('style')).toContain('min-width: 20px');
             });
         });
 
@@ -106,6 +112,9 @@ describe('setSize', () => {
                             type: 'alternative'
                         }
                     }
+                },
+                meta: {
+                    minWidth: 20
                 },
                 logger: {
                     warn: jest.fn(),
@@ -138,6 +147,9 @@ describe('setSize', () => {
                         }
                     }
                 },
+                meta: {
+                    minWidth: 20
+                },
                 logger: {
                     warn: jest.fn(),
                     error: jest.fn()
@@ -149,7 +161,6 @@ describe('setSize', () => {
 
                 await new Promise(res => setTimeout(res, 100));
 
-                expect(container).toHaveAttribute('height', '0');
                 expect(mockRenderObject.logger.error).toHaveBeenCalledTimes(1);
             });
         });

@@ -12,7 +12,7 @@ export default function createContainer(type, options = { body: '' }) {
 
     if (type === 'iframe') {
         if (typeof body === 'string') {
-            container.contentWindow.document.body.innerHTML = body;
+            container.contentWindow.document.body.innerHTML = body.trim();
         } else {
             container.contentWindow.document.body.appendChild(body);
         }
@@ -20,7 +20,7 @@ export default function createContainer(type, options = { body: '' }) {
     }
 
     if (typeof body === 'string') {
-        container.innerHTML = body;
+        container.innerHTML = body.trim();
     } else {
         container.appendChild(body);
     }

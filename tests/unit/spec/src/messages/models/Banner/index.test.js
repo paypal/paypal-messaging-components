@@ -27,6 +27,7 @@ jest.mock('src/messages/services/banner', () =>
     })
 );
 
+XMLHttpRequest.prototype.send = jest.fn();
 // JSDOM will not fire load events, causing insertMarkup to stall out
 HTMLImageElement.prototype.addEventListener = jest.fn((type, cb) => cb());
 
