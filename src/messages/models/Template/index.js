@@ -276,6 +276,15 @@ const getContentMinWidth = container => {
     document.body.appendChild(calcIframe);
     calcIframe.contentWindow.document.body.appendChild(calcIframe.contentWindow.document.importNode(container, true));
 
+    // IE Support: importNode() and cloneNode() do not properly import working
+    // style elements so they must be manually recreated inside the document
+    arrayFrom(calcIframe.contentWindow.document.getElementsByTagName('style')).forEach(styleElem => {
+        const styleClone = calcIframe.contentWindow.document.createElement('style');
+        styleClone.textContent = styleElem.textContent;
+        styleElem.parentNode.insertBefore(styleClone, styleElem);
+        styleElem.parentNode.removeChild(styleElem);
+    });
+
     const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
     const contentStyles = window.getComputedStyle(contentContainer);
     const children = arrayFrom(contentContainer.children);
