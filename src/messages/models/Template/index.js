@@ -22,6 +22,9 @@ import {
     appendImage
 } from '../../../utils';
 
+// Iframe used solely for calculating the minium width of a template
+const calcIframe = document.createElement('iframe');
+calcIframe.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
 const imageTemplate = document.createElement('div');
@@ -269,8 +272,11 @@ function createImageTemplateNode(style, { meta }) {
  * @param {HTMLElement} container Container element
  * @returns {Number} Container width
  */
-const getContentWidth = container => {
-    const contentContainer = container.querySelector('.message__content');
+const getContentMinWidth = container => {
+    document.body.appendChild(calcIframe);
+    calcIframe.contentWindow.document.body.appendChild(calcIframe.contentWindow.document.importNode(container, true));
+
+    const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
     const contentStyles = window.getComputedStyle(contentContainer);
     const children = arrayFrom(contentContainer.children);
     const properties = [
@@ -285,32 +291,37 @@ const getContentWidth = container => {
 
     // When the display is flex, we are stacking the child components horizontally.
     // We calculate the total width by adding the width of all the children.
-    if (stringIncludes(contentStyles.getPropertyValue('display'), 'flex')) {
-        return Math.round(
-            children.reduce((accumulator, child) => {
-                const childStyles = window.getComputedStyle(child);
-                return (
-                    accumulator +
-                    properties.reduce(
-                        (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
-                        0
-                    )
-                );
-            }, 0)
-        );
-    }
+    const minWidth = stringIncludes(contentStyles.getPropertyValue('display'), 'flex')
+        ? Math.round(
+              children.reduce((accumulator, child) => {
+                  const childStyles = window.getComputedStyle(child);
+                  return (
+                      accumulator +
+                      properties.reduce(
+                          (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                          0
+                      )
+                  );
+              }, 0)
+          )
+        : // If the display is not flex, it should be block to stack the child components vertically.
+          // We use display block instead of flex because IE does not support the column orientation very well.
+          // We calculate the width of the container by the largest width of all the stacked children.
+          Math.max(
+              ...children.map(child => {
+                  const childStyles = window.getComputedStyle(child);
+                  return Math.round(
+                      properties.reduce(
+                          (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                          0
+                      )
+                  );
+              })
+          );
 
-    // If the display is not flex, it should be block to stack the child components vertically.
-    // We use display block instead of flex because IE does not support the column orientation very well.
-    // We calculate the width of the container by the largest width of all the stacked children.
-    return Math.max(
-        ...children.map(child => {
-            const childStyles = window.getComputedStyle(child);
-            return Math.round(
-                properties.reduce((accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)), 0)
-            );
-        })
-    );
+    document.body.removeChild(calcIframe);
+
+    return minWidth;
 };
 
 /**
@@ -404,13 +415,7 @@ function createTemplateNode(options, markup) {
     prependStyle(newTemplate, prefixStyles(styleRules.join('\n')));
 
     // Determine minimum possible width before content overflow
-    newTemplate.style.opacity = 0;
-    newTemplate.style.width = 0;
-    newTemplate.style.height = 0;
-    newTemplate.style.overflow = 'hidden';
-    document.body.appendChild(newTemplate);
-    newTemplate.width = getContentWidth(newTemplate);
-    document.body.removeChild(newTemplate);
+    newTemplate.width = getContentMinWidth(newTemplate);
 
     return newTemplate;
 }
