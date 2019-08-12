@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/paypal/paypal-messaging-components/compare/v1.0.4...v1.0.5) (2019-08-12)
+
+
+### Bug Fixes
+
+* correct minimum width calculation ([#33](https://github.com/paypal/paypal-messaging-components/issues/33)) ([f932a06](https://github.com/paypal/paypal-messaging-components/commit/f932a06))
+
+
+
 ### [1.0.4](https://github.com/paypal/paypal-messaging-components/compare/v1.0.3...v1.0.4) (2019-08-12)
 
 
