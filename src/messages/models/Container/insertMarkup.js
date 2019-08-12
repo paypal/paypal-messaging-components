@@ -17,9 +17,11 @@ export default curry(
                 // TODO: Look into performance vs complexity of using importNode vs template
                 // element innerHTML and writing to iframe document as string to parse html
                 templateNode = Template.getTemplateNode(options, markup);
-                ({ meta } = markup);
-                // Used in setSize
-                meta.minWidth = templateNode.width;
+                meta = {
+                    ...markup.meta,
+                    // Used in setSize
+                    minWidth: templateNode.width
+                };
             }
 
             let newNode;
