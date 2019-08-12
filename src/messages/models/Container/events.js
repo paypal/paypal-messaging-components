@@ -59,7 +59,10 @@ function onHover(evt) {
 function onClick(evt) {
     if (evt.target.ownerDocument && events.click.has(evt.target.ownerDocument.defaultView.frameElement)) {
         events.click.get(evt.target.ownerDocument.defaultView.frameElement)(evt);
-    } else if (events.click.has(evt.currentTarget)) {
+    } else if (
+        events.click.has(evt.currentTarget) &&
+        evt.currentTarget !== evt.target // We don't want direct clicks on the container to fire an event, only from elements inside the container
+    ) {
         events.click.get(evt.currentTarget)(evt);
     }
 }
@@ -130,7 +133,7 @@ export default function addEventListenersTo(container) {
                 document.removeEventListener('mouseover', onHover);
             } else if (type === 'click') {
                 if (container.tagName === 'IFRAME') {
-                    container.contentWindow.removeEventListener('click', onClick);
+                    container.contentWindow.document.body.removeEventListener('click', onClick);
                 } else {
                     container.removeEventListener('click', onClick);
                 }
@@ -165,7 +168,7 @@ export function clearEvents(container) {
 
     if (container.tagName === 'IFRAME') {
         container.contentWindow.removeEventListener('resize', onResize);
-        container.contentWindow.removeEventListener('click', onClick);
+        container.contentWindow.document.body.removeEventListener('click', onClick);
     } else {
         container.removeEventListener('click', onClick);
     }

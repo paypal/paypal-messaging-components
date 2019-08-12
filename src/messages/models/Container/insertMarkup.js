@@ -4,91 +4,76 @@ import { ZalgoPromise } from 'zalgo-promise';
 import { curry } from '../../../utils';
 import Template from '../Template';
 
-function insertStringIntoIframe(container, markup) {
-    return new ZalgoPromise(resolve => {
-        const iframeWindow = container.contentWindow;
-        const markupWithStyle = `<style>body{margin:0;padding:0;overflow:hidden;}</style>${markup}`;
-
-        container.srcdoc = markupWithStyle; // eslint-disable-line no-param-reassign
-        // Must be set again to refire reload event in IE
-        container.src = 'about:blank'; // eslint-disable-line no-param-reassign
-        container.addEventListener('load', function onload() {
-            // Fallback for IE and Edge since they don't support iframe srcdoc
-            if (iframeWindow.document.body.children.length === 0) {
-                container.removeEventListener('load', onload); // Ensure onload does not fire again after writing the document
-                iframeWindow.document.open('text/html', 'replace');
-                iframeWindow.document.write(markupWithStyle);
-                iframeWindow.document.close();
-            }
-
-            resolve(iframeWindow.meta);
-        });
-    });
-}
-
-function insertJsonIntoIframe(container, markup, options) {
-    return new ZalgoPromise(resolve => {
-        // TODO: Look into performance vs complexity of using importNode vs template
-        // element innerHTML and writing to iframe document as string to parse html
-        const iframeWindow = container.contentWindow;
-        const { meta } = markup;
-        const templateNode = Template.getTemplateNode(options, markup);
-        const newNode = iframeWindow.document.importNode(templateNode, true);
-
-        // Since iframe document is not being opened, we cannot resolve the promise from
-        // the iframe window load event, so image onload events must be manually created
-        // Will be stored in a promise which will wait for the image to load before rendering
-        const proms = arrayFrom(newNode.getElementsByTagName('img')).map(
-            img => new ZalgoPromise(res => img.addEventListener('load', res))
-        );
-
-        // IE Support: Style elements must be recreated inside the iframe
-        // iframeDocument.importNode() does not properly import working style elements
-        arrayFrom(newNode.getElementsByTagName('style')).forEach(styleElem => {
-            const styleClone = iframeWindow.document.createElement('style');
-            styleClone.textContent = styleElem.textContent;
-            styleElem.parentNode.insertBefore(styleClone, styleElem);
-            styleElem.parentNode.removeChild(styleElem);
-        });
-
-        // Clear out any existing children from iframe
-        while (iframeWindow.document.body.firstChild) {
-            iframeWindow.document.body.removeChild(iframeWindow.document.body.firstChild);
-        }
-
-        arrayFrom(newNode.children).forEach(el => iframeWindow.document.body.appendChild(el));
-
-        ZalgoPromise.all(proms).then(() => {
-            resolve(meta);
-        });
-    });
-}
-
-function handleLegacy(container, markup, options) {
-    if (typeof markup === 'string') {
-        container.innerHTML = markup; // eslint-disable-line no-param-reassign
-        return {};
-    }
-
-    const { meta } = markup;
-    const templateNode = Template.getTemplateNode(options, markup);
-
-    arrayFrom(templateNode.children).forEach(el => container.appendChild(el.cloneNode(true)));
-
-    return meta;
-}
-
 export default curry(
     (container, { markup, options }) =>
         new ZalgoPromise(resolve => {
-            if (container.tagName === 'IFRAME') {
-                if (typeof markup === 'string') {
-                    insertStringIntoIframe(container, markup).then(meta => resolve({ meta, options }));
-                } else {
-                    insertJsonIntoIframe(container, markup, options).then(meta => resolve({ meta, options }));
-                }
+            let templateNode;
+            let meta;
+            if (typeof markup === 'string') {
+                templateNode = document.createElement('div');
+                templateNode.innerHTML = markup;
+                meta = {};
             } else {
-                resolve({ meta: handleLegacy(container, markup, options), options });
+                // TODO: Look into performance vs complexity of using importNode vs template
+                // element innerHTML and writing to iframe document as string to parse html
+                templateNode = Template.getTemplateNode(options, markup);
+                ({ meta } = markup);
+                // Used in setSize
+                meta.minWidth = templateNode.width;
             }
+
+            let newNode;
+            let containerDocument;
+            if (container.tagName === 'IFRAME') {
+                newNode = container.contentWindow.document.importNode(templateNode, true);
+                containerDocument = container.contentWindow.document;
+            } else {
+                newNode = templateNode.cloneNode(true);
+                containerDocument = document;
+            }
+
+            // Since images load async and we need to calculate layout later, we must
+            // manually wait for each image to load before resolving
+            const imgProms = arrayFrom(newNode.getElementsByTagName('img')).map(
+                img => new ZalgoPromise(res => img.addEventListener('load', res))
+            );
+
+            // IE Support: importNode() and cloneNode() do not properly import working
+            // style elements so they must be manually recreated inside the document
+            arrayFrom(newNode.getElementsByTagName('style')).forEach(styleElem => {
+                const styleClone = containerDocument.createElement('style');
+                styleClone.textContent = styleElem.textContent;
+                styleElem.parentNode.insertBefore(styleClone, styleElem);
+                styleElem.parentNode.removeChild(styleElem);
+            });
+
+            // innerHTML will not execute scripts
+            arrayFrom(containerDocument.getElementsByTagName('script')).forEach(script => {
+                const newScript = containerDocument.createElement('script');
+                newScript.text = script.text;
+                script.parentNode.insertBefore(newScript, script);
+                script.parentNode.removeChild(script);
+            });
+
+            ZalgoPromise.all(imgProms).then(() => {
+                // RAF to prevent element swap flicker
+                requestAnimationFrame(() => {
+                    const parentElement = container.tagName === 'IFRAME' ? containerDocument.body : container;
+                    // Clear out any existing children from iframe
+                    while (parentElement.firstChild) {
+                        parentElement.removeChild(parentElement.firstChild);
+                    }
+
+                    arrayFrom(newNode.children).forEach(el => parentElement.appendChild(el));
+
+                    resolve({
+                        meta: {
+                            ...meta,
+                            // Iframe containers can include a 'meta` property on the window object
+                            ...((containerDocument !== document && containerDocument.defaultView.meta) || {})
+                        }
+                    });
+                });
+            });
         })
 );
