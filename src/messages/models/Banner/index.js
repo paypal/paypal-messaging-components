@@ -126,19 +126,21 @@ export default {
         }
         const logger = loggers.get(wrapper);
 
-        logger.start({ options });
-
-        let renderProm;
+        let banner;
         if (banners.has(wrapper)) {
-            renderProm = banners.get(wrapper).update(options);
+            banner = banners.get(wrapper);
+            // Ensure previous render call has completed
+            banner.renderProm = banner.renderProm.then(() => {
+                logger.start({ options });
+                banner.update(options);
+            });
         } else {
-            const banner = Banner.create(options, wrapper, logger);
+            logger.start({ options });
+            banner = Banner.create(options, wrapper, logger);
             banners.set(wrapper, banner);
-
-            ({ renderProm } = banner);
         }
 
-        return renderProm.then(logger.end).catch(err => {
+        banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
             logger.error({ name: err.message });
             logger.end();
 
@@ -146,5 +148,7 @@ export default {
                 err.onEnd();
             }
         });
+
+        return banner.renderProm;
     }
 };

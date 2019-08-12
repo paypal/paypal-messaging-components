@@ -3,13 +3,13 @@ const got = require('got');
 
 const devAccountMap = {
     DEV00000000NI: 'ni',
-    DEV000NINONUS: 'ni:non-us',
-    DEV0000000EAZ: 'ezp:any:eqz',
-    DEV0000000EAG: 'ezp:any:gtz',
-    DEV0000000PSZ: 'pala:single:eqz',
-    DEV0000000PSG: 'pala:single:gtz',
-    DEV0000000PMZ: 'pala:multi:eqz',
-    DEV0000000PMG: 'pala:multi:gtz'
+    DEV000NINONUS: 'ni_non-us',
+    DEV0000000EAZ: 'ezp_any_eqz',
+    DEV0000000EAG: 'ezp_any_gtz',
+    DEV0000000PSZ: 'pala_single_eqz',
+    DEV0000000PSG: 'pala_single_gtz',
+    DEV0000000PMZ: 'pala_multi_eqz',
+    DEV0000000PMG: 'pala_multi_gtz'
 };
 
 module.exports = function proxyImadserv(app) {

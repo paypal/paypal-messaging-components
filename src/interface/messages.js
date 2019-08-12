@@ -21,8 +21,11 @@ export function setup() {
             Messages.setGlobalConfig(getInlineOptions(script));
         }
 
-        // Alias for pilot merchant support
-        window.paypal.Message = Messages;
+        // When importing the library directly using UMD, window.paypal will not exist
+        if (window.paypal) {
+            // Alias for pilot merchant support
+            window.paypal.Message = Messages;
+        }
     }
 
     // Requires a merchant account to render a message
