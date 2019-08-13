@@ -39,10 +39,11 @@ function createModal(options) {
         return 'EZP';
     }
 
-    const trackModalEvent = (type, linkName) =>
+    const trackModalEvent = (type, linkName, amount) =>
         track({
             et: type === 'modal-open' ? 'CLIENT_IMPRESSION' : 'CLICK',
             link: linkName,
+            amount,
             modal: getModalType(),
             event_type: type
         });
@@ -203,6 +204,10 @@ function createModal(options) {
             header.addEventListener('click', () => {
                 const added = accordion.classList.toggle('show');
                 content.style.setProperty('max-height', added ? `${content.scrollHeight}px` : null);
+
+                if (added) {
+                    trackModalEvent('accordion-open', header.innerText);
+                }
             });
         });
 
@@ -212,12 +217,17 @@ function createModal(options) {
             }
         });
 
+        arrayFrom(state.elements.landerLinks).forEach(link => {
+            link.addEventListener('click', () => trackModalEvent('lander-link'));
+        });
+
         if (getModalType() === 'EZP') {
             state.elements.niTab.addEventListener('click', () => showTab('NI Tab'));
             state.elements.ezpTab.addEventListener('click', () => showTab('EZP Tab'));
 
-            const calculateTerms = () => {
+            const calculateTerms = link => {
                 const amount = state.elements.amountInput.value;
+                trackModalEvent('calculate', link, amount);
                 fetchTerms(amount);
             };
 
@@ -226,7 +236,7 @@ function createModal(options) {
 
                 if (key.length > 1 || evt.metaKey || evt.ctrlKey) {
                     if (key === 'Enter') {
-                        calculateTerms();
+                        calculateTerms('Enter Key');
                     }
                     return;
                 }
@@ -243,7 +253,7 @@ function createModal(options) {
                 evt.preventDefault();
             });
 
-            state.elements.calculateButton.addEventListener('click', calculateTerms);
+            state.elements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
         }
     }
 
