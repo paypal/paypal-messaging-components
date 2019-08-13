@@ -11,8 +11,15 @@ module.exports = (env = {}) => ({
         __TERMS_URL__: env.devPPCredit
             ? 'http://localhost.paypal.com:8000/ppcredit/finance/terms'
             : 'https://www.paypal.com/ppcredit/finance/terms',
-        __LEGACY__: !!env.legacy,
         __DEMO__: !!env.demo,
-        __SDK__: !env.standalone
+        __TARGET__: (() => {
+            if (env.legacy) {
+                return 'LEGACY';
+            }
+            if (env.standalone) {
+                return 'STANDALONE';
+            }
+            return 'SDK';
+        })()
     }
 });
