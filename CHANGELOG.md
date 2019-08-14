@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/paypal/paypal-messaging-components/compare/v1.0.6...v1.1.0) (2019-08-14)
+
+
+### Features
+
+* re-render when iframe container is moved around the DOM ([#15](https://github.com/paypal/paypal-messaging-components/issues/15)) ([d36d020](https://github.com/paypal/paypal-messaging-components/commit/d36d020))
+
+
+
 ### [1.0.6](https://github.com/paypal/paypal-messaging-components/compare/v1.0.5...v1.0.6) (2019-08-13)
 
 
