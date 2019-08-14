@@ -102,6 +102,15 @@ const Banner = {
         // LOGGER: appending empty iframe - waiting for banner
         logger.info(EVENTS.CONTAINER);
 
+        if (!isLegacy) {
+            // Must be after appending iframe into DOM to prevent immediate re-render
+            // Used to repopulate iframe if moved throughout the DOM
+            container.addEventListener('load', () => {
+                clearEvents();
+                render(currentOptions);
+            });
+        }
+
         return {
             renderProm: render(currentOptions),
             wrapper,
