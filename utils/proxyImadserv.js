@@ -29,10 +29,6 @@ module.exports = function proxyImadserv(app) {
                     (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
                     banner
                 )
-                .replace(
-                    /\$click_tracking_url\$/,
-                    'https://www.te-alm-14966644043791911.qa.paypal.com/webapps/mch/cmd?v=3.0'
-                )
                 .replace(/"/g, '\\"')
                 .replace(/\r\n|\r|\n/g, '');
             const wrappedMarkup = `${call}("<div>${populatedBanner}</div>")`;
