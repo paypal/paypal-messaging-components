@@ -57,7 +57,7 @@ function createModal(options) {
         });
     }
 
-    function showTab(name) {
+    function showTab(name, suppressTrackingEvent) {
         const tabs = {
             'NI Tab': [state.elements.niTab, state.elements.niContent],
             'EZP Tab': [state.elements.ezpTab, state.elements.ezpContent]
@@ -69,7 +69,9 @@ function createModal(options) {
             content.classList.toggle('show', tab === targetTab);
         });
 
-        trackModalEvent('modal-tab', name);
+        if (!suppressTrackingEvent) {
+            trackModalEvent('modal-tab', name);
+        }
 
         resetAccordions();
     }
@@ -128,7 +130,7 @@ function createModal(options) {
                     if (getModalType() === 'EZP') {
                         // Ensure the EZP tab is active every time the modal is opened
                         setTimeout(() => {
-                            showTab('EZP Tab');
+                            showTab('EZP Tab', true);
                         }, 350);
                     }
 
