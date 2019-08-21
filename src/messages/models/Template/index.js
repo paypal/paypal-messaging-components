@@ -3,7 +3,6 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringEndsWith from 'core-js-pure/stable/string/ends-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
-import { ZalgoPromise } from 'zalgo-promise';
 
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
@@ -11,6 +10,7 @@ import allStyles from './styles';
 import getMutations, { getDataByTag } from './mutations';
 import Logo from './logos';
 import { ERRORS } from '../../services/logger';
+import createContainer from '../Container';
 import {
     curry,
     memoize,
@@ -270,83 +270,58 @@ function createImageTemplateNode(style, { meta }) {
  * @param {HTMLElement} container Container element
  * @returns {Number} Container width
  */
-const getContentMinWidth = container => {
-    const calcIframe = document.createElement('iframe');
+const getContentMinWidth = templateNode => {
+    const [calcIframe, { insertMarkup }] = createContainer('iframe');
     calcIframe.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
     document.body.appendChild(calcIframe);
 
-    return ZalgoPromise.resolve(
-        calcIframe.contentWindow.document.readyState !== 'complete' &&
-            new ZalgoPromise(resolve => calcIframe.addEventListener('load', resolve))
-    )
-        .then(
-            () =>
-                new ZalgoPromise(resolve => {
-                    calcIframe.contentWindow.document.body.appendChild(
-                        calcIframe.contentWindow.document.importNode(container, true)
-                    );
+    return insertMarkup(templateNode).then(() => {
+        const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
+        const contentStyles = calcIframe.contentWindow.getComputedStyle(contentContainer);
+        const children = arrayFrom(contentContainer.children);
+        const properties = [
+            'margin-left',
+            'border-left-width',
+            'padding-left',
+            'width',
+            'padding-right',
+            'border-right-width',
+            'margin-right'
+        ];
+        // When the display is flex, we are stacking the child components horizontally.
+        // We calculate the total width by adding the width of all the children.
+        const minWidth = stringIncludes(contentStyles.getPropertyValue('display'), 'flex')
+            ? Math.round(
+                  children.reduce((accumulator, child) => {
+                      const childStyles = calcIframe.contentWindow.getComputedStyle(child);
+                      return (
+                          accumulator +
+                          properties.reduce(
+                              (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                              0
+                          )
+                      );
+                  }, 0)
+              )
+            : // If the display is not flex, it should be block to stack the child components vertically.
+              // We use display block instead of flex because IE does not support the column orientation very well.
+              // We calculate the width of the container by the largest width of all the stacked children.
+              Math.max(
+                  ...children.map(child => {
+                      const childStyles = calcIframe.contentWindow.getComputedStyle(child);
+                      return Math.round(
+                          properties.reduce(
+                              (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                              0
+                          )
+                      );
+                  })
+              );
 
-                    // IE Support: importNode() and cloneNode() do not properly import working
-                    // style elements so they must be manually recreated inside the document
-                    arrayFrom(calcIframe.contentWindow.document.getElementsByTagName('style')).forEach(styleElem => {
-                        const styleClone = calcIframe.contentWindow.document.createElement('style');
-                        styleClone.textContent = styleElem.textContent;
-                        styleElem.parentNode.insertBefore(styleClone, styleElem);
-                        styleElem.parentNode.removeChild(styleElem);
-                    });
+        document.body.removeChild(calcIframe);
 
-                    // Firefox needs frame to draw styles
-                    setTimeout(resolve, 0);
-                })
-        )
-        .then(() => {
-            const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
-            const contentStyles = window.getComputedStyle(contentContainer);
-            const children = arrayFrom(contentContainer.children);
-            const properties = [
-                'margin-left',
-                'border-left-width',
-                'padding-left',
-                'width',
-                'padding-right',
-                'border-right-width',
-                'margin-right'
-            ];
-
-            // When the display is flex, we are stacking the child components horizontally.
-            // We calculate the total width by adding the width of all the children.
-            const minWidth = stringIncludes(contentStyles.getPropertyValue('display'), 'flex')
-                ? Math.round(
-                      children.reduce((accumulator, child) => {
-                          const childStyles = window.getComputedStyle(child);
-                          return (
-                              accumulator +
-                              properties.reduce(
-                                  (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
-                                  0
-                              )
-                          );
-                      }, 0)
-                  )
-                : // If the display is not flex, it should be block to stack the child components vertically.
-                  // We use display block instead of flex because IE does not support the column orientation very well.
-                  // We calculate the width of the container by the largest width of all the stacked children.
-                  Math.max(
-                      ...children.map(child => {
-                          const childStyles = window.getComputedStyle(child);
-                          return Math.round(
-                              properties.reduce(
-                                  (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
-                                  0
-                              )
-                          );
-                      })
-                  );
-
-            document.body.removeChild(calcIframe);
-
-            return minWidth;
-        });
+        return minWidth;
+    });
 };
 
 /**
@@ -440,9 +415,12 @@ function createTemplateNode(options, markup) {
     prependStyle(newTemplate, prefixStyles(styleRules.join('\n')));
 
     // Determine minimum possible width before content overflow
-    newTemplate.minWidth = getContentMinWidth(newTemplate);
 
-    return newTemplate;
+    return getContentMinWidth(newTemplate).then(minWidth => {
+        newTemplate.minWidth = minWidth;
+
+        return newTemplate;
+    });
 }
 
 export default {

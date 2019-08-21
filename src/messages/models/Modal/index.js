@@ -259,7 +259,12 @@ function createModal(options) {
         });
 
         return getModalMarkup(options, ignoreCache)
-            .then(insertMarkup)
+            .then(({ markup }) => {
+                const node = document.createElement('div');
+                node.innerHTML = markup;
+
+                return insertMarkup(node, false);
+            })
             .then(() => {
                 setState({
                     elements: getModalElements(iframe, getModalType())
