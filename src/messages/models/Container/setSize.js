@@ -190,49 +190,50 @@ export default curry((container, { wrapper, options, logger, meta }) => {
         container.setAttribute('style', `width: 100%; border: none;`);
         container.removeAttribute('height');
     } else {
-        const minBannerContentWidth = meta.minWidth || 0;
-        // Reset iframe incase of rerender using same container
-        container.setAttribute('style', `width: 100%; border: none; min-width: ${minBannerContentWidth}px;`);
-        // If a banner is rerendered from 'flex' to 'text' the wrapper will still have the ratio wrapper class applied
-        wrapper.removeAttribute('class');
+        meta.minWidth.then(minBannerContentWidth => {
+            // Reset iframe incase of rerender using same container
+            container.setAttribute('style', `width: 100%; border: none; min-width: ${minBannerContentWidth}px;`);
+            // If a banner is rerendered from 'flex' to 'text' the wrapper will still have the ratio wrapper class applied
+            wrapper.removeAttribute('class');
 
-        const parentContainerWidth = getContainerWidth(wrapper);
-        // container.offsetParent to check if container is nested inside 'display: none'
+            const parentContainerWidth = getContainerWidth(wrapper);
+            // container.offsetParent to check if container is nested inside 'display: none'
 
-        const setDimensions = () => {
-            // TODO: Setting the height causes this to fire again
-            container.setAttribute('height', container.contentWindow.document.body.lastChild.offsetHeight); // container.contentWindow.document.documentElement.scrollHeight);
-        };
+            const setDimensions = () => {
+                // TODO: Setting the height causes this to fire again
+                container.setAttribute('height', container.contentWindow.document.body.lastChild.offsetHeight); // container.contentWindow.document.documentElement.scrollHeight);
+            };
 
-        if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
-            if (
-                objectGet(options, 'style.logo.position') === 'top' &&
-                objectGet(options, 'style.logo.type') === 'primary'
-            ) {
-                logger.error({ name: ERRORS.MESSAGE_HIDDEN });
-                logger.warn(
-                    `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
-                );
+            if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
+                if (
+                    objectGet(options, 'style.logo.position') === 'top' &&
+                    objectGet(options, 'style.logo.type') === 'primary'
+                ) {
+                    logger.error({ name: ERRORS.MESSAGE_HIDDEN });
+                    logger.warn(
+                        `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
+                    );
 
-                container.setAttribute('data-pp-message-hidden', 'true');
+                    container.setAttribute('data-pp-message-hidden', 'true');
+                } else {
+                    logger.warn(
+                        `Message Overflow. PayPal Credit Message of layout type ${objectGet(
+                            options,
+                            'style.layout'
+                        )} requires a width of at least ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
+                    );
+                    // Thrown error skips the rest of the render pipeline and is caught at the end
+                    throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {
+                        // Highest priority styles, will re-render from attribute observer
+                        wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
+                        wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
+                        wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
+                    });
+                }
             } else {
-                logger.warn(
-                    `Message Overflow. PayPal Credit Message of layout type ${objectGet(
-                        options,
-                        'style.layout'
-                    )} requires a width of at least ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
-                );
-                // Thrown error skips the rest of the render pipeline and is caught at the end
-                throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {
-                    // Highest priority styles, will re-render from attribute observer
-                    wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
-                    wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
-                    wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
-                });
+                setDimensions();
+                events(container).on('resize', setDimensions);
             }
-        } else {
-            setDimensions();
-            events(container).on('resize', setDimensions);
-        }
+        });
     }
 });

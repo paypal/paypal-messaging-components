@@ -19,8 +19,7 @@ export default curry(
                 templateNode = Template.getTemplateNode(options, markup);
                 meta = {
                     ...markup.meta,
-                    // Used in setSize
-                    minWidth: templateNode.width
+                    minWidth: templateNode.minWidth // Used in setSize
                 };
             }
 
