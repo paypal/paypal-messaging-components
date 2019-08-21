@@ -17,9 +17,11 @@ export default curry(
                 // TODO: Look into performance vs complexity of using importNode vs template
                 // element innerHTML and writing to iframe document as string to parse html
                 templateNode = Template.getTemplateNode(options, markup);
-                ({ meta } = markup);
-                // Used in setSize
-                meta.minWidth = templateNode.width;
+                meta = {
+                    ...markup.meta,
+                    // Used in setSize
+                    minWidth: templateNode.width
+                };
             }
 
             let newNode;
@@ -34,9 +36,9 @@ export default curry(
 
             // Since images load async and we need to calculate layout later, we must
             // manually wait for each image to load before resolving
-            const imgProms = arrayFrom(newNode.getElementsByTagName('img')).map(
-                img => new ZalgoPromise(res => img.addEventListener('load', res))
-            );
+            const imgProms = arrayFrom(newNode.getElementsByTagName('img'))
+                .filter(img => !img.complete) // Image may have already loaded from width calculation inside Template.getTemplateNode()
+                .map(img => new ZalgoPromise(res => img.addEventListener('load', res)));
 
             // IE Support: importNode() and cloneNode() do not properly import working
             // style elements so they must be manually recreated inside the document
@@ -48,7 +50,7 @@ export default curry(
             });
 
             // innerHTML will not execute scripts
-            arrayFrom(containerDocument.getElementsByTagName('script')).forEach(script => {
+            arrayFrom(newNode.getElementsByTagName('script')).forEach(script => {
                 const newScript = containerDocument.createElement('script');
                 newScript.text = script.text;
                 script.parentNode.insertBefore(newScript, script);
