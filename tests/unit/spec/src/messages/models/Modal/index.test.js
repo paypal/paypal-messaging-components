@@ -20,6 +20,9 @@ jest.mock('src/messages/services/logger', () => ({
 }));
 jest.mock('src/messages/models/Modal/termsTable', () => () => '');
 
+// JSDOM will not fire load events, causing insertMarkup to stall out
+HTMLImageElement.prototype.addEventListener = jest.fn((type, cb) => cb());
+
 const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY:GTZ' } = {}) => ({
     meta: {
         offerType

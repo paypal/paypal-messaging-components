@@ -94,6 +94,7 @@ export function getModalElements(iframe, modalType) {
     const accordions = iframe.contentDocument.getElementsByClassName('accordion');
     const modalContainer = iframe.contentDocument.getElementById('modal-container');
     const headerContainer = iframe.contentDocument.getElementsByClassName('modal__header-container')[0];
+    const landerLinks = iframe.contentDocument.getElementsByTagName('a');
 
     return {
         window: iframe.contentWindow,
@@ -104,6 +105,7 @@ export function getModalElements(iframe, modalType) {
         accordions,
         modalContainer,
         headerContainer,
+        landerLinks,
         ...getEZPModalElements(iframe, modalType)
     };
 }
