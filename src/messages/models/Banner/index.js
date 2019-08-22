@@ -1,6 +1,4 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import objectKeys from 'core-js-pure/stable/object/keys';
-import arrayFind from 'core-js-pure/stable/array/find';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
@@ -160,7 +158,7 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
-            const name = arrayFind(objectKeys(ERRORS), errName => errName === err.message) || ERRORS.INTERNAL_FAIL;
+            const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;
             logger.error(name === ERRORS.INTERNAL_FAIL ? { name, message: err.message } : { name });
             logger.end();
 
