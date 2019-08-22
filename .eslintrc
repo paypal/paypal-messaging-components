@@ -15,5 +15,12 @@
             "error",
             { "devDependencies": ["/*.js", "/utils/**/*.js", "/tools/**/*.js", "/tests/**/*.js"] }
         ]
+    },
+    "settings": {
+        "import/resolver": {
+            "jest": {
+                "jestConfigFile": "./jest.config.js"
+            }
+        }
     }
 }

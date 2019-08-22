@@ -6,7 +6,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 
-const Types = {
+export const Types = {
     ANY: 'ANY',
     STRING: 'STRING',
     BOOLEAN: 'BOOLEAN',
@@ -22,7 +22,7 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-const VALID_STYLE_OPTIONS = {
+export const VALID_STYLE_OPTIONS = {
     text: {
         logo: {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
