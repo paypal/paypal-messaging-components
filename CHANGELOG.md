@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/paypal/paypal-messaging-components/compare/v1.1.0...v1.1.1) (2019-08-23)
+
+
+### Tests
+
+* add basic Jest tests ([#2](https://github.com/paypal/paypal-messaging-components/issues/2)) ([1b58332](https://github.com/paypal/paypal-messaging-components/commit/1b58332))
+
+
+
 ## [1.1.0](https://github.com/paypal/paypal-messaging-components/compare/v1.0.6...v1.1.0) (2019-08-14)
 
 
