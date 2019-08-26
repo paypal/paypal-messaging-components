@@ -1,0 +1,12 @@
+{
+    "meta": {
+        "offerType": "INST:ANY:GTZ",
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+    },
+
+    "headline": [["${CREDIT_OFFERS_DS.total_payments} monthly payments", ["default", "small"]]],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Learn more", ["default", "xsmall"]]]
+}

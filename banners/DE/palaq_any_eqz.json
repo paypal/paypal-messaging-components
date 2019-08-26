@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "offerType": "PALAQ:ANY:EQZ",
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+    },
+
+    "headline": [
+        [
+            "${CREDIT_OFFERS_DS.total_payments} monthly payments of ${CREDIT_OFFERS_DS.formattedMonthlyPayment} at 0% APR",
+            ["default", "large"]
+        ]
+    ],
+
+    "subHeadline": ["Lender: PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg"],
+
+    "disclaimer": [["Learn More", ["default", "xsmall"]]]
+}

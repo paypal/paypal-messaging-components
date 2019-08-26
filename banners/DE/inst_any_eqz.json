@@ -1,0 +1,12 @@
+{
+    "meta": {
+        "offerType": "INST:ANY:EQZ",
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+    },
+
+    "headline": [["${CREDIT_OFFERS_DS.total_payments} monthly payments at 0% APR", ["default", "small"]]],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Learn more", ["default", "xsmall"]]]
+}
