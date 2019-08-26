@@ -1,4 +1,4 @@
-import Logo from '../logos';
+import Logo from '../../logos';
 
 export default {
     'layout:text': [
@@ -6,35 +6,35 @@ export default {
             'default',
             {
                 styles: [
-                    '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
+                    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
-                    tag: 'xsmall',
-                    br: ['months']
+                    tag: 'small',
+                    br: ['months', 'APR']
                 },
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:primary', { messageWidth: 130 }],
+        ['logo.type:primary', { messageWidth: 190 }],
         [
             'logo.type:inline',
             {
-                messageWidth: [250, 1000],
+                messageWidth: [255, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
-                    br: ['months']
+                    br: ['APR']
                 }
             }
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [235, 1000],
+                messageWidth: [240, 1000],
                 logo: false,
                 headline: {
-                    br: ['months']
+                    br: ['APR']
                 }
             }
         ],
@@ -43,8 +43,8 @@ export default {
             {
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
-                    replace: [['months', 'months.']],
-                    br: ['months.']
+                    replace: [['APR', 'APR.']],
+                    br: ['APR.']
                 }
             }
         ],
@@ -67,15 +67,23 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'xsmall', br: ['months'] },
+                headline: { tag: 'small', br: ['months', 'APR'] },
                 disclaimer: ['xsmall.2', 'xsmall']
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: { br: ['over', 'months'] },
+                headline: { br: ['over', 'at', 'APR'] },
                 subHeadline: 'small'
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                styles: [
+                    '@media (min-aspect-ratio: 200/11) and (max-width: 475px) { .message__headline { font-size: 0.7rem; } }'
+                ]
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
@@ -89,7 +97,7 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: 'legacy-small',
-                disclaimer: 'legacy-medium'
+                disclaimer: 'legacy-large'
             }
         ],
         ['size:1000x36', { logo: Logo.PRIMARY.COLOR }],
@@ -103,15 +111,15 @@ export default {
         [
             'size:234x60',
             {
-                disclaimer: 'legacy-medium.2',
+                disclaimer: 'legacy-medium',
                 styles: ['.message__disclaimer { font-size: 9px }', '.message__messaging { padding-top: 5px }']
             }
         ],
         [
             'size:250x250',
             {
-                styles: ['.message__disclaimer { font-size: 10px }', '.message__headline { margin-bottom: 20px }'],
-                disclaimer: 'legacy-medium.2'
+                disclaimer: 'legacy-medium',
+                styles: ['.message__disclaimer { font-size: 10px }', '.message__headline { margin-bottom: 20px }']
             }
         ],
         [
@@ -121,8 +129,8 @@ export default {
         [
             'size:340x60',
             {
-                styles: ['.message__headline { font-size: 13px }', '.message__messaging { padding: 7px 0 }'],
-                disclaimer: 'legacy-medium.2'
+                disclaimer: 'legacy-medium',
+                styles: ['.message__headline { font-size: 13px }', '.message__messaging { padding: 7px 0 }']
             }
         ],
         [

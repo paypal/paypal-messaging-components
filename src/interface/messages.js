@@ -1,4 +1,4 @@
-import { getClientID, getSDKScript } from '@paypal/sdk-client/src';
+import { getClientID, getSDKScript, getCountry } from '@paypal/sdk-client/src';
 
 import { globalState } from '../utils/globalState';
 import Messages from '../messages';
@@ -10,6 +10,7 @@ export function setup() {
         const script = getSDKScript();
         if (script) {
             Messages.setGlobalConfig({
+                countryCode: getCountry(),
                 account: `client-id:${getClientID()}`,
                 ...getInlineOptions(script)
             });
@@ -18,7 +19,12 @@ export function setup() {
         // eslint-disable-next-line compat/compat
         const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
         if (script) {
-            Messages.setGlobalConfig(getInlineOptions(script));
+            // Default to en_US for non-SDK
+            Messages.setGlobalConfig({
+                countryCode: 'DE',
+                // countryCode: 'US',
+                ...getInlineOptions(script)
+            });
         }
 
         // When importing the library directly using UMD, window.paypal will not exist

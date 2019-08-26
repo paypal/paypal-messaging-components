@@ -348,6 +348,7 @@ function createTemplateNode(options, markup) {
     const styleSelectors = objectGet(options, 'style._flattened');
     const offerType = objectGet(markup, 'meta.offerType');
     const data = objectGet(markup, 'data');
+    const country = objectGet(options, 'countryCode');
 
     if (layout === 'legacy') {
         const typeNI = objectGet(options, 'style.typeNI');
@@ -365,7 +366,7 @@ function createTemplateNode(options, markup) {
 
     const classNamePrefix = 'message';
     const applyCascadeRules = applyCascade(styleSelectors);
-    const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
+    const mutationRules = applyCascadeRules(Object, getMutations(country, offerType, `layout:${layout}`, data));
     const styleRules = applyCascadeRules(Array, allStyles[`layout:${layout}`]);
 
     const toMarkup = rulesToMarkup(data);

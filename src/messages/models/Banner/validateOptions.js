@@ -5,15 +5,10 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
+import Types from './types';
 
-const Types = {
-    ANY: 'ANY',
-    STRING: 'STRING',
-    BOOLEAN: 'BOOLEAN',
-    NUMBER: 'NUMBER',
-    FUNCTION: 'FUNCTION',
-    OBJECT: 'OBJECT'
-};
+import USOptions from './Options/US';
+import DEOptions from './Options/DE';
 
 const VALID_OPTIONS = {
     id: [Types.STRING],
@@ -23,30 +18,8 @@ const VALID_OPTIONS = {
 
 // Combination of all valid style option combinations
 const VALID_STYLE_OPTIONS = {
-    text: {
-        logo: {
-            type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
-            position: [Types.STRING, ['left', 'right', 'top']]
-        },
-        text: {
-            color: [Types.STRING, ['black', 'white']]
-        }
-    },
-    flex: {
-        color: [Types.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-        ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']]
-    },
-    legacy: {
-        typeNI: [Types.STRING, ['', 'image', 'html']],
-        typeEZP: [Types.STRING, ['', 'html']],
-        size: [Types.STRING],
-        color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-        border: [Types.BOOLEAN, [true, false]]
-    },
-    custom: {
-        markup: [Types.STRING],
-        ratio: [Types.ANY]
-    }
+    US: USOptions,
+    DE: DEOptions
 };
 
 // Formalized validation logger helper functions
@@ -139,10 +112,10 @@ function populateDefaults(logger, defaults, options, prefix = 'style.') {
  * @param {Object} options User style options
  * @returns {Object} Object containing only valid style options
  */
-function getValidStyleOptions(logger, options) {
+function getValidStyleOptions(logger, localeStyleOptions, options) {
     return {
         layout: options.layout,
-        ...populateDefaults(logger, VALID_STYLE_OPTIONS[options.layout], options)
+        ...populateDefaults(logger, localeStyleOptions[options.layout], options)
     };
 }
 
@@ -185,12 +158,13 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
         }
     }
 
+    const localeStyleOptions = VALID_STYLE_OPTIONS[validOptions.countryCode || 'US'];
     if (
         validateType(Types.OBJECT, style) &&
         validateType(Types.STRING, style.layout) &&
-        VALID_STYLE_OPTIONS[style.layout]
+        localeStyleOptions[style.layout]
     ) {
-        validOptions.style = getValidStyleOptions(logger, style);
+        validOptions.style = getValidStyleOptions(logger, localeStyleOptions, style);
     } else {
         if (validateType(Types.OBJECT, style)) {
             logInvalidOption(logger, 'style.layout', Object.keys(VALID_STYLE_OPTIONS), style.layout);
@@ -199,8 +173,9 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
         }
 
         // Get the default settings for a text banner
-        validOptions.style = getValidStyleOptions(logger, { layout: 'text' });
+        validOptions.style = getValidStyleOptions(logger, localeStyleOptions, { layout: 'text' });
     }
+    console.log(validOptions);
 
     logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });
 
