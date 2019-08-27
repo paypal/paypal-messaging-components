@@ -11,71 +11,51 @@ const devAccountMap = {
     DEV0000000PMZ: 'pala_multi_eqz',
     DEV0000000PMG: 'pala_multi_gtz',
 
-    DEV0000000IAE: 'DE/inst_any_eqz',
-    DEV0000000IAG: 'DE/inst_any_gtz',
-    DEV00000PNQAZ: 'DE/palanq_any_eqz',
-    DEV000000PQAZ: 'DE/palaq_any_eqz'
+    DEV0000000IAE: 'inst_any_eqz',
+    DEV0000000IAG: 'inst_any_gtz',
+    DEV00000PNQAZ: 'palanq_any_eqz',
+    DEV000000PQAZ: 'palaq_any_eqz'
 };
-
-function processCSBanner(banner, amount) {
-    const morsVars = {
-        tot_pymts: `$${Number(amount).toFixed(2)}`,
-        term: 12,
-        pymt_mo: `$${Number(amount / 12).toFixed(2)}`
-    };
-
-    const populatedBanner = Object.entries(morsVars)
-        .reduce((accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val), banner)
-        .replace(/"/g, '\\"')
-        .replace(/\r\n|\r|\n/g, '');
-    return `"<div>${populatedBanner}</div>"`;
-}
-
-function processPSBanner(bannerJSON, amount) {
-    const morsVars = {
-        total_payments: 12,
-        formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
-    };
-
-    const populateVars = str =>
-        Object.entries(morsVars)
-            .reduce(
-                (accumulator, [morsVar, val]) =>
-                    accumulator.replace(new RegExp(`\\\${CREDIT_OFFERS_DS.${morsVar}}`, 'g'), val),
-                str
-            )
-            .replace(/\r\n|\r|\n/g, '');
-
-    const populatedBanner = Object.entries(bannerJSON).reduce((accumulator, [key, value]) => {
-        return {
-            ...accumulator,
-            [key]: populateVars(JSON.stringify(value))
-        };
-    }, {});
-
-    return JSON.stringify({
-        content: {
-            json: populatedBanner
-        },
-        tracking_details: {
-            click_url: '',
-            impression_url: ''
-        }
-    });
-}
 
 module.exports = function proxyImadserv(app) {
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0 } = req.query;
+        const { call, currency_value: amount = 0, country_code: countryCode } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const banner = fs.readFileSync(`banners/${devAccountMap[account]}.json`, 'utf-8');
+            const banner = fs.readFileSync(`banners/${countryCode}/${devAccountMap[account]}.json`, 'utf-8');
             const bannerJSON = JSON.parse(banner);
 
-            const wrappedMarkup = bannerJSON.data
-                ? processCSBanner(banner, amount)
-                : processPSBanner(bannerJSON, amount);
+            const morsVars = {
+                total_payments: 12,
+                formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
+            };
+
+            const populateVars = str =>
+                Object.entries(morsVars)
+                    .reduce(
+                        (accumulator, [morsVar, val]) =>
+                            accumulator.replace(new RegExp(`\\\${CREDIT_OFFERS_DS.${morsVar}}`, 'g'), val),
+                        str
+                    )
+                    .replace(/\r\n|\r|\n/g, '');
+
+            const populatedBanner = Object.entries(bannerJSON).reduce((accumulator, [key, value]) => {
+                return {
+                    ...accumulator,
+                    [key]: populateVars(JSON.stringify(value))
+                };
+            }, {});
+
+            const wrappedMarkup = JSON.stringify({
+                content: {
+                    json: populatedBanner
+                },
+                tracking_details: {
+                    click_url: '',
+                    impression_url: ''
+                }
+            });
 
             res.send(`${call}(${wrappedMarkup})`);
         } else {
