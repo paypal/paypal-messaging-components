@@ -1,26 +1,31 @@
 {
     "meta": {
         "offerType": "PALA:SINGLE:GTZ",
-        "impressionUrl": "$impression_tracking_url$",
-        "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },
 
-    "data": {
-        "headline": [
-            [[["Make ${term} payments of", "weak"], "${pymt_mo}/mo"], ["default", "small"]],
-            ["Enjoy Easy Payments.", ["legacy-xsmall"]]
-        ],
-        "subHeadline": [
-            ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
+    "headline": [
+        [
             [
-                "Make ${term} Easy Payments as low as ${pymt_mo}/month for est. total pymts of ${tot_pymts}.",
-                ["legacy-large"]
-            ]
+                ["Make ${CREDIT_OFFERS_DS.total_payments} payments of", "weak"],
+                "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"
+            ],
+            ["default", "small"]
         ],
-        "disclaimer": [
-            ["See terms", ["default", "xsmall"]],
-            [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
-            [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+        ["Enjoy Easy Payments.", ["legacy-xsmall"]]
+    ],
+
+    "subHeadline": [
+        ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
+        [
+            "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
+            ["legacy-large"]
         ]
-    }
+    ],
+
+    "disclaimer": [
+        ["See terms", ["default", "xsmall"]],
+        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
+        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+    ]
 }
