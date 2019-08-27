@@ -1,21 +1,9 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 
-import { curry } from '../../../utils';
 import events, { clearEvents } from './events';
 import insertMarkup from './insertMarkup';
 import runStats from './stats';
 import setSize from './setSize';
-
-const postMessage = curry((container, type) => {
-    if (container.tagName !== 'IFRAME') return;
-
-    const stringMessage = JSON.stringify({
-        'pp-modal-event': {
-            type
-        }
-    });
-    container.contentWindow.postMessage(stringMessage, window.top.location.origin);
-});
 
 export default function createContainer(type) {
     const container = document.createElement(type);
@@ -31,7 +19,6 @@ export default function createContainer(type) {
         insertMarkup,
         setSize,
         runStats,
-        postMessage,
         events
     }).reduce((accumulator, [fnName, fn]) => ({ ...accumulator, [fnName]: fn(container) }), {});
 

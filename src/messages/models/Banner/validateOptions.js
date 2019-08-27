@@ -17,7 +17,7 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-const VALID_STYLE_OPTIONS = {
+export const VALID_STYLE_OPTIONS = {
     US: USOptions,
     DE: DEOptions
 };
