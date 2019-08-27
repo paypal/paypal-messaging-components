@@ -10,7 +10,7 @@ export function setup() {
         const script = getSDKScript();
         if (script) {
             Messages.setGlobalConfig({
-                countryCode: getCountry(),
+                country: getCountry(),
                 account: `client-id:${getClientID()}`,
                 ...getInlineOptions(script)
             });
@@ -21,8 +21,7 @@ export function setup() {
         if (script) {
             // Default to en_US for non-SDK
             Messages.setGlobalConfig({
-                countryCode: 'DE',
-                // countryCode: 'US',
+                country: 'US',
                 ...getInlineOptions(script)
             });
         }

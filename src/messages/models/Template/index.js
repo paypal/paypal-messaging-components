@@ -8,7 +8,7 @@ import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
 import getMutations, { getDataByTag } from './mutations';
-import Logo from './logos';
+import CustomBannerLogo from './mutations/US/logos';
 import { ERRORS } from '../../services/logger';
 import {
     curry,
@@ -21,6 +21,11 @@ import {
     appendText,
     appendImage
 } from '../../../utils';
+
+const NoneLogoText = {
+    US: ['with', 'PayPal Credit'],
+    DE: ['with', 'PayPal Ratenzahlung']
+};
 
 // Iframe used solely for calculating the minium width of a template
 const calcIframe = document.createElement('iframe');
@@ -222,7 +227,7 @@ function createCustomTemplateNode({ data, meta, template }) {
 
             if (type === 'logo') {
                 const tempContainer = document.createElement('div');
-                appendImage(tempContainer, objectGet(Logo, tag.toUpperCase()), 'PayPal Credit logo');
+                appendImage(tempContainer, objectGet(CustomBannerLogo, tag.toUpperCase()), 'PayPal Credit logo');
                 return tempContainer.innerHTML;
             }
 
@@ -348,7 +353,7 @@ function createTemplateNode(options, markup) {
     const styleSelectors = objectGet(options, 'style._flattened');
     const offerType = objectGet(markup, 'meta.offerType');
     const data = objectGet(markup, 'data');
-    const country = objectGet(options, 'countryCode');
+    const country = objectGet(options, 'country');
 
     if (layout === 'legacy') {
         const typeNI = objectGet(options, 'style.typeNI');
@@ -388,11 +393,13 @@ function createTemplateNode(options, markup) {
     if (objectGet(options, 'style.logo.type') === 'inline') {
         headline.appendChild(logoContainer);
     }
+
     if (objectGet(options, 'style.logo.type') === 'none') {
+        const [withText, productName] = NoneLogoText[country] || NoneLogoText.default;
         const span = document.createElement('span');
-        span.innerText = 'with ';
+        span.innerText = `${withText} `;
         const strong = document.createElement('strong');
-        strong.innerText = 'PayPal Credit.';
+        strong.innerText = productName;
         span.appendChild(strong);
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);

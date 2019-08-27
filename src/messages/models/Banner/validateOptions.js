@@ -125,7 +125,7 @@ function getValidStyleOptions(logger, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, countryCode, style, ...otherOptions }) => {
+export default curry((logger, { account, amount, country, style, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -148,17 +148,22 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
         }
     }
 
-    if (typeof countryCode !== 'undefined') {
-        if (!validateType(Types.STRING, countryCode)) {
-            logInvalidType(logger, 'countryCode', Types.STRING, countryCode);
-        } else if (countryCode.length !== 2) {
-            logInvalid(logger, 'countryCode', 'Country code should be 2 characters.');
-        } else {
-            validOptions.countryCode = countryCode;
-        }
+    // Country code will always be present - defaulted by the library or passed in by the user
+    if (!validateType(Types.STRING, country)) {
+        logInvalidType(logger, 'country', Types.STRING, country);
+    } else if (country.length !== 2) {
+        logInvalid(logger, 'country', 'Country code should be 2 characters.');
+    } else if (!VALID_STYLE_OPTIONS[country]) {
+        logInvalidOption(logger, 'country', Object.keys(VALID_STYLE_OPTIONS), country);
+    } else {
+        validOptions.country = country;
     }
 
-    const localeStyleOptions = VALID_STYLE_OPTIONS[validOptions.countryCode || 'US'];
+    if (!validOptions.country) {
+        validOptions.country = 'US';
+    }
+
+    const localeStyleOptions = VALID_STYLE_OPTIONS[validOptions.country];
     if (
         validateType(Types.OBJECT, style) &&
         validateType(Types.STRING, style.layout) &&
@@ -167,7 +172,7 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
         validOptions.style = getValidStyleOptions(logger, localeStyleOptions, style);
     } else {
         if (validateType(Types.OBJECT, style)) {
-            logInvalidOption(logger, 'style.layout', Object.keys(VALID_STYLE_OPTIONS), style.layout);
+            logInvalidOption(logger, 'style.layout', Object.keys(localeStyleOptions), style.layout);
         } else if (style !== undefined) {
             logInvalidType(logger, 'style', Types.OBJECT, style);
         }
@@ -175,7 +180,6 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
         // Get the default settings for a text banner
         validOptions.style = getValidStyleOptions(logger, localeStyleOptions, { layout: 'text' });
     }
-    console.log(validOptions);
 
     logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });
 

@@ -50,7 +50,7 @@ function mutateMarkup(markup) {
  * @returns {Promise<string>} Banner Markup
  */
 function fetcher(options) {
-    const { account, amount, countryCode } = options;
+    const { account, amount, country } = options;
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
@@ -68,9 +68,9 @@ function fetcher(options) {
         };
 
         // Country code is optional. MORS will default to merchant's country by default
-        if (countryCode && LOCALE_MAP[countryCode]) {
-            queryParams.country_code = countryCode;
-            queryParams.locale = LOCALE_MAP[countryCode];
+        if (country && LOCALE_MAP[country]) {
+            queryParams.country_code = country;
+            queryParams.locale = LOCALE_MAP[country];
         }
 
         const queryString = objectEntries(queryParams)
@@ -121,7 +121,7 @@ function getBannerOptions(logger, markup) {
     return {};
 }
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'country']);
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);

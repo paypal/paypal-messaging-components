@@ -1,4 +1,4 @@
-import Logo from '../../logos';
+import Logo from './logos';
 
 export function basicMediaQuery(breakpoint) {
     return `

@@ -17,7 +17,7 @@ const devAccountMap = {
     DEV000000PQAZ: 'DE/palaq_any_eqz'
 };
 
-function processCSBanner(banner, account, amount) {
+function processCSBanner(banner, amount) {
     const morsVars = {
         tot_pymts: `$${Number(amount).toFixed(2)}`,
         term: 12,
@@ -31,7 +31,7 @@ function processCSBanner(banner, account, amount) {
     return `"<div>${populatedBanner}</div>"`;
 }
 
-function processPSBanner(bannerJSON, account, amount) {
+function processPSBanner(bannerJSON, amount) {
     const morsVars = {
         total_payments: 12,
         formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
@@ -74,8 +74,8 @@ module.exports = function proxyImadserv(app) {
             const bannerJSON = JSON.parse(banner);
 
             const wrappedMarkup = bannerJSON.data
-                ? processCSBanner(banner, account, amount)
-                : processPSBanner(bannerJSON, account, amount);
+                ? processCSBanner(banner, amount)
+                : processPSBanner(bannerJSON, amount);
 
             res.send(`${call}(${wrappedMarkup})`);
         } else {

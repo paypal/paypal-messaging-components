@@ -1,4 +1,4 @@
-import Logo from '../../logos';
+import Logo from './logos';
 
 export default {
     'layout:text': [

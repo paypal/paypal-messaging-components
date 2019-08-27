@@ -127,7 +127,7 @@ export default function toNewPipeline(ppScript) {
                 account,
                 amount: kvs.currency_value,
                 style: styleConfig,
-                countryCode: 'US'
+                country: 'US'
             }).render(span);
         }, 0);
         ppScript.destroyDom();
