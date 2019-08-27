@@ -143,7 +143,7 @@ export default {
                 // Ensure previous render call has completed
                 banner.renderProm = banner.renderProm.then(() => {
                     logger.start({ options });
-                    banner.update(options);
+                    return banner.update(options);
                 });
             } else {
                 logger.start({ options });

@@ -1,8 +1,5 @@
-!(function(e, n) {
-    for (var t in n) e[t] = n[t];
-})(
-    window,
-    (function(e) {
+(window.paypal = window.paypal || {}),
+    (window.paypal.Messages = (function(e) {
         var n = {};
         function t(o) {
             if (n[o]) return n[o].exports;
@@ -59,23 +56,20 @@
         );
     })([
         function(e, n, t) {
-            e.exports = t(131);
+            e.exports = t(142);
         },
         function(e, n, t) {
-            e.exports = t(147);
+            e.exports = t(131);
         },
         function(e, n, t) {
             e.exports = t(101);
         },
         function(e, n, t) {
-            e.exports = t(141);
-        },
-        function(e, n, t) {
-            e.exports = t(134);
+            e.exports = t(136);
         },
         function(e, n, t) {
             'use strict';
-            var o = t(10),
+            var o = t(9),
                 i = t(109).f,
                 a = t(110),
                 r = t(17),
@@ -108,15 +102,15 @@
                     f,
                     h,
                     y,
-                    x = e.target,
-                    _ = e.global,
+                    _ = e.target,
+                    x = e.global,
                     w = e.stat,
                     v = e.proto,
-                    b = _ ? o : w ? o[x] : (o[x] || {}).prototype,
-                    E = _ ? r : r[x] || (r[x] = {}),
+                    b = x ? o : w ? o[_] : (o[_] || {}).prototype,
+                    E = x ? r : r[_] || (r[_] = {}),
                     P = E.prototype;
                 for (m in n)
-                    (t = !a(_ ? m : x + (w ? '.' : '#') + m, e.forced) && b && c(b, m)),
+                    (t = !a(x ? m : _ + (w ? '.' : '#') + m, e.forced) && b && c(b, m)),
                         (g = E[m]),
                         t && (f = e.noTargetGet ? (y = i(b, m)) && y.value : b[m]),
                         (p = t && f ? f : n[m]),
@@ -132,16 +126,13 @@
                             (e.sham || (p && p.sham) || (g && g.sham)) && l(h, 'sham', !0),
                             (E[m] = h),
                             v &&
-                                (c(r, (d = x + 'Prototype')) || l(r, d, {}),
+                                (c(r, (d = _ + 'Prototype')) || l(r, d, {}),
                                 (r[d][m] = p),
                                 e.real && P && !P[m] && l(P, m, p)));
             };
         },
         function(e, n, t) {
-            e.exports = t(136);
-        },
-        function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(32),
                 a = t(48),
                 r = t(114),
@@ -152,7 +143,10 @@
             };
         },
         function(e, n, t) {
-            e.exports = t(143);
+            e.exports = t(149);
+        },
+        function(e, n, t) {
+            e.exports = t(138);
         },
         function(e, n) {
             e.exports = function(e) {
@@ -175,6 +169,9 @@
         function(e, n) {
             e.exports =
                 "@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 200;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n";
+        },
+        function(e, n, t) {
+            e.exports = t(134);
         },
         function(e, n, t) {
             var o = t(13),
@@ -278,7 +275,7 @@
         },
         function(e, n, t) {
             var o = t(38),
-                i = t(9);
+                i = t(8);
             e.exports = function(e) {
                 return o(i(e));
             };
@@ -290,7 +287,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(9);
+            var o = t(8);
             e.exports = function(e) {
                 return Object(o(e));
             };
@@ -306,7 +303,7 @@
                 '* {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n\nhtml {\n    color: #2d2d2d;\n    font-family: PayPal-Sans, Helvetica, Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 400;\n    overflow: hidden;\n}\n\nimg {\n    display: block;\n    width: 100%;\n    height: auto;\n}\n\n.message__logo--svg {\n    position: relative;\n}\n\n.message__logo img {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n\n/* IE will not properly scale a SVG element, but will scale a canvas element */\n.message__logo canvas {\n    display: block;\n    width: 100%;\n    visibility: hidden;\n}\n';
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(107),
                 a = t(34),
                 r = o['__core-js_shared__'] || i('__core-js_shared__', {});
@@ -405,7 +402,7 @@
         },
         function(e, n, t) {
             var o = t(17),
-                i = t(10),
+                i = t(9),
                 a = function(e) {
                     return 'function' == typeof e ? e : void 0;
                 };
@@ -421,7 +418,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(7)('match');
+            var o = t(5)('match');
             e.exports = function(e) {
                 var n = /./;
                 try {
@@ -460,7 +457,7 @@
                 });
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(15),
                 a = o.document,
                 r = i(a) && i(a.createElement);
@@ -483,7 +480,7 @@
                 r = t(50),
                 s = t(12),
                 l = t(16),
-                c = t(7),
+                c = t(5),
                 u = t(34),
                 d = c('iterator'),
                 m = !1;
@@ -552,7 +549,7 @@
                 i = t(12),
                 a = t(16),
                 r = t(120),
-                s = t(7)('toStringTag'),
+                s = t(5)('toStringTag'),
                 l = r !== {}.toString;
             e.exports = function(e, n, t, c) {
                 if (e) {
@@ -563,7 +560,7 @@
         },
         function(e, n, t) {
             var o = t(27),
-                i = t(7)('toStringTag'),
+                i = t(5)('toStringTag'),
                 a =
                     'Arguments' ==
                     o(
@@ -591,6 +588,9 @@
                     : r;
             };
         },
+        function(e, n) {
+            e.exports = function() {};
+        },
         function(e, n, t) {
             var o = t(13),
                 i = t(40),
@@ -605,11 +605,8 @@
                 };
             e.exports = { entries: s(!0), values: s(!1) };
         },
-        function(e, n) {
-            e.exports = function() {};
-        },
         function(e, n, t) {
-            e.exports = t(148);
+            e.exports = t(143);
         },
         function(e, n, t) {
             e.exports = t(156);
@@ -808,7 +805,7 @@
         },
         function(e, n, t) {
             var o = t(23),
-                i = t(9),
+                i = t(8),
                 a = function(e) {
                     return function(n, t) {
                         var a,
@@ -840,7 +837,7 @@
                 i,
                 a,
                 r = t(105),
-                s = t(10),
+                s = t(9),
                 l = t(15),
                 c = t(12),
                 u = t(16),
@@ -891,7 +888,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(106),
                 a = o.WeakMap;
             e.exports = 'function' == typeof a && /native code/.test(i.call(a));
@@ -901,7 +898,7 @@
             e.exports = o('native-function-to-string', Function.toString);
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(12);
             e.exports = function(e, n) {
                 try {
@@ -914,14 +911,14 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
+            var o = t(4),
                 i = t(112),
                 a = t(50),
                 r = t(121),
                 s = t(53),
                 l = t(12),
                 c = t(123),
-                u = t(7),
+                u = t(5),
                 d = t(34),
                 m = t(29),
                 p = t(49),
@@ -931,14 +928,14 @@
                 y = function() {
                     return this;
                 };
-            e.exports = function(e, n, t, u, p, x, _) {
+            e.exports = function(e, n, t, u, p, _, x) {
                 i(t, n, u);
                 var w,
                     v,
                     b,
                     E = function(e) {
-                        if (e === p && L) return L;
-                        if (!f && e in A) return A[e];
+                        if (e === p && T) return T;
+                        if (!f && e in R) return R[e];
                         switch (e) {
                             case 'keys':
                             case 'values':
@@ -952,33 +949,33 @@
                         };
                     },
                     P = n + ' Iterator',
-                    T = !1,
-                    A = e.prototype,
-                    R = A[h] || A['@@iterator'] || (p && A[p]),
-                    L = (!f && R) || E(p),
-                    S = ('Array' == n && A.entries) || R;
+                    A = !1,
+                    R = e.prototype,
+                    O = R[h] || R['@@iterator'] || (p && R[p]),
+                    T = (!f && O) || E(p),
+                    I = ('Array' == n && R.entries) || O;
                 if (
-                    (S &&
-                        ((w = a(S.call(new e()))),
+                    (I &&
+                        ((w = a(I.call(new e()))),
                         g !== Object.prototype &&
                             w.next &&
                             (d || a(w) === g || (r ? r(w, g) : 'function' != typeof w[h] && l(w, h, y)),
                             s(w, P, !0, !0),
                             d && (m[P] = y))),
                     'values' == p &&
-                        R &&
-                        'values' !== R.name &&
-                        ((T = !0),
-                        (L = function() {
-                            return R.call(this);
+                        O &&
+                        'values' !== O.name &&
+                        ((A = !0),
+                        (T = function() {
+                            return O.call(this);
                         })),
-                    (d && !_) || A[h] === L || l(A, h, L),
-                    (m[n] = L),
+                    (d && !x) || R[h] === T || l(R, h, T),
+                    (m[n] = T),
                     p)
                 )
-                    if (((v = { values: E('values'), keys: x ? L : E('keys'), entries: E('entries') }), _))
-                        for (b in v) (!f && !T && b in A) || c(A, b, v[b]);
-                    else o({ target: n, proto: !0, forced: f || T }, v);
+                    if (((v = { values: E('values'), keys: _ ? T : E('keys'), entries: E('entries') }), x))
+                        for (b in v) (!f && !A && b in R) || c(R, b, v[b]);
+                    else o({ target: n, proto: !0, forced: f || A }, v);
                 return v;
             };
         },
@@ -1139,7 +1136,7 @@
             'use strict';
             var o = t(54),
                 i = {};
-            (i[t(7)('toStringTag')] = 'z'),
+            (i[t(5)('toStringTag')] = 'z'),
                 (e.exports =
                     '[object z]' !== String(i)
                         ? function() {
@@ -1181,7 +1178,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(5),
+            var o = t(4),
                 i = t(125);
             o(
                 {
@@ -1214,11 +1211,11 @@
                     f = g > 1 ? arguments[1] : void 0,
                     h = void 0 !== f,
                     y = 0,
-                    x = c(m);
-                if ((h && (f = o(f, g > 2 ? arguments[2] : void 0, 2)), null == x || (p == Array && r(x))))
+                    _ = c(m);
+                if ((h && (f = o(f, g > 2 ? arguments[2] : void 0, 2)), null == _ || (p == Array && r(_))))
                     for (t = new p((n = s(m.length))); n > y; y++) l(t, y, h ? f(m[y], y) : m[y]);
                 else
-                    for (d = x.call(m), t = new p(); !(u = d.next()).done; y++)
+                    for (d = _.call(m), t = new p(); !(u = d.next()).done; y++)
                         l(t, y, h ? a(d, f, [u.value, y], !0) : u.value);
                 return (t.length = y), t;
             };
@@ -1235,7 +1232,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(7),
+            var o = t(5),
                 i = t(29),
                 a = o('iterator'),
                 r = Array.prototype;
@@ -1256,13 +1253,13 @@
         function(e, n, t) {
             var o = t(54),
                 i = t(29),
-                a = t(7)('iterator');
+                a = t(5)('iterator');
             e.exports = function(e) {
                 if (null != e) return e[a] || e['@@iterator'] || i[o(e)];
             };
         },
         function(e, n, t) {
-            var o = t(7)('iterator'),
+            var o = t(5)('iterator'),
                 i = !1;
             try {
                 var a = 0,
@@ -1305,10 +1302,10 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
+            var o = t(4),
                 i = t(18),
                 a = t(42),
-                r = t(9),
+                r = t(8),
                 s = t(43),
                 l = ''.startsWith,
                 c = Math.min;
@@ -1328,7 +1325,7 @@
         function(e, n, t) {
             var o = t(15),
                 i = t(27),
-                a = t(7)('match');
+                a = t(5)('match');
             e.exports = function(e) {
                 var n;
                 return o(e) && (void 0 !== (n = e[a]) ? !!n : 'RegExp' == i(e));
@@ -1336,134 +1333,14 @@
         },
         function(e, n, t) {
             t(135);
-            var o = t(17);
-            e.exports = o.Object.entries;
-        },
-        function(e, n, t) {
-            var o = t(5),
-                i = t(55).entries;
-            o(
-                { target: 'Object', stat: !0 },
-                {
-                    entries: function(e) {
-                        return i(e);
-                    }
-                }
-            );
-        },
-        function(e, n, t) {
-            t(137);
-            var o = t(19);
-            e.exports = o('Array', 'find');
-        },
-        function(e, n, t) {
-            'use strict';
-            var o = t(5),
-                i = t(138).find,
-                a = t(56),
-                r = !0;
-            'find' in [] &&
-                Array(1).find(function() {
-                    r = !1;
-                }),
-                o(
-                    { target: 'Array', proto: !0, forced: r },
-                    {
-                        find: function(e) {
-                            return i(this, e, arguments.length > 1 ? arguments[1] : void 0);
-                        }
-                    }
-                ),
-                a('find');
-        },
-        function(e, n, t) {
-            var o = t(39),
-                i = t(38),
-                a = t(28),
-                r = t(18),
-                s = t(139),
-                l = [].push,
-                c = function(e) {
-                    var n = 1 == e,
-                        t = 2 == e,
-                        c = 3 == e,
-                        u = 4 == e,
-                        d = 6 == e,
-                        m = 5 == e || d;
-                    return function(p, g, f, h) {
-                        for (
-                            var y,
-                                x,
-                                _ = a(p),
-                                w = i(_),
-                                v = o(g, f, 3),
-                                b = r(w.length),
-                                E = 0,
-                                P = h || s,
-                                T = n ? P(p, b) : t ? P(p, 0) : void 0;
-                            b > E;
-                            E++
-                        )
-                            if ((m || E in w) && ((x = v((y = w[E]), E, _)), e))
-                                if (n) T[E] = x;
-                                else if (x)
-                                    switch (e) {
-                                        case 3:
-                                            return !0;
-                                        case 5:
-                                            return y;
-                                        case 6:
-                                            return E;
-                                        case 2:
-                                            l.call(T, y);
-                                    }
-                                else if (u) return !1;
-                        return d ? -1 : c || u ? u : T;
-                    };
-                };
-            e.exports = {
-                forEach: c(0),
-                map: c(1),
-                filter: c(2),
-                some: c(3),
-                every: c(4),
-                find: c(5),
-                findIndex: c(6)
-            };
-        },
-        function(e, n, t) {
-            var o = t(15),
-                i = t(140),
-                a = t(7)('species');
-            e.exports = function(e, n) {
-                var t;
-                return (
-                    i(e) &&
-                        ('function' != typeof (t = e.constructor) || (t !== Array && !i(t.prototype))
-                            ? o(t) && null === (t = t[a]) && (t = void 0)
-                            : (t = void 0)),
-                    new (void 0 === t ? Array : t)(0 === n ? 0 : n)
-                );
-            };
-        },
-        function(e, n, t) {
-            var o = t(27);
-            e.exports =
-                Array.isArray ||
-                function(e) {
-                    return 'Array' == o(e);
-                };
-        },
-        function(e, n, t) {
-            t(142);
             var o = t(19);
             e.exports = o('Array', 'includes');
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
+            var o = t(4),
                 i = t(51).includes,
-                a = t(56);
+                a = t(55);
             o(
                 { target: 'Array', proto: !0 },
                 {
@@ -1475,13 +1352,30 @@
                 a('includes');
         },
         function(e, n, t) {
-            t(144);
+            t(137);
+            var o = t(17);
+            e.exports = o.Object.entries;
+        },
+        function(e, n, t) {
+            var o = t(4),
+                i = t(56).entries;
+            o(
+                { target: 'Object', stat: !0 },
+                {
+                    entries: function(e) {
+                        return i(e);
+                    }
+                }
+            );
+        },
+        function(e, n, t) {
+            t(139);
             var o = t(17);
             e.exports = o.Object.assign;
         },
         function(e, n, t) {
-            var o = t(5),
-                i = t(145);
+            var o = t(4),
+                i = t(140);
             o({ target: 'Object', stat: !0, forced: Object.assign !== i }, { assign: i });
         },
         function(e, n, t) {
@@ -1489,7 +1383,7 @@
             var o = t(13),
                 i = t(14),
                 a = t(40),
-                r = t(146),
+                r = t(141),
                 s = t(37),
                 l = t(28),
                 c = t(38),
@@ -1882,16 +1776,16 @@
                 }));
         },
         function(e, n, t) {
-            t(149);
+            t(144);
             var o = t(19);
             e.exports = o('String', 'padStart');
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
-                i = t(150).start;
+            var o = t(4),
+                i = t(145).start;
             o(
-                { target: 'String', proto: !0, forced: t(152) },
+                { target: 'String', proto: !0, forced: t(147) },
                 {
                     padStart: function(e) {
                         return i(this, e, arguments.length > 1 ? arguments[1] : void 0);
@@ -1901,8 +1795,8 @@
         },
         function(e, n, t) {
             var o = t(18),
-                i = t(151),
-                a = t(9),
+                i = t(146),
+                a = t(8),
                 r = Math.ceil,
                 s = function(e) {
                     return function(n, t, s) {
@@ -1923,7 +1817,7 @@
         function(e, n, t) {
             'use strict';
             var o = t(23),
-                i = t(9);
+                i = t(8);
             e.exports =
                 ''.repeat ||
                 function(e) {
@@ -1936,7 +1830,7 @@
                 };
         },
         function(e, n, t) {
-            var o = t(153);
+            var o = t(148);
             e.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(o);
         },
         function(e, n, t) {
@@ -1944,13 +1838,116 @@
             e.exports = o('navigator', 'userAgent') || '';
         },
         function(e, n, t) {
+            t(150);
+            var o = t(19);
+            e.exports = o('Array', 'find');
+        },
+        function(e, n, t) {
+            'use strict';
+            var o = t(4),
+                i = t(151).find,
+                a = t(55),
+                r = !0;
+            'find' in [] &&
+                Array(1).find(function() {
+                    r = !1;
+                }),
+                o(
+                    { target: 'Array', proto: !0, forced: r },
+                    {
+                        find: function(e) {
+                            return i(this, e, arguments.length > 1 ? arguments[1] : void 0);
+                        }
+                    }
+                ),
+                a('find');
+        },
+        function(e, n, t) {
+            var o = t(39),
+                i = t(38),
+                a = t(28),
+                r = t(18),
+                s = t(152),
+                l = [].push,
+                c = function(e) {
+                    var n = 1 == e,
+                        t = 2 == e,
+                        c = 3 == e,
+                        u = 4 == e,
+                        d = 6 == e,
+                        m = 5 == e || d;
+                    return function(p, g, f, h) {
+                        for (
+                            var y,
+                                _,
+                                x = a(p),
+                                w = i(x),
+                                v = o(g, f, 3),
+                                b = r(w.length),
+                                E = 0,
+                                P = h || s,
+                                A = n ? P(p, b) : t ? P(p, 0) : void 0;
+                            b > E;
+                            E++
+                        )
+                            if ((m || E in w) && ((_ = v((y = w[E]), E, x)), e))
+                                if (n) A[E] = _;
+                                else if (_)
+                                    switch (e) {
+                                        case 3:
+                                            return !0;
+                                        case 5:
+                                            return y;
+                                        case 6:
+                                            return E;
+                                        case 2:
+                                            l.call(A, y);
+                                    }
+                                else if (u) return !1;
+                        return d ? -1 : c || u ? u : A;
+                    };
+                };
+            e.exports = {
+                forEach: c(0),
+                map: c(1),
+                filter: c(2),
+                some: c(3),
+                every: c(4),
+                find: c(5),
+                findIndex: c(6)
+            };
+        },
+        function(e, n, t) {
+            var o = t(15),
+                i = t(153),
+                a = t(5)('species');
+            e.exports = function(e, n) {
+                var t;
+                return (
+                    i(e) &&
+                        ('function' != typeof (t = e.constructor) || (t !== Array && !i(t.prototype))
+                            ? o(t) && null === (t = t[a]) && (t = void 0)
+                            : (t = void 0)),
+                    new (void 0 === t ? Array : t)(0 === n ? 0 : n)
+                );
+            };
+        },
+        function(e, n, t) {
+            var o = t(27);
+            e.exports =
+                Array.isArray ||
+                function(e) {
+                    return 'Array' == o(e);
+                };
+        },
+        function(e, n, t) {
             t(155);
             var o = t(17);
             e.exports = o.Object.values;
         },
         function(e, n, t) {
-            var o = t(5),
-                i = t(55).values;
+            var o = t(4),
+                i = t(56).values;
             o(
                 { target: 'Object', stat: !0 },
                 {
@@ -1967,10 +1964,10 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
+            var o = t(4),
                 i = t(18),
                 a = t(42),
-                r = t(9),
+                r = t(8),
                 s = t(43),
                 l = ''.endsWith,
                 c = Math.min;
@@ -1996,9 +1993,9 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(5),
+            var o = t(4),
                 i = t(42),
-                a = t(9);
+                a = t(8);
             o(
                 { target: 'String', proto: !0, forced: !t(43)('includes') },
                 {
@@ -2014,7 +2011,7 @@
             e.exports = o.Number.isNaN;
         },
         function(e, n, t) {
-            t(5)(
+            t(4)(
                 { target: 'Number', stat: !0 },
                 {
                     isNaN: function(e) {
@@ -2036,18 +2033,7 @@
                         return e;
                     }).apply(this, arguments);
             }
-            t.r(n);
-            var i = t(2),
-                a = t.n(i),
-                r = t(0),
-                s = t.n(r),
-                l = t(4),
-                c = t.n(l),
-                u = t(6),
-                d = t.n(u),
-                m = t(3),
-                p = t.n(m);
-            function g(e, n) {
+            function i(e, n) {
                 if (null == e) return {};
                 var t,
                     o,
@@ -2056,7 +2042,12 @@
                 for (o = 0; o < a.length; o++) n.indexOf((t = a[o])) >= 0 || (i[t] = e[t]);
                 return i;
             }
-            function f(e) {
+            t.r(n), Object.create(Error.prototype);
+            var a = t(2),
+                r = t.n(a),
+                s = t(1),
+                l = t.n(s);
+            function c(e) {
                 var n = new Map();
                 return function() {
                     for (var t = arguments.length, o = new Array(t), i = 0; i < t; i++) o[i] = arguments[i];
@@ -2064,7 +2055,7 @@
                     return n.has(a) || n.set(a, e.apply(void 0, o)), n.get(a);
                 };
             }
-            function h(e, n) {
+            function u(e, n) {
                 var t = new Map();
                 return function(o, i) {
                     void 0 === i && (i = !1);
@@ -2076,7 +2067,7 @@
                     return (t.has(a) && !i) || t.set(a, e(o)), t.get(a);
                 };
             }
-            function y(e) {
+            function d(e) {
                 for (var n = arguments.length, t = new Array(n > 1 ? n - 1 : 0), o = 1; o < n; o++)
                     t[o - 1] = arguments[o];
                 return function() {
@@ -2084,7 +2075,7 @@
                     return e.apply(void 0, t.concat(o));
                 };
             }
-            function x(e, n) {
+            function m(e, n) {
                 return (
                     void 0 === n && (n = e.length),
                     function t() {
@@ -2099,7 +2090,7 @@
                     }
                 );
             }
-            function _(e) {
+            function p(e) {
                 return function(n) {
                     var t = e(n);
                     return 'object' == typeof t && t.then
@@ -2109,7 +2100,7 @@
                         : n;
                 };
             }
-            function w() {
+            function g() {
                 for (var e = arguments.length, n = new Array(e), t = 0; t < e; t++) n[t] = arguments[t];
                 return function(e) {
                     return n.reduce(function(e, n) {
@@ -2117,8 +2108,12 @@
                     }, e);
                 };
             }
-            function v(e) {
-                return c()(e).reduce(function(e, n) {
+            var f = t(11),
+                h = t.n(f),
+                y = t(3),
+                _ = t.n(y);
+            function x(e) {
+                return _()(e).reduce(function(e, n) {
                     var t,
                         i,
                         a,
@@ -2126,12 +2121,12 @@
                         s = n[1];
                     return Array.isArray(s)
                         ? o({}, e, (((i = {})[r] = [].concat(s)), i))
-                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = v(s)), a) : (((t = {})[r] = s), t));
+                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = x(s)), a) : (((t = {})[r] = s), t));
                 }, {});
             }
-            function b(e, n) {
+            function w(e, n) {
                 return (function e(n, t) {
-                    return c()(t).reduce(function(t, i) {
+                    return _()(t).reduce(function(t, i) {
                         var a,
                             r,
                             s,
@@ -2150,16 +2145,16 @@
                                       ? (((l = {})[c] = e(n[c], u)), l)
                                       : (((a = {})[c] = u), a)
                               )
-                            : o({}, t, (((s = {})[c] = v(u)), s));
+                            : o({}, t, (((s = {})[c] = x(u)), s));
                     }, n);
-                })(v(e), n);
+                })(x(e), n);
             }
-            function E(e, n) {
+            function v(e, n) {
                 return n.split('.').reduce(function(e, n) {
                     return 'object' == typeof e || 'function' == typeof e ? e[n] : void 0;
                 }, e);
             }
-            function P(e, n, t) {
+            function b(e, n, t) {
                 var o;
                 void 0 === t && (t = '-');
                 var i,
@@ -2167,22 +2162,40 @@
                 if (-1 === a) return ((i = {})[e] = n), i;
                 var r = e.slice(0, a),
                     s = e.slice(a + 1);
-                return ((o = {})[r] = P(s, n)), o;
+                return ((o = {})[r] = b(s, n)), o;
             }
-            function T(e) {
+            function E(e) {
                 return 'object' == typeof HTMLElement
                     ? e instanceof HTMLElement
                     : e && 'object' == typeof e && null !== e && 1 === e.nodeType && 'string' == typeof e.nodeName;
             }
-            Object.create(Error.prototype);
-            var A = x(function(e, n, t) {
+            function P(e) {
+                var n = r()(e.attributes)
+                    .filter(function(e) {
+                        var n = e.nodeName;
+                        return l()(n, 'data-pp-');
+                    })
+                    .reduce(function(e, n) {
+                        var t = n.nodeValue;
+                        return t ? w(e, b(n.nodeName.replace('data-pp-', ''), t)) : e;
+                    }, {});
+                if (
+                    !e.firstElementChild ||
+                    'SCRIPT' !== e.firstElementChild.tagName ||
+                    'text/template' !== e.firstElementChild.getAttribute('type')
+                )
+                    return n;
+                var t = e.firstElementChild.textContent.trim();
+                return e.removeChild(e.firstElementChild), w(n, { style: { markup: t } });
+            }
+            var A = m(function(e, n, t) {
                     return n.getElementsByClassName(e + '__' + t)[0];
                 }),
-                R = x(function(e, n) {
+                R = m(function(e, n) {
                     var t = document.createElement('style');
                     (t.textContent = n), e.insertBefore(t, e.firstChild);
                 }),
-                L = x(function(e, n) {
+                O = m(function(e, n) {
                     if (Array.isArray(n))
                         n.forEach(function(n) {
                             return e.appendChild(n);
@@ -2193,7 +2206,7 @@
                         (t.innerHTML = n), e.appendChild(t);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                S = x(function(e, n) {
+                T = m(function(e, n) {
                     if (Array.isArray(n))
                         []
                             .concat(n)
@@ -2207,7 +2220,7 @@
                         (t.innerHTML = n), e.insertBefore(t, e.firstChild);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                O = x(function(e, n, t, o) {
+                I = m(function(e, n, t, o) {
                     if ((void 0 === t && (t = 'PayPal Credit'), 'string' == typeof n)) {
                         var i = new Image();
                         (i.alt = t),
@@ -2227,40 +2240,42 @@
                         (u.height = s), (u.width = r), c.appendChild(l), c.appendChild(u), e.appendChild(c);
                     } else e.parentNode.removeChild(e);
                 }, 2),
-                I = t(8),
-                C = t.n(I);
-            function N(e) {
+                S = t(7),
+                L = t.n(S);
+            function C(e) {
                 void 0 === e && (e = {});
                 var n = o({}, e);
-                return [n, y(C.a, n)];
+                return [n, d(L.a, n)];
             }
-            var M = N(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
-                z = M[0],
-                k = M[1];
+            var N = C(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
+                M = N[0],
+                z = N[1];
             Object.defineProperty(window, '__paypal_messages_state__', {
-                value: z,
+                value: M,
                 enumerable: !1,
                 configurable: !0,
                 writable: !1
             });
-            var j = t(1),
-                W = t(57),
-                H = t.n(W),
-                B = x(function(e, n, t) {
+            var j = t(0),
+                k = t(57),
+                W = t.n(k),
+                H = t(6),
+                B = t.n(H),
+                Y = m(function(e, n, t) {
                     var i = e.uuid,
                         a = e.urls;
                     void 0 === t && (t = !1);
                     var r = new window.Image();
                     if ('object' == typeof n) {
                         var s = o({}, n, { uuid: t ? i + '::banner.hidden:true' : i }),
-                            l = c()(s).reduce(function(e, n) {
+                            l = _()(s).reduce(function(e, n) {
                                 var t = n[1];
                                 return void 0 === t ? e : e + '&' + n[0] + '=' + t;
                             }, '');
                         r.src = (a[n.et] || a.DEFAULT) + '&bdata=' + encodeURIComponent(l.slice(1));
                     } else 'string' == typeof n && (r.src = a[n] || a.DEFAULT);
                 }, 2),
-                Y = {
+                D = {
                     START: 'Start',
                     END: 'End',
                     RENDER_START: 'Render_Start',
@@ -2277,7 +2292,7 @@
                     UPDATE: 'Update',
                     ERROR: 'Error'
                 },
-                U = {
+                G = {
                     MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
                     MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
                     MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
@@ -2286,27 +2301,27 @@
                     CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
                     CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
                 },
-                D = {
+                U = {
                     create: function(e) {
                         var n = e.id,
                             t = e.selector,
                             i = e.type,
-                            a = N({ count: 1, account: e.account, history: [], logs: [] }),
+                            a = C({ count: 1, account: e.account, history: [], logs: [] }),
                             r = a[0],
                             s = a[1],
                             l = {
                                 start: function(e) {
-                                    E(e, 'options.account') &&
+                                    v(e, 'options.account') &&
                                         r.account !== e.options.account &&
                                         s({ account: e.account }),
-                                        l.info(Y.START, o({ t: new Date().getTime() }, e));
+                                        l.info(D.START, o({ t: new Date().getTime() }, e));
                                 },
                                 end: function(e) {
-                                    l.info(Y.END, o({ t: new Date().getTime() }, e)),
+                                    l.info(D.END, o({ t: new Date().getTime() }, e)),
                                         (function() {
                                             if (!(r.count > 3)) {
                                                 var e,
-                                                    a = d()(r.logs, function(e) {
+                                                    a = B()(r.logs, function(e) {
                                                         var n = e.event;
                                                         return 'Create' === n || 'Update' === n;
                                                     }),
@@ -2315,7 +2330,7 @@
                                                         url: window.location.href,
                                                         selector: t,
                                                         type: i + (a ? '-' + a.event : ''),
-                                                        id: n + '-' + H()(r.count, 4, '0'),
+                                                        id: n + '-' + W()(r.count, 4, '0'),
                                                         account: r.account,
                                                         history: r.history,
                                                         events:
@@ -2359,9 +2374,9 @@
                                     void 0 === n && (n = {}), s({ logs: [].concat(r.logs, [o({ event: e }, n)]) });
                                 },
                                 error: function(e) {
-                                    l.info(Y.ERROR, e);
+                                    l.info(D.ERROR, e);
                                 },
-                                track: B,
+                                track: Y,
                                 warn: function() {
                                     for (var e, n = arguments.length, t = new Array(n), o = 0; o < n; o++)
                                         t[o] = arguments[o];
@@ -2375,11 +2390,11 @@
                         (e = console).warn.apply(e, ['[PayPal Messages]'].concat(t));
                     }
                 },
-                G = f(function(e) {
+                F = c(function(e) {
                     var n,
                         t = e.markup;
                     return j.ZalgoPromise.resolve(
-                        s()(t, 'https://www.paypalobjects.com')
+                        l()(t, 'https://www.paypalobjects.com')
                             ? ((n = t),
                               new j.ZalgoPromise(function(e) {
                                   var t = new XMLHttpRequest();
@@ -2401,7 +2416,7 @@
                 });
             window.__PP = window.__PP || {};
             var V = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
-            function F(e) {
+            function Z(e) {
                 try {
                     var n = e.content.json,
                         t = e.tracking_details;
@@ -2418,20 +2433,20 @@
                         }
                     };
                 } catch (e) {
-                    throw new Error(U.MESSAGE_INVALID_MARKUP);
+                    throw new Error(G.MESSAGE_INVALID_MARKUP);
                 }
             }
-            function Z(e, n) {
+            function J(e, n) {
                 var t = n.match(/^<!--([\s\S]+?)-->/);
                 if (t)
                     try {
                         return JSON.parse(t[1]);
                     } catch (n) {
-                        e.error({ name: U.CUSTOM_JSON_OPTIONS_FAIL });
+                        e.error({ name: G.CUSTOM_JSON_OPTIONS_FAIL });
                     }
                 return {};
             }
-            var K = h(
+            var q = u(
                 function(e) {
                     var n = e.account,
                         t = e.amount,
@@ -2448,7 +2463,7 @@
                                 call: '__PP.' + i
                             };
                         o && V[o] && ((a.country_code = o), (a.locale = V[o]));
-                        var r = c()(a)
+                        var r = _()(a)
                                 .filter(function(e) {
                                     return e[1];
                                 })
@@ -2456,15 +2471,15 @@
                                     function(e, n) {
                                         return e + '&' + n[0] + '=' + n[1];
                                     },
-                                    s()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
+                                    l()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
                                 ),
-                            l = document.createElement('script');
-                        (l.async = !0),
-                            (l.src = 'https://www.paypal.com/imadserver/upstream?' + r),
-                            document.head.appendChild(l),
+                            s = document.createElement('script');
+                        (s.async = !0),
+                            (s.src = 'https://www.paypal.com/imadserver/upstream?' + r),
+                            document.head.appendChild(s),
                             (window.__PP[i] = function(n) {
-                                if ((document.head.removeChild(l), delete window.__PP[i], 'object' == typeof n))
-                                    e({ markup: F(n) });
+                                if ((document.head.removeChild(s), delete window.__PP[i], 'object' == typeof n))
+                                    e({ markup: Z(n) });
                                 else
                                     try {
                                         e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
@@ -2476,30 +2491,30 @@
                 },
                 ['account', 'amount', 'countryCode']
             );
-            function J(e) {
+            function K(e) {
                 var n = e.options,
                     t = e.logger;
                 return (
-                    t.info(Y.FETCH_START),
-                    ('custom' !== E(n, 'style.layout')
-                        ? K(n).then(y(C.a, { options: n }))
-                        : j.ZalgoPromise.all([K(n), G(n.style)]).then(function(e) {
+                    t.info(D.FETCH_START),
+                    ('custom' !== v(n, 'style.layout')
+                        ? q(n).then(d(L.a, { options: n }))
+                        : j.ZalgoPromise.all([q(n), F(n.style)]).then(function(e) {
                               var o = e[0],
                                   i = e[1];
                               return 'object' == typeof o.markup
-                                  ? ('' === i && t.error({ name: U.CUSTOM_TEMPLATE_FAIL }),
+                                  ? ('' === i && t.error({ name: G.CUSTOM_TEMPLATE_FAIL }),
                                     (o.markup.template = i),
-                                    { markup: o.markup, options: b(n, Z(t, i)) })
+                                    { markup: o.markup, options: w(n, J(t, i)) })
                                   : { markup: o.markup, options: n };
                           })
                     ).then(
-                        _(function(e) {
-                            t.info(Y.FETCH_END),
+                        p(function(e) {
+                            t.info(D.FETCH_END),
                                 (e.options.style._flattened = (function e(n, t, o) {
                                     return (
                                         void 0 === t && (t = ''),
                                         void 0 === o && (o = ':'),
-                                        c()(n).reduce(function(n, i) {
+                                        _()(n).reduce(function(n, i) {
                                             var a = i[0],
                                                 r = i[1];
                                             switch (typeof r) {
@@ -2516,205 +2531,205 @@
                     )
                 );
             }
-            var q = t(30),
-                Q = t.n(q),
-                $ = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
-            function X(e) {
-                $.resize.has(e.target.frameElement) && $.resize.get(e.target.frameElement)(e);
-            }
+            var $ = t(30),
+                Q = t.n($),
+                X = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
             function ee(e) {
-                $.scroll.forEach(function(n) {
+                X.resize.has(e.target.frameElement) && X.resize.get(e.target.frameElement)(e);
+            }
+            function ne(e) {
+                X.scroll.forEach(function(n) {
                     return n(e);
                 });
             }
-            function ne(e) {
-                $.hover.has(e.target) && $.hover.get(e.target)(e);
-            }
             function te(e) {
-                e.target.ownerDocument && $.click.has(e.target.ownerDocument.defaultView.frameElement)
-                    ? $.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
-                    : $.click.has(e.currentTarget) && e.currentTarget !== e.target && $.click.get(e.currentTarget)(e);
+                X.hover.has(e.target) && X.hover.get(e.target)(e);
             }
             function oe(e) {
+                e.target.ownerDocument && X.click.has(e.target.ownerDocument.defaultView.frameElement)
+                    ? X.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
+                    : X.click.has(e.currentTarget) && e.currentTarget !== e.target && X.click.get(e.currentTarget)(e);
+            }
+            function ie(e) {
                 return {
                     on: function(n, t) {
                         ('IFRAME' !== e.tagName && 'resize' === n) ||
                             (function(e, n, t) {
                                 if (
                                     ((function(e, n) {
-                                        'scroll' === e && 0 === $.scroll.size
-                                            ? window.addEventListener('scroll', ee)
-                                            : 'hover' === e && 0 === $.hover.size
-                                            ? document.addEventListener('mouseover', ne)
-                                            : 'resize' !== e || $[e].has(n)
+                                        'scroll' === e && 0 === X.scroll.size
+                                            ? window.addEventListener('scroll', ne)
+                                            : 'hover' === e && 0 === X.hover.size
+                                            ? document.addEventListener('mouseover', te)
+                                            : 'resize' !== e || X[e].has(n)
                                             ? 'click' !== e ||
-                                              $[e].has(n) ||
+                                              X[e].has(n) ||
                                               ('IFRAME' === n.tagName
-                                                  ? n.contentWindow.document.body.addEventListener('click', te)
-                                                  : n.addEventListener('click', te))
-                                            : n.contentWindow.addEventListener('resize', X);
+                                                  ? n.contentWindow.document.body.addEventListener('click', oe)
+                                                  : n.addEventListener('click', oe))
+                                            : n.contentWindow.addEventListener('resize', ee);
                                     })(e, n),
-                                    $[e].has(n))
+                                    X[e].has(n))
                                 ) {
-                                    var o = $[e].get(n);
-                                    $[e].set(n, function(e) {
+                                    var o = X[e].get(n);
+                                    X[e].set(n, function(e) {
                                         o(e), t(e);
                                     });
-                                } else $[e].set(n, t);
+                                } else X[e].set(n, t);
                             })(n, e, t);
                     },
                     clear: function(n) {
-                        $[n].delete(e),
-                            'scroll' === n && 0 === $.scroll.size
-                                ? window.removeEventListener('scroll', ee)
-                                : 'hover' === n && 0 === $.hover.size
-                                ? document.removeEventListener('mouseover', ne)
+                        X[n].delete(e),
+                            'scroll' === n && 0 === X.scroll.size
+                                ? window.removeEventListener('scroll', ne)
+                                : 'hover' === n && 0 === X.hover.size
+                                ? document.removeEventListener('mouseover', te)
                                 : 'click' === n
                                 ? 'IFRAME' === e.tagName
-                                    ? e.contentWindow.document.body.removeEventListener('click', te)
-                                    : e.removeEventListener('click', te)
+                                    ? e.contentWindow.document.body.removeEventListener('click', oe)
+                                    : e.removeEventListener('click', oe)
                                 : 'IFRAME' === e.tagName &&
                                   'resize' === n &&
-                                  e.contentWindow.removeEventListener('resize', X);
+                                  e.contentWindow.removeEventListener('resize', ee);
                     }
                 };
             }
-            var ie = t(58),
-                ae = t.n(ie),
-                re = t(21),
-                se = t.n(re),
-                le = t(59),
-                ce = t.n(le),
-                ue = t(60),
-                de = t.n(ue),
-                me = t(31),
-                pe = t.n(me),
-                ge = t(11),
-                fe = t.n(ge),
-                he = t(61),
-                ye = t.n(he),
+            var ae = t(58),
+                re = t.n(ae),
+                se = t(21),
+                le = t.n(se),
+                ce = t(59),
+                ue = t.n(ce),
+                de = t(60),
+                me = t.n(de),
+                pe = t(31),
+                ge = t.n(pe),
+                fe = t(10),
+                he = t.n(fe),
+                ye = t(61),
+                _e = t.n(ye),
                 xe = t(62),
-                _e = t.n(xe),
-                we = t(44),
-                ve = t.n(we),
-                be = t(63),
-                Ee = t.n(be),
-                Pe = t(64),
-                Te = t.n(Pe),
-                Ae = t(65),
+                we = t.n(xe),
+                ve = t(44),
+                be = t.n(ve),
+                Ee = t(63),
+                Pe = t.n(Ee),
+                Ae = t(64),
                 Re = t.n(Ae),
-                Le = t(66),
-                Se = t.n(Le),
-                Oe = t(67),
-                Ie = t.n(Oe),
-                Ce = t(68),
-                Ne = t.n(Ce),
-                Me = [
-                    ['default', [fe.a, pe.a, ye.a].join('\n')],
+                Oe = t(65),
+                Te = t.n(Oe),
+                Ie = t(66),
+                Se = t.n(Ie),
+                Le = t(67),
+                Ce = t.n(Le),
+                Ne = t(68),
+                Me = t.n(Ne),
+                ze = [
+                    ['default', [he.a, ge.a, _e.a].join('\n')],
                     ['logo.type:primary', Se.a],
-                    ['logo.type:alternative', _e.a],
-                    ['logo.type:inline', ve.a],
-                    ['logo.type:none', [ve.a, Ee.a].join('\n')],
-                    ['logo.position:right', Te.a],
-                    ['logo.position:top', Re.a],
-                    ['logo.type:alternative && logo.position:top', Ie.a],
-                    ['text.color:white', Ne.a]
+                    ['logo.type:alternative', we.a],
+                    ['logo.type:inline', be.a],
+                    ['logo.type:none', [be.a, Pe.a].join('\n')],
+                    ['logo.position:right', Re.a],
+                    ['logo.position:top', Te.a],
+                    ['logo.type:alternative && logo.position:top', Ce.a],
+                    ['text.color:white', Me.a]
                 ],
-                ze = t(69),
-                ke = t.n(ze),
-                je = t(70),
-                We = t.n(je),
-                He = t(71),
-                Be = t.n(He),
-                Ye = t(45),
-                Ue = t.n(Ye),
-                De = t(72),
+                je = t(69),
+                ke = t.n(je),
+                We = t(70),
+                He = t.n(We),
+                Be = t(71),
+                Ye = t.n(Be),
+                De = t(45),
                 Ge = t.n(De),
+                Ue = t(72),
+                Fe = t.n(Ue),
                 Ve = t(73),
-                Fe = t.n(Ve),
-                Ze = t(74),
-                Ke = t.n(Ze),
-                Je = t(75),
+                Ze = t.n(Ve),
+                Je = t(74),
                 qe = t.n(Je),
+                Ke = t(75),
+                $e = t.n(Ke),
                 Qe = t(76),
-                $e = t.n(Qe),
-                Xe = t(77),
-                en = t.n(Xe),
-                nn = t(78),
-                tn = t.n(nn),
-                on = t(79),
-                an = t.n(on),
-                rn = [
-                    ['default', [fe.a, pe.a, ke.a].join('\n')],
-                    ['ratio:1x1', We.a],
-                    ['ratio:1x4', Be.a],
-                    ['ratio:8x1', [Ue.a, Ge.a].join('\n')],
-                    ['ratio:20x1', [Ue.a, Fe.a].join('\n')],
-                    ['color:blue', Ke.a],
-                    ['color:gray', qe.a],
-                    ['color:black', en.a],
-                    ['color:white', tn.a],
-                    ['color:white-no-border', an.a],
-                    ['color:blue && ratio:1x4', $e.a]
+                Xe = t.n(Qe),
+                en = t(77),
+                nn = t.n(en),
+                tn = t(78),
+                on = t.n(tn),
+                an = t(79),
+                rn = t.n(an),
+                sn = [
+                    ['default', [he.a, ge.a, ke.a].join('\n')],
+                    ['ratio:1x1', He.a],
+                    ['ratio:1x4', Ye.a],
+                    ['ratio:8x1', [Ge.a, Fe.a].join('\n')],
+                    ['ratio:20x1', [Ge.a, Ze.a].join('\n')],
+                    ['color:blue', qe.a],
+                    ['color:gray', $e.a],
+                    ['color:black', nn.a],
+                    ['color:white', on.a],
+                    ['color:white-no-border', rn.a],
+                    ['color:blue && ratio:1x4', Xe.a]
                 ],
-                sn = t(80),
-                ln = t.n(sn),
-                cn = t(81),
-                un = t.n(cn),
-                dn = t(82),
-                mn = t.n(dn),
-                pn = t(83),
-                gn = t.n(pn),
-                fn = t(84),
-                hn = t.n(fn),
-                yn = t(85),
-                xn = t.n(yn),
-                _n = t(86),
-                wn = t.n(_n),
-                vn = t(87),
-                bn = t.n(vn),
-                En = t(88),
-                Pn = t.n(En),
-                Tn = t(89),
-                An = t.n(Tn),
-                Rn = t(90),
-                Ln = t.n(Rn),
+                ln = t(80),
+                cn = t.n(ln),
+                un = t(81),
+                dn = t.n(un),
+                mn = t(82),
+                pn = t.n(mn),
+                gn = t(83),
+                fn = t.n(gn),
+                hn = t(84),
+                yn = t.n(hn),
+                _n = t(85),
+                xn = t.n(_n),
+                wn = t(86),
+                vn = t.n(wn),
+                bn = t(87),
+                En = t.n(bn),
+                Pn = t(88),
+                An = t.n(Pn),
+                Rn = t(89),
+                On = t.n(Rn),
+                Tn = t(90),
+                In = t.n(Tn),
                 Sn = t(91),
-                On = t.n(Sn),
-                In = t(92),
-                Cn = t.n(In),
-                Nn = t(93),
-                Mn = t.n(Nn),
-                zn = t(94),
-                kn = t.n(zn),
-                jn = t(95),
-                Wn = t.n(jn),
-                Hn = t(96),
-                Bn = t.n(Hn),
-                Yn = t(97),
-                Un = t.n(Yn),
-                Dn = t(98),
+                Ln = t.n(Sn),
+                Cn = t(92),
+                Nn = t.n(Cn),
+                Mn = t(93),
+                zn = t.n(Mn),
+                jn = t(94),
+                kn = t.n(jn),
+                Wn = t(95),
+                Hn = t.n(Wn),
+                Bn = t(96),
+                Yn = t.n(Bn),
+                Dn = t(97),
                 Gn = t.n(Dn),
+                Un = t(98),
+                Fn = t.n(Un),
                 Vn = t(99),
-                Fn = {
+                Zn = {
                     x168x374: { styles: xn.a, vertical: !0 },
-                    x765x60: { styles: Pn.a },
-                    x1000x50: { styles: An.a, termsIcon: !0 },
-                    x234x100: { styles: wn.a, reverseLogo: !0 },
-                    x310x100: { styles: bn.a, reverseLogo: !0 },
-                    x1000x36: { styles: Ln.a, termsIcon: !0 },
-                    x120x90: { styles: Cn.a, termsIcon: !0 },
-                    x234x60: { styles: Mn.a, reverseLogo: !0, termsIcon: !0 },
+                    x765x60: { styles: An.a },
+                    x1000x50: { styles: On.a, termsIcon: !0 },
+                    x234x100: { styles: vn.a, reverseLogo: !0 },
+                    x310x100: { styles: En.a, reverseLogo: !0 },
+                    x1000x36: { styles: In.a, termsIcon: !0 },
+                    x120x90: { styles: Nn.a, termsIcon: !0 },
+                    x234x60: { styles: zn.a, reverseLogo: !0, termsIcon: !0 },
                     x250x250: { styles: kn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
-                    x300x50: { styles: Wn.a, reverseLogo: !0 },
-                    x340x60: { styles: On.a, reverseLogo: !0 },
-                    x468x60: { styles: Bn.a, reverseLogo: !0, termsIcon: !0 },
-                    x728x90: { styles: Un.a, reverseLogo: !0 },
-                    x540x200: { styles: Gn.a, reverseLogo: !0, termsIcon: !0 },
+                    x300x50: { styles: Hn.a, reverseLogo: !0 },
+                    x340x60: { styles: Ln.a, reverseLogo: !0 },
+                    x468x60: { styles: Yn.a, reverseLogo: !0, termsIcon: !0 },
+                    x728x90: { styles: Gn.a, reverseLogo: !0 },
+                    x540x200: { styles: Fn.a, reverseLogo: !0, termsIcon: !0 },
                     x170x100: { styles: t.n(Vn).a, termsIcon: !0 }
                 },
-                Zn = Object.keys(Fn).map(function(e) {
-                    var n = Fn[e],
+                Jn = Object.keys(Zn).map(function(e) {
+                    var n = Zn[e],
                         t = e.slice(1),
                         o = t.split('x'),
                         i = o[1],
@@ -2727,25 +2742,25 @@
                             i +
                             'px;\n        }\n    ';
                     return (
-                        n.vertical && (a = '' + a + mn.a),
-                        n.reverseLogo && (a = '' + a + un.a),
-                        n.vertical && n.reverseLogo && (a = '' + a + gn.a),
-                        n.termsIcon && (a = '' + a + hn.a),
+                        n.vertical && (a = '' + a + pn.a),
+                        n.reverseLogo && (a = '' + a + dn.a),
+                        n.vertical && n.reverseLogo && (a = '' + a + fn.a),
+                        n.termsIcon && (a = '' + a + yn.a),
                         ['size:' + t, a]
                     );
                 }),
-                Kn = Object.keys(Fn).map(function(e) {
-                    return ['size:' + e.slice(1), Fn[e].styles];
+                qn = Object.keys(Zn).map(function(e) {
+                    return ['size:' + e.slice(1), Zn[e].styles];
                 }),
-                Jn = [['default', [fe.a, ln.a].join('\n')]].concat(Zn, Kn),
-                qn = t(100),
+                Kn = [['default', [he.a, cn.a].join('\n')]].concat(Jn, qn),
+                $n = t(100),
                 Qn = {
-                    'layout:text': Me,
-                    'layout:flex': rn,
-                    'layout:legacy': Jn,
-                    'layout:custom': [['default', [fe.a, t.n(qn).a].join('\n')]]
+                    'layout:text': ze,
+                    'layout:flex': sn,
+                    'layout:legacy': Kn,
+                    'layout:custom': [['default', [he.a, t.n($n).a].join('\n')]]
                 },
-                $n = {
+                Xn = {
                     PRIMARY: {
                         COLOR: [
                             'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_pri.svg',
@@ -2783,18 +2798,18 @@
                         ]
                     }
                 };
-            function Xn(e) {
+            function et(e) {
                 return (
                     '\n    .message__headline span.multi:nth-child(2) {\n        display: none;\n    }\n\n    @media (min-width: ' +
                     e +
                     'px) {\n        .message__headline span.multi:first-child {\n            display: none;\n            \n        }\n\n        .message__headline span.multi:nth-child(2) {\n            display: inline;\n            \n        }\n    }\n'
                 );
             }
-            var et = [
+            var nt = [
                     [
                         'default',
                         {
-                            logo: $n.PRIMARY.COLOR,
+                            logo: Xn.PRIMARY.COLOR,
                             headline: 'medium',
                             subHeadline: 'small',
                             disclaimer: 'legacy-medium'
@@ -2809,21 +2824,21 @@
                             ]
                         }
                     ],
-                    ['size:234x100', { logo: $n.PRIMARY.WHITE }],
-                    ['size:310x100', { logo: $n.PRIMARY.WHITE }],
-                    ['size:340x60', { logo: $n.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
+                    ['size:234x100', { logo: Xn.PRIMARY.WHITE }],
+                    ['size:310x100', { logo: Xn.PRIMARY.WHITE }],
+                    ['size:340x60', { logo: Xn.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
                 ],
-                nt = {
+                tt = {
                     'layout:text': [
                         [
                             'default',
                             {
                                 styles: [
-                                    Xn(290),
+                                    et(290),
                                     '.message__messaging { flex: 1 1 auto; }',
                                     '@media (max-width: 289px) { .message__disclaimer { display: block; } }'
                                 ],
-                                logo: $n.PRIMARY.COLOR,
+                                logo: Xn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
@@ -2833,8 +2848,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                styles: [Xn(280)],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                styles: [et(280)],
+                                logo: Xn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2845,7 +2860,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [180, 1e3],
-                                styles: [Xn(280)],
+                                styles: [et(280)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2856,22 +2871,22 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [Xn(520)],
-                                logo: $n.ALTERNATIVE.COLOR,
+                                styles: [et(520)],
+                                logo: Xn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [Xn(210)] }],
-                        ['logo.type:alternative && logo.position:top', { styles: [Xn(210)] }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [et(210)] }],
+                        ['logo.type:alternative && logo.position:top', { styles: [et(210)] }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
@@ -2885,19 +2900,19 @@
                                 disclaimer: ['xlarge', 'xsmall']
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': et
+                    'layout:legacy': nt
                 },
-                tt = {
+                ot = {
                     'layout:text': [
                         [
                             'default',
                             {
-                                styles: [Xn(320)],
-                                logo: $n.PRIMARY.COLOR,
+                                styles: [et(320)],
+                                logo: Xn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }],
                                 disclaimer: ['extra', 'xsmall']
                             }
@@ -2907,8 +2922,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [240, 1e3],
-                                styles: [Xn(290)],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                styles: [et(290)],
+                                logo: Xn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2919,7 +2934,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [220, 1e3],
-                                styles: [Xn(290)],
+                                styles: [et(290)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2930,29 +2945,29 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [Xn(570)],
-                                logo: $n.ALTERNATIVE.COLOR,
+                                styles: [et(570)],
+                                logo: Xn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
                             }
                         ],
                         [
                             'logo.type:alternative && logo.position:top',
                             {
-                                styles: [Xn(230)],
+                                styles: [et(230)],
                                 messageWidth: [150, 320],
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [Xn(235)] }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [et(235)] }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: ['extra.2', 'small']
                             }
@@ -2966,13 +2981,13 @@
                                 disclaimer: ['xlarge', 'extra.2', 'small']
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': et
+                    'layout:legacy': nt
                 },
-                ot = {
+                it = {
                     'layout:text': [
                         [
                             'default',
@@ -2981,7 +2996,7 @@
                                     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                                 ],
-                                logo: $n.PRIMARY.COLOR,
+                                logo: Xn.PRIMARY.COLOR,
                                 headline: { tag: 'small', br: ['months', 'APR'] },
                                 disclaimer: 'xsmall.2'
                             }
@@ -2989,12 +3004,12 @@
                         ['logo.type:primary', { messageWidth: 190 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [255, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [255, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [240, 1e3], logo: !1, headline: { br: ['APR'] } }],
                         [
                             'logo.type:alternative',
-                            { logo: $n.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
+                            { logo: Xn.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
                         ],
                         [
                             'text.color:white',
@@ -3005,15 +3020,15 @@
                                 ]
                             }
                         ],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: { tag: 'small', br: ['months', 'APR'] },
                                 disclaimer: ['xsmall.2', 'xsmall']
                             }
@@ -3027,13 +3042,13 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
-                        ['default', { logo: $n.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['default', { logo: Xn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
                         [
                             'size:120x90',
                             {
@@ -3081,152 +3096,6 @@
                                     '.message__headline { font-size: 13px }',
                                     '.message__messaging { padding: 7px 0 }'
                                 ]
-                            }
-                        ],
-                        [
-                            'size:468x60',
-                            {
-                                styles: [
-                                    '.message__headline { font-size: 14px; margin-bottom: 5px }',
-                                    '.message__disclaimer { font-size: 10px }',
-                                    '.message__messaging { padding: 14px 0 }'
-                                ]
-                            }
-                        ],
-                        [
-                            'size:728x90',
-                            {
-                                styles: [
-                                    '.message__headline { font-size: 20px }',
-                                    '.message__disclaimer { font-size: 11px }',
-                                    '.message__messaging { padding: 23px 0 }'
-                                ]
-                            }
-                        ],
-                        [
-                            'size:540x200',
-                            {
-                                subHeadline: 'legacy-medium',
-                                disclaimer: 'legacy-medium.2',
-                                styles: ['.message__headline { padding-right: 40px; }']
-                            }
-                        ],
-                        [
-                            'size:170x100',
-                            {
-                                logo: !1,
-                                styles: [
-                                    '.message__disclaimer { font-size: 9px; }',
-                                    '.message__headline { font-size: 15px; line-height: 1.2em; }'
-                                ]
-                            }
-                        ]
-                    ]
-                },
-                it = {
-                    'layout:text': [
-                        [
-                            'default',
-                            {
-                                styles: [
-                                    '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                                ],
-                                logo: $n.PRIMARY.COLOR,
-                                headline: { tag: 'xsmall', br: ['months'] },
-                                disclaimer: 'xsmall.2'
-                            }
-                        ],
-                        ['logo.type:primary', { messageWidth: 130 }],
-                        [
-                            'logo.type:inline',
-                            { messageWidth: [250, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
-                        ],
-                        ['logo.type:none', { messageWidth: [235, 1e3], logo: !1, headline: { br: ['months'] } }],
-                        [
-                            'logo.type:alternative',
-                            {
-                                logo: $n.ALTERNATIVE.COLOR,
-                                headline: { replace: [['months', 'months.']], br: ['months.'] }
-                            }
-                        ],
-                        [
-                            'text.color:white',
-                            {
-                                styles: [
-                                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                                    '.message__disclaimer > span { color: white; text-decoration: none; }'
-                                ]
-                            }
-                        ],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
-                    ],
-                    'layout:flex': [
-                        [
-                            'default',
-                            {
-                                logo: $n.PRIMARY.WHITE,
-                                headline: { tag: 'xsmall', br: ['months'] },
-                                disclaimer: ['xsmall.2', 'xsmall']
-                            }
-                        ],
-                        ['ratio:1x4', { headline: { br: ['over', 'months'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
-                    ],
-                    'layout:legacy': [
-                        ['default', { logo: $n.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
-                        [
-                            'size:120x90',
-                            {
-                                logo: !1,
-                                styles: [
-                                    '.message__disclaimer { line-height: 12px }',
-                                    '.message__headline { font-size: 12px }'
-                                ]
-                            }
-                        ],
-                        [
-                            'size:234x60',
-                            {
-                                disclaimer: 'legacy-medium.2',
-                                styles: [
-                                    '.message__disclaimer { font-size: 9px }',
-                                    '.message__messaging { padding-top: 5px }'
-                                ]
-                            }
-                        ],
-                        [
-                            'size:250x250',
-                            {
-                                styles: [
-                                    '.message__disclaimer { font-size: 10px }',
-                                    '.message__headline { margin-bottom: 20px }'
-                                ],
-                                disclaimer: 'legacy-medium.2'
-                            }
-                        ],
-                        [
-                            'size:300x50',
-                            {
-                                styles: [
-                                    '.message__headline { font-size: 13px }',
-                                    '.message__disclaimer { font-size: 11px }'
-                                ]
-                            }
-                        ],
-                        [
-                            'size:340x60',
-                            {
-                                styles: [
-                                    '.message__headline { font-size: 13px }',
-                                    '.message__messaging { padding: 7px 0 }'
-                                ],
-                                disclaimer: 'legacy-medium.2'
                             }
                         ],
                         [
@@ -3273,14 +3142,160 @@
                     'layout:text': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
+                            {
+                                styles: [
+                                    '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
+                                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+                                ],
+                                logo: Xn.PRIMARY.COLOR,
+                                headline: { tag: 'xsmall', br: ['months'] },
+                                disclaimer: 'xsmall.2'
+                            }
+                        ],
+                        ['logo.type:primary', { messageWidth: 130 }],
+                        [
+                            'logo.type:inline',
+                            { messageWidth: [250, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
+                        ],
+                        ['logo.type:none', { messageWidth: [235, 1e3], logo: !1, headline: { br: ['months'] } }],
+                        [
+                            'logo.type:alternative',
+                            {
+                                logo: Xn.ALTERNATIVE.COLOR,
+                                headline: { replace: [['months', 'months.']], br: ['months.'] }
+                            }
+                        ],
+                        [
+                            'text.color:white',
+                            {
+                                styles: [
+                                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
+                                    '.message__disclaimer > span { color: white; text-decoration: none; }'
+                                ]
+                            }
+                        ],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                    ],
+                    'layout:flex': [
+                        [
+                            'default',
+                            {
+                                logo: Xn.PRIMARY.WHITE,
+                                headline: { tag: 'xsmall', br: ['months'] },
+                                disclaimer: ['xsmall.2', 'xsmall']
+                            }
+                        ],
+                        ['ratio:1x4', { headline: { br: ['over', 'months'] }, subHeadline: 'small' }],
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                    ],
+                    'layout:legacy': [
+                        ['default', { logo: Xn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        [
+                            'size:120x90',
+                            {
+                                logo: !1,
+                                styles: [
+                                    '.message__disclaimer { line-height: 12px }',
+                                    '.message__headline { font-size: 12px }'
+                                ]
+                            }
+                        ],
+                        [
+                            'size:234x60',
+                            {
+                                disclaimer: 'legacy-medium.2',
+                                styles: [
+                                    '.message__disclaimer { font-size: 9px }',
+                                    '.message__messaging { padding-top: 5px }'
+                                ]
+                            }
+                        ],
+                        [
+                            'size:250x250',
+                            {
+                                styles: [
+                                    '.message__disclaimer { font-size: 10px }',
+                                    '.message__headline { margin-bottom: 20px }'
+                                ],
+                                disclaimer: 'legacy-medium.2'
+                            }
+                        ],
+                        [
+                            'size:300x50',
+                            {
+                                styles: [
+                                    '.message__headline { font-size: 13px }',
+                                    '.message__disclaimer { font-size: 11px }'
+                                ]
+                            }
+                        ],
+                        [
+                            'size:340x60',
+                            {
+                                styles: [
+                                    '.message__headline { font-size: 13px }',
+                                    '.message__messaging { padding: 7px 0 }'
+                                ],
+                                disclaimer: 'legacy-medium.2'
+                            }
+                        ],
+                        [
+                            'size:468x60',
+                            {
+                                styles: [
+                                    '.message__headline { font-size: 14px; margin-bottom: 5px }',
+                                    '.message__disclaimer { font-size: 10px }',
+                                    '.message__messaging { padding: 14px 0 }'
+                                ]
+                            }
+                        ],
+                        [
+                            'size:728x90',
+                            {
+                                styles: [
+                                    '.message__headline { font-size: 20px }',
+                                    '.message__disclaimer { font-size: 11px }',
+                                    '.message__messaging { padding: 23px 0 }'
+                                ]
+                            }
+                        ],
+                        [
+                            'size:540x200',
+                            {
+                                subHeadline: 'legacy-medium',
+                                disclaimer: 'legacy-medium.2',
+                                styles: ['.message__headline { padding-right: 40px; }']
+                            }
+                        ],
+                        [
+                            'size:170x100',
+                            {
+                                logo: !1,
+                                styles: [
+                                    '.message__disclaimer { font-size: 9px; }',
+                                    '.message__headline { font-size: 15px; line-height: 1.2em; }'
+                                ]
+                            }
+                        ]
+                    ]
+                },
+                rt = {
+                    'layout:text': [
+                        [
+                            'default',
+                            { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
                         ],
                         ['logo.type:primary', { messageWidth: [130, 200] }],
                         [
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                logo: Xn.ALT_NO_PP.COLOR,
                                 headline: { br: ['APR'], replace: [['APR.', 'APR']] }
                             }
                         ],
@@ -3292,36 +3307,36 @@
                                 headline: { replace: [['APR.', 'APR']], br: ['APR'] }
                             }
                         ],
-                        ['logo.type:alternative', { messageWidth: [140, 430], logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { messageWidth: [140, 430], logo: Xn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: { tag: 'medium', br: ['low as', 'at'] },
                                 disclaimer: 'small'
                             }
                         ],
                         ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: 'legacy-medium',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-small'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
                         ['size:120x90', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:234x60', { headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:300x50', { disclaimer: 'legacy-medium' }],
@@ -3332,41 +3347,41 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }]
                     ]
                 },
-                rt = {
+                st = {
                     'layout:text': [
-                        ['default', { logo: $n.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Xn.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: 130 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [195, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [195, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [175, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.WHITE, headline: { tag: 'small', br: ['low as'] }, disclaimer: 'xsmall' }
+                            { logo: Xn.PRIMARY.WHITE, headline: { tag: 'small', br: ['low as'] }, disclaimer: 'xsmall' }
                         ],
                         ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3374,28 +3389,28 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                st = {
+                lt = {
                     'layout:text': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
+                            { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
                         ],
                         ['logo.type:primary', { messageWidth: [190, 240] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [260, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [260, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [260, 1e3], logo: !1, headline: { br: ['APR'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: { tag: 'small', br: [' of', 'at'] },
                                 disclaimer: 'xsmall'
                             }
@@ -3409,21 +3424,21 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: 'legacy-small',
                                 subHeadline: 'legacy-xlarge',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1, headline: 'legacy-xsmall' }],
                         ['size:234x60', { headline: 'legacy-xsmall', disclaimer: 'legacy-medium.2' }],
                         ['size:250x250', { headline: 'legacy-small.2', disclaimer: 'legacy-medium.2' }],
@@ -3432,41 +3447,41 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                lt = {
+                ct = {
                     'layout:text': [
-                        ['default', { logo: $n.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: [140, 210] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [200, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [200, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [200, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.WHITE, headline: { tag: 'small', br: ['of'] }, disclaimer: 'xsmall' }
+                            { logo: Xn.PRIMARY.WHITE, headline: { tag: 'small', br: ['of'] }, disclaimer: 'xsmall' }
                         ],
                         ['ratio:1x4', { headline: { br: ['payments'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Xn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3474,40 +3489,40 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 };
-            function ct(e, n) {
-                var t = d()(e, function(e) {
+            function ut(e, n) {
+                var t = B()(e, function(e) {
                     var t = e[1];
-                    return p()(t, n);
+                    return h()(t, n);
                 });
                 if (t) return t[0];
-                if (se()(n, '.')) {
+                if (le()(n, '.')) {
                     var o = n.split('.', 1)[0];
                     if (
-                        (t = d()(e, function(e) {
+                        (t = B()(e, function(e) {
                             var n = e[1];
-                            return p()(n, o);
+                            return h()(n, o);
                         }))
                     )
                         return t[0];
                 }
-                return d()(e, function(e) {
+                return B()(e, function(e) {
                     var n = e[1];
-                    return p()(n, 'default');
+                    return h()(n, 'default');
                 })[0];
             }
-            var ut = document.createElement('iframe');
-            ut.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
-            var dt = document.createElement('div');
-            dt.innerHTML = ce.a;
+            var dt = document.createElement('iframe');
+            dt.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
             var mt = document.createElement('div');
-            function pt(e) {
+            mt.innerHTML = ue.a;
+            var pt = document.createElement('div');
+            function gt(e) {
                 return e
                     .reduce(function(e, n) {
                         return [].concat(e, [n, document.createTextNode(' ')]);
                     }, [])
                     .slice(0, -1);
             }
-            function gt(e, n) {
+            function ft(e, n) {
                 void 0 === n && (n = {});
                 var t,
                     o = (Array.isArray(e) ? e : [e]).map(function(e) {
@@ -3529,8 +3544,8 @@
                         (function(e, t) {
                             var o = [].concat(n.br);
                             t.forEach(function(e) {
-                                for (var n = e.textContent, t = []; se()(n, o[0]); ) t.push(o[0]), o.shift();
-                                if (0 === t.length || (1 === t.length && ae()(n, t[0]))) return e.classList.add('br');
+                                for (var n = e.textContent, t = []; le()(n, o[0]); ) t.push(o[0]), o.shift();
+                                if (0 === t.length || (1 === t.length && re()(n, t[0]))) return e.classList.add('br');
                                 var i = document.createElement('span');
                                 (i.textContent = n), (i.className = 'br');
                                 var a = t.reduce(
@@ -3557,40 +3572,40 @@
                                 );
                             });
                         })(0, o),
-                    pt(o)
+                    gt(o)
                 );
             }
-            mt.innerHTML = de.a;
-            var ft = x(function(e, n, t) {
+            pt.innerHTML = me.a;
+            var ht = m(function(e, n, t) {
                     return (
                         !1 !== t &&
                         ('string' != typeof t && 'object' != typeof t
                             ? null
-                            : pt(
+                            : gt(
                                   (o = 'string' == typeof t ? [{ tag: t }] : Array.isArray(t) ? t : [t]).map(function(
                                       t
                                   ) {
-                                      var i,
-                                          a = document.createElement('span');
-                                      if ((o.length > 1 && a.setAttribute('class', 'multi'), 'string' == typeof t))
-                                          (i = gt(ct(e[n], t))), a.classList.add('tag--' + t.split('.', 1)[0]);
+                                      var a,
+                                          r = document.createElement('span');
+                                      if ((o.length > 1 && r.setAttribute('class', 'multi'), 'string' == typeof t))
+                                          (a = ft(ut(e[n], t))), r.classList.add('tag--' + t.split('.', 1)[0]);
                                       else {
-                                          var r = t.tag,
-                                              s = g(t, ['tag']);
-                                          (i = gt(ct(e[n], r), s)), a.classList.add('tag--' + r.split('.', 1)[0]);
+                                          var s = t.tag,
+                                              l = i(t, ['tag']);
+                                          (a = ft(ut(e[n], s), l)), r.classList.add('tag--' + s.split('.', 1)[0]);
                                       }
                                       return (
-                                          i.forEach(function(e) {
-                                              return a.appendChild(e);
+                                          a.forEach(function(e) {
+                                              return r.appendChild(e);
                                           }),
-                                          a
+                                          r
                                       );
                                   })
                               ))
                     );
                     var o;
                 }),
-                ht = x(function(e, n, t) {
+                yt = m(function(e, n, t) {
                     return t.reduce(
                         function(t, o) {
                             var i = o[0],
@@ -3598,27 +3613,27 @@
                                 r = i.split(' && ');
                             return 'default' === i ||
                                 r.every(function(n) {
-                                    return p()(e, n);
+                                    return h()(e, n);
                                 })
                                 ? n === Array
                                     ? [].concat(t, [a])
-                                    : b(t, a)
+                                    : w(t, a)
                                 : t;
                         },
                         n === Array ? [] : {}
                     );
                 }),
-                yt = {
-                    getTemplateNode: f(function(e, n) {
-                        var t = E(e, 'style.layout');
+                _t = {
+                    getTemplateNode: c(function(e, n) {
+                        var t = v(e, 'style.layout');
                         if ('custom' === t)
                             return (function(e) {
                                 var t = n.data,
                                     o = n.meta,
                                     i = n.template,
-                                    r = document.createElement('div'),
+                                    a = document.createElement('div'),
                                     s = o.offerType;
-                                if ('' === i) return r;
+                                if ('' === i) return a;
                                 try {
                                     var l = i.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, n) {
                                         var o = n.split('.'),
@@ -3626,37 +3641,37 @@
                                             a = o.slice(1).join('.');
                                         if ('logo' === i) {
                                             var r = document.createElement('div');
-                                            return O(r, E($n, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
+                                            return I(r, v(Xn, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
                                         }
-                                        return gt(ct(t[i], a)).reduce(function(e, n) {
+                                        return ft(ut(t[i], a)).reduce(function(e, n) {
                                             return '' + e + (n.outerHTML || ' ');
                                         }, '');
                                     });
-                                    (r.innerHTML = l),
-                                        d()(a()(r.children), function(e) {
+                                    (a.innerHTML = l),
+                                        B()(r()(a.children), function(e) {
                                             return 'STYLE' !== e.tagName;
                                         }).classList.add('offer--' + s.replace(/:/g, '-').toLowerCase());
                                 } catch (e) {}
-                                return r;
+                                return a;
                             })();
-                        var o = E(e, 'style._flattened'),
-                            i = E(n, 'meta.offerType'),
-                            r = E(n, 'data');
+                        var o = v(e, 'style._flattened'),
+                            i = v(n, 'meta.offerType'),
+                            a = v(n, 'data');
                         if ('legacy' === t) {
-                            var s = E(e, 'style.typeNI'),
-                                l = E(e, 'style.typeEZP'),
+                            var s = v(e, 'style.typeNI'),
+                                l = v(e, 'style.typeEZP'),
                                 c = 'NI' === i.split(':')[0] ? s : l;
                             if ('image' === c)
                                 return (function(e, t) {
                                     var o = n.meta,
-                                        i = mt.cloneNode(!0),
+                                        i = pt.cloneNode(!0),
                                         a = A('pp-legacy', i),
                                         r = ['link', 'pixel'].map(a),
                                         s = r[0],
                                         l = r[1],
-                                        c = E(e, 'size'),
-                                        u = E(e, 'color'),
-                                        d = E(e, 'border');
+                                        c = v(e, 'size'),
+                                        u = v(e, 'color'),
+                                        d = v(e, 'border');
                                     s.setAttribute('href', o.clickUrl), l.setAttribute('href', o.impressionUrl);
                                     var m = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy',
                                         p = 'none' === u ? '' : '-' + u + (!0 === d ? '' : '-no-border'),
@@ -3664,91 +3679,91 @@
                                         f = [1, 1.5, 2].map(function(e) {
                                             return m + '/' + g + '@' + e + 'x.png ' + e + 'x';
                                         });
-                                    return O(s, m + '/' + g + '@1x.png', 'PayPal Credit Message', f.join(', ')), i;
+                                    return I(s, m + '/' + g + '@1x.png', 'PayPal Credit Message', f.join(', ')), i;
                                 })(e.style);
-                            if (!c) throw new Error(U.MESSAGE_INVALID_LEGACY);
+                            if (!c) throw new Error(G.MESSAGE_INVALID_LEGACY);
                         }
-                        var u = ht(o),
-                            m = u(
+                        var u = yt(o),
+                            d = u(
                                 Object,
                                 (function(e, n) {
                                     switch (i) {
                                         case 'EZP:ANY:EQZ':
-                                            return ot[n];
-                                        case 'EZP:ANY:GTZ':
                                             return it[n];
-                                        case 'PALA:MULTI:EQZ':
+                                        case 'EZP:ANY:GTZ':
                                             return at[n];
-                                        case 'PALA:MULTI:GTZ':
+                                        case 'PALA:MULTI:EQZ':
                                             return rt[n];
-                                        case 'PALA:SINGLE:EQZ':
+                                        case 'PALA:MULTI:GTZ':
                                             return st[n];
-                                        case 'PALA:SINGLE:GTZ':
+                                        case 'PALA:SINGLE:EQZ':
                                             return lt[n];
+                                        case 'PALA:SINGLE:GTZ':
+                                            return ct[n];
                                         case 'NI:NON-US':
-                                            return tt[n];
+                                            return ot[n];
                                         case 'NI':
                                         default:
-                                            return nt[n];
+                                            return tt[n];
                                     }
                                 })(0, 'layout:' + t)
                             ),
-                            p = u(Array, Qn['layout:' + t]),
-                            g = ft(r),
-                            f = dt.cloneNode(!0),
-                            h = A('message', f),
-                            y = ['logo-container', 'headline', 'sub-headline', 'disclaimer'].map(h),
-                            x = y[0],
-                            _ = y[1],
-                            w = y[2],
-                            v = y[3];
+                            m = u(Array, Qn['layout:' + t]),
+                            p = ht(a),
+                            g = mt.cloneNode(!0),
+                            f = A('message', g),
+                            h = ['logo-container', 'headline', 'sub-headline', 'disclaimer'].map(f),
+                            y = h[0],
+                            _ = h[1],
+                            x = h[2],
+                            w = h[3];
                         if (
-                            (L(_, g('headline', m.headline)),
-                            L(w, g('subHeadline', m.subHeadline)),
-                            S(v, g('disclaimer', m.disclaimer)),
-                            O(x, m.logo, 'PayPal Credit logo'),
-                            'inline' === E(e, 'style.logo.type') && _.appendChild(x),
-                            'none' === E(e, 'style.logo.type'))
+                            (O(_, p('headline', d.headline)),
+                            O(x, p('subHeadline', d.subHeadline)),
+                            T(w, p('disclaimer', d.disclaimer)),
+                            I(y, d.logo, 'PayPal Credit logo'),
+                            'inline' === v(e, 'style.logo.type') && _.appendChild(y),
+                            'none' === v(e, 'style.logo.type'))
                         ) {
                             var b = document.createElement('span');
                             b.textContent = 'with ';
-                            var P = document.createElement('strong');
-                            (P.textContent = 'PayPal Credit.'),
-                                b.appendChild(P),
+                            var E = document.createElement('strong');
+                            (E.textContent = 'PayPal Credit.'),
+                                b.appendChild(E),
                                 _.appendChild(document.createTextNode(' ')),
                                 _.appendChild(b);
                         }
-                        m.messageWidth &&
-                            ('number' == typeof m.messageWidth
-                                ? p.push('.message__messaging { width: ' + m.messageWidth + 'px }')
-                                : Array.isArray(m.messageWidth) &&
-                                  p.push(
+                        d.messageWidth &&
+                            ('number' == typeof d.messageWidth
+                                ? m.push('.message__messaging { width: ' + d.messageWidth + 'px }')
+                                : Array.isArray(d.messageWidth) &&
+                                  m.push(
                                       '.message__messaging { min-width: ' +
-                                          m.messageWidth[0] +
+                                          d.messageWidth[0] +
                                           'px; max-width: ' +
-                                          m.messageWidth[1] +
+                                          d.messageWidth[1] +
                                           'px }'
                                   ));
-                        var T = function(n) {
+                        var P = function(n) {
                             return 'legacy' === t ? n.replace(/\.message/g, '[data-pp-id="' + e.id + '"] .message') : n;
                         };
                         return (
-                            m.styles && R(f, T(m.styles.join(''))),
-                            R(f, T(p.join('\n'))),
-                            (f.width = (function(e) {
-                                document.body.appendChild(ut),
-                                    ut.contentWindow.document.body.appendChild(
-                                        ut.contentWindow.document.importNode(e, !0)
+                            d.styles && R(g, P(d.styles.join(''))),
+                            R(g, P(m.join('\n'))),
+                            (g.width = (function(e) {
+                                document.body.appendChild(dt),
+                                    dt.contentWindow.document.body.appendChild(
+                                        dt.contentWindow.document.importNode(e, !0)
                                     ),
-                                    a()(ut.contentWindow.document.getElementsByTagName('style')).forEach(function(e) {
-                                        var n = ut.contentWindow.document.createElement('style');
+                                    r()(dt.contentWindow.document.getElementsByTagName('style')).forEach(function(e) {
+                                        var n = dt.contentWindow.document.createElement('style');
                                         (n.textContent = e.textContent),
                                             e.parentNode.insertBefore(n, e),
                                             e.parentNode.removeChild(e);
                                     });
-                                var n = ut.contentWindow.document.querySelector('.message__content'),
+                                var n = dt.contentWindow.document.querySelector('.message__content'),
                                     t = window.getComputedStyle(n),
-                                    o = a()(n.children),
+                                    o = r()(n.children),
                                     i = [
                                         'margin-left',
                                         'border-left-width',
@@ -3758,7 +3773,7 @@
                                         'border-right-width',
                                         'margin-right'
                                     ],
-                                    r = se()(t.getPropertyValue('display'), 'flex')
+                                    a = le()(t.getPropertyValue('display'), 'flex')
                                         ? Math.round(
                                               o.reduce(function(e, n) {
                                                   var t = window.getComputedStyle(n);
@@ -3781,24 +3796,24 @@
                                                   );
                                               })
                                           );
-                                return document.body.removeChild(ut), r;
-                            })(f)),
-                            f
+                                return document.body.removeChild(dt), a;
+                            })(g)),
+                            g
                         );
                     })
                 },
-                xt = x(function(e, n) {
+                xt = m(function(e, n) {
                     var t = n.markup,
                         i = n.options;
                     return new j.ZalgoPromise(function(n) {
-                        var r, s, l, c;
+                        var a, s, l, c;
                         'string' == typeof t
-                            ? (((r = document.createElement('div')).innerHTML = t), (s = {}))
-                            : ((r = yt.getTemplateNode(i, t)), (s = o({}, t.meta, { minWidth: r.width }))),
+                            ? (((a = document.createElement('div')).innerHTML = t), (s = {}))
+                            : ((a = _t.getTemplateNode(i, t)), (s = o({}, t.meta, { minWidth: a.width }))),
                             'IFRAME' === e.tagName
-                                ? ((l = e.contentWindow.document.importNode(r, !0)), (c = e.contentWindow.document))
-                                : ((l = r.cloneNode(!0)), (c = document));
-                        var u = a()(l.getElementsByTagName('img'))
+                                ? ((l = e.contentWindow.document.importNode(a, !0)), (c = e.contentWindow.document))
+                                : ((l = a.cloneNode(!0)), (c = document));
+                        var u = r()(l.getElementsByTagName('img'))
                             .filter(function(e) {
                                 return !e.complete;
                             })
@@ -3807,13 +3822,13 @@
                                     return e.addEventListener('load', n);
                                 });
                             });
-                        a()(l.getElementsByTagName('style')).forEach(function(e) {
+                        r()(l.getElementsByTagName('style')).forEach(function(e) {
                             var n = c.createElement('style');
                             (n.textContent = e.textContent),
                                 e.parentNode.insertBefore(n, e),
                                 e.parentNode.removeChild(e);
                         }),
-                            a()(l.getElementsByTagName('script')).forEach(function(e) {
+                            r()(l.getElementsByTagName('script')).forEach(function(e) {
                                 var n = c.createElement('script');
                                 (n.text = e.text), e.parentNode.insertBefore(n, e), e.parentNode.removeChild(e);
                             }),
@@ -3821,7 +3836,7 @@
                                 requestAnimationFrame(function() {
                                     for (var t = 'IFRAME' === e.tagName ? c.body : e; t.firstChild; )
                                         t.removeChild(t.firstChild);
-                                    a()(l.children).forEach(function(e) {
+                                    r()(l.children).forEach(function(e) {
                                         return t.appendChild(e);
                                     }),
                                         n({ meta: o({}, s, {}, (c !== document && c.defaultView.meta) || {}) });
@@ -3829,13 +3844,13 @@
                             });
                     });
                 });
-            function _t(e) {
+            function wt(e) {
                 var n = e.getBoundingClientRect(),
                     t = (n.top + n.bottom) / 2,
                     o = (n.left + n.right) / 2;
                 return !(t > window.innerHeight || t < 0 || o > window.innerWidth || o < 0);
             }
-            var wt = x(function(e, n) {
+            var vt = m(function(e, n) {
                     var t = n.options.amount,
                         o = n.events,
                         i = n.track,
@@ -3847,12 +3862,12 @@
                             pos_y: Math.round(a.top),
                             browser_width: window.innerWidth,
                             browser_height: window.innerHeight,
-                            visible: _t(e),
+                            visible: wt(e),
                             amount: t
                         };
                     r.visible ||
                         o.on('scroll', function() {
-                            _t(e) &&
+                            wt(e) &&
                                 (o.clear('scroll'), i({ et: 'CLIENT_IMPRESSION', event_type: 'scroll', visible: !0 }));
                         }),
                         (function() {
@@ -3919,7 +3934,7 @@
                             i({ et: 'CLIENT_IMPRESSION', event_type: 'hover' }), o.clear('hover');
                         });
                 }),
-                vt = {
+                bt = {
                     '1x1': [{ ratio: '1x1', width: [120, 300] }],
                     '1x4': [{ ratio: '1x2', width: [160, 160] }, { ratio: '1x4', breakpoint: 768 }],
                     '8x1': [{ ratio: '6x1', width: [250, 768] }, { ratio: '8x1', breakpoint: 768 }],
@@ -3928,7 +3943,7 @@
                         { ratio: '20x1', width: [350, 1169], breakpoint: 768 }
                     ]
                 };
-            function bt(e) {
+            function Et(e) {
                 if ('number' == typeof e) return e + 'px';
                 if ('string' == typeof e) {
                     var n = e.match(/^(\d+)x(\d+)$/);
@@ -3943,7 +3958,7 @@
                 }
                 return e;
             }
-            function Et(e) {
+            function Pt(e) {
                 var n = e.split(/(?=[@[])/),
                     t = n[0],
                     o = n.slice(1);
@@ -3951,9 +3966,9 @@
                     ? o.reduce(
                           function(e, n) {
                               return (
-                                  s()(n, '@')
+                                  l()(n, '@')
                                       ? (e.breakpoint = n.slice(1))
-                                      : s()(n, '[') && (e.width = n.slice(1, -1).split(',')),
+                                      : l()(n, '[') && (e.width = n.slice(1, -1).split(',')),
                                   e
                               );
                           },
@@ -3961,7 +3976,7 @@
                       )
                     : {};
             }
-            var Pt = x(function(e, n) {
+            var At = m(function(e, n) {
                 var t = n.wrapper,
                     o = n.options,
                     i = n.logger,
@@ -3969,8 +3984,8 @@
                 if ('IFRAME' === e.tagName) {
                     var r,
                         s,
-                        l = E(o, 'style.layout'),
-                        c = E(o, 'style.ratio');
+                        l = v(o, 'style.layout'),
+                        c = v(o, 'style.ratio');
                     if (('flex' !== l && 'custom' !== l) || !c) {
                         var u = a.minWidth || 0;
                         e.setAttribute('style', 'width: 100%; border: none; min-width: ' + u + 'px;'),
@@ -3989,10 +4004,10 @@
                                 e.setAttribute('height', e.contentWindow.document.body.lastChild.offsetHeight);
                             };
                         if (d < u && 'custom' !== l) {
-                            if ('top' !== E(o, 'style.logo.position') || 'primary' !== E(o, 'style.logo.type'))
+                            if ('top' !== v(o, 'style.logo.position') || 'primary' !== v(o, 'style.logo.type'))
                                 throw (i.warn(
                                     'Message Overflow. PayPal Credit Message of layout type ' +
-                                        E(o, 'style.layout') +
+                                        v(o, 'style.layout') +
                                         ' requires a width of at least ' +
                                         u +
                                         'px. Current container is ' +
@@ -4004,9 +4019,9 @@
                                         t.parentNode.setAttribute('data-pp-style-logo-type', 'primary'),
                                         t.parentNode.setAttribute('data-pp-style-logo-position', 'top');
                                 }),
-                                ((s = new Error(U.MESSAGE_OVERFLOW)).onEnd = r),
+                                ((s = new Error(G.MESSAGE_OVERFLOW)).onEnd = r),
                                 s);
-                            i.error({ name: U.MESSAGE_HIDDEN }),
+                            i.error({ name: G.MESSAGE_HIDDEN }),
                                 i.warn(
                                     'Message hidden. PayPal Credit Message fallback requires minimum width of ' +
                                         u +
@@ -4015,15 +4030,15 @@
                                         'px. Message hidden.'
                                 ),
                                 e.setAttribute('data-pp-message-hidden', 'true');
-                        } else m(), oe(e).on('resize', m);
+                        } else m(), ie(e).on('resize', m);
                     } else
                         !(function(e, n, t) {
                             var o = [];
                             'flex' === t
-                                ? (o = vt[n])
+                                ? (o = bt[n])
                                 : Array.isArray(n)
-                                ? (o = n.map(Et))
-                                : 'string' == typeof n && (o = [Et(n)]);
+                                ? (o = n.map(Pt))
+                                : 'string' == typeof n && (o = [Pt(n)]);
                             var i = 'pp-flex--' + o.slice(-1)[0].ratio,
                                 a = o.reduce(function(e, n) {
                                     var t = n.breakpoint,
@@ -4035,15 +4050,15 @@
                                               ' {\n                    display: block;\n                    width: 100%;\n                    ' +
                                               (Array.isArray(a)
                                                   ? '\n                                min-width: ' +
-                                                    bt(a[0]) +
+                                                    Et(a[0]) +
                                                     ';\n                                max-width: ' +
-                                                    bt(a[1]) +
+                                                    Et(a[1]) +
                                                     ';'
                                                   : '') +
                                               '\n                    box-sizing: border-box;\n                    position: relative;\n                }\n        \n                .' +
                                               i +
                                               '::before {\n                    padding-top: ' +
-                                              bt(o) +
+                                              Et(o) +
                                               ";\n                    content: '';\n                    display: block;\n                }\n        \n                ." +
                                               i +
                                               ' iframe {\n                    position: absolute;\n                    top: 0;\n                    left: 0;\n                    width: 100%;\n                    height: 100%;\n                }\n            '
@@ -4051,21 +4066,21 @@
                                         ? '\n            ' +
                                           e +
                                           '\n            @media (min-width: ' +
-                                          bt(t) +
+                                          Et(t) +
                                           ') {\n                ' +
                                           (Array.isArray(a)
                                               ? '\n                            .' +
                                                 i +
                                                 ' {\n                                min-width: ' +
-                                                bt(a[0]) +
+                                                Et(a[0]) +
                                                 ';\n                                max-width: ' +
-                                                bt(a[1]) +
+                                                Et(a[1]) +
                                                 ';\n                            }'
                                               : '') +
                                           '\n                .' +
                                           i +
                                           '::before {\n                    padding-top: ' +
-                                          bt(o) +
+                                          Et(o) +
                                           ';\n                }\n            }\n        '
                                         : e;
                                 }, ''),
@@ -4076,37 +4091,37 @@
                             e.removeAttribute('height');
                 }
             });
-            function Tt(e) {
+            function Rt(e) {
                 var n = document.createElement(e);
                 'iframe' === e &&
                     (n.setAttribute('title', 'PayPal Credit Promotion Message'),
                     n.setAttribute('style', 'width: 100%; border: none;'),
                     n.setAttribute('src', 'about:blank'),
                     n.setAttribute('height', 0));
-                var t = c()({ insertMarkup: xt, setSize: Pt, runStats: wt, events: oe }).reduce(function(e, t) {
+                var t = _()({ insertMarkup: xt, setSize: At, runStats: vt, events: ie }).reduce(function(e, t) {
                     var i;
                     return o({}, e, (((i = {})[t[0]] = (0, t[1])(n)), i));
                 }, {});
                 return (
                     (t.clearEvents = function() {
                         return (function(e) {
-                            Q()($).forEach(function(n) {
+                            Q()(X).forEach(function(n) {
                                 return n.delete(e);
                             }),
-                                0 === $.scroll.size && window.removeEventListener('scroll', ee),
-                                0 === $.hover.size && document.removeEventListener('mouseover', ne),
+                                0 === X.scroll.size && window.removeEventListener('scroll', ne),
+                                0 === X.hover.size && document.removeEventListener('mouseover', te),
                                 'IFRAME' === e.tagName
-                                    ? (e.contentWindow.removeEventListener('resize', X),
-                                      e.contentWindow.document.body.removeEventListener('click', te))
-                                    : e.removeEventListener('click', te);
+                                    ? (e.contentWindow.removeEventListener('resize', ee),
+                                      e.contentWindow.document.body.removeEventListener('click', oe))
+                                    : e.removeEventListener('click', oe);
                         })(n);
                     }),
                     [n, t]
                 );
             }
-            var At = t(22),
-                Rt = t.n(At),
-                Lt = {
+            var Ot = t(22),
+                Tt = t.n(Ot),
+                It = {
                     ANY: 'ANY',
                     STRING: 'STRING',
                     BOOLEAN: 'BOOLEAN',
@@ -4114,137 +4129,137 @@
                     FUNCTION: 'FUNCTION',
                     OBJECT: 'OBJECT'
                 },
-                St = { id: [Lt.STRING], _legacy: [Lt.BOOLEAN], onRender: [Lt.FUNCTION] },
-                Ot = {
+                St = { id: [It.STRING], _legacy: [It.BOOLEAN], onRender: [It.FUNCTION] },
+                Lt = {
                     text: {
                         logo: {
-                            type: [Lt.STRING, ['primary', 'alternative', 'inline', 'none']],
-                            position: [Lt.STRING, ['left', 'right', 'top']]
+                            type: [It.STRING, ['primary', 'alternative', 'inline', 'none']],
+                            position: [It.STRING, ['left', 'right', 'top']]
                         },
-                        text: { color: [Lt.STRING, ['black', 'white']] }
+                        text: { color: [It.STRING, ['black', 'white']] }
                     },
                     flex: {
-                        color: [Lt.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-                        ratio: [Lt.STRING, ['1x1', '1x4', '8x1', '20x1']]
+                        color: [It.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
+                        ratio: [It.STRING, ['1x1', '1x4', '8x1', '20x1']]
                     },
                     legacy: {
-                        typeNI: [Lt.STRING, ['', 'image', 'html']],
-                        typeEZP: [Lt.STRING, ['', 'html']],
-                        size: [Lt.STRING],
-                        color: [Lt.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-                        border: [Lt.BOOLEAN, [!0, !1]]
+                        typeNI: [It.STRING, ['', 'image', 'html']],
+                        typeEZP: [It.STRING, ['', 'html']],
+                        size: [It.STRING],
+                        color: [It.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
+                        border: [It.BOOLEAN, [!0, !1]]
                     },
-                    custom: { markup: [Lt.STRING], ratio: [Lt.ANY] }
+                    custom: { markup: [It.STRING], ratio: [It.ANY] }
                 },
-                It = function(e, n, t) {
+                Ct = function(e, n, t) {
                     return e.warn('Invalid option value (' + n + '). ' + t);
                 },
-                Ct = function(e, n, t, o) {
-                    return It(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
-                },
                 Nt = function(e, n, t, o) {
-                    return It(
+                    return Ct(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
+                },
+                Mt = function(e, n, t, o) {
+                    return Ct(
                         e,
                         n,
                         'Expected one of ["' + t.join('", "').replace(/\|[\w|]+/g, '') + '"] but received "' + o + '".'
                     );
                 };
-            function Mt(e, n) {
+            function zt(e, n) {
                 switch (e) {
-                    case Lt.STRING:
+                    case It.STRING:
                         return 'string' == typeof n;
-                    case Lt.BOOLEAN:
+                    case It.BOOLEAN:
                         return 'boolean' == typeof n;
-                    case Lt.NUMBER:
-                        return 'number' == typeof n && !Rt()(n);
-                    case Lt.FUNCTION:
+                    case It.NUMBER:
+                        return 'number' == typeof n && !Tt()(n);
+                    case It.FUNCTION:
                         return 'function' == typeof n;
-                    case Lt.OBJECT:
+                    case It.OBJECT:
                         return 'object' == typeof n && null !== n;
-                    case Lt.ANY:
+                    case It.ANY:
                         return !0;
                     default:
                         return !1;
                 }
             }
-            function zt(e, n, t, i) {
+            function jt(e, n, t, i) {
                 return (
                     void 0 === i && (i = 'style.'),
-                    c()(n).reduce(function(a, r) {
+                    _()(n).reduce(function(a, r) {
                         var s,
                             l = r[0],
                             c = r[1];
                         if (Array.isArray(c)) {
                             var u,
-                                m = (function(e, n, t, o) {
+                                d = (function(e, n, t, o) {
                                     var i = n[0],
                                         a = n[1],
                                         r = void 0 === a ? [] : a;
                                     if (void 0 === t) return r[0];
-                                    if (Mt(i, t)) {
-                                        if (i === Lt.STRING && r.length > 0) {
-                                            var s = d()(r, function(e) {
+                                    if (zt(i, t)) {
+                                        if (i === It.STRING && r.length > 0) {
+                                            var s = B()(r, function(e) {
                                                 return e.split('|').some(function(e) {
                                                     return e === t;
                                                 });
                                             });
                                             return void 0 === s
-                                                ? (Nt(e, o, r, t), r[0].split('|')[0])
+                                                ? (Mt(e, o, r, t), r[0].split('|')[0])
                                                 : s.split('|')[0];
                                         }
                                         return t;
                                     }
-                                    return Ct(e, o, i, t), r[0];
+                                    return Nt(e, o, i, t), r[0];
                                 })(e, c, t[l], '' + i + l);
-                            return void 0 === m ? a : o({}, a, (((u = {})[l] = m), u));
+                            return void 0 === d ? a : o({}, a, (((u = {})[l] = d), u));
                         }
-                        return o({}, a, (((s = {})[l] = zt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
+                        return o({}, a, (((s = {})[l] = jt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
                     }, {})
                 );
             }
             function kt(e, n) {
-                return o({ layout: n.layout }, zt(e, Ot[n.layout], n));
+                return o({ layout: n.layout }, jt(e, Lt[n.layout], n));
             }
-            var jt = x(function(e, n) {
+            var Wt = m(function(e, n) {
                     var t = n.account,
                         o = n.amount,
-                        i = n.countryCode,
-                        a = n.style,
-                        r = g(n, ['account', 'amount', 'countryCode', 'style']),
-                        l = zt(e, St, r, '');
+                        a = n.countryCode,
+                        r = n.style,
+                        s = i(n, ['account', 'amount', 'countryCode', 'style']),
+                        c = jt(e, St, s, '');
                     if (
-                        (Mt(Lt.STRING, t)
-                            ? 13 === t.length || 10 === t.length || s()(t, 'client-id:')
-                                ? (l.account = t)
-                                : It(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
-                            : Ct(e, 'account', Lt.STRING, t),
+                        (zt(It.STRING, t)
+                            ? 13 === t.length || 10 === t.length || l()(t, 'client-id:')
+                                ? (c.account = t)
+                                : Ct(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
+                            : Nt(e, 'account', It.STRING, t),
                         void 0 !== o)
                     ) {
-                        var c = Number(o);
-                        Mt(Lt.NUMBER, c)
-                            ? c < 0
-                                ? It(e, 'amount', 'Ensure value is a positive number.')
-                                : (l.amount = c)
-                            : Ct(e, 'amount', Lt.NUMBER, o);
+                        var u = Number(o);
+                        zt(It.NUMBER, u)
+                            ? u < 0
+                                ? Ct(e, 'amount', 'Ensure value is a positive number.')
+                                : (c.amount = u)
+                            : Nt(e, 'amount', It.NUMBER, o);
                     }
                     return (
-                        void 0 !== i &&
-                            (Mt(Lt.STRING, i)
-                                ? 2 !== i.length
-                                    ? It(e, 'countryCode', 'Country code should be 2 characters.')
-                                    : (l.countryCode = i)
-                                : Ct(e, 'countryCode', Lt.STRING, i)),
-                        Mt(Lt.OBJECT, a) && Mt(Lt.STRING, a.layout) && Ot[a.layout]
-                            ? (l.style = kt(e, a))
-                            : (Mt(Lt.OBJECT, a)
-                                  ? Nt(e, 'style.layout', Object.keys(Ot), a.layout)
-                                  : void 0 !== a && Ct(e, 'style', Lt.OBJECT, a),
-                              (l.style = kt(e, { layout: 'text' }))),
-                        e.info(Y.VALIDATE, { options: v(l) }),
-                        l
+                        void 0 !== a &&
+                            (zt(It.STRING, a)
+                                ? 2 !== a.length
+                                    ? Ct(e, 'countryCode', 'Country code should be 2 characters.')
+                                    : (c.countryCode = a)
+                                : Nt(e, 'countryCode', It.STRING, a)),
+                        zt(It.OBJECT, r) && zt(It.STRING, r.layout) && Lt[r.layout]
+                            ? (c.style = kt(e, r))
+                            : (zt(It.OBJECT, r)
+                                  ? Mt(e, 'style.layout', Object.keys(Lt), r.layout)
+                                  : void 0 !== r && Nt(e, 'style', It.OBJECT, r),
+                              (c.style = kt(e, { layout: 'text' }))),
+                        e.info(D.VALIDATE, { options: x(c) }),
+                        c
                     );
                 }),
-                Wt = h(
+                Ht = u(
                     function(e) {
                         var n = e.offerType;
                         return new j.ZalgoPromise(function(e, t) {
@@ -4264,7 +4279,7 @@
                                     (function(e) {
                                         return (
                                             'https://www.paypalobjects.com/upstream/assets/messaging/modal/' +
-                                            (s()(e, 'NI') ? 'ni' : 'ezp') +
+                                            (l()(e, 'NI') ? 'ni' : 'ezp') +
                                             '.html'
                                         );
                                     })(n),
@@ -4275,7 +4290,7 @@
                     },
                     ['offerType']
                 ),
-                Ht = h(
+                Bt = u(
                     function(e) {
                         return new j.ZalgoPromise(function(n) {
                             var t,
@@ -4297,7 +4312,7 @@
                                     'GET',
                                     ((o = (t = e).account),
                                     (i = t.amount),
-                                    (a = ['json=true', s()(o, 'client-id') ? 'cid=' + o.slice(10) : 'mid=' + o]).push(
+                                    (a = ['json=true', l()(o, 'client-id') ? 'cid=' + o.slice(10) : 'mid=' + o]).push(
                                         'country=US'
                                     ),
                                     a.push('currency=USD'),
@@ -4310,7 +4325,7 @@
                     },
                     ['account', 'amount']
                 ),
-                Bt = function(e, n) {
+                Yt = function(e, n) {
                     return 'INST' === n.type
                         ? '<tr>\n            ' +
                               ('pala' === e.type
@@ -4333,7 +4348,7 @@
                               '\n        </tr>'
                         : '';
                 },
-                Yt = function(e) {
+                Dt = function(e) {
                     return e.max_amount !== e.default_max_amount
                         ? '<div style="text-align: center; padding-bottom: 15px; display: table; padding-top: 10px; "><span style="display: inline-block; vertical-align: middle; "><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"><path fill="none" fill-rule="evenodd" stroke="#9DA3A6" stroke-linecap="round" stroke-linejoin="round" d="M9.526 10.474v7.579c4.71-.034 8.527-3.817 8.527-8.527a8.526 8.526 0 1 0-11.834 7.862"></path></svg></span><p style="display: inline; font-size: 13px; color: #2c2e2f; padding-left: 5px; font-family: PayPalSansSmall; font-weight: 400 ">$' +
                               e.max_amount +
@@ -4342,7 +4357,7 @@
                               ' or less.</p></div>'
                         : '<p style="text-align: center">No offers are available for this amount. Please enter a new amount.</p>';
                 };
-            function Ut(e, n) {
+            function Gt(e, n) {
                 var t = e.contentDocument.getElementById('content-wrapper'),
                     i = e.contentDocument.getElementById('modal__overlay'),
                     a = e.contentDocument.getElementById('close-btn'),
@@ -4379,14 +4394,14 @@
                     })(e, n)
                 );
             }
-            var Dt = h(
+            var Ut = u(
                     function(e) {
                         var n = window.top.document.createElement('div');
-                        n.setAttribute('data-pp-id', z.nextId);
-                        var t = Tt('iframe'),
+                        n.setAttribute('data-pp-id', M.nextId);
+                        var t = Rt('iframe'),
                             i = t[0],
-                            r = t[1].insertMarkup,
-                            l = (function() {
+                            a = t[1].insertMarkup,
+                            s = (function() {
                                 var e = window.parent.document.head,
                                     n = window.parent.document.body,
                                     t = (function() {
@@ -4414,19 +4429,19 @@
                                     }
                                 ];
                             })(),
-                            c = l[0],
-                            u = l[1],
+                            c = s[0],
+                            u = s[1],
                             d = e.track,
                             m = e.clickUrl,
-                            p = N({ status: 'CLOSED' }),
+                            p = C({ status: 'CLOSED' }),
                             g = p[0],
                             f = p[1],
-                            h = D.create({ id: z.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
+                            h = U.create({ id: M.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
                         function y() {
-                            return s()(e.offerType, 'NI') ? 'NI' : 'EZP';
+                            return l()(e.offerType, 'NI') ? 'NI' : 'EZP';
                         }
-                        k({ nextId: (z.nextId += 1) });
-                        var x = function(e, n, t) {
+                        z({ nextId: (M.nextId += 1) });
+                        var _ = function(e, n, t) {
                             return d({
                                 et: 'modal-open' === e ? 'CLIENT_IMPRESSION' : 'CLICK',
                                 link: n,
@@ -4435,8 +4450,8 @@
                                 event_type: e
                             });
                         };
-                        function _() {
-                            a()(g.elements.accordions).forEach(function(e) {
+                        function x() {
+                            r()(g.elements.accordions).forEach(function(e) {
                                 e.classList.remove('show'),
                                     e
                                         .getElementsByClassName('accordion-content')[0]
@@ -4454,11 +4469,11 @@
                                     t = e[1];
                                 n.classList.toggle('selected', n === o), t.classList.toggle('show', n === o);
                             }),
-                                n || x('modal-tab', e),
-                                _();
+                                n || _('modal-tab', e),
+                                x();
                         }
                         function v() {
-                            return g.error ? T(!0) : g.modalProm;
+                            return g.error ? A(!0) : g.modalProm;
                         }
                         function b(e) {
                             return new j.ZalgoPromise(function(t, o) {
@@ -4480,15 +4495,15 @@
                             });
                         }
                         function E(e) {
-                            b(350), x('modal-close', e);
+                            b(350), _('modal-close', e);
                         }
                         function P(n) {
                             var t = +n;
                             return (
-                                Rt()(t) || (g.elements.amountInput.value = t.toFixed(2)),
+                                Tt()(t) || (g.elements.amountInput.value = t.toFixed(2)),
                                 g.elements.loader.style.setProperty('opacity', 1),
                                 g.elements.financeTermsTable.style.setProperty('opacity', 0.4),
-                                Ht(o({}, e, { amount: n })).then(function(e) {
+                                Bt(o({}, e, { amount: n })).then(function(e) {
                                     g.elements.loader.style.setProperty('opacity', 0),
                                         g.elements.financeTermsTable.style.setProperty('opacity', 1),
                                         (g.elements.financeTermsTable.innerHTML = (function(e) {
@@ -4508,20 +4523,20 @@
                                                   (e.options && e.options.length > 0 && 'N/A' !== e.options
                                                       ? e.options
                                                             .map(function(n) {
-                                                                return Bt(e, n);
+                                                                return Yt(e, n);
                                                             })
                                                             .join('')
                                                       : '') +
                                                   '\n            </tbody>\n        </table>\n        ' +
                                                   (e.options && 0 !== e.options.length && 'N/A' !== e.options
                                                       ? ''
-                                                      : Yt(e)) +
+                                                      : Dt(e)) +
                                                   '\n        <p id="terms-note">The monthly payment shown is an estimated amount and may not include taxes and shipping</p>\n    ';
                                         })(e));
                                 })
                             );
                         }
-                        function T(n) {
+                        function A(n) {
                             return (
                                 void 0 === n && (n = !1),
                                 h.start({
@@ -4532,10 +4547,10 @@
                                         message_id: e.id
                                     }
                                 }),
-                                Wt(e, n)
-                                    .then(r)
+                                Ht(e, n)
+                                    .then(a)
                                     .then(function() {
-                                        f({ elements: Ut(i, y()) }),
+                                        f({ elements: Gt(i, y()) }),
                                             (function() {
                                                 g.elements.closeButton.addEventListener('click', function() {
                                                     E('Close Button');
@@ -4554,7 +4569,7 @@
                                                 if (
                                                     (g.elements.contentWrapper.addEventListener('scroll', e),
                                                     g.elements.contentWrapper.addEventListener('touchmove', e),
-                                                    a()(g.elements.accordions).forEach(function(e) {
+                                                    r()(g.elements.accordions).forEach(function(e) {
                                                         var n = e.getElementsByTagName('h3')[0],
                                                             t = e.getElementsByClassName('accordion-content')[0];
                                                         n.addEventListener('click', function() {
@@ -4563,16 +4578,16 @@
                                                                 'max-height',
                                                                 o ? t.scrollHeight + 'px' : null
                                                             ),
-                                                                o && x('accordion-open', n.innerText);
+                                                                o && _('accordion-open', n.innerText);
                                                         });
                                                     }),
                                                     i.contentWindow.addEventListener('keyup', function(e) {
                                                         ('Escape' !== e.key && 'Esc' !== e.key && 27 !== e.charCode) ||
                                                             E('Escape Key');
                                                     }),
-                                                    a()(g.elements.landerLinks).forEach(function(e) {
+                                                    r()(g.elements.landerLinks).forEach(function(e) {
                                                         e.addEventListener('click', function() {
-                                                            return x('lander-link');
+                                                            return _('lander-link');
                                                         });
                                                     }),
                                                     'EZP' === y())
@@ -4585,7 +4600,7 @@
                                                         });
                                                     var n = function(e) {
                                                         var n = g.elements.amountInput.value;
-                                                        x('calculate', e, n), P(n);
+                                                        _('calculate', e, n), P(n);
                                                     };
                                                     g.elements.amountInput.addEventListener('keydown', function(e) {
                                                         var t = e.key,
@@ -4597,7 +4612,7 @@
                                                                 a = o.selectionStart,
                                                                 r = i ? '' + i.slice(0, a) + t + i.slice(a) : t;
                                                             (function(e) {
-                                                                if (Rt()(Number(e))) return !1;
+                                                                if (Tt()(Number(e))) return !1;
                                                                 var n = e.split('.'),
                                                                     t = n[0],
                                                                     o = n[1];
@@ -4619,7 +4634,7 @@
                                             })();
                                     })
                                     .catch(function() {
-                                        h.error({ name: U.MODAL_FAIL }), f({ error: !0 });
+                                        h.error({ name: G.MODAL_FAIL }), f({ error: !0 });
                                     })
                                     .then(function() {
                                         return h.end();
@@ -4639,7 +4654,7 @@
                             ),
                             n.appendChild(i),
                             window.top.document.body.appendChild(n),
-                            f({ modalProm: T() }),
+                            f({ modalProm: A() }),
                             'EZP' === y() &&
                                 v().then(function() {
                                     return P(e.amount);
@@ -4655,12 +4670,12 @@
                                                 (n.style.display = 'block'),
                                                     requestAnimationFrame(function() {
                                                         return requestAnimationFrame(function() {
-                                                            _(),
+                                                            x(),
                                                                 i.contentWindow.focus(),
                                                                 f({ status: 'OPEN' }),
                                                                 c(),
                                                                 g.elements.modalContainer.classList.add('show'),
-                                                                x('modal-open');
+                                                                _('modal-open');
                                                         });
                                                     });
                                             }));
@@ -4671,13 +4686,13 @@
                     },
                     ['account', 'amount', 'offerType']
                 ),
-                Gt = {
+                Ft = {
                     init: function(e) {
                         var n = e.options,
                             t = e.meta,
                             i = e.events,
                             a = e.track;
-                        if (n._legacy && s()(t.offerType, 'NI'))
+                        if (n._legacy && l()(t.offerType, 'NI'))
                             i.on('click', function(e) {
                                 var n = e.target;
                                 'IMG' === n.tagName && 'A' === n.parentNode.tagName
@@ -4690,14 +4705,14 @@
                                     : window.open(t.clickUrl, '_blank');
                             });
                         else {
-                            var r = Dt(o({}, n, {}, t, { track: a }));
+                            var r = Ut(o({}, n, {}, t, { track: a }));
                             i.on('click', r.open);
                         }
                     }
                 },
                 Vt = new Map(),
-                Ft = new Map();
-            function Zt(e) {
+                Zt = new Map();
+            function Jt(e) {
                 var n = (e.meta && e.meta.offerType) + '::' + e.options.style._flattened.sort().join('::'),
                     t = e.meta;
                 return {
@@ -4707,14 +4722,14 @@
                     })
                 };
             }
-            var Kt = x(function(e, n) {
+            var qt = m(function(e, n) {
                     var t;
                     return ((t = {})[e] = n), t;
                 }),
-                Jt = x(function(e, n) {
+                Kt = m(function(e, n) {
                     return o({}, n, {}, e(n));
                 }),
-                qt = x(function(e, n) {
+                $t = m(function(e, n) {
                     return e(n).then(function(e) {
                         return o({}, n, {}, e);
                     });
@@ -4723,12 +4738,12 @@
                     var n = e.options.onRender;
                     n && n();
                 },
-                $t = {
+                Xt = {
                     init: function(e, n, t) {
-                        Ft.has(e) ||
-                            Ft.set(e, D.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
+                        Zt.has(e) ||
+                            Zt.set(e, U.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
                         var i,
-                            a = Ft.get(e);
+                            a = Zt.get(e);
                         return (
                             Vt.has(e)
                                 ? ((i = Vt.get(e)).renderProm = i.renderProm.then(function() {
@@ -4736,56 +4751,56 @@
                                   }))
                                 : (a.start({ options: t }),
                                   (i = (function(e, n, t) {
-                                      t.info(Y.CREATE);
-                                      var i = N(e),
+                                      t.info(D.CREATE);
+                                      var i = C(e),
                                           a = i[0],
                                           r = i[1],
                                           s = a._legacy,
-                                          l = Tt(s ? 'div' : 'iframe'),
-                                          u = l[0],
-                                          d = l[1],
-                                          m = d.insertMarkup,
-                                          g = d.setSize,
-                                          f = d.events,
-                                          h = d.runStats,
-                                          v = d.clearEvents,
-                                          E = s ? u : document.createElement('span');
-                                      E !== u && E.appendChild(u);
-                                      var P = x(function(e, n, o) {
+                                          l = Rt(s ? 'div' : 'iframe'),
+                                          c = l[0],
+                                          u = l[1],
+                                          f = u.insertMarkup,
+                                          y = u.setSize,
+                                          x = u.events,
+                                          v = u.runStats,
+                                          b = u.clearEvents,
+                                          E = s ? c : document.createElement('span');
+                                      E !== c && E.appendChild(c);
+                                      var P = m(function(e, n, o) {
                                           return t.info(n), e(o);
                                       });
-                                      function T(e) {
+                                      function A(e) {
                                           return (
-                                              t.info(Y.RENDER_START),
-                                              w(jt(t), _(r), Kt('options'), y(C.a, { logger: t }), qt(J))(e)
-                                                  .then(qt(P(m, Y.INSERT)))
+                                              t.info(D.RENDER_START),
+                                              g(Wt(t), p(r), qt('options'), d(L.a, { logger: t }), $t(K))(e)
+                                                  .then($t(P(f, D.INSERT)))
                                                   .then(
-                                                      w(
-                                                          y(C.a, { wrapper: E, events: f }),
-                                                          Jt(Zt),
-                                                          _(P(Gt.init, Y.MODAL)),
-                                                          _(P(g, Y.SIZE)),
-                                                          _(P(h, Y.STATS)),
-                                                          P(Qt, Y.RENDER_END)
+                                                      g(
+                                                          d(L.a, { wrapper: E, events: x }),
+                                                          Kt(Jt),
+                                                          p(P(Ft.init, D.MODAL)),
+                                                          p(P(y, D.SIZE)),
+                                                          p(P(v, D.STATS)),
+                                                          P(Qt, D.RENDER_END)
                                                       )
                                                   )
                                           );
                                       }
                                       return (
                                           n.appendChild(E),
-                                          t.info(Y.CONTAINER),
+                                          t.info(D.CONTAINER),
                                           s ||
-                                              u.addEventListener('load', function() {
-                                                  v(), T(a);
+                                              c.addEventListener('load', function() {
+                                                  b(), A(a);
                                               }),
                                           {
-                                              renderProm: T(a),
+                                              renderProm: A(a),
                                               wrapper: E,
-                                              container: u,
+                                              container: c,
                                               update: function(e) {
-                                                  var n = b(a, e),
+                                                  var n = w(a, e),
                                                       i = (function e(n, t) {
-                                                          return c()(t).reduce(function(t, i) {
+                                                          return _()(t).reduce(function(t, i) {
                                                               var a,
                                                                   r,
                                                                   s = i[0],
@@ -4801,7 +4816,7 @@
                                                                   if (Array.isArray(n[s])) {
                                                                       var u,
                                                                           d = l.filter(function(e) {
-                                                                              return !p()(n[s], e);
+                                                                              return !h()(n[s], e);
                                                                           });
                                                                       return d.length > 0
                                                                           ? o({}, t, (((u = {})[s] = d), u))
@@ -4810,16 +4825,16 @@
                                                                   return o({}, t, (((c = {})[s] = l), c));
                                                               }
                                                               var m,
-                                                                  g = e(n[s], l);
-                                                              return Object.keys(g).length > 0
-                                                                  ? o({}, t, (((m = {})[s] = g), m))
+                                                                  p = e(n[s], l);
+                                                              return Object.keys(p).length > 0
+                                                                  ? o({}, t, (((m = {})[s] = p), m))
                                                                   : t;
                                                           }, {});
                                                       })(a, n),
                                                       r = Object.keys(i).length > 0;
                                                   return (
-                                                      t.info(Y.UPDATE, { willUpdate: r }),
-                                                      r ? (v(), T(n)) : j.ZalgoPromise.resolve()
+                                                      t.info(D.UPDATE, { willUpdate: r }),
+                                                      r ? (b(), A(n)) : j.ZalgoPromise.resolve()
                                                   );
                                               }
                                           }
@@ -4833,505 +4848,76 @@
                         );
                     }
                 };
-            function Xt(e, n) {
+            function eo(e, n) {
                 var t, i;
                 if ((void 0 === n && (n = '[data-pp-message]'), 'string' == typeof n))
-                    (t = a()(document.querySelectorAll(n))), (i = n);
-                else if (T(n)) (t = [n]), (i = 'HTMLElement');
+                    (t = r()(document.querySelectorAll(n))), (i = n);
+                else if (E(n)) (t = [n]), (i = 'HTMLElement');
                 else {
-                    if (!Array.isArray(n) || !n.every(T)) return D.warn('Invalid selector', n);
+                    if (!Array.isArray(n) || !n.every(E)) return U.warn('Invalid selector', n);
                     (t = [].concat(n)), (i = 'Array<HTMLElement>');
                 }
                 return (
                     (t = t.filter(function(n) {
                         return n.ownerDocument.body.contains(n)
                             ? !e._auto || !n.hasAttribute('data-pp-id')
-                            : (D.warn('Skipping container. Must be in the document:', n), !1);
+                            : (U.warn('Skipping container. Must be in the document:', n), !1);
                     })),
                     j.ZalgoPromise.all(
                         t.map(function(n) {
-                            var t = b(
-                                e,
-                                (function(e) {
-                                    var n = a()(e.attributes)
-                                        .filter(function(e) {
-                                            var n = e.nodeName;
-                                            return s()(n, 'data-pp-');
-                                        })
-                                        .reduce(function(e, n) {
-                                            var t = n.nodeValue;
-                                            return t ? b(e, P(n.nodeName.replace('data-pp-', ''), t)) : e;
-                                        }, {});
-                                    if (
-                                        !e.firstElementChild ||
-                                        'SCRIPT' !== e.firstElementChild.tagName ||
-                                        'text/template' !== e.firstElementChild.getAttribute('type')
-                                    )
-                                        return n;
-                                    var t = e.firstElementChild.textContent.trim();
-                                    return e.removeChild(e.firstElementChild), b(n, { style: { markup: t } });
-                                })(n)
-                            );
+                            var t = w(e, P(n));
                             return (
                                 n.hasAttribute('data-pp-id') ||
-                                    (n.setAttribute('data-pp-id', z.nextId), k({ nextId: (z.nextId += 1) })),
+                                    (n.setAttribute('data-pp-id', M.nextId), z({ nextId: (M.nextId += 1) })),
                                 new MutationObserver(function(e) {
                                     var t = e.reduce(function(e, n) {
-                                        return s()(n.attributeName, 'data-pp-')
+                                        return l()(n.attributeName, 'data-pp-')
                                             ? o(
                                                   {},
                                                   e,
                                                   {},
-                                                  P(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
+                                                  b(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
                                               )
                                             : e;
                                     }, {});
-                                    $t.init(n, i, t);
+                                    Xt.init(n, i, t);
                                 }).observe(n, { attributes: !0 }),
                                 (t.id = n.getAttribute('data-pp-id')),
-                                $t.init(n, i, t)
+                                Xt.init(n, i, t)
                             );
                         })
                     )
                 );
             }
-            var eo = function(e) {
+            var no = function(e) {
                 return {
                     render: function(n) {
-                        return Xt(o({}, z.config, {}, e), n);
+                        return eo(o({}, M.config, {}, e), n);
                     }
                 };
             };
-            C()(eo, {
+            L()(no, {
                 render: function(e, n) {
-                    return void 0 === e && (e = {}), Xt(o({}, z.config, {}, e), n);
+                    return void 0 === e && (e = {}), eo(o({}, M.config, {}, e), n);
                 },
                 setGlobalConfig: function(e) {
-                    return void 0 === e && (e = {}), k({ config: o({}, z.config, {}, e) });
+                    return void 0 === e && (e = {}), z({ config: o({}, M.config, {}, e) });
                 }
             });
-            var no = eo,
-                to = { BLU: 'blue', BLK: 'black', GRY: 'gray', WHT: 'white' },
-                oo = { x180x150: '1x1', x160x600: '1x4', x728x90: '8x1', x1169x50: '20x1' },
-                io = {
-                    x1169x50: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
-                    x160x600: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
-                    x180x150: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
-                    x728x90: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS']
-                },
-                ao = {
-                    x1169x51: ['x1169x50', 'BLKWHTYLRG'],
-                    x1169x52: ['x1169x50', 'BLUWHTYLRG'],
-                    x1169x50: ['x1169x50', 'WHTBLUYLRG'],
-                    x160x601: ['x160x600', 'BLKWHTYMED'],
-                    x161x600: ['x160x600', 'BLUWHTYMED'],
-                    x160x602: ['x160x600', 'WHTBLUYMED'],
-                    x180x151: ['x180x150', 'BLKWHTYSML'],
-                    x180x152: ['x180x150', 'BLUWHTYSML'],
-                    x181x150: ['x180x150', 'WHTBLUYSML'],
-                    x300x251: ['x300x250', 'BLKWHTYMED'],
-                    x300x252: ['x300x250', 'BLUWHTYMED'],
-                    x301x250: ['x300x250', 'WHTBLUYMED'],
-                    x728x91: ['x728x90', 'BLUWHTYLRG'],
-                    x729x90: ['x728x90', 'BLKWHTYLRG'],
-                    x730x90: ['x728x90', 'WHTBLUYLRG']
-                },
-                ro = {
-                    x160x600: ['BLKWHTYMED', 'BLUWHTYMED', 'WHTBLUNMED', 'WHTBLUYMED'],
-                    x180x150: ['BLKWHTYSML', 'BLUWHTYSML', 'WHTBLUNSML', 'WHTBLUYSML'],
-                    x300x250: ['BLKWHTYMED', 'BLUWHTYMED', 'WHTBLUNSML', 'WHTBLUYMED'],
-                    x728x90: ['BLKWHTYLRG', 'BLUWHTYLRG', 'WHTBLUNLRG', 'WHTBLUYLRG'],
-                    x1169x50: ['BLKWHTYLRG', 'BLUWHTYLRG', 'WHTBLUNLRG', 'WHTBLUYLRG']
-                },
-                so = [
-                    'x90x136',
-                    'x190x50',
-                    'x228x128',
-                    'x240x60',
-                    'x999x70',
-                    'x250x52',
-                    'x260x72',
-                    'x274x97',
-                    'x280x42',
-                    'x289x110',
-                    'x300x600',
-                    'x184x153',
-                    'x768x70',
-                    'x336x280',
-                    'x790x70',
-                    'x338x65',
-                    'x375x50',
-                    'x467x58',
-                    'x650x60',
-                    'x678x279',
-                    'x180x150',
-                    'x190x100',
-                    'x191x101',
-                    'x234x400',
-                    'x234x60',
-                    'x236x61',
-                    'x250x250',
-                    'x280x280',
-                    'x300x250',
-                    'x300x50',
-                    'x468x60',
-                    'x540x200',
-                    'x728x90',
-                    'x800x66',
-                    'x120x240',
-                    'x120x600',
-                    'x120x90',
-                    'x150x100',
-                    'x151x101',
-                    'x160x600',
-                    'x170x100'
-                ],
-                lo = ['x168x374', 'x340x60', 'x765x60', 'x1000x50', 'x234x100', 'x1000x36', 'x310x100'],
-                co = [
-                    'x1000x36',
-                    'x120x90',
-                    'x234x60',
-                    'x250x250',
-                    'x300x50',
-                    'x340x60',
-                    'x468x60',
-                    'x728x90',
-                    'x540x200',
-                    'x170x100'
-                ],
-                uo = [
-                    ['35NBB9X6Z4UV4', 'ae448a026d'],
-                    ['4P9TSD9APDTT6', '9483cfbbc4'],
-                    ['A96ZUTUZAMETY', '6fd53e600b'],
-                    ['GNPYYLVLCUVFY'],
-                    ['HYRTLNXT9H2PG', '027d65f66e'],
-                    ['KWRJULYJN7PAQ', 'e8cebeca35'],
-                    ['R2AQ6GECMNWVA', '2f242b9904'],
-                    ['RCNQL2J33NC54', 'df8729dd2c'],
-                    ['TCE2H9EMJKVTL', 'c78836e69a']
-                ],
-                mo = {
-                    '35NBB9X6Z4UV4': ['x728x90'],
-                    '4P9TSD9APDTT6': ['x468x60'],
-                    A96ZUTUZAMETY: ['x310x100'],
-                    GNPYYLVLCUVFY: ['x234x100', 'x310x100'],
-                    HYRTLNXT9H2PG: ['x260x72'],
-                    KWRJULYJN7PAQ: ['x800x66'],
-                    R2AQ6GECMNWVA: ['x468x60'],
-                    RCNQL2J33NC54: ['x234x60', 'x800x66'],
-                    TCE2H9EMJKVTL: ['x170x100']
-                };
-            window.__PP = window.__PP || {};
-            var po = 'c' + (new Date().getTime() + Math.floor(65536 * Math.random())),
-                go = [650, 600],
-                fo = 0;
-            function ho(e, n) {
-                return function(t) {
-                    return n.call(
-                        e,
-                        (function(e) {
-                            void 0 === e && (e = window.evt);
-                            var n = {};
-                            return (
-                                (n.target = e.target || e.srcElement),
-                                3 === n.target.nodeType && (n.target = n.target.parentNode),
-                                (n.preventDefault = e.preventDefault
-                                    ? function() {
-                                          return e.preventDefault();
-                                      }
-                                    : function() {
-                                          e.returnValue = !1;
-                                      }),
-                                n
-                            );
-                        })(t)
-                    );
-                };
-            }
-            var yo = {
-                    goto: function(e) {
-                        window.location = e;
-                    },
-                    popup: function(e, n, t) {
-                        return window.open(e, n, t);
-                    },
-                    createElement: function(e) {
-                        return document.createElement(e);
-                    },
-                    getElementsByTagName: function(e) {
-                        return document.getElementsByTagName(e);
-                    },
-                    registerEvent: function(e, n, t, o) {
-                        var i = this;
-                        if (window.addEventListener) e.addEventListener(n, ho(e, t), !!o);
-                        else if (window.attachEvent) e.attachEvent('on' + n, ho(e, t));
-                        else {
-                            var a = e['on' + n];
-                            e['on' + n] = a
-                                ? function() {
-                                      ho(e, t).call(i), a.call(i);
-                                  }
-                                : t;
-                        }
-                    }
-                },
-                xo = (function() {
-                    function e(e) {
-                        var n = yo.createElement('script');
-                        (n.async = 'true'), (n.src = e), (this.el = n), this.attach();
-                    }
-                    var n = e.prototype;
-                    return (
-                        (n.attach = function() {
-                            var e = yo.getElementsByTagName('script')[0];
-                            e.parentNode.insertBefore(this.el, e), (this.attach = function() {});
-                        }),
-                        (n.destroy = function() {
-                            this.el.parentNode.removeChild(this.el), delete this.el;
-                        }),
-                        e
-                    );
-                })(),
-                _o = (function() {
-                    function e(e) {
-                        this.el = e;
-                    }
-                    var n = e.prototype;
-                    return (
-                        (n.getKVs = function() {
-                            var e = this.el.attributes;
-                            return a()(e).reduce(function(e, n) {
-                                if (s()(n.name, 'data-pp_')) {
-                                    var t = n.name.slice(8);
-                                    e[t] = ('dimensions' === t ? 'x' : '') + n.value;
-                                }
-                                return e;
-                            }, {});
-                        }),
-                        (n.injectAd = function(e) {
-                            (this.ad = e), this.el.parentNode.insertBefore(e.container, this.el);
-                        }),
-                        (n.registerListeners = function() {
-                            var e = this;
-                            yo.registerEvent(this.ad.container, 'click', function() {
-                                var n;
-                                (n = e.ad).clickHandler.apply(n, arguments);
-                            });
-                        }),
-                        (n.destroyDom = function() {
-                            this.el.parentNode.removeChild(this.el), delete this.el;
-                        }),
-                        e
-                    );
-                })(),
-                wo = (function() {
-                    function e(e) {
-                        (this.idx = fo += 1),
-                            (this.namespace = po + this.idx),
-                            (this.kvs = e),
-                            (this.variant = e && e.partner_version ? 'PARTNER' : 'MERCHANT'),
-                            this.initContainer(),
-                            this.initCallback(),
-                            this.initQueryString();
-                    }
-                    var n = e.prototype;
-                    return (
-                        (n.initContainer = function() {
-                            (this.container = yo.createElement('span')), (this.container.style.display = 'none');
-                        }),
-                        (n.injectScripts = function(e) {
-                            var n = this,
-                                t = document.createElement('div');
-                            t.innerHTML = e;
-                            var o = t.getElementsByTagName('script');
-                            return (
-                                a()(o).forEach(function(e) {
-                                    var t = document.createElement('script');
-                                    (t.text = e.text), n.container.appendChild(t), e.parentNode.removeChild(e);
-                                }),
-                                t.innerHTML
-                            );
-                        }),
-                        (n.setContent = function(e) {
-                            if ('MERCHANT' === this.variant) {
-                                var n = this.injectScripts(e);
-                                (this.container.innerHTML = n), (this.container.style.display = '');
-                            } else {
-                                var t = yo.createElement('iframe');
-                                t.setAttribute('width', '100%'),
-                                    t.setAttribute('height', '100%'),
-                                    (t.style.border = 'none'),
-                                    this.container.appendChild(t);
-                                var o = t.contentWindow && t.contentWindow.document;
-                                o.open(),
-                                    o.write(
-                                        '<!DOCTYPE html>\r\n<html style="width:100%; height:100%">\r\n\t<head>\r\n\t\t<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\r\n\t\t<style type="text/css">\r\n\t\t\timg { display: block; }\r\n\t\t</style>\r\n\t</head>\r\n\t<body style="margin:0em; padding:0em; width:100%; height:100%">'
-                                    ),
-                                    o.write(e),
-                                    o.write('\r\n\t</body>\r\n</html>'),
-                                    o.close(),
-                                    (this.container.style.display = 'inline-block'),
-                                    this.kvs &&
-                                        this.kvs.partner_version &&
-                                        +this.kvs.partner_version >= 2 &&
-                                        (this.container.style.display = 'inline');
-                            }
-                        }),
-                        (n.callback = function(e) {
-                            this.setContent(e),
-                                this.script.destroy(),
-                                delete window.__PP[this.namespace],
-                                delete this.script;
-                        }),
-                        (n.initCallback = function() {
-                            var e = this;
-                            (this.callbackName = '__PP.' + this.namespace),
-                                (window.__PP[this.namespace] = function() {
-                                    e.callback.apply(e, arguments);
-                                });
-                        }),
-                        (n.clickHandler = function(e) {
-                            var n = e.target,
-                                t = this.kvs.popup,
-                                o =
-                                    'width=' +
-                                    go[0] +
-                                    ',height=' +
-                                    go[1] +
-                                    ',scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no';
-                            'img' !== n.nodeName.toLowerCase() ||
-                                (t && 'true' !== t) ||
-                                (yo.popup(n.parentNode.href, this.namespace, o), e.preventDefault());
-                        }),
-                        (n.request = function() {
-                            this.script = new xo('https://www.paypal.com/imadserver/upstream' + this.queryString);
-                        }),
-                        (n.initQueryString = function() {
-                            var e = {
-                                call: this.callbackName,
-                                v: 2.4,
-                                vtag: 3.1,
-                                rand: new Date().getTime(),
-                                page: 'DefaultPage',
-                                format: 'HTML',
-                                presentation_types: 'HTML',
-                                locale: 'en_US',
-                                country_code: 'US',
-                                currency_code: 'USD'
-                            };
-                            'MERCHANT' === this.variant && ((e.pu_type = 'ANONYMOUS'), (e.ch = 'UPSTREAM'));
-                            var n = o({}, e, {}, this.kvs),
-                                t = c()(n).reduce(function(e, n) {
-                                    return e + '&' + n[0] + '=' + encodeURIComponent(n[1]);
-                                }, '');
-                            this.queryString = '?' + t.slice(1);
-                        }),
-                        e
-                    );
-                })(),
-                vo = {
-                    pubid: 'pub_id',
-                    payerid: 'payer_id',
-                    placementtype: 'dimensions',
-                    cartamt: 'currency_value',
-                    style: 'style',
-                    boost: 'boost',
-                    popup: 'popup'
-                };
-            a()(document.getElementsByTagName('script')).some(function(e) {
-                var n;
-                (n = e),
-                    a()(n.attributes).forEach(function(e) {
-                        if (e.name.search(/^data_pp[_-]/) >= 0) {
-                            var t = e.name.replace(/^(data)_([a-z])/, '$1-$2');
-                            n.setAttribute(t, e.value), n.removeAttribute(e.name);
-                        }
-                        var o = e.name.match(/^data-pp-([a-z]+)/);
-                        o && vo[o[1]] && (n.setAttribute('data-pp_' + vo[o[1]], e.value), n.removeAttribute(e.name));
-                    });
-                var t = e.getAttribute('data-pp_pub_id'),
-                    o = e.getAttribute('data-pp_payer_id'),
-                    i = e.getAttribute('data-pp_dimensions');
-                if ((o || t) && i) {
-                    var r = new _o(e);
-                    if (
-                        !(function(e) {
-                            var n = e.getKVs(),
-                                t = n.payer_id || n.pub_id,
-                                o = (function(e, n) {
-                                    if (n)
-                                        return ro[e] && p()(ro[e], n)
-                                            ? ['image', '', e, n]
-                                            : io[e] && p()(io[e], n)
-                                            ? ['flex', 'flex', e, n]
-                                            : [];
-                                    if (ao[e]) return ['image', ''].concat(ao[e]);
-                                    var t = p()(so, e),
-                                        o = p()(lo, e),
-                                        i = p()(co, e) ? 'html' : '';
-                                    return t ? ['image', i, e, 'none'] : o ? ['html', i, e, 'none'] : [];
-                                })(n.dimensions, n.style),
-                                i = o[0],
-                                a = o[1],
-                                r = o[2],
-                                s = o[3];
-                            if (r) {
-                                var l = d()(uo, function(e) {
-                                    return p()(e, t);
-                                });
-                                if (l) {
-                                    var c = l[0];
-                                    if (p()(mo[c], r)) return !1;
-                                }
-                                var u = (function(e, n, t, o) {
-                                        var i = t.slice(1),
-                                            a = 'none',
-                                            r = !1;
-                                        return (
-                                            10 === o.length && ((a = to[o.slice(0, 3)]), (r = 'Y' === o.slice(6, 7))),
-                                            'flex' === e && 'flex' === n
-                                                ? {
-                                                      layout: 'flex',
-                                                      color: 'white' !== a || r ? a : 'white-no-border',
-                                                      ratio: oo[t]
-                                                  }
-                                                : {
-                                                      layout: 'legacy',
-                                                      typeNI: e,
-                                                      typeEZP: n,
-                                                      size: i,
-                                                      color: a,
-                                                      border: r
-                                                  }
-                                        );
-                                    })(i, a, r, s),
-                                    m = document.createElement('span');
-                                return (
-                                    e.el.parentNode.insertBefore(m, e.el),
-                                    setTimeout(function() {
-                                        no({
-                                            _legacy: 'flex' !== i && 'flex' !== a,
-                                            account: t,
-                                            amount: n.currency_value,
-                                            style: u,
-                                            countryCode: 'US'
-                                        }).render(m);
-                                    }, 0),
-                                    e.destroyDom(),
-                                    !0
-                                );
-                            }
-                            return !1;
-                        })(r)
-                    ) {
-                        var s = new wo(r.getKVs());
-                        r.injectAd(s), r.registerListeners(), r.ad.request(), r.destroyDom();
-                    }
-                    return !0;
-                }
-                return !1;
-            });
+            var to,
+                oo = no;
+            t.d(n, 'Messages', function() {
+                return oo;
+            }),
+                (to = document.currentScript || document.querySelector('script[src$="messaging.js"]')) &&
+                    oo.setGlobalConfig(P(to)),
+                window.paypal && (window.paypal.Message = oo),
+                M.config.account &&
+                    ('loading' === document.readyState
+                        ? window.addEventListener('DOMContentLoaded', function() {
+                              return oo.render({ _auto: !0 });
+                          })
+                        : oo.render({ _auto: !0 }));
         }
-    ]).Messages
-);
-//# sourceMappingURL=merchant.js.map
+    ]).Messages);
+//# sourceMappingURL=messaging@1.1.1.js.map
