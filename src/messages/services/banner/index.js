@@ -1,7 +1,7 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, passThrough, partial } from '../../../utils';
 import { EVENTS, ERRORS } from '../logger';

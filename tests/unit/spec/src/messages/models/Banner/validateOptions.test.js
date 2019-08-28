@@ -11,8 +11,8 @@ describe('validateOptions', () => {
         mockLogger.info.mockClear();
     });
 
-    const [, validLogoTypes] = VALID_STYLE_OPTIONS.US.text.logo.type;
-    const [, validLogoPositions] = VALID_STYLE_OPTIONS.US.text.logo.position;
+    const [, validLogoTypes] = VALID_STYLE_OPTIONS.text.logo.type;
+    const [, validLogoPositions] = VALID_STYLE_OPTIONS.text.logo.position;
 
     const validOptions = {
         id: '1',
@@ -90,7 +90,7 @@ describe('validateOptions', () => {
             });
 
             expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.country).toBe('US');
+            expect(validated.country).toBeUndefined();
         });
 
         it('Warns invalid country value', () => {
@@ -100,7 +100,7 @@ describe('validateOptions', () => {
             });
 
             expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.country).toBe('US');
+            expect(validated.country).toBeUndefined();
         });
 
         it('Warns invalid onRender type', () => {

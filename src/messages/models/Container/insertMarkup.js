@@ -1,5 +1,5 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from '../../../utils';
 import Template from '../Template';

@@ -17,10 +17,18 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-export const VALID_STYLE_OPTIONS = {
-    US: USOptions,
-    DE: DEOptions
-};
+export const VALID_STYLE_OPTIONS = (() => {
+    // Webpack will not properly tree-shake a switch block
+    if (__MESSAGES__.__LOCALE__ === 'DE') {
+        return DEOptions;
+    }
+
+    if (__MESSAGES__.__LOCALE__ === 'US') {
+        return USOptions;
+    }
+
+    return null;
+})();
 
 // Formalized validation logger helper functions
 const logInvalid = (logger, location, message) => logger.warn(`Invalid option value (${location}). ${message}`);
@@ -148,37 +156,31 @@ export default curry((logger, { account, amount, country, style, ...otherOptions
         }
     }
 
-    // Country code will always be present - defaulted by the library or passed in by the user
-    if (!validateType(Types.STRING, country)) {
-        logInvalidType(logger, 'country', Types.STRING, country);
-    } else if (country.length !== 2) {
-        logInvalid(logger, 'country', 'Country code should be 2 characters.');
-    } else if (!VALID_STYLE_OPTIONS[country]) {
-        logInvalidOption(logger, 'country', Object.keys(VALID_STYLE_OPTIONS), country);
-    } else {
-        validOptions.country = country;
+    if (typeof amount !== 'undefined') {
+        if (!validateType(Types.STRING, country)) {
+            logInvalidType(logger, 'country', Types.STRING, country);
+        } else if (country.length !== 2) {
+            logInvalid(logger, 'country', 'Country code should be 2 characters.');
+        } else {
+            validOptions.country = country;
+        }
     }
 
-    if (!validOptions.country) {
-        validOptions.country = 'US';
-    }
-
-    const localeStyleOptions = VALID_STYLE_OPTIONS[validOptions.country];
     if (
         validateType(Types.OBJECT, style) &&
         validateType(Types.STRING, style.layout) &&
-        localeStyleOptions[style.layout]
+        VALID_STYLE_OPTIONS[style.layout]
     ) {
-        validOptions.style = getValidStyleOptions(logger, localeStyleOptions, style);
+        validOptions.style = getValidStyleOptions(logger, VALID_STYLE_OPTIONS, style);
     } else {
         if (validateType(Types.OBJECT, style)) {
-            logInvalidOption(logger, 'style.layout', Object.keys(localeStyleOptions), style.layout);
+            logInvalidOption(logger, 'style.layout', Object.keys(VALID_STYLE_OPTIONS), style.layout);
         } else if (style !== undefined) {
             logInvalidType(logger, 'style', Types.OBJECT, style);
         }
 
         // Get the default settings for a text banner
-        validOptions.style = getValidStyleOptions(logger, localeStyleOptions, { layout: 'text' });
+        validOptions.style = getValidStyleOptions(logger, VALID_STYLE_OPTIONS, { layout: 'text' });
     }
 
     logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });

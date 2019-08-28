@@ -1,5 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import getBannerMarkup from '../../services/banner';
 import { Logger, EVENTS } from '../../services/logger';

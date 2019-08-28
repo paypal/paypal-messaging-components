@@ -2,7 +2,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import objectValues from 'core-js-pure/stable/object/values';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import getModalMarkup from '../../services/modal';
 import getTerms from '../../services/terms';

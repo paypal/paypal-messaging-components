@@ -1,4 +1,4 @@
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from '../../../utils';
 

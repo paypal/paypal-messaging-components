@@ -2,8 +2,8 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 
-import getUSMutations from './US';
-import getDEMutations from './DE';
+import getUSMutations from './US/index';
+import getDEMutations from './DE/index';
 
 export function getDataByTag(data, tag) {
     let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
@@ -23,11 +23,14 @@ export function getDataByTag(data, tag) {
 }
 
 export default function getMutations(country, id, type) {
-    switch (country) {
-        case 'DE':
-            return getDEMutations(id, type);
-        case 'US':
-        default:
-            return getUSMutations(id, type);
+    // Webpack will not properly tree-shake a switch block
+    if (__MESSAGES__.__LOCALE__ === 'DE') {
+        return getDEMutations(id, type);
     }
+
+    if (__MESSAGES__.__LOCALE__ === 'US') {
+        return getUSMutations(id, type);
+    }
+
+    return null;
 }
