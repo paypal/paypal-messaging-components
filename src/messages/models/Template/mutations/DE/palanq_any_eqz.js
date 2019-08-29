@@ -5,47 +5,39 @@ export default {
         [
             'default',
             {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                ],
+                styles: ['.message__content { display: inline-block; }'],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
-                    tag: 'small',
-                    br: ['months', 'APR']
+                    tag: 'default'
                 },
-                disclaimer: 'xsmall.2'
+                disclaimer: 'default'
             }
         ],
-        ['logo.type:primary', { messageWidth: 190 }],
+        ['logo.type:primary', { messageWidth: [195, 1000] }],
         [
             'logo.type:inline',
             {
-                messageWidth: [255, 1000],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['APR']
-                }
+                styles: [".message__logo-container::before { content: 'mit ' }"],
+                messageWidth: [250, 1000],
+                logo: Logo.ALT_NO_PP.COLOR
             }
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [240, 1000],
-                logo: false,
-                headline: {
-                    br: ['APR']
-                }
+                messageWidth: [265, 1000],
+                logo: false
             }
         ],
         [
             'logo.type:alternative',
             {
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: {
-                    replace: [['APR', 'APR.']],
-                    br: ['APR.']
-                }
+                styles: [
+                    '.message__content { display: inline-block; }',
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
+                ],
+                messageWidth: [195, 1000],
+                logo: Logo.ALTERNATIVE.COLOR
             }
         ],
         [

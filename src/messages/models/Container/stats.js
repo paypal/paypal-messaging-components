@@ -132,7 +132,7 @@ export default curry((container, { options: { amount }, events, track }) => {
     checkAdblock().then(detected => {
         payload.adblock = detected;
         payload.blocked = isHidden(container);
-        track(payload, container.hasAttribute('data-pp-message-hidden'));
+        track(payload, container.getAttribute('data-pp-message-hidden') === 'hidden');
         track('MORS_IMPRESSION');
     });
 

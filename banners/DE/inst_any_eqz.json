@@ -4,9 +4,14 @@
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
 
-    "headline": [["${CREDIT_OFFERS_DS.total_payments} monthly payments at 0% APR", ["default", "small"]]],
+    "headline": [
+        [
+            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins",
+            ["default", "small"]
+        ]
+    ],
 
     "subHeadline": [],
 
-    "disclaimer": [["Learn more", ["default", "xsmall"]]]
+    "disclaimer": [["Mehr erfahren", ["default", "xsmall"]]]
 }

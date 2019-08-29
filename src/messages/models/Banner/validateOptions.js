@@ -156,7 +156,7 @@ export default curry((logger, { account, amount, country, style, ...otherOptions
         }
     }
 
-    if (typeof amount !== 'undefined') {
+    if (typeof country !== 'undefined') {
         if (!validateType(Types.STRING, country)) {
             logInvalidType(logger, 'country', Types.STRING, country);
         } else if (country.length !== 2) {

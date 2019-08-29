@@ -24,7 +24,7 @@ import {
 
 const NoneLogoText = {
     US: ['with', 'PayPal Credit'],
-    DE: ['with', 'PayPal Ratenzahlung']
+    DE: ['mit', 'PayPal Ratenzahlung']
 };
 
 // Iframe used solely for calculating the minium width of a template
@@ -395,7 +395,7 @@ function createTemplateNode(options, markup) {
     }
 
     if (objectGet(options, 'style.logo.type') === 'none') {
-        const [withText, productName] = NoneLogoText[country] || NoneLogoText.default;
+        const [withText, productName] = NoneLogoText[country];
         const span = document.createElement('span');
         span.textContent = `${withText} `;
         const strong = document.createElement('strong');

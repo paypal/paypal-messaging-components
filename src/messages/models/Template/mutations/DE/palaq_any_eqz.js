@@ -1,51 +1,50 @@
 import Logo from './logos';
 
+const disclaimerStyles = [
+    '.message__disclaimer > span { text-decoration: none; color: #2c2e2f }',
+    '.message__disclaimer .br:nth-child(1) { text-decoration: underline; color: #0076ff }',
+    '.message__disclaimer .br:nth-child(2) { display: block; white-space: normal; margin-top: .5rem }'
+];
+
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                ],
+                styles: ['.message__content { display: inline-block; }', ...disclaimerStyles],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
-                    tag: 'small',
-                    br: ['months', 'APR']
+                    tag: 'default'
                 },
-                disclaimer: 'xsmall.2'
+                disclaimer: {
+                    tag: 'default',
+                    br: ['erfahren']
+                },
+                messageWidth: [265, 1000]
             }
         ],
-        ['logo.type:primary', { messageWidth: 190 }],
         [
             'logo.type:inline',
             {
-                messageWidth: [255, 1000],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['APR']
-                }
+                styles: [".message__logo-container::before { content: 'mit ' }", ...disclaimerStyles],
+                logo: Logo.ALT_NO_PP.COLOR
             }
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [240, 1000],
-                logo: false,
-                headline: {
-                    br: ['APR']
-                }
+                logo: false
             }
         ],
         [
             'logo.type:alternative',
             {
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: {
-                    replace: [['APR', 'APR.']],
-                    br: ['APR.']
-                }
+                styles: [
+                    '.message__content { display: inline-block; }',
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
+                    ...disclaimerStyles
+                ],
+                logo: Logo.ALTERNATIVE.COLOR
             }
         ],
         [

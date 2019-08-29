@@ -205,16 +205,13 @@ export default curry((container, { wrapper, options, logger, meta }) => {
         };
 
         if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
-            if (
-                objectGet(options, 'style.logo.position') === 'top' &&
-                objectGet(options, 'style.logo.type') === 'primary'
-            ) {
+            if (container.getAttribute('data-pp-message-overflow') === 'fallback') {
                 logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                 logger.warn(
                     `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
                 );
 
-                container.setAttribute('data-pp-message-hidden', 'true');
+                container.setAttribute('data-pp-message-overflow', 'hidden');
             } else {
                 logger.warn(
                     `Message Overflow. PayPal Credit Message of layout type ${objectGet(
@@ -228,6 +225,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                     wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
                     wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
                     wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
+                    container.setAttribute('data-pp-message-overflow', 'fallback');
                 });
             }
         } else {
