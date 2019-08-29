@@ -1,14 +1,18 @@
 export default {
     PRIMARY: {
-        COLOR: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_pri.svg', 453, 152],
-        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_pri.svg', 453, 152]
+        COLOR: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_fc_pri.svg', 1127, 99],
+        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_wh_pri.svg', 1127, 99]
     },
     ALTERNATIVE: {
-        COLOR: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_alt.svg', 573, 80],
-        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_alt.svg', 573, 80]
+        COLOR: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_fc_alt.svg', 822, 99],
+        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_wh_alt.svg', 822, 99]
     },
     ALT_NO_PP: {
-        COLOR: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_alt_noPP.svg', 477, 64],
-        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_alt_noPP.svg', 477, 64]
+        COLOR: [
+            'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_fc_alt_noPP.svg',
+            1013,
+            99
+        ],
+        WHITE: ['https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_wh_alt_noPP.svg', 1009, 79]
     }
 };

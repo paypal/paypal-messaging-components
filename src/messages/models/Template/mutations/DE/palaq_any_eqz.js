@@ -47,15 +47,6 @@ export default {
                 logo: Logo.ALTERNATIVE.COLOR
             }
         ],
-        [
-            'text.color:white',
-            {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                    '.message__disclaimer > span { color: white; text-decoration: none; }'
-                ]
-            }
-        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
