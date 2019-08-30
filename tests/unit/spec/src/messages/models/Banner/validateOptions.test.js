@@ -19,7 +19,6 @@ describe('validateOptions', () => {
         _legacy: false,
         account: '1234567890123',
         amount: 100,
-        country: 'US',
         onRender: () => {}
     };
 
@@ -81,26 +80,6 @@ describe('validateOptions', () => {
 
             expect(mockLogger.warn).toHaveBeenCalledTimes(1);
             expect(validated.amount).toBeUndefined();
-        });
-
-        it('Warns invalid country type', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                country: {}
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.country).toBeUndefined();
-        });
-
-        it('Warns invalid country value', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                country: 'USA'
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.country).toBeUndefined();
         });
 
         it('Warns invalid onRender type', () => {

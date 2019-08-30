@@ -1,4 +1,4 @@
-import { getClientID, getMerchantID, getSDKScript, getCountry } from '@paypal/sdk-client/src';
+import { getClientID, getMerchantID, getSDKScript } from '@paypal/sdk-client/src';
 
 import { globalState } from '../utils/globalState';
 import Messages from '../messages';
@@ -10,7 +10,6 @@ export function setup() {
         const script = getSDKScript();
         if (script) {
             Messages.setGlobalConfig({
-                country: getCountry(),
                 account: getMerchantID()[0] || `client-id:${getClientID()}`,
                 ...getInlineOptions(script)
             });
@@ -21,7 +20,6 @@ export function setup() {
         if (script) {
             // Default to en_US for non-SDK
             Messages.setGlobalConfig({
-                country: 'US',
                 ...getInlineOptions(script)
             });
         }

@@ -121,7 +121,7 @@ function getValidStyleOptions(logger, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, country, style, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -141,16 +141,6 @@ export default curry((logger, { account, amount, country, style, ...otherOptions
             logInvalid(logger, 'amount', 'Ensure value is a positive number.');
         } else {
             validOptions.amount = numberAmount;
-        }
-    }
-
-    if (typeof country !== 'undefined') {
-        if (!validateType(Types.STRING, country)) {
-            logInvalidType(logger, 'country', Types.STRING, country);
-        } else if (country.length !== 2) {
-            logInvalid(logger, 'country', 'Country code should be 2 characters.');
-        } else {
-            validOptions.country = country;
         }
     }
 
