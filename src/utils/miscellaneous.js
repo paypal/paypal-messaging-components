@@ -1,3 +1,6 @@
+import arrayFind from 'core-js-pure/stable/array/find';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
+import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 
 import { partial } from './functional';
@@ -24,4 +27,21 @@ export function createCallbackError(message, cb) {
     error.onEnd = cb;
 
     return error;
+}
+
+export function getDataByTag(data, tag) {
+    let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
+    if (selected) {
+        return selected[0];
+    }
+
+    if (stringIncludes(tag, '.')) {
+        const [fallbackTag] = tag.split('.', 1);
+        selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, fallbackTag));
+        if (selected) {
+            return selected[0];
+        }
+    }
+
+    return arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'))[0];
 }

@@ -7,8 +7,6 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
-import getMutations, { getDataByTag } from './mutations';
-import CustomBannerLogo from './mutations/US/logos';
 import { ERRORS } from '../../services/logger';
 import {
     curry,
@@ -19,13 +17,12 @@ import {
     prependStyle,
     prependText,
     appendText,
-    appendImage
+    appendImage,
+    getDataByTag
 } from '../../../utils';
+import { getLocalProductName, getMutations, getLogos, getLocaleStyles } from '../../../locale';
 
-const NoneLogoText = {
-    US: ['with', 'PayPal Credit'],
-    DE: ['mit', 'PayPal Ratenzahlung']
-};
+const Logos = getLogos();
 
 // Iframe used solely for calculating the minium width of a template
 const calcIframe = document.createElement('iframe');
@@ -227,7 +224,7 @@ function createCustomTemplateNode({ data, meta, template }) {
 
             if (type === 'logo') {
                 const tempContainer = document.createElement('div');
-                appendImage(tempContainer, objectGet(CustomBannerLogo, tag.toUpperCase()), 'PayPal Credit logo');
+                appendImage(tempContainer, objectGet(Logos, tag.toUpperCase()), 'PayPal Credit logo');
                 return tempContainer.innerHTML;
             }
 
@@ -353,7 +350,6 @@ function createTemplateNode(options, markup) {
     const styleSelectors = objectGet(options, 'style._flattened');
     const offerType = objectGet(markup, 'meta.offerType');
     const data = objectGet(markup, 'data');
-    const country = objectGet(options, 'country');
 
     if (layout === 'legacy') {
         const typeNI = objectGet(options, 'style.typeNI');
@@ -371,18 +367,23 @@ function createTemplateNode(options, markup) {
 
     const classNamePrefix = 'message';
     const applyCascadeRules = applyCascade(styleSelectors);
-    const mutationRules = applyCascadeRules(Object, getMutations(country, offerType, `layout:${layout}`, data));
-    const styleRules = applyCascadeRules(Array, allStyles[`layout:${layout}`]);
+    const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
+
+    const layoutProp = `layout:${layout}`;
+    const styleRules = applyCascadeRules(Array, [...allStyles[layoutProp], ...getLocaleStyles(layoutProp)]);
 
     const toMarkup = rulesToMarkup(data);
     const newTemplate = baseTemplate.cloneNode(true);
     const getTemplateElement = getElement(classNamePrefix, newTemplate);
-    const [logoContainer, headline, subHeadline, disclaimer] = [
+    const [messagingContainer, logoContainer, headline, subHeadline, disclaimer] = [
+        'container',
         'logo-container',
         'headline',
         'sub-headline',
         'disclaimer'
     ].map(getTemplateElement);
+
+    messagingContainer.classList.add(`locale--${__MESSAGES__.__LOCALE__}`);
 
     appendText(headline, toMarkup('headline', mutationRules.headline));
     appendText(subHeadline, toMarkup('subHeadline', mutationRules.subHeadline));
@@ -395,7 +396,7 @@ function createTemplateNode(options, markup) {
     }
 
     if (objectGet(options, 'style.logo.type') === 'none') {
-        const [withText, productName] = NoneLogoText[country];
+        const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
         span.textContent = `${withText} `;
         const strong = document.createElement('strong');

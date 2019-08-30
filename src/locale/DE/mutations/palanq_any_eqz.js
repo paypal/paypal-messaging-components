@@ -1,11 +1,10 @@
-import Logo from './logos';
+import Logo from '../logos';
 
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: ['.message__content { display: inline-block; }'],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'default'
@@ -17,7 +16,6 @@ export default {
         [
             'logo.type:inline',
             {
-                styles: [".message__logo-container::before { content: 'mit ' }"],
                 messageWidth: [250, 1000],
                 logo: Logo.ALT_NO_PP.COLOR
             }

@@ -1,38 +1,29 @@
-import Logo from './logos';
-
-const disclaimerStyles = [
-    '.message__disclaimer > span { text-decoration: none; color: #2c2e2f }',
-    '.message__disclaimer .br:nth-child(1) { text-decoration: underline; color: #0076ff }',
-    '.message__disclaimer .br:nth-child(2) { display: block; white-space: normal; margin-top: .5rem }'
-];
+import Logo from '../logos';
 
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: ['.message__content { display: inline-block; }', ...disclaimerStyles],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'default'
                 },
-                disclaimer: {
-                    tag: 'default',
-                    br: ['erfahren']
-                },
-                messageWidth: [265, 1000]
+                disclaimer: 'default'
             }
         ],
+        ['logo.type:primary', { messageWidth: [205, 1000] }],
         [
             'logo.type:inline',
             {
-                styles: [".message__logo-container::before { content: 'mit ' }", ...disclaimerStyles],
+                messageWidth: [175, 1000],
                 logo: Logo.ALT_NO_PP.COLOR
             }
         ],
         [
             'logo.type:none',
             {
+                messageWidth: [185, 1000],
                 logo: false
             }
         ],
@@ -41,9 +32,9 @@ export default {
             {
                 styles: [
                     '.message__content { display: inline-block; }',
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
-                    ...disclaimerStyles
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
+                messageWidth: [205, 1000],
                 logo: Logo.ALTERNATIVE.COLOR
             }
         ],

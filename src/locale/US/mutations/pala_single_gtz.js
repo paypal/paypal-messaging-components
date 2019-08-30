@@ -1,4 +1,4 @@
-import Logo from './logos';
+import Logo from '../logos';
 
 export default {
     'layout:text': [
@@ -6,25 +6,24 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.COLOR,
-                headline: { tag: 'xsmall' },
+                headline: { tag: 'small' },
                 disclaimer: 'xsmall'
             }
         ],
-        ['logo.type:primary', { messageWidth: 130 }],
+        ['logo.type:primary', { messageWidth: [140, 210] }],
         [
             'logo.type:inline',
             {
-                messageWidth: [195, 1000],
+                messageWidth: [200, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['/mo']
-                }
+                headline: { br: ['/mo'] }
             }
         ],
+
         [
             'logo.type:none',
             {
-                messageWidth: [175, 1000],
+                messageWidth: [200, 1000],
                 logo: false,
                 headline: {
                     br: ['/mo']
@@ -36,17 +35,22 @@ export default {
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
     ],
-
     'layout:flex': [
         [
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'small', br: ['low as'] },
+                headline: { tag: 'small', br: ['of'] },
                 disclaimer: 'xsmall'
             }
         ],
-        ['ratio:1x4', { subHeadline: 'small' }],
+        [
+            'ratio:1x4',
+            {
+                headline: { br: ['payments'] },
+                subHeadline: 'small'
+            }
+        ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]

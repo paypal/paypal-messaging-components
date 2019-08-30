@@ -7,8 +7,7 @@ import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 import Types from './types';
 
-import USOptions from './Options/US';
-import DEOptions from './Options/DE';
+import { getValidOptions } from '../../../locale';
 
 const VALID_OPTIONS = {
     id: [Types.STRING],
@@ -17,18 +16,7 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-export const VALID_STYLE_OPTIONS = (() => {
-    // Webpack will not properly tree-shake a switch block
-    if (__MESSAGES__.__LOCALE__ === 'DE') {
-        return DEOptions;
-    }
-
-    if (__MESSAGES__.__LOCALE__ === 'US') {
-        return USOptions;
-    }
-
-    return null;
-})();
+export const VALID_STYLE_OPTIONS = getValidOptions();
 
 // Formalized validation logger helper functions
 const logInvalid = (logger, location, message) => logger.warn(`Invalid option value (${location}). ${message}`);
