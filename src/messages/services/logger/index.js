@@ -78,9 +78,14 @@ export const Logger = {
             // Some sites setting Array.prototype.toJSON causing non-standard JSON stringify
             // ex: https://www.interpunk.com/
             const temp = Array.prototype.toJSON;
-            delete Array.prototype.toJSON;
+            if (temp) {
+                delete Array.prototype.toJSON;
+            }
             xhttp.send(JSON.stringify({ data: payload }));
-            Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native
+
+            if (temp) {
+                Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native
+            }
         }
 
         const logger = {

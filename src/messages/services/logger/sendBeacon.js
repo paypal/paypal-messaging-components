@@ -16,7 +16,7 @@ export default curry(({ uuid, urls }, payload, bannerHidden = false) => {
             uuid: bannerHidden ? `${uuid}::banner.hidden:true` : uuid
         };
         const bdataKVPairs = objectEntries(fullPayload).reduce(
-            (accumulator, [key, value]) => `${accumulator}&${key}=${value}`,
+            (accumulator, [key, value]) => (value === undefined ? accumulator : `${accumulator}&${key}=${value}`),
             ''
         );
 
