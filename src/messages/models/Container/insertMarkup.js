@@ -3,7 +3,14 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { curry } from '../../../utils';
 
-export default curry((container, template, clone = true) => {
+const createNodeWithInnerHTML = (type, html) => {
+    const node = document.createElement(type);
+    node.innerHTML = html;
+
+    return node;
+};
+
+export default curry((container, template) => {
     return ZalgoPromise.resolve(
         container.tagName === 'IFRAME' &&
             container.contentWindow.document.readyState !== 'complete' &&
@@ -14,10 +21,14 @@ export default curry((container, template, clone = true) => {
         if (container.tagName === 'IFRAME') {
             // TODO: Look into performance vs complexity of using importNode vs template
             // element innerHTML and writing to iframe document as string to parse html
-            newNode = clone ? container.contentWindow.document.importNode(template, true) : template;
+            newNode =
+                typeof template === 'string'
+                    ? createNodeWithInnerHTML('div', template)
+                    : container.contentWindow.document.importNode(template, true);
             containerDocument = container.contentWindow.document;
         } else {
-            newNode = clone ? template.cloneNode(true) : template;
+            newNode =
+                typeof template === 'string' ? createNodeWithInnerHTML('div', template) : template.cloneNode(true);
             containerDocument = document;
         }
         // Since images load async and we need to calculate layout later, we must

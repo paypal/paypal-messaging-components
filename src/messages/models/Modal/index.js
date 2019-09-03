@@ -10,7 +10,7 @@ import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
-import { createState, memoizeOnProps } from '../../../utils';
+import { createState, memoizeOnProps, pipe, pluck } from '../../../utils';
 import { globalState, setGlobalState } from '../../../utils/globalState';
 
 function createModal(options) {
@@ -271,12 +271,12 @@ function createModal(options) {
         });
 
         return getModalMarkup(options, ignoreCache)
-            .then(({ markup }) => {
-                const node = document.createElement('div');
-                node.innerHTML = markup;
-
-                return insertMarkup(node, false);
-            })
+            .then(
+                pipe(
+                    pluck('markup'),
+                    insertMarkup
+                )
+            )
             .then(() => {
                 setState({
                     elements: getModalElements(iframe, getModalType())
