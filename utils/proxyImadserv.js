@@ -11,7 +11,7 @@ const devAccountMap = {
     DEV0000000PMZ: 'pala_multi_eqz',
     DEV0000000PMG: 'pala_multi_gtz',
 
-    DEV0000000IAE: 'inst_any_eqz',
+    DEV0000000IAZ: 'inst_any_eqz',
     DEV0000000IAG: 'inst_any_gtz',
     DEV00000PNQAZ: 'palanq_any_eqz',
     DEV000000PQAZ: 'palaq_any_eqz'

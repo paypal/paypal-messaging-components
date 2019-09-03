@@ -55,9 +55,13 @@ export default {
         [
             'ratio:20x1',
             {
-                styles: [
-                    '@media (min-aspect-ratio: 200/11) and (max-width: 475px) { .message__headline { font-size: 0.7rem; } }'
-                ]
+                headline: ['xsmall', 'small']
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: ['xsmall', 'small']
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

@@ -53,10 +53,18 @@ export default {
             }
         ],
         [
+            'ratio:8x1',
+            {
+                styles: [
+                    '@media (max-aspect-ratio: 61/10) { .locale--DE .message__logo-container { margin-bottom: 2.5vw } }'
+                ]
+            }
+        ],
+        [
             'ratio:20x1',
             {
                 styles: [
-                    '@media (min-aspect-ratio: 200/11) and (max-width: 475px) { .message__headline { font-size: 0.7rem; } }'
+                    '@media (max-aspect-ratio: 61/10) { .locale--DE .message__logo-container { margin-bottom: 2.5vw } }'
                 ]
             }
         ],

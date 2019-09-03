@@ -52,14 +52,6 @@ export default {
                 disclaimer: 'xsmall'
             }
         ],
-        [
-            'ratio:20x1',
-            {
-                styles: [
-                    '@media (min-aspect-ratio: 200/11) and (max-width: 475px) { .message__headline { font-size: 0.7rem; } }'
-                ]
-            }
-        ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
