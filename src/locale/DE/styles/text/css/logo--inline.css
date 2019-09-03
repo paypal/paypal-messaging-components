@@ -4,5 +4,6 @@
 
 .message__logo {
     width: 11rem;
-    margin-bottom: 4px;
+    vertical-align: bottom;
+    margin-bottom: 1px;
 }
