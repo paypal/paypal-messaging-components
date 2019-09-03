@@ -14,9 +14,7 @@
     "subHeadline": [],
 
     "disclaimer": [
-        [
-            "Mehr erfahren Darlehensgeber: PayPal (Europe) S.a.r.l. & Cie, S.C.A. 22-24 Boulevard Royal, 2449 Luxembourg",
-            ["default", "xsmall"]
-        ]
+        ["Mehr erfahren", ["default", "xsmall"]],
+        ["Darlehensgeber: PayPal (Europe) S.a.r.l. & Cie, S.C.A. 22-24 Boulevard Royal, 2449 Luxembourg", ["extra"]]
     ]
 }

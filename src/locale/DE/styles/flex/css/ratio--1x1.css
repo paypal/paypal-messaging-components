@@ -1,0 +1,5 @@
+@media (max-width: 150px) {
+    .message__headline {
+        font-size: 10vw;
+    }
+}

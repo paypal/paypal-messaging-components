@@ -150,6 +150,10 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
+            if (__LOCAL__) {
+                console.error(err);
+            }
+
             logger.error({ name: err.message });
             logger.end();
 

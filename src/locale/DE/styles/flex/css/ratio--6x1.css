@@ -1,0 +1,41 @@
+.message__content {
+    display: block;
+    padding: 0.25rem;
+}
+
+.message__logo-container {
+    width: 40%;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.message__logo {
+    width: 100%;
+}
+
+.message__messaging {
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.message__headline {
+    margin-bottom: 0;
+    margin-right: 0.25rem;
+    font-size: 4vw;
+}
+
+.message__promo-container {
+    flex: 1 1 100%;
+}
+
+.message__disclaimer {
+    flex: 1 1 auto;
+    width: auto;
+    padding-right: 0;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 400px) {
+    .message__content {
+        padding: 0.75rem;
+    }
+}

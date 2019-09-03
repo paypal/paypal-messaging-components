@@ -1,3 +1,8 @@
-.locale--DE .message__logo-container::before {
+.message__logo-container::before {
     content: 'mit ';
+}
+
+.message__logo {
+    width: 11rem;
+    margin-bottom: 4px;
 }

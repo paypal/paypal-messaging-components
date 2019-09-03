@@ -2,8 +2,8 @@ import Logo from '../logos';
 
 const disclaimerStyles = [
     '.message__disclaimer > span { text-decoration: none; color: #2c2e2f }',
-    '.message__disclaimer .br:nth-child(1) { text-decoration: underline; color: #0076ff }',
-    '.message__disclaimer .br:nth-child(2) { display: block; white-space: normal; margin-top: .5rem }'
+    '.message__disclaimer > .multi.tag--default:first-of-type { text-decoration: underline; color: #0076ff }',
+    '.message__disclaimer > .multi.tag--extra { display: block; white-space: normal; margin-top: .5rem }'
 ];
 
 export default {
@@ -16,10 +16,7 @@ export default {
                 headline: {
                     tag: 'default'
                 },
-                disclaimer: {
-                    tag: 'default',
-                    br: ['erfahren']
-                },
+                disclaimer: ['default', 'extra'],
                 messageWidth: [265, 1000]
             }
         ],
@@ -55,15 +52,8 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'small', br: ['months', 'APR'] },
-                disclaimer: ['xsmall.2', 'xsmall']
-            }
-        ],
-        [
-            'ratio:1x4',
-            {
-                headline: { br: ['over', 'at', 'APR'] },
-                subHeadline: 'small'
+                headline: 'small',
+                disclaimer: ['extra', 'xsmall']
             }
         ],
         [

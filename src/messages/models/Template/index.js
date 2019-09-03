@@ -366,11 +366,18 @@ function createTemplateNode(options, markup) {
     }
 
     const classNamePrefix = 'message';
+    const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
     const applyCascadeRules = applyCascade(styleSelectors);
     const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
 
     const layoutProp = `layout:${layout}`;
-    const styleRules = applyCascadeRules(Array, [...allStyles[layoutProp], ...getLocaleStyles(layoutProp)]);
+    const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
+
+    // Scope all locale-specific styles to the selected locale
+    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(layoutProp)).map(rule =>
+        rule.replace(/\.message/g, `.${localeClass} .message`)
+    );
+    const styleRules = [...globalStyleRules, ...localeStyleRules];
 
     const toMarkup = rulesToMarkup(data);
     const newTemplate = baseTemplate.cloneNode(true);
@@ -383,7 +390,7 @@ function createTemplateNode(options, markup) {
         'disclaimer'
     ].map(getTemplateElement);
 
-    messagingContainer.classList.add(`locale--${__MESSAGES__.__LOCALE__}`);
+    messagingContainer.classList.add(localeClass);
 
     appendText(headline, toMarkup('headline', mutationRules.headline));
     appendText(subHeadline, toMarkup('subHeadline', mutationRules.subHeadline));
