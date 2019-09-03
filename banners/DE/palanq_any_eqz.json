@@ -4,7 +4,12 @@
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
 
-    "headline": [["Mit PayPal Ratenzahlung entspannt bezahlen ab 199 € bis 5.000 €", ["default", "large"]]],
+    "headline": [
+        [
+            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei Einkäufen von 199 € bis 5.000,00 €",
+            ["default", "large"]
+        ]
+    ],
 
     "subHeadline": [],
 

@@ -6,7 +6,7 @@
 
     "headline": [
         [
-            "Mit PayPal Ratenzahlung entspannt bezahlen für ${CREDIT_OFFERS_DS.formattedMonthlyPayment} im Monat",
+            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten von je ${CREDIT_OFFERS_DS.formattedMonthlyPayment} bei 0% effektivem Jahreszins",
             ["default", "large"]
         ]
     ],
@@ -15,6 +15,6 @@
 
     "disclaimer": [
         ["Mehr erfahren", ["default", "xsmall"]],
-        ["Darlehensgeber: PayPal (Europe) S.a.r.l. & Cie, S.C.A. 22-24 Boulevard Royal, 2449 Luxembourg", ["extra"]]
+        ["Kreditgeber: PayPal (Europe) S.a.r.l. et Cie, S.C.A. 22-24 Boulevard Royal, L-2449 Luxembourg", ["extra"]]
     ]
 }

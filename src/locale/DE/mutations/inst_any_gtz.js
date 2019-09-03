@@ -16,7 +16,7 @@ export default {
         [
             'logo.type:inline',
             {
-                messageWidth: [175, 1000],
+                messageWidth: [210, 1000],
                 logo: Logo.ALT_NO_PP.COLOR
             }
         ],

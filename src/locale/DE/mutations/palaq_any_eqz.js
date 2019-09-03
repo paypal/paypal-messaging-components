@@ -23,13 +23,15 @@ export default {
         [
             'logo.type:inline',
             {
-                logo: Logo.ALT_NO_PP.COLOR
+                logo: Logo.ALT_NO_PP.COLOR,
+                messageWidth: [320, 1000]
             }
         ],
         [
             'logo.type:none',
             {
-                logo: false
+                logo: false,
+                messageWidth: [315, 1000]
             }
         ],
         [

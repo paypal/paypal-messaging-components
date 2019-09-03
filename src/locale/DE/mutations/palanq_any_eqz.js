@@ -12,18 +12,18 @@ export default {
                 disclaimer: 'default'
             }
         ],
-        ['logo.type:primary', { messageWidth: [195, 1000] }],
+        ['logo.type:primary', { messageWidth: [220, 1000] }],
         [
             'logo.type:inline',
             {
-                messageWidth: [250, 1000],
+                messageWidth: [305, 1000],
                 logo: Logo.ALT_NO_PP.COLOR
             }
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [265, 1000],
+                messageWidth: [290, 1000],
                 logo: false
             }
         ],
@@ -34,7 +34,7 @@ export default {
                     '.message__content { display: inline-block; }',
                     '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
-                messageWidth: [195, 1000],
+                messageWidth: [220, 1000],
                 logo: Logo.ALTERNATIVE.COLOR
             }
         ],
