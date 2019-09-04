@@ -3,8 +3,8 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { curry } from '../../../utils';
 
-const createNodeWithInnerHTML = (type, html) => {
-    const node = document.createElement(type);
+const createNodeWithInnerHTML = (doc, type, html) => {
+    const node = doc.createElement(type);
     node.innerHTML = html;
 
     return node;
@@ -16,21 +16,12 @@ export default curry((container, template) => {
             container.contentWindow.document.readyState !== 'complete' &&
             new ZalgoPromise(resolve => container.addEventListener('load', resolve))
     ).then(() => {
-        let newNode;
-        let containerDocument;
-        if (container.tagName === 'IFRAME') {
-            // TODO: Look into performance vs complexity of using importNode vs template
-            // element innerHTML and writing to iframe document as string to parse html
-            newNode =
-                typeof template === 'string'
-                    ? createNodeWithInnerHTML('div', template)
-                    : container.contentWindow.document.importNode(template, true);
-            containerDocument = container.contentWindow.document;
-        } else {
-            newNode =
-                typeof template === 'string' ? createNodeWithInnerHTML('div', template) : template.cloneNode(true);
-            containerDocument = document;
-        }
+        const containerDocument = container.tagName === 'IFRAME' ? container.contentWindow.document : document;
+        const newNode =
+            typeof template === 'string'
+                ? createNodeWithInnerHTML(containerDocument, 'div', template)
+                : containerDocument.importNode(template, true);
+
         // Since images load async and we need to calculate layout later, we must
         // manually wait for each image to load before resolving
         const imgProms = arrayFrom(newNode.getElementsByTagName('img'))

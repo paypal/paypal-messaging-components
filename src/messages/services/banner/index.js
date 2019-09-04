@@ -1,11 +1,14 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import stringIncludes from 'core-js-pure/stable/string/includes';
+import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../../utils';
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
+import createContainer from '../../models/Container';
 
 // Using same JSONP callback namespace as original merchant.js
 window.__PP = window.__PP || {};
@@ -121,6 +124,66 @@ function getBannerOptions(logger, markup) {
     return {};
 }
 
+/**
+ * IMPORTANT: This function is fragile and very dependent on how
+ * IE handles sizing containers with specific style property values
+ * @param {HTMLElement} container Container element
+ * @returns {Number} Container width
+ */
+const getContentMinWidth = templateNode => {
+    const [calcIframe, { insertMarkup }] = createContainer('iframe');
+    calcIframe.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
+    document.body.appendChild(calcIframe);
+
+    return insertMarkup(templateNode).then(() => {
+        const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
+        const contentStyles = calcIframe.contentWindow.getComputedStyle(contentContainer);
+        const children = arrayFrom(contentContainer.children);
+        const properties = [
+            'margin-left',
+            'border-left-width',
+            'padding-left',
+            'width',
+            'padding-right',
+            'border-right-width',
+            'margin-right'
+        ];
+        // When the display is flex, we are stacking the child components horizontally.
+        // We calculate the total width by adding the width of all the children.
+        const minWidth = stringIncludes(contentStyles.getPropertyValue('display'), 'flex')
+            ? Math.round(
+                  children.reduce((accumulator, child) => {
+                      const childStyles = calcIframe.contentWindow.getComputedStyle(child);
+                      return (
+                          accumulator +
+                          properties.reduce(
+                              (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                              0
+                          )
+                      );
+                  }, 0)
+              )
+            : // If the display is not flex, it should be block to stack the child components vertically.
+              // We use display block instead of flex because IE does not support the column orientation very well.
+              // We calculate the width of the container by the largest width of all the stacked children.
+              Math.max(
+                  ...children.map(child => {
+                      const childStyles = calcIframe.contentWindow.getComputedStyle(child);
+                      return Math.round(
+                          properties.reduce(
+                              (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                              0
+                          )
+                      );
+                  })
+              );
+
+        document.body.removeChild(calcIframe);
+
+        return minWidth;
+    });
+};
+
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
 
 export default function getBannerMarkup({ options, logger }) {
@@ -150,12 +213,21 @@ export default function getBannerMarkup({ options, logger }) {
         totalOptions.style._flattened = objectFlattenToArray(totalOptions.style);
 
         if (typeof markup === 'object') {
-            return Template.getTemplateNode(totalOptions, markup).then(template => ({
-                markup,
-                options: totalOptions,
-                template,
-                meta: { ...markup.meta, minWidth: template.minWidth }
-            }));
+            const template = Template.getTemplateNode(totalOptions, markup);
+
+            return objectGet(totalOptions, 'style.layout') === 'text'
+                ? getContentMinWidth(template).then(minWidth => ({
+                      markup,
+                      options: totalOptions,
+                      template,
+                      meta: { ...markup.meta, minWidth }
+                  }))
+                : {
+                      markup,
+                      options: totalOptions,
+                      template,
+                      meta: { ...markup.meta, minWidth: template.minWidth }
+                  };
         }
 
         const template = document.createElement('div');
