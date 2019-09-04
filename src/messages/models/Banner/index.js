@@ -2,7 +2,7 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
-import { Logger, EVENTS } from '../../services/logger';
+import { Logger, EVENTS, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
 import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
@@ -136,21 +136,30 @@ export default {
         const logger = loggers.get(wrapper);
 
         let banner;
-        if (banners.has(wrapper)) {
-            banner = banners.get(wrapper);
-            // Ensure previous render call has completed
-            banner.renderProm = banner.renderProm.then(() => {
+
+        try {
+            if (banners.has(wrapper)) {
+                banner = banners.get(wrapper);
+                // Ensure previous render call has completed
+                banner.renderProm = banner.renderProm.then(() => {
+                    logger.start({ options });
+                    return banner.update(options);
+                });
+            } else {
                 logger.start({ options });
-                return banner.update(options);
-            });
-        } else {
-            logger.start({ options });
-            banner = Banner.create(options, wrapper, logger);
-            banners.set(wrapper, banner);
+                banner = Banner.create(options, wrapper, logger);
+                banners.set(wrapper, banner);
+            }
+        } catch (err) {
+            logger.error({ name: ERRORS.INTERNAL_FAIL, message: err.message });
+            logger.end();
+
+            return ZalgoPromise.resolve();
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
-            logger.error({ name: err.message });
+            const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;
+            logger.error(name === ERRORS.INTERNAL_FAIL ? { name, message: err.message } : { name });
             logger.end();
 
             if (typeof err.onEnd === 'function') {
