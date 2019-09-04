@@ -6,9 +6,10 @@
 
     "headline": [
         [
-            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei Einkäufen von 199 € bis 5.000,00 €",
+            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei Einkäufen von 199 € bis 5.000 €",
             ["default", "large"]
-        ]
+        ],
+        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["xsmall"]]
     ],
 
     "subHeadline": [],

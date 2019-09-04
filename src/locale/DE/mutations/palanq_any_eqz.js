@@ -48,8 +48,14 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: 'small',
+                headline: 'large',
                 disclaimer: 'xsmall'
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: ['xsmall', 'large']
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

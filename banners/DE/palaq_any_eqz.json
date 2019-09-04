@@ -8,13 +8,15 @@
         [
             "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten von je ${CREDIT_OFFERS_DS.formattedMonthlyPayment} bei 0% effektivem Jahreszins",
             ["default", "large"]
-        ]
+        ],
+        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
+        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten", ["xsmall"]]
     ],
 
     "subHeadline": [],
 
     "disclaimer": [
         ["Mehr erfahren", ["default", "xsmall"]],
-        ["Kreditgeber: PayPal (Europe) S.a.r.l. et Cie, S.C.A. 22-24 Boulevard Royal, L-2449 Luxembourg", ["extra"]]
+        ["Kreditgeber: PayPal (Europe) S.á.r.l. et Cie, S.C.A. 22-24 Boulevard Royal, L-2449 Luxembourg", ["extra"]]
     ]
 }

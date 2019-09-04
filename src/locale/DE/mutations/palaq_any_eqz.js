@@ -1,6 +1,6 @@
 import Logo from '../logos';
 
-const disclaimerStyles = [
+const textDisclaimerStyles = [
     '.message__disclaimer > span { text-decoration: none; color: #2c2e2f }',
     '.message__disclaimer > .multi.tag--default:first-of-type { text-decoration: underline; color: #0076ff }',
     '.message__disclaimer > .multi.tag--extra { display: block; white-space: normal; margin-top: .5rem }'
@@ -11,7 +11,7 @@ export default {
         [
             'default',
             {
-                styles: [...disclaimerStyles],
+                styles: [...textDisclaimerStyles],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'default'
@@ -39,7 +39,7 @@ export default {
             {
                 styles: [
                     '.message__messaging, .message__headline span:only-child { white-space: normal }',
-                    ...disclaimerStyles
+                    ...textDisclaimerStyles
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
             }
@@ -48,7 +48,7 @@ export default {
             'text.color:white',
             {
                 styles: [
-                    ...disclaimerStyles,
+                    ...textDisclaimerStyles,
                     '.message__disclaimer > .multi.tag--default:first-of-type { text-decoration: underline; color: white }'
                 ]
             }
@@ -63,8 +63,57 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: 'small',
+                headline: 'large',
                 disclaimer: ['extra', 'xsmall']
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: ['xsmall', 'large'],
+                styles: [
+                    `
+                        @media (min-width: 600px) {
+                            .message__messaging { display: block }
+                            .message__disclaimer { padding-right: 0; font-size: 1.5vw; }
+                            .message__headline { margin-bottom: .5vw }
+                        }
+                    `,
+                    `
+                        @media (max-aspect-ratio: 61/10) and (min-width: 600px) {
+                            .message__logo-container { margin-bottom: 3vw }
+                            .message__headline { font-size: 2.5vw }
+                        }
+                    `
+                ]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: ['xsmall', 'large'],
+                styles: [
+                    `
+                        @media (min-width: 500px) {
+                            .message__messaging { display: block }
+                            .message__disclaimer { padding-right: 0; font-size: 1.7vw }
+                            .message__logo-container { margin-bottom: 1vw }
+                            .message__headline { margin-bottom: 1vw }
+                        }
+                    `,
+                    `
+                        @media (max-aspect-ratio: 61/10) and (min-width: 500px) {
+                            .message__logo-container { margin-bottom: 3vw }
+                            .message__headline { font-size: 2.5vw }
+                        }
+                    `
+                ]
+            }
+        ],
+        [
+            'ratio:1x1',
+            {
+                headline: ['small', 'large']
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

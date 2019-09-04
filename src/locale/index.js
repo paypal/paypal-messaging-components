@@ -23,7 +23,23 @@ export function getValidOptions() {
 }
 
 export function getMutations(id, type) {
-    return LOCALE_SETTINGS.getMutations(id, type);
+    const localeClass = `.locale--${__MESSAGES__.__LOCALE__} .message`;
+    const mutations = LOCALE_SETTINGS.getMutations(id, type).map(mutation => {
+        if (mutation[1].styles) {
+            return [
+                mutation[0],
+                {
+                    ...mutation[1],
+                    styles: mutation[1].styles.map(style => style.replace(/\.message/g, localeClass))
+                }
+            ];
+        }
+
+        return mutation;
+    });
+
+    console.log(mutations);
+    return mutations;
 }
 
 export function getLogos() {
