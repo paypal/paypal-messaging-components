@@ -15,6 +15,8 @@ window.__PP = window.__PP || {};
 const PLACEMENT = 'x200x51';
 // const PLACEMENT = 'x215x80';
 
+const LEGACY_NI_ONLY_PLACEMENT = 'x199x99';
+
 const LOCALE_MAP = {
     US: 'en_US',
     GB: 'en_GB',
@@ -50,15 +52,24 @@ function mutateMarkup(markup) {
  * @returns {Promise<string>} Banner Markup
  */
 function fetcher(options) {
-    const { account, amount, countryCode } = options;
+    const {
+        account,
+        amount,
+        countryCode,
+        style: { typeEZP }
+    } = options;
+
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
+        // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
+        const dimensions = typeEZP === '' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
+
         // Fire off JSONP request
         const rootUrl = __MESSAGES__.__BANNER_URL__;
         const queryParams = {
-            dimensions: PLACEMENT,
+            dimensions,
             currency_value: amount,
             currency_code: 'USD',
             format: 'HTML',
