@@ -5,7 +5,17 @@ import getBannerMarkup from '../../services/banner';
 import { Logger, EVENTS, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
-import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
+import {
+    curry,
+    createState,
+    partial,
+    passThrough,
+    pipe,
+    objectDiff,
+    objectMerge,
+    pluck,
+    assignToProp
+} from '../../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();
@@ -28,7 +38,6 @@ function setupTracker(obj) {
     return { track };
 }
 
-const assignToProp = curry((field, object) => ({ [field]: object }));
 const assignFn = curry((fn, obj) => ({ ...obj, ...fn(obj) }));
 const asyncAssignFn = curry((fn, obj) => fn(obj).then(props => ({ ...obj, ...props })));
 
@@ -65,17 +74,26 @@ const Banner = {
                 validateOptions(logger), // Object()
                 passThrough(updateOptions), // Object()
                 assignToProp('options'), // Object(options)
-                partial(objectAssign, { logger }), // Object(options, logger)
-                asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, markup)>
+                partial(objectAssign, { logger, wrapper, events }), // Object(options, logger, wrapper, events)
+                asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
             )(totalOptions)
-                .then(asyncAssignFn(logBefore(insertMarkup, EVENTS.INSERT))) // Promise<Object(options, logger, markup, meta)>
+                .then(
+                    passThrough(
+                        logBefore(
+                            pipe(
+                                pluck('template'),
+                                insertMarkup
+                            ),
+                            EVENTS.INSERT
+                        )
+                    )
+                ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
-                        partial(objectAssign, { wrapper, events }), // Object(options, logger, markup, meta, wrapper, events)
-                        assignFn(setupTracker), // Object(options, logger, markup, meta, wrapper, events, track)
-                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, markup, meta, wrapper, events, track)
-                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, markup, meta, wrapper, events, track)
-                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         logBefore(onRendered, EVENTS.RENDER_END)
                     )
                 );
