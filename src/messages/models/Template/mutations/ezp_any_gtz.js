@@ -67,15 +67,15 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'xsmall', br: ['months'] },
+                headline: { tag: 'small', br: ['months'] },
+                subHeadline: 'xsmall',
                 disclaimer: ['xsmall.2', 'xsmall']
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: { br: ['over', 'months'] },
-                subHeadline: 'small'
+                headline: { br: ['over', 'months'] }
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

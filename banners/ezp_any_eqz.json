@@ -4,19 +4,19 @@
         "impressionUrl": "$impression_tracking_url$",
         "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
-
     "data": {
         "headline": [
             ["Pay over ${term} months at 0% APR", ["default", "small"]],
             ["Enjoy ${term} Easy Payments with No Interest.", ["legacy-small"]]
         ],
         "subHeadline": [
-            ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
-            ["Choose PayPal Credit and select ${term} Easy Payments to pay over time", ["legacy-medium"]]
+            ["Choose PayPal Credit and select ${term} Easy Payments to pay over time", ["legacy-medium"]],
+            ["No money due today.", ["default", "xsmall"]]
         ],
         "disclaimer": [
             ["See terms", ["default", "xsmall"]],
             ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],
+            ["No money due today.", ["small"]],
             [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
             [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-large"]]
         ]

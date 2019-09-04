@@ -45,14 +45,14 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'small', br: [' of', 'at'] },
+                subHeadline: 'xsmall',
                 disclaimer: 'xsmall'
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: { br: ['payments', 'mo'] },
-                subHeadline: 'small'
+                headline: { br: ['payments', 'mo'] }
             }
         ],
         [

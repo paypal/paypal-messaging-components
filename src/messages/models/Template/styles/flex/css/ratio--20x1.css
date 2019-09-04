@@ -21,6 +21,15 @@
         margin: 0;
     }
 
+    .message__sub-headline {
+        font-size: 1.1rem;
+        line-height: 1.3em;
+        position: absolute;
+        top: 32%;
+        left: 43%;
+        margin-left: -4%;
+    }
+
     .message__disclaimer {
         flex: 0 0 auto;
         width: auto;

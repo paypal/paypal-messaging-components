@@ -4,8 +4,19 @@
         display: none;
     }
 
+    .message__messaging {
+        position: relative;
+    }
+
+    .message__sub-headline {
+        font-size: 2.5vw;
+    }
+
     .message__disclaimer {
         font-size: 0.625rem;
+        position: absolute;
+        top: 62%;
+        left: 32%;
     }
 
     .message__logo-container {

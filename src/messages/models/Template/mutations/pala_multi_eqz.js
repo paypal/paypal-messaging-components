@@ -54,7 +54,8 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'medium', br: ['low as', 'at'] },
-                disclaimer: 'small'
+                subHeadline: 'small',
+                disclaimer: 'xsmall'
             }
         ],
         ['ratio:1x4', { subHeadline: 'small' }],
