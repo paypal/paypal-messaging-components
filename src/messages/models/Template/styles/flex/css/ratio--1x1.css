@@ -37,7 +37,6 @@
 
     .message__sub-headline {
         font-size: 8.5vw;
-        /* margin-top: 2%; */
     }
 
     .message__headline span.multi:nth-of-type(2) {
@@ -70,13 +69,12 @@
         font-size: 4.5vw;
     }
 }
-/* @media (min-width: 200px) {
+@media (min-width: 120px) {
     .message__content {
         padding: 10%;
     }
 
     .message__logo-container {
-        width: 40%;
         margin-bottom: 10%;
     }
 
@@ -91,4 +89,12 @@
     .message__disclaimer {
         font-size: 5.5vw;
     }
-} */
+}
+@media (max-width: 170px) {
+    .message__sub-headline {
+        display: none;
+    }
+    .message__disclaimer {
+        font-size: 8vw;
+    }
+}

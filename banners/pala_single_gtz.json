@@ -10,7 +10,7 @@
             ["Enjoy Easy Payments.", ["legacy-xsmall"]]
         ],
         "subHeadline": [
-            ["No money due today.", ["default", "small"]],
+            ["No money due today.", ["default", "xsmall"]],
             [
                 "Make ${term} Easy Payments as low as ${pymt_mo}/month for est. total pymts of ${tot_pymts}.",
                 ["legacy-large"]

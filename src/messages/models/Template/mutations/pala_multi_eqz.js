@@ -58,7 +58,7 @@ export default {
                 disclaimer: 'xsmall'
             }
         ],
-        ['ratio:1x4', { subHeadline: 'small' }],
+        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
