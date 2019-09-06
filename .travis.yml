@@ -11,5 +11,8 @@ jobs:
               - npm run test
         - stage: deploy
           if: branch = release
-          script:
-              - npx semantic-release
+          deploy:
+              - provider: script
+                skip_cleanup: true
+                script:
+                    - npx semantic-release
