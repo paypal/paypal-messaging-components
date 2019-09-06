@@ -70,7 +70,7 @@ export default {
         [
             'ratio:20x1',
             {
-                headline: ['xsmall', 'large'],
+                headline: ['small', 'large'],
                 styles: [
                     `
                         @media (min-width: 600px) {
@@ -91,7 +91,7 @@ export default {
         [
             'ratio:8x1',
             {
-                headline: ['xsmall', 'large'],
+                headline: ['small', 'large'],
                 styles: [
                     `
                         @media (min-width: 500px) {
@@ -113,7 +113,14 @@ export default {
         [
             'ratio:1x1',
             {
+                logo: Logo.ALTERNATIVE.WHITE,
                 headline: ['small', 'large']
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                logo: Logo.ALTERNATIVE.WHITE
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

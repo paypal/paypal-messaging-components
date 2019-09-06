@@ -128,8 +128,12 @@ export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset)
         }
 
         container.appendChild(logo);
-    } else if (Array.isArray(url)) {
-        const [src, width, height] = url;
+    } else if (typeof url === 'object') {
+        const {
+            src,
+            dimensions: [width, height]
+        } = url;
+
         const logo = new Image();
         logo.src = src;
         logo.alt = alt;

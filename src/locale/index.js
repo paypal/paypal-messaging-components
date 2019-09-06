@@ -38,7 +38,6 @@ export function getMutations(id, type) {
         return mutation;
     });
 
-    console.log(mutations);
     return mutations;
 }
 

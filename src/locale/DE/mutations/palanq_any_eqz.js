@@ -53,9 +53,21 @@ export default {
             }
         ],
         [
+            'ratio:20x1',
+            {
+                headline: ['xsmall', 'large']
+            }
+        ],
+        [
             'ratio:8x1',
             {
                 headline: ['xsmall', 'large']
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                logo: Logo.ALTERNATIVE.WHITE
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

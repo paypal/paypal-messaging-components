@@ -1,5 +1,6 @@
 .message__logo-container {
-    margin-bottom: 35%;
+    width: 100%;
+    margin-bottom: 30%;
 }
 
 .message__headline {

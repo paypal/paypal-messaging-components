@@ -395,7 +395,11 @@ function createTemplateNode(options, markup) {
     appendText(headline, toMarkup('headline', mutationRules.headline));
     appendText(subHeadline, toMarkup('subHeadline', mutationRules.subHeadline));
     prependText(disclaimer, toMarkup('disclaimer', mutationRules.disclaimer));
-    appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
+    if (Array.isArray(mutationRules.logo)) {
+        mutationRules.logo.forEach(logo => appendImage(logoContainer, logo, 'PayPal Credit logo'));
+    } else {
+        appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
+    }
 
     // Logo DOM location must be moved in order for logo to be inline between text content
     if (objectGet(options, 'style.logo.type') === 'inline') {

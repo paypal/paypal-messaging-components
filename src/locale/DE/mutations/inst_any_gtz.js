@@ -68,6 +68,12 @@ export default {
                 ]
             }
         ],
+        [
+            'ratio:1x4',
+            {
+                logo: Logo.ALTERNATIVE.WHITE
+            }
+        ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]

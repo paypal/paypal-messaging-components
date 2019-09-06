@@ -53,6 +53,12 @@ export default {
             }
         ],
         [
+            'ratio:1x1',
+            {
+                logo: [Logo.PRIMARY.WHITE, Logo.ALTERNATIVE.WHITE]
+            }
+        ],
+        [
             'ratio:20x1',
             {
                 headline: ['xsmall', 'small']
@@ -62,6 +68,12 @@ export default {
             'ratio:8x1',
             {
                 headline: ['xsmall', 'small']
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                logo: Logo.ALTERNATIVE.WHITE
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
