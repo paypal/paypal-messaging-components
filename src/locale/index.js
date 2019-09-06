@@ -48,3 +48,11 @@ export function getLogos() {
 export function getLocaleStyles(layout) {
     return (LOCALE_SETTINGS.styles && LOCALE_SETTINGS.styles[layout]) || [];
 }
+
+export function getModalContent(options, state, trackEvent) {
+    return LOCALE_SETTINGS.getModalContent(options, state, trackEvent);
+}
+
+export function getModalType(offerType) {
+    return LOCALE_SETTINGS.getModalType(offerType);
+}

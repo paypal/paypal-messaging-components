@@ -1,13 +1,14 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps } from '../../../utils';
 
+import { getModalType } from '../../../locale';
+
 function assembleUrl(offerType) {
     const baseUrl = __MESSAGES__.__MODAL_URL__;
-    const modalType = startsWith(offerType, 'NI') ? 'ni' : 'ezp';
+    const modalType = getModalType(offerType).toLowerCase();
 
-    return `${baseUrl}/${modalType}.html`;
+    return `${baseUrl}/${__MESSAGES__.__LOCALE__}/${modalType}.html`;
 }
 
 function fetcher({ offerType }) {

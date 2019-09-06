@@ -13,7 +13,8 @@ module.exports = {
     setupFilesAfterEnv: ['<rootDir>/tests/utils/setup.js'],
     globals: {
         __MESSAGES__: {
-            __VERSION__: '1.0.0'
+            __VERSION__: '1.0.0',
+            __LOCALE__: 'US'
         }
     }
 };
