@@ -1,7 +1,0 @@
-{
-    "scripts": {
-        "prerelease": "./scripts/standard-version/prerelease.sh",
-        "postbump": "./scripts/standard-version/postbump.sh",
-        "posttag": "./scripts/standard-version/posttag.sh"
-    }
-}
