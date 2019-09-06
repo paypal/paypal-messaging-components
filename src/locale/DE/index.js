@@ -2,7 +2,7 @@ import validOptions from './validOptions';
 import getMutations from './mutations';
 import logos from './logos';
 import styles from './styles';
-import modal from './modal';
+import getModalContent, { getModalType } from './modal';
 
 export default {
     productName: ['mit', 'PayPal Ratenzahlung'],
@@ -10,5 +10,6 @@ export default {
     getMutations,
     logos,
     styles,
-    modal
+    getModalContent,
+    getModalType
 };
