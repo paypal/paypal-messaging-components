@@ -85,7 +85,10 @@ export default {
             'ratio:1x4',
             {
                 headline: { tag: 'medium', br: ['months'] },
-                styles: ['.message__logo-container { margin-bottom: 30%; }'],
+                styles: [
+                    '.message__logo-container { margin-bottom: 30%; }',
+                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }'
+                ],
                 disclaimer: ['xlarge', 'extra.2', 'small']
             }
         ],

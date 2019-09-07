@@ -26,10 +26,6 @@
     font-size: 0.75rem;
 }
 
-.message__disclaimer span.multi:nth-of-type(1) {
-    display: none;
-}
-
 @media (max-aspect-ratio: 11/40) {
     .message__logo-container {
         margin: 15% 0 30%;

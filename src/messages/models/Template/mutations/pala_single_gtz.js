@@ -52,6 +52,12 @@ export default {
                 subHeadline: { tag: 'small', br: ['money'] }
             }
         ],
+        [
+            'ratio:1x1',
+            {
+                styles: ['@media (min-width: 120px) { .message__headline { font-size: 8vw } }']
+            }
+        ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
