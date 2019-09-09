@@ -78,7 +78,8 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: ['xsmall', 'medium']
+                headline: ['xsmall', 'medium'],
+                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
             }
         ],
         [

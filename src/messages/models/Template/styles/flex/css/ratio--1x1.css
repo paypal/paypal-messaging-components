@@ -60,7 +60,9 @@
         margin-top: 3%;
         display: block;
     }
+}
 
+@media (min-width: 220px) {
     .message__disclaimer {
         font-size: 4.5vw;
     }
