@@ -1,3 +1,6 @@
+const formatNumber = amount =>
+    (+amount).toLocaleString('de-DE', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+
 export default function insertTermsTable(terms) {
     const offer = terms.options && terms.options[0];
 
@@ -6,21 +9,31 @@ export default function insertTermsTable(terms) {
     }
 
     return `
-        <h3>${offer.term} monatliche Zahlungen von je</h3>
+        <h3>${offer.term} monatliche Zahlungen von je €${formatNumber(offer.monthly)}</h3>
+        <br />
         <table>
-            <thead>
-                <tr>
-                    ${terms.type === 'pala' ? '<th>Monthly<br>Payments</th>' : ''}
-                    <th>Payments</th>
-                    <th>Minimum<br>Purchase</th>
-                    <th>APR</th>
-                    ${terms.type === 'pala' ? '<th>Total w/<br>Interest</th>' : ''}
-                </tr>
-            </thead>
             <tbody>
-            
+                <tr>
+                    <td>E-Geld Transaktionsbetrag</td>
+                    <td>€${formatNumber(terms.amount)}</td>
+                </tr>
+                <tr>
+                    <td>Effektiver Jahreszinssatz</td>
+                    <td>${formatNumber(offer.apr)}%</td>
+                </tr>
+                <tr>
+                    <td>Fester Sollzinssatz</td>
+                    <td>${formatNumber(offer.nominalRate)}%</td>
+                </tr>
+                <tr>
+                    <td>Zinsbetrag</td>
+                    <td>€${formatNumber(offer.totalInterest)}</td>
+                </tr>
+                <tr>
+                    <td><b>Gesamtbetrag</b></td>
+                    <td><b>€${formatNumber(offer.total)}</b></td>
+                </tr>
             </tbody>
         </table>
-        <p id="terms-note">The monthly payment shown is an estimated amount and may not include taxes and shipping</p>
     `;
 }

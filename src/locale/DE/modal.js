@@ -13,14 +13,18 @@ export function getModalType() {
 export default function getModalContent(options, state, trackModalEvent) {
     const type = getModalType();
 
-    const getElements = iframe => {};
+    const getElements = iframe => {
+        return {
+            financeTermsTable: iframe.contentDocument.getElementsByTagName('main')[0]
+        };
+    };
 
     function fetchTerms(amount) {
-        const convertedAmount = +amount;
-        if (!numberIsNaN(convertedAmount)) {
-            // eslint-disable-next-line no-param-reassign
-            state.contentElements.amountInput.value = convertedAmount.toFixed(2);
-        }
+        // const convertedAmount = +amount;
+        // if (!numberIsNaN(convertedAmount)) {
+        //     // eslint-disable-next-line no-param-reassign
+        //     state.contentElements.amountInput.value = convertedAmount.toFixed(2);
+        // }
 
         // state.contentElements.loader.style.setProperty('opacity', 1);
         // state.contentElements.financeTermsTable.style.setProperty('opacity', 0.4);
