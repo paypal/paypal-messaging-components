@@ -127,7 +127,8 @@ export default {
                 headline: { tag: 'medium', br: ['months'] },
                 styles: [
                     '.message__logo-container { margin-bottom: 30%; }',
-                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }'
+                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                    '.message__headline { font-size: 1.1rem }'
                 ],
                 disclaimer: ['xlarge', 'xsmall']
             }
