@@ -37,7 +37,10 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
 });
 
 describe('Modal methods', () => {
-    afterEach(() => {
+    afterEach(async () => {
+        // TODO: Needed for tests to pass on Node 10
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         document.body.innerHTML = '';
     });
 
@@ -79,7 +82,9 @@ describe('Modal methods', () => {
 
         fireEvent.click(getByText(/test/i));
 
-        await wait(() => expect(modal).toBeVisible());
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        expect(modal).toBeVisible();
     });
 
     it('Closes modal via escape key, close button click, and overlay click', async () => {
