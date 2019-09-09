@@ -4,6 +4,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import getTerms from '../../messages/services/terms';
+import renderTermsTable from './termsTable';
 
 export function getModalType() {
     return 'INST';
@@ -14,7 +15,24 @@ export default function getModalContent(options, state, trackModalEvent) {
 
     const getElements = iframe => {};
 
-    function fetchTerms(amount) {}
+    function fetchTerms(amount) {
+        const convertedAmount = +amount;
+        if (!numberIsNaN(convertedAmount)) {
+            // eslint-disable-next-line no-param-reassign
+            state.contentElements.amountInput.value = convertedAmount.toFixed(2);
+        }
+
+        // state.contentElements.loader.style.setProperty('opacity', 1);
+        // state.contentElements.financeTermsTable.style.setProperty('opacity', 0.4);
+
+        return getTerms({ ...options, amount }).then(terms => {
+            console.log(terms);
+            // state.contentElements.loader.style.setProperty('opacity', 0);
+            // state.contentElements.financeTermsTable.style.setProperty('opacity', 1);
+            // eslint-disable-next-line no-param-reassign
+            state.contentElements.financeTermsTable.innerHTML = renderTermsTable(terms);
+        });
+    }
 
     function isValidAmount(amount) {
         if (numberIsNaN(Number(amount))) {
@@ -28,7 +46,9 @@ export default function getModalContent(options, state, trackModalEvent) {
 
     const addHandlers = () => {};
 
-    const onLoad = () => {};
+    const onLoad = () => {
+        fetchTerms(options.amount);
+    };
 
     const onClose = () => {};
 

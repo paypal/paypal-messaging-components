@@ -16,6 +16,6 @@ module.exports = (env = {}) => ({
         __LEGACY__: !!env.legacy,
         __DEMO__: !!env.demo,
         __SDK__: !env.standalone,
-        __LOCALE__: 'US'
+        __LOCALE__: 'DE'
     }
 });
