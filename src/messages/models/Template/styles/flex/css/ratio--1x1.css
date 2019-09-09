@@ -49,24 +49,6 @@
     }
 }
 
-@media (min-width: 120px) {
-    .message__content {
-        padding: 10%;
-    }
-
-    .message__logo-container {
-        margin-bottom: 10%;
-    }
-
-    .message__sub-headline {
-        font-size: 8vw;
-    }
-
-    .message__disclaimer {
-        font-size: 5.5vw;
-    }
-}
-
 @media (min-width: 170px) {
     .message__headline {
         font-size: 8vw;
