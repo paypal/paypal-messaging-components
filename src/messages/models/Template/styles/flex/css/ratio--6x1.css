@@ -48,7 +48,6 @@
 .message__disclaimer {
     font-size: 10px;
     line-height: 1.1;
-    font-size: 0.625rem;
     display: inline;
 }
 
@@ -69,10 +68,6 @@
 
     .message__sub-headline > span {
         margin-right: 1rem;
-    }
-
-    .message__disclaimer {
-        font-size: 0.65rem;
     }
 }
 

@@ -1,10 +1,10 @@
 @media (min-aspect-ratio: 200/11) {
     .message__logo-container {
-        flex: 1 0 25%;
+        flex: 1 0 20%;
     }
 
     .message__logo {
-        width: 40%;
+        width: 50%;
     }
 
     .message__messaging {
@@ -30,7 +30,7 @@
         width: auto;
         max-width: 12rem;
         padding: 0;
-        font-size: 1.9vw;
+        font-size: 8px;
         line-height: 1.1;
     }
 }
@@ -38,12 +38,6 @@
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
         font-size: 1rem;
-    }
-}
-
-@media (min-aspect-ratio: 200/11) and (min-width: 500px) {
-    .message__disclaimer {
-        font-size: 0.625rem;
     }
 }
 
