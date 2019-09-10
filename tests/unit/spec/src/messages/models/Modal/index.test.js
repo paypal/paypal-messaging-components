@@ -82,9 +82,7 @@ describe('Modal methods', () => {
 
         fireEvent.click(getByText(/test/i));
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        expect(modal).toBeVisible();
+        await wait(() => expect(modal).toBeVisible());
     });
 
     it('Closes modal via escape key, close button click, and overlay click', async () => {
