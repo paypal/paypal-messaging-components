@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=$(echo $0 | cut -f2 -d"v")
+VERSION=$1
 
 rm -rf ./dist
 

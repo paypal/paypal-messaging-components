@@ -1,5 +1,5 @@
 #!/bin/bash
-REPO_URL=$(echo $0 | sed "s/https:\/\///")
+REPO_URL=$(echo $1 | sed "s/https:\/\///")
 
 # Allows fetching and checking out other branches
 git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
