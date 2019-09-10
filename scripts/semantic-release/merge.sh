@@ -1,11 +1,11 @@
 #!/bin/bash
-REPO_URL=$(echo $1 | sed "s/https:\/\///")
+REPO_URL=$1
 
 # Allows fetching and checking out other branches
 git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 
 # Allows pushing to remote
-git remote set-url origin https://${GH_TOKEN}@${REPO_URL}.git > /dev/null 2>&1
+git remote set-url origin ${REPO_URL} > /dev/null 2>&1
 
 # Merge release changes into develop
 git pull --depth=1 origin develop
