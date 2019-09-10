@@ -9,16 +9,14 @@ cache:
 before_install:
     - npm i -g npm@6
 
-jobs:
-    include:
-        - stage: test
-          script:
-              - npm run lint
-              - npm run test
-        - stage: deploy
-          if: branch = release
-          deploy:
-              - provider: script
-                skip_cleanup: true
-                script:
-                    - npx semantic-release
+script:
+    - npm run lint
+    - npm run test
+
+deploy:
+    provider: script
+    skip_cleanup: true
+    script:
+        - npx semantic-release
+    on:
+        branch: release
