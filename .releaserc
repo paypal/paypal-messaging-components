@@ -1,5 +1,6 @@
 {
     "branch": "release",
+    "repositoryUrl": "https://github.com/Seavenly/paypal-messaging-components",
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
@@ -13,8 +14,8 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "./scripts/semantic-release/assets.sh",
-                "publishCmd": "./scripts/semantic-release/merge.sh"
+                "prepareCmd": "./scripts/semantic-release/assets.sh ${nextRelease.version}",
+                "publishCmd": "./scripts/semantic-release/merge.sh ${options.repositoryUrl}"
             }
         ],
         [

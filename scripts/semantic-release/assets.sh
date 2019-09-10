@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=$(cat ./package.json | grep -m 1 "version" | sed -E 's/.*"([^"]+)".*/\1/')
+VERSION=$(echo $0 | cut -f2 -d"v")
 
 rm -rf ./dist
 
