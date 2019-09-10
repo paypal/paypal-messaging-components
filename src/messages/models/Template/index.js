@@ -20,7 +20,7 @@ import {
     appendImage,
     getDataByTag
 } from '../../../utils';
-import { getLocalProductName, getMutations, getLogos, getLocaleStyles } from '../../../locale';
+import { getLocalProductName, getMutations, getLogos, getLocaleStyles, localeClass } from '../../../locale';
 
 const Logos = getLogos();
 
@@ -366,7 +366,6 @@ function createTemplateNode(options, markup) {
     }
 
     const classNamePrefix = 'message';
-    const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
     const applyCascadeRules = applyCascade(styleSelectors);
     const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
 
@@ -395,11 +394,7 @@ function createTemplateNode(options, markup) {
     appendText(headline, toMarkup('headline', mutationRules.headline));
     appendText(subHeadline, toMarkup('subHeadline', mutationRules.subHeadline));
     prependText(disclaimer, toMarkup('disclaimer', mutationRules.disclaimer));
-    if (Array.isArray(mutationRules.logo)) {
-        mutationRules.logo.forEach(logo => appendImage(logoContainer, logo, 'PayPal Credit logo'));
-    } else {
-        appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
-    }
+    appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
 
     // Logo DOM location must be moved in order for logo to be inline between text content
     if (objectGet(options, 'style.logo.type') === 'inline') {

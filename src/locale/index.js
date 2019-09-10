@@ -14,6 +14,8 @@ const LOCALE_SETTINGS = (() => {
     return null;
 })();
 
+export const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
+
 export function getLocalProductName() {
     return LOCALE_SETTINGS.productName;
 }
@@ -23,14 +25,13 @@ export function getValidOptions() {
 }
 
 export function getMutations(id, type) {
-    const localeClass = `.locale--${__MESSAGES__.__LOCALE__} .message`;
     const mutations = LOCALE_SETTINGS.getMutations(id, type).map(mutation => {
         if (mutation[1].styles) {
             return [
                 mutation[0],
                 {
                     ...mutation[1],
-                    styles: mutation[1].styles.map(style => style.replace(/\.message/g, localeClass))
+                    styles: mutation[1].styles.map(style => style.replace(/\.message/g, `${localeClass} .message`))
                 }
             ];
         }
@@ -47,4 +48,8 @@ export function getLogos() {
 
 export function getLocaleStyles(layout) {
     return (LOCALE_SETTINGS.styles && LOCALE_SETTINGS.styles[layout]) || [];
+}
+
+export function getMinimumWidthOptions() {
+    return LOCALE_SETTINGS.minimumSizeOptions || {};
 }
