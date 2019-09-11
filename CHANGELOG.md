@@ -1,5 +1,10 @@
 # Changelog
 
+
+### [1.1.3](https://github.com/paypal/paypal-messaging-components/compare/v1.1.2...v1.1.3) (2019-09-11)
+
+
+
 ### [1.1.2](https://github.com/paypal/paypal-messaging-components/compare/v1.1.1...v1.1.2) (2019-09-04)
 
 
@@ -18,7 +23,7 @@
 
 
 
-## [1.1.0](https://github.com/paypal/paypal-messaging-components/compare/v1.0.6...v1.1.0) (2019-08-14)
+### [1.1.0](https://github.com/paypal/paypal-messaging-components/compare/v1.0.6...v1.1.0) (2019-08-14)
 
 
 ### Features
@@ -96,7 +101,7 @@
 
 -   use fetched custom markup to validate sign ([45dc002](https://github.com/paypal/paypal-messaging-components/commit/45dc002))
 
-## [0.4.0](https://github.com/paypal/paypal-messaging-components/compare/v0.3.7...v0.4.0) (2019-06-17)
+### [0.4.0](https://github.com/paypal/paypal-messaging-components/compare/v0.3.7...v0.4.0) (2019-06-17)
 
 ### Features
 
