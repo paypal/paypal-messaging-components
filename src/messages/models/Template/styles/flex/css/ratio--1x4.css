@@ -8,13 +8,13 @@
 }
 
 .message__headline {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     line-height: 1.3em;
     margin-bottom: 24%;
 }
 
 .message__sub-headline {
-    font-size: 1.1rem;
+    font-size: 1.56rem;
     line-height: 1.3em;
     margin-bottom: 40%;
     margin-bottom: 24%;
@@ -24,10 +24,6 @@
     position: absolute;
     bottom: 4%;
     font-size: 0.75rem;
-}
-
-.message__disclaimer span.multi:nth-of-type(1) {
-    display: none;
 }
 
 @media (max-aspect-ratio: 11/40) {
