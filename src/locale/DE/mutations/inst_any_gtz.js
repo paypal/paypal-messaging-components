@@ -53,6 +53,12 @@ export default {
             }
         ],
         [
+            'ratio:1x1',
+            {
+                logo: [Logo.PRIMARY.WHITE, Logo.ALTERNATIVE.WHITE]
+            }
+        ],
+        [
             'ratio:8x1',
             {
                 styles: [
