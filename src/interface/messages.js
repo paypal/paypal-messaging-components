@@ -19,9 +19,7 @@ export function setup() {
         const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
         if (script) {
             // Default to en_US for non-SDK
-            Messages.setGlobalConfig({
-                ...getInlineOptions(script)
-            });
+            Messages.setGlobalConfig(getInlineOptions(script));
         }
 
         // When importing the library directly using UMD, window.paypal will not exist

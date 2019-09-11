@@ -57,13 +57,13 @@ export default function render(options, selector = '[data-pp-message]') {
                 const newConfig = mutationList.reduce((accumulator, mutation) => {
                     if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
 
-                    return {
-                        ...accumulator,
-                        ...flattenedToObject(
+                    return objectMerge(
+                        accumulator,
+                        flattenedToObject(
                             mutation.attributeName.slice(8),
                             mutation.target.getAttribute(mutation.attributeName)
                         )
-                    };
+                    );
                 }, {});
 
                 Banner.init(container, selectorType, newConfig);
