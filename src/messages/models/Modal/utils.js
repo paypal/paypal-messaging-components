@@ -34,16 +34,21 @@ export function initParent() {
     const originalBodyStyles = parentBody.getAttribute('style');
 
     const onOpen = () => {
-        parentHead.removeChild(originalViewport);
-        parentHead.appendChild(modalViewport);
+        // Protect against multiple modals opening edge-case
+        if (parentHead.contains(originalViewport)) {
+            parentHead.removeChild(originalViewport);
+            parentHead.appendChild(modalViewport);
+        }
 
         parentBody.style.overflow = 'hidden';
         parentBody.style.msOverflowStyle = 'scrollbar';
     };
 
     const onClose = () => {
-        parentHead.removeChild(modalViewport);
-        parentHead.appendChild(originalViewport);
+        if (parentHead.contains(modalViewport)) {
+            parentHead.removeChild(modalViewport);
+            parentHead.appendChild(originalViewport);
+        }
 
         if (originalBodyStyles) {
             parentBody.setAttribute('style', originalBodyStyles);
@@ -89,6 +94,7 @@ export function getModalElements(iframe, modalType) {
     const accordions = iframe.contentDocument.getElementsByClassName('accordion');
     const modalContainer = iframe.contentDocument.getElementById('modal-container');
     const headerContainer = iframe.contentDocument.getElementsByClassName('modal__header-container')[0];
+    const landerLinks = iframe.contentDocument.getElementsByTagName('a');
 
     return {
         window: iframe.contentWindow,
@@ -99,6 +105,7 @@ export function getModalElements(iframe, modalType) {
         accordions,
         modalContainer,
         headerContainer,
+        landerLinks,
         ...getEZPModalElements(iframe, modalType)
     };
 }

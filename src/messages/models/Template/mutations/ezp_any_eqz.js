@@ -67,17 +67,20 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'small', br: ['months', 'APR'] },
+                headline: { tag: 'small', br: ['over', 'at', 'APR'] },
+                subHeadline: 'small',
                 disclaimer: ['xsmall.2', 'xsmall']
             }
         ],
+
         [
             'ratio:1x4',
             {
                 headline: { br: ['over', 'at', 'APR'] },
-                subHeadline: 'small'
+                subHeadline: { tag: 'small', br: ['money'] }
             }
         ],
+
         [
             'ratio:20x1',
             {

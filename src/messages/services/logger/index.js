@@ -29,7 +29,8 @@ export const ERRORS = {
     MESSAGE_INVALID_MARKUP: 'MESSAGE_INVALID_MARKUP',
     MODAL_FAIL: 'MODAL_FAIL',
     CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
-    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
+    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL',
+    INTERNAL_FAIL: 'INTERNAL_FAIL'
 };
 
 function formatLogs(logs) {
@@ -78,9 +79,14 @@ export const Logger = {
             // Some sites setting Array.prototype.toJSON causing non-standard JSON stringify
             // ex: https://www.interpunk.com/
             const temp = Array.prototype.toJSON;
-            delete Array.prototype.toJSON;
+            if (temp) {
+                delete Array.prototype.toJSON;
+            }
             xhttp.send(JSON.stringify({ data: payload }));
-            Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native
+
+            if (temp) {
+                Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native
+            }
         }
 
         const logger = {
