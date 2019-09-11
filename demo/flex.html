@@ -64,19 +64,20 @@
 
             // prettier-ignore
             var ratios = [
-                // '20x1', 
-                // '8x1', 
-                // '1x1', 
+                '20x1',
+                '8x1',
+                '1x1',
                 '1x4'
             ];
 
             // prettier-ignore
             var colors = [
-                'blue', 
-                'black', 
-                'white', 
-                'white-no-border'
+                'blue',
+                // 'black', 
+                // 'white', 
+                // 'white-no-border'
             ];
+
             var container = document.querySelector('.container');
 
             devAccounts.forEach(function(account) {
@@ -110,6 +111,7 @@
                                     color: color
                                 }
                             },
+                            // [messageContainer]
                             [messageContainer, smallMessageContainer]
                         );
                     });
