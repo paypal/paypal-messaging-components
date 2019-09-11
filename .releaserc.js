@@ -1,6 +1,5 @@
 module.exports = {
     branch: 'release',
-    repositoryUrl: 'https://github.com/Seavenly/paypal-messaging-components',
     plugins: [
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
@@ -10,12 +9,7 @@ module.exports = {
                 changelogTitle: '# Changelog'
             }
         ],
-        [
-            '@semantic-release/npm',
-            {
-                npmPublish: false
-            }
-        ],
+        '@semantic-release/npm',
         [
             '@semantic-release/exec',
             {
