@@ -14,4 +14,4 @@ RELEASE_HASH=$(git rev-parse HEAD)
     git checkout develop
     git merge $RELEASE_HASH
     git push origin develop
-} > /dev/null
+} &> /dev/null
