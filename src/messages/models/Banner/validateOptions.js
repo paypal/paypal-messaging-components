@@ -1,11 +1,10 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
-import Types from './types';
+import { Types, validateType } from './types';
 
 import { getValidOptions } from '../../../locale';
 
@@ -28,25 +27,6 @@ const logInvalidOption = (logger, location, options, val) =>
         location,
         `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`
     );
-
-function validateType(expectedType, val) {
-    switch (expectedType) {
-        case Types.STRING:
-            return typeof val === 'string';
-        case Types.BOOLEAN:
-            return typeof val === 'boolean';
-        case Types.NUMBER:
-            return typeof val === 'number' && !numberIsNaN(val);
-        case Types.FUNCTION:
-            return typeof val === 'function';
-        case Types.OBJECT:
-            return typeof val === 'object' && val !== null;
-        case Types.ANY:
-            return true;
-        default:
-            return false;
-    }
-}
 
 function getValidVal(logger, typeArr, val, location) {
     const [type, validVals = []] = typeArr;

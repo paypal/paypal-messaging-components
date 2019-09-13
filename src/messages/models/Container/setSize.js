@@ -1,8 +1,11 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import arrayEvery from 'core-js-pure/stable/array/every';
+import objectEntries from 'core-js-pure/stable/object/entries';
 
 import { curry, objectGet, createCallbackError } from '../../../utils';
 import events from './events';
 import { ERRORS } from '../../services/logger';
+import { getMinimumWidthOptions } from '../../../locale';
 
 const ratioMap = {
     '1x1': [
@@ -205,13 +208,14 @@ export default curry((container, { wrapper, options, logger, meta }) => {
         };
 
         if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
-            if (container.getAttribute('data-pp-message-overflow') === 'fallback') {
+            const minSizeOptions = getMinimumWidthOptions();
+            if (arrayEvery(objectEntries(minSizeOptions), ([key, val]) => objectGet(options, key) === val)) {
                 logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                 logger.warn(
                     `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
                 );
 
-                container.setAttribute('data-pp-message-overflow', 'hidden');
+                container.setAttribute('data-pp-message-hidden', 'true');
             } else {
                 logger.warn(
                     `Message Overflow. PayPal Credit Message of layout type ${objectGet(
@@ -219,13 +223,14 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                         'style.layout'
                     )} requires a width of at least ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
                 );
+
                 // Thrown error skips the rest of the render pipeline and is caught at the end
                 throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {
                     // Highest priority styles, will re-render from attribute observer
-                    wrapper.parentNode.setAttribute('data-pp-style-layout', 'text');
-                    wrapper.parentNode.setAttribute('data-pp-style-logo-type', 'primary');
-                    wrapper.parentNode.setAttribute('data-pp-style-logo-position', 'top');
-                    container.setAttribute('data-pp-message-overflow', 'fallback');
+                    objectEntries(minSizeOptions).forEach(([key, val]) => {
+                        const attributeKey = `data-pp-${key.replace(/\./g, '-')}`;
+                        wrapper.parentNode.setAttribute(attributeKey, val);
+                    });
                 });
             }
         } else {

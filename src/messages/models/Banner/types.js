@@ -1,4 +1,6 @@
-export default {
+import numberIsNaN from 'core-js-pure/stable/number/is-nan';
+
+export const Types = {
     ANY: 'ANY',
     STRING: 'STRING',
     BOOLEAN: 'BOOLEAN',
@@ -6,3 +8,22 @@ export default {
     FUNCTION: 'FUNCTION',
     OBJECT: 'OBJECT'
 };
+
+export function validateType(expectedType, val) {
+    switch (expectedType) {
+        case Types.STRING:
+            return typeof val === 'string';
+        case Types.BOOLEAN:
+            return typeof val === 'boolean';
+        case Types.NUMBER:
+            return typeof val === 'number' && !numberIsNaN(val);
+        case Types.FUNCTION:
+            return typeof val === 'function';
+        case Types.OBJECT:
+            return typeof val === 'object' && val !== null;
+        case Types.ANY:
+            return true;
+        default:
+            return false;
+    }
+}

@@ -113,7 +113,7 @@ export default {
         [
             'ratio:1x1',
             {
-                logo: Logo.ALTERNATIVE.WHITE,
+                logo: [Logo.PRIMARY.WHITE, Logo.ALTERNATIVE.WHITE],
                 headline: ['small', 'large']
             }
         ],

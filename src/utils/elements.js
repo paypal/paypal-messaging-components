@@ -117,7 +117,9 @@ export const prependText = curry((container, obj) => {
  * @returns {void}
  */
 export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset) => {
-    if (typeof url === 'string') {
+    if (Array.isArray(url)) {
+        url.forEach(logo => appendImage(container, logo, alt));
+    } else if (typeof url === 'string') {
         const logo = new Image();
         logo.alt = alt;
         logo.className = 'message__logo';
