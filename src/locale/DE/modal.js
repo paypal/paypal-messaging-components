@@ -14,8 +14,12 @@ export default function getModalContent(options, state, trackModalEvent) {
     const type = getModalType();
 
     const getElements = iframe => {
+        const financeTermsTable = iframe.contentDocument.getElementById('terms-table');
+        const loader = iframe.contentDocument.getElementById('loading-image');
+
         return {
-            financeTermsTable: iframe.contentDocument.getElementsByTagName('main')[0]
+            financeTermsTable,
+            loader
         };
     };
 
@@ -26,13 +30,13 @@ export default function getModalContent(options, state, trackModalEvent) {
         //     state.contentElements.amountInput.value = convertedAmount.toFixed(2);
         // }
 
-        // state.contentElements.loader.style.setProperty('opacity', 1);
-        // state.contentElements.financeTermsTable.style.setProperty('opacity', 0.4);
+        state.contentElements.loader.style.setProperty('opacity', 1);
+        state.contentElements.financeTermsTable.style.setProperty('opacity', 0.4);
 
         return getTerms({ ...options, amount }).then(terms => {
             console.log(terms);
-            // state.contentElements.loader.style.setProperty('opacity', 0);
-            // state.contentElements.financeTermsTable.style.setProperty('opacity', 1);
+            state.contentElements.loader.style.setProperty('opacity', 0);
+            state.contentElements.financeTermsTable.style.setProperty('opacity', 1);
             // eslint-disable-next-line no-param-reassign
             state.contentElements.financeTermsTable.innerHTML = renderTermsTable(terms);
         });
