@@ -67,8 +67,7 @@ export default function getModalContent(options, state, trackModalEvent) {
         const indicator = carouselIndicators[idx];
 
         arrayFrom(carouselIndicators).forEach(ind => ind.classList.remove('active'));
-        const carouselItemWidth = getCarouselItemWidth();
-        carouselSlider.style.left = -carouselItemWidth * idx;
+        carouselSlider.style.left = `-${100 * idx}%`;
         indicator.classList.add('active');
     }
 
@@ -77,6 +76,16 @@ export default function getModalContent(options, state, trackModalEvent) {
         let startX;
         let startLeft;
         let itemWidth;
+
+        // Calculates an offset for the carousel position to create a cheap rubberband effect at either end
+        const getRubberbandOffset = (pos, maxOvershoot) => {
+            const overshoot = pos < 0 ? Math.abs(pos) : pos - 2 * itemWidth;
+            const eby1 = 1 / Math.E;
+            const x = (overshoot / maxOvershoot) * (1 - eby1) + eby1;
+            const scale = Math.log(x * Math.E);
+            return (overshoot / 2) * scale;
+        };
+
         state.contentElements.carouselWrapper.addEventListener('touchstart', evt => {
             itemWidth = getCarouselItemWidth();
             startX = evt.touches[0].clientX;
@@ -86,10 +95,14 @@ export default function getModalContent(options, state, trackModalEvent) {
 
         state.contentElements.carouselWrapper.addEventListener('touchmove', evt => {
             const movement = startX - evt.touches[0].clientX;
-            carouselSlider.style.left = -Math.max(
-                -0.3 * itemWidth,
-                Math.min(-startLeft + movement, (2 + 0.3) * itemWidth)
-            );
+            const maxOvershoot = 0.6 * itemWidth;
+            let newPos = Math.max(-maxOvershoot, Math.min(-startLeft + movement, 2 * itemWidth + maxOvershoot));
+
+            if (newPos < 0 || newPos > 2 * itemWidth) {
+                newPos += (newPos < 0 ? 1 : -1) * getRubberbandOffset(newPos, maxOvershoot);
+            }
+
+            carouselSlider.style.left = -newPos;
         });
 
         state.contentElements.carouselWrapper.addEventListener('touchend', evt => {
