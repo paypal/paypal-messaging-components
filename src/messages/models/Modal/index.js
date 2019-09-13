@@ -163,7 +163,10 @@ function createModal(options) {
 
                 addModalEventHandlers();
             })
-            .catch(() => {
+            .catch(err => {
+                if (__LOCAL__) {
+                    console.error(err);
+                }
                 logger.error({ name: ERRORS.MODAL_FAIL });
                 setState({ error: true });
             })
