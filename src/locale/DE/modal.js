@@ -16,10 +16,16 @@ export default function getModalContent(options, state, trackModalEvent) {
     const getElements = iframe => {
         const financeTermsTable = iframe.contentDocument.getElementById('terms-table');
         const loader = iframe.contentDocument.getElementById('loading-image');
+        const carouselWrapper = iframe.contentDocument.getElementById('carousel-background');
+        const carouselSlider = iframe.contentDocument.getElementById('carousel-inner');
+        const carouselItem = iframe.contentDocument.getElementsByClassName('carousel-item')[0];
 
         return {
             financeTermsTable,
-            loader
+            loader,
+            carouselWrapper,
+            carouselSlider,
+            carouselItem
         };
     };
 
@@ -52,7 +58,37 @@ export default function getModalContent(options, state, trackModalEvent) {
         return int.length <= 5 && dec.length <= 2;
     }
 
-    const addHandlers = () => {};
+    const addHandlers = () => {
+        const { carouselSlider } = state.contentElements;
+        let startX;
+        let startLeft;
+        let itemWidth;
+        state.contentElements.carouselWrapper.addEventListener('touchstart', evt => {
+            itemWidth = state.contentElements.carouselItem.offsetWidth;
+            startX = evt.touches[0].clientX;
+            startLeft = carouselSlider.offsetLeft;
+            carouselSlider.style.transitionDuration = '0s';
+            console.log(carouselSlider.style);
+        });
+
+        state.contentElements.carouselWrapper.addEventListener('touchmove', evt => {
+            const movement = startX - evt.touches[0].clientX;
+            carouselSlider.style.left = -Math.max(
+                -0.3 * itemWidth,
+                Math.min(-startLeft + movement, (3 + 0.3) * itemWidth)
+            );
+        });
+
+        state.contentElements.carouselWrapper.addEventListener('touchend', evt => {
+            carouselSlider.style.transitionDuration = '0.3s';
+            const currentLeft = carouselSlider.offsetLeft;
+            const carouselItemWidth = state.contentElements.carouselItem.offsetWidth;
+            const closestCarouselItem = Math.round(-currentLeft / carouselItemWidth);
+            console.log(carouselItemWidth, currentLeft);
+            console.log(closestCarouselItem);
+            carouselSlider.style.left = -(closestCarouselItem * carouselItemWidth);
+        });
+    };
 
     const onLoad = () => {
         fetchTerms(options.amount);
