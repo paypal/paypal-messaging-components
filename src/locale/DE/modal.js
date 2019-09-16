@@ -64,7 +64,7 @@ export default function getModalContent(options, state, trackModalEvent) {
                 financeTermsTable.innerHTML = renderTermsTable(terms);
             }
 
-            amountInput.value = terms.amount;
+            amountInput.value = terms.formattedAmount;
             calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
         });
     }

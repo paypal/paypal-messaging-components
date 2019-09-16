@@ -1,12 +1,24 @@
 export default function insertTermsTable(terms) {
+    const genericError =
+        '<h3 id="terms-error">There was an error retrieving your payment options for this purchase. Please try again later.</h3>';
     if (terms.error) {
-        return '<h3 id="terms-error">There was an error retrieving your payment options for this purchase. Please try again later.</h3>';
+        return genericError;
     }
 
-    const offer = terms.options && terms.options[0];
+    const filteredOffers = terms.options ? terms.options.filter(opt => !opt.isNonQualified) : [];
+
+    const offer = filteredOffers[0];
+
+    if (+terms.amount < terms.min_amount && terms.type === 'pala') {
+        return `<h3 id="terms-error">${terms.formattedMinAmount}€ is the minimum amount to be eligible for Ratenzahlung. Enter an amount of ${terms.formattedMinAmount}€ or more.</h3>`;
+    }
+
+    if (+terms.amount > terms.max_amount && terms.type === 'pala') {
+        return `<h3 id="terms-error">${terms.formattedMaxAmount}€ is the maximum amount to be eligible for Ratenzahlung. Enter an amount of ${terms.formattedMaxAmount}€ or less.</h3>`;
+    }
 
     if (!offer) {
-        return `<h3 id="terms-error">Please enter an amount between ${terms.formattedMinAmount}€ and ${terms.formattedMaxAmount}€</h3>`;
+        return genericError;
     }
 
     return `
@@ -16,7 +28,7 @@ export default function insertTermsTable(terms) {
             <tbody>
                 <tr>
                     <td>E-Geld Transaktionsbetrag</td>
-                    <td>${terms.amount}€</td>
+                    <td>${terms.formattedAmount}€</td>
                 </tr>
                 <tr>
                     <td>Effektiver Jahreszinssatz</td>
