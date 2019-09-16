@@ -5,6 +5,7 @@ import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import getTerms from '../../messages/services/terms';
 import renderTermsTable from './termsTable';
+import { createState } from '../../utils';
 
 export function getModalType() {
     return 'INST';
@@ -13,6 +14,10 @@ export function getModalType() {
 export default function getModalContent(options, state, trackModalEvent) {
     const type = getModalType();
 
+    const [carouselState, setCarouselState] = createState({
+        activeItem: 0
+    });
+
     const getElements = iframe => {
         const financeTermsTable = iframe.contentDocument.getElementById('terms-table');
         const loader = iframe.contentDocument.getElementById('loading-image');
@@ -20,6 +25,8 @@ export default function getModalContent(options, state, trackModalEvent) {
         const carouselSlider = iframe.contentDocument.getElementById('carousel-inner');
         const carouselItems = iframe.contentDocument.getElementsByClassName('carousel-item');
         const carouselIndicators = iframe.contentDocument.getElementsByClassName('carousel-bullet');
+        const prevButton = iframe.contentDocument.getElementById('carousel-arrow-prev');
+        const nextButton = iframe.contentDocument.getElementById('carousel-arrow-next');
 
         return {
             financeTermsTable,
@@ -27,7 +34,9 @@ export default function getModalContent(options, state, trackModalEvent) {
             carouselWrapper,
             carouselSlider,
             carouselItems,
-            carouselIndicators
+            carouselIndicators,
+            prevButton,
+            nextButton
         };
     };
 
@@ -63,12 +72,27 @@ export default function getModalContent(options, state, trackModalEvent) {
     const getCarouselItemWidth = () => state.contentElements.carouselItems[0].offsetWidth;
 
     function selectCarouselItem(idx) {
-        const { carouselSlider, carouselIndicators } = state.contentElements;
+        const { carouselSlider, carouselIndicators, prevButton, nextButton, carouselItems } = state.contentElements;
         const indicator = carouselIndicators[idx];
 
         arrayFrom(carouselIndicators).forEach(ind => ind.classList.remove('active'));
         carouselSlider.style.left = `-${100 * idx}%`;
         indicator.classList.add('active');
+
+        prevButton.classList.remove('hidden');
+        nextButton.classList.remove('hidden');
+
+        if (idx === 0) {
+            prevButton.classList.add('hidden');
+        }
+
+        if (idx === carouselItems.length - 1) {
+            nextButton.classList.add('hidden');
+        }
+
+        setCarouselState({
+            activeItem: idx
+        });
     }
 
     const addHandlers = () => {
@@ -79,9 +103,10 @@ export default function getModalContent(options, state, trackModalEvent) {
 
         // Calculates an offset for the carousel position to create a cheap rubberband effect at either end
         const getRubberbandOffset = (pos, maxOvershoot) => {
-            const overshoot = pos < 0 ? Math.abs(pos) : pos - 2 * itemWidth;
-            const eby1 = 1 / Math.E;
-            const x = (overshoot / maxOvershoot) * (1 - eby1) + eby1;
+            const overshoot =
+                pos < 0 ? Math.abs(pos) : pos - (state.contentElements.carouselItems.length - 1) * itemWidth;
+            const oneOverE = 1 / Math.E;
+            const x = (overshoot / maxOvershoot) * (1 - oneOverE) + oneOverE;
             const scale = Math.log(x * Math.E);
             return (overshoot / 2) * scale;
         };
@@ -117,6 +142,14 @@ export default function getModalContent(options, state, trackModalEvent) {
             indicator.addEventListener('click', () => {
                 selectCarouselItem(idx);
             });
+        });
+
+        state.contentElements.prevButton.addEventListener('click', () => {
+            selectCarouselItem(carouselState.activeItem - 1);
+        });
+
+        state.contentElements.nextButton.addEventListener('click', () => {
+            selectCarouselItem(carouselState.activeItem + 1);
         });
     };
 
