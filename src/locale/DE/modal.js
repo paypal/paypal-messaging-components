@@ -58,7 +58,6 @@ export default function getModalContent(options, state, trackModalEvent) {
         financeTermsTable.style.setProperty('opacity', 0.4);
 
         return getTerms({ ...options, amount }).then(terms => {
-            console.log(terms);
             loader.style.setProperty('opacity', 0);
             financeTermsTable.style.setProperty('opacity', 1);
             if (amount) {
@@ -74,9 +73,7 @@ export default function getModalContent(options, state, trackModalEvent) {
 
     function isValidAmount(amount) {
         const fixedAmount = fixAmount(amount);
-        console.log(fixedAmount);
         if (numberIsNaN(Number(fixedAmount))) {
-            console.log('here');
             return false;
         }
 
