@@ -6,7 +6,7 @@ import getModalMarkup from '../../services/modal';
 import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import { initParent, getModalElements } from './utils';
-import { createState, memoizeOnProps } from '../../../utils';
+import { createState, memoizeOnProps, pipe, pluck } from '../../../utils';
 import { globalState, setGlobalState } from '../../../utils/globalState';
 import { getModalContent, getModalType } from '../../../locale';
 
@@ -154,7 +154,12 @@ function createModal(options) {
         });
 
         return getModalMarkup(options, ignoreCache)
-            .then(insertMarkup)
+            .then(
+                pipe(
+                    pluck('markup'),
+                    insertMarkup
+                )
+            )
             .then(() => {
                 setState({
                     frameElements: getModalElements(iframe),

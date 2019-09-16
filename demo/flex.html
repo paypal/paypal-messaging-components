@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
@@ -52,25 +52,25 @@
         <div class="container"></div>
         <script>
             var devAccounts = [
-                // 'DEV00000000NI',
-                // 'DEV000NINONUS',
-                // 'DEV0000000EAZ',
-                // 'DEV0000000EAG',
-                // 'DEV0000000PSZ',
-                // 'DEV0000000PSG',
-                // 'DEV0000000PMZ',
-                // 'DEV0000000PMG'
-                'DEV0000000IAZ',
-                'DEV0000000IAG',
-                'DEV00000PNQAZ',
-                'DEV000000PQAZ'
+                'DEV00000000NI',
+                'DEV000NINONUS',
+                'DEV0000000EAZ',
+                'DEV0000000EAG',
+                'DEV0000000PSZ',
+                'DEV0000000PSG',
+                'DEV0000000PMZ',
+                'DEV0000000PMG'
+                // 'DEV0000000IAZ',
+                // 'DEV0000000IAG',
+                // 'DEV00000PNQAZ',
+                // 'DEV000000PQAZ'
             ];
 
             // prettier-ignore
             var ratios = [
-                '20x1', 
-                '8x1', 
-                '1x1', 
+                '20x1',
+                '8x1',
+                '1x1',
                 '1x4'
             ];
 
@@ -79,8 +79,10 @@
                 'blue', 
                 // 'black', 
                 // 'white', 
-                // 'white-no-border'
+                // 'white-no-border',
+                // 'gray'
             ];
+
             var container = document.querySelector('.container');
 
             devAccounts.forEach(function(account) {
@@ -114,6 +116,7 @@
                                     color: color
                                 }
                             },
+                            // [messageContainer]
                             [messageContainer, smallMessageContainer]
                         );
                     });

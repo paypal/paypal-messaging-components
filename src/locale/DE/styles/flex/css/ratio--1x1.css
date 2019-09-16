@@ -14,12 +14,6 @@
     display: none;
 }
 
-@media (max-width: 150px) {
-    .message__headline {
-        font-size: 10vw;
-    }
-}
-
 @media (min-width: 220px) {
     .message__headline span.multi:nth-of-type(1) {
         display: none;

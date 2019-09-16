@@ -78,6 +78,24 @@ export default {
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
+        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
+        [
+            'ratio:1x1 && color:gray',
+            {
+                logo: [Logo.PRIMARY.COLOR, Logo.ALTERNATIVE.COLOR]
+            }
+        ],
+        [
+            'ratio:1x1 && color:white',
+            {
+                logo: [Logo.PRIMARY.COLOR, Logo.ALTERNATIVE.COLOR]
+            }
+        ],
+        [
+            'ratio:1x1 && color:white-no-border',
+            {
+                logo: [Logo.PRIMARY.COLOR, Logo.ALTERNATIVE.COLOR]
+            }
+        ]
     ]
 };

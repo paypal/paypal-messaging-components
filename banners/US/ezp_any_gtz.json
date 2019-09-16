@@ -5,16 +5,16 @@
     },
 
     "headline": [
-        ["Pay over ${CREDIT_OFFERS_DS.total_payments} months", ["default", "xsmall", "small"]],
+        ["Pay over ${CREDIT_OFFERS_DS.total_payments} months", ["default", "small"]],
         ["Enjoy ${CREDIT_OFFERS_DS.total_payments} Easy Payments with PayPal Credit.", ["legacy-small"]]
     ],
 
     "subHeadline": [
-        ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
         [
             "Choose PayPal Credit and select ${CREDIT_OFFERS_DS.total_payments} Easy Payments to pay over time",
             ["legacy-medium"]
-        ]
+        ],
+        ["No money due today.", ["default", "xsmall"]]
     ],
 
     "disclaimer": [

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/paypal/paypal-messaging-components/compare/v1.1.3...v1.1.4) (2019-09-11)
+
+### Bug Fixes
+
+-   3 month ezp placement switch ([#55](https://github.com/paypal/paypal-messaging-components/issues/55)) ([eeb6dfe](https://github.com/paypal/paypal-messaging-components/commit/eeb6dfe))
+
+### [1.1.3](https://github.com/paypal/paypal-messaging-components/compare/v1.1.2...v1.1.3) (2019-09-11)
+
+### [1.1.2](https://github.com/paypal/paypal-messaging-components/compare/v1.1.1...v1.1.2) (2019-09-04)
+
+### Bug Fixes
+
+-   handle FireFox async dynamic iframe creation ([#45](https://github.com/paypal/paypal-messaging-components/issues/45)) ([eb0f55e](https://github.com/paypal/paypal-messaging-components/commit/eb0f55e))
+
 ### [1.1.1](https://github.com/paypal/paypal-messaging-components/compare/v1.1.0...v1.1.1) (2019-08-23)
 
 ### Tests

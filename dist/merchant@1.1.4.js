@@ -59,10 +59,10 @@
         );
     })([
         function(e, n, t) {
-            e.exports = t(131);
+            e.exports = t(147);
         },
         function(e, n, t) {
-            e.exports = t(147);
+            e.exports = t(131);
         },
         function(e, n, t) {
             e.exports = t(101);
@@ -75,13 +75,13 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(10),
+            var o = t(9),
                 i = t(109).f,
                 a = t(110),
-                r = t(17),
+                r = t(16),
                 s = t(39),
-                l = t(12),
-                c = t(16),
+                l = t(11),
+                c = t(15),
                 u = function(e) {
                     var n = function(n, t, o) {
                         if (this instanceof e) {
@@ -110,13 +110,13 @@
                     y,
                     x = e.target,
                     _ = e.global,
-                    w = e.stat,
-                    v = e.proto,
-                    b = _ ? o : w ? o[x] : (o[x] || {}).prototype,
+                    v = e.stat,
+                    w = e.proto,
+                    b = _ ? o : v ? o[x] : (o[x] || {}).prototype,
                     E = _ ? r : r[x] || (r[x] = {}),
                     P = E.prototype;
                 for (m in n)
-                    (t = !a(_ ? m : x + (w ? '.' : '#') + m, e.forced) && b && c(b, m)),
+                    (t = !a(_ ? m : x + (v ? '.' : '#') + m, e.forced) && b && c(b, m)),
                         (g = E[m]),
                         t && (f = e.noTargetGet ? (y = i(b, m)) && y.value : b[m]),
                         (p = t && f ? f : n[m]),
@@ -126,12 +126,12 @@
                                     ? s(p, o)
                                     : e.wrap && t
                                     ? u(p)
-                                    : v && 'function' == typeof p
+                                    : w && 'function' == typeof p
                                     ? s(Function.call, p)
                                     : p),
                             (e.sham || (p && p.sham) || (g && g.sham)) && l(h, 'sham', !0),
                             (E[m] = h),
-                            v &&
+                            w &&
                                 (c(r, (d = x + 'Prototype')) || l(r, d, {}),
                                 (r[d][m] = p),
                                 e.real && P && !P[m] && l(P, m, p)));
@@ -141,7 +141,7 @@
             e.exports = t(136);
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(32),
                 a = t(48),
                 r = t(114),
@@ -150,9 +150,6 @@
             e.exports = function(e) {
                 return l[e] || (l[e] = (r && s[e]) || (r ? s : a)('Symbol.' + e));
             };
-        },
-        function(e, n, t) {
-            e.exports = t(143);
         },
         function(e, n) {
             e.exports = function(e) {
@@ -177,7 +174,7 @@
                 "@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff2')\n            format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-small/1-0-0/PayPalSansSmall-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 200;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Thin.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 300;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Light.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 400;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Regular.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 500;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Medium.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n\n@font-face {\n    font-family: PayPal-Sans-Big;\n    font-style: normal;\n    font-weight: 700;\n\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.eot');\n    src: url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff2') format('woff2'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.woff') format('woff'),\n        url('https://www.paypalobjects.com/ui-web/paypal-sans-big/1-0-0/PayPalSansBig-Bold.svg#69ac2c9fc1e0803e59e06e93859bed03')\n            format('svg');\n}\n";
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(24),
                 a = t(25);
             e.exports = o
@@ -189,7 +186,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports = !o(function() {
                 return (
                     7 !=
@@ -235,14 +232,17 @@
             e.exports = t(41);
         },
         function(e, n, t) {
-            var o = t(15);
+            e.exports = t(143);
+        },
+        function(e, n, t) {
+            e.exports = t(154);
+        },
+        function(e, n, t) {
+            var o = t(14);
             e.exports = function(e) {
                 if (!o(e)) throw TypeError(String(e) + ' is not an object');
                 return e;
             };
-        },
-        function(e, n, t) {
-            e.exports = t(158);
         },
         function(e, n, t) {
             e.exports = t(160);
@@ -255,9 +255,9 @@
             };
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(46),
-                a = t(20),
+                a = t(21),
                 r = t(33),
                 s = Object.defineProperty;
             n.f = o
@@ -278,7 +278,7 @@
         },
         function(e, n, t) {
             var o = t(38),
-                i = t(9);
+                i = t(8);
             e.exports = function(e) {
                 return o(i(e));
             };
@@ -290,7 +290,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(9);
+            var o = t(8);
             e.exports = function(e) {
                 return Object(o(e));
             };
@@ -298,15 +298,15 @@
         function(e, n) {
             e.exports = {};
         },
-        function(e, n, t) {
-            e.exports = t(154);
-        },
         function(e, n) {
             e.exports =
                 '* {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n\nhtml {\n    color: #2d2d2d;\n    font-family: PayPal-Sans, Helvetica, Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 400;\n    overflow: hidden;\n}\n\nimg {\n    display: block;\n    width: 100%;\n    height: auto;\n}\n\n.message__logo--svg {\n    position: relative;\n}\n\n.message__logo img {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n\n/* IE will not properly scale a SVG element, but will scale a canvas element */\n.message__logo canvas {\n    display: block;\n    width: 100%;\n    visibility: hidden;\n}\n';
         },
         function(e, n, t) {
-            var o = t(10),
+            e.exports = t(158);
+        },
+        function(e, n, t) {
+            var o = t(9),
                 i = t(107),
                 a = t(34),
                 r = o['__core-js_shared__'] || i('__core-js_shared__', {});
@@ -319,7 +319,7 @@
             });
         },
         function(e, n, t) {
-            var o = t(15);
+            var o = t(14);
             e.exports = function(e, n) {
                 if (!o(e)) return e;
                 var t, i;
@@ -356,7 +356,7 @@
                 : o;
         },
         function(e, n, t) {
-            var o = t(14),
+            var o = t(13),
                 i = t(27),
                 a = ''.split;
             e.exports = o(function() {
@@ -404,8 +404,8 @@
                 };
         },
         function(e, n, t) {
-            var o = t(17),
-                i = t(10),
+            var o = t(16),
+                i = t(9),
                 a = function(e) {
                     return 'function' == typeof e ? e : void 0;
                 };
@@ -440,11 +440,11 @@
         },
         function(e, n) {
             e.exports =
-                '/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */\n\n.message__content {\n    display: flex;\n    padding-right: 1rem;\n}\n\n.message__logo-container {\n    flex: 0 0 33%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.message__logo {\n    width: 60%;\n}\n\n.message__messaging {\n    flex: 1 1 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: flex-start;\n}\n\n.message__messaging > * {\n    width: 100%;\n}\n\n.message__headline {\n    font-size: 5vw;\n    line-height: 1;\n    margin-bottom: 0.2em;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    font-size: 10px;\n    line-height: 1.1;\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1.5rem;\n        margin-bottom: 0.5rem;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n        line-height: 1;\n        padding-right: 8%;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 520px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        margin: 0 0 2% 0;\n        font-size: 3.7vw;\n        padding-right: 2%;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 640px) {\n    .message__headline {\n        font-size: 1.7rem;\n    }\n}\n';
+                '/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */\n\n.message__content {\n    display: flex;\n    padding-right: 1rem;\n    align-items: center;\n}\n\n.message__logo-container {\n    flex: 0 0 33%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.message__logo {\n    width: 60%;\n}\n\n.message__messaging {\n    position: relative;\n    flex: 1 1 100%;\n    display: block;\n}\n\n.message__messaging > * {\n    width: 100%;\n}\n\n.message__headline {\n    font-size: 5vw;\n    line-height: 1;\n    margin-bottom: 0.2em;\n}\n\n.message__sub-headline {\n    display: none;\n}\n\n.message__promo-container {\n    display: inline;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    font-size: 10px;\n    line-height: 1.1;\n    display: inline;\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 400px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        margin-bottom: 0.5rem;\n    }\n\n    .message__sub-headline {\n        font-size: 3vw;\n        display: inline;\n    }\n\n    .message__sub-headline > span {\n        margin-right: 1rem;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 520px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        line-height: 1.1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.85rem;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 640px) {\n    .message__headline {\n        font-size: 1.7rem;\n    }\n}\n';
         },
         function(e, n, t) {
-            var o = t(13),
-                i = t(14),
+            var o = t(12),
+                i = t(13),
                 a = t(47);
             e.exports =
                 !o &&
@@ -460,8 +460,8 @@
                 });
         },
         function(e, n, t) {
-            var o = t(10),
-                i = t(15),
+            var o = t(9),
+                i = t(14),
                 a = o.document,
                 r = i(a) && i(a.createElement);
             e.exports = function(e) {
@@ -481,8 +481,8 @@
                 i,
                 a,
                 r = t(50),
-                s = t(12),
-                l = t(16),
+                s = t(11),
+                l = t(15),
                 c = t(7),
                 u = t(34),
                 d = c('iterator'),
@@ -497,7 +497,7 @@
                 (e.exports = { IteratorPrototype: o, BUGGY_SAFARI_ITERATORS: m });
         },
         function(e, n, t) {
-            var o = t(16),
+            var o = t(15),
                 i = t(28),
                 a = t(35),
                 r = t(113),
@@ -520,7 +520,7 @@
         },
         function(e, n, t) {
             var o = t(26),
-                i = t(18),
+                i = t(17),
                 a = t(118),
                 r = function(e) {
                     return function(n, t, r) {
@@ -549,8 +549,8 @@
         },
         function(e, n, t) {
             var o = t(24).f,
-                i = t(12),
-                a = t(16),
+                i = t(11),
+                a = t(15),
                 r = t(120),
                 s = t(7)('toStringTag'),
                 l = r !== {}.toString;
@@ -592,7 +592,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(40),
                 a = t(26),
                 r = t(37).f,
@@ -616,7 +616,7 @@
         },
         function(e, n) {
             e.exports =
-                '<div class="message" data-pp-message>\n    <div class="message__container">\n        \x3c!-- foreground layer --\x3e\n        <div class="message__foreground"></div>\n\n        \x3c!-- content layer --\x3e\n        <div class="message__content">\n            \x3c!-- PP Credit Logo --\x3e\n            <div class="message__logo-container"></div>\n            \x3c!-- Promotional Messaging --\x3e\n            <div class="message__messaging">\n                <div class="message__promo-container">\n                    <h5 class="message__headline"></h5>\n                    <h6 class="message__sub-headline"></h6>\n                </div>\n                <p class="message__disclaimer"></p>\n            </div>\n        </div>\n\n        \x3c!-- background layer --\x3e\n        <div class="message__background"></div>\n    </div>\n</div>\n';
+                '<div role="button" class="message" tabindex="0" data-pp-message>\n    <div class="message__container">\n        \x3c!-- foreground layer --\x3e\n        <div class="message__foreground"></div>\n\n        \x3c!-- content layer --\x3e\n        <div class="message__content">\n            \x3c!-- PP Credit Logo --\x3e\n            <div class="message__logo-container"></div>\n            \x3c!-- Promotional Messaging --\x3e\n            <div class="message__messaging">\n                <div class="message__promo-container">\n                    <h5 class="message__headline"></h5>\n                    <h6 class="message__sub-headline"></h6>\n                </div>\n                <p class="message__disclaimer"></p>\n            </div>\n        </div>\n        \x3c!-- background layer --\x3e\n        <div class="message__background"></div>\n    </div>\n</div>\n';
         },
         function(e, n) {
             e.exports =
@@ -656,19 +656,19 @@
         },
         function(e, n) {
             e.exports =
-                '.message__content {\n    padding: 7%;\n}\n\n.message__logo-container {\n    width: 50%;\n    margin-bottom: 7%;\n}\n\n.message__headline {\n    font-size: 11vw;\n    line-height: 1.1em;\n    font-size: 12vw;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    position: absolute;\n    width: 80%;\n    bottom: 7%;\n    font-size: 10px;\n}\n\n@media (min-width: 150px) {\n    .message__headline {\n        font-size: 9vw;\n        line-height: 1.2em;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n}\n\n@media (min-width: 220px) {\n    .message__content {\n        padding: 10%;\n    }\n\n    .message__logo-container {\n        width: 40%;\n        margin-bottom: 10%;\n    }\n\n    .message__headline {\n        font-size: 8vw;\n    }\n\n    .message__disclaimer {\n        font-size: 4.5vw;\n        bottom: 10%;\n    }\n}\n';
+                '.message__content {\n    padding: 7%;\n}\n\n.message__logo-container {\n    width: 50%;\n    margin-bottom: 7%;\n}\n\n.message__headline {\n    font-size: 12vw;\n    line-height: 1.1em;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__sub-headline {\n    display: none;\n}\n\n.message__disclaimer {\n    position: absolute;\n    width: 80%;\n    bottom: 7%;\n    font-size: 9.5px;\n}\n\n@media (min-width: 150px) {\n    .message__headline {\n        font-size: 11vw;\n        line-height: 1.2em;\n    }\n\n    .message__sub-headline {\n        font-size: 8.5vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 6.5vw;\n    }\n}\n\n@media (min-width: 170px) {\n    .message__headline {\n        font-size: 8vw;\n    }\n\n    .message__sub-headline {\n        font-size: 7vw;\n        line-height: 1.3em;\n        margin-top: 3%;\n        display: block;\n    }\n\n    .message__disclaimer {\n        font-size: 5.5vw;\n    }\n}\n\n@media (min-width: 220px) {\n    .message__disclaimer {\n        font-size: 4.5vw;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '.message__content {\n    padding: 8%;\n}\n\n.message__logo-container {\n    width: 70%;\n    margin-bottom: 12%;\n}\n\n.message__headline {\n    font-size: 1.1rem;\n    line-height: 1.3em;\n    margin-bottom: 24%;\n}\n\n.message__sub-headline {\n    font-size: 1.1rem;\n    line-height: 1.3em;\n    margin-bottom: 40%;\n    margin-bottom: 24%;\n}\n\n.message__disclaimer {\n    position: absolute;\n    bottom: 4%;\n    font-size: 0.75rem;\n}\n\n.message__disclaimer span.multi:nth-of-type(1) {\n    display: none;\n}\n\n@media (max-aspect-ratio: 11/40) {\n    .message__logo-container {\n        margin: 15% 0 30%;\n    }\n\n    .message__disclaimer {\n        position: static;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1).tag--xlarge {\n        margin-bottom: 40%;\n        display: block;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(2) {\n        display: block;\n    }\n}\n';
+                '.message__content {\n    padding: 8%;\n}\n\n.message__logo-container {\n    width: 70%;\n    margin-bottom: 12%;\n}\n\n.message__headline {\n    font-size: 1.6rem;\n    line-height: 1.3em;\n    margin-bottom: 24%;\n}\n\n.message__sub-headline {\n    font-size: 1.56rem;\n    line-height: 1.3em;\n    margin-bottom: 40%;\n    margin-bottom: 24%;\n}\n\n.message__disclaimer {\n    position: absolute;\n    bottom: 4%;\n    font-size: 0.75rem;\n}\n\n@media (max-aspect-ratio: 11/40) {\n    .message__logo-container {\n        margin: 15% 0 30%;\n    }\n\n    .message__disclaimer {\n        position: static;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1).tag--xlarge {\n        margin-bottom: 40%;\n        display: block;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(2) {\n        display: block;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '@media (min-aspect-ratio: 80/11) {\n    .message__headline span.multi:nth-of-type(2),\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n\n    .message__logo-container {\n        flex: 0 0 22%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 240px) {\n    .message__messaging {\n        line-height: 0.9;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer {\n        padding-right: 10%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 280px) {\n    .message__disclaimer {\n        padding-right: 2%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 360px) {\n    .message__messaging {\n        line-height: 1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 360px) {\n    .message__disclaimer {\n        line-height: 1;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 500px) {\n    .message__headline {\n        font-size: 3vw;\n        padding-right: 12%;\n        margin: 0 0 1% 0;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 600px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 2vw;\n        line-height: 1.6em;\n    }\n}\n';
+                '@media (min-aspect-ratio: 80/11) {\n    .message__headline span.multi:nth-of-type(2),\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__messaging {\n        position: relative;\n    }\n\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n\n    .message__logo-container {\n        flex: 0 0 22%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 240px) {\n    .message__messaging {\n        line-height: 0.9;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: inline;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 280px) {\n    .message__disclaimer {\n        padding-right: 2%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 360px) {\n    .message__messaging {\n        line-height: 1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 360px) {\n    .message__disclaimer {\n        line-height: 1;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 500px) {\n    .message__headline {\n        font-size: 3vw;\n        padding-right: 12%;\n        margin: 0 0 1% 0;\n    }\n\n    .message__sub-headline {\n        font-size: 2.5vw;\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 600px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 2vw;\n        line-height: 1.6em;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '@media (min-aspect-ratio: 200/11) {\n    .message__logo-container {\n        flex: 1 0 25%;\n    }\n\n    .message__logo {\n        width: 40%;\n    }\n\n    .message__messaging {\n        flex: 1 1 85%;\n        flex-direction: row;\n        justify-content: center;\n        align-items: center;\n    }\n\n    .message__headline {\n        flex: 1 1 60%;\n        font-size: 0.9rem;\n        line-height: 1;\n        margin: 0;\n    }\n\n    .message__disclaimer {\n        flex: 0 0 auto;\n        width: auto;\n        max-width: 12rem;\n        padding: 0;\n        font-size: 1.9vw;\n        line-height: 1.1;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 600px) {\n    .message__logo-container {\n        flex: 1 0 10%;\n    }\n\n    .message__logo {\n        width: 60%;\n    }\n\n    .message__headline {\n        font-size: 1.8vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        padding-right: 1rem;\n        font-size: 0.75rem;\n        line-height: 1.2;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n        max-width: 14rem;\n    }\n}\n';
+                '@media (min-aspect-ratio: 200/11) {\n    .message__logo-container {\n        flex: 1 0 20%;\n    }\n\n    .message__logo {\n        width: 50%;\n    }\n\n    .message__messaging {\n        flex: 1 1 85%;\n        display: flex;\n        align-items: center;\n    }\n\n    .message__headline {\n        flex: 1 1 60%;\n        font-size: 0.7rem;\n        line-height: 1;\n        margin: 0;\n        display: inline;\n    }\n\n    .message__sub-headline {\n        display: none;\n    }\n\n    .message__disclaimer {\n        flex: 0 0 auto;\n        width: auto;\n        max-width: 12rem;\n        padding: 0;\n        font-size: 8px;\n        line-height: 1.1;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 600px) {\n    .message__logo-container {\n        flex: 1 0 10%;\n    }\n\n    .message__logo {\n        width: 60%;\n    }\n\n    .message__headline {\n        font-size: 1.8vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        padding-right: 1rem;\n        font-size: 0.75rem;\n        line-height: 1.2;\n    }\n\n    .message__sub-headline {\n        font-size: 1.6vw;\n        line-height: 1.3em;\n        margin-left: 2vw;\n        display: inline;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n        max-width: 14rem;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
@@ -779,7 +779,7 @@
         },
         function(e, n, t) {
             t(102), t(124);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Array.from;
         },
         function(e, n, t) {
@@ -808,7 +808,7 @@
         },
         function(e, n, t) {
             var o = t(23),
-                i = t(9),
+                i = t(8),
                 a = function(e) {
                     return function(n, t) {
                         var a,
@@ -840,10 +840,10 @@
                 i,
                 a,
                 r = t(105),
-                s = t(10),
-                l = t(15),
-                c = t(12),
-                u = t(16),
+                s = t(9),
+                l = t(14),
+                c = t(11),
+                u = t(15),
                 d = t(35),
                 m = t(36);
             if (r) {
@@ -891,7 +891,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(10),
+            var o = t(9),
                 i = t(106),
                 a = o.WeakMap;
             e.exports = 'function' == typeof a && /native code/.test(i.call(a));
@@ -901,8 +901,8 @@
             e.exports = o('native-function-to-string', Function.toString);
         },
         function(e, n, t) {
-            var o = t(10),
-                i = t(12);
+            var o = t(9),
+                i = t(11);
             e.exports = function(e, n) {
                 try {
                     i(o, e, n);
@@ -919,7 +919,7 @@
                 a = t(50),
                 r = t(121),
                 s = t(53),
-                l = t(12),
+                l = t(11),
                 c = t(123),
                 u = t(7),
                 d = t(34),
@@ -933,8 +933,8 @@
                 };
             e.exports = function(e, n, t, u, p, x, _) {
                 i(t, n, u);
-                var w,
-                    v,
+                var v,
+                    w,
                     b,
                     E = function(e) {
                         if (e === p && L) return L;
@@ -959,11 +959,11 @@
                     S = ('Array' == n && A.entries) || R;
                 if (
                     (S &&
-                        ((w = a(S.call(new e()))),
+                        ((v = a(S.call(new e()))),
                         g !== Object.prototype &&
-                            w.next &&
-                            (d || a(w) === g || (r ? r(w, g) : 'function' != typeof w[h] && l(w, h, y)),
-                            s(w, P, !0, !0),
+                            v.next &&
+                            (d || a(v) === g || (r ? r(v, g) : 'function' != typeof v[h] && l(v, h, y)),
+                            s(v, P, !0, !0),
                             d && (m[P] = y))),
                     'values' == p &&
                         R &&
@@ -976,19 +976,19 @@
                     (m[n] = L),
                     p)
                 )
-                    if (((v = { values: E('values'), keys: x ? L : E('keys'), entries: E('entries') }), _))
-                        for (b in v) (!f && !T && b in A) || c(A, b, v[b]);
-                    else o({ target: n, proto: !0, forced: f || T }, v);
-                return v;
+                    if (((w = { values: E('values'), keys: x ? L : E('keys'), entries: E('entries') }), _))
+                        for (b in w) (!f && !T && b in A) || c(A, b, w[b]);
+                    else o({ target: n, proto: !0, forced: f || T }, w);
+                return w;
             };
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(37),
                 a = t(25),
                 r = t(26),
                 s = t(33),
-                l = t(16),
+                l = t(15),
                 c = t(46),
                 u = Object.getOwnPropertyDescriptor;
             n.f = o
@@ -1002,7 +1002,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(14),
+            var o = t(13),
                 i = /#|\.prototype\./,
                 a = function(e, n) {
                     var t = s[r(e)];
@@ -1040,14 +1040,14 @@
             };
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports = !o(function() {
                 function e() {}
                 return (e.prototype.constructor = null), Object.getPrototypeOf(new e()) !== e.prototype;
             });
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports =
                 !!Object.getOwnPropertySymbols &&
                 !o(function() {
@@ -1055,7 +1055,7 @@
                 });
         },
         function(e, n, t) {
-            var o = t(20),
+            var o = t(21),
                 i = t(116),
                 a = t(52),
                 r = t(36),
@@ -1095,9 +1095,9 @@
                 (r[c] = !0);
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(24),
-                a = t(20),
+                a = t(21),
                 r = t(40);
             e.exports = o
                 ? Object.defineProperties
@@ -1108,7 +1108,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(16),
+            var o = t(15),
                 i = t(26),
                 a = t(51).indexOf,
                 r = t(36);
@@ -1148,7 +1148,7 @@
                         : i.toString);
         },
         function(e, n, t) {
-            var o = t(20),
+            var o = t(21),
                 i = t(122);
             e.exports =
                 Object.setPrototypeOf ||
@@ -1168,14 +1168,14 @@
                     : void 0);
         },
         function(e, n, t) {
-            var o = t(15);
+            var o = t(14);
             e.exports = function(e) {
                 if (!o(e) && null !== e) throw TypeError("Can't set " + String(e) + ' as a prototype');
                 return e;
             };
         },
         function(e, n, t) {
-            var o = t(12);
+            var o = t(11);
             e.exports = function(e, n, t, i) {
                 i && i.enumerable ? (e[n] = t) : o(e, n, t);
             };
@@ -1200,7 +1200,7 @@
                 i = t(28),
                 a = t(126),
                 r = t(127),
-                s = t(18),
+                s = t(17),
                 l = t(128),
                 c = t(129);
             e.exports = function(e) {
@@ -1224,7 +1224,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(20);
+            var o = t(21);
             e.exports = function(e, n, t, i) {
                 try {
                     return i ? n(o(t)[0], t[1]) : n(t);
@@ -1300,15 +1300,15 @@
         },
         function(e, n, t) {
             t(132);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'startsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(5),
-                i = t(18),
+                i = t(17),
                 a = t(42),
-                r = t(9),
+                r = t(8),
                 s = t(43),
                 l = ''.startsWith,
                 c = Math.min;
@@ -1326,7 +1326,7 @@
             );
         },
         function(e, n, t) {
-            var o = t(15),
+            var o = t(14),
                 i = t(27),
                 a = t(7)('match');
             e.exports = function(e) {
@@ -1336,7 +1336,7 @@
         },
         function(e, n, t) {
             t(135);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Object.entries;
         },
         function(e, n, t) {
@@ -1353,7 +1353,7 @@
         },
         function(e, n, t) {
             t(137);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('Array', 'find');
         },
         function(e, n, t) {
@@ -1380,7 +1380,7 @@
             var o = t(39),
                 i = t(38),
                 a = t(28),
-                r = t(18),
+                r = t(17),
                 s = t(139),
                 l = [].push,
                 c = function(e) {
@@ -1395,16 +1395,16 @@
                             var y,
                                 x,
                                 _ = a(p),
-                                w = i(_),
-                                v = o(g, f, 3),
-                                b = r(w.length),
+                                v = i(_),
+                                w = o(g, f, 3),
+                                b = r(v.length),
                                 E = 0,
                                 P = h || s,
                                 T = n ? P(p, b) : t ? P(p, 0) : void 0;
                             b > E;
                             E++
                         )
-                            if ((m || E in w) && ((x = v((y = w[E]), E, _)), e))
+                            if ((m || E in v) && ((x = w((y = v[E]), E, _)), e))
                                 if (n) T[E] = x;
                                 else if (x)
                                     switch (e) {
@@ -1432,7 +1432,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(15),
+            var o = t(14),
                 i = t(140),
                 a = t(7)('species');
             e.exports = function(e, n) {
@@ -1456,7 +1456,7 @@
         },
         function(e, n, t) {
             t(142);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('Array', 'includes');
         },
         function(e, n, t) {
@@ -1476,7 +1476,7 @@
         },
         function(e, n, t) {
             t(144);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Object.assign;
         },
         function(e, n, t) {
@@ -1486,8 +1486,8 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(13),
-                i = t(14),
+            var o = t(12),
+                i = t(13),
                 a = t(40),
                 r = t(146),
                 s = t(37),
@@ -1883,7 +1883,7 @@
         },
         function(e, n, t) {
             t(149);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'padStart');
         },
         function(e, n, t) {
@@ -1900,9 +1900,9 @@
             );
         },
         function(e, n, t) {
-            var o = t(18),
+            var o = t(17),
                 i = t(151),
-                a = t(9),
+                a = t(8),
                 r = Math.ceil,
                 s = function(e) {
                     return function(n, t, s) {
@@ -1923,7 +1923,7 @@
         function(e, n, t) {
             'use strict';
             var o = t(23),
-                i = t(9);
+                i = t(8);
             e.exports =
                 ''.repeat ||
                 function(e) {
@@ -1945,32 +1945,34 @@
         },
         function(e, n, t) {
             t(155);
-            var o = t(17);
-            e.exports = o.Object.values;
+            var o = t(18);
+            e.exports = o('String', 'includes');
         },
         function(e, n, t) {
+            'use strict';
             var o = t(5),
-                i = t(55).values;
+                i = t(42),
+                a = t(8);
             o(
-                { target: 'Object', stat: !0 },
+                { target: 'String', proto: !0, forced: !t(43)('includes') },
                 {
-                    values: function(e) {
-                        return i(e);
+                    includes: function(e) {
+                        return !!~String(a(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
                     }
                 }
             );
         },
         function(e, n, t) {
             t(157);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'endsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(5),
-                i = t(18),
+                i = t(17),
                 a = t(42),
-                r = t(9),
+                r = t(8),
                 s = t(43),
                 l = ''.endsWith,
                 c = Math.min;
@@ -1991,26 +1993,24 @@
         },
         function(e, n, t) {
             t(159);
-            var o = t(19);
-            e.exports = o('String', 'includes');
+            var o = t(16);
+            e.exports = o.Object.values;
         },
         function(e, n, t) {
-            'use strict';
             var o = t(5),
-                i = t(42),
-                a = t(9);
+                i = t(55).values;
             o(
-                { target: 'String', proto: !0, forced: !t(43)('includes') },
+                { target: 'Object', stat: !0 },
                 {
-                    includes: function(e) {
-                        return !!~String(a(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
+                    values: function(e) {
+                        return i(e);
                     }
                 }
             );
         },
         function(e, n, t) {
             t(161);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Number.isNaN;
         },
         function(e, n, t) {
@@ -2039,7 +2039,7 @@
             t.r(n);
             var i = t(2),
                 a = t.n(i),
-                r = t(0),
+                r = t(1),
                 s = t.n(r),
                 l = t(4),
                 c = t.n(l),
@@ -2109,7 +2109,7 @@
                         : n;
                 };
             }
-            function w() {
+            function v() {
                 for (var e = arguments.length, n = new Array(e), t = 0; t < e; t++) n[t] = arguments[t];
                 return function(e) {
                     return n.reduce(function(e, n) {
@@ -2117,7 +2117,15 @@
                     }, e);
                 };
             }
-            function v(e) {
+            Object.create(Error.prototype);
+            var w = x(function(e, n) {
+                    return n[e];
+                }),
+                b = x(function(e, n) {
+                    var t;
+                    return ((t = {})[e] = n), t;
+                });
+            function E(e) {
                 return c()(e).reduce(function(e, n) {
                     var t,
                         i,
@@ -2126,10 +2134,10 @@
                         s = n[1];
                     return Array.isArray(s)
                         ? o({}, e, (((i = {})[r] = [].concat(s)), i))
-                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = v(s)), a) : (((t = {})[r] = s), t));
+                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = E(s)), a) : (((t = {})[r] = s), t));
                 }, {});
             }
-            function b(e, n) {
+            function P(e, n) {
                 return (function e(n, t) {
                     return c()(t).reduce(function(t, i) {
                         var a,
@@ -2150,16 +2158,16 @@
                                       ? (((l = {})[c] = e(n[c], u)), l)
                                       : (((a = {})[c] = u), a)
                               )
-                            : o({}, t, (((s = {})[c] = v(u)), s));
+                            : o({}, t, (((s = {})[c] = E(u)), s));
                     }, n);
-                })(v(e), n);
+                })(E(e), n);
             }
-            function E(e, n) {
+            function T(e, n) {
                 return n.split('.').reduce(function(e, n) {
                     return 'object' == typeof e || 'function' == typeof e ? e[n] : void 0;
                 }, e);
             }
-            function P(e, n, t) {
+            function A(e, n, t) {
                 var o;
                 void 0 === t && (t = '-');
                 var i,
@@ -2167,22 +2175,21 @@
                 if (-1 === a) return ((i = {})[e] = n), i;
                 var r = e.slice(0, a),
                     s = e.slice(a + 1);
-                return ((o = {})[r] = P(s, n)), o;
+                return ((o = {})[r] = A(s, n)), o;
             }
-            function T(e) {
+            function R(e) {
                 return 'object' == typeof HTMLElement
                     ? e instanceof HTMLElement
                     : e && 'object' == typeof e && null !== e && 1 === e.nodeType && 'string' == typeof e.nodeName;
             }
-            Object.create(Error.prototype);
-            var A = x(function(e, n, t) {
+            var L = x(function(e, n, t) {
                     return n.getElementsByClassName(e + '__' + t)[0];
                 }),
-                R = x(function(e, n) {
+                S = x(function(e, n) {
                     var t = document.createElement('style');
                     (t.textContent = n), e.insertBefore(t, e.firstChild);
                 }),
-                L = x(function(e, n) {
+                I = x(function(e, n) {
                     if (Array.isArray(n))
                         n.forEach(function(n) {
                             return e.appendChild(n);
@@ -2193,7 +2200,7 @@
                         (t.innerHTML = n), e.appendChild(t);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                S = x(function(e, n) {
+                O = x(function(e, n) {
                     if (Array.isArray(n))
                         []
                             .concat(n)
@@ -2207,7 +2214,7 @@
                         (t.innerHTML = n), e.insertBefore(t, e.firstChild);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                O = x(function(e, n, t, o) {
+                N = x(function(e, n, t, o) {
                     if ((void 0 === t && (t = 'PayPal Credit'), 'string' == typeof n)) {
                         var i = new Image();
                         (i.alt = t),
@@ -2227,26 +2234,26 @@
                         (u.height = s), (u.width = r), c.appendChild(l), c.appendChild(u), e.appendChild(c);
                     } else e.parentNode.removeChild(e);
                 }, 2),
-                I = t(8),
-                C = t.n(I);
-            function N(e) {
+                C = t(19),
+                M = t.n(C);
+            function z(e) {
                 void 0 === e && (e = {});
                 var n = o({}, e);
-                return [n, y(C.a, n)];
+                return [n, y(M.a, n)];
             }
-            var M = N(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
-                z = M[0],
-                k = M[1];
+            var k = z(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
+                j = k[0],
+                W = k[1];
             Object.defineProperty(window, '__paypal_messages_state__', {
-                value: z,
+                value: j,
                 enumerable: !1,
                 configurable: !0,
                 writable: !1
             });
-            var j = t(1),
-                W = t(57),
-                H = t.n(W),
-                B = x(function(e, n, t) {
+            var H = t(0),
+                B = t(57),
+                Y = t.n(B),
+                U = x(function(e, n, t) {
                     var i = e.uuid,
                         a = e.urls;
                     void 0 === t && (t = !1);
@@ -2260,7 +2267,7 @@
                         r.src = (a[n.et] || a.DEFAULT) + '&bdata=' + encodeURIComponent(l.slice(1));
                     } else 'string' == typeof n && (r.src = a[n] || a.DEFAULT);
                 }, 2),
-                Y = {
+                D = {
                     START: 'Start',
                     END: 'End',
                     RENDER_START: 'Render_Start',
@@ -2277,32 +2284,33 @@
                     UPDATE: 'Update',
                     ERROR: 'Error'
                 },
-                U = {
+                G = {
                     MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
                     MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
                     MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
                     MESSAGE_INVALID_MARKUP: 'MESSAGE_INVALID_MARKUP',
                     MODAL_FAIL: 'MODAL_FAIL',
                     CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
-                    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
+                    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL',
+                    INTERNAL_FAIL: 'INTERNAL_FAIL'
                 },
-                D = {
+                F = {
                     create: function(e) {
                         var n = e.id,
                             t = e.selector,
                             i = e.type,
-                            a = N({ count: 1, account: e.account, history: [], logs: [] }),
+                            a = z({ count: 1, account: e.account, history: [], logs: [] }),
                             r = a[0],
                             s = a[1],
                             l = {
                                 start: function(e) {
-                                    E(e, 'options.account') &&
+                                    T(e, 'options.account') &&
                                         r.account !== e.options.account &&
                                         s({ account: e.account }),
-                                        l.info(Y.START, o({ t: new Date().getTime() }, e));
+                                        l.info(D.START, o({ t: new Date().getTime() }, e));
                                 },
                                 end: function(e) {
-                                    l.info(Y.END, o({ t: new Date().getTime() }, e)),
+                                    l.info(D.END, o({ t: new Date().getTime() }, e)),
                                         (function() {
                                             if (!(r.count > 3)) {
                                                 var e,
@@ -2311,11 +2319,11 @@
                                                         return 'Create' === n || 'Update' === n;
                                                     }),
                                                     l = {
-                                                        version: '1.1.1',
+                                                        version: '1.1.4',
                                                         url: window.location.href,
                                                         selector: t,
                                                         type: i + (a ? '-' + a.event : ''),
-                                                        id: n + '-' + H()(r.count, 4, '0'),
+                                                        id: n + '-' + Y()(r.count, 4, '0'),
                                                         account: r.account,
                                                         history: r.history,
                                                         events:
@@ -2359,9 +2367,9 @@
                                     void 0 === n && (n = {}), s({ logs: [].concat(r.logs, [o({ event: e }, n)]) });
                                 },
                                 error: function(e) {
-                                    l.info(Y.ERROR, e);
+                                    l.info(D.ERROR, e);
                                 },
-                                track: B,
+                                track: U,
                                 warn: function() {
                                     for (var e, n = arguments.length, t = new Array(n), o = 0; o < n; o++)
                                         t[o] = arguments[o];
@@ -2375,13 +2383,15 @@
                         (e = console).warn.apply(e, ['[PayPal Messages]'].concat(t));
                     }
                 },
-                G = f(function(e) {
+                V = t(20),
+                Z = t.n(V),
+                K = f(function(e) {
                     var n,
                         t = e.markup;
-                    return j.ZalgoPromise.resolve(
+                    return H.ZalgoPromise.resolve(
                         s()(t, 'https://www.paypalobjects.com')
                             ? ((n = t),
-                              new j.ZalgoPromise(function(e) {
+                              new H.ZalgoPromise(function(e) {
                                   var t = new XMLHttpRequest();
                                   (t.onreadystatechange = function() {
                                       if (4 === t.readyState)
@@ -2398,323 +2408,141 @@
                               }))
                             : ''
                     );
-                });
-            window.__PP = window.__PP || {};
-            var V = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
-            function F(e) {
-                try {
-                    var n = e.content.json,
-                        t = e.tracking_details;
-                    return {
-                        data: {
-                            disclaimer: JSON.parse(n.disclaimer),
-                            headline: JSON.parse(n.headline),
-                            subHeadline: JSON.parse(n.subHeadline)
-                        },
-                        meta: {
-                            clickUrl: t.click_url,
-                            impressionUrl: t.impression_url,
-                            offerType: JSON.parse(n.meta).offerType
-                        }
-                    };
-                } catch (e) {
-                    throw new Error(U.MESSAGE_INVALID_MARKUP);
-                }
-            }
-            function Z(e, n) {
-                var t = n.match(/^<!--([\s\S]+?)-->/);
-                if (t)
-                    try {
-                        return JSON.parse(t[1]);
-                    } catch (n) {
-                        e.error({ name: U.CUSTOM_JSON_OPTIONS_FAIL });
-                    }
-                return {};
-            }
-            var K = h(
-                function(e) {
-                    var n = e.account,
-                        t = e.amount,
-                        o = e.countryCode;
-                    return new j.ZalgoPromise(function(e) {
-                        var i = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
-                            a = {
-                                dimensions: 'x200x51',
-                                currency_value: t,
-                                currency_code: 'USD',
-                                format: 'HTML',
-                                presentation_types: 'HTML',
-                                ch: 'UPSTREAM',
-                                call: '__PP.' + i
-                            };
-                        o && V[o] && ((a.country_code = o), (a.locale = V[o]));
-                        var r = c()(a)
-                                .filter(function(e) {
-                                    return e[1];
-                                })
-                                .reduce(
-                                    function(e, n) {
-                                        return e + '&' + n[0] + '=' + n[1];
-                                    },
-                                    s()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
-                                ),
-                            l = document.createElement('script');
-                        (l.async = !0),
-                            (l.src = 'https://www.paypal.com/imadserver/upstream?' + r),
-                            document.head.appendChild(l),
-                            (window.__PP[i] = function(n) {
-                                if ((document.head.removeChild(l), delete window.__PP[i], 'object' == typeof n))
-                                    e({ markup: F(n) });
-                                else
-                                    try {
-                                        e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
-                                    } catch (t) {
-                                        e({ markup: n });
-                                    }
-                            });
-                    });
-                },
-                ['account', 'amount', 'countryCode']
-            );
-            function J(e) {
-                var n = e.options,
-                    t = e.logger;
-                return (
-                    t.info(Y.FETCH_START),
-                    ('custom' !== E(n, 'style.layout')
-                        ? K(n).then(y(C.a, { options: n }))
-                        : j.ZalgoPromise.all([K(n), G(n.style)]).then(function(e) {
-                              var o = e[0],
-                                  i = e[1];
-                              return 'object' == typeof o.markup
-                                  ? ('' === i && t.error({ name: U.CUSTOM_TEMPLATE_FAIL }),
-                                    (o.markup.template = i),
-                                    { markup: o.markup, options: b(n, Z(t, i)) })
-                                  : { markup: o.markup, options: n };
-                          })
-                    ).then(
-                        _(function(e) {
-                            t.info(Y.FETCH_END),
-                                (e.options.style._flattened = (function e(n, t, o) {
-                                    return (
-                                        void 0 === t && (t = ''),
-                                        void 0 === o && (o = ':'),
-                                        c()(n).reduce(function(n, i) {
-                                            var a = i[0],
-                                                r = i[1];
-                                            switch (typeof r) {
-                                                case 'object':
-                                                    return [].concat(n, e(r, '' + t + a + '.'));
-                                                case 'string':
-                                                default:
-                                                    return [].concat(n, ['' + t + a + o + r]);
-                                            }
-                                        }, [])
-                                    );
-                                })(e.options.style));
-                        })
-                    )
-                );
-            }
-            var q = t(30),
-                Q = t.n(q),
-                $ = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
-            function X(e) {
-                $.resize.has(e.target.frameElement) && $.resize.get(e.target.frameElement)(e);
-            }
-            function ee(e) {
-                $.scroll.forEach(function(n) {
-                    return n(e);
-                });
-            }
-            function ne(e) {
-                $.hover.has(e.target) && $.hover.get(e.target)(e);
-            }
-            function te(e) {
-                e.target.ownerDocument && $.click.has(e.target.ownerDocument.defaultView.frameElement)
-                    ? $.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
-                    : $.click.has(e.currentTarget) && e.currentTarget !== e.target && $.click.get(e.currentTarget)(e);
-            }
-            function oe(e) {
-                return {
-                    on: function(n, t) {
-                        ('IFRAME' !== e.tagName && 'resize' === n) ||
-                            (function(e, n, t) {
-                                if (
-                                    ((function(e, n) {
-                                        'scroll' === e && 0 === $.scroll.size
-                                            ? window.addEventListener('scroll', ee)
-                                            : 'hover' === e && 0 === $.hover.size
-                                            ? document.addEventListener('mouseover', ne)
-                                            : 'resize' !== e || $[e].has(n)
-                                            ? 'click' !== e ||
-                                              $[e].has(n) ||
-                                              ('IFRAME' === n.tagName
-                                                  ? n.contentWindow.document.body.addEventListener('click', te)
-                                                  : n.addEventListener('click', te))
-                                            : n.contentWindow.addEventListener('resize', X);
-                                    })(e, n),
-                                    $[e].has(n))
-                                ) {
-                                    var o = $[e].get(n);
-                                    $[e].set(n, function(e) {
-                                        o(e), t(e);
-                                    });
-                                } else $[e].set(n, t);
-                            })(n, e, t);
-                    },
-                    clear: function(n) {
-                        $[n].delete(e),
-                            'scroll' === n && 0 === $.scroll.size
-                                ? window.removeEventListener('scroll', ee)
-                                : 'hover' === n && 0 === $.hover.size
-                                ? document.removeEventListener('mouseover', ne)
-                                : 'click' === n
-                                ? 'IFRAME' === e.tagName
-                                    ? e.contentWindow.document.body.removeEventListener('click', te)
-                                    : e.removeEventListener('click', te)
-                                : 'IFRAME' === e.tagName &&
-                                  'resize' === n &&
-                                  e.contentWindow.removeEventListener('resize', X);
-                    }
-                };
-            }
-            var ie = t(58),
-                ae = t.n(ie),
-                re = t(21),
-                se = t.n(re),
-                le = t(59),
-                ce = t.n(le),
-                ue = t(60),
-                de = t.n(ue),
-                me = t(31),
-                pe = t.n(me),
-                ge = t(11),
-                fe = t.n(ge),
-                he = t(61),
-                ye = t.n(he),
-                xe = t(62),
-                _e = t.n(xe),
-                we = t(44),
-                ve = t.n(we),
-                be = t(63),
-                Ee = t.n(be),
-                Pe = t(64),
+                }),
+                J = t(58),
+                q = t.n(J),
+                Q = t(59),
+                $ = t.n(Q),
+                X = t(60),
+                ee = t.n(X),
+                ne = t(30),
+                te = t.n(ne),
+                oe = t(10),
+                ie = t.n(oe),
+                ae = t(61),
+                re = t.n(ae),
+                se = t(62),
+                le = t.n(se),
+                ce = t(44),
+                ue = t.n(ce),
+                de = t(63),
+                me = t.n(de),
+                pe = t(64),
+                ge = t.n(pe),
+                fe = t(65),
+                he = t.n(fe),
+                ye = t(66),
+                xe = t.n(ye),
+                _e = t(67),
+                ve = t.n(_e),
+                we = t(68),
+                be = t.n(we),
+                Ee = [
+                    ['default', [ie.a, te.a, re.a].join('\n')],
+                    ['logo.type:primary', xe.a],
+                    ['logo.type:alternative', le.a],
+                    ['logo.type:inline', ue.a],
+                    ['logo.type:none', [ue.a, me.a].join('\n')],
+                    ['logo.position:right', ge.a],
+                    ['logo.position:top', he.a],
+                    ['logo.type:alternative && logo.position:top', ve.a],
+                    ['text.color:white', be.a]
+                ],
+                Pe = t(69),
                 Te = t.n(Pe),
-                Ae = t(65),
+                Ae = t(70),
                 Re = t.n(Ae),
-                Le = t(66),
+                Le = t(71),
                 Se = t.n(Le),
-                Oe = t(67),
-                Ie = t.n(Oe),
-                Ce = t(68),
-                Ne = t.n(Ce),
-                Me = [
-                    ['default', [fe.a, pe.a, ye.a].join('\n')],
-                    ['logo.type:primary', Se.a],
-                    ['logo.type:alternative', _e.a],
-                    ['logo.type:inline', ve.a],
-                    ['logo.type:none', [ve.a, Ee.a].join('\n')],
-                    ['logo.position:right', Te.a],
-                    ['logo.position:top', Re.a],
-                    ['logo.type:alternative && logo.position:top', Ie.a],
-                    ['text.color:white', Ne.a]
+                Ie = t(45),
+                Oe = t.n(Ie),
+                Ne = t(72),
+                Ce = t.n(Ne),
+                Me = t(73),
+                ze = t.n(Me),
+                ke = t(74),
+                je = t.n(ke),
+                We = t(75),
+                He = t.n(We),
+                Be = t(76),
+                Ye = t.n(Be),
+                Ue = t(77),
+                De = t.n(Ue),
+                Ge = t(78),
+                Fe = t.n(Ge),
+                Ve = t(79),
+                Ze = t.n(Ve),
+                Ke = [
+                    ['default', [ie.a, te.a, Te.a].join('\n')],
+                    ['ratio:1x1', Re.a],
+                    ['ratio:1x4', Se.a],
+                    ['ratio:8x1', [Oe.a, Ce.a].join('\n')],
+                    ['ratio:20x1', [Oe.a, ze.a].join('\n')],
+                    ['color:blue', je.a],
+                    ['color:gray', He.a],
+                    ['color:black', De.a],
+                    ['color:white', Fe.a],
+                    ['color:white-no-border', Ze.a],
+                    ['color:blue && ratio:1x4', Ye.a]
                 ],
-                ze = t(69),
-                ke = t.n(ze),
-                je = t(70),
-                We = t.n(je),
-                He = t(71),
-                Be = t.n(He),
-                Ye = t(45),
-                Ue = t.n(Ye),
-                De = t(72),
-                Ge = t.n(De),
-                Ve = t(73),
-                Fe = t.n(Ve),
-                Ze = t(74),
-                Ke = t.n(Ze),
-                Je = t(75),
+                Je = t(80),
                 qe = t.n(Je),
-                Qe = t(76),
+                Qe = t(81),
                 $e = t.n(Qe),
-                Xe = t(77),
+                Xe = t(82),
                 en = t.n(Xe),
-                nn = t(78),
+                nn = t(83),
                 tn = t.n(nn),
-                on = t(79),
+                on = t(84),
                 an = t.n(on),
-                rn = [
-                    ['default', [fe.a, pe.a, ke.a].join('\n')],
-                    ['ratio:1x1', We.a],
-                    ['ratio:1x4', Be.a],
-                    ['ratio:8x1', [Ue.a, Ge.a].join('\n')],
-                    ['ratio:20x1', [Ue.a, Fe.a].join('\n')],
-                    ['color:blue', Ke.a],
-                    ['color:gray', qe.a],
-                    ['color:black', en.a],
-                    ['color:white', tn.a],
-                    ['color:white-no-border', an.a],
-                    ['color:blue && ratio:1x4', $e.a]
-                ],
-                sn = t(80),
-                ln = t.n(sn),
-                cn = t(81),
-                un = t.n(cn),
-                dn = t(82),
-                mn = t.n(dn),
-                pn = t(83),
-                gn = t.n(pn),
-                fn = t(84),
-                hn = t.n(fn),
-                yn = t(85),
-                xn = t.n(yn),
-                _n = t(86),
-                wn = t.n(_n),
-                vn = t(87),
-                bn = t.n(vn),
-                En = t(88),
-                Pn = t.n(En),
-                Tn = t(89),
-                An = t.n(Tn),
-                Rn = t(90),
-                Ln = t.n(Rn),
-                Sn = t(91),
-                On = t.n(Sn),
-                In = t(92),
-                Cn = t.n(In),
-                Nn = t(93),
-                Mn = t.n(Nn),
-                zn = t(94),
-                kn = t.n(zn),
-                jn = t(95),
-                Wn = t.n(jn),
-                Hn = t(96),
-                Bn = t.n(Hn),
-                Yn = t(97),
-                Un = t.n(Yn),
-                Dn = t(98),
-                Gn = t.n(Dn),
-                Vn = t(99),
-                Fn = {
-                    x168x374: { styles: xn.a, vertical: !0 },
-                    x765x60: { styles: Pn.a },
-                    x1000x50: { styles: An.a, termsIcon: !0 },
-                    x234x100: { styles: wn.a, reverseLogo: !0 },
-                    x310x100: { styles: bn.a, reverseLogo: !0 },
-                    x1000x36: { styles: Ln.a, termsIcon: !0 },
-                    x120x90: { styles: Cn.a, termsIcon: !0 },
-                    x234x60: { styles: Mn.a, reverseLogo: !0, termsIcon: !0 },
-                    x250x250: { styles: kn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
-                    x300x50: { styles: Wn.a, reverseLogo: !0 },
-                    x340x60: { styles: On.a, reverseLogo: !0 },
-                    x468x60: { styles: Bn.a, reverseLogo: !0, termsIcon: !0 },
-                    x728x90: { styles: Un.a, reverseLogo: !0 },
-                    x540x200: { styles: Gn.a, reverseLogo: !0, termsIcon: !0 },
-                    x170x100: { styles: t.n(Vn).a, termsIcon: !0 }
+                rn = t(85),
+                sn = t.n(rn),
+                ln = t(86),
+                cn = t.n(ln),
+                un = t(87),
+                dn = t.n(un),
+                mn = t(88),
+                pn = t.n(mn),
+                gn = t(89),
+                fn = t.n(gn),
+                hn = t(90),
+                yn = t.n(hn),
+                xn = t(91),
+                _n = t.n(xn),
+                vn = t(92),
+                wn = t.n(vn),
+                bn = t(93),
+                En = t.n(bn),
+                Pn = t(94),
+                Tn = t.n(Pn),
+                An = t(95),
+                Rn = t.n(An),
+                Ln = t(96),
+                Sn = t.n(Ln),
+                In = t(97),
+                On = t.n(In),
+                Nn = t(98),
+                Cn = t.n(Nn),
+                Mn = t(99),
+                zn = {
+                    x168x374: { styles: sn.a, vertical: !0 },
+                    x765x60: { styles: pn.a },
+                    x1000x50: { styles: fn.a, termsIcon: !0 },
+                    x234x100: { styles: cn.a, reverseLogo: !0 },
+                    x310x100: { styles: dn.a, reverseLogo: !0 },
+                    x1000x36: { styles: yn.a, termsIcon: !0 },
+                    x120x90: { styles: wn.a, termsIcon: !0 },
+                    x234x60: { styles: En.a, reverseLogo: !0, termsIcon: !0 },
+                    x250x250: { styles: Tn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
+                    x300x50: { styles: Rn.a, reverseLogo: !0 },
+                    x340x60: { styles: _n.a, reverseLogo: !0 },
+                    x468x60: { styles: Sn.a, reverseLogo: !0, termsIcon: !0 },
+                    x728x90: { styles: On.a, reverseLogo: !0 },
+                    x540x200: { styles: Cn.a, reverseLogo: !0, termsIcon: !0 },
+                    x170x100: { styles: t.n(Mn).a, termsIcon: !0 }
                 },
-                Zn = Object.keys(Fn).map(function(e) {
-                    var n = Fn[e],
+                kn = Object.keys(zn).map(function(e) {
+                    var n = zn[e],
                         t = e.slice(1),
                         o = t.split('x'),
                         i = o[1],
@@ -2727,25 +2555,25 @@
                             i +
                             'px;\n        }\n    ';
                     return (
-                        n.vertical && (a = '' + a + mn.a),
-                        n.reverseLogo && (a = '' + a + un.a),
-                        n.vertical && n.reverseLogo && (a = '' + a + gn.a),
-                        n.termsIcon && (a = '' + a + hn.a),
+                        n.vertical && (a = '' + a + en.a),
+                        n.reverseLogo && (a = '' + a + $e.a),
+                        n.vertical && n.reverseLogo && (a = '' + a + tn.a),
+                        n.termsIcon && (a = '' + a + an.a),
                         ['size:' + t, a]
                     );
                 }),
-                Kn = Object.keys(Fn).map(function(e) {
-                    return ['size:' + e.slice(1), Fn[e].styles];
+                jn = Object.keys(zn).map(function(e) {
+                    return ['size:' + e.slice(1), zn[e].styles];
                 }),
-                Jn = [['default', [fe.a, ln.a].join('\n')]].concat(Zn, Kn),
-                qn = t(100),
-                Qn = {
-                    'layout:text': Me,
-                    'layout:flex': rn,
-                    'layout:legacy': Jn,
-                    'layout:custom': [['default', [fe.a, t.n(qn).a].join('\n')]]
+                Wn = [['default', [ie.a, qe.a].join('\n')]].concat(kn, jn),
+                Hn = t(100),
+                Bn = {
+                    'layout:text': Ee,
+                    'layout:flex': Ke,
+                    'layout:legacy': Wn,
+                    'layout:custom': [['default', [ie.a, t.n(Hn).a].join('\n')]]
                 },
-                $n = {
+                Yn = {
                     PRIMARY: {
                         COLOR: [
                             'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_pri.svg',
@@ -2783,18 +2611,18 @@
                         ]
                     }
                 };
-            function Xn(e) {
+            function Un(e) {
                 return (
                     '\n    .message__headline span.multi:nth-child(2) {\n        display: none;\n    }\n\n    @media (min-width: ' +
                     e +
                     'px) {\n        .message__headline span.multi:first-child {\n            display: none;\n            \n        }\n\n        .message__headline span.multi:nth-child(2) {\n            display: inline;\n            \n        }\n    }\n'
                 );
             }
-            var et = [
+            var Dn = [
                     [
                         'default',
                         {
-                            logo: $n.PRIMARY.COLOR,
+                            logo: Yn.PRIMARY.COLOR,
                             headline: 'medium',
                             subHeadline: 'small',
                             disclaimer: 'legacy-medium'
@@ -2809,21 +2637,21 @@
                             ]
                         }
                     ],
-                    ['size:234x100', { logo: $n.PRIMARY.WHITE }],
-                    ['size:310x100', { logo: $n.PRIMARY.WHITE }],
-                    ['size:340x60', { logo: $n.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
+                    ['size:234x100', { logo: Yn.PRIMARY.WHITE }],
+                    ['size:310x100', { logo: Yn.PRIMARY.WHITE }],
+                    ['size:340x60', { logo: Yn.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
                 ],
-                nt = {
+                Gn = {
                     'layout:text': [
                         [
                             'default',
                             {
                                 styles: [
-                                    Xn(290),
+                                    Un(290),
                                     '.message__messaging { flex: 1 1 auto; }',
                                     '@media (max-width: 289px) { .message__disclaimer { display: block; } }'
                                 ],
-                                logo: $n.PRIMARY.COLOR,
+                                logo: Yn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
@@ -2833,8 +2661,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                styles: [Xn(280)],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                styles: [Un(280)],
+                                logo: Yn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2845,7 +2673,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [180, 1e3],
-                                styles: [Xn(280)],
+                                styles: [Un(280)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2856,48 +2684,58 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [Xn(520)],
-                                logo: $n.ALTERNATIVE.COLOR,
+                                styles: [Un(520)],
+                                logo: Yn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [Xn(210)] }],
-                        ['logo.type:alternative && logo.position:top', { styles: [Xn(210)] }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [Un(210)] }],
+                        ['logo.type:alternative && logo.position:top', { styles: [Un(210)] }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x1', { headline: ['xsmall', 'medium'] }],
+                        [
+                            'ratio:1x1',
+                            {
+                                headline: ['xsmall', 'medium'],
+                                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
+                            }
+                        ],
                         [
                             'ratio:1x4',
                             {
                                 headline: { tag: 'medium', br: ['months'] },
-                                styles: ['.message__logo-container { margin-bottom: 30%; }'],
+                                styles: [
+                                    '.message__logo-container { margin-bottom: 30%; }',
+                                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                                    '.message__headline { font-size: 1.1rem }'
+                                ],
                                 disclaimer: ['xlarge', 'xsmall']
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': et
+                    'layout:legacy': Dn
                 },
-                tt = {
+                Fn = {
                     'layout:text': [
                         [
                             'default',
                             {
-                                styles: [Xn(320)],
-                                logo: $n.PRIMARY.COLOR,
+                                styles: [Un(320)],
+                                logo: Yn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }],
                                 disclaimer: ['extra', 'xsmall']
                             }
@@ -2907,8 +2745,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [240, 1e3],
-                                styles: [Xn(290)],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                styles: [Un(290)],
+                                logo: Yn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2919,7 +2757,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [220, 1e3],
-                                styles: [Xn(290)],
+                                styles: [Un(290)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2930,49 +2768,59 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [Xn(570)],
-                                logo: $n.ALTERNATIVE.COLOR,
+                                styles: [Un(570)],
+                                logo: Yn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
                             }
                         ],
                         [
                             'logo.type:alternative && logo.position:top',
                             {
-                                styles: [Xn(230)],
+                                styles: [Un(230)],
                                 messageWidth: [150, 320],
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [Xn(235)] }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [Un(235)] }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: ['extra.2', 'small']
                             }
                         ],
-                        ['ratio:1x1', { headline: ['xsmall', 'medium'] }],
+                        [
+                            'ratio:1x1',
+                            {
+                                headline: ['xsmall', 'medium'],
+                                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
+                            }
+                        ],
                         [
                             'ratio:1x4',
                             {
                                 headline: { tag: 'medium', br: ['months'] },
-                                styles: ['.message__logo-container { margin-bottom: 30%; }'],
+                                styles: [
+                                    '.message__logo-container { margin-bottom: 30%; }',
+                                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                                    '.message__headline { font-size: 1.1rem }'
+                                ],
                                 disclaimer: ['xlarge', 'extra.2', 'small']
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': et
+                    'layout:legacy': Dn
                 },
-                ot = {
+                Vn = {
                     'layout:text': [
                         [
                             'default',
@@ -2981,7 +2829,7 @@
                                     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                                 ],
-                                logo: $n.PRIMARY.COLOR,
+                                logo: Yn.PRIMARY.COLOR,
                                 headline: { tag: 'small', br: ['months', 'APR'] },
                                 disclaimer: 'xsmall.2'
                             }
@@ -2989,12 +2837,12 @@
                         ['logo.type:primary', { messageWidth: 190 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [255, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [255, 1e3], logo: Yn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [240, 1e3], logo: !1, headline: { br: ['APR'] } }],
                         [
                             'logo.type:alternative',
-                            { logo: $n.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
+                            { logo: Yn.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
                         ],
                         [
                             'text.color:white',
@@ -3005,20 +2853,24 @@
                                 ]
                             }
                         ],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
-                                headline: { tag: 'small', br: ['months', 'APR'] },
+                                logo: Yn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['over', 'at', 'APR'] },
+                                subHeadline: 'small',
                                 disclaimer: ['xsmall.2', 'xsmall']
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['over', 'at', 'APR'] }, subHeadline: 'small' }],
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['over', 'at', 'APR'] }, subHeadline: { tag: 'small', br: ['money'] } }
+                        ],
                         [
                             'ratio:20x1',
                             {
@@ -3027,13 +2879,13 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
-                        ['default', { logo: $n.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['default', { logo: Yn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR }],
                         [
                             'size:120x90',
                             {
@@ -3123,7 +2975,7 @@
                         ]
                     ]
                 },
-                it = {
+                Zn = {
                     'layout:text': [
                         [
                             'default',
@@ -3132,7 +2984,7 @@
                                     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                                 ],
-                                logo: $n.PRIMARY.COLOR,
+                                logo: Yn.PRIMARY.COLOR,
                                 headline: { tag: 'xsmall', br: ['months'] },
                                 disclaimer: 'xsmall.2'
                             }
@@ -3140,13 +2992,13 @@
                         ['logo.type:primary', { messageWidth: 130 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [250, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
+                            { messageWidth: [250, 1e3], logo: Yn.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
                         ],
                         ['logo.type:none', { messageWidth: [235, 1e3], logo: !1, headline: { br: ['months'] } }],
                         [
                             'logo.type:alternative',
                             {
-                                logo: $n.ALTERNATIVE.COLOR,
+                                logo: Yn.ALTERNATIVE.COLOR,
                                 headline: { replace: [['months', 'months.']], br: ['months.'] }
                             }
                         ],
@@ -3159,27 +3011,31 @@
                                 ]
                             }
                         ],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
-                                headline: { tag: 'xsmall', br: ['months'] },
+                                logo: Yn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['over'] },
+                                subHeadline: 'small',
                                 disclaimer: ['xsmall.2', 'xsmall']
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['over', 'months'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['over', 'months'] }, subHeadline: { tag: 'xsmall', br: ['money'] } }
+                        ],
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
-                        ['default', { logo: $n.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['default', { logo: Yn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR }],
                         [
                             'size:120x90',
                             {
@@ -3269,18 +3125,18 @@
                         ]
                     ]
                 },
-                at = {
+                Kn = {
                     'layout:text': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
+                            { logo: Yn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
                         ],
                         ['logo.type:primary', { messageWidth: [130, 200] }],
                         [
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                logo: $n.ALT_NO_PP.COLOR,
+                                logo: Yn.ALT_NO_PP.COLOR,
                                 headline: { br: ['APR'], replace: [['APR.', 'APR']] }
                             }
                         ],
@@ -3292,36 +3148,37 @@
                                 headline: { replace: [['APR.', 'APR']], br: ['APR'] }
                             }
                         ],
-                        ['logo.type:alternative', { messageWidth: [140, 430], logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { messageWidth: [140, 430], logo: Yn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: { tag: 'medium', br: ['low as', 'at'] },
-                                disclaimer: 'small'
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: 'legacy-medium',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-small'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
                         ['size:120x90', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:234x60', { headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:300x50', { disclaimer: 'legacy-medium' }],
@@ -3332,41 +3189,46 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }]
                     ]
                 },
-                rt = {
+                Jn = {
                     'layout:text': [
-                        ['default', { logo: $n.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Yn.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: 130 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [195, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [195, 1e3], logo: Yn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [175, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Yn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.WHITE, headline: { tag: 'small', br: ['low as'] }, disclaimer: 'xsmall' }
+                            {
+                                logo: Yn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['low as'] },
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
+                            }
                         ],
-                        ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3374,33 +3236,37 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                st = {
+                qn = {
                     'layout:text': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
+                            { logo: Yn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
                         ],
                         ['logo.type:primary', { messageWidth: [190, 240] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [260, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [260, 1e3], logo: Yn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [260, 1e3], logo: !1, headline: { br: ['APR'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Yn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: { tag: 'small', br: [' of', 'at'] },
+                                subHeadline: 'small',
                                 disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['payments', 'mo'] }, subHeadline: 'small' }],
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['payments', 'mo'] }, subHeadline: { tag: 'small', br: ['money'] } }
+                        ],
                         [
                             'ratio:20x1',
                             {
@@ -3409,21 +3275,21 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: 'legacy-small',
                                 subHeadline: 'legacy-xlarge',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1, headline: 'legacy-xsmall' }],
                         ['size:234x60', { headline: 'legacy-xsmall', disclaimer: 'legacy-medium.2' }],
                         ['size:250x250', { headline: 'legacy-small.2', disclaimer: 'legacy-medium.2' }],
@@ -3432,41 +3298,46 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                lt = {
+                Qn = {
                     'layout:text': [
-                        ['default', { logo: $n.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Yn.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: [140, 210] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [200, 1e3], logo: $n.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [200, 1e3], logo: Yn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [200, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: $n.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: $n.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: $n.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: $n.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Yn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Yn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Yn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Yn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: $n.PRIMARY.WHITE, headline: { tag: 'small', br: ['of'] }, disclaimer: 'xsmall' }
+                            {
+                                logo: Yn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['of'] },
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
+                            }
                         ],
-                        ['ratio:1x4', { headline: { br: ['payments'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white', { logo: $n.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: $n.PRIMARY.COLOR }]
+                        ['ratio:1x4', { headline: { br: ['payments'] }, subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Yn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Yn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: $n.PRIMARY.WHITE,
+                                logo: Yn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: $n.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Yn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3474,13 +3345,13 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 };
-            function ct(e, n) {
+            function $n(e, n) {
                 var t = d()(e, function(e) {
                     var t = e[1];
                     return p()(t, n);
                 });
                 if (t) return t[0];
-                if (se()(n, '.')) {
+                if (Z()(n, '.')) {
                     var o = n.split('.', 1)[0];
                     if (
                         (t = d()(e, function(e) {
@@ -3495,19 +3366,17 @@
                     return p()(n, 'default');
                 })[0];
             }
-            var ut = document.createElement('iframe');
-            ut.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
-            var dt = document.createElement('div');
-            dt.innerHTML = ce.a;
-            var mt = document.createElement('div');
-            function pt(e) {
+            var Xn = document.createElement('div');
+            Xn.innerHTML = $.a;
+            var et = document.createElement('div');
+            function nt(e) {
                 return e
                     .reduce(function(e, n) {
                         return [].concat(e, [n, document.createTextNode(' ')]);
                     }, [])
                     .slice(0, -1);
             }
-            function gt(e, n) {
+            function tt(e, n) {
                 void 0 === n && (n = {});
                 var t,
                     o = (Array.isArray(e) ? e : [e]).map(function(e) {
@@ -3526,14 +3395,14 @@
                             e.textContent = n;
                         })),
                     n.br &&
-                        (function(e, t) {
-                            var o = [].concat(n.br);
-                            t.forEach(function(e) {
-                                for (var n = e.textContent, t = []; se()(n, o[0]); ) t.push(o[0]), o.shift();
-                                if (0 === t.length || (1 === t.length && ae()(n, t[0]))) return e.classList.add('br');
+                        (function(e, n) {
+                            var t = [].concat(e);
+                            n.forEach(function(e) {
+                                for (var n = e.textContent, o = []; Z()(n, t[0]); ) o.push(t[0]), t.shift();
+                                if (0 === o.length || (1 === o.length && q()(n, o[0]))) return e.classList.add('br');
                                 var i = document.createElement('span');
                                 (i.textContent = n), (i.className = 'br');
-                                var a = t.reduce(
+                                var a = o.reduce(
                                     function(e, n) {
                                         var t = (function(e, n) {
                                             var t = e.textContent,
@@ -3556,28 +3425,28 @@
                                     })
                                 );
                             });
-                        })(0, o),
-                    pt(o)
+                        })(n.br, o),
+                    nt(o)
                 );
             }
-            mt.innerHTML = de.a;
-            var ft = x(function(e, n, t) {
+            et.innerHTML = ee.a;
+            var ot = x(function(e, n, t) {
                     return (
                         !1 !== t &&
                         ('string' != typeof t && 'object' != typeof t
                             ? null
-                            : pt(
+                            : nt(
                                   (o = 'string' == typeof t ? [{ tag: t }] : Array.isArray(t) ? t : [t]).map(function(
                                       t
                                   ) {
                                       var i,
                                           a = document.createElement('span');
                                       if ((o.length > 1 && a.setAttribute('class', 'multi'), 'string' == typeof t))
-                                          (i = gt(ct(e[n], t))), a.classList.add('tag--' + t.split('.', 1)[0]);
+                                          (i = tt($n(e[n], t))), a.classList.add('tag--' + t.split('.', 1)[0]);
                                       else {
                                           var r = t.tag,
                                               s = g(t, ['tag']);
-                                          (i = gt(ct(e[n], r), s)), a.classList.add('tag--' + r.split('.', 1)[0]);
+                                          (i = tt($n(e[n], r), s)), a.classList.add('tag--' + r.split('.', 1)[0]);
                                       }
                                       return (
                                           i.forEach(function(e) {
@@ -3590,7 +3459,7 @@
                     );
                     var o;
                 }),
-                ht = x(function(e, n, t) {
+                it = x(function(e, n, t) {
                     return t.reduce(
                         function(t, o) {
                             var i = o[0],
@@ -3602,119 +3471,119 @@
                                 })
                                 ? n === Array
                                     ? [].concat(t, [a])
-                                    : b(t, a)
+                                    : P(t, a)
                                 : t;
                         },
                         n === Array ? [] : {}
                     );
                 }),
-                yt = {
+                at = {
                     getTemplateNode: f(function(e, n) {
-                        var t = E(e, 'style.layout');
+                        var t = T(e, 'style.layout');
                         if ('custom' === t)
                             return (function(e) {
-                                var t = n.data,
-                                    o = n.meta,
-                                    i = n.template,
-                                    r = document.createElement('div'),
-                                    s = o.offerType;
-                                if ('' === i) return r;
+                                var n = e.data,
+                                    t = e.meta,
+                                    o = e.template,
+                                    i = document.createElement('div'),
+                                    r = t.offerType;
+                                if ('' === o) return i;
                                 try {
-                                    var l = i.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, n) {
-                                        var o = n.split('.'),
+                                    var s = o.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, t) {
+                                        var o = t.split('.'),
                                             i = o[0],
                                             a = o.slice(1).join('.');
                                         if ('logo' === i) {
                                             var r = document.createElement('div');
-                                            return O(r, E($n, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
+                                            return N(r, T(Yn, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
                                         }
-                                        return gt(ct(t[i], a)).reduce(function(e, n) {
+                                        return tt($n(n[i], a)).reduce(function(e, n) {
                                             return '' + e + (n.outerHTML || ' ');
                                         }, '');
                                     });
-                                    (r.innerHTML = l),
-                                        d()(a()(r.children), function(e) {
+                                    (i.innerHTML = s),
+                                        d()(a()(i.children), function(e) {
                                             return 'STYLE' !== e.tagName;
-                                        }).classList.add('offer--' + s.replace(/:/g, '-').toLowerCase());
+                                        }).classList.add('offer--' + r.replace(/:/g, '-').toLowerCase());
                                 } catch (e) {}
-                                return r;
-                            })();
-                        var o = E(e, 'style._flattened'),
-                            i = E(n, 'meta.offerType'),
-                            r = E(n, 'data');
+                                return i;
+                            })(n);
+                        var o = T(e, 'style._flattened'),
+                            i = T(n, 'meta.offerType'),
+                            r = T(n, 'data');
                         if ('legacy' === t) {
-                            var s = E(e, 'style.typeNI'),
-                                l = E(e, 'style.typeEZP'),
+                            var s = T(e, 'style.typeNI'),
+                                l = T(e, 'style.typeEZP'),
                                 c = 'NI' === i.split(':')[0] ? s : l;
                             if ('image' === c)
-                                return (function(e, t) {
-                                    var o = n.meta,
-                                        i = mt.cloneNode(!0),
-                                        a = A('pp-legacy', i),
-                                        r = ['link', 'pixel'].map(a),
-                                        s = r[0],
-                                        l = r[1],
-                                        c = E(e, 'size'),
-                                        u = E(e, 'color'),
-                                        d = E(e, 'border');
-                                    s.setAttribute('href', o.clickUrl), l.setAttribute('href', o.impressionUrl);
-                                    var m = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy',
-                                        p = 'none' === u ? '' : '-' + u + (!0 === d ? '' : '-no-border'),
-                                        g = ('none' === u ? 'v1' : 'v2') + '/' + c.replace(/x/, '-') + p,
-                                        f = [1, 1.5, 2].map(function(e) {
-                                            return m + '/' + g + '@' + e + 'x.png ' + e + 'x';
+                                return (function(e, n) {
+                                    var t = n.meta,
+                                        o = et.cloneNode(!0),
+                                        i = L('pp-legacy', o),
+                                        a = ['link', 'pixel'].map(i),
+                                        r = a[0],
+                                        s = a[1],
+                                        l = T(e, 'size'),
+                                        c = T(e, 'color'),
+                                        u = T(e, 'border');
+                                    r.setAttribute('href', t.clickUrl), s.setAttribute('href', t.impressionUrl);
+                                    var d = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy',
+                                        m = 'none' === c ? '' : '-' + c + (!0 === u ? '' : '-no-border'),
+                                        p = ('none' === c ? 'v1' : 'v2') + '/' + l.replace(/x/, '-') + m,
+                                        g = [1, 1.5, 2].map(function(e) {
+                                            return d + '/' + p + '@' + e + 'x.png ' + e + 'x';
                                         });
-                                    return O(s, m + '/' + g + '@1x.png', 'PayPal Credit Message', f.join(', ')), i;
-                                })(e.style);
-                            if (!c) throw new Error(U.MESSAGE_INVALID_LEGACY);
+                                    return N(r, d + '/' + p + '@1x.png', 'PayPal Credit Message', g.join(', ')), o;
+                                })(e.style, n);
+                            if (!c) throw new Error(G.MESSAGE_INVALID_LEGACY);
                         }
-                        var u = ht(o),
+                        var u = it(o),
                             m = u(
                                 Object,
                                 (function(e, n) {
-                                    switch (i) {
+                                    switch (e) {
                                         case 'EZP:ANY:EQZ':
-                                            return ot[n];
+                                            return Vn[n];
                                         case 'EZP:ANY:GTZ':
-                                            return it[n];
+                                            return Zn[n];
                                         case 'PALA:MULTI:EQZ':
-                                            return at[n];
+                                            return Kn[n];
                                         case 'PALA:MULTI:GTZ':
-                                            return rt[n];
+                                            return Jn[n];
                                         case 'PALA:SINGLE:EQZ':
-                                            return st[n];
+                                            return qn[n];
                                         case 'PALA:SINGLE:GTZ':
-                                            return lt[n];
+                                            return Qn[n];
                                         case 'NI:NON-US':
-                                            return tt[n];
+                                            return Fn[n];
                                         case 'NI':
                                         default:
-                                            return nt[n];
+                                            return Gn[n];
                                     }
-                                })(0, 'layout:' + t)
+                                })(i, 'layout:' + t)
                             ),
-                            p = u(Array, Qn['layout:' + t]),
-                            g = ft(r),
-                            f = dt.cloneNode(!0),
-                            h = A('message', f),
+                            p = u(Array, Bn['layout:' + t]),
+                            g = ot(r),
+                            f = Xn.cloneNode(!0),
+                            h = L('message', f),
                             y = ['logo-container', 'headline', 'sub-headline', 'disclaimer'].map(h),
                             x = y[0],
                             _ = y[1],
-                            w = y[2],
-                            v = y[3];
+                            v = y[2],
+                            w = y[3];
                         if (
-                            (L(_, g('headline', m.headline)),
-                            L(w, g('subHeadline', m.subHeadline)),
-                            S(v, g('disclaimer', m.disclaimer)),
-                            O(x, m.logo, 'PayPal Credit logo'),
-                            'inline' === E(e, 'style.logo.type') && _.appendChild(x),
-                            'none' === E(e, 'style.logo.type'))
+                            (I(_, g('headline', m.headline)),
+                            I(v, g('subHeadline', m.subHeadline)),
+                            O(w, g('disclaimer', m.disclaimer)),
+                            N(x, m.logo, 'PayPal Credit logo'),
+                            'inline' === T(e, 'style.logo.type') && _.appendChild(x),
+                            'none' === T(e, 'style.logo.type'))
                         ) {
                             var b = document.createElement('span');
                             b.textContent = 'with ';
-                            var P = document.createElement('strong');
-                            (P.textContent = 'PayPal Credit.'),
-                                b.appendChild(P),
+                            var E = document.createElement('strong');
+                            (E.textContent = 'PayPal Credit.'),
+                                b.appendChild(E),
                                 _.appendChild(document.createTextNode(' ')),
                                 _.appendChild(b);
                         }
@@ -3729,113 +3598,132 @@
                                           m.messageWidth[1] +
                                           'px }'
                                   ));
-                        var T = function(n) {
+                        var P = function(n) {
                             return 'legacy' === t ? n.replace(/\.message/g, '[data-pp-id="' + e.id + '"] .message') : n;
                         };
-                        return (
-                            m.styles && R(f, T(m.styles.join(''))),
-                            R(f, T(p.join('\n'))),
-                            (f.width = (function(e) {
-                                document.body.appendChild(ut),
-                                    ut.contentWindow.document.body.appendChild(
-                                        ut.contentWindow.document.importNode(e, !0)
-                                    ),
-                                    a()(ut.contentWindow.document.getElementsByTagName('style')).forEach(function(e) {
-                                        var n = ut.contentWindow.document.createElement('style');
-                                        (n.textContent = e.textContent),
-                                            e.parentNode.insertBefore(n, e),
-                                            e.parentNode.removeChild(e);
-                                    });
-                                var n = ut.contentWindow.document.querySelector('.message__content'),
-                                    t = window.getComputedStyle(n),
-                                    o = a()(n.children),
-                                    i = [
-                                        'margin-left',
-                                        'border-left-width',
-                                        'padding-left',
-                                        'width',
-                                        'padding-right',
-                                        'border-right-width',
-                                        'margin-right'
-                                    ],
-                                    r = se()(t.getPropertyValue('display'), 'flex')
-                                        ? Math.round(
-                                              o.reduce(function(e, n) {
-                                                  var t = window.getComputedStyle(n);
-                                                  return (
-                                                      e +
-                                                      i.reduce(function(e, n) {
-                                                          return e + parseFloat(t.getPropertyValue(n));
-                                                      }, 0)
-                                                  );
-                                              }, 0)
-                                          )
-                                        : Math.max.apply(
-                                              Math,
-                                              o.map(function(e) {
-                                                  var n = window.getComputedStyle(e);
-                                                  return Math.round(
-                                                      i.reduce(function(e, t) {
-                                                          return e + parseFloat(n.getPropertyValue(t));
-                                                      }, 0)
-                                                  );
-                                              })
-                                          );
-                                return document.body.removeChild(ut), r;
-                            })(f)),
-                            f
-                        );
+                        return m.styles && S(f, P(m.styles.join(''))), S(f, P(p.join('\n'))), f;
                     })
                 },
-                xt = x(function(e, n) {
-                    var t = n.markup,
-                        i = n.options;
-                    return new j.ZalgoPromise(function(n) {
-                        var r, s, l, c;
-                        'string' == typeof t
-                            ? (((r = document.createElement('div')).innerHTML = t), (s = {}))
-                            : ((r = yt.getTemplateNode(i, t)), (s = o({}, t.meta, { minWidth: r.width }))),
-                            'IFRAME' === e.tagName
-                                ? ((l = e.contentWindow.document.importNode(r, !0)), (c = e.contentWindow.document))
-                                : ((l = r.cloneNode(!0)), (c = document));
-                        var u = a()(l.getElementsByTagName('img'))
+                rt = t(31),
+                st = t.n(rt),
+                lt = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
+            function ct(e) {
+                lt.resize.has(e.target.frameElement) && lt.resize.get(e.target.frameElement)(e);
+            }
+            function ut(e) {
+                lt.scroll.forEach(function(n) {
+                    return n(e);
+                });
+            }
+            function dt(e) {
+                lt.hover.has(e.target) && lt.hover.get(e.target)(e);
+            }
+            function mt(e) {
+                e.target.ownerDocument && lt.click.has(e.target.ownerDocument.defaultView.frameElement)
+                    ? lt.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
+                    : lt.click.has(e.currentTarget) && e.currentTarget !== e.target && lt.click.get(e.currentTarget)(e);
+            }
+            function pt(e) {
+                return {
+                    on: function(n, t) {
+                        ('IFRAME' !== e.tagName && 'resize' === n) ||
+                            (function(e, n, t) {
+                                if (
+                                    ((function(e, n) {
+                                        'scroll' === e && 0 === lt.scroll.size
+                                            ? window.addEventListener('scroll', ut)
+                                            : 'hover' === e && 0 === lt.hover.size
+                                            ? document.addEventListener('mouseover', dt)
+                                            : 'resize' !== e || lt[e].has(n)
+                                            ? 'click' !== e ||
+                                              lt[e].has(n) ||
+                                              ('IFRAME' === n.tagName
+                                                  ? n.contentWindow.document.body.addEventListener('click', mt)
+                                                  : n.addEventListener('click', mt))
+                                            : n.contentWindow.addEventListener('resize', ct);
+                                    })(e, n),
+                                    lt[e].has(n))
+                                ) {
+                                    var o = lt[e].get(n);
+                                    lt[e].set(n, function(e) {
+                                        o(e), t(e);
+                                    });
+                                } else lt[e].set(n, t);
+                            })(n, e, t);
+                    },
+                    clear: function(n) {
+                        lt[n].delete(e),
+                            'scroll' === n && 0 === lt.scroll.size
+                                ? window.removeEventListener('scroll', ut)
+                                : 'hover' === n && 0 === lt.hover.size
+                                ? document.removeEventListener('mouseover', dt)
+                                : 'click' === n
+                                ? 'IFRAME' === e.tagName
+                                    ? e.contentWindow.document.body.removeEventListener('click', mt)
+                                    : e.removeEventListener('click', mt)
+                                : 'IFRAME' === e.tagName &&
+                                  'resize' === n &&
+                                  e.contentWindow.removeEventListener('resize', ct);
+                    }
+                };
+            }
+            var gt = x(function(e, n) {
+                return H.ZalgoPromise.resolve(
+                    'IFRAME' === e.tagName &&
+                        'complete' !== e.contentWindow.document.readyState &&
+                        new H.ZalgoPromise(function(n) {
+                            return e.addEventListener('load', n);
+                        })
+                ).then(function() {
+                    var t,
+                        o,
+                        i = 'IFRAME' === e.tagName ? e.contentWindow.document : document,
+                        r =
+                            'string' == typeof n
+                                ? ((t = n), ((o = i.createElement('div')).innerHTML = t), o)
+                                : i.importNode(n, !0),
+                        s = a()(r.getElementsByTagName('img'))
                             .filter(function(e) {
                                 return !e.complete;
                             })
                             .map(function(e) {
-                                return new j.ZalgoPromise(function(n) {
+                                return new H.ZalgoPromise(function(n) {
                                     return e.addEventListener('load', n);
                                 });
                             });
-                        a()(l.getElementsByTagName('style')).forEach(function(e) {
-                            var n = c.createElement('style');
+                    return (
+                        a()(r.getElementsByTagName('style')).forEach(function(e) {
+                            var n = i.createElement('style');
                             (n.textContent = e.textContent),
                                 e.parentNode.insertBefore(n, e),
                                 e.parentNode.removeChild(e);
                         }),
-                            a()(l.getElementsByTagName('script')).forEach(function(e) {
-                                var n = c.createElement('script');
-                                (n.text = e.text), e.parentNode.insertBefore(n, e), e.parentNode.removeChild(e);
-                            }),
-                            j.ZalgoPromise.all(u).then(function() {
+                        a()(r.getElementsByTagName('script')).forEach(function(e) {
+                            var n = i.createElement('script');
+                            (n.text = e.text), e.parentNode.insertBefore(n, e), e.parentNode.removeChild(e);
+                        }),
+                        H.ZalgoPromise.all(s).then(function() {
+                            return new H.ZalgoPromise(function(n) {
                                 requestAnimationFrame(function() {
-                                    for (var t = 'IFRAME' === e.tagName ? c.body : e; t.firstChild; )
+                                    for (var t = 'IFRAME' === e.tagName ? i.body : e; t.firstChild; )
                                         t.removeChild(t.firstChild);
-                                    a()(l.children).forEach(function(e) {
+                                    a()(r.children).forEach(function(e) {
                                         return t.appendChild(e);
                                     }),
-                                        n({ meta: o({}, s, {}, (c !== document && c.defaultView.meta) || {}) });
+                                        n();
                                 });
                             });
-                    });
+                        })
+                    );
                 });
-            function _t(e) {
+            }, 2);
+            function ft(e) {
                 var n = e.getBoundingClientRect(),
                     t = (n.top + n.bottom) / 2,
                     o = (n.left + n.right) / 2;
                 return !(t > window.innerHeight || t < 0 || o > window.innerWidth || o < 0);
             }
-            var wt = x(function(e, n) {
+            var ht = x(function(e, n) {
                     var t = n.options.amount,
                         o = n.events,
                         i = n.track,
@@ -3847,12 +3735,12 @@
                             pos_y: Math.round(a.top),
                             browser_width: window.innerWidth,
                             browser_height: window.innerHeight,
-                            visible: _t(e),
+                            visible: ft(e),
                             amount: t
                         };
                     r.visible ||
                         o.on('scroll', function() {
-                            _t(e) &&
+                            ft(e) &&
                                 (o.clear('scroll'), i({ et: 'CLIENT_IMPRESSION', event_type: 'scroll', visible: !0 }));
                         }),
                         (function() {
@@ -3866,7 +3754,7 @@
                                     'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -1000px !important;'
                                 );
                             var n = void 0 !== window.getComputedStyle ? window.getComputedStyle(e) : void 0;
-                            return new j.ZalgoPromise(function(t) {
+                            return new H.ZalgoPromise(function(t) {
                                 !(function o(i) {
                                     return i <= 0
                                         ? (window.document.body.removeChild(e), t(!1))
@@ -3919,7 +3807,7 @@
                             i({ et: 'CLIENT_IMPRESSION', event_type: 'hover' }), o.clear('hover');
                         });
                 }),
-                vt = {
+                yt = {
                     '1x1': [{ ratio: '1x1', width: [120, 300] }],
                     '1x4': [{ ratio: '1x2', width: [160, 160] }, { ratio: '1x4', breakpoint: 768 }],
                     '8x1': [{ ratio: '6x1', width: [250, 768] }, { ratio: '8x1', breakpoint: 768 }],
@@ -3928,7 +3816,7 @@
                         { ratio: '20x1', width: [350, 1169], breakpoint: 768 }
                     ]
                 };
-            function bt(e) {
+            function xt(e) {
                 if ('number' == typeof e) return e + 'px';
                 if ('string' == typeof e) {
                     var n = e.match(/^(\d+)x(\d+)$/);
@@ -3943,7 +3831,7 @@
                 }
                 return e;
             }
-            function Et(e) {
+            function _t(e) {
                 var n = e.split(/(?=[@[])/),
                     t = n[0],
                     o = n.slice(1);
@@ -3961,7 +3849,7 @@
                       )
                     : {};
             }
-            var Pt = x(function(e, n) {
+            var vt = x(function(e, n) {
                 var t = n.wrapper,
                     o = n.options,
                     i = n.logger,
@@ -3969,10 +3857,10 @@
                 if ('IFRAME' === e.tagName) {
                     var r,
                         s,
-                        l = E(o, 'style.layout'),
-                        c = E(o, 'style.ratio');
+                        l = T(o, 'style.layout'),
+                        c = T(o, 'style.ratio');
                     if (('flex' !== l && 'custom' !== l) || !c) {
-                        var u = a.minWidth || 0;
+                        var u = a.minWidth;
                         e.setAttribute('style', 'width: 100%; border: none; min-width: ' + u + 'px;'),
                             t.removeAttribute('class');
                         var d = (function(e) {
@@ -3989,10 +3877,10 @@
                                 e.setAttribute('height', e.contentWindow.document.body.lastChild.offsetHeight);
                             };
                         if (d < u && 'custom' !== l) {
-                            if ('top' !== E(o, 'style.logo.position') || 'primary' !== E(o, 'style.logo.type'))
+                            if ('top' !== T(o, 'style.logo.position') || 'primary' !== T(o, 'style.logo.type'))
                                 throw (i.warn(
                                     'Message Overflow. PayPal Credit Message of layout type ' +
-                                        E(o, 'style.layout') +
+                                        T(o, 'style.layout') +
                                         ' requires a width of at least ' +
                                         u +
                                         'px. Current container is ' +
@@ -4004,9 +3892,9 @@
                                         t.parentNode.setAttribute('data-pp-style-logo-type', 'primary'),
                                         t.parentNode.setAttribute('data-pp-style-logo-position', 'top');
                                 }),
-                                ((s = new Error(U.MESSAGE_OVERFLOW)).onEnd = r),
+                                ((s = new Error(G.MESSAGE_OVERFLOW)).onEnd = r),
                                 s);
-                            i.error({ name: U.MESSAGE_HIDDEN }),
+                            i.error({ name: G.MESSAGE_HIDDEN }),
                                 i.warn(
                                     'Message hidden. PayPal Credit Message fallback requires minimum width of ' +
                                         u +
@@ -4015,15 +3903,15 @@
                                         'px. Message hidden.'
                                 ),
                                 e.setAttribute('data-pp-message-hidden', 'true');
-                        } else m(), oe(e).on('resize', m);
+                        } else m(), pt(e).on('resize', m);
                     } else
                         !(function(e, n, t) {
                             var o = [];
                             'flex' === t
-                                ? (o = vt[n])
+                                ? (o = yt[n])
                                 : Array.isArray(n)
-                                ? (o = n.map(Et))
-                                : 'string' == typeof n && (o = [Et(n)]);
+                                ? (o = n.map(_t))
+                                : 'string' == typeof n && (o = [_t(n)]);
                             var i = 'pp-flex--' + o.slice(-1)[0].ratio,
                                 a = o.reduce(function(e, n) {
                                     var t = n.breakpoint,
@@ -4035,15 +3923,15 @@
                                               ' {\n                    display: block;\n                    width: 100%;\n                    ' +
                                               (Array.isArray(a)
                                                   ? '\n                                min-width: ' +
-                                                    bt(a[0]) +
+                                                    xt(a[0]) +
                                                     ';\n                                max-width: ' +
-                                                    bt(a[1]) +
+                                                    xt(a[1]) +
                                                     ';'
                                                   : '') +
                                               '\n                    box-sizing: border-box;\n                    position: relative;\n                }\n        \n                .' +
                                               i +
                                               '::before {\n                    padding-top: ' +
-                                              bt(o) +
+                                              xt(o) +
                                               ";\n                    content: '';\n                    display: block;\n                }\n        \n                ." +
                                               i +
                                               ' iframe {\n                    position: absolute;\n                    top: 0;\n                    left: 0;\n                    width: 100%;\n                    height: 100%;\n                }\n            '
@@ -4051,21 +3939,21 @@
                                         ? '\n            ' +
                                           e +
                                           '\n            @media (min-width: ' +
-                                          bt(t) +
+                                          xt(t) +
                                           ') {\n                ' +
                                           (Array.isArray(a)
                                               ? '\n                            .' +
                                                 i +
                                                 ' {\n                                min-width: ' +
-                                                bt(a[0]) +
+                                                xt(a[0]) +
                                                 ';\n                                max-width: ' +
-                                                bt(a[1]) +
+                                                xt(a[1]) +
                                                 ';\n                            }'
                                               : '') +
                                           '\n                .' +
                                           i +
                                           '::before {\n                    padding-top: ' +
-                                          bt(o) +
+                                          xt(o) +
                                           ';\n                }\n            }\n        '
                                         : e;
                                 }, ''),
@@ -4076,37 +3964,221 @@
                             e.removeAttribute('height');
                 }
             });
-            function Tt(e) {
+            function wt(e) {
                 var n = document.createElement(e);
                 'iframe' === e &&
                     (n.setAttribute('title', 'PayPal Credit Promotion Message'),
                     n.setAttribute('style', 'width: 100%; border: none;'),
                     n.setAttribute('src', 'about:blank'),
                     n.setAttribute('height', 0));
-                var t = c()({ insertMarkup: xt, setSize: Pt, runStats: wt, events: oe }).reduce(function(e, t) {
+                var t = c()({ insertMarkup: gt, setSize: vt, runStats: ht, events: pt }).reduce(function(e, t) {
                     var i;
                     return o({}, e, (((i = {})[t[0]] = (0, t[1])(n)), i));
                 }, {});
                 return (
                     (t.clearEvents = function() {
                         return (function(e) {
-                            Q()($).forEach(function(n) {
+                            st()(lt).forEach(function(n) {
                                 return n.delete(e);
                             }),
-                                0 === $.scroll.size && window.removeEventListener('scroll', ee),
-                                0 === $.hover.size && document.removeEventListener('mouseover', ne),
+                                0 === lt.scroll.size && window.removeEventListener('scroll', ut),
+                                0 === lt.hover.size && document.removeEventListener('mouseover', dt),
                                 'IFRAME' === e.tagName
-                                    ? (e.contentWindow.removeEventListener('resize', X),
-                                      e.contentWindow.document.body.removeEventListener('click', te))
-                                    : e.removeEventListener('click', te);
+                                    ? (e.contentWindow.removeEventListener('resize', ct),
+                                      e.contentWindow.document.body.removeEventListener('click', mt))
+                                    : e.removeEventListener('click', mt);
                         })(n);
                     }),
                     [n, t]
                 );
             }
-            var At = t(22),
-                Rt = t.n(At),
-                Lt = {
+            window.__PP = window.__PP || {};
+            var bt = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
+            function Et(e) {
+                try {
+                    var n = e.content.json,
+                        t = e.tracking_details;
+                    return {
+                        data: {
+                            disclaimer: JSON.parse(n.disclaimer),
+                            headline: JSON.parse(n.headline),
+                            subHeadline: JSON.parse(n.subHeadline)
+                        },
+                        meta: {
+                            clickUrl: t.click_url,
+                            impressionUrl: t.impression_url,
+                            offerType: JSON.parse(n.meta).offerType
+                        }
+                    };
+                } catch (e) {
+                    throw new Error(G.MESSAGE_INVALID_MARKUP);
+                }
+            }
+            function Pt(e, n) {
+                var t = n.match(/^<!--([\s\S]+?)-->/);
+                if (t)
+                    try {
+                        return JSON.parse(t[1]);
+                    } catch (n) {
+                        e.error({ name: G.CUSTOM_JSON_OPTIONS_FAIL });
+                    }
+                return {};
+            }
+            var Tt = function(e) {
+                    var n = wt('iframe'),
+                        t = n[0],
+                        o = n[1].insertMarkup;
+                    return (
+                        t.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;'),
+                        document.body.appendChild(t),
+                        o(e).then(function() {
+                            var e = t.contentWindow.document.querySelector('.message__content'),
+                                n = t.contentWindow.getComputedStyle(e),
+                                o = a()(e.children),
+                                i = [
+                                    'margin-left',
+                                    'border-left-width',
+                                    'padding-left',
+                                    'width',
+                                    'padding-right',
+                                    'border-right-width',
+                                    'margin-right'
+                                ],
+                                r = Z()(n.getPropertyValue('display'), 'flex')
+                                    ? Math.round(
+                                          o.reduce(function(e, n) {
+                                              var o = t.contentWindow.getComputedStyle(n);
+                                              return (
+                                                  e +
+                                                  i.reduce(function(e, n) {
+                                                      return e + parseFloat(o.getPropertyValue(n));
+                                                  }, 0)
+                                              );
+                                          }, 0)
+                                      )
+                                    : Math.max.apply(
+                                          Math,
+                                          o.map(function(e) {
+                                              var n = t.contentWindow.getComputedStyle(e);
+                                              return Math.round(
+                                                  i.reduce(function(e, t) {
+                                                      return e + parseFloat(n.getPropertyValue(t));
+                                                  }, 0)
+                                              );
+                                          })
+                                      );
+                            return document.body.removeChild(t), r;
+                        })
+                    );
+                },
+                At = h(
+                    function(e) {
+                        var n = e.account,
+                            t = e.amount,
+                            o = e.countryCode,
+                            i = e.style.typeEZP;
+                        return new H.ZalgoPromise(function(e) {
+                            var a = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
+                                r = {
+                                    dimensions: '' === i ? 'x199x99' : 'x215x80',
+                                    currency_value: t,
+                                    currency_code: 'USD',
+                                    format: 'HTML',
+                                    presentation_types: 'HTML',
+                                    ch: 'UPSTREAM',
+                                    call: '__PP.' + a
+                                };
+                            o && bt[o] && ((r.country_code = o), (r.locale = bt[o]));
+                            var l = c()(r)
+                                    .filter(function(e) {
+                                        return e[1];
+                                    })
+                                    .reduce(
+                                        function(e, n) {
+                                            return e + '&' + n[0] + '=' + n[1];
+                                        },
+                                        s()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
+                                    ),
+                                u = document.createElement('script');
+                            (u.async = !0),
+                                (u.src = 'https://www.paypal.com/imadserver/upstream?' + l),
+                                document.head.appendChild(u),
+                                (window.__PP[a] = function(n) {
+                                    if ((document.head.removeChild(u), delete window.__PP[a], 'object' == typeof n))
+                                        e({ markup: Et(n) });
+                                    else
+                                        try {
+                                            e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
+                                        } catch (t) {
+                                            e({ markup: n });
+                                        }
+                                });
+                        });
+                    },
+                    ['account', 'amount', 'countryCode']
+                );
+            function Rt(e) {
+                var n = e.options,
+                    t = e.logger;
+                return (
+                    t.info(D.FETCH_START),
+                    ('custom' !== T(n, 'style.layout')
+                        ? At(n)
+                        : H.ZalgoPromise.all([At(n), K(n.style)]).then(function(e) {
+                              var o = e[0],
+                                  i = e[1];
+                              return 'object' == typeof o.markup
+                                  ? ('' === i && t.error({ name: G.CUSTOM_TEMPLATE_FAIL }),
+                                    (o.markup.template = i),
+                                    { markup: o.markup, options: P(n, Pt(t, i)) })
+                                  : { markup: o.markup };
+                          })
+                    ).then(function(e) {
+                        var i = e.markup,
+                            a = e.options,
+                            r = void 0 === a ? {} : a;
+                        t.info(D.FETCH_END);
+                        var s = o({}, n, {}, r);
+                        if (
+                            ((s.style._flattened = (function e(n, t, o) {
+                                return (
+                                    void 0 === t && (t = ''),
+                                    void 0 === o && (o = ':'),
+                                    c()(n).reduce(function(n, i) {
+                                        var a = i[0],
+                                            r = i[1];
+                                        switch (typeof r) {
+                                            case 'object':
+                                                return [].concat(n, e(r, '' + t + a + '.'));
+                                            case 'string':
+                                            default:
+                                                return [].concat(n, ['' + t + a + o + r]);
+                                        }
+                                    }, [])
+                                );
+                            })(s.style)),
+                            'object' == typeof i)
+                        ) {
+                            var l = at.getTemplateNode(s, i);
+                            return 'text' === T(s, 'style.layout')
+                                ? Tt(l).then(function(e) {
+                                      return {
+                                          markup: i,
+                                          options: s,
+                                          template: l,
+                                          meta: o({}, i.meta, { minWidth: e })
+                                      };
+                                  })
+                                : { markup: i, options: s, template: l, meta: o({}, i.meta, { minWidth: l.minWidth }) };
+                        }
+                        var u = document.createElement('div');
+                        return (u.innerHTML = i), { markup: i, options: s, template: u, meta: {} };
+                    })
+                );
+            }
+            var Lt = t(22),
+                St = t.n(Lt),
+                It = {
                     ANY: 'ANY',
                     STRING: 'STRING',
                     BOOLEAN: 'BOOLEAN',
@@ -4114,60 +4186,60 @@
                     FUNCTION: 'FUNCTION',
                     OBJECT: 'OBJECT'
                 },
-                St = { id: [Lt.STRING], _legacy: [Lt.BOOLEAN], onRender: [Lt.FUNCTION] },
-                Ot = {
+                Ot = { id: [It.STRING], _legacy: [It.BOOLEAN], onRender: [It.FUNCTION] },
+                Nt = {
                     text: {
                         logo: {
-                            type: [Lt.STRING, ['primary', 'alternative', 'inline', 'none']],
-                            position: [Lt.STRING, ['left', 'right', 'top']]
+                            type: [It.STRING, ['primary', 'alternative', 'inline', 'none']],
+                            position: [It.STRING, ['left', 'right', 'top']]
                         },
-                        text: { color: [Lt.STRING, ['black', 'white']] }
+                        text: { color: [It.STRING, ['black', 'white']] }
                     },
                     flex: {
-                        color: [Lt.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-                        ratio: [Lt.STRING, ['1x1', '1x4', '8x1', '20x1']]
+                        color: [It.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
+                        ratio: [It.STRING, ['1x1', '1x4', '8x1', '20x1']]
                     },
                     legacy: {
-                        typeNI: [Lt.STRING, ['', 'image', 'html']],
-                        typeEZP: [Lt.STRING, ['', 'html']],
-                        size: [Lt.STRING],
-                        color: [Lt.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-                        border: [Lt.BOOLEAN, [!0, !1]]
+                        typeNI: [It.STRING, ['', 'image', 'html']],
+                        typeEZP: [It.STRING, ['', 'html']],
+                        size: [It.STRING],
+                        color: [It.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
+                        border: [It.BOOLEAN, [!0, !1]]
                     },
-                    custom: { markup: [Lt.STRING], ratio: [Lt.ANY] }
+                    custom: { markup: [It.STRING], ratio: [It.ANY] }
                 },
-                It = function(e, n, t) {
+                Ct = function(e, n, t) {
                     return e.warn('Invalid option value (' + n + '). ' + t);
                 },
-                Ct = function(e, n, t, o) {
-                    return It(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
+                Mt = function(e, n, t, o) {
+                    return Ct(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
                 },
-                Nt = function(e, n, t, o) {
-                    return It(
+                zt = function(e, n, t, o) {
+                    return Ct(
                         e,
                         n,
                         'Expected one of ["' + t.join('", "').replace(/\|[\w|]+/g, '') + '"] but received "' + o + '".'
                     );
                 };
-            function Mt(e, n) {
+            function kt(e, n) {
                 switch (e) {
-                    case Lt.STRING:
+                    case It.STRING:
                         return 'string' == typeof n;
-                    case Lt.BOOLEAN:
+                    case It.BOOLEAN:
                         return 'boolean' == typeof n;
-                    case Lt.NUMBER:
-                        return 'number' == typeof n && !Rt()(n);
-                    case Lt.FUNCTION:
+                    case It.NUMBER:
+                        return 'number' == typeof n && !St()(n);
+                    case It.FUNCTION:
                         return 'function' == typeof n;
-                    case Lt.OBJECT:
+                    case It.OBJECT:
                         return 'object' == typeof n && null !== n;
-                    case Lt.ANY:
+                    case It.ANY:
                         return !0;
                     default:
                         return !1;
                 }
             }
-            function zt(e, n, t, i) {
+            function jt(e, n, t, i) {
                 return (
                     void 0 === i && (i = 'style.'),
                     c()(n).reduce(function(a, r) {
@@ -4181,73 +4253,73 @@
                                         a = n[1],
                                         r = void 0 === a ? [] : a;
                                     if (void 0 === t) return r[0];
-                                    if (Mt(i, t)) {
-                                        if (i === Lt.STRING && r.length > 0) {
+                                    if (kt(i, t)) {
+                                        if (i === It.STRING && r.length > 0) {
                                             var s = d()(r, function(e) {
                                                 return e.split('|').some(function(e) {
                                                     return e === t;
                                                 });
                                             });
                                             return void 0 === s
-                                                ? (Nt(e, o, r, t), r[0].split('|')[0])
+                                                ? (zt(e, o, r, t), r[0].split('|')[0])
                                                 : s.split('|')[0];
                                         }
                                         return t;
                                     }
-                                    return Ct(e, o, i, t), r[0];
+                                    return Mt(e, o, i, t), r[0];
                                 })(e, c, t[l], '' + i + l);
                             return void 0 === m ? a : o({}, a, (((u = {})[l] = m), u));
                         }
-                        return o({}, a, (((s = {})[l] = zt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
+                        return o({}, a, (((s = {})[l] = jt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
                     }, {})
                 );
             }
-            function kt(e, n) {
-                return o({ layout: n.layout }, zt(e, Ot[n.layout], n));
+            function Wt(e, n) {
+                return o({ layout: n.layout }, jt(e, Nt[n.layout], n));
             }
-            var jt = x(function(e, n) {
+            var Ht = x(function(e, n) {
                     var t = n.account,
                         o = n.amount,
                         i = n.countryCode,
                         a = n.style,
                         r = g(n, ['account', 'amount', 'countryCode', 'style']),
-                        l = zt(e, St, r, '');
+                        l = jt(e, Ot, r, '');
                     if (
-                        (Mt(Lt.STRING, t)
+                        (kt(It.STRING, t)
                             ? 13 === t.length || 10 === t.length || s()(t, 'client-id:')
                                 ? (l.account = t)
-                                : It(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
-                            : Ct(e, 'account', Lt.STRING, t),
+                                : Ct(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
+                            : Mt(e, 'account', It.STRING, t),
                         void 0 !== o)
                     ) {
                         var c = Number(o);
-                        Mt(Lt.NUMBER, c)
+                        kt(It.NUMBER, c)
                             ? c < 0
-                                ? It(e, 'amount', 'Ensure value is a positive number.')
+                                ? Ct(e, 'amount', 'Ensure value is a positive number.')
                                 : (l.amount = c)
-                            : Ct(e, 'amount', Lt.NUMBER, o);
+                            : Mt(e, 'amount', It.NUMBER, o);
                     }
                     return (
                         void 0 !== i &&
-                            (Mt(Lt.STRING, i)
+                            (kt(It.STRING, i)
                                 ? 2 !== i.length
-                                    ? It(e, 'countryCode', 'Country code should be 2 characters.')
+                                    ? Ct(e, 'countryCode', 'Country code should be 2 characters.')
                                     : (l.countryCode = i)
-                                : Ct(e, 'countryCode', Lt.STRING, i)),
-                        Mt(Lt.OBJECT, a) && Mt(Lt.STRING, a.layout) && Ot[a.layout]
-                            ? (l.style = kt(e, a))
-                            : (Mt(Lt.OBJECT, a)
-                                  ? Nt(e, 'style.layout', Object.keys(Ot), a.layout)
-                                  : void 0 !== a && Ct(e, 'style', Lt.OBJECT, a),
-                              (l.style = kt(e, { layout: 'text' }))),
-                        e.info(Y.VALIDATE, { options: v(l) }),
+                                : Mt(e, 'countryCode', It.STRING, i)),
+                        kt(It.OBJECT, a) && kt(It.STRING, a.layout) && Nt[a.layout]
+                            ? (l.style = Wt(e, a))
+                            : (kt(It.OBJECT, a)
+                                  ? zt(e, 'style.layout', Object.keys(Nt), a.layout)
+                                  : void 0 !== a && Mt(e, 'style', It.OBJECT, a),
+                              (l.style = Wt(e, { layout: 'text' }))),
+                        e.info(D.VALIDATE, { options: E(l) }),
                         l
                     );
                 }),
-                Wt = h(
+                Bt = h(
                     function(e) {
                         var n = e.offerType;
-                        return new j.ZalgoPromise(function(e, t) {
+                        return new H.ZalgoPromise(function(e, t) {
                             var o = new XMLHttpRequest();
                             (o.onreadystatechange = function() {
                                 if (4 === o.readyState)
@@ -4275,9 +4347,9 @@
                     },
                     ['offerType']
                 ),
-                Ht = h(
+                Yt = h(
                     function(e) {
-                        return new j.ZalgoPromise(function(n) {
+                        return new H.ZalgoPromise(function(n) {
                             var t,
                                 o,
                                 i,
@@ -4310,7 +4382,7 @@
                     },
                     ['account', 'amount']
                 ),
-                Bt = function(e, n) {
+                Ut = function(e, n) {
                     return 'INST' === n.type
                         ? '<tr>\n            ' +
                               ('pala' === e.type
@@ -4333,7 +4405,7 @@
                               '\n        </tr>'
                         : '';
                 },
-                Yt = function(e) {
+                Dt = function(e) {
                     return e.max_amount !== e.default_max_amount
                         ? '<div style="text-align: center; padding-bottom: 15px; display: table; padding-top: 10px; "><span style="display: inline-block; vertical-align: middle; "><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"><path fill="none" fill-rule="evenodd" stroke="#9DA3A6" stroke-linecap="round" stroke-linejoin="round" d="M9.526 10.474v7.579c4.71-.034 8.527-3.817 8.527-8.527a8.526 8.526 0 1 0-11.834 7.862"></path></svg></span><p style="display: inline; font-size: 13px; color: #2c2e2f; padding-left: 5px; font-family: PayPalSansSmall; font-weight: 400 ">$' +
                               e.max_amount +
@@ -4342,7 +4414,7 @@
                               ' or less.</p></div>'
                         : '<p style="text-align: center">No offers are available for this amount. Please enter a new amount.</p>';
                 };
-            function Ut(e, n) {
+            function Gt(e, n) {
                 var t = e.contentDocument.getElementById('content-wrapper'),
                     i = e.contentDocument.getElementById('modal__overlay'),
                     a = e.contentDocument.getElementById('close-btn'),
@@ -4379,11 +4451,11 @@
                     })(e, n)
                 );
             }
-            var Dt = h(
+            var Ft = h(
                     function(e) {
                         var n = window.top.document.createElement('div');
-                        n.setAttribute('data-pp-id', z.nextId);
-                        var t = Tt('iframe'),
+                        n.setAttribute('data-pp-id', j.nextId);
+                        var t = wt('iframe'),
                             i = t[0],
                             r = t[1].insertMarkup,
                             l = (function() {
@@ -4418,14 +4490,14 @@
                             u = l[1],
                             d = e.track,
                             m = e.clickUrl,
-                            p = N({ status: 'CLOSED' }),
+                            p = z({ status: 'CLOSED' }),
                             g = p[0],
                             f = p[1],
-                            h = D.create({ id: z.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
+                            h = F.create({ id: j.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
                         function y() {
                             return s()(e.offerType, 'NI') ? 'NI' : 'EZP';
                         }
-                        k({ nextId: (z.nextId += 1) });
+                        W({ nextId: (j.nextId += 1) });
                         var x = function(e, n, t) {
                             return d({
                                 et: 'modal-open' === e ? 'CLIENT_IMPRESSION' : 'CLICK',
@@ -4443,13 +4515,13 @@
                                         .style.setProperty('max-height', null);
                             });
                         }
-                        function w(e, n) {
+                        function b(e, n) {
                             var t = {
                                     'NI Tab': [g.elements.niTab, g.elements.niContent],
                                     'EZP Tab': [g.elements.ezpTab, g.elements.ezpContent]
                                 },
                                 o = t[e][0];
-                            Q()(t).forEach(function(e) {
+                            st()(t).forEach(function(e) {
                                 var n = e[0],
                                     t = e[1];
                                 n.classList.toggle('selected', n === o), t.classList.toggle('show', n === o);
@@ -4457,11 +4529,11 @@
                                 n || x('modal-tab', e),
                                 _();
                         }
-                        function v() {
-                            return g.error ? T(!0) : g.modalProm;
+                        function E() {
+                            return g.error ? R(!0) : g.modalProm;
                         }
-                        function b(e) {
-                            return new j.ZalgoPromise(function(t, o) {
+                        function P(e) {
+                            return new H.ZalgoPromise(function(t, o) {
                                 'OPEN' === g.status || 'OPENING' === g.status
                                     ? (f({ status: 'CLOSING' }),
                                       g.elements.modalContainer.classList.remove('show'),
@@ -4472,23 +4544,23 @@
                                               u(),
                                               'EZP' === y() &&
                                                   setTimeout(function() {
-                                                      w('EZP Tab', !0);
+                                                      b('EZP Tab', !0);
                                                   }, 350),
                                               t();
                                       }, e || 0))
                                     : o();
                             });
                         }
-                        function E(e) {
-                            b(350), x('modal-close', e);
+                        function T(e) {
+                            P(350), x('modal-close', e);
                         }
-                        function P(n) {
+                        function A(n) {
                             var t = +n;
                             return (
-                                Rt()(t) || (g.elements.amountInput.value = t.toFixed(2)),
+                                St()(t) || (g.elements.amountInput.value = t.toFixed(2)),
                                 g.elements.loader.style.setProperty('opacity', 1),
                                 g.elements.financeTermsTable.style.setProperty('opacity', 0.4),
-                                Ht(o({}, e, { amount: n })).then(function(e) {
+                                Yt(o({}, e, { amount: n })).then(function(e) {
                                     g.elements.loader.style.setProperty('opacity', 0),
                                         g.elements.financeTermsTable.style.setProperty('opacity', 1),
                                         (g.elements.financeTermsTable.innerHTML = (function(e) {
@@ -4508,20 +4580,20 @@
                                                   (e.options && e.options.length > 0 && 'N/A' !== e.options
                                                       ? e.options
                                                             .map(function(n) {
-                                                                return Bt(e, n);
+                                                                return Ut(e, n);
                                                             })
                                                             .join('')
                                                       : '') +
                                                   '\n            </tbody>\n        </table>\n        ' +
                                                   (e.options && 0 !== e.options.length && 'N/A' !== e.options
                                                       ? ''
-                                                      : Yt(e)) +
+                                                      : Dt(e)) +
                                                   '\n        <p id="terms-note">The monthly payment shown is an estimated amount and may not include taxes and shipping</p>\n    ';
                                         })(e));
                                 })
                             );
                         }
-                        function T(n) {
+                        function R(n) {
                             return (
                                 void 0 === n && (n = !1),
                                 h.start({
@@ -4532,19 +4604,19 @@
                                         message_id: e.id
                                     }
                                 }),
-                                Wt(e, n)
-                                    .then(r)
+                                Bt(e, n)
+                                    .then(v(w('markup'), r))
                                     .then(function() {
-                                        f({ elements: Ut(i, y()) }),
+                                        f({ elements: Gt(i, y()) }),
                                             (function() {
                                                 g.elements.closeButton.addEventListener('click', function() {
-                                                    E('Close Button');
+                                                    T('Close Button');
                                                 }),
                                                     g.elements.overlay.addEventListener('click', function(e) {
                                                         var n = e.target;
                                                         (n !== g.elements.contentWrapper &&
                                                             n !== g.elements.headerContainer) ||
-                                                            E('Modal Overlay');
+                                                            T('Modal Overlay');
                                                     });
                                                 var e = function() {
                                                     g.elements.contentWrapper.scrollTop > 0
@@ -4568,7 +4640,7 @@
                                                     }),
                                                     i.contentWindow.addEventListener('keyup', function(e) {
                                                         ('Escape' !== e.key && 'Esc' !== e.key && 27 !== e.charCode) ||
-                                                            E('Escape Key');
+                                                            T('Escape Key');
                                                     }),
                                                     a()(g.elements.landerLinks).forEach(function(e) {
                                                         e.addEventListener('click', function() {
@@ -4578,14 +4650,14 @@
                                                     'EZP' === y())
                                                 ) {
                                                     g.elements.niTab.addEventListener('click', function() {
-                                                        return w('NI Tab');
+                                                        return b('NI Tab');
                                                     }),
                                                         g.elements.ezpTab.addEventListener('click', function() {
-                                                            return w('EZP Tab');
+                                                            return b('EZP Tab');
                                                         });
                                                     var n = function(e) {
                                                         var n = g.elements.amountInput.value;
-                                                        x('calculate', e, n), P(n);
+                                                        x('calculate', e, n), A(n);
                                                     };
                                                     g.elements.amountInput.addEventListener('keydown', function(e) {
                                                         var t = e.key,
@@ -4597,7 +4669,7 @@
                                                                 a = o.selectionStart,
                                                                 r = i ? '' + i.slice(0, a) + t + i.slice(a) : t;
                                                             (function(e) {
-                                                                if (Rt()(Number(e))) return !1;
+                                                                if (St()(Number(e))) return !1;
                                                                 var n = e.split('.'),
                                                                     t = n[0],
                                                                     o = n[1];
@@ -4619,7 +4691,7 @@
                                             })();
                                     })
                                     .catch(function() {
-                                        h.error({ name: U.MODAL_FAIL }), f({ error: !0 });
+                                        h.error({ name: G.MODAL_FAIL }), f({ error: !0 });
                                     })
                                     .then(function() {
                                         return h.end();
@@ -4639,17 +4711,17 @@
                             ),
                             n.appendChild(i),
                             window.top.document.body.appendChild(n),
-                            f({ modalProm: T() }),
+                            f({ modalProm: R() }),
                             'EZP' === y() &&
-                                v().then(function() {
-                                    return P(e.amount);
+                                E().then(function() {
+                                    return A(e.amount);
                                 }),
                             {
                                 open: function(e) {
                                     e.preventDefault(),
                                         ('CLOSED' !== g.status && 'CLOSING' !== g.status) ||
                                             (f({ status: 'OPENING' }),
-                                            v().then(function() {
+                                            E().then(function() {
                                                 if (g.error)
                                                     return f({ status: 'CLOSED' }), void window.open(m, '_blank');
                                                 (n.style.display = 'block'),
@@ -4665,13 +4737,13 @@
                                                     });
                                             }));
                                 },
-                                close: b
+                                close: P
                             }
                         );
                     },
                     ['account', 'amount', 'offerType']
                 ),
-                Gt = {
+                Vt = {
                     init: function(e) {
                         var n = e.options,
                             t = e.meta,
@@ -4690,14 +4762,14 @@
                                     : window.open(t.clickUrl, '_blank');
                             });
                         else {
-                            var r = Dt(o({}, n, {}, t, { track: a }));
+                            var r = Ft(o({}, n, {}, t, { track: a }));
                             i.on('click', r.open);
                         }
                     }
                 },
-                Vt = new Map(),
-                Ft = new Map();
-            function Zt(e) {
+                Zt = new Map(),
+                Kt = new Map();
+            function Jt(e) {
                 var n = (e.meta && e.meta.offerType) + '::' + e.options.style._flattened.sort().join('::'),
                     t = e.meta;
                 return {
@@ -4707,83 +4779,84 @@
                     })
                 };
             }
-            var Kt = x(function(e, n) {
-                    var t;
-                    return ((t = {})[e] = n), t;
-                }),
-                Jt = x(function(e, n) {
+            var qt = x(function(e, n) {
                     return o({}, n, {}, e(n));
                 }),
-                qt = x(function(e, n) {
+                Qt = x(function(e, n) {
                     return e(n).then(function(e) {
                         return o({}, n, {}, e);
                     });
                 }),
-                Qt = function(e) {
+                $t = function(e) {
                     var n = e.options.onRender;
                     n && n();
                 },
-                $t = {
+                Xt = {
                     init: function(e, n, t) {
-                        Ft.has(e) ||
-                            Ft.set(e, D.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
+                        Kt.has(e) ||
+                            Kt.set(e, F.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
                         var i,
-                            a = Ft.get(e);
-                        return (
-                            Vt.has(e)
-                                ? ((i = Vt.get(e)).renderProm = i.renderProm.then(function() {
+                            a = Kt.get(e);
+                        try {
+                            Zt.has(e)
+                                ? ((i = Zt.get(e)).renderProm = i.renderProm.then(function() {
                                       return a.start({ options: t }), i.update(t);
                                   }))
                                 : (a.start({ options: t }),
                                   (i = (function(e, n, t) {
-                                      t.info(Y.CREATE);
-                                      var i = N(e),
+                                      t.info(D.CREATE);
+                                      var i = z(e),
                                           a = i[0],
                                           r = i[1],
                                           s = a._legacy,
-                                          l = Tt(s ? 'div' : 'iframe'),
+                                          l = wt(s ? 'div' : 'iframe'),
                                           u = l[0],
                                           d = l[1],
                                           m = d.insertMarkup,
                                           g = d.setSize,
                                           f = d.events,
                                           h = d.runStats,
-                                          v = d.clearEvents,
-                                          E = s ? u : document.createElement('span');
-                                      E !== u && E.appendChild(u);
-                                      var P = x(function(e, n, o) {
+                                          E = d.clearEvents,
+                                          T = s ? u : document.createElement('span');
+                                      T !== u && T.appendChild(u);
+                                      var A = x(function(e, n, o) {
                                           return t.info(n), e(o);
                                       });
-                                      function T(e) {
+                                      function R(e) {
                                           return (
-                                              t.info(Y.RENDER_START),
-                                              w(jt(t), _(r), Kt('options'), y(C.a, { logger: t }), qt(J))(e)
-                                                  .then(qt(P(m, Y.INSERT)))
+                                              t.info(D.RENDER_START),
+                                              v(
+                                                  Ht(t),
+                                                  _(r),
+                                                  b('options'),
+                                                  y(M.a, { logger: t, wrapper: T, events: f }),
+                                                  Qt(Rt)
+                                              )(e)
+                                                  .then(_(A(v(w('template'), m), D.INSERT)))
                                                   .then(
-                                                      w(
-                                                          y(C.a, { wrapper: E, events: f }),
-                                                          Jt(Zt),
-                                                          _(P(Gt.init, Y.MODAL)),
-                                                          _(P(g, Y.SIZE)),
-                                                          _(P(h, Y.STATS)),
-                                                          P(Qt, Y.RENDER_END)
+                                                      v(
+                                                          qt(Jt),
+                                                          _(A(Vt.init, D.MODAL)),
+                                                          _(A(g, D.SIZE)),
+                                                          _(A(h, D.STATS)),
+                                                          A($t, D.RENDER_END)
                                                       )
                                                   )
                                           );
                                       }
                                       return (
-                                          n.appendChild(E),
-                                          t.info(Y.CONTAINER),
+                                          n.appendChild(T),
+                                          t.info(D.CONTAINER),
                                           s ||
                                               u.addEventListener('load', function() {
-                                                  v(), T(a);
+                                                  E(), R(a);
                                               }),
                                           {
-                                              renderProm: T(a),
-                                              wrapper: E,
+                                              renderProm: R(a),
+                                              wrapper: T,
                                               container: u,
                                               update: function(e) {
-                                                  var n = b(a, e),
+                                                  var n = P(a, e),
                                                       i = (function e(n, t) {
                                                           return c()(t).reduce(function(t, i) {
                                                               var a,
@@ -4818,39 +4891,50 @@
                                                       })(a, n),
                                                       r = Object.keys(i).length > 0;
                                                   return (
-                                                      t.info(Y.UPDATE, { willUpdate: r }),
-                                                      r ? (v(), T(n)) : j.ZalgoPromise.resolve()
+                                                      t.info(D.UPDATE, { willUpdate: r }),
+                                                      r ? (E(), R(n)) : H.ZalgoPromise.resolve()
                                                   );
                                               }
                                           }
                                       );
                                   })(t, e, a)),
-                                  Vt.set(e, i)),
+                                  Zt.set(e, i));
+                        } catch (e) {
+                            return (
+                                a.error({ name: G.INTERNAL_FAIL, message: e.message }),
+                                a.end(),
+                                H.ZalgoPromise.resolve()
+                            );
+                        }
+                        return (
                             (i.renderProm = i.renderProm.then(a.end).catch(function(e) {
-                                a.error({ name: e.message }), a.end(), 'function' == typeof e.onEnd && e.onEnd();
+                                var n = G[e.message] || G.INTERNAL_FAIL;
+                                a.error(n === G.INTERNAL_FAIL ? { name: n, message: e.message } : { name: n }),
+                                    a.end(),
+                                    'function' == typeof e.onEnd && e.onEnd();
                             })),
                             i.renderProm
                         );
                     }
                 };
-            function Xt(e, n) {
+            function eo(e, n) {
                 var t, i;
                 if ((void 0 === n && (n = '[data-pp-message]'), 'string' == typeof n))
                     (t = a()(document.querySelectorAll(n))), (i = n);
-                else if (T(n)) (t = [n]), (i = 'HTMLElement');
+                else if (R(n)) (t = [n]), (i = 'HTMLElement');
                 else {
-                    if (!Array.isArray(n) || !n.every(T)) return D.warn('Invalid selector', n);
+                    if (!Array.isArray(n) || !n.every(R)) return F.warn('Invalid selector', n);
                     (t = [].concat(n)), (i = 'Array<HTMLElement>');
                 }
                 return (
                     (t = t.filter(function(n) {
                         return n.ownerDocument.body.contains(n)
                             ? !e._auto || !n.hasAttribute('data-pp-id')
-                            : (D.warn('Skipping container. Must be in the document:', n), !1);
+                            : (F.warn('Skipping container. Must be in the document:', n), !1);
                     })),
-                    j.ZalgoPromise.all(
+                    H.ZalgoPromise.all(
                         t.map(function(n) {
-                            var t = b(
+                            var t = P(
                                 e,
                                 (function(e) {
                                     var n = a()(e.attributes)
@@ -4860,7 +4944,7 @@
                                         })
                                         .reduce(function(e, n) {
                                             var t = n.nodeValue;
-                                            return t ? b(e, P(n.nodeName.replace('data-pp-', ''), t)) : e;
+                                            return t ? P(e, A(n.nodeName.replace('data-pp-', ''), t)) : e;
                                         }, {});
                                     if (
                                         !e.firstElementChild ||
@@ -4869,12 +4953,12 @@
                                     )
                                         return n;
                                     var t = e.firstElementChild.textContent.trim();
-                                    return e.removeChild(e.firstElementChild), b(n, { style: { markup: t } });
+                                    return e.removeChild(e.firstElementChild), P(n, { style: { markup: t } });
                                 })(n)
                             );
                             return (
                                 n.hasAttribute('data-pp-id') ||
-                                    (n.setAttribute('data-pp-id', z.nextId), k({ nextId: (z.nextId += 1) })),
+                                    (n.setAttribute('data-pp-id', j.nextId), W({ nextId: (j.nextId += 1) })),
                                 new MutationObserver(function(e) {
                                     var t = e.reduce(function(e, n) {
                                         return s()(n.attributeName, 'data-pp-')
@@ -4882,44 +4966,44 @@
                                                   {},
                                                   e,
                                                   {},
-                                                  P(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
+                                                  A(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
                                               )
                                             : e;
                                     }, {});
-                                    $t.init(n, i, t);
+                                    Xt.init(n, i, t);
                                 }).observe(n, { attributes: !0 }),
                                 (t.id = n.getAttribute('data-pp-id')),
-                                $t.init(n, i, t)
+                                Xt.init(n, i, t)
                             );
                         })
                     )
                 );
             }
-            var eo = function(e) {
+            var no = function(e) {
                 return {
                     render: function(n) {
-                        return Xt(o({}, z.config, {}, e), n);
+                        return eo(o({}, j.config, {}, e), n);
                     }
                 };
             };
-            C()(eo, {
+            M()(no, {
                 render: function(e, n) {
-                    return void 0 === e && (e = {}), Xt(o({}, z.config, {}, e), n);
+                    return void 0 === e && (e = {}), eo(o({}, j.config, {}, e), n);
                 },
                 setGlobalConfig: function(e) {
-                    return void 0 === e && (e = {}), k({ config: o({}, z.config, {}, e) });
+                    return void 0 === e && (e = {}), W({ config: o({}, j.config, {}, e) });
                 }
             });
-            var no = eo,
-                to = { BLU: 'blue', BLK: 'black', GRY: 'gray', WHT: 'white' },
-                oo = { x180x150: '1x1', x160x600: '1x4', x728x90: '8x1', x1169x50: '20x1' },
-                io = {
+            var to = no,
+                oo = { BLU: 'blue', BLK: 'black', GRY: 'gray', WHT: 'white' },
+                io = { x180x150: '1x1', x160x600: '1x4', x728x90: '8x1', x1169x50: '20x1' },
+                ao = {
                     x1169x50: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
                     x160x600: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
                     x180x150: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS'],
                     x728x90: ['BLKWHTYCSS', 'BLUWHTYCSS', 'WHTBLUNCSS', 'WHTBLUYCSS']
                 },
-                ao = {
+                ro = {
                     x1169x51: ['x1169x50', 'BLKWHTYLRG'],
                     x1169x52: ['x1169x50', 'BLUWHTYLRG'],
                     x1169x50: ['x1169x50', 'WHTBLUYLRG'],
@@ -4936,14 +5020,14 @@
                     x729x90: ['x728x90', 'BLKWHTYLRG'],
                     x730x90: ['x728x90', 'WHTBLUYLRG']
                 },
-                ro = {
+                so = {
                     x160x600: ['BLKWHTYMED', 'BLUWHTYMED', 'WHTBLUNMED', 'WHTBLUYMED'],
                     x180x150: ['BLKWHTYSML', 'BLUWHTYSML', 'WHTBLUNSML', 'WHTBLUYSML'],
                     x300x250: ['BLKWHTYMED', 'BLUWHTYMED', 'WHTBLUNSML', 'WHTBLUYMED'],
                     x728x90: ['BLKWHTYLRG', 'BLUWHTYLRG', 'WHTBLUNLRG', 'WHTBLUYLRG'],
                     x1169x50: ['BLKWHTYLRG', 'BLUWHTYLRG', 'WHTBLUNLRG', 'WHTBLUYLRG']
                 },
-                so = [
+                lo = [
                     'x90x136',
                     'x190x50',
                     'x228x128',
@@ -4986,8 +5070,8 @@
                     'x160x600',
                     'x170x100'
                 ],
-                lo = ['x168x374', 'x340x60', 'x765x60', 'x1000x50', 'x234x100', 'x1000x36', 'x310x100'],
-                co = [
+                co = ['x168x374', 'x340x60', 'x765x60', 'x1000x50', 'x234x100', 'x1000x36', 'x310x100'],
+                uo = [
                     'x1000x36',
                     'x120x90',
                     'x234x60',
@@ -4999,7 +5083,7 @@
                     'x540x200',
                     'x170x100'
                 ],
-                uo = [
+                mo = [
                     ['35NBB9X6Z4UV4', 'ae448a026d'],
                     ['4P9TSD9APDTT6', '9483cfbbc4'],
                     ['A96ZUTUZAMETY', '6fd53e600b'],
@@ -5010,7 +5094,7 @@
                     ['RCNQL2J33NC54', 'df8729dd2c'],
                     ['TCE2H9EMJKVTL', 'c78836e69a']
                 ],
-                mo = {
+                po = {
                     '35NBB9X6Z4UV4': ['x728x90'],
                     '4P9TSD9APDTT6': ['x468x60'],
                     A96ZUTUZAMETY: ['x310x100'],
@@ -5022,10 +5106,10 @@
                     TCE2H9EMJKVTL: ['x170x100']
                 };
             window.__PP = window.__PP || {};
-            var po = 'c' + (new Date().getTime() + Math.floor(65536 * Math.random())),
-                go = [650, 600],
-                fo = 0;
-            function ho(e, n) {
+            var go = 'c' + (new Date().getTime() + Math.floor(65536 * Math.random())),
+                fo = [650, 600],
+                ho = 0;
+            function yo(e, n) {
                 return function(t) {
                     return n.call(
                         e,
@@ -5048,7 +5132,7 @@
                     );
                 };
             }
-            var yo = {
+            var xo = {
                     goto: function(e) {
                         window.location = e;
                     },
@@ -5063,27 +5147,27 @@
                     },
                     registerEvent: function(e, n, t, o) {
                         var i = this;
-                        if (window.addEventListener) e.addEventListener(n, ho(e, t), !!o);
-                        else if (window.attachEvent) e.attachEvent('on' + n, ho(e, t));
+                        if (window.addEventListener) e.addEventListener(n, yo(e, t), !!o);
+                        else if (window.attachEvent) e.attachEvent('on' + n, yo(e, t));
                         else {
                             var a = e['on' + n];
                             e['on' + n] = a
                                 ? function() {
-                                      ho(e, t).call(i), a.call(i);
+                                      yo(e, t).call(i), a.call(i);
                                   }
                                 : t;
                         }
                     }
                 },
-                xo = (function() {
+                _o = (function() {
                     function e(e) {
-                        var n = yo.createElement('script');
+                        var n = xo.createElement('script');
                         (n.async = 'true'), (n.src = e), (this.el = n), this.attach();
                     }
                     var n = e.prototype;
                     return (
                         (n.attach = function() {
-                            var e = yo.getElementsByTagName('script')[0];
+                            var e = xo.getElementsByTagName('script')[0];
                             e.parentNode.insertBefore(this.el, e), (this.attach = function() {});
                         }),
                         (n.destroy = function() {
@@ -5092,7 +5176,7 @@
                         e
                     );
                 })(),
-                _o = (function() {
+                vo = (function() {
                     function e(e) {
                         this.el = e;
                     }
@@ -5113,7 +5197,7 @@
                         }),
                         (n.registerListeners = function() {
                             var e = this;
-                            yo.registerEvent(this.ad.container, 'click', function() {
+                            xo.registerEvent(this.ad.container, 'click', function() {
                                 var n;
                                 (n = e.ad).clickHandler.apply(n, arguments);
                             });
@@ -5126,8 +5210,8 @@
                 })(),
                 wo = (function() {
                     function e(e) {
-                        (this.idx = fo += 1),
-                            (this.namespace = po + this.idx),
+                        (this.idx = ho += 1),
+                            (this.namespace = go + this.idx),
                             (this.kvs = e),
                             (this.variant = e && e.partner_version ? 'PARTNER' : 'MERCHANT'),
                             this.initContainer(),
@@ -5137,7 +5221,7 @@
                     var n = e.prototype;
                     return (
                         (n.initContainer = function() {
-                            (this.container = yo.createElement('span')), (this.container.style.display = 'none');
+                            (this.container = xo.createElement('span')), (this.container.style.display = 'none');
                         }),
                         (n.injectScripts = function(e) {
                             var n = this,
@@ -5157,7 +5241,7 @@
                                 var n = this.injectScripts(e);
                                 (this.container.innerHTML = n), (this.container.style.display = '');
                             } else {
-                                var t = yo.createElement('iframe');
+                                var t = xo.createElement('iframe');
                                 t.setAttribute('width', '100%'),
                                     t.setAttribute('height', '100%'),
                                     (t.style.border = 'none'),
@@ -5195,16 +5279,16 @@
                                 t = this.kvs.popup,
                                 o =
                                     'width=' +
-                                    go[0] +
+                                    fo[0] +
                                     ',height=' +
-                                    go[1] +
+                                    fo[1] +
                                     ',scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no';
                             'img' !== n.nodeName.toLowerCase() ||
                                 (t && 'true' !== t) ||
-                                (yo.popup(n.parentNode.href, this.namespace, o), e.preventDefault());
+                                (xo.popup(n.parentNode.href, this.namespace, o), e.preventDefault());
                         }),
                         (n.request = function() {
-                            this.script = new xo('https://www.paypal.com/imadserver/upstream' + this.queryString);
+                            this.script = new _o('https://www.paypal.com/imadserver/upstream' + this.queryString);
                         }),
                         (n.initQueryString = function() {
                             var e = {
@@ -5229,7 +5313,7 @@
                         e
                     );
                 })(),
-                vo = {
+                bo = {
                     pubid: 'pub_id',
                     payerid: 'payer_id',
                     placementtype: 'dimensions',
@@ -5247,28 +5331,28 @@
                             n.setAttribute(t, e.value), n.removeAttribute(e.name);
                         }
                         var o = e.name.match(/^data-pp-([a-z]+)/);
-                        o && vo[o[1]] && (n.setAttribute('data-pp_' + vo[o[1]], e.value), n.removeAttribute(e.name));
+                        o && bo[o[1]] && (n.setAttribute('data-pp_' + bo[o[1]], e.value), n.removeAttribute(e.name));
                     });
                 var t = e.getAttribute('data-pp_pub_id'),
                     o = e.getAttribute('data-pp_payer_id'),
                     i = e.getAttribute('data-pp_dimensions');
                 if ((o || t) && i) {
-                    var r = new _o(e);
+                    var r = new vo(e);
                     if (
                         !(function(e) {
                             var n = e.getKVs(),
                                 t = n.payer_id || n.pub_id,
                                 o = (function(e, n) {
                                     if (n)
-                                        return ro[e] && p()(ro[e], n)
+                                        return so[e] && p()(so[e], n)
                                             ? ['image', '', e, n]
-                                            : io[e] && p()(io[e], n)
+                                            : ao[e] && p()(ao[e], n)
                                             ? ['flex', 'flex', e, n]
                                             : [];
-                                    if (ao[e]) return ['image', ''].concat(ao[e]);
-                                    var t = p()(so, e),
-                                        o = p()(lo, e),
-                                        i = p()(co, e) ? 'html' : '';
+                                    if (ro[e]) return ['image', ''].concat(ro[e]);
+                                    var t = p()(lo, e),
+                                        o = p()(co, e),
+                                        i = p()(uo, e) ? 'html' : '';
                                     return t ? ['image', i, e, 'none'] : o ? ['html', i, e, 'none'] : [];
                                 })(n.dimensions, n.style),
                                 i = o[0],
@@ -5276,24 +5360,24 @@
                                 r = o[2],
                                 s = o[3];
                             if (r) {
-                                var l = d()(uo, function(e) {
+                                var l = d()(mo, function(e) {
                                     return p()(e, t);
                                 });
                                 if (l) {
                                     var c = l[0];
-                                    if (p()(mo[c], r)) return !1;
+                                    if (p()(po[c], r)) return !1;
                                 }
                                 var u = (function(e, n, t, o) {
                                         var i = t.slice(1),
                                             a = 'none',
                                             r = !1;
                                         return (
-                                            10 === o.length && ((a = to[o.slice(0, 3)]), (r = 'Y' === o.slice(6, 7))),
+                                            10 === o.length && ((a = oo[o.slice(0, 3)]), (r = 'Y' === o.slice(6, 7))),
                                             'flex' === e && 'flex' === n
                                                 ? {
                                                       layout: 'flex',
                                                       color: 'white' !== a || r ? a : 'white-no-border',
-                                                      ratio: oo[t]
+                                                      ratio: io[t]
                                                   }
                                                 : {
                                                       layout: 'legacy',
@@ -5309,7 +5393,7 @@
                                 return (
                                     e.el.parentNode.insertBefore(m, e.el),
                                     setTimeout(function() {
-                                        no({
+                                        to({
                                             _legacy: 'flex' !== i && 'flex' !== a,
                                             account: t,
                                             amount: n.currency_value,
@@ -5334,4 +5418,4 @@
         }
     ]).Messages
 );
-//# sourceMappingURL=merchant@1.1.1.js.map
+//# sourceMappingURL=merchant@1.1.4.js.map

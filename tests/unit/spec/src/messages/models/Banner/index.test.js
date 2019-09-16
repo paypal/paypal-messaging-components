@@ -2,24 +2,16 @@ import Banner from 'src/messages/models/Banner';
 import Modal from 'src/messages/models/Modal';
 import { objectFlattenToArray as mockFlatten } from 'src/utils';
 
+const mockTemplate = document.createElement('div');
+mockTemplate.innerHTML = '<h1>test header</h1><p>see terms</p>';
+
 jest.mock('src/messages/models/Modal', () => ({ init: jest.fn() }));
 jest.mock('src/messages/services/banner', () =>
     jest.fn(({ options }) => {
         const config = {
             options,
-            markup: {
-                meta: {
-                    offerType: 'NI',
-                    impressionUrl: '$impression_tracking_url$',
-                    clickUrl: '$click_tracking_url$&landing_url=https://www.paypal.com/ppclander'
-                },
-
-                data: {
-                    headline: [['Buy now. Pay over time.', ['default']]],
-                    subHeadline: [['Check out with PayPal and choose PayPal Credit.', ['default']]],
-                    disclaimer: [['See terms', ['default']]]
-                }
-            }
+            template: mockTemplate,
+            meta: {}
         };
         config.options.style._flattened = mockFlatten(options);
 
@@ -55,20 +47,20 @@ describe('Banner model', () => {
         expect(Modal.init).toHaveBeenCalledTimes(1);
         expect(wrapper.children.length).toBe(1);
         expect(iframe.tagName).toBe('IFRAME');
-        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/Buy now\. Pay over time\./);
+        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/test header/i);
 
         await Banner.init(wrapper, selector, validOptions);
 
         // With no options changed, re-render should be skipped
         expect(Modal.init).toHaveBeenCalledTimes(1);
         expect(wrapper.children.length).toBe(1);
-        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/Buy now\. Pay over time\./);
+        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/test header/i);
 
         await Banner.init(wrapper, selector, { ...validOptions, style: { layout: 'flex', ratio: '1x1' } });
 
         // With new options, ensure render pipeline is called again
         expect(Modal.init).toHaveBeenCalledTimes(2);
         expect(wrapper.children.length).toBe(1);
-        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/Buy now\. Pay over time\./);
+        expect(iframe.contentWindow.document.body.innerHTML).toMatch(/test header/i);
     });
 });
