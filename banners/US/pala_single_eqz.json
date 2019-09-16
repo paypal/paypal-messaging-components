@@ -18,7 +18,7 @@
     ],
 
     "subHeadline": [
-        ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
+        ["No money due today.", ["default", "xsmall"]],
         [
             "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month with no interest for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
             ["legacy-xlarge"]

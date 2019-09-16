@@ -10,11 +10,11 @@
     ],
 
     "subHeadline": [
-        ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
         [
             "Choose PayPal Credit and select ${CREDIT_OFFERS_DS.total_payments} Easy Payments to pay over time",
             ["legacy-medium"]
-        ]
+        ],
+        ["No money due today.", ["default", "small"]]
     ],
 
     "disclaimer": [

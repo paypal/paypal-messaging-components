@@ -69,13 +69,13 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(9),
+            var o = t(8),
                 i = t(109).f,
                 a = t(110),
-                r = t(17),
+                r = t(16),
                 s = t(39),
-                l = t(12),
-                c = t(16),
+                l = t(11),
+                c = t(15),
                 u = function(e) {
                     var n = function(n, t, o) {
                         if (this instanceof e) {
@@ -95,8 +95,8 @@
                 };
             e.exports = function(e, n) {
                 var t,
-                    d,
                     m,
+                    d,
                     p,
                     g,
                     f,
@@ -109,11 +109,11 @@
                     b = x ? o : w ? o[_] : (o[_] || {}).prototype,
                     E = x ? r : r[_] || (r[_] = {}),
                     P = E.prototype;
-                for (m in n)
-                    (t = !a(x ? m : _ + (w ? '.' : '#') + m, e.forced) && b && c(b, m)),
-                        (g = E[m]),
-                        t && (f = e.noTargetGet ? (y = i(b, m)) && y.value : b[m]),
-                        (p = t && f ? f : n[m]),
+                for (d in n)
+                    (t = !a(x ? d : _ + (w ? '.' : '#') + d, e.forced) && b && c(b, d)),
+                        (g = E[d]),
+                        t && (f = e.noTargetGet ? (y = i(b, d)) && y.value : b[d]),
+                        (p = t && f ? f : n[d]),
                         (t && typeof g == typeof p) ||
                             ((h =
                                 e.bind && t
@@ -124,15 +124,15 @@
                                     ? s(Function.call, p)
                                     : p),
                             (e.sham || (p && p.sham) || (g && g.sham)) && l(h, 'sham', !0),
-                            (E[m] = h),
+                            (E[d] = h),
                             v &&
-                                (c(r, (d = _ + 'Prototype')) || l(r, d, {}),
-                                (r[d][m] = p),
-                                e.real && P && !P[m] && l(P, m, p)));
+                                (c(r, (m = _ + 'Prototype')) || l(r, m, {}),
+                                (r[m][d] = p),
+                                e.real && P && !P[d] && l(P, d, p)));
             };
         },
         function(e, n, t) {
-            var o = t(9),
+            var o = t(8),
                 i = t(32),
                 a = t(48),
                 r = t(114),
@@ -144,9 +144,6 @@
         },
         function(e, n, t) {
             e.exports = t(149);
-        },
-        function(e, n, t) {
-            e.exports = t(138);
         },
         function(e, n) {
             e.exports = function(e) {
@@ -174,7 +171,7 @@
             e.exports = t(134);
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(24),
                 a = t(25);
             e.exports = o
@@ -186,7 +183,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports = !o(function() {
                 return (
                     7 !=
@@ -232,14 +229,17 @@
             e.exports = t(41);
         },
         function(e, n, t) {
-            var o = t(15);
+            e.exports = t(138);
+        },
+        function(e, n, t) {
+            e.exports = t(154);
+        },
+        function(e, n, t) {
+            var o = t(14);
             e.exports = function(e) {
                 if (!o(e)) throw TypeError(String(e) + ' is not an object');
                 return e;
             };
-        },
-        function(e, n, t) {
-            e.exports = t(158);
         },
         function(e, n, t) {
             e.exports = t(160);
@@ -252,9 +252,9 @@
             };
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(46),
-                a = t(20),
+                a = t(21),
                 r = t(33),
                 s = Object.defineProperty;
             n.f = o
@@ -275,7 +275,7 @@
         },
         function(e, n, t) {
             var o = t(38),
-                i = t(8);
+                i = t(7);
             e.exports = function(e) {
                 return o(i(e));
             };
@@ -287,7 +287,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(8);
+            var o = t(7);
             e.exports = function(e) {
                 return Object(o(e));
             };
@@ -295,15 +295,15 @@
         function(e, n) {
             e.exports = {};
         },
-        function(e, n, t) {
-            e.exports = t(154);
-        },
         function(e, n) {
             e.exports =
                 '* {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n\nhtml {\n    color: #2d2d2d;\n    font-family: PayPal-Sans, Helvetica, Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 400;\n    overflow: hidden;\n}\n\nimg {\n    display: block;\n    width: 100%;\n    height: auto;\n}\n\n.message__logo--svg {\n    position: relative;\n}\n\n.message__logo img {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n\n/* IE will not properly scale a SVG element, but will scale a canvas element */\n.message__logo canvas {\n    display: block;\n    width: 100%;\n    visibility: hidden;\n}\n';
         },
         function(e, n, t) {
-            var o = t(9),
+            e.exports = t(158);
+        },
+        function(e, n, t) {
+            var o = t(8),
                 i = t(107),
                 a = t(34),
                 r = o['__core-js_shared__'] || i('__core-js_shared__', {});
@@ -316,7 +316,7 @@
             });
         },
         function(e, n, t) {
-            var o = t(15);
+            var o = t(14);
             e.exports = function(e, n) {
                 if (!o(e)) return e;
                 var t, i;
@@ -353,7 +353,7 @@
                 : o;
         },
         function(e, n, t) {
-            var o = t(14),
+            var o = t(13),
                 i = t(27),
                 a = ''.split;
             e.exports = o(function() {
@@ -401,8 +401,8 @@
                 };
         },
         function(e, n, t) {
-            var o = t(17),
-                i = t(9),
+            var o = t(16),
+                i = t(8),
                 a = function(e) {
                     return 'function' == typeof e ? e : void 0;
                 };
@@ -437,11 +437,11 @@
         },
         function(e, n) {
             e.exports =
-                '/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */\n\n.message__content {\n    display: flex;\n    padding-right: 1rem;\n}\n\n.message__logo-container {\n    flex: 0 0 33%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.message__logo {\n    width: 60%;\n}\n\n.message__messaging {\n    flex: 1 1 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: flex-start;\n}\n\n.message__messaging > * {\n    width: 100%;\n}\n\n.message__headline {\n    font-size: 5vw;\n    line-height: 1;\n    margin-bottom: 0.2em;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    font-size: 10px;\n    line-height: 1.1;\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1.5rem;\n        margin-bottom: 0.5rem;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n        line-height: 1;\n        padding-right: 8%;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 520px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        margin: 0 0 2% 0;\n        font-size: 3.7vw;\n        padding-right: 2%;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 640px) {\n    .message__headline {\n        font-size: 1.7rem;\n    }\n}\n';
+                '/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */\n\n.message__content {\n    display: flex;\n    padding-right: 1rem;\n    align-items: center;\n}\n\n.message__logo-container {\n    flex: 0 0 33%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.message__logo {\n    width: 60%;\n}\n\n.message__messaging {\n    position: relative;\n    flex: 1 1 100%;\n    display: block;\n}\n\n.message__messaging > * {\n    width: 100%;\n}\n\n.message__headline {\n    font-size: 5vw;\n    line-height: 1;\n    margin-bottom: 0.2em;\n}\n\n.message__sub-headline {\n    display: none;\n}\n\n.message__promo-container {\n    display: inline;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    font-size: 10px;\n    line-height: 1.1;\n    display: inline;\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 400px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        margin-bottom: 0.5rem;\n    }\n\n    .message__sub-headline {\n        font-size: 3vw;\n        display: inline;\n    }\n\n    .message__sub-headline > span {\n        margin-right: 1rem;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 520px) {\n    .message__logo-container {\n        flex: 0 0 25%;\n    }\n\n    .message__headline {\n        line-height: 1.1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.85rem;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n}\n\n@media (max-aspect-ratio: 61/10) and (min-width: 640px) {\n    .message__headline {\n        font-size: 1.7rem;\n    }\n}\n';
         },
         function(e, n, t) {
-            var o = t(13),
-                i = t(14),
+            var o = t(12),
+                i = t(13),
                 a = t(47);
             e.exports =
                 !o &&
@@ -457,8 +457,8 @@
                 });
         },
         function(e, n, t) {
-            var o = t(9),
-                i = t(15),
+            var o = t(8),
+                i = t(14),
                 a = o.document,
                 r = i(a) && i(a.createElement);
             e.exports = function(e) {
@@ -478,23 +478,23 @@
                 i,
                 a,
                 r = t(50),
-                s = t(12),
-                l = t(16),
+                s = t(11),
+                l = t(15),
                 c = t(5),
                 u = t(34),
-                d = c('iterator'),
-                m = !1;
-            [].keys && ('next' in (a = [].keys()) ? (i = r(r(a))) !== Object.prototype && (o = i) : (m = !0)),
+                m = c('iterator'),
+                d = !1;
+            [].keys && ('next' in (a = [].keys()) ? (i = r(r(a))) !== Object.prototype && (o = i) : (d = !0)),
                 null == o && (o = {}),
                 u ||
-                    l(o, d) ||
-                    s(o, d, function() {
+                    l(o, m) ||
+                    s(o, m, function() {
                         return this;
                     }),
-                (e.exports = { IteratorPrototype: o, BUGGY_SAFARI_ITERATORS: m });
+                (e.exports = { IteratorPrototype: o, BUGGY_SAFARI_ITERATORS: d });
         },
         function(e, n, t) {
-            var o = t(16),
+            var o = t(15),
                 i = t(28),
                 a = t(35),
                 r = t(113),
@@ -517,7 +517,7 @@
         },
         function(e, n, t) {
             var o = t(26),
-                i = t(18),
+                i = t(17),
                 a = t(118),
                 r = function(e) {
                     return function(n, t, r) {
@@ -546,8 +546,8 @@
         },
         function(e, n, t) {
             var o = t(24).f,
-                i = t(12),
-                a = t(16),
+                i = t(11),
+                a = t(15),
                 r = t(120),
                 s = t(5)('toStringTag'),
                 l = r !== {}.toString;
@@ -592,15 +592,15 @@
             e.exports = function() {};
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(40),
                 a = t(26),
                 r = t(37).f,
                 s = function(e) {
                     return function(n) {
-                        for (var t, s = a(n), l = i(s), c = l.length, u = 0, d = []; c > u; )
-                            (t = l[u++]), (o && !r.call(s, t)) || d.push(e ? [t, s[t]] : s[t]);
-                        return d;
+                        for (var t, s = a(n), l = i(s), c = l.length, u = 0, m = []; c > u; )
+                            (t = l[u++]), (o && !r.call(s, t)) || m.push(e ? [t, s[t]] : s[t]);
+                        return m;
                     };
                 };
             e.exports = { entries: s(!0), values: s(!1) };
@@ -613,7 +613,7 @@
         },
         function(e, n) {
             e.exports =
-                '<div class="message" data-pp-message>\n    <div class="message__container">\n        \x3c!-- foreground layer --\x3e\n        <div class="message__foreground"></div>\n\n        \x3c!-- content layer --\x3e\n        <div class="message__content">\n            \x3c!-- PP Credit Logo --\x3e\n            <div class="message__logo-container"></div>\n            \x3c!-- Promotional Messaging --\x3e\n            <div class="message__messaging">\n                <div class="message__promo-container">\n                    <h5 class="message__headline"></h5>\n                    <h6 class="message__sub-headline"></h6>\n                </div>\n                <p class="message__disclaimer"></p>\n            </div>\n        </div>\n\n        \x3c!-- background layer --\x3e\n        <div class="message__background"></div>\n    </div>\n</div>\n';
+                '<div role="button" class="message" tabindex="0" data-pp-message>\n    <div class="message__container">\n        \x3c!-- foreground layer --\x3e\n        <div class="message__foreground"></div>\n\n        \x3c!-- content layer --\x3e\n        <div class="message__content">\n            \x3c!-- PP Credit Logo --\x3e\n            <div class="message__logo-container"></div>\n            \x3c!-- Promotional Messaging --\x3e\n            <div class="message__messaging">\n                <div class="message__promo-container">\n                    <h5 class="message__headline"></h5>\n                    <h6 class="message__sub-headline"></h6>\n                </div>\n                <p class="message__disclaimer"></p>\n            </div>\n        </div>\n        \x3c!-- background layer --\x3e\n        <div class="message__background"></div>\n    </div>\n</div>\n';
         },
         function(e, n) {
             e.exports =
@@ -653,19 +653,19 @@
         },
         function(e, n) {
             e.exports =
-                '.message__content {\n    padding: 7%;\n}\n\n.message__logo-container {\n    width: 50%;\n    margin-bottom: 7%;\n}\n\n.message__headline {\n    font-size: 11vw;\n    line-height: 1.1em;\n    font-size: 12vw;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__disclaimer {\n    position: absolute;\n    width: 80%;\n    bottom: 7%;\n    font-size: 10px;\n}\n\n@media (min-width: 150px) {\n    .message__headline {\n        font-size: 9vw;\n        line-height: 1.2em;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n}\n\n@media (min-width: 220px) {\n    .message__content {\n        padding: 10%;\n    }\n\n    .message__logo-container {\n        width: 40%;\n        margin-bottom: 10%;\n    }\n\n    .message__headline {\n        font-size: 8vw;\n    }\n\n    .message__disclaimer {\n        font-size: 4.5vw;\n        bottom: 10%;\n    }\n}\n';
+                '.message__content {\n    padding: 7%;\n}\n\n.message__logo-container {\n    width: 50%;\n    margin-bottom: 7%;\n}\n\n.message__headline {\n    font-size: 12vw;\n    line-height: 1.1em;\n}\n\n.message__headline span.multi:nth-of-type(2) {\n    display: none;\n}\n\n.message__sub-headline {\n    display: none;\n}\n\n.message__disclaimer {\n    position: absolute;\n    width: 80%;\n    bottom: 7%;\n    font-size: 9.5px;\n}\n\n@media (min-width: 150px) {\n    .message__headline {\n        font-size: 11vw;\n        line-height: 1.2em;\n    }\n\n    .message__sub-headline {\n        font-size: 8.5vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 6.5vw;\n    }\n}\n\n@media (min-width: 170px) {\n    .message__headline {\n        font-size: 8vw;\n    }\n\n    .message__sub-headline {\n        font-size: 7vw;\n        line-height: 1.3em;\n        margin-top: 3%;\n        display: block;\n    }\n\n    .message__disclaimer {\n        font-size: 5.5vw;\n    }\n}\n\n@media (min-width: 220px) {\n    .message__disclaimer {\n        font-size: 4.5vw;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '.message__content {\n    padding: 8%;\n}\n\n.message__logo-container {\n    width: 70%;\n    margin-bottom: 12%;\n}\n\n.message__headline {\n    font-size: 1.1rem;\n    line-height: 1.3em;\n    margin-bottom: 24%;\n}\n\n.message__sub-headline {\n    font-size: 1.1rem;\n    line-height: 1.3em;\n    margin-bottom: 40%;\n    margin-bottom: 24%;\n}\n\n.message__disclaimer {\n    position: absolute;\n    bottom: 4%;\n    font-size: 0.75rem;\n}\n\n.message__disclaimer span.multi:nth-of-type(1) {\n    display: none;\n}\n\n@media (max-aspect-ratio: 11/40) {\n    .message__logo-container {\n        margin: 15% 0 30%;\n    }\n\n    .message__disclaimer {\n        position: static;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1).tag--xlarge {\n        margin-bottom: 40%;\n        display: block;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(2) {\n        display: block;\n    }\n}\n';
+                '.message__content {\n    padding: 8%;\n}\n\n.message__logo-container {\n    width: 70%;\n    margin-bottom: 12%;\n}\n\n.message__headline {\n    font-size: 1.6rem;\n    line-height: 1.3em;\n    margin-bottom: 24%;\n}\n\n.message__sub-headline {\n    font-size: 1.56rem;\n    line-height: 1.3em;\n    margin-bottom: 40%;\n    margin-bottom: 24%;\n}\n\n.message__disclaimer {\n    position: absolute;\n    bottom: 4%;\n    font-size: 0.75rem;\n}\n\n@media (max-aspect-ratio: 11/40) {\n    .message__logo-container {\n        margin: 15% 0 30%;\n    }\n\n    .message__disclaimer {\n        position: static;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(1).tag--xlarge {\n        margin-bottom: 40%;\n        display: block;\n    }\n\n    .message__disclaimer span.multi:nth-of-type(2) {\n        display: block;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '@media (min-aspect-ratio: 80/11) {\n    .message__headline span.multi:nth-of-type(2),\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n\n    .message__logo-container {\n        flex: 0 0 22%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 240px) {\n    .message__messaging {\n        line-height: 0.9;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: inline;\n    }\n\n    .message__disclaimer {\n        padding-right: 10%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 280px) {\n    .message__disclaimer {\n        padding-right: 2%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 360px) {\n    .message__messaging {\n        line-height: 1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 360px) {\n    .message__disclaimer {\n        line-height: 1;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 500px) {\n    .message__headline {\n        font-size: 3vw;\n        padding-right: 12%;\n        margin: 0 0 1% 0;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 600px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 2vw;\n        line-height: 1.6em;\n    }\n}\n';
+                '@media (min-aspect-ratio: 80/11) {\n    .message__headline span.multi:nth-of-type(2),\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__messaging {\n        position: relative;\n    }\n\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n\n    .message__logo-container {\n        flex: 0 0 22%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 240px) {\n    .message__messaging {\n        line-height: 0.9;\n    }\n\n    .message__headline {\n        font-size: 4vw;\n        line-height: 1.1;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: inline;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 280px) {\n    .message__disclaimer {\n        padding-right: 2%;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 360px) {\n    .message__messaging {\n        line-height: 1;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 360px) {\n    .message__disclaimer {\n        line-height: 1;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 500px) {\n    .message__headline {\n        font-size: 3vw;\n        padding-right: 12%;\n        margin: 0 0 1% 0;\n    }\n\n    .message__sub-headline {\n        font-size: 2.5vw;\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        font-size: 0.75rem;\n    }\n}\n\n@media (min-aspect-ratio: 80/11) and (min-width: 600px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n    }\n}\n\n/*IE specific*/\n@media (min-aspect-ratio: 80/11) and (-ms-high-contrast: none) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 2vw;\n        line-height: 1.6em;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
-                '@media (min-aspect-ratio: 200/11) {\n    .message__logo-container {\n        flex: 1 0 25%;\n    }\n\n    .message__logo {\n        width: 40%;\n    }\n\n    .message__messaging {\n        flex: 1 1 85%;\n        flex-direction: row;\n        justify-content: center;\n        align-items: center;\n    }\n\n    .message__headline {\n        flex: 1 1 60%;\n        font-size: 0.9rem;\n        line-height: 1;\n        margin: 0;\n    }\n\n    .message__disclaimer {\n        flex: 0 0 auto;\n        width: auto;\n        max-width: 12rem;\n        padding: 0;\n        font-size: 1.9vw;\n        line-height: 1.1;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 500px) {\n    .message__disclaimer {\n        font-size: 0.625rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 600px) {\n    .message__logo-container {\n        flex: 1 0 10%;\n    }\n\n    .message__logo {\n        width: 60%;\n    }\n\n    .message__headline {\n        font-size: 1.8vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        padding-right: 1rem;\n        font-size: 0.75rem;\n        line-height: 1.2;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n        max-width: 14rem;\n    }\n}\n';
+                '@media (min-aspect-ratio: 200/11) {\n    .message__logo-container {\n        flex: 1 0 20%;\n    }\n\n    .message__logo {\n        width: 50%;\n    }\n\n    .message__messaging {\n        flex: 1 1 85%;\n        display: flex;\n        align-items: center;\n    }\n\n    .message__headline {\n        flex: 1 1 60%;\n        font-size: 0.7rem;\n        line-height: 1;\n        margin: 0;\n        display: inline;\n    }\n\n    .message__sub-headline {\n        display: none;\n    }\n\n    .message__disclaimer {\n        flex: 0 0 auto;\n        width: auto;\n        max-width: 12rem;\n        padding: 0;\n        font-size: 8px;\n        line-height: 1.1;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 400px) {\n    .message__headline {\n        font-size: 1rem;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 600px) {\n    .message__logo-container {\n        flex: 1 0 10%;\n    }\n\n    .message__logo {\n        width: 60%;\n    }\n\n    .message__headline {\n        font-size: 1.8vw;\n    }\n\n    .message__headline span.multi:nth-of-type(2) {\n        display: inline;\n    }\n\n    .message__headline span.multi:nth-of-type(1) {\n        display: none;\n    }\n\n    .message__disclaimer {\n        padding-right: 1rem;\n        font-size: 0.75rem;\n        line-height: 1.2;\n    }\n\n    .message__sub-headline {\n        font-size: 1.6vw;\n        line-height: 1.3em;\n        margin-left: 2vw;\n        display: inline;\n    }\n}\n\n@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {\n    .message__disclaimer {\n        font-size: 0.9rem;\n        max-width: 14rem;\n    }\n}\n';
         },
         function(e, n) {
             e.exports =
@@ -776,7 +776,7 @@
         },
         function(e, n, t) {
             t(102), t(124);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Array.from;
         },
         function(e, n, t) {
@@ -805,7 +805,7 @@
         },
         function(e, n, t) {
             var o = t(23),
-                i = t(8),
+                i = t(7),
                 a = function(e) {
                     return function(n, t) {
                         var a,
@@ -837,12 +837,12 @@
                 i,
                 a,
                 r = t(105),
-                s = t(9),
-                l = t(15),
-                c = t(12),
-                u = t(16),
-                d = t(35),
-                m = t(36);
+                s = t(8),
+                l = t(14),
+                c = t(11),
+                u = t(15),
+                m = t(35),
+                d = t(36);
             if (r) {
                 var p = new (0, s.WeakMap)(),
                     g = p.get,
@@ -858,8 +858,8 @@
                         return f.call(p, e);
                     });
             } else {
-                var y = d('state');
-                (m[y] = !0),
+                var y = m('state');
+                (d[y] = !0),
                     (o = function(e, n) {
                         return c(e, y, n), n;
                     }),
@@ -888,7 +888,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(9),
+            var o = t(8),
                 i = t(106),
                 a = o.WeakMap;
             e.exports = 'function' == typeof a && /native code/.test(i.call(a));
@@ -898,8 +898,8 @@
             e.exports = o('native-function-to-string', Function.toString);
         },
         function(e, n, t) {
-            var o = t(9),
-                i = t(12);
+            var o = t(8),
+                i = t(11);
             e.exports = function(e, n) {
                 try {
                     i(o, e, n);
@@ -916,11 +916,11 @@
                 a = t(50),
                 r = t(121),
                 s = t(53),
-                l = t(12),
+                l = t(11),
                 c = t(123),
                 u = t(5),
-                d = t(34),
-                m = t(29),
+                m = t(34),
+                d = t(29),
                 p = t(49),
                 g = p.IteratorPrototype,
                 f = p.BUGGY_SAFARI_ITERATORS,
@@ -951,26 +951,26 @@
                     P = n + ' Iterator',
                     A = !1,
                     R = e.prototype,
-                    O = R[h] || R['@@iterator'] || (p && R[p]),
-                    T = (!f && O) || E(p),
-                    I = ('Array' == n && R.entries) || O;
+                    I = R[h] || R['@@iterator'] || (p && R[p]),
+                    T = (!f && I) || E(p),
+                    O = ('Array' == n && R.entries) || I;
                 if (
-                    (I &&
-                        ((w = a(I.call(new e()))),
+                    (O &&
+                        ((w = a(O.call(new e()))),
                         g !== Object.prototype &&
                             w.next &&
-                            (d || a(w) === g || (r ? r(w, g) : 'function' != typeof w[h] && l(w, h, y)),
+                            (m || a(w) === g || (r ? r(w, g) : 'function' != typeof w[h] && l(w, h, y)),
                             s(w, P, !0, !0),
-                            d && (m[P] = y))),
+                            m && (d[P] = y))),
                     'values' == p &&
-                        O &&
-                        'values' !== O.name &&
+                        I &&
+                        'values' !== I.name &&
                         ((A = !0),
                         (T = function() {
-                            return O.call(this);
+                            return I.call(this);
                         })),
-                    (d && !x) || R[h] === T || l(R, h, T),
-                    (m[n] = T),
+                    (m && !x) || R[h] === T || l(R, h, T),
+                    (d[n] = T),
                     p)
                 )
                     if (((v = { values: E('values'), keys: _ ? T : E('keys'), entries: E('entries') }), x))
@@ -980,12 +980,12 @@
             };
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(37),
                 a = t(25),
                 r = t(26),
                 s = t(33),
-                l = t(16),
+                l = t(15),
                 c = t(46),
                 u = Object.getOwnPropertyDescriptor;
             n.f = o
@@ -999,7 +999,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(14),
+            var o = t(13),
                 i = /#|\.prototype\./,
                 a = function(e, n) {
                     var t = s[r(e)];
@@ -1037,14 +1037,14 @@
             };
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports = !o(function() {
                 function e() {}
                 return (e.prototype.constructor = null), Object.getPrototypeOf(new e()) !== e.prototype;
             });
         },
         function(e, n, t) {
-            var o = t(14);
+            var o = t(13);
             e.exports =
                 !!Object.getOwnPropertySymbols &&
                 !o(function() {
@@ -1052,7 +1052,7 @@
                 });
         },
         function(e, n, t) {
-            var o = t(20),
+            var o = t(21),
                 i = t(116),
                 a = t(52),
                 r = t(36),
@@ -1060,7 +1060,7 @@
                 l = t(47),
                 c = t(35)('IE_PROTO'),
                 u = function() {},
-                d = function() {
+                m = function() {
                     var e,
                         n = l('iframe'),
                         t = a.length;
@@ -1071,12 +1071,12 @@
                             (e = n.contentWindow.document).open(),
                             e.write('<script>document.F=Object</script>'),
                             e.close(),
-                            d = e.F;
+                            m = e.F;
                         t--;
 
                     )
-                        delete d.prototype[a[t]];
-                    return d();
+                        delete m.prototype[a[t]];
+                    return m();
                 };
             (e.exports =
                 Object.create ||
@@ -1085,16 +1085,16 @@
                     return (
                         null !== e
                             ? ((u.prototype = o(e)), (t = new u()), (u.prototype = null), (t[c] = e))
-                            : (t = d()),
+                            : (t = m()),
                         void 0 === n ? t : i(t, n)
                     );
                 }),
                 (r[c] = !0);
         },
         function(e, n, t) {
-            var o = t(13),
+            var o = t(12),
                 i = t(24),
-                a = t(20),
+                a = t(21),
                 r = t(40);
             e.exports = o
                 ? Object.defineProperties
@@ -1105,7 +1105,7 @@
                   };
         },
         function(e, n, t) {
-            var o = t(16),
+            var o = t(15),
                 i = t(26),
                 a = t(51).indexOf,
                 r = t(36);
@@ -1145,7 +1145,7 @@
                         : i.toString);
         },
         function(e, n, t) {
-            var o = t(20),
+            var o = t(21),
                 i = t(122);
             e.exports =
                 Object.setPrototypeOf ||
@@ -1165,14 +1165,14 @@
                     : void 0);
         },
         function(e, n, t) {
-            var o = t(15);
+            var o = t(14);
             e.exports = function(e) {
                 if (!o(e) && null !== e) throw TypeError("Can't set " + String(e) + ' as a prototype');
                 return e;
             };
         },
         function(e, n, t) {
-            var o = t(12);
+            var o = t(11);
             e.exports = function(e, n, t, i) {
                 i && i.enumerable ? (e[n] = t) : o(e, n, t);
             };
@@ -1197,31 +1197,31 @@
                 i = t(28),
                 a = t(126),
                 r = t(127),
-                s = t(18),
+                s = t(17),
                 l = t(128),
                 c = t(129);
             e.exports = function(e) {
                 var n,
                     t,
                     u,
-                    d,
-                    m = i(e),
+                    m,
+                    d = i(e),
                     p = 'function' == typeof this ? this : Array,
                     g = arguments.length,
                     f = g > 1 ? arguments[1] : void 0,
                     h = void 0 !== f,
                     y = 0,
-                    _ = c(m);
+                    _ = c(d);
                 if ((h && (f = o(f, g > 2 ? arguments[2] : void 0, 2)), null == _ || (p == Array && r(_))))
-                    for (t = new p((n = s(m.length))); n > y; y++) l(t, y, h ? f(m[y], y) : m[y]);
+                    for (t = new p((n = s(d.length))); n > y; y++) l(t, y, h ? f(d[y], y) : d[y]);
                 else
-                    for (d = _.call(m), t = new p(); !(u = d.next()).done; y++)
-                        l(t, y, h ? a(d, f, [u.value, y], !0) : u.value);
+                    for (m = _.call(d), t = new p(); !(u = m.next()).done; y++)
+                        l(t, y, h ? a(m, f, [u.value, y], !0) : u.value);
                 return (t.length = y), t;
             };
         },
         function(e, n, t) {
-            var o = t(20);
+            var o = t(21);
             e.exports = function(e, n, t, i) {
                 try {
                     return i ? n(o(t)[0], t[1]) : n(t);
@@ -1297,15 +1297,15 @@
         },
         function(e, n, t) {
             t(132);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'startsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(18),
+                i = t(17),
                 a = t(42),
-                r = t(8),
+                r = t(7),
                 s = t(43),
                 l = ''.startsWith,
                 c = Math.min;
@@ -1323,7 +1323,7 @@
             );
         },
         function(e, n, t) {
-            var o = t(15),
+            var o = t(14),
                 i = t(27),
                 a = t(5)('match');
             e.exports = function(e) {
@@ -1333,7 +1333,7 @@
         },
         function(e, n, t) {
             t(135);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('Array', 'includes');
         },
         function(e, n, t) {
@@ -1353,7 +1353,7 @@
         },
         function(e, n, t) {
             t(137);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Object.entries;
         },
         function(e, n, t) {
@@ -1370,7 +1370,7 @@
         },
         function(e, n, t) {
             t(139);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Object.assign;
         },
         function(e, n, t) {
@@ -1380,8 +1380,8 @@
         },
         function(e, n, t) {
             'use strict';
-            var o = t(13),
-                i = t(14),
+            var o = t(12),
+                i = t(13),
                 a = t(40),
                 r = t(141),
                 s = t(37),
@@ -1403,13 +1403,13 @@
                     );
                 })
                     ? function(e, n) {
-                          for (var t = l(e), i = arguments.length, u = 1, d = r.f, m = s.f; i > u; )
+                          for (var t = l(e), i = arguments.length, u = 1, m = r.f, d = s.f; i > u; )
                               for (
-                                  var p, g = c(arguments[u++]), f = d ? a(g).concat(d(g)) : a(g), h = f.length, y = 0;
+                                  var p, g = c(arguments[u++]), f = m ? a(g).concat(m(g)) : a(g), h = f.length, y = 0;
                                   h > y;
 
                               )
-                                  (p = f[y++]), (o && !m.call(g, p)) || (t[p] = g[p]);
+                                  (p = f[y++]), (o && !d.call(g, p)) || (t[p] = g[p]);
                           return t;
                       }
                     : u;
@@ -1497,7 +1497,7 @@
                         function u() {
                             (r -= 1), l();
                         }
-                        var d = (function() {
+                        var m = (function() {
                             function e(n) {
                                 var t = this;
                                 if (
@@ -1582,30 +1582,30 @@
                                                         l = s.onSuccess,
                                                         c = s.onError,
                                                         u = s.promise,
-                                                        d = void 0;
+                                                        m = void 0;
                                                     if (t)
                                                         try {
-                                                            d = l ? l(n.value) : n.value;
+                                                            m = l ? l(n.value) : n.value;
                                                         } catch (e) {
                                                             return u.reject(e), 'continue';
                                                         }
                                                     else if (i) {
                                                         if (!c) return u.reject(n.error), 'continue';
                                                         try {
-                                                            d = c(n.error);
+                                                            m = c(n.error);
                                                         } catch (e) {
                                                             return u.reject(e), 'continue';
                                                         }
                                                     }
-                                                    d instanceof e && (d.resolved || d.rejected)
-                                                        ? (d.resolved ? u.resolve(d.value) : u.reject(d.error),
-                                                          (d.errorHandled = !0))
-                                                        : o(d)
-                                                        ? d instanceof e && (d.resolved || d.rejected)
-                                                            ? d.resolved
-                                                                ? u.resolve(d.value)
-                                                                : u.reject(d.error)
-                                                            : d.then(
+                                                    m instanceof e && (m.resolved || m.rejected)
+                                                        ? (m.resolved ? u.resolve(m.value) : u.reject(m.error),
+                                                          (m.errorHandled = !0))
+                                                        : o(m)
+                                                        ? m instanceof e && (m.resolved || m.rejected)
+                                                            ? m.resolved
+                                                                ? u.resolve(m.value)
+                                                                : u.reject(m.error)
+                                                            : m.then(
                                                                   function(e) {
                                                                       u.resolve(e);
                                                                   },
@@ -1613,7 +1613,7 @@
                                                                       u.reject(e);
                                                                   }
                                                               )
-                                                        : u.resolve(d);
+                                                        : u.resolve(m);
                                                 },
                                                 s = 0;
                                             s < a.length;
@@ -1770,14 +1770,14 @@
                             );
                         })();
                         t.d(n, 'ZalgoPromise', function() {
-                            return d;
+                            return m;
                         });
                     }
                 }));
         },
         function(e, n, t) {
             t(144);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'padStart');
         },
         function(e, n, t) {
@@ -1794,21 +1794,21 @@
             );
         },
         function(e, n, t) {
-            var o = t(18),
+            var o = t(17),
                 i = t(146),
-                a = t(8),
+                a = t(7),
                 r = Math.ceil,
                 s = function(e) {
                     return function(n, t, s) {
                         var l,
                             c,
                             u = String(a(n)),
-                            d = u.length,
-                            m = void 0 === s ? ' ' : String(s),
+                            m = u.length,
+                            d = void 0 === s ? ' ' : String(s),
                             p = o(t);
-                        return p <= d || '' == m
+                        return p <= m || '' == d
                             ? u
-                            : ((c = i.call(m, r((l = p - d) / m.length))).length > l && (c = c.slice(0, l)),
+                            : ((c = i.call(d, r((l = p - m) / d.length))).length > l && (c = c.slice(0, l)),
                               e ? u + c : c + u);
                     };
                 };
@@ -1817,7 +1817,7 @@
         function(e, n, t) {
             'use strict';
             var o = t(23),
-                i = t(8);
+                i = t(7);
             e.exports =
                 ''.repeat ||
                 function(e) {
@@ -1839,7 +1839,7 @@
         },
         function(e, n, t) {
             t(150);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('Array', 'find');
         },
         function(e, n, t) {
@@ -1866,7 +1866,7 @@
             var o = t(39),
                 i = t(38),
                 a = t(28),
-                r = t(18),
+                r = t(17),
                 s = t(152),
                 l = [].push,
                 c = function(e) {
@@ -1874,8 +1874,8 @@
                         t = 2 == e,
                         c = 3 == e,
                         u = 4 == e,
-                        d = 6 == e,
-                        m = 5 == e || d;
+                        m = 6 == e,
+                        d = 5 == e || m;
                     return function(p, g, f, h) {
                         for (
                             var y,
@@ -1890,7 +1890,7 @@
                             b > E;
                             E++
                         )
-                            if ((m || E in w) && ((_ = v((y = w[E]), E, x)), e))
+                            if ((d || E in w) && ((_ = v((y = w[E]), E, x)), e))
                                 if (n) A[E] = _;
                                 else if (_)
                                     switch (e) {
@@ -1904,7 +1904,7 @@
                                             l.call(A, y);
                                     }
                                 else if (u) return !1;
-                        return d ? -1 : c || u ? u : A;
+                        return m ? -1 : c || u ? u : A;
                     };
                 };
             e.exports = {
@@ -1918,7 +1918,7 @@
             };
         },
         function(e, n, t) {
-            var o = t(15),
+            var o = t(14),
                 i = t(153),
                 a = t(5)('species');
             e.exports = function(e, n) {
@@ -1942,32 +1942,34 @@
         },
         function(e, n, t) {
             t(155);
-            var o = t(17);
-            e.exports = o.Object.values;
+            var o = t(18);
+            e.exports = o('String', 'includes');
         },
         function(e, n, t) {
+            'use strict';
             var o = t(4),
-                i = t(56).values;
+                i = t(42),
+                a = t(7);
             o(
-                { target: 'Object', stat: !0 },
+                { target: 'String', proto: !0, forced: !t(43)('includes') },
                 {
-                    values: function(e) {
-                        return i(e);
+                    includes: function(e) {
+                        return !!~String(a(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
                     }
                 }
             );
         },
         function(e, n, t) {
             t(157);
-            var o = t(19);
+            var o = t(18);
             e.exports = o('String', 'endsWith');
         },
         function(e, n, t) {
             'use strict';
             var o = t(4),
-                i = t(18),
+                i = t(17),
                 a = t(42),
-                r = t(8),
+                r = t(7),
                 s = t(43),
                 l = ''.endsWith,
                 c = Math.min;
@@ -1988,26 +1990,24 @@
         },
         function(e, n, t) {
             t(159);
-            var o = t(19);
-            e.exports = o('String', 'includes');
+            var o = t(16);
+            e.exports = o.Object.values;
         },
         function(e, n, t) {
-            'use strict';
             var o = t(4),
-                i = t(42),
-                a = t(8);
+                i = t(56).values;
             o(
-                { target: 'String', proto: !0, forced: !t(43)('includes') },
+                { target: 'Object', stat: !0 },
                 {
-                    includes: function(e) {
-                        return !!~String(a(this)).indexOf(i(e), arguments.length > 1 ? arguments[1] : void 0);
+                    values: function(e) {
+                        return i(e);
                     }
                 }
             );
         },
         function(e, n, t) {
             t(161);
-            var o = t(17);
+            var o = t(16);
             e.exports = o.Number.isNaN;
         },
         function(e, n, t) {
@@ -2067,7 +2067,7 @@
                     return (t.has(a) && !i) || t.set(a, e(o)), t.get(a);
                 };
             }
-            function d(e) {
+            function m(e) {
                 for (var n = arguments.length, t = new Array(n > 1 ? n - 1 : 0), o = 1; o < n; o++)
                     t[o - 1] = arguments[o];
                 return function() {
@@ -2075,7 +2075,7 @@
                     return e.apply(void 0, t.concat(o));
                 };
             }
-            function m(e, n) {
+            function d(e, n) {
                 return (
                     void 0 === n && (n = e.length),
                     function t() {
@@ -2108,12 +2108,19 @@
                     }, e);
                 };
             }
-            var f = t(11),
-                h = t.n(f),
-                y = t(3),
-                _ = t.n(y);
-            function x(e) {
-                return _()(e).reduce(function(e, n) {
+            var f = d(function(e, n) {
+                    return n[e];
+                }),
+                h = d(function(e, n) {
+                    var t;
+                    return ((t = {})[e] = n), t;
+                }),
+                y = t(10),
+                _ = t.n(y),
+                x = t(3),
+                w = t.n(x);
+            function v(e) {
+                return w()(e).reduce(function(e, n) {
                     var t,
                         i,
                         a,
@@ -2121,12 +2128,12 @@
                         s = n[1];
                     return Array.isArray(s)
                         ? o({}, e, (((i = {})[r] = [].concat(s)), i))
-                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = x(s)), a) : (((t = {})[r] = s), t));
+                        : o({}, e, 'object' == typeof s ? (((a = {})[r] = v(s)), a) : (((t = {})[r] = s), t));
                 }, {});
             }
-            function w(e, n) {
+            function b(e, n) {
                 return (function e(n, t) {
-                    return _()(t).reduce(function(t, i) {
+                    return w()(t).reduce(function(t, i) {
                         var a,
                             r,
                             s,
@@ -2145,16 +2152,16 @@
                                       ? (((l = {})[c] = e(n[c], u)), l)
                                       : (((a = {})[c] = u), a)
                               )
-                            : o({}, t, (((s = {})[c] = x(u)), s));
+                            : o({}, t, (((s = {})[c] = v(u)), s));
                     }, n);
-                })(x(e), n);
+                })(v(e), n);
             }
-            function v(e, n) {
+            function E(e, n) {
                 return n.split('.').reduce(function(e, n) {
                     return 'object' == typeof e || 'function' == typeof e ? e[n] : void 0;
                 }, e);
             }
-            function b(e, n, t) {
+            function P(e, n, t) {
                 var o;
                 void 0 === t && (t = '-');
                 var i,
@@ -2162,14 +2169,14 @@
                 if (-1 === a) return ((i = {})[e] = n), i;
                 var r = e.slice(0, a),
                     s = e.slice(a + 1);
-                return ((o = {})[r] = b(s, n)), o;
+                return ((o = {})[r] = P(s, n)), o;
             }
-            function E(e) {
+            function A(e) {
                 return 'object' == typeof HTMLElement
                     ? e instanceof HTMLElement
                     : e && 'object' == typeof e && null !== e && 1 === e.nodeType && 'string' == typeof e.nodeName;
             }
-            function P(e) {
+            function R(e) {
                 var n = r()(e.attributes)
                     .filter(function(e) {
                         var n = e.nodeName;
@@ -2177,7 +2184,7 @@
                     })
                     .reduce(function(e, n) {
                         var t = n.nodeValue;
-                        return t ? w(e, b(n.nodeName.replace('data-pp-', ''), t)) : e;
+                        return t ? b(e, P(n.nodeName.replace('data-pp-', ''), t)) : e;
                     }, {});
                 if (
                     !e.firstElementChild ||
@@ -2186,16 +2193,16 @@
                 )
                     return n;
                 var t = e.firstElementChild.textContent.trim();
-                return e.removeChild(e.firstElementChild), w(n, { style: { markup: t } });
+                return e.removeChild(e.firstElementChild), b(n, { style: { markup: t } });
             }
-            var A = m(function(e, n, t) {
+            var I = d(function(e, n, t) {
                     return n.getElementsByClassName(e + '__' + t)[0];
                 }),
-                R = m(function(e, n) {
+                T = d(function(e, n) {
                     var t = document.createElement('style');
                     (t.textContent = n), e.insertBefore(t, e.firstChild);
                 }),
-                O = m(function(e, n) {
+                O = d(function(e, n) {
                     if (Array.isArray(n))
                         n.forEach(function(n) {
                             return e.appendChild(n);
@@ -2206,7 +2213,7 @@
                         (t.innerHTML = n), e.appendChild(t);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                T = m(function(e, n) {
+                S = d(function(e, n) {
                     if (Array.isArray(n))
                         []
                             .concat(n)
@@ -2220,7 +2227,7 @@
                         (t.innerHTML = n), e.insertBefore(t, e.firstChild);
                     } else !1 === n && e.parentNode.removeChild(e);
                 }),
-                I = m(function(e, n, t, o) {
+                L = d(function(e, n, t, o) {
                     if ((void 0 === t && (t = 'PayPal Credit'), 'string' == typeof n)) {
                         var i = new Image();
                         (i.alt = t),
@@ -2240,42 +2247,42 @@
                         (u.height = s), (u.width = r), c.appendChild(l), c.appendChild(u), e.appendChild(c);
                     } else e.parentNode.removeChild(e);
                 }, 2),
-                S = t(7),
-                L = t.n(S);
-            function C(e) {
+                N = t(19),
+                C = t.n(N);
+            function M(e) {
                 void 0 === e && (e = {});
                 var n = o({}, e);
-                return [n, d(L.a, n)];
+                return [n, m(C.a, n)];
             }
-            var N = C(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
-                M = N[0],
-                z = N[1];
+            var z = M(window.__paypal_messages_state__ || { nextId: 1, config: {} }),
+                k = z[0],
+                j = z[1];
             Object.defineProperty(window, '__paypal_messages_state__', {
-                value: M,
+                value: k,
                 enumerable: !1,
                 configurable: !0,
                 writable: !1
             });
-            var j = t(0),
-                k = t(57),
-                W = t.n(k),
-                H = t(6),
+            var W = t(0),
+                H = t(57),
                 B = t.n(H),
-                Y = m(function(e, n, t) {
+                Y = t(6),
+                D = t.n(Y),
+                F = d(function(e, n, t) {
                     var i = e.uuid,
                         a = e.urls;
                     void 0 === t && (t = !1);
                     var r = new window.Image();
                     if ('object' == typeof n) {
                         var s = o({}, n, { uuid: t ? i + '::banner.hidden:true' : i }),
-                            l = _()(s).reduce(function(e, n) {
+                            l = w()(s).reduce(function(e, n) {
                                 var t = n[1];
                                 return void 0 === t ? e : e + '&' + n[0] + '=' + t;
                             }, '');
                         r.src = (a[n.et] || a.DEFAULT) + '&bdata=' + encodeURIComponent(l.slice(1));
                     } else 'string' == typeof n && (r.src = a[n] || a.DEFAULT);
                 }, 2),
-                D = {
+                G = {
                     START: 'Start',
                     END: 'End',
                     RENDER_START: 'Render_Start',
@@ -2292,45 +2299,46 @@
                     UPDATE: 'Update',
                     ERROR: 'Error'
                 },
-                G = {
+                U = {
                     MESSAGE_OVERFLOW: 'MESSAGE_OVERFLOW',
                     MESSAGE_HIDDEN: 'MESSAGE_HIDDEN',
                     MESSAGE_INVALID_LEGACY: 'MESSAGE_INVALID_LEGACY',
                     MESSAGE_INVALID_MARKUP: 'MESSAGE_INVALID_MARKUP',
                     MODAL_FAIL: 'MODAL_FAIL',
                     CUSTOM_TEMPLATE_FAIL: 'CUSTOM_TEMPLATE_FAIL',
-                    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL'
+                    CUSTOM_JSON_OPTIONS_FAIL: 'CUSTOM_JSON_OPTIONS_FAIL',
+                    INTERNAL_FAIL: 'INTERNAL_FAIL'
                 },
-                U = {
+                V = {
                     create: function(e) {
                         var n = e.id,
                             t = e.selector,
                             i = e.type,
-                            a = C({ count: 1, account: e.account, history: [], logs: [] }),
+                            a = M({ count: 1, account: e.account, history: [], logs: [] }),
                             r = a[0],
                             s = a[1],
                             l = {
                                 start: function(e) {
-                                    v(e, 'options.account') &&
+                                    E(e, 'options.account') &&
                                         r.account !== e.options.account &&
                                         s({ account: e.account }),
-                                        l.info(D.START, o({ t: new Date().getTime() }, e));
+                                        l.info(G.START, o({ t: new Date().getTime() }, e));
                                 },
                                 end: function(e) {
-                                    l.info(D.END, o({ t: new Date().getTime() }, e)),
+                                    l.info(G.END, o({ t: new Date().getTime() }, e)),
                                         (function() {
                                             if (!(r.count > 3)) {
                                                 var e,
-                                                    a = B()(r.logs, function(e) {
+                                                    a = D()(r.logs, function(e) {
                                                         var n = e.event;
                                                         return 'Create' === n || 'Update' === n;
                                                     }),
                                                     l = {
-                                                        version: '1.1.1',
+                                                        version: '1.1.4',
                                                         url: window.location.href,
                                                         selector: t,
                                                         type: i + (a ? '-' + a.event : ''),
-                                                        id: n + '-' + W()(r.count, 4, '0'),
+                                                        id: n + '-' + B()(r.count, 4, '0'),
                                                         account: r.account,
                                                         history: r.history,
                                                         events:
@@ -2374,9 +2382,9 @@
                                     void 0 === n && (n = {}), s({ logs: [].concat(r.logs, [o({ event: e }, n)]) });
                                 },
                                 error: function(e) {
-                                    l.info(D.ERROR, e);
+                                    l.info(G.ERROR, e);
                                 },
-                                track: Y,
+                                track: F,
                                 warn: function() {
                                     for (var e, n = arguments.length, t = new Array(n), o = 0; o < n; o++)
                                         t[o] = arguments[o];
@@ -2390,13 +2398,15 @@
                         (e = console).warn.apply(e, ['[PayPal Messages]'].concat(t));
                     }
                 },
-                F = c(function(e) {
+                Z = t(20),
+                J = t.n(Z),
+                q = c(function(e) {
                     var n,
                         t = e.markup;
-                    return j.ZalgoPromise.resolve(
+                    return W.ZalgoPromise.resolve(
                         l()(t, 'https://www.paypalobjects.com')
                             ? ((n = t),
-                              new j.ZalgoPromise(function(e) {
+                              new W.ZalgoPromise(function(e) {
                                   var t = new XMLHttpRequest();
                                   (t.onreadystatechange = function() {
                                       if (4 === t.readyState)
@@ -2413,323 +2423,141 @@
                               }))
                             : ''
                     );
-                });
-            window.__PP = window.__PP || {};
-            var V = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
-            function Z(e) {
-                try {
-                    var n = e.content.json,
-                        t = e.tracking_details;
-                    return {
-                        data: {
-                            disclaimer: JSON.parse(n.disclaimer),
-                            headline: JSON.parse(n.headline),
-                            subHeadline: JSON.parse(n.subHeadline)
-                        },
-                        meta: {
-                            clickUrl: t.click_url,
-                            impressionUrl: t.impression_url,
-                            offerType: JSON.parse(n.meta).offerType
-                        }
-                    };
-                } catch (e) {
-                    throw new Error(G.MESSAGE_INVALID_MARKUP);
-                }
-            }
-            function J(e, n) {
-                var t = n.match(/^<!--([\s\S]+?)-->/);
-                if (t)
-                    try {
-                        return JSON.parse(t[1]);
-                    } catch (n) {
-                        e.error({ name: G.CUSTOM_JSON_OPTIONS_FAIL });
-                    }
-                return {};
-            }
-            var q = u(
-                function(e) {
-                    var n = e.account,
-                        t = e.amount,
-                        o = e.countryCode;
-                    return new j.ZalgoPromise(function(e) {
-                        var i = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
-                            a = {
-                                dimensions: 'x200x51',
-                                currency_value: t,
-                                currency_code: 'USD',
-                                format: 'HTML',
-                                presentation_types: 'HTML',
-                                ch: 'UPSTREAM',
-                                call: '__PP.' + i
-                            };
-                        o && V[o] && ((a.country_code = o), (a.locale = V[o]));
-                        var r = _()(a)
-                                .filter(function(e) {
-                                    return e[1];
-                                })
-                                .reduce(
-                                    function(e, n) {
-                                        return e + '&' + n[0] + '=' + n[1];
-                                    },
-                                    l()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
-                                ),
-                            s = document.createElement('script');
-                        (s.async = !0),
-                            (s.src = 'https://www.paypal.com/imadserver/upstream?' + r),
-                            document.head.appendChild(s),
-                            (window.__PP[i] = function(n) {
-                                if ((document.head.removeChild(s), delete window.__PP[i], 'object' == typeof n))
-                                    e({ markup: Z(n) });
-                                else
-                                    try {
-                                        e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
-                                    } catch (t) {
-                                        e({ markup: n });
-                                    }
-                            });
-                    });
-                },
-                ['account', 'amount', 'countryCode']
-            );
-            function K(e) {
-                var n = e.options,
-                    t = e.logger;
-                return (
-                    t.info(D.FETCH_START),
-                    ('custom' !== v(n, 'style.layout')
-                        ? q(n).then(d(L.a, { options: n }))
-                        : j.ZalgoPromise.all([q(n), F(n.style)]).then(function(e) {
-                              var o = e[0],
-                                  i = e[1];
-                              return 'object' == typeof o.markup
-                                  ? ('' === i && t.error({ name: G.CUSTOM_TEMPLATE_FAIL }),
-                                    (o.markup.template = i),
-                                    { markup: o.markup, options: w(n, J(t, i)) })
-                                  : { markup: o.markup, options: n };
-                          })
-                    ).then(
-                        p(function(e) {
-                            t.info(D.FETCH_END),
-                                (e.options.style._flattened = (function e(n, t, o) {
-                                    return (
-                                        void 0 === t && (t = ''),
-                                        void 0 === o && (o = ':'),
-                                        _()(n).reduce(function(n, i) {
-                                            var a = i[0],
-                                                r = i[1];
-                                            switch (typeof r) {
-                                                case 'object':
-                                                    return [].concat(n, e(r, '' + t + a + '.'));
-                                                case 'string':
-                                                default:
-                                                    return [].concat(n, ['' + t + a + o + r]);
-                                            }
-                                        }, [])
-                                    );
-                                })(e.options.style));
-                        })
-                    )
-                );
-            }
-            var $ = t(30),
-                Q = t.n($),
-                X = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
-            function ee(e) {
-                X.resize.has(e.target.frameElement) && X.resize.get(e.target.frameElement)(e);
-            }
-            function ne(e) {
-                X.scroll.forEach(function(n) {
-                    return n(e);
-                });
-            }
-            function te(e) {
-                X.hover.has(e.target) && X.hover.get(e.target)(e);
-            }
-            function oe(e) {
-                e.target.ownerDocument && X.click.has(e.target.ownerDocument.defaultView.frameElement)
-                    ? X.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
-                    : X.click.has(e.currentTarget) && e.currentTarget !== e.target && X.click.get(e.currentTarget)(e);
-            }
-            function ie(e) {
-                return {
-                    on: function(n, t) {
-                        ('IFRAME' !== e.tagName && 'resize' === n) ||
-                            (function(e, n, t) {
-                                if (
-                                    ((function(e, n) {
-                                        'scroll' === e && 0 === X.scroll.size
-                                            ? window.addEventListener('scroll', ne)
-                                            : 'hover' === e && 0 === X.hover.size
-                                            ? document.addEventListener('mouseover', te)
-                                            : 'resize' !== e || X[e].has(n)
-                                            ? 'click' !== e ||
-                                              X[e].has(n) ||
-                                              ('IFRAME' === n.tagName
-                                                  ? n.contentWindow.document.body.addEventListener('click', oe)
-                                                  : n.addEventListener('click', oe))
-                                            : n.contentWindow.addEventListener('resize', ee);
-                                    })(e, n),
-                                    X[e].has(n))
-                                ) {
-                                    var o = X[e].get(n);
-                                    X[e].set(n, function(e) {
-                                        o(e), t(e);
-                                    });
-                                } else X[e].set(n, t);
-                            })(n, e, t);
-                    },
-                    clear: function(n) {
-                        X[n].delete(e),
-                            'scroll' === n && 0 === X.scroll.size
-                                ? window.removeEventListener('scroll', ne)
-                                : 'hover' === n && 0 === X.hover.size
-                                ? document.removeEventListener('mouseover', te)
-                                : 'click' === n
-                                ? 'IFRAME' === e.tagName
-                                    ? e.contentWindow.document.body.removeEventListener('click', oe)
-                                    : e.removeEventListener('click', oe)
-                                : 'IFRAME' === e.tagName &&
-                                  'resize' === n &&
-                                  e.contentWindow.removeEventListener('resize', ee);
-                    }
-                };
-            }
-            var ae = t(58),
-                re = t.n(ae),
-                se = t(21),
-                le = t.n(se),
-                ce = t(59),
-                ue = t.n(ce),
-                de = t(60),
-                me = t.n(de),
-                pe = t(31),
-                ge = t.n(pe),
-                fe = t(10),
-                he = t.n(fe),
-                ye = t(61),
-                _e = t.n(ye),
-                xe = t(62),
-                we = t.n(xe),
-                ve = t(44),
-                be = t.n(ve),
-                Ee = t(63),
-                Pe = t.n(Ee),
-                Ae = t(64),
+                }),
+                K = t(58),
+                $ = t.n(K),
+                Q = t(59),
+                X = t.n(Q),
+                ee = t(60),
+                ne = t.n(ee),
+                te = t(30),
+                oe = t.n(te),
+                ie = t(9),
+                ae = t.n(ie),
+                re = t(61),
+                se = t.n(re),
+                le = t(62),
+                ce = t.n(le),
+                ue = t(44),
+                me = t.n(ue),
+                de = t(63),
+                pe = t.n(de),
+                ge = t(64),
+                fe = t.n(ge),
+                he = t(65),
+                ye = t.n(he),
+                _e = t(66),
+                xe = t.n(_e),
+                we = t(67),
+                ve = t.n(we),
+                be = t(68),
+                Ee = t.n(be),
+                Pe = [
+                    ['default', [ae.a, oe.a, se.a].join('\n')],
+                    ['logo.type:primary', xe.a],
+                    ['logo.type:alternative', ce.a],
+                    ['logo.type:inline', me.a],
+                    ['logo.type:none', [me.a, pe.a].join('\n')],
+                    ['logo.position:right', fe.a],
+                    ['logo.position:top', ye.a],
+                    ['logo.type:alternative && logo.position:top', ve.a],
+                    ['text.color:white', Ee.a]
+                ],
+                Ae = t(69),
                 Re = t.n(Ae),
-                Oe = t(65),
-                Te = t.n(Oe),
-                Ie = t(66),
-                Se = t.n(Ie),
-                Le = t(67),
-                Ce = t.n(Le),
-                Ne = t(68),
-                Me = t.n(Ne),
-                ze = [
-                    ['default', [he.a, ge.a, _e.a].join('\n')],
-                    ['logo.type:primary', Se.a],
-                    ['logo.type:alternative', we.a],
-                    ['logo.type:inline', be.a],
-                    ['logo.type:none', [be.a, Pe.a].join('\n')],
-                    ['logo.position:right', Re.a],
-                    ['logo.position:top', Te.a],
-                    ['logo.type:alternative && logo.position:top', Ce.a],
-                    ['text.color:white', Me.a]
+                Ie = t(70),
+                Te = t.n(Ie),
+                Oe = t(71),
+                Se = t.n(Oe),
+                Le = t(45),
+                Ne = t.n(Le),
+                Ce = t(72),
+                Me = t.n(Ce),
+                ze = t(73),
+                ke = t.n(ze),
+                je = t(74),
+                We = t.n(je),
+                He = t(75),
+                Be = t.n(He),
+                Ye = t(76),
+                De = t.n(Ye),
+                Fe = t(77),
+                Ge = t.n(Fe),
+                Ue = t(78),
+                Ve = t.n(Ue),
+                Ze = t(79),
+                Je = t.n(Ze),
+                qe = [
+                    ['default', [ae.a, oe.a, Re.a].join('\n')],
+                    ['ratio:1x1', Te.a],
+                    ['ratio:1x4', Se.a],
+                    ['ratio:8x1', [Ne.a, Me.a].join('\n')],
+                    ['ratio:20x1', [Ne.a, ke.a].join('\n')],
+                    ['color:blue', We.a],
+                    ['color:gray', Be.a],
+                    ['color:black', Ge.a],
+                    ['color:white', Ve.a],
+                    ['color:white-no-border', Je.a],
+                    ['color:blue && ratio:1x4', De.a]
                 ],
-                je = t(69),
-                ke = t.n(je),
-                We = t(70),
-                He = t.n(We),
-                Be = t(71),
-                Ye = t.n(Be),
-                De = t(45),
-                Ge = t.n(De),
-                Ue = t(72),
-                Fe = t.n(Ue),
-                Ve = t(73),
-                Ze = t.n(Ve),
-                Je = t(74),
-                qe = t.n(Je),
-                Ke = t(75),
+                Ke = t(80),
                 $e = t.n(Ke),
-                Qe = t(76),
+                Qe = t(81),
                 Xe = t.n(Qe),
-                en = t(77),
+                en = t(82),
                 nn = t.n(en),
-                tn = t(78),
+                tn = t(83),
                 on = t.n(tn),
-                an = t(79),
+                an = t(84),
                 rn = t.n(an),
-                sn = [
-                    ['default', [he.a, ge.a, ke.a].join('\n')],
-                    ['ratio:1x1', He.a],
-                    ['ratio:1x4', Ye.a],
-                    ['ratio:8x1', [Ge.a, Fe.a].join('\n')],
-                    ['ratio:20x1', [Ge.a, Ze.a].join('\n')],
-                    ['color:blue', qe.a],
-                    ['color:gray', $e.a],
-                    ['color:black', nn.a],
-                    ['color:white', on.a],
-                    ['color:white-no-border', rn.a],
-                    ['color:blue && ratio:1x4', Xe.a]
-                ],
-                ln = t(80),
-                cn = t.n(ln),
-                un = t(81),
-                dn = t.n(un),
-                mn = t(82),
-                pn = t.n(mn),
-                gn = t(83),
-                fn = t.n(gn),
-                hn = t(84),
-                yn = t.n(hn),
-                _n = t(85),
-                xn = t.n(_n),
-                wn = t(86),
-                vn = t.n(wn),
-                bn = t(87),
-                En = t.n(bn),
-                Pn = t(88),
-                An = t.n(Pn),
-                Rn = t(89),
-                On = t.n(Rn),
-                Tn = t(90),
-                In = t.n(Tn),
-                Sn = t(91),
-                Ln = t.n(Sn),
-                Cn = t(92),
-                Nn = t.n(Cn),
-                Mn = t(93),
-                zn = t.n(Mn),
-                jn = t(94),
-                kn = t.n(jn),
-                Wn = t(95),
-                Hn = t.n(Wn),
-                Bn = t(96),
-                Yn = t.n(Bn),
-                Dn = t(97),
-                Gn = t.n(Dn),
-                Un = t(98),
-                Fn = t.n(Un),
-                Vn = t(99),
-                Zn = {
-                    x168x374: { styles: xn.a, vertical: !0 },
-                    x765x60: { styles: An.a },
-                    x1000x50: { styles: On.a, termsIcon: !0 },
-                    x234x100: { styles: vn.a, reverseLogo: !0 },
-                    x310x100: { styles: En.a, reverseLogo: !0 },
-                    x1000x36: { styles: In.a, termsIcon: !0 },
-                    x120x90: { styles: Nn.a, termsIcon: !0 },
-                    x234x60: { styles: zn.a, reverseLogo: !0, termsIcon: !0 },
-                    x250x250: { styles: kn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
-                    x300x50: { styles: Hn.a, reverseLogo: !0 },
-                    x340x60: { styles: Ln.a, reverseLogo: !0 },
-                    x468x60: { styles: Yn.a, reverseLogo: !0, termsIcon: !0 },
-                    x728x90: { styles: Gn.a, reverseLogo: !0 },
-                    x540x200: { styles: Fn.a, reverseLogo: !0, termsIcon: !0 },
-                    x170x100: { styles: t.n(Vn).a, termsIcon: !0 }
+                sn = t(85),
+                ln = t.n(sn),
+                cn = t(86),
+                un = t.n(cn),
+                mn = t(87),
+                dn = t.n(mn),
+                pn = t(88),
+                gn = t.n(pn),
+                fn = t(89),
+                hn = t.n(fn),
+                yn = t(90),
+                _n = t.n(yn),
+                xn = t(91),
+                wn = t.n(xn),
+                vn = t(92),
+                bn = t.n(vn),
+                En = t(93),
+                Pn = t.n(En),
+                An = t(94),
+                Rn = t.n(An),
+                In = t(95),
+                Tn = t.n(In),
+                On = t(96),
+                Sn = t.n(On),
+                Ln = t(97),
+                Nn = t.n(Ln),
+                Cn = t(98),
+                Mn = t.n(Cn),
+                zn = t(99),
+                kn = {
+                    x168x374: { styles: ln.a, vertical: !0 },
+                    x765x60: { styles: gn.a },
+                    x1000x50: { styles: hn.a, termsIcon: !0 },
+                    x234x100: { styles: un.a, reverseLogo: !0 },
+                    x310x100: { styles: dn.a, reverseLogo: !0 },
+                    x1000x36: { styles: _n.a, termsIcon: !0 },
+                    x120x90: { styles: bn.a, termsIcon: !0 },
+                    x234x60: { styles: Pn.a, reverseLogo: !0, termsIcon: !0 },
+                    x250x250: { styles: Rn.a, reverseLogo: !0, vertical: !0, termsIcon: !0 },
+                    x300x50: { styles: Tn.a, reverseLogo: !0 },
+                    x340x60: { styles: wn.a, reverseLogo: !0 },
+                    x468x60: { styles: Sn.a, reverseLogo: !0, termsIcon: !0 },
+                    x728x90: { styles: Nn.a, reverseLogo: !0 },
+                    x540x200: { styles: Mn.a, reverseLogo: !0, termsIcon: !0 },
+                    x170x100: { styles: t.n(zn).a, termsIcon: !0 }
                 },
-                Jn = Object.keys(Zn).map(function(e) {
-                    var n = Zn[e],
+                jn = Object.keys(kn).map(function(e) {
+                    var n = kn[e],
                         t = e.slice(1),
                         o = t.split('x'),
                         i = o[1],
@@ -2742,25 +2570,25 @@
                             i +
                             'px;\n        }\n    ';
                     return (
-                        n.vertical && (a = '' + a + pn.a),
-                        n.reverseLogo && (a = '' + a + dn.a),
-                        n.vertical && n.reverseLogo && (a = '' + a + fn.a),
-                        n.termsIcon && (a = '' + a + yn.a),
+                        n.vertical && (a = '' + a + nn.a),
+                        n.reverseLogo && (a = '' + a + Xe.a),
+                        n.vertical && n.reverseLogo && (a = '' + a + on.a),
+                        n.termsIcon && (a = '' + a + rn.a),
                         ['size:' + t, a]
                     );
                 }),
-                qn = Object.keys(Zn).map(function(e) {
-                    return ['size:' + e.slice(1), Zn[e].styles];
+                Wn = Object.keys(kn).map(function(e) {
+                    return ['size:' + e.slice(1), kn[e].styles];
                 }),
-                Kn = [['default', [he.a, cn.a].join('\n')]].concat(Jn, qn),
-                $n = t(100),
-                Qn = {
-                    'layout:text': ze,
-                    'layout:flex': sn,
-                    'layout:legacy': Kn,
-                    'layout:custom': [['default', [he.a, t.n($n).a].join('\n')]]
+                Hn = [['default', [ae.a, $e.a].join('\n')]].concat(jn, Wn),
+                Bn = t(100),
+                Yn = {
+                    'layout:text': Pe,
+                    'layout:flex': qe,
+                    'layout:legacy': Hn,
+                    'layout:custom': [['default', [ae.a, t.n(Bn).a].join('\n')]]
                 },
-                Xn = {
+                Dn = {
                     PRIMARY: {
                         COLOR: [
                             'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_fc_pri.svg',
@@ -2798,18 +2626,18 @@
                         ]
                     }
                 };
-            function et(e) {
+            function Fn(e) {
                 return (
                     '\n    .message__headline span.multi:nth-child(2) {\n        display: none;\n    }\n\n    @media (min-width: ' +
                     e +
                     'px) {\n        .message__headline span.multi:first-child {\n            display: none;\n            \n        }\n\n        .message__headline span.multi:nth-child(2) {\n            display: inline;\n            \n        }\n    }\n'
                 );
             }
-            var nt = [
+            var Gn = [
                     [
                         'default',
                         {
-                            logo: Xn.PRIMARY.COLOR,
+                            logo: Dn.PRIMARY.COLOR,
                             headline: 'medium',
                             subHeadline: 'small',
                             disclaimer: 'legacy-medium'
@@ -2824,21 +2652,21 @@
                             ]
                         }
                     ],
-                    ['size:234x100', { logo: Xn.PRIMARY.WHITE }],
-                    ['size:310x100', { logo: Xn.PRIMARY.WHITE }],
-                    ['size:340x60', { logo: Xn.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
+                    ['size:234x100', { logo: Dn.PRIMARY.WHITE }],
+                    ['size:310x100', { logo: Dn.PRIMARY.WHITE }],
+                    ['size:340x60', { logo: Dn.PRIMARY.WHITE, styles: ['.message { max-width: 100% }'] }]
                 ],
-                tt = {
+                Un = {
                     'layout:text': [
                         [
                             'default',
                             {
                                 styles: [
-                                    et(290),
+                                    Fn(290),
                                     '.message__messaging { flex: 1 1 auto; }',
                                     '@media (max-width: 289px) { .message__disclaimer { display: block; } }'
                                 ],
-                                logo: Xn.PRIMARY.COLOR,
+                                logo: Dn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
@@ -2848,8 +2676,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                styles: [et(280)],
-                                logo: Xn.ALT_NO_PP.COLOR,
+                                styles: [Fn(280)],
+                                logo: Dn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2860,7 +2688,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [180, 1e3],
-                                styles: [et(280)],
+                                styles: [Fn(280)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2871,48 +2699,58 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [et(520)],
-                                logo: Xn.ALTERNATIVE.COLOR,
+                                styles: [Fn(520)],
+                                logo: Dn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [et(210)] }],
-                        ['logo.type:alternative && logo.position:top', { styles: [et(210)] }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [Fn(210)] }],
+                        ['logo.type:alternative && logo.position:top', { styles: [Fn(210)] }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x1', { headline: ['xsmall', 'medium'] }],
+                        [
+                            'ratio:1x1',
+                            {
+                                headline: ['xsmall', 'medium'],
+                                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
+                            }
+                        ],
                         [
                             'ratio:1x4',
                             {
                                 headline: { tag: 'medium', br: ['months'] },
-                                styles: ['.message__logo-container { margin-bottom: 30%; }'],
+                                styles: [
+                                    '.message__logo-container { margin-bottom: 30%; }',
+                                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                                    '.message__headline { font-size: 1.1rem }'
+                                ],
                                 disclaimer: ['xlarge', 'xsmall']
                             }
                         ],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': nt
+                    'layout:legacy': Gn
                 },
-                ot = {
+                Vn = {
                     'layout:text': [
                         [
                             'default',
                             {
-                                styles: [et(320)],
-                                logo: Xn.PRIMARY.COLOR,
+                                styles: [Fn(320)],
+                                logo: Dn.PRIMARY.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }],
                                 disclaimer: ['extra', 'xsmall']
                             }
@@ -2922,8 +2760,8 @@
                             'logo.type:inline',
                             {
                                 messageWidth: [240, 1e3],
-                                styles: [et(290)],
-                                logo: Xn.ALT_NO_PP.COLOR,
+                                styles: [Fn(290)],
+                                logo: Dn.ALT_NO_PP.COLOR,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                                     { tag: 'medium', br: ['purchases'] }
@@ -2934,7 +2772,7 @@
                             'logo.type:none',
                             {
                                 messageWidth: [220, 1e3],
-                                styles: [et(290)],
+                                styles: [Fn(290)],
                                 logo: !1,
                                 headline: [
                                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -2945,49 +2783,59 @@
                         [
                             'logo.type:alternative',
                             {
-                                styles: [et(570)],
-                                logo: Xn.ALTERNATIVE.COLOR,
+                                styles: [Fn(570)],
+                                logo: Dn.ALTERNATIVE.COLOR,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
                             }
                         ],
                         [
                             'logo.type:alternative && logo.position:top',
                             {
-                                styles: [et(230)],
+                                styles: [Fn(230)],
                                 messageWidth: [150, 320],
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
                             }
                         ],
-                        ['logo.type:primary && logo.position:top', { styles: [et(235)] }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:primary && logo.position:top', { styles: [Fn(235)] }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                                 disclaimer: ['extra.2', 'small']
                             }
                         ],
-                        ['ratio:1x1', { headline: ['xsmall', 'medium'] }],
+                        [
+                            'ratio:1x1',
+                            {
+                                headline: ['xsmall', 'medium'],
+                                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
+                            }
+                        ],
                         [
                             'ratio:1x4',
                             {
                                 headline: { tag: 'medium', br: ['months'] },
-                                styles: ['.message__logo-container { margin-bottom: 30%; }'],
+                                styles: [
+                                    '.message__logo-container { margin-bottom: 30%; }',
+                                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                                    '.message__headline { font-size: 1.1rem }'
+                                ],
                                 disclaimer: ['xlarge', 'extra.2', 'small']
                             }
                         ],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
-                    'layout:legacy': nt
+                    'layout:legacy': Gn
                 },
-                it = {
+                Zn = {
                     'layout:text': [
                         [
                             'default',
@@ -2996,7 +2844,7 @@
                                     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                                 ],
-                                logo: Xn.PRIMARY.COLOR,
+                                logo: Dn.PRIMARY.COLOR,
                                 headline: { tag: 'small', br: ['months', 'APR'] },
                                 disclaimer: 'xsmall.2'
                             }
@@ -3004,12 +2852,12 @@
                         ['logo.type:primary', { messageWidth: 190 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [255, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [255, 1e3], logo: Dn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [240, 1e3], logo: !1, headline: { br: ['APR'] } }],
                         [
                             'logo.type:alternative',
-                            { logo: Xn.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
+                            { logo: Dn.ALTERNATIVE.COLOR, headline: { replace: [['APR', 'APR.']], br: ['APR.'] } }
                         ],
                         [
                             'text.color:white',
@@ -3020,20 +2868,24 @@
                                 ]
                             }
                         ],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
-                                headline: { tag: 'small', br: ['months', 'APR'] },
+                                logo: Dn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['over', 'at', 'APR'] },
+                                subHeadline: 'small',
                                 disclaimer: ['xsmall.2', 'xsmall']
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['over', 'at', 'APR'] }, subHeadline: 'small' }],
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['over', 'at', 'APR'] }, subHeadline: { tag: 'small', br: ['money'] } }
+                        ],
                         [
                             'ratio:20x1',
                             {
@@ -3042,13 +2894,13 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
-                        ['default', { logo: Xn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        ['default', { logo: Dn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-large' }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR }],
                         [
                             'size:120x90',
                             {
@@ -3138,7 +2990,7 @@
                         ]
                     ]
                 },
-                at = {
+                Jn = {
                     'layout:text': [
                         [
                             'default',
@@ -3147,7 +2999,7 @@
                                     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
                                     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
                                 ],
-                                logo: Xn.PRIMARY.COLOR,
+                                logo: Dn.PRIMARY.COLOR,
                                 headline: { tag: 'xsmall', br: ['months'] },
                                 disclaimer: 'xsmall.2'
                             }
@@ -3155,13 +3007,13 @@
                         ['logo.type:primary', { messageWidth: 130 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [250, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
+                            { messageWidth: [250, 1e3], logo: Dn.ALT_NO_PP.COLOR, headline: { br: ['months'] } }
                         ],
                         ['logo.type:none', { messageWidth: [235, 1e3], logo: !1, headline: { br: ['months'] } }],
                         [
                             'logo.type:alternative',
                             {
-                                logo: Xn.ALTERNATIVE.COLOR,
+                                logo: Dn.ALTERNATIVE.COLOR,
                                 headline: { replace: [['months', 'months.']], br: ['months.'] }
                             }
                         ],
@@ -3174,27 +3026,31 @@
                                 ]
                             }
                         ],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
-                                headline: { tag: 'xsmall', br: ['months'] },
+                                logo: Dn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['over'] },
+                                subHeadline: 'small',
                                 disclaimer: ['xsmall.2', 'xsmall']
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['over', 'months'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['over', 'months'] }, subHeadline: { tag: 'xsmall', br: ['money'] } }
+                        ],
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
-                        ['default', { logo: Xn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        ['default', { logo: Dn.PRIMARY.WHITE, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR }],
                         [
                             'size:120x90',
                             {
@@ -3284,18 +3140,18 @@
                         ]
                     ]
                 },
-                rt = {
+                qn = {
                     'layout:text': [
                         [
                             'default',
-                            { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
+                            { logo: Dn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'small' }
                         ],
                         ['logo.type:primary', { messageWidth: [130, 200] }],
                         [
                             'logo.type:inline',
                             {
                                 messageWidth: [200, 1e3],
-                                logo: Xn.ALT_NO_PP.COLOR,
+                                logo: Dn.ALT_NO_PP.COLOR,
                                 headline: { br: ['APR'], replace: [['APR.', 'APR']] }
                             }
                         ],
@@ -3307,36 +3163,37 @@
                                 headline: { replace: [['APR.', 'APR']], br: ['APR'] }
                             }
                         ],
-                        ['logo.type:alternative', { messageWidth: [140, 430], logo: Xn.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { messageWidth: [140, 430], logo: Dn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: { tag: 'medium', br: ['low as', 'at'] },
-                                disclaimer: 'small'
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: 'legacy-medium',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-small'
                             }
                         ],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR, disclaimer: 'legacy-medium' }],
                         ['size:120x90', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:234x60', { headline: 'legacy-small', disclaimer: 'legacy-medium' }],
                         ['size:300x50', { disclaimer: 'legacy-medium' }],
@@ -3347,41 +3204,46 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-small', disclaimer: 'legacy-medium' }]
                     ]
                 },
-                st = {
+                Kn = {
                     'layout:text': [
-                        ['default', { logo: Xn.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Dn.PRIMARY.COLOR, headline: { tag: 'xsmall' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: 130 }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [195, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [195, 1e3], logo: Dn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [175, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Dn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: Xn.PRIMARY.WHITE, headline: { tag: 'small', br: ['low as'] }, disclaimer: 'xsmall' }
+                            {
+                                logo: Dn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['low as'] },
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
+                            }
                         ],
-                        ['ratio:1x4', { subHeadline: 'small' }],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3389,33 +3251,37 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                lt = {
+                $n = {
                     'layout:text': [
                         [
                             'default',
-                            { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
+                            { logo: Dn.PRIMARY.COLOR, headline: { tag: 'small', br: ['/mo'] }, disclaimer: 'xsmall' }
                         ],
                         ['logo.type:primary', { messageWidth: [190, 240] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [260, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
+                            { messageWidth: [260, 1e3], logo: Dn.ALT_NO_PP.COLOR, headline: { br: ['APR'] } }
                         ],
                         ['logo.type:none', { messageWidth: [260, 1e3], logo: !1, headline: { br: ['APR'] } }],
-                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Dn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: { tag: 'small', br: [' of', 'at'] },
+                                subHeadline: 'small',
                                 disclaimer: 'xsmall'
                             }
                         ],
-                        ['ratio:1x4', { headline: { br: ['payments', 'mo'] }, subHeadline: 'small' }],
+                        [
+                            'ratio:1x4',
+                            { headline: { br: ['payments', 'mo'] }, subHeadline: { tag: 'small', br: ['money'] } }
+                        ],
                         [
                             'ratio:20x1',
                             {
@@ -3424,21 +3290,21 @@
                                 ]
                             }
                         ],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: 'legacy-small',
                                 subHeadline: 'legacy-xlarge',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1, headline: 'legacy-xsmall' }],
                         ['size:234x60', { headline: 'legacy-xsmall', disclaimer: 'legacy-medium.2' }],
                         ['size:250x250', { headline: 'legacy-small.2', disclaimer: 'legacy-medium.2' }],
@@ -3447,41 +3313,46 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 },
-                ct = {
+                Qn = {
                     'layout:text': [
-                        ['default', { logo: Xn.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
+                        ['default', { logo: Dn.PRIMARY.COLOR, headline: { tag: 'small' }, disclaimer: 'xsmall' }],
                         ['logo.type:primary', { messageWidth: [140, 210] }],
                         [
                             'logo.type:inline',
-                            { messageWidth: [200, 1e3], logo: Xn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
+                            { messageWidth: [200, 1e3], logo: Dn.ALT_NO_PP.COLOR, headline: { br: ['/mo'] } }
                         ],
                         ['logo.type:none', { messageWidth: [200, 1e3], logo: !1, headline: { br: ['/mo'] } }],
-                        ['logo.type:alternative', { logo: Xn.ALTERNATIVE.COLOR }],
-                        ['text.color:white && logo.type:primary', { logo: Xn.PRIMARY.WHITE }],
-                        ['text.color:white && logo.type:alternative', { logo: Xn.ALTERNATIVE.WHITE }],
-                        ['text.color:white && logo.type:inline', { logo: Xn.ALT_NO_PP.WHITE }]
+                        ['logo.type:alternative', { logo: Dn.ALTERNATIVE.COLOR }],
+                        ['text.color:white && logo.type:primary', { logo: Dn.PRIMARY.WHITE }],
+                        ['text.color:white && logo.type:alternative', { logo: Dn.ALTERNATIVE.WHITE }],
+                        ['text.color:white && logo.type:inline', { logo: Dn.ALT_NO_PP.WHITE }]
                     ],
                     'layout:flex': [
                         [
                             'default',
-                            { logo: Xn.PRIMARY.WHITE, headline: { tag: 'small', br: ['of'] }, disclaimer: 'xsmall' }
+                            {
+                                logo: Dn.PRIMARY.WHITE,
+                                headline: { tag: 'small', br: ['of'] },
+                                subHeadline: 'small',
+                                disclaimer: 'xsmall'
+                            }
                         ],
-                        ['ratio:1x4', { headline: { br: ['payments'] }, subHeadline: 'small' }],
-                        ['color:gray', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white', { logo: Xn.PRIMARY.COLOR }],
-                        ['color:white-no-border', { logo: Xn.PRIMARY.COLOR }]
+                        ['ratio:1x4', { headline: { br: ['payments'] }, subHeadline: { tag: 'small', br: ['money'] } }],
+                        ['color:gray', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white', { logo: Dn.PRIMARY.COLOR }],
+                        ['color:white-no-border', { logo: Dn.PRIMARY.COLOR }]
                     ],
                     'layout:legacy': [
                         [
                             'default',
                             {
-                                logo: Xn.PRIMARY.WHITE,
+                                logo: Dn.PRIMARY.WHITE,
                                 headline: 'legacy-xsmall',
                                 subHeadline: 'legacy-large',
                                 disclaimer: 'legacy-medium'
                             }
                         ],
-                        ['size:1000x36', { logo: Xn.PRIMARY.COLOR }],
+                        ['size:1000x36', { logo: Dn.PRIMARY.COLOR }],
                         ['size:120x90', { logo: !1 }],
                         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
                         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
@@ -3489,40 +3360,38 @@
                         ['size:170x100', { logo: !1, headline: 'legacy-xsmall' }]
                     ]
                 };
-            function ut(e, n) {
-                var t = B()(e, function(e) {
+            function Xn(e, n) {
+                var t = D()(e, function(e) {
                     var t = e[1];
-                    return h()(t, n);
+                    return _()(t, n);
                 });
                 if (t) return t[0];
-                if (le()(n, '.')) {
+                if (J()(n, '.')) {
                     var o = n.split('.', 1)[0];
                     if (
-                        (t = B()(e, function(e) {
+                        (t = D()(e, function(e) {
                             var n = e[1];
-                            return h()(n, o);
+                            return _()(n, o);
                         }))
                     )
                         return t[0];
                 }
-                return B()(e, function(e) {
+                return D()(e, function(e) {
                     var n = e[1];
-                    return h()(n, 'default');
+                    return _()(n, 'default');
                 })[0];
             }
-            var dt = document.createElement('iframe');
-            dt.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
-            var mt = document.createElement('div');
-            mt.innerHTML = ue.a;
-            var pt = document.createElement('div');
-            function gt(e) {
+            var et = document.createElement('div');
+            et.innerHTML = X.a;
+            var nt = document.createElement('div');
+            function tt(e) {
                 return e
                     .reduce(function(e, n) {
                         return [].concat(e, [n, document.createTextNode(' ')]);
                     }, [])
                     .slice(0, -1);
             }
-            function ft(e, n) {
+            function ot(e, n) {
                 void 0 === n && (n = {});
                 var t,
                     o = (Array.isArray(e) ? e : [e]).map(function(e) {
@@ -3541,14 +3410,14 @@
                             e.textContent = n;
                         })),
                     n.br &&
-                        (function(e, t) {
-                            var o = [].concat(n.br);
-                            t.forEach(function(e) {
-                                for (var n = e.textContent, t = []; le()(n, o[0]); ) t.push(o[0]), o.shift();
-                                if (0 === t.length || (1 === t.length && re()(n, t[0]))) return e.classList.add('br');
+                        (function(e, n) {
+                            var t = [].concat(e);
+                            n.forEach(function(e) {
+                                for (var n = e.textContent, o = []; J()(n, t[0]); ) o.push(t[0]), t.shift();
+                                if (0 === o.length || (1 === o.length && $()(n, o[0]))) return e.classList.add('br');
                                 var i = document.createElement('span');
                                 (i.textContent = n), (i.className = 'br');
-                                var a = t.reduce(
+                                var a = o.reduce(
                                     function(e, n) {
                                         var t = (function(e, n) {
                                             var t = e.textContent,
@@ -3571,28 +3440,28 @@
                                     })
                                 );
                             });
-                        })(0, o),
-                    gt(o)
+                        })(n.br, o),
+                    tt(o)
                 );
             }
-            pt.innerHTML = me.a;
-            var ht = m(function(e, n, t) {
+            nt.innerHTML = ne.a;
+            var it = d(function(e, n, t) {
                     return (
                         !1 !== t &&
                         ('string' != typeof t && 'object' != typeof t
                             ? null
-                            : gt(
+                            : tt(
                                   (o = 'string' == typeof t ? [{ tag: t }] : Array.isArray(t) ? t : [t]).map(function(
                                       t
                                   ) {
                                       var a,
                                           r = document.createElement('span');
                                       if ((o.length > 1 && r.setAttribute('class', 'multi'), 'string' == typeof t))
-                                          (a = ft(ut(e[n], t))), r.classList.add('tag--' + t.split('.', 1)[0]);
+                                          (a = ot(Xn(e[n], t))), r.classList.add('tag--' + t.split('.', 1)[0]);
                                       else {
                                           var s = t.tag,
                                               l = i(t, ['tag']);
-                                          (a = ft(ut(e[n], s), l)), r.classList.add('tag--' + s.split('.', 1)[0]);
+                                          (a = ot(Xn(e[n], s), l)), r.classList.add('tag--' + s.split('.', 1)[0]);
                                       }
                                       return (
                                           a.forEach(function(e) {
@@ -3605,7 +3474,7 @@
                     );
                     var o;
                 }),
-                yt = m(function(e, n, t) {
+                at = d(function(e, n, t) {
                     return t.reduce(
                         function(t, o) {
                             var i = o[0],
@@ -3613,244 +3482,263 @@
                                 r = i.split(' && ');
                             return 'default' === i ||
                                 r.every(function(n) {
-                                    return h()(e, n);
+                                    return _()(e, n);
                                 })
                                 ? n === Array
                                     ? [].concat(t, [a])
-                                    : w(t, a)
+                                    : b(t, a)
                                 : t;
                         },
                         n === Array ? [] : {}
                     );
                 }),
-                _t = {
+                rt = {
                     getTemplateNode: c(function(e, n) {
-                        var t = v(e, 'style.layout');
+                        var t = E(e, 'style.layout');
                         if ('custom' === t)
                             return (function(e) {
-                                var t = n.data,
-                                    o = n.meta,
-                                    i = n.template,
-                                    a = document.createElement('div'),
-                                    s = o.offerType;
-                                if ('' === i) return a;
+                                var n = e.data,
+                                    t = e.meta,
+                                    o = e.template,
+                                    i = document.createElement('div'),
+                                    a = t.offerType;
+                                if ('' === o) return i;
                                 try {
-                                    var l = i.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, n) {
-                                        var o = n.split('.'),
+                                    var s = o.replace(/{{\s*?([^\s]+?)\s*?}}/g, function(e, t) {
+                                        var o = t.split('.'),
                                             i = o[0],
                                             a = o.slice(1).join('.');
                                         if ('logo' === i) {
                                             var r = document.createElement('div');
-                                            return I(r, v(Xn, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
+                                            return L(r, E(Dn, a.toUpperCase()), 'PayPal Credit logo'), r.innerHTML;
                                         }
-                                        return ft(ut(t[i], a)).reduce(function(e, n) {
+                                        return ot(Xn(n[i], a)).reduce(function(e, n) {
                                             return '' + e + (n.outerHTML || ' ');
                                         }, '');
                                     });
-                                    (a.innerHTML = l),
-                                        B()(r()(a.children), function(e) {
+                                    (i.innerHTML = s),
+                                        D()(r()(i.children), function(e) {
                                             return 'STYLE' !== e.tagName;
-                                        }).classList.add('offer--' + s.replace(/:/g, '-').toLowerCase());
+                                        }).classList.add('offer--' + a.replace(/:/g, '-').toLowerCase());
                                 } catch (e) {}
-                                return a;
-                            })();
-                        var o = v(e, 'style._flattened'),
-                            i = v(n, 'meta.offerType'),
-                            a = v(n, 'data');
+                                return i;
+                            })(n);
+                        var o = E(e, 'style._flattened'),
+                            i = E(n, 'meta.offerType'),
+                            a = E(n, 'data');
                         if ('legacy' === t) {
-                            var s = v(e, 'style.typeNI'),
-                                l = v(e, 'style.typeEZP'),
+                            var s = E(e, 'style.typeNI'),
+                                l = E(e, 'style.typeEZP'),
                                 c = 'NI' === i.split(':')[0] ? s : l;
                             if ('image' === c)
-                                return (function(e, t) {
-                                    var o = n.meta,
-                                        i = pt.cloneNode(!0),
-                                        a = A('pp-legacy', i),
-                                        r = ['link', 'pixel'].map(a),
-                                        s = r[0],
-                                        l = r[1],
-                                        c = v(e, 'size'),
-                                        u = v(e, 'color'),
-                                        d = v(e, 'border');
-                                    s.setAttribute('href', o.clickUrl), l.setAttribute('href', o.impressionUrl);
+                                return (function(e, n) {
+                                    var t = n.meta,
+                                        o = nt.cloneNode(!0),
+                                        i = I('pp-legacy', o),
+                                        a = ['link', 'pixel'].map(i),
+                                        r = a[0],
+                                        s = a[1],
+                                        l = E(e, 'size'),
+                                        c = E(e, 'color'),
+                                        u = E(e, 'border');
+                                    r.setAttribute('href', t.clickUrl), s.setAttribute('href', t.impressionUrl);
                                     var m = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy',
-                                        p = 'none' === u ? '' : '-' + u + (!0 === d ? '' : '-no-border'),
-                                        g = ('none' === u ? 'v1' : 'v2') + '/' + c.replace(/x/, '-') + p,
-                                        f = [1, 1.5, 2].map(function(e) {
-                                            return m + '/' + g + '@' + e + 'x.png ' + e + 'x';
+                                        d = 'none' === c ? '' : '-' + c + (!0 === u ? '' : '-no-border'),
+                                        p = ('none' === c ? 'v1' : 'v2') + '/' + l.replace(/x/, '-') + d,
+                                        g = [1, 1.5, 2].map(function(e) {
+                                            return m + '/' + p + '@' + e + 'x.png ' + e + 'x';
                                         });
-                                    return I(s, m + '/' + g + '@1x.png', 'PayPal Credit Message', f.join(', ')), i;
-                                })(e.style);
-                            if (!c) throw new Error(G.MESSAGE_INVALID_LEGACY);
+                                    return L(r, m + '/' + p + '@1x.png', 'PayPal Credit Message', g.join(', ')), o;
+                                })(e.style, n);
+                            if (!c) throw new Error(U.MESSAGE_INVALID_LEGACY);
                         }
-                        var u = yt(o),
-                            d = u(
+                        var u = at(o),
+                            m = u(
                                 Object,
                                 (function(e, n) {
-                                    switch (i) {
+                                    switch (e) {
                                         case 'EZP:ANY:EQZ':
-                                            return it[n];
+                                            return Zn[n];
                                         case 'EZP:ANY:GTZ':
-                                            return at[n];
+                                            return Jn[n];
                                         case 'PALA:MULTI:EQZ':
-                                            return rt[n];
+                                            return qn[n];
                                         case 'PALA:MULTI:GTZ':
-                                            return st[n];
+                                            return Kn[n];
                                         case 'PALA:SINGLE:EQZ':
-                                            return lt[n];
+                                            return $n[n];
                                         case 'PALA:SINGLE:GTZ':
-                                            return ct[n];
+                                            return Qn[n];
                                         case 'NI:NON-US':
-                                            return ot[n];
+                                            return Vn[n];
                                         case 'NI':
                                         default:
-                                            return tt[n];
+                                            return Un[n];
                                     }
-                                })(0, 'layout:' + t)
+                                })(i, 'layout:' + t)
                             ),
-                            m = u(Array, Qn['layout:' + t]),
-                            p = ht(a),
-                            g = mt.cloneNode(!0),
-                            f = A('message', g),
+                            d = u(Array, Yn['layout:' + t]),
+                            p = it(a),
+                            g = et.cloneNode(!0),
+                            f = I('message', g),
                             h = ['logo-container', 'headline', 'sub-headline', 'disclaimer'].map(f),
                             y = h[0],
                             _ = h[1],
                             x = h[2],
                             w = h[3];
                         if (
-                            (O(_, p('headline', d.headline)),
-                            O(x, p('subHeadline', d.subHeadline)),
-                            T(w, p('disclaimer', d.disclaimer)),
-                            I(y, d.logo, 'PayPal Credit logo'),
-                            'inline' === v(e, 'style.logo.type') && _.appendChild(y),
-                            'none' === v(e, 'style.logo.type'))
+                            (O(_, p('headline', m.headline)),
+                            O(x, p('subHeadline', m.subHeadline)),
+                            S(w, p('disclaimer', m.disclaimer)),
+                            L(y, m.logo, 'PayPal Credit logo'),
+                            'inline' === E(e, 'style.logo.type') && _.appendChild(y),
+                            'none' === E(e, 'style.logo.type'))
                         ) {
-                            var b = document.createElement('span');
-                            b.textContent = 'with ';
-                            var E = document.createElement('strong');
-                            (E.textContent = 'PayPal Credit.'),
-                                b.appendChild(E),
+                            var v = document.createElement('span');
+                            v.textContent = 'with ';
+                            var b = document.createElement('strong');
+                            (b.textContent = 'PayPal Credit.'),
+                                v.appendChild(b),
                                 _.appendChild(document.createTextNode(' ')),
-                                _.appendChild(b);
+                                _.appendChild(v);
                         }
-                        d.messageWidth &&
-                            ('number' == typeof d.messageWidth
-                                ? m.push('.message__messaging { width: ' + d.messageWidth + 'px }')
-                                : Array.isArray(d.messageWidth) &&
-                                  m.push(
+                        m.messageWidth &&
+                            ('number' == typeof m.messageWidth
+                                ? d.push('.message__messaging { width: ' + m.messageWidth + 'px }')
+                                : Array.isArray(m.messageWidth) &&
+                                  d.push(
                                       '.message__messaging { min-width: ' +
-                                          d.messageWidth[0] +
+                                          m.messageWidth[0] +
                                           'px; max-width: ' +
-                                          d.messageWidth[1] +
+                                          m.messageWidth[1] +
                                           'px }'
                                   ));
                         var P = function(n) {
                             return 'legacy' === t ? n.replace(/\.message/g, '[data-pp-id="' + e.id + '"] .message') : n;
                         };
-                        return (
-                            d.styles && R(g, P(d.styles.join(''))),
-                            R(g, P(m.join('\n'))),
-                            (g.width = (function(e) {
-                                document.body.appendChild(dt),
-                                    dt.contentWindow.document.body.appendChild(
-                                        dt.contentWindow.document.importNode(e, !0)
-                                    ),
-                                    r()(dt.contentWindow.document.getElementsByTagName('style')).forEach(function(e) {
-                                        var n = dt.contentWindow.document.createElement('style');
-                                        (n.textContent = e.textContent),
-                                            e.parentNode.insertBefore(n, e),
-                                            e.parentNode.removeChild(e);
-                                    });
-                                var n = dt.contentWindow.document.querySelector('.message__content'),
-                                    t = window.getComputedStyle(n),
-                                    o = r()(n.children),
-                                    i = [
-                                        'margin-left',
-                                        'border-left-width',
-                                        'padding-left',
-                                        'width',
-                                        'padding-right',
-                                        'border-right-width',
-                                        'margin-right'
-                                    ],
-                                    a = le()(t.getPropertyValue('display'), 'flex')
-                                        ? Math.round(
-                                              o.reduce(function(e, n) {
-                                                  var t = window.getComputedStyle(n);
-                                                  return (
-                                                      e +
-                                                      i.reduce(function(e, n) {
-                                                          return e + parseFloat(t.getPropertyValue(n));
-                                                      }, 0)
-                                                  );
-                                              }, 0)
-                                          )
-                                        : Math.max.apply(
-                                              Math,
-                                              o.map(function(e) {
-                                                  var n = window.getComputedStyle(e);
-                                                  return Math.round(
-                                                      i.reduce(function(e, t) {
-                                                          return e + parseFloat(n.getPropertyValue(t));
-                                                      }, 0)
-                                                  );
-                                              })
-                                          );
-                                return document.body.removeChild(dt), a;
-                            })(g)),
-                            g
-                        );
+                        return m.styles && T(g, P(m.styles.join(''))), T(g, P(d.join('\n'))), g;
                     })
                 },
-                xt = m(function(e, n) {
-                    var t = n.markup,
-                        i = n.options;
-                    return new j.ZalgoPromise(function(n) {
-                        var a, s, l, c;
-                        'string' == typeof t
-                            ? (((a = document.createElement('div')).innerHTML = t), (s = {}))
-                            : ((a = _t.getTemplateNode(i, t)), (s = o({}, t.meta, { minWidth: a.width }))),
-                            'IFRAME' === e.tagName
-                                ? ((l = e.contentWindow.document.importNode(a, !0)), (c = e.contentWindow.document))
-                                : ((l = a.cloneNode(!0)), (c = document));
-                        var u = r()(l.getElementsByTagName('img'))
+                st = t(31),
+                lt = t.n(st),
+                ct = { click: new Map(), scroll: new Map(), hover: new Map(), resize: new Map() };
+            function ut(e) {
+                ct.resize.has(e.target.frameElement) && ct.resize.get(e.target.frameElement)(e);
+            }
+            function mt(e) {
+                ct.scroll.forEach(function(n) {
+                    return n(e);
+                });
+            }
+            function dt(e) {
+                ct.hover.has(e.target) && ct.hover.get(e.target)(e);
+            }
+            function pt(e) {
+                e.target.ownerDocument && ct.click.has(e.target.ownerDocument.defaultView.frameElement)
+                    ? ct.click.get(e.target.ownerDocument.defaultView.frameElement)(e)
+                    : ct.click.has(e.currentTarget) && e.currentTarget !== e.target && ct.click.get(e.currentTarget)(e);
+            }
+            function gt(e) {
+                return {
+                    on: function(n, t) {
+                        ('IFRAME' !== e.tagName && 'resize' === n) ||
+                            (function(e, n, t) {
+                                if (
+                                    ((function(e, n) {
+                                        'scroll' === e && 0 === ct.scroll.size
+                                            ? window.addEventListener('scroll', mt)
+                                            : 'hover' === e && 0 === ct.hover.size
+                                            ? document.addEventListener('mouseover', dt)
+                                            : 'resize' !== e || ct[e].has(n)
+                                            ? 'click' !== e ||
+                                              ct[e].has(n) ||
+                                              ('IFRAME' === n.tagName
+                                                  ? n.contentWindow.document.body.addEventListener('click', pt)
+                                                  : n.addEventListener('click', pt))
+                                            : n.contentWindow.addEventListener('resize', ut);
+                                    })(e, n),
+                                    ct[e].has(n))
+                                ) {
+                                    var o = ct[e].get(n);
+                                    ct[e].set(n, function(e) {
+                                        o(e), t(e);
+                                    });
+                                } else ct[e].set(n, t);
+                            })(n, e, t);
+                    },
+                    clear: function(n) {
+                        ct[n].delete(e),
+                            'scroll' === n && 0 === ct.scroll.size
+                                ? window.removeEventListener('scroll', mt)
+                                : 'hover' === n && 0 === ct.hover.size
+                                ? document.removeEventListener('mouseover', dt)
+                                : 'click' === n
+                                ? 'IFRAME' === e.tagName
+                                    ? e.contentWindow.document.body.removeEventListener('click', pt)
+                                    : e.removeEventListener('click', pt)
+                                : 'IFRAME' === e.tagName &&
+                                  'resize' === n &&
+                                  e.contentWindow.removeEventListener('resize', ut);
+                    }
+                };
+            }
+            var ft = d(function(e, n) {
+                return W.ZalgoPromise.resolve(
+                    'IFRAME' === e.tagName &&
+                        'complete' !== e.contentWindow.document.readyState &&
+                        new W.ZalgoPromise(function(n) {
+                            return e.addEventListener('load', n);
+                        })
+                ).then(function() {
+                    var t,
+                        o,
+                        i = 'IFRAME' === e.tagName ? e.contentWindow.document : document,
+                        a =
+                            'string' == typeof n
+                                ? ((t = n), ((o = i.createElement('div')).innerHTML = t), o)
+                                : i.importNode(n, !0),
+                        s = r()(a.getElementsByTagName('img'))
                             .filter(function(e) {
                                 return !e.complete;
                             })
                             .map(function(e) {
-                                return new j.ZalgoPromise(function(n) {
+                                return new W.ZalgoPromise(function(n) {
                                     return e.addEventListener('load', n);
                                 });
                             });
-                        r()(l.getElementsByTagName('style')).forEach(function(e) {
-                            var n = c.createElement('style');
+                    return (
+                        r()(a.getElementsByTagName('style')).forEach(function(e) {
+                            var n = i.createElement('style');
                             (n.textContent = e.textContent),
                                 e.parentNode.insertBefore(n, e),
                                 e.parentNode.removeChild(e);
                         }),
-                            r()(l.getElementsByTagName('script')).forEach(function(e) {
-                                var n = c.createElement('script');
-                                (n.text = e.text), e.parentNode.insertBefore(n, e), e.parentNode.removeChild(e);
-                            }),
-                            j.ZalgoPromise.all(u).then(function() {
+                        r()(a.getElementsByTagName('script')).forEach(function(e) {
+                            var n = i.createElement('script');
+                            (n.text = e.text), e.parentNode.insertBefore(n, e), e.parentNode.removeChild(e);
+                        }),
+                        W.ZalgoPromise.all(s).then(function() {
+                            return new W.ZalgoPromise(function(n) {
                                 requestAnimationFrame(function() {
-                                    for (var t = 'IFRAME' === e.tagName ? c.body : e; t.firstChild; )
+                                    for (var t = 'IFRAME' === e.tagName ? i.body : e; t.firstChild; )
                                         t.removeChild(t.firstChild);
-                                    r()(l.children).forEach(function(e) {
+                                    r()(a.children).forEach(function(e) {
                                         return t.appendChild(e);
                                     }),
-                                        n({ meta: o({}, s, {}, (c !== document && c.defaultView.meta) || {}) });
+                                        n();
                                 });
                             });
-                    });
+                        })
+                    );
                 });
-            function wt(e) {
+            }, 2);
+            function ht(e) {
                 var n = e.getBoundingClientRect(),
                     t = (n.top + n.bottom) / 2,
                     o = (n.left + n.right) / 2;
                 return !(t > window.innerHeight || t < 0 || o > window.innerWidth || o < 0);
             }
-            var vt = m(function(e, n) {
+            var yt = d(function(e, n) {
                     var t = n.options.amount,
                         o = n.events,
                         i = n.track,
@@ -3862,12 +3750,12 @@
                             pos_y: Math.round(a.top),
                             browser_width: window.innerWidth,
                             browser_height: window.innerHeight,
-                            visible: wt(e),
+                            visible: ht(e),
                             amount: t
                         };
                     r.visible ||
                         o.on('scroll', function() {
-                            wt(e) &&
+                            ht(e) &&
                                 (o.clear('scroll'), i({ et: 'CLIENT_IMPRESSION', event_type: 'scroll', visible: !0 }));
                         }),
                         (function() {
@@ -3881,7 +3769,7 @@
                                     'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -1000px !important;'
                                 );
                             var n = void 0 !== window.getComputedStyle ? window.getComputedStyle(e) : void 0;
-                            return new j.ZalgoPromise(function(t) {
+                            return new W.ZalgoPromise(function(t) {
                                 !(function o(i) {
                                     return i <= 0
                                         ? (window.document.body.removeChild(e), t(!1))
@@ -3934,7 +3822,7 @@
                             i({ et: 'CLIENT_IMPRESSION', event_type: 'hover' }), o.clear('hover');
                         });
                 }),
-                bt = {
+                _t = {
                     '1x1': [{ ratio: '1x1', width: [120, 300] }],
                     '1x4': [{ ratio: '1x2', width: [160, 160] }, { ratio: '1x4', breakpoint: 768 }],
                     '8x1': [{ ratio: '6x1', width: [250, 768] }, { ratio: '8x1', breakpoint: 768 }],
@@ -3943,7 +3831,7 @@
                         { ratio: '20x1', width: [350, 1169], breakpoint: 768 }
                     ]
                 };
-            function Et(e) {
+            function xt(e) {
                 if ('number' == typeof e) return e + 'px';
                 if ('string' == typeof e) {
                     var n = e.match(/^(\d+)x(\d+)$/);
@@ -3958,7 +3846,7 @@
                 }
                 return e;
             }
-            function Pt(e) {
+            function wt(e) {
                 var n = e.split(/(?=[@[])/),
                     t = n[0],
                     o = n.slice(1);
@@ -3976,7 +3864,7 @@
                       )
                     : {};
             }
-            var At = m(function(e, n) {
+            var vt = d(function(e, n) {
                 var t = n.wrapper,
                     o = n.options,
                     i = n.logger,
@@ -3984,13 +3872,13 @@
                 if ('IFRAME' === e.tagName) {
                     var r,
                         s,
-                        l = v(o, 'style.layout'),
-                        c = v(o, 'style.ratio');
+                        l = E(o, 'style.layout'),
+                        c = E(o, 'style.ratio');
                     if (('flex' !== l && 'custom' !== l) || !c) {
-                        var u = a.minWidth || 0;
+                        var u = a.minWidth;
                         e.setAttribute('style', 'width: 100%; border: none; min-width: ' + u + 'px;'),
                             t.removeAttribute('class');
-                        var d = (function(e) {
+                        var m = (function(e) {
                                 var n = document.createElement('div');
                                 n.setAttribute('style', 'width: 100%; overflow: hidden');
                                 var t = document.createElement('div');
@@ -4000,18 +3888,18 @@
                                 var o = n.offsetWidth;
                                 return e.parentNode.removeChild(n), o;
                             })(t),
-                            m = function() {
+                            d = function() {
                                 e.setAttribute('height', e.contentWindow.document.body.lastChild.offsetHeight);
                             };
-                        if (d < u && 'custom' !== l) {
-                            if ('top' !== v(o, 'style.logo.position') || 'primary' !== v(o, 'style.logo.type'))
+                        if (m < u && 'custom' !== l) {
+                            if ('top' !== E(o, 'style.logo.position') || 'primary' !== E(o, 'style.logo.type'))
                                 throw (i.warn(
                                     'Message Overflow. PayPal Credit Message of layout type ' +
-                                        v(o, 'style.layout') +
+                                        E(o, 'style.layout') +
                                         ' requires a width of at least ' +
                                         u +
                                         'px. Current container is ' +
-                                        d +
+                                        m +
                                         'px. Attempting fallback message.'
                                 ),
                                 (r = function() {
@@ -4019,26 +3907,26 @@
                                         t.parentNode.setAttribute('data-pp-style-logo-type', 'primary'),
                                         t.parentNode.setAttribute('data-pp-style-logo-position', 'top');
                                 }),
-                                ((s = new Error(G.MESSAGE_OVERFLOW)).onEnd = r),
+                                ((s = new Error(U.MESSAGE_OVERFLOW)).onEnd = r),
                                 s);
-                            i.error({ name: G.MESSAGE_HIDDEN }),
+                            i.error({ name: U.MESSAGE_HIDDEN }),
                                 i.warn(
                                     'Message hidden. PayPal Credit Message fallback requires minimum width of ' +
                                         u +
                                         'px. Current container is ' +
-                                        d +
+                                        m +
                                         'px. Message hidden.'
                                 ),
                                 e.setAttribute('data-pp-message-hidden', 'true');
-                        } else m(), ie(e).on('resize', m);
+                        } else d(), gt(e).on('resize', d);
                     } else
                         !(function(e, n, t) {
                             var o = [];
                             'flex' === t
-                                ? (o = bt[n])
+                                ? (o = _t[n])
                                 : Array.isArray(n)
-                                ? (o = n.map(Pt))
-                                : 'string' == typeof n && (o = [Pt(n)]);
+                                ? (o = n.map(wt))
+                                : 'string' == typeof n && (o = [wt(n)]);
                             var i = 'pp-flex--' + o.slice(-1)[0].ratio,
                                 a = o.reduce(function(e, n) {
                                     var t = n.breakpoint,
@@ -4050,15 +3938,15 @@
                                               ' {\n                    display: block;\n                    width: 100%;\n                    ' +
                                               (Array.isArray(a)
                                                   ? '\n                                min-width: ' +
-                                                    Et(a[0]) +
+                                                    xt(a[0]) +
                                                     ';\n                                max-width: ' +
-                                                    Et(a[1]) +
+                                                    xt(a[1]) +
                                                     ';'
                                                   : '') +
                                               '\n                    box-sizing: border-box;\n                    position: relative;\n                }\n        \n                .' +
                                               i +
                                               '::before {\n                    padding-top: ' +
-                                              Et(o) +
+                                              xt(o) +
                                               ";\n                    content: '';\n                    display: block;\n                }\n        \n                ." +
                                               i +
                                               ' iframe {\n                    position: absolute;\n                    top: 0;\n                    left: 0;\n                    width: 100%;\n                    height: 100%;\n                }\n            '
@@ -4066,21 +3954,21 @@
                                         ? '\n            ' +
                                           e +
                                           '\n            @media (min-width: ' +
-                                          Et(t) +
+                                          xt(t) +
                                           ') {\n                ' +
                                           (Array.isArray(a)
                                               ? '\n                            .' +
                                                 i +
                                                 ' {\n                                min-width: ' +
-                                                Et(a[0]) +
+                                                xt(a[0]) +
                                                 ';\n                                max-width: ' +
-                                                Et(a[1]) +
+                                                xt(a[1]) +
                                                 ';\n                            }'
                                               : '') +
                                           '\n                .' +
                                           i +
                                           '::before {\n                    padding-top: ' +
-                                          Et(o) +
+                                          xt(o) +
                                           ';\n                }\n            }\n        '
                                         : e;
                                 }, ''),
@@ -4091,37 +3979,221 @@
                             e.removeAttribute('height');
                 }
             });
-            function Rt(e) {
+            function bt(e) {
                 var n = document.createElement(e);
                 'iframe' === e &&
                     (n.setAttribute('title', 'PayPal Credit Promotion Message'),
                     n.setAttribute('style', 'width: 100%; border: none;'),
                     n.setAttribute('src', 'about:blank'),
                     n.setAttribute('height', 0));
-                var t = _()({ insertMarkup: xt, setSize: At, runStats: vt, events: ie }).reduce(function(e, t) {
+                var t = w()({ insertMarkup: ft, setSize: vt, runStats: yt, events: gt }).reduce(function(e, t) {
                     var i;
                     return o({}, e, (((i = {})[t[0]] = (0, t[1])(n)), i));
                 }, {});
                 return (
                     (t.clearEvents = function() {
                         return (function(e) {
-                            Q()(X).forEach(function(n) {
+                            lt()(ct).forEach(function(n) {
                                 return n.delete(e);
                             }),
-                                0 === X.scroll.size && window.removeEventListener('scroll', ne),
-                                0 === X.hover.size && document.removeEventListener('mouseover', te),
+                                0 === ct.scroll.size && window.removeEventListener('scroll', mt),
+                                0 === ct.hover.size && document.removeEventListener('mouseover', dt),
                                 'IFRAME' === e.tagName
-                                    ? (e.contentWindow.removeEventListener('resize', ee),
-                                      e.contentWindow.document.body.removeEventListener('click', oe))
-                                    : e.removeEventListener('click', oe);
+                                    ? (e.contentWindow.removeEventListener('resize', ut),
+                                      e.contentWindow.document.body.removeEventListener('click', pt))
+                                    : e.removeEventListener('click', pt);
                         })(n);
                     }),
                     [n, t]
                 );
             }
+            window.__PP = window.__PP || {};
+            var Et = { US: 'en_US', GB: 'en_GB', FR: 'fr_FR', DE: 'de_DE' };
+            function Pt(e) {
+                try {
+                    var n = e.content.json,
+                        t = e.tracking_details;
+                    return {
+                        data: {
+                            disclaimer: JSON.parse(n.disclaimer),
+                            headline: JSON.parse(n.headline),
+                            subHeadline: JSON.parse(n.subHeadline)
+                        },
+                        meta: {
+                            clickUrl: t.click_url,
+                            impressionUrl: t.impression_url,
+                            offerType: JSON.parse(n.meta).offerType
+                        }
+                    };
+                } catch (e) {
+                    throw new Error(U.MESSAGE_INVALID_MARKUP);
+                }
+            }
+            function At(e, n) {
+                var t = n.match(/^<!--([\s\S]+?)-->/);
+                if (t)
+                    try {
+                        return JSON.parse(t[1]);
+                    } catch (n) {
+                        e.error({ name: U.CUSTOM_JSON_OPTIONS_FAIL });
+                    }
+                return {};
+            }
+            var Rt = function(e) {
+                    var n = bt('iframe'),
+                        t = n[0],
+                        o = n[1].insertMarkup;
+                    return (
+                        t.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;'),
+                        document.body.appendChild(t),
+                        o(e).then(function() {
+                            var e = t.contentWindow.document.querySelector('.message__content'),
+                                n = t.contentWindow.getComputedStyle(e),
+                                o = r()(e.children),
+                                i = [
+                                    'margin-left',
+                                    'border-left-width',
+                                    'padding-left',
+                                    'width',
+                                    'padding-right',
+                                    'border-right-width',
+                                    'margin-right'
+                                ],
+                                a = J()(n.getPropertyValue('display'), 'flex')
+                                    ? Math.round(
+                                          o.reduce(function(e, n) {
+                                              var o = t.contentWindow.getComputedStyle(n);
+                                              return (
+                                                  e +
+                                                  i.reduce(function(e, n) {
+                                                      return e + parseFloat(o.getPropertyValue(n));
+                                                  }, 0)
+                                              );
+                                          }, 0)
+                                      )
+                                    : Math.max.apply(
+                                          Math,
+                                          o.map(function(e) {
+                                              var n = t.contentWindow.getComputedStyle(e);
+                                              return Math.round(
+                                                  i.reduce(function(e, t) {
+                                                      return e + parseFloat(n.getPropertyValue(t));
+                                                  }, 0)
+                                              );
+                                          })
+                                      );
+                            return document.body.removeChild(t), a;
+                        })
+                    );
+                },
+                It = u(
+                    function(e) {
+                        var n = e.account,
+                            t = e.amount,
+                            o = e.countryCode,
+                            i = e.style.typeEZP;
+                        return new W.ZalgoPromise(function(e) {
+                            var a = 'c' + Math.floor(Math.random() * Math.pow(10, 19)),
+                                r = {
+                                    dimensions: '' === i ? 'x199x99' : 'x215x80',
+                                    currency_value: t,
+                                    currency_code: 'USD',
+                                    format: 'HTML',
+                                    presentation_types: 'HTML',
+                                    ch: 'UPSTREAM',
+                                    call: '__PP.' + a
+                                };
+                            o && Et[o] && ((r.country_code = o), (r.locale = Et[o]));
+                            var s = w()(r)
+                                    .filter(function(e) {
+                                        return e[1];
+                                    })
+                                    .reduce(
+                                        function(e, n) {
+                                            return e + '&' + n[0] + '=' + n[1];
+                                        },
+                                        l()(n, 'client-id') ? 'client_id=' + n.slice(10) : 'pub_id=' + n
+                                    ),
+                                c = document.createElement('script');
+                            (c.async = !0),
+                                (c.src = 'https://www.paypal.com/imadserver/upstream?' + s),
+                                document.head.appendChild(c),
+                                (window.__PP[a] = function(n) {
+                                    if ((document.head.removeChild(c), delete window.__PP[a], 'object' == typeof n))
+                                        e({ markup: Pt(n) });
+                                    else
+                                        try {
+                                            e({ markup: JSON.parse(n.replace(/<\/?div>/g, '')) });
+                                        } catch (t) {
+                                            e({ markup: n });
+                                        }
+                                });
+                        });
+                    },
+                    ['account', 'amount', 'countryCode']
+                );
+            function Tt(e) {
+                var n = e.options,
+                    t = e.logger;
+                return (
+                    t.info(G.FETCH_START),
+                    ('custom' !== E(n, 'style.layout')
+                        ? It(n)
+                        : W.ZalgoPromise.all([It(n), q(n.style)]).then(function(e) {
+                              var o = e[0],
+                                  i = e[1];
+                              return 'object' == typeof o.markup
+                                  ? ('' === i && t.error({ name: U.CUSTOM_TEMPLATE_FAIL }),
+                                    (o.markup.template = i),
+                                    { markup: o.markup, options: b(n, At(t, i)) })
+                                  : { markup: o.markup };
+                          })
+                    ).then(function(e) {
+                        var i = e.markup,
+                            a = e.options,
+                            r = void 0 === a ? {} : a;
+                        t.info(G.FETCH_END);
+                        var s = o({}, n, {}, r);
+                        if (
+                            ((s.style._flattened = (function e(n, t, o) {
+                                return (
+                                    void 0 === t && (t = ''),
+                                    void 0 === o && (o = ':'),
+                                    w()(n).reduce(function(n, i) {
+                                        var a = i[0],
+                                            r = i[1];
+                                        switch (typeof r) {
+                                            case 'object':
+                                                return [].concat(n, e(r, '' + t + a + '.'));
+                                            case 'string':
+                                            default:
+                                                return [].concat(n, ['' + t + a + o + r]);
+                                        }
+                                    }, [])
+                                );
+                            })(s.style)),
+                            'object' == typeof i)
+                        ) {
+                            var l = rt.getTemplateNode(s, i);
+                            return 'text' === E(s, 'style.layout')
+                                ? Rt(l).then(function(e) {
+                                      return {
+                                          markup: i,
+                                          options: s,
+                                          template: l,
+                                          meta: o({}, i.meta, { minWidth: e })
+                                      };
+                                  })
+                                : { markup: i, options: s, template: l, meta: o({}, i.meta, { minWidth: l.minWidth }) };
+                        }
+                        var c = document.createElement('div');
+                        return (c.innerHTML = i), { markup: i, options: s, template: c, meta: {} };
+                    })
+                );
+            }
             var Ot = t(22),
-                Tt = t.n(Ot),
-                It = {
+                St = t.n(Ot),
+                Lt = {
                     ANY: 'ANY',
                     STRING: 'STRING',
                     BOOLEAN: 'BOOLEAN',
@@ -4129,140 +4201,140 @@
                     FUNCTION: 'FUNCTION',
                     OBJECT: 'OBJECT'
                 },
-                St = { id: [It.STRING], _legacy: [It.BOOLEAN], onRender: [It.FUNCTION] },
-                Lt = {
+                Nt = { id: [Lt.STRING], _legacy: [Lt.BOOLEAN], onRender: [Lt.FUNCTION] },
+                Ct = {
                     text: {
                         logo: {
-                            type: [It.STRING, ['primary', 'alternative', 'inline', 'none']],
-                            position: [It.STRING, ['left', 'right', 'top']]
+                            type: [Lt.STRING, ['primary', 'alternative', 'inline', 'none']],
+                            position: [Lt.STRING, ['left', 'right', 'top']]
                         },
-                        text: { color: [It.STRING, ['black', 'white']] }
+                        text: { color: [Lt.STRING, ['black', 'white']] }
                     },
                     flex: {
-                        color: [It.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-                        ratio: [It.STRING, ['1x1', '1x4', '8x1', '20x1']]
+                        color: [Lt.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
+                        ratio: [Lt.STRING, ['1x1', '1x4', '8x1', '20x1']]
                     },
                     legacy: {
-                        typeNI: [It.STRING, ['', 'image', 'html']],
-                        typeEZP: [It.STRING, ['', 'html']],
-                        size: [It.STRING],
-                        color: [It.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-                        border: [It.BOOLEAN, [!0, !1]]
+                        typeNI: [Lt.STRING, ['', 'image', 'html']],
+                        typeEZP: [Lt.STRING, ['', 'html']],
+                        size: [Lt.STRING],
+                        color: [Lt.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
+                        border: [Lt.BOOLEAN, [!0, !1]]
                     },
-                    custom: { markup: [It.STRING], ratio: [It.ANY] }
+                    custom: { markup: [Lt.STRING], ratio: [Lt.ANY] }
                 },
-                Ct = function(e, n, t) {
+                Mt = function(e, n, t) {
                     return e.warn('Invalid option value (' + n + '). ' + t);
                 },
-                Nt = function(e, n, t, o) {
-                    return Ct(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
+                zt = function(e, n, t, o) {
+                    return Mt(e, n, 'Expected type "' + t.toLowerCase() + '" but instead received "' + typeof o + '".');
                 },
-                Mt = function(e, n, t, o) {
-                    return Ct(
+                kt = function(e, n, t, o) {
+                    return Mt(
                         e,
                         n,
                         'Expected one of ["' + t.join('", "').replace(/\|[\w|]+/g, '') + '"] but received "' + o + '".'
                     );
                 };
-            function zt(e, n) {
+            function jt(e, n) {
                 switch (e) {
-                    case It.STRING:
+                    case Lt.STRING:
                         return 'string' == typeof n;
-                    case It.BOOLEAN:
+                    case Lt.BOOLEAN:
                         return 'boolean' == typeof n;
-                    case It.NUMBER:
-                        return 'number' == typeof n && !Tt()(n);
-                    case It.FUNCTION:
+                    case Lt.NUMBER:
+                        return 'number' == typeof n && !St()(n);
+                    case Lt.FUNCTION:
                         return 'function' == typeof n;
-                    case It.OBJECT:
+                    case Lt.OBJECT:
                         return 'object' == typeof n && null !== n;
-                    case It.ANY:
+                    case Lt.ANY:
                         return !0;
                     default:
                         return !1;
                 }
             }
-            function jt(e, n, t, i) {
+            function Wt(e, n, t, i) {
                 return (
                     void 0 === i && (i = 'style.'),
-                    _()(n).reduce(function(a, r) {
+                    w()(n).reduce(function(a, r) {
                         var s,
                             l = r[0],
                             c = r[1];
                         if (Array.isArray(c)) {
                             var u,
-                                d = (function(e, n, t, o) {
+                                m = (function(e, n, t, o) {
                                     var i = n[0],
                                         a = n[1],
                                         r = void 0 === a ? [] : a;
                                     if (void 0 === t) return r[0];
-                                    if (zt(i, t)) {
-                                        if (i === It.STRING && r.length > 0) {
-                                            var s = B()(r, function(e) {
+                                    if (jt(i, t)) {
+                                        if (i === Lt.STRING && r.length > 0) {
+                                            var s = D()(r, function(e) {
                                                 return e.split('|').some(function(e) {
                                                     return e === t;
                                                 });
                                             });
                                             return void 0 === s
-                                                ? (Mt(e, o, r, t), r[0].split('|')[0])
+                                                ? (kt(e, o, r, t), r[0].split('|')[0])
                                                 : s.split('|')[0];
                                         }
                                         return t;
                                     }
-                                    return Nt(e, o, i, t), r[0];
+                                    return zt(e, o, i, t), r[0];
                                 })(e, c, t[l], '' + i + l);
-                            return void 0 === d ? a : o({}, a, (((u = {})[l] = d), u));
+                            return void 0 === m ? a : o({}, a, (((u = {})[l] = m), u));
                         }
-                        return o({}, a, (((s = {})[l] = jt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
+                        return o({}, a, (((s = {})[l] = Wt(e, n[l], t[l] || {}, '' + i + l + '.')), s));
                     }, {})
                 );
             }
-            function kt(e, n) {
-                return o({ layout: n.layout }, jt(e, Lt[n.layout], n));
+            function Ht(e, n) {
+                return o({ layout: n.layout }, Wt(e, Ct[n.layout], n));
             }
-            var Wt = m(function(e, n) {
+            var Bt = d(function(e, n) {
                     var t = n.account,
                         o = n.amount,
                         a = n.countryCode,
                         r = n.style,
                         s = i(n, ['account', 'amount', 'countryCode', 'style']),
-                        c = jt(e, St, s, '');
+                        c = Wt(e, Nt, s, '');
                     if (
-                        (zt(It.STRING, t)
+                        (jt(Lt.STRING, t)
                             ? 13 === t.length || 10 === t.length || l()(t, 'client-id:')
                                 ? (c.account = t)
-                                : Ct(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
-                            : Nt(e, 'account', It.STRING, t),
+                                : Mt(e, 'account', 'Ensure the correct Merchant Account ID has been entered.')
+                            : zt(e, 'account', Lt.STRING, t),
                         void 0 !== o)
                     ) {
                         var u = Number(o);
-                        zt(It.NUMBER, u)
+                        jt(Lt.NUMBER, u)
                             ? u < 0
-                                ? Ct(e, 'amount', 'Ensure value is a positive number.')
+                                ? Mt(e, 'amount', 'Ensure value is a positive number.')
                                 : (c.amount = u)
-                            : Nt(e, 'amount', It.NUMBER, o);
+                            : zt(e, 'amount', Lt.NUMBER, o);
                     }
                     return (
                         void 0 !== a &&
-                            (zt(It.STRING, a)
+                            (jt(Lt.STRING, a)
                                 ? 2 !== a.length
-                                    ? Ct(e, 'countryCode', 'Country code should be 2 characters.')
+                                    ? Mt(e, 'countryCode', 'Country code should be 2 characters.')
                                     : (c.countryCode = a)
-                                : Nt(e, 'countryCode', It.STRING, a)),
-                        zt(It.OBJECT, r) && zt(It.STRING, r.layout) && Lt[r.layout]
-                            ? (c.style = kt(e, r))
-                            : (zt(It.OBJECT, r)
-                                  ? Mt(e, 'style.layout', Object.keys(Lt), r.layout)
-                                  : void 0 !== r && Nt(e, 'style', It.OBJECT, r),
-                              (c.style = kt(e, { layout: 'text' }))),
-                        e.info(D.VALIDATE, { options: x(c) }),
+                                : zt(e, 'countryCode', Lt.STRING, a)),
+                        jt(Lt.OBJECT, r) && jt(Lt.STRING, r.layout) && Ct[r.layout]
+                            ? (c.style = Ht(e, r))
+                            : (jt(Lt.OBJECT, r)
+                                  ? kt(e, 'style.layout', Object.keys(Ct), r.layout)
+                                  : void 0 !== r && zt(e, 'style', Lt.OBJECT, r),
+                              (c.style = Ht(e, { layout: 'text' }))),
+                        e.info(G.VALIDATE, { options: v(c) }),
                         c
                     );
                 }),
-                Ht = u(
+                Yt = u(
                     function(e) {
                         var n = e.offerType;
-                        return new j.ZalgoPromise(function(e, t) {
+                        return new W.ZalgoPromise(function(e, t) {
                             var o = new XMLHttpRequest();
                             (o.onreadystatechange = function() {
                                 if (4 === o.readyState)
@@ -4290,9 +4362,9 @@
                     },
                     ['offerType']
                 ),
-                Bt = u(
+                Dt = u(
                     function(e) {
-                        return new j.ZalgoPromise(function(n) {
+                        return new W.ZalgoPromise(function(n) {
                             var t,
                                 o,
                                 i,
@@ -4325,7 +4397,7 @@
                     },
                     ['account', 'amount']
                 ),
-                Yt = function(e, n) {
+                Ft = function(e, n) {
                     return 'INST' === n.type
                         ? '<tr>\n            ' +
                               ('pala' === e.type
@@ -4348,7 +4420,7 @@
                               '\n        </tr>'
                         : '';
                 },
-                Dt = function(e) {
+                Gt = function(e) {
                     return e.max_amount !== e.default_max_amount
                         ? '<div style="text-align: center; padding-bottom: 15px; display: table; padding-top: 10px; "><span style="display: inline-block; vertical-align: middle; "><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"><path fill="none" fill-rule="evenodd" stroke="#9DA3A6" stroke-linecap="round" stroke-linejoin="round" d="M9.526 10.474v7.579c4.71-.034 8.527-3.817 8.527-8.527a8.526 8.526 0 1 0-11.834 7.862"></path></svg></span><p style="display: inline; font-size: 13px; color: #2c2e2f; padding-left: 5px; font-family: PayPalSansSmall; font-weight: 400 ">$' +
                               e.max_amount +
@@ -4357,7 +4429,7 @@
                               ' or less.</p></div>'
                         : '<p style="text-align: center">No offers are available for this amount. Please enter a new amount.</p>';
                 };
-            function Gt(e, n) {
+            function Ut(e, n) {
                 var t = e.contentDocument.getElementById('content-wrapper'),
                     i = e.contentDocument.getElementById('modal__overlay'),
                     a = e.contentDocument.getElementById('close-btn'),
@@ -4394,11 +4466,11 @@
                     })(e, n)
                 );
             }
-            var Ut = u(
+            var Vt = u(
                     function(e) {
                         var n = window.top.document.createElement('div');
-                        n.setAttribute('data-pp-id', M.nextId);
-                        var t = Rt('iframe'),
+                        n.setAttribute('data-pp-id', k.nextId);
+                        var t = bt('iframe'),
                             i = t[0],
                             a = t[1].insertMarkup,
                             s = (function() {
@@ -4431,82 +4503,82 @@
                             })(),
                             c = s[0],
                             u = s[1],
-                            d = e.track,
-                            m = e.clickUrl,
-                            p = C({ status: 'CLOSED' }),
-                            g = p[0],
-                            f = p[1],
-                            h = U.create({ id: M.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
-                        function y() {
+                            m = e.track,
+                            d = e.clickUrl,
+                            p = M({ status: 'CLOSED' }),
+                            h = p[0],
+                            y = p[1],
+                            _ = V.create({ id: k.nextId, account: e.account, selector: '__internal__', type: 'Modal' });
+                        function x() {
                             return l()(e.offerType, 'NI') ? 'NI' : 'EZP';
                         }
-                        z({ nextId: (M.nextId += 1) });
-                        var _ = function(e, n, t) {
-                            return d({
+                        j({ nextId: (k.nextId += 1) });
+                        var w = function(e, n, t) {
+                            return m({
                                 et: 'modal-open' === e ? 'CLIENT_IMPRESSION' : 'CLICK',
                                 link: n,
                                 amount: t,
-                                modal: y(),
+                                modal: x(),
                                 event_type: e
                             });
                         };
-                        function x() {
-                            r()(g.elements.accordions).forEach(function(e) {
+                        function v() {
+                            r()(h.elements.accordions).forEach(function(e) {
                                 e.classList.remove('show'),
                                     e
                                         .getElementsByClassName('accordion-content')[0]
                                         .style.setProperty('max-height', null);
                             });
                         }
-                        function w(e, n) {
+                        function b(e, n) {
                             var t = {
-                                    'NI Tab': [g.elements.niTab, g.elements.niContent],
-                                    'EZP Tab': [g.elements.ezpTab, g.elements.ezpContent]
+                                    'NI Tab': [h.elements.niTab, h.elements.niContent],
+                                    'EZP Tab': [h.elements.ezpTab, h.elements.ezpContent]
                                 },
                                 o = t[e][0];
-                            Q()(t).forEach(function(e) {
+                            lt()(t).forEach(function(e) {
                                 var n = e[0],
                                     t = e[1];
                                 n.classList.toggle('selected', n === o), t.classList.toggle('show', n === o);
                             }),
-                                n || _('modal-tab', e),
-                                x();
+                                n || w('modal-tab', e),
+                                v();
                         }
-                        function v() {
-                            return g.error ? A(!0) : g.modalProm;
+                        function E() {
+                            return h.error ? I(!0) : h.modalProm;
                         }
-                        function b(e) {
-                            return new j.ZalgoPromise(function(t, o) {
-                                'OPEN' === g.status || 'OPENING' === g.status
-                                    ? (f({ status: 'CLOSING' }),
-                                      g.elements.modalContainer.classList.remove('show'),
+                        function P(e) {
+                            return new W.ZalgoPromise(function(t, o) {
+                                'OPEN' === h.status || 'OPENING' === h.status
+                                    ? (y({ status: 'CLOSING' }),
+                                      h.elements.modalContainer.classList.remove('show'),
                                       setTimeout(function() {
                                           (n.style.display = 'none'),
                                               i.blur(),
-                                              f({ status: 'CLOSED' }),
+                                              y({ status: 'CLOSED' }),
                                               u(),
-                                              'EZP' === y() &&
+                                              'EZP' === x() &&
                                                   setTimeout(function() {
-                                                      w('EZP Tab', !0);
+                                                      b('EZP Tab', !0);
                                                   }, 350),
                                               t();
                                       }, e || 0))
                                     : o();
                             });
                         }
-                        function E(e) {
-                            b(350), _('modal-close', e);
+                        function A(e) {
+                            P(350), w('modal-close', e);
                         }
-                        function P(n) {
+                        function R(n) {
                             var t = +n;
                             return (
-                                Tt()(t) || (g.elements.amountInput.value = t.toFixed(2)),
-                                g.elements.loader.style.setProperty('opacity', 1),
-                                g.elements.financeTermsTable.style.setProperty('opacity', 0.4),
-                                Bt(o({}, e, { amount: n })).then(function(e) {
-                                    g.elements.loader.style.setProperty('opacity', 0),
-                                        g.elements.financeTermsTable.style.setProperty('opacity', 1),
-                                        (g.elements.financeTermsTable.innerHTML = (function(e) {
+                                St()(t) || (h.elements.amountInput.value = t.toFixed(2)),
+                                h.elements.loader.style.setProperty('opacity', 1),
+                                h.elements.financeTermsTable.style.setProperty('opacity', 0.4),
+                                Dt(o({}, e, { amount: n })).then(function(e) {
+                                    h.elements.loader.style.setProperty('opacity', 0),
+                                        h.elements.financeTermsTable.style.setProperty('opacity', 1),
+                                        (h.elements.financeTermsTable.innerHTML = (function(e) {
                                             return e.error
                                                 ? '<h3 id="terms-error"> There was an error retrieving your payment options for this purchase. Please try again later. </h3>'
                                                 : +e.amount < e.min_amount && 'pala' === e.type
@@ -4523,23 +4595,23 @@
                                                   (e.options && e.options.length > 0 && 'N/A' !== e.options
                                                       ? e.options
                                                             .map(function(n) {
-                                                                return Yt(e, n);
+                                                                return Ft(e, n);
                                                             })
                                                             .join('')
                                                       : '') +
                                                   '\n            </tbody>\n        </table>\n        ' +
                                                   (e.options && 0 !== e.options.length && 'N/A' !== e.options
                                                       ? ''
-                                                      : Dt(e)) +
+                                                      : Gt(e)) +
                                                   '\n        <p id="terms-note">The monthly payment shown is an estimated amount and may not include taxes and shipping</p>\n    ';
                                         })(e));
                                 })
                             );
                         }
-                        function A(n) {
+                        function I(n) {
                             return (
                                 void 0 === n && (n = !1),
-                                h.start({
+                                _.start({
                                     options: {
                                         account: e.account,
                                         offerType: e.offerType,
@@ -4547,29 +4619,29 @@
                                         message_id: e.id
                                     }
                                 }),
-                                Ht(e, n)
-                                    .then(a)
+                                Yt(e, n)
+                                    .then(g(f('markup'), a))
                                     .then(function() {
-                                        f({ elements: Gt(i, y()) }),
+                                        y({ elements: Ut(i, x()) }),
                                             (function() {
-                                                g.elements.closeButton.addEventListener('click', function() {
-                                                    E('Close Button');
+                                                h.elements.closeButton.addEventListener('click', function() {
+                                                    A('Close Button');
                                                 }),
-                                                    g.elements.overlay.addEventListener('click', function(e) {
+                                                    h.elements.overlay.addEventListener('click', function(e) {
                                                         var n = e.target;
-                                                        (n !== g.elements.contentWrapper &&
-                                                            n !== g.elements.headerContainer) ||
-                                                            E('Modal Overlay');
+                                                        (n !== h.elements.contentWrapper &&
+                                                            n !== h.elements.headerContainer) ||
+                                                            A('Modal Overlay');
                                                     });
                                                 var e = function() {
-                                                    g.elements.contentWrapper.scrollTop > 0
-                                                        ? g.elements.header.classList.add('show')
-                                                        : g.elements.header.classList.remove('show');
+                                                    h.elements.contentWrapper.scrollTop > 0
+                                                        ? h.elements.header.classList.add('show')
+                                                        : h.elements.header.classList.remove('show');
                                                 };
                                                 if (
-                                                    (g.elements.contentWrapper.addEventListener('scroll', e),
-                                                    g.elements.contentWrapper.addEventListener('touchmove', e),
-                                                    r()(g.elements.accordions).forEach(function(e) {
+                                                    (h.elements.contentWrapper.addEventListener('scroll', e),
+                                                    h.elements.contentWrapper.addEventListener('touchmove', e),
+                                                    r()(h.elements.accordions).forEach(function(e) {
                                                         var n = e.getElementsByTagName('h3')[0],
                                                             t = e.getElementsByClassName('accordion-content')[0];
                                                         n.addEventListener('click', function() {
@@ -4578,31 +4650,31 @@
                                                                 'max-height',
                                                                 o ? t.scrollHeight + 'px' : null
                                                             ),
-                                                                o && _('accordion-open', n.innerText);
+                                                                o && w('accordion-open', n.innerText);
                                                         });
                                                     }),
                                                     i.contentWindow.addEventListener('keyup', function(e) {
                                                         ('Escape' !== e.key && 'Esc' !== e.key && 27 !== e.charCode) ||
-                                                            E('Escape Key');
+                                                            A('Escape Key');
                                                     }),
-                                                    r()(g.elements.landerLinks).forEach(function(e) {
+                                                    r()(h.elements.landerLinks).forEach(function(e) {
                                                         e.addEventListener('click', function() {
-                                                            return _('lander-link');
+                                                            return w('lander-link');
                                                         });
                                                     }),
-                                                    'EZP' === y())
+                                                    'EZP' === x())
                                                 ) {
-                                                    g.elements.niTab.addEventListener('click', function() {
-                                                        return w('NI Tab');
+                                                    h.elements.niTab.addEventListener('click', function() {
+                                                        return b('NI Tab');
                                                     }),
-                                                        g.elements.ezpTab.addEventListener('click', function() {
-                                                            return w('EZP Tab');
+                                                        h.elements.ezpTab.addEventListener('click', function() {
+                                                            return b('EZP Tab');
                                                         });
                                                     var n = function(e) {
-                                                        var n = g.elements.amountInput.value;
-                                                        _('calculate', e, n), P(n);
+                                                        var n = h.elements.amountInput.value;
+                                                        w('calculate', e, n), R(n);
                                                     };
-                                                    g.elements.amountInput.addEventListener('keydown', function(e) {
+                                                    h.elements.amountInput.addEventListener('keydown', function(e) {
                                                         var t = e.key,
                                                             o = e.target;
                                                         if (t.length > 1 || e.metaKey || e.ctrlKey)
@@ -4612,7 +4684,7 @@
                                                                 a = o.selectionStart,
                                                                 r = i ? '' + i.slice(0, a) + t + i.slice(a) : t;
                                                             (function(e) {
-                                                                if (Tt()(Number(e))) return !1;
+                                                                if (St()(Number(e))) return !1;
                                                                 var n = e.split('.'),
                                                                     t = n[0],
                                                                     o = n[1];
@@ -4624,7 +4696,7 @@
                                                                 e.preventDefault();
                                                         }
                                                     }),
-                                                        g.elements.calculateButton.addEventListener(
+                                                        h.elements.calculateButton.addEventListener(
                                                             'click',
                                                             function() {
                                                                 return n('Calculate Button');
@@ -4634,10 +4706,10 @@
                                             })();
                                     })
                                     .catch(function() {
-                                        h.error({ name: G.MODAL_FAIL }), f({ error: !0 });
+                                        _.error({ name: U.MODAL_FAIL }), y({ error: !0 });
                                     })
                                     .then(function() {
-                                        return h.end();
+                                        return _.end();
                                     })
                             );
                         }
@@ -4654,39 +4726,39 @@
                             ),
                             n.appendChild(i),
                             window.top.document.body.appendChild(n),
-                            f({ modalProm: A() }),
-                            'EZP' === y() &&
-                                v().then(function() {
-                                    return P(e.amount);
+                            y({ modalProm: I() }),
+                            'EZP' === x() &&
+                                E().then(function() {
+                                    return R(e.amount);
                                 }),
                             {
                                 open: function(e) {
                                     e.preventDefault(),
-                                        ('CLOSED' !== g.status && 'CLOSING' !== g.status) ||
-                                            (f({ status: 'OPENING' }),
-                                            v().then(function() {
-                                                if (g.error)
-                                                    return f({ status: 'CLOSED' }), void window.open(m, '_blank');
+                                        ('CLOSED' !== h.status && 'CLOSING' !== h.status) ||
+                                            (y({ status: 'OPENING' }),
+                                            E().then(function() {
+                                                if (h.error)
+                                                    return y({ status: 'CLOSED' }), void window.open(d, '_blank');
                                                 (n.style.display = 'block'),
                                                     requestAnimationFrame(function() {
                                                         return requestAnimationFrame(function() {
-                                                            x(),
+                                                            v(),
                                                                 i.contentWindow.focus(),
-                                                                f({ status: 'OPEN' }),
+                                                                y({ status: 'OPEN' }),
                                                                 c(),
-                                                                g.elements.modalContainer.classList.add('show'),
-                                                                _('modal-open');
+                                                                h.elements.modalContainer.classList.add('show'),
+                                                                w('modal-open');
                                                         });
                                                     });
                                             }));
                                 },
-                                close: b
+                                close: P
                             }
                         );
                     },
                     ['account', 'amount', 'offerType']
                 ),
-                Ft = {
+                Zt = {
                     init: function(e) {
                         var n = e.options,
                             t = e.meta,
@@ -4705,14 +4777,14 @@
                                     : window.open(t.clickUrl, '_blank');
                             });
                         else {
-                            var r = Ut(o({}, n, {}, t, { track: a }));
+                            var r = Vt(o({}, n, {}, t, { track: a }));
                             i.on('click', r.open);
                         }
                     }
                 },
-                Vt = new Map(),
-                Zt = new Map();
-            function Jt(e) {
+                Jt = new Map(),
+                qt = new Map();
+            function Kt(e) {
                 var n = (e.meta && e.meta.offerType) + '::' + e.options.style._flattened.sort().join('::'),
                     t = e.meta;
                 return {
@@ -4722,85 +4794,86 @@
                     })
                 };
             }
-            var qt = m(function(e, n) {
-                    var t;
-                    return ((t = {})[e] = n), t;
-                }),
-                Kt = m(function(e, n) {
+            var $t = d(function(e, n) {
                     return o({}, n, {}, e(n));
                 }),
-                $t = m(function(e, n) {
+                Qt = d(function(e, n) {
                     return e(n).then(function(e) {
                         return o({}, n, {}, e);
                     });
                 }),
-                Qt = function(e) {
+                Xt = function(e) {
                     var n = e.options.onRender;
                     n && n();
                 },
-                Xt = {
+                eo = {
                     init: function(e, n, t) {
-                        Zt.has(e) ||
-                            Zt.set(e, U.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
+                        qt.has(e) ||
+                            qt.set(e, V.create({ id: t.id, account: t.account, selector: n, type: 'Message' }));
                         var i,
-                            a = Zt.get(e);
-                        return (
-                            Vt.has(e)
-                                ? ((i = Vt.get(e)).renderProm = i.renderProm.then(function() {
+                            a = qt.get(e);
+                        try {
+                            Jt.has(e)
+                                ? ((i = Jt.get(e)).renderProm = i.renderProm.then(function() {
                                       return a.start({ options: t }), i.update(t);
                                   }))
                                 : (a.start({ options: t }),
                                   (i = (function(e, n, t) {
-                                      t.info(D.CREATE);
-                                      var i = C(e),
+                                      t.info(G.CREATE);
+                                      var i = M(e),
                                           a = i[0],
                                           r = i[1],
                                           s = a._legacy,
-                                          l = Rt(s ? 'div' : 'iframe'),
+                                          l = bt(s ? 'div' : 'iframe'),
                                           c = l[0],
                                           u = l[1],
-                                          f = u.insertMarkup,
-                                          y = u.setSize,
-                                          x = u.events,
-                                          v = u.runStats,
-                                          b = u.clearEvents,
-                                          E = s ? c : document.createElement('span');
-                                      E !== c && E.appendChild(c);
-                                      var P = m(function(e, n, o) {
+                                          y = u.insertMarkup,
+                                          x = u.setSize,
+                                          v = u.events,
+                                          E = u.runStats,
+                                          P = u.clearEvents,
+                                          A = s ? c : document.createElement('span');
+                                      A !== c && A.appendChild(c);
+                                      var R = d(function(e, n, o) {
                                           return t.info(n), e(o);
                                       });
-                                      function A(e) {
+                                      function I(e) {
                                           return (
-                                              t.info(D.RENDER_START),
-                                              g(Wt(t), p(r), qt('options'), d(L.a, { logger: t }), $t(K))(e)
-                                                  .then($t(P(f, D.INSERT)))
+                                              t.info(G.RENDER_START),
+                                              g(
+                                                  Bt(t),
+                                                  p(r),
+                                                  h('options'),
+                                                  m(C.a, { logger: t, wrapper: A, events: v }),
+                                                  Qt(Tt)
+                                              )(e)
+                                                  .then(p(R(g(f('template'), y), G.INSERT)))
                                                   .then(
                                                       g(
-                                                          d(L.a, { wrapper: E, events: x }),
-                                                          Kt(Jt),
-                                                          p(P(Ft.init, D.MODAL)),
-                                                          p(P(y, D.SIZE)),
-                                                          p(P(v, D.STATS)),
-                                                          P(Qt, D.RENDER_END)
+                                                          $t(Kt),
+                                                          p(R(Zt.init, G.MODAL)),
+                                                          p(R(x, G.SIZE)),
+                                                          p(R(E, G.STATS)),
+                                                          R(Xt, G.RENDER_END)
                                                       )
                                                   )
                                           );
                                       }
                                       return (
-                                          n.appendChild(E),
-                                          t.info(D.CONTAINER),
+                                          n.appendChild(A),
+                                          t.info(G.CONTAINER),
                                           s ||
                                               c.addEventListener('load', function() {
-                                                  b(), A(a);
+                                                  P(), I(a);
                                               }),
                                           {
-                                              renderProm: A(a),
-                                              wrapper: E,
+                                              renderProm: I(a),
+                                              wrapper: A,
                                               container: c,
                                               update: function(e) {
-                                                  var n = w(a, e),
+                                                  var n = b(a, e),
                                                       i = (function e(n, t) {
-                                                          return _()(t).reduce(function(t, i) {
+                                                          return w()(t).reduce(function(t, i) {
                                                               var a,
                                                                   r,
                                                                   s = i[0],
@@ -4815,60 +4888,71 @@
                                                                   var c;
                                                                   if (Array.isArray(n[s])) {
                                                                       var u,
-                                                                          d = l.filter(function(e) {
-                                                                              return !h()(n[s], e);
+                                                                          m = l.filter(function(e) {
+                                                                              return !_()(n[s], e);
                                                                           });
-                                                                      return d.length > 0
-                                                                          ? o({}, t, (((u = {})[s] = d), u))
+                                                                      return m.length > 0
+                                                                          ? o({}, t, (((u = {})[s] = m), u))
                                                                           : t;
                                                                   }
                                                                   return o({}, t, (((c = {})[s] = l), c));
                                                               }
-                                                              var m,
+                                                              var d,
                                                                   p = e(n[s], l);
                                                               return Object.keys(p).length > 0
-                                                                  ? o({}, t, (((m = {})[s] = p), m))
+                                                                  ? o({}, t, (((d = {})[s] = p), d))
                                                                   : t;
                                                           }, {});
                                                       })(a, n),
                                                       r = Object.keys(i).length > 0;
                                                   return (
-                                                      t.info(D.UPDATE, { willUpdate: r }),
-                                                      r ? (b(), A(n)) : j.ZalgoPromise.resolve()
+                                                      t.info(G.UPDATE, { willUpdate: r }),
+                                                      r ? (P(), I(n)) : W.ZalgoPromise.resolve()
                                                   );
                                               }
                                           }
                                       );
                                   })(t, e, a)),
-                                  Vt.set(e, i)),
+                                  Jt.set(e, i));
+                        } catch (e) {
+                            return (
+                                a.error({ name: U.INTERNAL_FAIL, message: e.message }),
+                                a.end(),
+                                W.ZalgoPromise.resolve()
+                            );
+                        }
+                        return (
                             (i.renderProm = i.renderProm.then(a.end).catch(function(e) {
-                                a.error({ name: e.message }), a.end(), 'function' == typeof e.onEnd && e.onEnd();
+                                var n = U[e.message] || U.INTERNAL_FAIL;
+                                a.error(n === U.INTERNAL_FAIL ? { name: n, message: e.message } : { name: n }),
+                                    a.end(),
+                                    'function' == typeof e.onEnd && e.onEnd();
                             })),
                             i.renderProm
                         );
                     }
                 };
-            function eo(e, n) {
+            function no(e, n) {
                 var t, i;
                 if ((void 0 === n && (n = '[data-pp-message]'), 'string' == typeof n))
                     (t = r()(document.querySelectorAll(n))), (i = n);
-                else if (E(n)) (t = [n]), (i = 'HTMLElement');
+                else if (A(n)) (t = [n]), (i = 'HTMLElement');
                 else {
-                    if (!Array.isArray(n) || !n.every(E)) return U.warn('Invalid selector', n);
+                    if (!Array.isArray(n) || !n.every(A)) return V.warn('Invalid selector', n);
                     (t = [].concat(n)), (i = 'Array<HTMLElement>');
                 }
                 return (
                     (t = t.filter(function(n) {
                         return n.ownerDocument.body.contains(n)
                             ? !e._auto || !n.hasAttribute('data-pp-id')
-                            : (U.warn('Skipping container. Must be in the document:', n), !1);
+                            : (V.warn('Skipping container. Must be in the document:', n), !1);
                     })),
-                    j.ZalgoPromise.all(
+                    W.ZalgoPromise.all(
                         t.map(function(n) {
-                            var t = w(e, P(n));
+                            var t = b(e, R(n));
                             return (
                                 n.hasAttribute('data-pp-id') ||
-                                    (n.setAttribute('data-pp-id', M.nextId), z({ nextId: (M.nextId += 1) })),
+                                    (n.setAttribute('data-pp-id', k.nextId), j({ nextId: (k.nextId += 1) })),
                                 new MutationObserver(function(e) {
                                     var t = e.reduce(function(e, n) {
                                         return l()(n.attributeName, 'data-pp-')
@@ -4876,48 +4960,48 @@
                                                   {},
                                                   e,
                                                   {},
-                                                  b(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
+                                                  P(n.attributeName.slice(8), n.target.getAttribute(n.attributeName))
                                               )
                                             : e;
                                     }, {});
-                                    Xt.init(n, i, t);
+                                    eo.init(n, i, t);
                                 }).observe(n, { attributes: !0 }),
                                 (t.id = n.getAttribute('data-pp-id')),
-                                Xt.init(n, i, t)
+                                eo.init(n, i, t)
                             );
                         })
                     )
                 );
             }
-            var no = function(e) {
+            var to = function(e) {
                 return {
                     render: function(n) {
-                        return eo(o({}, M.config, {}, e), n);
+                        return no(o({}, k.config, {}, e), n);
                     }
                 };
             };
-            L()(no, {
+            C()(to, {
                 render: function(e, n) {
-                    return void 0 === e && (e = {}), eo(o({}, M.config, {}, e), n);
+                    return void 0 === e && (e = {}), no(o({}, k.config, {}, e), n);
                 },
                 setGlobalConfig: function(e) {
-                    return void 0 === e && (e = {}), z({ config: o({}, M.config, {}, e) });
+                    return void 0 === e && (e = {}), j({ config: o({}, k.config, {}, e) });
                 }
             });
-            var to,
-                oo = no;
+            var oo,
+                io = to;
             t.d(n, 'Messages', function() {
-                return oo;
+                return io;
             }),
-                (to = document.currentScript || document.querySelector('script[src$="messaging.js"]')) &&
-                    oo.setGlobalConfig(P(to)),
-                window.paypal && (window.paypal.Message = oo),
-                M.config.account &&
+                (oo = document.currentScript || document.querySelector('script[src$="messaging.js"]')) &&
+                    io.setGlobalConfig(R(oo)),
+                window.paypal && (window.paypal.Message = io),
+                k.config.account &&
                     ('loading' === document.readyState
                         ? window.addEventListener('DOMContentLoaded', function() {
-                              return oo.render({ _auto: !0 });
+                              return io.render({ _auto: !0 });
                           })
-                        : oo.render({ _auto: !0 }));
+                        : io.render({ _auto: !0 }));
         }
     ]).Messages);
-//# sourceMappingURL=messaging@1.1.1.js.map
+//# sourceMappingURL=messaging@1.1.4.js.map
