@@ -27,6 +27,9 @@ export default function getModalContent(options, state, trackModalEvent) {
         const carouselIndicators = iframe.contentDocument.getElementsByClassName('carousel-bullet');
         const prevButton = iframe.contentDocument.getElementById('carousel-arrow-prev');
         const nextButton = iframe.contentDocument.getElementById('carousel-arrow-next');
+        const amountInput = iframe.contentDocument.getElementById('amount-input');
+        const calculatorInstructions = iframe.contentDocument.getElementById('calculator-instructions');
+        const calculateButton = iframe.contentDocument.getElementById('calculate-button');
 
         return {
             financeTermsTable,
@@ -36,35 +39,48 @@ export default function getModalContent(options, state, trackModalEvent) {
             carouselItems,
             carouselIndicators,
             prevButton,
-            nextButton
+            nextButton,
+            amountInput,
+            calculatorInstructions,
+            calculateButton
         };
     };
 
     function fetchTerms(amount) {
+        const { loader, financeTermsTable, calculatorInstructions, amountInput } = state.contentElements;
         // const convertedAmount = +amount;
         // if (!numberIsNaN(convertedAmount)) {
         //     // eslint-disable-next-line no-param-reassign
         //     state.contentElements.amountInput.value = convertedAmount.toFixed(2);
         // }
 
-        state.contentElements.loader.style.setProperty('opacity', 1);
-        state.contentElements.financeTermsTable.style.setProperty('opacity', 0.4);
+        loader.style.setProperty('opacity', 1);
+        financeTermsTable.style.setProperty('opacity', 0.4);
 
         return getTerms({ ...options, amount }).then(terms => {
             console.log(terms);
-            state.contentElements.loader.style.setProperty('opacity', 0);
-            state.contentElements.financeTermsTable.style.setProperty('opacity', 1);
-            // eslint-disable-next-line no-param-reassign
-            state.contentElements.financeTermsTable.innerHTML = renderTermsTable(terms);
+            loader.style.setProperty('opacity', 0);
+            financeTermsTable.style.setProperty('opacity', 1);
+            if (amount) {
+                financeTermsTable.innerHTML = renderTermsTable(terms);
+            }
+
+            amountInput.value = terms.amount;
+            calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
         });
     }
 
+    const fixAmount = amount => amount.replace(/\./, '').replace(/,/, '.');
+
     function isValidAmount(amount) {
-        if (numberIsNaN(Number(amount))) {
+        const fixedAmount = fixAmount(amount);
+        console.log(fixedAmount);
+        if (numberIsNaN(Number(fixedAmount))) {
+            console.log('here');
             return false;
         }
 
-        const [int = '', dec = ''] = amount.split('.');
+        const [int = '', dec = ''] = fixedAmount.split('.');
         // Maximum value: 99999.99
         return int.length <= 5 && dec.length <= 2;
     }
@@ -151,6 +167,36 @@ export default function getModalContent(options, state, trackModalEvent) {
         state.contentElements.nextButton.addEventListener('click', () => {
             selectCarouselItem(carouselState.activeItem + 1);
         });
+
+        const calculateTerms = link => {
+            const amount = fixAmount(state.contentElements.amountInput.value);
+            trackModalEvent('calculate', link, amount);
+            fetchTerms(amount);
+        };
+
+        state.contentElements.amountInput.addEventListener('keydown', evt => {
+            const { key, target } = evt;
+
+            if (key.length > 1 || evt.metaKey || evt.ctrlKey) {
+                if (key === 'Enter') {
+                    calculateTerms('Enter Key');
+                }
+                return;
+            }
+
+            evt.preventDefault();
+
+            const val = target.value;
+            const position = target.selectionStart;
+            const newVal = val ? `${val.slice(0, position)}${key}${val.slice(position)}` : key;
+
+            if (isValidAmount(newVal)) {
+                target.value = newVal;
+                target.setSelectionRange(position + 1, position + 1);
+            }
+        });
+
+        state.contentElements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
     };
 
     const onLoad = () => {
