@@ -12,18 +12,18 @@ export default {
                 disclaimer: 'default'
             }
         ],
-        ['logo.type:primary', { messageWidth: [220, 1000] }],
+        ['logo.type:primary', { messageWidth: [205, 1000] }],
         [
             'logo.type:inline',
             {
-                messageWidth: [305, 1000],
+                messageWidth: [210, 1000],
                 logo: Logo.ALT_NO_PP.COLOR
             }
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [290, 1000],
+                messageWidth: [185, 1000],
                 logo: false
             }
         ],
@@ -34,7 +34,7 @@ export default {
                     '.message__content { display: inline-block; }',
                     '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
-                messageWidth: [220, 1000],
+                messageWidth: [205, 1000],
                 logo: Logo.ALTERNATIVE.COLOR
             }
         ],
@@ -48,7 +48,7 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: 'large',
+                headline: 'small',
                 disclaimer: 'xsmall'
             }
         ],
@@ -59,15 +59,19 @@ export default {
             }
         ],
         [
-            'ratio:20x1',
+            'ratio:8x1',
             {
-                headline: ['xsmall', 'large']
+                styles: [
+                    '@media (max-aspect-ratio: 61/10) { .locale--DE .message__logo-container { margin-bottom: 2.5vw } }'
+                ]
             }
         ],
         [
-            'ratio:8x1',
+            'ratio:20x1',
             {
-                headline: ['xsmall', 'large']
+                styles: [
+                    '@media (max-aspect-ratio: 61/10) { .locale--DE .message__logo-container { margin-bottom: 2.5vw } }'
+                ]
             }
         ],
         [
