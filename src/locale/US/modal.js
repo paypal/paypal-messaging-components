@@ -156,7 +156,9 @@ export default function getModalContent(options, state, trackModalEvent) {
     };
 
     const onLoad = () => {
-        fetchTerms(options.amount);
+        if (type === 'EZP') {
+            fetchTerms(options.amount);
+        }
     };
 
     const onClose = () => {

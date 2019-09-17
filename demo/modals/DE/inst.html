@@ -1,0 +1,754 @@
+<html>
+    <head>
+        <style type="text/css">
+            @font-face {
+                font-family: PayPalSansBig;
+                font-weight: 600;
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot);
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot?#iefix)
+                        format('embedded-opentype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.woff)
+                        format('woff'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf)
+                        format('truetype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg)
+                        format('svg');
+            }
+            @font-face {
+                font-family: PayPalSansBig;
+                font-weight: 200;
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot);
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot?#iefix)
+                        format('embedded-opentype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.woff)
+                        format('woff'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf)
+                        format('truetype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg)
+                        format('svg');
+            }
+            @font-face {
+                font-family: PayPalSansSmall;
+                font-weight: 400;
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot);
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot?#iefix)
+                        format('embedded-opentype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.woff)
+                        format('woff'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf)
+                        format('truetype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
+                        format('svg');
+            }
+            @font-face {
+                font-family: PayPalSansSmall;
+                font-weight: 600;
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot);
+                src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot?#iefix)
+                        format('embedded-opentype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.woff)
+                        format('woff'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf)
+                        format('truetype'),
+                    url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.svg)
+                        format('svg');
+            }
+            body,
+            html {
+                height: 100% !important;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            html {
+                min-width: inherit !important;
+            }
+            body {
+                margin: 0;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-weight: 400;
+                font-size: 16px;
+            }
+            header {
+                box-shadow: 0 1px 0 0 transparent, 0 5px 15px 0 transparent;
+                transition: 150ms;
+                background: #fff;
+            }
+            header.show {
+                box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);
+                transition: 350ms;
+            }
+            header .logo {
+                width: 100px;
+                display: block;
+                margin: 0 auto;
+                padding: 12px 0;
+                height: 48px;
+            }
+            header .close {
+                display: block;
+                padding: 0;
+                border: none;
+                background: 0 0;
+                cursor: pointer;
+                position: absolute;
+                top: 12px;
+                right: 8px;
+            }
+            header .close svg {
+                height: 48px;
+                width: 48px;
+            }
+            header .close path {
+                stroke-width: 1px;
+            }
+            main {
+                -webkit-overflow-scrolling: touch;
+                -moz-overflow-scrolling: touch;
+                overflow: auto;
+            }
+            main .content {
+                margin: auto;
+                max-width: 400px;
+            }
+            h1,
+            h2,
+            h3,
+            h4,
+            li,
+            p {
+                color: #2c2e2f;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-weight: 400;
+            }
+            h1 {
+                font-size: 30px;
+                margin-bottom: 16px;
+                line-height: 42px;
+                font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif !important;
+                font-weight: 200;
+            }
+            h2 {
+                font-size: 20px;
+                line-height: 24px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            h3 {
+                font-size: 15px;
+                font-weight: 600;
+                margin-bottom: 6px;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+            }
+            h1.title {
+                text-align: center;
+                margin-top: 13px;
+            }
+            svg {
+                margin: auto;
+                display: block;
+            }
+            h4 {
+                font-size: 15px;
+                line-height: 18px;
+                font-weight: 700;
+            }
+            p {
+                font-size: 13px;
+                line-height: 18px;
+            }
+            p.text-large {
+                font-size: 15px;
+                line-height: 24px;
+                font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+                font-weight: 200;
+                letter-spacing: 0;
+            }
+            p.first-paragraph {
+                padding-bottom: 4px;
+            }
+            a {
+                text-decoration: none;
+                color: #0070ba;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-weight: 600;
+            }
+            ul {
+                padding-left: 0;
+            }
+            ul.spaced li:not(:last-child) {
+                margin-bottom: 24px;
+            }
+            li {
+                list-style-type: disc;
+                margin-left: 18px;
+                font-size: 13px;
+                line-height: 18px;
+                letter-spacing: 0;
+            }
+            .cart-svg {
+                text-align: center;
+                display: block;
+                margin: 36px auto;
+            }
+            .divider {
+                height: 1px;
+                background-color: #eaeced;
+                margin-bottom: 21px;
+                margin-top: 8px;
+                width: 100%;
+            }
+            .anchor-medium {
+                font-size: 15px;
+                margin-bottom: 18px;
+                color: #2c2e2f;
+            }
+            .anchor-medium a {
+                font-size: 15px;
+            }
+            .anchor-small {
+                font-size: 13px;
+                margin-bottom: 16px;
+                color: #2c2e2f;
+            }
+            .anchor-small a {
+                font-size: 13px;
+            }
+            .show .modal__wrapper {
+                transform: translateY(0);
+            }
+            .show .modal__overlay {
+                opacity: 1;
+            }
+            .modal__container {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                overflow: hidden;
+            }
+            .modal__overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: rgba(108, 115, 120, 0.85);
+                opacity: 0;
+                transition: opacity 350ms;
+            }
+            .modal__wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                transition: transform 350ms;
+                transform: translateY(100%);
+            }
+            .modal__header-wrapper {
+                display: table;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+            .modal__header-wrapper::after {
+                content: '';
+                display: table-cell;
+                visibility: hidden;
+                overflow-y: scroll;
+            }
+            .modal__header-container {
+                display: table-cell;
+                width: 100%;
+            }
+            .modal__header {
+                background: rgba(0, 0, 0, 0);
+                text-align: center;
+                height: 60px;
+                padding-bottom: 12px;
+                width: 100%;
+                max-width: 612px;
+                margin: 0 auto;
+                position: relative;
+                overflow: hidden;
+                height: 100px;
+            }
+            .modal__content-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                overflow-y: scroll;
+            }
+            .modal__content-background {
+                width: 100%;
+                max-width: 612px;
+                margin: auto;
+                background: #fff;
+                min-height: 100%;
+            }
+            .modal__content {
+                position: relative;
+                z-index: 50;
+                padding-top: 84px;
+                overflow: hidden;
+            }
+            .header-shadow {
+                background: tomato;
+                width: 100%;
+                height: 10px;
+                -webkit-linear-gradient: (top, rgba(0, 0, 0, 0.06) 0, transparent 100%);
+                background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 100%);
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 100%);
+                opacity: 0;
+            }
+            .header-shadow.show {
+                opacity: 1;
+            }
+            .accordion {
+                position: relative;
+            }
+            .accordion p {
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-size: 13px;
+                font-weight: 400;
+                margin: 0 40px 12px 0;
+            }
+            .accordion .accordion-content {
+                background-color: #fff;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+            }
+            .accordion .down {
+                display: block;
+            }
+            .accordion .symbol {
+                position: absolute;
+                top: 24px;
+                right: 16px;
+                cursor: pointer;
+                pointer-events: none;
+            }
+            .accordion.show .symbol {
+                transform: rotate(180deg);
+                top: 27px;
+            }
+            .accordion h3 {
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                cursor: pointer;
+                margin: 0;
+                font-weight: 600;
+                padding: 22px 40px 22px 0;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .accordion h3.has-subtitle {
+                padding-bottom: 11px;
+            }
+            .accordion-divider {
+                border-top: 1px solid #eaeced;
+            }
+            #loading-image {
+                position: absolute;
+                left: 50%;
+                margin-top: 60px;
+                margin-left: -40px;
+                border-radius: 50%;
+                border-top: 4px solid #00ff7f;
+                width: 80px;
+                height: 80px;
+                opacity: 0;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+            }
+            @media only screen and (max-width: 400px) {
+                #ni-content .title {
+                    font-size: 1.6rem;
+                    line-height: 2rem;
+                    max-width: 14rem;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+            @media only screen and (max-width: 612px) {
+                main .content {
+                    padding: 0 18px;
+                }
+            }
+            @media only screen and (max-device-width: 612px) {
+                main {
+                    max-width: 100%;
+                    -webkit-text-size-adjust: none;
+                }
+            }
+            @-moz-document url-prefix() {
+                .modal__header-container {
+                    overflow-y: scroll;
+                    display: block !important;
+                }
+            }
+            @-webkit-keyframes spin {
+                0% {
+                    -webkit-transform: rotate(0);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+        <style type="text/css">
+            #de-content {
+                overflow-x: hidden;
+            }
+            h1 {
+                font-size: 20px;
+                font-weight: 300;
+            }
+            h1.title {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            #de-content h3 {
+                font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+                text-align: center;
+            }
+            .calculator {
+                text-align: center;
+                max-width: 300px;
+                margin: auto;
+            }
+            #calculator-instructions {
+                color: #687173;
+            }
+            #amount-input {
+                font-size: 20px;
+                text-align: center;
+                width: 100%;
+                border: none;
+            }
+            .amount-container {
+                width: 150px;
+                border-bottom: 1px dotted #cbd2d6;
+                margin: auto;
+                padding: 0 1rem;
+                font-size: 20px;
+                position: relative;
+            }
+            .amount-container:after {
+                content: '€';
+                position: absolute;
+                top: 1px;
+                right: 1.3rem;
+            }
+            .calculator__btn {
+                font-size: 10px;
+                cursor: pointer;
+                border-radius: 50px;
+                background-color: #0070ba;
+                border: solid 3px #0070ba;
+                color: #fff;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-size: 15px;
+                padding: 5px 20px;
+            }
+            .imageCenter {
+                margin: auto;
+            }
+            .textCenter {
+                text-align: center;
+                max-width: 250px;
+                font-weight: 600;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #carousel {
+                max-width: 400px;
+                margin: auto;
+                overflow: hidden;
+                position: relative;
+                width: 66.666666%;
+            }
+            #carousel-inner {
+                position: relative;
+                white-space: nowrap;
+                transition: left 0.2s ease-out;
+                font-size: 0;
+                left: 0;
+            }
+            .carousel-open:checked + .carousel-item {
+                position: static;
+                opacity: 1;
+            }
+            .carousel-item {
+                display: inline-block;
+                width: 100%;
+                padding: 15px 30px 0;
+                box-sizing: border-box;
+                white-space: normal;
+            }
+            .carousel-item img {
+                display: block;
+                height: auto;
+                max-width: 100%;
+            }
+            .carousel-indicators {
+                padding: 0;
+                text-align: center;
+                position: relative;
+                z-index: 2;
+                margin-top: 0;
+            }
+            .carousel-indicators li {
+                display: inline-block;
+                margin: 0 5px;
+            }
+            .carousel-bullet {
+                color: #aaa;
+                cursor: pointer;
+                display: block;
+                font-size: 35px;
+                border: none;
+                background: 0 0;
+            }
+            .carousel-bullet.active {
+                color: #0070ba;
+            }
+            .carousel-shadow {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                box-shadow: 0 -20px 20px 20px #f6f7fb inset;
+                z-index: 1;
+            }
+            #carousel-background {
+                border-radius: 0 0 100% 100%;
+                width: 150%;
+                background: #f6f7fb;
+                overflow: auto;
+                margin-left: -25%;
+            }
+            .carousel-arrows {
+                width: 100%;
+                position: absolute;
+                z-index: 2;
+                top: 10px;
+            }
+            .carousel-arrows > button {
+                border-radius: 100%;
+                width: 3rem;
+                height: 3rem;
+                background: 0 0;
+                border: none;
+                position: absolute;
+                cursor: pointer;
+            }
+            .hidden {
+                display: none;
+            }
+            .carousel-arrows > button:hover {
+                background: #eee;
+            }
+            .carousel-arrows > button:focus {
+                background: #eee;
+                outline: 0;
+                border: 1px solid rgba(0, 112, 186, 0.5);
+            }
+            .carousel-arrows > button:after {
+                content: '';
+                position: absolute;
+                width: 30%;
+                height: 30%;
+                border-top: 2px solid #cbd2d6;
+                border-right: 2px solid #cbd2d6;
+                top: 37%;
+                left: 28%;
+            }
+            #carousel-arrow-prev {
+                left: 0;
+                transform: rotate(-135deg);
+            }
+            #carousel-arrow-next {
+                right: 0;
+                transform: rotate(45deg);
+            }
+            header {
+                background: #f6f7fb;
+            }
+            .modal__content {
+                padding-top: 72px;
+            }
+            #logo {
+                width: 200px;
+            }
+            #terms-table table {
+                width: 100%;
+                font-size: 14px;
+            }
+            #terms-table td {
+                padding: 2px 0;
+            }
+            #terms-table td:last-child {
+                text-align: right;
+            }
+            hr {
+                opacity: 0.3;
+            }
+            #loading-image {
+                bottom: 100px;
+            }
+            @media only screen and (min-width: 436px) {
+                #terms-table td {
+                    padding: 5px 0;
+                }
+                .calculator__title {
+                    font-size: 19px;
+                }
+                .amount-container {
+                    font-size: 24px;
+                }
+                .amount-container:after {
+                    top: -1px;
+                }
+                #amount-input {
+                    font-size: 24px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section id="modal-container" class="modal__container">
+            <div id="modal__overlay" class="modal__overlay">
+                <div class="modal__wrapper" id="modal__wrapper">
+                    <div class="modal__header-wrapper">
+                        <div class="modal__header-container">
+                            <div class="modal__header">
+                                <header id="header">
+                                    <img
+                                        src="https://www.paypalobjects.com/upstream/assets/img/de/pp-logo-banner-modal.svg"
+                                        class="logo"
+                                        id="logo"
+                                        alt="PayPal Credit Logo"
+                                    />
+                                    <button aria-label="Close" class="close" id="close-btn">
+                                        <svg
+                                            width="36"
+                                            height="36"
+                                            viewBox="0 0 36 36"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                clip-rule="evenodd"
+                                                d="M0 36H36V0H0V36Z"
+                                                fill="white"
+                                                fill-opacity="0.01"
+                                            />
+                                            <path
+                                                d="M12 0L0 12"
+                                                transform="translate(12 12)"
+                                                stroke="#2C2E2F"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                            />
+                                            <path
+                                                d="M0 0L12 12"
+                                                transform="translate(12 12)"
+                                                stroke="#2C2E2F"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                </header>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content-wrapper" class="modal__content-wrapper">
+                        <div class="modal__content-background">
+                            <div class="modal__content">
+                                <main>
+                                    <section id="de-content">
+                                        <div id="carousel-background">
+                                            <h1 class="title">So funktioniert's</h1>
+                                            <div id="carousel">
+                                                <div class="carousel-arrows">
+                                                    <button id="carousel-arrow-prev" class="hidden"></button>
+                                                    <button id="carousel-arrow-next"></button>
+                                                </div>
+                                                <div class="carousel-shadow"></div>
+                                                <div id="carousel-inner">
+                                                    <div class="carousel-item">
+                                                        <div>
+                                                            <img class="imageCenter" src="./iconshoppingcart.svg" />
+                                                        </div>
+                                                        <p class="textCenter">
+                                                            Mit PayPal bezahlen und PayPal Ratenzahlung wählen.
+                                                        </p>
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <div><img class="imageCenter" src="./iconcalendar.svg" /></div>
+                                                        <p class="textCenter">
+                                                            Wir teilen Ihren Betrag in 12 monatliche Raten.
+                                                        </p>
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <div><img class="imageCenter" src="./iconcalendar.svg" /></div>
+                                                        <p class="textCenter">
+                                                            Nie eine Rate verpassen dank Lastschrifteinzug.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <ol class="carousel-indicators">
+                                                    <li><button class="carousel-bullet active">•</button></li>
+                                                    <li><button class="carousel-bullet">•</button></li>
+                                                    <li><button class="carousel-bullet">•</button></li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="calculator">
+                                                <h3 class="calculator__title">Monatliche Raten berechnen</h3>
+                                                <div class="amount-container"><input id="amount-input" /></div>
+                                                <p id="calculator-instructions"></p>
+                                                <div class="calculator__form">
+                                                    <button class="calculator__btn" id="calculate-button">
+                                                        Berechnen
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div id="loading-image"></div>
+                                            <div id="terms-table"></div>
+                                            <div class="modal-disclosure" style="margin-top:27px"></div>
+                                            <p>
+                                                Dies ist lediglich ein reprasentatives Beispiel und enhalt ggf. Keine
+                                                Steuren und Versandkosten.acc. Kreditgeber: PayPal (Europe) S.a.r.l. &
+                                                Cie, S.C.A 22-24 Boulevard Royal, 2449 Luxembourg
+                                            </p>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

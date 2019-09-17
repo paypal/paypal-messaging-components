@@ -285,17 +285,16 @@
                 overflow-y: scroll;
             }
             .modal__content-background {
-                padding-top: 84px;
                 width: 100%;
                 max-width: 612px;
                 margin: auto;
                 background: #fff;
                 min-height: 100%;
-                min-height: calc(100% - 84px);
             }
             .modal__content {
                 position: relative;
                 z-index: 50;
+                padding-top: 84px;
                 overflow: hidden;
             }
             .header-shadow {
@@ -357,6 +356,19 @@
             .accordion-divider {
                 border-top: 1px solid #eaeced;
             }
+            #loading-image {
+                position: absolute;
+                left: 50%;
+                margin-top: 60px;
+                margin-left: -40px;
+                border-radius: 50%;
+                border-top: 4px solid #00ff7f;
+                width: 80px;
+                height: 80px;
+                opacity: 0;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+            }
             @media only screen and (max-width: 400px) {
                 #ni-content .title {
                     font-size: 1.6rem;
@@ -367,14 +379,13 @@
                 }
             }
             @media only screen and (max-width: 612px) {
-                main {
+                main .content {
                     padding: 0 18px;
                 }
             }
             @media only screen and (max-device-width: 612px) {
                 main {
                     max-width: 100%;
-                    padding: 0 18px;
                     -webkit-text-size-adjust: none;
                 }
             }
@@ -382,6 +393,22 @@
                 .modal__header-container {
                     overflow-y: scroll;
                     display: block !important;
+                }
+            }
+            @-webkit-keyframes spin {
+                0% {
+                    -webkit-transform: rotate(0);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
                 }
             }
         </style>
@@ -443,11 +470,7 @@
                                     <section id="ni-content" class="content">
                                         <h1 class="title">Choose PayPal at checkout and select PayPal Credit</h1>
                                         <div class="accordion-divider"></div>
-                                        <div
-                                            class="accordion"
-                                            role="main"
-                                            aria-labelledby="No interest if paid in full in 6 months on purchases of $99 or more"
-                                        >
+                                        <div class="accordion">
                                             <h3 class="has-subtitle">
                                                 No Interest if paid in full in 6 months on purchases of $99 or more
                                             </h3>
@@ -502,11 +525,7 @@
                                             </div>
                                         </div>
                                         <div class="accordion-divider"></div>
-                                        <div
-                                            class="accordion"
-                                            role="main"
-                                            aria-labelledby="Buy now and pay over time when you spend $98.99 or less"
-                                        >
+                                        <div class="accordion">
                                             <h3>Buy now and pay over time when you spend $98.99 or less</h3>
                                             <div class="accordion-content">
                                                 <ul class="spaced">
@@ -544,7 +563,7 @@
                                             </div>
                                         </div>
                                         <div class="accordion-divider"></div>
-                                        <div class="accordion" role="main" aria-labelledby="About PayPal Credit">
+                                        <div class="accordion">
                                             <h3>About PayPal Credit</h3>
                                             <div class="accordion-content">
                                                 <p>
