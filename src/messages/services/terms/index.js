@@ -13,11 +13,10 @@ function assembleUrl({ account, amount }) {
     const queries = [
         'json=true',
         // 'mid=8SUQZGVVX324C'
-        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`
+        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,
+        `country=${__MESSAGES__.__LOCALE__}`,
+        `currency=${currenyMap[__MESSAGES__.__LOCALE__]}`
     ];
-
-    queries.push(`country=${__MESSAGES__.__LOCALE__}`);
-    queries.push(`currency=${currenyMap[__MESSAGES__.__LOCALE__]}`);
 
     if (amount) {
         queries.push(`amount=${amount}`);

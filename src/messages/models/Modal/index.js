@@ -67,7 +67,6 @@ function createModal(options) {
                 // Focus iframe window so that keyboard events interact with the modal
                 requestAnimationFrame(() =>
                     requestAnimationFrame(() => {
-                        // resetAccordions();
                         iframe.contentWindow.focus();
                         setState({ status: 'OPEN' });
                         parentOpen();

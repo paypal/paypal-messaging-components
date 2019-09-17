@@ -48,11 +48,6 @@ export default function getModalContent(options, state, trackModalEvent) {
 
     function fetchTerms(amount) {
         const { loader, financeTermsTable, calculatorInstructions, amountInput } = state.contentElements;
-        // const convertedAmount = +amount;
-        // if (!numberIsNaN(convertedAmount)) {
-        //     // eslint-disable-next-line no-param-reassign
-        //     state.contentElements.amountInput.value = convertedAmount.toFixed(2);
-        // }
 
         loader.style.setProperty('opacity', 1);
         financeTermsTable.style.setProperty('opacity', 0.4);
@@ -71,15 +66,15 @@ export default function getModalContent(options, state, trackModalEvent) {
         });
     }
 
-    const fixAmount = amount => amount.replace(/\./, '').replace(/,/, '.');
+    const localizeAmount = amount => amount.replace(/\./, '').replace(/,/, '.');
 
     function isValidAmount(amount) {
-        const fixedAmount = fixAmount(amount);
-        if (numberIsNaN(Number(fixedAmount))) {
+        const localizedAmount = localizeAmount(amount);
+        if (numberIsNaN(Number(localizedAmount))) {
             return false;
         }
 
-        const [int = '', dec = ''] = fixedAmount.split('.');
+        const [int = '', dec = ''] = localizedAmount.split('.');
         // Maximum value: 99999.99
         return int.length <= 5 && dec.length <= 2;
     }
@@ -168,7 +163,7 @@ export default function getModalContent(options, state, trackModalEvent) {
         });
 
         const calculateTerms = link => {
-            const amount = fixAmount(state.contentElements.amountInput.value);
+            const amount = localizeAmount(state.contentElements.amountInput.value);
             trackModalEvent('calculate', link, amount);
             fetchTerms(amount);
         };
