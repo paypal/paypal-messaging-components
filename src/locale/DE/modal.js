@@ -56,10 +56,12 @@ export default function getModalContent(options, state, trackModalEvent) {
 
         loader.style.setProperty('opacity', 1);
         financeTermsTable.style.setProperty('opacity', 0.4);
+        financeTermsTable.style.setProperty('min-height', '100px');
 
         return getTerms({ ...options, amount }).then(terms => {
             loader.style.setProperty('opacity', 0);
             financeTermsTable.style.setProperty('opacity', 1);
+            financeTermsTable.style.setProperty('min-height', 'unset');
             if (amount) {
                 financeTermsTable.innerHTML = renderTermsTable(terms);
             }
@@ -89,7 +91,7 @@ export default function getModalContent(options, state, trackModalEvent) {
         const indicator = carouselIndicators[idx];
 
         arrayFrom(carouselIndicators).forEach(ind => ind.classList.remove('active'));
-        carouselSlider.style.left = `-${100 * idx}%`;
+        carouselSlider.style.setProperty('left', `-${100 * idx}%`);
         indicator.classList.add('active');
 
         prevButton.classList.remove('hidden');
@@ -128,7 +130,7 @@ export default function getModalContent(options, state, trackModalEvent) {
             itemWidth = getCarouselItemWidth();
             startX = evt.touches[0].clientX;
             startLeft = carouselSlider.offsetLeft;
-            carouselSlider.style.transitionDuration = '0s';
+            carouselSlider.style.setProperty('transition-duration', '0s');
         });
 
         state.contentElements.carouselWrapper.addEventListener('touchmove', evt => {
@@ -140,11 +142,11 @@ export default function getModalContent(options, state, trackModalEvent) {
                 newPos += (newPos < 0 ? 1 : -1) * getRubberbandOffset(newPos, maxOvershoot);
             }
 
-            carouselSlider.style.left = -newPos;
+            carouselSlider.style.setProperty('left', `${-newPos}px`);
         });
 
         state.contentElements.carouselWrapper.addEventListener('touchend', evt => {
-            carouselSlider.style.transitionDuration = '0.3s';
+            carouselSlider.style.setProperty('transition-duration', '0.3s');
             const currentLeft = carouselSlider.offsetLeft;
             const carouselItemWidth = getCarouselItemWidth();
             const closestCarouselItem = Math.round(-currentLeft / carouselItemWidth);
