@@ -13,7 +13,7 @@ const devAccountMap = {
 
     DEV0000000IAZ: 'inst_any_eqz',
     DEV0000000IAG: 'inst_any_gtz',
-    DEV00000PNQAZ: 'palanq_any_eqz',
+    DEV000000PQAG: 'palaq_any_gtz',
     DEV000000PQAZ: 'palaq_any_eqz'
 };
 
