@@ -1,0 +1,26 @@
+{
+    "meta": {
+        "offerType": "EZP:ANY:EQZ",
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+    },
+
+    "headline": [
+        ["Pay over ${CREDIT_OFFERS_DS.total_payments} months at 0% APR", ["default", "small"]],
+        ["Enjoy ${CREDIT_OFFERS_DS.total_payments} Easy Payments with No Interest.", ["legacy-small"]]
+    ],
+
+    "subHeadline": [
+        [
+            "Choose PayPal Credit and select ${CREDIT_OFFERS_DS.total_payments} Easy Payments to pay over time",
+            ["legacy-medium"]
+        ],
+        ["No money due today.", ["default", "small"]]
+    ],
+
+    "disclaimer": [
+        ["See terms", ["default", "xsmall"]],
+        ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],
+        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
+        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-large"]]
+    ]
+}

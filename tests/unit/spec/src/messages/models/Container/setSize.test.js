@@ -136,6 +136,7 @@ describe('setSize', () => {
         it('Hides message when fallback message overflows', async () => {
             const { container: wrapper } = createContainer('span');
             const { container } = createContainer('iframe', { parent: wrapper, body: template });
+            container.setAttribute('data-pp-message-overflow', 'fallback');
             const mockRenderObject = {
                 wrapper,
                 options: {

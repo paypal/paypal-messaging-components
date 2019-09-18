@@ -1,5 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import getBannerMarkup from '../../services/banner';
 import { Logger, EVENTS, ERRORS } from '../../services/logger';
@@ -176,6 +176,10 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
+            if (__LOCAL__) {
+                console.error(err);
+            }
+
             const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;
             logger.error(name === ERRORS.INTERNAL_FAIL ? { name, message: err.message } : { name });
             logger.end();

@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "offerType": "PALA:MULTI:GTZ",
+        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+    },
+
+    "headline": [
+        [[["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"], ["default", "xsmall"]],
+        [
+            [["Pay as low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"],
+            ["small", "medium", "large", "xlarge"]
+        ],
+        ["Enjoy Easy Payments.", ["legacy-xsmall"]]
+    ],
+
+    "subHeadline": [
+        ["No money due today.", ["default", "xsmall"]],
+        [
+            "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
+            ["legacy-large"]
+        ]
+    ],
+
+    "disclaimer": [
+        ["See terms", ["default", "xsmall"]],
+        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
+        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+    ]
+}

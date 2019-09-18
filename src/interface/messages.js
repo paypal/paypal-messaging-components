@@ -18,6 +18,7 @@ export function setup() {
         // eslint-disable-next-line compat/compat
         const script = document.currentScript || document.querySelector('script[src$="messaging.js"]');
         if (script) {
+            // Default to en_US for non-SDK
             Messages.setGlobalConfig(getInlineOptions(script));
         }
 

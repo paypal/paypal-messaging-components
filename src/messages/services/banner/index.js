@@ -2,7 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../../utils';
 import { EVENTS, ERRORS } from '../logger';
@@ -58,7 +58,6 @@ function fetcher(options) {
     const {
         account,
         amount,
-        countryCode,
         style: { typeEZP }
     } = options;
 
@@ -78,14 +77,10 @@ function fetcher(options) {
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
-            call: `__PP.${callbackName}`
+            call: `__PP.${callbackName}`,
+            country_code: __MESSAGES__.__LOCALE__,
+            locale: LOCALE_MAP[__MESSAGES__.__LOCALE__]
         };
-
-        // Country code is optional. MORS will default to merchant's country by default
-        if (countryCode && LOCALE_MAP[countryCode]) {
-            queryParams.country_code = countryCode;
-            queryParams.locale = LOCALE_MAP[countryCode];
-        }
 
         const queryString = objectEntries(queryParams)
             .filter(([, val]) => val)

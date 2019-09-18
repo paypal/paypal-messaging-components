@@ -1,0 +1,13 @@
+.message__logo-container {
+    width: 100%;
+    margin-bottom: 30%;
+}
+
+.message__headline {
+    font-size: 1.4rem;
+    margin-bottom: 30%;
+}
+
+.message__disclaimer span.multi:nth-of-type(1) {
+    display: inline;
+}
