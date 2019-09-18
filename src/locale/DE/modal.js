@@ -58,13 +58,16 @@ export default function getModalContent(options, state, trackModalEvent) {
             loader.style.setProperty('opacity', 0);
             loader.style.setProperty('z-index', -1);
             financeTermsTable.style.setProperty('opacity', 1);
-            financeTermsTable.style.setProperty('min-height', 'unset');
-            if (amount) {
+            financeTermsTable.style.setProperty('min-height', '0');
+
+            if (amount || terms.error) {
                 financeTermsTable.innerHTML = renderTermsTable(terms);
             }
 
-            amountInput.value = terms.formattedAmount;
-            calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+            if (!terms.error) {
+                amountInput.value = terms.formattedAmount;
+                calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+            }
         });
     }
 
