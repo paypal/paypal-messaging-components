@@ -23,8 +23,8 @@ export default function getModalContent(options, state, trackModalEvent) {
         const loader = iframe.contentDocument.getElementById('loading-image');
         const carouselWrapper = iframe.contentDocument.getElementById('carousel-background');
         const carouselSlider = iframe.contentDocument.getElementById('carousel-inner');
-        const carouselItems = iframe.contentDocument.getElementsByClassName('carousel-item');
-        const carouselIndicators = iframe.contentDocument.getElementsByClassName('carousel-bullet');
+        const carouselItems = iframe.contentDocument.getElementsByClassName('carousel__item');
+        const carouselIndicators = iframe.contentDocument.getElementsByClassName('carousel__bullet');
         const prevButton = iframe.contentDocument.getElementById('carousel-arrow-prev');
         const nextButton = iframe.contentDocument.getElementById('carousel-arrow-next');
         const amountInput = iframe.contentDocument.getElementById('amount-input');
@@ -50,11 +50,13 @@ export default function getModalContent(options, state, trackModalEvent) {
         const { loader, financeTermsTable, calculatorInstructions, amountInput } = state.contentElements;
 
         loader.style.setProperty('opacity', 1);
+        loader.style.setProperty('z-index', 1);
         financeTermsTable.style.setProperty('opacity', 0.4);
         financeTermsTable.style.setProperty('min-height', '100px');
 
         return getTerms({ ...options, amount }).then(terms => {
             loader.style.setProperty('opacity', 0);
+            loader.style.setProperty('z-index', -1);
             financeTermsTable.style.setProperty('opacity', 1);
             financeTermsTable.style.setProperty('min-height', 'unset');
             if (amount) {
