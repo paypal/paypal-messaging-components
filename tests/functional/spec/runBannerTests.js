@@ -18,7 +18,6 @@ const MESSAGING_URL = process.env.URL;
 // Update this value to restrict debugging to the selected single offer type (single instance of Chromium)
 //const DEBUG_OFFER_TYPE =  ['DEV00000000NI','DEV000NINONUS','DEV0000000EAZ','DEV0000000EAG','DEV0000000PSZ','DEV0000000PSG','DEV0000000PMZ','DEV0000000PMG'];
 
-
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
     failureThreshold: 0.002,
@@ -74,7 +73,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /*quick: [600, 300, 100],
             full: getSizes(600)*/
-            medium:[600]
+            medium: [600]
         }
     },
     flex: {
@@ -87,9 +86,9 @@ const bannerTypeConfigs = {
             ratio: ['1x1', '1x4', '8x1', '20x1']
         },
         sizeConfig: {
-           /* quick: [1200, 800, 300, 100],
+            /* quick: [1200, 800, 300, 100],
             full: getSizes(1200)*/
-            medium:[600]
+            medium: [600]
         }
     },
     legacyNI: {
@@ -106,9 +105,9 @@ const bannerTypeConfigs = {
             size: ['168x374', '340x60', '765x60', '1000x50', '234x100', '1000x36', '310x100']
         },
         sizeConfig: {
-           /* quick: [1100, 800, 300, 100],
+            /* quick: [1100, 800, 300, 100],
             full: getSizes(1100)*/
-            medium:[600]
+            medium: [600]
         }
     },
     legacyEZP: {
@@ -145,7 +144,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /*quick: [1100, 800, 300, 100],
             full: getSizes(1100)*/
-            medium:[600]
+            medium: [600]
         }
     }
 };
@@ -286,7 +285,6 @@ const setNestedProperty = (obj, key, value) => {
 };
 
 export default function runBannerTests(account) {
-    
     let browser;
     let page;
 
@@ -294,7 +292,7 @@ export default function runBannerTests(account) {
         browser = null;
         page = null;
 
-       /* if (USE_DOCKER) {
+        /* if (USE_DOCKER) {
             try {
                 const result = await got('http://127.0.0.1:9222/json/version', { json: true });
 
@@ -306,11 +304,11 @@ export default function runBannerTests(account) {
                 throw new Error('Could not connect to Chromium - is Docker container running?');
             }
         } else {*/
-            browser = await puppeteer.launch({
-                ignoreHTTPSErrors: true,
-                headless: true,
-                devtools: true
-            });
+        browser = await puppeteer.launch({
+            ignoreHTTPSErrors: true,
+            headless: true,
+            devtools: true
+        });
         //}
 
         page = await browser.newPage();
@@ -416,16 +414,16 @@ export default function runBannerTests(account) {
                                 throw e;
                             }
 
-                           /* if (USE_DOCKER && retryCount > 0) {
+                            /* if (USE_DOCKER && retryCount > 0) {
                                 console.error(
                                     `Re-initializing Puppeteer: ${JSON.stringify(totalConfig)} (${retryCount})`
                                 );
                                 await initBrowser();
                                 await tryTests(retryCount - 1);
                             } else {*/
-                                browser = null;
-                                page = null;
-                                throw e;
+                            browser = null;
+                            page = null;
+                            throw e;
                             //}
                         }
                     };
@@ -450,7 +448,7 @@ export default function runBannerTests(account) {
         /*if (USE_DOCKER) {
             await browser.disconnect();
         } else {*/
-            await browser.close();
+        await browser.close();
         //}
     });
 }

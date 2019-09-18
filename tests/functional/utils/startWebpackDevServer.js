@@ -41,8 +41,7 @@ export default async function startWebpackDevServer() {
     const webpackConfig = await getWebpackConfig(
         {
             mockImadserv: true,
-            standalone : true
-
+            standalone: true
         },
         {}
     );
@@ -56,12 +55,11 @@ export default async function startWebpackDevServer() {
     global.devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
     global.devServer.listen(8080, 'localhost.paypal.com', () => {
         console.log('Dev server started at http://localhost.paypal.com:8080');
-        
     });
 
     await new Promise(resolve => {
         compiler.hooks.done.tap('Wait for compile', resolve);
     });
     devServerConfig.open = false;
-   devServerConfig.watchContentBase = false;
+    devServerConfig.watchContentBase = false;
 }
