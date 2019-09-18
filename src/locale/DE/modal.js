@@ -148,9 +148,7 @@ export default function getModalContent(options, state, trackModalEvent) {
             const closestCarouselItem = Math.round(-currentLeft / carouselItemWidth);
 
             if (closestCarouselItem === carouselState.activeItem) {
-                console.log(Math.abs(currentLeft - startLeft));
                 if (Math.abs(currentLeft - startLeft) > carouselItemWidth / 4) {
-                    console.log(currentLeft, startLeft);
                     selectCarouselItem(carouselState.activeItem + (currentLeft < startLeft ? 1 : -1));
                 } else {
                     selectCarouselItem(carouselState.activeItem);
