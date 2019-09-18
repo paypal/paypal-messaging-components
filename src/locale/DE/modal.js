@@ -83,25 +83,26 @@ export default function getModalContent(options, state, trackModalEvent) {
 
     function selectCarouselItem(idx) {
         const { carouselSlider, carouselIndicators, prevButton, nextButton, carouselItems } = state.contentElements;
-        const indicator = carouselIndicators[idx];
+        const fixedIdx = Math.max(0, Math.min(idx, carouselItems.length - 1));
+        const indicator = carouselIndicators[fixedIdx];
 
         arrayFrom(carouselIndicators).forEach(ind => ind.classList.remove('active'));
-        carouselSlider.style.setProperty('left', `-${100 * idx}%`);
+        carouselSlider.style.setProperty('left', `-${100 * fixedIdx}%`);
         indicator.classList.add('active');
 
         prevButton.classList.remove('hidden');
         nextButton.classList.remove('hidden');
 
-        if (idx === 0) {
+        if (fixedIdx === 0) {
             prevButton.classList.add('hidden');
         }
 
-        if (idx === carouselItems.length - 1) {
+        if (fixedIdx === carouselItems.length - 1) {
             nextButton.classList.add('hidden');
         }
 
         setCarouselState({
-            activeItem: idx
+            activeItem: fixedIdx
         });
     }
 
@@ -145,7 +146,18 @@ export default function getModalContent(options, state, trackModalEvent) {
             const currentLeft = carouselSlider.offsetLeft;
             const carouselItemWidth = getCarouselItemWidth();
             const closestCarouselItem = Math.round(-currentLeft / carouselItemWidth);
-            selectCarouselItem(closestCarouselItem);
+
+            if (closestCarouselItem === carouselState.activeItem) {
+                console.log(Math.abs(currentLeft - startLeft));
+                if (Math.abs(currentLeft - startLeft) > carouselItemWidth / 4) {
+                    console.log(currentLeft, startLeft);
+                    selectCarouselItem(carouselState.activeItem + (currentLeft < startLeft ? 1 : -1));
+                } else {
+                    selectCarouselItem(carouselState.activeItem);
+                }
+            } else {
+                selectCarouselItem(closestCarouselItem);
+            }
         });
 
         arrayFrom(state.contentElements.carouselIndicators).forEach((indicator, idx) => {
