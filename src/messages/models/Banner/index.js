@@ -2,20 +2,10 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import getBannerMarkup from '../../services/banner';
-import { Logger, EVENTS, ERRORS } from '../../services/logger';
+import { Logger, EVENTS } from '../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
-import {
-    curry,
-    createState,
-    partial,
-    passThrough,
-    pipe,
-    objectDiff,
-    objectMerge,
-    pluck,
-    assignToProp
-} from '../../../utils';
+import { curry, createState, partial, passThrough, pipe, objectDiff, objectMerge } from '../../../utils';
 import Modal from '../Modal';
 
 const banners = new Map();
@@ -38,6 +28,7 @@ function setupTracker(obj) {
     return { track };
 }
 
+const assignToProp = curry((field, object) => ({ [field]: object }));
 const assignFn = curry((fn, obj) => ({ ...obj, ...fn(obj) }));
 const asyncAssignFn = curry((fn, obj) => fn(obj).then(props => ({ ...obj, ...props })));
 
@@ -74,26 +65,17 @@ const Banner = {
                 validateOptions(logger), // Object()
                 passThrough(updateOptions), // Object()
                 assignToProp('options'), // Object(options)
-                partial(objectAssign, { logger, wrapper, events }), // Object(options, logger, wrapper, events)
-                asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
+                partial(objectAssign, { logger }), // Object(options, logger)
+                asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, markup)>
             )(totalOptions)
-                .then(
-                    passThrough(
-                        logBefore(
-                            pipe(
-                                pluck('template'),
-                                insertMarkup
-                            ),
-                            EVENTS.INSERT
-                        )
-                    )
-                ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
+                .then(asyncAssignFn(logBefore(insertMarkup, EVENTS.INSERT))) // Promise<Object(options, logger, markup, meta)>
                 .then(
                     pipe(
-                        assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
-                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
-                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)
-                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        partial(objectAssign, { wrapper, events }), // Object(options, logger, markup, meta, wrapper, events)
+                        assignFn(setupTracker), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, markup, meta, wrapper, events, track)
+                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, markup, meta, wrapper, events, track)
                         logBefore(onRendered, EVENTS.RENDER_END)
                     )
                 );
@@ -154,30 +136,21 @@ export default {
         const logger = loggers.get(wrapper);
 
         let banner;
-
-        try {
-            if (banners.has(wrapper)) {
-                banner = banners.get(wrapper);
-                // Ensure previous render call has completed
-                banner.renderProm = banner.renderProm.then(() => {
-                    logger.start({ options });
-                    return banner.update(options);
-                });
-            } else {
+        if (banners.has(wrapper)) {
+            banner = banners.get(wrapper);
+            // Ensure previous render call has completed
+            banner.renderProm = banner.renderProm.then(() => {
                 logger.start({ options });
-                banner = Banner.create(options, wrapper, logger);
-                banners.set(wrapper, banner);
-            }
-        } catch (err) {
-            logger.error({ name: ERRORS.INTERNAL_FAIL, message: err.message });
-            logger.end();
-
-            return ZalgoPromise.resolve();
+                return banner.update(options);
+            });
+        } else {
+            logger.start({ options });
+            banner = Banner.create(options, wrapper, logger);
+            banners.set(wrapper, banner);
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
-            const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;
-            logger.error(name === ERRORS.INTERNAL_FAIL ? { name, message: err.message } : { name });
+            logger.error({ name: err.message });
             logger.end();
 
             if (typeof err.onEnd === 'function') {

@@ -190,9 +190,9 @@ export default curry((container, { wrapper, options, logger, meta }) => {
         container.setAttribute('style', `width: 100%; border: none;`);
         container.removeAttribute('height');
     } else {
-        const { minWidth } = meta;
+        const minBannerContentWidth = meta.minWidth || 0;
         // Reset iframe incase of rerender using same container
-        container.setAttribute('style', `width: 100%; border: none; min-width: ${minWidth}px;`);
+        container.setAttribute('style', `width: 100%; border: none; min-width: ${minBannerContentWidth}px;`);
         // If a banner is rerendered from 'flex' to 'text' the wrapper will still have the ratio wrapper class applied
         wrapper.removeAttribute('class');
 
@@ -204,14 +204,14 @@ export default curry((container, { wrapper, options, logger, meta }) => {
             container.setAttribute('height', container.contentWindow.document.body.lastChild.offsetHeight); // container.contentWindow.document.documentElement.scrollHeight);
         };
 
-        if (parentContainerWidth < minWidth && layout !== 'custom') {
+        if (parentContainerWidth < minBannerContentWidth && layout !== 'custom') {
             if (
                 objectGet(options, 'style.logo.position') === 'top' &&
                 objectGet(options, 'style.logo.type') === 'primary'
             ) {
                 logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                 logger.warn(
-                    `Message hidden. PayPal Credit Message fallback requires minimum width of ${minWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
+                    `Message hidden. PayPal Credit Message fallback requires minimum width of ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
                 );
 
                 container.setAttribute('data-pp-message-hidden', 'true');
@@ -220,7 +220,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                     `Message Overflow. PayPal Credit Message of layout type ${objectGet(
                         options,
                         'style.layout'
-                    )} requires a width of at least ${minWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
+                    )} requires a width of at least ${minBannerContentWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
                 );
                 // Thrown error skips the rest of the render pipeline and is caught at the end
                 throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {

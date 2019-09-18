@@ -4,6 +4,7 @@
         "impressionUrl": "$impression_tracking_url$",
         "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },
+
     "data": {
         "headline": [
             [[["Make ${term} payments of", "weak"], "${pymt_mo}/mo at 0% APR"], ["default", "small"]],
@@ -12,14 +13,14 @@
             ["Enjoy No Interest when you choose PayPal Credit.", ["legacy-small.2"]]
         ],
         "subHeadline": [
-            ["No money due today.", ["default", "xsmall"]],
+            ["Check out with PayPal and choose PayPal Credit.", ["default", "small"]],
             [
                 "Make ${term} Easy Payments as low as ${pymt_mo}/month with no interest for est. total pymts of ${tot_pymts}.",
                 ["legacy-xlarge"]
             ]
         ],
         "disclaimer": [
-            ["See terms", ["default", "xsmall.2"]],
+            ["See terms", ["default", "xsmall"]],
             [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
             [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
         ]

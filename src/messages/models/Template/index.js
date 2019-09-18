@@ -22,6 +22,9 @@ import {
     appendImage
 } from '../../../utils';
 
+// Iframe used solely for calculating the minium width of a template
+const calcIframe = document.createElement('iframe');
+calcIframe.setAttribute('style', 'opacity: 0; width: 0; height: 0; position: absolute; left: -99999px;');
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
 const imageTemplate = document.createElement('div');
@@ -264,6 +267,73 @@ function createImageTemplateNode(style, { meta }) {
 }
 
 /**
+ * IMPORTANT: This function is fragile and very dependent on how
+ * IE handles sizing containers with specific style property values
+ * @param {HTMLElement} container Container element
+ * @returns {Number} Container width
+ */
+const getContentMinWidth = container => {
+    document.body.appendChild(calcIframe);
+    calcIframe.contentWindow.document.body.appendChild(calcIframe.contentWindow.document.importNode(container, true));
+
+    // IE Support: importNode() and cloneNode() do not properly import working
+    // style elements so they must be manually recreated inside the document
+    arrayFrom(calcIframe.contentWindow.document.getElementsByTagName('style')).forEach(styleElem => {
+        const styleClone = calcIframe.contentWindow.document.createElement('style');
+        styleClone.textContent = styleElem.textContent;
+        styleElem.parentNode.insertBefore(styleClone, styleElem);
+        styleElem.parentNode.removeChild(styleElem);
+    });
+
+    const contentContainer = calcIframe.contentWindow.document.querySelector('.message__content');
+    const contentStyles = window.getComputedStyle(contentContainer);
+    const children = arrayFrom(contentContainer.children);
+    const properties = [
+        'margin-left',
+        'border-left-width',
+        'padding-left',
+        'width',
+        'padding-right',
+        'border-right-width',
+        'margin-right'
+    ];
+
+    // When the display is flex, we are stacking the child components horizontally.
+    // We calculate the total width by adding the width of all the children.
+    const minWidth = stringIncludes(contentStyles.getPropertyValue('display'), 'flex')
+        ? Math.round(
+              children.reduce((accumulator, child) => {
+                  const childStyles = window.getComputedStyle(child);
+                  return (
+                      accumulator +
+                      properties.reduce(
+                          (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                          0
+                      )
+                  );
+              }, 0)
+          )
+        : // If the display is not flex, it should be block to stack the child components vertically.
+          // We use display block instead of flex because IE does not support the column orientation very well.
+          // We calculate the width of the container by the largest width of all the stacked children.
+          Math.max(
+              ...children.map(child => {
+                  const childStyles = window.getComputedStyle(child);
+                  return Math.round(
+                      properties.reduce(
+                          (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
+                          0
+                      )
+                  );
+              })
+          );
+
+    document.body.removeChild(calcIframe);
+
+    return minWidth;
+};
+
+/**
  * Create a new template DOM element
  * @param {Object} options Banner options, including style rules to be applied to the template
  * @param {Array} data Content data to be inserted into the template
@@ -352,6 +422,9 @@ function createTemplateNode(options, markup) {
         prependStyle(newTemplate, prefixStyles(mutationRules.styles.join('')));
     }
     prependStyle(newTemplate, prefixStyles(styleRules.join('\n')));
+
+    // Determine minimum possible width before content overflow
+    newTemplate.width = getContentMinWidth(newTemplate);
 
     return newTemplate;
 }

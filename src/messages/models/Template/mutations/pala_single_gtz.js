@@ -41,7 +41,6 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'small', br: ['of'] },
-                subHeadline: 'small',
                 disclaimer: 'xsmall'
             }
         ],
@@ -49,7 +48,7 @@ export default {
             'ratio:1x4',
             {
                 headline: { br: ['payments'] },
-                subHeadline: { tag: 'small', br: ['money'] }
+                subHeadline: 'small'
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],

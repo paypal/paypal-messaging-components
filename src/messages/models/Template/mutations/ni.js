@@ -118,19 +118,14 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: ['xsmall', 'medium'],
-                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
+                headline: ['xsmall', 'medium']
             }
         ],
         [
             'ratio:1x4',
             {
                 headline: { tag: 'medium', br: ['months'] },
-                styles: [
-                    '.message__logo-container { margin-bottom: 30%; }',
-                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
-                    '.message__headline { font-size: 1.1rem }'
-                ],
+                styles: ['.message__logo-container { margin-bottom: 30%; }'],
                 disclaimer: ['xlarge', 'xsmall']
             }
         ],

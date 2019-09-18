@@ -4,7 +4,7 @@ const mockImadserv = require('./utils/proxyImadserv');
 const globals = require('./globals');
 
 const FILE_NAME = 'sdk';
-const PROTOCOL = 'https';
+const PROTOCOL = 'http';
 const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 

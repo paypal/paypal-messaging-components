@@ -84,19 +84,3 @@ export function passThrough(fn) {
 export function pipe(...args) {
     return initialValue => args.reduce((accumulator, fn) => fn(accumulator), initialValue);
 }
-
-/**
- * Retrieve a single property from an object
- * @param {String} prop Property to retrieve
- * @param {Object} obj Object to get get property from
- * @returns {Any} Object property value
- */
-export const pluck = curry((prop, obj) => obj[prop]);
-
-/**
- * Create an object and assign the value to the property
- * @param {String} prop Property name
- * @param {Any} value Property value
- * @returns {Object} New object with property and value
- */
-export const assignToProp = curry((prop, value) => ({ [prop]: value }));
