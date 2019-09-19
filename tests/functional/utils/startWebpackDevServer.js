@@ -1,11 +1,11 @@
 import path from 'path';
-import { exec, execSync } from 'child_process';
+// import { exec, execSync } from 'child_process';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import getWebpackConfig from '../../../webpack.config.dev';
 
 export default async function startWebpackDevServer() {
-    if (process.env.RUNLOCAL !== '1') {
+    /* if (process.env.RUNLOCAL !== '1') {
         global.containerName = `chromium_messagingjs`;
 
         const existingContainers = execSync(`docker ps -a -f "name=${global.containerName}"`)
@@ -36,7 +36,7 @@ export default async function startWebpackDevServer() {
                 );
             });
         }
-    }
+    } */
 
     const webpackConfig = await getWebpackConfig(
         {
@@ -50,7 +50,7 @@ export default async function startWebpackDevServer() {
 
     const devServerConfig = webpackConfig.devServer;
     devServerConfig.contentBase = path.resolve(__dirname, '../content');
-    devServerConfig.public = 'host.docker.internal';
+    // devServerConfig.public = 'host.docker.internal';
 
     global.devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
     global.devServer.listen(8080, 'localhost.paypal.com', () => {

@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import got from 'got';
+// import got from 'got';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
@@ -10,13 +10,13 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 // test:func, test:func:fast, test:func:snapshot:update
 
 // RUNLOCAL=1 will run outside of container, turn off headless mode, automatically open devtools, and pause for 10 seconds on each page load
-//const USE_DOCKER = process.env.RUNLOCAL !== '1';
+// const USE_DOCKER = process.env.RUNLOCAL !== '1';
 
 // URL=<PATH_TO_MESSAGING_JS> will pull messaging.js from a custom URL (but still point to local versions of the banners)
 const MESSAGING_URL = process.env.URL;
 
 // Update  this value to restrict debugging to the selected single offer type (single instance of Chromium)
-//const DEBUG_OFFER_TYPE =  ['DEV00000000NI','DEV000NINONUS','DEV0000000EAZ','DEV0000000EAG','DEV0000000PSZ','DEV0000000PSG','DEV0000000PMZ','DEV0000000PMG'];
+// const DEBUG_OFFER_TYPE =  ['DEV00000000NI','DEV000NINONUS','DEV0000000EAZ','DEV0000000EAG','DEV0000000PSZ','DEV0000000PSG','DEV0000000PMZ','DEV0000000PMG'];
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -53,11 +53,11 @@ const offerTypes = {
     DEV0000000PMG: 'pala:multi:gtz'
 };
 
-const getSizes = max =>
+/* const getSizes = max =>
     new Array(max / 50 - 1)
         .fill(null)
         .map((val, idx) => (idx + 2) * 50)
-        .reverse();
+        .reverse(); */
 
 const bannerTypeConfigs = {
     text: {
@@ -71,8 +71,8 @@ const bannerTypeConfigs = {
             'text.color': ['black', 'white']
         },
         sizeConfig: {
-            /*quick: [600, 300, 100],
-            full: getSizes(600)*/
+            /* quick: [600, 300, 100],
+            full: getSizes(600) */
             medium: [600]
         }
     },
@@ -87,7 +87,7 @@ const bannerTypeConfigs = {
         },
         sizeConfig: {
             /* quick: [1200, 800, 300, 100],
-            full: getSizes(1200)*/
+            full: getSizes(1200) */
             medium: [600]
         }
     },
@@ -106,7 +106,7 @@ const bannerTypeConfigs = {
         },
         sizeConfig: {
             /* quick: [1100, 800, 300, 100],
-            full: getSizes(1100)*/
+            full: getSizes(1100) */
             medium: [600]
         }
     },
@@ -142,8 +142,8 @@ const bannerTypeConfigs = {
             ]
         },
         sizeConfig: {
-            /*quick: [1100, 800, 300, 100],
-            full: getSizes(1100)*/
+            /* quick: [1100, 800, 300, 100],
+            full: getSizes(1100) */
             medium: [600]
         }
     }
@@ -303,13 +303,13 @@ export default function runBannerTests(account) {
             } catch (e) {
                 throw new Error('Could not connect to Chromium - is Docker container running?');
             }
-        } else {*/
+        } else { */
         browser = await puppeteer.launch({
             ignoreHTTPSErrors: true,
             headless: true,
             devtools: true
         });
-        //}
+        // }
 
         page = await browser.newPage();
 
@@ -384,7 +384,7 @@ export default function runBannerTests(account) {
             return;
         }
 
-        //const sizes = process.env.QUICK === '1' ? sizeConfig.quick : sizeConfig.full;
+        // const sizes = process.env.QUICK === '1' ? sizeConfig.quick : sizeConfig.full;
         const sizes = sizeConfig.medium;
 
         const testPermutations = (keys, style = { layout }, permutation = [`layout:${layout}`]) => {
@@ -405,7 +405,7 @@ export default function runBannerTests(account) {
                         throw new Error(`No browser/page: ${JSON.stringify(totalConfig)}`);
                     }
 
-                    const tryTests = async (retryCount = 0) => {
+                    const tryTests = async (/* retryCount = 0 */) => {
                         try {
                             await testContainerSizes(page, totalConfig, sizes, height, permutation);
                             await testBrowserSizes(page, totalConfig, sizes, height, permutation);
@@ -420,11 +420,11 @@ export default function runBannerTests(account) {
                                 );
                                 await initBrowser();
                                 await tryTests(retryCount - 1);
-                            } else {*/
+                            } else { */
                             browser = null;
                             page = null;
                             throw e;
-                            //}
+                            // }
                         }
                     };
 
@@ -445,10 +445,10 @@ export default function runBannerTests(account) {
     });
 
     afterAll(async () => {
-        /*if (USE_DOCKER) {
+        /* if (USE_DOCKER) {
             await browser.disconnect();
-        } else {*/
+        } else { */
         await browser.close();
-        //}
+        // }
     });
 }
