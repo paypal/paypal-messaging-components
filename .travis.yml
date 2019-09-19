@@ -10,9 +10,7 @@ script:
     - npm run test:unit
     - npm run test:func
 
-  addons:
-   hosts:
-    - 127.0.0.1
+    
 
 before_deploy: npm run release
 
