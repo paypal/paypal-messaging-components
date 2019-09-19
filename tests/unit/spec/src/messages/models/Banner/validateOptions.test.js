@@ -22,7 +22,7 @@ describe('validateOptions', () => {
         onRender: () => {}
     };
 
-    it('Allows valid id, _legacy, account, amount, country, style', () => {
+    it('Allows valid id, _legacy, account, amount, style', () => {
         const type = validLogoTypes[0];
         const position = validLogoPositions[1];
         const validated = validateOptions(mockLogger, {
