@@ -7,7 +7,8 @@ if: NOT (tag IS present OR commit_message =~ /^chore\(release\):/)
 
 script:
     - npm run lint
-    - npm run test
+    - npm run test:unit
+    - npm run test:func
 
 before_deploy: npm run release
 

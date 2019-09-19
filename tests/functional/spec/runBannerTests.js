@@ -15,7 +15,7 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 // URL=<PATH_TO_MESSAGING_JS> will pull messaging.js from a custom URL (but still point to local versions of the banners)
 const MESSAGING_URL = process.env.URL;
 
-// Update this value to restrict debugging to the selected single offer type (single instance of Chromium)
+// Update  this value to restrict debugging to the selected single offer type (single instance of Chromium)
 //const DEBUG_OFFER_TYPE =  ['DEV00000000NI','DEV000NINONUS','DEV0000000EAZ','DEV0000000EAG','DEV0000000PSZ','DEV0000000PSG','DEV0000000PMZ','DEV0000000PMG'];
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
