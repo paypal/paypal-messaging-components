@@ -30,7 +30,7 @@ expect.extend({ toMatchImageSnapshot });
 
 const SCREENSHOT_ROOT = path.resolve(__dirname, '../banners');
 
-const testPageUrl = 'http://localhost.paypal.com:8080';
+const testPageUrl = 'http://127.0.0.1:8080';
 
 // Comment out to skip testing certain banner types
 // prettier-ignore
@@ -320,7 +320,7 @@ export default function runBannerTests(account) {
 
             // Re-route requests to proxy imadserv
             if (url.includes('https://www.paypal.com/imadserver/upstream')) {
-                const hostName = 'http://localhost.paypal.com:8080';
+                const hostName = 'http://127.0.0.1:8080';
                 return request.continue({
                     url: url.replace(
                         'https://www.paypal.com/imadserver/upstream',

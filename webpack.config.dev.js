@@ -5,7 +5,7 @@ const globals = require('./globals');
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'http';
-const HOSTNAME = 'localhost.paypal.com';
+const HOSTNAME = '127.0.0.1';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
@@ -45,7 +45,7 @@ module.exports = (env = {}) => {
         publicPath: '/',
         openPage: env.standalone ? (env.legacy && 'legacy.html') || 'standalone.html' : '',
         compress: true,
-        host: 'localhost.paypal.com',
+        host: '127.0.0.1',
         port: 8080,
         open: true,
         overlay: true,
