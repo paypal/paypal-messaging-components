@@ -285,17 +285,16 @@
                 overflow-y: scroll;
             }
             .modal__content-background {
-                padding-top: 84px;
                 width: 100%;
                 max-width: 612px;
                 margin: auto;
                 background: #fff;
                 min-height: 100%;
-                min-height: calc(100% - 84px);
             }
             .modal__content {
                 position: relative;
                 z-index: 50;
+                padding-top: 84px;
                 overflow: hidden;
             }
             .header-shadow {
@@ -357,6 +356,19 @@
             .accordion-divider {
                 border-top: 1px solid #eaeced;
             }
+            #loading-image {
+                position: absolute;
+                left: 50%;
+                margin-top: 60px;
+                margin-left: -40px;
+                border-radius: 50%;
+                border-top: 4px solid #00ff7f;
+                width: 80px;
+                height: 80px;
+                opacity: 0;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+            }
             @media only screen and (max-width: 400px) {
                 #ni-content .title {
                     font-size: 1.6rem;
@@ -367,14 +379,13 @@
                 }
             }
             @media only screen and (max-width: 612px) {
-                main {
+                main .content {
                     padding: 0 18px;
                 }
             }
             @media only screen and (max-device-width: 612px) {
                 main {
                     max-width: 100%;
-                    padding: 0 18px;
                     -webkit-text-size-adjust: none;
                 }
             }
@@ -384,11 +395,244 @@
                     display: block !important;
                 }
             }
+            @-webkit-keyframes spin {
+                0% {
+                    -webkit-transform: rotate(0);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
         </style>
-        <style type="text/css"></style>
+        <style type="text/css">
+            #de-content {
+                overflow-x: hidden;
+            }
+            h1 {
+                font-size: 20px;
+                font-weight: 300;
+            }
+            h1.title {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            #de-content h3 {
+                font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+                text-align: center;
+            }
+            .calculator {
+                text-align: center;
+                max-width: 300px;
+                margin: auto;
+            }
+            #calculator-instructions {
+                color: #687173;
+            }
+            #amount-input {
+                font-size: 20px;
+                text-align: center;
+                width: 100%;
+                border: none;
+            }
+            .amount-container {
+                width: 150px;
+                border-bottom: 1px dotted #cbd2d6;
+                margin: auto;
+                padding: 0 1rem;
+                font-size: 20px;
+                position: relative;
+            }
+            .amount-container:after {
+                content: '€';
+                position: absolute;
+                top: 1px;
+                right: 1.3rem;
+            }
+            .calculator__btn {
+                font-size: 10px;
+                cursor: pointer;
+                border-radius: 50px;
+                background-color: #0070ba;
+                border: solid 3px #0070ba;
+                color: #fff;
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+                font-size: 15px;
+                padding: 5px 20px;
+            }
+            .imageCenter {
+                margin: auto;
+            }
+            .textCenter {
+                text-align: center;
+                max-width: 250px;
+                font-weight: 600;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #carousel {
+                max-width: 400px;
+                margin: auto;
+                overflow: hidden;
+                position: relative;
+                width: 66.666666%;
+            }
+            #carousel-inner {
+                position: relative;
+                white-space: nowrap;
+                transition: left 0.2s ease-out;
+                font-size: 0;
+                left: 0;
+            }
+            .carousel-open:checked + .carousel-item {
+                position: static;
+                opacity: 1;
+            }
+            .carousel-item {
+                display: inline-block;
+                width: 100%;
+                padding: 15px 30px 0;
+                box-sizing: border-box;
+                white-space: normal;
+            }
+            .carousel-item img {
+                display: block;
+                height: auto;
+                max-width: 100%;
+            }
+            .carousel-indicators {
+                padding: 0;
+                text-align: center;
+                position: relative;
+                z-index: 2;
+                margin-top: 0;
+            }
+            .carousel-indicators li {
+                display: inline-block;
+                margin: 0 5px;
+            }
+            .carousel-bullet {
+                color: #aaa;
+                cursor: pointer;
+                display: block;
+                font-size: 35px;
+                border: none;
+                background: 0 0;
+            }
+            .carousel-bullet.active {
+                color: #0070ba;
+            }
+            .carousel-shadow {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                box-shadow: 0 -20px 20px 20px #f6f7fb inset;
+                z-index: 1;
+            }
+            #carousel-background {
+                border-radius: 0 0 100% 100%;
+                width: 150%;
+                background: #f6f7fb;
+                overflow: auto;
+                margin-left: -25%;
+            }
+            .carousel-arrows {
+                width: 100%;
+                position: absolute;
+                z-index: 2;
+                top: 10px;
+            }
+            .carousel-arrows > button {
+                border-radius: 100%;
+                width: 3rem;
+                height: 3rem;
+                background: 0 0;
+                border: none;
+                position: absolute;
+                cursor: pointer;
+            }
+            .hidden {
+                display: none;
+            }
+            .carousel-arrows > button:hover {
+                background: #eee;
+            }
+            .carousel-arrows > button:focus {
+                background: #eee;
+                outline: 0;
+                border: 1px solid rgba(0, 112, 186, 0.5);
+            }
+            .carousel-arrows > button:after {
+                content: '';
+                position: absolute;
+                width: 30%;
+                height: 30%;
+                border-top: 2px solid #cbd2d6;
+                border-right: 2px solid #cbd2d6;
+                top: 37%;
+                left: 28%;
+            }
+            #carousel-arrow-prev {
+                left: 0;
+                transform: rotate(-135deg);
+            }
+            #carousel-arrow-next {
+                right: 0;
+                transform: rotate(45deg);
+            }
+            header {
+                background: #f6f7fb;
+            }
+            .modal__content {
+                padding-top: 72px;
+            }
+            #logo {
+                width: 200px;
+            }
+            #terms-table table {
+                width: 100%;
+                font-size: 14px;
+            }
+            #terms-table td {
+                padding: 2px 0;
+            }
+            #terms-table td:last-child {
+                text-align: right;
+            }
+            hr {
+                opacity: 0.3;
+            }
+            #loading-image {
+                bottom: 100px;
+            }
+            @media only screen and (min-width: 436px) {
+                #terms-table td {
+                    padding: 5px 0;
+                }
+                .calculator__title {
+                    font-size: 19px;
+                }
+                .amount-container {
+                    font-size: 24px;
+                }
+                .amount-container:after {
+                    top: -1px;
+                }
+                #amount-input {
+                    font-size: 24px;
+                }
+            }
+        </style>
     </head>
     <body>
-        <section id="modal-container" class="modal__container" data-pp-modal="ni">
+        <section id="modal-container" class="modal__container">
             <div id="modal__overlay" class="modal__overlay">
                 <div class="modal__wrapper" id="modal__wrapper">
                     <div class="modal__header-wrapper">
@@ -396,7 +640,7 @@
                             <div class="modal__header">
                                 <header id="header">
                                     <img
-                                        src="https://www.paypalobjects.com/upstream/assets/img/pp-logo-banner-modal.svg"
+                                        src="https://www.paypalobjects.com/upstream/assets/img/de/pp-logo-banner-modal.svg"
                                         class="logo"
                                         id="logo"
                                         alt="PayPal Credit Logo"
@@ -440,163 +684,77 @@
                         <div class="modal__content-background">
                             <div class="modal__content">
                                 <main>
-                                    <section id="ni-content" class="content">
-                                        <h1 class="title">Choose PayPal at checkout and select PayPal Credit</h1>
-                                        <div class="accordion-divider"></div>
-                                        <div
-                                            class="accordion"
-                                            role="main"
-                                            aria-labelledby="No interest if paid in full in 6 months on purchases of $99 or more"
-                                        >
-                                            <h3 class="has-subtitle">
-                                                No Interest if paid in full in 6 months on purchases of $99 or more
-                                            </h3>
+                                    <section id="de-content">
+                                        <div id="carousel-background">
+                                            <h1 class="title">So funktioniert's</h1>
+                                            <div id="carousel">
+                                                <div class="carousel-arrows">
+                                                    <button id="carousel-arrow-prev" class="hidden"></button>
+                                                    <button id="carousel-arrow-next"></button>
+                                                </div>
+                                                <div class="carousel-shadow"></div>
+                                                <div id="carousel-inner">
+                                                    <div class="carousel-item">
+                                                        <div>
+                                                            <img
+                                                                class="imageCenter"
+                                                                src="https://www.paypalobjects.com/upstream/assets/img/de/icon_shoppingcart.svg"
+                                                            />
+                                                        </div>
+                                                        <p class="textCenter">
+                                                            Mit PayPal bezahlen und PayPal Ratenzahlung wählen.
+                                                        </p>
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <div>
+                                                            <img
+                                                                class="imageCenter"
+                                                                src="https://www.paypalobjects.com/upstream/assets/img/de/icon_calendar.svg"
+                                                            />
+                                                        </div>
+                                                        <p class="textCenter">
+                                                            Wir teilen Ihren Betrag in 12 monatliche Raten.
+                                                        </p>
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <div>
+                                                            <img
+                                                                class="imageCenter"
+                                                                src="https://www.paypalobjects.com/upstream/assets/img/de/icon_payovertime.svg"
+                                                            />
+                                                        </div>
+                                                        <p class="textCenter">
+                                                            Nie eine Rate verpassen dank Lastschrifteinzug.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <ol class="carousel-indicators">
+                                                    <li><button class="carousel-bullet active">•</button></li>
+                                                    <li><button class="carousel-bullet">•</button></li>
+                                                    <li><button class="carousel-bullet">•</button></li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="calculator">
+                                                <h3 class="calculator__title">Monatliche Raten berechnen</h3>
+                                                <div class="amount-container"><input id="amount-input" /></div>
+                                                <p id="calculator-instructions"></p>
+                                                <div class="calculator__form">
+                                                    <button class="calculator__btn" id="calculate-button">
+                                                        Berechnen
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div id="loading-image"></div>
+                                            <div id="terms-table"></div>
+                                            <div class="modal-disclosure" style="margin-top:27px"></div>
                                             <p>
-                                                Interest will be charged to your account from the purchase date if the
-                                                balance is not paid in full within 6 months.
+                                                Dies ist lediglich ein reprasentatives Beispiel und enhalt ggf. Keine
+                                                Steuren und Versandkosten.acc. Kreditgeber: PayPal (Europe) S.a.r.l. &
+                                                Cie, S.C.A 22-24 Boulevard Royal, 2449 Luxembourg
                                             </p>
-                                            <div class="accordion-content">
-                                                <ul class="spaced">
-                                                    <li>
-                                                        A minimum monthly payment is required and may or may not pay off
-                                                        the promotional purchase by the end of the 6 month period.
-                                                    </li>
-                                                    <li>
-                                                        No interest will be charged on the purchase if you pay it off in
-                                                        full within 6 months. If you do not, interest will be charged on
-                                                        the purchase from the purchase date at the Purchase APR
-                                                        applicable to your account.
-                                                    </li>
-                                                    <li>
-                                                        For New Accounts: Variable Purchase APR is 26.24%. The APR is
-                                                        accurate as of 3/1/2019 and will vary with the market based on
-                                                        the Prime Rate (as defined in your credit card agreement).
-                                                        Minimum interest charge is $2.00.
-                                                    </li>
-                                                    <li>
-                                                        Individual items that are less than $99 qualify for special
-                                                        financing when combined for a total of $99 or more in a single
-                                                        transaction.
-                                                    </li>
-                                                    <li>
-                                                        Multiple separate transactions of less than $99 per transaction
-                                                        cannot be combined to meet the minimum purchase amount.
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="symbol">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="13"
-                                                    height="13"
-                                                    viewBox="0 0 13 13"
-                                                >
-                                                    <path
-                                                        fill="none"
-                                                        fill-rule="evenodd"
-                                                        stroke="#199DDB"
-                                                        stroke-linecap="round"
-                                                        d="M2.352 5.19l4.474 5.184c.096.111.252.111.348 0l4.474-5.184"
-                                                    />
-                                                </svg>
-                                            </div>
                                         </div>
-                                        <div class="accordion-divider"></div>
-                                        <div
-                                            class="accordion"
-                                            role="main"
-                                            aria-labelledby="Buy now and pay over time when you spend $98.99 or less"
-                                        >
-                                            <h3>Buy now and pay over time when you spend $98.99 or less</h3>
-                                            <div class="accordion-content">
-                                                <ul class="spaced">
-                                                    <li>
-                                                        Avoid paying interest by paying your balance in full each month
-                                                        by the due date.
-                                                    </li>
-                                                    <li>
-                                                        You can also make payments until you've paid off your balance
-                                                        according to your standard account terms. Interest charges may
-                                                        apply.
-                                                    </li>
-                                                    <li>
-                                                        We'll send you email reminders when your payments are due. You
-                                                        can keep track of your account and view your statements online
-                                                        at any time.
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="symbol">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="13"
-                                                    height="13"
-                                                    viewBox="0 0 13 13"
-                                                >
-                                                    <path
-                                                        fill="none"
-                                                        fill-rule="evenodd"
-                                                        stroke="#199DDB"
-                                                        stroke-linecap="round"
-                                                        d="M2.352 5.19l4.474 5.184c.096.111.252.111.348 0l4.474-5.184"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-divider"></div>
-                                        <div class="accordion" role="main" aria-labelledby="About PayPal Credit">
-                                            <h3>About PayPal Credit</h3>
-                                            <div class="accordion-content">
-                                                <p>
-                                                    PayPal Credit is a digital, reusable credit line available to
-                                                    purchase goods and services from thousands of online stores. Use
-                                                    PayPal Credit to shop anywhere PayPal is accepted.
-                                                </p>
-                                                <p>
-                                                    Whether you're buying the perfect gift or purchasing a new couch,
-                                                    you can get 6 months special financing on purchases of $99 or more.
-                                                    The best part? This isn't a one-time offer. You can enjoy paying
-                                                    over time every time you shop with PayPal Credit.
-                                                </p>
-                                                <p>
-                                                    PayPal Credit delivers the same trust, security, and flexibility
-                                                    that you get from PayPal.
-                                                </p>
-                                            </div>
-                                            <div class="symbol">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="13"
-                                                    height="13"
-                                                    viewBox="0 0 13 13"
-                                                >
-                                                    <path
-                                                        fill="none"
-                                                        fill-rule="evenodd"
-                                                        stroke="#199DDB"
-                                                        stroke-linecap="round"
-                                                        d="M2.352 5.19l4.474 5.184c.096.111.252.111.348 0l4.474-5.184"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-divider"></div>
-                                        <div style="margin-top:32px" id="terms" class="anchor-small">
-                                            <a
-                                                target="_blank"
-                                                href="https://creditapply.paypal.com/apply?guid=44R3IAZDK0"
-                                                >Click here</a
-                                            >
-                                            to apply for PayPal Credit and view the Terms and Conditions.
-                                        </div>
-                                        <p>
-                                            PayPal Credit is subject to credit approval as determined by the lender,
-                                            Synchrony Bank, and is available to US customers who are of legal age in
-                                            their state of residence. You must pay with PayPal Credit to get the offers.
-                                            Minimum purchase required is before shipping and tax. Offers not valid on
-                                            previous purchases, returns or exchanges.
-                                        </p>
-                                        <p>Copyright 2019 Bill Me Later, Inc. All rights reserved.</p>
                                     </section>
                                 </main>
                             </div>

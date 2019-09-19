@@ -3,16 +3,20 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps } from '../../../utils';
 
+const currenyMap = {
+    US: 'USD',
+    DE: 'EUR'
+};
+
 function assembleUrl({ account, amount }) {
     const baseUrl = __MESSAGES__.__TERMS_URL__;
     const queries = [
         'json=true',
-        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`
+        // 'mid=8SUQZGVVX324C'
+        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,
+        `country=${__MESSAGES__.__LOCALE__}`,
+        `currency=${currenyMap[__MESSAGES__.__LOCALE__]}`
     ];
-
-    // TODO: Look to dynamically set these values as we push for location driven logic
-    queries.push('country=US');
-    queries.push('currency=USD');
 
     if (amount) {
         queries.push(`amount=${amount}`);

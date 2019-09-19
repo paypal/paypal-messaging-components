@@ -53,3 +53,11 @@ export function getLocaleStyles(layout) {
 export function getMinimumWidthOptions() {
     return LOCALE_SETTINGS.minimumSizeOptions || {};
 }
+
+export function getModalContent(options, state, trackEvent) {
+    return LOCALE_SETTINGS.getModalContent(options, state, trackEvent);
+}
+
+export function getModalType(offerType) {
+    return LOCALE_SETTINGS.getModalType(offerType);
+}
