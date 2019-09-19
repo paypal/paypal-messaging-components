@@ -169,6 +169,10 @@ export default {
                 banners.set(wrapper, banner);
             }
         } catch (err) {
+            if (__LOCAL__) {
+                console.error(err);
+            }
+
             logger.error({ name: ERRORS.INTERNAL_FAIL, message: err.message });
             logger.end();
 

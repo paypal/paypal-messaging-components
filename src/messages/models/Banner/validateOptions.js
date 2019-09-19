@@ -14,9 +14,6 @@ const VALID_OPTIONS = {
     onRender: [Types.FUNCTION]
 };
 
-// Combination of all valid style option combinations
-export const VALID_STYLE_OPTIONS = getValidOptions();
-
 // Formalized validation logger helper functions
 const logInvalid = (logger, location, message) => logger.warn(`Invalid option value (${location}). ${message}`);
 const logInvalidType = (logger, location, expectedType, val) =>
@@ -101,8 +98,41 @@ function getValidStyleOptions(logger, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
+export const validateStyleOptions = curry((logger, style) => {
+    const validStyleOptions = getValidOptions();
+
+    const validatedStyle = (() => {
+        if (
+            validateType(Types.OBJECT, style) &&
+            validateType(Types.STRING, style.layout) &&
+            validStyleOptions[style.layout]
+        ) {
+            return getValidStyleOptions(logger, validStyleOptions, style);
+        }
+
+        if (validateType(Types.OBJECT, style)) {
+            logInvalidOption(logger, 'style.layout', Object.keys(validStyleOptions), style.layout);
+        } else if (style !== undefined) {
+            logInvalidType(logger, 'style', Types.OBJECT, style);
+        }
+
+        // Get the default settings for a text banner
+        return getValidStyleOptions(logger, validStyleOptions, { layout: 'text' });
+    })();
+
+    logger.info(EVENTS.VALIDATE_STYLE, { style: objectClone(validatedStyle) });
+
+    return validatedStyle;
+});
+
+/**
+ * Validate user options object. Warn the user against invalid options
+ * and ensure only valid options are returned
+ * @param {Object} options User options object
+ * @returns {Object} Object containing only valid options
+ */
 export default curry((logger, { account, amount, style, ...otherOptions }) => {
-    const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
+    const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
         logInvalidType(logger, 'account', Types.STRING, account);
@@ -124,24 +154,20 @@ export default curry((logger, { account, amount, style, ...otherOptions }) => {
         }
     }
 
-    if (
-        validateType(Types.OBJECT, style) &&
-        validateType(Types.STRING, style.layout) &&
-        VALID_STYLE_OPTIONS[style.layout]
-    ) {
-        validOptions.style = getValidStyleOptions(logger, VALID_STYLE_OPTIONS, style);
+    if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
+        validOptions.style = style;
     } else {
         if (validateType(Types.OBJECT, style)) {
-            logInvalidOption(logger, 'style.layout', Object.keys(VALID_STYLE_OPTIONS), style.layout);
+            logInvalidType(logger, 'layout', Types.STRING, style.layout);
         } else if (style !== undefined) {
             logInvalidType(logger, 'style', Types.OBJECT, style);
         }
 
         // Get the default settings for a text banner
-        validOptions.style = getValidStyleOptions(logger, VALID_STYLE_OPTIONS, { layout: 'text' });
+        validOptions.style = { layout: 'text' };
     }
 
-    logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });
+    logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });
 
     return validOptions;
 });

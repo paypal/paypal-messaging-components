@@ -2,28 +2,28 @@ const fs = require('fs');
 const got = require('got');
 
 const devAccountMap = {
-    DEV00000000NI: 'ni',
-    DEV000NINONUS: 'ni_non-us',
-    DEV0000000EAZ: 'ezp_any_eqz',
-    DEV0000000EAG: 'ezp_any_gtz',
-    DEV0000000PSZ: 'pala_single_eqz',
-    DEV0000000PSG: 'pala_single_gtz',
-    DEV0000000PMZ: 'pala_multi_eqz',
-    DEV0000000PMG: 'pala_multi_gtz',
+    DEV00000000NI: ['US', 'ni'],
+    DEV000NINONUS: ['US', 'ni_non-us'],
+    DEV0000000EAZ: ['US', 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', 'pala_single_eqz'],
+    DEV0000000PSG: ['US', 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', 'pala_multi_gtz'],
 
-    DEV0000000IAZ: 'inst_any_eqz',
-    DEV0000000IAG: 'inst_any_gtz',
-    DEV000000PQAG: 'palaq_any_gtz',
-    DEV000000PQAZ: 'palaq_any_eqz'
+    DEV0000000IAZ: ['DE', 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', 'palaq_any_eqz']
 };
 
 module.exports = function proxyImadserv(app) {
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0, country_code: countryCode } = req.query;
+        const { call, currency_value: amount = 0 } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const banner = fs.readFileSync(`banners/${countryCode}/${devAccountMap[account]}.json`, 'utf-8');
+            const banner = fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8');
             const bannerJSON = JSON.parse(banner);
 
             const morsVars = {

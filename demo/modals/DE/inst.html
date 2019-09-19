@@ -413,19 +413,17 @@
             }
         </style>
         <style type="text/css">
-            #de-content {
+            section {
                 overflow-x: hidden;
             }
-            h1 {
+            .carousel__title {
                 font-size: 20px;
                 font-weight: 300;
-            }
-            h1.title {
                 margin-top: 0;
                 margin-bottom: 0;
+                text-align: center;
             }
-            #de-content h3 {
-                font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+            .calculator__title {
                 text-align: center;
             }
             .calculator {
@@ -433,24 +431,24 @@
                 max-width: 300px;
                 margin: auto;
             }
-            #calculator-instructions {
+            .calculator__instructions {
                 color: #687173;
             }
-            #amount-input {
+            .calculator__input {
                 font-size: 20px;
                 text-align: center;
                 width: 100%;
                 border: none;
             }
-            .amount-container {
+            .calculator__form {
                 width: 150px;
                 border-bottom: 1px dotted #cbd2d6;
                 margin: auto;
-                padding: 0 1rem;
+                padding: 0 2rem;
                 font-size: 20px;
                 position: relative;
             }
-            .amount-container:after {
+            .calculator__form:after {
                 content: '€';
                 position: absolute;
                 top: 1px;
@@ -467,89 +465,97 @@
                 font-size: 15px;
                 padding: 5px 20px;
             }
-            .imageCenter {
-                margin: auto;
-            }
-            .textCenter {
-                text-align: center;
-                max-width: 250px;
-                font-weight: 600;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            #carousel {
+            .carousel {
                 max-width: 400px;
                 margin: auto;
                 overflow: hidden;
                 position: relative;
                 width: 66.666666%;
             }
-            #carousel-inner {
+            .carousel__inner {
                 position: relative;
                 white-space: nowrap;
                 transition: left 0.2s ease-out;
                 font-size: 0;
                 left: 0;
             }
-            .carousel-open:checked + .carousel-item {
-                position: static;
-                opacity: 1;
-            }
-            .carousel-item {
+            .carousel__item {
                 display: inline-block;
                 width: 100%;
                 padding: 15px 30px 0;
                 box-sizing: border-box;
                 white-space: normal;
             }
-            .carousel-item img {
+            .carousel__item img {
                 display: block;
                 height: auto;
                 max-width: 100%;
             }
-            .carousel-indicators {
+            .carousel__image {
+                margin: auto;
+            }
+            .carousel__text {
+                text-align: center;
+                max-width: 250px;
+                font-weight: 600;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .carousel__indicators {
                 padding: 0;
                 text-align: center;
                 position: relative;
                 z-index: 2;
                 margin-top: 0;
             }
-            .carousel-indicators li {
+            .carousel__indicators li {
                 display: inline-block;
-                margin: 0 5px;
+                margin: 0;
             }
-            .carousel-bullet {
-                color: #aaa;
+            .carousel__bullet {
                 cursor: pointer;
                 display: block;
-                font-size: 35px;
                 border: none;
                 background: 0 0;
+                height: 30px;
+                width: 30px;
+                position: relative;
+                overflow: hidden;
             }
-            .carousel-bullet.active {
-                color: #0070ba;
+            .carousel__bullet:after {
+                background-color: #aaa;
+                content: '';
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                position: absolute;
+                top: 10px;
+                left: 10px;
             }
-            .carousel-shadow {
+            .carousel__bullet.active:after {
+                background-color: #0070ba;
+            }
+            .carousel__shadow {
                 position: absolute;
                 height: 100%;
                 width: 100%;
                 box-shadow: 0 -20px 20px 20px #f6f7fb inset;
                 z-index: 1;
             }
-            #carousel-background {
+            .carousel__background {
                 border-radius: 0 0 100% 100%;
                 width: 150%;
                 background: #f6f7fb;
                 overflow: auto;
                 margin-left: -25%;
             }
-            .carousel-arrows {
+            .carousel__arrows {
                 width: 100%;
                 position: absolute;
                 z-index: 2;
                 top: 10px;
             }
-            .carousel-arrows > button {
+            .carousel__arrows > button {
                 border-radius: 100%;
                 width: 3rem;
                 height: 3rem;
@@ -561,15 +567,15 @@
             .hidden {
                 display: none;
             }
-            .carousel-arrows > button:hover {
+            .carousel__arrows > button:hover {
                 background: #eee;
             }
-            .carousel-arrows > button:focus {
+            .carousel__arrows > button:focus {
                 background: #eee;
                 outline: 0;
                 border: 1px solid rgba(0, 112, 186, 0.5);
             }
-            .carousel-arrows > button:after {
+            .carousel__arrows > button:after {
                 content: '';
                 position: absolute;
                 width: 30%;
@@ -579,12 +585,12 @@
                 top: 37%;
                 left: 28%;
             }
-            #carousel-arrow-prev {
-                left: 0;
+            .carousel__arrow-prev {
+                left: 10px;
                 transform: rotate(-135deg);
             }
-            #carousel-arrow-next {
-                right: 0;
+            .carousel__arrow-next {
+                right: 10px;
                 transform: rotate(45deg);
             }
             header {
@@ -596,36 +602,42 @@
             #logo {
                 width: 200px;
             }
-            #terms-table table {
+            .terms table {
                 width: 100%;
                 font-size: 14px;
             }
-            #terms-table td {
+            .terms td {
                 padding: 2px 0;
             }
-            #terms-table td:last-child {
+            .terms td:last-child {
                 text-align: right;
+            }
+            .terms__header {
+                text-align: center;
+            }
+            .terms__error {
+                text-align: center;
             }
             hr {
                 opacity: 0.3;
             }
-            #loading-image {
+            .terms__loading {
                 bottom: 100px;
             }
             @media only screen and (min-width: 436px) {
-                #terms-table td {
+                .terms td {
                     padding: 5px 0;
                 }
                 .calculator__title {
                     font-size: 19px;
                 }
-                .amount-container {
+                .calculator__form {
                     font-size: 24px;
                 }
-                .amount-container:after {
+                .calculator__form:after {
                     top: -1px;
                 }
-                #amount-input {
+                .calculator__input {
                     font-size: 24px;
                 }
             }
@@ -684,70 +696,74 @@
                         <div class="modal__content-background">
                             <div class="modal__content">
                                 <main>
-                                    <section id="de-content">
-                                        <div id="carousel-background">
-                                            <h1 class="title">So funktioniert's</h1>
-                                            <div id="carousel">
-                                                <div class="carousel-arrows">
-                                                    <button id="carousel-arrow-prev" class="hidden"></button>
-                                                    <button id="carousel-arrow-next"></button>
+                                    <section>
+                                        <div id="carousel-background" class="carousel__background">
+                                            <h1 class="carousel__title">So funktioniert's</h1>
+                                            <div id="carousel" class="carousel">
+                                                <div class="carousel__arrows">
+                                                    <button
+                                                        id="carousel-arrow-prev"
+                                                        class="carousel__arrow-prev hidden"
+                                                    ></button>
+                                                    <button
+                                                        id="carousel-arrow-next"
+                                                        class="carousel__arrow-next"
+                                                    ></button>
                                                 </div>
-                                                <div class="carousel-shadow"></div>
-                                                <div id="carousel-inner">
-                                                    <div class="carousel-item">
+                                                <div class="carousel__shadow"></div>
+                                                <div id="carousel-inner" class="carousel__inner">
+                                                    <div class="carousel__item">
                                                         <div>
                                                             <img
-                                                                class="imageCenter"
+                                                                class="carousel__image"
                                                                 src="https://www.paypalobjects.com/upstream/assets/img/de/icon_shoppingcart.svg"
                                                             />
                                                         </div>
-                                                        <p class="textCenter">
+                                                        <p class="carousel__text">
                                                             Mit PayPal bezahlen und PayPal Ratenzahlung wählen.
                                                         </p>
                                                     </div>
-                                                    <div class="carousel-item">
+                                                    <div class="carousel__item">
                                                         <div>
                                                             <img
-                                                                class="imageCenter"
+                                                                class="carousel__image"
                                                                 src="https://www.paypalobjects.com/upstream/assets/img/de/icon_calendar.svg"
                                                             />
                                                         </div>
-                                                        <p class="textCenter">
+                                                        <p class="carousel__text">
                                                             Wir teilen Ihren Betrag in 12 monatliche Raten.
                                                         </p>
                                                     </div>
-                                                    <div class="carousel-item">
+                                                    <div class="carousel__item">
                                                         <div>
                                                             <img
-                                                                class="imageCenter"
+                                                                class="carousel__image"
                                                                 src="https://www.paypalobjects.com/upstream/assets/img/de/icon_payovertime.svg"
                                                             />
                                                         </div>
-                                                        <p class="textCenter">
+                                                        <p class="carousel__text">
                                                             Nie eine Rate verpassen dank Lastschrifteinzug.
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <ol class="carousel-indicators">
-                                                    <li><button class="carousel-bullet active">•</button></li>
-                                                    <li><button class="carousel-bullet">•</button></li>
-                                                    <li><button class="carousel-bullet">•</button></li>
+                                                <ol class="carousel__indicators">
+                                                    <li><button class="carousel__bullet active"></button></li>
+                                                    <li><button class="carousel__bullet"></button></li>
+                                                    <li><button class="carousel__bullet"></button></li>
                                                 </ol>
                                             </div>
                                         </div>
                                         <div class="content">
                                             <div class="calculator">
                                                 <h3 class="calculator__title">Monatliche Raten berechnen</h3>
-                                                <div class="amount-container"><input id="amount-input" /></div>
-                                                <p id="calculator-instructions"></p>
                                                 <div class="calculator__form">
-                                                    <button class="calculator__btn" id="calculate-button">
-                                                        Berechnen
-                                                    </button>
+                                                    <input id="amount-input" class="calculator__input" />
                                                 </div>
+                                                <p id="calculator-instructions" class="calculator__instructions"></p>
+                                                <button class="calculator__btn" id="calculate-button">Berechnen</button>
                                             </div>
-                                            <div id="loading-image"></div>
-                                            <div id="terms-table"></div>
+                                            <div id="loading-image" class="terms__loading"></div>
+                                            <div id="terms-table" class="terms"></div>
                                             <div class="modal-disclosure" style="margin-top:27px"></div>
                                             <p>
                                                 Dies ist lediglich ein reprasentatives Beispiel und enhalt ggf. Keine

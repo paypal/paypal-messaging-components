@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "US",
         "offerType": "PALA:SINGLE:EQZ",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },

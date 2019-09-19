@@ -2,6 +2,9 @@ import createContainer from 'utils/createContainer';
 import setSize from 'src/messages/models/Container/setSize';
 import template from 'src/messages/models/Template/template.html';
 import { ERRORS } from 'src/messages/services/logger';
+import { setLocale } from '../../../../../../../src/locale';
+
+setLocale('US');
 
 // Mocks needed to fake size calculations in JSDOM
 async function injectSpies({ container, wrapperWidth = 50, display = 'flex' }, cb) {

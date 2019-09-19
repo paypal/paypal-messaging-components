@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "DE",
         "offerType": "INST:ANY:GTZ",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },

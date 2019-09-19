@@ -5,6 +5,7 @@ import mockEzpModal from 'src/../demo/modals/US/ezp.html';
 import mockNiModal from 'src/../demo/modals/US/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
+import { setLocale } from '../../../../../../../src/locale';
 
 jest.mock('src/messages/services/modal', () =>
     jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
@@ -34,6 +35,8 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
     events: eventsOn(container),
     track: jest.fn()
 });
+
+setLocale('US');
 
 describe('Modal methods', () => {
     afterEach(() => {

@@ -65,7 +65,7 @@ export default function getModalContent(options, state, trackModalEvent) {
             }
 
             if (!terms.error) {
-                amountInput.value = terms.formattedAmount;
+                amountInput.value = terms.formattedAmount || '0,00';
                 calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
             }
         });

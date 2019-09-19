@@ -20,7 +20,7 @@ function createModal(options) {
     const [state, setState] = createState({
         status: 'CLOSED'
     });
-    const modalType = getModalType(options.offerType);
+    const modalType = getModalType(options.offerCountry, options.offerType);
 
     const trackModalEvent = (type, linkName, amount) =>
         track({
