@@ -12,7 +12,7 @@ script:
 
   addons:
    hosts:
-    - localhost.paypal.com
+    - 127.0.0.1
 
 before_deploy: npm run release
 
