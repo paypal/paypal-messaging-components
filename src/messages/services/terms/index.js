@@ -3,19 +3,19 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps } from '../../../utils';
 
-// const currenyMap = {
-//     US: 'USD',
-//     DE: 'EUR'
-// };
+const currencyMap = {
+    US: 'USD',
+    DE: 'EUR'
+};
 
-function assembleUrl({ account, amount }) {
+function assembleUrl({ account, amount, offerCountry }) {
     const baseUrl = __MESSAGES__.__TERMS_URL__;
     const queries = [
         'json=true',
         // 'mid=8SUQZGVVX324C'
-        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`
-        // `country=${__MESSAGES__.__LOCALE__}`,
-        // `currency=${currenyMap[__MESSAGES__.__LOCALE__]}`
+        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,
+        `country=${offerCountry}`,
+        `currency=${currencyMap[offerCountry]}`
     ];
 
     if (amount) {

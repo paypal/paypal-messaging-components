@@ -18,7 +18,9 @@ const [localeSettings, updateLocaleSettings] = createState({});
 export const setLocale = offerCountry => updateLocaleSettings(getLocaleSettings(offerCountry));
 
 // export const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
-export const localeClass = 'locale--';
+export function getLocaleClass() {
+    return localeSettings.localeClass;
+}
 
 export function getLocalProductName() {
     return localeSettings.productName;
@@ -35,7 +37,9 @@ export function getMutations(id, type) {
                 mutation[0],
                 {
                     ...mutation[1],
-                    styles: mutation[1].styles.map(style => style.replace(/\.message/g, `.${localeClass} .message`))
+                    styles: mutation[1].styles.map(style =>
+                        style.replace(/\.message/g, `.${getLocaleClass()} .message`)
+                    )
                 }
             ];
         }

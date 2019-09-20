@@ -22,7 +22,7 @@ export default function insertTermsTable(terms) {
     }
 
     return `
-        <h3 class="terms__header">${offer.term} monatliche Zahlungen von je €${offer.monthly}</h3>
+        <h3 class="terms__header">${offer.term} monatliche Raten von je €${offer.monthly}</h3>
         <hr />
         <table>
             <tbody>

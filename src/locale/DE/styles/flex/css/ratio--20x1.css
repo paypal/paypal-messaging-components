@@ -24,6 +24,16 @@
     .message__headline {
         font-size: 0.6rem;
     }
+
+    .message__promo-container {
+        flex: 1 1 55%;
+    }
+
+    .message__disclaimer {
+        margin-top: 0;
+        padding-right: 3%;
+        text-align: right;
+    }
 }
 
 @media (min-aspect-ratio: 200/11) and (min-width: 600px) {
@@ -41,7 +51,7 @@
     }
 
     .message__disclaimer {
-        padding-right: 8%;
+        font-size: 0.7rem;
     }
 
     .message__headline span.multi:nth-of-type(1) {

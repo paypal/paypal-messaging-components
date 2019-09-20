@@ -20,7 +20,7 @@ import {
     appendImage,
     getDataByTag
 } from '../../../utils';
-import { getLocalProductName, getMutations, getLogos, getLocaleStyles, localeClass } from '../../../locale';
+import { getLocalProductName, getMutations, getLogos, getLocaleStyles, getLocaleClass } from '../../../locale';
 
 const Logos = getLogos();
 
@@ -302,6 +302,7 @@ function createTemplateNode(options, markup) {
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
 
+    const localeClass = getLocaleClass();
     // Scope all locale-specific styles to the selected locale
     const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(layoutProp)).map(rule =>
         rule.replace(/\.message/g, `.${localeClass} .message`)

@@ -2,16 +2,32 @@
     .message__headline {
         font-size: 3vw;
         padding-right: 1rem;
+        display: inline;
     }
 
     .message__logo-container {
-        margin-bottom: 2vw;
+        margin-bottom: 0;
+    }
+
+    .message__disclaimer {
+        margin-top: 0;
+        display: inline;
+    }
+
+    .message__messaging {
+        display: flex;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 300px) {
+    .message__messaging {
+        display: block;
     }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
     .message__headline {
-        font-size: 2.3vw;
+        font-size: 3vw;
         padding-right: 1rem;
     }
 
@@ -27,6 +43,7 @@
 
     .message__disclaimer {
         flex: 1 1 auto;
+        margin-top: 0.5rem;
     }
 
     .message__content {

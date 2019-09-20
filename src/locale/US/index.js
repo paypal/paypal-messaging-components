@@ -5,7 +5,8 @@ import styles from './styles';
 import getModalContent, { getModalType } from './modal';
 
 export default {
-    productName: ['with', 'PayPal Credit'],
+    localeClass: 'locale--US',
+    productName: ['with', 'PayPal Credit.'],
     minimumSizeOptions: {
         'style.layout': 'text',
         'style.logo.position': 'top',
