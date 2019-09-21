@@ -3,6 +3,8 @@ import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
 import toNewPipeline from './toNewPipeline';
+import { Logger } from '../messages/services/logger';
+import { setGlobalState, globalState } from '../utils/globalState';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -285,19 +287,32 @@ scripts.some(script => {
     const pubId = script.getAttribute('data-pp_pub_id');
     const payerId = script.getAttribute('data-pp_payer_id');
     const dimensions = script.getAttribute('data-pp_dimensions');
+    const account = payerId || pubId;
 
-    if ((payerId || pubId) && dimensions) {
+    if (account && dimensions) {
         const ppScript = new PPScript(script);
         // Attempt to render through messaging.js pipeline
         const success = toNewPipeline(ppScript);
 
         // Fallback to legacy pipeline
         if (!success) {
+            const logger = Logger.create({
+                id: globalState.nextId,
+                account,
+                selector: '__internal__',
+                type: 'Legacy_Banner'
+            });
+            setGlobalState({ nextId: (globalState.nextId += 1) });
+
+            logger.start({ options: ppScript.getKVs() });
+
             const ad = new Ad(ppScript.getKVs());
             ppScript.injectAd(ad);
             ppScript.registerListeners();
             ppScript.ad.request();
             ppScript.destroyDom();
+
+            logger.end();
         }
 
         return true;
