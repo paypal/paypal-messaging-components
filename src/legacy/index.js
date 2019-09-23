@@ -4,7 +4,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger } from '../messages/services/logger';
-import { setGlobalState, globalState } from '../utils/globalState';
+import { nextId } from '../utils/globalState';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -297,12 +297,11 @@ scripts.some(script => {
         // Fallback to legacy pipeline
         if (!success) {
             const logger = Logger.create({
-                id: globalState.nextId,
+                id: nextId(),
                 account,
                 selector: '__internal__',
                 type: 'Legacy_Banner'
             });
-            setGlobalState({ nextId: (globalState.nextId += 1) });
 
             logger.start({ options: ppScript.getKVs() });
 
