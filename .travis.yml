@@ -6,7 +6,7 @@ node_js:
 if: NOT (tag IS present OR commit_message =~ /^chore\(release\):/)
 
 install:
-    - npm ci
+    - npm i
 
 script:
     - npm run lint
