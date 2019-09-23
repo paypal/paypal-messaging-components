@@ -23,7 +23,7 @@ $ git remote add upstream git@github.com:paypal/paypal-messaging-components.git
 $ git pull upstream
 
 # Install dependencies
-$ npm install
+$ npm ci
 
 # Run scripts to verify installation (Note: test includes lint)
 $ npm test
