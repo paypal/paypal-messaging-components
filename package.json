@@ -30,7 +30,7 @@
         "release:major": "npm run release -- --release-as major",
         "start": "npm run dev",
         "test:unit": "jest tests/unit/*",
-        "test:func": "jest tests/functional/*"
+        "test:func": "jest tests/functional/* --updateSnapshot"
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",

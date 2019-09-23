@@ -68,7 +68,7 @@ const bannerTypeConfigs = {
         permutations: {
             'logo.type': ['primary', 'alternative', 'inline'],
             'logo.position': ['top', 'left', 'right'],
-            'text.color': ['black', 'white']
+            'text.color': ['black']
         },
         sizeConfig: {
             /* quick: [600, 300, 100],
@@ -82,7 +82,7 @@ const bannerTypeConfigs = {
             layout: 'flex'
         },
         permutations: {
-            color: ['blue', 'black', 'white', 'white-no-border'],
+            color: ['blue'],
             ratio: ['1x1', '1x4', '8x1', '20x1']
         },
         sizeConfig: {
