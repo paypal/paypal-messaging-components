@@ -3,7 +3,7 @@ import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
 import toNewPipeline from './toNewPipeline';
-import { Logger } from '../messages/services/logger';
+import { Logger, EVENTS } from '../messages/services/logger';
 import { nextId } from '../utils/globalState';
 
 /**
@@ -128,7 +128,9 @@ class PPScript {
 }
 
 class Ad {
-    constructor(kvs) {
+    constructor(kvs, logger) {
+        logger.start({ options: kvs });
+        this.logger = logger;
         totalPageAds += 1;
         this.idx = totalPageAds;
         this.namespace = instance + this.idx;
@@ -142,6 +144,7 @@ class Ad {
     initContainer() {
         this.container = Page.createElement('span');
         this.container.style.display = 'none';
+        this.logger.info(EVENTS.CONTAINER);
     }
 
     injectScripts(markup) {
@@ -188,6 +191,8 @@ class Ad {
     }
 
     callback(markup) {
+        this.logger.info(EVENTS.FETCH_END);
+        this.logger.info(EVENTS.INSERT);
         this.setContent(markup);
         this.script.destroy();
         delete window.__PP[this.namespace];
@@ -215,6 +220,7 @@ class Ad {
     }
 
     request() {
+        this.logger.info(EVENTS.FETCH_START);
         this.script = new JSONPRequest(`${__MESSAGES__.__BANNER_URL__}${this.queryString}`);
     }
 
@@ -303,15 +309,11 @@ scripts.some(script => {
                 type: 'Legacy_Banner'
             });
 
-            logger.start({ options: ppScript.getKVs() });
-
-            const ad = new Ad(ppScript.getKVs());
+            const ad = new Ad(ppScript.getKVs(), logger);
             ppScript.injectAd(ad);
             ppScript.registerListeners();
             ppScript.ad.request();
             ppScript.destroyDom();
-
-            logger.end();
         }
 
         return true;
