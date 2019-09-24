@@ -61,14 +61,15 @@ function fetcher(options) {
         countryCode,
         style: { typeEZP }
     } = options;
-
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        const dimensions = typeEZP === '' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
-
+        let dimensions = typeEZP === '' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
+        if (options.offer_type === 'NI') {
+            dimensions = LEGACY_NI_ONLY_PLACEMENT;
+        }
         // Fire off JSONP request
         const rootUrl = __MESSAGES__.__BANNER_URL__;
         const queryParams = {
@@ -96,6 +97,7 @@ function fetcher(options) {
         const script = document.createElement('script');
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;
+
         document.head.appendChild(script);
 
         window.__PP[callbackName] = markup => {
