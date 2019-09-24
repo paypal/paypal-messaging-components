@@ -21,7 +21,7 @@ Please feel free to follow the [Contribution Guidelines](./CONTRIBUTING.md) to c
 Set up your env:
 
 ```bash
-npm ci
+npm install
 ```
 
 Run tests:
