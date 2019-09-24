@@ -66,10 +66,8 @@ function fetcher(options) {
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        let dimensions = typeEZP === '' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
-        if (options.offer_type === 'NI') {
-            dimensions = LEGACY_NI_ONLY_PLACEMENT;
-        }
+        const dimensions = typeEZP === '' || options.offerType === 'NI' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
+
         // Fire off JSONP request
         const rootUrl = __MESSAGES__.__BANNER_URL__;
         const queryParams = {

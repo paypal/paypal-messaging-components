@@ -162,7 +162,7 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
     } else {
         validOptions.account = account;
     }
-    validOptions.offer_type = validateType(Types.STRING, offer) ? offer : '';
+    validOptions.offerType = validateType(Types.STRING, offer) ? offer : '';
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
