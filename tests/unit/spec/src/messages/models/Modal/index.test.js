@@ -6,8 +6,6 @@ import mockNiModal from 'src/../demo/modals/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
 
-console.log(mockEzpModal);
-console.log(mockNiModal);
 jest.mock('src/messages/services/modal', () =>
     jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
 );
@@ -75,6 +73,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '3' }));
 
+        await new Promise(resolve => setTimeout(resolve, 100));
         const modal = getByRole(document.body, 'alertdialog');
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
@@ -92,6 +91,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '4' }));
 
+        await new Promise(resolve => setTimeout(resolve, 100));
         const modal = getByRole(document.body, 'alertdialog');
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
@@ -128,6 +128,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '5' }));
 
+        await new Promise(resolve => setTimeout(resolve, 100));
         const modal = getByRole(document.body, 'alertdialog');
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
@@ -162,6 +163,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '6' }));
 
+        await new Promise(resolve => setTimeout(resolve, 100));
         const modal = getByRole(document.body, 'alertdialog');
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
