@@ -6,6 +6,8 @@ import mockNiModal from 'src/../demo/modals/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
 
+console.log(mockEzpModal);
+console.log(mockNiModal);
 jest.mock('src/messages/services/modal', () =>
     jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
 );
