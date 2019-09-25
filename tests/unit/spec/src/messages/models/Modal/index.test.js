@@ -37,7 +37,10 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
 });
 
 describe('Modal methods', () => {
-    afterEach(() => {
+    afterEach(async () => {
+        // TODO: Needed for tests to pass on Node 10
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         document.body.innerHTML = '';
     });
 

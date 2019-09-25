@@ -4,8 +4,8 @@ const mockImadserv = require('./utils/proxyImadserv');
 const globals = require('./globals');
 
 const FILE_NAME = 'sdk';
-const PROTOCOL = 'http';
-const HOSTNAME = '127.0.0.1';
+const PROTOCOL = 'https';
+const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
@@ -45,7 +45,7 @@ module.exports = (env = {}) => {
         publicPath: '/',
         openPage: env.standalone ? (env.legacy && 'legacy.html') || 'standalone.html' : '',
         compress: true,
-        host: '127.0.0.1',
+        host: 'localhost.paypal.com',
         port: 8080,
         open: true,
         overlay: true,

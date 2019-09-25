@@ -8,4 +8,4 @@ if [[ "" == "$(git config --global user.name)" ]]; then
 fi
 
 # run prettier and linting against staged files, and run tests
-./node_modules/.bin/lint-staged && npm run test:unit
+./node_modules/.bin/lint-staged && npm run test
