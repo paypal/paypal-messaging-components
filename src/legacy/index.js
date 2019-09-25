@@ -197,6 +197,7 @@ class Ad {
         this.script.destroy();
         delete window.__PP[this.namespace];
         delete this.script;
+        this.logger.end();
     }
 
     initCallback() {
