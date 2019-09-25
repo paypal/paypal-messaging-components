@@ -14,5 +14,7 @@ module.exports = {
         __MESSAGES__: {
             __VERSION__: '1.0.0'
         }
-    }
+    },
+    globalSetup: '<rootDir>/tests/functional/utils/startWebpackDevServer.js',
+    globalTeardown: '<rootDir>/tests/functional/utils/killWebpackDevServer.js'
 };
