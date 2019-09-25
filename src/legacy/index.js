@@ -144,7 +144,6 @@ class Ad {
     initContainer() {
         this.container = Page.createElement('span');
         this.container.style.display = 'none';
-        this.logger.info(EVENTS.CONTAINER);
     }
 
     injectScripts(markup) {
