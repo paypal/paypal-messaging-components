@@ -55,7 +55,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [600, 300, 100],
             full: getSizes(600) */
-            medium: [600]
+            medium: [1000]
         }
     },
     flex: {
@@ -70,7 +70,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1200, 800, 300, 100],
             full: getSizes(1200) */
-            medium: [600]
+            medium: [1000]
         }
     },
     legacyNI: {
@@ -89,7 +89,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1100, 800, 300, 100],
             full: getSizes(1100) */
-            medium: [600]
+            medium: [1000]
         }
     },
     legacyEZP: {
@@ -126,7 +126,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1100, 800, 300, 100],
             full: getSizes(1100) */
-            medium: [600]
+            medium: [1000]
         }
     }
 };
