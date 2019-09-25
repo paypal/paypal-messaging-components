@@ -312,6 +312,7 @@ scripts.some(script => {
 
             const ad = new Ad(ppScript.getKVs(), logger);
             ppScript.injectAd(ad);
+            logger.info(EVENTS.CONTAINER);
             ppScript.registerListeners();
             ppScript.ad.request();
             ppScript.destroyDom();
