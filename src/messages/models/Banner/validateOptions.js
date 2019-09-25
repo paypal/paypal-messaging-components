@@ -162,7 +162,6 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
     } else {
         validOptions.account = account;
     }
-    validOptions.offerType = validateType(Types.STRING, offer) ? offer : '';
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
@@ -182,6 +181,16 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
             logInvalid(logger, 'countryCode', 'Country code should be 2 characters.');
         } else {
             validOptions.countryCode = countryCode;
+        }
+    }
+
+    if (typeof offer !== 'undefined') {
+        if (!validateType(Types.STRING, offer)) {
+            logInvalidType(logger, 'offer', Types.STRING, offer);
+        } else if (offer !== 'NI') {
+            logInvalid(logger, 'offer', 'Ensure valid offer type.');
+        } else {
+            validOptions.offerType = offer;
         }
     }
 
