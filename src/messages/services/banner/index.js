@@ -196,7 +196,7 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'offerType', 'countryCode']);
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
