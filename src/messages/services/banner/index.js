@@ -59,6 +59,7 @@ function fetcher(options) {
         account,
         amount,
         countryCode,
+        offerType,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -66,7 +67,7 @@ function fetcher(options) {
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        const dimensions = typeEZP === '' || options.offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
+        const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
         const rootUrl = __MESSAGES__.__BANNER_URL__;
