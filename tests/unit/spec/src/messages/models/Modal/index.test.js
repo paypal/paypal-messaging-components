@@ -52,7 +52,7 @@ describe('Modal methods', () => {
         Modal.init(createMockRenderObject(container, { account: '1' }));
 
         expect(document.body.children.length).toBe(2);
-        expect(getByRole(document.body, 'alertdialog')).toBeInTheDocument();
+        expect(getByRole(document.body, 'alertdialog', { hidden: true })).toBeInTheDocument();
     });
 
     it('Reuses the same modal', () => {
@@ -65,7 +65,7 @@ describe('Modal methods', () => {
         Modal.init(createMockRenderObject(container2, { account: '2' }));
 
         expect(document.body.children.length).toBe(3);
-        expect(getByRole(document.body, 'alertdialog')).toBeInTheDocument();
+        expect(getByRole(document.body, 'alertdialog', { hidden: true })).toBeInTheDocument();
     });
 
     it('Opens modal when message clicked', async () => {
@@ -73,7 +73,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '3' }));
 
-        const modal = getByRole(document.body, 'alertdialog');
+        const modal = getByRole(document.body, 'alertdialog', { hidden: true });
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
 
@@ -90,7 +90,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '4' }));
 
-        const modal = getByRole(document.body, 'alertdialog');
+        const modal = getByRole(document.body, 'alertdialog', { hidden: true });
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
 
@@ -126,7 +126,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '5' }));
 
-        const modal = getByRole(document.body, 'alertdialog');
+        const modal = getByRole(document.body, 'alertdialog', { hidden: true });
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
 
@@ -160,7 +160,7 @@ describe('Modal methods', () => {
 
         Modal.init(createMockRenderObject(container, { account: '6' }));
 
-        const modal = getByRole(document.body, 'alertdialog');
+        const modal = getByRole(document.body, 'alertdialog', { hidden: true });
         const modalContainer = modal.querySelector('iframe');
         modalContainer.contentWindow.focus = jest.fn();
 
