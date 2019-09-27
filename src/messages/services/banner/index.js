@@ -18,7 +18,7 @@ window.__PP = window.__PP || {};
 // const PLACEMENT = 'x200x51';
 const PLACEMENT = 'x215x80';
 
-const LEGACY_NI_ONLY_PLACEMENT = 'x199x99';
+const NI_ONLY_PLACEMENT = 'x199x99';
 
 const LOCALE_MAP = {
     US: 'en_US',
@@ -59,15 +59,15 @@ function fetcher(options) {
         account,
         amount,
         countryCode,
+        offerType,
         style: { typeEZP }
     } = options;
-
     return new ZalgoPromise(resolve => {
         // Create JSONP callback
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        const dimensions = typeEZP === '' ? LEGACY_NI_ONLY_PLACEMENT : PLACEMENT;
+        const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
         const rootUrl = __MESSAGES__.__BANNER_URL__;
@@ -96,6 +96,7 @@ function fetcher(options) {
         const script = document.createElement('script');
         script.async = true;
         script.src = `${rootUrl}?${queryString}`;
+
         document.head.appendChild(script);
 
         window.__PP[callbackName] = markup => {
@@ -195,7 +196,7 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'countryCode']);
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'offerType', 'countryCode']);
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
