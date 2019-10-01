@@ -30,6 +30,12 @@ export default function getModalContent(options, state, trackModalEvent) {
         const amountInput = iframe.contentDocument.getElementById('amount-input');
         const calculatorInstructions = iframe.contentDocument.getElementById('calculator-instructions');
         const calculateButton = iframe.contentDocument.getElementById('calculate-button');
+        const monthlyInterest = iframe.contentDocument.getElementById('disclosure-monthly-interest');
+        const nominalInterest = iframe.contentDocument.getElementById('disclosure-nominal-interest');
+        const minAmount = iframe.contentDocument.getElementById('disclosure-min-amount');
+        const maxAmount = iframe.contentDocument.getElementById('disclosure-max-amount');
+        const numPayments = iframe.contentDocument.getElementById('disclosure-num-payments');
+        const disclosure = iframe.contentDocument.getElementById('modal-disclosure');
 
         return {
             financeTermsTable,
@@ -42,17 +48,35 @@ export default function getModalContent(options, state, trackModalEvent) {
             nextButton,
             amountInput,
             calculatorInstructions,
-            calculateButton
+            calculateButton,
+            monthlyInterest,
+            nominalInterest,
+            minAmount,
+            maxAmount,
+            numPayments,
+            disclosure
         };
     };
 
     function fetchTerms(amount) {
-        const { loader, financeTermsTable, calculatorInstructions, amountInput } = state.contentElements;
+        const {
+            loader,
+            financeTermsTable,
+            calculatorInstructions,
+            amountInput,
+            monthlyInterest,
+            nominalInterest,
+            minAmount,
+            maxAmount,
+            numPayments,
+            disclosure
+        } = state.contentElements;
 
         loader.style.setProperty('opacity', 1);
         loader.style.setProperty('z-index', 1);
         financeTermsTable.style.setProperty('opacity', 0.4);
         financeTermsTable.style.setProperty('min-height', '100px');
+        disclosure.classList.add('hidden');
 
         return getTerms({ ...options, amount }).then(terms => {
             loader.style.setProperty('opacity', 0);
@@ -60,14 +84,26 @@ export default function getModalContent(options, state, trackModalEvent) {
             financeTermsTable.style.setProperty('opacity', 1);
             financeTermsTable.style.setProperty('min-height', '0');
 
+            const filteredOffers = terms.options ? terms.options.filter(opt => !opt.isNonQualified) : [];
+            const offer = filteredOffers[0];
+
             if (amount || terms.error) {
-                financeTermsTable.innerHTML = renderTermsTable(terms);
+                financeTermsTable.innerHTML = renderTermsTable(terms, offer);
             }
 
             if (!terms.error) {
                 amountInput.value = terms.formattedAmount;
 
                 calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+
+                if (offer) {
+                    monthlyInterest.innerText = `${offer.apr}%`;
+                    nominalInterest.innerText = `${offer.nominalRate}%`;
+                    minAmount.innerText = terms.formattedMinAmount;
+                    maxAmount.innerText = terms.formattedMaxAmount;
+                    numPayments.innerText = offer.term;
+                    disclosure.classList.remove('hidden');
+                }
             }
         });
     }

@@ -1,13 +1,9 @@
-export default function insertTermsTable(terms) {
+export default function insertTermsTable(terms, offer) {
     const genericError =
         '<h3 class="terms__error">Es ist ein Fehler bei der Berechnung Ihres Angebots aufgetreten. Bitte versuchen Sie es später noch einmal.</h3>';
     if (terms.error) {
         return genericError;
     }
-
-    const filteredOffers = terms.options ? terms.options.filter(opt => !opt.isNonQualified) : [];
-
-    const offer = filteredOffers[0];
 
     if (+terms.amount < terms.min_amount && terms.type === 'pala') {
         return `<h3 class="terms__error">PayPal Ratenzahlung steht ab einem Bestellwert von ${terms.formattedMinAmount}€ zur Verfügung. Bitte geben Sie einen Betrag von ${terms.formattedMinAmount}€ oder mehr ein.</h3>`;
