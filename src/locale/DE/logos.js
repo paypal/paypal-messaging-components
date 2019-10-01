@@ -28,5 +28,15 @@ export default {
             src: 'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_de_wh_alt_noPP.svg',
             dimensions: [1009, 79]
         }
+    },
+    STACKED: {
+        COLOR: {
+            src: 'https://www.paypalobjects.com/upstream/assets/img/de/ppc_de_fc_stacked.svg',
+            dimensions: [176, 52]
+        },
+        WHITE: {
+            src: 'https://www.paypalobjects.com/upstream/assets/img/de/ppc_de_wh_stacked.svg',
+            dimensions: [176, 52]
+        }
     }
 };

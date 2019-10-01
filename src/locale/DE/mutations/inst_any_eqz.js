@@ -89,15 +89,11 @@ export default {
                 ]
             }
         ],
-        [
-            'ratio:1x4',
-            {
-                logo: Logo.ALTERNATIVE.WHITE
-            }
-        ],
+        ['ratio:1x4', { logo: Logo.STACKED.WHITE }],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
+        ['ratio:1x4 && color:gray', { logo: Logo.STACKED.COLOR }],
+        ['ratio:1x4 && color:white', { logo: Logo.STACKED.COLOR }],
         [
             'ratio:1x1 && color:gray',
             {
