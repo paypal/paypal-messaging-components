@@ -29,6 +29,7 @@ export default {
             dimensions: [1009, 79]
         }
     },
+    // TODO: Use DAM URL for these logos
     STACKED: {
         COLOR: {
             src: 'https://www.paypalobjects.com/upstream/assets/img/de/ppc_de_fc_stacked.svg',
