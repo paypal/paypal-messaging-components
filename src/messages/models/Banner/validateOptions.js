@@ -102,17 +102,11 @@ export const validateStyleOptions = curry((logger, style) => {
     const validStyleOptions = getValidOptions();
 
     const validatedStyle = (() => {
-        if (
-            validateType(Types.OBJECT, style) &&
-            validateType(Types.STRING, style.layout) &&
-            validStyleOptions[style.layout]
-        ) {
+        if (validStyleOptions[style.layout]) {
             return getValidStyleOptions(logger, validStyleOptions, style);
         }
 
-        if (validateType(Types.OBJECT, style)) {
-            logInvalidOption(logger, 'style.layout', Object.keys(validStyleOptions), style.layout);
-        }
+        logInvalidOption(logger, 'style.layout', Object.keys(validStyleOptions), style.layout);
 
         // Get the default settings for a text banner
         return getValidStyleOptions(logger, validStyleOptions, { layout: 'text' });
