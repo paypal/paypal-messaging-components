@@ -158,7 +158,7 @@ export default curry((logger, { account, amount, style, ...otherOptions }) => {
         validOptions.style = style;
     } else {
         if (validateType(Types.OBJECT, style)) {
-            logInvalidType(logger, 'layout', Types.STRING, style.layout);
+            logInvalidType(logger, 'style.layout', Types.STRING, style.layout);
         } else if (style !== undefined) {
             logInvalidType(logger, 'style', Types.OBJECT, style);
         }

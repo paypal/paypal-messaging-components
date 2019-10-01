@@ -12,7 +12,6 @@ function assembleUrl({ account, amount, offerCountry }) {
     const baseUrl = __MESSAGES__.__TERMS_URL__;
     const queries = [
         'json=true',
-        // 'mid=8SUQZGVVX324C'
         stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,
         `country=${offerCountry}`,
         `currency=${currencyMap[offerCountry]}`

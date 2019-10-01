@@ -74,8 +74,6 @@ function fetcher(options) {
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
             call: `__PP.${callbackName}`
-            // country_code: __MESSAGES__.__LOCALE__,
-            // locale: LOCALE_MAP[__MESSAGES__.__LOCALE__]
         };
 
         const queryString = objectEntries(queryParams)
