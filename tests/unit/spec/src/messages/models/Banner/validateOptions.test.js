@@ -1,5 +1,5 @@
 import validateOptions, { validateStyleOptions } from 'src/messages/models/Banner/validateOptions';
-import { setLocale, getValidOptions } from '../../../../../../../src/locale';
+import { setLocale, getValidOptions } from 'src/locale';
 
 const mockLogger = {
     warn: jest.fn(),
