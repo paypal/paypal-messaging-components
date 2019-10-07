@@ -14,7 +14,7 @@ const devAccountMap = {
 
 module.exports = function proxyImadserv(app) {
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0 } = req.query;
+        const { call, currency_value: amount = 0, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
@@ -23,7 +23,10 @@ module.exports = function proxyImadserv(app) {
                 term: 12,
                 pymt_mo: `$${Number(amount / 12).toFixed(2)}`
             };
-            const banner = fs.readFileSync(`banners/${devAccountMap[account]}.json`, 'utf-8');
+            const banner =
+                dimensions !== 'x199x99'
+                    ? fs.readFileSync(`banners/${devAccountMap[account]}.json`, 'utf-8')
+                    : fs.readFileSync(`banners/ni.json`, 'utf-8');
             const populatedBanner = Object.entries(morsVars)
                 .reduce(
                     (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
