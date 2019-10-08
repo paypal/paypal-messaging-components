@@ -6,7 +6,7 @@
     },
     "data": {
         "headline": [
-            [[["Make ${term} payments of", "weak"], "${pymt_mo}/mo"], ["default", "small"]],
+            [[["Make ${term} payments of", "weak"], "${pymt_mo}/mo."], ["default", "small"]],
             ["Enjoy Easy Payments.", ["legacy-xsmall"]]
         ],
         "subHeadline": [
@@ -17,9 +17,9 @@
             ]
         ],
         "disclaimer": [
-            ["See terms", ["default", "xsmall"]],
-            [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
-            [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+            ["See terms.", ["default", "xsmall"]],
+            [["Minimum purchase required. Subject to credit approval.", ["See terms.", "em"]], ["legacy-medium"]],
+            [["Min purch req'd. Subject to credit approval.", ["See terms.", "em"]], ["legacy-medium.2"]]
         ]
     }
 }

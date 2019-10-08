@@ -17,6 +17,7 @@ export default {
                 messageWidth: [195, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
+                    replace: [['/mo.', '/mo']],
                     br: ['/mo']
                 }
             }
@@ -27,6 +28,7 @@ export default {
                 messageWidth: [175, 1000],
                 logo: false,
                 headline: {
+                    replace: [['/mo.', '/mo']],
                     br: ['/mo']
                 }
             }

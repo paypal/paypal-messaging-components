@@ -8,7 +8,7 @@ export default {
             {
                 styles: [basicMediaQuery(320)],
                 logo: Logo.PRIMARY.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }],
+                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+']] }],
                 disclaimer: ['extra', 'xsmall']
             }
         ],
@@ -21,7 +21,7 @@ export default {
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
-                    { tag: 'medium', br: ['purchases'] }
+                    { tag: 'medium', br: ['purchases'], replace: [['99+.', '99+']] }
                 ]
             }
         ],
@@ -39,7 +39,8 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['purchases'],
+                        replace: [['99+.', '99+']]
                     }
                 ]
             }
@@ -49,7 +50,7 @@ export default {
             {
                 styles: [basicMediaQuery(570)],
                 logo: Logo.ALTERNATIVE.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
+                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+']] }]
             }
         ],
         [

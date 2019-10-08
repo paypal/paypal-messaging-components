@@ -7,17 +7,22 @@
         <script src="./messaging.js" data-pp-account="DEV000NINONUS"></script>
     </head>
     <body>
-        <div class="messages" data-pp-message></div>
+        <div class="messages" data-pp-message data-pp-style-layout="custom">
+            <script type="text/template">
+                <h1>Banner Tool</h1>
+            </script>
+        </div>
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'flex',
-            //             ratio: '8x1',
-            //             color: 'blue'
-            //         }
-            //     })
-            //     .render('.messages');
+            paypal
+                .Messages({
+                    redirect: 'https://paypal.com/custompage',
+                    style: {
+                        layout: 'flex',
+                        ratio: '8x1',
+                        color: 'blue'
+                    }
+                })
+                .render('.messages');
         </script>
     </body>
 </html>

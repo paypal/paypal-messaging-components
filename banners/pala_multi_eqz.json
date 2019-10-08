@@ -7,7 +7,7 @@
     "data": {
         "headline": [
             [[["As low as", "weak"], "${pymt_mo}/mo at 0% APR."], ["default", "small"]],
-            [[["Pay as low as", "weak"], "${pymt_mo}/mo at 0% APR"], ["small.2", "medium", "large", "xlarge"]],
+            [[["Pay as low as", "weak"], "${pymt_mo}/mo at 0% APR."], ["small.2", "medium", "large", "xlarge"]],
             ["Enjoy Easy Payments.", ["legacy-small"]],
             ["Enjoy Easy Payments with No Interest.", ["legacy-medium"]],
             ["Enjoy No Interest when you choose PayPal Credit.", ["legacy-large"]]
@@ -20,9 +20,9 @@
             ]
         ],
         "disclaimer": [
-            ["See terms", ["default", "small"]],
-            [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-small"]],
-            [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]]
+            ["See terms.", ["default", "small"]],
+            [["Min purch req'd. Subject to credit approval.", ["See terms.", "em"]], ["legacy-small"]],
+            [["Minimum purchase required. Subject to credit approval.", ["See terms.", "em"]], ["legacy-medium"]]
         ]
     }
 }

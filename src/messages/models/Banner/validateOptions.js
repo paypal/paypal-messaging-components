@@ -153,6 +153,8 @@ function getValidStyleOptions(logger, options) {
  * @returns {Object} Object containing only valid options
  */
 export default curry((logger, { account, amount, countryCode, style, offer, ...otherOptions }) => {
+    console.log('otherOptions :', otherOptions);
+    console.log('logger : ', logger);
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -162,6 +164,7 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
     } else {
         validOptions.account = account;
     }
+    validOptions.redirecturl = otherOptions.redirect;
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 

@@ -24,6 +24,7 @@ export default {
                 messageWidth: [255, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
+                    replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
             }
@@ -34,6 +35,7 @@ export default {
                 messageWidth: [240, 1000],
                 logo: false,
                 headline: {
+                    replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
             }
@@ -43,7 +45,7 @@ export default {
             {
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
-                    replace: [['APR', 'APR.']],
+                    replace: [['APR', 'APR']],
                     br: ['APR.']
                 }
             }

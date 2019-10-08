@@ -322,18 +322,23 @@ const getModal = memoizeOnProps(createModal, ['account', 'amount', 'offerType'])
 
 export default {
     init({ options, meta, events, track }) {
-        if (options._legacy && stringStartsWith(meta.offerType, 'NI')) {
+        console.log('Options latest: ', options);
+        if ((options._legacy && stringStartsWith(meta.offerType, 'NI')) || options.style.layout === 'custom') {
             events.on('click', evt => {
                 const { target } = evt;
 
                 if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
-                    window.open(
-                        target.parentNode.href,
-                        'PayPal Credit Terms',
-                        'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
-                    );
+                    if (options.redirecturl !== undefined && options.redirecturl !== null) {
+                        window.open(options.redirecturl);
+                    } else {
+                        window.open(
+                            target.parentNode.href,
+                            'PayPal Credit Terms',
+                            'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
+                        );
 
-                    evt.preventDefault();
+                        evt.preventDefault();
+                    }
                 } else {
                     window.open(meta.clickUrl, '_blank');
                 }
