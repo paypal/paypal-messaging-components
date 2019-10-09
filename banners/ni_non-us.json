@@ -15,12 +15,12 @@
         ],
         "subHeadline": [["Check out with PayPal and choose PayPal Credit.", ["default", "small"]]],
         "disclaimer": [
-            ["See terms.", ["default", "xsmall"]],
+            ["See terms", ["default", "xsmall"]],
             [
                 "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months. Minimum monthly payments required.",
                 ["xlarge"]
             ],
-            [["US customers only. Subject to credit approval.", ["See terms.", "em"]], ["legacy-medium"]],
+            [["US customers only. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
             ["US only.", ["extra"]],
             ["US customers only.", ["extra.2"]]
         ]
