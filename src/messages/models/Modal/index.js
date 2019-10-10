@@ -322,14 +322,12 @@ const getModal = memoizeOnProps(createModal, ['account', 'amount', 'offerType'])
 
 export default {
     init({ options, meta, events, track }) {
-        console.log('Options latest: ', options);
-        if ((options._legacy && stringStartsWith(meta.offerType, 'NI')) || options.style.layout === 'custom') {
+        if (options._legacy && stringStartsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {
                 const { target } = evt;
-
                 if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
-                    if (options.redirecturl !== undefined && options.redirecturl !== null) {
-                        window.open(options.redirecturl);
+                    if (options.landingurl !== undefined && options.landingurl !== null) {
+                        window.open(options.landingurl);
                     } else {
                         window.open(
                             target.parentNode.href,
@@ -341,6 +339,17 @@ export default {
                     }
                 } else {
                     window.open(meta.clickUrl, '_blank');
+                }
+            });
+        } else if (
+            options.style.layout === 'custom' &&
+            options.landingurl !== undefined &&
+            options.landingurl !== null
+        ) {
+            events.on('click', evt => {
+                const { target } = evt;
+                if (target.tagName === 'IFRAME' || target.tagName === 'H1') {
+                    window.open(options.landingurl);
                 }
             });
         } else {

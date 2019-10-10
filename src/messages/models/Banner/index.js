@@ -49,7 +49,6 @@ const onRendered = ({ options: { onRender } }) => {
 
 const Banner = {
     create(initialOptions, inputWrapper, logger) {
-        console.log('initialOptions : ', initialOptions);
         logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
         const isLegacy = currentOptions._legacy;
@@ -69,7 +68,6 @@ const Banner = {
         });
 
         function render(totalOptions) {
-            console.log('totalOptions :', totalOptions);
             logger.info(EVENTS.RENDER_START);
 
             return pipe(
@@ -92,7 +90,7 @@ const Banner = {
                 ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
-                        passThrough(console.log),
+                        passThrough,
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)

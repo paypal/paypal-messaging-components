@@ -55,7 +55,6 @@ function mutateMarkup(markup) {
  * @returns {Promise<string>} Banner Markup
  */
 function fetcher(options) {
-    console.log('options banner :: ', options);
     const {
         account,
         amount,

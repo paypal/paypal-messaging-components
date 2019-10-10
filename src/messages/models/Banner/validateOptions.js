@@ -146,15 +146,18 @@ function getValidStyleOptions(logger, options) {
     };
 }
 
+function isUrlValid(userInput) {
+    const res = userInput.match(/^((ftp|http|https):\/\/)?([A-z]+)\.([A-z]{2,})/gi);
+    return res;
+}
+
 /**
  * Validate user options object. Warn the user against invalid options
  * and ensure only valid options are returned
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, countryCode, style, offer, ...otherOptions }) => {
-    console.log('otherOptions :', otherOptions);
-    console.log('logger : ', logger);
+export default curry((logger, { account, amount, countryCode, style, offer, landingurl, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -164,7 +167,17 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
     } else {
         validOptions.account = account;
     }
-    validOptions.redirecturl = otherOptions.redirect;
+
+    if (typeof landingurl !== 'undefined' && style.layout === 'custom') {
+        if (!validateType(Types.STRING, landingurl)) {
+            logInvalidType(logger, 'landingurl', Types.STRING, landingurl);
+        } else if (!isUrlValid(landingurl)) {
+            logInvalid(logger, 'landingurl', 'Provided invalid landingurl.');
+        } else {
+            validOptions.landingurl = landingurl;
+        }
+    }
+
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
