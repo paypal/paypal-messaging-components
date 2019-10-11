@@ -24,7 +24,6 @@ export default {
                 messageWidth: [250, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
-                    replace: [['months', 'months']],
                     br: ['months']
                 }
             }
@@ -45,7 +44,6 @@ export default {
             {
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
-                    replace: [['months', 'months']],
                     br: ['months.']
                 }
             }

@@ -337,10 +337,9 @@ export default {
                     window.open(meta.clickUrl, '_blank');
                 }
             });
-        }
-        if (options.style.layout === 'custom' && options.landingurl) {
+        } else if (options.style.layout === 'custom' && options.landingUrl) {
             events.on('click', () => {
-                window.open(options.landingurl);
+                window.open(options.landingUrl);
             });
         } else {
             const { open: openModal } = getModal({ ...options, ...meta, track });

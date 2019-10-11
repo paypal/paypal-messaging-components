@@ -90,7 +90,6 @@ const Banner = {
                 ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
-                        passThrough,
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)

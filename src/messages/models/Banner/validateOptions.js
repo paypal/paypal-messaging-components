@@ -152,7 +152,7 @@ function getValidStyleOptions(logger, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, countryCode, style, offer, landingurl, ...otherOptions }) => {
+export default curry((logger, { account, amount, countryCode, style, offer, landingUrl, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -163,11 +163,11 @@ export default curry((logger, { account, amount, countryCode, style, offer, land
         validOptions.account = account;
     }
 
-    if (typeof landingurl !== 'undefined' && style.layout === 'custom') {
-        if (!validateType(Types.STRING, landingurl)) {
-            logInvalidType(logger, 'landingurl', Types.STRING, landingurl);
+    if (typeof landingUrl !== 'undefined' && style.layout === 'custom') {
+        if (!validateType(Types.STRING, landingUrl)) {
+            logInvalidType(logger, 'landingUrl', Types.STRING, landingUrl);
         } else {
-            validOptions.landingurl = landingurl;
+            validOptions.landingUrl = landingUrl;
         }
     }
 
