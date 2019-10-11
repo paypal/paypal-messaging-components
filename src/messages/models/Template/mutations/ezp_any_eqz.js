@@ -45,7 +45,6 @@ export default {
             {
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
-                    replace: [['APR', 'APR']],
                     br: ['APR.']
                 }
             }

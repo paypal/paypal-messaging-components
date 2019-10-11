@@ -326,31 +326,21 @@ export default {
             events.on('click', evt => {
                 const { target } = evt;
                 if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
-                    if (options.landingurl !== undefined && options.landingurl !== null) {
-                        window.open(options.landingurl);
-                    } else {
-                        window.open(
-                            target.parentNode.href,
-                            'PayPal Credit Terms',
-                            'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
-                        );
+                    window.open(
+                        target.parentNode.href,
+                        'PayPal Credit Terms',
+                        'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
+                    );
 
-                        evt.preventDefault();
-                    }
+                    evt.preventDefault();
                 } else {
                     window.open(meta.clickUrl, '_blank');
                 }
             });
-        } else if (
-            options.style.layout === 'custom' &&
-            options.landingurl !== undefined &&
-            options.landingurl !== null
-        ) {
-            events.on('click', evt => {
-                const { target } = evt;
-                if (target.tagName === 'IFRAME' || target.tagName === 'H1') {
-                    window.open(options.landingurl);
-                }
+        }
+        if (options.style.layout === 'custom' && options.landingurl) {
+            events.on('click', () => {
+                window.open(options.landingurl);
             });
         } else {
             const { open: openModal } = getModal({ ...options, ...meta, track });
