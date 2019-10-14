@@ -30,7 +30,10 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
     options: {
         id: 0,
         amount: 100,
-        account
+        account,
+        style: {
+            layout: 'text'
+        }
     },
     events: eventsOn(container),
     track: jest.fn()
