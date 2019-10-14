@@ -10,7 +10,7 @@
             ["Enjoy ${term} Easy Payments with No Interest.", ["legacy-small"]]
         ],
         "subHeadline": [
-            ["Choose PayPal Credit and select ${term} Easy Payments to pay over time.", ["legacy-medium"]],
+            ["Choose PayPal Credit and select ${term} Easy Payments to pay over time", ["legacy-medium"]],
             ["No money due today.", ["default", "small"]]
         ],
         "disclaimer": [
