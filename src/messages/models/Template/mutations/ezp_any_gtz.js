@@ -76,7 +76,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: { br: ['over', 'months'] },
+                headline: { br: ['over', 'months.'] },
                 subHeadline: { tag: 'xsmall', br: ['money'] }
             }
         ],
