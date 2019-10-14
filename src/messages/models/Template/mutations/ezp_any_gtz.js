@@ -12,7 +12,7 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'xsmall',
-                    br: ['months']
+                    br: ['months.']
                 },
                 disclaimer: 'xsmall.2'
             }
@@ -24,6 +24,7 @@ export default {
                 messageWidth: [250, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
+                    replace: [['months.', 'months']],
                     br: ['months']
                 }
             }

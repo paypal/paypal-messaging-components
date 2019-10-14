@@ -12,7 +12,7 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'small',
-                    br: ['months', 'APR']
+                    br: ['months', 'APR.']
                 },
                 disclaimer: 'xsmall.2'
             }

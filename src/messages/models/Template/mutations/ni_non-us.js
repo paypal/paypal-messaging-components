@@ -8,7 +8,7 @@ export default {
             {
                 styles: [basicMediaQuery(320)],
                 logo: Logo.PRIMARY.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+']] }],
+                headline: ['xsmall', { tag: 'medium', br: ['months'] }],
                 disclaimer: ['extra', 'xsmall']
             }
         ],
@@ -50,7 +50,7 @@ export default {
             {
                 styles: [basicMediaQuery(570)],
                 logo: Logo.ALTERNATIVE.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+']] }]
+                headline: ['xsmall', { tag: 'medium', br: ['months'] }]
             }
         ],
         [

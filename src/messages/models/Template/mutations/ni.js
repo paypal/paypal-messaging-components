@@ -69,7 +69,10 @@ export default {
                 messageWidth: [200, 1000],
                 styles: [basicMediaQuery(280)],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: [{ tag: 'xsmall', replace: [['time.', 'time']] }, { tag: 'medium', br: ['purchases'] }]
+                headline: [
+                    { tag: 'xsmall', replace: [['time.', 'time']] },
+                    { tag: 'medium', br: ['purchases'], replace: [['99+.', '99+']] }
+                ]
             }
         ],
         [
@@ -86,7 +89,8 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['purchases'],
+                        replace: [['99+.', '99+']]
                     }
                 ]
             }
