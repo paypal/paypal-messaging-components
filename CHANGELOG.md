@@ -1,6 +1,83 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+# [1.2.0](https://github.com/paypal/paypal-messaging-components/compare/v1.1.4...v1.2.0) (2019-09-27)
+
+
+### Bug Fixes
+
+* log events for legacy custom banners ([#59](https://github.com/paypal/paypal-messaging-components/issues/59)) ([5365d30](https://github.com/paypal/paypal-messaging-components/commit/5365d30))
+
+
+### Features
+
+* offer type preference config option ([#62](https://github.com/paypal/paypal-messaging-components/issues/62)) ([6bb87e1](https://github.com/paypal/paypal-messaging-components/commit/6bb87e1))
+
+### [1.1.4](https://github.com/paypal/paypal-messaging-components/compare/v1.1.3...v1.1.4) (2019-09-11)
+
+
+### Bug Fixes
+
+* 3 month ezp placement switch ([#55](https://github.com/paypal/paypal-messaging-components/issues/55)) ([eeb6dfe](https://github.com/paypal/paypal-messaging-components/commit/eeb6dfe))
+
+
+
+### [1.1.3](https://github.com/paypal/paypal-messaging-components/compare/v1.1.2...v1.1.3) (2019-09-11)
+
+
+
+### [1.1.2](https://github.com/paypal/paypal-messaging-components/compare/v1.1.1...v1.1.2) (2019-09-04)
+
+
+### Bug Fixes
+
+* handle FireFox async dynamic iframe creation ([#45](https://github.com/paypal/paypal-messaging-components/issues/45)) ([eb0f55e](https://github.com/paypal/paypal-messaging-components/commit/eb0f55e))
+
+
+
+### [1.1.1](https://github.com/paypal/paypal-messaging-components/compare/v1.1.0...v1.1.1) (2019-08-23)
+
+
+### Tests
+
+* add basic Jest tests ([#2](https://github.com/paypal/paypal-messaging-components/issues/2)) ([1b58332](https://github.com/paypal/paypal-messaging-components/commit/1b58332))
+
+
+
+### [1.1.0](https://github.com/paypal/paypal-messaging-components/compare/v1.0.6...v1.1.0) (2019-08-14)
+
+
+### Features
+
+* re-render when iframe container is moved around the DOM ([#15](https://github.com/paypal/paypal-messaging-components/issues/15)) ([d36d020](https://github.com/paypal/paypal-messaging-components/commit/d36d020))
+
+
+
+### [1.0.6](https://github.com/paypal/paypal-messaging-components/compare/v1.0.5...v1.0.6) (2019-08-13)
+
+
+### Bug Fixes
+
+* handle preloaded images ([#35](https://github.com/paypal/paypal-messaging-components/issues/35)) ([3e2ac02](https://github.com/paypal/paypal-messaging-components/commit/3e2ac02))
+
+
+
+### [1.0.5](https://github.com/paypal/paypal-messaging-components/compare/v1.0.4...v1.0.5) (2019-08-12)
+
+
+### Bug Fixes
+
+* correct minimum width calculation ([#33](https://github.com/paypal/paypal-messaging-components/issues/33)) ([f932a06](https://github.com/paypal/paypal-messaging-components/commit/f932a06))
+
+
+
+### [1.0.4](https://github.com/paypal/paypal-messaging-components/compare/v1.0.3...v1.0.4) (2019-08-12)
+
+
+### Bug Fixes
+
+* legacy HTML banners properly apply style in IE and Edge ([#31](https://github.com/paypal/paypal-messaging-components/issues/31)) ([15326a2](https://github.com/paypal/paypal-messaging-components/commit/15326a2))
+
+
 
 ### [1.0.3](https://github.com/paypal/paypal-messaging-components/compare/v1.0.2...v1.0.3) (2019-08-01)
 
@@ -44,7 +121,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 -   use fetched custom markup to validate sign ([45dc002](https://github.com/paypal/paypal-messaging-components/commit/45dc002))
 
-## [0.4.0](https://github.com/paypal/paypal-messaging-components/compare/v0.3.7...v0.4.0) (2019-06-17)
+### [0.4.0](https://github.com/paypal/paypal-messaging-components/compare/v0.3.7...v0.4.0) (2019-06-17)
 
 ### Features
 

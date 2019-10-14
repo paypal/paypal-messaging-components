@@ -2,27 +2,10 @@ import objectValues from 'core-js-pure/stable/object/values';
 
 const events = {
     click: new Map(),
-    message: new Map(),
     scroll: new Map(),
     hover: new Map(),
     resize: new Map()
 };
-
-/**
- * Global on message event handler
- * @param {Event} evt Event object
- */
-function onMessage(evt) {
-    // Origin may need to change depending on how the iframe content is delivered
-    // Make sure the modal event is fired from the related modal iframe
-    if (
-        evt.origin === window.top.location.origin &&
-        evt.source === (evt.source.frameElement && evt.source.frameElement.contentWindow) &&
-        events.message.has(evt.source.frameElement)
-    ) {
-        events.message.get(evt.source.frameElement)(evt);
-    }
-}
 
 /**
  * Global on resize event handler
@@ -59,7 +42,10 @@ function onHover(evt) {
 function onClick(evt) {
     if (evt.target.ownerDocument && events.click.has(evt.target.ownerDocument.defaultView.frameElement)) {
         events.click.get(evt.target.ownerDocument.defaultView.frameElement)(evt);
-    } else if (events.click.has(evt.currentTarget)) {
+    } else if (
+        events.click.has(evt.currentTarget) &&
+        evt.currentTarget !== evt.target // We don't want direct clicks on the container to fire an event, only from elements inside the container
+    ) {
         events.click.get(evt.currentTarget)(evt);
     }
 }
@@ -74,8 +60,6 @@ function ensureListener(type, elem) {
         window.addEventListener('scroll', onScroll);
     } else if (type === 'hover' && events.hover.size === 0) {
         document.addEventListener('mouseover', onHover);
-    } else if (type === 'message' && events.message.size === 0) {
-        window.addEventListener('message', onMessage);
     } else if (type === 'resize' && !events[type].has(elem)) {
         elem.contentWindow.addEventListener('resize', onResize);
     } else if (type === 'click' && !events[type].has(elem)) {
@@ -116,8 +100,8 @@ function addEventListener(type, elem, handler) {
 export default function addEventListenersTo(container) {
     return {
         on: (type, handler) => {
-            // Message and resize events are not supported for non-iframe containers
-            if (container.tagName === 'IFRAME' || (type !== 'resize' && type !== 'message')) {
+            // Resize events are not supported for non-iframe containers
+            if (container.tagName === 'IFRAME' || type !== 'resize') {
                 addEventListener(type, container, handler);
             }
         },
@@ -130,15 +114,13 @@ export default function addEventListenersTo(container) {
                 document.removeEventListener('mouseover', onHover);
             } else if (type === 'click') {
                 if (container.tagName === 'IFRAME') {
-                    container.contentWindow.removeEventListener('click', onClick);
+                    container.contentWindow.document.body.removeEventListener('click', onClick);
                 } else {
                     container.removeEventListener('click', onClick);
                 }
             } else if (container.tagName === 'IFRAME') {
                 if (type === 'resize') {
                     container.contentWindow.removeEventListener('resize', onResize);
-                } else if (type === 'message' && events.message.size === 0) {
-                    window.removeEventListener('message', onMessage);
                 }
             }
         }
@@ -159,13 +141,9 @@ export function clearEvents(container) {
         document.removeEventListener('mouseover', onHover);
     }
 
-    if (events.message.size === 0) {
-        window.removeEventListener('message', onMessage);
-    }
-
     if (container.tagName === 'IFRAME') {
         container.contentWindow.removeEventListener('resize', onResize);
-        container.contentWindow.removeEventListener('click', onClick);
+        container.contentWindow.document.body.removeEventListener('click', onClick);
     } else {
         container.removeEventListener('click', onClick);
     }

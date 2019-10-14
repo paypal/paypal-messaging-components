@@ -6,7 +6,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 
-const Types = {
+export const Types = {
     ANY: 'ANY',
     STRING: 'STRING',
     BOOLEAN: 'BOOLEAN',
@@ -22,7 +22,7 @@ const VALID_OPTIONS = {
 };
 
 // Combination of all valid style option combinations
-const VALID_STYLE_OPTIONS = {
+export const VALID_STYLE_OPTIONS = {
     text: {
         logo: {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
@@ -152,7 +152,7 @@ function getValidStyleOptions(logger, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, countryCode, style, ...otherOptions }) => {
+export default curry((logger, { account, amount, countryCode, style, offer, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
 
     if (!validateType(Types.STRING, account)) {
@@ -162,7 +162,6 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
     } else {
         validOptions.account = account;
     }
-
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
@@ -182,6 +181,16 @@ export default curry((logger, { account, amount, countryCode, style, ...otherOpt
             logInvalid(logger, 'countryCode', 'Country code should be 2 characters.');
         } else {
             validOptions.countryCode = countryCode;
+        }
+    }
+
+    if (typeof offer !== 'undefined') {
+        if (!validateType(Types.STRING, offer)) {
+            logInvalidType(logger, 'offer', Types.STRING, offer);
+        } else if (offer !== 'NI') {
+            logInvalid(logger, 'offer', 'Ensure valid offer type.');
+        } else {
+            validOptions.offerType = offer;
         }
     }
 

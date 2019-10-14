@@ -4,6 +4,10 @@
         display: none;
     }
 
+    .message__messaging {
+        position: relative;
+    }
+
     .message__disclaimer {
         font-size: 0.625rem;
     }
@@ -25,10 +29,6 @@
 
     .message__headline span.multi:nth-of-type(1) {
         display: inline;
-    }
-
-    .message__disclaimer {
-        padding-right: 10%;
     }
 }
 
@@ -60,6 +60,11 @@
         font-size: 3vw;
         padding-right: 12%;
         margin: 0 0 1% 0;
+    }
+
+    .message__sub-headline {
+        font-size: 2.5vw;
+        display: inline;
     }
 
     .message__headline span.multi:nth-of-type(2) {

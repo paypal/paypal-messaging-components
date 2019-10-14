@@ -1,19 +1,22 @@
 language: node_js
 
 node_js:
-    - '8'
+    - '10'
 
-if: NOT (tag IS present OR commit_message =~ /^chore\(release\):/)
+cache:
+    npm: false
+
+before_install:
+    - npm i -g npm@6
 
 script:
     - npm run lint
     - npm run test
 
-before_deploy: npm run release
-
 deploy:
-    provider: npm
-    email: $NPM_EMAIL
-    api_key: $NPM_TOKEN
+    provider: script
+    skip_cleanup: true
+    script:
+        - npx semantic-release
     on:
         branch: release

@@ -28,14 +28,14 @@ const imageTemplate = document.createElement('div');
 imageTemplate.innerHTML = imageTemplateMarkup;
 
 function splitSpan(span, breakWord) {
-    const text = span.innerText;
+    const text = span.textContent;
     const breakIndex = text.indexOf(breakWord) + breakWord.length;
     const s1 = span.cloneNode();
-    s1.innerText = text.slice(0, breakIndex).trim();
+    s1.textContent = text.slice(0, breakIndex).trim();
 
     if (text.length !== breakIndex) {
         const s2 = span.cloneNode();
-        s2.innerText = text.slice(breakIndex).trim();
+        s2.textContent = text.slice(breakIndex).trim();
         return [s1, s2];
     }
 
@@ -56,7 +56,7 @@ function createLineBreaks(breaks, markup) {
     const availableBreaks = [...breaks];
 
     markup.forEach(currentSpan => {
-        const text = currentSpan.innerText;
+        const text = currentSpan.textContent;
         const containedBreaks = [];
 
         while (stringIncludes(text, availableBreaks[0])) {
@@ -73,7 +73,7 @@ function createLineBreaks(breaks, markup) {
         }
 
         const startSpan = document.createElement('span');
-        startSpan.innerText = text;
+        startSpan.textContent = text;
         startSpan.className = 'br';
 
         const breakSpans = containedBreaks.reduce(
@@ -102,11 +102,11 @@ function replace(replacements, markup) {
     markup.forEach(span => {
         const text = replacements.reduce(
             (accumulator, [substr, replacement]) => accumulator.replace(substr, replacement),
-            span.innerText
+            span.textContent
         );
 
         // eslint-disable-next-line no-param-reassign
-        span.innerText = text;
+        span.textContent = text;
     });
 }
 
@@ -117,9 +117,9 @@ function getMarkup(textData, options = {}) {
         const span = document.createElement('span');
 
         if (Array.isArray(text)) {
-            [span.innerText, span.className] = text;
+            [span.textContent, span.className] = text;
         } else {
-            span.innerText = text;
+            span.textContent = text;
         }
 
         return span;
@@ -264,56 +264,6 @@ function createImageTemplateNode(style, { meta }) {
 }
 
 /**
- * IMPORTANT: This function is fragile and very dependent on how
- * IE handles sizing containers with specific style property values
- * @param {HTMLElement} container Container element
- * @returns {Number} Container width
- */
-const getContentWidth = container => {
-    const contentContainer = container.querySelector('.message__content');
-    const contentStyles = window.getComputedStyle(contentContainer);
-    const children = arrayFrom(contentContainer.children);
-    const properties = [
-        'margin-left',
-        'border-left-width',
-        'padding-left',
-        'width',
-        'padding-right',
-        'border-right-width',
-        'margin-right'
-    ];
-
-    // When the display is flex, we are stacking the child components horizontally.
-    // We calculate the total width by adding the width of all the children.
-    if (stringIncludes(contentStyles.getPropertyValue('display'), 'flex')) {
-        return Math.round(
-            children.reduce((accumulator, child) => {
-                const childStyles = window.getComputedStyle(child);
-                return (
-                    accumulator +
-                    properties.reduce(
-                        (accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)),
-                        0
-                    )
-                );
-            }, 0)
-        );
-    }
-
-    // If the display is not flex, it should be block to stack the child components vertically.
-    // We use display block instead of flex because IE does not support the column orientation very well.
-    // We calculate the width of the container by the largest width of all the stacked children.
-    return Math.max(
-        ...children.map(child => {
-            const childStyles = window.getComputedStyle(child);
-            return Math.round(
-                properties.reduce((accumlator, prop) => accumlator + parseFloat(childStyles.getPropertyValue(prop)), 0)
-            );
-        })
-    );
-};
-
-/**
  * Create a new template DOM element
  * @param {Object} options Banner options, including style rules to be applied to the template
  * @param {Array} data Content data to be inserted into the template
@@ -369,9 +319,9 @@ function createTemplateNode(options, markup) {
     }
     if (objectGet(options, 'style.logo.type') === 'none') {
         const span = document.createElement('span');
-        span.innerText = 'with ';
+        span.textContent = 'with ';
         const strong = document.createElement('strong');
-        strong.innerText = 'PayPal Credit.';
+        strong.textContent = 'PayPal Credit.';
         span.appendChild(strong);
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);
@@ -402,15 +352,6 @@ function createTemplateNode(options, markup) {
         prependStyle(newTemplate, prefixStyles(mutationRules.styles.join('')));
     }
     prependStyle(newTemplate, prefixStyles(styleRules.join('\n')));
-
-    // Determine minimum possible width before content overflow
-    newTemplate.style.opacity = 0;
-    newTemplate.style.width = 0;
-    newTemplate.style.height = 0;
-    newTemplate.style.overflow = 'hidden';
-    document.body.appendChild(newTemplate);
-    newTemplate.width = getContentWidth(newTemplate);
-    document.body.removeChild(newTemplate);
 
     return newTemplate;
 }
