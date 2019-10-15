@@ -10,8 +10,7 @@ import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
-import { createState, memoizeOnProps, pipe, pluck } from '../../../utils';
-import { nextId } from '../../../utils/globalState';
+import { createState, memoizeOnProps, pipe, pluck, nextId } from '../../../utils';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');

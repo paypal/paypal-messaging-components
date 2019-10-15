@@ -3,7 +3,8 @@ module.exports = {
     testMatch: ['<rootDir>/tests/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
-        '^utils/(.*)': '<rootDir>/tests/utils/$1'
+        '^utils/(.*)': '<rootDir>/tests/utils/$1',
+        '@paypal/sdk-client/src': '@paypal/sdk-client'
     },
     transform: {
         '^.+\\.js$': 'babel-jest',

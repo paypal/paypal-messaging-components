@@ -25,19 +25,3 @@ export function createCallbackError(message, cb) {
 
     return error;
 }
-
-const DOMAINS = __MESSAGES__.__DOMAIN__;
-const URI = __MESSAGES__.__URI__;
-
-/**
- * Create a URL of the requested type from Webpack global variables
- * @param {String} type URL type
- * @returns {String} URL of requested type
- */
-export function getGlobalUrl(type) {
-    const envField = `__${__ENV__.toUpperCase()}__`;
-    const typeField = `__${type.toUpperCase()}__`;
-    const domain = (DOMAINS[typeField] && DOMAINS[typeField][envField]) || DOMAINS[envField];
-
-    return `${domain}${URI[typeField]}`;
-}
