@@ -11,8 +11,18 @@ module.exports = {
     },
     setupFilesAfterEnv: ['<rootDir>/tests/utils/setup.js'],
     globals: {
+        __ENV__: 'test',
         __MESSAGES__: {
-            __VERSION__: '1.0.0'
+            __VERSION__: '1.0.0',
+            __DOMAIN__: {
+                __TEST__: 'http://localhost.paypal.com:8080'
+            },
+            __URI__: {
+                __MESSAGE__: '/imadserver/upstream',
+                __MODAL__: '/upstream/assets/messaging/modal',
+                __LOGGER__: '/ppcredit/messagingLogger',
+                __TERMS__: '/ppcredit/finance/terms'
+            }
         }
     }
 };

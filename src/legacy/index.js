@@ -5,6 +5,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
 import { nextId } from '../utils/globalState';
+import { getGlobalUrl } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -221,7 +222,7 @@ class Ad {
 
     request() {
         this.logger.info(EVENTS.FETCH_START);
-        this.script = new JSONPRequest(`${__MESSAGES__.__BANNER_URL__}${this.queryString}`);
+        this.script = new JSONPRequest(`${getGlobalUrl('MESSAGE')}${this.queryString}`);
     }
 
     initQueryString() {

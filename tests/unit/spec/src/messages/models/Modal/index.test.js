@@ -1,8 +1,8 @@
 import { getByRole, fireEvent, within, wait } from '@testing-library/dom';
 
 import createContainer from 'utils/createContainer';
-import mockEzpModal from 'src/../demo/modals/ezp.html';
-import mockNiModal from 'src/../demo/modals/ni.html';
+import mockEzpModal from 'src/../demo/upstream/assets/messaging/modal/ezp.html';
+import mockNiModal from 'src/../demo/upstream/assets/messaging/modal/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
 

@@ -1,7 +1,7 @@
 import stringPadStart from 'core-js-pure/stable/string/pad-start';
 import arrayFind from 'core-js-pure/stable/array/find';
 
-import { createState, objectGet } from '../../../utils';
+import { createState, objectGet, getGlobalUrl } from '../../../utils';
 import sendBeacon from './sendBeacon';
 
 export const EVENTS = {
@@ -75,7 +75,7 @@ export const Logger = {
                     setState({ history: [...state.history, corrId].slice(-5) });
                 }
             };
-            xhttp.open('POST', __MESSAGES__.__LOGGING_URL__, true);
+            xhttp.open('POST', getGlobalUrl('LOGGER'), true);
             xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             // Some sites setting Array.prototype.toJSON causing non-standard JSON stringify
             // ex: https://www.interpunk.com/
