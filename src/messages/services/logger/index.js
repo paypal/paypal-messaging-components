@@ -54,6 +54,7 @@ export const Logger = {
             const subType = arrayFind(state.logs, ({ event }) => event === 'Create' || event === 'Update');
             const payload = {
                 version: __MESSAGES__.__VERSION__,
+                target: __MESSAGES__.__TARGET__,
                 url: window.location.href,
                 selector,
                 type: `${type}${subType ? `-${subType.event}` : ''}`,

@@ -6,7 +6,7 @@ import { getInlineOptions } from '../utils';
 
 export function setup() {
     // Populate global config options
-    if (__MESSAGES__.__SDK__) {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
         const script = getSDKScript();
         if (script) {
             Messages.setGlobalConfig({
