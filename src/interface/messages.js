@@ -1,4 +1,5 @@
-import { getInlineOptions, globalState, getScript, getAccount } from '../utils';
+import { getInlineOptions, globalState, getScript, getAccount, getEnv } from '../utils';
+import { Logger } from '../messages/services/logger';
 import Messages from '../messages';
 
 export function setup() {
@@ -17,6 +18,8 @@ export function setup() {
             // Alias for pilot merchant support
             window.paypal.Message = Messages;
         }
+    } else if (getEnv() === 'sandbox') {
+        Logger.warn('The messages component does not currently support the PayPal sandbox environment.');
     }
 
     // Requires a merchant account to render a message
