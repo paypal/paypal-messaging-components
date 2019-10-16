@@ -1,64 +1,64 @@
 {
-  "name": "@paypal/messaging-components",
-  "version": "1.2.0",
-  "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
-  "homepage": "https://github.com/paypal/paypal-messaging-components",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/paypal/paypal-messaging-components.git"
-  },
-  "main": "dist/messaging.js",
-  "module": "src/index.js",
-  "files": [
-    "src/",
-    "dist/",
-    "__sdk__.js",
-    "globals.js"
-  ],
-  "scripts": {
-    "build": "./scripts/travis-ci/assets.sh",
-    "build:standalone": "webpack --env.standalone",
-    "build:legacy": "webpack --env.legacy --env.standalone",
-    "build:analyze": "webpack --env.analyze --env.standalone",
-    "dev": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv",
-    "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.standalone",
-    "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.legacy --env.standalone",
-    "lint": "eslint . --ext .js,.jsx",
-    "preinstall": "rm -rf node_modules",
-    "start": "npm run dev",
-    "test": "jest"
-  },
-  "dependencies": {
-    "@paypal/sdk-client": "^4.0.80",
-    "core-js-pure": "^3.0.1",
-    "zalgo-promise": "^1.0.38"
-  },
-  "devDependencies": {
-    "@semantic-release/changelog": "^3.0.4",
-    "@semantic-release/exec": "^3.3.6",
-    "@semantic-release/git": "^7.0.16",
-    "@testing-library/dom": "^6.2.0",
-    "@testing-library/jest-dom": "^4.1.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-import-resolver-jest": "^2.1.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "got": "^9.6.0",
-    "grumbler-scripts": "^3.0.46",
-    "husky": "^2.3.0",
-    "jest": "^24.3.0",
-    "jest-environment-jsdom-fifteen": "^1.0.0",
-    "lint-staged": "^8.0.4",
-    "prettier": "^1.14.3",
-    "prettier-eslint": "^8.8.2",
-    "webpack": "^4.32.0",
-    "webpack-dev-server": "^3.4.1"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@paypal/messaging-components",
+    "version": "1.2.0",
+    "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
+    "homepage": "https://github.com/paypal/paypal-messaging-components",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/paypal/paypal-messaging-components.git"
+    },
+    "main": "dist/messaging.js",
+    "module": "src/index.js",
+    "files": [
+        "src/",
+        "dist/",
+        "__sdk__.js",
+        "globals.js"
+    ],
+    "scripts": {
+        "build": "./scripts/travis-ci/assets.sh",
+        "build:standalone": "webpack --env.standalone",
+        "build:legacy": "webpack --env.legacy --env.standalone",
+        "build:analyze": "webpack --env.analyze --env.standalone",
+        "dev": "webpack-dev-server --config webpack.config.dev.js --env.localMessage",
+        "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.standalone",
+        "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.legacy --env.standalone",
+        "lint": "eslint . --ext .js,.jsx",
+        "preinstall": "rm -rf node_modules",
+        "start": "npm run dev",
+        "test": "jest"
+    },
+    "dependencies": {
+        "@paypal/sdk-client": "^4.0.80",
+        "core-js-pure": "^3.0.1",
+        "zalgo-promise": "^1.0.38"
+    },
+    "devDependencies": {
+        "@semantic-release/changelog": "^3.0.4",
+        "@semantic-release/exec": "^3.3.6",
+        "@semantic-release/git": "^7.0.16",
+        "@testing-library/dom": "^6.2.0",
+        "@testing-library/jest-dom": "^4.1.0",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^24.8.0",
+        "eslint": "^5.8.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^4.3.0",
+        "eslint-import-resolver-jest": "^2.1.1",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-prettier": "^3.0.0",
+        "got": "^9.6.0",
+        "grumbler-scripts": "^3.0.46",
+        "husky": "^2.3.0",
+        "jest": "^24.3.0",
+        "jest-environment-jsdom-fifteen": "^1.0.0",
+        "lint-staged": "^8.0.4",
+        "prettier": "^1.14.3",
+        "prettier-eslint": "^8.8.2",
+        "webpack": "^4.32.0",
+        "webpack-dev-server": "^3.4.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
