@@ -1,7 +1,14 @@
 module.exports = {
     branch: 'release',
     plugins: [
-        '@semantic-release/commit-analyzer',
+        [
+            '@semantic-release/commit-analyzer',
+            {
+                preset: 'angular',
+                // Defaults: https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-rules.js
+                releaseRules: { type: 'refactor', release: 'patch' }
+            }
+        ],
         '@semantic-release/release-notes-generator',
         [
             '@semantic-release/changelog',
