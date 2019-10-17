@@ -17,7 +17,6 @@ const [localeSettings, updateLocaleSettings] = createState({});
 
 export const setLocale = offerCountry => updateLocaleSettings(getLocaleSettings(offerCountry));
 
-// export const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
 export function getLocaleClass() {
     return localeSettings.localeClass;
 }

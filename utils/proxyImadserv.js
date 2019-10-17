@@ -19,11 +19,14 @@ const devAccountMap = {
 
 module.exports = function proxyImadserv(app) {
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0 } = req.query;
+        const { call, currency_value: amount = 0, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const banner = fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8');
+            const banner =
+                dimensions !== 'x199x99'
+                    ? fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8')
+                    : fs.readFileSync(`banners/ni.json`, 'utf-8');
             const bannerJSON = JSON.parse(banner);
 
             const morsVars = {

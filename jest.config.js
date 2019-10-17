@@ -4,7 +4,8 @@ module.exports = {
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
         '^utils/(.*)': '<rootDir>/tests/utils/$1',
-        'zalgo-promise/src': 'zalgo-promise'
+        'zalgo-promise/src': 'zalgo-promise',
+        '@paypal/sdk-client/src': '@paypal/sdk-client'
     },
     transform: {
         '^.+\\.js$': 'babel-jest',
@@ -12,9 +13,18 @@ module.exports = {
     },
     setupFilesAfterEnv: ['<rootDir>/tests/utils/setup.js'],
     globals: {
+        __ENV__: 'test',
         __MESSAGES__: {
             __VERSION__: '1.0.0',
-            __LOCALE__: 'US'
+            __DOMAIN__: {
+                __TEST__: 'http://localhost.paypal.com:8080'
+            },
+            __URI__: {
+                __MESSAGE__: '/imadserver/upstream',
+                __MODAL__: '/upstream/assets/messaging/modal',
+                __LOGGER__: '/ppcredit/messagingLogger',
+                __TERMS__: '/ppcredit/finance/terms'
+            }
         }
     }
 };

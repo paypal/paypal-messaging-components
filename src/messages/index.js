@@ -1,7 +1,7 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 
 import render from './controllers/render';
-import { globalState, setGlobalState } from '../utils/globalState';
+import { globalState, setGlobalState } from '../utils';
 
 // Setup global library state
 const Messages = config => ({ render: selector => render({ ...globalState.config, ...config }, selector) });

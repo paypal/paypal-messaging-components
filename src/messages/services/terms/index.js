@@ -1,7 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl } from '../../../utils';
 
 const currencyMap = {
     US: 'USD',
@@ -9,7 +9,7 @@ const currencyMap = {
 };
 
 function assembleUrl({ account, amount, offerCountry }) {
-    const baseUrl = __MESSAGES__.__TERMS_URL__;
+    const baseUrl = getGlobalUrl('TERMS');
     const queries = [
         'json=true',
         stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,

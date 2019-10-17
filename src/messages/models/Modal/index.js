@@ -6,13 +6,13 @@ import getModalMarkup from '../../services/modal';
 import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
 import { initParent, getModalElements } from './utils';
-import { createState, memoizeOnProps, pipe, pluck } from '../../../utils';
-import { globalState, setGlobalState } from '../../../utils/globalState';
+import { createState, memoizeOnProps, pipe, pluck, nextId } from '../../../utils';
 import { getModalContent, getModalType } from '../../../locale';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');
-    wrapper.setAttribute('data-pp-id', globalState.nextId);
+    const id = nextId();
+    wrapper.setAttribute('data-pp-id', id);
 
     const [iframe, { insertMarkup }] = createContainer('iframe');
     const [parentOpen, parentClose] = initParent();
@@ -34,12 +34,11 @@ function createModal(options) {
     const modalContent = getModalContent(options, state, trackModalEvent);
 
     const logger = Logger.create({
-        id: globalState.nextId,
+        id,
         account: options.account,
         selector: '__internal__',
         type: 'Modal'
     });
-    setGlobalState({ nextId: (globalState.nextId += 1) });
 
     function ensureReady() {
         if (state.error) {
@@ -223,7 +222,11 @@ export default {
                 }
             });
         } else {
-            const { open: openModal } = getModal({ ...options, ...meta, track });
+            const { open: openModal } = getModal({
+                ...options,
+                ...meta,
+                track
+            });
             events.on('click', openModal);
         }
     }

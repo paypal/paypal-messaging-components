@@ -1,14 +1,18 @@
 import { getByRole, fireEvent, within, wait } from '@testing-library/dom';
 
 import createContainer from 'utils/createContainer';
-import mockEzpModal from 'src/../demo/modals/US/ezp.html';
-import mockNiModal from 'src/../demo/modals/US/ni.html';
+import mockEzpModal from 'src/../demo/upstream/assets/messaging/modal/US/ezp.html';
+import mockNiModal from 'src/../demo/upstream/assets/messaging/modal/US/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
 import { setLocale } from 'src/locale';
 
 jest.mock('src/messages/services/modal', () =>
-    jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
+    jest.fn(({ offerType }) =>
+        Promise.resolve({
+            markup: offerType === 'NI' ? mockNiModal : mockEzpModal
+        })
+    )
 );
 jest.mock('src/messages/services/terms', () => jest.fn().mockResolvedValue(''));
 jest.mock('src/messages/services/logger', () => ({
@@ -39,7 +43,10 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
 setLocale('US');
 
 describe('Modal methods', () => {
-    afterEach(() => {
+    afterEach(async () => {
+        // TODO: Needed for tests to pass on Node 10
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         document.body.innerHTML = '';
     });
 
@@ -99,7 +106,10 @@ describe('Modal methods', () => {
 
         await wait(() => expect(modal).toBeVisible());
 
-        fireEvent.keyUp(modalContainer.contentWindow, { key: 'Escape', code: 27 });
+        fireEvent.keyUp(modalContainer.contentWindow, {
+            key: 'Escape',
+            code: 27
+        });
 
         await wait(() => expect(modal).not.toBeVisible());
 
@@ -171,8 +181,7 @@ describe('Modal methods', () => {
         const accordion = modalContainer.contentDocument.querySelector('.accordion');
         const accordionTitle = accordion.querySelector('h3');
 
-        // FIXME: Why is "show" present by default but then removed when the modal is opened?
-        await wait(() => expect(accordion).not.toHaveClass('show'));
+        expect(accordion).not.toHaveClass('show');
 
         fireEvent.click(accordionTitle);
 

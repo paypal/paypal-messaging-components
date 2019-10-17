@@ -4,8 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
-import { objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
-import { globalState, setGlobalState } from '../../utils/globalState';
+import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } from '../../utils';
 
 /**
  * Render Banner into all selector container elements
@@ -49,8 +48,7 @@ export default function render(options, selector = '[data-pp-message]') {
             const totalOptions = objectMerge(options, getInlineOptions(container));
 
             if (!container.hasAttribute('data-pp-id')) {
-                container.setAttribute('data-pp-id', globalState.nextId);
-                setGlobalState({ nextId: (globalState.nextId += 1) });
+                container.setAttribute('data-pp-id', nextId());
             }
 
             const observer = new MutationObserver(mutationList => {
