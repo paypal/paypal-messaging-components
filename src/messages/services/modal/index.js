@@ -6,7 +6,6 @@ import { getModalType } from '../../../locale';
 
 function assembleUrl(offerCountry, offerType) {
     const baseUrl = getGlobalUrl('MODAL');
-    console.log(baseUrl);
     const modalType = getModalType(offerCountry, offerType).toLowerCase();
 
     return `${baseUrl}/${offerCountry}/${modalType}.html`;
