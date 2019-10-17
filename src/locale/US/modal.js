@@ -126,7 +126,7 @@ export default function getModalContent(options, state, trackModalEvent) {
             const calculateTerms = link => {
                 const amount = state.contentElements.amountInput.value;
                 trackModalEvent('calculate', link, amount);
-                fetchTerms(options, state.contentElements, amount);
+                fetchTerms(amount);
             };
 
             state.contentElements.amountInput.addEventListener('keydown', evt => {

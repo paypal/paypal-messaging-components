@@ -1,37 +1,45 @@
+import { createState } from '../utils/miscellaneous';
+
 import US from './US';
 import DE from './DE';
 
-// Webpack will not properly tree-shake switch statements
-const LOCALE_SETTINGS = (() => {
-    if (__MESSAGES__.__LOCALE__ === 'US') {
-        return US;
+const getLocaleSettings = offerCountry => {
+    switch (offerCountry) {
+        case 'DE':
+            return DE;
+        case 'US':
+        default:
+            return US;
     }
+};
 
-    if (__MESSAGES__.__LOCALE__ === 'DE') {
-        return DE;
-    }
+const [localeSettings, updateLocaleSettings] = createState({});
 
-    return null;
-})();
+export const setLocale = offerCountry => updateLocaleSettings(getLocaleSettings(offerCountry));
 
-export const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
+// export const localeClass = `locale--${__MESSAGES__.__LOCALE__}`;
+export function getLocaleClass() {
+    return localeSettings.localeClass;
+}
 
 export function getLocalProductName() {
-    return LOCALE_SETTINGS.productName;
+    return localeSettings.productName;
 }
 
 export function getValidOptions() {
-    return LOCALE_SETTINGS.validOptions;
+    return localeSettings.validOptions;
 }
 
 export function getMutations(id, type) {
-    const mutations = LOCALE_SETTINGS.getMutations(id, type).map(mutation => {
+    const mutations = localeSettings.getMutations(id, type).map(mutation => {
         if (mutation[1].styles) {
             return [
                 mutation[0],
                 {
                     ...mutation[1],
-                    styles: mutation[1].styles.map(style => style.replace(/\.message/g, `.${localeClass} .message`))
+                    styles: mutation[1].styles.map(style =>
+                        style.replace(/\.message/g, `.${getLocaleClass()} .message`)
+                    )
                 }
             ];
         }
@@ -43,21 +51,21 @@ export function getMutations(id, type) {
 }
 
 export function getLogos() {
-    return LOCALE_SETTINGS.logos;
+    return localeSettings.logos;
 }
 
 export function getLocaleStyles(layout) {
-    return (LOCALE_SETTINGS.styles && LOCALE_SETTINGS.styles[layout]) || [];
+    return (localeSettings.styles && localeSettings.styles[layout]) || [];
 }
 
 export function getMinimumWidthOptions() {
-    return LOCALE_SETTINGS.minimumSizeOptions || {};
+    return localeSettings.minimumSizeOptions || {};
 }
 
 export function getModalContent(options, state, trackEvent) {
-    return LOCALE_SETTINGS.getModalContent(options, state, trackEvent);
+    return localeSettings.getModalContent(options, state, trackEvent);
 }
 
-export function getModalType(offerType) {
-    return LOCALE_SETTINGS.getModalType(offerType);
+export function getModalType(offerCountry, offerType) {
+    return localeSettings.getModalType(offerType);
 }

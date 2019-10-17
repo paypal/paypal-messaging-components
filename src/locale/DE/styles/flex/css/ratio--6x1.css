@@ -34,6 +34,8 @@
     flex: 1 1 auto;
     width: auto;
     padding-right: 0;
+    margin-top: 1vw;
+    display: block;
 }
 
 .message__disclaimer span.multi:nth-of-type(1) {

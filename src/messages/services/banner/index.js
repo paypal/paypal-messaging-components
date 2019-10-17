@@ -9,6 +9,8 @@ import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
 import createContainer from '../../models/Container';
+import { setLocale } from '../../../locale';
+import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
 // Using same JSONP callback namespace as original merchant.js
 window.__PP = window.__PP || {};
@@ -20,17 +22,11 @@ const PLACEMENT = 'x215x80';
 
 const LEGACY_NI_ONLY_PLACEMENT = 'x199x99';
 
-const LOCALE_MAP = {
-    US: 'en_US',
-    GB: 'en_GB',
-    FR: 'fr_FR',
-    DE: 'de_DE'
-};
-
 function mutateMarkup(markup) {
     try {
         const content = markup.content.json;
         const tracking = markup.tracking_details;
+        const meta = JSON.parse(content.meta);
         const mutatedMarkup = {
             data: {
                 disclaimer: JSON.parse(content.disclaimer),
@@ -40,7 +36,7 @@ function mutateMarkup(markup) {
             meta: {
                 clickUrl: tracking.click_url,
                 impressionUrl: tracking.impression_url,
-                offerType: JSON.parse(content.meta).offerType
+                ...meta
             }
         };
         return mutatedMarkup;
@@ -77,9 +73,7 @@ function fetcher(options) {
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
-            call: `__PP.${callbackName}`,
-            country_code: __MESSAGES__.__LOCALE__,
-            locale: LOCALE_MAP[__MESSAGES__.__LOCALE__]
+            call: `__PP.${callbackName}`
         };
 
         const queryString = objectEntries(queryParams)
@@ -212,11 +206,16 @@ export default function getBannerMarkup({ options, logger }) {
     ).then(({ markup, options: customOptions = {} }) => {
         logger.info(EVENTS.FETCH_END);
 
+        setLocale(markup.meta.offerCountry);
+
+        const style = validateStyleOptions(logger, options.style);
+        style._flattened = objectFlattenToArray(style);
+
         const totalOptions = {
             ...options,
+            style,
             ...customOptions
         };
-        totalOptions.style._flattened = objectFlattenToArray(totalOptions.style);
 
         if (typeof markup === 'object') {
             const template = Template.getTemplateNode(totalOptions, markup);

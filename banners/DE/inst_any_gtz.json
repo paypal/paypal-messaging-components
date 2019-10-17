@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "DE",
         "offerType": "INST:ANY:GTZ",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
@@ -8,5 +9,5 @@
 
     "subHeadline": [],
 
-    "disclaimer": [["Mehr erfahren", ["default", "xsmall"]]]
+    "disclaimer": [[["Ab 199€ - 5.000€.", ["Mehr erfahren", "em"]], ["default", "xsmall"]]]
 }

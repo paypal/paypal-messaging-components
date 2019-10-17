@@ -5,7 +5,8 @@ import styles from './styles';
 import getModalContent, { getModalType } from './modal';
 
 export default {
-    productName: ['mit', 'PayPal Ratenzahlung'],
+    localeClass: 'locale--DE',
+    productName: ['mit', 'PayPal Ratenzahlung.'],
     validOptions,
     getMutations,
     logos,

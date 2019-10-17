@@ -4,14 +4,14 @@ import { memoizeOnProps } from '../../../utils';
 
 import { getModalType } from '../../../locale';
 
-function assembleUrl(offerType) {
+function assembleUrl(offerCountry, offerType) {
     const baseUrl = __MESSAGES__.__MODAL_URL__;
-    const modalType = getModalType(offerType).toLowerCase();
+    const modalType = getModalType(offerCountry, offerType).toLowerCase();
 
-    return `${baseUrl}/${__MESSAGES__.__LOCALE__}/${modalType}.html`;
+    return `${baseUrl}/${offerCountry}/${modalType}.html`;
 }
 
-function fetcher({ offerType }) {
+function fetcher({ offerType, offerCountry }) {
     return new ZalgoPromise((resolve, reject) => {
         const xhttp = new XMLHttpRequest();
 
@@ -27,7 +27,7 @@ function fetcher({ offerType }) {
             }
         };
 
-        xhttp.open('GET', assembleUrl(offerType), true);
+        xhttp.open('GET', assembleUrl(offerCountry, offerType), true);
         xhttp.send();
     });
 }

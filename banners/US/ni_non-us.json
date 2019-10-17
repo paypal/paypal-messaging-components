@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "US",
         "offerType": "NI:NON-US",
         "lander": "https://www.paypal.com/ppclander"
     },

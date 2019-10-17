@@ -6,13 +6,20 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.COLOR,
-                headline: {
-                    tag: 'default'
-                },
+                headline: 'default',
                 disclaimer: 'default'
             }
         ],
-        ['logo.type:primary', { messageWidth: [205, 1000] }],
+        [
+            'logo.type:primary',
+            {
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten', 'Raten.']]
+                },
+                messageWidth: [205, 1000]
+            }
+        ],
         [
             'logo.type:inline',
             {
@@ -30,6 +37,10 @@ export default {
         [
             'logo.type:alternative',
             {
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten', 'Raten.']]
+                },
                 styles: [
                     '.message__content { display: inline-block; }',
                     '.message__messaging, .message__headline span:only-child { white-space: normal }'
@@ -74,15 +85,11 @@ export default {
                 ]
             }
         ],
-        [
-            'ratio:1x4',
-            {
-                logo: Logo.ALTERNATIVE.WHITE
-            }
-        ],
+        ['ratio:1x4', { logo: Logo.STACKED.WHITE }],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
+        ['ratio:1x4 && color:gray', { logo: Logo.STACKED.COLOR }],
+        ['ratio:1x4 && color:white', { logo: Logo.STACKED.COLOR }],
         [
             'ratio:1x1 && color:gray',
             {
