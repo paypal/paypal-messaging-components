@@ -4,6 +4,7 @@
  * @returns {Function} Memoized function
  */
 export function memoize(fn) {
+    // eslint-disable-next-line compat/compat
     const cache = new Map();
 
     return (...args) => {
@@ -24,6 +25,7 @@ export function memoize(fn) {
  * @returns {Function} Memoized function
  */
 export function memoizeOnProps(fn, props) {
+    // eslint-disable-next-line compat/compat
     const cache = new Map();
 
     return (options, ignoreCache = false) => {

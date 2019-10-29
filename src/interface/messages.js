@@ -6,10 +6,25 @@ export function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
+        const inlineScriptOptions = getInlineOptions(script);
+
         Messages.setGlobalConfig({
             account: getAccount(),
-            ...getInlineOptions(script)
+            ...inlineScriptOptions
         });
+
+        // Allow specified global namespace override
+        if (inlineScriptOptions.namespace) {
+            window[inlineScriptOptions.namespace] = {
+                ...(window[inlineScriptOptions.namespace] || {}),
+                Messages
+            };
+
+            // Don't clear window.paypal if SDK loaded first
+            if (window.paypal && !window.paypal.version) {
+                delete window.paypal;
+            }
+        }
     }
 
     if (__MESSAGES__.__TARGET__ !== 'SDK') {
