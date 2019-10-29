@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.3.0](https://github.com/paypal/paypal-messaging-components/compare/v1.2.1...v1.3.0) (2019-10-29)
+
+
+### Features
+
+* window namespace override ([#74](https://github.com/paypal/paypal-messaging-components/issues/74)) ([66da542](https://github.com/paypal/paypal-messaging-components/commit/66da5429f46511b54a101162ea7ad30118f10edd))
+
 ## [1.2.1](https://github.com/paypal/paypal-messaging-components/compare/v1.2.0...v1.2.1) (2019-10-16)
 
 # [1.2.0](https://github.com/paypal/paypal-messaging-components/compare/v1.1.4...v1.2.0) (2019-09-27)
