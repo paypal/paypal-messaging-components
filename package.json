@@ -1,6 +1,6 @@
 {
   "name": "@paypal/messaging-components",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
   "homepage": "https://github.com/paypal/paypal-messaging-components",
   "repository": {
@@ -20,9 +20,9 @@
     "build:standalone": "webpack --env.standalone",
     "build:legacy": "webpack --env.legacy --env.standalone",
     "build:analyze": "webpack --env.analyze --env.standalone",
-    "dev": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv",
-    "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.standalone",
-    "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.mockImadserv --env.legacy --env.standalone",
+    "dev": "webpack-dev-server --config webpack.config.dev.js --env.localMessage",
+    "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.standalone",
+    "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.legacy --env.standalone",
     "lint": "eslint . --ext .js,.jsx",
     "preinstall": "rm -rf node_modules",
     "start": "npm run dev",

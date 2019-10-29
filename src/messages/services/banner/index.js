@@ -4,7 +4,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray } from '../../../utils';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl } from '../../../utils';
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
@@ -70,7 +70,7 @@ function fetcher(options) {
         const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
-        const rootUrl = __MESSAGES__.__BANNER_URL__;
+        const rootUrl = getGlobalUrl('MESSAGE');
         const queryParams = {
             dimensions,
             currency_value: amount,

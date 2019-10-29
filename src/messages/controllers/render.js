@@ -4,8 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
-import { objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
-import { nextId } from '../../utils/globalState';
+import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } from '../../utils';
 
 /**
  * Render Banner into all selector container elements
@@ -52,6 +51,7 @@ export default function render(options, selector = '[data-pp-message]') {
                 container.setAttribute('data-pp-id', nextId());
             }
 
+            // eslint-disable-next-line compat/compat
             const observer = new MutationObserver(mutationList => {
                 const newConfig = mutationList.reduce((accumulator, mutation) => {
                     if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
