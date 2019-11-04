@@ -1,3 +1,5 @@
+const niMessage = require('./banners/ni_non-us.json');
+const ezpMessage = require('./banners/pala_single_gtz.json');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({
@@ -40,6 +42,37 @@ module.exports = (env = {}) => ({
             __MODAL__: '/upstream/assets/messaging/modal',
             __LOGGER__: '/ppcredit/messagingLogger',
             __TERMS__: '/ppcredit/finance/terms'
+        },
+        __SANDBOX__: {
+            __NI__: niMessage,
+            __EZP__: ezpMessage,
+            __TERMS__: {
+                type: 'pala',
+                options: [
+                    {
+                        term: 12,
+                        apr: '12.99',
+                        type: 'INST',
+                        minValue: '360.00'
+                    },
+                    {
+                        term: 18,
+                        apr: '12.99',
+                        type: 'INST',
+                        minValue: '540.00'
+                    },
+                    {
+                        term: 24,
+                        apr: '12.99',
+                        type: 'INST',
+                        minValue: '720.00'
+                    }
+                ],
+                max_amount: 10000000,
+                min_amount: 360,
+                default_max_amount: 10000000,
+                result: 'success'
+            }
         }
     }
 });

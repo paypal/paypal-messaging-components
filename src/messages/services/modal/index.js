@@ -1,7 +1,6 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, getGlobalUrl } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
 function assembleUrl(offerType) {
     const baseUrl = getGlobalUrl('MODAL');
@@ -11,23 +10,8 @@ function assembleUrl(offerType) {
 }
 
 function fetcher({ offerType }) {
-    return new ZalgoPromise((resolve, reject) => {
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4) {
-                switch (xhttp.status) {
-                    case 200:
-                        resolve({ markup: xhttp.responseText });
-                        break;
-                    default:
-                        reject();
-                }
-            }
-        };
-
-        xhttp.open('GET', assembleUrl(offerType), true);
-        xhttp.send();
+    return request('GET', assembleUrl(offerType)).then(res => {
+        return { markup: res.data };
     });
 }
 
