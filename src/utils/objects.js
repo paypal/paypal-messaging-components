@@ -166,6 +166,27 @@ export function objectGet(object, propString) {
 }
 
 /**
+ * Set a nested property on an object
+ * @param {Object} object Object to set specific prop
+ * @param {String} propString String representation of nested props
+ * @param {*} value Value to set
+ * @returns {Object} The original object
+ */
+export function objectSet(object, propString, value) {
+    const props = propString.split('.');
+    const lastProp = props.pop();
+
+    const targetObj = props.reduce((accumulator, prop) => {
+        accumulator[prop] = accumulator[prop] || {};
+        return accumulator[prop];
+    }, object);
+
+    targetObj[lastProp] = value;
+
+    return object;
+}
+
+/**
  * Convert a string representation of an object path and value to an object
  * @param {String} option Object string path representation
  * @param {*} attributeValue Value to set on the object path

@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry, objectClone } from '../../../utils';
+import { curry, objectClone, objectSet } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 
 export const Types = {
@@ -29,7 +29,9 @@ export const VALID_STYLE_OPTIONS = {
             position: [Types.STRING, ['left', 'right', 'top']]
         },
         text: {
-            color: [Types.STRING, ['black', 'white']]
+            color: [Types.STRING, ['black', 'white']],
+            size: [Types.NUMBER, [12]],
+            fontFamily: [Types.STRING]
         }
     },
     flex: {
@@ -41,7 +43,7 @@ export const VALID_STYLE_OPTIONS = {
         typeEZP: [Types.STRING, ['', 'html']],
         size: [Types.STRING],
         color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-        border: [Types.BOOLEAN, [true, false]]
+        border: [Types.BOOLEAN]
     },
     custom: {
         markup: [Types.STRING],
@@ -140,10 +142,19 @@ function populateDefaults(logger, defaults, options, prefix = 'style.') {
  * @returns {Object} Object containing only valid style options
  */
 function getValidStyleOptions(logger, options) {
-    return {
+    const defaultValues = {
         layout: options.layout,
         ...populateDefaults(logger, VALID_STYLE_OPTIONS[options.layout], options)
     };
+
+    if (options.layout === 'text') {
+        if (defaultValues.text.size > 16 || defaultValues.text.size < 10) {
+            logInvalid(logger, 'style.text.size', 'Text size should be between 10px and 16px.');
+            objectSet(defaultValues, 'text.size', 12);
+        }
+    }
+
+    return defaultValues;
 }
 
 /**

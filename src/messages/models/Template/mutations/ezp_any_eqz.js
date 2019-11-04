@@ -12,32 +12,13 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'small',
-                    br: ['months', 'APR']
+                    br: ['APR']
                 },
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:primary', { messageWidth: 190 }],
-        [
-            'logo.type:inline',
-            {
-                messageWidth: [255, 1000],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['APR']
-                }
-            }
-        ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [240, 1000],
-                logo: false,
-                headline: {
-                    br: ['APR']
-                }
-            }
-        ],
+        ['logo.type:inline', { logo: Logo.ALT_NO_PP.COLOR }],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
             {

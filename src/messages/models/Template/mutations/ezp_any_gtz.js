@@ -17,27 +17,8 @@ export default {
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:primary', { messageWidth: 130 }],
-        [
-            'logo.type:inline',
-            {
-                messageWidth: [250, 1000],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['months']
-                }
-            }
-        ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [235, 1000],
-                logo: false,
-                headline: {
-                    br: ['months']
-                }
-            }
-        ],
+        ['logo.type:inline', { logo: Logo.ALT_NO_PP.COLOR }],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
             {

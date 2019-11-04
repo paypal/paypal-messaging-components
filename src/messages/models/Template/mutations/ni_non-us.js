@@ -1,35 +1,35 @@
 import Logo from '../logos';
-import { basicMediaQuery, legacyNI } from './ni';
+import { basicMediaQuery, legacyNI, textSize } from './ni';
 
 export default {
     'layout:text': [
         [
             'default',
-            {
-                styles: [basicMediaQuery(320)],
+            style => ({
+                styles: [basicMediaQuery(textSize(style) * 20.5 + 70)],
                 logo: Logo.PRIMARY.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }],
+                headline: [
+                    { tag: 'xsmall', br: ['time.'] },
+                    { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }
+                ],
                 disclaimer: ['extra', 'xsmall']
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [130, 320] }],
         [
             'logo.type:inline',
-            {
-                messageWidth: [240, 1000],
-                styles: [basicMediaQuery(290)],
+            style => ({
+                styles: [basicMediaQuery(textSize(style) * 23)],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
                 ]
-            }
+            })
         ],
         [
             'logo.type:none',
-            {
-                messageWidth: [220, 1000],
-                styles: [basicMediaQuery(290)],
+            style => ({
+                styles: [basicMediaQuery(textSize(style) * 21)],
                 logo: false,
                 headline: [
                     {
@@ -42,25 +42,24 @@ export default {
                         br: ['purchases']
                     }
                 ]
-            }
+            })
         ],
         [
             'logo.type:alternative',
-            {
-                styles: [basicMediaQuery(570)],
+            style => ({
+                styles: [basicMediaQuery(textSize(style) * 36 + 130)],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
-            }
+            })
         ],
         [
             'logo.type:alternative && logo.position:top',
-            {
-                styles: [basicMediaQuery(230)],
-                messageWidth: [150, 320],
+            style => ({
+                styles: [basicMediaQuery(textSize(style) * 20)],
                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
-            }
+            })
         ],
-        ['logo.type:primary && logo.position:top', { styles: [basicMediaQuery(235)] }],
+        ['logo.type:primary && logo.position:top', style => ({ styles: [basicMediaQuery(textSize(style) * 20)] })],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]

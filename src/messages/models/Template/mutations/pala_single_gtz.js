@@ -1,34 +1,30 @@
 import Logo from '../logos';
+import { textSize } from './ni';
 
 export default {
     'layout:text': [
         [
             'default',
-            {
+            style => ({
                 logo: Logo.PRIMARY.COLOR,
-                headline: { tag: 'small' },
+                messageWidth: [textSize(style) * 13, 1000],
+                headline: { tag: 'small', br: ['/mo'] },
                 disclaimer: 'xsmall'
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [140, 210] }],
         [
             'logo.type:inline',
-            {
-                messageWidth: [200, 1000],
+            style => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: { br: ['/mo'] }
-            }
+                messageWidth: [textSize(style) * 19, 1000]
+            })
         ],
-
         [
             'logo.type:none',
-            {
-                messageWidth: [200, 1000],
+            style => ({
                 logo: false,
-                headline: {
-                    br: ['/mo']
-                }
-            }
+                messageWidth: [textSize(style) * 17, 1000]
+            })
         ],
         ['logo.type:alternative', { logo: Logo.ALTERNATIVE.COLOR }],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
