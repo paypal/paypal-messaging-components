@@ -1,8 +1,8 @@
 {
     "meta": {
         "offerType": "NI",
-        "impressionUrl": "$impression_tracking_url$",
-        "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/ppclander"
+        "impressionUrl": "${impression_tracking_url}",
+        "clickUrl": "${click_tracking_url}&landing_url=https://www.paypal.com/ppclander"
     },
 
     "data": {
