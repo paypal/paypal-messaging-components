@@ -1,8 +1,8 @@
 {
     "meta": {
         "offerType": "PALA:SINGLE:GTZ",
-        "impressionUrl": "$impression_tracking_url$",
-        "clickUrl": "$click_tracking_url$&landing_url=https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "impressionUrl": "${impression_tracking_url}",
+        "clickUrl": "${click_tracking_url}&landing_url=https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },
     "data": {
         "headline": [
