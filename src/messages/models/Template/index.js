@@ -350,9 +350,10 @@ function createTemplateNode(options, markup) {
         headline.appendChild(span);
     }
 
-    if (layout === 'text' && objectGet(options, 'style.text.size')) {
-        styleRules.push(`.${classNamePrefix}__headline { font-size: ${objectGet(options, 'style.text.size')}px }`);
-        styleRules.push(`.${classNamePrefix}__disclaimer { font-size: ${objectGet(options, 'style.text.size')}px }`);
+    const textSize = objectGet(options, 'style.text.size');
+    if (layout === 'text' && textSize) {
+        styleRules.push(`.${classNamePrefix}__headline { font-size: ${textSize}px }`);
+        styleRules.push(`.${classNamePrefix}__disclaimer { font-size: ${textSize}px }`);
     }
 
     // Set boundaries on the width of the message text to ensure proper line counts

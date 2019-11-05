@@ -47,7 +47,10 @@ export default {
         [
             'logo.type:alternative',
             style => ({
-                styles: [basicMediaQuery(textSize(style) * 36 + 130)],
+                styles: [
+                    basicMediaQuery(textSize(style) * 36 + 130),
+                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
             })
@@ -55,7 +58,10 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             style => ({
-                styles: [basicMediaQuery(textSize(style) * 20)],
+                styles: [
+                    basicMediaQuery(textSize(style) * 20),
+                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                ],
                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
             })
         ],

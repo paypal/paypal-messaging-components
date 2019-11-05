@@ -14,12 +14,13 @@ export default {
         ],
         [
             'logo.type:inline',
-            {
+            style => ({
+                styles: [`.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
                     br: ['/mo']
                 }
-            }
+            })
         ],
         [
             'logo.type:none',
@@ -30,7 +31,13 @@ export default {
                 }
             }
         ],
-        ['logo.type:alternative', { logo: Logo.ALTERNATIVE.COLOR }],
+        [
+            'logo.type:alternative',
+            style => ({
+                styles: [`.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`],
+                logo: Logo.ALTERNATIVE.COLOR
+            })
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]

@@ -62,7 +62,10 @@ export default {
         [
             'logo.type:inline',
             style => ({
-                styles: [basicMediaQuery(textSize(style) * 15 + 80)],
+                styles: [
+                    basicMediaQuery(textSize(style) * 15 + 80),
+                    `.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`
+                ],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -91,14 +94,22 @@ export default {
         [
             'logo.type:alternative',
             style => ({
-                styles: [basicMediaQuery(textSize(style) * 34 + 130)],
+                styles: [
+                    basicMediaQuery(textSize(style) * 34 + 130),
+                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
         ['logo.type:primary && logo.position:top', style => ({ styles: [basicMediaQuery(textSize(style) * 18.5)] })],
         [
             'logo.type:alternative && logo.position:top',
-            style => ({ styles: [basicMediaQuery(textSize(style) * 18.5)] })
+            style => ({
+                styles: [
+                    basicMediaQuery(textSize(style) * 18.5),
+                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                ]
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],

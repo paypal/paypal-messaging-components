@@ -18,6 +18,7 @@ export default {
         [
             'logo.type:inline',
             style => ({
+                styles: [`.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 messageWidth: [textSize(style) * 19, 1000],
                 headline: {
@@ -39,9 +40,10 @@ export default {
         ],
         [
             'logo.type:alternative',
-            {
+            style => ({
+                styles: [`.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
-            }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],

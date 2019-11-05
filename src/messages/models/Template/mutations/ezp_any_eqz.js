@@ -1,14 +1,17 @@
 import Logo from '../logos';
+import { textSize } from './ni';
+
+const defaultTextStyles = [
+    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
+    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+];
 
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                ],
+                styles: defaultTextStyles,
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'small',
@@ -17,17 +20,27 @@ export default {
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:inline', { logo: Logo.ALT_NO_PP.COLOR }],
+        [
+            'logo.type:inline',
+            style => ({
+                logo: Logo.ALT_NO_PP.COLOR,
+                styles: [...defaultTextStyles, `.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`]
+            })
+        ],
         ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            {
+            style => ({
+                styles: [
+                    ...defaultTextStyles,
+                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
                     br: ['APR.']
                 }
-            }
+            })
         ],
         [
             'text.color:white',
