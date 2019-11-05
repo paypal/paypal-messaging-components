@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/paypal/paypal-messaging-components/compare/v1.3.0...v1.3.1) (2019-11-05)
+
+
+### Bug Fixes
+
+* sandbox mock ([#76](https://github.com/paypal/paypal-messaging-components/issues/76)) ([4f5ec43](https://github.com/paypal/paypal-messaging-components/commit/4f5ec43b775f40bd806cb54ae62c415e91435053))
+
 # [1.3.0](https://github.com/paypal/paypal-messaging-components/compare/v1.2.1...v1.3.0) (2019-10-29)
 
 
