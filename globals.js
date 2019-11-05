@@ -1,5 +1,7 @@
 const niMessage = require('./banners/ni_non-us.json');
-const ezpMessage = require('./banners/pala_single_gtz.json');
+const ezpMessage = require('./banners/ezp_any_eqz.json');
+const palaSingleMessage = require('./banners/pala_single_eqz.json');
+const palaMultiMessage = require('./banners/pala_multi_gtz.json');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({
@@ -46,20 +48,22 @@ module.exports = (env = {}) => ({
         __SANDBOX__: {
             __NI__: niMessage,
             __EZP__: ezpMessage,
+            __PALA_SINGLE__: palaSingleMessage,
+            __PALA_MULTI__: palaMultiMessage,
             __TERMS__: {
                 type: 'pala',
                 options: [
+                    {
+                        term: 3,
+                        apr: '0.00',
+                        type: 'INST',
+                        minValue: '30.00'
+                    },
                     {
                         term: 12,
                         apr: '12.99',
                         type: 'INST',
                         minValue: '360.00'
-                    },
-                    {
-                        term: 18,
-                        apr: '12.99',
-                        type: 'INST',
-                        minValue: '540.00'
                     },
                     {
                         term: 24,
@@ -69,7 +73,7 @@ module.exports = (env = {}) => ({
                     }
                 ],
                 max_amount: 10000000,
-                min_amount: 360,
+                min_amount: 30,
                 default_max_amount: 10000000,
                 result: 'success'
             }

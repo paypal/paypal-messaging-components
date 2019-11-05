@@ -20,17 +20,34 @@ function messageFetcher(url) {
 
     const { currency_value: amount = '0', dimensions } = query;
 
-    const banner = JSON.stringify(__MESSAGES__.__SANDBOX__[`__${dimensions !== 'x199x99' ? 'EZP' : 'NI'}__`]);
+    const termOptions = __MESSAGES__.__SANDBOX__.__TERMS__.options;
+    const qualifiedTerms = termOptions.filter(({ minValue }) => Number(amount || 0) >= Number(minValue));
 
+    let message;
+    if (dimensions === 'x199x99') {
+        message = __MESSAGES__.__SANDBOX__.__NI__;
+    } else if (qualifiedTerms.length === 0) {
+        message = __MESSAGES__.__SANDBOX__.__EZP__;
+    } else if (qualifiedTerms.length === 1) {
+        message = __MESSAGES__.__SANDBOX__.__PALA_SINGLE__;
+    } else {
+        message = __MESSAGES__.__SANDBOX__.__PALA_MULTI__;
+    }
+
+    const bestOffer = qualifiedTerms.slice(-1)[0];
+    const maxTerms = bestOffer ? bestOffer.term : termOptions.slice(0, 1)[0].term;
     const morsVars = {
         tot_pymts: `$${Number(amount).toFixed(2)}`,
-        term: 12,
-        pymt_mo: `$${Number(amount / 12).toFixed(2)}`
+        term: maxTerms,
+        pymt_mo: `$${Number(amount / maxTerms).toFixed(2)}`
     };
 
     const populatedBanner = objectEntries(morsVars)
-        // eslint-disable-next-line security/detect-non-literal-regexp
-        .reduce((accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val), banner)
+        .reduce(
+            // eslint-disable-next-line security/detect-non-literal-regexp
+            (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
+            JSON.stringify(message)
+        )
         .replace(/"/g, '\\"')
         .replace(/\r\n|\r|\n/g, '');
 
@@ -50,10 +67,10 @@ function termsFetcher(url) {
         return {
             ...option,
             // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
-            monthly: monthly.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+            monthly: (monthly || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
-            total: total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-            isNonQualified: Number(query.amount) < Number(option.minValue)
+            total: (total || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+            isNonQualified: Number(query.amount || 0) < Number(option.minValue)
         };
     });
 
