@@ -51,6 +51,7 @@ export default function render(options, selector = '[data-pp-message]') {
                 container.setAttribute('data-pp-id', nextId());
             }
 
+            // eslint-disable-next-line compat/compat
             const observer = new MutationObserver(mutationList => {
                 const newConfig = mutationList.reduce((accumulator, mutation) => {
                     if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
