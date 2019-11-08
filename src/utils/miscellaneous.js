@@ -2,6 +2,8 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
+import objectEntries from 'core-js-pure/stable/object/entries';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import { partial } from './functional';
 
@@ -44,4 +46,46 @@ export function getDataByTag(data, tag) {
     }
 
     return arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'))[0];
+}
+
+export function request(method, url, { data, headers } = {}) {
+    return new ZalgoPromise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState === 4) {
+                const responseHeaders = xhttp
+                    .getAllResponseHeaders()
+                    .split('\n')
+                    .reduce((accumulator, header) => {
+                        const [key, val] = header.trim().split(': ');
+                        return {
+                            ...accumulator,
+                            [key]: val
+                        };
+                    }, {});
+
+                switch (xhttp.status) {
+                    case 200:
+                        resolve({ headers: responseHeaders, data: xhttp.responseText });
+                        break;
+                    case 204:
+                        resolve({ headers: responseHeaders });
+                        break;
+                    default:
+                        reject(new Error('Request failed'));
+                }
+            }
+        };
+
+        xhttp.open(method, url, true);
+
+        if (headers) {
+            objectEntries(headers).forEach(([header, value]) => {
+                xhttp.setRequestHeader(header, value);
+            });
+        }
+
+        xhttp.send(typeof data === 'object' ? JSON.stringify(data) : data);
+    });
 }

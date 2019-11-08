@@ -4,7 +4,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl } from '../../../utils';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '../../../utils';
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
@@ -84,9 +84,12 @@ function fetcher(options) {
             );
         const script = document.createElement('script');
         script.async = true;
-        script.src = `${rootUrl}?${queryString}`;
 
-        document.head.appendChild(script);
+        // Manual request instead of traditional JSONP so that we can catch 204 no content stalling
+        request('GET', `${rootUrl}?${queryString}`).then(res => {
+            script.text = res.data;
+            document.head.appendChild(script);
+        });
 
         window.__PP[callbackName] = markup => {
             document.head.removeChild(script);

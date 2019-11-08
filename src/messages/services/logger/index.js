@@ -1,7 +1,7 @@
 import stringPadStart from 'core-js-pure/stable/string/pad-start';
 import arrayFind from 'core-js-pure/stable/array/find';
 
-import { createState, objectGet, getGlobalUrl } from '../../../utils';
+import { createState, objectGet, getGlobalUrl, request } from '../../../utils';
 import sendBeacon from './sendBeacon';
 
 export const EVENTS = {
@@ -67,24 +67,26 @@ export const Logger = {
 
             setState({ count: state.count + 1, logs: [] });
 
-            // TODO: Handle error
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = () => {
-                if (xhttp.readyState === 4) {
-                    // Same correlation id duplicated in prod
-                    const [corrId] = (xhttp.getResponseHeader('Paypal-Debug-Id') || '').split(',');
-                    setState({ history: [...state.history, corrId].slice(-5) });
-                }
-            };
-            xhttp.open('POST', getGlobalUrl('LOGGER'), true);
-            xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             // Some sites setting Array.prototype.toJSON causing non-standard JSON stringify
             // ex: https://www.interpunk.com/
             const temp = Array.prototype.toJSON;
             if (temp) {
                 delete Array.prototype.toJSON;
             }
-            xhttp.send(JSON.stringify({ data: payload }));
+
+            request('POST', getGlobalUrl('LOGGER'), {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                data: JSON.stringify({ data: payload })
+            })
+                .then(res => {
+                    // Same correlation id duplicated in prod
+                    const [corrId] = (res.headers['Paypal-Debug-Id'] || '').split(',');
+                    setState({ history: [...state.history, corrId].slice(-5) });
+                })
+                // TODO: Handle error
+                .catch(() => {});
 
             if (temp) {
                 Array.prototype.toJSON = temp; // eslint-disable-line no-extend-native

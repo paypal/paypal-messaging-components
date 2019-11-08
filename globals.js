@@ -1,3 +1,7 @@
+const niMessage = require('./banners/US/ni_non-us.json');
+const ezpMessage = require('./banners/US/ezp_any_eqz.json');
+const palaSingleMessage = require('./banners/US/pala_single_eqz.json');
+const palaMultiMessage = require('./banners/US/pala_multi_gtz.json');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({
@@ -40,6 +44,39 @@ module.exports = (env = {}) => ({
             __MODAL__: '/upstream/assets/messaging/modal',
             __LOGGER__: '/ppcredit/messagingLogger',
             __TERMS__: '/ppcredit/finance/terms'
+        },
+        __SANDBOX__: {
+            __NI__: niMessage,
+            __EZP__: ezpMessage,
+            __PALA_SINGLE__: palaSingleMessage,
+            __PALA_MULTI__: palaMultiMessage,
+            __TERMS__: {
+                type: 'pala',
+                options: [
+                    {
+                        term: 3,
+                        apr: '0.00',
+                        type: 'INST',
+                        minValue: '30.00'
+                    },
+                    {
+                        term: 12,
+                        apr: '12.99',
+                        type: 'INST',
+                        minValue: '360.00'
+                    },
+                    {
+                        term: 24,
+                        apr: '12.99',
+                        type: 'INST',
+                        minValue: '720.00'
+                    }
+                ],
+                max_amount: 10000000,
+                min_amount: 30,
+                default_max_amount: 10000000,
+                result: 'success'
+            }
         }
     }
 });

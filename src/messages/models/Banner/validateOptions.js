@@ -157,6 +157,16 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
         }
     }
 
+    if (typeof offer !== 'undefined') {
+        if (!validateType(Types.STRING, offer)) {
+            logInvalidType(logger, 'offer', Types.STRING, offer);
+        } else if (offer !== 'NI') {
+            logInvalid(logger, 'offer', 'Ensure valid offer type.');
+        } else {
+            validOptions.offerType = offer;
+        }
+    }
+
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
         validOptions.style = style;
     } else {

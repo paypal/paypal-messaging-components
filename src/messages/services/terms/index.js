@@ -1,7 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps, getGlobalUrl } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
 const currencyMap = {
     US: 'USD',
@@ -25,24 +24,11 @@ function assembleUrl({ account, amount, offerCountry }) {
 }
 
 function fetcher(options) {
-    return new ZalgoPromise(resolve => {
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4) {
-                switch (xhttp.status) {
-                    case 200:
-                        resolve(JSON.parse(xhttp.responseText));
-                        break;
-                    default:
-                        resolve({ error: true });
-                }
-            }
-        };
-
-        xhttp.open('GET', assembleUrl(options), true);
-        xhttp.send();
-    });
+    return request('GET', assembleUrl(options))
+        .then(res => {
+            return JSON.parse(res.data);
+        })
+        .catch(() => ({ error: true }));
 }
 
 export default memoizeOnProps(fetcher, ['account', 'amount']);

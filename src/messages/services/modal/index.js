@@ -1,6 +1,4 @@
-import { ZalgoPromise } from 'zalgo-promise/src';
-
-import { memoizeOnProps, getGlobalUrl } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
 import { getModalType } from '../../../locale';
 
@@ -12,23 +10,8 @@ function assembleUrl(offerCountry, offerType) {
 }
 
 function fetcher({ offerType, offerCountry }) {
-    return new ZalgoPromise((resolve, reject) => {
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4) {
-                switch (xhttp.status) {
-                    case 200:
-                        resolve({ markup: xhttp.responseText });
-                        break;
-                    default:
-                        reject();
-                }
-            }
-        };
-
-        xhttp.open('GET', assembleUrl(offerCountry, offerType), true);
-        xhttp.send();
+    return request('GET', assembleUrl(offerCountry, offerType)).then(res => {
+        return { markup: res.data };
     });
 }
 
