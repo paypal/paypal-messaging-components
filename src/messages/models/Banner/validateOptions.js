@@ -109,7 +109,9 @@ export const validateStyleOptions = curry((logger, style) => {
         logInvalidOption(logger, 'style.layout', Object.keys(validStyleOptions), style.layout);
 
         // Get the default settings for a text banner
-        return getValidStyleOptions(logger, validStyleOptions, { layout: 'text' });
+        return getValidStyleOptions(logger, validStyleOptions, {
+            layout: 'text'
+        });
     })();
 
     logger.info(EVENTS.VALIDATE_STYLE, { style: objectClone(validatedStyle) });
@@ -123,7 +125,7 @@ export const validateStyleOptions = curry((logger, style) => {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, style, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
@@ -133,7 +135,6 @@ export default curry((logger, { account, amount, style, ...otherOptions }) => {
     } else {
         validOptions.account = account;
     }
-
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
@@ -143,6 +144,16 @@ export default curry((logger, { account, amount, style, ...otherOptions }) => {
             logInvalid(logger, 'amount', 'Ensure value is a positive number.');
         } else {
             validOptions.amount = numberAmount;
+        }
+    }
+
+    if (typeof offer !== 'undefined') {
+        if (!validateType(Types.STRING, offer)) {
+            logInvalidType(logger, 'offer', Types.STRING, offer);
+        } else if (offer !== 'NI') {
+            logInvalid(logger, 'offer', 'Ensure valid offer type.');
+        } else {
+            validOptions.offerType = offer;
         }
     }
 

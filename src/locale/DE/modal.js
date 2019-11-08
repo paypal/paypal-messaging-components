@@ -36,6 +36,7 @@ export default function getModalContent(options, state, trackModalEvent) {
         const maxAmount = iframe.contentDocument.getElementById('disclosure-max-amount');
         const numPayments = iframe.contentDocument.getElementById('disclosure-num-payments');
         const disclosure = iframe.contentDocument.getElementById('modal-disclosure');
+        const genericDisclosure = iframe.contentDocument.getElementById('modal-generic-disclosure');
 
         return {
             financeTermsTable,
@@ -54,7 +55,8 @@ export default function getModalContent(options, state, trackModalEvent) {
             minAmount,
             maxAmount,
             numPayments,
-            disclosure
+            disclosure,
+            genericDisclosure
         };
     };
 
@@ -69,7 +71,8 @@ export default function getModalContent(options, state, trackModalEvent) {
             minAmount,
             maxAmount,
             numPayments,
-            disclosure
+            disclosure,
+            genericDisclosure
         } = state.contentElements;
 
         loader.style.setProperty('opacity', 1);
@@ -77,6 +80,7 @@ export default function getModalContent(options, state, trackModalEvent) {
         financeTermsTable.style.setProperty('opacity', 0.4);
         financeTermsTable.style.setProperty('min-height', '100px');
         disclosure.classList.add('hidden');
+        genericDisclosure.classList.remove('hidden');
 
         return getTerms({ ...options, amount }).then(terms => {
             loader.style.setProperty('opacity', 0);
@@ -92,9 +96,11 @@ export default function getModalContent(options, state, trackModalEvent) {
             }
 
             if (!terms.error) {
-                amountInput.value = terms.formattedAmount;
+                amountInput.value = terms.formattedAmount || '0,00';
 
-                calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+                if (terms.formattedMinAmount && terms.formattedMaxAmount) {
+                    calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+                }
 
                 if (offer) {
                     monthlyInterest.innerText = `${offer.apr}%`;
@@ -103,6 +109,7 @@ export default function getModalContent(options, state, trackModalEvent) {
                     maxAmount.innerText = terms.formattedMaxAmount;
                     numPayments.innerText = offer.term;
                     disclosure.classList.remove('hidden');
+                    genericDisclosure.classList.add('hidden');
                 }
             }
         });

@@ -1,11 +1,11 @@
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl } from '../../../utils';
 
 import { getModalType } from '../../../locale';
 
 function assembleUrl(offerCountry, offerType) {
-    const baseUrl = __MESSAGES__.__MODAL_URL__;
+    const baseUrl = getGlobalUrl('MODAL');
     const modalType = getModalType(offerCountry, offerType).toLowerCase();
 
     return `${baseUrl}/${offerCountry}/${modalType}.html`;

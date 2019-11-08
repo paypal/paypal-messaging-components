@@ -3,6 +3,8 @@ import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
 import toNewPipeline from './toNewPipeline';
+import { Logger, EVENTS } from '../messages/services/logger';
+import { nextId, getGlobalUrl } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -126,7 +128,9 @@ class PPScript {
 }
 
 class Ad {
-    constructor(kvs) {
+    constructor(kvs, logger) {
+        logger.start({ options: kvs });
+        this.logger = logger;
         totalPageAds += 1;
         this.idx = totalPageAds;
         this.namespace = instance + this.idx;
@@ -186,10 +190,13 @@ class Ad {
     }
 
     callback(markup) {
+        this.logger.info(EVENTS.FETCH_END);
+        this.logger.info(EVENTS.INSERT);
         this.setContent(markup);
         this.script.destroy();
         delete window.__PP[this.namespace];
         delete this.script;
+        this.logger.end();
     }
 
     initCallback() {
@@ -213,7 +220,8 @@ class Ad {
     }
 
     request() {
-        this.script = new JSONPRequest(`${__MESSAGES__.__BANNER_URL__}${this.queryString}`);
+        this.logger.info(EVENTS.FETCH_START);
+        this.script = new JSONPRequest(`${getGlobalUrl('MESSAGE')}${this.queryString}`);
     }
 
     initQueryString() {
@@ -285,16 +293,25 @@ scripts.some(script => {
     const pubId = script.getAttribute('data-pp_pub_id');
     const payerId = script.getAttribute('data-pp_payer_id');
     const dimensions = script.getAttribute('data-pp_dimensions');
+    const account = payerId || pubId;
 
-    if ((payerId || pubId) && dimensions) {
+    if (account && dimensions) {
         const ppScript = new PPScript(script);
         // Attempt to render through messaging.js pipeline
         const success = toNewPipeline(ppScript);
 
         // Fallback to legacy pipeline
         if (!success) {
-            const ad = new Ad(ppScript.getKVs());
+            const logger = Logger.create({
+                id: nextId(),
+                account,
+                selector: '__internal__',
+                type: 'Legacy_Banner'
+            });
+
+            const ad = new Ad(ppScript.getKVs(), logger);
             ppScript.injectAd(ad);
+            logger.info(EVENTS.CONTAINER);
             ppScript.registerListeners();
             ppScript.ad.request();
             ppScript.destroyDom();

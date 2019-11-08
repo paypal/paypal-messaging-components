@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.1](https://github.com/paypal/paypal-messaging-components/compare/v1.2.0...v1.2.1) (2019-10-16)
+
+# [1.2.0](https://github.com/paypal/paypal-messaging-components/compare/v1.1.4...v1.2.0) (2019-09-27)
+
+
+### Bug Fixes
+
+* log events for legacy custom banners ([#59](https://github.com/paypal/paypal-messaging-components/issues/59)) ([5365d30](https://github.com/paypal/paypal-messaging-components/commit/5365d30))
+
+
+### Features
+
+* offer type preference config option ([#62](https://github.com/paypal/paypal-messaging-components/issues/62)) ([6bb87e1](https://github.com/paypal/paypal-messaging-components/commit/6bb87e1))
 
 ### [1.1.4](https://github.com/paypal/paypal-messaging-components/compare/v1.1.3...v1.1.4) (2019-09-11)
 
