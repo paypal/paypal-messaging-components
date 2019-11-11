@@ -47,7 +47,7 @@ function injectSpaceNodes(spans) {
 }
 
 function createCustomFontFamily(account, fontFamily) {
-    const baseUrl = `https://www.paypalobjects.com/upstream/assets/custom/6QXSKQZUKASMW/${fontFamily}-webfont`;
+    const baseUrl = `https://www.paypalobjects.com/upstream/assets/custom/${account}/${fontFamily}`;
     return `
     @font-face {
         font-family: ${fontFamily};
