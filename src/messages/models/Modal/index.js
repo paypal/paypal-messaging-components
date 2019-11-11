@@ -248,7 +248,7 @@ function createModal(options) {
 
                 if (isValidAmount(newVal)) {
                     target.value = newVal;
-                    target.setSelectionRange(startPosition + 1, endPosition + 1);
+                    target.setSelectionRange(startPosition + 1, startPosition + 1);
                 }
 
                 evt.preventDefault();
@@ -257,22 +257,6 @@ function createModal(options) {
             state.elements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
         }
     }
-
-    //             const val = target.value;
-    //             const position = target.selectionStart;
-    //             const newVal = val ? `${val.slice(0, position)}${key}${val.slice(position)}` : key;
-
-    //             if (isValidAmount(newVal)) {
-    //                 target.value = newVal;
-    //                 target.setSelectionRange(position + 1, position + 1);
-    //             }
-
-    //             evt.preventDefault();
-    //         });
-
-    //         state.elements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
-    //     }
-    // }
 
     function prepModal(ignoreCache = false) {
         // Account required in the start event on the server-side
