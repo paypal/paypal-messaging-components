@@ -349,9 +349,7 @@ function createTemplateNode(options, markup) {
             styleRules.push(`.${classNamePrefix}__messaging { width: ${mutationRules.messageWidth}px }`);
         } else if (Array.isArray(mutationRules.messageWidth)) {
             styleRules.push(
-                `.${classNamePrefix}__messaging { min-width: ${mutationRules.messageWidth[0]}px; max-width: ${
-                    mutationRules.messageWidth[1]
-                }px }`
+                `.${classNamePrefix}__messaging { min-width: ${mutationRules.messageWidth[0]}px; max-width: ${mutationRules.messageWidth[1]}px }`
             );
         }
     }
