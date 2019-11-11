@@ -4,7 +4,16 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '../../../utils';
+import {
+    memoizeOnProps,
+    objectGet,
+    objectMerge,
+    objectFlattenToArray,
+    getGlobalUrl,
+    request,
+    getCurrencyCode
+} from '../../../utils';
+
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
@@ -55,6 +64,7 @@ function fetcher(options) {
         account,
         amount,
         offerType,
+        currencyCode,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -69,7 +79,7 @@ function fetcher(options) {
         const queryParams = {
             dimensions,
             currency_value: amount,
-            currency_code: 'USD',
+            currency_code: currencyCode || getCurrencyCode(),
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
