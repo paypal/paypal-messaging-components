@@ -11,7 +11,8 @@ import { getValidOptions } from '../../../locale';
 const VALID_OPTIONS = {
     id: [Types.STRING],
     _legacy: [Types.BOOLEAN],
-    onRender: [Types.FUNCTION]
+    onRender: [Types.FUNCTION],
+    currency: [Types.STRING, ['USD', 'EUR']]
 };
 
 // Formalized validation logger helper functions
@@ -125,7 +126,7 @@ export const validateStyleOptions = curry((logger, style) => {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, offer, currency, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
@@ -157,14 +158,9 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
         }
     }
 
-    if (typeof offer !== 'undefined') {
-        if (!validateType(Types.STRING, offer)) {
-            logInvalidType(logger, 'offer', Types.STRING, offer);
-        } else if (offer !== 'NI') {
-            logInvalid(logger, 'offer', 'Ensure valid offer type.');
-        } else {
-            validOptions.offerType = offer;
-        }
+    if (typeof currency !== 'undefined') {
+        // Only set currency option if a value was passed in, so we don't override the SDK value with our default of USD
+        validOptions.currency = getValidVal(logger, VALID_OPTIONS.currency, currency, 'currency');
     }
 
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {

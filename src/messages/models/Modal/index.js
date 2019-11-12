@@ -152,12 +152,7 @@ function createModal(options) {
         });
 
         return getModalMarkup(options, ignoreCache)
-            .then(
-                pipe(
-                    pluck('markup'),
-                    insertMarkup
-                )
-            )
+            .then(pipe(pluck('markup'), insertMarkup))
             .then(() => {
                 setState({
                     frameElements: getModalElements(iframe),

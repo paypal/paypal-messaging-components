@@ -79,17 +79,7 @@ const Banner = {
                 partial(objectAssign, { logger, wrapper, events }), // Object(options, logger, wrapper, events)
                 asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
             )(totalOptions)
-                .then(
-                    passThrough(
-                        logBefore(
-                            pipe(
-                                pluck('template'),
-                                insertMarkup
-                            ),
-                            EVENTS.INSERT
-                        )
-                    )
-                ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
+                .then(passThrough(logBefore(pipe(pluck('template'), insertMarkup), EVENTS.INSERT))) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
