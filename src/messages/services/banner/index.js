@@ -225,7 +225,8 @@ export default function getBannerMarkup({ options, logger }) {
     ).then(({ markup, options: customOptions = {} }) => {
         logger.info(EVENTS.FETCH_END);
 
-        setLocale(markup.meta.offerCountry);
+        const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
+        setLocale(offerCountry);
 
         const style = validateStyleOptions(logger, options.style);
         style._flattened = objectFlattenToArray(style);
@@ -237,6 +238,11 @@ export default function getBannerMarkup({ options, logger }) {
         };
 
         if (typeof markup === 'object') {
+            const meta = {
+                ...markup.meta,
+                offerCountry
+            };
+
             const template = Template.getTemplateNode(totalOptions, markup);
 
             return objectGet(totalOptions, 'style.layout') === 'text'
@@ -244,13 +250,13 @@ export default function getBannerMarkup({ options, logger }) {
                       markup,
                       options: totalOptions,
                       template,
-                      meta: { ...markup.meta, minWidth }
+                      meta: { ...meta, minWidth }
                   }))
                 : {
                       markup,
                       options: totalOptions,
                       template,
-                      meta: { ...markup.meta, minWidth: template.minWidth }
+                      meta: { ...meta, minWidth: template.minWidth }
                   };
         }
 
