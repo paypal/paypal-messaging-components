@@ -60,38 +60,11 @@ export function initParent() {
     return [onOpen, onClose];
 }
 
-function getEZPModalElements(iframe, modalType) {
-    if (modalType !== 'EZP') {
-        return {};
-    }
-
-    const ezpTab = iframe.contentDocument.getElementById('ezp-tab');
-    const niTab = iframe.contentDocument.getElementById('ni-tab');
-    const ezpContent = iframe.contentDocument.getElementById('ezp-content');
-    const niContent = iframe.contentDocument.getElementById('ni-content');
-    const calculateButton = iframe.contentDocument.getElementById('calculate-ezp');
-    const amountInput = iframe.contentDocument.getElementById('number-input');
-    const loader = iframe.contentDocument.getElementById('loading-image');
-    const financeTermsTable = iframe.contentDocument.getElementById('financing-terms');
-
-    return {
-        ezpTab,
-        niTab,
-        ezpContent,
-        niContent,
-        calculateButton,
-        amountInput,
-        loader,
-        financeTermsTable
-    };
-}
-
-export function getModalElements(iframe, modalType) {
+export function getModalElements(iframe) {
     const contentWrapper = iframe.contentDocument.getElementById('content-wrapper');
     const overlay = iframe.contentDocument.getElementById('modal__overlay');
     const closeButton = iframe.contentDocument.getElementById('close-btn');
     const header = iframe.contentDocument.getElementById('header');
-    const accordions = iframe.contentDocument.getElementsByClassName('accordion');
     const modalContainer = iframe.contentDocument.getElementById('modal-container');
     const headerContainer = iframe.contentDocument.getElementsByClassName('modal__header-container')[0];
     const landerLinks = iframe.contentDocument.getElementsByTagName('a');
@@ -102,10 +75,8 @@ export function getModalElements(iframe, modalType) {
         overlay,
         closeButton,
         header,
-        accordions,
         modalContainer,
         headerContainer,
-        landerLinks,
-        ...getEZPModalElements(iframe, modalType)
+        landerLinks
     };
 }

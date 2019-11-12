@@ -1,9 +1,15 @@
-import validateOptions, { VALID_STYLE_OPTIONS } from 'src/messages/models/Banner/validateOptions';
+import validateOptions, { validateStyleOptions } from 'src/messages/models/Banner/validateOptions';
+import { setLocale, getValidOptions } from 'src/locale';
 
 const mockLogger = {
     warn: jest.fn(),
     info: jest.fn()
 };
+
+// TODO: update tests for new style options validation
+setLocale('US');
+
+const VALID_STYLE_OPTIONS = getValidOptions();
 
 describe('validateOptions', () => {
     beforeEach(() => {
@@ -19,11 +25,10 @@ describe('validateOptions', () => {
         _legacy: false,
         account: '1234567890123',
         amount: 100,
-        countryCode: 'US',
         onRender: () => {}
     };
 
-    it('Allows valid id, _legacy, account, amount, countryCode, style', () => {
+    it('Allows valid id, _legacy, account, amount, style', () => {
         const type = validLogoTypes[0];
         const position = validLogoPositions[1];
         const validated = validateOptions(mockLogger, {
@@ -83,26 +88,6 @@ describe('validateOptions', () => {
             expect(validated.amount).toBeUndefined();
         });
 
-        it('Warns invalid countryCode type', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                countryCode: {}
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.countryCode).toBeUndefined();
-        });
-
-        it('Warns invalid countryCode value', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                countryCode: 'USA'
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.countryCode).toBeUndefined();
-        });
-
         it('Warns invalid onRender type', () => {
             const validated = validateOptions(mockLogger, {
                 ...validOptions,
@@ -140,7 +125,7 @@ describe('validateOptions', () => {
 
         it('Warns invalid style.layout value', () => {
             const layout = 'invalid';
-            const validated = validateOptions(mockLogger, {
+            const validated = validateStyleOptions(mockLogger, {
                 ...validOptions,
                 style: {
                     layout
@@ -148,12 +133,12 @@ describe('validateOptions', () => {
             });
 
             expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.style.layout).toBe('text');
+            expect(validated.layout).toBe('text');
         });
 
         it('Warns invalid values for style config', () => {
             const logoType = 'invalid';
-            const validated = validateOptions(mockLogger, {
+            const validated = validateStyleOptions(mockLogger, {
                 ...validOptions,
                 style: {
                     layout: 'text',
@@ -164,8 +149,8 @@ describe('validateOptions', () => {
             });
 
             expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.style.logo.type).toBe(validLogoTypes[0]);
-            expect(validated.style.logo.position).toBe(validLogoPositions[0]);
+            expect(validated.logo.type).toBe(validLogoTypes[0]);
+            expect(validated.logo.position).toBe(validLogoPositions[0]);
         });
     });
 });

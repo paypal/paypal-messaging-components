@@ -1,6 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
@@ -56,13 +56,13 @@ export default function render(options, selector = '[data-pp-message]') {
                 const newConfig = mutationList.reduce((accumulator, mutation) => {
                     if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
 
-                    return {
-                        ...accumulator,
-                        ...flattenedToObject(
+                    return objectMerge(
+                        accumulator,
+                        flattenedToObject(
                             mutation.attributeName.slice(8),
                             mutation.target.getAttribute(mutation.attributeName)
                         )
-                    };
+                    );
                 }, {});
 
                 Banner.init(container, selectorType, newConfig);

@@ -1,0 +1,20 @@
+.message__content {
+    display: inline-block;
+}
+
+.message__disclaimer > span {
+    text-decoration: none;
+    color: #2c2e2f;
+    white-space: normal;
+}
+
+.message__disclaimer > span > span {
+    white-space: nowrap;
+}
+
+.message__disclaimer > span > span:only-child,
+.message__disclaimer > span > span.em {
+    text-decoration: underline;
+    color: #0076ff;
+    white-space: nowrap;
+}

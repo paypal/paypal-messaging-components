@@ -41,6 +41,7 @@
     width: auto;
     font-family: 'HelveticaNeueW02-65Medi', 'Helvetica Neue-Thin', Helvetica, Arial, 'Lucida Grande', sans-serif;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .message__messaging {
