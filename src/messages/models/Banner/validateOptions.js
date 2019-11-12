@@ -12,7 +12,7 @@ const VALID_OPTIONS = {
     id: [Types.STRING],
     _legacy: [Types.BOOLEAN],
     onRender: [Types.FUNCTION],
-    currencyCode: [Types.STRING, ['USD', 'EUR']]
+    currency: [Types.STRING, ['USD', 'EUR']]
 };
 
 // Formalized validation logger helper functions
