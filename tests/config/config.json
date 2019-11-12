@@ -1,0 +1,25 @@
+{
+    "plugins": {
+        "view": {
+            "module": "nemo-view"
+        },
+        "window": {
+            "module": "nemo-window"
+        }
+    },
+    "data": {
+        "baseurl": "http://localhost.paypal.com:8080/modals/Banners.html"
+    },
+    "profiles": {
+        "base": {
+            "tests": "path:functional/spec/nemo/*.js",
+            "driverPerTest": false,
+            "mocha": {
+                "timeout": 220000
+            },
+            "driver": {
+                "browser": "chrome"
+            }
+        }
+    }
+}

@@ -18,8 +18,8 @@ export default async function startWebpackDevServer() {
     devServerConfig.contentBase = path.resolve(__dirname, '../content');
 
     global.devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
-    global.devServer.listen(8080, '127.0.0.1', () => {
-        console.log('Dev server started at http://127.0.0.1:8080');
+    global.devServer.listen(8080, 'localhost.paypal.com', () => {
+        console.log('Dev server started at http://localhost.paypal.com:8080');
     });
 
     await new Promise(resolve => {

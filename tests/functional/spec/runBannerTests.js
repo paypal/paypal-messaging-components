@@ -18,7 +18,7 @@ expect.extend({ toMatchImageSnapshot });
 
 const SCREENSHOT_ROOT = path.resolve(__dirname, '../banners');
 
-const testPageUrl = 'http://127.0.0.1:8080';
+const testPageUrl = 'http://localhost.paypal.com:8080';
 
 // Comment out to skip testing certain banner types
 // prettier-ignore
@@ -55,7 +55,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [600, 300, 100],
             full: getSizes(600) */
-            medium: [1000]
+            medium: [300, 1000]
         }
     },
     flex: {
@@ -70,7 +70,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1200, 800, 300, 100],
             full: getSizes(1200) */
-            medium: [1000]
+            medium: [300, 1000]
         }
     },
     legacyNI: {
@@ -89,7 +89,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1100, 800, 300, 100],
             full: getSizes(1100) */
-            medium: [1000]
+            medium: [300, 1000]
         }
     },
     legacyEZP: {
@@ -126,7 +126,7 @@ const bannerTypeConfigs = {
         sizeConfig: {
             /* quick: [1100, 800, 300, 100],
             full: getSizes(1100) */
-            medium: [1000]
+            medium: [300, 1000]
         }
     }
 };
@@ -289,7 +289,7 @@ export default function runBannerTests(account) {
 
             // Re-route requests to proxy imadserv
             if (url.includes('https://www.paypal.com/imadserver/upstream')) {
-                const hostName = 'http://127.0.0.1:8080';
+                const hostName = 'http://localhost.paypal.com:8080';
                 return request.continue({
                     url: url.replace(
                         'https://www.paypal.com/imadserver/upstream',

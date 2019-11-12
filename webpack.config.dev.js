@@ -5,7 +5,7 @@ const globals = require('./globals');
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
-const HOSTNAME = '127.0.0.1';
+const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
@@ -43,9 +43,11 @@ module.exports = (env = {}) => {
     config.devServer = {
         contentBase: './demo',
         publicPath: '/',
-        openPage: env.standalone ? (env.legacy && 'legacy.html') || 'standalone.html' : '',
+        openPage: env.standalone
+            ? (env.legacy && 'legacy.html') || 'standalone.html'
+            : env.banner && './modals/Banners.html',
         compress: true,
-        host: '127.0.0.1',
+        host: 'localhost.paypal.com',
         port: 8080,
         open: true,
         overlay: true,
