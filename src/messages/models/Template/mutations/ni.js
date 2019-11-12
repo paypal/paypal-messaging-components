@@ -55,7 +55,10 @@ export default {
             style => ({
                 styles: [basicMediaQuery(textSize(style) * 18.5 + 70)],
                 logo: Logo.PRIMARY.COLOR,
-                headline: [{ tag: 'xsmall', br: ['time.'] }, { tag: 'medium', br: ['months'] }],
+                headline: [
+                    { tag: 'xsmall', br: ['time.'] },
+                    { tag: 'medium', br: ['months'] }
+                ],
                 disclaimer: 'xsmall'
             })
         ],
@@ -64,7 +67,7 @@ export default {
             style => ({
                 styles: [
                     basicMediaQuery(textSize(style) * 15 + 80),
-                    `.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`
+                    `.message__logo { width: ${textSize(style) * 7}px }`
                 ],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
@@ -96,7 +99,7 @@ export default {
             style => ({
                 styles: [
                     basicMediaQuery(textSize(style) * 34 + 130),
-                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                    `.message__logo-container { width: ${textSize(style) * 8}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
             })
@@ -107,7 +110,7 @@ export default {
             style => ({
                 styles: [
                     basicMediaQuery(textSize(style) * 18.5),
-                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                    `.message__logo-container { width: ${textSize(style) * 8}px }`
                 ]
             })
         ],

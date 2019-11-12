@@ -23,7 +23,7 @@ export default {
         [
             'logo.type:inline',
             style => ({
-                styles: [...defaultTextStyles, `.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`],
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize(style) * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR
             })
         ],
@@ -31,10 +31,7 @@ export default {
         [
             'logo.type:alternative',
             style => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
-                ],
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize(style) * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['months', 'months.']],

@@ -15,7 +15,7 @@ export default {
         [
             'logo.type:inline',
             style => ({
-                styles: [`.message__logo { width: ${Math.min(100, textSize(style) * 8)}px }`],
+                styles: [`.message__logo { width: ${textSize(style) * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
                     br: ['/mo']
@@ -34,7 +34,7 @@ export default {
         [
             'logo.type:alternative',
             style => ({
-                styles: [`.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`],
+                styles: [`.message__logo-container { width: ${textSize(style) * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],

@@ -18,7 +18,7 @@ export default {
         [
             'logo.type:inline',
             style => ({
-                styles: [basicMediaQuery(textSize(style) * 23)],
+                styles: [basicMediaQuery(textSize(style) * 23), `.message__logo { width: ${textSize(style) * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -49,7 +49,7 @@ export default {
             style => ({
                 styles: [
                     basicMediaQuery(textSize(style) * 36 + 130),
-                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                    `.message__logo-container { width: ${textSize(style) * 8}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
@@ -60,7 +60,7 @@ export default {
             style => ({
                 styles: [
                     basicMediaQuery(textSize(style) * 20),
-                    `.message__logo-container { width: ${Math.min(120, textSize(style) * 10)}px }`
+                    `.message__logo-container { width: ${textSize(style) * 8}px }`
                 ],
                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
             })
