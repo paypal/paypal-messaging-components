@@ -209,9 +209,7 @@ class Ad {
     clickHandler(evt) {
         const { target } = evt;
         const popupAttr = this.kvs.popup;
-        const popupFeatures = `width=${popupDimensions[0]},height=${
-            popupDimensions[1]
-        },scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no`;
+        const popupFeatures = `width=${popupDimensions[0]},height=${popupDimensions[1]},scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no`;
 
         if (target.nodeName.toLowerCase() === 'img' && (!popupAttr || popupAttr === 'true')) {
             Page.popup(target.parentNode.href, this.namespace, popupFeatures);
