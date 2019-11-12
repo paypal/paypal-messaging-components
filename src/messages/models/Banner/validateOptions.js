@@ -126,7 +126,7 @@ export const validateStyleOptions = curry((logger, style) => {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, style, offer, currencyCode, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, offer, currency, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
@@ -158,9 +158,9 @@ export default curry((logger, { account, amount, style, offer, currencyCode, ...
         }
     }
 
-    if (typeof currencyCode !== 'undefined') {
-        // Only set currencyCode option if a value was passed in, so we don't override the SDK value with our default of USD
-        validOptions.currencyCode = getValidVal(logger, VALID_OPTIONS.currencyCode, currencyCode, 'currencyCode');
+    if (typeof currency !== 'undefined') {
+        // Only set currency option if a value was passed in, so we don't override the SDK value with our default of USD
+        validOptions.currency = getValidVal(logger, VALID_OPTIONS.currency, currency, 'currency');
     }
 
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {

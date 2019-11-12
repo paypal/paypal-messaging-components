@@ -1,5 +1,11 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import { getClientID, getMerchantID, getSDKScript, getEnv as getSDKEnv, getCurrency } from '@paypal/sdk-client/src';
+import {
+    getClientID,
+    getMerchantID,
+    getSDKScript,
+    getEnv as getSDKEnv,
+    getCurrency as getSDKCurrency
+} from '@paypal/sdk-client/src';
 
 // SDK helper functions with standalone build polyfills
 
@@ -28,9 +34,9 @@ export function getScript() {
     }
 }
 
-export function getCurrencyCode() {
+export function getCurrency() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getCurrency();
+        return getSDKCurrency();
     } else {
         return 'USD';
     }

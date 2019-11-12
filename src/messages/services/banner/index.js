@@ -11,7 +11,7 @@ import {
     objectFlattenToArray,
     getGlobalUrl,
     request,
-    getCurrencyCode
+    getCurrency
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -64,7 +64,7 @@ function fetcher(options) {
         account,
         amount,
         offerType,
-        currencyCode,
+        currency,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -79,7 +79,7 @@ function fetcher(options) {
         const queryParams = {
             dimensions,
             currency_value: amount,
-            currency_code: currencyCode || getCurrencyCode(),
+            currency_code: currency || getCurrency(),
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
