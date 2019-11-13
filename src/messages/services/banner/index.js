@@ -2,13 +2,24 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '../../../utils';
+import {
+    memoizeOnProps,
+    objectGet,
+    objectMerge,
+    objectFlattenToArray,
+    getGlobalUrl,
+    request,
+    getCurrency
+} from '../../../utils';
+
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
 import createContainer from '../../models/Container';
+import { setLocale } from '../../../locale';
+import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
 // Using same JSONP callback namespace as original merchant.js
 window.__PP = window.__PP || {};
@@ -20,17 +31,11 @@ const PLACEMENT = 'x215x80';
 
 const NI_ONLY_PLACEMENT = 'x199x99';
 
-const LOCALE_MAP = {
-    US: 'en_US',
-    GB: 'en_GB',
-    FR: 'fr_FR',
-    DE: 'de_DE'
-};
-
 function mutateMarkup(markup) {
     try {
         const content = markup.content.json;
         const tracking = markup.tracking_details;
+        const meta = JSON.parse(content.meta);
         const mutatedMarkup = {
             data: {
                 disclaimer: JSON.parse(content.disclaimer),
@@ -40,7 +45,7 @@ function mutateMarkup(markup) {
             meta: {
                 clickUrl: tracking.click_url,
                 impressionUrl: tracking.impression_url,
-                offerType: JSON.parse(content.meta).offerType
+                ...meta
             }
         };
         return mutatedMarkup;
@@ -58,8 +63,8 @@ function fetcher(options) {
     const {
         account,
         amount,
-        countryCode,
         offerType,
+        currency,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -74,18 +79,12 @@ function fetcher(options) {
         const queryParams = {
             dimensions,
             currency_value: amount,
-            currency_code: 'USD',
+            currency_code: currency || getCurrency(),
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
             call: `__PP.${callbackName}`
         };
-
-        // Country code is optional. MORS will default to merchant's country by default
-        if (countryCode && LOCALE_MAP[countryCode]) {
-            queryParams.country_code = countryCode;
-            queryParams.locale = LOCALE_MAP[countryCode];
-        }
 
         const queryString = objectEntries(queryParams)
             .filter(([, val]) => val)
@@ -112,7 +111,9 @@ function fetcher(options) {
                 resolve({ markup: mutateMarkup(markup) });
             } else {
                 try {
-                    resolve({ markup: JSON.parse(markup.replace(/<\/?div>/g, '')) });
+                    resolve({
+                        markup: JSON.parse(markup.replace(/<\/?div>/g, ''))
+                    });
                 } catch (err) {
                     resolve({ markup });
                 }
@@ -213,7 +214,10 @@ export default function getBannerMarkup({ options, logger }) {
                   }
                   data.markup.template = template; // eslint-disable-line no-param-reassign
 
-                  return { markup: data.markup, options: objectMerge(options, getBannerOptions(logger, template)) };
+                  return {
+                      markup: data.markup,
+                      options: objectMerge(options, getBannerOptions(logger, template))
+                  };
               }
 
               return { markup: data.markup };
@@ -221,13 +225,24 @@ export default function getBannerMarkup({ options, logger }) {
     ).then(({ markup, options: customOptions = {} }) => {
         logger.info(EVENTS.FETCH_END);
 
+        const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
+        setLocale(offerCountry);
+
+        const style = validateStyleOptions(logger, options.style);
+        style._flattened = objectFlattenToArray(style);
+
         const totalOptions = {
             ...options,
+            style,
             ...customOptions
         };
-        totalOptions.style._flattened = objectFlattenToArray(totalOptions.style);
 
         if (typeof markup === 'object') {
+            const meta = {
+                ...markup.meta,
+                offerCountry
+            };
+
             const template = Template.getTemplateNode(totalOptions, markup);
 
             return objectGet(totalOptions, 'style.layout') === 'text'
@@ -235,13 +250,13 @@ export default function getBannerMarkup({ options, logger }) {
                       markup,
                       options: totalOptions,
                       template,
-                      meta: { ...markup.meta, minWidth }
+                      meta: { ...meta, minWidth }
                   }))
                 : {
                       markup,
                       options: totalOptions,
                       template,
-                      meta: { ...markup.meta, minWidth: template.minWidth }
+                      meta: { ...meta, minWidth: template.minWidth }
                   };
         }
 

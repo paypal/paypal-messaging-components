@@ -1,5 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import getBannerMarkup from '../../services/banner';
 import { Logger, EVENTS, ERRORS } from '../../services/logger';
@@ -79,17 +79,7 @@ const Banner = {
                 partial(objectAssign, { logger, wrapper, events }), // Object(options, logger, wrapper, events)
                 asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
             )(totalOptions)
-                .then(
-                    passThrough(
-                        logBefore(
-                            pipe(
-                                pluck('template'),
-                                insertMarkup
-                            ),
-                            EVENTS.INSERT
-                        )
-                    )
-                ) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
+                .then(passThrough(logBefore(pipe(pluck('template'), insertMarkup), EVENTS.INSERT))) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
@@ -171,6 +161,10 @@ export default {
                 banners.set(wrapper, banner);
             }
         } catch (err) {
+            if (__LOCAL__) {
+                console.error(err);
+            }
+
             logger.error({ name: ERRORS.INTERNAL_FAIL, message: err.message });
             logger.end();
 
@@ -178,6 +172,10 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
+            if (__LOCAL__) {
+                console.error(err);
+            }
+
             const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;
             logger.error(name === ERRORS.INTERNAL_FAIL ? { name, message: err.message } : { name });
             logger.end();

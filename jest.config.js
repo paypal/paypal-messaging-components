@@ -4,6 +4,7 @@ module.exports = {
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
         '^utils/(.*)': '<rootDir>/tests/utils/$1',
+        'zalgo-promise/src': 'zalgo-promise',
         '@paypal/sdk-client/src': '@paypal/sdk-client'
     },
     transform: {

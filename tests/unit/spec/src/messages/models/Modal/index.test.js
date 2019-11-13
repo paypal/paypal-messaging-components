@@ -1,13 +1,18 @@
 import { getByRole, fireEvent, within, wait } from '@testing-library/dom';
 
 import createContainer from 'utils/createContainer';
-import mockEzpModal from 'src/../demo/upstream/assets/messaging/modal/ezp.html';
-import mockNiModal from 'src/../demo/upstream/assets/messaging/modal/ni.html';
+import mockEzpModal from 'src/../demo/upstream/assets/messaging/modal/US/ezp.html';
+import mockNiModal from 'src/../demo/upstream/assets/messaging/modal/US/ni.html';
 import eventsOn from 'src/messages/models/Container/events';
 import Modal from 'src/messages/models/Modal';
+import { setLocale } from 'src/locale';
 
 jest.mock('src/messages/services/modal', () =>
-    jest.fn(({ offerType }) => Promise.resolve({ markup: offerType === 'NI' ? mockNiModal : mockEzpModal }))
+    jest.fn(({ offerType }) =>
+        Promise.resolve({
+            markup: offerType === 'NI' ? mockNiModal : mockEzpModal
+        })
+    )
 );
 jest.mock('src/messages/services/terms', () => jest.fn().mockResolvedValue(''));
 jest.mock('src/messages/services/logger', () => ({
@@ -18,7 +23,6 @@ jest.mock('src/messages/services/logger', () => ({
         })
     }
 }));
-jest.mock('src/messages/models/Modal/termsTable', () => () => '');
 
 // JSDOM will not fire load events, causing insertMarkup to stall out
 HTMLImageElement.prototype.addEventListener = jest.fn((type, cb) => cb());
@@ -35,6 +39,8 @@ const createMockRenderObject = (container, { account = '1', offerType = 'EZP:ANY
     events: eventsOn(container),
     track: jest.fn()
 });
+
+setLocale('US');
 
 describe('Modal methods', () => {
     afterEach(async () => {
@@ -100,7 +106,10 @@ describe('Modal methods', () => {
 
         await wait(() => expect(modal).toBeVisible());
 
-        fireEvent.keyUp(modalContainer.contentWindow, { key: 'Escape', code: 27 });
+        fireEvent.keyUp(modalContainer.contentWindow, {
+            key: 'Escape',
+            code: 27
+        });
 
         await wait(() => expect(modal).not.toBeVisible());
 
@@ -172,8 +181,7 @@ describe('Modal methods', () => {
         const accordion = modalContainer.contentDocument.querySelector('.accordion');
         const accordionTitle = accordion.querySelector('h3');
 
-        // FIXME: Why is "show" present by default but then removed when the modal is opened?
-        await wait(() => expect(accordion).not.toHaveClass('show'));
+        expect(accordion).not.toHaveClass('show');
 
         fireEvent.click(accordionTitle);
 

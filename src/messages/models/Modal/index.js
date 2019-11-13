@@ -1,16 +1,13 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import objectValues from 'core-js-pure/stable/object/values';
-import numberIsNaN from 'core-js-pure/stable/number/is-nan';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import getModalMarkup from '../../services/modal';
-import getTerms from '../../services/terms';
 import { Logger, ERRORS } from '../../services/logger';
 import createContainer from '../Container';
-import renderTermsTable from './termsTable';
 import { initParent, getModalElements } from './utils';
 import { createState, memoizeOnProps, pipe, pluck, nextId } from '../../../utils';
+import { getModalContent, getModalType } from '../../../locale';
 
 function createModal(options) {
     const wrapper = window.top.document.createElement('div');
@@ -23,57 +20,25 @@ function createModal(options) {
     const [state, setState] = createState({
         status: 'CLOSED'
     });
-    const logger = Logger.create({
-        id,
-        account: options.account,
-        selector: '__internal__',
-        type: 'Modal'
-    });
-
-    function getModalType() {
-        if (stringStartsWith(options.offerType, 'NI')) {
-            return 'NI';
-        }
-
-        return 'EZP';
-    }
+    const modalType = getModalType(options.offerCountry, options.offerType);
 
     const trackModalEvent = (type, linkName, amount) =>
         track({
             et: type === 'modal-open' ? 'CLIENT_IMPRESSION' : 'CLICK',
             link: linkName,
             amount,
-            modal: getModalType(),
+            modal: modalType,
             event_type: type
         });
 
-    function resetAccordions() {
-        arrayFrom(state.elements.accordions).forEach(accordion => {
-            accordion.classList.remove('show');
+    const modalContent = getModalContent(options, state, trackModalEvent);
 
-            const content = accordion.getElementsByClassName('accordion-content')[0];
-            content.style.setProperty('max-height', null);
-        });
-    }
-
-    function showTab(name, suppressTrackingEvent) {
-        const tabs = {
-            'NI Tab': [state.elements.niTab, state.elements.niContent],
-            'EZP Tab': [state.elements.ezpTab, state.elements.ezpContent]
-        };
-
-        const targetTab = tabs[name][0];
-        objectValues(tabs).forEach(([tab, content]) => {
-            tab.classList.toggle('selected', tab === targetTab);
-            content.classList.toggle('show', tab === targetTab);
-        });
-
-        if (!suppressTrackingEvent) {
-            trackModalEvent('modal-tab', name);
-        }
-
-        resetAccordions();
-    }
+    const logger = Logger.create({
+        id,
+        account: options.account,
+        selector: '__internal__',
+        type: 'Modal'
+    });
 
     function ensureReady() {
         if (state.error) {
@@ -101,11 +66,10 @@ function createModal(options) {
                 // Focus iframe window so that keyboard events interact with the modal
                 requestAnimationFrame(() =>
                     requestAnimationFrame(() => {
-                        resetAccordions();
                         iframe.contentWindow.focus();
                         setState({ status: 'OPEN' });
                         parentOpen();
-                        state.elements.modalContainer.classList.add('show');
+                        state.frameElements.modalContainer.classList.add('show');
 
                         trackModalEvent('modal-open');
                     })
@@ -118,20 +82,14 @@ function createModal(options) {
         return new ZalgoPromise((resolve, reject) => {
             if (state.status === 'OPEN' || state.status === 'OPENING') {
                 setState({ status: 'CLOSING' });
-                state.elements.modalContainer.classList.remove('show');
+                state.frameElements.modalContainer.classList.remove('show');
 
                 setTimeout(() => {
                     wrapper.style.display = 'none';
                     iframe.blur();
                     setState({ status: 'CLOSED' });
                     parentClose();
-
-                    if (getModalType() === 'EZP') {
-                        // Ensure the EZP tab is active every time the modal is opened
-                        setTimeout(() => {
-                            showTab('EZP Tab', true);
-                        }, 350);
-                    }
+                    modalContent.onClose();
 
                     resolve();
                 }, delay || 0);
@@ -146,71 +104,28 @@ function createModal(options) {
         trackModalEvent('modal-close', link);
     }
 
-    function fetchTerms(amount) {
-        const convertedAmount = +amount;
-        if (!numberIsNaN(convertedAmount)) {
-            state.elements.amountInput.value = convertedAmount.toFixed(2);
-        }
-
-        state.elements.loader.style.setProperty('opacity', 1);
-        state.elements.financeTermsTable.style.setProperty('opacity', 0.4);
-
-        return getTerms({
-            ...options,
-            amount
-        }).then(terms => {
-            state.elements.loader.style.setProperty('opacity', 0);
-            state.elements.financeTermsTable.style.setProperty('opacity', 1);
-            state.elements.financeTermsTable.innerHTML = renderTermsTable(terms);
-        });
-    }
-
-    function isValidAmount(amount) {
-        if (numberIsNaN(Number(amount))) {
-            return false;
-        }
-
-        const [int = '', dec = ''] = amount.split('.');
-        // Maximum value: 99999.99
-        return int.length <= 5 && dec.length <= 2;
-    }
-
     function addModalEventHandlers() {
-        state.elements.closeButton.addEventListener('click', () => {
+        state.frameElements.closeButton.addEventListener('click', () => {
             closeEvent('Close Button');
         });
 
-        state.elements.overlay.addEventListener('click', ({ target }) => {
-            if (target === state.elements.contentWrapper || target === state.elements.headerContainer) {
+        state.frameElements.overlay.addEventListener('click', ({ target }) => {
+            if (target === state.frameElements.contentWrapper || target === state.frameElements.headerContainer) {
                 closeEvent('Modal Overlay');
             }
         });
 
         const onScroll = () => {
-            if (state.elements.contentWrapper.scrollTop > 0) {
-                state.elements.header.classList.add('show');
+            if (state.frameElements.contentWrapper.scrollTop > 0) {
+                state.frameElements.header.classList.add('show');
             } else {
-                state.elements.header.classList.remove('show');
+                state.frameElements.header.classList.remove('show');
             }
         };
 
-        state.elements.contentWrapper.addEventListener('scroll', onScroll);
+        state.frameElements.contentWrapper.addEventListener('scroll', onScroll);
 
-        state.elements.contentWrapper.addEventListener('touchmove', onScroll);
-
-        arrayFrom(state.elements.accordions).forEach(accordion => {
-            const header = accordion.getElementsByTagName('h3')[0];
-            const content = accordion.getElementsByClassName('accordion-content')[0];
-
-            header.addEventListener('click', () => {
-                const added = accordion.classList.toggle('show');
-                content.style.setProperty('max-height', added ? `${content.scrollHeight}px` : null);
-
-                if (added) {
-                    trackModalEvent('accordion-open', header.innerText);
-                }
-            });
-        });
+        state.frameElements.contentWrapper.addEventListener('touchmove', onScroll);
 
         iframe.contentWindow.addEventListener('keyup', evt => {
             if (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27) {
@@ -218,44 +133,11 @@ function createModal(options) {
             }
         });
 
-        arrayFrom(state.elements.landerLinks).forEach(link => {
+        arrayFrom(state.frameElements.landerLinks).forEach(link => {
             link.addEventListener('click', () => trackModalEvent('lander-link'));
         });
 
-        if (getModalType() === 'EZP') {
-            state.elements.niTab.addEventListener('click', () => showTab('NI Tab'));
-            state.elements.ezpTab.addEventListener('click', () => showTab('EZP Tab'));
-
-            const calculateTerms = link => {
-                const amount = state.elements.amountInput.value;
-                trackModalEvent('calculate', link, amount);
-                fetchTerms(amount);
-            };
-
-            state.elements.amountInput.addEventListener('keydown', evt => {
-                const { key, target } = evt;
-
-                if (key.length > 1 || evt.metaKey || evt.ctrlKey) {
-                    if (key === 'Enter') {
-                        calculateTerms('Enter Key');
-                    }
-                    return;
-                }
-
-                const val = target.value;
-                const position = target.selectionStart;
-                const newVal = val ? `${val.slice(0, position)}${key}${val.slice(position)}` : key;
-
-                if (isValidAmount(newVal)) {
-                    target.value = newVal;
-                    target.setSelectionRange(position + 1, position + 1);
-                }
-
-                evt.preventDefault();
-            });
-
-            state.elements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
-        }
+        modalContent.addHandlers(modalType, state.contentElements, trackModalEvent);
     }
 
     function prepModal(ignoreCache = false) {
@@ -270,20 +152,19 @@ function createModal(options) {
         });
 
         return getModalMarkup(options, ignoreCache)
-            .then(
-                pipe(
-                    pluck('markup'),
-                    insertMarkup
-                )
-            )
+            .then(pipe(pluck('markup'), insertMarkup))
             .then(() => {
                 setState({
-                    elements: getModalElements(iframe, getModalType())
+                    frameElements: getModalElements(iframe),
+                    contentElements: modalContent.getElements(iframe, modalType)
                 });
 
                 addModalEventHandlers();
             })
-            .catch(() => {
+            .catch(err => {
+                if (__LOCAL__) {
+                    console.error(err);
+                }
                 logger.error({ name: ERRORS.MODAL_FAIL });
                 setState({ error: true });
             })
@@ -307,9 +188,7 @@ function createModal(options) {
 
     setState({ modalProm: prepModal() });
 
-    if (getModalType() === 'EZP') {
-        ensureReady().then(() => fetchTerms(options.amount));
-    }
+    ensureReady().then(() => modalContent.onLoad());
 
     return {
         open: openModal,
@@ -338,7 +217,11 @@ export default {
                 }
             });
         } else {
-            const { open: openModal } = getModal({ ...options, ...meta, track });
+            const { open: openModal } = getModal({
+                ...options,
+                ...meta,
+                track
+            });
             events.on('click', openModal);
         }
     }
