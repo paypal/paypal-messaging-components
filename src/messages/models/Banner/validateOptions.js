@@ -158,9 +158,9 @@ export default curry((logger, { account, amount, style, offer, currency, ...othe
         }
     }
 
-    if (typeof currency !== 'undefined') {
+    if (typeof currency === 'undefined') {
         // Only set currency option if a value was passed in, so we don't override the SDK value with our default of USD
-        validOptions.currency = getValidVal(logger, VALID_OPTIONS.currency, currency, 'currency');
+        delete validOptions.currency;
     }
 
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
