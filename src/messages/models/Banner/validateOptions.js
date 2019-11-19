@@ -2,7 +2,7 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry, objectClone, objectSet } from '../../../utils';
+import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
 import { Types, validateType } from './types';
 
@@ -48,6 +48,21 @@ function getValidVal(logger, typeArr, val, location) {
         return val;
     }
 
+    const numberVal = Number(val);
+    if (type === Types.NUMBER && validateType(type, numberVal)) {
+        if (validVals.length > 0) {
+            const validVal = arrayFind(validVals, v => v === numberVal);
+            if (validVal === undefined) {
+                logInvalidOption(logger, location, validVals, numberVal);
+                return validVals[0];
+            }
+
+            return validVal;
+        }
+
+        return numberVal;
+    }
+
     logInvalidType(logger, location, type, val);
     return validVals[0];
 }
@@ -91,13 +106,6 @@ function getValidStyleOptions(logger, localeStyleOptions, options) {
         layout: options.layout,
         ...populateDefaults(logger, localeStyleOptions[options.layout], options)
     };
-
-    if (options.layout === 'text') {
-        if (defaultValues.text.size > 16 || defaultValues.text.size < 10) {
-            logInvalid(logger, 'style.text.size', 'Text size should be between 10px and 16px.');
-            objectSet(defaultValues, 'text.size', 12);
-        }
-    }
 
     return defaultValues;
 }

@@ -1,5 +1,4 @@
 import Logo from '../logos';
-import { objectGet } from '../../../utils/objects';
 
 export function basicMediaQuery(breakpoint) {
     return `
@@ -46,14 +45,12 @@ export const legacyNI = [
     ]
 ];
 
-export const textSize = style => objectGet(style, 'text.size');
-
 export default {
     'layout:text': [
         [
             'default',
-            style => ({
-                styles: [basicMediaQuery(textSize(style) * 18.5 + 70)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 18.5 + 70)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
@@ -64,11 +61,8 @@ export default {
         ],
         [
             'logo.type:inline',
-            style => ({
-                styles: [
-                    basicMediaQuery(textSize(style) * 15 + 80),
-                    `.message__logo { width: ${textSize(style) * 7}px }`
-                ],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -78,8 +72,8 @@ export default {
         ],
         [
             'logo.type:none',
-            style => ({
-                styles: [basicMediaQuery(textSize(style) * 20)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 20)],
                 logo: false,
                 headline: [
                     {
@@ -96,22 +90,16 @@ export default {
         ],
         [
             'logo.type:alternative',
-            style => ({
-                styles: [
-                    basicMediaQuery(textSize(style) * 34 + 130),
-                    `.message__logo-container { width: ${textSize(style) * 8}px }`
-                ],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
-        ['logo.type:primary && logo.position:top', style => ({ styles: [basicMediaQuery(textSize(style) * 18.5)] })],
+        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 18.5)] })],
         [
             'logo.type:alternative && logo.position:top',
-            style => ({
-                styles: [
-                    basicMediaQuery(textSize(style) * 18.5),
-                    `.message__logo-container { width: ${textSize(style) * 8}px }`
-                ]
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],

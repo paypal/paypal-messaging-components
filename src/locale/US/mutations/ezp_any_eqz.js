@@ -1,5 +1,4 @@
 import Logo from '../logos';
-import { textSize } from './ni';
 
 const defaultTextStyles = [
     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
@@ -22,16 +21,16 @@ export default {
         ],
         [
             'logo.type:inline',
-            style => ({
+            ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                styles: [...defaultTextStyles, `.message__logo { width: ${textSize(style) * 7}px }`]
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            style => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize(style) * 8}px }`],
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],

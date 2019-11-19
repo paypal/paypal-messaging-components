@@ -1,13 +1,12 @@
 import Logo from '../logos';
-import { textSize } from './ni';
 
 export default {
     'layout:text': [
         [
             'default',
-            style => ({
+            ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                messageWidth: [textSize(style) * 11, 1000],
+                messageWidth: [textSize * 11, 1000],
                 headline: {
                     tag: 'small',
                     br: ['/mo']
@@ -17,10 +16,10 @@ export default {
         ],
         [
             'logo.type:inline',
-            style => ({
-                styles: [`.message__logo { width: ${textSize(style) * 7}px }`],
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize(style) * 19, 1000],
+                messageWidth: [textSize * 19, 1000],
                 headline: {
                     replace: [['APR.', 'APR']],
                     br: ['APR']
@@ -29,9 +28,9 @@ export default {
         ],
         [
             'logo.type:none',
-            style => ({
+            ({ textSize }) => ({
                 logo: false,
-                messageWidth: [textSize(style) * 17, 1000],
+                messageWidth: [textSize * 17, 1000],
                 headline: {
                     replace: [['APR.', 'APR']],
                     br: ['APR']
@@ -40,8 +39,8 @@ export default {
         ],
         [
             'logo.type:alternative',
-            style => ({
-                styles: [`.message__logo-container { width: ${textSize(style) * 8}px }`],
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],

@@ -215,7 +215,12 @@ const applyCascade = curry((style, flattened, type, rules) =>
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
             if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
-                const calculatedVal = typeof val === 'function' ? val(style) : val;
+                const calculatedVal =
+                    typeof val === 'function'
+                        ? val({
+                              textSize: objectGet(style, 'text.size')
+                          })
+                        : val;
                 return type === Array ? [...accumulator, calculatedVal] : objectMerge(accumulator, calculatedVal);
             }
 

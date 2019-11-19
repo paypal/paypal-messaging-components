@@ -1,12 +1,12 @@
 import Logo from '../logos';
-import { basicMediaQuery, legacyNI, textSize } from './ni';
+import { basicMediaQuery, legacyNI } from './ni';
 
 export default {
     'layout:text': [
         [
             'default',
-            style => ({
-                styles: [basicMediaQuery(textSize(style) * 20.5 + 70)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 20.5 + 70)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
@@ -17,8 +17,8 @@ export default {
         ],
         [
             'logo.type:inline',
-            style => ({
-                styles: [basicMediaQuery(textSize(style) * 23), `.message__logo { width: ${textSize(style) * 7}px }`],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 23), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
@@ -28,8 +28,8 @@ export default {
         ],
         [
             'logo.type:none',
-            style => ({
-                styles: [basicMediaQuery(textSize(style) * 21)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 21)],
                 logo: false,
                 headline: [
                     {
@@ -46,26 +46,20 @@ export default {
         ],
         [
             'logo.type:alternative',
-            style => ({
-                styles: [
-                    basicMediaQuery(textSize(style) * 36 + 130),
-                    `.message__logo-container { width: ${textSize(style) * 8}px }`
-                ],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 36 + 130), `.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
             })
         ],
         [
             'logo.type:alternative && logo.position:top',
-            style => ({
-                styles: [
-                    basicMediaQuery(textSize(style) * 20),
-                    `.message__logo-container { width: ${textSize(style) * 8}px }`
-                ],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 20), `.message__logo-container { width: ${textSize * 8}px }`],
                 headline: ['xsmall', { tag: 'medium', br: ['months'] }]
             })
         ],
-        ['logo.type:primary && logo.position:top', style => ({ styles: [basicMediaQuery(textSize(style) * 20)] })],
+        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 20)] })],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
