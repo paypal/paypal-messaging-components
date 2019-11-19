@@ -7,8 +7,6 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
-import getMutations, { getDataByTag } from './mutations';
-import Logo from './logos';
 import { ERRORS } from '../../services/logger';
 import {
     curry,
@@ -19,8 +17,12 @@ import {
     prependStyle,
     prependText,
     appendText,
-    appendImage
+    appendImage,
+    getDataByTag
 } from '../../../utils';
+import { getLocalProductName, getMutations, getLogos, getLocaleStyles, getLocaleClass } from '../../../locale';
+
+const Logos = getLogos();
 
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
@@ -241,7 +243,7 @@ function createCustomTemplateNode({ data, meta, template }) {
 
             if (type === 'logo') {
                 const tempContainer = document.createElement('div');
-                appendImage(tempContainer, objectGet(Logo, tag.toUpperCase()), 'PayPal Credit logo');
+                appendImage(tempContainer, objectGet(Logos, tag.toUpperCase()), 'PayPal Credit logo');
                 return tempContainer.innerHTML;
             }
 
@@ -317,18 +319,30 @@ function createTemplateNode(options, markup) {
 
     const classNamePrefix = 'message';
     const applyCascadeRules = applyCascade(options.style, styleSelectors);
-    const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`));
-    const styleRules = applyCascadeRules(Array, allStyles[`layout:${layout}`]);
+    const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
+
+    const layoutProp = `layout:${layout}`;
+    const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
+
+    const localeClass = getLocaleClass();
+    // Scope all locale-specific styles to the selected locale
+    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(layoutProp)).map(rule =>
+        rule.replace(/\.message/g, `.${localeClass} .message`)
+    );
+    const styleRules = [...globalStyleRules, ...localeStyleRules];
 
     const toMarkup = rulesToMarkup(data);
     const newTemplate = baseTemplate.cloneNode(true);
     const getTemplateElement = getElement(classNamePrefix, newTemplate);
-    const [logoContainer, headline, subHeadline, disclaimer] = [
+    const [messagingContainer, logoContainer, headline, subHeadline, disclaimer] = [
+        'container',
         'logo-container',
         'headline',
         'sub-headline',
         'disclaimer'
     ].map(getTemplateElement);
+
+    messagingContainer.classList.add(localeClass);
 
     appendText(headline, toMarkup('headline', mutationRules.headline));
     appendText(subHeadline, toMarkup('subHeadline', mutationRules.subHeadline));
@@ -341,10 +355,11 @@ function createTemplateNode(options, markup) {
     }
 
     if (objectGet(options, 'style.logo.type') === 'none') {
+        const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
-        span.textContent = 'with ';
+        span.textContent = `${withText} `;
         const strong = document.createElement('strong');
-        strong.textContent = 'PayPal Credit.';
+        strong.textContent = productName;
         span.appendChild(strong);
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);
@@ -362,9 +377,7 @@ function createTemplateNode(options, markup) {
             styleRules.push(`.${classNamePrefix}__messaging { width: ${mutationRules.messageWidth}px }`);
         } else if (Array.isArray(mutationRules.messageWidth)) {
             styleRules.push(
-                `.${classNamePrefix}__messaging { min-width: ${mutationRules.messageWidth[0]}px; max-width: ${
-                    mutationRules.messageWidth[1]
-                }px }`
+                `.${classNamePrefix}__messaging { min-width: ${mutationRules.messageWidth[0]}px; max-width: ${mutationRules.messageWidth[1]}px }`
             );
         }
     }

@@ -1,7 +1,7 @@
-const niMessage = require('./banners/ni_non-us.json');
-const ezpMessage = require('./banners/ezp_any_eqz.json');
-const palaSingleMessage = require('./banners/pala_single_eqz.json');
-const palaMultiMessage = require('./banners/pala_multi_gtz.json');
+const niMessage = require('./banners/US/ni_non-us.json');
+const ezpMessage = require('./banners/US/ezp_any_eqz.json');
+const palaSingleMessage = require('./banners/US/pala_single_eqz.json');
+const palaMultiMessage = require('./banners/US/pala_multi_gtz.json');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({

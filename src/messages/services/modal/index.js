@@ -1,16 +1,16 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
-
 import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
-function assembleUrl(offerType) {
-    const baseUrl = getGlobalUrl('MODAL');
-    const modalType = startsWith(offerType, 'NI') ? 'ni' : 'ezp';
+import { getModalType } from '../../../locale';
 
-    return `${baseUrl}/${modalType}.html`;
+function assembleUrl(offerCountry, offerType) {
+    const baseUrl = getGlobalUrl('MODAL');
+    const modalType = getModalType(offerCountry, offerType).toLowerCase();
+
+    return `${baseUrl}/${offerCountry}/${modalType}.html`;
 }
 
-function fetcher({ offerType }) {
-    return request('GET', assembleUrl(offerType)).then(res => {
+function fetcher({ offerType, offerCountry }) {
+    return request('GET', assembleUrl(offerCountry, offerType)).then(res => {
         return { markup: res.data };
     });
 }

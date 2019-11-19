@@ -2,14 +2,19 @@ const fs = require('fs');
 const got = require('got');
 
 const devAccountMap = {
-    DEV00000000NI: 'ni',
-    DEV000NINONUS: 'ni_non-us',
-    DEV0000000EAZ: 'ezp_any_eqz',
-    DEV0000000EAG: 'ezp_any_gtz',
-    DEV0000000PSZ: 'pala_single_eqz',
-    DEV0000000PSG: 'pala_single_gtz',
-    DEV0000000PMZ: 'pala_multi_eqz',
-    DEV0000000PMG: 'pala_multi_gtz'
+    DEV00000000NI: ['US', 'ni'],
+    DEV000NINONUS: ['US', 'ni_non-us'],
+    DEV0000000EAZ: ['US', 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', 'pala_single_eqz'],
+    DEV0000000PSG: ['US', 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', 'pala_multi_gtz'],
+
+    DEV0000000IAZ: ['DE', 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', 'palaq_any_eqz']
 };
 
 module.exports = function proxyImadserv(app) {
@@ -18,24 +23,44 @@ module.exports = function proxyImadserv(app) {
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const morsVars = {
-                tot_pymts: `$${Number(amount).toFixed(2)}`,
-                term: 12,
-                pymt_mo: `$${Number(amount / 12).toFixed(2)}`
-            };
             const banner =
                 dimensions !== 'x199x99'
-                    ? fs.readFileSync(`banners/${devAccountMap[account]}.json`, 'utf-8')
+                    ? fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8')
                     : fs.readFileSync(`banners/ni.json`, 'utf-8');
-            const populatedBanner = Object.entries(morsVars)
-                .reduce(
-                    (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
-                    banner
-                )
-                .replace(/"/g, '\\"')
-                .replace(/\r\n|\r|\n/g, '');
-            const wrappedMarkup = `${call}("<div>${populatedBanner}</div>")`;
-            res.send(wrappedMarkup);
+            const bannerJSON = JSON.parse(banner);
+
+            const morsVars = {
+                total_payments: 12,
+                formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
+            };
+
+            const populateVars = str =>
+                Object.entries(morsVars)
+                    .reduce(
+                        (accumulator, [morsVar, val]) =>
+                            accumulator.replace(new RegExp(`\\\${CREDIT_OFFERS_DS.${morsVar}}`, 'g'), val),
+                        str
+                    )
+                    .replace(/\r\n|\r|\n/g, '');
+
+            const populatedBanner = Object.entries(bannerJSON).reduce((accumulator, [key, value]) => {
+                return {
+                    ...accumulator,
+                    [key]: populateVars(JSON.stringify(value))
+                };
+            }, {});
+
+            const wrappedMarkup = JSON.stringify({
+                content: {
+                    json: populatedBanner
+                },
+                tracking_details: {
+                    click_url: '',
+                    impression_url: ''
+                }
+            });
+
+            res.send(`${call}(${wrappedMarkup})`);
         } else {
             const query = Object.entries(req.query)
                 .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
