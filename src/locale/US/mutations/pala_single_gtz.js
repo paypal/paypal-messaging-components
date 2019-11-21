@@ -41,15 +41,13 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'small', br: ['of'] },
-                subHeadline: 'small',
                 disclaimer: 'xsmall'
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: { br: ['payments'] },
-                subHeadline: { tag: 'small', br: ['money'] }
+                headline: { br: ['payments'] }
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
