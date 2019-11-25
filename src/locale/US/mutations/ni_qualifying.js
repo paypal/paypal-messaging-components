@@ -12,7 +12,7 @@ export default {
                     '@media (max-width: 289px) { .message__disclaimer { display: block; } }'
                 ],
                 logo: Logo.PRIMARY.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }],
+                headline: ['xsmall', { tag: 'medium' }],
                 disclaimer: 'xsmall'
             }
         ],
@@ -25,7 +25,7 @@ export default {
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']] },
-                    { tag: 'medium', br: ['purchases'] }
+                    { tag: 'medium', replace: [['months.', 'months']] }
                 ]
             }
         ],
@@ -43,7 +43,7 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        replace: [['months.', 'months']]
                     }
                 ]
             }
@@ -53,7 +53,7 @@ export default {
             {
                 styles: [basicMediaQuery(520)],
                 logo: Logo.ALTERNATIVE.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }]
+                headline: ['xsmall', { tag: 'medium' }]
             }
         ],
         ['logo.type:primary && logo.position:top', { styles: [basicMediaQuery(210)] }],
@@ -68,7 +68,7 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }],
+                headline: ['xsmall', { tag: 'medium' }],
                 disclaimer: 'xsmall'
             }
         ],
@@ -82,7 +82,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: { tag: 'medium', br: ['months'] },
+                headline: { tag: 'medium' },
                 styles: [
                     '.message__logo-container { margin-bottom: 30%; }',
                     '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',

@@ -7,7 +7,7 @@
 
     "headline": [
         ["Buy now. Pay over time.", ["default", "xsmall", "small"]],
-        [["No Interest if paid in full in 6 months"], ["medium", "large", "xlarge"]]
+        ["No Interest if paid in full in 6 months.", ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [["Check out with PayPal and choose PayPal Credit.", ["default", "small"]]],
