@@ -21,7 +21,7 @@ export default {
             'logo.type:inline',
             {
                 messageWidth: [200, 1000],
-                styles: [basicMediaQuery(280)],
+                styles: [basicMediaQuery(210)],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']] },
@@ -33,7 +33,7 @@ export default {
             'logo.type:none',
             {
                 messageWidth: [180, 1000],
-                styles: [basicMediaQuery(280)],
+                styles: [basicMediaQuery(210)],
                 logo: false,
                 headline: [
                     {
@@ -57,7 +57,9 @@ export default {
             }
         ],
         ['logo.type:primary && logo.position:top', { styles: [basicMediaQuery(210)] }],
-        ['logo.type:alternative && logo.position:top', { styles: [basicMediaQuery(210)] }],
+        ['logo.type:alternative && logo.position:top', { styles: [basicMediaQuery(200)] }],
+        ['logo.type:alternative && logo.position:right', { styles: [basicMediaQuery(400)] }],
+        ['logo.type:alternative && logo.position:left', { styles: [basicMediaQuery(400)] }],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
