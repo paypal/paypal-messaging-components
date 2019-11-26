@@ -6,7 +6,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                messageWidth: [textSize * 11, 1000],
+                messageWidth: textSize * 11,
                 headline: { tag: 'xsmall' },
                 disclaimer: 'xsmall'
             })

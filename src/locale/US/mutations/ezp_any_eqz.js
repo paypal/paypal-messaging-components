@@ -20,6 +20,12 @@ export default {
             }
         ],
         [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: textSize * 16
+            })
+        ],
+        [
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,

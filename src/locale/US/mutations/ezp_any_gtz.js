@@ -20,6 +20,12 @@ export default {
             }
         ],
         [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: textSize * 11
+            })
+        ],
+        [
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`],

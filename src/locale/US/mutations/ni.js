@@ -60,6 +60,12 @@ export default {
             })
         ],
         [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 13, textSize * 27]
+            })
+        ],
+        [
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
