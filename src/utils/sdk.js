@@ -38,6 +38,6 @@ export function getCurrency() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKCurrency();
     } else {
-        return 'USD';
+        return undefined;
     }
 }

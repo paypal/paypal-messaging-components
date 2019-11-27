@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/paypal/paypal-messaging-components/compare/v1.4.0...v1.4.1) (2019-11-14)
+
+
+### Bug Fixes
+
+* currency prioritization ([#88](https://github.com/paypal/paypal-messaging-components/issues/88)) ([f71b6c3](https://github.com/paypal/paypal-messaging-components/commit/f71b6c3cf072ee4cb28648ddee66b426dc20ed09))
+
 # [1.4.0](https://github.com/paypal/paypal-messaging-components/compare/v1.3.2...v1.4.0) (2019-11-12)
 
 
