@@ -57,6 +57,8 @@ export default {
             }
         ],
         ['logo.type:primary && logo.position:top', { styles: [basicMediaQuery(210)] }],
+        ['logo.type:primary && logo.position:right', { styles: [basicMediaQuery(230)] }],
+        ['logo.type:primary && logo.position:left', { styles: [basicMediaQuery(230)] }],
         ['logo.type:alternative && logo.position:top', { styles: [basicMediaQuery(200)] }],
         ['logo.type:alternative && logo.position:right', { styles: [basicMediaQuery(400)] }],
         ['logo.type:alternative && logo.position:left', { styles: [basicMediaQuery(400)] }],
