@@ -229,13 +229,14 @@ export default function getBannerMarkup({ options, logger }) {
         setLocale(offerCountry);
 
         const style = validateStyleOptions(logger, options.style);
-        style._flattened = objectFlattenToArray(style);
 
         const totalOptions = {
             ...options,
             style,
             ...customOptions
         };
+
+        totalOptions.style._flattened = objectFlattenToArray(style);
 
         if (typeof markup === 'object') {
             const meta = {
