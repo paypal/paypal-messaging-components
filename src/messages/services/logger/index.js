@@ -82,8 +82,10 @@ export const Logger = {
             })
                 .then(res => {
                     // Same correlation id duplicated in prod
-                    const [corrId] = (res.headers['Paypal-Debug-Id'] || '').split(',');
-                    setState({ history: [...state.history, corrId].slice(-5) });
+                    const [corrId] = (res.headers['paypal-debug-id'] || '').split(',');
+                    if (corrId) {
+                        setState({ history: [...state.history, corrId].slice(-5) });
+                    }
                 })
                 // TODO: Handle error
                 .catch(() => {});

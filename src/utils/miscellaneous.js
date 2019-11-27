@@ -56,6 +56,7 @@ export function request(method, url, { data, headers } = {}) {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
                     .getAllResponseHeaders()
+                    .trim() // Remove trailing newline characters
                     .split('\n')
                     .reduce((accumulator, header) => {
                         const [key, val] = header.trim().split(': ');
