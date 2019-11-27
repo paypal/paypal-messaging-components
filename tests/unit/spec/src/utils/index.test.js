@@ -95,10 +95,7 @@ describe('Utils', () => {
         it('Composes functions together as a single function', () => {
             const add2 = x => x + 2;
             const multiply3 = x => x * 3;
-            const pipeFn = pipe(
-                add2,
-                multiply3
-            );
+            const pipeFn = pipe(add2, multiply3);
 
             expect(pipeFn).toEqual(expect.any(Function));
             expect(pipeFn(2)).toBe(12);
