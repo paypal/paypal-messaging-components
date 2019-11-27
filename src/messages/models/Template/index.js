@@ -48,6 +48,27 @@ function injectSpaceNodes(spans) {
     return spans.reduce((accumulator, span) => [...accumulator, span, document.createTextNode(' ')], []).slice(0, -1);
 }
 
+function createCustomFontFamily(account, fontFamily) {
+    const baseUrl = `https://www.paypalobjects.com/upstream/assets/custom/${account}/${fontFamily}`;
+    return `
+    @font-face {
+        font-family: ${fontFamily};
+        font-style: normal;
+        font-weight: 400;
+    
+        src: url('${baseUrl}.eot');
+        src: url('${baseUrl}.woff2')
+                format('woff2'),
+            url('${baseUrl}.woff') format('woff'),
+            url('${baseUrl}.svg#${fontFamily}')
+                format('svg');
+    }
+    
+    html { 
+        font-family: ${fontFamily}, PayPal-Sans, Helvetica, Arial, sans-serif; 
+    }`;
+}
+
 /**
  * Break up markup string at specified breakpoints
  * @param {Array<Number>} breaks Indexes to breakup string
@@ -189,12 +210,18 @@ const rulesToMarkup = curry((data, prop, option) => {
  * @param {Array<Array<any>>} rules Rules to apply the cascade
  * @returns {Object|Array} Applicable rules
  */
-const applyCascade = curry((flattened, type, rules) =>
+const applyCascade = curry((style, flattened, type, rules) =>
     rules.reduce(
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
             if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
-                return type === Array ? [...accumulator, val] : objectMerge(accumulator, val);
+                const calculatedVal =
+                    typeof val === 'function'
+                        ? val({
+                              textSize: objectGet(style, 'text.size')
+                          })
+                        : val;
+                return type === Array ? [...accumulator, calculatedVal] : objectMerge(accumulator, calculatedVal);
             }
 
             return accumulator;
@@ -296,7 +323,7 @@ function createTemplateNode(options, markup) {
     }
 
     const classNamePrefix = 'message';
-    const applyCascadeRules = applyCascade(styleSelectors);
+    const applyCascadeRules = applyCascade(options.style, styleSelectors);
     const mutationRules = applyCascadeRules(Object, getMutations(offerType, `layout:${layout}`, data));
 
     const layoutProp = `layout:${layout}`;
@@ -343,6 +370,12 @@ function createTemplateNode(options, markup) {
         headline.appendChild(span);
     }
 
+    const textSize = objectGet(options, 'style.text.size');
+    if (layout === 'text' && textSize) {
+        styleRules.push(`.${classNamePrefix}__headline { font-size: ${textSize}px }`);
+        styleRules.push(`.${classNamePrefix}__disclaimer { font-size: ${textSize}px }`);
+    }
+
     // Set boundaries on the width of the message text to ensure proper line counts
     if (mutationRules.messageWidth) {
         if (typeof mutationRules.messageWidth === 'number') {
@@ -361,6 +394,10 @@ function createTemplateNode(options, markup) {
 
         return styles;
     };
+
+    if (layout === 'text' && objectGet(options, 'style.text.fontFamily')) {
+        prependStyle(newTemplate, createCustomFontFamily(options.account, objectGet(options, 'style.text.fontFamily')));
+    }
 
     if (mutationRules.styles) {
         prependStyle(newTemplate, prefixStyles(mutationRules.styles.join('')));

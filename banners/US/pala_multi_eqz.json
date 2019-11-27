@@ -6,7 +6,10 @@
     },
 
     "headline": [
-        [[["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR."], ["default", "small"]],
+        [
+            [["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR."],
+            ["default", "small"]
+        ],
         [
             [["Pay as low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR"],
             ["small.2", "medium", "large", "xlarge"]

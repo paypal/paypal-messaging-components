@@ -1,14 +1,16 @@
 import Logo from '../logos';
 
+const defaultTextStyles = [
+    '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
+    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+];
+
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: [
-                    '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                ],
+                styles: defaultTextStyles,
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'xsmall',
@@ -17,36 +19,30 @@ export default {
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:primary', { messageWidth: 130 }],
+        [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: textSize * 11
+            })
+        ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [250, 1000],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['months']
-                }
-            }
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`],
+                logo: Logo.ALT_NO_PP.COLOR
+            })
         ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [235, 1000],
-                logo: false,
-                headline: {
-                    br: ['months']
-                }
-            }
-        ],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            {
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
                     br: ['months.']
                 }
-            }
+            })
         ],
         [
             'text.color:white',

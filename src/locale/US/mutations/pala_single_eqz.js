@@ -4,37 +4,43 @@ export default {
     'layout:text': [
         [
             'default',
-            {
+            ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
+                messageWidth: [textSize * 17, textSize * 21],
                 headline: {
                     tag: 'small',
                     br: ['/mo']
                 },
                 disclaimer: 'xsmall'
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [190, 240] }],
         [
             'logo.type:inline',
-            {
-                messageWidth: [260, 1000],
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
                     br: ['APR']
                 }
-            }
+            })
         ],
         [
             'logo.type:none',
             {
-                messageWidth: [260, 1000],
                 logo: false,
                 headline: {
                     br: ['APR']
                 }
             }
         ],
-        ['logo.type:alternative', { logo: Logo.ALTERNATIVE.COLOR }],
+        [
+            'logo.type:alternative',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 8}px }`],
+                logo: Logo.ALTERNATIVE.COLOR,
+                messageWidth: [textSize * 10, 1000]
+            })
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]

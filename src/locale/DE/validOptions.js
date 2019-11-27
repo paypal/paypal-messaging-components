@@ -6,7 +6,9 @@ export default {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']]
         },
         text: {
-            color: [Types.STRING, ['black', 'white']]
+            color: [Types.STRING, ['black', 'white']],
+            size: [Types.NUMBER, [12]],
+            fontFamily: [Types.STRING]
         }
     },
     flex: {
