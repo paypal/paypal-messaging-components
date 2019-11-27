@@ -126,8 +126,7 @@ export default function toNewPipeline(ppScript) {
                 _legacy: typeNI !== 'flex' && typeEZP !== 'flex',
                 account,
                 amount: kvs.currency_value,
-                style: styleConfig,
-                countryCode: 'US'
+                style: styleConfig
             }).render(span);
         }, 0);
         ppScript.destroyDom();

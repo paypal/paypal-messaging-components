@@ -1,18 +1,20 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, getGlobalUrl } from '../../../utils';
+import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
-function assembleUrl({ account, amount }) {
+const currencyMap = {
+    US: 'USD',
+    DE: 'EUR'
+};
+
+function assembleUrl({ account, amount, offerCountry }) {
     const baseUrl = getGlobalUrl('TERMS');
     const queries = [
         'json=true',
-        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`
+        stringStartsWith(account, 'client-id') ? `cid=${account.slice(10)}` : `mid=${account}`,
+        `country=${offerCountry}`,
+        `currency=${currencyMap[offerCountry]}`
     ];
-
-    // TODO: Look to dynamically set these values as we push for location driven logic
-    queries.push('country=US');
-    queries.push('currency=USD');
 
     if (amount) {
         queries.push(`amount=${amount}`);
@@ -22,24 +24,11 @@ function assembleUrl({ account, amount }) {
 }
 
 function fetcher(options) {
-    return new ZalgoPromise(resolve => {
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4) {
-                switch (xhttp.status) {
-                    case 200:
-                        resolve(JSON.parse(xhttp.responseText));
-                        break;
-                    default:
-                        resolve({ error: true });
-                }
-            }
-        };
-
-        xhttp.open('GET', assembleUrl(options), true);
-        xhttp.send();
-    });
+    return request('GET', assembleUrl(options))
+        .then(res => {
+            return JSON.parse(res.data);
+        })
+        .catch(() => ({ error: true }));
 }
 
 export default memoizeOnProps(fetcher, ['account', 'amount']);

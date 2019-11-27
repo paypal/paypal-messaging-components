@@ -1,52 +1,18 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectClone } from '../../../utils';
 import { EVENTS } from '../../services/logger';
+import { Types, validateType } from './types';
 
-export const Types = {
-    ANY: 'ANY',
-    STRING: 'STRING',
-    BOOLEAN: 'BOOLEAN',
-    NUMBER: 'NUMBER',
-    FUNCTION: 'FUNCTION',
-    OBJECT: 'OBJECT'
-};
+import { getValidOptions } from '../../../locale';
 
 const VALID_OPTIONS = {
     id: [Types.STRING],
     _legacy: [Types.BOOLEAN],
-    onRender: [Types.FUNCTION]
-};
-
-// Combination of all valid style option combinations
-export const VALID_STYLE_OPTIONS = {
-    text: {
-        logo: {
-            type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
-            position: [Types.STRING, ['left', 'right', 'top']]
-        },
-        text: {
-            color: [Types.STRING, ['black', 'white']]
-        }
-    },
-    flex: {
-        color: [Types.STRING, ['blue', 'black', 'white', 'white-no-border', 'gray|grey']],
-        ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']]
-    },
-    legacy: {
-        typeNI: [Types.STRING, ['', 'image', 'html']],
-        typeEZP: [Types.STRING, ['', 'html']],
-        size: [Types.STRING],
-        color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-        border: [Types.BOOLEAN, [true, false]]
-    },
-    custom: {
-        markup: [Types.STRING],
-        ratio: [Types.ANY]
-    }
+    onRender: [Types.FUNCTION],
+    currency: [Types.STRING, ['USD', 'EUR']]
 };
 
 // Formalized validation logger helper functions
@@ -59,25 +25,6 @@ const logInvalidOption = (logger, location, options, val) =>
         location,
         `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`
     );
-
-function validateType(expectedType, val) {
-    switch (expectedType) {
-        case Types.STRING:
-            return typeof val === 'string';
-        case Types.BOOLEAN:
-            return typeof val === 'boolean';
-        case Types.NUMBER:
-            return typeof val === 'number' && !numberIsNaN(val);
-        case Types.FUNCTION:
-            return typeof val === 'function';
-        case Types.OBJECT:
-            return typeof val === 'object' && val !== null;
-        case Types.ANY:
-            return true;
-        default:
-            return false;
-    }
-}
 
 function getValidVal(logger, typeArr, val, location) {
     const [type, validVals = []] = typeArr;
@@ -139,10 +86,10 @@ function populateDefaults(logger, defaults, options, prefix = 'style.') {
  * @param {Object} options User style options
  * @returns {Object} Object containing only valid style options
  */
-function getValidStyleOptions(logger, options) {
+function getValidStyleOptions(logger, localeStyleOptions, options) {
     return {
         layout: options.layout,
-        ...populateDefaults(logger, VALID_STYLE_OPTIONS[options.layout], options)
+        ...populateDefaults(logger, localeStyleOptions[options.layout], options)
     };
 }
 
@@ -152,8 +99,35 @@ function getValidStyleOptions(logger, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, countryCode, style, offer, ...otherOptions }) => {
-    const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, '');
+export const validateStyleOptions = curry((logger, style) => {
+    const validStyleOptions = getValidOptions();
+
+    const validatedStyle = (() => {
+        if (validStyleOptions[style.layout]) {
+            return getValidStyleOptions(logger, validStyleOptions, style);
+        }
+
+        logInvalidOption(logger, 'style.layout', Object.keys(validStyleOptions), style.layout);
+
+        // Get the default settings for a text banner
+        return getValidStyleOptions(logger, validStyleOptions, {
+            layout: 'text'
+        });
+    })();
+
+    logger.info(EVENTS.VALIDATE_STYLE, { style: objectClone(validatedStyle) });
+
+    return validatedStyle;
+});
+
+/**
+ * Validate user options object. Warn the user against invalid options
+ * and ensure only valid options are returned
+ * @param {Object} options User options object
+ * @returns {Object} Object containing only valid options
+ */
+export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
+    const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
         logInvalidType(logger, 'account', Types.STRING, account);
@@ -174,16 +148,6 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
         }
     }
 
-    if (typeof countryCode !== 'undefined') {
-        if (!validateType(Types.STRING, countryCode)) {
-            logInvalidType(logger, 'countryCode', Types.STRING, countryCode);
-        } else if (countryCode.length !== 2) {
-            logInvalid(logger, 'countryCode', 'Country code should be 2 characters.');
-        } else {
-            validOptions.countryCode = countryCode;
-        }
-    }
-
     if (typeof offer !== 'undefined') {
         if (!validateType(Types.STRING, offer)) {
             logInvalidType(logger, 'offer', Types.STRING, offer);
@@ -194,24 +158,20 @@ export default curry((logger, { account, amount, countryCode, style, offer, ...o
         }
     }
 
-    if (
-        validateType(Types.OBJECT, style) &&
-        validateType(Types.STRING, style.layout) &&
-        VALID_STYLE_OPTIONS[style.layout]
-    ) {
-        validOptions.style = getValidStyleOptions(logger, style);
+    if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
+        validOptions.style = style;
     } else {
         if (validateType(Types.OBJECT, style)) {
-            logInvalidOption(logger, 'style.layout', Object.keys(VALID_STYLE_OPTIONS), style.layout);
+            logInvalidType(logger, 'style.layout', Types.STRING, style.layout);
         } else if (style !== undefined) {
             logInvalidType(logger, 'style', Types.OBJECT, style);
         }
 
         // Get the default settings for a text banner
-        validOptions.style = getValidStyleOptions(logger, { layout: 'text' });
+        validOptions.style = { layout: 'text' };
     }
 
-    logger.info(EVENTS.VALIDATE, { options: objectClone(validOptions) });
+    logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });
 
     return validOptions;
 });

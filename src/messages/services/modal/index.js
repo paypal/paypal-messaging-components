@@ -1,33 +1,17 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { memoizeOnProps, getGlobalUrl, request } from '../../../utils';
 
-import { memoizeOnProps, getGlobalUrl } from '../../../utils';
+import { getModalType } from '../../../locale';
 
-function assembleUrl(offerType) {
+function assembleUrl(offerCountry, offerType) {
     const baseUrl = getGlobalUrl('MODAL');
-    const modalType = startsWith(offerType, 'NI') ? 'ni' : 'ezp';
+    const modalType = getModalType(offerCountry, offerType).toLowerCase();
 
-    return `${baseUrl}/${modalType}.html`;
+    return `${baseUrl}/${offerCountry}/${modalType}.html`;
 }
 
-function fetcher({ offerType }) {
-    return new ZalgoPromise((resolve, reject) => {
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4) {
-                switch (xhttp.status) {
-                    case 200:
-                        resolve({ markup: xhttp.responseText });
-                        break;
-                    default:
-                        reject();
-                }
-            }
-        };
-
-        xhttp.open('GET', assembleUrl(offerType), true);
-        xhttp.send();
+function fetcher({ offerType, offerCountry }) {
+    return request('GET', assembleUrl(offerCountry, offerType)).then(res => {
+        return { markup: res.data };
     });
 }
 

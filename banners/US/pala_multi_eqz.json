@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "offerCountry": "US",
+        "offerType": "PALA:MULTI:EQZ",
+        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+    },
+
+    "headline": [
+        [[["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR."], ["default", "small"]],
+        [
+            [["Pay as low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR"],
+            ["small.2", "medium", "large", "xlarge"]
+        ],
+        ["Enjoy Easy Payments.", ["legacy-small"]],
+        ["Enjoy Easy Payments with No Interest.", ["legacy-medium"]],
+        ["Enjoy No Interest when you choose PayPal Credit.", ["legacy-large"]]
+    ],
+
+    "subHeadline": [
+        ["No money due today.", ["default", "xsmall"]],
+        [
+            "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month with no interest for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
+            ["legacy-large"]
+        ]
+    ],
+
+    "disclaimer": [
+        ["See terms", ["default", "small"]],
+        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-small"]],
+        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]]
+    ]
+}

@@ -8,12 +8,8 @@
 }
 
 .message__headline {
-    font-size: 12vw;
+    font-size: 10vw;
     line-height: 1.1em;
-}
-
-.message__headline span.multi:nth-of-type(2) {
-    display: none;
 }
 
 .message__sub-headline {
@@ -25,29 +21,6 @@
     width: 80%;
     bottom: 7%;
     font-size: 9.5px;
-}
-
-@media (min-width: 150px) {
-    .message__headline {
-        font-size: 11vw;
-        line-height: 1.2em;
-    }
-
-    .message__sub-headline {
-        font-size: 8.5vw;
-    }
-
-    .message__headline span.multi:nth-of-type(2) {
-        display: inline;
-    }
-
-    .message__headline span.multi:nth-of-type(1) {
-        display: none;
-    }
-
-    .message__disclaimer {
-        font-size: 6.5vw;
-    }
 }
 
 @media (min-width: 170px) {

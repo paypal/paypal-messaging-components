@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.4.1](https://github.com/paypal/paypal-messaging-components/compare/v1.4.0...v1.4.1) (2019-11-14)
+
+
+### Bug Fixes
+
+* currency prioritization ([#88](https://github.com/paypal/paypal-messaging-components/issues/88)) ([f71b6c3](https://github.com/paypal/paypal-messaging-components/commit/f71b6c3cf072ee4cb28648ddee66b426dc20ed09))
+
+# [1.4.0](https://github.com/paypal/paypal-messaging-components/compare/v1.3.2...v1.4.0) (2019-11-12)
+
+
+### Bug Fixes
+
+* use pointer cursor over legacy banners ([#77](https://github.com/paypal/paypal-messaging-components/issues/77)) ([6638ef6](https://github.com/paypal/paypal-messaging-components/commit/6638ef699c9ddebd145b1e2688be1774d74df303))
+
+
+### Features
+
+* DE banner support ([#81](https://github.com/paypal/paypal-messaging-components/issues/81)) ([bd27c6c](https://github.com/paypal/paypal-messaging-components/commit/bd27c6c35f6deeee61118c45ec333a1af07ac2ad))
+
+## [1.3.2](https://github.com/paypal/paypal-messaging-components/compare/v1.3.1...v1.3.2) (2019-11-06)
+
+
+### Bug Fixes
+
+* include banners folder with npm publish ([#79](https://github.com/paypal/paypal-messaging-components/issues/79)) ([b125721](https://github.com/paypal/paypal-messaging-components/commit/b125721d62ab95c07634518ff59763c40443a08d))
+
+## [1.3.1](https://github.com/paypal/paypal-messaging-components/compare/v1.3.0...v1.3.1) (2019-11-05)
+
+
+### Bug Fixes
+
+* sandbox mock ([#76](https://github.com/paypal/paypal-messaging-components/issues/76)) ([4f5ec43](https://github.com/paypal/paypal-messaging-components/commit/4f5ec43b775f40bd806cb54ae62c415e91435053))
+
 # [1.3.0](https://github.com/paypal/paypal-messaging-components/compare/v1.2.1...v1.3.0) (2019-10-29)
 
 
