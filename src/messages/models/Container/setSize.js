@@ -195,7 +195,10 @@ export default curry((container, { wrapper, options, logger, meta }) => {
     } else {
         const { minWidth } = meta;
         // Reset iframe incase of rerender using same container
-        container.setAttribute('style', `width: 100%; border: none; min-width: ${minWidth}px;`);
+        container.setAttribute('style', 'width: 100%; border: none;');
+        if (minWidth) {
+            container.style.setProperty('min-width', `${minWidth}px`);
+        }
         // If a banner is rerendered from 'flex' to 'text' the wrapper will still have the ratio wrapper class applied
         wrapper.removeAttribute('class');
 
@@ -204,10 +207,14 @@ export default curry((container, { wrapper, options, logger, meta }) => {
 
         const setDimensions = () => {
             // TODO: Setting the height causes this to fire again
-            container.setAttribute('height', container.contentWindow.document.body.lastChild.offsetHeight); // container.contentWindow.document.documentElement.scrollHeight);
+            container.setAttribute(
+                'height',
+                container.contentWindow.document.body.lastChild.offsetHeight ||
+                    container.contentWindow.document.body.scrollHeight
+            ); // container.contentWindow.document.documentElement.scrollHeight);
         };
 
-        if (parentContainerWidth < minWidth && layout !== 'custom') {
+        if (minWidth && parentContainerWidth < minWidth && layout !== 'custom') {
             const minSizeOptions = getMinimumWidthOptions();
             if (arrayEvery(objectEntries(minSizeOptions), ([key, val]) => objectGet(options, key) === val)) {
                 logger.error({ name: ERRORS.MESSAGE_HIDDEN });
