@@ -65,7 +65,8 @@ export default {
             {
                 styles: [
                     ...textDisclaimerStyles,
-                    '.message__disclaimer > .multi.tag--default:first-of-type { text-decoration: underline; color: white }'
+                    '.message__disclaimer > .multi.tag--default:first-of-type > span { color: white }',
+                    '.message__disclaimer > .multi.tag--extra > span { color: white; }'
                 ]
             }
         ],
