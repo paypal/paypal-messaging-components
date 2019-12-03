@@ -3,16 +3,22 @@ language: node_js
 node_js:
     - '10'
 
-addons:
-    chrome: stable
-
 cache:
     npm: false
+
+addons:
+    hosts:
+        - localhost.paypal.com
 
 before_install:
     - npm i -g npm@6
 
+before_script:
+    - npm run dev:standalone &
+    - sleep 30
+
 script:
+    - ./tests/functional/run-tests.sh
     - npm run lint
     - npm run test
 

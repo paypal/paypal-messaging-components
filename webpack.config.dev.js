@@ -41,7 +41,7 @@ module.exports = (env = {}) => {
 
     config.output.libraryExport = env.standalone ? 'Messages' : '';
     config.devServer = {
-        contentBase: './demo',
+        contentBase: ['./demo', './tests/functional/content'],
         publicPath: '/',
         openPage: env.standalone ? (env.legacy && 'legacy.html') || 'standalone.html' : '',
         compress: true,
