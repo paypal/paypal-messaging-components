@@ -98,18 +98,21 @@ export default function getModalContent(options, state, trackModalEvent) {
             if (!terms.error) {
                 amountInput.value = terms.formattedAmount || '0,00';
 
-                if (terms.formattedMinAmount && terms.formattedMaxAmount) {
-                    calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
-                }
+                // Only update modal values if we got non-default offer terms
+                if (terms.max_amount !== terms.default_max_amount) {
+                    if (terms.formattedMinAmount && terms.formattedMaxAmount) {
+                        calculatorInstructions.innerText = `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`;
+                    }
 
-                if (offer) {
-                    monthlyInterest.innerText = `${offer.apr}%`;
-                    nominalInterest.innerText = `${offer.nominalRate}%`;
-                    minAmount.innerText = terms.formattedMinAmount;
-                    maxAmount.innerText = terms.formattedMaxAmount;
-                    numPayments.innerText = offer.term;
-                    disclosure.classList.remove('hidden');
-                    genericDisclosure.classList.add('hidden');
+                    if (offer) {
+                        monthlyInterest.innerText = `${offer.apr}%`;
+                        nominalInterest.innerText = `${offer.nominalRate}%`;
+                        minAmount.innerText = terms.formattedMinAmount;
+                        maxAmount.innerText = terms.formattedMaxAmount;
+                        numPayments.innerText = offer.term;
+                        disclosure.classList.remove('hidden');
+                        genericDisclosure.classList.add('hidden');
+                    }
                 }
             }
         });
