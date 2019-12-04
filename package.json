@@ -29,7 +29,7 @@
         "start": "npm run dev",
         "test": "jest",
         "test:func": "jest --projects tests/functional",
-        "test:func:update": "./tests/functional/update-snapshots.sh"
+        "test:func:update": "./scripts/snapshot-tests/update-snapshots.sh"
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",

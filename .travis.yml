@@ -18,7 +18,7 @@ before_script:
     - sleep 30
 
 script:
-    - ./tests/functional/run-tests.sh
+    - ./scripts/snapshot-tests/run-tests.sh
     - npm run lint
     - npm run test
 
