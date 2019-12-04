@@ -9,12 +9,10 @@ export function basicMediaQuery(breakpoint) {
     @media (min-width: ${breakpoint}px) {
         .message__headline span.multi:first-child {
             display: none;
-            
         }
 
         .message__headline span.multi:nth-child(2) {
             display: inline;
-            
         }
     }
 `;
@@ -51,35 +49,37 @@ export default {
     'layout:text': [
         [
             'default',
-            {
-                styles: [
-                    basicMediaQuery(290),
-                    '.message__messaging { flex: 1 1 auto; }',
-                    '@media (max-width: 289px) { .message__disclaimer { display: block; } }'
-                ],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 18.5 + 70)],
                 logo: Logo.PRIMARY.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }],
+                headline: [
+                    { tag: 'xsmall', br: ['time.'] },
+                    { tag: 'medium', br: ['months'] }
+                ],
                 disclaimer: 'xsmall'
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [130, 320] }],
+        [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 13, textSize * 27]
+            })
+        ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [200, 1000],
-                styles: [basicMediaQuery(280)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
-                    { tag: 'xsmall', replace: [['time.', 'time']] },
+                    { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
                 ]
-            }
+            })
         ],
         [
             'logo.type:none',
-            {
-                messageWidth: [180, 1000],
-                styles: [basicMediaQuery(280)],
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 20)],
                 logo: false,
                 headline: [
                     {
@@ -92,18 +92,22 @@ export default {
                         br: ['purchases']
                     }
                 ]
-            }
+            })
         ],
         [
             'logo.type:alternative',
-            {
-                styles: [basicMediaQuery(520)],
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }]
-            }
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 8}px }`],
+                logo: Logo.ALTERNATIVE.COLOR
+            })
         ],
-        ['logo.type:primary && logo.position:top', { styles: [basicMediaQuery(210)] }],
-        ['logo.type:alternative && logo.position:top', { styles: [basicMediaQuery(210)] }],
+        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 18.5)] })],
+        [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
+            })
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]

@@ -4,44 +4,45 @@ export default {
     'layout:text': [
         [
             'default',
-            {
+            ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
+                messageWidth: [textSize * 11, textSize * 18],
                 headline: {
                     tag: 'small',
                     br: ['/mo']
                 },
                 disclaimer: 'small'
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [130, 200] }],
         [
             'logo.type:inline',
-            {
-                messageWidth: [200, 1000],
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['APR'],
-                    replace: [['APR.', 'APR']]
-                }
-            }
-        ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [200, 1000],
-                logo: false,
+                messageWidth: [textSize * 19, 1000],
                 headline: {
                     replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
-            }
+            })
+        ],
+        [
+            'logo.type:none',
+            ({ textSize }) => ({
+                logo: false,
+                messageWidth: [textSize * 17, 1000],
+                headline: {
+                    replace: [['APR.', 'APR']],
+                    br: ['APR']
+                }
+            })
         ],
         [
             'logo.type:alternative',
-            {
-                messageWidth: [140, 430],
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
-            }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],

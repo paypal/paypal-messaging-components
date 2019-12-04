@@ -52,10 +52,14 @@ export function request(method, url, { data, headers } = {}) {
     return new ZalgoPromise((resolve, reject) => {
         const xhttp = new XMLHttpRequest();
 
+        // Necessary to send cookies with cross-origin requests
+        xhttp.withCredentials = true;
+
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
                     .getAllResponseHeaders()
+                    .trim() // Remove trailing newline characters
                     .split('\n')
                     .reduce((accumulator, header) => {
                         const [key, val] = header.trim().split(': ');
