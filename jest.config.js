@@ -5,10 +5,12 @@ module.exports = {
         '^src/(.*)': '<rootDir>/src/$1',
         '^utils/(.*)': '<rootDir>/tests/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
+        'zoid/src': 'zoid',
+        'jsx-pragmatic/src': 'jsx-pragmatic',
         '@paypal/sdk-client/src': '@paypal/sdk-client'
     },
     transform: {
-        '^.+\\.js$': 'babel-jest',
+        '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.(html|css)$': '<rootDir>/tests/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/utils/setup.js'],

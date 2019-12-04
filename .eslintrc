@@ -1,5 +1,5 @@
 {
-    "extends": ["airbnb-base", "prettier"],
+    "extends": ["airbnb", "prettier"],
     "parser": "babel-eslint",
     "env": {
         "browser": true
@@ -11,10 +11,12 @@
     "rules": {
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
+        "react/jsx-indent": 0,
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": ["/*.js", "/utils/**/*.js", "/tools/**/*.js", "/tests/**/*.js"] }
-        ]
+        ],
+        "react/jsx-curly-spacing": 0
     },
     "settings": {
         "import/resolver": {

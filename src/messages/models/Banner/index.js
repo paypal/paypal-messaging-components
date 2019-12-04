@@ -14,9 +14,10 @@ import {
     objectDiff,
     objectMerge,
     pluck,
-    assignToProp
+    assignToProp,
+    waitForElementReady
 } from '../../../utils';
-import Modal from '../Modal';
+import SmartModal from '../SmartModal';
 
 // eslint-disable-next-line compat/compat
 const banners = new Map();
@@ -83,7 +84,7 @@ const Banner = {
                 .then(
                     pipe(
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
-                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(SmartModal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         logBefore(onRendered, EVENTS.RENDER_END)
@@ -115,9 +116,11 @@ const Banner = {
         if (!isLegacy) {
             // Must be after appending iframe into DOM to prevent immediate re-render
             // Used to repopulate iframe if moved throughout the DOM
-            container.addEventListener('load', () => {
-                clearEvents();
-                render(currentOptions);
+            waitForElementReady(container).then(() => {
+                container.addEventListener('load', () => {
+                    clearEvents();
+                    render(currentOptions);
+                });
             });
         }
 

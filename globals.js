@@ -1,3 +1,6 @@
+const postRobotGlobals = require('post-robot/globals');
+const zoidGlobals = require('zoid/globals');
+
 const niMessage = require('./banners/US/ni_non-us.json');
 const ezpMessage = require('./banners/US/ezp_any_eqz.json');
 const palaSingleMessage = require('./banners/US/pala_single_eqz.json');
@@ -5,6 +8,18 @@ const palaMultiMessage = require('./banners/US/pala_multi_gtz.json');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => ({
+    __ZOID__: {
+        ...zoidGlobals.__ZOID__,
+        __DEFAULT_CONTAINER__: true,
+        __DEFAULT_PRERENDER__: true,
+        __FRAMEWORK_SUPPORT__: true
+    },
+
+    __POST_ROBOT__: {
+        ...postRobotGlobals.__POST_ROBOT__,
+        __IE_POPUP_SUPPORT__: false
+    },
+
     __MESSAGES__: {
         __VERSION__: version,
         __DEMO__: !!env.demo,
