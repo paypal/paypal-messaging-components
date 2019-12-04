@@ -1,10 +1,12 @@
 #!/bin/bash
-git log --format=%B -n 3
-git status
+PARENT_COMMIT_COUNT="$(git log --format=%P HEAD -n 1 | wc -w | xargs)"
 
-PREVIOUS_COMMIT_MESSAGE="$(if [ $TRAVIS_EVENT_TYPE != 'api' ]; then git log --format=%B -n 1 HEAD^2; fi)"
+# When we are operating on a merge commit, target the last commit in the PR branch
+PREVIOUS_COMMIT_TARGET="$(if [[ $PARENT_COMMIT_COUNT == "2" ]]; then echo HEAD^2; else echo HEAD; fi)"
 
-if [ "$PREVIOUS_COMMIT_MESSAGE" == "update snapshot" ]; then 
+PREVIOUS_COMMIT_MESSAGE="$(if [[ $TRAVIS_EVENT_TYPE != "api" ]]; then git log --format=%B -n 1 $PREVIOUS_COMMIT_TARGET; fi)"
+
+if [[ $PREVIOUS_COMMIT_MESSAGE == "[update snapshot]" ]]; then 
     npm run test:func -- -u
 
     echo "Pushing updated snapshots to pull request branch"
