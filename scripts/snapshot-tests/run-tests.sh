@@ -1,4 +1,7 @@
 #!/bin/bash
+git log --format=%B -n 3
+git status
+
 PREVIOUS_COMMIT_MESSAGE="$(if [ $TRAVIS_EVENT_TYPE != 'api' ]; then git log --format=%B -n 1 HEAD^2; fi)"
 
 if [ "$PREVIOUS_COMMIT_MESSAGE" == "update snapshot" ]; then 
