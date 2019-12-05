@@ -6,20 +6,12 @@ node_js:
 cache:
     npm: false
 
-addons:
-    hosts:
-        - localhost.paypal.com
-
 before_install:
     - npm i -g npm@6
-
-before_script:
-    - npm run dev:standalone &
 
 script:
     - npm run lint
     - npm run test
-    - ./scripts/snapshot-tests/run-tests.sh
 
 deploy:
     provider: script

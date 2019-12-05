@@ -1,0 +1,25 @@
+name: Update Snapshots
+
+on: push
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Check for trigger commit
+              run: ./scripts/snapshot-tests/should-update.sh
+            - name: Use Node.js 10
+              if: env.UPDATE_SNAPSHOT == 1
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+            - name: if trigger commit found, update snapshots
+              if: env.UPDATE_SNAPSHOT == 1
+              run: |
+                  ./scripts/snapshot-tests/setup-tests.sh
+                  ./scripts/snapshot-tests/run-update.sh
+              env:
+                  CI: true
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

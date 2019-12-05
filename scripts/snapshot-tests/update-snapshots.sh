@@ -7,5 +7,6 @@ if [[ $CURRENT_BRANCH == "develop" ]] || [[ $CURRENT_BRANCH == "release" ]]; the
 elif [[ $STAGED_COUNT != "0" ]]; then
     echo "Commit or unstage changes before running this command"
 else 
-    git commit --allow-empty -m "[update snapshot]" && git push
+    git commit --allow-empty --no-verify -m "[update snapshot]"
+    git push
 fi
