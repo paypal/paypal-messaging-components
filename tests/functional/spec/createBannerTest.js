@@ -20,7 +20,10 @@ const getConfigStrParts = (obj, keyPrefix = '') => {
     }, []);
 };
 
-const getConfigStr = obj => getConfigStrParts(obj).join('_');
+const getConfigStr = obj =>
+    getConfigStrParts(obj)
+        .sort()
+        .join('_');
 
 const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
     const styleStr = getConfigStr(style);
