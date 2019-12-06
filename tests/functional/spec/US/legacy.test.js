@@ -6,15 +6,11 @@ describe('US > legacy', () => {
         height: 400
     };
 
-    const runBannerTest = createBannerTest(viewport, 'US', true);
-
-    beforeAll(async () => {
-        await page.setViewport(viewport);
-    });
+    const runBannerTest = createBannerTest('US', true);
 
     // NI
     ['168x374', '340x60', '765x60', '1000x50', '234x100', '1000x36', '310x100'].forEach(dimensions => {
-        runBannerTest({
+        runBannerTest(viewport, {
             account: 'DEV00000000NI',
             style: {
                 layout: 'legacy',
@@ -37,7 +33,7 @@ describe('US > legacy', () => {
             '540x200',
             '170x100'
         ].forEach(dimensions => {
-            runBannerTest({
+            runBannerTest(viewport, {
                 account,
                 style: {
                     layout: 'legacy',

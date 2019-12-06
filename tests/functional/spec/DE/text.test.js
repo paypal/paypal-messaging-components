@@ -7,11 +7,7 @@ describe('DE > text', () => {
         height: 100
     };
 
-    const runBannerTest = createBannerTest(viewport, 'DE');
-
-    beforeAll(async () => {
-        await page.setViewport(viewport);
-    });
+    const runBannerTest = createBannerTest('DE');
 
     accounts.forEach(account => {
         describe(account, () => {
@@ -26,6 +22,7 @@ describe('DE > text', () => {
             // Each valid logo type
             ['primary', 'alternative', 'inline', 'none'].forEach(type => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type
@@ -35,8 +32,9 @@ describe('DE > text', () => {
             });
 
             // Each font size option logo.type-primary
-            for (let size = 10; size <= 16; size += 1) {
+            [10, 12, 16].forEach(size => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type: 'primary'
@@ -46,11 +44,12 @@ describe('DE > text', () => {
                         }
                     })
                 );
-            }
+            });
 
             // Each logo type, logo.position-left_text.color-white
             ['primary', 'alternative', 'inline', 'none'].forEach(type => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type
@@ -61,6 +60,20 @@ describe('DE > text', () => {
                     })
                 );
             });
+
+            // Small viewport
+            runBannerTest(
+                {
+                    width: 200,
+                    height: 100
+                },
+                getConfig({
+                    logo: {
+                        type: 'primary',
+                        position: 'left'
+                    }
+                })
+            );
         });
     });
 });

@@ -51,10 +51,12 @@ const waitForBanner = async timeout => {
     }
 };
 
-export default function createBannerTest(viewport, locale, legacy = false) {
-    return config => {
+export default function createBannerTest(locale, legacy = false) {
+    return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
+            await page.setViewport(viewport);
+
             const testPage = legacy ? 'legacy_banner.html' : 'banner.html';
             await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
 
@@ -73,7 +75,7 @@ export default function createBannerTest(viewport, locale, legacy = false) {
                 3
             );
 
-            const customSnapshotIdentifier = testNameParts.pop();
+            const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
             expect(image).toMatchImageSnapshot({
                 customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
                 customSnapshotIdentifier

@@ -6,14 +6,10 @@ describe('US > custom', () => {
         height: 200
     };
 
-    const runBannerTest = createBannerTest(viewport, 'US');
-
-    beforeAll(async () => {
-        await page.setViewport(viewport);
-    });
+    const runBannerTest = createBannerTest('US');
 
     // Logitech banner
-    runBannerTest({
+    runBannerTest(viewport, {
         account: '6QXSKQZUKASMW',
         style: {
             layout: 'custom',
@@ -22,7 +18,7 @@ describe('US > custom', () => {
     });
 
     // Phoenix Suns banner
-    runBannerTest({
+    runBannerTest(viewport, {
         account: 'S3STW9PF9H6MW',
         style: {
             layout: 'custom',

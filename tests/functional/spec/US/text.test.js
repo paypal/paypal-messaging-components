@@ -7,11 +7,7 @@ describe('US > text', () => {
         height: 100
     };
 
-    const runBannerTest = createBannerTest(viewport, 'US');
-
-    beforeAll(async () => {
-        await page.setViewport(viewport);
-    });
+    const runBannerTest = createBannerTest('US');
 
     accounts.forEach(account => {
         describe(account, () => {
@@ -27,6 +23,7 @@ describe('US > text', () => {
             ['primary', 'alternative'].forEach(type => {
                 ['top', 'left', 'right'].forEach(position => {
                     runBannerTest(
+                        viewport,
                         getConfig({
                             logo: {
                                 position,
@@ -39,6 +36,7 @@ describe('US > text', () => {
 
             ['inline', 'none'].forEach(type => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type
@@ -48,8 +46,9 @@ describe('US > text', () => {
             });
 
             // Each font size option logo.type-alternative_logo.position-left
-            for (let size = 10; size <= 16; size += 1) {
+            [10, 12, 16].forEach(size => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type: 'alternative',
@@ -60,11 +59,12 @@ describe('US > text', () => {
                         }
                     })
                 );
-            }
+            });
 
             // Each logo type, logo.position-left_text.color-white
             ['primary', 'alternative', 'inline', 'none'].forEach(type => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         logo: {
                             type,
@@ -76,6 +76,20 @@ describe('US > text', () => {
                     })
                 );
             });
+
+            // Small viewport
+            runBannerTest(
+                {
+                    width: 200,
+                    height: 100
+                },
+                getConfig({
+                    logo: {
+                        type: 'primary',
+                        position: 'left'
+                    }
+                })
+            );
         });
     });
 });

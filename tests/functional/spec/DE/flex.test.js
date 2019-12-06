@@ -7,11 +7,7 @@ describe('DE > flex', () => {
         height: 700
     };
 
-    const runBannerTest = createBannerTest(viewport, 'DE');
-
-    beforeAll(async () => {
-        await page.setViewport(viewport);
-    });
+    const runBannerTest = createBannerTest('DE');
 
     accounts.forEach(account => {
         describe(account, () => {
@@ -25,17 +21,36 @@ describe('DE > flex', () => {
 
             // Each valid ratio
             ['1x1', '1x4', '8x1', '20x1'].forEach(ratio => {
+                const config = getConfig({
+                    ratio,
+                    color: 'blue'
+                });
+
+                runBannerTest(viewport, config);
+
+                // Small viewport
                 runBannerTest(
-                    getConfig({
-                        ratio,
-                        color: 'blue'
-                    })
+                    {
+                        width: 100,
+                        height: 700
+                    },
+                    config
+                );
+
+                // Medium viewport
+                runBannerTest(
+                    {
+                        width: 400,
+                        height: 700
+                    },
+                    config
                 );
             });
 
             // Each additional background color option, ratio-1x1
             ['black', 'white', 'gray'].forEach(color => {
                 runBannerTest(
+                    viewport,
                     getConfig({
                         ratio: '1x1',
                         color
