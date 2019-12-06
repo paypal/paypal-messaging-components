@@ -292,6 +292,7 @@ scripts.some(script => {
     const payerId = script.getAttribute('data-pp_payer_id');
     const dimensions = script.getAttribute('data-pp_dimensions');
     const account = payerId || pubId;
+    console.log(account, dimensions);
 
     if (account && dimensions) {
         const ppScript = new PPScript(script);

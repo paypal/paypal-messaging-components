@@ -24,6 +24,7 @@
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.localMessage",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.standalone",
         "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.legacy --env.standalone",
+        "dev:snapshot": "webpack-dev-server --config webpack.config.snapshot.js",
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
         "start": "npm run dev",

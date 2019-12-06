@@ -16,6 +16,9 @@ const getConfigStrParts = (obj, keyPrefix = '') => {
         const totalKey = keyPrefix === '' ? key : `${keyPrefix}.${key}`;
         if (typeof val === 'object') return [...accumulator, ...getConfigStrParts(val, totalKey)];
 
+        // Do not include the markup url in filename
+        if (key === 'markup') return accumulator;
+
         return [...accumulator, `${totalKey}-${val}`];
     }, []);
 };
@@ -48,11 +51,12 @@ const waitForBanner = async timeout => {
     }
 };
 
-export default function createBannerTest(viewport, locale) {
+export default function createBannerTest(viewport, locale, legacy = false) {
     return config => {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
-            await page.goto(`http://localhost.paypal.com:8080/banner.html?config=${JSON.stringify(config)}`);
+            const testPage = legacy ? 'legacy_banner.html' : 'banner.html';
+            await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
 
             await waitForBanner(1000);
 

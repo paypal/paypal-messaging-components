@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Banner Test Page</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <style>
+            html,
+            body,
+            .container {
+                margin: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container"></div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config);
+
+            document.write(`
+                <script
+                    type="text/javascript"
+                    data-pp-pubid="${config.account}"
+                    data-pp-placementtype="${config.style.dimensions}"
+                    ${config.style.style ? `data-pp-style="${config.style.style}"` : ''}
+                    data-pp-cartamt="3000"
+                >
+                    (function(d, t) {
+                        'use strict';
+                        var s = d.getElementsByTagName(t)[0],
+                        n = d.createElement(t);
+                        n.src = './merchant.js';
+                        s.parentNode.insertBefore(n, s);
+                        var name = d.createElement('div');
+                    })(document, 'script');
+                <\/script>
+            `);
+        </script>
+    </body>
+</html>
