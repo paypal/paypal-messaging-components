@@ -1,3 +1,4 @@
+import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
 import containerTemplate from './containerTemplate';
@@ -16,7 +17,7 @@ export default create({
     props: {
         account: {
             type: 'string',
-            queryParam: true,
+            queryParam: false,
             required: true
         },
         type: {
@@ -29,14 +30,31 @@ export default create({
             queryParam: true,
             required: true
         },
-        amount: {
+        currency: {
             type: 'string',
+            queryParam: true,
+            required: false
+        },
+        amount: {
+            type: 'number',
             queryParam: true,
             required: false
         },
         onClose: {
             type: 'function',
             queryParam: false,
+            required: false
+        },
+        payerId: {
+            type: 'string',
+            queryParam: 'payer_id',
+            value: ({ props }) => (startsWith(props.account, 'client-id:') ? undefined : props.account),
+            required: false
+        },
+        clientId: {
+            type: 'string',
+            queryParam: 'client_id',
+            value: ({ props }) => (startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined),
             required: false
         }
     }

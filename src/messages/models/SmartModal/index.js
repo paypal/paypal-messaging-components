@@ -6,6 +6,7 @@ export default {
         const { render, hide, updateProps } = Modal({
             account: options.account,
             country: meta.offerCountry,
+            currency: options.currency,
             type: getModalType(meta.offerCountry, meta.offerType),
             amount: options.amount
         });
