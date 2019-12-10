@@ -12,42 +12,36 @@ export default {
         ],
         [
             'logo.type:primary',
-            {
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 13}px }`],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
-                },
-                messageWidth: [205, 1000]
-            }
+                }
+            })
         ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [210, 1000],
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 12}px }`],
                 logo: Logo.ALT_NO_PP.COLOR
-            }
+            })
         ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [185, 1000],
-                logo: false
-            }
-        ],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            {
-                headline: {
-                    tag: 'default',
-                    replace: [['Raten', 'Raten.']]
-                },
+            ({ textSize }) => ({
                 styles: [
+                    `.message__logo-container { width: ${textSize * 10}px }`,
                     '.message__content { display: inline-block; }',
                     '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
-                messageWidth: [205, 1000],
-                logo: Logo.ALTERNATIVE.COLOR
-            }
+                logo: Logo.ALTERNATIVE.COLOR,
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten', 'Raten.']]
+                }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],

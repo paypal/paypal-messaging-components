@@ -14,7 +14,7 @@
 
 .message__disclaimer > span > span:only-child,
 .message__disclaimer > span > span.em {
-    text-decoration: underline;
-    color: #0076ff;
+    /* text-decoration: underline; */
+    /* color: #0076ff; */
     white-space: nowrap;
 }

@@ -12,42 +12,40 @@ export default {
         ],
         [
             'logo.type:primary',
-            {
+            ({ textSize }) => ({
+                styles: [
+                    `.message__logo-container { width: ${textSize * 12}px }`
+                    // `.message__messaging { white-space: nowrap }`
+                ],
+                logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     tag: 'default',
                     replace: [['Jahreszins', 'Jahreszins.']]
-                },
-                messageWidth: [190, 1000]
-            }
+                }
+            })
         ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [290, 1000],
-                logo: Logo.ALT_NO_PP.COLOR
-            }
+            ({ textSize }) => ({
+                logo: Logo.ALT_NO_PP.COLOR,
+                styles: [`.message__logo { width: ${textSize * 13}px }`]
+            })
         ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [265, 1000],
-                logo: false
-            }
-        ],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            {
+            ({ textSize }) => ({
+                styles: [
+                    `.message__logo-container { width: ${textSize * 10}px }`,
+                    `.message__content { display: inline-block; }`,
+                    `.message__messaging, .message__headline span:only-child { white-space: normal }`
+                ],
+                logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     tag: 'default',
                     replace: [['Jahreszins', 'Jahreszins.']]
-                },
-                styles: [
-                    '.message__content { display: inline-block; }',
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
-                ],
-                messageWidth: [190, 1000],
-                logo: Logo.ALTERNATIVE.COLOR
-            }
+                }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],

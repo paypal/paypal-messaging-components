@@ -15,50 +15,44 @@ export default {
     'layout:text': [
         [
             'default',
-            {
-                styles: [...textDisclaimerStyles],
+            ({ textSize }) => ({
+                styles: [...textDisclaimerStyles, `.message__logo { width: ${textSize * 13}px }`],
+                messageWidth: [textSize * 5, 1000],
                 logo: Logo.PRIMARY.COLOR,
-                headline: 'default',
-                disclaimer: ['default', 'extra'],
-                messageWidth: [265, 1000]
-            }
-        ],
-        [
-            'logo.type:primary',
-            {
-                headline: {
-                    tag: 'default',
-                    replace: [['Jahreszins', 'Jahreszins.']]
-                }
-            }
-        ],
-        [
-            'logo.type:inline',
-            {
-                logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [320, 1000]
-            }
-        ],
-        [
-            'logo.type:none',
-            {
-                logo: false,
-                messageWidth: [315, 1000]
-            }
-        ],
-        [
-            'logo.type:alternative',
-            {
                 headline: {
                     tag: 'default',
                     replace: [['Jahreszins', 'Jahreszins.']]
                 },
-                styles: [
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
-                    ...textDisclaimerStyles
-                ],
-                logo: Logo.ALTERNATIVE.COLOR
+                disclaimer: ['default', 'extra']
+            })
+        ],
+        [
+            'logo.type:inline',
+            ({ textSize }) => ({
+                logo: Logo.ALT_NO_PP.COLOR,
+                messageWidth: [textSize * 30, 1000]
+            })
+        ],
+        [
+            'logo.type:none',
+            {
+                logo: false
             }
+        ],
+        [
+            'logo.type:alternative',
+            ({ textSize }) => ({
+                styles: [
+                    ...textDisclaimerStyles,
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
+                    `.message__logo-container { width: ${textSize * 11}px }`
+                ],
+                logo: Logo.ALTERNATIVE.COLOR,
+                headline: {
+                    tag: 'default',
+                    replace: [['Jahreszins', 'Jahreszins.']]
+                }
+            })
         ],
         [
             'text.color:white',
