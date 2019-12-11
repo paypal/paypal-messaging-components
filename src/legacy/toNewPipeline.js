@@ -105,7 +105,6 @@ export default function toNewPipeline(ppScript) {
     const account = kvs.payer_id || kvs.pub_id;
     const [typeNI, typeEZP, dimension, style] = getSupportedAttributes(kvs.dimensions, kvs.style);
 
-    console.log(kvs);
     if (dimension) {
         const customLEAccount = arrayFind(customBannerLEs, ids => arrayIncludes(ids, account));
         if (customLEAccount) {

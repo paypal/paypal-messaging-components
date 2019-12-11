@@ -6,7 +6,7 @@ describe('US > legacy', () => {
         height: 400
     };
 
-    const runBannerTest = createBannerTest('US', true);
+    const runBannerTest = createBannerTest('US', 'legacy_banner.html');
 
     // NI
     ['168x374', '340x60', '765x60', '1000x50', '234x100', '1000x36', '310x100'].forEach(dimensions => {

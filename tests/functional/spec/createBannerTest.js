@@ -46,23 +46,23 @@ const waitForBanner = async timeout => {
                 timeout
             }
         );
+
+        // Give time for fonts to load after banner is rendered
+        await new Promise(resolve => setTimeout(resolve, 500));
     } catch (e) {
         // Do nothing
     }
 };
 
-export default function createBannerTest(locale, legacy = false) {
+export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
             await page.setViewport(viewport);
 
-            const testPage = legacy ? 'legacy_banner.html' : 'banner.html';
             await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
 
             await waitForBanner(1000);
-
-            await new Promise(resolve => setTimeout(resolve, 500));
 
             const image = await page.screenshot(
                 {
