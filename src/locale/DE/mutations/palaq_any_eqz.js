@@ -1,8 +1,7 @@
 import Logo from '../logos';
 
 const textDisclaimerStyles = [
-    '.message__disclaimer > .multi.tag--default:first-of-type > span { text-decoration: underline; color: #0076ff }',
-    '.message__disclaimer > .multi.tag--extra > span { display: block; white-space: normal; margin-top: .5rem; text-decoration: none; color: #2c2e2f }'
+    '.message__disclaimer > .multi.tag--extra > span { display: block; white-space: normal; margin-top: .5rem }'
 ];
 
 const flexCommonStyles = [
@@ -17,7 +16,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [...textDisclaimerStyles, `.message__logo { width: ${textSize * 13}px }`],
-                messageWidth: [textSize * 29.5, 1000],
+                messageWidth: [textSize * 20, 1000],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'default',
@@ -30,14 +29,15 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize * 31.5, 1000]
+                messageWidth: [textSize * 29, 1000]
             })
         ],
         [
             'logo.type:none',
-            {
-                logo: false
-            }
+            ({ textSize }) => ({
+                logo: false,
+                messageWidth: [textSize * 26, 1000]
+            })
         ],
         [
             'logo.type:alternative',

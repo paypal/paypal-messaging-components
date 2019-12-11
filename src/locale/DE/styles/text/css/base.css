@@ -11,8 +11,8 @@
 .message__disclaimer > span > span {
     white-space: nowrap;
 }
-
-.message__disclaimer > span > span.em {
+.message__disclaimer > .tag--default > span:only-child,
+.message__disclaimer > .tag--default > span.em {
     text-decoration: underline;
     color: #0076ff;
     white-space: nowrap;
