@@ -22,8 +22,6 @@ import {
 } from '../../../utils';
 import { getLocalProductName, getMutations, getLogos, getLocaleStyles, getLocaleClass } from '../../../locale';
 
-const Logos = getLogos();
-
 const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
 const imageTemplate = document.createElement('div');
@@ -248,7 +246,8 @@ function createCustomTemplateNode({ data, meta, template }) {
 
             if (type === 'logo') {
                 const tempContainer = document.createElement('div');
-                appendImage(tempContainer, objectGet(Logos, tag.toUpperCase()), 'PayPal Credit logo');
+                // Get logos object lazily to ensure has been setup
+                appendImage(tempContainer, objectGet(getLogos(), tag.toUpperCase()), 'PayPal Credit logo');
                 return tempContainer.innerHTML;
             }
 
