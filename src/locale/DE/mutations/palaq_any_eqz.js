@@ -17,7 +17,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [...textDisclaimerStyles, `.message__logo { width: ${textSize * 13}px }`],
-                messageWidth: [textSize * 5, 1000],
+                messageWidth: [textSize * 29.5, 1000],
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'default',
@@ -30,7 +30,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize * 30, 1000]
+                messageWidth: [textSize * 31.5, 1000]
             })
         ],
         [
