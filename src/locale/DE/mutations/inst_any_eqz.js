@@ -26,15 +26,15 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize * 26, 1000],
-                styles: [`.message__logo { width: ${textSize * 13}px }`]
+                messageWidth: [textSize * 23, 1000],
+                styles: [`.message__logo { width: ${textSize * 11}px }`]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
                 logo: false,
-                messageWidth: [textSize * 26, 1000]
+                messageWidth: [textSize * 23, 1000]
             })
         ],
         [
