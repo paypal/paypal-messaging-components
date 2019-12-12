@@ -20,6 +20,7 @@
         "build": "./scripts/semantic-release/assets.sh",
         "build:standalone": "webpack --env.standalone",
         "build:legacy": "webpack --env.legacy --env.standalone",
+        "build:components": "webpack --config ./webpack.config.components.js",
         "build:analyze": "webpack --env.analyze --env.standalone",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.localMessage",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.localMessage --env.standalone",
