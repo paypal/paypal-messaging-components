@@ -4,50 +4,46 @@ export default {
     'layout:text': [
         [
             'default',
-            {
+            ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                headline: 'default',
-                disclaimer: 'default'
-            }
-        ],
-        [
-            'logo.type:primary',
-            {
+                styles: [`.message__logo { width: ${textSize * 12}px }`],
+                messageWidth: [textSize * 20, 1000],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
                 },
-                messageWidth: [205, 1000]
-            }
+                disclaimer: 'default'
+            })
         ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [210, 1000],
-                logo: Logo.ALT_NO_PP.COLOR
-            }
+            ({ textSize }) => ({
+                logo: Logo.ALT_NO_PP.COLOR,
+                messageWidth: [textSize * 21, 1000]
+            })
         ],
         [
             'logo.type:none',
-            {
-                messageWidth: [185, 1000],
-                logo: false
-            }
+            ({ textSize }) => ({
+                logo: false,
+                messageWidth: [textSize * 19, 1000]
+            })
         ],
         [
             'logo.type:alternative',
-            {
+            ({ textSize }) => ({
+                styles: [
+                    '.message__content { display: inline-block; }',
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
+                    `.message__logo-container { width: ${textSize * 11}px }`
+                ],
+                logo: Logo.ALTERNATIVE.COLOR,
+                messageWidth: [textSize * 19, 1000],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
-                },
-                styles: [
-                    '.message__content { display: inline-block; }',
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
-                ],
-                messageWidth: [205, 1000],
-                logo: Logo.ALTERNATIVE.COLOR
-            }
+                }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
