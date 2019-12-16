@@ -1,55 +1,75 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
-
 .message__content {
-    display: block;
-    padding: 0.25rem;
+    display: flex;
+    padding-right: 1rem;
 }
 
 .message__logo-container {
-    width: 40%;
-    display: block;
-    margin-bottom: 0.25rem;
+    flex: 0 0 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 .message__logo {
+    width: 60%;
+}
+.message__messaging {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.message__messaging > * {
     width: 100%;
 }
-
-.message__messaging {
-    flex-direction: row;
-    align-items: flex-end;
-}
-
 .message__headline {
-    margin-bottom: 0;
-    margin-right: 0.25rem;
-    font-size: 4vw;
+    font-size: 5vw;
+    line-height: 1;
+    margin-bottom: 0.2em;
 }
-
-.message__promo-container {
-    flex: 1 1 100%;
-}
-
-.message__disclaimer {
-    flex: 1 1 auto;
-    width: auto;
-    padding-right: 0;
-    margin-top: 1vw;
-    display: block;
-}
-
-.message__disclaimer span.multi:nth-of-type(1) {
+.message__headline span.multi:nth-of-type(2) {
     display: none;
 }
-
+.message__disclaimer {
+    font-size: 10px;
+    line-height: 1.1;
+}
 @media (max-aspect-ratio: 61/10) and (min-width: 400px) {
-    .message__content {
-        padding: 0.75rem;
+    .message__headline {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .message__disclaimer {
+        font-size: 0.75rem;
+        line-height: 1;
+        padding-right: 8%;
     }
 }
-
 @media (max-aspect-ratio: 61/10) and (min-width: 520px) {
-    .message__disclaimer span.multi:nth-of-type(1) {
+    .message__logo-container {
+        flex: 0 0 25%;
+    }
+    .message__headline {
+        margin: 0 0 2% 0;
+        font-size: 3.7vw;
+        padding-right: 2%;
+        line-height: 1.1;
+    }
+    .message__headline span.multi:nth-of-type(2) {
         display: inline;
+    }
+
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+    .message__disclaimer {
+        font-size: 0.9rem;
+    }
+    @media (max-aspect-ratio: 61/10) and (min-width: 640px) {
+        .message__headline {
+            font-size: 1.7rem;
+        }
     }
 }
