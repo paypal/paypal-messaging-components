@@ -26,8 +26,8 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize * 23, 1000],
-                styles: [`.message__logo { width: ${textSize * 11}px }`]
+                messageWidth: [textSize * 25, 1000],
+                styles: [`.message__logo { width: ${textSize * 13}px }`]
             })
         ],
         [
