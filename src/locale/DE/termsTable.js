@@ -1,7 +1,7 @@
 export default function insertTermsTable(terms, offer) {
     const genericError =
         '<h3 class="terms__error">Es ist ein Fehler bei der Berechnung Ihres Angebots aufgetreten. Bitte versuchen Sie es später noch einmal.</h3>';
-    if (terms.error) {
+    if (terms.error || terms.default_max_amount === terms.max_amount) {
         return genericError;
     }
 
