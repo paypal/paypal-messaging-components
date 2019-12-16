@@ -6,7 +6,10 @@
     },
 
     "headline": [
-        [[["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"], ["default", "xsmall"]],
+        [
+            [["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"],
+            ["default", "xsmall"]
+        ],
         [
             [["Pay as low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"],
             ["small", "medium", "large", "xlarge"]
@@ -15,7 +18,6 @@
     ],
 
     "subHeadline": [
-        ["No money due today.", ["default", "xsmall"]],
         [
             "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
             ["legacy-large"]

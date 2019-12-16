@@ -96,7 +96,7 @@ function fetcher(options) {
         script.async = true;
 
         // Manual request instead of traditional JSONP so that we can catch 204 no content stalling
-        request('GET', `${rootUrl}?${queryString}`).then(res => {
+        request('GET', `${rootUrl}?${queryString}`, { withCredentials: true }).then(res => {
             script.text = res.data;
             document.head.appendChild(script);
         });
@@ -229,13 +229,14 @@ export default function getBannerMarkup({ options, logger }) {
         setLocale(offerCountry);
 
         const style = validateStyleOptions(logger, options.style);
-        style._flattened = objectFlattenToArray(style);
 
         const totalOptions = {
             ...options,
             style,
             ...customOptions
         };
+
+        totalOptions.style._flattened = objectFlattenToArray(style);
 
         if (typeof markup === 'object') {
             const meta = {

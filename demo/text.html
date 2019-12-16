@@ -31,6 +31,7 @@
     <body>
         <div class="container"></div>
         <script>
+            // prettier-ignore
             var devAccounts = [
                 'DEV00000000NI',
                 'DEV000NINONUS',
@@ -63,6 +64,17 @@
                 'top'
             ];
 
+            // prettier-ignore
+            var fontSizes = [
+                // 10,
+                // 11,
+                12,
+                // 13,
+                // 14,
+                // 15,
+                16
+            ];
+
             devAccounts.forEach(function(account) {
                 var h2 = document.createElement('h2');
                 h2.innerText = account;
@@ -70,30 +82,39 @@
 
                 logoTypes.forEach(function(type) {
                     logoPositions.forEach(function(position) {
-                        var h4 = document.createElement('h4');
-                        h4.innerText = type + ' && ' + position;
-                        container.appendChild(h4);
+                        fontSizes.forEach(function(fontSize) {
+                            // Short circuit for logo combinations which are not unique
+                            if ((type === 'inline' || type === 'none') && position !== 'top') {
+                                return;
+                            }
 
-                        var wrapper = document.createElement('div');
-                        container.appendChild(wrapper);
+                            var h4 = document.createElement('h4');
+                            h4.innerText = type + ' && ' + position + ' && ' + fontSize + 'px';
+                            container.appendChild(h4);
 
-                        paypal.Message.render(
-                            {
-                                account: account,
-                                amount: 3000,
-                                style: {
-                                    layout: 'text',
-                                    logo: {
-                                        type: type,
-                                        position: position
-                                    },
-                                    text: {
-                                        color: 'black'
+                            var wrapper = document.createElement('div');
+                            container.appendChild(wrapper);
+
+                            paypal.Message.render(
+                                {
+                                    account: account,
+                                    amount: 3000,
+                                    style: {
+                                        layout: 'text',
+                                        logo: {
+                                            type: type,
+                                            position: position
+                                        },
+                                        text: {
+                                            color: 'black',
+                                            size: fontSize
+                                            // fontFamily: 'nb55ag'
+                                        }
                                     }
-                                }
-                            },
-                            wrapper
-                        );
+                                },
+                                wrapper
+                            );
+                        });
                     });
                 });
             });

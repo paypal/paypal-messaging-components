@@ -48,14 +48,20 @@ export function getDataByTag(data, tag) {
     return arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'))[0];
 }
 
-export function request(method, url, { data, headers } = {}) {
+export function request(method, url, { data, headers, withCredentials } = {}) {
     return new ZalgoPromise((resolve, reject) => {
         const xhttp = new XMLHttpRequest();
+
+        if (withCredentials) {
+            // Necessary to send cookies with cross-origin requests
+            xhttp.withCredentials = true;
+        }
 
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
                     .getAllResponseHeaders()
+                    .trim() // Remove trailing newline characters
                     .split('\n')
                     .reduce((accumulator, header) => {
                         const [key, val] = header.trim().split(': ');

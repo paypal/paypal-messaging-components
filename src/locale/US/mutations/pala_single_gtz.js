@@ -4,33 +4,35 @@ export default {
     'layout:text': [
         [
             'default',
-            {
+            ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                headline: { tag: 'small' },
+                messageWidth: [textSize * 13, textSize * 18],
+                headline: { tag: 'small', br: ['/mo'] },
                 disclaimer: 'xsmall'
-            }
+            })
         ],
-        ['logo.type:primary', { messageWidth: [140, 210] }],
         [
             'logo.type:inline',
-            {
-                messageWidth: [200, 1000],
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: { br: ['/mo'] }
-            }
+                messageWidth: [textSize * 19, 1000]
+            })
         ],
-
         [
             'logo.type:none',
-            {
-                messageWidth: [200, 1000],
+            ({ textSize }) => ({
                 logo: false,
-                headline: {
-                    br: ['/mo']
-                }
-            }
+                messageWidth: [textSize * 17, 1000]
+            })
         ],
-        ['logo.type:alternative', { logo: Logo.ALTERNATIVE.COLOR }],
+        [
+            'logo.type:alternative',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 8}px }`],
+                logo: Logo.ALTERNATIVE.COLOR
+            })
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
@@ -41,15 +43,13 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'small', br: ['of'] },
-                subHeadline: 'small',
                 disclaimer: 'xsmall'
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: { br: ['payments'] },
-                subHeadline: { tag: 'small', br: ['money'] }
+                headline: { br: ['payments'] }
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
