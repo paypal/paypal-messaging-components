@@ -48,6 +48,21 @@ function getValidVal(logger, typeArr, val, location) {
         return val;
     }
 
+    const numberVal = Number(val);
+    if (type === Types.NUMBER && validateType(type, numberVal)) {
+        if (validVals.length > 0) {
+            const validVal = arrayFind(validVals, v => v === numberVal);
+            if (validVal === undefined) {
+                logInvalidOption(logger, location, validVals, numberVal);
+                return validVals[0];
+            }
+
+            return validVal;
+        }
+
+        return numberVal;
+    }
+
     logInvalidType(logger, location, type, val);
     return validVals[0];
 }
@@ -87,10 +102,12 @@ function populateDefaults(logger, defaults, options, prefix = 'style.') {
  * @returns {Object} Object containing only valid style options
  */
 function getValidStyleOptions(logger, localeStyleOptions, options) {
-    return {
+    const defaultValues = {
         layout: options.layout,
         ...populateDefaults(logger, localeStyleOptions[options.layout], options)
     };
+
+    return defaultValues;
 }
 
 /**

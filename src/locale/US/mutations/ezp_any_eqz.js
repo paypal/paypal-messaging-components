@@ -1,52 +1,48 @@
 import Logo from '../logos';
 
+const defaultTextStyles = [
+    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
+    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+];
+
 export default {
     'layout:text': [
         [
             'default',
             {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-                    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
-                ],
+                styles: defaultTextStyles,
                 logo: Logo.PRIMARY.COLOR,
                 headline: {
                     tag: 'small',
-                    br: ['months', 'APR']
+                    br: ['APR']
                 },
                 disclaimer: 'xsmall.2'
             }
         ],
-        ['logo.type:primary', { messageWidth: 190 }],
+        [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                messageWidth: textSize * 16
+            })
+        ],
         [
             'logo.type:inline',
-            {
-                messageWidth: [255, 1000],
+            ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: {
-                    br: ['APR']
-                }
-            }
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
+            })
         ],
-        [
-            'logo.type:none',
-            {
-                messageWidth: [240, 1000],
-                logo: false,
-                headline: {
-                    br: ['APR']
-                }
-            }
-        ],
+        ['logo.type:none', { logo: false }],
         [
             'logo.type:alternative',
-            {
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 8}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
                     br: ['APR.']
                 }
-            }
+            })
         ],
         [
             'text.color:white',
@@ -67,8 +63,7 @@ export default {
             'default',
             {
                 logo: Logo.PRIMARY.WHITE,
-                headline: { tag: 'small', br: ['over', 'at', 'APR'] },
-                subHeadline: 'small',
+                headline: { tag: 'small', br: ['months', 'APR'] },
                 disclaimer: ['xsmall.2', 'xsmall']
             }
         ],
@@ -76,8 +71,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: { br: ['over', 'at', 'APR'] },
-                subHeadline: { tag: 'small', br: ['money'] }
+                headline: { br: ['over', 'at', 'APR'] }
             }
         ],
 

@@ -6,14 +6,12 @@ import logoInline from './css/logo--inline.css';
 import logoNone from './css/logo--none.css';
 import logoRight from './css/logo--right.css';
 import logoTop from './css/logo--top.css';
-import logoPrimary from './css/logo--primary.css';
 import logoAlternativeTop from './css/logo--alternativetop.css';
 import textWhite from './css/text--white.css';
 
 export default [
     ['default', [fonts, common, base].join('\n')],
 
-    ['logo.type:primary', logoPrimary],
     ['logo.type:alternative', logoAlternative],
     ['logo.type:inline', logoInline],
     ['logo.type:none', [logoInline, logoNone].join('\n')],

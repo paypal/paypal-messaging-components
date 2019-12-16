@@ -232,7 +232,6 @@ export default function getModalContent(options, state, trackModalEvent) {
 
         state.contentElements.amountInput.addEventListener('keydown', evt => {
             const { key, target } = evt;
-
             if (key.length > 1 || evt.metaKey || evt.ctrlKey) {
                 if (key === 'Enter') {
                     calculateTerms('Enter Key');
@@ -240,16 +239,17 @@ export default function getModalContent(options, state, trackModalEvent) {
                 return;
             }
 
-            evt.preventDefault();
-
             const val = target.value;
-            const position = target.selectionStart;
-            const newVal = val ? `${val.slice(0, position)}${key}${val.slice(position)}` : key;
+            const startPosition = target.selectionStart;
+            const endPosition = target.selectionEnd;
+            const newVal = val ? `${val.slice(0, startPosition)}${key}${val.slice(endPosition)}` : key;
 
             if (isValidAmount(newVal)) {
                 target.value = newVal;
-                target.setSelectionRange(position + 1, position + 1);
+                target.setSelectionRange(startPosition + 1, startPosition + 1);
             }
+
+            evt.preventDefault();
         });
 
         state.contentElements.calculateButton.addEventListener('click', () => calculateTerms('Calculate Button'));
