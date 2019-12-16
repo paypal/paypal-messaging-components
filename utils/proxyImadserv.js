@@ -4,6 +4,7 @@ const got = require('got');
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
     DEV0000000NIQ: ['US', 'ni_qualifying'],
+    DEV000NIQNONUS: ['US', 'ni_non-us_qualifying'],
     DEV000NINONUS: ['US', 'ni_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
     DEV0000000EAG: ['US', 'ezp_any_gtz'],

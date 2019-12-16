@@ -1,6 +1,7 @@
 import ni from './ni';
 import niNonUs from './ni_non-us';
 import niqualifying from './ni_qualifying';
+import niNonUsQualifying from './ni_non-us_qualifying';
 import ezpAnyEqz from './ezp_any_eqz';
 import ezpAnyGtz from './ezp_any_gtz';
 import palaMultiEqz from './pala_multi_eqz';
@@ -26,6 +27,8 @@ export default function getMutations(id, type) {
             return niNonUs[type];
         case 'NI:QUALIFYING':
             return niqualifying[type];
+        case 'NI:NON-US:QUALIFYING':
+            return niNonUsQualifying[type];
         case 'NI':
         default:
             return ni[type];

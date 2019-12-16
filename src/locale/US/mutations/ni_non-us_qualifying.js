@@ -13,7 +13,7 @@ export default {
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: ['xsmall', { tag: 'medium' }],
-                disclaimer: 'xsmall'
+                disclaimer: ['extra', 'xsmall']
             }
         ],
         ['logo.type:primary', { messageWidth: [130, 320] }],
@@ -69,7 +69,7 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: ['xsmall', { tag: 'medium', br: ['months'] }],
-                disclaimer: 'xsmall'
+                disclaimer: ['extra.2', 'small']
             }
         ],
         [
@@ -88,7 +88,7 @@ export default {
                     '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
                     '.message__headline { font-size: 1.1rem }'
                 ],
-                disclaimer: ['xlarge', 'xsmall']
+                disclaimer: ['xlarge', 'extra.2', 'small']
             }
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
