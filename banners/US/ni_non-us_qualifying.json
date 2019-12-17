@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "offerType": "NI:QUALIFYING",
+        "offerType": "NI:NON-US:QUALIFYING",
         "clickUrl": "https://www.paypal.com/ppclander"
     },
 
