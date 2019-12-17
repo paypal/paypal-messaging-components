@@ -5,7 +5,7 @@
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
 
-    "headline": [["Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten", ["default", "small"]]],
+    "headline": [["Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten.", ["default", "small"]]],
 
     "subHeadline": [],
 

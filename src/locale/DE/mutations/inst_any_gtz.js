@@ -14,11 +14,7 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [`.message__logo-container { width: ${textSize * 13}px }`],
-                messageWidth: [textSize * 15, 1000],
-                headline: {
-                    tag: 'default',
-                    replace: [['Raten', 'Raten.']]
-                }
+                messageWidth: [textSize * 15, 1000]
             })
         ],
         [
@@ -26,6 +22,10 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 13}px }`],
                 messageWidth: [textSize * 22, 1000],
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten.', 'Raten']]
+                },
                 logo: Logo.ALT_NO_PP.COLOR
             })
         ],
@@ -33,6 +33,10 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 logo: false,
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten.', 'Raten']]
+                },
                 messageWidth: [textSize * 20, 1000]
             })
         ],
@@ -45,11 +49,7 @@ export default {
                     '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
                 messageWidth: [textSize * 15, 1000],
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: {
-                    tag: 'default',
-                    replace: [['Raten', 'Raten.']]
-                }
+                logo: Logo.ALTERNATIVE.COLOR
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],

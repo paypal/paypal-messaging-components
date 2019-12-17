@@ -8,10 +8,7 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 styles: [`.message__logo { width: ${textSize * 12}px }`],
                 messageWidth: [textSize * 20, 1000],
-                headline: {
-                    tag: 'default',
-                    replace: [['Raten', 'Raten.']]
-                },
+                headline: 'default',
                 disclaimer: 'default'
             })
         ],
@@ -19,6 +16,10 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten.', 'Raten']]
+                },
                 messageWidth: [textSize * 21, 1000]
             })
         ],
@@ -26,6 +27,10 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 logo: false,
+                headline: {
+                    tag: 'default',
+                    replace: [['Raten.', 'Raten']]
+                },
                 messageWidth: [textSize * 19, 1000]
             })
         ],
@@ -38,11 +43,7 @@ export default {
                     `.message__logo-container { width: ${textSize * 11}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
-                messageWidth: [textSize * 19, 1000],
-                headline: {
-                    tag: 'default',
-                    replace: [['Raten', 'Raten.']]
-                }
+                messageWidth: [textSize * 19, 1000]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],

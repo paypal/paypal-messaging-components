@@ -15,11 +15,7 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo-container { width: ${textSize * 12}px }`],
                 messageWidth: [textSize * 20, 1000],
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: {
-                    tag: 'default',
-                    replace: [['Jahreszins', 'Jahreszins.']]
-                }
+                logo: Logo.ALTERNATIVE.COLOR
             })
         ],
         [
@@ -27,14 +23,22 @@ export default {
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
                 messageWidth: [textSize * 25, 1000],
-                styles: [`.message__logo { width: ${textSize * 13}px }`]
+                styles: [`.message__logo { width: ${textSize * 13}px }`],
+                headline: {
+                    tag: 'default',
+                    replace: [['Jahreszins.', 'Jahreszins']]
+                }
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
                 logo: false,
-                messageWidth: [textSize * 23, 1000]
+                messageWidth: [textSize * 23, 1000],
+                headline: {
+                    tag: 'default',
+                    replace: [['Jahreszins.', 'Jahreszins']]
+                }
             })
         ],
         [
@@ -46,11 +50,7 @@ export default {
                     `.message__messaging, .message__headline span:only-child { white-space: normal }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
-                messageWidth: [textSize * 20, 1000],
-                headline: {
-                    tag: 'default',
-                    replace: [['Jahreszins', 'Jahreszins.']]
-                }
+                messageWidth: [textSize * 20, 1000]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
