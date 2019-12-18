@@ -10,8 +10,8 @@
             "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins.",
             ["default", "small"]
         ],
-        ["${CREDIT_OFFERS_DS.total_payments} moatlichen Raten bei 0% effektivem Jahreszins.", ["xsmall"]],
-        ["${CREDIT_OFFERS_DS.total_payments} moatlichen Raten.", ["xsmall.2"]]
+        ["${CREDIT_OFFERS_DS.total_payments} monatliche Raten bei 0% effektivem Jahreszins.", ["xsmall"]],
+        ["${CREDIT_OFFERS_DS.total_payments} monatliche Raten.", ["xsmall.2"]]
     ],
 
     "subHeadline": [],
