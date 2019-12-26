@@ -1,10 +1,12 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
+import { getTargetMeta } from '../../../utils';
 import containerTemplate from './containerTemplate';
 
 export default create({
     tag: 'paypal-credit-modal',
+    // url: 'http://localhost.paypal.com:8080/modal.html',
     url: 'http://localhost.paypal.com:8443/crcpresentmentnodeweb/smart/modal',
     // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
     domain: /\.paypal\.com(:\d+)?$/,
@@ -18,6 +20,7 @@ export default create({
         account: {
             type: 'string',
             queryParam: false,
+            sendToChild: false,
             required: true
         },
         type: {
@@ -56,6 +59,12 @@ export default create({
             queryParam: 'client_id',
             value: ({ props }) => (startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined),
             required: false
+        },
+        targetMeta: {
+            type: 'string',
+            queryParam: true,
+            sendToChild: false,
+            value: getTargetMeta
         }
     }
 });
