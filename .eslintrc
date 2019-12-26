@@ -11,11 +11,15 @@
     "rules": {
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
-        "react/jsx-indent": 0,
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": ["/*.js", "/utils/**/*.js", "/tools/**/*.js", "/tests/**/*.js"] }
         ],
+        "react/jsx-indent": 0,
+        "react/jsx-indent-props": 0,
+        "react/prop-types": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/jsx-filename-extension": 0,
         "react/jsx-curly-spacing": 0
     },
     "settings": {
