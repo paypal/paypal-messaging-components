@@ -5,6 +5,9 @@ pipeline {
   tools {
     nodejs 'Node10'
   }
+  environment {
+    COMMIT_MESSAGE = """${sh(returnStdout: true, script: 'git log -1 --pretty=%B')}"""
+  }
 
   stages {
     stage('Initialization') {
@@ -18,17 +21,24 @@ pipeline {
         '''
       }
     }
-    stage('Install') {
-      steps {
-        sh 'npm install'
-      }
+
+    stage('Test') {
+        steps {
+            sh 'printenv'
+        }
     }
 
-    stage('Build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
+    // stage('Install') {
+    //   steps {
+    //     sh 'npm install'
+    //   }
+    // }
+
+    // stage('Build') {
+    //   steps {
+    //     sh 'npm run build'
+    //   }
+    // }
 
     // stage('Stage') {
     //   steps {
