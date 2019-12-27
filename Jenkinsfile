@@ -6,7 +6,7 @@ pipeline {
     nodejs 'Node10'
   }
   environment {
-    COMMIT_MESSAGE = """${sh(returnStdout: true, script: 'git log -1 --pretty=%B')}"""
+    COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B | xargs').trim()
   }
 
   stages {
@@ -22,8 +22,20 @@ pipeline {
       }
     }
 
+    stage('Conditional') {
+        when {
+            expression {
+                return env.COMMIT_MESSAGE ==~ /(?i)(chore\(release\):.+)/
+            }
+        }
+        steps {
+            sh 'echo "CONDITIONAL SUCCESS"'
+        }
+    }
+
     stage('Test') {
         steps {
+            print(env.COMMIT_MESSAGE)
             sh 'printenv'
         }
     }
