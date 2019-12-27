@@ -18,7 +18,7 @@ module.exports = (env = {}) => {
 
     const MODAL_CONFIG = getWebpackConfig({
         entry: './src/modal/index.js',
-        filename: 'smart-credit-modal',
+        filename: 'smart-credit-modal.js',
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
