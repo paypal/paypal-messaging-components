@@ -4,7 +4,7 @@ node_js:
     - '10'
 
 env:
-    - DIRTY_SNAPSHOTS=0
+    - DIRTY_SNAPSHOTS=1
 
 cache:
     npm: false
@@ -22,7 +22,7 @@ before_script:
 script:
     - npm run lint
     - npm run test
-    - npm run test:func
+    - if [ "${DIRTY_SNAPSHOTS}" = "0" ]; then npm run test:func; fi
 
 deploy:
     provider: script
