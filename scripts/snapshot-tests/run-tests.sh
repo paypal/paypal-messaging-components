@@ -1,4 +1,4 @@
-if [[ "${DIRTY_SNAPSHOTs}" = "0" ]]; then 
+if [[ "${DIRTY_SNAPSHOTS}" != "1" ]]; then 
     npm run test:func
 elif [[ "${TRAVIS_PULL_REQUEST}" = "false" ]] && [[ "${TRAVIS_BRANCH}" = "develop" ]]; then
     npm run test:func -- -u
