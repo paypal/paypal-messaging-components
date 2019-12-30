@@ -1,14 +1,12 @@
-echo TRAVIS_BRANCH
-echo $TRAVIS_BRANCH
-echo TRAVIS_PULL_REQUEST
-echo $TRAVIS_PULL_REQUEST
+
+cat .travis.yml
+
+sed -i '' -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
+
+cat .travis.yml
 
 if [[ "${DIRTY_SNAPSHOTS}" != "1" ]]; then 
     npm run test:func
-
-    sed -i '' -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
-
-    git diff
 elif [[ "${TRAVIS_PULL_REQUEST}" = "false" ]] && [[ "${TRAVIS_BRANCH}" = "develop" ]]; then
     npm run test:func -- -u
     
