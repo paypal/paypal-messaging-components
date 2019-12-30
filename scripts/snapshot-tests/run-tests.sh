@@ -1,5 +1,7 @@
+pwd
+ls -al
 
-cat .travis.yml
+cat ./.travis.yml
 
 sed -i '' -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
 
