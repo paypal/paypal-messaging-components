@@ -4,7 +4,7 @@ node_js:
     - '10'
 
 env:
-    - DIRTY_SNAPSHOTS=1
+    - DIRTY_SNAPSHOTS=0
 
 cache:
     npm: false
@@ -17,12 +17,12 @@ before_install:
     - npm i -g npm@6
 
 before_script:
-    - if [ "${DIRTY_SNAPSHOTS}" = "0" ]; then npm run dev:standalone; fi &
+    - if [ "${DIRTY_SNAPSHOTS}" = "0" || "${TRAVIS_BRANCH}" = "develop" ]; then npm run dev:standalone; fi &
 
 script:
     - npm run lint
     - npm run test
-    - if [ "${DIRTY_SNAPSHOTS}" = "0" ]; then npm run test:func; fi
+    - ./scripts/snapshot-tests/run-tests.sh
 
 deploy:
     provider: script
