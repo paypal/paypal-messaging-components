@@ -1,9 +1,7 @@
-pwd
-ls -al
 
-cat ./.travis.yml
+cat .travis.yml
 
-sed -i '' -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
+sed -i .bak -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml && rm .travis.yml.bak
 
 cat .travis.yml
 
