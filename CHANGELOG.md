@@ -1,5 +1,24 @@
 # Changelog
 
+# [1.5.0](https://github.com/paypal/paypal-messaging-components/compare/v1.4.1...v1.5.0) (2019-12-16)
+
+
+### Bug Fixes
+
+* allow cookies in cross-origin xhr ([#93](https://github.com/paypal/paypal-messaging-components/issues/93)) ([372e1ae](https://github.com/paypal/paypal-messaging-components/commit/372e1aea18f50f6acb15ceef52a5f0d6f6d7b3a9))
+* custom banner render error ([#95](https://github.com/paypal/paypal-messaging-components/issues/95)) ([529e48c](https://github.com/paypal/paypal-messaging-components/commit/529e48cf5b150e0e55b7f2ab31904638dd13a218))
+* DE link color and invalid terms display ([#96](https://github.com/paypal/paypal-messaging-components/issues/96)) ([e778287](https://github.com/paypal/paypal-messaging-components/commit/e77828713a1be2eb24ddd128d102fe2310a914ea))
+* improve modal calculator input useability ([#82](https://github.com/paypal/paypal-messaging-components/issues/82)) ([17d81a9](https://github.com/paypal/paypal-messaging-components/commit/17d81a90ff6accb5354395f498f8e33b315577ff))
+* lazily get logos object for custom banners ([#97](https://github.com/paypal/paypal-messaging-components/issues/97)) ([a22f05f](https://github.com/paypal/paypal-messaging-components/commit/a22f05f41689b2997f31715b7155f161348a51b8))
+* use credentials only for banner request ([#98](https://github.com/paypal/paypal-messaging-components/issues/98)) ([ab0f7a0](https://github.com/paypal/paypal-messaging-components/commit/ab0f7a04e6bf204436aabb4dcad0a09546f00c6b))
+* use normalized correlation ID header ([#94](https://github.com/paypal/paypal-messaging-components/issues/94)) ([ae7ffe7](https://github.com/paypal/paypal-messaging-components/commit/ae7ffe745d6db74df99b93fa955a7b2b49a64341))
+
+
+### Features
+
+* font size options ([#83](https://github.com/paypal/paypal-messaging-components/issues/83)) ([7e8ca0d](https://github.com/paypal/paypal-messaging-components/commit/7e8ca0d2082dc62775ce3b25cfa0b9b8ef1a6de2))
+* font size options DE ([#100](https://github.com/paypal/paypal-messaging-components/issues/100)) ([14631e6](https://github.com/paypal/paypal-messaging-components/commit/14631e6978df40d244d379df54d2cae0711fe255))
+
 ## [1.4.1](https://github.com/paypal/paypal-messaging-components/compare/v1.4.0...v1.4.1) (2019-11-14)
 
 
