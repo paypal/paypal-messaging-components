@@ -1,3 +1,8 @@
+echo TRAVIS_BRANCH
+echo $TRAVIS_BRANCH
+echo TRAVIS_PULL_REQUEST
+echo $TRAVIS_PULL_REQUEST
+
 if [[ "${DIRTY_SNAPSHOTS}" != "1" ]]; then 
     npm run test:func
 elif [[ "${TRAVIS_PULL_REQUEST}" = "false" ]] && [[ "${TRAVIS_BRANCH}" = "develop" ]]; then
