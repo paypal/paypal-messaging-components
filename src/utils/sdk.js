@@ -56,7 +56,7 @@ export function getCurrency() {
 export function getTargetMeta() {
     const metaObject = {
         componentUrl:
-            getEnv() === 'local'
+            getEnv() !== 'production'
                 ? 'http://localhost.paypal.com:8080/smart-credit-modal.js'
                 : `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
     };

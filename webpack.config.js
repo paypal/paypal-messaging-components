@@ -4,10 +4,10 @@ const globals = require('./globals');
 
 module.exports = (env = {}) => {
     const MESSAGES_CONFIG = getWebpackConfig({
-        entry: env.legacy ? './src/legacy/index.js' : './src/index.js',
-        filename: env.legacy ? 'merchant.js' : 'messaging.js',
+        entry: env.TARGET === 'legacy' ? './src/legacy/index.js' : './src/index.js',
+        filename: env.TARGET === 'legacy' ? 'merchant.js' : 'messaging.js',
+        modulename: env.TARGET === 'legacy' ? undefined : ['paypal', 'Messages'],
         libraryTarget: env.demo ? 'umd' : 'window',
-        modulename: env.legacy ? undefined : ['paypal', 'Messages'],
         web: true,
         minify: true,
         debug: false,

@@ -67,7 +67,7 @@ export default function useCalculator() {
             dispatch({ type: 'fetch' });
             request(
                 'POST',
-                `http://localhost.paypal.com:8443/crcpresentmentnodeweb/calculateTerms?amount=${delocalize(
+                `${window.location.origin}/credit-presentment/calculateTerms?amount=${delocalize(
                     country,
                     state.inputValue
                 )}&country=${country}&${clientId ? `client_id=${clientId}` : `payer_id=${payerId}`}`,

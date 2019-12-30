@@ -1,13 +1,12 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta } from '../../../utils';
+import { getTargetMeta, getGlobalUrl } from '../../../utils';
 import containerTemplate from './containerTemplate';
 
 export default create({
     tag: 'paypal-credit-modal',
-    // url: 'http://localhost.paypal.com:8080/modal.html',
-    url: 'http://localhost.paypal.com:8443/crcpresentmentnodeweb/smart/modal',
+    url: getGlobalUrl('MODAL'),
     // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
     domain: /\.paypal\.com(:\d+)?$/,
     containerTemplate,
