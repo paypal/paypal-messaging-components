@@ -17,7 +17,7 @@ import {
     assignToProp,
     waitForElementReady
 } from '../../../utils';
-import SmartModal from '../SmartModal';
+import Modal from '../Modal';
 
 // eslint-disable-next-line compat/compat
 const banners = new Map();
@@ -84,7 +84,7 @@ const Banner = {
                 .then(
                     pipe(
                         assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
-                        passThrough(logBefore(SmartModal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(setSize, EVENTS.SIZE)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, wrapper, events, markup, template, meta, track)
                         logBefore(onRendered, EVENTS.RENDER_END)
