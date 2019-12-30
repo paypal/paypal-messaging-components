@@ -48,6 +48,8 @@ export default create({
             queryParam: false,
             required: false
         },
+
+        // Computed Props
         payerId: {
             type: 'string',
             queryParam: 'payer_id',

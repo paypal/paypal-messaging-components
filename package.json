@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
+        "belter": "^1.0.112",
         "core-js-pure": "^3.0.1",
         "jsx-pragmatic": "^2.0.7",
         "post-robot": "^10.0.29",
@@ -64,7 +65,7 @@
         "jest-environment-jsdom-fifteen": "^1.0.0",
         "lint-staged": "^8.0.4",
         "prettier": "^1.14.3",
-        "prettier-eslint": "^8.8.2",
+        "prettier-eslint": "^9.0.1",
         "webpack": "^4.32.0",
         "webpack-dev-server": "^3.4.1"
     },

@@ -1,3 +1,5 @@
+import { ZalgoPromise } from 'zalgo-promise';
+
 import Modal from './component';
 import { getModalType } from '../../../locale';
 
@@ -12,10 +14,14 @@ export default {
         });
 
         hide();
-        render('body');
+        // The render promise will resolve before Preact renders and picks up changes
+        // via updateProps so a small delay is added after the initial "render" promise
+        const renderProm = render('body').then(() => ZalgoPromise.delay(100));
 
         events.on('click', () => {
-            updateProps({ visible: true });
+            renderProm.then(() => {
+                updateProps({ visible: true });
+            });
         });
     }
 };

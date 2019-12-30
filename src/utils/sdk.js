@@ -1,5 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import objectAssign from 'core-js-pure/stable/object/assign';
 
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import {
@@ -10,6 +11,7 @@ import {
     getCurrency as getSDKCurrency,
     getSDKMeta
 } from '@paypal/sdk-client/src';
+import { base64decode, base64encode } from 'belter/src';
 
 // SDK helper functions with standalone build polyfills
 
@@ -34,8 +36,12 @@ export function getScript() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKScript();
     } else {
-        // eslint-disable-next-line compat/compat
-        return document.currentScript || document.querySelector('script[src$="messaging.js"]');
+        return (
+            // eslint-disable-next-line compat/compat
+            document.currentScript ||
+            document.querySelector('script[src$="messaging.js"]') ||
+            document.querySelector('script[src$="merchant.js"]')
+        );
     }
 }
 
@@ -48,24 +54,27 @@ export function getCurrency() {
 }
 
 export function getTargetMeta() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKMeta();
-    } else {
-        const path =
+    const metaObject = {
+        componentUrl:
             getEnv() === 'local'
-                ? 'http://localhost.paypal.com:8080'
-                : 'https://www.paypalobjects.com/upstream/bizcomponents/js';
-        const str = JSON.stringify({
-            url: __MESSAGES__.__TARGET__ === 'LEGACY' ? `${path}/merchant.js` : `${path}/messaging.js`,
-            attributes: arrayFrom(getScript().attributes)
-                .filter(({ name }) => stringStartsWith(name, 'data-pp-'))
-                .map(({ name, value }) => [name, value])
-        });
+                ? 'http://localhost.paypal.com:8080/smart-credit-modal.js'
+                : `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
+    };
 
-        return btoa(
-            encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m, p1) => {
-                return String.fromCharCode(parseInt(p1, 16));
-            })
-        ).replace(/=+$/, '');
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        objectAssign(metaObject, JSON.parse(base64decode(getSDKMeta())));
+    } else {
+        const script = getScript();
+
+        objectAssign(metaObject, {
+            url: script ? script.src : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js',
+            attributes:
+                script &&
+                arrayFrom(script.attributes)
+                    .filter(({ name }) => stringStartsWith(name, 'data-pp-'))
+                    .map(({ name, value }) => [name, value])
+        });
     }
+
+    return base64encode(JSON.stringify(metaObject));
 }

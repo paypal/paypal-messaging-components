@@ -18,7 +18,7 @@ const devAccountMap = {
 };
 
 module.exports = function proxyImadserv(app) {
-    app.get('/imadserver/upstream', (req, res) => {
+    app.get('/imadserver/upstream', async (req, res) => {
         const { call, currency_value: amount = 0, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
@@ -66,13 +66,21 @@ module.exports = function proxyImadserv(app) {
                 .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
                 .slice(1);
 
-            got(`https://www.paypal.com/imadserver/upstream?${query}`)
-                .then(({ body, headers }) => {
-                    delete headers['content-encoding']; // eslint-disable-line no-param-reassign
-                    res.set(headers);
-                    res.send(body);
-                })
-                .catch(err => console.log(err) || res.status(404).send());
+            try {
+                let { body, headers, status } = await got(
+                    `https://www.msmaster.qa.paypal.com/imadserver/upstream?${query}`
+                );
+                if (status === 204) {
+                    ({ body, headers, status } = await got(`https://www.paypal.com/imadserver/upstream?${query}`));
+                }
+
+                delete headers['content-encoding']; // eslint-disable-line no-param-reassign
+                res.set(headers);
+                res.status(status).send(body);
+            } catch (err) {
+                console.log(err);
+                res.status(500).send(err);
+            }
         }
     });
 };
