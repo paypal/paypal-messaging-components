@@ -30,7 +30,7 @@
         "start": "npm run dev",
         "test": "jest",
         "test:func": "jest --projects tests/functional",
-        "test:func:update": "sed -i '' 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
+        "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
