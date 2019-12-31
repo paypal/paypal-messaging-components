@@ -17,7 +17,7 @@ import {
     assignToProp,
     waitForElementReady
 } from '../../../utils';
-import Modal from '../Modal';
+import Modal from '../../components/Modal';
 
 // eslint-disable-next-line compat/compat
 const banners = new Map();

@@ -7,7 +7,8 @@ module.exports = {
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',
         'jsx-pragmatic/src': 'jsx-pragmatic',
-        '@paypal/sdk-client/src': '@paypal/sdk-client'
+        '@paypal/sdk-client/src': '@paypal/sdk-client',
+        'belter/src': 'belter'
     },
     transform: {
         '^.+\\.jsx?$': 'babel-jest',
@@ -23,7 +24,7 @@ module.exports = {
             },
             __URI__: {
                 __MESSAGE__: '/imadserver/upstream',
-                __MODAL__: '/upstream/assets/messaging/modal',
+                __MODAL__: '/credit-presentment/smart/modal',
                 __LOGGER__: '/ppcredit/messagingLogger',
                 __TERMS__: '/ppcredit/finance/terms'
             }

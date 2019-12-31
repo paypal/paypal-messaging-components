@@ -5,6 +5,6 @@ import globals from '../../globals';
 Object.assign(window, {
     __LOCAL__: false,
     ...globals({
-        standalone: true
+        TARGET: 'standalone'
     })
 });
