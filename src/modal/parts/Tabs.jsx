@@ -8,19 +8,30 @@ const Tabs = ({ tabs }) => {
     // TODO: Accessibility
     return (
         <Fragment>
-            <section id="tabs">
+            <div id="tabs" role="tablist">
                 {tabs.map((tab, index) => (
-                    <h3
+                    <button
                         className={currentTab === index ? 'selected' : ''}
-                        role="button"
+                        type="button"
                         onClick={() => selectTab(index)}
+                        role="tab"
+                        ariaSelected={currentTab === index}
+                        id={index}
+                        ariaControls={`${index}-2`}
                     >
                         {tab.title}
-                    </h3>
+                    </button>
                 ))}
-            </section>
+            </div>
             {tabs.map((tab, index) => (
-                <div style={{ display: currentTab === index ? 'block' : 'none' }}>{tab.body}</div>
+                <div
+                    style={{ display: currentTab === index ? 'block' : 'none' }}
+                    role="tabpanel"
+                    id={`${index}-2`}
+                    ariaLabelledby={index}
+                >
+                    {tab.body}
+                </div>
             ))}
         </Fragment>
     );

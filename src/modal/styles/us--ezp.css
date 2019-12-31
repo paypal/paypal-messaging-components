@@ -8,7 +8,7 @@ main #tabs {
     font-size: 0;
 }
 
-main #tabs h3 {
+main #tabs button {
     cursor: pointer;
     display: inline-block;
     padding: 30px 0px 15px;
@@ -20,17 +20,20 @@ main #tabs h3 {
     text-align: center;
     margin-top: 0;
     white-space: normal;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
-main #tabs h3:hover {
+main #tabs button:hover {
     color: #0070ba;
 }
 
-main #tabs h3:active {
+main #tabs button:active {
     color: #005187;
 }
 
-main #tabs h3.selected {
+main #tabs button.selected {
     color: #0070ba;
     border-bottom: 3px solid #0070ba;
 }
@@ -219,7 +222,6 @@ main #how-it-works {
 #ezp-content h3 {
     font-size: 15px;
     font-weight: 500;
-    margin-bottom: 6px;
     line-height: 1.6;
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-style: normal;

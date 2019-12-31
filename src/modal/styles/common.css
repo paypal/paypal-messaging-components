@@ -378,6 +378,10 @@ li {
     position: relative;
 }
 
+.accordion h3 {
+    margin: 0;
+}
+
 .accordion p {
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-size: 13px;
@@ -409,12 +413,20 @@ li {
     top: 27px;
 }
 
-.accordion h3 {
+.accordion button {
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-size: inherit;
+    font-weight: inherit;
+    display: block;
+    width: 100%;
+    border: none;
+    outline-offset: -5px 0;
+    background: transparent;
     cursor: pointer;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     font-weight: 600;
     padding: 22px 40px 22px 0;
+    text-align: left;
     -webkit-touch-callout: none;
     /* iOS Safari */
     -webkit-user-select: none;
@@ -428,7 +440,7 @@ li {
                     supported by Chrome and Opera */
 }
 
-.accordion h3.has-subtitle {
+.accordion .has-subtitle {
     padding-bottom: 11px;
 }
 

@@ -9,6 +9,8 @@ const Accordion = ({ title, description, children }) => {
     const [isOpen, setOpen] = useState(false);
     const contentRef = useRef();
     const [transitionState] = useTransitionState();
+    const id = title.toLowerCase().replace(/ /g, '-');
+    const regionId = `${id}-region`;
 
     const toggleOpen = () => setOpen(!isOpen);
 
@@ -24,11 +26,20 @@ const Accordion = ({ title, description, children }) => {
 
     return (
         <div className={`accordion ${isOpen ? 'show' : ''}`}>
-            <h3 className="has-subtitle" onClick={toggleOpen}>
-                {title}
+            <h3>
+                <button
+                    className={description ? 'has-subtitle' : ''}
+                    type="button"
+                    onClick={toggleOpen}
+                    id={id}
+                    ariaControls={regionId}
+                    ariaExpanded={isOpen}
+                >
+                    {title}
+                </button>
             </h3>
             {description && <p>{description}</p>}
-            <div className="accordion-content" ref={contentRef}>
+            <div className="accordion-content" ref={contentRef} role="region" id={regionId} ariaLabelledby={id}>
                 {children}
             </div>
             <div className="symbol">
