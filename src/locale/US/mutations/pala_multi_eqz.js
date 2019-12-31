@@ -55,11 +55,9 @@ export default {
             {
                 logo: Logo.PRIMARY.WHITE,
                 headline: { tag: 'medium', br: ['low as', 'at'] },
-                subHeadline: 'small',
-                disclaimer: 'xsmall'
+                disclaimer: 'small'
             }
         ],
-        ['ratio:1x4', { subHeadline: { tag: 'small', br: ['money'] } }],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]

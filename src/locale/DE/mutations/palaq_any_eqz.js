@@ -1,8 +1,7 @@
 import Logo from '../logos';
 
 const textDisclaimerStyles = [
-    '.message__disclaimer > .multi.tag--default:first-of-type > span { text-decoration: underline; color: #0076ff }',
-    '.message__disclaimer > .multi.tag--extra > span { display: block; white-space: normal; margin-top: .5rem; text-decoration: none; color: #2c2e2f }'
+    '.message__disclaimer > .multi.tag--extra > span { display: block; white-space: normal; margin-top: .5rem }'
 ];
 
 const flexCommonStyles = [
@@ -15,57 +14,53 @@ export default {
     'layout:text': [
         [
             'default',
-            {
-                styles: [...textDisclaimerStyles],
+            ({ textSize }) => ({
+                styles: [...textDisclaimerStyles, `.message__logo { width: ${textSize * 13}px }`],
+                messageWidth: [textSize * 20, 1000],
                 logo: Logo.PRIMARY.COLOR,
-                headline: 'default',
-                disclaimer: ['default', 'extra'],
-                messageWidth: [265, 1000]
-            }
-        ],
-        [
-            'logo.type:primary',
-            {
-                headline: {
-                    tag: 'default',
-                    replace: [['Jahreszins', 'Jahreszins.']]
-                }
-            }
-        ],
-        [
-            'logo.type:inline',
-            {
-                logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [320, 1000]
-            }
-        ],
-        [
-            'logo.type:none',
-            {
-                logo: false,
-                messageWidth: [315, 1000]
-            }
-        ],
-        [
-            'logo.type:alternative',
-            {
                 headline: {
                     tag: 'default',
                     replace: [['Jahreszins', 'Jahreszins.']]
                 },
+                disclaimer: ['default', 'extra']
+            })
+        ],
+        [
+            'logo.type:inline',
+            ({ textSize }) => ({
+                logo: Logo.ALT_NO_PP.COLOR,
+                messageWidth: [textSize * 29, 1000]
+            })
+        ],
+        [
+            'logo.type:none',
+            ({ textSize }) => ({
+                logo: false,
+                messageWidth: [textSize * 26, 1000]
+            })
+        ],
+        [
+            'logo.type:alternative',
+            ({ textSize }) => ({
                 styles: [
+                    ...textDisclaimerStyles,
                     '.message__messaging, .message__headline span:only-child { white-space: normal }',
-                    ...textDisclaimerStyles
+                    `.message__logo-container { width: ${textSize * 11}px }`
                 ],
-                logo: Logo.ALTERNATIVE.COLOR
-            }
+                logo: Logo.ALTERNATIVE.COLOR,
+                headline: {
+                    tag: 'default',
+                    replace: [['Jahreszins', 'Jahreszins.']]
+                }
+            })
         ],
         [
             'text.color:white',
             {
                 styles: [
                     ...textDisclaimerStyles,
-                    '.message__disclaimer > .multi.tag--default:first-of-type { text-decoration: underline; color: white }'
+                    '.message__disclaimer > .multi.tag--default:first-of-type > span { color: white }',
+                    '.message__disclaimer > .multi.tag--extra > span { color: white; }'
                 ]
             }
         ],

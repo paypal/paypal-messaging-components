@@ -8,7 +8,7 @@ const TermsTable = ({ terms }) => {
         </h3>
     );
 
-    if (terms.error) {
+    if (terms.error || !terms.maxAmount) {
         return genericError;
     }
 
