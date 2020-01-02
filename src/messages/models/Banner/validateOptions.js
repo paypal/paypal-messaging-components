@@ -12,7 +12,8 @@ const VALID_OPTIONS = {
     id: [Types.STRING],
     _legacy: [Types.BOOLEAN],
     onRender: [Types.FUNCTION],
-    currency: [Types.STRING, ['USD', 'EUR']]
+    currency: [Types.STRING, ['USD', 'EUR']],
+    placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']]
 };
 
 // Formalized validation logger helper functions
@@ -153,6 +154,7 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
     } else {
         validOptions.account = account;
     }
+
     if (typeof amount !== 'undefined') {
         const numberAmount = Number(amount);
 
