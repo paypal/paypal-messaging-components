@@ -11,6 +11,8 @@ const createMockRenderObject = container => ({
     events: eventsOn(container),
     track: jest.fn(),
     options: {
+        account: '',
+        placement: '',
         amount: 10
     }
 });
@@ -40,7 +42,10 @@ describe('stats', () => {
             visible: true,
             amount: 10,
             adblock: true,
-            blocked: true
+            blocked: true,
+            feed_name: 'messaging.js',
+            placement: '',
+            sdk_version: expect.any(String)
         };
 
         stats(container, mockRenderObject);
@@ -79,7 +84,10 @@ describe('stats', () => {
             visible: false,
             amount: 10,
             adblock: true,
-            blocked: true
+            blocked: true,
+            feed_name: 'messaging.js',
+            placement: '',
+            sdk_version: expect.any(String)
         };
 
         stats(container, mockRenderObject);

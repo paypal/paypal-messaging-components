@@ -1,4 +1,4 @@
-import { getInlineOptions, globalState, getScript, getAccount, getEnv, getCurrency } from '../utils';
+import { getInlineOptions, globalState, getScript, getAccount, getEnv, getCurrency, getPartnerAccount } from '../utils';
 import { Logger } from '../messages/services/logger';
 import Messages from '../messages';
 import mockServices from '../utils/mockServices';
@@ -15,6 +15,7 @@ export function setup() {
 
         Messages.setGlobalConfig({
             account: getAccount(),
+            partnerAccount: getPartnerAccount(),
             currency: getCurrency(),
             ...inlineScriptOptions
         });

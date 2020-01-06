@@ -1,3 +1,4 @@
+import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from '../../../utils';
@@ -99,7 +100,13 @@ function checkAdblock() {
     });
 }
 
-export default curry((container, { options: { amount }, events, track }) => {
+const INTEGRATION_MAP = {
+    SDK: 'SDK',
+    STANDALONE: 'messaging.js',
+    LEGACY: 'merchant.js'
+};
+
+export default curry((container, { options: { amount, account, partnerAccount, placement }, events, track }) => {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
 
@@ -107,6 +114,9 @@ export default curry((container, { options: { amount }, events, track }) => {
     const payload = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
+        feed_name: INTEGRATION_MAP[__MESSAGES__.__TARGET__],
+        sdk_version: __MESSAGES__.__VERSION__,
+        placement,
         pos_x: Math.round(containerRect.left),
         pos_y: Math.round(containerRect.top),
         browser_width: window.innerWidth,
@@ -114,6 +124,12 @@ export default curry((container, { options: { amount }, events, track }) => {
         visible: isInViewport(container),
         amount
     };
+
+    if (partnerAccount) {
+        payload.partner_client_id = partnerAccount;
+    } else if (startsWith(account, 'client-id:')) {
+        payload.client_id = account.slice(10);
+    }
 
     // No need for scroll event if banner is above the fold
     if (!payload.visible) {

@@ -10,6 +10,7 @@ import { getValidOptions } from '../../../locale';
 
 const VALID_OPTIONS = {
     id: [Types.STRING],
+    partnerAccount: [Types.STRING],
     _legacy: [Types.BOOLEAN],
     onRender: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR']],
