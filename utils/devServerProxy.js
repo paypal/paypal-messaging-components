@@ -20,6 +20,54 @@ const REWRITE_RULES = {
     '/credit-presentment/smart/modal': '/modal.html'
 };
 
+const localize = country => (amount, fractionDigits = 2) => {
+    const number = Number(amount) || Number(0);
+
+    // toLocaleString only bundled with US locale on node
+    const baseFormat = number.toLocaleString('en-US', {
+        currency: 'USD',
+        minimumFractionDigits: fractionDigits
+    });
+
+    switch (country) {
+        case 'DE':
+            return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
+        case 'US':
+        default:
+            return baseFormat;
+    }
+};
+
+const getTerms = (country, amount) => {
+    const toLocaleString = localize(country);
+    const total = amount * 1.0999;
+
+    return amount
+        ? {
+              type: 'pala',
+              maxAmount: 5000,
+              minAmount: 199,
+              amount,
+              formattedAmount: toLocaleString(amount),
+              offers: [
+                  {
+                      term: 12,
+                      type: 'INST',
+                      apr: toLocaleString(9.99),
+                      nominalRate: toLocaleString(9.5598, 4),
+                      minValue: toLocaleString(199.0),
+                      qualified: amount > 199 && amount < 5000,
+                      monthly: toLocaleString(total / 12),
+                      total: toLocaleString(total),
+                      totalInterest: toLocaleString(total - amount)
+                  }
+              ],
+              formattedMinAmount: toLocaleString(199),
+              formattedMaxAmount: toLocaleString(5000)
+          }
+        : {};
+};
+
 module.exports = app => {
     app.use((req, res, next) => {
         Object.entries(REWRITE_RULES).forEach(([route, newRoute]) => {
@@ -29,6 +77,17 @@ module.exports = app => {
         });
         next();
     });
+
+    app.get('/ppcredit/messagingLogger', (req, res) => {
+        res.send('');
+    });
+
+    app.post('/credit-presentment/calculateTerms', (req, res) => {
+        const { country, amount } = req.query;
+
+        res.send(getTerms(country, Number(amount)));
+    });
+
     app.get('/imadserver/upstream', (req, res) => {
         const { call, currency_value: amount = 0, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;

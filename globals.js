@@ -28,20 +28,17 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __LOCAL__: 'http://localhost.paypal.com:8080',
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
-            __PRODUCTION__: 'https://www.paypal.com',
+            __PRODUCTION__: 'https://www.paypal.com'
 
-            __LOGGER__: {
-                __LOCAL__: env.localPPCredit ? 'http://localhost.paypal.com:8000' : 'https://www.paypal.com'
-            },
-            __TERMS__: {
-                __LOCAL__: env.localPPCredit ? 'http://localhost.paypal.com:8000' : 'https://www.paypal.com'
-            }
+            // Manual endpoint override example:
+            // __MODAL__: {
+            //     __STAGE__: 'http://localhost.paypal.com:8443'
+            // }
         },
         __URI__: {
             __MESSAGE__: '/imadserver/upstream',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER__: '/ppcredit/messagingLogger',
-            __TERMS__: '/ppcredit/finance/terms'
+            __LOGGER__: '/ppcredit/messagingLogger'
         },
         __SANDBOX__: {
             __NI__: niMessage,

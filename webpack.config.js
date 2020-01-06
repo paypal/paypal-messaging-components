@@ -23,7 +23,8 @@ module.exports = (env = {}) => {
         modulename: 'crc',
         web: true,
         minify: true,
-        debug: false
+        debug: false,
+        vars: globals(env)
     });
 
     return [MESSAGES_CONFIG, MODAL_CONFIG];

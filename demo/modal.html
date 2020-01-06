@@ -5,6 +5,55 @@
 </head>
 <body>
     <script>
+        const localize = country => (amount, fractionDigits = 2) => {
+            const number = Number(amount) || Number(0);
+            const options = {
+                DE: {
+                    locale: 'de-DE',
+                    currency: 'EUR'
+                },
+                US: {
+                    locale: 'en-US',
+                    currency: 'USD'
+                }
+            };
+
+            return number.toLocaleString(options[country].locale, {
+                currency: options[country].currency,
+                minimumFractionDigits: fractionDigits
+            });
+        };
+
+        const getTerms = (country, amount) => {
+            const toLocaleString = localize(country);
+            const total = amount * 1.0999;
+
+            return amount
+                ? {
+                      type: 'pala',
+                      maxAmount: 5000,
+                      minAmount: 199,
+                      amount,
+                      formattedAmount: toLocaleString(amount),
+                      offers: [
+                          {
+                              term: 12,
+                              type: 'INST',
+                              apr: toLocaleString(9.99),
+                              nominalRate: toLocaleString(9.5598, 4),
+                              minValue: toLocaleString(199.0),
+                              qualified: amount > 199 && amount < 5000,
+                              monthly: toLocaleString(total / 12),
+                              total: toLocaleString(total),
+                              totalInterest: toLocaleString(total - amount)
+                          }
+                      ],
+                      formattedMinAmount: toLocaleString(199),
+                      formattedMaxAmount: toLocaleString(5000)
+                  }
+                : {};
+        };
+
         const query = window.location.search
             .slice(1)
             .split('&')
@@ -14,33 +63,10 @@
 
                 return accumulator;
             }, {});
-        const amount = Number(query.amount);
-        const total = amount * 1.0999;
+        const { country, amount } = query;
         const props = {
-            terms: query.amount
-                ? {
-                      type: 'pala',
-                      maxAmount: 5000,
-                      minAmount: 199,
-                      amount,
-                      formattedAmount: amount.toFixed(2),
-                      offers: [
-                          {
-                              term: 12,
-                              type: 'INST',
-                              apr: '9.99',
-                              nominalRate: '9.5598',
-                              minValue: '199.00',
-                              qualified: 199 < amount && amount < 5000,
-                              monthly: (total / 12).toFixed(2),
-                              total: total.toFixed(2),
-                              totalInterest: (total - amount).toFixed(2)
-                          }
-                      ],
-                      formattedMinAmount: '199',
-                      formattedMaxAmount: '5,000'
-                  }
-                : {}
+            terms: getTerms(country, Number(amount)),
+            meta: {}
         };
 
         const script = window.top.document.querySelector('script');

@@ -73,7 +73,12 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
 
                 switch (xhttp.status) {
                     case 200:
-                        resolve({ headers: responseHeaders, data: xhttp.responseText });
+                        resolve({
+                            headers: responseHeaders,
+                            data: responseHeaders['content-type'].includes('application/json')
+                                ? JSON.parse(xhttp.responseText)
+                                : xhttp.responseText
+                        });
                         break;
                     case 204:
                         resolve({ headers: responseHeaders });

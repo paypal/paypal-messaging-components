@@ -4,13 +4,19 @@ import { h } from 'preact';
 import { useTransitionState, useXProps } from '../lib/hooks';
 import Icon from './Icon';
 
-const LOGO_URL = {
-    DE: 'https://www.paypalobjects.com/upstream/assets/img/de/pp-logo-banner-modal.svg',
-    US: 'https://www.paypalobjects.com/upstream/assets/img/pp-logo-banner-modal.svg'
+const LOCALE = {
+    LOGO: {
+        DE: 'https://www.paypalobjects.com/upstream/assets/img/de/pp-logo-banner-modal.svg',
+        US: 'https://www.paypalobjects.com/upstream/assets/img/pp-logo-banner-modal.svg'
+    },
+    BACKGROUND: {
+        DE: '#f6f7fb',
+        US: '#ffffff'
+    }
 };
 
 const Header = ({ shadow }) => {
-    const { type } = useXProps();
+    const { country } = useXProps();
     const [, handleClose] = useTransitionState();
 
     return (
@@ -20,14 +26,9 @@ const Header = ({ shadow }) => {
                     <header
                         id="header"
                         className={shadow ? 'show' : ''}
-                        style={{ backgroundColor: type === 'INST' ? '#f6f7fb' : '#ffffff' }}
+                        style={{ backgroundColor: LOCALE.BACKGROUND[country] }}
                     >
-                        <img
-                            src={type === 'INST' ? LOGO_URL.DE : LOGO_URL.US}
-                            className="logo"
-                            id="logo"
-                            alt="PayPal Credit Logo"
-                        />
+                        <img src={LOCALE.LOGO[country]} className="logo" id="logo" alt="PayPal Credit Logo" />
                         <button
                             aria-label="Close"
                             type="button"

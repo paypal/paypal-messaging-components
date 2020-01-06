@@ -60,11 +60,12 @@ module.exports = (env = {}) => {
         })(),
         compress: true,
         host: 'localhost.paypal.com',
-        port: 8080,
+        port: PORT,
         open: true,
         overlay: true,
         watchContentBase: true,
-        before: devServerProxy
+        before: devServerProxy,
+        https: env.NODE_ENV !== 'local'
     };
 
     const MODAL_DEV_CONFIG = getWebpackConfig({
@@ -74,7 +75,8 @@ module.exports = (env = {}) => {
         debug: true,
         minify: false,
         sourcemaps: true,
-        filename: 'smart-credit-modal.js'
+        filename: 'smart-credit-modal.js',
+        vars: globals(env)
     });
 
     return [MESSAGES_DEV_CONFIG, MODAL_DEV_CONFIG];

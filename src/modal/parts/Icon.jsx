@@ -18,7 +18,6 @@ const Icon = ({ name }) => {
         case 'close':
             return (
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* <path fillRrule="evenodd" clipRule="evenodd" d="M0 36H36V0H0V36Z" fill="white" fillOpacity="0.01" /> */}
                     <path
                         d="M12 0L0 12"
                         transform="translate(12 12)"

@@ -1,9 +1,18 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
+
+import { useTransitionState } from '../lib/hooks';
 
 const Tabs = ({ tabs }) => {
     const [currentTab, selectTab] = useState(0);
+    const [transitionState] = useTransitionState();
+
+    useEffect(() => {
+        if (transitionState === 'CLOSED') {
+            selectTab(0);
+        }
+    }, [transitionState]);
 
     // TODO: Accessibility
     return (
