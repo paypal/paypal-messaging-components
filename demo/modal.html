@@ -77,7 +77,7 @@
         });
 
         const modalScript = document.createElement('script');
-        modalScript.src = 'http://localhost.paypal.com:8080/smart-credit-modal.js';
+        modalScript.src = '//localhost.paypal.com:8080/smart-credit-modal.js';
 
         const initScript = document.createElement('script');
         initScript.textContent = `crc.setupModal(${JSON.stringify(props)})`;
