@@ -29,7 +29,8 @@ const reducer = (state, action) => {
     }
 };
 
-const delocalize = (country, amount) => (country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount);
+const delocalize = (country, amount) =>
+    Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
 const localize = (country, amount) => {
     const number = Number(amount) || Number(0);
     if (country === 'DE') {
@@ -62,15 +63,17 @@ export default function useCalculator() {
 
     const submit = event => {
         event.preventDefault();
+        const delocalizedValue = delocalize(country, state.inputValue);
 
-        if (state.prevValue !== state.inputValue) {
+        if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             dispatch({ type: 'fetch' });
             request(
                 'POST',
-                `${window.location.origin}/credit-presentment/calculateTerms?amount=${delocalize(
-                    country,
-                    state.inputValue
-                )}&country=${country}&${clientId ? `client_id=${clientId}` : `payer_id=${payerId}`}`,
+                `${
+                    window.location.origin
+                }/credit-presentment/calculateTerms?amount=${delocalizedValue}&country=${country}&${
+                    clientId ? `client_id=${clientId}` : `payer_id=${payerId}`
+                }`,
                 {
                     headers: {
                         'x-csrf-token': meta.csrf
