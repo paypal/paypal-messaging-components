@@ -28,7 +28,8 @@ pipeline {
                 '''
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
-                        BUNDLE_ID=$(web stage | grep ID | sed -E 's/.+ID ([0-9a-z]+)/\1/')
+                        OUTPUT=$(web stage --json)
+                        BUNDLE_ID=`echo $output | jq .id`
                         web notify $BUNDLE_ID
                     '''
                 }
