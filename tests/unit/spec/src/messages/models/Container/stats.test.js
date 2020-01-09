@@ -43,9 +43,9 @@ describe('stats', () => {
             amount: 10,
             adblock: true,
             blocked: true,
-            feed_name: 'messaging.js',
+            calling_client_id: 'messaging.js',
             placement: '',
-            sdk_version: expect.any(String)
+            mapv: expect.any(String)
         };
 
         stats(container, mockRenderObject);
@@ -85,9 +85,9 @@ describe('stats', () => {
             amount: 10,
             adblock: true,
             blocked: true,
-            feed_name: 'messaging.js',
+            calling_client_id: 'messaging.js',
             placement: '',
-            sdk_version: expect.any(String)
+            mapv: expect.any(String)
         };
 
         stats(container, mockRenderObject);

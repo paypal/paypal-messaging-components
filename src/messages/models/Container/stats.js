@@ -114,8 +114,8 @@ export default curry((container, { options: { amount, account, partnerAccount, p
     const payload = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        feed_name: INTEGRATION_MAP[__MESSAGES__.__TARGET__],
-        sdk_version: __MESSAGES__.__VERSION__,
+        calling_client_id: INTEGRATION_MAP[__MESSAGES__.__TARGET__],
+        mapv: __MESSAGES__.__VERSION__,
         placement,
         pos_x: Math.round(containerRect.left),
         pos_y: Math.round(containerRect.top),
