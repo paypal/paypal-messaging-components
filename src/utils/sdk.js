@@ -1,5 +1,3 @@
-import arrayFrom from 'core-js-pure/stable/array/from';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import objectAssign from 'core-js-pure/stable/object/assign';
 
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
@@ -55,6 +53,7 @@ export function getCurrency() {
 
 export function getTargetMeta() {
     const metaObject = {
+        target: __MESSAGES__.__TARGET__,
         componentUrl:
             getEnv() !== 'production'
                 ? `${window.location.origin}/smart-credit-modal.js`
@@ -67,12 +66,7 @@ export function getTargetMeta() {
         const script = getScript();
 
         objectAssign(metaObject, {
-            url: script ? script.src : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js',
-            attributes:
-                script &&
-                arrayFrom(script.attributes)
-                    .filter(({ name }) => stringStartsWith(name, 'data-pp-'))
-                    .map(({ name, value }) => [name, value])
+            url: script ? script.src : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
         });
     }
 
