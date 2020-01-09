@@ -7,7 +7,8 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
         prerenderFrame.style.setProperty('display', 'none');
     });
 
-    const fullScreen = position => `position: ${position}; top: 0; left: 0; width: 100%; height: 100%;`;
+    const fullScreen = position =>
+        `position: ${position}; z-index: 2147483638; top: 0; left: 0; width: 100%; height: 100%;`;
 
     return (
         <div id={uid}>
