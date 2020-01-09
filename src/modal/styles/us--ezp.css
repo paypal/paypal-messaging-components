@@ -1,0 +1,239 @@
+main #tabs {
+    margin: auto;
+    max-width: 400px;
+    padding: 0 18px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #eaeced;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+main #tabs button {
+    cursor: pointer;
+    display: inline-block;
+    padding: 30px 0px 15px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    width: 50%;
+    text-align: center;
+    margin-top: 0;
+    white-space: normal;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+main #tabs button:hover {
+    color: #0070ba;
+}
+
+main #tabs button:active {
+    color: #005187;
+}
+
+main #tabs button.selected {
+    color: #0070ba;
+    border-bottom: 3px solid #0070ba;
+}
+
+/* main .content {
+    display: none;
+} */
+
+main .content.show {
+    display: block;
+}
+
+main #financing-terms table {
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+
+main #financing-terms thead tr {
+    height: 50px;
+    padding: 5px 0 0 5px;
+    background: #f5f5f5;
+    font-weight: 600;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+main #financing-terms thead tr th {
+    padding-top: 5px;
+    text-align: left;
+    padding-left: 8px;
+    vertical-align: top;
+    line-height: 1.38;
+    letter-spacing: -0.2px;
+    color: #2c2e2f;
+}
+
+main #financing-terms tbody tr:not(:first-of-type) {
+    border-top: solid 0.5px #eaeced;
+    clear: both;
+    width: 99.99%;
+}
+
+main #financing-terms tbody tr:last-of-type {
+    margin-bottom: 38px;
+}
+
+main #financing-terms tbody tr td {
+    padding: 7px 0 7px 5px;
+    box-sizing: border-box;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    margin: 0;
+    padding-left: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    color: #2c2e2f;
+}
+
+#ezp-content .title {
+    padding: 0 32px;
+    margin-top: 13px;
+    margin-bottom: 32px;
+}
+
+.calculator {
+    margin: 10px 0px;
+}
+
+.calculator__form {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.calculator__form::before {
+    content: '$';
+    position: absolute;
+    display: block;
+    z-index: 9;
+    color: black;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+}
+
+.calculator__input {
+    flex: 1 1 70%;
+    -ms-flex: 1 1 70%;
+    border: 1px solid #b7bcbf;
+    border-radius: 5px;
+    background: white;
+    padding: 10px 10px 10px 25px;
+    /*outline: none;*/
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    color: #2c2e2f;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.calculator__btn {
+    flex: 1 1 30%;
+    -ms-flex: 1 1 30%;
+    padding: 0 14px;
+    max-width: 120px;
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: #0070ba;
+    border: solid 1px #0070ba;
+    color: white;
+    margin-left: 10px;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.7px;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+}
+
+.calculator__error-msg {
+    display: none;
+    border: 2px solid #d20000;
+    padding: 10px;
+    text-align: center;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.85;
+    letter-spacing: normal;
+    color: #2c2e2f;
+    background: #fff7f7;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+input:invalid + p {
+    visibility: visible;
+    color: red;
+}
+
+input:valid + p {
+    visibility: hidden;
+}
+
+main #how-it-works {
+    position: relative;
+    bottom: 56px;
+}
+
+#terms-note {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    color: #2c2e2f;
+}
+
+#terms-error {
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+#ezp-content h3 {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+    letter-spacing: normal;
+}
+
+@media only screen and (max-width: 400px) {
+    #ezp-content .title {
+        font-size: 1.6rem;
+        line-height: 2rem;
+        padding: 0;
+    }
+}

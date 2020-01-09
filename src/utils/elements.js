@@ -1,5 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
@@ -154,3 +155,18 @@ export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset)
         container.parentNode.removeChild(container);
     }
 }, 2); // Need to manually set curry arity because of default parameters and transpiling
+
+/**
+ * Ensure element is ready to be worked with. Necessary since
+ * creating an iframe is asynchronous
+ * @param {HTMLElement} element HTML Element
+ * @returns {Promise<void>} Promise resolves when element is ready
+ */
+export const waitForElementReady = element =>
+    new ZalgoPromise(resolve => {
+        if (element.tagName === 'IFRAME' && element.contentWindow.document.readyState !== 'complete') {
+            element.addEventListener('load', resolve);
+        } else {
+            resolve();
+        }
+    });

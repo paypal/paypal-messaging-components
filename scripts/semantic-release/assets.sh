@@ -3,13 +3,17 @@ VERSION=$1
 
 rm -rf ./dist
 
-npm run --silent build:standalone -- --bail --display none
-npm run --silent build:legacy -- --bail --display none
+npm run --silent build:standalone -- --bail --display none &> /dev/null
+npm run --silent build:legacy -- --bail --display none &> /dev/null
 
-head -n 1 ./dist/messaging.js > ./dist/messaging@"$VERSION".js
-echo "//# sourceMappingURL=messaging@${VERSION}.js.map" >> ./dist/messaging@"$VERSION".js
-cp ./dist/messaging.js.map ./dist/messaging@"$VERSION".js.map
+mkdir -p ./dist/bizcomponents/js/versioned
+mv ./dist/*.{js,map} ./dist/bizcomponents/js
 
-head -n 1 ./dist/merchant.js > ./dist/merchant@"$VERSION".js
-echo "//# sourceMappingURL=merchant@${VERSION}.js.map" >> ./dist/merchant@"$VERSION".js
-cp ./dist/merchant.js.map ./dist/merchant@"$VERSION".js.map
+cd ./dist/bizcomponents/js
+
+for fullfile in ./*.js; do
+    filename=$(basename $fullfile .js)
+    head -n 1 ./"$filename".js > ./versioned/"$filename"@"$VERSION".js
+    echo "//# sourceMappingURL=$filename@$VERSION.js.map" >> ./versioned/"$filename"@"$VERSION".js
+    cp ./"$filename".js.map ./versioned/"$filename"@"$VERSION".js.map
+done
