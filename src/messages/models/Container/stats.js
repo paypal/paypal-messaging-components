@@ -100,12 +100,6 @@ function checkAdblock() {
     });
 }
 
-const INTEGRATION_MAP = {
-    SDK: 'SDK',
-    STANDALONE: 'messaging.js',
-    LEGACY: 'merchant.js'
-};
-
 export default curry((container, { options: { amount, account, partnerAccount, placement }, events, track }) => {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
@@ -114,8 +108,8 @@ export default curry((container, { options: { amount, account, partnerAccount, p
     const payload = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        calling_client_id: INTEGRATION_MAP[__MESSAGES__.__TARGET__],
-        mapv: __MESSAGES__.__VERSION__,
+        integration_type: __MESSAGES__.__TARGET__,
+        messaging_version: __MESSAGES__.__VERSION__,
         placement,
         pos_x: Math.round(containerRect.left),
         pos_y: Math.round(containerRect.top),
