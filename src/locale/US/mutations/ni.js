@@ -97,7 +97,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 8}px }`],
+                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 9}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
