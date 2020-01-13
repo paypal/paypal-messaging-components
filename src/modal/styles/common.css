@@ -78,11 +78,13 @@ header.show {
 }
 
 header .logo {
+    box-sizing: border-box;
     width: 100px;
     display: block;
     margin: 0 auto;
-    padding: 12px 0;
-    height: 48px;
+    padding: 18px 0;
+    height: 72px;
+    transition: all 0.3s;
 }
 
 header .close {
@@ -103,6 +105,43 @@ header .close svg {
 
 header .close path {
     stroke-width: 1px;
+    transition: all 0.3s;
+}
+
+header .logo-wrapper {
+    transition: all 0.3s;
+    transform: translateX(0) scale(1);
+}
+
+header .logo-wrapper--shift {
+    transform: translateX(calc(-50% + 35px + 16px)) scale(0.7);
+}
+
+@media (min-width: 26.25rem) {
+    header .logo-wrapper--shift {
+        transform: translateX(calc(-50% + 50px + 24px)) scale(1);
+    }
+}
+
+header .header-apply-now {
+    position: absolute;
+    top: 1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2rem;
+    border: 1px solid white;
+    color: white;
+    margin: 0;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+header .header-apply-now:hover {
+    box-shadow: 0 0 0 0.0625rem #ffffff inset;
 }
 
 main {
@@ -146,7 +185,7 @@ h1 {
     font-size: 30px;
     margin-bottom: 16px;
     line-height: 42px;
-    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif !important;
+    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
     font-weight: 200;
 }
 

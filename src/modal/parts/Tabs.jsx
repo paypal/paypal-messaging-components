@@ -17,6 +17,9 @@ const Tabs = ({ tabs }) => {
     // TODO: Accessibility
     return (
         <Fragment>
+            {tabs.map((tab, index) => (
+                <div style={{ display: currentTab === index ? 'block' : 'none' }}>{tab.header}</div>
+            ))}
             <div id="tabs" role="tablist">
                 {tabs.map((tab, index) => (
                     <button

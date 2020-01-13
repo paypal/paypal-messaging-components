@@ -1,0 +1,89 @@
+.ni-header {
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+.ni-header__image-wrapper {
+    max-width: 10rem;
+    margin: 0.5rem auto 1rem;
+}
+
+.ni-header__title {
+    font-size: 1.25rem;
+    font-weight: 200;
+    text-align: center;
+    max-width: 16rem;
+    margin: auto;
+    line-height: 1.4;
+}
+
+.ni-header__tag {
+    text-align: center;
+    margin: 0.7rem 0 1rem;
+}
+
+.ni-header__button {
+    display: inline-block;
+    background: #0070ba;
+    border: none;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.ni-content {
+    padding: 2rem 1.5rem;
+    max-width: 26rem;
+    margin: auto;
+}
+
+.ni-content::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #eaeced;
+    transform: translateY(-2rem);
+}
+
+.ni-content__title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0;
+}
+
+.ni-content__terms-item,
+.ni-content__instructions-item {
+    margin-bottom: 1.5rem;
+}
+
+.ni-content__divider {
+    border: none;
+    border-top: 1px solid #eaeced;
+    margin: 2rem 0;
+}
+
+.ni-content__instructions-list {
+    margin-bottom: 4rem;
+}
+
+.ni-content__instructions-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
+.ni-content__instructions-item > :first-child {
+    flex: 0 0 3rem;
+    margin-right: 1.5rem;
+}
+
+.ni-content__instructions-item > :last-child {
+    flex: 1 1 100%;
+    margin: 0;
+}

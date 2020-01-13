@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useRef } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib/hooks';
 import Icon from './Icon';
@@ -16,19 +17,42 @@ const LOCALE = {
 };
 
 const Header = ({ shadow }) => {
+    const headerRef = useRef();
     const { country } = useXProps();
     const [, handleClose] = useTransitionState();
+
+    const showApplyNow = country === 'US' && shadow;
 
     return (
         <div className="modal__header-wrapper">
             <div className="modal__header-container">
                 <div className="modal__header">
                     <header
+                        ref={headerRef}
                         id="header"
                         className={shadow ? 'show' : ''}
-                        style={{ backgroundColor: LOCALE.BACKGROUND[country] }}
+                        style={{ backgroundColor: showApplyNow ? '#005ea6' : LOCALE.BACKGROUND[country] }}
                     >
-                        <img src={LOCALE.LOGO[country]} className="logo" id="logo" alt="PayPal Credit Logo" />
+                        <div
+                            className={`logo-wrapper ${showApplyNow && headerRef.current ? 'logo-wrapper--shift' : ''}`}
+                        >
+                            <div className="logo" alt="PayPal Credit Logo">
+                                <Icon name="logo" color={showApplyNow ? '#ffffff' : undefined} />
+                            </div>
+                        </div>
+                        <a
+                            href="https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <button
+                                className="header-apply-now"
+                                type="button"
+                                style={{ opacity: showApplyNow ? 1 : 0 }}
+                            >
+                                Apply Now
+                            </button>
+                        </a>
                         <button
                             aria-label="Close"
                             type="button"
@@ -36,7 +60,7 @@ const Header = ({ shadow }) => {
                             id="close-btn"
                             onClick={() => handleClose('Close Button')}
                         >
-                            <Icon name="close" />
+                            <Icon name="close" color={showApplyNow ? '#ffffff' : undefined} />
                         </button>
                     </header>
                 </div>
