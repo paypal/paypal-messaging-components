@@ -22,18 +22,18 @@ const instructions = [
 ];
 
 export const Header = () => (
-    <div className="ni-header">
-        <div className="ni-header__image-wrapper">
+    <div className="content-header">
+        <div className="content-header__image-wrapper">
             <Icon name="rocket" />
         </div>
-        <h1 className="ni-header__title">Buy now and pay over time with PayPal Credit</h1>
-        <p className="ni-header__tag">Subject to credit approval.</p>
+        <h1 className="content-header__title">Buy now and pay over time with PayPal Credit</h1>
+        <p className="content-header__tag">Subject to credit approval.</p>
         <a
             href="https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER"
             target="_blank"
             rel="noopener noreferrer"
         >
-            <button className="ni-header__button" type="button">
+            <button className="content-header__button" type="button">
                 Apply Now
             </button>
         </a>
@@ -41,20 +41,20 @@ export const Header = () => (
 );
 
 export const Content = () => (
-    <section className="ni-content">
-        <h2 className="ni-content__title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
-        <ul className="ni-content__terms-list">
+    <section className="content-body">
+        <h2 className="content-body__title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
+        <ul className="content-body__terms-list">
             {terms.map(term => (
-                <li className="ni-content__terms-item">{term}</li>
+                <li className="content-body__terms-item">{term}</li>
             ))}
         </ul>
 
-        <hr className="ni-content__divider" />
+        <hr className="content-body__divider" />
 
-        <h2 className="ni-content__title">How PayPal Credit works</h2>
-        <ul className="ni-content__instructions-list">
+        <h2 className="content-body__title">How PayPal Credit works</h2>
+        <ul className="content-body__instructions-list">
             {instructions.map(([icon, instruction]) => (
-                <li className="ni-content__instructions-item">
+                <li className="content-body__instructions-item">
                     <div>
                         <Icon name={icon} />
                     </div>
@@ -63,22 +63,22 @@ export const Content = () => (
             ))}
         </ul>
 
-        <div className="ni-content__terms">
+        <hr className="content-body__divider" />
+
+        <div className="content-body__terms">
             <p>
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms"
-                >
+                <a target="_blank" rel="noopener noreferrer" href="https://www.paypal.com/us/webapps/mpp/ppcterms">
                     Click here
                 </a>{' '}
-                to apply for PayPal Credit and view the Terms and Conditions.
+                to view the PayPal Credit Terms and Conditions.
             </p>
             <p>
                 PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
                 available to US customers who are of legal age in their state of residence. You must pay with PayPal
-                Credit to get the offers. Minimum purchase required is before shipping and tax. Offers not valid on
-                previous purchases, returns or exchanges.
+                Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase
+                required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.99%. The APR is
+                accurate as of 9/1/2019 and will vary with the market based on the Prime Rate (as defined in your credit
+                card agreement). Minimum interest charge is $2.00.
             </p>
             <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
         </div>

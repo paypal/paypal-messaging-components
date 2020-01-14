@@ -168,6 +168,7 @@ main.show::before {
 main .content {
     margin: auto;
     max-width: 400px;
+    padding-bottom: 3rem;
 }
 
 h1,
