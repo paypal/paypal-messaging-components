@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/paypal/paypal-messaging-components/compare/v1.5.0...v1.5.1) (2020-01-14)
+
+
+### Bug Fixes
+
+* DE flex styles ([#107](https://github.com/paypal/paypal-messaging-components/issues/107)) ([a82e069](https://github.com/paypal/paypal-messaging-components/commit/a82e069b201a0ce49cff3cf514ddd92f847d2dbb))
+* NI 1x4 banners ([#108](https://github.com/paypal/paypal-messaging-components/issues/108)) ([679a9eb](https://github.com/paypal/paypal-messaging-components/commit/679a9eb48be8bd15b2e9a2592c42074addee5d70))
+
 # [1.5.0](https://github.com/paypal/paypal-messaging-components/compare/v1.4.1...v1.5.0) (2019-12-16)
 
 
