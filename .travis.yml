@@ -30,6 +30,6 @@ deploy:
     provider: script
     skip_cleanup: true
     script:
-        - npx semantic-release
+        - npx semantic-release@15
     on:
         branch: release
