@@ -127,21 +127,16 @@ header .header-apply-now {
     position: absolute;
     top: 1.1rem;
     left: 50%;
-    transform: translateX(-50%);
     border-radius: 2rem;
-    border: 1px solid white;
+    border: none;
     color: white;
     margin: 0;
     padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 500;
-    background: transparent;
+    background: #0070ba;
     cursor: pointer;
-    transition: box-shadow 0.2s;
-}
-
-header .header-apply-now:hover {
-    box-shadow: 0 0 0 0.0625rem #ffffff inset;
+    transition: all 0.2s;
 }
 
 main {

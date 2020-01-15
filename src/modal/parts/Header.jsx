@@ -1,8 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef } from 'preact/hooks';
+import { useRef, useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps } from '../lib/hooks';
+import { useTransitionState, useXProps, useScroll } from '../lib/hooks';
 import Icon from './Icon';
 
 const LOCALE = {
@@ -16,12 +16,44 @@ const LOCALE = {
     }
 };
 
-const Header = ({ shadow }) => {
+const Header = () => {
     const headerRef = useRef();
     const { country, onClick } = useXProps();
-    const [, handleClose] = useTransitionState();
+    const [transitionState, handleClose] = useTransitionState();
+    const [hasShadow, showShadow] = useState(false);
+    const [showApplyNow, setApplyNow] = useState(false);
 
-    const showApplyNow = country === 'US' && shadow;
+    useScroll(
+        event => {
+            if (!hasShadow && event.target.scrollTop > 0) {
+                showShadow(true);
+            } else if (hasShadow && event.target.scrollTop <= 0) {
+                showShadow(false);
+            }
+        },
+        [hasShadow]
+    );
+
+    useEffect(() => {
+        const handleApplyNowShow = () => !showApplyNow && setApplyNow(true);
+        const handleApplyNowHide = () => showApplyNow && setApplyNow(false);
+
+        window.addEventListener('apply-now-visible', handleApplyNowShow);
+        window.addEventListener('apply-now-hidden', handleApplyNowHide);
+
+        return () => {
+            window.removeEventListener('apply-now-visible', handleApplyNowShow);
+            window.removeEventListener('apply-now-hidden', handleApplyNowHide);
+        };
+    }, [showApplyNow]);
+
+    useEffect(() => {
+        if (transitionState === 'CLOSED') {
+            setApplyNow(false);
+        }
+    }, [transitionState]);
+
+    // const showApplyNow = country === 'US' && hasShadow;
 
     return (
         <div className="modal__header-wrapper">
@@ -30,14 +62,14 @@ const Header = ({ shadow }) => {
                     <header
                         ref={headerRef}
                         id="header"
-                        className={shadow ? 'show' : ''}
-                        style={{ backgroundColor: showApplyNow ? '#005ea6' : LOCALE.BACKGROUND[country] }}
+                        className={hasShadow ? 'show' : ''}
+                        style={{ backgroundColor: LOCALE.BACKGROUND[country] }}
                     >
                         <div
                             className={`logo-wrapper ${showApplyNow && headerRef.current ? 'logo-wrapper--shift' : ''}`}
                         >
                             <div className="logo" alt="PayPal Credit Logo">
-                                <Icon name="logo" color={showApplyNow ? '#ffffff' : undefined} />
+                                <Icon name="logo" />
                             </div>
                         </div>
                         <a
@@ -49,7 +81,10 @@ const Header = ({ shadow }) => {
                             <button
                                 className="header-apply-now"
                                 type="button"
-                                style={{ opacity: showApplyNow ? 1 : 0 }}
+                                style={{
+                                    opacity: showApplyNow ? 1 : 0,
+                                    transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
+                                }}
                             >
                                 Apply Now
                             </button>
@@ -61,7 +96,7 @@ const Header = ({ shadow }) => {
                             id="close-btn"
                             onClick={() => handleClose('Close Button')}
                         >
-                            <Icon name="close" color={showApplyNow ? '#ffffff' : undefined} />
+                            <Icon name="close" />
                         </button>
                     </header>
                 </div>

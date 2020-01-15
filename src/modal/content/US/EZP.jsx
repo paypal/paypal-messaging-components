@@ -1,7 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useRef } from 'preact/hooks';
 
-import { useXProps } from '../../lib/hooks';
+import { useXProps, useScroll } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
 
@@ -12,7 +13,21 @@ const instructions = [
 ];
 
 export const Header = () => {
+    const buttonRef = useRef();
     const { onClick } = useXProps();
+
+    useScroll(event => {
+        const { offsetTop, clientHeight } = buttonRef.current;
+
+        // Ensure first that the button is being displayed
+        if (offsetTop) {
+            if (event.target.scrollTop - offsetTop < clientHeight + 13) {
+                window.dispatchEvent(new Event('apply-now-hidden'));
+            } else {
+                window.dispatchEvent(new Event('apply-now-visible'));
+            }
+        }
+    }, []);
 
     return (
         <div className="content-header">
@@ -29,7 +44,7 @@ export const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <button className="content-header__button" type="button">
+                <button ref={buttonRef} className="content-header__button" type="button">
                     Apply Now
                 </button>
             </a>
