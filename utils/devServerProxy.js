@@ -125,8 +125,8 @@ module.exports = app => {
                     json: populatedBanner
                 },
                 tracking_details: {
-                    click_url: '',
-                    impression_url: ''
+                    click_url: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                    impression_url: '//localhost.paypal.com:8080/ptrk/?fdata=null'
                 }
             });
 
@@ -137,4 +137,6 @@ module.exports = app => {
             );
         }
     });
+
+    app.get('/ptrk', (req, res) => res.send(''));
 };

@@ -25,12 +25,12 @@ export default function useTransitionState() {
 
     return [
         status,
-        () => {
+        linkName => {
             if (status === STATUS.OPEN || status === STATUS.OPENING) {
                 setStatus(STATUS.CLOSING);
                 setTimeout(() => {
                     if (onClose) {
-                        onClose();
+                        onClose(linkName);
                     }
                     hide();
                     setStatus(STATUS.CLOSED);

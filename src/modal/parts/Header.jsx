@@ -18,7 +18,7 @@ const LOCALE = {
 
 const Header = ({ shadow }) => {
     const headerRef = useRef();
-    const { country } = useXProps();
+    const { country, onClick } = useXProps();
     const [, handleClose] = useTransitionState();
 
     const showApplyNow = country === 'US' && shadow;
@@ -41,6 +41,7 @@ const Header = ({ shadow }) => {
                             </div>
                         </div>
                         <a
+                            onClick={() => onClick('Apply Now Header')}
                             href="https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER"
                             target="_blank"
                             rel="noopener noreferrer"

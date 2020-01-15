@@ -2,11 +2,12 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState } from '../lib/hooks';
+import { useTransitionState, useXProps } from '../lib/hooks';
 
 const Tabs = ({ tabs }) => {
     const [currentTab, selectTab] = useState(0);
     const [transitionState] = useTransitionState();
+    const { onClick } = useXProps();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -25,7 +26,7 @@ const Tabs = ({ tabs }) => {
                     <button
                         className={currentTab === index ? 'selected' : ''}
                         type="button"
-                        onClick={() => selectTab(index)}
+                        onClick={() => onClick(tab.title) && selectTab(index)}
                         role="tab"
                         ariaSelected={currentTab === index}
                         id={index}

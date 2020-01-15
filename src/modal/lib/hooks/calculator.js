@@ -48,7 +48,7 @@ const localize = (country, amount) => {
 
 export default function useCalculator() {
     const { terms, meta } = useContext(ServerContext);
-    const { payerId, clientId, country } = useXProps();
+    const { payerId, clientId, country, onCalculate } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, terms.amount),
         prevValue: localize(country, terms.amount),
@@ -67,6 +67,7 @@ export default function useCalculator() {
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             dispatch({ type: 'fetch' });
+            onCalculate(delocalizedValue);
             request(
                 'POST',
                 `${
