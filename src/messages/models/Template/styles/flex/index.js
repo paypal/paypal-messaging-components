@@ -12,6 +12,7 @@ import colorBlueRatio1x4 from './css/color--blue&&ratio--1x4.css';
 import colorBlack from './css/color--black.css';
 import colorWhite from './css/color--white.css';
 import colorWhiteNoBorder from './css/color--white-no-border.css';
+import colorSalmon from './css/color--salmon.css';
 
 export default [
     ['default', [fonts, common, base].join('\n')],
@@ -26,6 +27,7 @@ export default [
     ['color:black', colorBlack],
     ['color:white', colorWhite],
     ['color:white-no-border', colorWhiteNoBorder],
+    ['color:salmon', colorSalmon],
 
     ['color:blue && ratio:1x4', colorBlueRatio1x4]
 ];
