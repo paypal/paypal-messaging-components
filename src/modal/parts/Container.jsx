@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useLayoutEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef, useEffect } from 'preact/hooks';
 
 import { useTransitionState } from '../lib/hooks';
 import { ScrollState } from '../lib/scroll';
@@ -10,6 +10,12 @@ import Overlay from './Overlay';
 const Modal = ({ children }) => {
     const [transitionState] = useTransitionState();
     const contentWrapper = useRef();
+
+    useEffect(() => {
+        if (transitionState === 'OPENING') {
+            window.focus();
+        }
+    }, [transitionState]);
 
     useLayoutEffect(() => {
         if (transitionState === 'CLOSED') {

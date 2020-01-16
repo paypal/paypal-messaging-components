@@ -4,6 +4,7 @@ import { useRef } from 'preact/hooks';
 
 import { useXProps, useScroll } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
+import Button from '../../parts/Button';
 
 const terms = [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
@@ -53,9 +54,7 @@ export const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <button ref={buttonRef} className="content-header__button" type="button">
-                    Apply Now
-                </button>
+                <Button ref={buttonRef}>Apply Now</Button>
             </a>
         </div>
     );

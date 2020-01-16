@@ -3,6 +3,7 @@ import { h, Fragment } from 'preact';
 
 import { useCalculator } from '../../../lib/hooks';
 import TermsTable from './TermsTable';
+import Button from '../../Button';
 
 const Calculator = () => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
@@ -22,9 +23,9 @@ const Calculator = () => {
                         value={value}
                         onChange={changeInput}
                     />
-                    <button className="calculator__btn" type="submit" id="calculate-ezp">
+                    <Button type="submit" secondary>
                         Calculate
-                    </button>
+                    </Button>
                     <div className="calculator__error-msg" id="error-msg">
                         Enter a valid number for purchase amount
                     </div>

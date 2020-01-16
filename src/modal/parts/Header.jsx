@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps, useScroll } from '../lib/hooks';
 import Icon from './Icon';
+import Button from './Button';
 
 const LOCALE = {
     LOGO: {
@@ -78,16 +79,15 @@ const Header = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <button
+                            <Button
                                 className="header-apply-now"
-                                type="button"
                                 style={{
                                     opacity: showApplyNow ? 1 : 0,
                                     transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
                                 }}
                             >
                                 Apply Now
-                            </button>
+                            </Button>
                         </a>
                         <button
                             aria-label="Close"

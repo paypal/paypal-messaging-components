@@ -153,33 +153,7 @@ main #financing-terms tbody tr td {
     color: #2c2e2f;
     box-sizing: border-box;
     min-width: 0;
-}
-
-.calculator__btn {
-    flex: 1 1 30%;
-    -ms-flex: 1 1 30%;
-    padding: 0 14px;
-    max-width: 120px;
-    cursor: pointer;
-    border-radius: 50px;
-    border: solid 1px #0070ba;
-    color: #0070ba;
-    background: white;
-    margin-left: 10px;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-size: 15px;
-    font-weight: 600;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    text-align: center;
-    display: block;
-    box-sizing: border-box;
-    transition: box-shadow 0.2s;
-}
-
-.calculator__btn:hover {
-    box-shadow: 0 0 0 0.0625rem #0070ba inset;
+    margin-right: 1rem;
 }
 
 .calculator__error-msg {

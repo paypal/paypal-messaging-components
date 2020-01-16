@@ -32,21 +32,6 @@
     margin: 0.7rem 0 1rem;
 }
 
-.content-header__button {
-    display: inline-block;
-    background: #0070ba;
-    border: none;
-    color: white;
-    border-radius: 3rem;
-    padding: 1rem 0;
-    font-size: 1rem;
-    cursor: pointer;
-    width: calc(100% - 3rem);
-    text-align: center;
-    max-width: 416px;
-    margin: 0 auto;
-}
-
 .content-body {
     padding: 2rem 1.5rem;
     max-width: 26rem;
@@ -100,4 +85,48 @@
 .content-body__instructions-item > :last-child {
     flex: 1 1 100%;
     margin: 0;
+}
+
+.button {
+    display: inline-block;
+    background: #0070ba;
+    border: none;
+    color: white;
+    border-radius: 3rem;
+    padding: 0.7em 1.5em;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    font-weight: 500;
+    border: 1px solid #0070ba;
+}
+
+.button:hover,
+.button:focus {
+    background: #003087;
+    border: 1px solid #003087;
+}
+
+.button:focus {
+    text-decoration: underline;
+    outline: none;
+}
+
+.button--secondary {
+    background: white;
+    color: #0070ba;
+    border: 1px solid #0070ba;
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+    border-color: #003087;
+    box-shadow: 0 0 0 0.0625em #003087 inset;
+    color: #003087;
+    background: white;
+}
+
+.button--md {
+    font-size: 0.9rem;
 }

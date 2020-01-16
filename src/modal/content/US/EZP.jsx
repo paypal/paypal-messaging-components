@@ -5,6 +5,7 @@ import { useRef } from 'preact/hooks';
 import { useXProps, useScroll } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
+import Button from '../../parts/Button';
 
 const instructions = [
     ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payment plan that works for you.'],
@@ -44,9 +45,7 @@ export const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <button ref={buttonRef} className="content-header__button" type="button">
-                    Apply Now
-                </button>
+                <Button ref={buttonRef}>Apply Now</Button>
             </a>
         </div>
     );
