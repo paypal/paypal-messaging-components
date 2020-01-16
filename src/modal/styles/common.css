@@ -127,11 +127,12 @@ header .header-apply-now {
     position: absolute;
     top: 1.1rem;
     left: 50%;
+    font-size: 0.9rem;
 }
 
 @media (min-width: 22.5rem) {
     header .header-apply-now {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 }
 
