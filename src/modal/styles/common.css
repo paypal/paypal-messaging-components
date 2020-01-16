@@ -131,12 +131,15 @@ header .header-apply-now {
     border: none;
     color: white;
     margin: 0;
-    padding: 0.5rem 1.5rem;
+    padding: 0.6rem 0;
     font-size: 0.9rem;
     font-weight: 500;
     background: #0070ba;
     cursor: pointer;
     transition: all 0.2s;
+    width: 30%;
+    min-width: 8rem;
+    font-weight: 500;
 }
 
 main {

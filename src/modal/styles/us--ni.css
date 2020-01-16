@@ -37,10 +37,14 @@
     background: #0070ba;
     border: none;
     color: white;
-    border-radius: 1rem;
-    padding: 0.5rem 1.5rem;
-    font-size: 0.9rem;
+    border-radius: 3rem;
+    padding: 1rem 0;
+    font-size: 1rem;
     cursor: pointer;
+    width: calc(100% - 3rem);
+    text-align: center;
+    max-width: 416px;
+    margin: 0 auto;
 }
 
 .content-body {
