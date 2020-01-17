@@ -19,12 +19,14 @@ const Tabs = ({ tabs }) => {
     return (
         <Fragment>
             {tabs.map((tab, index) => (
-                <div style={{ display: currentTab === index ? 'block' : 'none' }}>{tab.header}</div>
+                <div className="tab__header" style={{ display: currentTab === index ? 'block' : 'none' }}>
+                    {tab.header}
+                </div>
             ))}
-            <div id="tabs" role="tablist">
+            <div className="tabs" role="tablist">
                 {tabs.map((tab, index) => (
                     <button
-                        className={currentTab === index ? 'selected' : ''}
+                        className={`tab ${currentTab === index ? 'tab--selected' : ''}`}
                         type="button"
                         onClick={() => onClick(tab.title) && selectTab(index)}
                         role="tab"
@@ -38,6 +40,7 @@ const Tabs = ({ tabs }) => {
             </div>
             {tabs.map((tab, index) => (
                 <div
+                    className="tab__body"
                     style={{ display: currentTab === index ? 'block' : 'none' }}
                     role="tabpanel"
                     id={`${index}-2`}

@@ -67,34 +67,31 @@ const Carousel = ({ items }) => {
     }, [index]);
 
     return (
-        <div ref={wrapperRef} id="carousel-background" className="carousel__background">
+        <div ref={wrapperRef} className="carousel__background">
             <h1 className="carousel__title">So funktioniert&apos;s</h1>
 
             {/* <!-- Carousel start--> */}
-            <div id="carousel" className="carousel">
+            <div className="carousel">
                 <div className="carousel__arrows">
-                    <button
-                        type="button"
-                        id="carousel-arrow-prev"
-                        className={`carousel__arrow-prev ${index === 0 ? 'hidden' : ''}`}
-                        aria-label="Previous"
-                        onClick={() => setIndex(index - 1)}
-                    />
-                    <button
-                        type="button"
-                        id="carousel-arrow-next"
-                        className={`carousel__arrow-next ${index === items.length - 1 ? 'hidden' : ''}`}
-                        aria-label="Next"
-                        onClick={() => setIndex(index + 1)}
-                    />
+                    {index !== 0 && (
+                        <button
+                            type="button"
+                            className="carousel__arrow carousel__arrow--prev"
+                            aria-label="Previous"
+                            onClick={() => setIndex(index - 1)}
+                        />
+                    )}
+                    {index !== items.length - 1 && (
+                        <button
+                            type="button"
+                            className="carousel__arrow carousel__arrow--next"
+                            aria-label="Next"
+                            onClick={() => setIndex(index + 1)}
+                        />
+                    )}
                 </div>
                 <div className="carousel__shadow" />
-                <div
-                    ref={sliderRef}
-                    id="carousel-inner"
-                    className="carousel__inner"
-                    style={{ transform: `translateX(-${100 * index}%)` }}
-                >
+                <div ref={sliderRef} className="carousel__inner" style={{ transform: `translateX(-${100 * index}%)` }}>
                     {items.map(item => (
                         <div className="carousel__item">
                             <div>

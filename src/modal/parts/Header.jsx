@@ -8,8 +8,8 @@ import Button from './Button';
 
 const LOCALE = {
     LOGO: {
-        DE: 'https://www.paypalobjects.com/upstream/assets/img/de/pp-logo-banner-modal.svg',
-        US: 'https://www.paypalobjects.com/upstream/assets/img/pp-logo-banner-modal.svg'
+        DE: 'logo-de',
+        US: 'logo'
     },
     BACKGROUND: {
         DE: '#f6f7fb',
@@ -63,14 +63,16 @@ const Header = () => {
                     <header
                         ref={headerRef}
                         id="header"
-                        className={hasShadow ? 'show' : ''}
+                        className={hasShadow ? 'header--show' : ''}
                         style={{ backgroundColor: LOCALE.BACKGROUND[country] }}
                     >
                         <div
-                            className={`logo-wrapper ${showApplyNow && headerRef.current ? 'logo-wrapper--shift' : ''}`}
+                            className={`header__logo-wrapper ${
+                                showApplyNow && headerRef.current ? 'header__logo-wrapper--shift' : ''
+                            }`}
                         >
-                            <div className="logo" alt="PayPal Credit Logo">
-                                <Icon name="logo" />
+                            <div className="header__logo" alt="PayPal Credit Logo">
+                                <Icon name={LOCALE.LOGO[country]} />
                             </div>
                         </div>
                         <a
@@ -80,7 +82,7 @@ const Header = () => {
                             rel="noopener noreferrer"
                         >
                             <Button
-                                className="header-apply-now"
+                                className="header__apply-now"
                                 style={{
                                     opacity: showApplyNow ? 1 : 0,
                                     transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
@@ -90,9 +92,9 @@ const Header = () => {
                             </Button>
                         </a>
                         <button
+                            className="header__close"
                             aria-label="Close"
                             type="button"
-                            className="close"
                             id="close-btn"
                             onClick={() => handleClose('Close Button')}
                         >

@@ -2,9 +2,7 @@
 import { h, Fragment } from 'preact';
 
 import { useXProps } from '../lib/hooks';
-import deInstStyle from '../styles/de--inst.css';
-import usNiStyle from '../styles/us--ni.css';
-import usEzpStyle from '../styles/us--ezp.css';
+import { commonUS, USEzp, DEInst } from '../styles';
 import * as NI from './US/NI';
 import * as EZP from './US/EZP';
 import INST from './DE/INST';
@@ -17,7 +15,7 @@ const Content = () => {
         case 'NI':
             return (
                 <Fragment>
-                    <style>{usNiStyle}</style>
+                    <style>{commonUS}</style>
                     <NI.Header />
                     <NI.Content />
                 </Fragment>
@@ -25,8 +23,10 @@ const Content = () => {
         case 'EZP':
             return (
                 <Fragment>
-                    <style>{usNiStyle}</style>
-                    <style>{usEzpStyle}</style>
+                    <style>
+                        {commonUS}
+                        {USEzp}
+                    </style>
                     <Tabs
                         tabs={[
                             {
@@ -46,7 +46,7 @@ const Content = () => {
         case 'INST':
             return (
                 <Fragment>
-                    <style>{deInstStyle}</style>
+                    <style>{DEInst}</style>
                     <INST />
                 </Fragment>
             );

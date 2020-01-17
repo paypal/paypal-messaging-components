@@ -32,8 +32,8 @@ const Calculator = () => {
                 </form>
             </div>
 
-            <section id="financing-terms">
-                <div id="loading-image" style={{ opacity: isLoading ? '1' : '0' }} />
+            <section className="calculator__finance-terms">
+                <div className="spinner" style={{ opacity: isLoading ? '1' : '0' }} />
                 <div style={{ opacity: isLoading ? '0.5' : '1' }}>
                     <TermsTable terms={terms} />
                 </div>

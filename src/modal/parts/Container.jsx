@@ -26,15 +26,14 @@ const Modal = ({ children }) => {
     return (
         <ScrollState containerRef={contentWrapper}>
             <section
-                id="modal-container"
-                className={`modal__container ${transitionState.startsWith('OPEN') ? 'show' : ''}`}
+                className={`modal__container ${transitionState.startsWith('OPEN') ? 'modal__container--show' : ''}`}
             >
                 <div className="modal__wrapper" id="modal__wrapper">
                     <Header />
                     <div className="modal__content-wrapper" ref={contentWrapper}>
                         <div className="modal__content-background">
                             <div className="modal__content">
-                                <main>{children}</main>
+                                <main className="modal__main">{children}</main>
                             </div>
                         </div>
                     </div>

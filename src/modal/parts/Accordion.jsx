@@ -25,10 +25,10 @@ const Accordion = ({ title, description, children }) => {
     }, [transitionState]);
 
     return (
-        <div className={`accordion ${isOpen ? 'show' : ''}`}>
-            <h3>
+        <div className={`accordion ${isOpen ? 'accordion--show' : ''}`}>
+            <h3 className="accordion__title">
                 <button
-                    className={description ? 'has-subtitle' : ''}
+                    className={`accordion__title-btn ${description ? 'accordion__title-btn--with-description' : ''}`}
                     type="button"
                     onClick={toggleOpen}
                     id={id}
@@ -38,11 +38,11 @@ const Accordion = ({ title, description, children }) => {
                     {title}
                 </button>
             </h3>
-            {description && <p>{description}</p>}
-            <div className="accordion-content" ref={contentRef} role="region" id={regionId} ariaLabelledby={id}>
+            {description && <p className="accordion__description">{description}</p>}
+            <div className="accordion__content" ref={contentRef} role="region" id={regionId} ariaLabelledby={id}>
                 {children}
             </div>
-            <div className="symbol">
+            <div className="accordion__symbol">
                 <Icon name="caret" />
             </div>
         </div>
