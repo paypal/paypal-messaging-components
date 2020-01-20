@@ -10,10 +10,6 @@ const LOCALE = {
     LOGO: {
         DE: 'logo-de',
         US: 'logo'
-    },
-    BACKGROUND: {
-        DE: 'linear-gradient(rgba(246, 247, 251, 1) 70px, rgba(246, 247, 251, 0))',
-        US: 'linear-gradient(rgba(255, 255, 255, 1) 70px, rgba(255, 255, 255, 0))'
     }
 };
 
@@ -48,7 +44,7 @@ const Header = () => {
         <div className="modal__header-wrapper">
             <div className="modal__header-container">
                 <div className="modal__header">
-                    <header ref={headerRef} className="header" style={{ background: LOCALE.BACKGROUND[country] }}>
+                    <header ref={headerRef} className="header">
                         <div className={`header__logo-wrapper ${showApplyNow ? 'header__logo-wrapper--shift' : ''}`}>
                             <div className="header__logo" alt="PayPal Credit Logo">
                                 <Icon name={LOCALE.LOGO[country]} />

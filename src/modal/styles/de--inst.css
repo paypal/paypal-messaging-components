@@ -16,7 +16,12 @@
 }
 
 .modal__header {
-    height: 90px;
+    background: rgb(246, 247, 251);
+}
+
+.modal__header::after {
+    background: linear-gradient(rgba(246, 247, 251, 1), rgba(246, 247, 251, 0));
+    height: 20px;
 }
 
 .modal__content {

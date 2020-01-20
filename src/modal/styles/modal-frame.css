@@ -76,14 +76,24 @@
 .modal__header {
     background: rgba(0, 0, 0, 0);
     text-align: center;
-    height: 60px;
-    padding-bottom: 12px;
     width: 100%;
     max-width: 612px;
     margin: 0 auto;
     position: relative;
-    overflow: hidden;
-    height: 130px;
+    background: white;
+    height: 70px;
+}
+
+.modal__header::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 99%;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    pointer-events: none;
 }
 
 .modal__content-wrapper {
