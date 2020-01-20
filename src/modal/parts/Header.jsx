@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef, useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps, useScroll } from '../lib/hooks';
+import { useTransitionState, useXProps } from '../lib/hooks';
 import Icon from './Icon';
 import Button from './Button';
 
@@ -12,8 +12,8 @@ const LOCALE = {
         US: 'logo'
     },
     BACKGROUND: {
-        DE: '#f6f7fb',
-        US: '#ffffff'
+        DE: 'linear-gradient(rgba(246, 247, 251, 1) 70px, rgba(246, 247, 251, 0))',
+        US: 'linear-gradient(rgba(255, 255, 255, 1) 70px, rgba(255, 255, 255, 0))'
     }
 };
 
@@ -21,19 +21,7 @@ const Header = () => {
     const headerRef = useRef();
     const { country, onClick } = useXProps();
     const [transitionState, handleClose] = useTransitionState();
-    const [hasShadow, showShadow] = useState(false);
     const [showApplyNow, setApplyNow] = useState(false);
-
-    useScroll(
-        event => {
-            if (!hasShadow && event.target.scrollTop > 0) {
-                showShadow(true);
-            } else if (hasShadow && event.target.scrollTop <= 0) {
-                showShadow(false);
-            }
-        },
-        [hasShadow]
-    );
 
     useEffect(() => {
         const handleApplyNowShow = () => !showApplyNow && setApplyNow(true);
@@ -60,17 +48,8 @@ const Header = () => {
         <div className="modal__header-wrapper">
             <div className="modal__header-container">
                 <div className="modal__header">
-                    <header
-                        ref={headerRef}
-                        id="header"
-                        className={hasShadow ? 'header--show' : ''}
-                        style={{ backgroundColor: LOCALE.BACKGROUND[country] }}
-                    >
-                        <div
-                            className={`header__logo-wrapper ${
-                                showApplyNow && headerRef.current ? 'header__logo-wrapper--shift' : ''
-                            }`}
-                        >
+                    <header ref={headerRef} className="header" style={{ background: LOCALE.BACKGROUND[country] }}>
+                        <div className={`header__logo-wrapper ${showApplyNow ? 'header__logo-wrapper--shift' : ''}`}>
                             <div className="header__logo" alt="PayPal Credit Logo">
                                 <Icon name={LOCALE.LOGO[country]} />
                             </div>

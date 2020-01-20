@@ -84,76 +84,6 @@ li {
     letter-spacing: 0;
 }
 
-.header {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
-    transition: 150ms;
-    background: white;
-}
-
-.header--show {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);
-    transition: 350ms;
-}
-
-.header__logo {
-    box-sizing: border-box;
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-    padding: 18px 0;
-    height: 72px;
-    transition: all 0.3s;
-}
-
-.header__close {
-    display: block;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    position: absolute;
-    top: 12px;
-    right: 8px;
-}
-
-.header__close svg {
-    height: 48px;
-    width: 48px;
-}
-
-.header__close path {
-    stroke-width: 1px;
-    transition: all 0.3s;
-}
-
-.header__logo-wrapper {
-    transition: all 0.3s;
-    transform: translateX(0) scale(1);
-}
-
-.header__logo-wrapper--shift {
-    transform: translateX(calc(-50% + 35px + 16px)) scale(0.7);
-}
-
-@media (min-width: 26.25rem) {
-    .header__logo-wrapper--shift {
-        transform: translateX(calc(-50% + 50px + 24px)) scale(1);
-    }
-}
-
-.header__apply-now {
-    position: absolute;
-    top: 1.1rem;
-    left: 50%;
-    font-size: 0.9rem;
-}
-
-@media (min-width: 22.5rem) {
-    .header__apply-now {
-        font-size: 1rem;
-    }
-}
-
 .button {
     display: inline-block;
     background: #0070ba;
@@ -299,5 +229,69 @@ li {
     }
     100% {
         transform: rotate(360deg) translateX(-50%);
+    }
+}
+
+.header {
+    transition: 150ms;
+    height: 100%;
+}
+
+.header__logo {
+    box-sizing: border-box;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    padding: 18px 0;
+    height: 72px;
+    transition: all 0.3s;
+}
+
+.header__close {
+    display: block;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+}
+
+.header__close svg {
+    height: 48px;
+    width: 48px;
+}
+
+.header__close path {
+    stroke-width: 1px;
+    transition: all 0.3s;
+}
+
+.header__logo-wrapper {
+    transition: all 0.3s;
+    transform: translateX(0) scale(1);
+}
+
+.header__logo-wrapper--shift {
+    transform: translateX(calc(-50% + 35px + 16px)) scale(0.7);
+}
+
+@media (min-width: 26.25rem) {
+    .header__logo-wrapper--shift {
+        transform: translateX(calc(-50% + 50px + 24px)) scale(1);
+    }
+}
+
+.header__apply-now {
+    position: absolute;
+    top: 1.1rem;
+    left: 50%;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 22.5rem) {
+    .header__apply-now {
+        font-size: 1rem;
     }
 }
