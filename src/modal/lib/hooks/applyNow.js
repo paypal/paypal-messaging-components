@@ -2,12 +2,17 @@ import { useXProps } from './helpers';
 import useTransitionState from './transitionState';
 
 export default clickTitle => {
-    const { onClick } = useXProps();
+    const { onClick, payerId, clientId, amount, refId } = useXProps();
     const [, handleClose] = useTransitionState();
 
     return () => {
         onClick(clickTitle);
-        const win = window.open('https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER');
+        // TODO: Get finalized query param keys
+        const win = window.open(
+            `https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER&actor=merchant&mktgrefid=${refId}&amount=${amount}&${
+                payerId ? `payer_id=${payerId}` : `client_id=${clientId}`
+            }`
+        );
         const intervalId = setInterval(() => {
             if (win.closed) {
                 clearInterval(intervalId);
