@@ -106,9 +106,7 @@ const TermsTable = ({ terms }) => {
                 </tbody>
             </table>
             {(!terms.offers || terms.offers.length === 0) && invalidAmountWarning(terms)}
-            <p className="finance-terms__note">
-                The monthly payment shown is an estimated amount and may not include taxes and shipping
-            </p>
+            <p className="finance-terms__note">These estimates may not include taxes and shipping.</p>
         </Fragment>
     );
 };

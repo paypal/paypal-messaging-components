@@ -8,9 +8,10 @@ import Calculator from '../../parts/Calculator';
 import Button from '../../parts/Button';
 
 const instructions = [
-    ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payment plan that works for you.'],
-    ['calendar', 'Split your purchase into monthly payments, with nothing due for at least 25 days.'],
-    ['truck', "If your items ship separately, we'll split the price of each item across your equal monthly payments."]
+    ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payments offer that works for you.'],
+    ['calendar', 'Split your purchase into equal monthly payments over the length of the offer. May include interest.'],
+    ['truck', "If your items ship separately, we'll split each new shipment into equal monthly payments."],
+    ['tags', 'Your PayPal Credit minimum monthly payment includes all Easy Payments and other PayPal Credit purchases.']
 ];
 
 export const Header = () => {
@@ -37,7 +38,7 @@ export const Header = () => {
                     <Icon name="cart" />
                 </div>
             </div>
-            <h1 className="content-header__title">Split your purchases into monthly payments</h1>
+            <h1 className="content-header__title">Split your purchases into equal monthly payments</h1>
             <p className="content-header__tag">Subject to credit approval.</p>
             <a
                 onClick={() => onClick('Apply Now')}
@@ -76,9 +77,9 @@ export const Content = () => {
 
             <h2 className="content-body__title">About promotional offers</h2>
             <p>
-                PayPal Credit promotional offers may vary depending on when and where you shop. Offers aren&apos;t valid
-                on previous returns, refunds, and exchanges, or when using the Send Money feature in your PayPal
-                account.
+                PayPal Credit promotional offers are available for a limited time only and may vary, depending on where
+                you shop. Offers aren&apos;t valid on previous returns, refunds, and exchanges, or when using the Send
+                Money feature in your PayPal account.
             </p>
 
             <hr className="content-body__divider" />

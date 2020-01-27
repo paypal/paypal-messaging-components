@@ -20,8 +20,8 @@ const instructions = [
         'card',
         'PayPal Credit is a reusable credit line you can use to shop online at millions of stores that accept PayPal.'
     ],
-    ['badge', 'Pay with the same trust, security, and flexibility you always get from PayPal.'],
-    ['monogram', 'Click the PayPal button at checkout and choose to pay with PayPal Credit.']
+    ['shield', 'Shop with trust, security, and flexibility when you pay with PayPal.'],
+    ['monogram', 'Click the PayPal button at checkout and pay with PayPal Credit.']
 ];
 
 export const Header = () => {

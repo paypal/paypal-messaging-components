@@ -211,7 +211,7 @@ const Icon = ({ name, color }) => {
                     </g>
                 </svg>
             );
-        case 'badge':
+        case 'shield':
             return (
                 <svg width="36" height="36" xmlns="http://www.w3.org/2000/svg">
                     <g fill={color || '#2C2E2F'} fill-rule="nonzero">
@@ -270,6 +270,35 @@ const Icon = ({ name, color }) => {
                         fill={color || '#2C2E2F'}
                         fill-rule="nonzero"
                     />
+                </svg>
+            );
+        case 'tags':
+            // TODO: Needs optimized variant
+            return (
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.17 41.6">
+                    <defs>
+                        <clipPath id="clip-path" transform="translate(0 -.12)">
+                            <path
+                                class="cls-1"
+                                d="M6.88 32.41L19 34.89l.13-.41a.86.86 0 011.08-.55.85.85 0 01.49 1.07l-.37 1.13a.85.85 0 01-1 .57L6.57 34.09A1.92 1.92 0 015 31.91l2.84-18.44A2.5 2.5 0 018.6 12l2.87-2.76a.86.86 0 011.19 1.23l-2.88 2.77a.78.78 0 00-.25.49L6.71 32.16a.22.22 0 00.17.25zM27.66 7.77a.86.86 0 11-.45 1.65l-9.43-2.58a.24.24 0 00-.24.11l-3.09 8.2a1.72 1.72 0 00.06 1l8.35 16.2a.11.11 0 00.14.05l12.41-6.28a.1.1 0 00.05-.13l-6.88-13.31a.85.85 0 111.51-.78L37 25.26a1.8 1.8 0 01-.79 2.43L23.77 34a1.82 1.82 0 01-2.43-.78L13 17a3.3 3.3 0 01-.14-2.43l3.08-8.2a1.94 1.94 0 012.29-1.16zm-4.91 5.12a1.71 1.71 0 10-.75 2.3 1.71 1.71 0 00.75-2.3zm0 3.82a3.42 3.42 0 111.49-4.6 3.41 3.41 0 01-1.46 4.6z"
+                            />
+                        </clipPath>
+                        <clipPath id="clip-path-2" transform="translate(0 -.12)">
+                            <path class="cls-1" d="M.73 0h41v41h-41z" />
+                        </clipPath>
+                        <style>
+                            {`
+                                .cls-1 {
+                                    fill: none;
+                                }
+                            `}
+                        </style>
+                    </defs>
+                    <g clip-path="url(#clip-path)">
+                        <g clip-path="url(#clip-path-2)">
+                            <path fill="#2c2e2f" d="M0 0h42.17v41.6H0z" />
+                        </g>
+                    </g>
                 </svg>
             );
         default:
