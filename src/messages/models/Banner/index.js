@@ -26,9 +26,10 @@ const loggers = new Map();
 
 function setupTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
-    const { clickUrl, impressionUrl } = obj.meta;
+    const { clickUrl, impressionUrl, messageRequestId } = obj.meta;
     const track = obj.logger.track({
         uuid,
+        messageRequestId,
         urls: {
             DEFAULT: clickUrl,
             // Important: browser will only fire off one request if the same URL is requested

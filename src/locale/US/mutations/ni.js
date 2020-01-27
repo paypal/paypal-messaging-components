@@ -97,7 +97,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 8}px }`],
+                styles: [basicMediaQuery(textSize * 34 + 130), `.message__logo-container { width: ${textSize * 9}px }`],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
@@ -136,6 +136,7 @@ export default {
                 styles: [
                     '.message__logo-container { margin-bottom: 30%; }',
                     '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
+                    '@media (max-aspect-ratio: 11/40) { .message__disclaimer span.multi:nth-of-type(1) { display: block; } }',
                     '.message__headline { font-size: 1.1rem }'
                 ],
                 disclaimer: ['xlarge', 'xsmall']

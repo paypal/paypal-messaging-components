@@ -100,6 +100,7 @@ module.exports = app => {
             const bannerJSON = JSON.parse(banner);
 
             const morsVars = {
+                formattedTotalCost: `$${Number(amount).toFixed(2)}`,
                 total_payments: 12,
                 formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
             };
