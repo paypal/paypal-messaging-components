@@ -75,9 +75,11 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                     case 200:
                         resolve({
                             headers: responseHeaders,
-                            data: responseHeaders['content-type'].includes('application/json')
-                                ? JSON.parse(xhttp.responseText)
-                                : xhttp.responseText
+                            data:
+                                responseHeaders['content-type'] &&
+                                responseHeaders['content-type'].includes('application/json')
+                                    ? JSON.parse(xhttp.responseText)
+                                    : xhttp.responseText
                         });
                         break;
                     case 204:

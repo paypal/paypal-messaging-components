@@ -30,6 +30,14 @@ export function getAccount() {
     }
 }
 
+export function getPartnerAccount() {
+    if (__MESSAGES__.__TARGET__ === 'SDK' && getMerchantID()[0]) {
+        return getClientID();
+    } else {
+        return undefined;
+    }
+}
+
 export function getScript() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKScript();

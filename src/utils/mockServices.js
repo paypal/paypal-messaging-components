@@ -37,21 +37,39 @@ function messageFetcher(url) {
     const bestOffer = qualifiedTerms.slice(-1)[0];
     const maxTerms = bestOffer ? bestOffer.term : termOptions.slice(0, 1)[0].term;
     const morsVars = {
-        tot_pymts: `$${Number(amount).toFixed(2)}`,
-        term: maxTerms,
-        pymt_mo: `$${Number(amount / maxTerms).toFixed(2)}`
+        formattedTotalCost: `$${Number(amount).toFixed(2)}`,
+        total_payments: maxTerms,
+        formattedMonthlyPayment: `$${Number(amount / maxTerms).toFixed(2)}`
     };
 
-    const populatedBanner = objectEntries(morsVars)
-        .reduce(
-            // eslint-disable-next-line security/detect-non-literal-regexp
-            (accumulator, [morsVar, val]) => accumulator.replace(new RegExp(`\\\${${morsVar}}`, 'g'), val),
-            JSON.stringify(message)
-        )
-        .replace(/"/g, '\\"')
-        .replace(/\r\n|\r|\n/g, '');
+    const populateVars = str =>
+        objectEntries(morsVars)
+            .reduce(
+                (accumulator, [morsVar, val]) =>
+                    // eslint-disable-next-line security/detect-non-literal-regexp
+                    accumulator.replace(new RegExp(`\\\${CREDIT_OFFERS_DS.${morsVar}}`, 'g'), val),
+                str
+            )
+            .replace(/\r\n|\r|\n/g, '');
 
-    return `${query.call}("<div>${populatedBanner}</div>")`;
+    const populatedBanner = objectEntries(message).reduce((accumulator, [key, value]) => {
+        return {
+            ...accumulator,
+            [key]: populateVars(JSON.stringify(value))
+        };
+    }, {});
+
+    const data = JSON.stringify({
+        content: {
+            json: populatedBanner
+        },
+        tracking_details: {
+            click_url: '/webapps/mch/cmd/?fdata=null',
+            impression_url: '/webapps/mch/cmd/?fdata=null'
+        }
+    });
+
+    return `${query.call}(${data})`;
 }
 
 function termsFetcher(url) {
@@ -66,9 +84,9 @@ function termsFetcher(url) {
 
         return {
             ...option,
-            // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
+            // eslint-disable-next-line security/detect-unsafe-regex
             monthly: (monthly || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-            // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
+            // eslint-disable-next-line security/detect-unsafe-regex
             total: (total || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             isNonQualified: Number(query.amount || 0) < Number(option.minValue)
         };

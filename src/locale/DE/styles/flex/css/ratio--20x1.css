@@ -1,66 +1,68 @@
+.message__disclaimer {
+    max-width: unset;
+}
+
 @media (min-aspect-ratio: 200/11) {
-    .message__logo-container {
-        flex: 1 0 25%;
+    .message__content {
+        display: flex;
     }
-    .message__logo {
-        width: 40%;
-    }
+
     .message__messaging {
-        flex: 1 1 85%;
-        flex-direction: row;
-        justify-content: center;
         align-items: center;
     }
+
+    .message__logo-container {
+        flex: 1 0 25%;
+        margin-bottom: 0;
+        display: flex;
+    }
+
+    .message__logo {
+        width: 90%;
+    }
+
     .message__headline {
-        flex: 1 1 60%;
-        font-size: 0.9rem;
-        line-height: 1;
-        margin: 0;
+        font-size: 0.6rem;
     }
+
+    .message__promo-container {
+        flex: 1 1 55%;
+    }
+
     .message__disclaimer {
-        flex: 0 0 auto;
-        width: auto;
-        max-width: 12rem;
-        padding: 0;
-        font-size: 1.9vw;
-        line-height: 1.1;
+        margin-top: 0;
+        padding-right: 3%;
+        text-align: right;
     }
 }
-@media (min-aspect-ratio: 200/11) and (min-width: 400px) {
-    .message__headline {
-        font-size: 1rem;
-    }
-}
-@media (min-aspect-ratio: 200/11) and (min-width: 500px) {
-    .message__disclaimer {
-        font-size: 0.625rem;
-    }
-}
+
 @media (min-aspect-ratio: 200/11) and (min-width: 600px) {
     .message__logo-container {
-        flex: 1 0 10%;
+        flex: 1 0 20%;
+        margin-right: 1%;
     }
-    .message__logo {
-        width: 60%;
-    }
+
     .message__headline {
-        font-size: 1.8vw;
+        font-size: 1.6vw;
     }
-    .message__headline span.multi:nth-of-type(2) {
-        display: inline;
+
+    .message__logo {
+        width: 90%;
     }
+
+    .message__disclaimer {
+        font-size: 0.7rem;
+    }
+
     .message__headline span.multi:nth-of-type(1) {
         display: none;
     }
-    .message__disclaimer {
-        padding-right: 1rem;
-        font-size: 0.75rem;
-        line-height: 1.2;
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
     }
-}
-@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {
-    .message__disclaimer {
-        font-size: 0.9rem;
-        max-width: 14rem;
+
+    .message__disclaimer span.multi:nth-of-type(1) {
+        display: inline;
     }
 }

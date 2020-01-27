@@ -36,7 +36,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 8}px }`],
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
