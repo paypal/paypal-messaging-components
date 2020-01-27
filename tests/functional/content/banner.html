@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Banner Test Page</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <script src="./messaging.js"></script>
+        <style>
+            html,
+            body,
+            .container {
+                margin: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container"></div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config);
+
+            if (config.style.text && config.style.text.color === 'white') {
+                document.body.style = 'background: #000';
+            }
+
+            paypal.Message.render(config, '.container');
+        </script>
+    </body>
+</html>

@@ -116,7 +116,7 @@ export const prependText = curry((container, obj) => {
  * @param {String} srcset Image srcset attribute
  * @returns {void}
  */
-export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset) => {
+export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset = '') => {
     if (Array.isArray(url)) {
         url.forEach(logo => appendImage(container, logo, alt));
     } else if (typeof url === 'string') {

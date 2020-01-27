@@ -26,10 +26,11 @@ module.exports = function proxyImadserv(app) {
             const banner =
                 dimensions !== 'x199x99'
                     ? fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/ni.json`, 'utf-8');
+                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
             const bannerJSON = JSON.parse(banner);
 
             const morsVars = {
+                formattedTotalCost: `$${Number(amount).toFixed(2)}`,
                 total_payments: 12,
                 formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
             };
