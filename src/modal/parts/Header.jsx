@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef, useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps } from '../lib/hooks';
+import { useTransitionState, useXProps, useApplyNow } from '../lib/hooks';
 import Icon from './Icon';
 import Button from './Button';
 
@@ -15,9 +15,10 @@ const LOCALE = {
 
 const Header = () => {
     const headerRef = useRef();
-    const { country, onClick } = useXProps();
+    const { country } = useXProps();
     const [transitionState, handleClose] = useTransitionState();
     const [showApplyNow, setApplyNow] = useState(false);
+    const handleApplyNowClick = useApplyNow('Apply Now Header');
 
     useEffect(() => {
         const handleApplyNowShow = () => !showApplyNow && setApplyNow(true);
@@ -50,22 +51,16 @@ const Header = () => {
                                 <Icon name={LOCALE.LOGO[country]} />
                             </div>
                         </div>
-                        <a
-                            onClick={() => onClick('Apply Now Header')}
-                            href="https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Button
+                            className="header__apply-now"
+                            style={{
+                                opacity: showApplyNow ? 1 : 0,
+                                transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
+                            }}
+                            onClick={handleApplyNowClick}
                         >
-                            <Button
-                                className="header__apply-now"
-                                style={{
-                                    opacity: showApplyNow ? 1 : 0,
-                                    transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
-                                }}
-                            >
-                                Apply Now
-                            </Button>
-                        </a>
+                            Apply Now
+                        </Button>
                         <button
                             className="header__close"
                             aria-label="Close"

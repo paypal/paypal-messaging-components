@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { useXProps, useScroll } from '../../lib/hooks';
+import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
 import Button from '../../parts/Button';
 
@@ -26,7 +26,7 @@ const instructions = [
 
 export const Header = () => {
     const buttonRef = useRef();
-    const { onClick } = useXProps();
+    const handleApplyNowClick = useApplyNow('Apply Now');
 
     useScroll(event => {
         const { offsetTop, clientHeight } = buttonRef.current;
@@ -48,14 +48,9 @@ export const Header = () => {
             </div>
             <h1 className="content-header__title">Buy now and pay over time with PayPal Credit</h1>
             <p className="content-header__tag">Subject to credit approval.</p>
-            <a
-                onClick={() => onClick('Apply Now')}
-                href="https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <Button ref={buttonRef}>Apply Now</Button>
-            </a>
+            <Button ref={buttonRef} onClick={handleApplyNowClick}>
+                Apply Now
+            </Button>
         </div>
     );
 };
