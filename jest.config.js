@@ -1,17 +1,17 @@
 module.exports = {
     testEnvironment: 'jest-environment-jsdom-fifteen',
-    testMatch: ['<rootDir>/tests/**/?(*.)test.js?(x)'],
+    testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
-        '^utils/(.*)': '<rootDir>/tests/utils/$1',
+        '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
         '@paypal/sdk-client/src': '@paypal/sdk-client'
     },
     transform: {
         '^.+\\.js$': 'babel-jest',
-        '^.+\\.(html|css)$': '<rootDir>/tests/utils/rawLoader.js'
+        '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
-    setupFilesAfterEnv: ['<rootDir>/tests/utils/setup.js'],
+    setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
     globals: {
         __ENV__: 'test',
         __MESSAGES__: {
