@@ -128,6 +128,7 @@ function createModal(options) {
         state.frameElements.contentWrapper.addEventListener('touchmove', onScroll);
 
         iframe.contentWindow.addEventListener('keyup', evt => {
+            // eslint-disable-next-line unicorn/prefer-event-key
             if (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27) {
                 closeEvent('Escape Key');
             }

@@ -12,7 +12,7 @@ import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } f
  * @param {Object} options Banner options
  * @returns {void}
  */
-export default function render(options, selector = '[data-pp-message]') {
+export default function render(options, selector) {
     let containers;
     let selectorType;
     if (typeof selector === 'string') {
