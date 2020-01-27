@@ -3,7 +3,7 @@ const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
 
-module.exports = () => {
+module.exports = (env = {}) => {
     const config = getWebpackConfig({
         entry: {
             messaging: './src/index.js',
@@ -15,10 +15,7 @@ module.exports = () => {
         debug: true,
         minify: true,
         env: 'local',
-        vars: globals({
-            standalone: true,
-            localMessage: true
-        })
+        vars: globals(env)
     });
 
     config.output.libraryExport = 'Messages';
