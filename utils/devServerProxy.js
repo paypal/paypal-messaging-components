@@ -1,4 +1,5 @@
 const fs = require('fs');
+const got = require('got');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -96,7 +97,7 @@ module.exports = app => {
             const banner =
                 dimensions !== 'x199x99'
                     ? fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/ni.json`, 'utf-8');
+                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
             const bannerJSON = JSON.parse(banner);
 
             const morsVars = {
@@ -126,16 +127,26 @@ module.exports = app => {
                     json: populatedBanner
                 },
                 tracking_details: {
-                    click_url: '',
-                    impression_url: ''
+                    click_url: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                    impression_url: '//localhost.paypal.com:8080/ptrk/?fdata=null'
                 }
             });
 
             res.send(`${call}(${wrappedMarkup})`);
         } else {
-            res.status(500).send(
-                'Invalid dev account. If you are trying to use a stage or production account, please run the webpack dev server with the correct env value.'
-            );
+            const query = Object.entries(req.query)
+                .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
+                .slice(1);
+
+            got(`https://www.paypal.com/imadserver/upstream?${query}`)
+                .then(({ body, headers }) => {
+                    delete headers['content-encoding']; // eslint-disable-line no-param-reassign
+                    res.set(headers);
+                    res.send(body);
+                })
+                .catch(err => console.log(err) || res.status(500).send(err));
         }
     });
+
+    app.get('/ptrk', (req, res) => res.send(''));
 };

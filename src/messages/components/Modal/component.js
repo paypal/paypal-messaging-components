@@ -7,7 +7,7 @@ import containerTemplate from './containerTemplate';
 export default create({
     tag: 'paypal-credit-modal',
     url: getGlobalUrl('MODAL'),
-    // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
+    // eslint-disable-next-line security/detect-unsafe-regex
     domain: /\.paypal\.com(:\d+)?$/,
     containerTemplate,
     attributes: {
