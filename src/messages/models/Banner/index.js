@@ -23,12 +23,22 @@ const banners = new Map();
 // eslint-disable-next-line compat/compat
 const loggers = new Map();
 
+// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
+function createUUID() {
+    // eslint-disable-next-line func-names
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        // eslint-disable-next-line no-bitwise, prettier/prettier, one-var, eqeqeq
+    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 function setupTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
     const { clickUrl, impressionUrl, messageRequestId } = obj.meta;
     const track = obj.logger.track({
         uuid,
-        messageRequestId,
+        messageRequestId: createUUID(),
         urls: {
             DEFAULT: clickUrl,
             // Important: browser will only fire off one request if the same URL is requested
