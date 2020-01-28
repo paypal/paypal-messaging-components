@@ -32,6 +32,8 @@ const PLACEMENT = 'x215x80';
 const NI_ONLY_PLACEMENT = 'x199x99';
 
 // Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
+// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+
 function createUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
         // eslint-disable-next-line no-bitwise
