@@ -28,7 +28,7 @@ function setupTracker(obj) {
     const { clickUrl, impressionUrl, messageRequestId } = obj.meta;
     const track = obj.logger.track({
         uuid,
-        messageRequestId,
+        messageRequestId: `${messageRequestId}-${obj.options.id}`,
         urls: {
             DEFAULT: clickUrl,
             // Important: browser will only fire off one request if the same URL is requested
