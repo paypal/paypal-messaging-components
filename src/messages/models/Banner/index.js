@@ -25,17 +25,19 @@ const loggers = new Map();
 
 // Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
 function createUUID() {
-    // eslint-disable-next-line func-names
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        // eslint-disable-next-line no-bitwise, prettier/prettier, one-var, eqeqeq
-    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        // eslint-disable-next-line no-bitwise
+        const r = (Math.random() * 16) | 0;
+        // eslint-disable-next-line no-bitwise
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
 }
 
+/* TODO: Add in messageRequestId to descructured variable assignment */
 function setupTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
-    const { clickUrl, impressionUrl, messageRequestId } = obj.meta;
+    const { clickUrl, impressionUrl } = obj.meta;
     const track = obj.logger.track({
         uuid,
         messageRequestId: createUUID(),
