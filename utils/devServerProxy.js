@@ -1,4 +1,5 @@
 const fs = require('fs');
+const got = require('got');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -133,9 +134,17 @@ module.exports = app => {
 
             res.send(`${call}(${wrappedMarkup})`);
         } else {
-            res.status(500).send(
-                'Invalid dev account. If you are trying to use a stage or production account, please run the webpack dev server with the correct env value.'
-            );
+            const query = Object.entries(req.query)
+                .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
+                .slice(1);
+
+            got(`https://www.paypal.com/imadserver/upstream?${query}`)
+                .then(({ body, headers }) => {
+                    delete headers['content-encoding']; // eslint-disable-line no-param-reassign
+                    res.set(headers);
+                    res.send(body);
+                })
+                .catch(err => console.log(err) || res.status(500).send(err));
         }
     });
 
