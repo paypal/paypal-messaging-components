@@ -23,24 +23,12 @@ const banners = new Map();
 // eslint-disable-next-line compat/compat
 const loggers = new Map();
 
-// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
-function createUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        // eslint-disable-next-line no-bitwise
-        const r = (Math.random() * 16) | 0;
-        // eslint-disable-next-line no-bitwise
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
-
-/* TODO: Add in messageRequestId to descructured variable assignment */
 function setupTracker(obj) {
     const uuid = `${obj.meta && obj.meta.offerType}::${obj.options.style._flattened.sort().join('::')}`;
-    const { clickUrl, impressionUrl } = obj.meta;
+    const { clickUrl, impressionUrl, messageRequestId } = obj.meta;
     const track = obj.logger.track({
         uuid,
-        messageRequestId: createUUID(),
+        messageRequestId,
         urls: {
             DEFAULT: clickUrl,
             // Important: browser will only fire off one request if the same URL is requested
