@@ -114,7 +114,7 @@ export default function getModalContent(options, state, trackModalEvent) {
                 content.style.setProperty('max-height', added ? `${content.scrollHeight}px` : null);
 
                 if (added) {
-                    trackModalEvent('accordion-open', header.innerText);
+                    trackModalEvent('accordion-open', header.textContent);
                 }
             });
         });

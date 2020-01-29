@@ -6,3 +6,11 @@
 .message__headline span:only-child {
     white-space: nowrap;
 }
+
+.message__logo-container {
+    margin-right: 0.6rem;
+}
+
+.message__content {
+    align-items: flex-end;
+}

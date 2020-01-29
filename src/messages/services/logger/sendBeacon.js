@@ -7,12 +7,13 @@ import { curry } from '../../../utils/index';
  * @param {String} url Endpoint to send the beacon
  * @returns {Function} Function to send payload to url
  */
-export default curry(({ uuid, urls }, payload, bannerHidden = false) => {
+export default curry(({ uuid, urls, messageRequestId }, payload, bannerHidden = false) => {
     const beacon = new window.Image();
 
     if (typeof payload === 'object') {
         const fullPayload = {
             ...payload,
+            message_request_id: messageRequestId,
             uuid: bannerHidden ? `${uuid}::banner.hidden:true` : uuid
         };
         const bdataKVPairs = objectEntries(fullPayload).reduce(

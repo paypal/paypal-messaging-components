@@ -3,15 +3,28 @@ language: node_js
 node_js:
     - '10'
 
+env:
+    - DIRTY_SNAPSHOTS=0
+
 cache:
     npm: false
+
+addons:
+    hosts:
+        - localhost.paypal.com
 
 before_install:
     - npm i -g npm@6
 
+before_script:
+    - npm run dev:snapshot &
+    # Give dev server time to startup
+    - sleep 20
+
 script:
     - npm run lint
     - npm run test
+    - ./scripts/snapshot-tests/run-tests.sh
 
 deploy:
     provider: script

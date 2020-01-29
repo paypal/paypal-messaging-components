@@ -1,5 +1,4 @@
 import common from '../common.css';
-import fonts from '../fonts.css';
 import base from './css/base.css';
 import ratio1x1 from './css/ratio--1x1.css';
 import ratio1x4 from './css/ratio--1x4.css';
@@ -14,7 +13,7 @@ import colorWhite from './css/color--white.css';
 import colorWhiteNoBorder from './css/color--white-no-border.css';
 
 export default [
-    ['default', [fonts, common, base].join('\n')],
+    ['default', [common, base].join('\n')],
 
     ['ratio:1x1', ratio1x1],
     ['ratio:1x4', ratio1x4],
