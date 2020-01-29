@@ -1,4 +1,3 @@
-import fonts from '../fonts.css';
 import base from './css/base.css';
 import reverseLogo from './css/reverse-logo.css';
 import vertical from './css/vertical.css';
@@ -78,4 +77,4 @@ const dynamicStyles = Object.keys(styleMap).map(k => {
 
 const sizeStyles = Object.keys(styleMap).map(k => [`size:${k.slice(1)}`, styleMap[k].styles]);
 
-export default [['default', [fonts, base].join('\n')], ...dynamicStyles, ...sizeStyles];
+export default [['default', base], ...dynamicStyles, ...sizeStyles];
