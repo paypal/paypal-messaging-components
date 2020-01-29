@@ -16,7 +16,12 @@ module.exports = {
                 changelogTitle: '# Changelog'
             }
         ],
-        '@semantic-release/npm',
+        [
+            '@semantic-release/npm',
+            {
+                npmPublish: false
+            }
+        ],
         [
             '@semantic-release/exec',
             {
