@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.6.1](https://github.com/paypal/paypal-messaging-components/compare/v1.6.0...v1.6.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* remove JSON parse from terms fetcher ([#123](https://github.com/paypal/paypal-messaging-components/issues/123)) ([9519ea1](https://github.com/paypal/paypal-messaging-components/commit/9519ea1c56f2ba458b269f980cb3f15fdd8751a9))
+
+# [1.6.0](https://github.com/paypal/paypal-messaging-components/compare/v1.5.1...v1.6.0) (2020-01-29)
+
+
+### Bug Fixes
+
+* font loading util for improved FireFox rendering ([#121](https://github.com/paypal/paypal-messaging-components/issues/121)) ([4264f99](https://github.com/paypal/paypal-messaging-components/commit/4264f99b96b7c8e07c7b4d9304125bf825b03a5e))
+* increase alternative logo size ([#106](https://github.com/paypal/paypal-messaging-components/issues/106)) ([7eb3a4e](https://github.com/paypal/paypal-messaging-components/commit/7eb3a4effc881e0bcca5ec380bde5aa2644062bc))
+* mock proper sandbox message response ([#113](https://github.com/paypal/paypal-messaging-components/issues/113)) ([2ed4d01](https://github.com/paypal/paypal-messaging-components/commit/2ed4d01b436cc0033cf36b2a54260b06498d30c1))
+
+
+### Features
+
+* adds mock UUID function for messageRequestId ([#116](https://github.com/paypal/paypal-messaging-components/issues/116)) ([9b1c807](https://github.com/paypal/paypal-messaging-components/commit/9b1c807ef8d667f133f149c0b2e2734cf3d607e3))
+
 ## [1.5.1](https://github.com/paypal/paypal-messaging-components/compare/v1.5.0...v1.5.1) (2020-01-14)
 
 

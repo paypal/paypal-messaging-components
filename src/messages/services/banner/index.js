@@ -31,6 +31,19 @@ const PLACEMENT = 'x215x80';
 
 const NI_ONLY_PLACEMENT = 'x199x99';
 
+// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
+// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+
+function createUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        // eslint-disable-next-line no-bitwise
+        const r = (Math.random() * 16) | 0;
+        // eslint-disable-next-line no-bitwise
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
 function mutateMarkup(markup) {
     try {
         const content = markup.content.json;
@@ -44,6 +57,7 @@ function mutateMarkup(markup) {
             },
             meta: {
                 clickUrl: tracking.click_url,
+                messageRequestId: createUUID(),
                 impressionUrl: tracking.impression_url,
                 ...meta
             }
