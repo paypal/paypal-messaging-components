@@ -25,9 +25,7 @@ function assembleUrl({ account, amount, offerCountry }) {
 
 function fetcher(options) {
     return request('GET', assembleUrl(options))
-        .then(res => {
-            return JSON.parse(res.data);
-        })
+        .then(res => res.data)
         .catch(() => ({ error: true }));
 }
 
