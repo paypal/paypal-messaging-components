@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/paypal/paypal-messaging-components/compare/v1.6.0...v1.6.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* remove JSON parse from terms fetcher ([#123](https://github.com/paypal/paypal-messaging-components/issues/123)) ([9519ea1](https://github.com/paypal/paypal-messaging-components/commit/9519ea1c56f2ba458b269f980cb3f15fdd8751a9))
+
 # [1.6.0](https://github.com/paypal/paypal-messaging-components/compare/v1.5.1...v1.6.0) (2020-01-29)
 
 
