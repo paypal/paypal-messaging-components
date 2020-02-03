@@ -1,7 +1,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { curry, waitForElementReady } from '../../../utils';
+import { curry, waitForElementReady, loadPPFonts } from '../../../utils';
 
 const createNodeWithInnerHTML = (doc, type, html) => {
     const node = doc.createElement(type);
@@ -18,11 +18,12 @@ export default curry((container, template) => {
                 ? createNodeWithInnerHTML(containerDocument, 'div', template)
                 : containerDocument.importNode(template, true);
 
-        // Since images load async and we need to calculate layout later, we must
-        // manually wait for each image to load before resolving
-        const imgProms = arrayFrom(newNode.getElementsByTagName('img'))
+        // Since images and fonts load async and we need to calculate layout later.
+        // We must manually wait for each image and font to load before resolving.
+        const layoutProms = arrayFrom(newNode.getElementsByTagName('img'))
             .filter(img => !img.complete) // Image may have already loaded from width calculation inside Template.getTemplateNode()
-            .map(img => new ZalgoPromise(res => img.addEventListener('load', res)));
+            .map(img => new ZalgoPromise(res => img.addEventListener('load', res)))
+            .concat(loadPPFonts(containerDocument));
 
         // IE Support: importNode() and cloneNode() do not properly import working
         // style elements so they must be manually recreated inside the document
@@ -41,9 +42,9 @@ export default curry((container, template) => {
             script.parentNode.removeChild(script);
         });
 
-        return ZalgoPromise.all(imgProms).then(
+        return ZalgoPromise.all(layoutProms).then(
             () =>
-                new ZalgoPromise(resolve => {
+                new ZalgoPromise(resolve =>
                     // RAF to prevent element swap flicker
                     requestAnimationFrame(() => {
                         const parentElement = container.tagName === 'IFRAME' ? containerDocument.body : container;
@@ -55,8 +56,8 @@ export default curry((container, template) => {
                         arrayFrom(newNode.children).forEach(el => parentElement.appendChild(el));
 
                         resolve();
-                    });
-                })
+                    })
+                )
         );
     });
 }, 2);

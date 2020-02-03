@@ -4,6 +4,10 @@ import insertMarkup from 'src/messages/models/Container/insertMarkup';
 // JSDOM will not fire load events, causing insertMarkup to stall out
 HTMLImageElement.prototype.addEventListener = jest.fn((type, cb) => cb());
 
+document.fonts = {
+    load: () => Promise.resolve()
+};
+
 describe('insertMarkup', () => {
     afterEach(() => {
         document.body.innerHTML = '';
