@@ -28,6 +28,10 @@
     padding-top: 72px;
 }
 
+.content {
+    overflow: hidden;
+}
+
 .content__disclosure {
     color: #687173;
     font-size: 0.75rem;

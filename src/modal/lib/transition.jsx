@@ -1,21 +1,32 @@
 /** @jsx h */
-import { h, createContext } from 'preact';
-import { useState } from 'preact/hooks';
+import { h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 
-export const STATUS = {
-    OPEN: 'OPENED',
-    OPENING: 'OPENING',
-    CLOSED: 'CLOSED',
-    CLOSING: 'CLOSING'
-};
+import { useXProps } from './hooks/helpers';
+import { TransitionContext, STATUS, TRANSITION_TIME } from './context';
 
-export const TransitionContext = createContext({
-    status: STATUS.CLOSED,
-    setStatus: () => {}
-});
-
-export const TransitionState = ({ children }) => {
+export default ({ children }) => {
     const [state, setState] = useState(STATUS.CLOSED);
+    const { show, onProps } = useXProps();
+
+    useEffect(
+        () =>
+            onProps(newProps => {
+                if (newProps.visible && state === STATUS.CLOSED) {
+                    show().then(() => {
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                setState(STATUS.OPENING);
+                                setTimeout(() => {
+                                    setState(STATUS.OPEN);
+                                }, TRANSITION_TIME);
+                            });
+                        });
+                    });
+                }
+            }),
+        []
+    );
 
     return (
         <TransitionContext.Provider value={{ status: state, setStatus: setState }}>

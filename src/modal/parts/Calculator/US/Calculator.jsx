@@ -11,7 +11,7 @@ const Calculator = () => {
     return (
         <Fragment>
             <div className="calculator">
-                <h3 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h3>
+                <h2 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h2>
                 <form className="calculator__form" onSubmit={submit}>
                     <input
                         className="calculator__input"

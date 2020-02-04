@@ -19,9 +19,7 @@ const Tabs = ({ tabs }) => {
     return (
         <Fragment>
             {tabs.map((tab, index) => (
-                <div className="tab__header" style={{ display: currentTab === index ? 'block' : 'none' }}>
-                    {tab.header}
-                </div>
+                <div className={`tab__header ${currentTab === index ? 'tab__header--selected' : ''}`}>{tab.header}</div>
             ))}
             <div className="tabs" role="tablist">
                 {tabs.map((tab, index) => (

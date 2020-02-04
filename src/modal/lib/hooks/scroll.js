@@ -1,6 +1,6 @@
 import { useEffect, useContext, useCallback } from 'preact/hooks';
 
-import { ScrollContext } from '../scroll';
+import { ScrollContext } from '../context';
 
 export default (cb, dependencies) => {
     const { addScrollCallback, removeScrollCallback } = useContext(ScrollContext);

@@ -37,6 +37,10 @@
     background: #0070ba;
     transform: scaleX(0);
     transition: transform 0.3s;
+    transform-origin: center right;
+}
+.tab:nth-of-type(2)::after {
+    transform-origin: center left;
 }
 
 .tab:hover {
@@ -51,8 +55,23 @@
     transform: scaleX(1);
 }
 
+.tab__header {
+    display: none;
+}
+
+.tab__header--selected {
+    display: block;
+}
+
 .calculator {
-    margin: 10px 0px;
+    margin-bottom: 10px;
+}
+
+.calculator__title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0;
 }
 
 .calculator__form {

@@ -1,27 +1,11 @@
 import { useContext } from 'preact/hooks';
 
 import { useXProps } from './helpers';
-import { TransitionContext, STATUS } from '../transition';
-
-const TRANSITION_TIME = 350;
+import { TransitionContext, STATUS, TRANSITION_TIME } from '../context';
 
 export default function useTransitionState() {
     const { status, setStatus } = useContext(TransitionContext);
-    const { show, hide, onClose, onProps } = useXProps();
-
-    onProps(newProps => {
-        if (newProps.visible && status === STATUS.CLOSED) {
-            show();
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    setStatus(STATUS.OPENING);
-                    setTimeout(() => {
-                        setStatus(STATUS.OPEN);
-                    }, TRANSITION_TIME);
-                });
-            });
-        }
-    });
+    const { hide, onClose } = useXProps();
 
     return [
         status,
@@ -32,8 +16,7 @@ export default function useTransitionState() {
                     if (onClose) {
                         onClose(linkName);
                     }
-                    hide();
-                    setStatus(STATUS.CLOSED);
+                    hide().then(() => setStatus(STATUS.CLOSED));
                 }, TRANSITION_TIME);
             }
         }

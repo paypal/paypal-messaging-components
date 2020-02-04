@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useLayoutEffect, useRef, useEffect } from 'preact/hooks';
 
 import { useTransitionState } from '../lib/hooks';
-import { ScrollState } from '../lib/scroll';
+import ScrollState from '../lib/scroll';
 import Header from './Header';
 import Overlay from './Overlay';
 
