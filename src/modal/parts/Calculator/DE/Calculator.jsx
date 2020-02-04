@@ -7,7 +7,6 @@ import TermsTable from './TermsTable';
 
 const Calculator = () => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
-    console.log(1, terms);
 
     return (
         <Fragment>
@@ -33,14 +32,13 @@ const Calculator = () => {
             {/* <!-- Terms --> */}
             {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount ? (
                 <p className="content__disclosure" id="modal-disclosure">
-                    Der effektive Jahreszins beträgt {terms.offers[0].apr}%, der feste Sollzinssatz
+                    Der effektive Jahreszins beträgt {terms.offers[0].apr}%, der feste Sollzinssatz{' '}
                     {terms.offers[0].nominalRate}%. Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A.,
                     22-24 Boulevard Royal, L-2449 Luxemburg. Dieses Angebot gilt nur für Transaktionen in Euro ab einem
                     Bestellwert von {terms.formattedMinAmount}€ bis {terms.formattedMaxAmount}€ und vorbehaltlich
-                    Kreditwürdigkeitsprüfung. Die Laufzeit beträgt
-                    {terms.offers[0].term} Monate. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat
-                    erteilen sowie über ein deutsches PayPal-Privatkonto mit bestätigtem Bankkonto als Zahlungsquelle
-                    verfügen.{' '}
+                    Kreditwürdigkeitsprüfung. Die Laufzeit beträgt {terms.offers[0].term} Monate. Anspruchsberechtigte
+                    Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto
+                    mit bestätigtem Bankkonto als Zahlungsquelle verfügen.{' '}
                     <a
                         target="_blank"
                         rel="noopener noreferrer"

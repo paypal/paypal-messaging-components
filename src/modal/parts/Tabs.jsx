@@ -18,9 +18,17 @@ const Tabs = ({ tabs }) => {
     // TODO: Accessibility
     return (
         <Fragment>
-            {tabs.map((tab, index) => (
-                <div className={`tab__header ${currentTab === index ? 'tab__header--selected' : ''}`}>{tab.header}</div>
-            ))}
+            <div className="tab__transition">
+                {tabs.map((tab, index) => (
+                    <div
+                        className={`tab__transition-item ${
+                            currentTab === index ? 'tab__transition-item--selected' : ''
+                        }`}
+                    >
+                        {tab.header}
+                    </div>
+                ))}
+            </div>
             <div className="tabs" role="tablist">
                 {tabs.map((tab, index) => (
                     <button
@@ -36,17 +44,20 @@ const Tabs = ({ tabs }) => {
                     </button>
                 ))}
             </div>
-            {tabs.map((tab, index) => (
-                <div
-                    className="tab__body"
-                    style={{ display: currentTab === index ? 'block' : 'none' }}
-                    role="tabpanel"
-                    id={`${index}-2`}
-                    ariaLabelledby={index}
-                >
-                    {tab.body}
-                </div>
-            ))}
+            <div className="tab__transition">
+                {tabs.map((tab, index) => (
+                    <div
+                        className={`tab__transition-item ${
+                            currentTab === index ? 'tab__transition-item--selected' : ''
+                        }`}
+                        role="tabpanel"
+                        id={`${index}-2`}
+                        ariaLabelledby={index}
+                    >
+                        {tab.body}
+                    </div>
+                ))}
+            </div>
         </Fragment>
     );
 };
