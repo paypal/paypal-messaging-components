@@ -2,6 +2,11 @@ section {
     overflow-x: hidden;
 }
 
+.content__disclosure {
+    color: #687173;
+    font-size: 0.75rem;
+}
+
 .carousel__title {
     font-size: 20px;
     font-weight: 300;

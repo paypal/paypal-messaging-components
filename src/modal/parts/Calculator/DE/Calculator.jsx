@@ -28,6 +28,34 @@ const Calculator = () => {
             <div id="terms-table" className="terms" style={{ opacity: isLoading ? '0.5' : '1' }}>
                 {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
             </div>
+            {/* <!-- Terms --> */}
+            {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount ? (
+                <p className="content__disclosure" id="modal-disclosure">
+                    Der effektive Jahreszins beträgt {terms.offers[0].apr}%, der feste Sollzinssatz
+                    {terms.offers[0].nominalRate}%. Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A.,
+                    22-24 Boulevard Royal, L-2449 Luxemburg. Dieses Angebot gilt nur für Transaktionen in Euro ab einem
+                    Bestellwert von {terms.formattedMinAmount}€ bis {terms.formattedMaxAmount}€ und vorbehaltlich
+                    Kreditwürdigkeitsprüfung. Die Laufzeit beträgt
+                    {terms.offers[0].term} Monate. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat
+                    erteilen sowie über ein deutsches PayPal-Privatkonto mit bestätigtem Bankkonto als Zahlungsquelle
+                    verfügen.{' '}
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.paypal.com/de/webapps/mpp/paypal-instalments"
+                    >
+                        Mehr erfahren
+                    </a>
+                </p>
+            ) : (
+                <p className="content__disclosure" id="modal-generic-disclosure">
+                    Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449
+                    Luxemburg. Dieses Angebot gilt nur für Transaktionen in Euro und vorbehaltlich
+                    Kreditwürdigkeitsprüfung. Es gelten Warenkorbwertbeschränkungen. Anspruchsberechtigte Kunden müssen
+                    PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit
+                    bestätigtem Bankkonto als Zahlungsquelle verfügen.
+                </p>
+            )}
         </Fragment>
     );
 };
