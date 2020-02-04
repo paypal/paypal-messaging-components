@@ -9,9 +9,9 @@ export default clickTitle => {
         onClick(clickTitle);
         // TODO: Get finalized query param keys
         const win = window.open(
-            `https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER&actor=merchant&mktgrefid=${refId}&amount=${amount}&${
+            `https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER&actor=merchant&mktgrefid=${refId}&${
                 payerId ? `payer_id=${payerId}` : `client_id=${clientId}`
-            }`
+            }${amount ? `&amount=${amount}` : ''}`
         );
         const intervalId = setInterval(() => {
             if (win.closed) {
