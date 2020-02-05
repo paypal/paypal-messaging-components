@@ -23,9 +23,15 @@ export default {
             amount: options.amount,
             refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
-            onClick: linkName => track({ et: 'CLICK', event_type: 'click', link: linkName }),
+            onClick: linkName => {
+                if (options.onApply && linkName.includes('Apply Now')) {
+                    options.onApply();
+                }
+                track({ et: 'CLICK', event_type: 'click', link: linkName });
+            },
             onClose: linkName => {
                 wrapper.firstChild.focus();
+
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
             }
         });
