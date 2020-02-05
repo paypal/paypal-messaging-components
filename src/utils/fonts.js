@@ -3,7 +3,6 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import fonts from '../messages/models/Template/styles/fonts.css';
 import { prependStyle } from './elements';
 
-// eslint-disable-next-line compat/compat
 const loadedFonts = new Map();
 
 export default function(doc) {
