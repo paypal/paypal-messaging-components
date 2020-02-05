@@ -14,13 +14,26 @@ function getModalType(offerCountry, offerType) {
 }
 
 export default {
-    init({ options, meta, events }) {
+    init({ options, meta, events, track, wrapper }) {
         const { render, hide, updateProps } = Modal({
             account: options.account,
             country: meta.offerCountry,
             currency: options.currency,
             type: getModalType(meta.offerCountry, meta.offerType),
-            amount: options.amount
+            amount: options.amount,
+            refId: meta.messageRequestId,
+            onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
+            onClick: linkName => {
+                if (options.onApply && linkName.includes('Apply Now')) {
+                    options.onApply();
+                }
+                track({ et: 'CLICK', event_type: 'click', link: linkName });
+            },
+            onClose: linkName => {
+                wrapper.firstChild.focus();
+
+                track({ et: 'CLICK', event_type: 'click', link: linkName });
+            }
         });
 
         hide();

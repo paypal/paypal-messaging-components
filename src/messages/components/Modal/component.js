@@ -42,6 +42,23 @@ export default create({
             queryParam: true,
             required: false
         },
+        refId: {
+            type: 'string',
+            queryParam: false,
+            required: false
+        },
+
+        // Callbacks
+        onClick: {
+            type: 'function',
+            queryParam: false,
+            required: false
+        },
+        onCalculate: {
+            type: 'function',
+            queryParam: false,
+            required: false
+        },
         onClose: {
             type: 'function',
             queryParam: false,

@@ -100,82 +100,87 @@ function checkAdblock() {
     });
 }
 
-export default curry((container, { options: { amount, account, partnerAccount, placement }, events, track }) => {
-    // Get outer most container's page location coordinates
-    const containerRect = container.getBoundingClientRect();
+export default curry(
+    (container, { options: { amount, account, partnerAccount, placement, onClick }, events, track }) => {
+        // Get outer most container's page location coordinates
+        const containerRect = container.getBoundingClientRect();
 
-    // Create initial payload
-    const payload = {
-        et: 'CLIENT_IMPRESSION',
-        event_type: 'stats',
-        integration_type: __MESSAGES__.__TARGET__,
-        messaging_version: __MESSAGES__.__VERSION__,
-        placement,
-        pos_x: Math.round(containerRect.left),
-        pos_y: Math.round(containerRect.top),
-        browser_width: window.innerWidth,
-        browser_height: window.innerHeight,
-        visible: isInViewport(container),
-        amount
-    };
+        // Create initial payload
+        const payload = {
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'stats',
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: __MESSAGES__.__VERSION__,
+            placement,
+            pos_x: Math.round(containerRect.left),
+            pos_y: Math.round(containerRect.top),
+            browser_width: window.innerWidth,
+            browser_height: window.innerHeight,
+            visible: isInViewport(container),
+            amount
+        };
 
-    if (partnerAccount) {
-        payload.partner_client_id = partnerAccount;
-    } else if (startsWith(account, 'client-id:')) {
-        payload.client_id = account.slice(10);
-    }
+        if (partnerAccount) {
+            payload.partner_client_id = partnerAccount;
+        } else if (startsWith(account, 'client-id:')) {
+            payload.client_id = account.slice(10);
+        }
 
-    // No need for scroll event if banner is above the fold
-    if (!payload.visible) {
-        events.on('scroll', () => {
-            if (isInViewport(container)) {
-                events.clear('scroll');
-                track({
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'scroll',
-                    visible: true
-                });
+        // No need for scroll event if banner is above the fold
+        if (!payload.visible) {
+            events.on('scroll', () => {
+                if (isInViewport(container)) {
+                    events.clear('scroll');
+                    track({
+                        et: 'CLIENT_IMPRESSION',
+                        event_type: 'scroll',
+                        visible: true
+                    });
+                }
+            });
+        }
+
+        checkAdblock().then(detected => {
+            payload.adblock = detected;
+            payload.blocked = isHidden(container);
+            track(payload, container.getAttribute('data-pp-message-hidden') === 'true');
+            track('MORS_IMPRESSION');
+        });
+
+        // Check if banner is hidden after it is altered
+        // if (window.MutationObserver !== undefined) {
+        //     const observer = new MutationObserver(function(mutationsList) {
+        //         if (isHidden(wrapper)) {
+        //             track(uuid, pageContext, { isHidden: true });
+        //         }
+        //     });
+
+        //     observer.observe(wrapper.parentNode || wrapper, {
+        //         childList: true,
+        //         attributes: true,
+        //         characterData: true,
+        //         subtree: true
+        //     });
+        // }
+
+        events.on('click', () => {
+            track({
+                et: 'CLICK',
+                event_type: 'click',
+                link: 'Banner Wrapper'
+            });
+            track('MORS_CLICK');
+            if (onClick) {
+                onClick();
             }
         });
+
+        events.on('hover', () => {
+            track({
+                et: 'CLIENT_IMPRESSION',
+                event_type: 'hover'
+            });
+            events.clear('hover');
+        });
     }
-
-    checkAdblock().then(detected => {
-        payload.adblock = detected;
-        payload.blocked = isHidden(container);
-        track(payload, container.getAttribute('data-pp-message-hidden') === 'true');
-        track('MORS_IMPRESSION');
-    });
-
-    // Check if banner is hidden after it is altered
-    // if (window.MutationObserver !== undefined) {
-    //     const observer = new MutationObserver(function(mutationsList) {
-    //         if (isHidden(wrapper)) {
-    //             track(uuid, pageContext, { isHidden: true });
-    //         }
-    //     });
-
-    //     observer.observe(wrapper.parentNode || wrapper, {
-    //         childList: true,
-    //         attributes: true,
-    //         characterData: true,
-    //         subtree: true
-    //     });
-    // }
-
-    events.on('click', () => {
-        track({
-            et: 'CLICK',
-            event_type: 'click',
-            link: 'Banner Wrapper'
-        });
-        track('MORS_CLICK');
-    });
-
-    events.on('hover', () => {
-        track({
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'hover'
-        });
-        events.clear('hover');
-    });
-});
+);
