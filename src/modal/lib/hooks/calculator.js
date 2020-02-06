@@ -1,7 +1,7 @@
 import { useContext, useReducer } from 'preact/hooks';
 
 import { useXProps } from './helpers';
-import ServerContext from '../serverContext';
+import { ServerContext } from '../context';
 import { request } from '../../../utils';
 
 const reducer = (state, action) => {
