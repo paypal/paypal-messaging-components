@@ -38,7 +38,7 @@ module.exports = (country, amount) => {
                       term,
                       type: 'INST',
                       apr: toLocaleString(apr),
-                      nominalRate: toLocaleString(nominalRate, 4),
+                      nominalRate: toLocaleString(nominalRate),
                       minValue: toLocaleString(terms.minAmount),
                       qualified: amount > terms.minAmount && amount < terms.maxAmount,
                       monthly: toLocaleString(total / term),
