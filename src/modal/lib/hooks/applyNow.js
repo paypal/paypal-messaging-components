@@ -13,7 +13,7 @@ export default clickTitle => {
         onClick(clickTitle);
         // TODO: Get finalized query param keys
         const win = window.open(
-            `https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_OTHER&actor=merchant&mktgrefid=${refId}&payer_id=${payerId}${
+            `https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=${refId}&payer_id=${payerId}${
                 amount ? `&amount=${amount}` : ''
             }`
         );
