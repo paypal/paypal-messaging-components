@@ -1,10 +1,14 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
 
+import ServerContext from '../../lib/serverContext';
 import Accordion from '../../parts/Accordion';
 import Calculator from '../../parts/Calculator';
 
 const EZP = () => {
+    const { payerId } = useContext(ServerContext);
+
     return (
         <section id="ezp-content" className="content">
             <h1 className="title">Choose PayPal Credit at checkout and select Easy Payments</h1>
@@ -46,7 +50,7 @@ const EZP = () => {
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms"
+                    href={`https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms&payer_id=${payerId}`}
                 >
                     Click here
                 </a>{' '}
