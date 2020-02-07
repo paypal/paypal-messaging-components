@@ -17,5 +17,5 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
 
     git commit -m "$COMMIT_DATE: $SNAPSHOT_COUNT failed snapshots"
 
-    git push
+    git push --set-upstream origin $FAILED_SNAPSHOT_BRANCH
 fi
