@@ -34,7 +34,7 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
         SNAPSHOT_URL="https://github.com/${TRAVIS_REPO_SLUG}/tree/${FAILED_SNAPSHOT_BRANCH}/snapshots"
         echo "$SNAPSHOT_COUNT failed snapshots viewable at $SNAPSHOT_URL"
     else
-        curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST \
+        curl -H "Authorization: token ${PR_COMMENT_TOKEN}" -X POST \
             -d "{\"body\": \"$SNAPSHOT_COUNT failed snapshots should be viewable at $SNAPSHOT_URL\"}" \
             "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
     fi
