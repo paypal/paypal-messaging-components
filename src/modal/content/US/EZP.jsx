@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 
-import ServerContext from '../../lib/serverContext';
+import { ServerContext } from '../../lib/context';
 import Accordion from '../../parts/Accordion';
 import Calculator from '../../parts/Calculator';
 
