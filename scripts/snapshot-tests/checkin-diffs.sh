@@ -13,7 +13,7 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]];
 
     mv tests/functional/__diff_output__ ../snapshots
 
-    git checkout -b $FAILED_SNAPSHOT_BRANCH
+    git checkout $FAILED_SNAPSHOT_BRANCH
     git fetch
     git pull
 
