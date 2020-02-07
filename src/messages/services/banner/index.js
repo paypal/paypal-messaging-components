@@ -76,6 +76,7 @@ function mutateMarkup(markup) {
 function fetcher(options) {
     const {
         account,
+        merchantId,
         amount,
         offerType,
         currency,
@@ -97,7 +98,8 @@ function fetcher(options) {
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
-            call: `__PP.${callbackName}`
+            call: `__PP.${callbackName}`,
+            merchant_id: merchantId
         };
 
         const queryString = objectEntries(queryParams)
@@ -214,7 +216,7 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'offerType', 'countryCode']);
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);

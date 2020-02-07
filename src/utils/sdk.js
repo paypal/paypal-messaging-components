@@ -30,9 +30,10 @@ export function getAccount() {
     }
 }
 
+// Partner accounts should always integrate using client id so no need to prefix it with 'client-id:'
 export function getPartnerAccount() {
-    if (__MESSAGES__.__TARGET__ === 'SDK' && getMerchantID()[0]) {
-        return getClientID();
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getMerchantID()[0] && `client-id:${getClientID()}`;
     } else {
         return undefined;
     }

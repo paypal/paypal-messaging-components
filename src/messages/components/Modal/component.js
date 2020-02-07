@@ -22,6 +22,12 @@ export default create({
             sendToChild: false,
             required: true
         },
+        merchantId: {
+            type: 'string',
+            queryParam: 'merchant_id',
+            sendToChild: true,
+            required: false
+        },
         type: {
             type: 'string',
             queryParam: true,
