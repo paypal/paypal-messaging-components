@@ -84,9 +84,9 @@ function termsFetcher(url) {
 
         return {
             ...option,
-            // eslint-disable-next-line security/detect-unsafe-regex
+            // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
             monthly: (monthly || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-            // eslint-disable-next-line security/detect-unsafe-regex
+            // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
             total: (total || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             isNonQualified: Number(query.amount || 0) < Number(option.minValue)
         };
