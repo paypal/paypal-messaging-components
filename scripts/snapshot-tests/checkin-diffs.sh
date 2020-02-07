@@ -10,7 +10,7 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
     COMMIT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
     SNAPSHOT_COUNT=$(ls -1q | wc -l)
 
-    mv ../snapshots .
+    mv ../__diff_output__ ./snapshots
 
     git add .
 
