@@ -1,6 +1,6 @@
 FAILED_SNAPSHOT_BRANCH=failed-snapshots
 
-if [[ "$TRAVIS_TEST_RESULT" != "0" ]] && [[ "$TRAVIS_PULL_REQUEST" = "true" ]]; then 
+if [[ "$TRAVIS_TEST_RESULT" != "0" ]] && [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then 
     node ./tests/functional/utils/collectDiffs.js
 
     mv tests/functional/__diff_output__ ../snapshots
