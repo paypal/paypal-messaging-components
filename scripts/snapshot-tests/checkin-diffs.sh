@@ -7,14 +7,15 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
 
     git checkout -b $FAILED_SNAPSHOT_BRANCH
 
-    COMMIT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
-    SNAPSHOT_COUNT=$(ls -1q | wc -l)
-
+    rm -rf ./snapshots
     mv ../__diff_output__ ./snapshots
 
     git add .
 
+    COMMIT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
+    SNAPSHOT_COUNT=$(ls -1q ./snapshots | wc -l)
+
     git commit -m "$COMMIT_DATE: $SNAPSHOT_COUNT failed snapshots"
 
-    git status
+    git push
 fi
