@@ -1,18 +1,20 @@
 FAILED_SNAPSHOT_BRANCH=failed-snapshots
 
-echo TRAVIS_TEST_RESULT
-echo $TRAVIS_TEST_RESULT
-
 if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then 
     node ./tests/functional/utils/collectDiffs.js
 
     mv tests/functional/__diff_output__ ..
 
-    git checkout $FAILED_SNAPSHOT_BRANCH
+    git checkout -b $FAILED_SNAPSHOT_BRANCH
 
-    mv ../__diff_output__ tests/functional
+    COMMIT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
+    SNAPSHOT_COUNT=$(ls -1q | wc -l)
+
+    mv ../__diff_output__ .
 
     git add .
+
+    git commit -m "$COMMIT_DATE: $SNAPSHOT_COUNT failed snapshots"
 
     git status
 fi
