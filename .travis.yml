@@ -5,6 +5,7 @@ node_js:
 
 env:
     - DIRTY_SNAPSHOTS=0
+    - FAILED_SNAPSHOT_BRANCH=failed-snapshots
 
 cache:
     npm: false
@@ -25,6 +26,9 @@ script:
     - npm run lint
     - npm run test
     - ./scripts/snapshot-tests/run-tests.sh
+
+after_script:
+    - ./scripts/snapshot-tests/checkin-diffs.sh
 
 deploy:
     provider: script
