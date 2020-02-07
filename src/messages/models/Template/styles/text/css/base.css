@@ -17,9 +17,7 @@
 
 .message__logo-container {
     flex: 0 0 auto;
-    /* width: 70px */
-    /* REVERT LATER- Intentionally fail snapshots */
-    width: 50px;
+    width: 70px;
     margin-right: 0.8rem;
 }
 

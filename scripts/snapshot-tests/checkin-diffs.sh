@@ -19,4 +19,7 @@ if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
 
     git remote set-url origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
     git push --set-upstream origin $FAILED_SNAPSHOT_BRANCH
+
+    SNAPSHOT_URL="https://github.com/${TRAVIS_REPO_SLUG}/tree/${FAILED_SNAPSHOT_BRANCH}/snapshots"
+    echo "$SNAPSHOT_COUNT failed snapshots viewable at $SNAPSHOT_URL"
 fi
