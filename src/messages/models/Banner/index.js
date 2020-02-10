@@ -18,9 +18,7 @@ import {
 } from '../../../utils';
 import Modal from '../Modal';
 
-// eslint-disable-next-line compat/compat
 const banners = new Map();
-// eslint-disable-next-line compat/compat
 const loggers = new Map();
 
 function setupTracker(obj) {
