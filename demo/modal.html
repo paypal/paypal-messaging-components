@@ -63,9 +63,10 @@
 
                 return accumulator;
             }, {});
-        const { country, amount } = query;
+        const { country, amount, payer_id, client_id } = query;
         const props = {
             terms: getTerms(country, Number(amount)),
+            payerId: payer_id || client_id,
             meta: {}
         };
 
