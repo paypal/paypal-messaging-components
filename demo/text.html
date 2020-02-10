@@ -4,7 +4,7 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="./messaging.js"></script>
+        <script src="http://localhost.paypal.com:8080/messaging.js"></script>
 
         <style>
             body {
@@ -18,12 +18,14 @@
                 color: white;
                 margin: 0;
                 padding: 0.3rem;
+                font-family: monospace;
             }
 
             h4 {
                 background: #ccc;
                 margin: 0;
                 padding: 0.1rem 0.3rem;
+                font-family: monospace;
             }
         </style>
     </head>
@@ -31,91 +33,72 @@
     <body>
         <div class="container"></div>
         <script>
-            // prettier-ignore
-            var devAccounts = [
-                'DEV00000000NI',
-                'DEV000NINONUS',
-                'DEV0000000EAZ',
-                'DEV0000000EAG',
-                'DEV0000000PSZ',
-                'DEV0000000PSG',
-                'DEV0000000PMZ',
-                'DEV0000000PMG'
-                // 'DEV0000000IAZ',
-                // 'DEV0000000IAG',
-                // 'DEV000000PQAG',
-                // 'DEV000000PQAZ'
-            ];
+            window.CONFIG = {
+                // prettier-ignore
+                account: [
+                    'DEV00000000NI',
+                    'DEV000NINONUS',
+                    'DEV0000000EAZ',
+                    'DEV0000000EAG',
+                    'DEV0000000PSZ',
+                    'DEV0000000PSG',
+                    'DEV0000000PMZ',
+                    'DEV0000000PMG'
+                    // 'DEV0000000IAZ',
+                    // 'DEV0000000IAG',
+                    // 'DEV000000PQAG',
+                    // 'DEV000000PQAZ'
+                ],
+                style: {
+                    layout: 'text',
+                    logo: {
+                        // prettier-ignore
+                        type: [
+                            // 'primary',
+                            'alternative'
+                            // 'inline',
+                            // 'none'
+                        ],
+                        // prettier-ignore
+                        position: [
+                            'left',
+                            // 'right',
+                            // 'top'
+                        ]
+                    },
+                    text: {
+                        color: 'black',
+                        // prettier-ignore
+                        size: [
+                            // 10,
+                            // 11,
+                            12,
+                            // 13,
+                            // 14,
+                            // 15,
+                            16
+                        ]
+                    }
+                }
+            };
+        </script>
+        <script src="./helpers/utils.js"></script>
+        <script>
+            const container = document.querySelector('.container');
 
-            var container = document.querySelector('.container');
-
-            // prettier-ignore
-            var logoTypes = [
-                'primary', 
-                'alternative', 
-                'inline', 
-                'none'
-            ];
-
-            // prettier-ignore
-            var logoPositions = [
-                // 'left', 
-                // 'right', 
-                'top'
-            ];
-
-            // prettier-ignore
-            var fontSizes = [
-                // 10,
-                // 11,
-                12,
-                // 13,
-                // 14,
-                // 15,
-                16
-            ];
-
-            devAccounts.forEach(function(account) {
-                var h2 = document.createElement('h2');
-                h2.innerText = account;
+            Object.entries(getVariantsByAccount(window.CONFIG)).map(([account, configs]) => {
+                const h2 = document.createElement('h2');
+                h2.textContent = account;
                 container.appendChild(h2);
 
-                logoTypes.forEach(function(type) {
-                    logoPositions.forEach(function(position) {
-                        fontSizes.forEach(function(fontSize) {
-                            // Short circuit for logo combinations which are not unique
-                            if ((type === 'inline' || type === 'none') && position !== 'top') {
-                                return;
-                            }
+                configs.forEach(conf => {
+                    const h4 = document.createElement('h4');
+                    h4.textContent = `${objectFlattenToArray(conf.style).join(' | ')}`;
+                    container.appendChild(h4);
 
-                            var h4 = document.createElement('h4');
-                            h4.innerText = type + ' && ' + position + ' && ' + fontSize + 'px';
-                            container.appendChild(h4);
-
-                            var wrapper = document.createElement('div');
-                            container.appendChild(wrapper);
-
-                            paypal.Message.render(
-                                {
-                                    account: account,
-                                    amount: 3000,
-                                    style: {
-                                        layout: 'text',
-                                        logo: {
-                                            type: type,
-                                            position: position
-                                        },
-                                        text: {
-                                            color: 'black',
-                                            size: fontSize
-                                            // fontFamily: 'nb55ag'
-                                        }
-                                    }
-                                },
-                                wrapper
-                            );
-                        });
-                    });
+                    const wrapper = document.createElement('div');
+                    container.appendChild(wrapper);
+                    paypal.Message(conf).render(wrapper);
                 });
             });
         </script>
