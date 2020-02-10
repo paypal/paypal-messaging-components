@@ -77,7 +77,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                             headers: responseHeaders,
                             data:
                                 responseHeaders['content-type'] &&
-                                responseHeaders['content-type'].includes('application/json')
+                                stringIncludes(responseHeaders['content-type'], 'application/json')
                                     ? JSON.parse(xhttp.responseText)
                                     : xhttp.responseText
                         });

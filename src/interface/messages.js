@@ -12,10 +12,11 @@ export function setup() {
     const script = getScript();
     if (script) {
         const inlineScriptOptions = getInlineOptions(script);
+        const partnerAccount = getPartnerAccount();
 
         Messages.setGlobalConfig({
-            account: getAccount(),
-            partnerAccount: getPartnerAccount(),
+            account: partnerAccount || getAccount(),
+            merchantId: partnerAccount && getAccount(),
             currency: getCurrency(),
             ...inlineScriptOptions
         });
