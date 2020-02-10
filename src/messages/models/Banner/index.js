@@ -18,9 +18,7 @@ import {
 } from '../../../utils';
 import Modal from '../Modal';
 
-// eslint-disable-next-line compat/compat
 const banners = new Map();
-// eslint-disable-next-line compat/compat
 const loggers = new Map();
 
 function setupTracker(obj) {
@@ -162,7 +160,7 @@ export default {
                 banners.set(wrapper, banner);
             }
         } catch (err) {
-            if (__LOCAL__) {
+            if (__LOCAL__ || __STAGE__) {
                 console.error(err);
             }
 
@@ -173,7 +171,7 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
-            if (__LOCAL__) {
+            if (__LOCAL__ || __STAGE__) {
                 console.error(err);
             }
 
