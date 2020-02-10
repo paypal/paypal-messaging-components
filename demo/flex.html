@@ -4,7 +4,7 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="./messaging.js"></script>
+        <script src="http://localhost.paypal.com:8080/messaging.js"></script>
 
         <style>
             body {
@@ -21,12 +21,14 @@
                 color: white;
                 margin: 0;
                 padding: 0.3rem;
+                font-family: monospace;
             }
 
             h4 {
                 background: #ccc;
                 margin: 0;
                 padding: 0.1rem 0.3rem;
+                font-family: monospace;
             }
 
             .flex {
@@ -51,75 +53,67 @@
     <body>
         <div class="container"></div>
         <script>
-            var devAccounts = [
-                'DEV00000000NI',
-                'DEV000NINONUS',
-                'DEV0000000EAZ',
-                'DEV0000000EAG',
-                'DEV0000000PSZ',
-                'DEV0000000PSG',
-                'DEV0000000PMZ',
-                'DEV0000000PMG'
-                // 'DEV0000000IAZ',
-                // 'DEV0000000IAG',
-                // 'DEV000000PQAG',
-                // 'DEV000000PQAZ'
-            ];
+            window.CONFIG = {
+                // prettier-ignore
+                account: [
+                    'DEV00000000NI',
+                    'DEV000NINONUS',
+                    'DEV0000000EAZ',
+                    'DEV0000000EAG',
+                    'DEV0000000PSZ',
+                    'DEV0000000PSG',
+                    'DEV0000000PMZ',
+                    'DEV0000000PMG'
+                    // 'DEV0000000IAZ',
+                    // 'DEV0000000IAG',
+                    // 'DEV000000PQAG',
+                    // 'DEV000000PQAZ'
+                ],
+                style: {
+                    layout: 'flex',
+                    // prettier-ignore
+                    ratio: [
+                        '20x1',
+                        '8x1',
+                        '1x1',
+                        '1x4'
+                    ],
+                    // prettier-ignore
+                    color: [
+                        'blue', 
+                        // 'black', 
+                        // 'white', 
+                        // 'white-no-border',
+                        // 'gray'
+                    ]
+                }
+            };
+        </script>
+        <script src="./helpers/utils.js"></script>
+        <script>
+            const container = document.querySelector('.container');
 
-            // prettier-ignore
-            var ratios = [
-                '20x1',
-                '8x1',
-                '1x1',
-                '1x4'
-            ];
-
-            // prettier-ignore
-            var colors = [
-                'blue', 
-                // 'black', 
-                // 'white', 
-                // 'white-no-border',
-                // 'gray'
-            ];
-
-            var container = document.querySelector('.container');
-
-            devAccounts.forEach(function(account) {
-                var h2 = document.createElement('h2');
-                h2.innerText = account;
+            Object.entries(getVariantsByAccount(window.CONFIG)).map(([account, configs]) => {
+                const h2 = document.createElement('h2');
+                h2.textContent = account;
                 container.appendChild(h2);
 
-                ratios.forEach(function(ratio) {
-                    colors.forEach(function(color) {
-                        var h4 = document.createElement('h4');
-                        h4.innerText = ratio + ' && ' + color;
-                        container.appendChild(h4);
+                configs.forEach(conf => {
+                    const h4 = document.createElement('h4');
+                    h4.textContent = `${objectFlattenToArray(conf.style).join(' | ')}`;
+                    container.appendChild(h4);
 
-                        var wrapper = document.createElement('div');
-                        wrapper.className = 'flex';
-                        container.appendChild(wrapper);
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'flex';
+                    container.appendChild(wrapper);
 
-                        var messageContainer = document.createElement('div');
-                        wrapper.appendChild(messageContainer);
+                    const mainContainer = document.createElement('div');
+                    wrapper.appendChild(mainContainer);
 
-                        var smallMessageContainer = document.createElement('div');
-                        wrapper.appendChild(smallMessageContainer);
+                    const sideContainer = document.createElement('div');
+                    wrapper.appendChild(sideContainer);
 
-                        paypal.Message.render(
-                            {
-                                account: account,
-                                amount: 300,
-                                style: {
-                                    layout: 'flex',
-                                    ratio: ratio,
-                                    color: color
-                                }
-                            },
-                            // [messageContainer]
-                            [messageContainer, smallMessageContainer]
-                        );
-                    });
+                    paypal.Message(conf).render([mainContainer, sideContainer]);
                 });
             });
         </script>
