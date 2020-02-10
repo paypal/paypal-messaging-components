@@ -99,6 +99,7 @@ function fetcher(options) {
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
             call: `__PP.${callbackName}`,
+            // Future prep for credit-presentment partner integration, ignored by imadserv
             merchant_id: merchantId
         };
 
@@ -106,8 +107,8 @@ function fetcher(options) {
             .filter(([, val]) => val)
             .reduce(
                 (accumulator, [key, val]) => `${accumulator}&${key}=${val}`,
-                // TODO: This logic needs to be modified when switching from imadserv to credit-presentment
-                // in order to properly handle partner integrations
+                // TODO: This logic needs to be modified when switching from imadserv
+                // to credit-presentment in order to properly handle partner integrations
                 !merchantId && stringStartsWith(account, 'client-id')
                     ? `client_id=${account.slice(10)}`
                     : `pub_id=${merchantId || account}`
