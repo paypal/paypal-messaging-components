@@ -106,7 +106,11 @@ function fetcher(options) {
             .filter(([, val]) => val)
             .reduce(
                 (accumulator, [key, val]) => `${accumulator}&${key}=${val}`,
-                stringStartsWith(account, 'client-id') ? `client_id=${account.slice(10)}` : `pub_id=${account}`
+                // TODO: This logic needs to be modified when switching from imadserv to credit-presentment
+                // in order to properly handle partner integrations
+                !merchantId && stringStartsWith(account, 'client-id')
+                    ? `client_id=${account.slice(10)}`
+                    : `pub_id=${merchantId || account}`
             );
         const script = document.createElement('script');
         script.async = true;
