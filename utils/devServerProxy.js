@@ -3,8 +3,6 @@ const got = require('got');
 
 const getTerms = require('./mockTerms');
 
-const modalTemplate = fs.readFileSync('./demo/modal.html', 'utf-8');
-
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
     DEV000NINONUS: ['US', 'ni_non-us'],
@@ -33,7 +31,22 @@ module.exports = app => {
             meta: {}
         };
 
-        res.send(modalTemplate.replace(/\${window\.props}/, JSON.stringify(props)));
+        res.send(`
+            <!DOCTYPE html>
+            <head>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body>
+                <script>
+                    document.write(\`
+                        \${window.top.document.querySelector('script').outerHTML}
+                        <script src="//localhost.paypal.com:8080/smart-credit-modal.js"><\${'/'}script>
+                        <script>crc.setupModal(${JSON.stringify(props)})<\${'/'}script>
+                    \`)
+                </script>
+            </body>
+        `);
     });
 
     app.post('/credit-presentment/calculateTerms', (req, res) => {
