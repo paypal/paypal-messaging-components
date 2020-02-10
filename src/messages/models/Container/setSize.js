@@ -119,13 +119,13 @@ function insertFlexStyle(wrapper, ratioPreset, layout) {
                     box-sizing: border-box;
                     position: relative;
                 }
-        
+
                 .${wrapperClass}::before {
                     padding-top: ${toCSSValue(ratio)};
                     content: '';
                     display: block;
                 }
-        
+
                 .${wrapperClass} iframe {
                     position: absolute;
                     top: 0;

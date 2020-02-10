@@ -15,6 +15,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
+                messageWidth: [0, 1000],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
                     br: ['/mo']
@@ -24,6 +25,7 @@ export default {
         [
             'logo.type:none',
             {
+                messageWidth: [0, 1000],
                 logo: false,
                 headline: {
                     br: ['/mo']
