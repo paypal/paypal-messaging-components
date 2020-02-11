@@ -12,7 +12,7 @@ const Calculator = () => {
             <div className="calculator">
                 <h3 className="calculator__title">Monatliche Raten berechnen</h3>
                 <form className="calculator__form" onSubmit={submit}>
-                    <input id="amount-input" className="calculator__input" value={value} onChange={changeInput} />
+                    <input id="amount-input" className="calculator__input" value={value} onInput={changeInput} />
                     <p id="calculator-instructions" className="calculator__instructions">
                         {!terms.error &&
                             terms.formattedMinAmount &&
