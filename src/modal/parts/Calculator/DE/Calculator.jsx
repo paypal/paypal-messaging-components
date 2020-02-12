@@ -30,23 +30,32 @@ const Calculator = () => {
                 {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
             </div>
             {/* <!-- Terms --> */}
-            {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount ? (
-                <p className="content__disclosure" id="modal-disclosure">
-                    Der effektive Jahreszins beträgt {terms.offers[0].apr}%, der feste Sollzinssatz{' '}
-                    {terms.offers[0].nominalRate}%. Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A.,
-                    22-24 Boulevard Royal, L-2449 Luxemburg. Dieses Angebot gilt nur für Transaktionen in Euro ab einem
-                    Bestellwert von {terms.formattedMinAmount}€ bis {terms.formattedMaxAmount}€ und vorbehaltlich
-                    Kreditwürdigkeitsprüfung. Die Laufzeit beträgt {terms.offers[0].term} Monate. Anspruchsberechtigte
-                    Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto
-                    mit bestätigtem Bankkonto als Zahlungsquelle verfügen.{' '}
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.paypal.com/de/webapps/mpp/paypal-instalments"
-                    >
-                        Mehr erfahren
-                    </a>
-                </p>
+            {!terms.error &&
+            terms.formattedMinAmount &&
+            terms.formattedMaxAmount &&
+            terms.offers &&
+            terms.offers.length > 0 ? (
+                (() => {
+                    const minAmount = terms.formattedMinAmount.split(',')[0];
+                    const maxAmount = terms.formattedMaxAmount.split(',')[0];
+                    const disclosure =
+                        Number(terms.offers[0].apr.replace(/[,.]/g, '')) === 0
+                            ? `Vorbehaltlich Kreditwürdigkeitsprüfung, nur im Angebotszeitraum und nur für Transaktionen in Euro. Ab einem Bestellwert von ${minAmount} Euro bis ${maxAmount} Euro mit einem effektiven Jahreszins von ${terms.offers[0].apr}% für Darlehensverträge die im Angebotszeitraum abgeschlossen werden, Laufzeit ${terms.offers[0].term} Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200,00 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle verfügen. `
+                            : `Der effektive Jahreszins beträgt ${terms.offers[0].apr}%, der feste Sollzinssatz ${terms.offers[0].nominalRate}%. Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxemburg. Dieses Angebot gilt nur für Transaktionen in Euro ab einem Bestellwert von ${minAmount}€ bis ${maxAmount}€ und vorbehaltlich Kreditwürdigkeitsprüfung. Die Laufzeit beträgt ${terms.offers[0].term} Monate. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit bestätigtem Bankkonto als Zahlungsquelle verfügen. `;
+
+                    return (
+                        <p className="content__disclosure" id="modal-disclosure">
+                            {disclosure}
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://www.paypal.com/de/webapps/mpp/paypal-instalments"
+                            >
+                                Mehr erfahren
+                            </a>
+                        </p>
+                    );
+                })()
             ) : (
                 <p className="content__disclosure" id="modal-generic-disclosure">
                     Der Kreditgeber ist die PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449
