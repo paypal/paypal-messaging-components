@@ -111,7 +111,7 @@ function fetcher(options) {
 
         // Manual request instead of traditional JSONP so that we can catch 204 no content stalling
         request('GET', `${rootUrl}?${queryString}`, { withCredentials: true }).then(res => {
-            script.text = res.data;
+            script.text = res.data || `__PP.${callbackName}('')`;
             document.head.appendChild(script);
         });
 
@@ -276,8 +276,11 @@ export default function getBannerMarkup({ options, logger }) {
         }
 
         const template = document.createElement('div');
-        template.innerHTML = markup;
+        template.innerHTML = markup || '';
+        if (markup === '') {
+            logger.warn('No message was found for the given configuration parameters.');
+        }
 
-        return { markup, options: totalOptions, template, meta: {} };
+        return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
     });
 }

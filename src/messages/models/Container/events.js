@@ -1,13 +1,9 @@
 import objectValues from 'core-js-pure/stable/object/values';
 
 const events = {
-    // eslint-disable-next-line compat/compat
     click: new Map(),
-    // eslint-disable-next-line compat/compat
     scroll: new Map(),
-    // eslint-disable-next-line compat/compat
     hover: new Map(),
-    // eslint-disable-next-line compat/compat
     resize: new Map()
 };
 
