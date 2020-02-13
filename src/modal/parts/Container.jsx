@@ -35,6 +35,12 @@ const Modal = ({ children }) => {
         }
     }, [transitionState]);
 
+    useEffect(() => {
+        if (transitionState === 'OPENING') {
+            window.focus();
+        }
+    }, [transitionState]);
+
     return (
         <section
             id="modal-container"
