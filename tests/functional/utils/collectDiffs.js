@@ -51,7 +51,7 @@ async function uploadToImgur() {
 
         console.log('\n\n');
         console.log(
-            `\u001b[31m${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
+            `\u001b[31m;1m${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
         );
 
         process.exit(1);
