@@ -1,9 +1,7 @@
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then 
     npm run test:func
 
-    if [[ "$TRAVIS_TEST_RESULT" != "0" ]]; then
-        node ./tests/functional/utils/collectDiffs.js
-    fi
+    node ./tests/functional/utils/collectDiffs.js
 elif [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
     npm run test:func -- -u
 
