@@ -27,7 +27,6 @@ function collectDiffs() {
     try {
         fs.rmdirSync(DIFF_DIR);
     } catch (e) {
-        console.log(e);
         if (e.code === 'ENOTEMPTY') {
             console.log(e);
         }
@@ -43,14 +42,17 @@ async function uploadToImgur() {
 
     if (snapshots.length > 0) {
         const album = await imgur.createAlbum();
-        console.log(album);
+
         const result = await Promise.all(
             snapshots.map(fileName =>
                 imgur.uploadFile(path.resolve(DIFF_DIR, fileName), album.data.deletehash, fileName)
             )
         );
 
-        console.log(`${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`);
+        console.log('\n\n');
+        console.log(
+            `\u001b[31m${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
+        );
 
         process.exit(1);
     } else {
