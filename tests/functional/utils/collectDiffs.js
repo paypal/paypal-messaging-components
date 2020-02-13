@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const imgur = require('imgur');
 
 const DIFF_DIR = path.resolve(__dirname, '../__diff_output__');
 
@@ -36,4 +37,24 @@ function collectDiffs() {
     searchFolders('snapshots', path.resolve(__dirname, '..'));
 }
 
+async function uploadToImgur() {
+    const snapshots = fs.readdirSync(DIFF_DIR);
+
+    if (snapshots.length > 0) {
+        const album = await imgur.createAlbum();
+
+        const result = await Promise.all(
+            snapshots.map(fileName =>
+                imgur.uploadFile(path.resolve(DIFF_DIR, fileName), album.data.deletehash, fileName)
+            )
+        );
+
+        console.log(`${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`);
+    } else {
+        console.log(`No snapshots found in ${DIFF_DIR}`);
+    }
+}
+
 collectDiffs();
+
+uploadToImgur().catch(e => console.log(e));

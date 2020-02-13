@@ -27,7 +27,7 @@ script:
     - ./scripts/snapshot-tests/run-tests.sh
 
 after_script:
-    - ./scripts/snapshot-tests/checkin-diffs.sh
+    - ./scripts/snapshot-tests/upload-diffs.sh
 
 deploy:
     provider: script
