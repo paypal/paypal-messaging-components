@@ -3,7 +3,5 @@
 }
 
 .message__background {
-    /* REVERT LATER - Intentionally fail snapshots */
-    background: blue;
-    /* background: linear-gradient(-55deg, #009cde -20%, #003087 80%); */
+    background: linear-gradient(-55deg, #009cde -20%, #003087 80%);
 }
