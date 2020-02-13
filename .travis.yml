@@ -26,9 +26,6 @@ script:
     - npm run test
     - ./scripts/snapshot-tests/run-tests.sh
 
-after_script:
-    - node ./tests/functional/utils/collectDiffs.js
-
 deploy:
     provider: script
     skip_cleanup: true
