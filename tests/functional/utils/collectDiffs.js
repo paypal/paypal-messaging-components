@@ -55,6 +55,8 @@ async function uploadToImgur() {
     }
 }
 
-collectDiffs();
+if (process.env.TRAVIS_TEST_RESULT !== '0') {
+    collectDiffs();
 
-uploadToImgur().catch(e => console.log(e));
+    uploadToImgur().catch(e => console.log(e));
+}

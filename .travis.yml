@@ -27,7 +27,7 @@ script:
     - ./scripts/snapshot-tests/run-tests.sh
 
 after_script:
-    - ./scripts/snapshot-tests/upload-diffs.sh
+    - node ./tests/functional/utils/collectDiffs.js
 
 deploy:
     provider: script
