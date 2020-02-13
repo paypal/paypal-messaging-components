@@ -1,4 +1,4 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable eslint-comments/disable-enable-pair, max-classes-per-file */
 import arrayFrom from 'core-js-pure/stable/array/from';
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
