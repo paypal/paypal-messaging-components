@@ -1,7 +1,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { curry, loadPPFonts } from '../../../utils';
+import { curry, waitForElementReady, loadPPFonts } from '../../../utils';
 
 const createNodeWithInnerHTML = (doc, type, html) => {
     const node = doc.createElement(type);
@@ -11,11 +11,7 @@ const createNodeWithInnerHTML = (doc, type, html) => {
 };
 
 export default curry((container, template) => {
-    return ZalgoPromise.resolve(
-        container.tagName === 'IFRAME' &&
-            container.contentWindow.document.readyState !== 'complete' &&
-            new ZalgoPromise(resolve => container.addEventListener('load', resolve))
-    ).then(() => {
+    return waitForElementReady(container).then(() => {
         const containerDocument = container.tagName === 'IFRAME' ? container.contentWindow.document : document;
         const newNode =
             typeof template === 'string'

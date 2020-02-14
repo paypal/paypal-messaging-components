@@ -67,7 +67,8 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                         const [key, val] = header.trim().split(': ');
                         return {
                             ...accumulator,
-                            [key]: val
+                            // IE11 uses capitalized header names
+                            [key.toLowerCase()]: val
                         };
                     }, {});
 
@@ -101,4 +102,16 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
 
         xhttp.send(typeof data === 'object' ? JSON.stringify(data) : data);
     });
+}
+
+export function createEvent(name) {
+    if (typeof Event === 'function') {
+        return new Event(name);
+    }
+
+    // IE11 support
+    const event = document.createEvent('Event');
+    event.initEvent(name, true, true);
+
+    return event;
 }

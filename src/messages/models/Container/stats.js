@@ -100,7 +100,7 @@ function checkAdblock() {
     });
 }
 
-export default curry((container, { options: { amount, account, partnerAccount, placement }, events, track }) => {
+export default curry((container, { options: { amount, account, merchantId, placement }, events, track }) => {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
 
@@ -119,8 +119,8 @@ export default curry((container, { options: { amount, account, partnerAccount, p
         amount
     };
 
-    if (partnerAccount) {
-        payload.partner_client_id = partnerAccount;
+    if (merchantId) {
+        payload.partner_client_id = account.slice(10);
     } else if (startsWith(account, 'client-id:')) {
         payload.client_id = account.slice(10);
     }

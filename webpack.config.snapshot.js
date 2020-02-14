@@ -1,10 +1,10 @@
 const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 
-const mockImadserv = require('./utils/proxyImadserv');
+const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
 
-module.exports = () => {
-    const config = getWebpackConfig({
+module.exports = (env = {}) => {
+    const MESSAGES_CONFIG = getWebpackConfig({
         entry: {
             messaging: './src/index.js',
             merchant: './src/legacy/index.js'
@@ -15,14 +15,11 @@ module.exports = () => {
         debug: true,
         minify: true,
         env: 'local',
-        vars: globals({
-            standalone: true,
-            localMessage: true
-        })
+        vars: globals(env)
     });
 
-    config.output.libraryExport = 'Messages';
-    config.devServer = {
+    MESSAGES_CONFIG.output.libraryExport = 'Messages';
+    MESSAGES_CONFIG.devServer = {
         contentBase: './tests/functional/content',
         publicPath: '/',
         compress: true,
@@ -30,8 +27,19 @@ module.exports = () => {
         port: 8080,
         overlay: true,
         watchContentBase: true,
-        before: mockImadserv
+        before: devServerProxy
     };
 
-    return config;
+    const MODAL_CONFIG = getWebpackConfig({
+        entry: './src/modal/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-modal.js',
+        vars: globals(env)
+    });
+
+    return [MESSAGES_CONFIG, MODAL_CONFIG];
 };
