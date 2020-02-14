@@ -4,7 +4,7 @@ const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
 
 module.exports = (env = {}) => {
-    const config = getWebpackConfig({
+    const MESSAGES_CONFIG = getWebpackConfig({
         entry: {
             messaging: './src/index.js',
             merchant: './src/legacy/index.js'
@@ -18,8 +18,8 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    config.output.libraryExport = 'Messages';
-    config.devServer = {
+    MESSAGES_CONFIG.output.libraryExport = 'Messages';
+    MESSAGES_CONFIG.devServer = {
         contentBase: './tests/functional/content',
         publicPath: '/',
         compress: true,
@@ -30,5 +30,16 @@ module.exports = (env = {}) => {
         before: devServerProxy
     };
 
-    return config;
+    const MODAL_CONFIG = getWebpackConfig({
+        entry: './src/modal/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-modal.js',
+        vars: globals(env)
+    });
+
+    return [MESSAGES_CONFIG, MODAL_CONFIG];
 };
