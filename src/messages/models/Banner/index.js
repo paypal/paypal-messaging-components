@@ -14,13 +14,12 @@ import {
     objectDiff,
     objectMerge,
     pluck,
-    assignToProp
+    assignToProp,
+    waitForElementReady
 } from '../../../utils';
-import Modal from '../Modal';
+import Modal from '../../components/Modal';
 
-// eslint-disable-next-line compat/compat
 const banners = new Map();
-// eslint-disable-next-line compat/compat
 const loggers = new Map();
 
 function setupTracker(obj) {
@@ -116,9 +115,11 @@ const Banner = {
         if (!isLegacy) {
             // Must be after appending iframe into DOM to prevent immediate re-render
             // Used to repopulate iframe if moved throughout the DOM
-            container.addEventListener('load', () => {
-                clearEvents();
-                render(currentOptions);
+            waitForElementReady(container).then(() => {
+                container.addEventListener('load', () => {
+                    clearEvents();
+                    render(currentOptions);
+                });
             });
         }
 
@@ -162,7 +163,7 @@ export default {
                 banners.set(wrapper, banner);
             }
         } catch (err) {
-            if (__LOCAL__) {
+            if (__LOCAL__ || __STAGE__) {
                 console.error(err);
             }
 
@@ -173,7 +174,7 @@ export default {
         }
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
-            if (__LOCAL__) {
+            if (__LOCAL__ || __STAGE__) {
                 console.error(err);
             }
 
