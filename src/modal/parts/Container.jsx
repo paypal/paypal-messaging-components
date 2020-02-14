@@ -1,4 +1,5 @@
 /** @jsx h */
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 
@@ -44,7 +45,7 @@ const Modal = ({ children }) => {
     return (
         <section
             id="modal-container"
-            className={`modal__container ${transitionState.startsWith('OPEN') ? 'show' : ''}`}
+            className={`modal__container ${stringStartsWith(transitionState, 'OPEN') ? 'show' : ''}`}
         >
             <div className="modal__wrapper" id="modal__wrapper">
                 <Header shadow={hasShadow} />

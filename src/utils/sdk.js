@@ -9,7 +9,7 @@ import {
     getCurrency as getSDKCurrency,
     getSDKMeta
 } from '@paypal/sdk-client/src';
-import { base64decode, base64encode } from 'belter/src';
+import { base64encode } from 'belter/src';
 
 // SDK helper functions with standalone build polyfills
 
@@ -70,7 +70,21 @@ export function getTargetMeta() {
     };
 
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        objectAssign(metaObject, JSON.parse(base64decode(getSDKMeta())));
+        objectAssign(
+            metaObject,
+            JSON.parse(
+                // Slightly modified from belter/src base64decode due to clash on merchant site:
+                // https://www.myrobotcenter.de/de_de/yardforce-sa600h-2019
+                decodeURIComponent(
+                    atob(getSDKMeta())
+                        .split('')
+                        .map(c => {
+                            return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
+                        })
+                        .join('')
+                )
+            )
+        );
     } else {
         const script = getScript();
 
