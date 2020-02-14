@@ -30,6 +30,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [`.message__logo-container { width: ${textSize * 9}px }`],
+                messageWidth: false,
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
