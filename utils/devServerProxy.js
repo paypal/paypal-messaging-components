@@ -1,6 +1,8 @@
 const fs = require('fs');
 const got = require('got');
 
+const getTerms = require('./mockTerms');
+
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
     DEV000NINONUS: ['US', 'ni_non-us'],
@@ -17,70 +19,32 @@ const devAccountMap = {
     DEV000000PQAZ: ['DE', 'palaq_any_eqz']
 };
 
-const REWRITE_RULES = {
-    '/credit-presentment/smart/modal': '/modal.html'
-};
-
-const localize = country => (amount, fractionDigits = 2) => {
-    const number = Number(amount) || Number(0);
-
-    // toLocaleString only bundled with US locale on node
-    const baseFormat = number.toLocaleString('en-US', {
-        currency: 'USD',
-        minimumFractionDigits: fractionDigits
-    });
-
-    switch (country) {
-        case 'DE':
-            return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
-        case 'US':
-        default:
-            return baseFormat;
-    }
-};
-
-const getTerms = (country, amount) => {
-    const toLocaleString = localize(country);
-    const total = amount * 1.0999;
-
-    return amount
-        ? {
-              type: 'pala',
-              maxAmount: 5000,
-              minAmount: 199,
-              amount,
-              formattedAmount: toLocaleString(amount),
-              offers: [
-                  {
-                      term: 12,
-                      type: 'INST',
-                      apr: toLocaleString(9.99),
-                      nominalRate: toLocaleString(9.5598, 4),
-                      minValue: toLocaleString(199.0),
-                      qualified: amount > 199 && amount < 5000,
-                      monthly: toLocaleString(total / 12),
-                      total: toLocaleString(total),
-                      totalInterest: toLocaleString(total - amount)
-                  }
-              ],
-              formattedMinAmount: toLocaleString(199),
-              formattedMaxAmount: toLocaleString(5000)
-          }
-        : {};
-};
-
 module.exports = app => {
-    app.use((req, res, next) => {
-        Object.entries(REWRITE_RULES).forEach(([route, newRoute]) => {
-            if (req.url.startsWith(route)) {
-                req.url = req.url.replace(route, newRoute);
-            }
-        });
-        next();
-    });
-
     app.get('/ppcredit/messagingLogger', (req, res) => {
         res.send('');
+    });
+
+    app.get('/credit-presentment/smart/modal', (req, res) => {
+        const { country, amount } = req.query;
+        const props = {
+            terms: getTerms(country, Number(amount)),
+            meta: {}
+        };
+
+        res.send(`
+            <!DOCTYPE html>
+            <head>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body>
+                <script>
+                    document.write(window.top.document.querySelector('script').outerHTML+'<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script><script>crc.setupModal(${JSON.stringify(
+                        props
+                    )})<'+'/script>');
+                </script>
+            </body>
+        `);
     });
 
     app.post('/credit-presentment/calculateTerms', (req, res) => {
@@ -94,16 +58,14 @@ module.exports = app => {
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const banner =
-                dimensions !== 'x199x99'
-                    ? fs.readFileSync(`banners/${devAccountMap[account].join('/')}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
-            const bannerJSON = JSON.parse(banner);
+            const [country, offer] = devAccountMap[account];
+            const terms = getTerms(country, Number(amount));
+            const [bestOffer] = terms.offers || [{}];
 
             const morsVars = {
-                formattedTotalCost: `$${Number(amount).toFixed(2)}`,
-                total_payments: 12,
-                formattedMonthlyPayment: `$${Number(amount / 12).toFixed(2)}`
+                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                total_payments: bestOffer.term,
+                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
             };
 
             const populateVars = str =>
@@ -115,7 +77,12 @@ module.exports = app => {
                     )
                     .replace(/\r\n|\r|\n/g, '');
 
-            const populatedBanner = Object.entries(bannerJSON).reduce((accumulator, [key, value]) => {
+            const banner =
+                dimensions !== 'x199x99'
+                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+
+            const populatedBanner = Object.entries(JSON.parse(banner)).reduce((accumulator, [key, value]) => {
                 return {
                     ...accumulator,
                     [key]: populateVars(JSON.stringify(value))
