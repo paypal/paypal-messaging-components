@@ -59,14 +59,13 @@ module.exports = app => {
 
         if (devAccountMap[account]) {
             const [country, offer] = devAccountMap[account];
-            const currency = country === 'DE' ? '€' : '$';
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
 
             const morsVars = {
-                formattedTotalCost: `${currency}${terms.formattedAmount}`,
+                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term,
-                formattedMonthlyPayment: `${currency}${bestOffer.monthly}`
+                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
             };
 
             const populateVars = str =>
