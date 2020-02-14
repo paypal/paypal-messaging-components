@@ -18,12 +18,18 @@ export default curry((container, template) => {
                 ? createNodeWithInnerHTML(containerDocument, 'div', template)
                 : containerDocument.importNode(template, true);
 
+        const merchantRootNode = container.parentNode;
+        const hasOwnMessaging = !!newNode.querySelector('.message__merchant');
+
         // Since images and fonts load async and we need to calculate layout later.
         // We must manually wait for each image and font to load before resolving.
-        const layoutProms = arrayFrom(newNode.getElementsByTagName('img'))
-            .filter(img => !img.complete) // Image may have already loaded from width calculation inside Template.getTemplateNode()
-            .map(img => new ZalgoPromise(res => img.addEventListener('load', res)))
-            .concat(loadPPFonts(containerDocument));
+        // We skip loading fonts if the merchant is using their own messaging.
+        const layoutProms = hasOwnMessaging
+            ? []
+            : arrayFrom(newNode.getElementsByTagName('img'))
+                  .filter(img => !img.complete) // Image may have already loaded from width calculation inside Template.getTemplateNode()
+                  .map(img => new ZalgoPromise(res => img.addEventListener('load', res)))
+                  .concat(loadPPFonts(containerDocument));
 
         // IE Support: importNode() and cloneNode() do not properly import working
         // style elements so they must be manually recreated inside the document
@@ -54,6 +60,15 @@ export default curry((container, template) => {
                         }
 
                         arrayFrom(newNode.children).forEach(el => parentElement.appendChild(el));
+                        if (hasOwnMessaging) {
+                            const isMessageContainer = node =>
+                                node.nodeType === Node.ELEMENT_NODE && node.querySelector('.message__merchant');
+                            const merchantContentNodes = arrayFrom(merchantRootNode.childNodes).filter(
+                                el => !isMessageContainer(el)
+                            );
+                            const buttonContainer = container.querySelector('.message__merchant');
+                            merchantContentNodes.forEach(el => buttonContainer.appendChild(el));
+                        }
 
                         resolve();
                     })

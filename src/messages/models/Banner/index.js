@@ -49,19 +49,30 @@ const onRendered = ({ options: { onRender } }) => {
     }
 };
 
+// Div container for legacy banners. Span container for self merchant messaging. Iframe container for new banners.
+const getContainerElementString = ({ isMerchant, isLegacy }) => {
+    if (isMerchant) {
+        return 'span';
+    }
+    if (isLegacy) {
+        return 'div';
+    }
+    return 'iframe';
+};
+
 const Banner = {
     create(initialOptions, inputWrapper, logger) {
         logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
         const isLegacy = currentOptions._legacy;
+        const isMerchant = currentOptions.style && currentOptions.style.layout === 'merchant';
 
-        // Div container for legacy banners. Iframe container for new banners.
         const [container, { insertMarkup, setSize, events, runStats, clearEvents }] = createContainer(
-            isLegacy ? 'div' : 'iframe'
+            getContainerElementString({ isMerchant, isLegacy })
         );
 
-        // Wrapper span element used for flex banners. Not needed for legacy banners.
-        const wrapper = isLegacy ? container : document.createElement('span');
+        // Wrapper span element used for flex banners. Not needed for legacy banners nor merchant self messages.
+        const wrapper = isLegacy || isMerchant ? container : document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
         const logBefore = curry((fn, name, args) => {

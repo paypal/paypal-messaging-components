@@ -36,4 +36,22 @@ describe('createContainer', () => {
             })
         );
     });
+
+    it('Creates span container', () => {
+        const [container, helperFns] = createContainer('span');
+
+        expect(container.tagName).toBe('SPAN');
+        expect(helperFns).toEqual(
+            expect.objectContaining({
+                insertMarkup: expect.any(Function),
+                setSize: expect.any(Function),
+                runStats: expect.any(Function),
+                events: expect.objectContaining({
+                    on: expect.any(Function),
+                    clear: expect.any(Function)
+                }),
+                clearEvents: expect.any(Function)
+            })
+        );
+    });
 });

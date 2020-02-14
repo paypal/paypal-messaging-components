@@ -26,5 +26,7 @@ export default {
     custom: {
         markup: [Types.STRING],
         ratio: [Types.ANY]
-    }
+    },
+    // options are empty since this marks if a merchant is using their own messaging
+    merchant: {}
 };

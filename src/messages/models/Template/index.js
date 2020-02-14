@@ -6,6 +6,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
+import merchantTemplateMarkup from './template--merchant.html';
 import allStyles from './styles';
 import { ERRORS } from '../../services/logger';
 import {
@@ -26,6 +27,8 @@ const baseTemplate = document.createElement('div');
 baseTemplate.innerHTML = templateMarkup;
 const imageTemplate = document.createElement('div');
 imageTemplate.innerHTML = imageTemplateMarkup;
+const merchantTemplate = document.createElement('span');
+merchantTemplate.innerHTML = merchantTemplateMarkup;
 
 function splitSpan(span, breakWord) {
     const text = span.textContent;
@@ -53,7 +56,7 @@ function createCustomFontFamily(account, fontFamily) {
         font-family: ${fontFamily};
         font-style: normal;
         font-weight: 400;
-    
+
         src: url('${baseUrl}.eot');
         src: url('${baseUrl}.woff2')
                 format('woff2'),
@@ -61,9 +64,9 @@ function createCustomFontFamily(account, fontFamily) {
             url('${baseUrl}.svg#${fontFamily}')
                 format('svg');
     }
-    
-    html { 
-        font-family: ${fontFamily}, PayPal-Sans, Helvetica, Arial, sans-serif; 
+
+    html {
+        font-family: ${fontFamily}, PayPal-Sans, Helvetica, Arial, sans-serif;
     }`;
 }
 
@@ -291,6 +294,11 @@ function createImageTemplateNode(style, { meta }) {
     return newTemplate;
 }
 
+function createMerchantTemplateNode() {
+    const newTemplate = merchantTemplate.cloneNode(true);
+    return newTemplate;
+}
+
 /**
  * Create a new template DOM element
  * @param {Object} options Banner options, including style rules to be applied to the template
@@ -301,6 +309,10 @@ function createTemplateNode(options, markup) {
     const layout = objectGet(options, 'style.layout');
     if (layout === 'custom') {
         return createCustomTemplateNode(markup);
+    }
+
+    if (layout === 'merchant') {
+        return createMerchantTemplateNode(options.style, markup);
     }
 
     const styleSelectors = objectGet(options, 'style._flattened');
