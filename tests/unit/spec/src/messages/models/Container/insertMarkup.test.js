@@ -43,15 +43,4 @@ describe('insertMarkup', () => {
         expect(getByText(/test header/i)).toBeVisible();
         expect(getByText(/see terms/i)).toBeVisible();
     });
-
-    it('Inserts template node into span container', async () => {
-        const { container, getByText } = createContainer('span');
-        const markup = document.createElement('span');
-        markup.innerHTML = '<span><h1 class="message__merchant">test header</h1><p>see terms</p></span>';
-
-        await insertMarkup(container, markup);
-
-        expect(getByText(/test header/i)).toBeVisible();
-        expect(getByText(/see terms/i)).toBeVisible();
-    });
 });
