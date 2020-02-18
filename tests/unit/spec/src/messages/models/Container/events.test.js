@@ -29,7 +29,7 @@ describe('events.js', () => {
         'resize'
     ])('each table, %s events', eventType => {
         // skip using div and span for resize events
-        const containerTypes = ['iframe'].concat(eventType === 'resize' ? [] : ['div', 'span']);
+        const containerTypes = ['iframe'].concat(eventType === 'resize' ? [] : ['div']);
         it.each(containerTypes)(`each Adds and clears ${eventType} event with %s container`, containerType => {
             const { container, getByText } = createContainer(containerType, '<h1>test</h1>');
 
@@ -66,7 +66,7 @@ describe('events.js', () => {
 
         if (eventType !== 'resize') return;
 
-        it.each(['div', 'span'])('Does not fire resize event with %s container', containerType => {
+        it.each(['div'])('Does not fire resize event with %s container', containerType => {
             const { container } = createContainer(containerType, '<h1>test</h1>');
             const events = eventsOn(container);
             const handler = jest.fn();
@@ -82,7 +82,7 @@ describe('events.js', () => {
     });
 
     describe('clear all events', () => {
-        it.each(['iframe', 'div', 'span'])('removes all events from %s container', containerType => {
+        it.each(['iframe', 'div'])('removes all events from %s container', containerType => {
             const { container, getByText } = createContainer(containerType, '<h1>test</h1>');
             const events = eventsOn(container);
             const handler = jest.fn();
