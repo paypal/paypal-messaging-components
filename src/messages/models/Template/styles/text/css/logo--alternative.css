@@ -8,13 +8,13 @@
     white-space: nowrap;
 }
 
-.message__headline span.multi:first-child {
+/* .message__headline span.multi:first-child {
     display: none;
 }
 
 .message__headline span.multi:nth-child(2) {
     display: inline;
-}
+} */
 
 .message__messaging span.br {
     white-space: normal;
@@ -23,4 +23,8 @@
 .message__logo-container {
     display: inline-block;
     margin-right: 0.6rem;
+}
+
+.message__content {
+    display: inline-block;
 }

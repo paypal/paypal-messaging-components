@@ -1,5 +1,6 @@
 import Logo from '../logos';
-import { basicMediaQuery, legacyNI } from './ni';
+import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { legacyNI } from './ni';
 
 export default {
     'layout:text': [
@@ -53,7 +54,11 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    basicMediaQuery(textSize * 18.9),
+                    altContentMediaQuery(textSize * 45),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: [
                     'xsmall',

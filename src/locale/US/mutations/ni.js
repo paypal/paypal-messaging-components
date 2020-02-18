@@ -1,22 +1,5 @@
 import Logo from '../logos';
-
-export function basicMediaQuery(breakpoint) {
-    return `
-    .message__headline span.multi:nth-child(2) {
-        display: none;
-    }
-
-    @media (min-width: ${breakpoint}px) {
-        .message__headline span.multi:first-child {
-            display: none;
-        }
-
-        .message__headline span.multi:nth-child(2) {
-            display: inline;
-        }
-    }
-`;
-}
+import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 
 export const legacyNI = [
     [
@@ -97,7 +80,11 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    basicMediaQuery(textSize * 22.2),
+                    altContentMediaQuery(textSize * 41),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],

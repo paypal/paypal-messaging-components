@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altContentMediaQuery } from './mediaQueries';
 
 const defaultTextStyles = [
     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
@@ -36,7 +37,11 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    ...defaultTextStyles,
+                    altContentMediaQuery(textSize * 35.8),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
