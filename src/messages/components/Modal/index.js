@@ -15,23 +15,42 @@ function getModalType(offerCountry, offerType) {
 
 export default {
     init({ options, meta, events }) {
-        const { render, hide, updateProps } = Modal({
-            account: options.account,
-            country: meta.offerCountry,
-            currency: options.currency,
-            type: getModalType(meta.offerCountry, meta.offerType),
-            amount: options.amount
-        });
+        // For legacy image banners, open a popup instead of the modal
+        if (options._legacy && startsWith(meta.offerType, 'NI')) {
+            events.on('click', evt => {
+                const { target } = evt;
 
-        hide();
-        // The render promise will resolve before Preact renders and picks up changes
-        // via updateProps so a small delay is added after the initial "render" promise
-        const renderProm = render('body').then(() => ZalgoPromise.delay(100));
+                if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
+                    window.open(
+                        target.parentNode.href,
+                        'PayPal Credit Terms',
+                        'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
+                    );
 
-        events.on('click', () => {
-            renderProm.then(() => {
-                updateProps({ visible: true });
+                    evt.preventDefault();
+                } else {
+                    window.open(meta.clickUrl, '_blank');
+                }
             });
-        });
+        } else {
+            const { render, hide, updateProps } = Modal({
+                account: options.account,
+                country: meta.offerCountry,
+                currency: options.currency,
+                type: getModalType(meta.offerCountry, meta.offerType),
+                amount: options.amount
+            });
+
+            hide();
+            // The render promise will resolve before Preact renders and picks up changes
+            // via updateProps so a small delay is added after the initial "render" promise
+            const renderProm = render('body').then(() => ZalgoPromise.delay(100));
+
+            events.on('click', () => {
+                renderProm.then(() => {
+                    updateProps({ visible: true });
+                });
+            });
+        }
     }
 };
