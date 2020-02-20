@@ -49,6 +49,12 @@ export default {
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
+        [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
+            })
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
