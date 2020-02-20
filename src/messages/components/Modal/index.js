@@ -14,7 +14,7 @@ function getModalType(offerCountry, offerType) {
 }
 
 export default {
-    init({ options, meta, events, track, wrapper }) {
+    init({ options, meta, events, track, wrapper, isOnlyModal }) {
         const { render, hide, updateProps } = Modal({
             account: options.account,
             country: meta.offerCountry,
@@ -30,7 +30,7 @@ export default {
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
             },
             onClose: linkName => {
-                wrapper.firstChild.focus();
+                (isOnlyModal ? wrapper : wrapper.firstChild).focus();
 
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
             }

@@ -5,22 +5,26 @@ import insertMarkup from './insertMarkup';
 import runStats from './stats';
 import setSize from './setSize';
 
-export default function createContainer(type) {
-    const container = document.createElement(type);
+export default function createContainer(typeOrElement, isOnlyModal = false) {
+    const container = typeOrElement.constructor === String ? document.createElement(typeOrElement) : typeOrElement;
 
-    if (type === 'iframe') {
+    if (typeOrElement === 'iframe') {
         container.setAttribute('title', 'PayPal Credit Promotion Message');
         container.setAttribute('style', 'width: 100%; border: none;');
         container.setAttribute('src', 'about:blank');
         container.setAttribute('height', 0);
     }
 
-    const helperFns = objectEntries({
-        insertMarkup,
-        setSize,
-        runStats,
-        events
-    }).reduce((accumulator, [fnName, fn]) => ({ ...accumulator, [fnName]: fn(container) }), {});
+    const helpers = { runStats, events };
+    if (!isOnlyModal) {
+        helpers.insertMarkup = insertMarkup;
+        helpers.setSize = setSize;
+    }
+
+    const helperFns = objectEntries(helpers).reduce(
+        (accumulator, [fnName, fn]) => ({ ...accumulator, [fnName]: fn(container, isOnlyModal) }),
+        {}
+    );
 
     helperFns.clearEvents = () => clearEvents(container);
 

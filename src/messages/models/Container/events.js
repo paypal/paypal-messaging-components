@@ -39,13 +39,15 @@ function onHover(evt) {
  * Global on click event handler
  * @param {Event} evt Event object
  */
-function onClick(evt) {
+function onClick(evt, isOnlyModal) {
     if (evt.target.ownerDocument && events.click.has(evt.target.ownerDocument.defaultView.frameElement)) {
         events.click.get(evt.target.ownerDocument.defaultView.frameElement)(evt);
     } else if (
         events.click.has(evt.currentTarget) &&
         evt.currentTarget !== evt.target // We don't want direct clicks on the container to fire an event, only from elements inside the container
     ) {
+        events.click.get(evt.currentTarget)(evt);
+    } else if (isOnlyModal) {
         events.click.get(evt.currentTarget)(evt);
     }
 }
@@ -55,7 +57,7 @@ function onClick(evt) {
  * @param {String} type Event type
  * @param {HTMLElement} elem Element in which to ensure a handler
  */
-function ensureListener(type, elem) {
+function ensureListener(type, elem, isOnlyModal) {
     if (type === 'scroll' && events.scroll.size === 0) {
         window.addEventListener('scroll', onScroll);
     } else if (type === 'hover' && events.hover.size === 0) {
@@ -66,7 +68,8 @@ function ensureListener(type, elem) {
         if (elem.tagName === 'IFRAME') {
             elem.contentWindow.document.body.addEventListener('click', onClick);
         } else {
-            elem.addEventListener('click', onClick);
+            const clickHandler = isOnlyModal ? evt => onClick(evt, isOnlyModal) : onClick;
+            elem.addEventListener('click', clickHandler);
         }
     }
 }
@@ -77,8 +80,8 @@ function ensureListener(type, elem) {
  * @param {HTMLElement} elem Element to hook event
  * @param {Function} handler Handler function
  */
-function addEventListener(type, elem, handler) {
-    ensureListener(type, elem);
+function addEventListener(type, elem, handler, isOnlyModal) {
+    ensureListener(type, elem, isOnlyModal);
 
     if (events[type].has(elem)) {
         const prevHandler = events[type].get(elem);
@@ -97,12 +100,12 @@ function addEventListener(type, elem, handler) {
  * @param {HTMLElement} container Element in which to add events
  * @returns {Object} Helper object to add and remove events on container
  */
-export default function addEventListenersTo(container) {
+export default function addEventListenersTo(container, isOnlyModal) {
     return {
         on: (type, handler) => {
             // Resize events are not supported for non-iframe containers
             if (container.tagName === 'IFRAME' || type !== 'resize') {
-                addEventListener(type, container, handler);
+                addEventListener(type, container, handler, isOnlyModal);
             }
         },
         clear: type => {

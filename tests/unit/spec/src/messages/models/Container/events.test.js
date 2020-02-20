@@ -27,10 +27,10 @@ describe('events.js', () => {
         'scroll',
         'hover',
         'resize'
-    ])('each table, %s events', eventType => {
-        // skip using div and span for resize events
+    ])('%s events', eventType => {
+        // skip using div for resize events
         const containerTypes = ['iframe'].concat(eventType === 'resize' ? [] : ['div']);
-        it.each(containerTypes)(`each Adds and clears ${eventType} event with %s container`, containerType => {
+        it.each(containerTypes)(`Adds and clears ${eventType} event with %s container`, containerType => {
             const { container, getByText } = createContainer(containerType, '<h1>test</h1>');
 
             const eventCalls = {

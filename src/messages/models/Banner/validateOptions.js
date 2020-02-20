@@ -18,7 +18,8 @@ const VALID_OPTIONS = {
     onClick: [Types.FUNCTION],
     onApply: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR']],
-    placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']]
+    placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
+    modal: [Types.OBJECT]
 };
 
 // Formalized validation logger helper functions
@@ -149,7 +150,7 @@ export const validateStyleOptions = curry((logger, style) => {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, offer, modal, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
@@ -193,6 +194,18 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
 
         // Get the default settings for a text banner
         validOptions.style = { layout: 'text' };
+    }
+
+    if (typeof modal !== 'undefined') {
+        if (otherOptions._legacy) {
+            logInvalid(logger, 'modal', 'Cannot have both legacy and modal options set');
+        }
+
+        if (validateType(Types.OBJECT, modal) && validateType(Types.STRING, modal.type)) {
+            validOptions.modal = modal;
+        } else {
+            validOptions.modal = { type: 'NI' };
+        }
     }
 
     logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });

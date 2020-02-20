@@ -216,7 +216,7 @@ const getContentMinWidth = templateNode => {
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'offerType', 'countryCode']);
 
-export default function getBannerMarkup({ options, logger }) {
+export default function getBannerMarkup({ options, logger, isOnlyModal }) {
     logger.info(EVENTS.FETCH_START);
 
     return (objectGet(options, 'style.layout') !== 'custom'
@@ -259,6 +259,15 @@ export default function getBannerMarkup({ options, logger }) {
             };
 
             const template = Template.getTemplateNode(totalOptions, markup);
+
+            if (isOnlyModal) {
+                return {
+                    markup,
+                    options: totalOptions,
+                    template,
+                    meta: { ...meta, minWidth: template.minWidth }
+                };
+            }
 
             return objectGet(totalOptions, 'style.layout') === 'text'
                 ? getContentMinWidth(template).then(minWidth => ({

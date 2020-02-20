@@ -49,19 +49,32 @@ const onRendered = ({ options: { onRender } }) => {
     }
 };
 
+// Div container for legacy banners. Iframe container for new banners. No container for merchant self messaging.
+const getContainerElement = ({ isLegacy, isOnlyModal, inputWrapper }) => {
+    if (isLegacy) {
+        return createContainer('div');
+    }
+    if (isOnlyModal) {
+        return createContainer(inputWrapper, isOnlyModal);
+    }
+    return createContainer('iframe');
+};
+
 const Banner = {
     create(initialOptions, inputWrapper, logger) {
         logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
         const isLegacy = currentOptions._legacy;
+        const isOnlyModal = !!currentOptions.modal;
 
-        // Div container for legacy banners. Iframe container for new banners.
-        const [container, { insertMarkup, setSize, events, runStats, clearEvents }] = createContainer(
-            isLegacy ? 'div' : 'iframe'
-        );
+        const [container, { insertMarkup, setSize, events, runStats, clearEvents }] = getContainerElement({
+            isLegacy,
+            isOnlyModal,
+            inputWrapper
+        });
 
         // Wrapper span element used for flex banners. Not needed for legacy banners.
-        const wrapper = isLegacy ? container : document.createElement('span');
+        const wrapper = isLegacy || isOnlyModal ? container : document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
         const logBefore = curry((fn, name, args) => {
@@ -72,13 +85,26 @@ const Banner = {
         function render(totalOptions) {
             logger.info(EVENTS.RENDER_START);
 
-            return pipe(
+            const getBannerMarkupProm = pipe(
                 validateOptions(logger), // Object()
                 passThrough(updateOptions), // Object()
                 assignToProp('options'), // Object(options)
-                partial(objectAssign, { logger, wrapper, events }), // Object(options, logger, wrapper, events)
+                partial(objectAssign, { logger, wrapper, events, isOnlyModal }), // Object(options, logger, wrapper, events)
                 asyncAssignFn(getBannerMarkup) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
-            )(totalOptions)
+            )(totalOptions);
+
+            if (isOnlyModal) {
+                return getBannerMarkupProm.then(
+                    pipe(
+                        assignFn(setupTracker), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(Modal.init, EVENTS.MODAL)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        passThrough(logBefore(runStats, EVENTS.STATS)), // Object(options, logger, wrapper, events, markup, template, meta, track)
+                        logBefore(onRendered, EVENTS.RENDER_END)
+                    )
+                );
+            }
+
+            return getBannerMarkupProm
                 .then(passThrough(logBefore(pipe(pluck('template'), insertMarkup), EVENTS.INSERT))) // Promise<Object(options, logger, wrapper, events, markup, template, meta)>
                 .then(
                     pipe(
@@ -108,11 +134,11 @@ const Banner = {
         }
 
         // Iframe must be in the DOM otherwise the markup cannot be placed inside
-        inputWrapper.appendChild(wrapper);
+        if (!isOnlyModal) inputWrapper.appendChild(wrapper);
         // LOGGER: appending empty iframe - waiting for banner
         logger.info(EVENTS.CONTAINER);
 
-        if (!isLegacy) {
+        if (!isLegacy && !isOnlyModal) {
             // Must be after appending iframe into DOM to prevent immediate re-render
             // Used to repopulate iframe if moved throughout the DOM
             waitForElementReady(container).then(() => {
