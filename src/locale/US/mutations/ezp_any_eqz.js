@@ -40,6 +40,7 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     altContentMediaQuery(textSize * 35.8),
+                    '.message__container { min-width: 250px }',
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,

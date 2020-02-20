@@ -81,7 +81,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    basicMediaQuery(textSize * 22.2),
+                    basicMediaQuery(textSize * 19),
                     altContentMediaQuery(textSize * 41),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
