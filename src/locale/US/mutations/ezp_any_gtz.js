@@ -52,7 +52,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
