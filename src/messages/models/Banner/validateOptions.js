@@ -197,14 +197,20 @@ export default curry((logger, { account, amount, style, offer, modal, ...otherOp
     }
 
     if (typeof modal !== 'undefined') {
-        if (otherOptions._legacy) {
-            logInvalid(logger, 'modal', 'Cannot have both legacy and modal options set');
+        if (validateType(Types.OBJECT, modal)) {
+            validOptions.modal = modal;
+
+            if (!validateType(Types.STRING, modal.type)) {
+                logInvalidType(logger, 'modal.type', Types.STRING, modal.type);
+                validOptions.modal = { type: 'NI' };
+            }
+        } else {
+            logInvalidType(logger, 'modal', Types.OBJECT, modal);
         }
 
-        if (validateType(Types.OBJECT, modal) && validateType(Types.STRING, modal.type)) {
-            validOptions.modal = modal;
-        } else {
-            validOptions.modal = { type: 'NI' };
+        if (otherOptions._legacy) {
+            logInvalid(logger, 'modal', 'Cannot have both legacy and modal options set');
+            delete validOptions.modal;
         }
     }
 

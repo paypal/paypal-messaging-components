@@ -24,6 +24,11 @@ XMLHttpRequest.prototype.send = jest.fn();
 HTMLImageElement.prototype.addEventListener = jest.fn((type, cb) => cb());
 
 describe('Banner model', () => {
+    beforeEach(() => {
+        Modal.init.mockReset();
+        document.body.innerHTML = '';
+    });
+
     const selector = '[data-pp-message]';
 
     const validOptions = {
@@ -62,5 +67,18 @@ describe('Banner model', () => {
         expect(Modal.init).toHaveBeenCalledTimes(2);
         expect(wrapper.children.length).toBe(1);
         expect(iframe.contentWindow.document.body.innerHTML).toMatch(/test header/i);
+
+        await Banner.init(wrapper, selector, { ...validOptions, style: { layout: 'flex', ratio: '1x1' } });
+    });
+
+    it('Creates modal without iframe nor banner insertion', async () => {
+        const textElement = document.createElement('span');
+        textElement.innerText = 'click here';
+        document.body.appendChild(textElement);
+
+        await Banner.init(textElement, '.mess', { ...validOptions, modal: { type: 'ni' } });
+
+        expect(Modal.init).toHaveBeenCalledTimes(1);
+        expect(!!textElement.querySelector('iframe')).toBe(false);
     });
 });

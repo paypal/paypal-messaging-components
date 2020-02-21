@@ -28,10 +28,19 @@ describe('events.js', () => {
         'hover',
         'resize'
     ])('%s events', eventType => {
+        beforeEach(() => {
+            document.body.innerHTML = '';
+        });
+
         // skip using div for resize events
-        const containerTypes = ['iframe'].concat(eventType === 'resize' ? [] : ['div']);
+        const containerTypes = ['iframe'].concat(eventType === 'resize' ? [] : ['div', 'element']);
         it.each(containerTypes)(`Adds and clears ${eventType} event with %s container`, containerType => {
-            const { container, getByText } = createContainer(containerType, '<h1>test</h1>');
+            const element = document.createElement('span');
+            element.appendChild(document.createTextNode('test'));
+            const { container, getByText } = createContainer(
+                containerType === 'element' ? element : containerType,
+                '<h1>test</h1>'
+            );
 
             const eventCalls = {
                 click: () => fireEvent.click(getByText(/test/i)),
@@ -40,7 +49,7 @@ describe('events.js', () => {
                 resize: () => fireEvent(container.contentWindow, new Event('resize'))
             };
 
-            const events = eventsOn(container);
+            const events = eventsOn(container, containerType === 'element');
             const handler = jest.fn();
 
             events.on(eventType, handler);
@@ -66,9 +75,14 @@ describe('events.js', () => {
 
         if (eventType !== 'resize') return;
 
-        it.each(['div'])('Does not fire resize event with %s container', containerType => {
-            const { container } = createContainer(containerType, '<h1>test</h1>');
-            const events = eventsOn(container);
+        it.each(['div', 'element'])('Does not fire resize event with %s container', containerType => {
+            const element = document.createElement('div');
+            element.appendChild(document.createTextNode('test'));
+            const { container } = createContainer(
+                containerType === 'element' ? element : containerType,
+                '<h1>test</h1>'
+            );
+            const events = eventsOn(container, containerType === 'element');
             const handler = jest.fn();
 
             events.on('resize', handler);
@@ -82,9 +96,14 @@ describe('events.js', () => {
     });
 
     describe('clear all events', () => {
-        it.each(['iframe', 'div'])('removes all events from %s container', containerType => {
-            const { container, getByText } = createContainer(containerType, '<h1>test</h1>');
-            const events = eventsOn(container);
+        it.each(['element'])('removes all events from %s container', containerType => {
+            const element = document.createElement('div');
+            element.appendChild(document.createTextNode('test'));
+            const { container, getByText } = createContainer(
+                containerType === 'element' ? element : containerType,
+                '<h1>test</h1>'
+            );
+            const events = eventsOn(container, containerType === 'element');
             const handler = jest.fn();
             const eventTypeCount = containerType === 'iframe' ? 4 : 3;
 

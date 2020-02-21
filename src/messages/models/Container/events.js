@@ -42,14 +42,21 @@ function onHover(evt) {
 function onClick(evt, isOnlyModal) {
     if (evt.target.ownerDocument && events.click.has(evt.target.ownerDocument.defaultView.frameElement)) {
         events.click.get(evt.target.ownerDocument.defaultView.frameElement)(evt);
-    } else if (
-        events.click.has(evt.currentTarget) &&
-        evt.currentTarget !== evt.target // We don't want direct clicks on the container to fire an event, only from elements inside the container
-    ) {
-        events.click.get(evt.currentTarget)(evt);
-    } else if (isOnlyModal) {
-        events.click.get(evt.currentTarget)(evt);
+    } else if (events.click.has(evt.currentTarget)) {
+        // We don't want direct clicks on the container to fire an event, only from elements inside the container)
+        // Except in the case that a merchant uses their own messaging and only needs a modal
+        if (evt.currentTarget !== evt.target || isOnlyModal) {
+            events.click.get(evt.currentTarget)(evt);
+        }
     }
+}
+
+/**
+ * On click event handler for when merchants use their own messaging and just need a modal
+ * @param (Event) evt Event object
+ */
+function modalOnlyOnClick(evt) {
+    onClick(evt, true);
 }
 
 /**
@@ -68,7 +75,7 @@ function ensureListener(type, elem, isOnlyModal) {
         if (elem.tagName === 'IFRAME') {
             elem.contentWindow.document.body.addEventListener('click', onClick);
         } else {
-            const clickHandler = isOnlyModal ? evt => onClick(evt, isOnlyModal) : onClick;
+            const clickHandler = isOnlyModal ? modalOnlyOnClick : onClick;
             elem.addEventListener('click', clickHandler);
         }
     }
@@ -119,7 +126,7 @@ export default function addEventListenersTo(container, isOnlyModal) {
                 if (container.tagName === 'IFRAME') {
                     container.contentWindow.document.body.removeEventListener('click', onClick);
                 } else {
-                    container.removeEventListener('click', onClick);
+                    container.removeEventListener('click', isOnlyModal ? modalOnlyOnClick : onClick);
                 }
             } else if (container.tagName === 'IFRAME') {
                 if (type === 'resize') {

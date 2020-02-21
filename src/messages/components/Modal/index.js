@@ -19,7 +19,7 @@ export default {
             account: options.account,
             country: meta.offerCountry,
             currency: options.currency,
-            type: getModalType(meta.offerCountry, meta.offerType),
+            type: options.modal ? options.modal.type.toUpperCase() : getModalType(meta.offerCountry, meta.offerType),
             amount: options.amount,
             refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
