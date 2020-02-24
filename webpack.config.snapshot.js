@@ -30,5 +30,16 @@ module.exports = (env = {}) => {
         before: devServerProxy
     };
 
-    return config;
+    const MODAL_DEV_CONFIG = getWebpackConfig({
+        entry: './src/modal/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-modal.js',
+        vars: globals(env)
+    });
+
+    return [config, MODAL_DEV_CONFIG];
 };
