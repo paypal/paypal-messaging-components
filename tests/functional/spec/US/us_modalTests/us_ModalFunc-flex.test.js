@@ -51,7 +51,6 @@ describe.each([
         `click here inside modal takes user to see terms page - ${bannerStyle.layout} ${viewport.width}`,
         clickHereSeeTerms(account, viewport, bannerStyle)
     );
-    // FIXME: Validate Apply Now button exists
     test(
         `apply now button opens browser to credit application login - ${bannerStyle.layout} ${viewport.width}`,
         applyNowBtn(account, viewport, bannerStyle)

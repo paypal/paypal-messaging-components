@@ -23,6 +23,7 @@ export const openModal = async (viewport, config, testPage = 'modal-test.html') 
      * The below function evaluates which modal iframe is *not* set to display:none, then execute the
      * openModal func beforeEach test.
      */
+
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
             el => el.parentElement.parentElement.style.display !== 'none'

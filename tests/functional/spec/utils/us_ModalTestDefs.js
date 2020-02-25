@@ -100,13 +100,9 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
     });
-    await page.waitFor(2000);
+    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentHeader);
     await modalFrame.waitForSelector(selectors.button.btn);
-
-    // await modalFrame.evaluate(() => {
-    //     document.querySelector('.button').click();
-    // });
 
     await modalFrame.click(selectors.button.btn);
 

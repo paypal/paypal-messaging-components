@@ -9,7 +9,6 @@ import { modalSnapshot } from '../us_initalizeModal';
  */
 
 export const xClosesModal = (account, viewport, bannerStyle) => async () => {
-    console.log(account, bannerStyle, viewport);
     const testNameParts = account === 'DEV00000000NI' ? 'ni x button closes modal' : 'ezp x button closes modal';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();

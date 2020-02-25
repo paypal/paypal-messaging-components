@@ -23,7 +23,6 @@ export const openModal = async (viewport, config, testPage = 'modal-test.html') 
      * openModal func beforeEach test.
      */
 
-    // await page.waitForSelector("iframe[title='paypal_credit_modal']", { visible: true });
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
             el => el.parentElement.parentElement.style.display !== 'none'
