@@ -12,6 +12,7 @@ module.exports = {
     },
     transform: {
         '^.+\\.jsx?$': 'babel-jest',
+        '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
