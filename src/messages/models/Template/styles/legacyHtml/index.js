@@ -57,19 +57,19 @@ const dynamicStyles = Object.keys(styleMap).map(k => {
     `;
 
     if (settings.vertical) {
-        style = `${style}${vertical}`;
+        style = `${style}${vertical._getCss()}`;
     }
 
     if (settings.reverseLogo) {
-        style = `${style}${reverseLogo}`;
+        style = `${style}${reverseLogo._getCss()}`;
     }
 
     if (settings.vertical && settings.reverseLogo) {
-        style = `${style}${verticalReverseLogo}`;
+        style = `${style}${verticalReverseLogo._getCss()}`;
     }
 
     if (settings.termsIcon) {
-        style = `${style}${termsIcon}`;
+        style = `${style}${termsIcon._getCss()}`;
     }
 
     return [`size:${size}`, style];
