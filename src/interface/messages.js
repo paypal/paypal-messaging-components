@@ -1,13 +1,8 @@
 import { getInlineOptions, globalState, getScript, getAccount, getEnv, getCurrency, getPartnerAccount } from '../utils';
 import { Logger } from '../messages/services/logger';
 import Messages from '../messages';
-import mockServices from '../utils/mockServices';
 
 export function setup() {
-    // Use global variable instead of getEnv() so code can be eliminated for all other environments
-    if (__ENV__ === 'sandbox') {
-        mockServices();
-    }
     // Populate global config options
     const script = getScript();
     if (script) {
