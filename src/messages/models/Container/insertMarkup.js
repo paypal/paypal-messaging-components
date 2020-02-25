@@ -55,7 +55,8 @@ export default curry((container, isOnlyModal, template) => {
 
                         arrayFrom(newNode.children).forEach(el => parentElement.appendChild(el));
 
-                        resolve();
+                        // IE needs an extra frame to render styles properly
+                        requestAnimationFrame(resolve);
                     })
                 )
         );

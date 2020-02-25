@@ -209,7 +209,8 @@ export default curry((container, isOnlyModal, { wrapper, options, logger, meta }
             // TODO: Setting the height causes this to fire again
             container.setAttribute(
                 'height',
-                container.contentWindow.document.body.lastChild.offsetHeight ||
+                (container.contentWindow.document.body.lastChild &&
+                    container.contentWindow.document.body.lastChild.offsetHeight) ||
                     container.contentWindow.document.body.scrollHeight
             ); // container.contentWindow.document.documentElement.scrollHeight);
         };

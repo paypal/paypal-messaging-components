@@ -101,14 +101,14 @@ function checkAdblock() {
 }
 
 export default curry(
-    (container, isOnlyModal, { options: { amount, account, partnerAccount, placement, onClick }, events, track }) => {
+    (container, isOnlyModal, { options: { amount, account, merchantId, placement, onClick }, events, track }) => {
         // Get outer most container's page location coordinates
         const containerRect = container.getBoundingClientRect();
 
         // Create initial payload
         const payload = {
             et: 'CLIENT_IMPRESSION',
-            event_type: isOnlyModal ? 'modal-stats' : 'stats',
+            event_type: 'stats',
             integration_type: __MESSAGES__.__TARGET__,
             messaging_version: __MESSAGES__.__VERSION__,
             placement,
@@ -120,8 +120,8 @@ export default curry(
             amount
         };
 
-        if (partnerAccount) {
-            payload.partner_client_id = partnerAccount;
+        if (merchantId) {
+            payload.partner_client_id = account.slice(10);
         } else if (startsWith(account, 'client-id:')) {
             payload.client_id = account.slice(10);
         }

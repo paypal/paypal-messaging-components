@@ -26,8 +26,8 @@ window.__PP = window.__PP || {};
 
 // Specific dimensions tied to JSON banners in Campaign Studio
 // Swap the placement tag when changes for banners and messaging.js are required in sync
-// const PLACEMENT = 'x200x51';
-const PLACEMENT = 'x215x80';
+const PLACEMENT = 'x200x51';
+// const PLACEMENT = 'x215x80';
 
 const NI_ONLY_PLACEMENT = 'x199x99';
 
@@ -76,6 +76,7 @@ function mutateMarkup(markup) {
 function fetcher(options) {
     const {
         account,
+        merchantId,
         amount,
         offerType,
         currency,
@@ -97,21 +98,27 @@ function fetcher(options) {
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
-            call: `__PP.${callbackName}`
+            call: `__PP.${callbackName}`,
+            // Future prep for credit-presentment partner integration, ignored by imadserv
+            merchant_id: merchantId
         };
 
         const queryString = objectEntries(queryParams)
             .filter(([, val]) => val)
             .reduce(
                 (accumulator, [key, val]) => `${accumulator}&${key}=${val}`,
-                stringStartsWith(account, 'client-id') ? `client_id=${account.slice(10)}` : `pub_id=${account}`
+                // TODO: This logic needs to be modified when switching from imadserv
+                // to credit-presentment in order to properly handle partner integrations
+                !merchantId && stringStartsWith(account, 'client-id')
+                    ? `client_id=${account.slice(10)}`
+                    : `pub_id=${merchantId || account}`
             );
         const script = document.createElement('script');
         script.async = true;
 
         // Manual request instead of traditional JSONP so that we can catch 204 no content stalling
         request('GET', `${rootUrl}?${queryString}`, { withCredentials: true }).then(res => {
-            script.text = res.data;
+            script.text = res.data || `__PP.${callbackName}('')`;
             document.head.appendChild(script);
         });
 
@@ -214,7 +221,7 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'amount', 'offerType', 'countryCode']);
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 
 export default function getBannerMarkup({ options, logger, isOnlyModal }) {
     logger.info(EVENTS.FETCH_START);
@@ -285,8 +292,11 @@ export default function getBannerMarkup({ options, logger, isOnlyModal }) {
         }
 
         const template = document.createElement('div');
-        template.innerHTML = markup;
+        template.innerHTML = markup || '';
+        if (markup === '') {
+            logger.warn('No message was found for the given configuration parameters.');
+        }
 
-        return { markup, options: totalOptions, template, meta: {} };
+        return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
     });
 }

@@ -13,16 +13,7 @@ const Calculator = () => {
             <div className="calculator">
                 <h2 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h2>
                 <form className="calculator__form" onSubmit={submit}>
-                    <input
-                        className="calculator__input"
-                        type="text"
-                        id="number-input"
-                        step="0.1"
-                        placeholder="0"
-                        min="0"
-                        value={value}
-                        onChange={changeInput}
-                    />
+                    <input className="calculator__input" type="text" value={value} onInput={changeInput} />
                     <Button type="submit" secondary>
                         Calculate
                     </Button>
