@@ -2,10 +2,11 @@ import selectors from './selectors';
 import { modalSnapshot } from '../de_initalizeModal';
 
 /**
- * DE Modal Calc Tests
+ * This function runs inside de_ModalCalc-flex & de_ModalCalc-text for the DE locale.
+ * Function definition can be found inside './de_ModalTestDefs.js'
  */
 
-export const nonQualErrorMsg = (viewport, bannerStyle, account) => async () => {
+export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
 
@@ -19,26 +20,27 @@ export const nonQualErrorMsg = (viewport, bannerStyle, account) => async () => {
     await modalFrame.click(selectors.button.btnMd);
 
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
+    await page.waitFor(2000);
     const calcInstructions = await modalFrame.evaluate(
         () => document.querySelector('.calculator__instructions').innerHTML
     );
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
 
-    // const image = await page.screenshot(
-    //     {
-    //         clip: {
-    //             ...viewport,
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     },
-    //     3
-    // );
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
 
-    // modalSnapshot(testNameParts, viewport, image);
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
 };
 
-export const updateFinanceTerms = (viewport, bannerStyle, account) => async () => {
+export const updateFinanceTerms = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'DE update finance terms';
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
@@ -63,21 +65,21 @@ export const updateFinanceTerms = (viewport, bannerStyle, account) => async () =
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnMd);
 
-    // const image = await page.screenshot(
-    //     {
-    //         clip: {
-    //             ...viewport,
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     },
-    //     3
-    // );
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
 
-    // modalSnapshot(testNameParts, viewport, image);
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
 };
 
-export const deModalContentAndCalc = (viewport, bannerStyle, account) => async () => {
+export const deModalContentAndCalc = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'ezp message content';
 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
@@ -96,20 +98,16 @@ export const deModalContentAndCalc = (viewport, bannerStyle, account) => async (
 
     expect(calcTitle).toContain('Monatliche Raten berechnen');
 
-    // const image = await page.screenshot(
-    //     {
-    //         clip: {
-    //             ...viewport,
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     },
-    //     3
-    // );
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
 
-    // modalSnapshot(testNameParts, viewport, image);
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
 };
-
-/**
- * DE Modal Func Tests
- */

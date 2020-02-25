@@ -33,7 +33,7 @@ describe.each([
     });
     test(
         `NI content is loaded when NI message is clicked - ${viewport.width} ${bannerStyle.layout}`,
-        niContentTest(viewport, bannerStyle)
+        niContentTest(account, viewport, bannerStyle)
     );
     afterEach(async () => {
         // eslint-disable-next-line no-undef

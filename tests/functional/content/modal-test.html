@@ -17,18 +17,8 @@
 
     <body>
         <div class="container"></div>
-        <br />
-        <br />
-        <br />
-        <div class="container" data-pp-account="DEV00000000NI" data-pp-style="text"></div>
-        <br />
-        <br />
-        <br />
-        <div class="container" data-pp-account="DEV0000000PSZ" data-pp-amount="500"></div>
-        <br />
-        <br />
-        <br />
-        <div class="container" data-pp-account="DEV0000000EAZ" data-pp-style="text"></div>
+        <!-- <br />
+        <div class="container" data-pp-account="DEV00000000NI" data-pp-style="text"></div> -->
         <script>
             const query = window.location.search.substring(1);
             const mappedParams = query.split('&').reduce((accumulator, param) => {
@@ -42,7 +32,7 @@
                 document.body.style = 'background: #000';
             }
 
-            paypal.Message.render(config, '.container');
+            paypal.Message.render(config, '.banner-1');
         </script>
     </body>
 </html>

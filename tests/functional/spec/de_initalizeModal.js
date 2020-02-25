@@ -5,10 +5,10 @@ export const openModal = async (viewport, config, testPage = 'modal-test.html') 
     await page.setViewport(viewport);
     await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
 
-    await page.waitForSelector('[data-pp-id] iframe', { visible: true });
+    await page.waitForSelector('.banner-1 iframe', { visible: true });
     await page.waitForSelector("iframe[title='paypal_credit_modal']");
 
-    const elementHandle = await page.$('[data-pp-id] iframe');
+    const elementHandle = await page.$('.banner-1 iframe');
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
 
     const frame = await elementHandle.contentFrame();

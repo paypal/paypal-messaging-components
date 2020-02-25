@@ -6,7 +6,7 @@ import { modalSnapshot } from '../us_initalizeModal';
  * Function definition can be found inside './us_ModalTestDefs.js'
  */
 
-export const niContentTest = (viewport, bannerStyle, account) => async () => {
+export const niContentTest = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'ni content in modal';
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
@@ -57,11 +57,11 @@ export const niContentTest = (viewport, bannerStyle, account) => async () => {
 };
 
 /**
- * These functions runs inside basicModalFunc-flex & basicModalFunc-text for the US locale.
+ * These functions runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
  * Function definition can be found inside './us_ModalTestDefs.js'
  */
 
-export const clickHereSeeTerms = (viewport, bannerStyle, account) => async () => {
+export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'see terms page on modal hyperlink click';
     await page.waitFor(2000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
@@ -77,26 +77,21 @@ export const clickHereSeeTerms = (viewport, bannerStyle, account) => async () =>
     await modalFrame.click('a');
     await page.waitFor(1000);
 
-    // const image = await page.screenshot(
-    //     {
-    //         clip: {
-    //             ...viewport,
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     },
-    //     3
-    // );
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
 
-    // modalSnapshot(
-    //     `${testNameParts} ${bannerStyle.layout}`,
-    //     viewport,
-    //     image,
-    //     account
-    // );
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
 };
 
-export const applyNowBtn = (viewport, bannerStyle, account) => async () => {
+export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'apply now button to credit application login';
     await page.waitFor(2000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
@@ -114,21 +109,16 @@ export const applyNowBtn = (viewport, bannerStyle, account) => async () => {
     });
     await modalFrame.click(selectors.button.btn);
 
-    // const image = await page.screenshot(
-    //     {
-    //         clip: {
-    //             ...viewport,
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     },
-    //     3
-    // );
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
 
-    // modalSnapshot(
-    //     `${testNameParts} ${bannerStyle.layout}`,
-    //     viewport,
-    //     image,
-    //     account
-    // );
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
 };
