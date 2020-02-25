@@ -20,13 +20,8 @@ export const openModal = async (viewport, config, testPage = 'modal-test.html') 
     await frame.click('.message__messaging');
 
     /**
-     * FIXME:
-     * https://github.com/puppeteer/puppeteer/issues/4356
-     * NOTE: Puppeteer on some occassions does not detect that the modal is open, even if it is visible on screen,
-     * as evidenced by snapshots. This is causing intermittent failures on certain permutations on a couple of tests.
-     *
-     * The below function attempts to evaluate which modal iframe is *not* set to display:none, then execute the
-     * openModal func beforeEach test, though this is still inconsistent.
+     * The below function evaluates which modal iframe is *not* set to display:none, then execute the
+     * openModal func beforeEach test.
      */
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
@@ -34,10 +29,6 @@ export const openModal = async (viewport, config, testPage = 'modal-test.html') 
         )
     );
 };
-
-/**
- * Modal-specific snapshot config.
- */
 
 export const modalSnapshot = (testNameParts, viewport, image, account) => {
     const _testNameParts = testNameParts.replace(/( )/g, '-');

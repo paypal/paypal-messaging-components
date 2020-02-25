@@ -57,7 +57,7 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
 };
 
 /**
- * These functions runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
+ * This function runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
  * Function definition can be found inside './us_ModalTestDefs.js'
  */
 
@@ -104,9 +104,10 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     await modalFrame.waitForSelector(selectors.modal.contentHeader);
     await modalFrame.waitForSelector(selectors.button.btn);
 
-    await modalFrame.evaluate(() => {
-        document.querySelector('.button').click();
-    });
+    // await modalFrame.evaluate(() => {
+    //     document.querySelector('.button').click();
+    // });
+
     await modalFrame.click(selectors.button.btn);
 
     const image = await page.screenshot(
@@ -121,4 +122,141 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     );
 
     modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+};
+
+/**
+ * This function runs inside us_ModalCalc-flex & us_ModalCalc-text for the US locale.
+ * Function definition can be found inside './us_ModalTestDefs.js'
+ * Passes in bannerStyles instead of bannerStyle.
+ */
+
+export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => {
+    const testNameParts = 'non-qualifying ezp amount error message';
+    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const modalFrame = await elementModal.contentFrame();
+    await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
+    await page.waitFor(2000);
+    await modalFrame.waitForSelector(selectors.modal.contentBody);
+    await page.waitFor(2000);
+    await modalFrame.waitForSelector(selectors.calculator.calc);
+    await modalFrame.waitForSelector(selectors.calculator.calcForm);
+
+    await modalFrame.waitForSelector(selectors.calculator.calcInput, { visible: true });
+
+    await page.waitFor(1000);
+    await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
+    await page.waitFor(1000);
+    await modalFrame.type(selectors.calculator.calcInput, '2');
+    await modalFrame.click(selectors.button.btnSecondary);
+
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+
+    // modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+};
+
+export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => {
+    const testNameParts = 'ezp finance terms';
+    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const modalFrame = await elementModal.contentFrame();
+    await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
+    await page.waitFor(2000);
+    await modalFrame.waitForSelector(selectors.modal.contentBody);
+
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+
+    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+};
+
+export const updateFinanceTerms = (account, viewport, bannerStyles) => async () => {
+    const testNameParts = 'update finance terms';
+    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const modalFrame = await elementModal.contentFrame();
+    await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
+    await page.waitFor(2000);
+    await modalFrame.waitForSelector(selectors.modal.contentBody);
+    await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
+    // await page.waitFor(2000);
+    await modalFrame.waitForSelector(selectors.calculator.calcForm);
+    await modalFrame.waitForSelector(selectors.calculator.calcInput, { visible: true });
+    // await page.waitFor(2000);
+    await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
+    await modalFrame.type(selectors.calculator.calcInput, '650');
+    await modalFrame.click(selectors.button.btnSecondary);
+
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+
+    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+};
+
+export const ezpModalContent = (account, viewport, bannerStyles) => async () => {
+    const testNameParts = 'ezp message content';
+    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const modalFrame = await elementModal.contentFrame();
+    await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
+    await page.waitFor(1000);
+    await modalFrame.waitForSelector(selectors.modal.contentBody);
+    await page.waitFor(1000);
+    await modalFrame.waitForSelector(selectors.calculator.calc);
+    await page.waitFor(1000);
+    await modalFrame.waitForSelector(selectors.calculator.calcForm);
+    await modalFrame.waitForSelector(selectors.calculator.calcInput);
+
+    expect(await modalFrame.evaluate(() => document.querySelector('.calculator'))).toBeTruthy();
+
+    await modalFrame.waitForSelector(selectors.modal.contentBody);
+    await modalFrame.waitForSelector(selectors.modal.contentBodyTitle);
+
+    const contentHeaderTitle = await modalFrame.evaluate(
+        _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
+        selectors.modal.contentHeaderTitle
+    );
+    const contentBodyTitle = await modalFrame.evaluate(
+        _contentBodyTitle => document.querySelector(_contentBodyTitle).innerText,
+        selectors.modal.contentBodyTitle
+    );
+
+    // eslint-disable-next-line no-unused-expressions
+    expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments') &&
+        expect(contentBodyTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
+
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+
+    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
 };

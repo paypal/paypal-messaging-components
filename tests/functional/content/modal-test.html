@@ -16,9 +16,9 @@
     </head>
 
     <body>
-        <div class="container"></div>
-        <!-- <br />
-        <div class="container" data-pp-account="DEV00000000NI" data-pp-style="text"></div> -->
+        <div class="container banner-1"></div>
+        <br />
+        <div class="container banner-2" data-pp-account="DEV00000000NI" data-pp-style="text"></div>
         <script>
             const query = window.location.search.substring(1);
             const mappedParams = query.split('&').reduce((accumulator, param) => {
@@ -32,7 +32,17 @@
                 document.body.style = 'background: #000';
             }
 
+            /**
+             * Puppeteer has a tendancy to timeout when more than one message/banner is on the screen.
+             * setTimeout adds a slight delay to the second message rendering to ensure that Puppeteer
+             * hooks into the first message, clicks said message, then proceeds with the modal tests
+             * without throwing a timeout 30000 error.
+             */
+
             paypal.Message.render(config, '.banner-1');
+            setTimeout(() => {
+                paypal.Message.render(config, '.banner-2');
+            }, 1000);
         </script>
     </body>
 </html>
