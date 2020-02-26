@@ -1,7 +1,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
-import { niContentTest } from '../../utils/us_modalTestingDefs';
+import { niContentTest } from '../../utils/us_modalTestDefs';
 
 const account = 'DEV00000000NI';
 

@@ -1,7 +1,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../de_initalizeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
-import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_modalTestingDefs';
+import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_modalTestDefs';
 
 const account = 'DEV0000000IAZ';
 
@@ -16,14 +16,14 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 expect.extend({ toMatchImageSnapshot });
 
 describe.each([
-    [viewports[0], bannerStyles[1], amounts[0]],
-    [viewports[0], bannerStyles[1], amounts[1]],
-    [viewports[0], bannerStyles[1], amounts[2]],
-    [viewports[0], bannerStyles[1], amounts[3]],
-    [viewports[1], bannerStyles[1], amounts[0]],
-    [viewports[1], bannerStyles[1], amounts[1]],
-    [viewports[1], bannerStyles[1], amounts[2]],
-    [viewports[1], bannerStyles[1], amounts[3]]
+    [viewports[0], bannerStyles[0], amounts[0]],
+    [viewports[0], bannerStyles[0], amounts[1]],
+    [viewports[0], bannerStyles[0], amounts[2]],
+    [viewports[0], bannerStyles[0], amounts[3]],
+    [viewports[1], bannerStyles[0], amounts[0]],
+    [viewports[1], bannerStyles[0], amounts[1]],
+    [viewports[1], bannerStyles[0], amounts[2]],
+    [viewports[1], bannerStyles[0], amounts[3]]
 ])('DE Modal Calculator Tests %o', (viewport, bannerStyle, amount) => {
     beforeEach(async () => {
         await openModal(viewport, {
@@ -31,8 +31,10 @@ describe.each([
             amount,
             style: {
                 layout: bannerStyle.layout,
-                ratio: bannerStyle.ratio,
-                color: bannerStyle.color
+                logo: {
+                    position: bannerStyle.position,
+                    type: bannerStyle.type
+                }
             }
         });
     });

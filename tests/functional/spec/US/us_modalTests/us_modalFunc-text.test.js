@@ -7,7 +7,7 @@ import {
     clickOutsideClosesModal,
     closeReopenModal
 } from '../../utils/globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn, switchTabs } from '../../utils/us_modalTestingDefs';
+import { clickHereSeeTerms, applyNowBtn, switchTabs } from '../../utils/us_modalTestDefs';
 
 const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
 

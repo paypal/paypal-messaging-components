@@ -1,7 +1,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
-import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from '../../utils/us_modalTestingDefs';
+import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from '../../utils/us_modalTestDefs';
 
 const account = 'DEV0000000PSZ';
 
