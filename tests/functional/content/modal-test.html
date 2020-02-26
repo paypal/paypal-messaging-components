@@ -16,6 +16,11 @@
     </head>
 
     <body>
+        <!-- Hides banners behind a white box to prevent diff issues when banner design changes. -->
+        <div
+            class="hide-banner"
+            style="position: absolute; height: 500px; width: 100%; background: white; z-index: 1; pointer-events: none;"
+        ></div>
         <div class="container banner-1"></div>
         <br />
         <div class="container banner-2" data-pp-account="DEV00000000NI" data-pp-style="text"></div>
