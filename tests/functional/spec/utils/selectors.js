@@ -1,3 +1,4 @@
+// Selectors used in modal tests
 const selectors = {
     message: {
         messageMessaging: '.message__messaging'

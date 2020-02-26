@@ -20,8 +20,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await frame.click('.message__messaging');
 
     /**
-     * The below function evaluates which modal iframe is *not* set to display:none, then execute the
-     * openModal func beforeEach test.
+     * Evaluates which modal iframe is *not* set to display:none, then executes the openModal func beforeEach test.
      */
 
     await page.waitForFunction(() =>

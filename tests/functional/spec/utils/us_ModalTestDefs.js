@@ -3,7 +3,6 @@ import modalSnapshot from './modalSnapshot';
 
 /**
  * This function runs inside niModal-flex & niModal-text for the US locale.
- * Function definition can be found inside './us_ModalTestDefs.js'
  */
 
 export const niContentTest = (account, viewport, bannerStyle) => async () => {
@@ -57,8 +56,7 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
 };
 
 /**
- * This function runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
- * Function definition can be found inside './us_ModalTestDefs.js'
+ * Runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
  */
 
 export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () => {
@@ -121,8 +119,7 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
 };
 
 /**
- * This function runs inside us_ModalCalc-flex & us_ModalCalc-text for the US locale.
- * Function definition can be found inside './us_ModalTestDefs.js'
+ * Runs inside us_ModalCalc-flex & us_ModalCalc-text for the US locale.
  * Passes in bannerStyles instead of bannerStyle.
  */
 
@@ -156,7 +153,6 @@ export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => 
         3
     );
 
-    // modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
     modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
 };
 
@@ -190,10 +186,8 @@ export const updateFinanceTerms = (account, viewport, bannerStyles) => async () 
     await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
-    // await page.waitFor(2000);
     await modalFrame.waitForSelector(selectors.calculator.calcForm);
     await modalFrame.waitForSelector(selectors.calculator.calcInput, { visible: true });
-    // await page.waitFor(2000);
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnSecondary);

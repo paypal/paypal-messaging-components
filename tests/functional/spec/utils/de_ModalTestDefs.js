@@ -2,8 +2,7 @@ import selectors from './selectors';
 import modalSnapshot from './modalSnapshot';
 
 /**
- * This function runs inside de_ModalCalc-flex & de_ModalCalc-text for the DE locale.
- * Function definition can be found inside './de_ModalTestDefs.js'
+ * Runs inside de_ModalCalc-flex & de_ModalCalc-text for the DE locale.
  */
 
 export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {

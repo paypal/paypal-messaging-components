@@ -3,9 +3,7 @@ import modalSnapshot from './modalSnapshot';
 
 /**
  * General modal function tests for both the US & DE locales.
- * This function runs inside of us_ModalFunc-text & us_ModalFunc-flex for the US locale.
- * Also runs inside of de_ModalFunc-text & de_ModalFunc-flex for the DE locale.
- * Function definition can be found inside './globalModalTestDefs.js'
+ * Runs inside of ModalFunc-(text/flex) for both the US and DE locale.
  */
 
 export const xClosesModal = (account, viewport, bannerStyle) => async () => {
