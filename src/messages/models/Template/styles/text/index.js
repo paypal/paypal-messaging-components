@@ -1,23 +1,23 @@
-import common from '../common.css';
-import base from './css/base.css';
-import logoAlternative from './css/logo--alternative.css';
-import logoInline from './css/logo--inline.css';
-import logoNone from './css/logo--none.css';
-import logoRight from './css/logo--right.css';
-import logoTop from './css/logo--top.css';
-import logoAlternativeTop from './css/logo--alternativetop.css';
-import textWhite from './css/text--white.css';
+import common from '../common.scss';
+import base from './base.scss';
+import logoAlternative from './logo--alternative.scss';
+import logoInline from './logo--inline.scss';
+import logoNone from './logo--none.scss';
+import logoRight from './logo--right.scss';
+import logoTop from './logo--top.scss';
+import logoAlternativeTop from './logo--alternativetop.scss';
+import textWhite from './text--white.scss';
 
 export default [
-    ['default', [common, base].join('\n')],
+    ['default', [common._getCss(), base._getCss()].join('\n')],
 
-    ['logo.type:alternative', logoAlternative],
-    ['logo.type:inline', logoInline],
-    ['logo.type:none', [logoInline, logoNone].join('\n')],
+    ['logo.type:alternative', logoAlternative._getCss()],
+    ['logo.type:inline', logoInline._getCss()],
+    ['logo.type:none', [logoInline._getCss(), logoNone._getCss()].join('\n')],
 
-    ['logo.position:right', logoRight],
-    ['logo.position:top', logoTop],
-    ['logo.type:alternative && logo.position:top', logoAlternativeTop],
+    ['logo.position:right', logoRight._getCss()],
+    ['logo.position:top', logoTop._getCss()],
+    ['logo.type:alternative && logo.position:top', logoAlternativeTop._getCss()],
 
-    ['text.color:white', textWhite]
+    ['text.color:white', textWhite._getCss()]
 ];
