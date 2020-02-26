@@ -15,9 +15,7 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
 
     const modalFrame = await elementModal.contentFrame();
-    await page.waitFor(1000);
     await modalFrame.evaluate(browserVal => Boolean(document.querySelector(browserVal)), selectors.modal.container);
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.modalContent);
     await modalFrame.waitForSelector(selectors.modal.modalMain);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
@@ -98,7 +96,6 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
     });
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentHeader);
     await modalFrame.waitForSelector(selectors.button.btn);
 
@@ -128,7 +125,6 @@ export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.calculator.calc);
@@ -161,7 +157,6 @@ export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
 
     const image = await page.screenshot(
@@ -183,7 +178,6 @@ export const updateFinanceTerms = (account, viewport, bannerStyles) => async () 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
     await modalFrame.waitForSelector(selectors.calculator.calcForm);
@@ -211,7 +205,6 @@ export const ezpModalContent = (account, viewport, bannerStyles) => async () => 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.calculator.calc);

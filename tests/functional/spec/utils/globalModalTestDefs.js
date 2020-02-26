@@ -52,6 +52,7 @@ export const closeModalEsc = (account, viewport, bannerStyle) => async () => {
 
 export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'click outside modal close';
+    await page.waitFor(1000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, {
@@ -60,7 +61,7 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
     await modalFrame.waitForSelector(selectors.modal.overlay);
     await modalFrame.click(selectors.modal.overlaySide);
 
-    await page.waitFor(600);
+    await page.waitFor(1000);
 
     const image = await page.screenshot(
         {
