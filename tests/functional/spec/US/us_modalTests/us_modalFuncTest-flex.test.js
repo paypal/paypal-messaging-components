@@ -7,7 +7,7 @@ import {
     clickOutsideClosesModal,
     closeReopenModal
 } from '../../utils/globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn } from '../../utils/us_modalTestDefs';
+import { clickHereSeeTerms, applyNowBtn } from '../../utils/us_modalTestingDefs';
 
 const niAccount = 'DEV00000000NI';
 
