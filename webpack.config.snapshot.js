@@ -40,6 +40,6 @@ module.exports = (env = {}) => {
         filename: 'smart-credit-modal.js',
         vars: globals(env)
     });
-  
-    return [config, MODAL_DEV_CONFIG];
+
+    return [MESSAGES_CONFIG, MODAL_DEV_CONFIG];
 };
