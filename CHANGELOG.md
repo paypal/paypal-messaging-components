@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.2](https://github.com/paypal/paypal-messaging-components/compare/v1.7.1...v1.7.2) (2020-02-26)
+
+
+### Bug Fixes
+
+* add props for apply now modal backwards compatibility ([#147](https://github.com/paypal/paypal-messaging-components/issues/147)) ([5364eb7](https://github.com/paypal/paypal-messaging-components/commit/5364eb79bf49efce1fa47861d074a6f9d2b964d5))
+* remove sandbox mocking ([#145](https://github.com/paypal/paypal-messaging-components/issues/145)) ([caa70ba](https://github.com/paypal/paypal-messaging-components/commit/caa70ba1b5de1455958f6cdbd44a311cce894d26))
+* use Sass for compatibility with latest grumbler scripts ([#146](https://github.com/paypal/paypal-messaging-components/issues/146)) ([604f0e7](https://github.com/paypal/paypal-messaging-components/commit/604f0e7bc16febbdf6f3adec791d0da0f69838bb))
+
 ## [1.7.1](https://github.com/paypal/paypal-messaging-components/compare/v1.7.0...v1.7.1) (2020-02-20)
 
 
