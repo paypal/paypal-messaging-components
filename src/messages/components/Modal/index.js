@@ -15,36 +15,54 @@ function getModalType(offerCountry, offerType) {
 
 export default {
     init({ options, meta, events, track, wrapper }) {
-        const { render, hide, updateProps } = Modal({
-            account: options.account,
-            country: meta.offerCountry,
-            currency: options.currency,
-            type: getModalType(meta.offerCountry, meta.offerType),
-            amount: options.amount,
-            refId: meta.messageRequestId,
-            onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
-            onClick: linkName => {
-                if (options.onApply && linkName.includes('Apply Now')) {
-                    options.onApply();
+        // For legacy image banners, open a popup instead of the modal
+        if (options._legacy && startsWith(meta.offerType, 'NI')) {
+            events.on('click', evt => {
+                const { target } = evt;
+
+                if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
+                    window.open(
+                        target.parentNode.href,
+                        'PayPal Credit Terms',
+                        'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
+                    );
+
+                    evt.preventDefault();
+                } else {
+                    window.open(meta.clickUrl, '_blank');
                 }
-                track({ et: 'CLICK', event_type: 'click', link: linkName });
-            },
-            onClose: linkName => {
-                wrapper.firstChild.focus();
-
-                track({ et: 'CLICK', event_type: 'click', link: linkName });
-            }
-        });
-
-        hide();
-        // The render promise will resolve before Preact renders and picks up changes
-        // via updateProps so a small delay is added after the initial "render" promise
-        const renderProm = render('body').then(() => ZalgoPromise.delay(100));
-
-        events.on('click', () => {
-            renderProm.then(() => {
-                updateProps({ visible: true });
             });
-        });
+        } else {
+            const { render, hide, updateProps } = Modal({
+                account: options.account,
+                country: meta.offerCountry,
+                currency: options.currency,
+                type: getModalType(meta.offerCountry, meta.offerType),
+                amount: options.amount,
+                refId: meta.messageRequestId,
+                onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
+                onClick: linkName => {
+                    if (options.onApply && linkName.includes('Apply Now')) {
+                        options.onApply();
+                    }
+                    track({ et: 'CLICK', event_type: 'click', link: linkName });
+                },
+                onClose: linkName => {
+                    wrapper.firstChild.focus();
+                    track({ et: 'CLICK', event_type: 'click', link: linkName });
+                }
+            });
+
+            hide();
+            // The render promise will resolve before Preact renders and picks up changes
+            // via updateProps so a small delay is added after the initial "render" promise
+            const renderProm = render('body').then(() => ZalgoPromise.delay(100));
+
+            events.on('click', () => {
+                renderProm.then(() => {
+                    updateProps({ visible: true });
+                });
+            });
+        }
     }
 };

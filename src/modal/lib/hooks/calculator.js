@@ -56,9 +56,9 @@ export default function useCalculator() {
         isLoading: false
     });
 
-    // TODO: Input validation
+    // TODO: Stronger input validation
     const changeInput = evt => {
-        dispatch({ type: 'input', data: evt.target.value });
+        dispatch({ type: 'input', data: evt.target.value.replace(/[^\d.,]/g, '') });
     };
 
     const submit = event => {

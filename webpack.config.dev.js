@@ -65,7 +65,8 @@ module.exports = (env = {}) => {
         overlay: true,
         watchContentBase: true,
         before: devServerProxy,
-        https: env.NODE_ENV !== 'local'
+        https: env.NODE_ENV !== 'local',
+        disableHostCheck: true // IE11
     };
 
     const MODAL_DEV_CONFIG = getWebpackConfig({

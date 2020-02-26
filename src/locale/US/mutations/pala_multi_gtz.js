@@ -6,7 +6,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                messageWidth: textSize * 11,
+                messageWidth: [textSize * 11, textSize * 12],
                 headline: { tag: 'xsmall' },
                 disclaimer: 'xsmall'
             })
@@ -16,6 +16,7 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
+                messageWidth: [textSize * 16, 1000],
                 headline: {
                     br: ['/mo']
                 }
@@ -23,12 +24,13 @@ export default {
         ],
         [
             'logo.type:none',
-            {
+            ({ textSize }) => ({
                 logo: false,
+                messageWidth: [textSize * 15, 1000],
                 headline: {
                     br: ['/mo']
                 }
-            }
+            })
         ],
         [
             'logo.type:alternative',
