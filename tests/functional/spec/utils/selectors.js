@@ -27,6 +27,8 @@ const selectors = {
         calcInput: '.calculator__input'
     },
     button: {
+        tabs: '.tabs',
+        tab: '.tab',
         btn: '.button',
         closeBtn: '#close-btn',
         btnSecondary: '.button--secondary',

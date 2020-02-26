@@ -243,3 +243,36 @@ export const ezpModalContent = (account, viewport, bannerStyles) => async () => 
 
     modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
 };
+
+export const switchTabs = (account, viewport, bannerStyle) => async () => {
+    const testNameParts = 'EZP and NI tabs click';
+    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const modalFrame = await elementModal.contentFrame();
+    await modalFrame.waitForSelector(selectors.modal.container);
+    await modalFrame.waitForSelector(selectors.modal.wrapper);
+    await modalFrame.waitForSelector(selectors.modal.contentWrapper);
+    await modalFrame.waitForSelector(selectors.modal.contentBackground);
+    await modalFrame.waitForSelector(selectors.modal.modalContent);
+    await modalFrame.waitForSelector(selectors.modal.modalMain);
+    await modalFrame.waitForSelector(selectors.button.tabs);
+    await modalFrame.waitForSelector(selectors.button.tab);
+    await page.waitFor(500);
+    // Select the tab that is NOT currently selected.
+    await modalFrame.click('button.tab:not(.tab--selected)');
+    await page.waitFor(200);
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+    await page.waitFor(500);
+    await modalFrame.click('button.tab:not(.tab--selected)');
+    await page.waitFor(200);
+
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+};

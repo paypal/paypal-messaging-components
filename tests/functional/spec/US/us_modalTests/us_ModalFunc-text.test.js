@@ -7,7 +7,7 @@ import {
     clickOutsideClosesModal,
     closeReopenModal
 } from '../../utils/globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn } from '../../utils/us_modalTestDefs';
+import { clickHereSeeTerms, applyNowBtn, switchTabs } from '../../utils/us_modalTestDefs';
 
 const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
 
@@ -56,6 +56,12 @@ describe.each([
         `apply now button opens browser to credit application login - ${bannerStyle.layout} ${viewport.width}`,
         applyNowBtn(account, viewport, bannerStyle)
     );
+    if (account === 'DEV0000000PSZ') {
+        test(
+            `switch between EZP and NI content by clicking tabs - ${bannerStyle.layout} ${viewport.width}`,
+            switchTabs(account, viewport, bannerStyle)
+        );
+    }
 });
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
