@@ -14,6 +14,7 @@ export const xClosesModal = (account, viewport, bannerStyle) => async () => {
     await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
     await page.waitFor(1000);
     await modalFrame.click(selectors.button.closeBtn, { visible: true });
+    await page.waitFor(200);
 
     const image = await page.screenshot(
         {
@@ -34,7 +35,7 @@ export const closeModalEsc = (account, viewport, bannerStyle) => async () => {
     await page.waitFor(500);
     await page.keyboard.press('Escape');
     await page.waitForSelector('body');
-    await page.waitFor(1000);
+    await page.waitFor(200);
 
     const image = await page.screenshot(
         {
@@ -61,7 +62,7 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
     await modalFrame.waitForSelector(selectors.modal.overlay);
     await modalFrame.click(selectors.modal.overlaySide);
 
-    await page.waitFor(1000);
+    await page.waitFor(200);
 
     const image = await page.screenshot(
         {
@@ -93,6 +94,7 @@ export const closeReopenModal = (account, viewport, bannerStyle) => async () => 
     await modalFrame.waitForSelector('body');
     await page.waitFor(1000);
     await modalFrame.click(selectors.button.closeBtn);
+    await page.waitFor(200);
 
     const image = await page.screenshot(
         {

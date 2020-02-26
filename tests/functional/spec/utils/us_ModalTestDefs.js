@@ -39,6 +39,7 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
     expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit') &&
         expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
 
+    await page.waitFor(200);
     const image = await page.screenshot(
         {
             clip: {
@@ -158,7 +159,7 @@ export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => 
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await modalFrame.waitForSelector(selectors.modal.contentBody);
-
+    await page.waitFor(200);
     const image = await page.screenshot(
         {
             clip: {

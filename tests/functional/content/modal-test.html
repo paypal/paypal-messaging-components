@@ -16,7 +16,7 @@
     </head>
 
     <body>
-        <!-- Hides banners behind a white box to prevent diff issues when banner design changes. -->
+        <!-- Hides banners behind a white box to prevent diff issues if banner design changes. -->
         <div
             class="hide-banner"
             style="position: absolute; height: 500px; width: 100%; background: white; z-index: 1; pointer-events: none;"
@@ -44,6 +44,9 @@
              * setTimeout adds a slight delay to the second message rendering to ensure that Puppeteer
              * hooks into the first message, clicks said message, then proceeds with the modal tests
              * without throwing a timeout 30000 error.
+             *
+             * The if statement checks the account of banner-1 and renders a second banner with a different account type.
+             * i.e. if banner-1 is an NI account, render an EZP message and vice versa.
              */
 
             paypal.Message.render(config, '.banner-1');
