@@ -1,5 +1,5 @@
 import selectors from './selectors';
-import { modalSnapshot } from '../us_initalizeModal';
+import modalSnapshot from './modalSnapshot';
 
 /**
  * General modal function tests for both the US & DE locales.
@@ -61,6 +61,8 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
     });
     await modalFrame.waitForSelector(selectors.modal.overlay);
     await modalFrame.click(selectors.modal.overlaySide);
+
+    await page.waitFor(600);
 
     const image = await page.screenshot(
         {

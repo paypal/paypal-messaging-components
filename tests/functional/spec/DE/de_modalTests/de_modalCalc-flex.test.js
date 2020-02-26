@@ -1,7 +1,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import { openModal } from '../../de_initalizeModal';
+import openModal from '../../de_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
-import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_ModalTestDefs';
+import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_modalTestDefs';
 
 const account = 'DEV0000000IAZ';
 

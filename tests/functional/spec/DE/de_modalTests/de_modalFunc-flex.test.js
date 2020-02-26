@@ -1,5 +1,5 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import { openModal } from '../../de_initalizeModal';
+import openModal from '../../de_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import {
     xClosesModal,
@@ -8,7 +8,7 @@ import {
     closeReopenModal
 } from '../../utils/globalModalTestDefs';
 
-const accounts = 'DEV0000000IAZ';
+const deAccount = 'DEV0000000IAZ';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -21,18 +21,16 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 expect.extend({ toMatchImageSnapshot });
 
 describe.each([
-    [accounts, viewports[0], bannerStyles[0]],
-    [accounts, viewports[1], bannerStyles[0]]
+    [deAccount, viewports[0], bannerStyles[1]],
+    [deAccount, viewports[1], bannerStyles[1]]
 ])('DE Modal Functionality Tests %o', (account, viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,
             style: {
                 layout: bannerStyle.layout,
-                logo: {
-                    position: bannerStyle.position,
-                    type: bannerStyle.type
-                }
+                ratio: bannerStyle.ratio,
+                color: bannerStyle.color
             }
         });
     });
@@ -44,8 +42,7 @@ describe.each([
         `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
         closeModalEsc(account, viewport, bannerStyle)
     );
-    // FIXME: Not showing up in test results
-    if (viewport.height === '1080') {
+    if (viewport.height === 1080) {
         test(
             `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
             clickOutsideClosesModal(account, viewport, bannerStyle)

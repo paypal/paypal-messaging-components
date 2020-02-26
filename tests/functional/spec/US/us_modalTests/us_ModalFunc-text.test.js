@@ -1,5 +1,5 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import { openModal } from '../../us_initalizeModal';
+import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import {
     xClosesModal,
@@ -7,7 +7,7 @@ import {
     clickOutsideClosesModal,
     closeReopenModal
 } from '../../utils/globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn } from '../../utils/us_ModalTestDefs';
+import { clickHereSeeTerms, applyNowBtn } from '../../utils/us_modalTestDefs';
 
 const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
 
@@ -37,8 +37,7 @@ describe.each([
         `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
         closeModalEsc(account, viewport, bannerStyle)
     );
-    // FIXME: Not showing up in test results
-    if (viewport.height === '1080') {
+    if (viewport.height === 1080) {
         test(
             `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
             clickOutsideClosesModal(account, viewport, bannerStyle)

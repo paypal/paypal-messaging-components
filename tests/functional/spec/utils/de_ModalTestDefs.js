@@ -1,5 +1,5 @@
 import selectors from './selectors';
-import { modalSnapshot } from '../de_initalizeModal';
+import modalSnapshot from './modalSnapshot';
 
 /**
  * This function runs inside de_ModalCalc-flex & de_ModalCalc-text for the DE locale.
