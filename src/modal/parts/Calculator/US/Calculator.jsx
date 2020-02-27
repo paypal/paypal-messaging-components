@@ -14,12 +14,9 @@ const Calculator = () => {
                 <h2 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h2>
                 <form className="calculator__form" onSubmit={submit}>
                     <input className="calculator__input" type="text" value={value} onInput={changeInput} />
-                    <Button type="submit" secondary>
+                    <Button className="calculator__button" type="submit" secondary>
                         Calculate
                     </Button>
-                    <div className="calculator__error-msg" id="error-msg">
-                        Enter a valid number for purchase amount
-                    </div>
                 </form>
             </div>
 
