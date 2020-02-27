@@ -65,14 +65,6 @@
     width: 100%;
 }
 
-/* FIREFOX ONLY TARGETING */
-@-moz-document url-prefix() {
-    .modal__header-container {
-        overflow-y: scroll;
-        display: block !important;
-    }
-}
-
 .modal__header {
     background: rgba(0, 0, 0, 0);
     text-align: center;
@@ -124,7 +116,6 @@
     -webkit-overflow-scrolling: touch;
     /*overflow-scrolling: touch;*/
     -moz-overflow-scrolling: touch;
-    overflow: auto;
     position: relative;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
     transition: box-shadow 350ms;
