@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/paypal/paypal-messaging-components/compare/v1.7.2...v1.7.3) (2020-02-27)
+
+
+### Bug Fixes
+
+* move preact to devDependencies for SDK bundler ([#151](https://github.com/paypal/paypal-messaging-components/issues/151)) ([85fef66](https://github.com/paypal/paypal-messaging-components/commit/85fef66a02bf090b2cde7e9a1ffd4dc8face1f60))
+
 ## [1.7.2](https://github.com/paypal/paypal-messaging-components/compare/v1.7.1...v1.7.2) (2020-02-26)
 
 
