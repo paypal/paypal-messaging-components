@@ -1,0 +1,9 @@
+{
+  "PROJECT_TYPE": "front-tier",
+  "web": {
+    "projectName": "@paypal/messaging-components",
+    "staticDirectory": "dist",
+    "staticNamespace": "upstream",
+    "hashContent": "false"
+  }
+}

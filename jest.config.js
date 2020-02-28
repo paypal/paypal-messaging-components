@@ -5,10 +5,14 @@ module.exports = {
         '^src/(.*)': '<rootDir>/src/$1',
         '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
-        '@paypal/sdk-client/src': '@paypal/sdk-client'
+        'zoid/src': 'zoid',
+        'jsx-pragmatic/src': 'jsx-pragmatic',
+        '@paypal/sdk-client/src': '@paypal/sdk-client',
+        'belter/src': 'belter'
     },
     transform: {
-        '^.+\\.js$': 'babel-jest',
+        '^.+\\.jsx?$': 'babel-jest',
+        '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
@@ -21,7 +25,7 @@ module.exports = {
             },
             __URI__: {
                 __MESSAGE__: '/imadserver/upstream',
-                __MODAL__: '/upstream/assets/messaging/modal',
+                __MODAL__: '/credit-presentment/smart/modal',
                 __LOGGER__: '/ppcredit/messagingLogger',
                 __TERMS__: '/ppcredit/finance/terms'
             }

@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.7.3](https://github.com/paypal/paypal-messaging-components/compare/v1.7.2...v1.7.3) (2020-02-27)
+
+
+### Bug Fixes
+
+* move preact to devDependencies for SDK bundler ([#151](https://github.com/paypal/paypal-messaging-components/issues/151)) ([85fef66](https://github.com/paypal/paypal-messaging-components/commit/85fef66a02bf090b2cde7e9a1ffd4dc8face1f60))
+
+## [1.7.2](https://github.com/paypal/paypal-messaging-components/compare/v1.7.1...v1.7.2) (2020-02-26)
+
+
+### Bug Fixes
+
+* add props for apply now modal backwards compatibility ([#147](https://github.com/paypal/paypal-messaging-components/issues/147)) ([5364eb7](https://github.com/paypal/paypal-messaging-components/commit/5364eb79bf49efce1fa47861d074a6f9d2b964d5))
+* remove sandbox mocking ([#145](https://github.com/paypal/paypal-messaging-components/issues/145)) ([caa70ba](https://github.com/paypal/paypal-messaging-components/commit/caa70ba1b5de1455958f6cdbd44a311cce894d26))
+* use Sass for compatibility with latest grumbler scripts ([#146](https://github.com/paypal/paypal-messaging-components/issues/146)) ([604f0e7](https://github.com/paypal/paypal-messaging-components/commit/604f0e7bc16febbdf6f3adec791d0da0f69838bb))
+
+## [1.7.1](https://github.com/paypal/paypal-messaging-components/compare/v1.7.0...v1.7.1) (2020-02-20)
+
+
+### Bug Fixes
+
+* use popup for legacy image banners ([#142](https://github.com/paypal/paypal-messaging-components/issues/142)) ([53e8f04](https://github.com/paypal/paypal-messaging-components/commit/53e8f04d66e0406204df21aa1c0abdfba25dc86c))
+
+# [1.7.0](https://github.com/paypal/paypal-messaging-components/compare/v1.6.1...v1.7.0) (2020-02-14)
+
+
+### Bug Fixes
+
+* gracefully handle 204 response ([#122](https://github.com/paypal/paypal-messaging-components/issues/122)) ([7f0262c](https://github.com/paypal/paypal-messaging-components/commit/7f0262c5b801e166cf7a0a9213d0119524bfdfe0))
+* ie rendering issues ([#129](https://github.com/paypal/paypal-messaging-components/issues/129)) ([ede5d03](https://github.com/paypal/paypal-messaging-components/commit/ede5d03b984c0a5da4d4360654d097f9adf2499a))
+* proper messageWidth mutations for PMG message ([#132](https://github.com/paypal/paypal-messaging-components/issues/132)) ([bdf6c55](https://github.com/paypal/paypal-messaging-components/commit/bdf6c55a72f34aea2ab1579e14ca8baa856a764a))
+
+
+### Features
+
+* zoid modal ([#135](https://github.com/paypal/paypal-messaging-components/issues/135)) ([25cc9bc](https://github.com/paypal/paypal-messaging-components/commit/25cc9bcf4a0e669e084b2780e025c87d293bbc5b))
+
 ## [1.6.1](https://github.com/paypal/paypal-messaging-components/compare/v1.6.0...v1.6.1) (2020-02-03)
 
 
