@@ -1,3 +1,3 @@
-import base from './base.scss';
+import base from './base.css';
 
-export default [['default', base._getCss()]];
+export default [['default', base]];
