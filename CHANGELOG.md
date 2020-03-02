@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4](https://github.com/paypal/paypal-messaging-components/compare/v1.7.3...v1.7.4) (2020-03-02)
+
+
+### Bug Fixes
+
+* revert scss for SDK bundler ([#154](https://github.com/paypal/paypal-messaging-components/issues/154)) ([ad6f7e1](https://github.com/paypal/paypal-messaging-components/commit/ad6f7e12691422b994cb544bd81a8b33e4caef2e))
+
 ## [1.7.3](https://github.com/paypal/paypal-messaging-components/compare/v1.7.2...v1.7.3) (2020-02-27)
 
 
