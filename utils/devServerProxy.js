@@ -5,6 +5,7 @@ const getTerms = require('./mockTerms');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
+    DEV0000NIQUAL: ['US', 'ni_qual'],
     DEV000NINONUS: ['US', 'ni_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
     DEV0000000EAG: ['US', 'ezp_any_gtz'],
