@@ -1,6 +1,6 @@
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import fonts from '../messages/models/Template/styles/fonts.scss';
+import fonts from '../messages/models/Template/styles/fonts.css';
 import { prependStyle } from './elements';
 
 const loadedFonts = new Map();
@@ -10,10 +10,7 @@ export default function(doc) {
         loadedFonts.set(
             doc,
             new ZalgoPromise(resolve => {
-                prependStyle(
-                    doc.head,
-                    `${fonts._getCss()} html { font-family: PayPal-Sans, Helvetica, Arial, sans-serif; }`
-                );
+                prependStyle(doc.head, `${fonts} html { font-family: PayPal-Sans, Helvetica, Arial, sans-serif; }`);
 
                 if (doc.defaultView.frameElement && !doc.defaultView.frameElement.offsetWidth) {
                     // If iframe is display none do not wait for fonts
