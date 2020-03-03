@@ -1,4 +1,3 @@
-import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../de_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import {
@@ -9,16 +8,6 @@ import {
 } from '../../utils/globalModalTestDefs';
 
 const accounts = 'DEV0000000IAZ';
-
-const toMatchImageSnapshot = configureToMatchImageSnapshot({
-    failureThresholdType: 'percent',
-    failureThreshold: 0.002,
-    customDiffConfig: {
-        threshold: 0.05
-    }
-});
-
-expect.extend({ toMatchImageSnapshot });
 
 describe.each([
     [accounts, viewports[0], bannerStyles[0]],

@@ -1,19 +1,8 @@
-import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
 import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from '../../utils/us_modalTestDefs';
 
 const account = 'DEV0000000PSZ';
-
-const toMatchImageSnapshot = configureToMatchImageSnapshot({
-    failureThresholdType: 'percent',
-    failureThreshold: 0.002,
-    customDiffConfig: {
-        threshold: 0.05
-    }
-});
-
-expect.extend({ toMatchImageSnapshot });
 
 describe.each([
     [viewports[0], amounts[0]],

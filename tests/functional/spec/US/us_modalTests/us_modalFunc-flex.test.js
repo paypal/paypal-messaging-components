@@ -1,4 +1,3 @@
-import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import {
@@ -55,12 +54,3 @@ describe.each([
         applyNowBtn(account, viewport, bannerStyle)
     );
 });
-const toMatchImageSnapshot = configureToMatchImageSnapshot({
-    failureThresholdType: 'percent',
-    failureThreshold: 0.002,
-    customDiffConfig: {
-        threshold: 0.05
-    }
-});
-
-expect.extend({ toMatchImageSnapshot });
