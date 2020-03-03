@@ -55,7 +55,6 @@ describe.each([
         ezpModalContent(account, viewport, bannerStyles)
     );
     afterEach(async () => {
-        // eslint-disable-next-line no-undef
         await jestPuppeteer.resetPage();
     });
 });

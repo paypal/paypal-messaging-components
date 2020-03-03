@@ -3,6 +3,5 @@ module.exports = {
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
-    testTimeout: 180000,
-    preset: 'jest-puppeteer'
+    testTimeout: 180000
 };

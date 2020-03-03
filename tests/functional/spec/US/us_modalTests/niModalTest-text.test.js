@@ -36,7 +36,6 @@ describe.each([
         niContentTest(account, viewport, bannerStyle)
     );
     afterEach(async () => {
-        // eslint-disable-next-line no-undef
         await jestPuppeteer.resetPage();
     });
 });

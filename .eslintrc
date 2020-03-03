@@ -5,7 +5,8 @@
         "browser": true
     },
     "globals": {
-        "__MESSAGES__": true
+        "__MESSAGES__": true,
+        "jestPuppeteer": true
     },
     "plugins": ["prettier"],
     "rules": {
