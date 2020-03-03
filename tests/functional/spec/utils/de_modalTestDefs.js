@@ -55,11 +55,6 @@ export const updateFinanceTerms = (account, viewport, bannerStyle) => async () =
     await modalFrame.waitForSelector(selectors.calculator.calc, {
         visible: true
     });
-    await modalFrame.waitForSelector(selectors.calculator.calcForm);
-    await modalFrame.waitForSelector(selectors.calculator.calcInput, {
-        visible: true
-    });
-    await page.waitFor(2000);
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnMd);
