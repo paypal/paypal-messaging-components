@@ -31,23 +31,12 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
         _contentBodyTitle => document.querySelector(_contentBodyTitle).innerText,
         selectors.modal.contentBodyTitle
     );
-    // eslint-disable-next-line no-unused-expressions
-    expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit') &&
-        expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
+
+    expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit');
+    expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
 
     await page.waitFor(200);
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 /**
@@ -65,18 +54,7 @@ export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () =>
     await modalFrame.click('a');
     await page.waitFor(1000);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
@@ -87,18 +65,7 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.click(selectors.button.btn);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 /**
@@ -122,18 +89,7 @@ export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => 
     await modalFrame.type(selectors.calculator.calcInput, '2');
     await modalFrame.click(selectors.button.btnSecondary);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
 };
 
 export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => {
@@ -143,18 +99,8 @@ export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => 
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await page.waitFor(200);
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
 
-    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
 };
 
 export const updateFinanceTerms = (account, viewport, bannerStyles) => async () => {
@@ -168,18 +114,7 @@ export const updateFinanceTerms = (account, viewport, bannerStyles) => async () 
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnSecondary);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
 };
 
 export const ezpModalContent = (account, viewport, bannerStyles) => async () => {
@@ -207,18 +142,7 @@ export const ezpModalContent = (account, viewport, bannerStyles) => async () => 
     expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments') &&
         expect(contentBodyTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
 };
 
 export const switchTabs = (account, viewport, bannerStyle) => async () => {
@@ -231,19 +155,8 @@ export const switchTabs = (account, viewport, bannerStyle) => async () => {
     // Select the tab that is NOT currently selected.
     await modalFrame.click('button.tab:not(.tab--selected)');
     await page.waitFor(200);
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-    await page.waitFor(500);
-    await modalFrame.click('button.tab:not(.tab--selected)');
-    await page.waitFor(200);
 
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await page.waitFor(200);
+    await modalFrame.click('button.tab:not(.tab--selected)');
 };

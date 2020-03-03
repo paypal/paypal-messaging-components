@@ -25,18 +25,7 @@ export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
     );
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const updateFinanceTerms = (account, viewport, bannerStyle) => async () => {
@@ -59,18 +48,7 @@ export const updateFinanceTerms = (account, viewport, bannerStyle) => async () =
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnMd);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const deModalContentAndCalc = (account, viewport, bannerStyle) => async () => {
@@ -92,16 +70,5 @@ export const deModalContentAndCalc = (account, viewport, bannerStyle) => async (
 
     expect(calcTitle).toContain('Monatliche Raten berechnen');
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };

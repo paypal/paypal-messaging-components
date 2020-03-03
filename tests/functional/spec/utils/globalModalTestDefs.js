@@ -16,18 +16,7 @@ export const xClosesModal = (account, viewport, bannerStyle) => async () => {
     await modalFrame.click(selectors.button.closeBtn, { visible: true });
     await page.waitFor(200);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const closeModalEsc = (account, viewport, bannerStyle) => async () => {
@@ -37,18 +26,7 @@ export const closeModalEsc = (account, viewport, bannerStyle) => async () => {
     await page.waitForSelector('body');
     await page.waitFor(200);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async () => {
@@ -64,18 +42,7 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
 
     await page.waitFor(200);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
 
 export const closeReopenModal = (account, viewport, bannerStyle) => async () => {
@@ -96,16 +63,5 @@ export const closeReopenModal = (account, viewport, bannerStyle) => async () => 
     await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(200);
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
-
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, image, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };

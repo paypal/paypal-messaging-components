@@ -10,7 +10,18 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 
 expect.extend({ toMatchImageSnapshot });
 
-const modalSnapshot = (testNameParts, viewport, image, account) => {
+const modalSnapshot = async (testNameParts, viewport, account) => {
+    const image = await page.screenshot(
+        {
+            clip: {
+                ...viewport,
+                x: 0,
+                y: 0
+            }
+        },
+        3
+    );
+
     const _testNameParts = testNameParts.replace(/( )/g, '-');
     const customSnapshotIdentifier = `${_testNameParts}-${viewport.width}`;
     const locale = account.includes('IAZ') ? 'DE' : 'US';
