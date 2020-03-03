@@ -54,7 +54,4 @@ describe.each([
         'when an ezp message is clicked ezp content is loaded including a calculator for finance terms',
         ezpModalContent(account, viewport, bannerStyles)
     );
-    afterEach(async () => {
-        await jestPuppeteer.resetPage();
-    });
 });

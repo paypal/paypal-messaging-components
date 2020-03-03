@@ -48,7 +48,4 @@ describe.each([
         `when an amount is passed into DE PP installments message, the correct financing terms are loaded in a table ${bannerStyle.layout} ${viewport.width}`,
         deModalContentAndCalc(account, viewport, bannerStyle)
     );
-    afterEach(async () => {
-        await jestPuppeteer.resetPage();
-    });
 });

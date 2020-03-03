@@ -54,7 +54,4 @@ describe.each([
         `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
         closeReopenModal(account, viewport, bannerStyle)
     );
-    afterEach(async () => {
-        await jestPuppeteer.resetPage();
-    });
 });
