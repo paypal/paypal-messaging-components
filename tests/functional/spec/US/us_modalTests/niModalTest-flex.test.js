@@ -1,5 +1,3 @@
-// import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-// import openModal from '../../us_initalizeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import { niContentTest } from '../../utils/us_modalTestDefs';
 import openModal from '../../initializeModal';
