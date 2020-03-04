@@ -156,7 +156,7 @@ export const switchTabs = (account, viewport, bannerStyle) => async () => {
     await modalFrame.click('button.tab:not(.tab--selected)');
     await page.waitFor(200);
 
-    modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
     await page.waitFor(200);
     await modalFrame.click('button.tab:not(.tab--selected)');
 };

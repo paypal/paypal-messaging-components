@@ -11,13 +11,7 @@ describe.each([
     beforeEach(async () => {
         await openModal(viewport, {
             account,
-            style: {
-                layout: bannerStyle.layout,
-                logo: {
-                    position: bannerStyle.position,
-                    type: bannerStyle.type
-                }
-            }
+            style: bannerStyle
         });
     });
     test(

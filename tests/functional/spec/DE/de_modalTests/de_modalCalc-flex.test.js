@@ -18,11 +18,7 @@ describe.each([
         await openModal(viewport, {
             account,
             amount,
-            style: {
-                layout: bannerStyle.layout,
-                ratio: bannerStyle.ratio,
-                color: bannerStyle.color
-            }
+            style: bannerStyle
         });
     });
     test(

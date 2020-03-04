@@ -7,8 +7,10 @@ const viewports = [
 const bannerStyles = [
     {
         layout: 'text',
-        position: 'left',
-        type: 'primary'
+        logo: {
+            position: 'left',
+            type: 'primary'
+        }
     },
     {
         layout: 'flex',
