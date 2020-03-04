@@ -19,7 +19,8 @@ function collectDiffs() {
                     .replace(/:/g, '-')
                     .replace(/\//g, '__');
 
-                fs.renameSync(file, path.resolve(DIFF_DIR, `${configName}__${name}`));
+                const subDir = file.includes('/modal/') ? 'modal' : 'banner';
+                fs.renameSync(file, path.resolve(DIFF_DIR, subDir, `${configName}__${name}`));
             }
         });
     };
@@ -33,34 +34,43 @@ function collectDiffs() {
     }
 
     fs.mkdirSync(DIFF_DIR);
+    fs.mkdirSync(path.resolve(DIFF_DIR, 'modal'));
+    fs.mkdirSync(path.resolve(DIFF_DIR, 'banner'));
 
     searchFolders('snapshots', path.resolve(__dirname, '..'));
 }
 
-async function uploadToImgur() {
-    const snapshots = fs.readdirSync(DIFF_DIR);
+async function uploadToImgur(subDir) {
+    const folder = path.resolve(DIFF_DIR, subDir);
+    const snapshots = fs.readdirSync(folder);
 
     if (snapshots.length > 0) {
         const album = await imgur.createAlbum();
 
         const result = await Promise.all(
-            snapshots.map(fileName =>
-                imgur.uploadFile(path.resolve(DIFF_DIR, fileName), album.data.deletehash, fileName)
-            )
+            snapshots.map(fileName => imgur.uploadFile(path.resolve(folder, fileName), album.data.deletehash, fileName))
         );
 
         console.log('\n');
         console.log(
-            `\u001b[31m${result.length} failed snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
+            `\u001b[31m${result.length} failed ${subDir} snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
         );
         console.log('\n');
-
-        process.exit(1);
     } else {
-        console.log(`No snapshots found in ${DIFF_DIR}`);
+        console.log(`No snapshots found in ${folder}`);
     }
+
+    return snapshots.length;
 }
 
 collectDiffs();
 
-uploadToImgur().catch(e => console.log(e));
+(async () => {
+    const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(e =>
+        console.log(e)
+    );
+
+    if (bannerDiffs + modalDiffs > 0) {
+        process.exit(1);
+    }
+})();
