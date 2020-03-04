@@ -1,5 +1,5 @@
 /**
- * The purpose of this function is to click on the message and open the modal. openModal runs beforeEach US modal test.
+ * The purpose of this function is to click on the message and open the modal. openModal runs beforeEach US & DE modal test.
  */
 const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await page.setViewport(viewport);
@@ -15,7 +15,11 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     const modalFrame = await elementModal.contentFrame();
 
     await frame.waitForSelector('.message__messaging', { visible: true });
-    await modalFrame.waitForSelector('.content-body');
+    if (config.account.includes('IAZ')) {
+        await modalFrame.waitForSelector('.modal__content');
+    } else {
+        await modalFrame.waitForSelector('.content-body');
+    }
     await frame.click('.message__messaging');
 
     /**

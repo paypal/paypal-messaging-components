@@ -1,4 +1,4 @@
-import openModal from '../../de_initalizeModal';
+import openModal from '../../initializeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
 import {
     xClosesModal,

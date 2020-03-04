@@ -1,4 +1,4 @@
-import openModal from '../../us_initalizeModal';
+import openModal from '../../initializeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
 import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from '../../utils/us_modalTestDefs';
 

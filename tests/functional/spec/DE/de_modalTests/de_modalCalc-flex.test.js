@@ -1,4 +1,4 @@
-import openModal from '../../de_initalizeModal';
+import openModal from '../../initializeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
 import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_modalTestDefs';
 
