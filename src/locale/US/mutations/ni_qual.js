@@ -91,7 +91,7 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 34 + 130),
+                    basicMediaQuery(textSize * 24 + 130),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
