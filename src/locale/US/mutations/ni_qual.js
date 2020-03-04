@@ -9,7 +9,15 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
-                }`,
+                }
+                .message__disclaimer {
+                        display:block;
+                    }
+                    @media(max-width:${textSize * 18.5 + 70}px){
+                        .message__disclaimer {
+                        display:inline;
+                    }
+                    }`,
                     [basicMediaQuery(textSize * 18.5 + 70)]
                 ],
                 logo: Logo.PRIMARY.COLOR,
@@ -32,8 +40,13 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
+                }
+                @media(max-width:${textSize * 15 + 80}px){
+                    .message__disclaimer {
+                        display:block;
+                    }
                 }`,
-                    basicMediaQuery(textSize * 20 + 80),
+                    basicMediaQuery(textSize * 15 + 80),
                     `.message__logo { width: ${textSize * 7}px }`
                 ],
                 logo: Logo.ALT_NO_PP.COLOR,
@@ -49,8 +62,13 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
-                }`,
-                    basicMediaQuery(textSize * 27.4)
+                }
+                    @media(max-width:${textSize * 20}px) {
+                        .message__disclaimer{
+                            display:block;
+                        }
+                    }`,
+                    basicMediaQuery(textSize * 20)
                 ],
                 logo: false,
                 headline: [
@@ -86,6 +104,14 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
+                }
+                .message__disclaimer {
+                        display:block;
+                    }
+                @media(max-width:${textSize * 18.5}px){
+                        .message__disclaimer {
+                        display:inline;
+                        }
                 }`,
                     basicMediaQuery(textSize * 18.5)
                 ]
