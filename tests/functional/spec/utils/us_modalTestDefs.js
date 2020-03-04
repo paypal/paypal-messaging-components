@@ -48,7 +48,6 @@ export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () =>
     await page.waitFor(1000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
-    await page.waitFor(1000);
     await modalFrame.waitForSelector('a');
     await page.waitFor(1000);
     await modalFrame.click('a');
@@ -79,10 +78,6 @@ export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => 
     const modalFrame = await elementModal.contentFrame();
 
     await modalFrame.waitForSelector(selectors.calculator.calc);
-    await modalFrame.waitForSelector(selectors.calculator.calcForm);
-
-    await modalFrame.waitForSelector(selectors.calculator.calcInput, { visible: true });
-
     await page.waitFor(1000);
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await page.waitFor(1000);
@@ -97,7 +92,6 @@ export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-    await modalFrame.waitForSelector(selectors.modal.contentBody);
     await page.waitFor(200);
 
     await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
@@ -108,8 +102,6 @@ export const updateFinanceTerms = (account, viewport, bannerStyles) => async () 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
-    await modalFrame.waitForSelector(selectors.calculator.calcForm);
-    await modalFrame.waitForSelector(selectors.calculator.calcInput, { visible: true });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnSecondary);
@@ -133,14 +125,13 @@ export const ezpModalContent = (account, viewport, bannerStyles) => async () => 
         _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
         selectors.modal.contentHeaderTitle
     );
-    const contentBodyTitle = await modalFrame.evaluate(
-        _contentBodyTitle => document.querySelector(_contentBodyTitle).innerText,
-        selectors.modal.contentBodyTitle
+    const calcTitle = await modalFrame.evaluate(
+        _calcTitle => document.querySelector(_calcTitle).innerText,
+        selectors.calculator.calcTitle
     );
 
-    // eslint-disable-next-line no-unused-expressions
-    expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments') &&
-        expect(contentBodyTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
+    expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments');
+    expect(calcTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
 
     await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
 };
@@ -150,7 +141,6 @@ export const switchTabs = (account, viewport, bannerStyle) => async () => {
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.button.tabs);
-    await modalFrame.waitForSelector(selectors.button.tab);
     await page.waitFor(500);
     // Select the tab that is NOT currently selected.
     await modalFrame.click('button.tab:not(.tab--selected)');

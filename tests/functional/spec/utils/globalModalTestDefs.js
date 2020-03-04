@@ -37,9 +37,7 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
     });
-    await modalFrame.waitForSelector(selectors.modal.overlay);
     await modalFrame.click(selectors.modal.overlaySide);
-
     await page.waitFor(200);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);

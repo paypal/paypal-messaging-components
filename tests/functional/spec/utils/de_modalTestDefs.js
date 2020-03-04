@@ -17,7 +17,6 @@ export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
     await page.waitFor(1000);
     await modalFrame.type(selectors.calculator.calcInput, '2');
     await modalFrame.click(selectors.button.btnMd);
-
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(2000);
     const calcInstructions = await modalFrame.evaluate(
@@ -56,12 +55,6 @@ export const deModalContentAndCalc = (account, viewport, bannerStyle) => async (
 
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
-    await modalFrame.waitForSelector(selectors.modal.container, {
-        visible: true
-    });
-    await page.waitFor(1000);
-    await modalFrame.waitForSelector(selectors.calculator.contentCalc);
-    await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.calculator.calc);
 
     expect(await modalFrame.evaluate(() => document.querySelector('.calculator'))).toBeTruthy();
