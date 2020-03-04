@@ -38,8 +38,7 @@
             /**
              * Puppeteer has a tendency to timeout when more than one message/banner is on the screen.
              * setTimeout adds a slight delay to the second message rendering to ensure that Puppeteer
-             * hooks into the first message, clicks said message, then proceeds with the modal tests
-             * without throwing a timeout 30000 error.
+             * hooks into the first message, clicks said message, and targets the corresponding modal.
              *
              * The if statement checks the account of banner-1 and renders a second banner with a different account type.
              * i.e. if banner-1 is an NI account, render an EZP message and vice versa.

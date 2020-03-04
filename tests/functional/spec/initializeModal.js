@@ -21,16 +21,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
         await modalFrame.waitForSelector('.content-body');
     }
     await frame.click('.message__messaging');
-
-    /**
-     * Evaluates which modal iframe is *not* set to display:none, then executes the openModal func beforeEach test.
-     */
-
-    await page.waitForFunction(() =>
-        Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
-            el => el.parentElement.parentElement.style.display !== 'none'
-        )
-    );
+    await page.waitForSelector("iframe[title='paypal_credit_modal']", { visible: true });
 };
 
 export default openModal;
