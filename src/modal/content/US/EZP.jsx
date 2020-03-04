@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
 import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
+import { createEvent } from '../../../utils';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
 import Button from '../../parts/Button';
@@ -24,9 +25,9 @@ export const Header = () => {
         // Ensure first that the button is being displayed
         if (offsetTop) {
             if (event.target.scrollTop - offsetTop < clientHeight + 30) {
-                window.dispatchEvent(new Event('apply-now-hidden'));
+                window.dispatchEvent(createEvent('apply-now-hidden'));
             } else {
-                window.dispatchEvent(new Event('apply-now-visible'));
+                window.dispatchEvent(createEvent('apply-now-visible'));
             }
         }
     }, []);
