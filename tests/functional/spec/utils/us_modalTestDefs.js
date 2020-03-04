@@ -7,16 +7,8 @@ import modalSnapshot from './modalSnapshot';
 
 export const niContentTest = (account, viewport, bannerStyle) => async () => {
     const testNameParts = 'ni content in modal';
-    await page.waitForFunction(() =>
-        Array.from(document.querySelectorAll("iframe[title='paypal_credit_modal']")).find(
-            el => el.parentElement.parentElement.style.display !== 'none'
-        )
-    );
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
-
     const modalFrame = await elementModal.contentFrame();
-    await modalFrame.evaluate(browserVal => Boolean(document.querySelector(browserVal)), selectors.modal.container);
-
     /**
      * selectors.modal.contentHeaderTitle and selectors.modal.contentBodyTitle are passed to the variables
      * of the same name beginning with the underscore in order to pass the nodeJS variable to the browser through
