@@ -5,7 +5,6 @@ const getTerms = require('./mockTerms');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
-    DEV0000NIQUAL: ['US', 'ni_qual'],
     DEV000NINONUS: ['US', 'ni_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
     DEV0000000EAG: ['US', 'ezp_any_gtz'],
@@ -57,7 +56,7 @@ module.exports = app => {
     });
 
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 0, dimensions } = req.query;
+        const { call, currency_value: amount = 200, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
