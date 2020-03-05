@@ -33,11 +33,13 @@ export default {
                 }
             });
         } else {
+            const modalType = getModalType(meta.offerCountry, meta.offerType);
+
             const { render, hide, updateProps } = Modal({
                 account: options.account,
                 country: meta.offerCountry,
                 currency: options.currency,
-                type: getModalType(meta.offerCountry, meta.offerType),
+                type: modalType,
                 amount: options.amount,
                 refId: meta.messageRequestId,
                 onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
@@ -49,7 +51,7 @@ export default {
                 },
                 onClose: linkName => {
                     wrapper.firstChild.focus();
-                    track({ et: 'CLICK', event_type: 'click', link: linkName });
+                    track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
                 }
             });
 
@@ -60,6 +62,8 @@ export default {
 
             events.on('click', () => {
                 renderProm.then(() => {
+                    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
+
                     updateProps({ visible: true });
                 });
             });
