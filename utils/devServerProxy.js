@@ -68,7 +68,8 @@ module.exports = app => {
             const morsVars = {
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term,
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
+                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
+                qualifying_offer: amount > terms.minAmount && amount < terms.maxAmount
             };
 
             const populateVars = str =>
