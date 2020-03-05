@@ -24,9 +24,9 @@ export default function getMutations(id, type) {
             return palaSingleGtz[type];
         case 'NI:NON-US':
             return niNonUs[type];
-        case 'NI:QUALIFYING':
+        case 'NI:QUALIFYING-true':
             return niQual[type];
-        case 'NI':
+        case 'NI:QUALIFYING-false':
         default:
             return ni[type];
     }
