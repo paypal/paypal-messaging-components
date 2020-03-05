@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.5](https://github.com/paypal/paypal-messaging-components/compare/v1.7.4...v1.7.5) (2020-03-05)
+
+
+### Bug Fixes
+
+* modal event tracking ([#159](https://github.com/paypal/paypal-messaging-components/issues/159)) ([38a297f](https://github.com/paypal/paypal-messaging-components/commit/38a297f3ad16529f5ad02af530e437bc543a324d))
+
 ## [1.7.4](https://github.com/paypal/paypal-messaging-components/compare/v1.7.3...v1.7.4) (2020-03-02)
 
 
