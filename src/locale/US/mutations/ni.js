@@ -1,3 +1,4 @@
+// Mutation used when NI:QUALIFYING-false
 import Logo from '../logos';
 
 export function basicMediaQuery(breakpoint) {
