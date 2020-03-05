@@ -56,7 +56,7 @@ module.exports = app => {
     });
 
     app.get('/imadserver/upstream', (req, res) => {
-        const { call, currency_value: amount = 200, dimensions } = req.query;
+        const { call, currency_value: amount = 0, dimensions } = req.query;
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
