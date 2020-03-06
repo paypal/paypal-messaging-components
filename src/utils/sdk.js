@@ -1,4 +1,5 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import {
@@ -90,7 +91,7 @@ export function getTargetMeta() {
 
         objectAssign(metaObject, {
             url:
-                script && !/merchant\.js$/.test(script.src)
+                script && (stringStartsWith(script.src, 'https') || getEnv() === 'local')
                     ? script.src
                     : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
         });
