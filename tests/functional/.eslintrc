@@ -3,6 +3,7 @@
         "jest": true
     },
     "globals": {
-        "page": true
+        "page": true,
+        "jestPuppeteer": true
     }
 }
