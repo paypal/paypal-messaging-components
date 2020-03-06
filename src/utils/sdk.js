@@ -89,7 +89,10 @@ export function getTargetMeta() {
         const script = getScript();
 
         objectAssign(metaObject, {
-            url: script ? script.src : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
+            url:
+                script && !/merchant\.js$/.test(script.src)
+                    ? script.src
+                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
         });
     }
 
