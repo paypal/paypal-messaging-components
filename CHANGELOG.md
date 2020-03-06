@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.6](https://github.com/paypal/paypal-messaging-components/compare/v1.7.5...v1.7.6) (2020-03-06)
+
+
+### Bug Fixes
+
+* merchant.js mixed content ([#161](https://github.com/paypal/paypal-messaging-components/issues/161)) ([ad4b0e9](https://github.com/paypal/paypal-messaging-components/commit/ad4b0e92d0db2e92276c9e03618557451c3e3c31))
+
 ## [1.7.5](https://github.com/paypal/paypal-messaging-components/compare/v1.7.4...v1.7.5) (2020-03-05)
 
 
