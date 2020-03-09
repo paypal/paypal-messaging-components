@@ -1,5 +1,5 @@
 /**
- * Mutation used when NI:QUALIFYING-false.
+ * Mutation used when NI:QUALIFYING-true.
  * Much of the content inside of this file and ni.js is similar, and any changes
  * to the NI message likely need to be made to both files for effective coverage.
  */
