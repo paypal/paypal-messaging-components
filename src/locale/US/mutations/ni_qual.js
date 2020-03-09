@@ -6,6 +6,33 @@
 import Logo from '../logos';
 import { basicMediaQuery } from './ni';
 
+export const legacyNI = [
+    [
+        'default',
+        {
+            logo: Logo.PRIMARY.COLOR,
+            headline: 'medium',
+            subHeadline: 'small',
+            disclaimer: 'legacy-medium'
+        }
+    ],
+    [
+        'size:1000x36',
+        {
+            styles: ['.message__sub-headline { color: #009cde }', '.message__headline { display: block }']
+        }
+    ],
+    ['size:234x100', { logo: Logo.PRIMARY.WHITE }],
+    ['size:310x100', { logo: Logo.PRIMARY.WHITE }],
+    [
+        'size:340x60',
+        {
+            logo: Logo.PRIMARY.WHITE,
+            styles: ['.message { max-width: 100% }']
+        }
+    ]
+];
+
 export default {
     'layout:text': [
         [
