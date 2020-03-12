@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.8](https://github.com/paypal/paypal-messaging-components/compare/v1.7.7...v1.7.8) (2020-03-12)
+
+
+### Bug Fixes
+
+* ignore clicks on tracking pixel ([#165](https://github.com/paypal/paypal-messaging-components/issues/165)) ([f1512fb](https://github.com/paypal/paypal-messaging-components/commit/f1512fbf5fd13c824fcf9bfd73d142e2809994d1))
+
 ## [1.7.7](https://github.com/paypal/paypal-messaging-components/compare/v1.7.6...v1.7.7) (2020-03-06)
 
 ## [1.7.6](https://github.com/paypal/paypal-messaging-components/compare/v1.7.5...v1.7.6) (2020-03-06)
