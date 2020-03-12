@@ -215,6 +215,8 @@ class Ad {
 
         if (
             target.nodeName.toLowerCase() === 'img' &&
+            // If a merchant styles the tracking pixel to give it dimensions, it can erroneously take the click event
+            // https://www.burlington.com/ShoppingCart.aspx
             !stringIncludes(target.src, 'webapps/mch/cmd') &&
             (!popupAttr || popupAttr === 'true')
         ) {
