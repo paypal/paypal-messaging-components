@@ -2,6 +2,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import stringIncludes from 'core-js-pure/stable/string/includes';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
@@ -212,7 +213,13 @@ class Ad {
         const popupAttr = this.kvs.popup;
         const popupFeatures = `width=${popupDimensions[0]},height=${popupDimensions[1]},scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no`;
 
-        if (target.nodeName.toLowerCase() === 'img' && (!popupAttr || popupAttr === 'true')) {
+        if (
+            target.nodeName.toLowerCase() === 'img' &&
+            // If a merchant styles the tracking pixel to give it dimensions, it can erroneously take the click event
+            // https://www.burlington.com/ShoppingCart.aspx
+            !stringIncludes(target.src, 'webapps/mch/cmd') &&
+            (!popupAttr || popupAttr === 'true')
+        ) {
             Page.popup(target.parentNode.href, this.namespace, popupFeatures);
             evt.preventDefault();
         }
