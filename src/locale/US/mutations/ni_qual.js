@@ -1,44 +1,31 @@
 /**
- * Mutation used when NI:QUALIFYING-false.
- * Much of the content inside of this file and ni_qual.js is similar, and any changes
+ * Mutation used when NI:QUALIFYING-true.
+ * Much of the content inside of this file and ni.js is similar, and any changes
  * to the NI message likely need to be made to both files for effective coverage.
  */
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
-
-export const legacyNI = [
-    [
-        'default',
-        {
-            logo: Logo.PRIMARY.COLOR,
-            headline: 'medium',
-            subHeadline: 'small',
-            disclaimer: 'legacy-medium'
-        }
-    ],
-    [
-        'size:1000x36',
-        {
-            styles: ['.message__sub-headline { color: #009cde }', '.message__headline { display: block }']
-        }
-    ],
-    ['size:234x100', { logo: Logo.PRIMARY.WHITE }],
-    ['size:310x100', { logo: Logo.PRIMARY.WHITE }],
-    [
-        'size:340x60',
-        {
-            logo: Logo.PRIMARY.WHITE,
-            styles: ['.message { max-width: 100% }']
-        }
-    ]
-];
+import { legacyNI } from './ni';
+import { basicMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 18.5 + 70)],
+                styles: [
+                    `.weak {
+                    display:none;
+                }
+                .message__disclaimer {
+                        display:block;
+                    }
+                    @media(max-width:${textSize * 18.5 + 70}px){
+                        .message__disclaimer {
+                        display:inline;
+                    }
+                    }`,
+                    [basicMediaQuery(textSize * 18.5 + 70)]
+                ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
@@ -56,18 +43,39 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
+                styles: [
+                    `.weak {
+                    display:none;
+                }
+                @media(max-width:${textSize * 15 + 80}px){
+                    .message__disclaimer {
+                        display:block;
+                    }
+                }`,
+                    basicMediaQuery(textSize * 15 + 80),
+                    `.message__logo { width: ${textSize * 7}px }`
+                ],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
-                    { tag: 'medium', br: ['purchases'] }
+                    { tag: 'medium', br: ['months'] }
                 ]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 20)],
+                styles: [
+                    `.weak {
+                    display:none;
+                }
+                    @media(max-width:${textSize * 20}px) {
+                        .message__disclaimer{
+                            display:block;
+                        }
+                    }`,
+                    basicMediaQuery(textSize * 20)
+                ],
                 logo: false,
                 headline: [
                     {
@@ -77,7 +85,7 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['months']
                     }
                 ]
             })
@@ -86,18 +94,44 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    basicMediaQuery(textSize * 19),
-                    altContentMediaQuery(textSize * 41),
+                    `.weak {
+                        display:none;
+                    }`,
+                    basicMediaQuery(textSize * 24 + 130),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
-        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 18.5)] })],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => ({
+                styles: [
+                    `.weak {
+                    display:none;
+                }
+                .message__disclaimer {
+                        display:block;
+                    }
+                @media(max-width:${textSize * 18.5}px){
+                        .message__disclaimer {
+                        display:inline;
+                        }
+                }`,
+                    basicMediaQuery(textSize * 18.5)
+                ]
+            })
+        ],
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
+                styles: [
+                    `.weak {
+                        display:none;
+                    }`,
+                    basicMediaQuery(textSize * 18.5),
+                    `.message__logo-container { width: ${textSize * 8}px }`
+                ]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
