@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altContentMediaQuery } from './mediaQueries';
 
 const defaultTextStyles = [
     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
@@ -36,12 +37,22 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    ...defaultTextStyles,
+                    altContentMediaQuery(textSize * 30.6),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
                     br: ['months.']
                 }
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
