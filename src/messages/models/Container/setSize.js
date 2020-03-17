@@ -249,14 +249,14 @@ export default curry((container, { wrapper, options, logger, meta }) => {
 
     /**
      * @param el - This represents the immediate parent to the <div class="messages"></div> banner element.
-     * @param i - This is what we're going to start from when we iterate over parent elements. If we say
-     * i <= 3 in the while-loop, we want to then stop at the 3rd parent up from the banner element.
      *
-     * @param while el.tagName !== 'BODY' && i <= 3
-     * While the element isn't the BODY element, and we're on the 3rd parent from the banner element (the ".messages" div) we do the following:
-     * * if the element's height is less than the message iframe's height we'll log a warning and set the display of the message
+     * @param i - Initial point for iteration over parent elements. With i <= 3 in the while-loop,
+     * stop at the 3rd parent up from the banner element.
+     *
+     * @param while While the element isn't the BODY element, and we're <= the 3rd parent from the banner element (the ".messages" div) we do the following:
+     * * If the element's height is less than the message iframe's height, log a warning and set the display of the message
      * to "none", then break the loop.
-     * * Otherwise, we set the el to the current el's parent and iterate i++.
+     * * If there is no parentNode to the current el, break the loop. Otherwise, we set the el to the current el's parent and iterate i++.
      */
     if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
         let el = wrapper.parentNode.parentNode;
