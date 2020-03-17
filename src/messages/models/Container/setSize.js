@@ -246,4 +246,38 @@ export default curry((container, { wrapper, options, logger, meta }) => {
             events(container).on('resize', setDimensions);
         }
     }
+
+    /**
+     * @param el - This represents the immediate parent to the <div class="messages"></div> banner element.
+     * @param i - This is what we're going to start from when we iterate over parent elements. If we say
+     * i <= 3 in the while-loop, we want to then stop at the 3rd parent up from the banner element.
+     *
+     * @param while el.tagName !== 'BODY' && i <= 3
+     * While the element isn't the BODY element, and we're on the 3rd parent from the banner element (the ".messages" div) we do the following:
+     * * if the element's height is less than the message iframe's height we'll log a warning and set the display of the message
+     * to "none", then break the loop.
+     * * Otherwise, we set the el to the current el's parent and iterate i++.
+     */
+    if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
+        let el = wrapper.parentNode.parentNode;
+        let i = 0;
+        while (el.tagName !== 'BODY' && i <= 3) {
+            if (el.clientHeight < container.getAttribute('height')) {
+                logger.warn(
+                    `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${container.getAttribute(
+                        'height'
+                    )}px. Current container is ${el.clientHeight}px. Message hidden.`
+                );
+                /* eslint-disable-next-line no-param-reassign */
+                wrapper.style.display = 'none';
+                break;
+            }
+
+            if (!el.parentNode) break;
+
+            el = el.parentNode;
+            /* eslint-disable-next-line no-plusplus */
+            i++;
+        }
+    }
 });
