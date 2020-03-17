@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.7.8](https://github.com/paypal/paypal-messaging-components/compare/v1.7.7...v1.7.8) (2020-03-12)
+
+
+### Bug Fixes
+
+* ignore clicks on tracking pixel ([#165](https://github.com/paypal/paypal-messaging-components/issues/165)) ([f1512fb](https://github.com/paypal/paypal-messaging-components/commit/f1512fbf5fd13c824fcf9bfd73d142e2809994d1))
+
+## [1.7.7](https://github.com/paypal/paypal-messaging-components/compare/v1.7.6...v1.7.7) (2020-03-06)
+
+## [1.7.6](https://github.com/paypal/paypal-messaging-components/compare/v1.7.5...v1.7.6) (2020-03-06)
+
+
+### Bug Fixes
+
+* merchant.js mixed content ([#161](https://github.com/paypal/paypal-messaging-components/issues/161)) ([ad4b0e9](https://github.com/paypal/paypal-messaging-components/commit/ad4b0e92d0db2e92276c9e03618557451c3e3c31))
+
+## [1.7.5](https://github.com/paypal/paypal-messaging-components/compare/v1.7.4...v1.7.5) (2020-03-05)
+
+
+### Bug Fixes
+
+* modal event tracking ([#159](https://github.com/paypal/paypal-messaging-components/issues/159)) ([38a297f](https://github.com/paypal/paypal-messaging-components/commit/38a297f3ad16529f5ad02af530e437bc543a324d))
+
+## [1.7.4](https://github.com/paypal/paypal-messaging-components/compare/v1.7.3...v1.7.4) (2020-03-02)
+
+
+### Bug Fixes
+
+* revert scss for SDK bundler ([#154](https://github.com/paypal/paypal-messaging-components/issues/154)) ([ad6f7e1](https://github.com/paypal/paypal-messaging-components/commit/ad6f7e12691422b994cb544bd81a8b33e4caef2e))
+
 ## [1.7.3](https://github.com/paypal/paypal-messaging-components/compare/v1.7.2...v1.7.3) (2020-02-27)
 
 
