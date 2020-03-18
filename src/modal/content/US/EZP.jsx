@@ -96,8 +96,8 @@ export const Content = () => {
                     PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
                     available to US customers who are of legal age in their state of residence. You must pay with PayPal
                     Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.99%. The
-                    APR is accurate as of 9/1/2019 and will vary with the market based on the Prime Rate (as defined in
+                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.49%. The
+                    APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in
                     your credit card agreement). Minimum interest charge is $2.00.
                 </p>
                 <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
