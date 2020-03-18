@@ -248,36 +248,28 @@ export default curry((container, { wrapper, options, logger, meta }) => {
     }
 
     /**
-     * @param el - This represents the immediate parent to the <div class="messages"></div> banner element.
-     *
-     * @param i - Initial point for iteration over parent elements. With i <= 3 in the while-loop,
-     * stop at the 3rd parent up from the banner element.
-     *
-     * @param while While the element isn't the BODY element, and we're <= the 3rd parent from the banner element (the ".messages" div) we do the following:
-     * * If the element's height is less than the message iframe's height, log a warning and set the display of the message
-     * to "none", then break the loop.
-     * * If there is no parentNode to the current el, break the loop. Otherwise, we set the el to the current el's parent and iterate i++.
+     * IntersectionObserver checks to see if there is any intersection of elements up the tree that
+     * could cause the messages to be cut off.
+     * The element we are observing is the .messages div. If any ancestor elements of the .messages div
+     * is a container with a set height smaller than required for the message, it will be set to display:none.
      */
     if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
-        let el = wrapper.parentNode.parentNode;
-        let i = 0;
-        while (el.tagName !== 'BODY' && i <= 3) {
-            if (el.clientHeight < container.getAttribute('height')) {
-                logger.warn(
-                    `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${container.getAttribute(
-                        'height'
-                    )}px. Current container is ${el.clientHeight}px. Message hidden.`
-                );
-                /* eslint-disable-next-line no-param-reassign */
-                wrapper.style.display = 'none';
-                break;
-            }
+        // .messages div
+        const el = wrapper.parentNode;
 
-            if (!el.parentNode) break;
-
-            el = el.parentNode;
-            /* eslint-disable-next-line no-plusplus */
-            i++;
-        }
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.intersectionRatio < 0.9) {
+                    logger.warn(
+                        `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${parseInt(
+                            container.getAttribute('height')
+                        ) + 1}px. Current container is ${el.parentNode.clientHeight}px. Message hidden.`
+                    );
+                    // eslint-disable-next-line no-param-reassign
+                    wrapper.style.display = 'none';
+                }
+            });
+        }, {});
+        observer.observe(document.querySelector('.messages'));
     }
 });
