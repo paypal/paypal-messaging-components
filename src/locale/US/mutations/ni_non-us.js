@@ -1,5 +1,6 @@
 import Logo from '../logos';
-import { basicMediaQuery, legacyNI } from './ni';
+import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { legacyNI } from './ni';
 
 export default {
     'layout:text': [
@@ -53,16 +54,33 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 36 + 130), `.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    basicMediaQuery(textSize * 18.9),
+                    altContentMediaQuery(textSize * 45),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
-                headline: ['xsmall', { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }]
+                headline: [
+                    'xsmall',
+                    {
+                        tag: 'medium',
+                        br: ['months'],
+                        replace: [['99+', '99+.']]
+                    }
+                ]
             })
         ],
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
                 styles: [basicMediaQuery(textSize * 20), `.message__logo-container { width: ${textSize * 8}px }`],
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }]
+                headline: [
+                    'xsmall',
+                    {
+                        tag: 'medium',
+                        br: ['months']
+                    }
+                ]
             })
         ],
         ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 20)] })],

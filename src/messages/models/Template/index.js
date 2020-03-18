@@ -53,7 +53,7 @@ function createCustomFontFamily(account, fontFamily) {
         font-family: ${fontFamily};
         font-style: normal;
         font-weight: 400;
-    
+
         src: url('${baseUrl}.eot');
         src: url('${baseUrl}.woff2')
                 format('woff2'),
@@ -61,9 +61,9 @@ function createCustomFontFamily(account, fontFamily) {
             url('${baseUrl}.svg#${fontFamily}')
                 format('svg');
     }
-    
-    html { 
-        font-family: ${fontFamily}, PayPal-Sans, Helvetica, Arial, sans-serif; 
+
+    html {
+        font-family: ${fontFamily}, PayPal-Sans, Helvetica, Arial, sans-serif;
     }`;
 }
 

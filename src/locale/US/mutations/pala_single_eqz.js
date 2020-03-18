@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altContentMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -18,6 +19,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
+                messageWidth: false,
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: {
                     br: ['APR']
@@ -27,6 +29,7 @@ export default {
         [
             'logo.type:none',
             {
+                messageWidth: false,
                 logo: false,
                 headline: {
                     br: ['APR']
@@ -36,9 +39,18 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`],
+                styles: [
+                    altContentMediaQuery(textSize * 34.3),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 messageWidth: [textSize * 10, 1000]
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],

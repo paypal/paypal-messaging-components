@@ -1,5 +1,6 @@
 .message__messaging {
-    white-space: nowrap;
+    display: inline-block;
+    white-space: normal;
     flex: 0 0 auto;
 }
 
@@ -7,10 +8,23 @@
     white-space: nowrap;
 }
 
+/* .message__headline span.multi:first-child {
+    display: none;
+}
+
+.message__headline span.multi:nth-child(2) {
+    display: inline;
+} */
+
+.message__messaging span.br {
+    white-space: normal;
+}
+
 .message__logo-container {
+    display: inline-block;
     margin-right: 0.6rem;
 }
 
 .message__content {
-    align-items: flex-end;
+    display: inline-block;
 }
