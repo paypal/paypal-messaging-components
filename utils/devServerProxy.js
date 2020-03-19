@@ -69,7 +69,7 @@ module.exports = app => {
                 formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
             };
 
-            if (account === 'DEV0000NIQUAL') morsVars.qualifying_offer = true;
+            if (account === 'DEV0000NIQUAL' || amount > terms.minAmount) morsVars.qualifying_offer = true;
 
             const populateVars = str =>
                 Object.entries(morsVars)
