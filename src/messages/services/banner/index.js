@@ -223,7 +223,7 @@ const getContentMinWidth = templateNode => {
 
 const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 
-export default function getBannerMarkup({ options, logger, isOnlyModal }) {
+export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
 
     return (objectGet(options, 'style.layout') !== 'custom'
@@ -267,7 +267,7 @@ export default function getBannerMarkup({ options, logger, isOnlyModal }) {
 
             const template = Template.getTemplateNode(totalOptions, markup);
 
-            if (isOnlyModal) {
+            if (totalOptions._modalOnly) {
                 return {
                     markup,
                     options: totalOptions,
