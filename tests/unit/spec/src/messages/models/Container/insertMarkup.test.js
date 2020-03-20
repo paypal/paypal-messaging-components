@@ -17,8 +17,7 @@ describe('insertMarkup', () => {
         const { container, getByText } = createContainer('iframe');
         const markup = '<div><script>window.meta = { test: true };</script><div>test</div></div>';
 
-        const isOnlyModal = false;
-        await insertMarkup(container, isOnlyModal, markup);
+        await insertMarkup(container, markup);
 
         expect(getByText(/test/i)).toBeVisible();
     });
@@ -28,8 +27,7 @@ describe('insertMarkup', () => {
         const markup = document.createElement('div');
         markup.innerHTML = '<div><h1>test header</h1><p>see terms</p></div>';
 
-        const isOnlyModal = false;
-        await insertMarkup(container, isOnlyModal, markup);
+        await insertMarkup(container, markup);
 
         expect(getByText(/test header/i)).toBeVisible();
         expect(getByText(/see terms/i)).toBeVisible();
@@ -40,8 +38,7 @@ describe('insertMarkup', () => {
         const markup = document.createElement('div');
         markup.innerHTML = '<div><h1>test header</h1><p>see terms</p></div>';
 
-        const isOnlyModal = false;
-        await insertMarkup(container, isOnlyModal, markup);
+        await insertMarkup(container, markup);
 
         expect(getByText(/test header/i)).toBeVisible();
         expect(getByText(/see terms/i)).toBeVisible();

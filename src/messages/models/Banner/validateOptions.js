@@ -19,7 +19,7 @@ const VALID_OPTIONS = {
     onApply: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
-    modal: [Types.OBJECT]
+    _modalOnly: [Types.BOOLEAN]
 };
 
 // Formalized validation logger helper functions
@@ -194,24 +194,6 @@ export default curry((logger, { account, amount, style, offer, modal, ...otherOp
 
         // Get the default settings for a text banner
         validOptions.style = { layout: 'text' };
-    }
-
-    if (typeof modal !== 'undefined') {
-        if (validateType(Types.OBJECT, modal)) {
-            validOptions.modal = modal;
-
-            if (!validateType(Types.STRING, modal.type)) {
-                logInvalidType(logger, 'modal.type', Types.STRING, modal.type);
-                validOptions.modal = { type: 'NI' };
-            }
-        } else {
-            logInvalidType(logger, 'modal', Types.OBJECT, modal);
-        }
-
-        if (otherOptions._legacy) {
-            logInvalid(logger, 'modal', 'Cannot have both legacy and modal options set');
-            delete validOptions.modal;
-        }
     }
 
     logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });

@@ -14,7 +14,7 @@ function getModalType(offerCountry, offerType) {
 }
 
 export default {
-    init({ options, meta, events, track, wrapper, isOnlyModal }) {
+    init({ options, meta, events, track, wrapper }) {
         // For legacy image banners, open a popup instead of the modal
         if (options._legacy && startsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {
@@ -37,9 +37,10 @@ export default {
                 account: options.account,
                 country: meta.offerCountry,
                 currency: options.currency,
-                type: options.modal
-                    ? options.modal.type.toUpperCase()
-                    : getModalType(meta.offerCountry, meta.offerType),
+                type:
+                    options._modalOnly && options.offerType
+                        ? options.offerType
+                        : getModalType(meta.offerCountry, meta.offerType),
                 amount: options.amount,
                 refId: meta.messageRequestId,
                 onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
@@ -50,7 +51,7 @@ export default {
                     track({ et: 'CLICK', event_type: 'click', link: linkName });
                 },
                 onClose: linkName => {
-                    (isOnlyModal ? wrapper : wrapper.firstChild).focus();
+                    (options._modalOnly ? wrapper : wrapper.firstChild).focus();
                     track({ et: 'CLICK', event_type: 'click', link: linkName });
                 }
             });

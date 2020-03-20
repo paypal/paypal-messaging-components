@@ -5,7 +5,7 @@ import insertMarkup from './insertMarkup';
 import runStats from './stats';
 import setSize from './setSize';
 
-export default function createContainer(typeOrElement, isOnlyModal = false) {
+export default function createContainer(typeOrElement, options) {
     const container = typeOrElement.constructor === String ? document.createElement(typeOrElement) : typeOrElement;
 
     if (typeOrElement === 'iframe') {
@@ -15,17 +15,18 @@ export default function createContainer(typeOrElement, isOnlyModal = false) {
         container.setAttribute('height', 0);
     }
 
-    const helpers = { runStats, events };
-    if (!isOnlyModal) {
-        helpers.insertMarkup = insertMarkup;
-        helpers.setSize = setSize;
-    }
+    const helpers = {
+        insertMarkup,
+        setSize,
+        runStats
+    };
 
     const helperFns = objectEntries(helpers).reduce(
-        (accumulator, [fnName, fn]) => ({ ...accumulator, [fnName]: fn(container, isOnlyModal) }),
+        (accumulator, [fnName, fn]) => ({ ...accumulator, [fnName]: fn(container) }),
         {}
     );
 
+    helperFns.events = events(container, options);
     helperFns.clearEvents = () => clearEvents(container);
 
     return [container, helperFns];

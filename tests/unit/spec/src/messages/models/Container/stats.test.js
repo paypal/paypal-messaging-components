@@ -48,8 +48,7 @@ describe('stats', () => {
             messaging_version: expect.any(String)
         };
 
-        const isOnlyModal = false;
-        stats(container, isOnlyModal, mockRenderObject);
+        stats(container, mockRenderObject);
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -91,8 +90,7 @@ describe('stats', () => {
             messaging_version: expect.any(String)
         };
 
-        const isOnlyModal = false;
-        stats(container, isOnlyModal, mockRenderObject);
+        stats(container, mockRenderObject);
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -126,8 +124,7 @@ describe('stats', () => {
         const { container, getByText } = createContainer('iframe', '<h1>test</h1>');
         const mockRenderObject = createMockRenderObject(container);
 
-        const isOnlyModal = false;
-        stats(container, isOnlyModal, mockRenderObject);
+        stats(container, mockRenderObject);
 
         expect(mockRenderObject.track).not.toHaveBeenCalledWith('MORS_CLICK');
 
@@ -145,8 +142,7 @@ describe('stats', () => {
         const { container } = createContainer('iframe', '<h1>test</h1>');
         const mockRenderObject = createMockRenderObject(container);
 
-        const isOnlyModal = false;
-        stats(container, isOnlyModal, mockRenderObject);
+        stats(container, mockRenderObject);
 
         const trackCalls = mockRenderObject.track.mock.calls.length;
 

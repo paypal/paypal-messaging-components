@@ -101,14 +101,14 @@ function checkAdblock() {
 }
 
 export default curry(
-    (container, isOnlyModal, { options: { amount, account, merchantId, placement, onClick }, events, track }) => {
+    (container, { options: { amount, account, merchantId, placement, onClick, _modalOnly }, events, track }) => {
         // Get outer most container's page location coordinates
         const containerRect = container.getBoundingClientRect();
 
         // Create initial payload
         const payload = {
             et: 'CLIENT_IMPRESSION',
-            event_type: 'stats',
+            event_type: _modalOnly ? 'modal-stats' : 'stats',
             integration_type: __MESSAGES__.__TARGET__,
             messaging_version: __MESSAGES__.__VERSION__,
             placement,

@@ -76,7 +76,7 @@ describe('Banner model', () => {
         textElement.innerText = 'click here';
         document.body.appendChild(textElement);
 
-        await Banner.init(textElement, '.mess', { ...validOptions, modal: { type: 'ni' } });
+        await Banner.init(textElement, '.message', { ...validOptions, _modalOnly: true });
 
         expect(Modal.init).toHaveBeenCalledTimes(1);
         expect(!!textElement.querySelector('iframe')).toBe(false);

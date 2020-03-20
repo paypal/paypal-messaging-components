@@ -182,7 +182,7 @@ function getContainerWidth(wrapper) {
     return parentWidth;
 }
 
-export default curry((container, isOnlyModal, { wrapper, options, logger, meta }) => {
+export default curry((container, { wrapper, options, logger, meta }) => {
     if (container.tagName !== 'IFRAME') return;
 
     const layout = objectGet(options, 'style.layout');

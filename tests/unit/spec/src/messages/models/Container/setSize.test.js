@@ -44,8 +44,7 @@ describe('setSize', () => {
             expect(wrapper.getElementsByTagName('style')).toHaveLength(0);
             expect(wrapper).not.toHaveClass('pp-flex--20x1');
 
-            const isOnlyModal = false;
-            setSize(container, isOnlyModal, mockRenderObject);
+            setSize(container, mockRenderObject);
 
             expect(wrapper.getElementsByTagName('style')).toHaveLength(1);
             expect(wrapper.getElementsByTagName('style')[0]).toHaveTextContent('padding-top: 5%');
@@ -70,8 +69,7 @@ describe('setSize', () => {
             };
 
             await injectSpies({ container }, async () => {
-                const isOnlyModal = false;
-                setSize(container, isOnlyModal, mockRenderObject);
+                setSize(container, mockRenderObject);
 
                 await new Promise(res => setTimeout(res, 100));
 
@@ -96,8 +94,7 @@ describe('setSize', () => {
             };
 
             await injectSpies({ container, display: 'block' }, async () => {
-                const isOnlyModal = false;
-                setSize(container, isOnlyModal, mockRenderObject);
+                setSize(container, mockRenderObject);
 
                 await new Promise(res => setTimeout(res, 100));
 
@@ -129,8 +126,7 @@ describe('setSize', () => {
             };
 
             await injectSpies({ container, wrapperWidth: 10 }, () => {
-                const isOnlyModal = false;
-                expect(() => setSize(container, isOnlyModal, mockRenderObject)).toThrow(
+                expect(() => setSize(container, mockRenderObject)).toThrow(
                     expect.objectContaining({
                         name: 'Error',
                         message: ERRORS.MESSAGE_OVERFLOW,
@@ -165,8 +161,7 @@ describe('setSize', () => {
             };
 
             await injectSpies({ container, wrapperWidth: 10 }, async () => {
-                const isOnlyModal = false;
-                setSize(container, isOnlyModal, mockRenderObject);
+                setSize(container, mockRenderObject);
 
                 await new Promise(res => setTimeout(res, 100));
 

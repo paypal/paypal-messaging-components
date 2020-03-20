@@ -49,7 +49,7 @@ describe('events.js', () => {
                 resize: () => fireEvent(container.contentWindow, new Event('resize'))
             };
 
-            const events = eventsOn(container, containerType === 'element');
+            const events = eventsOn(container, { _modalOnly: containerType === 'element' });
             const handler = jest.fn();
 
             events.on(eventType, handler);
@@ -82,7 +82,7 @@ describe('events.js', () => {
                 containerType === 'element' ? element : containerType,
                 '<h1>test</h1>'
             );
-            const events = eventsOn(container, containerType === 'element');
+            const events = eventsOn(container, { _modalOnly: containerType === 'element' });
             const handler = jest.fn();
 
             events.on('resize', handler);
@@ -103,7 +103,7 @@ describe('events.js', () => {
                 containerType === 'element' ? element : containerType,
                 '<h1>test</h1>'
             );
-            const events = eventsOn(container, containerType === 'element');
+            const events = eventsOn(container, { _modalOnly: containerType === 'element' });
             const handler = jest.fn();
             const eventTypeCount = containerType === 'iframe' ? 4 : 3;
 

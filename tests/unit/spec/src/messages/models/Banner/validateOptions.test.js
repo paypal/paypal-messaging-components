@@ -153,37 +153,4 @@ describe('validateOptions', () => {
             expect(validated.logo.position).toBe(validLogoPositions[0]);
         });
     });
-
-    describe('Invalid modal object values', () => {
-        it('Warns invalid modal object type', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                modal: 'modal'
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.modal).not.toBe('modal');
-        });
-
-        it('Warns invalid modal.type value', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                modal: { type: 7 }
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.modal.type).not.toBe(7);
-        });
-
-        it('Warns if both modal and legacy options are set', () => {
-            const validated = validateOptions(mockLogger, {
-                ...validOptions,
-                _legacy: true,
-                modal: { type: 'ni' }
-            });
-
-            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
-            expect(validated.modal).toBe(undefined);
-        });
-    });
 });

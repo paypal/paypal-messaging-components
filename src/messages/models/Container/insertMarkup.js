@@ -10,7 +10,7 @@ const createNodeWithInnerHTML = (doc, type, html) => {
     return node;
 };
 
-export default curry((container, isOnlyModal, template) => {
+export default curry((container, template) => {
     return waitForElementReady(container).then(() => {
         const containerDocument = container.tagName === 'IFRAME' ? container.contentWindow.document : document;
         const newNode =

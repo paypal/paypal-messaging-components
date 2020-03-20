@@ -98,18 +98,6 @@ Setting `style.layout` to `'text'` will enable further style options for `logo.t
 | `style.color` | `data-pp-style-color` | `'blue'`, `'black'`, `'white'`, `'white-no-border'`, `'white'`, `'gray'` |       |
 | `style.ratio` | `data-pp-style-ratio` | `'1x1'`, `'1x4'`, `'8x1'`, `'20x1'`                                      |       |
 
-#### Modal Only
-
-To render only the modal, use `modal.type` and put visible markup inside the element that the modal will be attached to.
-
-```
-<div data-pp-message data-pp-modal-type="ni">click here</div>
-```
-
-| JS Key       | HTML Attribute Key   | Values          | Notes |
-| ------------ | -------------------- | --------------- | ----- |
-| `modal.type` | `data-pp-modal-type` | `'ni'`, `'ezp'` |
-
 ## Releasing
 
 This package is published weekly, **Every Wednesday**. Please [view our Changelog](CHANGELOG.md) to stay updated with bug fixes and new features.
