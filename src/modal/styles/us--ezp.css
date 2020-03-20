@@ -147,22 +147,8 @@
     visibility: hidden;
 }
 
-.calculator__error-msg {
-    display: none;
-    border: 2px solid #d20000;
-    padding: 10px;
-    text-align: center;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.85;
-    letter-spacing: normal;
-    color: #2c2e2f;
-    background: #fff7f7;
-    border-radius: 6px;
-    margin-top: 10px;
+.calculator__button {
+    flex: 1 1 20%;
 }
 
 .finance-terms__note {

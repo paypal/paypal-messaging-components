@@ -1,17 +1,17 @@
-import { getInlineOptions, globalState, getScript, getAccount, getEnv, getCurrency, getPartnerAccount } from '../utils';
-import { Logger } from '../messages/services/logger';
+import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../utils';
 import Messages from '../messages';
 
 export function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        const inlineScriptOptions = getInlineOptions(script);
+        // Inline attributes are set to lowercase
+        const { merchantid, ...inlineScriptOptions } = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
         Messages.setGlobalConfig({
             account: partnerAccount || getAccount(),
-            merchantId: partnerAccount && getAccount(),
+            merchantId: (partnerAccount && getAccount()) || merchantid,
             currency: getCurrency(),
             ...inlineScriptOptions
         });
@@ -36,8 +36,6 @@ export function setup() {
             // Alias for pilot merchant support
             window.paypal.Message = Messages;
         }
-    } else if (getEnv() === 'sandbox') {
-        Logger.warn('The messages component does not currently support the PayPal sandbox environment.');
     }
 
     // Requires a merchant account to render a message

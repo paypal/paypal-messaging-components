@@ -1,9 +1,9 @@
-import base from './base.scss';
-import logoInline from './logo--inline.scss';
-import textWhite from './text--white.scss';
+import base from './base.css';
+import logoInline from './logo--inline.css';
+import textWhite from './text--white.css';
 
 export default [
-    ['default', base._getCss()],
-    ['logo.type:inline', logoInline._getCss()],
-    ['text.color:white', textWhite._getCss()]
+    ['default', base],
+    ['logo.type:inline', logoInline],
+    ['text.color:white', textWhite]
 ];

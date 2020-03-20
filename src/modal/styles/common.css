@@ -201,7 +201,7 @@ li {
 .spinner {
     position: absolute;
     left: 50%;
-    margin-bottom: 80px;
+    top: 50%;
     border-radius: 50%;
     border-top: 4px solid #00ff7f;
     width: 80px;
@@ -211,24 +211,25 @@ li {
     animation: spin 2s linear infinite;
     transition: opacity 0.2s;
     pointer-events: none;
-    transform-origin: left;
+    transform-origin: 0 0;
+    z-index: 5;
 }
 
 @-webkit-keyframes spin {
     0% {
-        -webkit-transform: rotate(0deg) translateX(-50%);
+        -webkit-transform: rotate(0deg) translate(-50%, -50%);
     }
     100% {
-        -webkit-transform: rotate(360deg) translateX(-50%);
+        -webkit-transform: rotate(360deg) translate(-50%, -50%);
     }
 }
 
 @keyframes spin {
     0% {
-        transform: rotate(0deg) translateX(-50%);
+        transform: rotate(0deg) translate(-50%, -50%);
     }
     100% {
-        transform: rotate(360deg) translateX(-50%);
+        transform: rotate(360deg) translate(-50%, -50%);
     }
 }
 

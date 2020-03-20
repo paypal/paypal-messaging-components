@@ -137,23 +137,32 @@ const Banner = {
         // LOGGER: appending empty iframe - waiting for banner
         logger.info(EVENTS.CONTAINER);
 
-        if (!isLegacy && !isModalOnly) {
-            // Must be after appending iframe into DOM to prevent immediate re-render
-            // Used to repopulate iframe if moved throughout the DOM
-            waitForElementReady(container).then(() => {
-                container.addEventListener('load', () => {
-                    clearEvents();
-                    render(currentOptions);
-                });
-            });
-        }
-
-        return {
+        const banner = {
             renderProm: render(currentOptions),
             wrapper,
             container,
             update
         };
+
+        if (!isLegacy && !isModalOnly) {
+            // Must be after appending iframe into DOM to prevent immediate re-render
+            // Used to repopulate iframe if moved throughout the DOM
+            waitForElementReady(container).then(() => {
+                container.addEventListener('load', () => {
+                    // Ensure initial render finishes before firing another render.
+                    // This prevent multiple renders from happening at the same time on initial load causing
+                    // multiple sets of events being attached to a single message.
+                    banner.renderProm
+                        .catch(() => {})
+                        .finally(() => {
+                            clearEvents();
+                            banner.renderProm = render(currentOptions);
+                        });
+                });
+            });
+        }
+
+        return banner;
     }
 };
 

@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.7.1",
+    "version": "1.7.9",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -40,7 +40,6 @@
         "core-js-pure": "^3.0.1",
         "jsx-pragmatic": "^2.0.7",
         "post-robot": "^10.0.29",
-        "preact": "^10.1.1",
         "zalgo-promise": "^1.0.38",
         "zoid": "^9.0.36"
     },
@@ -65,11 +64,13 @@
         "got": "^9.6.0",
         "grumbler-scripts": "^3.0.46",
         "husky": "^2.3.0",
+        "imgur": "^0.3.1",
         "jest": "^25.1.0",
         "jest-environment-jsdom-fifteen": "^1.0.0",
         "jest-environment-puppeteer": "^4.3.0",
         "jest-image-snapshot": "^2.11.1",
         "lint-staged": "^8.0.4",
+        "preact": "^10.1.1",
         "prettier": "^1.14.3",
         "prettier-eslint": "^9.0.1",
         "puppeteer": "^2.0.0",
