@@ -150,7 +150,7 @@ export const validateStyleOptions = curry((logger, style) => {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default curry((logger, { account, amount, style, offer, modal, ...otherOptions }) => {
+export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
 
     if (!validateType(Types.STRING, account)) {
