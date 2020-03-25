@@ -1,3 +1,4 @@
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { useContext, useReducer } from 'preact/hooks';
 
 import { useXProps } from './helpers';
@@ -48,7 +49,7 @@ const localize = (country, amount) => {
 
 export default function useCalculator() {
     const { terms, meta } = useContext(ServerContext);
-    const { payerId, clientId, country } = useXProps();
+    const { payerId, clientId, merchantId, country } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, terms.amount),
         prevValue: localize(country, terms.amount),
@@ -67,19 +68,24 @@ export default function useCalculator() {
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             dispatch({ type: 'fetch' });
-            request(
-                'POST',
-                `${
-                    window.location.origin
-                }/credit-presentment/calculateTerms?amount=${delocalizedValue}&country=${country}&${
-                    clientId ? `client_id=${clientId}` : `payer_id=${payerId}`
-                }`,
-                {
-                    headers: {
-                        'x-csrf-token': meta.csrf
-                    }
+
+            const params = {
+                amount: delocalizedValue,
+                country,
+                client_id: clientId,
+                payer_id: payerId,
+                merchant_id: merchantId
+            };
+
+            const query = objectEntries(params)
+                .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
+                .slice(1);
+
+            request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
+                headers: {
+                    'x-csrf-token': meta.csrf
                 }
-            ).then(({ data }) => {
+            }).then(({ data }) => {
                 dispatch({ type: 'terms', data });
             });
         }
