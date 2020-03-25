@@ -7,6 +7,7 @@ const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
     DEV0000NIQUAL: ['US', 'ni'],
     DEV000NINONUS: ['US', 'ni_non-us'],
+    DEV00NINONUSQ: ['US', 'ni_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
     DEV0000000EAG: ['US', 'ezp_any_gtz'],
     DEV0000000PSZ: ['US', 'pala_single_eqz'],
@@ -66,10 +67,12 @@ module.exports = app => {
             const morsVars = {
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term,
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
+                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
+                qualifying_offer: false
             };
 
-            if (account === 'DEV0000NIQUAL' || amount > terms.minAmount) morsVars.qualifying_offer = true;
+            if (account === 'DEV0000NIQUAL' || account === 'DEV00NINONUSQ' || amount > terms.minAmount)
+                morsVars.qualifying_offer = true;
 
             const populateVars = str =>
                 Object.entries(morsVars)

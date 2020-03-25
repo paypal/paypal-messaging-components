@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "offerType": "NI:NON-US",
+        "offerType": "NI:NON-US:QUALIFYING-${CREDIT_OFFERS_DS.qualifying_offer}",
         "lander": "https://www.paypal.com/ppclander"
     },
 

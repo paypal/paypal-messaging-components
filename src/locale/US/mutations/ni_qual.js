@@ -4,7 +4,7 @@
  * to the NI message likely need to be made to both files for effective coverage.
  */
 import Logo from '../logos';
-import { legacyNI } from './ni';
+import { legacyNI, flex } from './ni';
 import { basicMediaQuery } from './mediaQueries';
 
 export default {
@@ -139,39 +139,6 @@ export default {
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
     ],
 
-    'layout:flex': [
-        [
-            'default',
-            {
-                logo: Logo.PRIMARY.WHITE,
-                headline: ['xsmall', { tag: 'medium', br: ['months'] }],
-                disclaimer: 'xsmall'
-            }
-        ],
-        [
-            'ratio:1x1',
-            {
-                headline: ['xsmall', 'medium'],
-                styles: ['@media (min-width: 150px) { .message__headline { font-size: 8vw } }']
-            }
-        ],
-        [
-            'ratio:1x4',
-            {
-                headline: { tag: 'medium', br: ['months'] },
-                styles: [
-                    '.message__logo-container { margin-bottom: 30%; }',
-                    '.message__disclaimer span.multi:nth-of-type(1) { display: none; }',
-                    '@media (max-aspect-ratio: 11/40) { .message__disclaimer span.multi:nth-of-type(1) { display: block; } }',
-                    '.message__headline { font-size: 1.1rem }'
-                ],
-                disclaimer: ['xlarge', 'xsmall']
-            }
-        ],
-        ['color:gray', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
-    ],
-
+    'layout:flex': flex,
     'layout:legacy': legacyNI
 };
