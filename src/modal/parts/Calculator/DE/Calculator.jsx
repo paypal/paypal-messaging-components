@@ -25,9 +25,11 @@ const Calculator = () => {
                     </Button>
                 </form>
             </div>
-            <div className="spinner calculator__spinner" style={{ opacity: isLoading ? '1' : '0' }} />
-            <div className="calculator__finance-terms" style={{ opacity: isLoading ? '0.5' : '1' }}>
-                {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
+            <div className="calculator__finance-terms">
+                <div className="spinner calculator__spinner" style={{ opacity: isLoading ? '1' : '0' }} />
+                <div style={{ opacity: isLoading ? '0.5' : '1' }}>
+                    {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
+                </div>
             </div>
             {!terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
                 <p className="content__disclosure">
