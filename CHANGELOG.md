@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.10](https://github.com/paypal/paypal-messaging-components/compare/v1.7.9...v1.7.10) (2020-03-25)
+
+
+### Bug Fixes
+
+* ensure only one zoid component created ([#178](https://github.com/paypal/paypal-messaging-components/issues/178)) ([ff3efe4](https://github.com/paypal/paypal-messaging-components/commit/ff3efe4fd4341bb5c54520b2fbe6974e0e3572fe))
+* pass merchant id with modal calculate call ([#174](https://github.com/paypal/paypal-messaging-components/issues/174)) ([f79d0ab](https://github.com/paypal/paypal-messaging-components/commit/f79d0ab102064744a3ae9113a482f58922b0539a))
+
 ## [1.7.9](https://github.com/paypal/paypal-messaging-components/compare/v1.7.8...v1.7.9) (2020-03-18)
 
 
