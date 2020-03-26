@@ -39,9 +39,38 @@ module.exports = app => {
             </head>
             <body>
                 <script>
-                    document.write(window.top.document.querySelector('script').outerHTML+'<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script><script>crc.setupModal(${JSON.stringify(
-                        props
-                    )})<'+'/script>');
+                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
+                    var initializer = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
+
+                    document.write(interface+component+initializer);
+                </script>
+            </body>
+        `);
+    });
+
+    app.get('/credit-presentment/smart/message', (req, res) => {
+        // const {} = req.query;
+
+        const props = {
+            country: 'US',
+            offerType: 'NI',
+            messageRequestId: '123ABC'
+        };
+
+        res.send(`
+            <!DOCTYPE html>
+            <head>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body>
+                <script>
+                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-message.js"><'+'/script>';
+                    var initializer = '<script>crc.setupMessage(${JSON.stringify(props)})<'+'/script>';
+
+                    document.write(interface+component+initializer);
                 </script>
             </body>
         `);

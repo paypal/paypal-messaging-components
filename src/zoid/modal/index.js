@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps } from '../../../utils';
+import { memoizeOnProps } from '../../utils';
 import Modal from './component';
 
 function getModalType(offerCountry, offerType) {

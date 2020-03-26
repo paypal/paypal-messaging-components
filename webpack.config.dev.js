@@ -9,7 +9,7 @@ const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
-    const MESSAGES_DEV_CONFIG =
+    const LIBRARY_DEV_CONFIG =
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
                   entry: env.TARGET === 'legacy' ? './src/legacy/index.js' : './src/index.js',
@@ -43,8 +43,8 @@ module.exports = (env = {}) => {
                   }
               });
 
-    MESSAGES_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
-    MESSAGES_DEV_CONFIG.devServer = {
+    LIBRARY_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
+    LIBRARY_DEV_CONFIG.devServer = {
         contentBase: './demo',
         publicPath: '/',
         openPage: (() => {
@@ -69,8 +69,19 @@ module.exports = (env = {}) => {
         disableHostCheck: true // IE11
     };
 
+    const MESSAGE_DEV_CONFIG = getWebpackConfig({
+        entry: './src/components/message/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-message.js',
+        vars: globals(env)
+    });
+
     const MODAL_DEV_CONFIG = getWebpackConfig({
-        entry: './src/modal/index.js',
+        entry: './src/components/modal/index.js',
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,
@@ -80,5 +91,5 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [MESSAGES_DEV_CONFIG, MODAL_DEV_CONFIG];
+    return [LIBRARY_DEV_CONFIG, MESSAGE_DEV_CONFIG, MODAL_DEV_CONFIG];
 };

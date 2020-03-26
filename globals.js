@@ -32,7 +32,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             // }
         },
         __URI__: {
-            __MESSAGE__: '/imadserver/upstream',
+            __MESSAGE__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER__: '/ppcredit/messagingLogger'
         }

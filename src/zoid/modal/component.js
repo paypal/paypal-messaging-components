@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl } from '../../../utils';
+import { getTargetMeta, getGlobalUrl } from '../../utils';
 import containerTemplate from './containerTemplate';
 
 // Multiple Zoid components of the same tag cannot be created, so a
