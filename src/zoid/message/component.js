@@ -1,6 +1,7 @@
 import { create } from 'zoid/src';
 
 import { getTargetMeta, getGlobalUrl, getGlobalComponent } from '../../utils';
+import validate from './helpers/validation';
 import containerTemplate from './containerTemplate';
 
 export default getGlobalComponent('__paypal_credit_message__', () =>
@@ -22,37 +23,45 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
         props: {
             account: {
                 type: 'object',
+                serialization: 'json',
                 queryParam: false,
                 required: true,
-                serialization: 'json'
+                // Creates object from account string and merchantId string
+                value: validate.account
             },
             amount: {
                 type: 'number',
                 queryParam: true,
-                required: false
+                required: false,
+                value: validate.amount
             },
             currency: {
                 type: 'string',
                 queryParam: true,
-                required: false
+                required: false,
+                value: validate.currency
             },
             placement: {
                 type: 'string',
                 queryParam: true,
-                required: false
+                required: false,
+                value: validate.placement
             },
             style: {
                 type: 'object',
                 serialization: 'json',
-                default: () => ({})
+                queryParam: true,
+                required: false,
+                value: validate.style
+            },
+            offer: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.offer
             },
 
             // Callbacks
-            // TODO: Is onRender provided out of the box by zoid?
-            // onRender: {
-            //     type: 'function',
-            //     required: false
-            // },
             onApply: {
                 type: 'function',
                 required: false

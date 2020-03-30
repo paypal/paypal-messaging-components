@@ -10,18 +10,6 @@ import runStats from './helpers/stats';
 
 const messages = new Map();
 
-function createAccountObject(account, merchantId) {
-    const [type, id] = stringStartsWith(account, 'client-id:')
-        ? ['client_id', account.slice(10)]
-        : ['payer_id', account];
-
-    return {
-        id,
-        type,
-        subject: merchantId
-    };
-}
-
 /**
  * Render Banner into all selector container elements
  * @param {string|HTMLElement|Array<HTMLElement>} selector CSS selector
@@ -62,8 +50,6 @@ function renderMessages(options, selector) {
     return ZalgoPromise.all(
         containers.map(container => {
             const totalOptions = objectMerge(options, getInlineOptions(container));
-            totalOptions.account = createAccountObject(totalOptions.account, totalOptions.merchantId);
-            delete totalOptions.merchantId;
 
             totalOptions.onReady = logger =>
                 runStats({ container, logger, account: totalOptions.account, amount: totalOptions.amount });
