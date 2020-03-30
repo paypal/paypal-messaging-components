@@ -4,10 +4,23 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { globalState, setGlobalState, objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
-import { Logger } from '../../messages/services/logger';
+import { Logger } from '../../services/logger';
 import Message from './component';
+import runStats from './helpers/stats';
 
 const messages = new Map();
+
+function createAccountObject(account, merchantId) {
+    const [type, id] = stringStartsWith(account, 'client-id:')
+        ? ['client_id', account.slice(10)]
+        : ['payer_id', account];
+
+    return {
+        id,
+        type,
+        subject: merchantId
+    };
+}
 
 /**
  * Render Banner into all selector container elements
@@ -17,16 +30,16 @@ const messages = new Map();
  */
 function renderMessages(options, selector) {
     let containers;
-    let selectorType;
+    // let selectorType;
     if (typeof selector === 'string') {
         containers = arrayFrom(document.querySelectorAll(selector));
-        selectorType = selector;
+        // selectorType = selector;
     } else if (isElement(selector)) {
         containers = [selector];
-        selectorType = 'HTMLElement';
+        // selectorType = 'HTMLElement';
     } else if (Array.isArray(selector) && selector.every(isElement)) {
         containers = [...selector];
-        selectorType = 'Array<HTMLElement>';
+        // selectorType = 'Array<HTMLElement>';
     } else {
         return Logger.warn('Invalid selector', selector);
     }
@@ -49,6 +62,11 @@ function renderMessages(options, selector) {
     return ZalgoPromise.all(
         containers.map(container => {
             const totalOptions = objectMerge(options, getInlineOptions(container));
+            totalOptions.account = createAccountObject(totalOptions.account, totalOptions.merchantId);
+            delete totalOptions.merchantId;
+
+            totalOptions.onReady = logger =>
+                runStats({ container, logger, account: totalOptions.account, amount: totalOptions.amount });
 
             if (!messages.has(container)) {
                 messages.set(container, Message(totalOptions));

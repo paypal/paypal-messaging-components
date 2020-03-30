@@ -5,7 +5,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 
 import toNewPipeline from './toNewPipeline';
-import { Logger, EVENTS } from '../messages/services/logger';
+import { Logger, EVENTS } from '../services/logger';
 import { nextId, getGlobalUrl } from '../utils';
 
 /**

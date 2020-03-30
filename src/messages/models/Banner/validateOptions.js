@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry, objectClone } from '../../../utils';
-import { EVENTS } from '../../services/logger';
+import { EVENTS } from '../../../services/logger';
 import { Types, validateType } from './types';
 
 import { getValidOptions } from '../../../locale';

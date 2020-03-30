@@ -36,6 +36,7 @@
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
+        "beaver-logger": "^4.0.14",
         "belter": "^1.0.112",
         "core-js-pure": "^3.0.1",
         "jsx-pragmatic": "^2.0.7",

@@ -1,7 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoize } from '../../../utils';
+import { memoize } from '../../utils';
 
 function fetcher(url) {
     return new ZalgoPromise(resolve => {

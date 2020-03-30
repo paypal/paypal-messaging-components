@@ -69,27 +69,48 @@ module.exports = (env = {}) => {
         disableHostCheck: true // IE11
     };
 
-    const MESSAGE_DEV_CONFIG = getWebpackConfig({
-        entry: './src/components/message/index.js',
+    // const MESSAGE_DEV_CONFIG = getWebpackConfig({
+    //     entry: './src/components/message/index.js',
+    //     libraryTarget: 'window',
+    //     modulename: 'crc',
+    //     debug: true,
+    //     minify: false,
+    //     sourcemaps: true,
+    //     filename: 'smart-credit-message.js',
+    //     vars: globals(env)
+    // });
+
+    // const MODAL_DEV_CONFIG = getWebpackConfig({
+    //     entry: './src/components/modal/index.js',
+    //     libraryTarget: 'window',
+    //     modulename: 'crc',
+    //     debug: true,
+    //     minify: false,
+    //     sourcemaps: true,
+    //     filename: 'smart-credit-modal.js',
+    //     vars: globals(env)
+    // });
+
+    const COMPONENTS_DEV_CONFIG = getWebpackConfig({
+        entry: ['./src/components/message/index.js', './src/components/modal/index.js'],
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,
         minify: false,
         sourcemaps: true,
-        filename: 'smart-credit-message.js',
+        filename: '[name].js',
         vars: globals(env)
     });
 
-    const MODAL_DEV_CONFIG = getWebpackConfig({
-        entry: './src/components/modal/index.js',
-        libraryTarget: 'window',
-        modulename: 'crc',
-        debug: true,
-        minify: false,
-        sourcemaps: true,
-        filename: 'smart-credit-modal.js',
-        vars: globals(env)
-    });
+    COMPONENTS_DEV_CONFIG.entry = {
+        'smart-credit-message': './src/components/message/index.js',
+        'smart-credit-modal': './src/components/modal/index.js'
+    };
 
-    return [LIBRARY_DEV_CONFIG, MESSAGE_DEV_CONFIG, MODAL_DEV_CONFIG];
+    COMPONENTS_DEV_CONFIG.optimization.splitChunks = {
+        chunks: 'all',
+        name: 'smart-credit-common'
+    };
+
+    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG];
 };

@@ -5,3 +5,4 @@ export * from './objects';
 export * from './miscellaneous';
 export * from './sdk';
 export { default as loadPPFonts } from './fonts';
+export { default as checkAdblock } from './adblock';

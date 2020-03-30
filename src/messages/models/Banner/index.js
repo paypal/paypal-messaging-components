@@ -1,8 +1,8 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import getBannerMarkup from '../../services/banner';
-import { Logger, EVENTS, ERRORS } from '../../services/logger';
+import getBannerMarkup from '../../../services/message';
+import { Logger, EVENTS, ERRORS } from '../../../services/logger';
 import createContainer from '../Container';
 import validateOptions from './validateOptions';
 import {
@@ -17,7 +17,7 @@ import {
     assignToProp,
     waitForElementReady
 } from '../../../utils';
-import Modal from '../../components/Modal';
+import Modal from '../../../zoid/modal';
 
 const banners = new Map();
 const loggers = new Map();

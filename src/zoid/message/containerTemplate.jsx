@@ -9,7 +9,7 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
     });
 
     return (
-        <span>
+        <span id={uid}>
             <node el={frame} />
             <node el={prerenderFrame} />
         </span>

@@ -24,6 +24,40 @@ module.exports = app => {
         res.send('');
     });
 
+    app.get('/credit-presentment/smart/message', (req, res) => {
+        // const {} = req.query;
+
+        const props = {
+            country: 'US',
+            offerType: 'NI',
+            uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+            messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
+            markup: '<span><strong>Free Money</strong> with PayPal Credit</span>',
+            trackingDetails: {
+                clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+            }
+        };
+
+        res.send(`
+            <!DOCTYPE html>
+            <head>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body>
+                <script>
+                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var common = '<script src="//localhost.paypal.com:8080/smart-credit-common.js"><'+'/script>'
+                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-message.js"><'+'/script>';
+                    var initializer = '<script>crc.setupMessage(${JSON.stringify(props)})<'+'/script>';
+
+                    document.write(interface+common+component+initializer);
+                </script>
+            </body>
+        `);
+    });
+
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { country, amount } = req.query;
         const props = {
@@ -40,37 +74,11 @@ module.exports = app => {
             <body>
                 <script>
                     var interface = window.top.document.querySelector('script').outerHTML;
+                    var common = '<script src="//localhost.paypal.com:8080/smart-credit-common.js"><'+'/script>'
                     var component = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
                     var initializer = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
 
-                    document.write(interface+component+initializer);
-                </script>
-            </body>
-        `);
-    });
-
-    app.get('/credit-presentment/smart/message', (req, res) => {
-        // const {} = req.query;
-
-        const props = {
-            country: 'US',
-            offerType: 'NI',
-            messageRequestId: '123ABC'
-        };
-
-        res.send(`
-            <!DOCTYPE html>
-            <head>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-            <body>
-                <script>
-                    var interface = window.top.document.querySelector('script').outerHTML;
-                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-message.js"><'+'/script>';
-                    var initializer = '<script>crc.setupMessage(${JSON.stringify(props)})<'+'/script>';
-
-                    document.write(interface+component+initializer);
+                    document.write(interface+common+component+initializer);
                 </script>
             </body>
         `);
@@ -81,6 +89,8 @@ module.exports = app => {
 
         res.send(getTerms(country, Number(amount)));
     });
+
+    app.post('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/imadserver/upstream', (req, res) => {
         const { call, currency_value: amount = 0, dimensions } = req.query;

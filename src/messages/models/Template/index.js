@@ -7,7 +7,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
-import { ERRORS } from '../../services/logger';
+import { ERRORS } from '../../../services/logger';
 import {
     curry,
     memoize,

@@ -1,19 +1,7 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl } from '../../utils';
+import { getTargetMeta, getGlobalUrl, getGlobalComponent } from '../../utils';
 import containerTemplate from './containerTemplate';
-
-// Multiple Zoid components of the same tag cannot be created, so a
-// global instance must be shared between all variants of the library running
-// on a single page. Predominantly solves for multiple instances of merchant.js.
-const getGlobalComponent = (namespace, fn) => {
-    if (!window[namespace]) {
-        window[namespace] = fn();
-    }
-
-    return window[namespace];
-};
 
 export default getGlobalComponent('__paypal_credit_modal__', () =>
     create({
@@ -29,16 +17,10 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
         },
         props: {
             account: {
-                type: 'string',
+                type: 'object',
                 queryParam: false,
-                sendToChild: false,
-                required: true
-            },
-            merchantId: {
-                type: 'string',
-                queryParam: 'merchant_id',
-                sendToChild: true,
-                required: false
+                required: true,
+                serialization: 'json'
             },
             type: {
                 type: 'string',
@@ -87,13 +69,19 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? undefined : props.account),
+                value: ({ props }) => (props.account.type === 'payer_id:' ? props.account.id : undefined),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined),
+                value: ({ props }) => (props.account.type === 'client-id:' ? props.account.id : undefined),
+                required: false
+            },
+            merchantId: {
+                type: 'string',
+                queryParam: 'merchant_id',
+                value: ({ props }) => props.account.subject,
                 required: false
             },
             targetMeta: {

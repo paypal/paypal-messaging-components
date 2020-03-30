@@ -4,7 +4,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 
 import { curry, objectGet, createCallbackError } from '../../../utils';
 import events from './events';
-import { ERRORS } from '../../services/logger';
+import { ERRORS } from '../../../services/logger';
 import { getMinimumWidthOptions } from '../../../locale';
 
 const ratioMap = {

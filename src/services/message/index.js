@@ -13,14 +13,14 @@ import {
     request,
     getCurrency,
     createUUID
-} from '../../../utils';
+} from '../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
-import Template from '../../models/Template';
-import createContainer from '../../models/Container';
-import { setLocale } from '../../../locale';
-import { validateStyleOptions } from '../../models/Banner/validateOptions';
+import Template from '../../messages/models/Template';
+import createContainer from '../../messages/models/Container';
+import { setLocale } from '../../locale';
+import { validateStyleOptions } from '../../messages/models/Banner/validateOptions';
 
 // Using same JSONP callback namespace as original merchant.js
 window.__PP = window.__PP || {};

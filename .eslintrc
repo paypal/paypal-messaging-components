@@ -11,6 +11,7 @@
     "rules": {
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
+        "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": ["/*.js", "/utils/**/*.js", "/tools/**/*.js", "/tests/**/*.js"] }
