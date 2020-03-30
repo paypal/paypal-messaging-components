@@ -1,6 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayEvery from 'core-js-pure/stable/array/every';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import 'intersection-observer';
 
 import { curry, objectGet, createCallbackError } from '../../../utils';
 import events from './events';
@@ -252,17 +253,21 @@ export default curry((container, { wrapper, options, logger, meta }) => {
      * could cause the messages to be cut off.
      * The element we are observing is the .messages div. If any ancestor elements of the .messages div
      * is a container with a set height smaller than required for the message, it will be set to display:none.
+     *
+     * Uses intersection-observer polyfill for legacy browser support.
      */
     if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
         // .messages div
         const el = wrapper.parentNode;
 
+        // eslint-disable-next-line compat/compat
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio < 0.9) {
                     logger.warn(
                         `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${parseInt(
-                            container.getAttribute('height')
+                            container.getAttribute('height'),
+                            10
                         ) + 1}px. Current container is ${el.parentNode.clientHeight}px. Message hidden.`
                     );
                     // eslint-disable-next-line no-param-reassign
@@ -270,6 +275,6 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                 }
             });
         }, {});
-        observer.observe(document.querySelector('.messages'));
+        if (document.querySelector('.messages')) observer.observe(document.querySelector('.messages'));
     }
 });
