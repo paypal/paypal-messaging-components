@@ -84,8 +84,8 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 18.9),
-                    altContentMediaQuery(textSize * 45),
+                    basicMediaQuery(textSize * 18),
+                    altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
