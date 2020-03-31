@@ -5,7 +5,7 @@ const getTerms = require('./mockTerms');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
-    DEV0000NIQUAL: ['US', 'ni'],
+    DEV0000000NIQ: ['US', 'ni'],
     DEV000NINONUS: ['US', 'ni_non-us'],
     DEV00NINONUSQ: ['US', 'ni_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
@@ -68,11 +68,8 @@ module.exports = app => {
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term,
                 formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                qualifying_offer: false
+                qualifying_offer: account === 'DEV0000000NIQ' || account === 'DEV00NINONUSQ' || amount > terms.minAmount
             };
-
-            if (account === 'DEV0000NIQUAL' || account === 'DEV00NINONUSQ' || amount > terms.minAmount)
-                morsVars.qualifying_offer = true;
 
             const populateVars = str =>
                 Object.entries(morsVars)
