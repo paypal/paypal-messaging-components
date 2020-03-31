@@ -23,6 +23,7 @@ const Message = ({ logger, country, offerType, requestId, innerHTML }) => {
 
     useEffect(() => {
         logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'MORS' });
+
         if (typeof onReady === 'function') {
             onReady(logger);
         }
@@ -35,6 +36,7 @@ const Message = ({ logger, country, offerType, requestId, innerHTML }) => {
             onMouseOver={handleHover}
             onFocus={handleHover}
             aria-label="PayPal Credit Message"
+            style={{ display: 'block' }}
             innerHTML={innerHTML}
         />
     );

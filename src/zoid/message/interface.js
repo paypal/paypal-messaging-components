@@ -49,10 +49,13 @@ function renderMessages(options, selector) {
 
     return ZalgoPromise.all(
         containers.map(container => {
-            const totalOptions = objectMerge(options, getInlineOptions(container));
-
-            totalOptions.onReady = logger =>
-                runStats({ container, logger, account: totalOptions.account, amount: totalOptions.amount });
+            const totalOptions = {
+                // Merchant options
+                ...objectMerge(options, getInlineOptions(container)),
+                // Library options
+                onReady: logger =>
+                    runStats({ container, logger, account: totalOptions.account, amount: totalOptions.amount })
+            };
 
             if (!messages.has(container)) {
                 messages.set(container, Message(totalOptions));

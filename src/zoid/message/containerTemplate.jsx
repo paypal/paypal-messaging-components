@@ -8,9 +8,80 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
 
+    const setupAutoResize = el => {
+        const overflow = {
+            _state: [false, false],
+            _checkOverflow() {
+                if (this._state.some(Boolean)) {
+                    el.style.setProperty('opacity', 0, 'important');
+                    el.style.setProperty('pointer-events', 'none', 'important');
+                } else {
+                    el.style.setProperty('opacity', null);
+                    el.style.setProperty('pointer-events', null);
+                }
+            },
+            get width() {
+                return this._state[0];
+            },
+            set width(val) {
+                this._state[0] = val;
+                this._checkOverflow();
+            },
+            get height() {
+                return this._state[1];
+            },
+            set height(val) {
+                this._state[1] = val;
+                this._checkOverflow();
+            }
+        };
+
+        event.on(EVENT.RESIZE, ({ width: newWidth, height: newHeight }) => {
+            if (typeof newHeight === 'number') {
+                el.style.setProperty('height', `${newHeight}px`);
+
+                requestAnimationFrame(() => {
+                    if (el.parentNode.parentNode.offsetHeight < newHeight) {
+                        if (!overflow.height) {
+                            console.warn(
+                                `[PayPal Messages] PayPal Credit Message requires minimum height of ${newHeight}px. Current container is ${el.parentNode.parentNode.offsetHeight}px. Message has been hidden.`
+                            );
+                        }
+                        overflow.height = true;
+                    } else {
+                        overflow.height = false;
+                    }
+                });
+            }
+
+            if (el.parentNode.parentNode.offsetWidth < newWidth) {
+                if (!overflow.width) {
+                    console.warn(
+                        `[PayPal Messages] PayPal Credit Message requires minimum width of ${newWidth}px. Current container is ${el.parentNode.parentNode.offsetWidth}px. Message has been hidden.`
+                    );
+                }
+                overflow.width = true;
+            } else {
+                overflow.width = false;
+            }
+        });
+    };
+
     return (
         <span id={uid}>
-            <node el={frame} />
+            <style>
+                {`
+                    #${uid} > iframe {
+                        width: 100%;
+                        height: 0;
+                    }
+
+                    #${uid} > iframe:nth-of-type(2) {
+                        display: none;
+                    }
+                `}
+            </style>
+            <node el={frame} onRender={setupAutoResize} />
             <node el={prerenderFrame} />
         </span>
     ).render(dom({ doc }));

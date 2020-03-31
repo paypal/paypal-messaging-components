@@ -32,7 +32,8 @@ module.exports = app => {
             offerType: 'NI',
             uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
             messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
-            markup: '<span><strong>Free Money</strong> with PayPal Credit</span>',
+            markup:
+                '<span><style>body { margin: 0; }</style><strong>Free Money</strong> with PayPal Credit. Apply now or lose your chance!</span>',
             trackingDetails: {
                 clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
                 impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'

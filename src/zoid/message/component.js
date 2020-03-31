@@ -12,8 +12,9 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
         autoResize: {
-            width: false,
-            height: true
+            width: true,
+            height: true,
+            element: 'button'
         },
         attributes: {
             iframe: {
