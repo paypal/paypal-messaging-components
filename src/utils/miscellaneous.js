@@ -127,3 +127,18 @@ export function createUUID() {
         return v.toString(16);
     });
 }
+
+/**
+ * @name dynamicImport
+ * @param url
+ *
+ * Will dynamically import a script.
+ */
+export function dynamicImport(url) {
+    return new ZalgoPromise(resolve => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.addEventListener('load', resolve);
+        document.body.appendChild(script);
+    });
+}
