@@ -1,12 +1,12 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayEvery from 'core-js-pure/stable/array/every';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import 'intersection-observer';
 
 import { curry, objectGet, createCallbackError } from '../../../utils';
 import events from './events';
 import { ERRORS } from '../../services/logger';
 import { getMinimumWidthOptions } from '../../../locale';
+import { dynamicImport } from '../../../utils/miscellaneous';
 
 const ratioMap = {
     '1x1': [
@@ -252,29 +252,49 @@ export default curry((container, { wrapper, options, logger, meta }) => {
      * IntersectionObserver checks to see if there is any intersection of elements up the tree that
      * could cause the messages to be cut off.
      * The element we are observing is the .messages div. If any ancestor elements of the .messages div
-     * is a container with a set height smaller than required for the message, it will be set to display:none.
-     *
-     * Uses intersection-observer polyfill for legacy browser support.
+     * is a container with a set height smaller than required for the message, the message will be set to display:none.
      */
-    if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
-        // .messages div
-        const el = wrapper.parentNode;
 
-        // eslint-disable-next-line compat/compat
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.intersectionRatio < 0.9) {
-                    logger.warn(
-                        `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${parseInt(
-                            container.getAttribute('height'),
-                            10
-                        ) + 1}px. Current container is ${el.parentNode.clientHeight}px. Message hidden.`
-                    );
-                    // eslint-disable-next-line no-param-reassign
-                    wrapper.style.display = 'none';
-                }
-            });
-        }, {});
-        if (document.querySelector('.messages')) observer.observe(document.querySelector('.messages'));
+    if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
+        const containerHeightCheck = () => {
+            // .messages div
+            const el = wrapper.parentNode;
+            // eslint-disable-next-line compat/compat
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.intersectionRatio < 0.9) {
+                        logger.warn(
+                            `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${parseInt(
+                                container.getAttribute('height'),
+                                10
+                            ) + 1}px. Current container is ${el.parentNode.clientHeight}px. Message hidden.`
+                        );
+                        // eslint-disable-next-line no-param-reassign
+                        wrapper.style.display = 'none';
+                    }
+                });
+            }, {});
+            if (document.querySelector('.messages')) observer.observe(document.querySelector('.messages'));
+        };
+
+        /**
+         * If browser does not support IntersectionObserver, the dynamicImport function is called,
+         * adds the appropriate polyfill needed for legacy browser support, then executes containerHeightCheck.
+         * Script tag containing polyfill is subsequently removed after load.
+         *
+         * If browser support exists, containerHeightCheck runs as normal.
+         */
+
+        if (typeof window.IntersectionObserver === 'undefined') {
+            const polyfillUrl = 'https://polyfill.io/v3/polyfill.js?features=IntersectionObserver';
+            dynamicImport(polyfillUrl)
+                .then(() => {
+                    containerHeightCheck();
+                })
+                .then(() => {
+                    const scriptEl = document.querySelector(`[src="${polyfillUrl}"]`);
+                    scriptEl.parentNode.removeChild(scriptEl);
+                });
+        } else containerHeightCheck();
     }
 });
