@@ -38,7 +38,6 @@
         "@paypal/sdk-client": "^4.0.80",
         "belter": "^1.0.112",
         "core-js-pure": "^3.0.1",
-        "intersection-observer": "^0.7.0",
         "jsx-pragmatic": "^2.0.7",
         "post-robot": "^10.0.29",
         "zalgo-promise": "^1.0.38",

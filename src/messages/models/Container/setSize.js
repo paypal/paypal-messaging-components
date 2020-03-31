@@ -286,6 +286,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
          */
 
         if (typeof window.IntersectionObserver === 'undefined') {
+            // https://github.com/w3c/IntersectionObserver/tree/master/polyfill
             const polyfillUrl = 'https://polyfill.io/v3/polyfill.js?features=IntersectionObserver';
             dynamicImport(polyfillUrl)
                 .then(() => {
