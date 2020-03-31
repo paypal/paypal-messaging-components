@@ -5,7 +5,7 @@
  */
 import Logo from '../logos';
 import { legacyNI, flex } from './ni';
-import { basicMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -29,7 +29,7 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
-                    { tag: 'medium', br: ['months'] }
+                    { tag: 'medium', br: ['months.'], replace: [['months', 'months.']] }
                 ],
                 disclaimer: 'xsmall'
             })
@@ -46,13 +46,8 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
-                }
-                @media(max-width:${textSize * 15 + 80}px){
-                    .message__disclaimer {
-                        display:block;
-                    }
                 }`,
-                    basicMediaQuery(textSize * 15 + 80),
+                    basicMediaQuery(textSize * 12 + 80),
                     `.message__logo { width: ${textSize * 7}px }`
                 ],
                 logo: Logo.ALT_NO_PP.COLOR,
@@ -68,13 +63,8 @@ export default {
                 styles: [
                     `.weak {
                     display:none;
-                }
-                    @media(max-width:${textSize * 20}px) {
-                        .message__disclaimer{
-                            display:block;
-                        }
-                    }`,
-                    basicMediaQuery(textSize * 20)
+                }`,
+                    basicMediaQuery(textSize * 17)
                 ],
                 logo: false,
                 headline: [
@@ -97,7 +87,8 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 24 + 130),
+                    basicMediaQuery(textSize * 18),
+                    altContentMediaQuery(textSize * 31),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
