@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.11](https://github.com/paypal/paypal-messaging-components/compare/v1.7.10...v1.7.11) (2020-04-01)
+
+
+### Bug Fixes
+
+* capture lander clicks ([#175](https://github.com/paypal/paypal-messaging-components/issues/175)) ([dd1c34b](https://github.com/paypal/paypal-messaging-components/commit/dd1c34b05defcebe4b2e030d0aa246d45b6ed94b))
+
 ## [1.7.10](https://github.com/paypal/paypal-messaging-components/compare/v1.7.9...v1.7.10) (2020-03-25)
 
 
