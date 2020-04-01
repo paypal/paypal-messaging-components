@@ -5,12 +5,13 @@ export function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        const inlineScriptOptions = getInlineOptions(script);
+        // Inline attributes are set to lowercase
+        const { merchantid, ...inlineScriptOptions } = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
         Messages.setGlobalConfig({
             account: partnerAccount || getAccount(),
-            merchantId: partnerAccount && getAccount(),
+            merchantId: (partnerAccount && getAccount()) || merchantid,
             currency: getCurrency(),
             ...inlineScriptOptions
         });

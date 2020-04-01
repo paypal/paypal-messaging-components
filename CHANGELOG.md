@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.7.10](https://github.com/paypal/paypal-messaging-components/compare/v1.7.9...v1.7.10) (2020-03-25)
+
+
+### Bug Fixes
+
+* ensure only one zoid component created ([#178](https://github.com/paypal/paypal-messaging-components/issues/178)) ([ff3efe4](https://github.com/paypal/paypal-messaging-components/commit/ff3efe4fd4341bb5c54520b2fbe6974e0e3572fe))
+* pass merchant id with modal calculate call ([#174](https://github.com/paypal/paypal-messaging-components/issues/174)) ([f79d0ab](https://github.com/paypal/paypal-messaging-components/commit/f79d0ab102064744a3ae9113a482f58922b0539a))
+
+## [1.7.9](https://github.com/paypal/paypal-messaging-components/compare/v1.7.8...v1.7.9) (2020-03-18)
+
+
+### Bug Fixes
+
+* center modal spinner in IE ([#171](https://github.com/paypal/paypal-messaging-components/issues/171)) ([1b0d52a](https://github.com/paypal/paypal-messaging-components/commit/1b0d52afa83d85dbb67382fdc3a8de92bcb3ad7a))
+* pass merchant account with modal for partner integration ([#172](https://github.com/paypal/paypal-messaging-components/issues/172)) ([7dd347c](https://github.com/paypal/paypal-messaging-components/commit/7dd347c2e00fd1b24cf4f80048263a314934dcce))
+* prevent multiple same modals from rendering ([#167](https://github.com/paypal/paypal-messaging-components/issues/167)) ([ce02f3e](https://github.com/paypal/paypal-messaging-components/commit/ce02f3e19c02678bf0f3b0df39dda5d6bdd13634))
+* remove unsupported sandbox warning ([#168](https://github.com/paypal/paypal-messaging-components/issues/168)) ([da79c1d](https://github.com/paypal/paypal-messaging-components/commit/da79c1d8b3ff7882f1f5aa6fe225635d9a1b37fe))
+
 ## [1.7.8](https://github.com/paypal/paypal-messaging-components/compare/v1.7.7...v1.7.8) (2020-03-12)
 
 

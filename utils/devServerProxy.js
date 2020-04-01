@@ -30,7 +30,8 @@ module.exports = app => {
         const { country, amount } = req.query;
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {}
+            meta: {},
+            payerId: 'DEV00000000NI'
         };
 
         res.send(`
