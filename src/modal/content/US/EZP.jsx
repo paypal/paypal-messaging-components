@@ -3,11 +3,13 @@ import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 
 import { ServerContext } from '../../lib/context';
+import { useXProps } from '../../lib/hooks';
 import Accordion from '../../parts/Accordion';
 import Calculator from '../../parts/Calculator';
 
 const EZP = () => {
     const { payerId } = useContext(ServerContext);
+    const { onClick, refId } = useXProps();
 
     return (
         <section id="ezp-content" className="content">
@@ -50,7 +52,8 @@ const EZP = () => {
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms&payer_id=${payerId}`}
+                    onClick={() => onClick('Direct Apply Lander')}
+                    href={`https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms&payer_id=${payerId}&mktgrefid=${refId}`}
                 >
                     Click here
                 </a>{' '}
