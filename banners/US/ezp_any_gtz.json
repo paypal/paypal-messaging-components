@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "EZP:ANY:GTZ",
-        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
     },
 
     "headline": [
