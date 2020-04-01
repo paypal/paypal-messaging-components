@@ -3,11 +3,13 @@ import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 
 import { ServerContext } from '../../lib/context';
+import { useXProps } from '../../lib/hooks';
 import Accordion from '../../parts/Accordion';
 import Calculator from '../../parts/Calculator';
 
 const EZP = () => {
     const { payerId } = useContext(ServerContext);
+    const { onClick, refId } = useXProps();
 
     return (
         <section id="ezp-content" className="content">
@@ -50,7 +52,8 @@ const EZP = () => {
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms&payer_id=${payerId}`}
+                    onClick={() => onClick('Direct Apply Lander')}
+                    href={`https://www.paypal.com/ppcreditapply/da/us/lander?p=ppcdalpBAUNI&t=ppcdaltModalTerms&payer_id=${payerId}&mktgrefid=${refId}`}
                 >
                     Click here
                 </a>{' '}
@@ -58,9 +61,11 @@ const EZP = () => {
             </div>
             <p>
                 PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
-                available to US customers who are of legal age in their state of residence. For New Accounts: Variable
-                Purchase APR is 25.99%. The APR is accurate as of 9/1/2019 and will vary with the market based on the
-                Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.
+                available to US customers who are of legal age in their state of residence. You must pay with PayPal
+                Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase
+                required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.49%. The APR is
+                accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in your credit
+                card agreement). Minimum interest charge is $2.00.
             </p>
             <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
         </section>

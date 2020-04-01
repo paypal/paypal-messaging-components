@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PALA:MULTI:GTZ",
-        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },
 
     "headline": [
