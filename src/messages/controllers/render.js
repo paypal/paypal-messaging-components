@@ -70,8 +70,7 @@ export default function render(options, selector) {
 
             totalOptions.id = container.getAttribute('data-pp-id');
 
-            const modalOnlyAttribute = container.getAttribute('data-pp-modalonly');
-            if ((modalOnlyAttribute && modalOnlyAttribute !== 'false') || totalOptions.modalonly) {
+            if (container.hasAttribute('data-pp-modalonly') || totalOptions.modalonly) {
                 totalOptions._modalOnly = true;
             }
 
