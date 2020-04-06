@@ -2,10 +2,18 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "PALAQ:ANY:GTZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+        }
     },
 
-    "headline": [["Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten", ["default", "small"]]],
+    "headline": [["Bezahlen Sie in {total_payments} monatlichen Raten", ["default", "small"]]],
 
     "subHeadline": [],
 
