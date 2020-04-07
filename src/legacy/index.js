@@ -227,7 +227,7 @@ class Ad {
 
     request() {
         this.logger.info(EVENTS.FETCH_START);
-        this.script = new JSONPRequest(`${getGlobalUrl('MESSAGE')}${this.queryString}`);
+        this.script = new JSONPRequest(`${getGlobalUrl('MESSAGE_LEGACY')}${this.queryString}`);
     }
 
     initQueryString() {
