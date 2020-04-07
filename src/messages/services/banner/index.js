@@ -6,7 +6,6 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
-    memoize,
     memoizeOnProps,
     objectGet,
     objectMerge,
@@ -14,7 +13,8 @@ import {
     getGlobalUrl,
     request,
     getCurrency,
-    createUUID
+    createUUID,
+    getWhitelist
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -242,11 +242,10 @@ const getContentMinWidth = templateNode => {
 
 const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
-const getWhitelist = memoize(() => request('GET', getGlobalUrl('RAMP_WHITELIST')).then(res => res?.data ?? []));
 
 function getFetcherByRamp(account, merchantId) {
     return getWhitelist().then(whitelist => {
-        const id = stringStartsWith('client-id', account) ? account.slice(10) : account;
+        const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
 
         return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
             ? memoFetcherB

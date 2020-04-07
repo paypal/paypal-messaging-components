@@ -33,12 +33,12 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __MESSAGE_B__: {
                 __STAGE__: 'https://localhost.paypal.com:8443'
             },
-            __MESSAGE_LEGACY__: {
+            __MESSAGE_B_LEGACY__: {
                 __STAGE__: 'https://localhost.paypal.com:8443'
             },
             __RAMP_WHITELIST__: {
-                __LOCAL__: 'https://uideploy--staticcontent--4145177228ebc--ghe.preview.dev.paypalinc.com',
-                __STAGE__: 'https://uideploy--staticcontent--4145177228ebc--ghe.preview.dev.paypalinc.com',
+                __LOCAL__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
+                __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __SANDBOX__: 'https://www.paypalobjects.com',
                 __PRODUCTION__: 'https://www.paypalobjects.com'
             }
@@ -47,7 +47,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __RAMP_WHITELIST__: '/upstream/ramp.json',
             __MESSAGE_A__: '/imadserver/upstream',
             __MESSAGE_B__: '/credit-presentment/messages',
-            __MESSAGE_LEGACY__: '/credit-presentment/messages/legacy',
+            __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER__: '/ppcredit/messagingLogger'
         }
