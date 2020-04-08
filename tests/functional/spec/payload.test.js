@@ -209,7 +209,7 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.link && request.bdata.link.includes('Apply Now'));
+        const request = requests.find(r => r.bdata.link && r.bdata.link.includes('Apply Now'));
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
