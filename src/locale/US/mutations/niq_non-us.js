@@ -1,9 +1,3 @@
-/**
- * Mutation used when NI:NON-US:QUALIFYING-true.
- * Much of the content inside of this file and ni_non-us.js is similar, and any changes
- * to the NI:NON-US message likely need to be made to both files for effective coverage.
- */
-
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';

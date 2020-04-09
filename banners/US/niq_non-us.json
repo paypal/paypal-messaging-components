@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "offerType": "NI",
+        "offerType": "NIQ:NON-US",
         "lander": "https://www.paypal.com/ppclander"
     },
 
@@ -17,10 +17,12 @@
 
     "disclaimer": [
         ["See terms", ["default", "xsmall"]],
-        [["US customers only. Subject to credit approval", ["See terms", "em"]], ["legacy-medium"]],
         [
             "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months. Minimum monthly payments required.",
             ["xlarge"]
-        ]
+        ],
+        [["US customers only. Subject to credit approval", ["See terms", "em"]], ["legacy-medium"]],
+        ["US only.", ["extra"]],
+        ["US customers only.", ["extra.2"]]
     ]
 }

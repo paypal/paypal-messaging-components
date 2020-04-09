@@ -1,7 +1,7 @@
 import ni from './ni';
-import niQual from './ni_qual';
+import niQ from './niq';
 import niNonUs from './ni_non-us';
-import niNonUsQual from './ni_non-us_qual';
+import niQNonUs from './niq_non-us';
 import ezpAnyEqz from './ezp_any_eqz';
 import ezpAnyGtz from './ezp_any_gtz';
 import palaMultiEqz from './pala_multi_eqz';
@@ -23,13 +23,13 @@ export default function getMutations(id, type) {
             return palaSingleEqz[type];
         case 'PALA:SINGLE:GTZ':
             return palaSingleGtz[type];
-        case 'NI:NON-US:QUALIFYING-true':
-            return niNonUsQual[type];
-        case 'NI:NON-US:QUALIFYING-false':
+        case 'NIQ:NON-US':
+            return niQNonUs[type];
+        case 'NI:NON-US':
             return niNonUs[type];
-        case 'NI:QUALIFYING-true':
-            return niQual[type];
-        case 'NI:QUALIFYING-false':
+        case 'NIQ':
+            return niQ[type];
+        case 'NI':
         default:
             return ni[type];
     }

@@ -1,8 +1,3 @@
-/**
- * Mutation used when NI:QUALIFYING-true.
- * Much of the content inside of this file and ni.js is similar, and any changes
- * to the NI message likely need to be made to both files for effective coverage.
- */
 import Logo from '../logos';
 import { legacyNI, flex } from './ni';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';

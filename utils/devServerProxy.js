@@ -5,9 +5,9 @@ const getTerms = require('./mockTerms');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
-    DEV0000000NIQ: ['US', 'ni'],
+    DEV0000000NIQ: ['US', 'niq'],
     DEV000NINONUS: ['US', 'ni_non-us'],
-    DEV00NINONUSQ: ['US', 'ni_non-us'],
+    DEV00NINONUSQ: ['US', 'niq_non-us'],
     DEV0000000EAZ: ['US', 'ezp_any_eqz'],
     DEV0000000EAG: ['US', 'ezp_any_gtz'],
     DEV0000000PSZ: ['US', 'pala_single_eqz'],
@@ -68,8 +68,7 @@ module.exports = app => {
             const morsVars = {
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term,
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                qualifying_offer: account === 'DEV0000000NIQ' || account === 'DEV00NINONUSQ' || amount > terms.minAmount
+                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`
             };
 
             const populateVars = str =>
