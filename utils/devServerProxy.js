@@ -160,4 +160,6 @@ module.exports = app => {
 
     app.get('/ptrk', (req, res) => res.send(''));
     app.post('/ppcredit/messagingLogger', (req, res) => res.send(''));
+    // TODO: Remove this once the apply now ramp is complete
+    app.get('/smart-credit-modal-apply-now.js', (req, res) => res.redirect('/smart-credit-modal.js'));
 };

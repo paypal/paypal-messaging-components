@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "PALAQ:ANY:GTZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
+        "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
