@@ -1,8 +1,3 @@
-/**
- * Mutation used when NI:QUALIFYING-false.
- * Much of the content inside of this file and ni_qual.js is similar, and any changes
- * to the NI message likely need to be made to both files for effective coverage.
- */
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 

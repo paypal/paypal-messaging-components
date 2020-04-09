@@ -1,6 +1,6 @@
 export default [
     'DEV00000000NI',
-    'DEV0000NIQUAL',
+    'DEV0000000NIQ',
     'DEV000NINONUS',
     'DEV00NINONUSQ',
     'DEV0000000EAZ',
