@@ -11,7 +11,7 @@ const terms = [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
     'A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.',
     'No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.',
-    'For New Accounts: Variable Purchase APR is 25.99%. The APR is accurate as of 9/1/2019 and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.',
+    'For New Accounts: Variable Purchase APR is 25.49%. The APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.',
     'Individual items that are less than $99 qualify for special financing when combined for a total of $99 or more in a single transaction.',
     'Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount.'
 ];
@@ -100,8 +100,8 @@ export const Content = () => {
                     PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
                     available to US customers who are of legal age in their state of residence. You must pay with PayPal
                     Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.99%. The
-                    APR is accurate as of 9/1/2019 and will vary with the market based on the Prime Rate (as defined in
+                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.49%. The
+                    APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in
                     your credit card agreement). Minimum interest charge is $2.00.
                 </p>
                 <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
