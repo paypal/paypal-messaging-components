@@ -1,5 +1,6 @@
 import qs from 'qs';
 import { RequestInterceptor, RequestSpy } from 'puppeteer-request-spy';
+import packageConfig from '../../../package.json';
 import { bannerStyles } from './utils/testStylesConfig';
 import selectors from './utils/selectors';
 
@@ -77,7 +78,7 @@ describe('payload testing', () => {
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
             integration_type: 'STANDALONE',
-            messaging_version: '1.7.10',
+            messaging_version: packageConfig.version,
             placement: '',
             pos_x: '0',
             pos_y: '0',
