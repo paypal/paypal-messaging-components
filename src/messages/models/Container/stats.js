@@ -1,4 +1,6 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
+import arrayFrom from 'core-js-pure/stable/array/from';
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from '../../../utils';
@@ -100,9 +102,47 @@ function checkAdblock() {
     });
 }
 
+const getRenderedMessage = container => {
+    const messageParts = {
+        headline: { className: '.message__headline' },
+        subHeadline: { className: '.message__sub-headline' },
+        disclaimer: { className: '.message__disclaimer' }
+    };
+
+    const getContent = className => {
+        const mainElement = container.contentDocument.querySelector(className);
+        if (!mainElement) return { size: '', text: '' };
+
+        const tagElements = arrayFrom(mainElement.querySelectorAll('[class*="tag"]'));
+        if (!tagElements.length) return { size: '', text: '' };
+
+        const displayedElement = tagElements.find(element => getComputedStyle(element).display !== 'none');
+        return {
+            size: arrayFrom(displayedElement.classList)
+                .find(c => c.startsWith('tag'))
+                .replace('tag--', ''),
+            text: displayedElement.textContent
+        };
+    };
+
+    const renderedMessage = objectEntries(messageParts).reduce(
+        (object, [key, { className }]) => ({
+            ...object,
+            [key]: {
+                className,
+                ...getContent(className)
+            }
+        }),
+        {}
+    );
+    return renderedMessage;
+};
+
 export default curry((container, { options: { amount, account, merchantId, placement }, events, track }) => {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
+
+    const renderedMessage = getRenderedMessage(container);
 
     // Create initial payload
     const payload = {
@@ -116,6 +156,7 @@ export default curry((container, { options: { amount, account, merchantId, place
         browser_width: window.innerWidth,
         browser_height: window.innerHeight,
         visible: isInViewport(container),
+        renderedMessage,
         amount
     };
 

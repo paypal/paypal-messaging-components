@@ -45,7 +45,24 @@ describe('stats', () => {
             blocked: true,
             integration_type: 'STANDALONE',
             placement: '',
-            messaging_version: expect.any(String)
+            messaging_version: expect.any(String),
+            renderedMessage: {
+                disclaimer: {
+                    className: '.message__disclaimer',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                },
+                headline: {
+                    className: '.message__headline',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                },
+                subHeadline: {
+                    className: '.message__sub-headline',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                }
+            }
         };
 
         stats(container, mockRenderObject);
@@ -87,7 +104,24 @@ describe('stats', () => {
             blocked: true,
             integration_type: 'STANDALONE',
             placement: '',
-            messaging_version: expect.any(String)
+            messaging_version: expect.any(String),
+            renderedMessage: {
+                disclaimer: {
+                    className: '.message__disclaimer',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                },
+                headline: {
+                    className: '.message__headline',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                },
+                subHeadline: {
+                    className: '.message__sub-headline',
+                    size: expect.any(String),
+                    text: expect.any(String)
+                }
+            }
         };
 
         stats(container, mockRenderObject);
