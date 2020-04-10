@@ -111,12 +111,12 @@ const getRenderedMessage = container => {
 
     const getContent = className => {
         const mainElement = container.contentDocument.querySelector(className);
-        if (!mainElement) return { size: '', text: '' };
+        if (!mainElement) return { size: 'none', text: '' };
 
         const tagElements = arrayFrom(mainElement.querySelectorAll('[class*="tag"]'));
-        if (!tagElements.length) return { size: '', text: '' };
+        if (!tagElements.length) return { size: 'none', text: '' };
 
-        const displayedElement = tagElements.find(element => getComputedStyle(element).display !== 'none');
+        const displayedElement = tagElements.find(element => window.getComputedStyle(element).display !== 'none');
         return {
             size: arrayFrom(displayedElement.classList)
                 .find(c => c.startsWith('tag'))
