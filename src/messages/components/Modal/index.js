@@ -18,6 +18,7 @@ const renderModal = memoizeOnProps(
     ({ options, meta, track, wrapper, type }) => {
         const { render, hide, updateProps } = Modal({
             account: options.account,
+            merchantId: options.merchantId,
             country: meta.offerCountry,
             currency: options.currency,
             type,

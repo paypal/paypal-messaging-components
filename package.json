@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.7.8",
+    "version": "1.7.10",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -64,6 +64,7 @@
         "got": "^9.6.0",
         "grumbler-scripts": "^3.0.46",
         "husky": "^2.3.0",
+        "imgur": "^0.3.1",
         "jest": "^25.1.0",
         "jest-environment-jsdom-fifteen": "^1.0.0",
         "jest-environment-puppeteer": "^4.3.0",
