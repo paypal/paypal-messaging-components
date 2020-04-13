@@ -38,7 +38,7 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 23),
+                    basicMediaQuery(textSize * 18),
                     `.message__logo { width: ${textSize * 7}px }`
                 ],
                 logo: Logo.ALT_NO_PP.COLOR,
@@ -55,7 +55,7 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 21)
+                    basicMediaQuery(textSize * 18)
                 ],
                 logo: false,
                 headline: [
