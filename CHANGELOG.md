@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.8.0](https://github.com/paypal/paypal-messaging-components/compare/v1.7.11...v1.8.0) (2020-04-15)
+
+
+### Features
+
+* add support for NI qualifying message ([#173](https://github.com/paypal/paypal-messaging-components/issues/173)) ([ef45a4f](https://github.com/paypal/paypal-messaging-components/commit/ef45a4fa32a287d6d6420ec6886cedd54434362e))
+
 ## [1.7.11](https://github.com/paypal/paypal-messaging-components/compare/v1.7.10...v1.7.11) (2020-04-01)
 
 
