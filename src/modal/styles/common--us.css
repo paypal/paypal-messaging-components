@@ -1,0 +1,88 @@
+.content-header {
+    text-align: center;
+    padding: 0.5rem 0 2rem;
+}
+
+.content-header__image-wrapper {
+    max-width: 10rem;
+    margin: 0 auto 1rem;
+    height: 11rem;
+    position: relative;
+}
+
+.content-header__image-wrapper > :first-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.content-header__title {
+    font-size: 1.25rem;
+    font-weight: 200;
+    text-align: center;
+    max-width: 16rem;
+    margin: auto;
+    line-height: 1.4;
+}
+
+.content-header__tag {
+    text-align: center;
+    margin: 0.7rem 0 1rem;
+}
+
+.content-body {
+    padding: 2rem 1.5rem;
+    max-width: 26rem;
+    margin: auto;
+}
+
+.content-body::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #eaeced;
+    transform: translateY(-2rem);
+}
+
+.content-body__title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0;
+}
+
+.content-body__terms-item,
+.content-body__instructions-item {
+    margin-bottom: 1.5rem;
+}
+
+.content-body__divider {
+    border: none;
+    border-top: 1px solid #eaeced;
+    margin: 2rem 0;
+}
+
+.content-body__instructions-list {
+    /* margin-bottom: 4rem; */
+}
+
+.content-body__instructions-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+}
+
+.content-body__instructions-item > :first-child {
+    flex: 0 0 3rem;
+    margin-right: 1.5rem;
+}
+
+.content-body__instructions-item > :last-child {
+    flex: 1 1 100%;
+    margin: 0;
+}
