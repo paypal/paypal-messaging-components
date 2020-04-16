@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.9.0](https://github.com/paypal/paypal-messaging-components/compare/v1.8.0...v1.9.0) (2020-04-16)
+
+
+### Features
+
+* US modal apply now ([#144](https://github.com/paypal/paypal-messaging-components/issues/144)) ([1d8921d](https://github.com/paypal/paypal-messaging-components/commit/1d8921d871c9766548eb1523406fbbfbb776eb5d))
+
 # [1.8.0](https://github.com/paypal/paypal-messaging-components/compare/v1.7.11...v1.8.0) (2020-04-15)
 
 
