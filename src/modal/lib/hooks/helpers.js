@@ -18,9 +18,10 @@ export function useAutoFocus() {
 
     useEffect(() => {
         if (ref.current) {
-            ref.current.focus();
+            // Prevent scroll needed to prevent modal slide up animation jank
+            ref.current.focus({ preventScroll: true });
         }
-    });
+    }, []);
 
     return ref;
 }

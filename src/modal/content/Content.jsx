@@ -2,10 +2,9 @@
 import { h, Fragment } from 'preact';
 
 import { useXProps } from '../lib/hooks';
-import deInstStyle from '../styles/de--inst.css';
-import usEzpStyle from '../styles/us--ezp.css';
-import NI from './US/NI';
-import EZP from './US/EZP';
+import { commonUS, USEzp, DEInst } from '../styles';
+import * as NI from './US/NI';
+import * as EZP from './US/EZP';
 import INST from './DE/INST';
 import Tabs from '../parts/Tabs';
 
@@ -14,20 +13,31 @@ const Content = () => {
 
     switch (type) {
         case 'NI':
-            return <NI />;
+            return (
+                <Fragment>
+                    <style>{commonUS}</style>
+                    <NI.Header />
+                    <NI.Content />
+                </Fragment>
+            );
         case 'EZP':
             return (
                 <Fragment>
-                    <style>{usEzpStyle}</style>
+                    <style>
+                        {commonUS}
+                        {USEzp}
+                    </style>
                     <Tabs
                         tabs={[
                             {
                                 title: 'Easy Payments',
-                                body: <EZP />
+                                header: <EZP.Header />,
+                                body: <EZP.Content />
                             },
                             {
                                 title: '6 Months Special Financing',
-                                body: <NI />
+                                header: <NI.Header />,
+                                body: <NI.Content />
                             }
                         ]}
                     />
@@ -36,7 +46,7 @@ const Content = () => {
         case 'INST':
             return (
                 <Fragment>
-                    <style>{deInstStyle}</style>
+                    <style>{DEInst}</style>
                     <INST />
                 </Fragment>
             );

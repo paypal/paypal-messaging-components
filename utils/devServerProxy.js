@@ -42,9 +42,11 @@ module.exports = app => {
             </head>
             <body>
                 <script>
-                    document.write(window.top.document.querySelector('script').outerHTML+'<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script><script>crc.setupModal(${JSON.stringify(
-                        props
-                    )})<'+'/script>');
+                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var modal = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
+                    var data = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
+                    
+                    document.write(interface + modal + data);
                 </script>
             </body>
         `);
