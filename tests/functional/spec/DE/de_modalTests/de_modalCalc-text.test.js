@@ -21,15 +21,15 @@ describe.each([
             style: bannerStyle
         });
     });
-    test(
+    test.skip(
         `show error message when entering a non-qualifying amount inside the calculator ${bannerStyle.layout} ${viewport.width}`,
         nonQualErrorMsg(account, viewport, bannerStyle)
     );
-    test(
+    test.skip(
         `update finance terms when user updates amount passed into calculator ${bannerStyle.layout} ${viewport.width}`,
         updateFinanceTerms(account, viewport, bannerStyle)
     );
-    test(
+    test.skip(
         `when an amount is passed into DE PP installments message, the correct financing terms are loaded in a table ${bannerStyle.layout} ${viewport.width}`,
         deModalContentAndCalc(account, viewport, bannerStyle)
     );
