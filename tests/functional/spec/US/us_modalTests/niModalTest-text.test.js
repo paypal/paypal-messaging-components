@@ -14,7 +14,7 @@ describe.each([
             style: bannerStyle
         });
     });
-    test(
+    test.skip(
         `NI content is loaded when NI message is clicked - ${viewport.width} ${bannerStyle.layout}`,
         niContentTest(account, viewport, bannerStyle)
     );
