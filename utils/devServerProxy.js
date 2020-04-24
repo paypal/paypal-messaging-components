@@ -22,10 +22,6 @@ const devAccountMap = {
 };
 
 module.exports = app => {
-    app.get('/ppcredit/messagingLogger', (req, res) => {
-        res.send('');
-    });
-
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { country, amount } = req.query;
         const props = {
@@ -57,6 +53,8 @@ module.exports = app => {
 
         res.send(getTerms(country, Number(amount)));
     });
+
+    app.get('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/imadserver/upstream', (req, res) => {
         const { call, currency_value: amount = 0, dimensions } = req.query;
