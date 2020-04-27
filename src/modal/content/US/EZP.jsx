@@ -1,12 +1,13 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef } from 'preact/hooks';
+import { useRef, useContext } from 'preact/hooks';
 
 import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
 import { createEvent } from '../../../utils';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
 import Button from '../../parts/Button';
+import { ServerContext } from '../../lib/context';
 
 const instructions = [
     ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payments offer that works for you.'],
@@ -50,6 +51,7 @@ export const Header = () => {
 
 export const Content = () => {
     const { onClick } = useXProps();
+    const { aprUpdate } = useContext(ServerContext);
 
     return (
         <section className="content-body">
@@ -96,9 +98,10 @@ export const Content = () => {
                     PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
                     available to US customers who are of legal age in their state of residence. You must pay with PayPal
                     Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.49%. The
-                    APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in
-                    your credit card agreement). Minimum interest charge is $2.00.
+                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is{' '}
+                    {aprUpdate.apr}%. The APR is accurate as of {aprUpdate.formattedDate} and will vary with the market
+                    based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is
+                    $2.00.
                 </p>
                 <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
             </div>
