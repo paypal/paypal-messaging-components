@@ -1,6 +1,7 @@
 import { getEnv } from './sdk';
 import { createState } from './miscellaneous';
 
+// TODO: refactor top-level use of window object to allow server-side rendering
 export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { nextId: 1, config: {} });
 
 Object.defineProperty(window, '__paypal_messages_state__', {
