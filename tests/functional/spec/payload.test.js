@@ -1,16 +1,14 @@
 import qs from 'qs';
-import { RequestInterceptor, RequestSpy } from 'puppeteer-request-spy';
 import packageConfig from '../../../package.json';
 import { bannerStyles } from './utils/testStylesConfig';
 import selectors from './utils/selectors';
 
 const createSpy = async ({ keyword = 'bdata' }) => {
-    const KeywordMatcher = (url, word) => url.includes(word);
-    const requestInterceptor = new RequestInterceptor(KeywordMatcher);
-    const spy = new RequestSpy(keyword);
-    requestInterceptor.addSpy(spy);
-    await page.setRequestInterception(true);
-    page.on('request', requestInterceptor.intercept.bind(requestInterceptor));
+    const spy = { matchedUrls: [] };
+    page.on('request', request => {
+        const url = request.url();
+        if (url.includes(keyword)) spy.matchedUrls.push(url);
+    });
     return spy;
 };
 
@@ -37,7 +35,7 @@ const clickBanner = async bannerFrame => {
 };
 
 const getParsedRequests = spy => {
-    return spy.getMatchedUrls().map(url => {
+    return spy.matchedUrls.map(url => {
         const [_, query] = url.split('?'); // eslint-disable-line no-unused-vars
         const parsedQuery = qs.parse(query);
 
@@ -52,10 +50,10 @@ const getParsedRequests = spy => {
 const runTest = async ({ config, testPage, callback }) => {
     const payloadSpy = await createSpy({});
     const { bannerFrame, modalFrame } = await setupPage({ config, testPage });
+
     if (callback) await callback({ bannerFrame, modalFrame });
 
-    const requests = getParsedRequests(payloadSpy);
-    return requests;
+    return getParsedRequests(payloadSpy);
 };
 
 describe('payload testing', () => {
@@ -69,7 +67,10 @@ describe('payload testing', () => {
     test('initial payload', async () => {
         const requests = await runTest({
             config,
-            testPage
+            testPage,
+            callback: async () => {
+                await page.waitFor(5 * 1000);
+            }
         });
 
         const request = requests.find(r => r.bdata.event_type === 'stats');
