@@ -51,7 +51,7 @@ export const Header = () => {
 
 export const Content = () => {
     const { onClick } = useXProps();
-    const { aprUpdate } = useContext(ServerContext);
+    const { aprEntry } = useContext(ServerContext);
 
     return (
         <section className="content-body">
@@ -99,7 +99,7 @@ export const Content = () => {
                     available to US customers who are of legal age in their state of residence. You must pay with PayPal
                     Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
                     purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is{' '}
-                    {aprUpdate.apr}%. The APR is accurate as of {aprUpdate.formattedDate} and will vary with the market
+                    {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market
                     based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is
                     $2.00.
                 </p>
