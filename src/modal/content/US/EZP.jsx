@@ -10,7 +10,10 @@ import Button from '../../parts/Button';
 
 const instructions = [
     ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payments offer that works for you.'],
-    ['calendar', 'Split your purchase into equal monthly payments over the length of the offer. May include interest.'],
+    [
+        'calendar',
+        'Split your purchase into equal monthly payments over the length of the offer. May include interest. Be sure to make payments by the due date.'
+    ],
     ['truck', "If your items ship separately, we'll split each new shipment into equal monthly payments."],
     ['tags', 'Your PayPal Credit minimum monthly payment includes all Easy Payments and other PayPal Credit purchases.']
 ];
