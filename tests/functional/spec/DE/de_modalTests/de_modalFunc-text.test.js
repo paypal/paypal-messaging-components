@@ -19,21 +19,21 @@ describe.each([
             style: bannerStyle
         });
     });
-    test(
+    test.skip(
         `x button closes modal - ${bannerStyle.layout} ${viewport.width}`,
         xClosesModal(account, viewport, bannerStyle)
     );
-    test(
+    test.skip(
         `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
         closeModalEsc(account, viewport, bannerStyle)
     );
     if (viewport.height === 1080) {
-        test(
+        test.skip(
             `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
             clickOutsideClosesModal(account, viewport, bannerStyle)
         );
     }
-    test(
+    test.skip(
         `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
         closeReopenModal(account, viewport, bannerStyle)
     );
