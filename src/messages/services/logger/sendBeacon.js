@@ -11,8 +11,8 @@ export default curry(({ uuid: mainUuid, urls, messageRequestId }, payload, banne
     const beacon = new window.Image();
 
     if (typeof payload === 'object') {
-        const { headline, subHeadline, disclaimer } = payload.renderedMessage;
-        const renderedMessageUuidString = payload.renderedMessage
+        const { headline, subHeadline, disclaimer } = payload.renderedMessage || {};
+        const renderedMessageUuidString = headline
             ? `::message.size:${headline.size},${subHeadline.size},${disclaimer.size}`
             : '';
         const uuid = `${mainUuid}${renderedMessageUuidString}`;
