@@ -3,7 +3,7 @@ import { h, Fragment } from 'preact';
 
 const TermsTable = ({ terms }) => {
     const genericError = (
-        <h3 className="terms__error">
+        <h3 className="finance-terms__error">
             Es ist ein Fehler bei der Berechnung Ihres Angebots aufgetreten. Bitte versuchen Sie es später noch einmal.
         </h3>
     );
@@ -14,7 +14,7 @@ const TermsTable = ({ terms }) => {
 
     if (+terms.amount < terms.minAmount && terms.type === 'pala') {
         return (
-            <h3 className="terms__error">
+            <h3 className="finance-terms__error">
                 PayPal Ratenzahlung steht ab einem Bestellwert von {terms.formattedMinAmount}€ zur Verfügung. Bitte
                 geben Sie einen Betrag von {terms.formattedMinAmount}€ oder mehr ein.
             </h3>
@@ -23,7 +23,7 @@ const TermsTable = ({ terms }) => {
 
     if (+terms.amount > terms.maxAmount && terms.type === 'pala') {
         return (
-            <h3 className="terms__error">
+            <h3 className="finance-terms__error">
                 PayPal Ratenzahlung steht bis zu einem Bestellwert von {terms.formattedMaxAmount}€ zur Verfügung. Bitte
                 geben Sie einen Betrag von {terms.formattedMaxAmount}€ oder weniger ein.
             </h3>
@@ -37,11 +37,11 @@ const TermsTable = ({ terms }) => {
 
     return (
         <Fragment>
-            <h3 className="terms__header">
+            <h3 className="finance-terms__header">
                 {offer.term} monatliche Raten von je €{offer.monthly}
             </h3>
-            <hr />
-            <table>
+            <hr className="finance-terms__divider" />
+            <table className="finance-terms__table">
                 <tbody>
                     <tr>
                         <td>E-Geld Transaktionsbetrag</td>
