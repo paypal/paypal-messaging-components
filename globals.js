@@ -20,11 +20,17 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __VERSION__: version,
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
+        env,
         __DOMAIN__: {
-            __LOCAL__: `${env.NODE_ENV === 'local' ? 'http' : 'https'}://localhost.paypal.com:8080`,
+            __LOCAL__: `http://localhost.paypal.com:8080`,
+            // __LOCAL__: `${env.NODE_ENV === 'local' ? 'http' : 'https'}://localhost.paypal.com:8080`,
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
-            __PRODUCTION__: 'https://www.paypal.com'
+            __PRODUCTION__: 'https://www.paypal.com',
+
+            __MESSAGE__: {
+                __LOCAL__: 'https://www.msmaster.qa.paypal.com'
+            }
 
             // Manual endpoint override example:
             // __MODAL__: {

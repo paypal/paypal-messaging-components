@@ -6,6 +6,16 @@ import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
 import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } from '../../utils';
 
+const observers = new Map();
+
+export function destroy() {
+    observers.forEach(observer => {
+        observer.disconnect();
+    });
+
+    observers.clear();
+}
+
 /**
  * Render Banner into all selector container elements
  * @param {string|HTMLElement|Array<HTMLElement>} selector CSS selector
@@ -51,22 +61,26 @@ export default function render(options, selector) {
                 container.setAttribute('data-pp-id', nextId());
             }
 
-            const observer = new MutationObserver(mutationList => {
-                const newConfig = mutationList.reduce((accumulator, mutation) => {
-                    if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
+            if (!observers.has(container)) {
+                const observer = new MutationObserver(mutationList => {
+                    const newConfig = mutationList.reduce((accumulator, mutation) => {
+                        if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
 
-                    return objectMerge(
-                        accumulator,
-                        flattenedToObject(
-                            mutation.attributeName.slice(8),
-                            mutation.target.getAttribute(mutation.attributeName)
-                        )
-                    );
-                }, {});
+                        return objectMerge(
+                            accumulator,
+                            flattenedToObject(
+                                mutation.attributeName.slice(8),
+                                mutation.target.getAttribute(mutation.attributeName)
+                            )
+                        );
+                    }, {});
 
-                Banner.init(container, selectorType, newConfig);
-            });
-            observer.observe(container, { attributes: true });
+                    Banner.init(container, selectorType, newConfig);
+                });
+                observer.observe(container, { attributes: true });
+
+                observers.set(container, observer);
+            }
 
             totalOptions.id = container.getAttribute('data-pp-id');
 

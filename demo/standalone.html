@@ -4,22 +4,42 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script>
+        <!-- <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script> -->
     </head>
-
     <body>
-        <div class="messages" data-pp-message></div>
+        <div class="messages" data-pp-message data-pp-style-layout="flex"></div>
+        <div class="messages2"></div>
+        <div id="paypal-button-container"></div>
+
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'text',
-            //             logo: {
-            //                 type: 'none'
-            //             }
-            //         }
-            //     })
-            //     .render('.messages');
+            function addSDKInclude(components) {
+                return new Promise(resolve => {
+                    const script = document.createElement('script');
+                    script.src = `//localhost.paypal.com:8000/sdk/js?client-id=alc_client1&components=${components}`;
+                    // script.src = `//www.paypal.com/sdk/js?client-id=AYR1NT8qda81OCXUCtsuXwN6FpDKZNun4FgGz7yoUcj0mI58t-K98k4HG6J7yJdWrM0Uv6L7uos5bVOb&components=${components}`;
+                    script.onload = resolve;
+                    document.head.appendChild(script);
+                });
+            }
+
+            addSDKInclude('messages').then(() => {
+                setTimeout(() => {
+                    addSDKInclude('messages,buttons').then(() => {
+                        paypal
+                            .Messages({
+                                style: {
+                                    layout: 'text',
+                                    logo: {
+                                        type: 'none'
+                                    }
+                                }
+                            })
+                            .render('.messages2');
+
+                        paypal.Buttons({}).render('#paypal-button-container'); // Display payment options on your web page
+                    });
+                }, 5000);
+            });
         </script>
     </body>
 </html>

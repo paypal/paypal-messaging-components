@@ -154,6 +154,12 @@ export default {
                 })
             );
         }
+
+        // window.addEventListener('banner_destroy', () => {
+        //     banners.clear();
+        //     loggers.clear();
+        // });
+
         const logger = loggers.get(wrapper);
 
         let banner;
