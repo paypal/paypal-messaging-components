@@ -57,12 +57,14 @@ function mutateMarkup(markup) {
     }
 }
 
-function fetcherB({ account, merchantId, amount, offerType, currency, style: { typeEZP } }) {
+function fetcherB({ account, merchantId, amount, offerType, currency, countryCode, style: { typeEZP } }) {
     const rootUrl = getGlobalUrl('MESSAGE_B');
+
     const queryParams = {
         merchant_id: merchantId, // Partner integrations
         amount,
         currency,
+        country_code: countryCode,
         variant: PLACEMENT_VARIANT,
         credit_type: typeEZP === '' || offerType === 'NI' ? 'NI' : undefined
     };
@@ -99,6 +101,7 @@ function fetcherA(options) {
         amount,
         offerType,
         currency,
+        countryCode,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -114,6 +117,7 @@ function fetcherA(options) {
             dimensions,
             currency_value: amount,
             currency_code: currency || getCurrency(),
+            country_code: countryCode,
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
