@@ -1,17 +1,18 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef } from 'preact/hooks';
+import { useRef, useContext } from 'preact/hooks';
 
 import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
 import { createEvent } from '../../../utils';
 import Icon from '../../parts/Icon';
 import Button from '../../parts/Button';
+import { ServerContext } from '../../lib/context';
 
-const terms = [
+const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
     'A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.',
     'No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.',
-    'For New Accounts: Variable Purchase APR is 25.49%. The APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.',
+    `For New Accounts: Variable Purchase APR is ${aprEntry.apr}%. The APR is accurate as of ${aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.`,
     'Individual items that are less than $99 qualify for special financing when combined for a total of $99 or more in a single transaction.',
     'Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount.'
 ];
@@ -58,12 +59,13 @@ export const Header = () => {
 
 export const Content = () => {
     const { onClick } = useXProps();
+    const { aprEntry } = useContext(ServerContext);
 
     return (
         <section className="content-body">
             <h2 className="content-body__title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
             <ul className="content-body__terms-list">
-                {terms.map(term => (
+                {terms(aprEntry).map(term => (
                     <li className="content-body__terms-item">{term}</li>
                 ))}
             </ul>
@@ -100,9 +102,10 @@ export const Content = () => {
                     PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
                     available to US customers who are of legal age in their state of residence. You must pay with PayPal
                     Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is 25.49%. The
-                    APR is accurate as of 3/1/2020 and will vary with the market based on the Prime Rate (as defined in
-                    your credit card agreement). Minimum interest charge is $2.00.
+                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is{' '}
+                    {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market
+                    based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is
+                    $2.00.
                 </p>
                 <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
             </div>

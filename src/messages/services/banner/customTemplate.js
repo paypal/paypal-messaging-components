@@ -24,11 +24,13 @@ function fetcher(url) {
 
 function getCustomTemplate(styles) {
     const source = styles.markup;
+
     if (__MESSAGES__.__DEMO__) {
         return ZalgoPromise.resolve(
             stringStartsWith(source, 'http') || stringStartsWith(source, './') ? fetcher(source) : source
         );
     }
+
     return ZalgoPromise.resolve(stringStartsWith(source, 'https://www.paypalobjects.com') ? fetcher(source) : '');
 }
 

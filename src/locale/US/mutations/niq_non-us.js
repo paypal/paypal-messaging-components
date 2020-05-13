@@ -119,8 +119,11 @@ export default {
                 styles: [
                     `.weak {
                 display:none;
-            }`,
-                    basicMediaQuery(textSize * 20)
+                }
+                .message__disclaimer {
+                display:block;
+                }`,
+                    basicMediaQuery(textSize * 18)
                 ]
             })
         ],

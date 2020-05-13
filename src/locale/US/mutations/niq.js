@@ -14,11 +14,7 @@ export default {
                 .message__disclaimer {
                         display:block;
                     }
-                    @media(max-width:${textSize * 18.5 + 70}px){
-                        .message__disclaimer {
-                        display:inline;
-                    }
-                    }`,
+                   `,
                     [basicMediaQuery(textSize * 18.5 + 70)]
                 ],
                 logo: Logo.PRIMARY.COLOR,
@@ -83,7 +79,7 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18),
-                    altContentMediaQuery(textSize * 31),
+                    altContentMediaQuery(textSize * 33),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
@@ -99,11 +95,7 @@ export default {
                 .message__disclaimer {
                         display:block;
                     }
-                @media(max-width:${textSize * 18.5}px){
-                        .message__disclaimer {
-                        display:inline;
-                        }
-                }`,
+`,
                     basicMediaQuery(textSize * 18.5)
                 ]
             })
