@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <script>
+        const localize = country => (amount, fractionDigits = 2) => {
+            const number = Number(amount) || Number(0);
+            const options = {
+                DE: {
+                    locale: 'de-DE',
+                    currency: 'EUR'
+                },
+                US: {
+                    locale: 'en-US',
+                    currency: 'USD'
+                }
+            };
+
+            return number.toLocaleString(options[country].locale, {
+                currency: options[country].currency,
+                minimumFractionDigits: fractionDigits
+            });
+        };
+
+        const getTerms = (country, amount) => {
+            const toLocaleString = localize(country);
+            const total = amount * 1.0999;
+
+            return amount
+                ? {
+                      type: 'pala',
+                      maxAmount: 5000,
+                      minAmount: 199,
+                      amount,
+                      formattedAmount: toLocaleString(amount),
+                      offers: [
+                          {
+                              term: 12,
+                              type: 'INST',
+                              apr: toLocaleString(9.99),
+                              nominalRate: toLocaleString(9.5598, 4),
+                              minValue: toLocaleString(199.0),
+                              qualified: amount > 199 && amount < 5000,
+                              monthly: toLocaleString(total / 12),
+                              total: toLocaleString(total),
+                              totalInterest: toLocaleString(total - amount)
+                          }
+                      ],
+                      formattedMinAmount: toLocaleString(199),
+                      formattedMaxAmount: toLocaleString(5000)
+                  }
+                : {};
+        };
+
+        const query = window.location.search
+            .slice(1)
+            .split('&')
+            .reduce((accumulator, pair) => {
+                const [key, val] = pair.split('=');
+                accumulator[key] = val;
+
+                return accumulator;
+            }, {});
+        const { country, amount } = query;
+        const props = {
+            terms: getTerms(country, Number(amount)),
+            meta: {}
+        };
+
+        const script = window.top.document.querySelector('script');
+
+        const interfaceScript = document.createElement('script');
+        Array.from(script.attributes).forEach(attr => {
+            interfaceScript.setAttribute(attr.name, attr.value);
+        });
+
+        const modalScript = document.createElement('script');
+        modalScript.src = '//localhost.paypal.com:8080/smart-credit-modal.js';
+
+        const initScript = document.createElement('script');
+        initScript.textContent = `crc.setupModal(${JSON.stringify(props)})`;
+
+        interfaceScript.onload = () => document.body.appendChild(modalScript);
+        modalScript.onload = () => document.body.appendChild(initScript);
+
+        document.body.appendChild(interfaceScript);
+    </script>
+</body>

@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
 
 export const legacyNI = [
     [
@@ -66,15 +66,18 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 18.5 + 70)],
-                logo: Logo.PRIMARY.COLOR,
-                headline: [
-                    { tag: 'xsmall', br: ['time.'] },
-                    { tag: 'medium', br: ['months'] }
-                ],
-                disclaimer: 'xsmall'
-            })
+            ({ textSize }) => {
+                const breakpointCalc = textSize * 19 + 70;
+                return {
+                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), [basicMediaQuery(breakpointCalc)]],
+                    logo: Logo.PRIMARY.COLOR,
+                    headline: [
+                        { tag: 'xsmall', br: ['time.'] },
+                        { tag: 'medium', br: ['months'] }
+                    ],
+                    disclaimer: 'xsmall'
+                };
+            }
         ],
         [
             'logo.type:primary',
@@ -115,14 +118,20 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    basicMediaQuery(textSize * 19),
-                    altContentMediaQuery(textSize * 41),
+                    basicMediaQuery(textSize * 18),
+                    altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR
             })
         ],
-        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 18.5)] })],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => {
+                const breakpointCalc = textSize * 19;
+                return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
+            }
+        ],
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({

@@ -149,6 +149,12 @@ function fetcherA(options) {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
 
+            if (__MESSAGES__.__DEMO__) {
+                if (window.__PP_DEMO_BANNER_HOOK) {
+                    window.__PP_DEMO_BANNER_HOOK(markup);
+                }
+            }
+
             // Handles markup for v2, v1, v0
             if (typeof markup === 'object') {
                 // Mutate Markup handles personalization studio json response

@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.7.11",
+    "version": "1.9.0",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -21,6 +21,7 @@
         "build:standalone": "webpack --env.TARGET=standalone",
         "build:legacy": "webpack --env.TARGET=legacy",
         "build:analyze": "webpack --env.analyze --env.TARGET=standalone",
+        "build:demo": "webpack --env.demo --env.TARGET=standalone",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local",
         "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=legacy --env.NODE_ENV=local",
