@@ -29,6 +29,7 @@ module.exports = app => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { country, amount } = req.query;
         const props = {
+            aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {},
             payerId: 'DEV00000000NI'
@@ -45,7 +46,7 @@ module.exports = app => {
                     var interface = window.top.document.querySelector('script').outerHTML;
                     var modal = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
                     var data = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
-                    
+
                     document.write(interface + modal + data);
                 </script>
             </body>
