@@ -5,12 +5,16 @@ import { ServerContext } from './lib/context';
 import TransitionState from './lib/transition';
 import Container from './parts/Container';
 import Content from './content/Content';
-import styles from './styles/common.css';
+import { fonts, modalFrame, common } from './styles';
 
 const Modal = ({ serverData }) => (
     <ServerContext.Provider value={serverData}>
         <TransitionState>
-            <style>{styles}</style>
+            <style>
+                {fonts}
+                {modalFrame}
+                {common}
+            </style>
             <Container>
                 <Content />
             </Container>

@@ -25,22 +25,22 @@ describe('insertMarkup', () => {
     it('Inserts template node into iframe container', async () => {
         const { container, getByText } = createContainer('iframe');
         const markup = document.createElement('div');
-        markup.innerHTML = '<div><h1>test header</h1><p>see terms</p></div>';
+        markup.innerHTML = '<div><h1>test header</h1><p>learn more</p></div>';
 
         await insertMarkup(container, markup);
 
         expect(getByText(/test header/i)).toBeVisible();
-        expect(getByText(/see terms/i)).toBeVisible();
+        expect(getByText(/learn more/i)).toBeVisible();
     });
 
     it('Inserts template node into div container', async () => {
         const { container, getByText } = createContainer('div');
         const markup = document.createElement('div');
-        markup.innerHTML = '<div><h1>test header</h1><p>see terms</p></div>';
+        markup.innerHTML = '<div><h1>test header</h1><p>learn more</p></div>';
 
         await insertMarkup(container, markup);
 
         expect(getByText(/test header/i)).toBeVisible();
-        expect(getByText(/see terms/i)).toBeVisible();
+        expect(getByText(/learn more/i)).toBeVisible();
     });
 });

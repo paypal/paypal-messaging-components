@@ -138,7 +138,7 @@ const getRenderedMessage = container => {
     return renderedMessage;
 };
 
-export default curry((container, { options: { amount, account, merchantId, placement }, events, track }) => {
+export default curry((container, { options: { amount, account, merchantId, placement, onClick }, events, track }) => {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
 
@@ -210,6 +210,9 @@ export default curry((container, { options: { amount, account, merchantId, place
             link: 'Banner Wrapper'
         });
         track('MORS_CLICK');
+        if (onClick) {
+            onClick();
+        }
     });
 
     events.on('hover', () => {

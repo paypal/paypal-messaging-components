@@ -1,53 +1,3 @@
-@font-face {
-    font-family: 'PayPalSansBig';
-    font-weight: 600;
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot);
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot?#iefix)
-            format('embedded-opentype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.woff)
-            format('woff'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg) format('svg');
-}
-
-@font-face {
-    font-family: 'PayPalSansBig';
-    font-weight: 200;
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot);
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot?#iefix)
-            format('embedded-opentype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.woff)
-            format('woff'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg) format('svg');
-}
-
-@font-face {
-    font-family: 'PayPalSansSmall';
-    font-weight: 400;
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot);
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot?#iefix)
-            format('embedded-opentype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.woff)
-            format('woff'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
-            format('svg');
-}
-
-@font-face {
-    font-family: 'PayPalSansSmall';
-    font-weight: 600;
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot);
-    src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot?#iefix)
-            format('embedded-opentype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.woff)
-            format('woff'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
-        url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.svg)
-            format('svg');
-}
-
 html,
 body {
     height: 100% !important;
@@ -66,71 +16,6 @@ body {
     font-size: 16px;
 }
 
-header {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
-    transition: 150ms;
-    background: white;
-}
-
-header.show {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);
-    transition: 350ms;
-}
-
-header .logo {
-    width: 100px;
-    display: block;
-    margin: 0 auto;
-    padding: 12px 0;
-    height: 48px;
-}
-
-header .close {
-    display: block;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    position: absolute;
-    top: 12px;
-    right: 8px;
-}
-
-header .close svg {
-    height: 48px;
-    width: 48px;
-}
-
-header .close path {
-    stroke-width: 1px;
-}
-
-main {
-    -webkit-overflow-scrolling: touch;
-    /*overflow-scrolling: touch;*/
-    -moz-overflow-scrolling: touch;
-    overflow: auto;
-    position: relative;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
-    transition: box-shadow 350ms;
-}
-
-main.show::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -84px;
-    left: 0;
-    width: 100%;
-    height: 84px;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 5px 15px 0 rgba(0, 0, 0, 0.1);
-}
-
-main .content {
-    margin: auto;
-    max-width: 400px;
-}
-
 h1,
 h2,
 h3,
@@ -146,7 +31,7 @@ h1 {
     font-size: 30px;
     margin-bottom: 16px;
     line-height: 42px;
-    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif !important;
+    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
     font-weight: 200;
 }
 
@@ -162,11 +47,6 @@ h3 {
     font-weight: 600;
     margin-bottom: 6px;
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-}
-
-h1.title {
-    text-align: center;
-    margin-top: 13px;
 }
 
 svg {
@@ -185,18 +65,6 @@ p {
     line-height: 18px;
 }
 
-p.text-large {
-    font-size: 15px;
-    line-height: 24px;
-    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
-    font-weight: 200;
-    letter-spacing: 0;
-}
-
-p.first-paragraph {
-    padding-bottom: 4px;
-}
-
 a {
     text-decoration: none;
     color: #0070ba;
@@ -208,10 +76,6 @@ ul {
     padding-left: 0;
 }
 
-ul.spaced li:not(:last-child) {
-    margin-bottom: 24px;
-}
-
 li {
     list-style-type: disc;
     margin-left: 18px;
@@ -220,187 +84,73 @@ li {
     letter-spacing: 0;
 }
 
-.cart-svg {
+.button {
+    display: inline-block;
+    background: #0070ba;
+    border: none;
+    color: white;
+    border-radius: 3rem;
+    padding: 0.7em 1.5em;
+    font-size: 1rem;
+    cursor: pointer;
     text-align: center;
-    display: block;
-    margin: 36px auto;
+    transition: all 0.2s;
+    font-weight: 500;
+    border: 1px solid #0070ba;
 }
 
-.divider {
-    height: 1px;
-    background-color: #eaeced;
-    margin-bottom: 21px;
-    margin-top: 8px;
-    width: 100%;
+.button:hover,
+.button:focus {
+    background: #003087;
+    border: 1px solid #003087;
 }
 
-.anchor-medium {
-    font-size: 15px;
-    margin-bottom: 18px;
-    color: #2c2e2f;
+.button:focus {
+    text-decoration: underline;
+    outline: none;
 }
 
-.anchor-medium a {
-    font-size: 15px;
-}
-
-.anchor-small {
-    font-size: 13px;
-    margin-bottom: 16px;
-    color: #2c2e2f;
-}
-
-.anchor-small a {
-    font-size: 13px;
-}
-
-.show .modal__wrapper {
-    transform: translateY(0);
-}
-
-.show .modal__overlay {
-    opacity: 1;
-}
-
-.modal__container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-}
-
-.modal__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(108, 115, 120, 0.85);
-    transition: opacity 350ms;
-    opacity: 0;
-    z-index: -1;
-}
-
-.modal__overlay-side {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    z-index: 2;
-}
-
-.modal__wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    transition: transform 350ms;
-    transform: translateY(100%);
-}
-
-.modal__header-wrapper {
-    display: table;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.modal__header-wrapper::after {
-    content: '';
-    display: table-cell;
-    visibility: hidden;
-    overflow-y: scroll;
-}
-
-.modal__header-container {
-    display: table-cell;
-    width: 100%;
-}
-
-.modal__header {
-    background: rgba(0, 0, 0, 0);
-    text-align: center;
-    height: 60px;
-    padding-bottom: 12px;
-    width: 100%;
-    max-width: 612px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    height: 100px;
-}
-
-.modal__content-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: scroll;
-}
-
-.modal__content-background {
-    width: 100%;
-    max-width: 612px;
-    margin: auto;
+.button--secondary {
     background: white;
-    min-height: 100%;
+    color: #0070ba;
+    border: 1px solid #0070ba;
 }
 
-.modal__content {
-    position: relative;
-    z-index: 50;
-    padding-top: 84px;
-    overflow: hidden;
+.button--secondary:hover,
+.button--secondary:focus {
+    border-color: #003087;
+    box-shadow: 0 0 0 0.0625em #003087 inset;
+    color: #003087;
+    background: white;
 }
 
-.header-shadow {
-    background: tomato;
-    width: 100%;
-    height: 10px;
-    -webkit-linear-gradient: (top, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0) 100%);
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0) 100%);
-    /* FF3.6-15 */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0) 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    opacity: 0;
-}
-
-.header-shadow.show {
-    opacity: 1;
+.button--md {
+    font-size: 0.9rem;
 }
 
 .accordion {
     position: relative;
 }
 
-.accordion h3 {
+.accordion__title {
     margin: 0;
 }
 
-.accordion p {
+.accordion__description {
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-size: 13px;
     font-weight: 400;
     margin: 0 40px 12px 0;
 }
 
-.accordion .accordion-content {
+.accordion__content {
     background-color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
 
-.accordion .down {
-    display: block;
-}
-
-.accordion .symbol {
+.accordion__symbol {
     position: absolute;
     top: 24px;
     right: 16px;
@@ -408,12 +158,12 @@ li {
     pointer-events: none;
 }
 
-.accordion.show .symbol {
+.accordion--show .accordion__symbol {
     transform: rotate(180deg);
     top: 27px;
 }
 
-.accordion button {
+.accordion__title-btn {
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-size: inherit;
     font-weight: inherit;
@@ -440,19 +190,15 @@ li {
                     supported by Chrome and Opera */
 }
 
-.accordion .has-subtitle {
+.accordion__title-btn--with-description {
     padding-bottom: 11px;
 }
 
-.accordion-divider {
+.accordion__divider {
     border-top: 1px solid #eaeced;
 }
 
-#financing-terms {
-    position: relative;
-}
-
-#loading-image {
+.spinner {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -467,37 +213,6 @@ li {
     pointer-events: none;
     transform-origin: 0 0;
     z-index: 5;
-}
-
-@media only screen and (max-width: 400px) {
-    #ni-content .title {
-        font-size: 1.6rem;
-        line-height: 2rem;
-        max-width: 14rem;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media only screen and (max-width: 612px) {
-    main .content {
-        padding: 0 18px;
-    }
-}
-
-@media only screen and (max-device-width: 612px) {
-    main {
-        max-width: 100%;
-        -webkit-text-size-adjust: none;
-    }
-}
-
-/* FIREFOX ONLY TARGETING */
-@-moz-document url-prefix() {
-    .modal__header-container {
-        overflow-y: scroll;
-        display: block !important;
-    }
 }
 
 @-webkit-keyframes spin {
@@ -515,5 +230,69 @@ li {
     }
     100% {
         transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+
+.header {
+    transition: 150ms;
+    height: 100%;
+}
+
+.header__logo {
+    box-sizing: border-box;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    padding: 18px 0;
+    height: 72px;
+    transition: all 0.3s;
+}
+
+.header__close {
+    display: block;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+}
+
+.header__close svg {
+    height: 48px;
+    width: 48px;
+}
+
+.header__close path {
+    stroke-width: 1px;
+    transition: all 0.3s;
+}
+
+.header__logo-wrapper {
+    transition: all 0.3s;
+    transform: translateX(0) scale(1);
+}
+
+.header__logo-wrapper--shift {
+    transform: translateX(calc(-50% + 35px + 16px)) scale(0.7);
+}
+
+@media (min-width: 26.25rem) {
+    .header__logo-wrapper--shift {
+        transform: translateX(calc(-50% + 50px + 24px)) scale(1);
+    }
+}
+
+.header__apply-now {
+    position: absolute;
+    top: 1.1rem;
+    left: 50%;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 22.5rem) {
+    .header__apply-now {
+        font-size: 1rem;
     }
 }

@@ -45,7 +45,12 @@ export function getDataByTag(data, tag) {
         }
     }
 
-    return arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'))[0];
+    selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'));
+    if (selected) {
+        return selected[0];
+    }
+
+    return '';
 }
 
 export function request(method, url, { data, headers, withCredentials } = {}) {

@@ -1,16 +1,15 @@
-main #tabs {
+.tabs {
     margin: auto;
     max-width: 400px;
     padding: 0 18px;
-    margin-bottom: 28px;
-    border-bottom: 1px solid #eaeced;
     white-space: nowrap;
     font-size: 0;
+    display: flex;
 }
 
-main #tabs button {
+.tab {
     cursor: pointer;
-    display: inline-block;
+    display: block;
     padding: 30px 0px 15px;
     font-size: 15px;
     font-weight: 600;
@@ -23,85 +22,78 @@ main #tabs button {
     background: transparent;
     border: none;
     outline: none;
+    position: relative;
+    transition: color 0.3s;
 }
 
-main #tabs button:hover {
+.tab::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: #0070ba;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+    transform-origin: center right;
+}
+.tab:nth-of-type(2)::after {
+    transform-origin: center left;
+}
+
+.tab:hover {
     color: #0070ba;
 }
 
-main #tabs button:active {
+.tab--selected {
     color: #005187;
 }
 
-main #tabs button.selected {
-    color: #0070ba;
-    border-bottom: 3px solid #0070ba;
+.tab--selected::after {
+    transform: scaleX(1);
 }
 
-/* main .content {
-    display: none;
-} */
-
-main .content.show {
-    display: block;
-}
-
-main #financing-terms table {
-    border-collapse: collapse;
-    width: 100%;
+.tab__transition {
     position: relative;
 }
 
-main #financing-terms thead tr {
-    height: 50px;
-    padding: 5px 0 0 5px;
-    background: #f5f5f5;
-    font-weight: 600;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    margin-bottom: 0;
-    font-size: 13px;
+.tab__transition-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    transition-delay: 0.3s;
 }
 
-main #financing-terms thead tr th {
-    padding-top: 5px;
-    text-align: left;
-    padding-left: 8px;
-    vertical-align: top;
-    line-height: 1.38;
-    letter-spacing: -0.2px;
-    color: #2c2e2f;
-}
-
-main #financing-terms tbody tr:not(:first-of-type) {
-    border-top: solid 0.5px #eaeced;
-    clear: both;
-    width: 99.99%;
-}
-
-main #financing-terms tbody tr:last-of-type {
-    margin-bottom: 38px;
-}
-
-main #financing-terms tbody tr td {
-    padding: 7px 0 7px 5px;
-    box-sizing: border-box;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    margin: 0;
-    padding-left: 8px;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: -0.2px;
-    color: #2c2e2f;
-}
-
-#ezp-content .title {
-    padding: 0 32px;
-    margin-top: 13px;
-    margin-bottom: 32px;
+.tab__transition-item--selected {
+    position: relative;
+    z-index: 2;
+    background: white;
+    opacity: 1;
+    pointer-events: all;
+    transition-delay: 0s;
 }
 
 .calculator {
-    margin: 10px 0px;
+    margin-bottom: 10px;
+}
+
+.calculator__finance-terms {
+    position: relative;
+}
+
+.calculator__title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0;
 }
 
 .calculator__form {
@@ -140,71 +132,30 @@ main #financing-terms tbody tr td {
     color: #2c2e2f;
     box-sizing: border-box;
     min-width: 0;
+    margin-right: 1rem;
 }
 
-.calculator__btn {
-    flex: 1 1 20%;
-    -ms-flex: 1 1 20%;
-    padding: 0 14px;
-    max-width: 120px;
-    cursor: pointer;
-    border-radius: 50px;
-    background-color: #0070ba;
-    border: solid 1px #0070ba;
-    color: white;
-    margin-left: 10px;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-size: 15px;
-    font-weight: 400;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.7px;
-    text-align: center;
-    display: block;
-    box-sizing: border-box;
-}
-
-.calculator__error-msg {
-    display: none;
-    border: 2px solid #d20000;
-    padding: 10px;
-    text-align: center;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.85;
-    letter-spacing: normal;
-    color: #2c2e2f;
-    background: #fff7f7;
-    border-radius: 6px;
-    margin-top: 10px;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+.calculator__input::-webkit-inner-spin-button,
+.calculator__input::-webkit-outer-spin-button {
     margin: 0;
     -webkit-appearance: none;
     -moz-appearance: textfield;
 }
 
-input:invalid + p {
+.calculator__input:invalid + .calculator__error-msg {
     visibility: visible;
     color: red;
 }
 
-input:valid + p {
+.calculator__input:valid + .calculator__error-msg {
     visibility: hidden;
 }
 
-main #how-it-works {
-    position: relative;
-    bottom: 56px;
+.calculator__button {
+    flex: 1 1 20%;
 }
 
-#terms-note {
+.finance-terms__note {
     display: block;
     margin-top: 15px;
     margin-bottom: 20px;
@@ -214,26 +165,55 @@ main #how-it-works {
     color: #2c2e2f;
 }
 
-#terms-error {
+.finance-terms__error {
     font-size: 13px;
     margin-bottom: 24px;
 }
 
-#ezp-content h3 {
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.6;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-style: normal;
-    font-weight: 600;
-    font-stretch: normal;
-    letter-spacing: normal;
+.finance-terms__table {
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
 }
 
-@media only screen and (max-width: 400px) {
-    #ezp-content .title {
-        font-size: 1.6rem;
-        line-height: 2rem;
-        padding: 0;
-    }
+.finance-terms__table thead tr {
+    height: 50px;
+    padding: 5px 0 0 5px;
+    background: #f5f5f5;
+    font-weight: 600;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+.finance-terms__table thead th {
+    padding-top: 5px;
+    text-align: left;
+    padding-left: 8px;
+    vertical-align: top;
+    line-height: 1.38;
+    letter-spacing: -0.2px;
+    color: #2c2e2f;
+}
+
+.finance-terms__table tbody tr:not(:first-of-type) {
+    border-top: solid 0.5px #eaeced;
+    clear: both;
+    width: 99.99%;
+}
+
+.finance-terms__table tbody tr:last-of-type {
+    margin-bottom: 38px;
+}
+
+.finance-terms__table tbody td {
+    padding: 7px 0 7px 5px;
+    box-sizing: border-box;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    margin: 0;
+    padding-left: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    color: #2c2e2f;
 }
