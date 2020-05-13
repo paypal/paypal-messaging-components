@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
 
 export const flex = [
@@ -39,15 +39,18 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 20.5 + 70)],
-                logo: Logo.PRIMARY.COLOR,
-                headline: [
-                    { tag: 'xsmall', br: ['time.'] },
-                    { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }
-                ],
-                disclaimer: ['extra', 'xsmall']
-            })
+            ({ textSize }) => {
+                const breakpointCalc = textSize * 22 + 70;
+                return {
+                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)],
+                    logo: Logo.PRIMARY.COLOR,
+                    headline: [
+                        { tag: 'xsmall', br: ['time.'] },
+                        { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }
+                    ],
+                    disclaimer: ['extra', 'xsmall']
+                };
+            }
         ],
         [
             'logo.type:primary',
@@ -86,22 +89,26 @@ export default {
         ],
         [
             'logo.type:alternative',
-            ({ textSize }) => ({
-                styles: [
-                    basicMediaQuery(textSize * 18.9),
-                    altContentMediaQuery(textSize * 45),
-                    `.message__logo-container { width: ${textSize * 9}px }`
-                ],
-                logo: Logo.ALTERNATIVE.COLOR,
-                headline: [
-                    'xsmall',
-                    {
-                        tag: 'medium',
-                        br: ['months'],
-                        replace: [['99+', '99+.']]
-                    }
-                ]
-            })
+            ({ textSize }) => {
+                const breakpointCalc = textSize * 20;
+                return {
+                    styles: [
+                        messageDisclaimerMediaQuery(breakpointCalc - 1),
+                        basicMediaQuery(breakpointCalc),
+                        altContentMediaQuery(textSize * 45),
+                        `.message__logo-container { width: ${textSize * 9}px }`
+                    ],
+                    logo: Logo.ALTERNATIVE.COLOR,
+                    headline: [
+                        'xsmall',
+                        {
+                            tag: 'medium',
+                            br: ['months'],
+                            replace: [['99+', '99+.']]
+                        }
+                    ]
+                };
+            }
         ],
         [
             'logo.type:alternative && logo.position:top',
@@ -116,7 +123,13 @@ export default {
                 ]
             })
         ],
-        ['logo.type:primary && logo.position:top', ({ textSize }) => ({ styles: [basicMediaQuery(textSize * 20)] })],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => {
+                const breakpointCalc = textSize * 21;
+                return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
+            }
+        ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
