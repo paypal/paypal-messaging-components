@@ -45,7 +45,12 @@ export function getDataByTag(data, tag) {
         }
     }
 
-    return arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'))[0];
+    selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'));
+    if (selected) {
+        return selected[0];
+    }
+
+    return '';
 }
 
 export function request(method, url, { data, headers, withCredentials } = {}) {
@@ -114,4 +119,16 @@ export function createEvent(name) {
     event.initEvent(name, true, true);
 
     return event;
+}
+
+// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
+// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+export function createUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        // eslint-disable-next-line no-bitwise
+        const r = (Math.random() * 16) | 0;
+        // eslint-disable-next-line no-bitwise
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
 }

@@ -11,7 +11,8 @@ import {
     objectFlattenToArray,
     getGlobalUrl,
     request,
-    getCurrency
+    getCurrency,
+    createUUID
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -26,23 +27,10 @@ window.__PP = window.__PP || {};
 
 // Specific dimensions tied to JSON banners in Campaign Studio
 // Swap the placement tag when changes for banners and messaging.js are required in sync
-// const PLACEMENT = 'x200x51';
-const PLACEMENT = 'x215x80';
+const PLACEMENT = 'x200x51';
+// const PLACEMENT = 'x215x80';
 
 const NI_ONLY_PLACEMENT = 'x199x99';
-
-// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
-// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-
-function createUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        // eslint-disable-next-line no-bitwise
-        const r = (Math.random() * 16) | 0;
-        // eslint-disable-next-line no-bitwise
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
 
 function mutateMarkup(markup) {
     try {
@@ -125,6 +113,12 @@ function fetcher(options) {
         window.__PP[callbackName] = markup => {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
+
+            if (__MESSAGES__.__DEMO__) {
+                if (window.__PP_DEMO_BANNER_HOOK) {
+                    window.__PP_DEMO_BANNER_HOOK(markup);
+                }
+            }
 
             // Handles markup for v2, v1, v0
             if (typeof markup === 'object') {
