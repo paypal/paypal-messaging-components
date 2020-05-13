@@ -1,0 +1,19 @@
+{
+    "meta": {
+        "offerCountry": "GB",
+        "offerType": "PLQ",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}"
+        }
+    },
+
+    "headline": [["Make 3 monthly payments of {formattedMonthlyPayment} with 0% interest."]],
+
+    "subHeadline": ["Check out with PayPal and choose to pay later."],
+
+    "disclaimer": [["Learn more", "em"]]
+}
