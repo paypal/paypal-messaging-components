@@ -2,15 +2,20 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PALA:SINGLE:EQZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+        }
     },
 
     "headline": [
         [
-            [
-                ["Make ${CREDIT_OFFERS_DS.total_payments} payments of", "weak"],
-                "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo at 0% APR"
-            ],
+            [["Make {total_payments} payments of", "weak"], "{formattedMonthlyPayment}/mo at 0% APR"],
             ["default", "small"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]],
@@ -20,7 +25,7 @@
 
     "subHeadline": [
         [
-            "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month with no interest for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
+            "Make {total_payments} Easy Payments as low as {formattedMonthlyPayment}/month with no interest for est. total pymts of {formattedTotalCost}.",
             ["legacy-xlarge"]
         ]
     ],

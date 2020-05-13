@@ -21,7 +21,7 @@ const localize = country => (amount, fractionDigits = 2) => {
 };
 
 // This function does not represent how PayPal calculates the true rates
-module.exports = (country, amount) => {
+module.exports.getTerms = (country, amount) => {
     const terms = JSON.parse(fs.readFileSync(path.resolve(__dirname, './terms.json'), 'utf-8'));
     const toLocaleString = localize(country);
 
