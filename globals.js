@@ -44,7 +44,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             }
         },
         __URI__: {
-            __RAMP_WHITELIST__: '/upstream/ramp.json',
+            __RAMP_WHITELIST__: '/upstream/assets/messaging/modal/ramp.json',
             __MESSAGE_A__: '/imadserver/upstream',
             __MESSAGE_B__: '/credit-presentment/messages',
             __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
