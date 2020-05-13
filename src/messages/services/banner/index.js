@@ -25,7 +25,7 @@ import { setLocale } from '../../../locale';
 import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
 // New fetcher
-const PLACEMENT_VARIANT = 'B'; // A | B | C
+const PLACEMENT_VARIANT = 'C'; // A | B | C
 // Old fetcher
 const PLACEMENT = 'x200x51';
 const NI_ONLY_PLACEMENT = 'x199x99';
