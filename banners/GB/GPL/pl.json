@@ -10,7 +10,7 @@
         }
     },
 
-    "headline": [["Make 3 monthly payments with 0% interest on eligible purchases."]],
+    "headline": [["Make 3 monthly payments with 0% interest on eligible purchases.", ["default"]]],
 
-    "disclaimer": [["Learn more", "em"]]
+    "disclaimer": [["Learn more", ["default"]]]
 }

@@ -11,7 +11,7 @@
         }
     },
 
-    "headline": [["Make 3 monthly payments of {formattedMonthlyPayment} with 0% interest."]],
+    "headline": [["Make 3 monthly payments of {formattedMonthlyPayment} with 0% interest.", ["default"]]],
 
-    "disclaimer": [["Learn more", "em"]]
+    "disclaimer": [["Learn more", ["default"]]]
 }
