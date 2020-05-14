@@ -10,9 +10,7 @@
         }
     },
 
-    "headline": [["Make 3 monthly payments with 0% interest on eligable purchases."]],
-
-    "subHeadline": ["Check out with PayPal and choose to pay later."],
+    "headline": [["Make 3 monthly payments with 0% interest on eligible purchases."]],
 
     "disclaimer": [["Learn more", "em"]]
 }

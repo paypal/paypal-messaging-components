@@ -13,7 +13,5 @@
 
     "headline": [["Make 3 monthly payments of {formattedMonthlyPayment} with 0% interest."]],
 
-    "subHeadline": ["Check out with PayPal and choose to pay later."],
-
     "disclaimer": [["Learn more", "em"]]
 }
