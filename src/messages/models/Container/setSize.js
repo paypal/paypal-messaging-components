@@ -216,85 +216,69 @@ export default curry((container, { wrapper, options, logger, meta }) => {
             ); // container.contentWindow.document.documentElement.scrollHeight);
         };
 
-        if (minWidth && parentContainerWidth < minWidth && layout !== 'custom') {
-            const minSizeOptions = getMinimumWidthOptions();
-            if (arrayEvery(objectEntries(minSizeOptions), ([key, val]) => objectGet(options, key) === val)) {
-                logger.error({ name: ERRORS.MESSAGE_HIDDEN });
-                logger.warn(
-                    `Message hidden. PayPal Credit Message fallback requires minimum width of ${minWidth}px. Current container is ${parentContainerWidth}px. Message hidden.`
-                );
+        const minSizeOptions = getMinimumWidthOptions();
+        setDimensions();
+        events(container).on('resize', setDimensions);
 
-                container.setAttribute('data-pp-message-hidden', 'true');
-            } else {
-                logger.warn(
-                    `Message Overflow. PayPal Credit Message of layout type ${objectGet(
-                        options,
-                        'style.layout'
-                    )} requires a width of at least ${minWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
-                );
-
-                // Thrown error skips the rest of the render pipeline and is caught at the end
-                throw createCallbackError(ERRORS.MESSAGE_OVERFLOW, () => {
-                    // Highest priority styles, will re-render from attribute observer
-                    objectEntries(minSizeOptions).forEach(([key, val]) => {
-                        const attributeKey = `data-pp-${key.replace(/\./g, '-')}`;
-                        wrapper.parentNode.setAttribute(attributeKey, val);
-                    });
-                });
-            }
-        } else {
-            setDimensions();
-            events(container).on('resize', setDimensions);
-        }
-    }
-
-    /**
-     * IntersectionObserver checks to see if there is any intersection of elements up the tree that
-     * could cause the messages to be cut off.
-     * The element we are observing is the .messages div. If any ancestor elements of the .messages div
-     * is a container with a set height smaller than required for the message, the message will be set to display:none.
-     */
-
-    if (options.style.layout === 'text' && wrapper.parentNode.parentNode && logger) {
-        const containerHeightCheck = () => {
-            // .messages div
+        const setupOverflowObserver = () => {
             const el = wrapper.parentNode;
             // eslint-disable-next-line compat/compat
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.intersectionRatio < 0.9) {
-                        logger.warn(
-                            `Message hidden. PayPal Credit Message of layout type text requires a height of at least ${parseInt(
-                                container.getAttribute('height'),
-                                10
-                            ) + 1}px. Current container is ${el.parentNode.clientHeight}px. Message hidden.`
-                        );
-                        // eslint-disable-next-line no-param-reassign
-                        wrapper.style.display = 'none';
-                    }
-                });
-            }, {});
-            if (document.querySelector('.messages')) observer.observe(document.querySelector('.messages'));
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.intersectionRatio < 0.9 || entry.boundingClientRect.width < minWidth) {
+                            if (
+                                arrayEvery(
+                                    objectEntries(minSizeOptions),
+                                    ([key, val]) => objectGet(options, key) === val
+                                )
+                            ) {
+                                logger.error({ name: ERRORS.MESSAGE_HIDDEN });
+                                logger.warn(
+                                    `Message hidden. PayPal Credit Message fallback requires minimum dimensions of ${minWidth}px x ${parseInt(
+                                        container.getAttribute('height'),
+                                        10
+                                    ) + 1}px. Message hidden.`
+                                );
+                                container.setAttribute('data-pp-message-hidden', 'true');
+                                // eslint-disable-next-line no-param-reassign
+                                wrapper.style.display = 'none';
+                            } else {
+                                logger.warn(
+                                    `Message Overflow. PayPal Credit Message of layout type ${objectGet(
+                                        options,
+                                        'style.layout'
+                                    )} requires a width of at least ${minWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
+                                );
+                                // Highest priority styles, will re-render from attribute observer
+                                objectEntries(minSizeOptions).forEach(([key, val]) => {
+                                    const attributeKey = `data-pp-${key.replace(/\./g, '-')}`;
+                                    wrapper.parentNode.setAttribute(attributeKey, val);
+                                });
+                                throw createCallbackError(ERRORS.MESSAGE_OVERFLOW);
+                            }
+                        }
+                    });
+                },
+                {
+                    root: document.documentElement
+                }
+            );
+            if (el) observer.observe(el);
         };
 
         /**
          * If browser does not support IntersectionObserver, the dynamicImport function is called,
-         * adds the appropriate polyfill needed for legacy browser support, then executes containerHeightCheck.
+         * adds the appropriate polyfill needed for legacy browser support, then executes setupOverflowObserver.
          * Script tag containing polyfill is subsequently removed after load.
          *
-         * If browser support exists, containerHeightCheck runs as normal.
+         * If browser support exists, setupOverflowObserver runs as normal.
          */
-
         if (typeof window.IntersectionObserver === 'undefined') {
             const polyfillUrl = 'https://polyfill.io/v3/polyfill.js?features=IntersectionObserver';
-            dynamicImport(polyfillUrl)
-                .then(() => {
-                    containerHeightCheck();
-                })
-                .then(() => {
-                    const scriptEl = document.querySelector(`[src="${polyfillUrl}"]`);
-                    scriptEl.parentNode.removeChild(scriptEl);
-                });
-        } else containerHeightCheck();
+            dynamicImport(polyfillUrl).then(setupOverflowObserver);
+        } else {
+            setupOverflowObserver();
+        }
     }
 });

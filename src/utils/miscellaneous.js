@@ -138,7 +138,10 @@ export function dynamicImport(url) {
     return new ZalgoPromise(resolve => {
         const script = document.createElement('script');
         script.src = url;
-        script.addEventListener('load', resolve);
+        script.addEventListener('load', () => {
+            document.body.removeChild(script);
+            resolve();
+        });
         document.body.appendChild(script);
     });
 }
