@@ -1,0 +1,9 @@
+.message__headline > span:last-of-type {
+    display: inline-block;
+}
+
+.message__disclaimer > .tag--default > span {
+    font-weight: bold;
+    color: #157bbf;
+    /* text-decoration: underline; */
+}

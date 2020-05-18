@@ -364,7 +364,11 @@ function createTemplateNode(options, markup) {
         span.textContent = `${withText} `;
         const strong = document.createElement('strong');
         strong.textContent = productName;
-        span.appendChild(strong);
+
+        if (getLocaleClass() === 'locale--GB') {
+            span.textContent += productName;
+        } else span.appendChild(strong);
+
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);
     }

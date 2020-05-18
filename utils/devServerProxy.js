@@ -18,7 +18,10 @@ const devAccountMap = {
     DEV0000000IAZ: ['DE', 'inst_any_eqz'],
     DEV0000000IAG: ['DE', 'inst_any_gtz'],
     DEV000000PQAG: ['DE', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'palaq_any_eqz']
+    DEV000000PQAZ: ['DE', 'palaq_any_eqz'],
+
+    DEV000000GBPL: ['GB', 'pl'],
+    DEV00000GBPLQ: ['GB', 'plq']
 };
 
 module.exports = app => {
