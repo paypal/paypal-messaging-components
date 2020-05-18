@@ -20,7 +20,6 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __VERSION__: version,
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
-        env,
         __DOMAIN__: {
             __LOCAL__: `${env.NODE_ENV === 'local' ? 'http' : 'https'}://localhost.paypal.com:8080`,
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
