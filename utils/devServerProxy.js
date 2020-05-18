@@ -42,7 +42,10 @@ module.exports = app => {
             </head>
             <body>
                 <script>
-                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var interfaceScript = window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                        || window.top.document.querySelector('script[src*="messaging.js"]')
+                        || window.top.document.querySelector('script[src*="merchant.js"]');
+                    var interface = interfaceScript && interfaceScript.outerHTML;
                     var modal = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
                     var data = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
                     
