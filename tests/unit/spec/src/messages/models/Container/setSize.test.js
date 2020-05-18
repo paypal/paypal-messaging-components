@@ -1,7 +1,6 @@
 import createContainer from 'utils/createContainer';
 import setSize from 'src/messages/models/Container/setSize';
 import template from 'src/messages/models/Template/template.html';
-import { ERRORS } from 'src/messages/services/logger';
 import { setLocale } from 'src/locale';
 
 setLocale('US');
@@ -100,72 +99,6 @@ describe('setSize', () => {
 
                 expect(container).toHaveAttribute('height', '10');
                 expect(container.getAttribute('style')).toContain('min-width: 20px');
-            });
-        });
-
-        it('Throws error when container overflows', async () => {
-            const { container: wrapper } = createContainer('span');
-            const { container } = createContainer('iframe', { parent: wrapper, body: template });
-            const mockRenderObject = {
-                wrapper,
-                options: {
-                    style: {
-                        layout: 'text',
-                        logo: {
-                            type: 'alternative'
-                        }
-                    }
-                },
-                meta: {
-                    minWidth: 20
-                },
-                logger: {
-                    warn: jest.fn(),
-                    error: jest.fn()
-                }
-            };
-
-            await injectSpies({ container, wrapperWidth: 10 }, () => {
-                expect(() => setSize(container, mockRenderObject)).toThrow(
-                    expect.objectContaining({
-                        name: 'Error',
-                        message: ERRORS.MESSAGE_OVERFLOW,
-                        onEnd: expect.any(Function)
-                    })
-                );
-            });
-        });
-
-        it('Hides message when fallback message overflows', async () => {
-            const { container: wrapper } = createContainer('span');
-            const { container } = createContainer('iframe', { parent: wrapper, body: template });
-            container.setAttribute('data-pp-message-overflow', 'fallback');
-            const mockRenderObject = {
-                wrapper,
-                options: {
-                    style: {
-                        layout: 'text',
-                        logo: {
-                            type: 'primary',
-                            position: 'top'
-                        }
-                    }
-                },
-                meta: {
-                    minWidth: 20
-                },
-                logger: {
-                    warn: jest.fn(),
-                    error: jest.fn()
-                }
-            };
-
-            await injectSpies({ container, wrapperWidth: 10 }, async () => {
-                setSize(container, mockRenderObject);
-
-                await new Promise(res => setTimeout(res, 100));
-
-                expect(mockRenderObject.logger.error).toHaveBeenCalledTimes(1);
             });
         });
     });

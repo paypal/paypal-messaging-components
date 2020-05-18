@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging Overflow Test</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script>
+    </head>
+
+    <body>
+        <div style="height:150px; width: 200px; overflow:hidden; background-color: pink;" class="pink">
+            <div class="messages message-overflow-test" data-pp-message></div>
+        </div>
+        <div style="height:100px; width: 100px; overflow:hidden; background-color: lightblue;" class="pink">
+            <div class="messages message-hide-test" data-pp-message></div>
+        </div>
+    </body>
+</html>
