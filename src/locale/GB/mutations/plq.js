@@ -9,7 +9,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['interest.', 'interest']]
                     }
                 ],
                 disclaimer: ['default']
@@ -19,7 +19,7 @@ export default {
             'logo.type:inline',
             () => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: [{ tag: 'default', replace: [['purchases.', 'purchases']] }],
+                headline: [{ tag: 'default', replace: [['interest.', 'interest']] }],
                 disclaimer: ['default']
             })
         ]

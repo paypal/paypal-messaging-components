@@ -37,6 +37,7 @@
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
+        "@paypal/sdk-logos": "^1.0.26",
         "belter": "^1.0.112",
         "core-js-pure": "^3.0.1",
         "jsx-pragmatic": "^2.0.7",

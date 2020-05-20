@@ -70,11 +70,19 @@ module.exports = app => {
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
 
+            let formattedMonthlyPayment = `$${bestOffer.monthly}`;
+
+            if (country === 'DE') {
+                formattedMonthlyPayment = `${bestOffer.monthly}€`;
+            } else if (country === 'GB') {
+                formattedMonthlyPayment = `£${bestOffer.monthly}`;
+            }
+
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
+                formattedMonthlyPayment,
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
                 total_payments: bestOffer.term
             };
@@ -119,12 +127,20 @@ module.exports = app => {
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
 
+            let formattedMonthlyPayment = `$${bestOffer.monthly}`;
+
+            if (country === 'DE') {
+                formattedMonthlyPayment = `${bestOffer.monthly}€`;
+            } else if (country === 'GB') {
+                formattedMonthlyPayment = `£${bestOffer.monthly}`;
+            }
+
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
                 formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedMonthlyPayment,
                 total_payments: bestOffer.term
             };
 

@@ -3,7 +3,7 @@ import { Types } from '../../messages/models/Banner/types';
 export default {
     text: {
         logo: {
-            type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
+            type: [Types.STRING, ['primary', 'inline', 'none']],
             position: [Types.STRING, ['left', 'right', 'top']]
         },
         text: {
