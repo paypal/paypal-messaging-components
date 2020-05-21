@@ -55,6 +55,8 @@ export default {
                 headline: [{ tag: 'default', replace: [['interest.', 'interest']] }],
                 disclaimer: ['default']
             })
-        ]
+        ],
+        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
+        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
     ]
 };

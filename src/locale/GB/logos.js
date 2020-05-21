@@ -20,20 +20,26 @@ export default {
                 src: gplPPLogo(LOGO_COLOR.DEFAULT).getAttribute('src'),
                 dimensions: [100, 32]
             }
+        ],
+        WHITE: [
+            {
+                src: gplPPMonogram(LOGO_COLOR.WHITE).getAttribute('src'),
+                dimensions: [24, 32]
+            },
+            {
+                src: gplPPLogo(LOGO_COLOR.WHITE).getAttribute('src'),
+                dimensions: [100, 32]
+            }
         ]
-        //     // WHITE: {
-        //     //     src: gplPPLogo(),
-        //     //     dimensions: [1127, 99]
-        //     // }
     },
     ALT_NO_PP: {
         COLOR: {
             src: gplPPLogo(LOGO_COLOR.DEFAULT).getAttribute('src'),
             dimensions: [100, 32]
+        },
+        WHITE: {
+            src: gplPPLogo(LOGO_COLOR.WHITE).getAttribute('src'),
+            dimensions: [100, 32]
         }
-        // WHITE: {
-        //     src: gplPPLogo(LOGO_COLOR.WHITE).getAttribute('src'),
-        //     dimensions: [477, 64]
-        // }
     }
 };
