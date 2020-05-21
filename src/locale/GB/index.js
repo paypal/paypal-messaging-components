@@ -1,5 +1,5 @@
 import getMutations from './mutations';
-import logos from '../US/logos';
+import logos from './logos';
 import styles from './styles';
 import validOptions from './validOptions';
 

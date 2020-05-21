@@ -1,0 +1,12 @@
+.message__logo-container {
+    order: 2;
+    width: auto;
+}
+
+.message__content {
+    display: inline-flex;
+}
+
+.message__logo:last-child {
+    margin-top: 4px;
+}

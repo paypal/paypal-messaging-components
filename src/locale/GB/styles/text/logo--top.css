@@ -1,0 +1,8 @@
+.message__content {
+    display: inline-block;
+}
+
+.message__logo-container {
+    margin: 0;
+    display: block;
+}

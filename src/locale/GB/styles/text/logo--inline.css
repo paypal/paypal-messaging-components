@@ -15,7 +15,6 @@
 
 .message__logo-container::after {
     content: '.';
-    /* margin-right: 2px; */
 }
 
 .message__disclaimer > .tag--default > span {
