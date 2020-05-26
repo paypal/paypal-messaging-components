@@ -238,7 +238,9 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                     `Message hidden. PayPal Credit Message fallback requires minimum dimensions of ${minWidth}px x ${parseInt(
                                         container.getAttribute('height'),
                                         10
-                                    ) + 1}px. Message hidden.`
+                                    ) + 1}px. Your current container is ${parentContainerWidth}px x ${
+                                        entry.intersectionRect.height
+                                    }px. Message hidden.`
                                 );
                                 container.setAttribute('data-pp-message-hidden', 'true');
                                 // eslint-disable-next-line no-param-reassign
@@ -248,10 +250,15 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                     `Message Overflow. PayPal Credit Message of layout type ${objectGet(
                                         options,
                                         'style.layout'
-                                    )} requires a width of at least ${minWidth}px. Current container is ${parentContainerWidth}px. Attempting fallback message.`
+                                    )} requires minimum dimensions of ${minWidth}px x ${parseInt(
+                                        container.getAttribute('height'),
+                                        10
+                                    ) + 1}px. Your current container is ${parentContainerWidth}px x ${
+                                        entry.intersectionRect.height
+                                    }. Attempting fallback message.`
                                 );
-                                // Highest priority styles, will re-render from attribute observer
 
+                                // Highest priority styles, will re-render from attribute observer
                                 objectEntries(minSizeOptions).forEach(([key, val]) => {
                                     const attributeKey = `data-pp-${key.replace(/\./g, '-')}`;
                                     wrapper.parentNode.setAttribute(attributeKey, val);
