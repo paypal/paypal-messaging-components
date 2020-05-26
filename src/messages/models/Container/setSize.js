@@ -255,7 +255,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                         10
                                     ) + 1}px. Your current container is ${parentContainerWidth}px x ${
                                         entry.intersectionRect.height
-                                    }. Attempting fallback message.`
+                                    }px. Attempting fallback message.`
                                 );
 
                                 // Highest priority styles, will re-render from attribute observer
