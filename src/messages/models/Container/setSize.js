@@ -222,9 +222,23 @@ export default curry((container, { wrapper, options, logger, meta }) => {
 
         const setupOverflowObserver = () => {
             const el = wrapper.parentNode;
+            /**
+             * Assign root to the first element with a height *not* equal to the window height.
+             * In most cases, the bounding box (root) will be assigned to <html>, but this accounts for cases
+             * where <html> or <body> might have a set height, potentially hiding the message when it is out of the viewport.
+             */
+            const root = Array.prototype.slice
+                .call(document.querySelectorAll('*'))
+                .filter(myEl => {
+                    return (
+                        myEl.getBoundingClientRect().height !== window.innerHeight &&
+                        !myEl.tagName.match(/(STYLE|SCRIPT|HEAD|LINK|META|TITLE)/g)
+                    );
+                })
+                .shift();
             // eslint-disable-next-line compat/compat
             const observer = new IntersectionObserver(
-                entries => {
+                (entries, io) => {
                     entries.forEach(entry => {
                         if (entry.intersectionRatio < 0.9 || entry.boundingClientRect.width < minWidth) {
                             if (
@@ -239,7 +253,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                         container.getAttribute('height'),
                                         10
                                     ) + 1}px. Your current container is ${parentContainerWidth}px x ${
-                                        entry.intersectionRect.height
+                                        entry.target.parentNode.getBoundingClientRect().height
                                     }px. Message hidden.`
                                 );
                                 container.setAttribute('data-pp-message-hidden', 'true');
@@ -254,8 +268,8 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                         container.getAttribute('height'),
                                         10
                                     ) + 1}px. Your current container is ${parentContainerWidth}px x ${
-                                        entry.intersectionRect.height
-                                    }px. Attempting fallback message.`
+                                        entry.target.parentNode.getBoundingClientRect().height
+                                    }px.  Attempting fallback message.`
                                 );
 
                                 // Highest priority styles, will re-render from attribute observer
@@ -265,10 +279,11 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                 });
                             }
                         }
+                        io.disconnect();
                     });
                 },
                 {
-                    root: document.documentElement
+                    root
                 }
             );
             if (el) observer.observe(el);
