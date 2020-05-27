@@ -9,7 +9,6 @@
 
 .message__logo {
     display: inline-block;
-    /* width: 3.5rem; */
     vertical-align: middle;
 }
 
@@ -20,5 +19,4 @@
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
-    /* text-decoration: underline; */
 }

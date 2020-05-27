@@ -1,44 +1,48 @@
 import { PayPalLogo, PPLogo, LOGO_COLOR } from '@paypal/sdk-logos';
 import { dom } from 'jsx-pragmatic';
 
-function gplPPLogo(logoColor) {
-    return PayPalLogo({ logoColor }).render(dom({ doc: document }));
+function getPPLogoBase64(logoColor) {
+    return PayPalLogo({ logoColor })
+        .render(dom({ doc: document }))
+        .getAttribute('src');
 }
 
-function gplPPMonogram(logoColor) {
-    return PPLogo({ logoColor }).render(dom({ doc: document }));
+function getPPMonogramBase64(logoColor) {
+    return PPLogo({ logoColor })
+        .render(dom({ doc: document }))
+        .getAttribute('src');
 }
 
 export default {
     PRIMARY: {
         COLOR: [
             {
-                src: gplPPMonogram(LOGO_COLOR.DEFAULT).getAttribute('src'),
+                src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
                 dimensions: [24, 32]
             },
             {
-                src: gplPPLogo(LOGO_COLOR.DEFAULT).getAttribute('src'),
+                src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
                 dimensions: [100, 32]
             }
         ],
         WHITE: [
             {
-                src: gplPPMonogram(LOGO_COLOR.WHITE).getAttribute('src'),
+                src: getPPMonogramBase64(LOGO_COLOR.WHITE),
                 dimensions: [24, 32]
             },
             {
-                src: gplPPLogo(LOGO_COLOR.WHITE).getAttribute('src'),
+                src: getPPLogoBase64(LOGO_COLOR.WHITE),
                 dimensions: [100, 32]
             }
         ]
     },
     ALT_NO_PP: {
         COLOR: {
-            src: gplPPLogo(LOGO_COLOR.DEFAULT).getAttribute('src'),
+            src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
             dimensions: [100, 32]
         },
         WHITE: {
-            src: gplPPLogo(LOGO_COLOR.WHITE).getAttribute('src'),
+            src: getPPLogoBase64(LOGO_COLOR.WHITE),
             dimensions: [100, 32]
         }
     }

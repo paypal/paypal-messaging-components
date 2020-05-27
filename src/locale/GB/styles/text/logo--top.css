@@ -6,3 +6,7 @@
     margin: 0;
     display: block;
 }
+
+.message__logo:last-child {
+    margin-top: 2px;
+}
