@@ -1,12 +1,17 @@
 .message__logo:nth-of-type(1) {
-    width: 25px;
+    width: 10px;
     display: inline-block;
-    margin-right: 8px;
+    margin-right: 2px;
 }
 
 .message__logo:nth-of-type(2) {
-    width: 76px;
+    width: 30px;
     display: inline-block;
+}
+
+.message__messaging {
+    display: block;
+    flex: 0 0 75%;
 }
 
 @media (min-aspect-ratio: 80/11) {
@@ -25,13 +30,16 @@
         display: inline;
     }
 
-    .message__messaging,
     .message__content {
         display: flex;
     }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+    .message__messaging {
+        flex: 0 0 70%;
+    }
+
     .message__headline {
         font-size: 3.4vw;
         padding-right: 1rem;
@@ -57,5 +65,16 @@
 
     .message__disclaimer span.multi:nth-of-type(1) {
         display: inline;
+    }
+
+    .message__logo:nth-of-type(1) {
+        width: 25px;
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    .message__logo:nth-of-type(2) {
+        width: 76px;
+        display: inline-block;
     }
 }

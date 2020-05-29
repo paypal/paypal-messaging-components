@@ -22,10 +22,6 @@
     text-decoration: underline;
 }
 
-.message__background {
-    background: #023188;
-}
-
 .message__logo:nth-of-type(1) {
     width: 27px;
     display: inline-block;
