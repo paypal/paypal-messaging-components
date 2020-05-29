@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { gbPLContentMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -12,7 +13,8 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
+                        tag: 'default',
+                        br: ['on ']
                     }
                 ],
                 disclaimer: ['default']
@@ -28,10 +30,32 @@ export default {
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
+                        tag: 'default',
+                        br: ['interest']
                     }
                 ],
                 disclaimer: ['default']
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    gbPLContentMediaQuery(textSize * 42),
+                    `.message__logo-container { width: ${textSize * 6}px }`,
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => ({
+                styles: [
+                    `.message__logo-container { width: ${textSize * 6}px }`,
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                ]
             })
         ],
         [
@@ -41,7 +65,8 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on ']
                     }
                 ],
                 disclaimer: ['default']

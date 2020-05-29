@@ -9,17 +9,14 @@
 
 .message__logo {
     display: inline-block;
-    /* width: 3.5rem; */
     vertical-align: middle;
 }
 
 .message__logo-container::after {
     content: '.';
-    /* margin-right: 2px; */
 }
 
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
-    /* text-decoration: underline; */
 }

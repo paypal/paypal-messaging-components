@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { gbPLContentMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -7,12 +8,13 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
+                        tag: 'default',
+                        br: ['with']
                     }
                 ],
                 disclaimer: ['default']
@@ -22,16 +24,39 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [
+                    `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
+                        tag: 'default',
+                        br: ['with']
                     }
                 ],
                 disclaimer: ['default']
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    gbPLContentMediaQuery(textSize * 36.3),
+                    `.message__logo-container { width: ${textSize * 6}px }`,
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => ({
+                styles: [
+                    `.message__logo-container { width: ${textSize * 6}px }`,
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                ]
             })
         ],
         [
@@ -41,7 +66,8 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        replace: [['interest.', 'interest']]
+                        replace: [['interest.', 'interest']],
+                        br: ['with']
                     }
                 ],
                 disclaimer: ['default']
@@ -49,9 +75,10 @@ export default {
         ],
         [
             'logo.type:inline',
-            () => ({
+            ({ textSize }) => ({
+                styles: [`.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: [{ tag: 'default', replace: [['interest.', 'interest']] }],
+                headline: [{ tag: 'default', replace: [['interest.', 'interest']], br: ['with'] }],
                 disclaimer: ['default']
             })
         ]

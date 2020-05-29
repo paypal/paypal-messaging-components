@@ -4,22 +4,6 @@
     flex: 0 0 auto;
 }
 
-.message__headline span:only-child {
-    white-space: nowrap;
-}
-
-/* .message__headline span.multi:first-child {
-    display: none;
-}
-
-.message__headline span.multi:nth-child(2) {
-    display: inline;
-} */
-
-.message__messaging span.br {
-    white-space: normal;
-}
-
 .message__logo-container {
     display: inline;
     margin-right: 0.4rem;
@@ -27,15 +11,15 @@
 
 .message__logo {
     display: inline-block;
-    /* width: 4rem; */
     vertical-align: middle;
-}
-.message__content {
-    display: inline-block;
 }
 
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
-    /* text-decoration: underline; */
+}
+
+.message__logo:first-child {
+    margin-right: 5px;
+    margin-top: 2px;
 }
