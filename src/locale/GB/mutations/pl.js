@@ -31,7 +31,8 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['interest']
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     }
                 ],
                 disclaimer: ['default']

@@ -14,6 +14,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
+                        replace: [['month.', 'month']],
                         br: ['with']
                     }
                 ],
@@ -32,6 +33,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
+                        replace: [['month.', 'month']],
                         br: ['with']
                     }
                 ],
@@ -66,7 +68,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        replace: [['interest.', 'interest']],
+                        replace: [['month.', 'month']],
                         br: ['with']
                     }
                 ],
@@ -78,7 +80,13 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
-                headline: [{ tag: 'default', replace: [['interest.', 'interest']], br: ['with'] }],
+                headline: [
+                    {
+                        tag: 'default',
+                        replace: [['month.', 'month']],
+                        br: ['with']
+                    }
+                ],
                 disclaimer: ['default']
             })
         ],

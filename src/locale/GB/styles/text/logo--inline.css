@@ -4,7 +4,11 @@
     margin: 0;
 }
 .message__logo-container::before {
-    content: 'with ';
+    content: ' with ';
+}
+
+.message__logo-container::after {
+    content: ' Flex.';
 }
 
 .message__logo {
@@ -12,11 +16,11 @@
     vertical-align: middle;
 }
 
-.message__logo-container::after {
-    content: '.';
-}
-
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
+}
+
+.message__headline > .tag--default > span::before {
+    content: 'Or ';
 }

@@ -353,12 +353,8 @@ function createTemplateNode(options, markup) {
     prependText(disclaimer, toMarkup('disclaimer', mutationRules.disclaimer));
     appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
 
-    // Logo DOM location must be moved in order for logo to be inline between text content
-    if (objectGet(options, 'style.logo.type') === 'inline') {
-        headline.appendChild(logoContainer);
-    }
-
-    if (objectGet(options, 'style.logo.type') === 'none') {
+    // Appends the message with the word "with" along with the product name. i.e. "with PayPal Credit"
+    const appendWithProductText = () => {
         const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
         span.textContent = `${withText} `;
@@ -377,6 +373,19 @@ function createTemplateNode(options, markup) {
 
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);
+    };
+
+    // Logo DOM location must be moved in order for logo to be inline between text content
+    if (objectGet(options, 'style.logo.type') === 'inline') {
+        headline.appendChild(logoContainer);
+    }
+
+    if (objectGet(options, 'style.logo.type') === 'none') {
+        appendWithProductText();
+    }
+
+    if (objectGet(options, 'style.logo.type') === 'primary' && getLocaleClass() === 'locale--GB') {
+        appendWithProductText();
     }
 
     const textSize = objectGet(options, 'style.text.size');
