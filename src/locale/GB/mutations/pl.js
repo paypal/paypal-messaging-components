@@ -31,7 +31,8 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['interest']
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     }
                 ],
                 disclaimer: ['default']
@@ -59,6 +60,25 @@ export default {
             })
         ],
         [
+            'logo.type:alternative',
+            ({ textSize }) => ({
+                styles: [
+                    `.message__logo-container { width: ${textSize * 6}px }`,
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                ],
+                logo: Logo.PRIMARY.COLOR[0],
+                headline: [
+                    {
+                        tag: 'default',
+                        replace: [['month.', 'month']],
+                        br: ['with']
+                    }
+                ],
+                disclaimer: ['default']
+            })
+        ],
+        [
             'logo.type:none',
             () => ({
                 logo: false,
@@ -74,10 +94,9 @@ export default {
         ],
         [
             'logo.type:inline',
-            ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 4}px }`],
-                logo: Logo.ALT_NO_PP.COLOR,
-                headline: [{ tag: 'default', replace: [['purchases.', 'purchases']] }],
+            () => ({
+                logo: false,
+                headline: [{ tag: 'default', replace: [['purchases.', 'purchases']], br: ['on '] }],
                 disclaimer: ['default']
             })
         ]

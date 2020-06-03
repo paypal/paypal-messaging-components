@@ -1,5 +1,6 @@
 import base from './base.css';
 import logoPrimary from './logo--primary.css';
+import logoAlternative from './logo--alternative.css';
 import logoTop from './logo--top.css';
 import logoRight from './logo--right.css';
 import logoInline from './logo--inline.css';
@@ -11,6 +12,9 @@ export default [
     ['logo.type:primary', logoPrimary],
     ['logo.position:top', logoTop],
     ['logo.position:right', logoRight],
+
+    ['logo.type:alternative', logoAlternative],
+
     ['logo.type:inline', logoInline],
     ['logo.type:none', logoNone],
 

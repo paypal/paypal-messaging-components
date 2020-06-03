@@ -2,7 +2,15 @@
     display: inline-block;
 }
 
+.message__headline > .tag--default > span::before {
+    content: 'Or ';
+}
+
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
+}
+
+.message__headline > span:last-child > span::before {
+    content: 'PayPal ';
 }
