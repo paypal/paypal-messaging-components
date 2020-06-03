@@ -12,7 +12,7 @@
 
     "headline": [["3 interest-free payments on eligible purchases.", ["default"]]],
 
-    "subHeadline": [["", ["default", "small"]]],
+    "subHeadline": [],
 
     "disclaimer": [["Learn more", ["default"]]]
 }
