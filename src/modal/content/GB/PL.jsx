@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useCalculator } from '../../lib/hooks';
+import Icon from '../../parts/Icon';
 
 const PL = () => {
     const { terms } = useCalculator();
-    console.log(terms);
     return (
         <Fragment>
             <div className="container-left">
@@ -20,21 +20,29 @@ const PL = () => {
                 <div className="content-body__terms">
                     <p>
                         Subject to status. T&Cs apply. UK residents only. <br />
-                        PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et Cie,
-                        <br /> S.C.A 22-24 Boulevard Royal L-2449, Luxembourg.
+                        PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et Cie, S.C.A <br /> 22-24 Boulevard
+                        Royal L-2449, Luxembourg.
                     </p>
                 </div>
             </div>
             <div className="container-right">
                 <h2>Buy now, pay later</h2>
                 <div className="container-right-content">
+                    <div className="shopping-bag icon-container">
+                        <Icon name="shopping-bag" />
+                    </div>
                     <p>
                         Get your goods now and <br /> pay nothing today.
                     </p>
+                    <div className="checkmark icon-container">
+                        <Icon name="checkmark" />
+                    </div>
                     <p>
-                        Get an instant decision with <br />
-                        no impact on your credit score.
+                        Get an instant decision <br /> with no impact to your <br /> credit score.
                     </p>
+                    <div className="pp-button icon-container">
+                        <Icon name="pp-button" />
+                    </div>
                     <p>
                         Check out with PayPal and <br /> choose <span>Flex.</span>
                     </p>

@@ -18,8 +18,8 @@ const Modal = ({ children }) => {
 
     switch (country) {
         case 'GB':
-            contentMaxWidth = 800;
-            contentMaxHeight = 560;
+            contentMaxWidth = 750;
+            contentMaxHeight = 537;
             break;
         default:
             break;

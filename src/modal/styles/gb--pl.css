@@ -14,6 +14,7 @@
         font-size: 24px;
         letter-spacing: 0.8px;
         margin-top: 10px;
+        margin-bottom: 20px;
     }
 
     .subheadline {
@@ -24,10 +25,14 @@
         letter-spacing: 0.25px;
     }
     .modal__content-background {
-        max-width: 800px;
+        max-width: 750px;
         min-height: auto;
         position: relative;
         background-color: #0070ba;
+        overflow: hidden;
+        -webkit-box-shadow: 10px 6px 11px 1px rgba(0, 0, 0, 0.39);
+        -moz-box-shadow: 10px 6px 11px 1px rgba(0, 0, 0, 0.39);
+        box-shadow: 10px 6px 11px 1px rgba(0, 0, 0, 0.39);
     }
 
     .modal__content-wrapper {
@@ -59,10 +64,11 @@
     }
 
     .header__logo img:first-child {
-        height: 38px;
+        height: 35px;
     }
 
     .header__logo img:last-child {
+        height: 28px;
         padding-left: 10px;
         margin-top: 5px;
     }
@@ -93,16 +99,28 @@
     .modal__main {
         display: flex;
     }
+    .modal__main::after {
+        content: '';
+        background-color: #0070ba;
+        width: 65%;
+        height: 850px;
+        border-bottom-right-radius: 100%;
+        border-top-right-radius: 100%;
+        position: absolute;
+        top: -225px;
+        left: 0;
+    }
     .container-left {
         flex-grow: 1;
+        z-index: 9;
     }
     .container-right {
-        width: 33.333%;
+        width: 38%;
     }
 
     .modal__content-background::after {
         content: '';
-        width: 33.333%;
+        width: 45%;
         height: 100%;
         position: absolute;
         top: 0;
@@ -122,10 +140,25 @@
         font-size: 15px;
         line-height: 23px;
         text-align: center;
+        margin-top: 6px;
     }
 
     .container-right-content > p:last-child > span {
         font-weight: 600;
         font-style: italic;
+    }
+
+    .checkmark {
+        margin-top: 22px;
+    }
+
+    .pp-button {
+        margin-top: 30px;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .modal__content-wrapper {
+        justify-content: flex-start;
     }
 }
