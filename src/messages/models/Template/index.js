@@ -354,7 +354,7 @@ function createTemplateNode(options, markup) {
     appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
 
     // Appends the message with the word "with" along with the product name. i.e. "with PayPal Credit"
-    const appendWithProductText = () => {
+    const appendWithProductText = (insertPPText = false) => {
         const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
         span.textContent = `${withText} `;
@@ -367,6 +367,18 @@ function createTemplateNode(options, markup) {
             default:
                 break;
         }
+
+        /**
+         * Inserts a new span with text "PayPal" when insertPPText param is true.
+         * Used for stylizing the brand text for GPL UK inline messages.
+         */
+
+        if (insertPPText) {
+            const paypalNode = document.createElement('span');
+            paypalNode.className = 'pp-text-logo';
+            span.appendChild(paypalNode);
+        }
+
         const productNode = document.createElement(`${el}`);
         productNode.textContent = productName;
         span.appendChild(productNode);
@@ -378,6 +390,9 @@ function createTemplateNode(options, markup) {
     // Logo DOM location must be moved in order for logo to be inline between text content
     if (objectGet(options, 'style.logo.type') === 'inline') {
         headline.appendChild(logoContainer);
+        if (getLocaleClass() === 'locale--GB') {
+            appendWithProductText(true);
+        }
     }
 
     if (objectGet(options, 'style.logo.type') === 'none') {

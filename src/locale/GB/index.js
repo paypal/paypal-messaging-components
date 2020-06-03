@@ -5,7 +5,7 @@ import validOptions from './validOptions';
 
 export default {
     localeClass: 'locale--GB',
-    productName: ['with', 'Flex.'],
+    productName: ['with', 'Flex'],
     minimumSizeOptions: {
         'style.layout': 'text',
         'style.logo.position': 'top',
