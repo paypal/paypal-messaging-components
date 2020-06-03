@@ -1,0 +1,131 @@
+@media (min-width: 1199px) {
+    h1 {
+        color: white;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        line-height: 44px;
+        padding-left: 20px;
+        margin: 0px;
+    }
+
+    h2 {
+        font-family: 'PayPalSansBig';
+        font-size: 24px;
+        letter-spacing: 0.8px;
+        margin-top: 10px;
+    }
+
+    .subheadline {
+        padding-left: 20px;
+        color: white;
+        font-family: 'PayPalSansBig';
+        font-size: 13px;
+        letter-spacing: 0.25px;
+    }
+    .modal__content-background {
+        max-width: 800px;
+        min-height: auto;
+        position: relative;
+        background-color: #0070ba;
+    }
+
+    .modal__content-wrapper {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal__content {
+        padding-top: 75px;
+    }
+    .modal__header {
+        max-width: 800px;
+    }
+    .modal__header {
+        background-color: transparent;
+        position: absolute;
+        z-index: 999;
+    }
+
+    .modal__header::after {
+        display: none;
+    }
+
+    .header__logo {
+        display: flex;
+        width: auto;
+        padding-left: 20px;
+    }
+
+    .header__logo img:first-child {
+        height: 38px;
+    }
+
+    .header__logo img:last-child {
+        padding-left: 10px;
+        margin-top: 5px;
+    }
+    .content-body__terms {
+        padding-left: 15px;
+    }
+    .content-body__terms p:first-child {
+        line-height: 18px;
+        letter-spacing: 0.5px;
+        color: white;
+        font-family: 'PayPalSansBig';
+        font-size: 13px;
+    }
+    .placeholderSpace {
+        height: 250px;
+    }
+
+    .header__close {
+        top: 5px;
+        right: 5px;
+    }
+
+    .header__close svg {
+        height: 60px;
+        width: 60px;
+    }
+
+    .modal__main {
+        display: flex;
+    }
+    .container-left {
+        flex-grow: 1;
+    }
+    .container-right {
+        width: 33.333%;
+    }
+
+    .modal__content-background::after {
+        content: '';
+        width: 33.333%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: white;
+    }
+
+    .container-right-content {
+        font-family: 'PayPalSansSmall';
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-right-content > p {
+        font-size: 15px;
+        line-height: 23px;
+        text-align: center;
+    }
+
+    .container-right-content > p:last-child > span {
+        font-weight: 600;
+        font-style: italic;
+    }
+}
