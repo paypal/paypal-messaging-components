@@ -384,7 +384,10 @@ function createTemplateNode(options, markup) {
         appendWithProductText();
     }
 
-    if (objectGet(options, 'style.logo.type') === 'primary' && getLocaleClass() === 'locale--GB') {
+    if (
+        objectGet(options, 'style.logo.type') === 'primary' ||
+        (objectGet(options, 'style.logo.type') === 'alternative' && getLocaleClass() === 'locale--GB')
+    ) {
         appendWithProductText();
     }
 

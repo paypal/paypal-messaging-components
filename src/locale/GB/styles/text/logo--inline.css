@@ -8,7 +8,7 @@
 }
 
 .message__logo-container::after {
-    content: ' Flex.';
+    content: ' PayPal Flex.';
 }
 
 .message__logo {
