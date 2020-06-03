@@ -5,3 +5,10 @@
 .message__disclaimer > span {
     text-decoration: none;
 }
+
+.message__headline > span:last-child > span:last-child::after {
+    content: '.';
+    color: #2c2e2f;
+    font-style: normal;
+    font-weight: normal;
+}

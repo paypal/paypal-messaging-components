@@ -1,26 +1,32 @@
-.message__logo-container {
-    display: inline;
-    white-space: nowrap;
-    margin: 0;
-}
 .message__logo-container::before {
-    content: ' with ';
+    content: '';
 }
 
-.message__logo-container::after {
-    content: ' PayPal Flex.';
+.message__headline > .tag--default > span::before {
+    content: 'Or ';
 }
 
-.message__logo {
-    display: inline-block;
-    vertical-align: middle;
+.message__headline .pp-text-logo::before {
+    content: 'Pay';
+    color: #003087;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.message__headline .pp-text-logo::after {
+    content: 'Pal ';
+    color: #009cde;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.message__headline > span:last-child > span:last-child {
+    color: #003087;
+    font-weight: 600;
+    font-style: italic;
 }
 
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
-}
-
-.message__headline > .tag--default > span::before {
-    content: 'Or ';
 }
