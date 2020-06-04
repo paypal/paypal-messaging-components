@@ -129,8 +129,6 @@
     }
 
     .container-right-content {
-        font-family: 'PayPalSansSmall';
-        font-weight: 400;
         display: flex;
         flex-direction: column;
         align-items: center;

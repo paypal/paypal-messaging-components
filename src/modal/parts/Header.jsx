@@ -42,8 +42,6 @@ const Header = () => {
 
     // const showApplyNow = country === 'US' && hasShadow;
 
-    console.log(country);
-
     const ApplyButton = () => {
         return (
             <Button
