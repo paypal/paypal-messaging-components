@@ -1,4 +1,4 @@
-@media (min-width: 1199px) {
+@media (min-width: 750px) and (min-height: 540px) {
     h1 {
         color: white;
         font-size: 30px;
@@ -154,10 +154,166 @@
     .pp-button {
         margin-top: 30px;
     }
+
+    .icecream {
+        display: none;
+    }
+
+    .mobile-break {
+        display: none;
+    }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .modal__content-wrapper {
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 749px), (max-height: 539px) {
+    h1 {
+        color: white;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        line-height: 36px;
+        text-align: center;
+        margin-top: 22px;
+        margin-bottom: 0px;
+    }
+
+    h2 {
+        display: none;
+    }
+
+    .modal__overlay-side {
+        display: none;
+    }
+
+    .modal__header::after {
+        display: none;
+    }
+
+    .modal__header {
+        background-color: transparent;
+    }
+
+    .header__logo {
+        display: inline;
+    }
+
+    .header__logo > img {
+        margin-top: 15px;
+    }
+
+    .header__logo > img:first-child {
+        padding-right: 6px;
+        width: 25px;
+    }
+
+    .header__logo > img:last-child {
+        width: 85px;
+    }
+
+    .header__close {
+        top: 8px;
+    }
+
+    .header__close > svg > path {
+        stroke: white;
+    }
+
+    .modal__content {
+        min-height: calc(100vh - 84px);
+    }
+
+    .modal__main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 100px;
+        min-height: calc(100vh - 184px);
+    }
+
+    .modal__main::after {
+        content: '';
+        background-color: #0070ba;
+        width: 750px;
+        height: 500px;
+        border-radius: 0 0 100% 100%;
+        display: block;
+        order: 1;
+        margin-top: -280px;
+    }
+
+    .container-left {
+        z-index: 9;
+        order: 2;
+        margin-top: -250px;
+    }
+
+    .subheadline {
+        font-family: 'PayPalSansBig';
+        color: white;
+        text-align: center;
+        letter-spacing: 0.25px;
+    }
+
+    .container-right {
+        order: 3;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .container-right-content > p {
+        font-size: 15px;
+        margin-top: 9px;
+    }
+
+    .container-right-content > p:last-child > span {
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .checkmark {
+        margin-top: 35px;
+    }
+
+    .pp-button {
+        margin-top: 36px;
+    }
+
+    .icecream {
+        margin-top: 32px;
+    }
+
+    .content-body__terms > p {
+        color: #6c7378;
+    }
+
+    .content-body__terms {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-top: 1px dashed #bd10e0;
+    }
+
+    .desktop-break {
+        display: none;
+    }
+}
+
+/* iPhone 5/SE media query */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 20px;
+        line-height: 32px;
+    }
+
+    .content-body__terms > p {
+        font-size: 12px;
     }
 }

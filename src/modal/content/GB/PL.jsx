@@ -27,13 +27,16 @@ const PL = () => {
                 <div className="subheadline-container">
                     <p className="subheadline">On purchases of £45 to £2,000</p>
                 </div>
+                <div className="icecream icon-container">
+                    <Icon name="icecream" />
+                </div>
                 {/* TODO: placeholderSpace is temporary. Animation will go here. */}
                 <div className="placeholderSpace" />
                 <div className="content-body__terms">
                     <p>
                         Subject to status. T&Cs apply. UK residents only. <br />
-                        PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et Cie, S.C.A <br /> 22-24 Boulevard
-                        Royal L-2449, Luxembourg.
+                        PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et <br className="mobile-break" />
+                        Cie, S.C.A <br className="desktop-break" /> 22-24 Boulevard Royal L-2449, Luxembourg.
                     </p>
                 </div>
             </div>
@@ -50,7 +53,9 @@ const PL = () => {
                         <Icon name="checkmark" />
                     </div>
                     <p>
-                        Get an instant decision <br /> with no impact to your <br /> credit score.
+                        Get an instant decision <br className="desktop-break" /> with <br className="mobile-break" /> no
+                        impact to your
+                        <br className="desktop-break" /> credit score.
                     </p>
                     <div className="pp-button icon-container">
                         <Icon name="pp-button" />
