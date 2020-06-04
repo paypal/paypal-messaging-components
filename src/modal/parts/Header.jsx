@@ -42,7 +42,7 @@ const Header = () => {
 
     // const showApplyNow = country === 'US' && hasShadow;
 
-    const ApplyButton = () => {
+    const ApplyNowButton = () => {
         return (
             <Button
                 className="header__apply-now"
@@ -67,7 +67,7 @@ const Header = () => {
                                 <Icon name={LOCALE.LOGO[country]} />
                             </div>
                         </div>
-                        {country !== 'GB' ? ApplyButton() : null}
+                        {country !== 'GB' ? ApplyNowButton() : null}
                         <button
                             className="header__close"
                             aria-label="Close"
