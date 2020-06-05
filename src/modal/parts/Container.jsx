@@ -13,17 +13,20 @@ const Modal = ({ children }) => {
     const { country } = useXProps();
     const contentWrapper = useRef();
 
-    let contentMaxWidth = 612;
-    let contentMaxHeight = 0;
-
-    switch (country) {
-        case 'GB':
-            contentMaxWidth = 750;
-            contentMaxHeight = 537;
-            break;
-        default:
-            break;
-    }
+    const { contentMaxWidth, contentMaxHeight } = (() => {
+        switch (country) {
+            case 'GB':
+                return {
+                    contentMaxWidth: 750,
+                    contentMaxHeight: 537,
+                };
+            case 'US':
+            default:
+                return {
+                    contentMaxWidth: 612
+                };
+        }
+    })();
 
     useEffect(() => {
         if (transitionState === 'OPENING') {
