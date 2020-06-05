@@ -42,21 +42,6 @@ const Header = () => {
 
     // const showApplyNow = country === 'US' && hasShadow;
 
-    const ApplyNowButton = () => {
-        return (
-            <Button
-                className="header__apply-now"
-                style={{
-                    opacity: showApplyNow ? 1 : 0,
-                    transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
-                }}
-                onClick={handleApplyNowClick}
-            >
-                Apply Now
-            </Button>
-        );
-    };
-
     return (
         <div className="modal__header-wrapper">
             <div className="modal__header-container">

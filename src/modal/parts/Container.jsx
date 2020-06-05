@@ -18,9 +18,10 @@ const Modal = ({ children }) => {
             case 'GB':
                 return {
                     contentMaxWidth: 750,
-                    contentMaxHeight: 537,
+                    contentMaxHeight: 537
                 };
             case 'US':
+            case 'DE':
             default:
                 return {
                     contentMaxWidth: 612
