@@ -109,7 +109,7 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'default',
+                        tag: 'medium',
                         replace: [['purchases.', 'purchases']],
                         br: ['on ']
                     }
@@ -123,18 +123,23 @@ export default {
                 logo: Logo.PRIMARY.WHITE
             }
         ],
-        // [
-        //     'ratio:20x1',
-        //     {
-        //         headline: ['xsmall', 'small']
-        //     }
-        // ],
-        // [
-        //     'ratio:8x1',
-        //     {
-        //         headline: ['xsmall', 'small']
-        //     }
-        // ],
+        [
+            'ratio:8x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on ']
+                    }
+                ],
+                styles: [
+                    '.message__headline > span:not(.multi) { display: none; }',
+                    '@media (min-aspect-ratio: 80/11) and (min-width: 500px) { .message__headline > span:not(.multi) { display: inline; } }'
+                ]
+            }
+        ],
 
         [
             'color:gray',

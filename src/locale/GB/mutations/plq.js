@@ -117,7 +117,7 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'default',
+                        tag: 'medium',
                         replace: [['month.', 'month']],
                         br: ['of ']
                     }
