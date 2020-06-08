@@ -206,9 +206,8 @@
     }
 
     .header__logo > img:first-child {
-        padding-right: 6px;
         width: 25px;
-        transform: translate(-6px, -2px);
+        transform: translate(-12px, -2px);
     }
 
     .header__logo > img:last-child {
