@@ -386,7 +386,8 @@ function createTemplateNode(options, markup) {
 
     if (
         (objectGet(options, 'style.logo.type') === 'primary' ||
-            objectGet(options, 'style.logo.type') === 'alternative') &&
+            objectGet(options, 'style.logo.type') === 'alternative' ||
+            objectGet(options, 'style.layout') === 'flex') &&
         getLocaleClass() === 'locale--GB'
     ) {
         appendWithProductText();

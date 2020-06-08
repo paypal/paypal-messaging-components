@@ -1,3 +1,7 @@
+.message__logo-container {
+    display: flex;
+}
+
 .message__logo:nth-of-type(1) {
     width: 10px;
     display: inline-block;
@@ -61,6 +65,7 @@
 
     .message__content {
         padding: 2.5vw;
+        padding-left: 0;
     }
 
     .message__disclaimer span.multi:nth-of-type(1) {
