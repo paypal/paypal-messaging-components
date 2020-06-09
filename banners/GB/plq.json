@@ -11,7 +11,13 @@
         }
     },
 
-    "headline": [["3 interest-free payments of {formattedMonthlyPayment}/month.", ["default"]]],
+    "headline": [
+        [
+            ["Pay later with", ["Flex", "product-name"], [".", "weak"]],
+            ["default", "xsmall", "small"]
+        ],
+        ["3 interest-free payments of {formattedMonthlyPayment} per month.", ["medium", "large", "xlarge"]]
+    ],
 
     "subHeadline": [],
 

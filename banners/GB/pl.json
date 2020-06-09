@@ -10,7 +10,13 @@
         }
     },
 
-    "headline": [["3 interest-free payments on eligible purchases.", ["default"]]],
+    "headline": [
+        [
+            ["Pay later with", ["Flex", "product-name"], [".", "weak"]],
+            ["default", "xsmall", "small"]
+        ],
+        ["3 interest-free payments on eligible purchases.", ["medium", "large", "xlarge"]]
+    ],
 
     "subHeadline": [],
 

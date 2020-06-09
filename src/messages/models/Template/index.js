@@ -359,14 +359,7 @@ function createTemplateNode(options, markup) {
         const span = document.createElement('span');
         span.textContent = `${withText} `;
 
-        let el = 'strong';
-        switch (getLocaleClass()) {
-            case 'locale--GB':
-                el = 'span';
-                break;
-            default:
-                break;
-        }
+        const nodeType = getLocaleClass() === 'locale--GB' ? 'span' : 'strong';
 
         /**
          * Inserts a new span with text "PayPal" when insertPPText param is true.
@@ -379,7 +372,7 @@ function createTemplateNode(options, markup) {
             span.appendChild(paypalNode);
         }
 
-        const productNode = document.createElement(`${el}`);
+        const productNode = document.createElement(nodeType);
         productNode.textContent = productName;
         span.appendChild(productNode);
 
