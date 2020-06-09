@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.10.1](https://github.com/paypal/paypal-messaging-components/compare/v1.10.0...v1.10.1) (2020-05-13)
+
+
+### Bug Fixes
+
+* update ramp URL to respond with correct headers ([#201](https://github.com/paypal/paypal-messaging-components/issues/201)) ([5fdc79c](https://github.com/paypal/paypal-messaging-components/commit/5fdc79c772eceeb157d6008dee59c19b13e7138a))
+
+# [1.10.0](https://github.com/paypal/paypal-messaging-components/compare/v1.9.0...v1.10.0) (2020-05-13)
+
+
+### Bug Fixes
+
+* modal memoization ([#199](https://github.com/paypal/paypal-messaging-components/issues/199)) ([c3318cc](https://github.com/paypal/paypal-messaging-components/commit/c3318cc0ce5621d08b4a6c129887973555ae7b71))
+
+
+### Features
+
+* add dynamic apr ([#197](https://github.com/paypal/paypal-messaging-components/issues/197)) ([d6079c9](https://github.com/paypal/paypal-messaging-components/commit/d6079c93c5e485841e4d124616851bbd1f01843f))
+
 # [1.9.0](https://github.com/paypal/paypal-messaging-components/compare/v1.8.0...v1.9.0) (2020-04-16)
 
 

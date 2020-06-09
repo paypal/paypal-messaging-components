@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.9.0",
+    "version": "1.10.1",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -75,6 +75,7 @@
         "prettier": "^1.14.3",
         "prettier-eslint": "^9.0.1",
         "puppeteer": "^2.0.0",
+        "qs": "^6.9.3",
         "webpack": "^4.32.0",
         "webpack-dev-server": "^3.4.1"
     },
