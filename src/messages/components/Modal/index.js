@@ -46,7 +46,8 @@ const renderModal = memoizeOnProps(
 );
 
 export default {
-    init: ({ options, meta, events, track, wrapper }) => {
+    // Extract out the id from options for modal memoization
+    init: ({ options: { id, ...options }, meta, events, track, wrapper }) => {
         // For legacy image banners, open a popup instead of the modal
         if (options._legacy && startsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {

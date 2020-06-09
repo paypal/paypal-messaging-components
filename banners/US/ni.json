@@ -2,7 +2,15 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "NI",
-        "clickUrl": "https://www.paypal.com/ppclander"
+        "lander": "https://www.paypal.com/ppclander",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+        }
     },
 
     "headline": [
@@ -16,8 +24,8 @@
     "subHeadline": [["Check out with PayPal and choose PayPal Credit.", ["default", "small"]]],
 
     "disclaimer": [
-        ["See terms", ["default", "xsmall"]],
-        [["US customers only. Subject to credit approval", ["See terms", "em"]], ["legacy-medium"]],
+        ["Learn more", ["default", "xsmall"]],
+        [["US customers only. Subject to credit approval", ["Learn more", "em"]], ["legacy-medium"]],
         [
             "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months. Minimum monthly payments required.",
             ["xlarge"]

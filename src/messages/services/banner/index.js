@@ -2,6 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
@@ -11,7 +12,9 @@ import {
     objectFlattenToArray,
     getGlobalUrl,
     request,
-    getCurrency
+    getCurrency,
+    createUUID,
+    getWhitelist
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -21,9 +24,9 @@ import createContainer from '../../models/Container';
 import { setLocale } from '../../../locale';
 import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
-// Using same JSONP callback namespace as original merchant.js
-window.__PP = window.__PP || {};
-
+// New fetcher
+const PLACEMENT_VARIANT = 'C'; // A | B | C
+// Old fetcher
 // Specific dimensions tied to JSON banners in Campaign Studio
 // Swap the placement tag when changes for banners and messaging.js are required in sync
 const PLACEMENT = 'x200x51';
@@ -31,18 +34,8 @@ const PLACEMENT = 'x200x51';
 
 const NI_ONLY_PLACEMENT = 'x199x99';
 
-// Creates a mock UUID. Temporary until crcpresentmentnodeserv is live.
-// https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-
-function createUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        // eslint-disable-next-line no-bitwise
-        const r = (Math.random() * 16) | 0;
-        // eslint-disable-next-line no-bitwise
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
+// Using same JSONP callback namespace as original merchant.js
+window.__PP = window.__PP || {};
 
 function mutateMarkup(markup) {
     try {
@@ -68,18 +61,51 @@ function mutateMarkup(markup) {
     }
 }
 
+function fetcherB({ account, merchantId, amount, offerType, currency, countryCode, style: { typeEZP } }) {
+    const rootUrl = getGlobalUrl('MESSAGE_B');
+
+    const queryParams = {
+        merchant_id: merchantId, // Partner integrations
+        amount,
+        currency,
+        country_code: countryCode,
+        variant: PLACEMENT_VARIANT,
+        credit_type: typeEZP === '' || offerType === 'NI' ? 'NI' : undefined
+    };
+
+    if (stringStartsWith(account, 'client-id')) {
+        queryParams.client_id = account.slice(10);
+    } else {
+        queryParams.payer_id = account;
+    }
+
+    const queryString = objectEntries(queryParams)
+        .filter(([, val]) => val)
+        .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
+        .slice(1);
+
+    return request('GET', `${rootUrl}?${queryString}`, { withCredentials: true }).then(res => {
+        const { meta, ...data } = res.data;
+
+        return {
+            markup: { meta, data }
+        };
+    });
+}
+
 /**
  * Fetch banner markup from imadserver via JSONP
  * @param {Object} options Banner options
  * @returns {Promise<string>} Banner Markup
  */
-function fetcher(options) {
+function fetcherA(options) {
     const {
         account,
         merchantId,
         amount,
         offerType,
         currency,
+        countryCode,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -90,11 +116,12 @@ function fetcher(options) {
         const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
-        const rootUrl = getGlobalUrl('MESSAGE');
+        const rootUrl = getGlobalUrl('MESSAGE_A');
         const queryParams = {
             dimensions,
             currency_value: amount,
             currency_code: currency || getCurrency(),
+            country_code: countryCode,
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
@@ -125,6 +152,12 @@ function fetcher(options) {
         window.__PP[callbackName] = markup => {
             document.head.removeChild(script);
             delete window.__PP[callbackName];
+
+            if (__MESSAGES__.__DEMO__) {
+                if (window.__PP_DEMO_BANNER_HOOK) {
+                    window.__PP_DEMO_BANNER_HOOK(markup);
+                }
+            }
 
             // Handles markup for v2, v1, v0
             if (typeof markup === 'object') {
@@ -221,82 +254,96 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
+const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
+const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
+
+function getFetcherByRamp(account, merchantId) {
+    return getWhitelist().then(whitelist => {
+        const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
+
+        return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
+            ? memoFetcherB
+            : memoFetcherA;
+    });
+}
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
 
-    return (objectGet(options, 'style.layout') !== 'custom'
-        ? memoFetcher(options)
-        : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
-              if (typeof data.markup === 'object') {
-                  if (template === '') {
-                      logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
-                  }
-                  data.markup.template = template; // eslint-disable-line no-param-reassign
+    return getFetcherByRamp(options.account, options.merchantId)
+        .then(fetcher =>
+            objectGet(options, 'style.layout') !== 'custom'
+                ? fetcher(options)
+                : ZalgoPromise.all([fetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
+                      if (typeof data.markup === 'object') {
+                          if (template === '') {
+                              logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
+                          }
+                          data.markup.template = template; // eslint-disable-line no-param-reassign
 
-                  return {
-                      markup: data.markup,
-                      options: objectMerge(options, getBannerOptions(logger, template))
-                  };
-              }
+                          return {
+                              markup: data.markup,
+                              options: objectMerge(options, getBannerOptions(logger, template))
+                          };
+                      }
 
-              return { markup: data.markup };
-          })
-    ).then(({ markup, options: customOptions = {} }) => {
-        logger.info(EVENTS.FETCH_END);
+                      return { markup: data.markup };
+                  })
+        )
+        .then(({ markup, options: customOptions = {} }) => {
+            logger.info(EVENTS.FETCH_END);
 
-        const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
-        setLocale(offerCountry);
+            const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
+            setLocale(offerCountry);
 
-        const style = validateStyleOptions(logger, options.style);
+            const style = validateStyleOptions(logger, options.style);
 
-        const totalOptions = {
-            ...options,
-            style,
-            ...customOptions
-        };
-
-        totalOptions.style._flattened = objectFlattenToArray(style);
-
-        if (typeof markup === 'object') {
-            const meta = {
-                ...markup.meta,
-                offerCountry
+            const totalOptions = {
+                ...options,
+                style,
+                ...customOptions
             };
 
-            const template = Template.getTemplateNode(totalOptions, markup);
+            totalOptions.style._flattened = objectFlattenToArray(style);
 
-            if (totalOptions._modalOnly) {
-                return {
-                    markup,
-                    options: totalOptions,
-                    template,
-                    meta: { ...meta, minWidth: template.minWidth }
+            if (typeof markup === 'object') {
+                const meta = {
+                    ...markup.meta,
+                    offerCountry
                 };
+
+                const template = Template.getTemplateNode(totalOptions, markup);
+
+                if (totalOptions._modalOnly) {
+                    return {
+                        markup,
+                        options: totalOptions,
+                        template,
+                        meta: { ...meta, minWidth: template.minWidth }
+                    };
+                }
+
+                return objectGet(totalOptions, 'style.layout') === 'text'
+                    ? getContentMinWidth(template).then(minWidth => ({
+                          markup,
+                          options: totalOptions,
+                          template,
+                          meta: { ...meta, minWidth }
+                      }))
+                    : {
+                          markup,
+                          options: totalOptions,
+                          template,
+                          meta: { ...meta, minWidth: template.minWidth }
+                      };
             }
 
-            return objectGet(totalOptions, 'style.layout') === 'text'
-                ? getContentMinWidth(template).then(minWidth => ({
-                      markup,
-                      options: totalOptions,
-                      template,
-                      meta: { ...meta, minWidth }
-                  }))
-                : {
-                      markup,
-                      options: totalOptions,
-                      template,
-                      meta: { ...meta, minWidth: template.minWidth }
-                  };
-        }
+            const template = document.createElement('div');
+            template.innerHTML = markup || '';
+            if (markup === '') {
+                logger.warn('No message was found for the given configuration parameters.');
+            }
 
-        const template = document.createElement('div');
-        template.innerHTML = markup || '';
-        if (markup === '') {
-            logger.warn('No message was found for the given configuration parameters.');
-        }
-
-        return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
-    });
+            return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
+        });
 }

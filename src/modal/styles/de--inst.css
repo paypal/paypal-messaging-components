@@ -60,6 +60,10 @@
     margin: auto;
 }
 
+.calculator__finance-terms {
+    position: relative;
+}
+
 .calculator__instructions {
     color: #687173;
     position: relative;
@@ -99,10 +103,6 @@
     position: absolute;
     top: 1px;
     right: 1.3rem;
-}
-
-.calculator__spinner {
-    bottom: 100px;
 }
 
 .carousel {

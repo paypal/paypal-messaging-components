@@ -1,5 +1,53 @@
 # Changelog
 
+## [1.10.1](https://github.com/paypal/paypal-messaging-components/compare/v1.10.0...v1.10.1) (2020-05-13)
+
+
+### Bug Fixes
+
+* update ramp URL to respond with correct headers ([#201](https://github.com/paypal/paypal-messaging-components/issues/201)) ([5fdc79c](https://github.com/paypal/paypal-messaging-components/commit/5fdc79c772eceeb157d6008dee59c19b13e7138a))
+
+# [1.10.0](https://github.com/paypal/paypal-messaging-components/compare/v1.9.0...v1.10.0) (2020-05-13)
+
+
+### Bug Fixes
+
+* modal memoization ([#199](https://github.com/paypal/paypal-messaging-components/issues/199)) ([c3318cc](https://github.com/paypal/paypal-messaging-components/commit/c3318cc0ce5621d08b4a6c129887973555ae7b71))
+
+
+### Features
+
+* add dynamic apr ([#197](https://github.com/paypal/paypal-messaging-components/issues/197)) ([d6079c9](https://github.com/paypal/paypal-messaging-components/commit/d6079c93c5e485841e4d124616851bbd1f01843f))
+
+# [1.9.0](https://github.com/paypal/paypal-messaging-components/compare/v1.8.0...v1.9.0) (2020-04-16)
+
+
+### Features
+
+* US modal apply now ([#144](https://github.com/paypal/paypal-messaging-components/issues/144)) ([1d8921d](https://github.com/paypal/paypal-messaging-components/commit/1d8921d871c9766548eb1523406fbbfbb776eb5d))
+
+# [1.8.0](https://github.com/paypal/paypal-messaging-components/compare/v1.7.11...v1.8.0) (2020-04-15)
+
+
+### Features
+
+* add support for NI qualifying message ([#173](https://github.com/paypal/paypal-messaging-components/issues/173)) ([ef45a4f](https://github.com/paypal/paypal-messaging-components/commit/ef45a4fa32a287d6d6420ec6886cedd54434362e))
+
+## [1.7.11](https://github.com/paypal/paypal-messaging-components/compare/v1.7.10...v1.7.11) (2020-04-01)
+
+
+### Bug Fixes
+
+* capture lander clicks ([#175](https://github.com/paypal/paypal-messaging-components/issues/175)) ([dd1c34b](https://github.com/paypal/paypal-messaging-components/commit/dd1c34b05defcebe4b2e030d0aa246d45b6ed94b))
+
+## [1.7.10](https://github.com/paypal/paypal-messaging-components/compare/v1.7.9...v1.7.10) (2020-03-25)
+
+
+### Bug Fixes
+
+* ensure only one zoid component created ([#178](https://github.com/paypal/paypal-messaging-components/issues/178)) ([ff3efe4](https://github.com/paypal/paypal-messaging-components/commit/ff3efe4fd4341bb5c54520b2fbe6974e0e3572fe))
+* pass merchant id with modal calculate call ([#174](https://github.com/paypal/paypal-messaging-components/issues/174)) ([f79d0ab](https://github.com/paypal/paypal-messaging-components/commit/f79d0ab102064744a3ae9113a482f58922b0539a))
+
 ## [1.7.9](https://github.com/paypal/paypal-messaging-components/compare/v1.7.8...v1.7.9) (2020-03-18)
 
 

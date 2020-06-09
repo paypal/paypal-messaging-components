@@ -2,25 +2,30 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "EZP:ANY:GTZ",
-        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+        }
     },
 
     "headline": [
-        ["Pay over ${CREDIT_OFFERS_DS.total_payments} months", ["default", "small"]],
-        ["Enjoy ${CREDIT_OFFERS_DS.total_payments} Easy Payments with PayPal Credit.", ["legacy-small"]]
+        ["Pay over {total_payments} months", ["default", "small"]],
+        ["Enjoy {total_payments} Easy Payments with PayPal Credit.", ["legacy-small"]]
     ],
 
     "subHeadline": [
-        [
-            "Choose PayPal Credit and select ${CREDIT_OFFERS_DS.total_payments} Easy Payments to pay over time",
-            ["legacy-medium"]
-        ]
+        ["Choose PayPal Credit and select {total_payments} Easy Payments to pay over time", ["legacy-medium"]]
     ],
 
     "disclaimer": [
-        ["See terms", ["default", "xsmall"]],
+        ["Learn more", ["default", "xsmall"]],
         ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],
-        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
-        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+        [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]],
+        [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium.2"]]
     ]
 }

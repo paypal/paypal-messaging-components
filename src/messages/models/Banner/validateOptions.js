@@ -19,7 +19,8 @@ const VALID_OPTIONS = {
     onApply: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
-    _modalOnly: [Types.BOOLEAN]
+    _modalOnly: [Types.BOOLEAN],
+    countryCode: [Types.STRING, [undefined, 'US', 'DE']]
 };
 
 // Formalized validation logger helper functions
@@ -43,9 +44,18 @@ function getValidVal(logger, typeArr, val, location) {
     if (validateType(type, val)) {
         if (type === Types.STRING && validVals.length > 0) {
             // Check if aliased value used.
-            const validVal = arrayFind(validVals, v => v.split('|').some(x => x === val));
+            const validVal = arrayFind(validVals, v => {
+                if (typeof v !== 'string') {
+                    return false;
+                }
+                return v.split('|').some(x => x === val);
+            });
+
             if (validVal === undefined) {
                 logInvalidOption(logger, location, validVals, val);
+                if (typeof validVals[0] === 'undefined') {
+                    return validVals[0];
+                }
                 return validVals[0].split('|')[0];
             }
 
