@@ -8,11 +8,15 @@ import { Types, validateType } from './types';
 
 import { getValidOptions } from '../../../locale';
 
+/* TODO: For function types, create a default empty function so as to not need "if" statement blocks where function is called */
+
 const VALID_OPTIONS = {
     id: [Types.STRING],
     merchantId: [Types.STRING],
     _legacy: [Types.BOOLEAN],
     onRender: [Types.FUNCTION],
+    onClick: [Types.FUNCTION],
+    onApply: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']]
 };

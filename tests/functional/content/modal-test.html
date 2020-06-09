@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Modal Test Page</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <style>
+            html,
+            body,
+            .container {
+                margin: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Hides banners behind a white box to prevent diff issues if banner design changes. -->
+        <div
+            class="hide-banner"
+            style="position: absolute; height: 500px; width: 100%; background: white; z-index: 1; pointer-events: none;"
+        ></div>
+        <div class="container banner-1"></div>
+        <br />
+        <div class="container banner-2" data-pp-account="DEV00000000NI"></div>
+        <br />
+        <div class="container banner-3" data-pp-account="DEV0000000PSZ"></div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+            const config = JSON.parse(mappedParams.config);
+
+            /**
+             * Puppeteer has a tendency to timeout when more than one message/banner is on the screen.
+             * setTimeout adds a slight delay to the second message rendering to ensure that Puppeteer
+             * hooks into the first message, clicks said message, and targets the corresponding modal.
+             *
+             * The if statement checks the account of banner-1 and renders a second banner with a different account type.
+             * i.e. if banner-1 is an NI account, render an EZP message and vice versa.
+             */
+
+            paypal.Message.render(config, '.banner-1');
+            if (config.account === 'DEV00000000NI') {
+                setTimeout(() => {
+                    paypal.Message.render(config, '.banner-3');
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    paypal.Message.render(config, '.banner-2');
+                }, 1000);
+            }
+        </script>
+    </body>
+</html>

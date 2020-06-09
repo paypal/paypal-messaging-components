@@ -30,7 +30,7 @@ const invalidAmountWarning = terms =>
 const TermsTable = ({ terms }) => {
     if (terms.error) {
         return (
-            <h3 id="terms-error">
+            <h3 className="finance-terms__error">
                 There was an error retrieving your payment options for this purchase. Please try again later.{' '}
             </h3>
         );
@@ -61,7 +61,7 @@ const TermsTable = ({ terms }) => {
 
     return (
         <Fragment>
-            <table>
+            <table className="finance-terms__table">
                 <thead>
                     <tr>
                         {terms.type === 'pala' && (
@@ -106,9 +106,7 @@ const TermsTable = ({ terms }) => {
                 </tbody>
             </table>
             {(!terms.offers || terms.offers.length === 0) && invalidAmountWarning(terms)}
-            <p id="terms-note">
-                The monthly payment shown is an estimated amount and may not include taxes and shipping
-            </p>
+            <p className="finance-terms__note">These estimates may not include taxes and shipping.</p>
         </Fragment>
     );
 };

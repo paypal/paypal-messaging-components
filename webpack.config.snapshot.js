@@ -30,7 +30,7 @@ module.exports = (env = {}) => {
         before: devServerProxy
     };
 
-    const MODAL_CONFIG = getWebpackConfig({
+    const MODAL_DEV_CONFIG = getWebpackConfig({
         entry: './src/modal/index.js',
         libraryTarget: 'window',
         modulename: 'crc',
@@ -41,5 +41,5 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [MESSAGES_CONFIG, MODAL_CONFIG];
+    return [MESSAGES_CONFIG, MODAL_DEV_CONFIG];
 };

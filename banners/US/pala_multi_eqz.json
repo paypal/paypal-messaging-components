@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PALA:MULTI:EQZ",
-        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
     },
 
     "headline": [
@@ -27,8 +27,8 @@
     ],
 
     "disclaimer": [
-        ["See terms", ["default", "small"]],
-        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-small"]],
-        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]]
+        ["Learn more", ["default", "small"]],
+        [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-small"]],
+        [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]]
     ]
 }
