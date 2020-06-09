@@ -12,3 +12,8 @@
     font-style: normal;
     font-weight: normal;
 }
+
+.weak {
+    transform: translateX(-90%);
+    display: inline-block;
+}

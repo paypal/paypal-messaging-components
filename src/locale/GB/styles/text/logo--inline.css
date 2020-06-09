@@ -2,7 +2,7 @@
     content: '';
 }
 
-.message__headline > .tag--default > span::before {
+.message__headline > .tag--medium > span::before {
     content: 'Or ';
 }
 
@@ -26,7 +26,27 @@
     font-style: italic;
 }
 
+.message__headline span.multi:nth-child(2) > span:first-child::after {
+    content: ' Pay';
+    color: #003087;
+    font-weight: 600;
+    font-style: italic;
+    display: inline-block;
+    transform: translateX(12%);
+}
+
 .message__disclaimer > .tag--default > span {
     font-weight: 500;
     color: #0070ba;
+}
+
+.product-name {
+    color: #003087;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.product-name::before {
+    color: #009cde;
+    content: 'Pal ';
 }
