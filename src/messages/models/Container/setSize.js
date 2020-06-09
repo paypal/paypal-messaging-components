@@ -1,6 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayEvery from 'core-js-pure/stable/array/every';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import arrayFind from 'core-js-pure/stable/array/find';
 
 import { curry, objectGet } from '../../../utils';
 import events from './events';
@@ -226,21 +227,40 @@ export default curry((container, { wrapper, options, logger, meta }) => {
              * Assign root to the first element with a height *not* equal to the window height.
              * In most cases, the bounding box (root) will be assigned to <html>, but this accounts for cases
              * where <html> or <body> might have a set height, potentially hiding the message when it is out of the viewport.
+             *
+             * The "root" function inside of domCheck will check if current element has a parentNode.
+             * If so, then check if the current node is an element, and add to domArr. "Root" function then runs again for the next element up the tree.
+             * If not an element, its parent is fed into the "root" function to repeat the check.
+             *
+             * Elements in domArr are searched for the first element with a computed style height !== the window height.
              */
-            const root = Array.prototype.slice
-                .call(document.querySelectorAll('*'))
-                .filter(myEl => {
-                    return (
-                        myEl.getBoundingClientRect().height !== window.innerHeight &&
-                        !myEl.tagName.match(/(STYLE|SCRIPT|HEAD|LINK|META|TITLE)/g)
-                    );
-                })
-                .shift();
+            const domCheck = baseEl => {
+                const domArr = [];
+
+                const root = searchEl => {
+                    if (searchEl.parentNode) {
+                        if (searchEl.nodeType !== Node.ELEMENT_NODE) {
+                            root(searchEl.parentNode);
+                        }
+                        domArr.unshift(searchEl);
+                        root(searchEl.parentNode);
+                    }
+                };
+
+                root(baseEl);
+
+                return arrayFind(domArr, item => {
+                    return window.getComputedStyle(item).height !== `${window.innerHeight}px`;
+                });
+            };
+
             // eslint-disable-next-line compat/compat
             const observer = new IntersectionObserver(
-                (entries, io) => {
+                (entries, observe) => {
                     entries.forEach(entry => {
                         if (entry.intersectionRatio < 0.9 || entry.boundingClientRect.width < minWidth) {
+                            const minHeight = parseInt(container.getAttribute('height'), 10) + 1;
+                            const parentContainerHeight = entry.target.parentNode.getBoundingClientRect().height;
                             if (
                                 arrayEvery(
                                     objectEntries(minSizeOptions),
@@ -249,12 +269,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                             ) {
                                 logger.error({ name: ERRORS.MESSAGE_HIDDEN });
                                 logger.warn(
-                                    `Message hidden. PayPal Credit Message fallback requires minimum dimensions of ${minWidth}px x ${parseInt(
-                                        container.getAttribute('height'),
-                                        10
-                                    ) + 1}px. Your current container is ${parentContainerWidth}px x ${
-                                        entry.target.parentNode.getBoundingClientRect().height
-                                    }px. Message hidden.`
+                                    `Message hidden. PayPal Credit Message fallback requires minimum dimensions of ${minWidth}px x ${minHeight}px. Your current container is ${parentContainerWidth}px x ${parentContainerHeight}px. Message hidden.`
                                 );
                                 container.setAttribute('data-pp-message-hidden', 'true');
                                 // eslint-disable-next-line no-param-reassign
@@ -264,12 +279,7 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                     `Message Overflow. PayPal Credit Message of layout type ${objectGet(
                                         options,
                                         'style.layout'
-                                    )} requires minimum dimensions of ${minWidth}px x ${parseInt(
-                                        container.getAttribute('height'),
-                                        10
-                                    ) + 1}px. Your current container is ${parentContainerWidth}px x ${
-                                        entry.target.parentNode.getBoundingClientRect().height
-                                    }px.  Attempting fallback message.`
+                                    )} requires minimum dimensions of ${minWidth}px x ${minHeight}px. Your current container is ${parentContainerWidth}px x ${parentContainerHeight}px. Attempting fallback message.`
                                 );
 
                                 // Highest priority styles, will re-render from attribute observer
@@ -279,11 +289,11 @@ export default curry((container, { wrapper, options, logger, meta }) => {
                                 });
                             }
                         }
-                        io.disconnect();
                     });
+                    observe.disconnect();
                 },
                 {
-                    root
+                    root: domCheck(wrapper)
                 }
             );
             if (el) observer.observe(el);
