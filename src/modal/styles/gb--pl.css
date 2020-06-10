@@ -147,6 +147,11 @@
         font-style: italic;
     }
 
+    .thumbs-up {
+        position: absolute;
+        transform: translate(0px, -30px);
+    }
+
     .checkmark {
         margin-top: 22px;
     }
@@ -161,6 +166,16 @@
 
     .mobile-break {
         display: none;
+    }
+
+    .modal__wrapper {
+        opacity: 0;
+        transition: opacity 250ms ease;
+    }
+
+    .modal__container--show .modal__wrapper {
+        opacity: 1;
+        transition: opacity 250ms ease;
     }
 }
 
@@ -284,6 +299,10 @@
     .container-right-content > p:last-child > span {
         font-weight: 600;
         font-style: italic;
+    }
+
+    .thumbs-up {
+        display: none;
     }
 
     .checkmark {

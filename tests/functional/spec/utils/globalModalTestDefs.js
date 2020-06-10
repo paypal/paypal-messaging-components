@@ -2,19 +2,25 @@ import selectors from './selectors';
 import modalSnapshot from './modalSnapshot';
 
 /**
- * General modal function tests for both the US & DE locales.
- * Runs inside of ModalFunc-(text/flex) for both the US and DE locale.
+ * General modal function tests for the US, DE, and GB locales.
+ * Runs inside of ModalFunc-(text/flex) for the US, DE, and GB locales.
  */
 
 export const xClosesModal = (account, viewport, bannerStyle) => async () => {
-    const testNameParts = account === 'DEV00000000NI' ? 'ni x button closes modal' : 'ezp x button closes modal';
+    let testNameParts = 'ezp x button closes modal';
+
+    if (account.includes('NI')) {
+        testNameParts = 'ni x button closes modal';
+    } else if (account.includes('GBPL')) {
+        testNameParts = 'gb x button closes modal';
+    }
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
     await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
     await page.waitFor(1000);
     await modalFrame.click(selectors.button.closeBtn, { visible: true });
-    await page.waitFor(200);
+    await page.waitFor(500);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
@@ -24,7 +30,7 @@ export const closeModalEsc = (account, viewport, bannerStyle) => async () => {
     await page.waitFor(500);
     await page.keyboard.press('Escape');
     await page.waitForSelector('body');
-    await page.waitFor(200);
+    await page.waitFor(500);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
@@ -38,7 +44,7 @@ export const clickOutsideClosesModal = (account, viewport, bannerStyle) => async
         visible: true
     });
     await modalFrame.click(selectors.modal.overlaySide);
-    await page.waitFor(200);
+    await page.waitFor(500);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
@@ -59,7 +65,7 @@ export const closeReopenModal = (account, viewport, bannerStyle) => async () => 
     await modalFrame.waitForSelector('body');
     await page.waitFor(1000);
     await modalFrame.click(selectors.button.closeBtn);
-    await page.waitFor(200);
+    await page.waitFor(500);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };

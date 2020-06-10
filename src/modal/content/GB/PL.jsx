@@ -13,7 +13,7 @@ const isEligible = terms => {
     }
     return (
         <h1>
-            3 interest-free payments of <br /> £{terms.offers[0].monthly}/month with Flex
+            3 interest-free payments of <br /> £{terms.offers[0].monthly} per month with Flex
         </h1>
     );
 };
@@ -30,7 +30,9 @@ const PL = () => {
                 <div className="icecream icon-container">
                     <Icon name="icecream" />
                 </div>
-                {/* TODO: placeholderSpace is temporary. Animation will go here. */}
+                <div>
+                    <Icon name="thumbs-up" />
+                </div>
                 <div className="placeholderSpace" />
                 <div className="content-body__terms">
                     <p>
