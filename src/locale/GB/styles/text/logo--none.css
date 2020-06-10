@@ -2,7 +2,7 @@
     display: inline-block;
 }
 
-.message__headline > .tag--default > span::before {
+.message__headline > .tag--medium > span::before {
     content: 'Or ';
 }
 
@@ -12,5 +12,9 @@
 }
 
 .message__headline > span:last-child > span::before {
+    content: 'PayPal ';
+}
+
+.product-name::before {
     content: 'PayPal ';
 }
