@@ -228,28 +228,22 @@ export default curry((container, { wrapper, options, logger, meta }) => {
              * In most cases, the bounding box (root) will be assigned to <html>, but this accounts for cases
              * where <html> or <body> might have a set height, potentially hiding the message when it is out of the viewport.
              *
-             * The "root" function inside of domCheck will check if current element has a parentNode.
-             * If so, then check if the current node is an element, and add to domArr. "Root" function then runs again for the next element up the tree.
-             * If not an element, its parent is fed into the "root" function to repeat the check.
+             * The while loop inside of domCheck will check if current element has a parentNode.
+             * If so, then check if the current node is an element, and add to domArr. While loop then runs again for the next element up the tree.
+             * If not an element, its parent is fed into the function to repeat the check.
              *
              * Elements in domArr are searched for the first element with a computed style height !== the window height.
              */
             const domCheck = baseEl => {
                 const domArr = [];
+                let currentEl = baseEl;
 
-                const root = searchEl => {
-                    if (searchEl.parentNode) {
-                        if (searchEl.nodeType !== Node.ELEMENT_NODE) {
-                            root(searchEl.parentNode);
-                        }
-                        domArr.unshift(searchEl);
-                        root(searchEl.parentNode);
-                    }
-                };
+                while (currentEl.parentNode?.nodeType === Node.ELEMENT_NODE) {
+                    domArr.push(currentEl);
+                    currentEl = currentEl.parentNode;
+                }
 
-                root(baseEl);
-
-                return arrayFind(domArr, item => {
+                return arrayFind(domArr.reverse(), item => {
                     return window.getComputedStyle(item).height !== `${window.innerHeight}px`;
                 });
             };
