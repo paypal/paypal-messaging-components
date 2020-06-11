@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, memoize } from '../../../utils';
+import { memoizeOnProps } from '../../../utils';
 import Modal from './component';
 
 function getModalType(offerCountry, offerType) {
@@ -14,50 +14,8 @@ function getModalType(offerCountry, offerType) {
     }
 }
 
-const useViewportHijack = memoize(() => {
-    const placeholderViewport = document.createElement('meta');
-    placeholderViewport.setAttribute('name', 'viewport');
-    placeholderViewport.setAttribute('content', '');
-
-    const originalViewport = document.head.querySelector('meta[name="viewport"]');
-
-    const hijackViewport = document.createElement('meta');
-    hijackViewport.setAttribute('name', 'viewport');
-    hijackViewport.setAttribute(
-        'content',
-        'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
-    );
-
-    const replaceViewport = originalViewport || placeholderViewport;
-
-    if (!originalViewport) {
-        // If no viewport exists, some browsers will not respect the change of simply removing the hijack viewport
-        // Add a blank viewport to replace the hijack in this case
-        document.head.appendChild(placeholderViewport);
-    }
-
-    const originalBodyStyle = document.body.getAttribute('style');
-
-    return [
-        () => {
-            document.head.removeChild(replaceViewport);
-            document.head.appendChild(hijackViewport);
-
-            document.body.style.overflow = 'hidden';
-            document.body.style.msOverflowStyle = 'scrollbar';
-        },
-        () => {
-            document.head.removeChild(hijackViewport);
-            document.head.appendChild(replaceViewport);
-
-            document.body.setAttribute('style', originalBodyStyle || '');
-        }
-    ];
-});
-
 const renderModal = memoizeOnProps(
     ({ options, meta, track, wrapper, type }) => {
-        const [hijackViewport, replaceViewport] = useViewportHijack();
         const { render, hide, updateProps } = Modal({
             account: options.account,
             merchantId: options.merchantId,
@@ -74,24 +32,17 @@ const renderModal = memoizeOnProps(
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
             },
             onClose: linkName => {
-                replaceViewport();
                 wrapper.firstChild.focus();
                 track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
             }
         });
-
-        const show = () => {
-            updateProps({ visible: true });
-            hijackViewport();
-        };
 
         hide();
         // The render promise will resolve before Preact renders and picks up changes
         // via updateProps so a small delay is added after the initial "render" promise
         return {
             renderProm: render('body').then(() => ZalgoPromise.delay(100)),
-            updateProps,
-            show
+            updateProps
         };
     },
     ['options', 'meta', 'type']
@@ -119,13 +70,13 @@ export default {
             });
         } else {
             const modalType = getModalType(meta.offerCountry, meta.offerType);
-            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: modalType });
+            const { renderProm, updateProps } = renderModal({ options, meta, track, wrapper, type: modalType });
 
             events.on('click', () => {
                 renderProm.then(() => {
                     track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
 
-                    show();
+                    updateProps({ visible: true });
                 });
             });
         }
