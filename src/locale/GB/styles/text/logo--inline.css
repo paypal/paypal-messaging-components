@@ -1,5 +1,5 @@
-.message__logo-container::before {
-    content: '';
+.message__logo-container {
+    display: none;
 }
 
 .message__headline > .tag--medium > span::before {

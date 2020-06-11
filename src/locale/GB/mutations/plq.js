@@ -75,8 +75,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 30),
-                    gbPLAltContentMediaQuery(textSize * 17 + 8, textSize * 30),
+                    fallbackMediaQuery(textSize * 28),
+                    gbPLAltContentMediaQuery(textSize * 17 + 8, textSize * 28),
                     `.message__logo-container { width: ${textSize * 2}px; }`,
                     `.message__logo { width: ${textSize * 4}px; }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -95,7 +95,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 15)],
+                styles: [fallbackMediaQuery(textSize * 29 + 25)],
                 logo: false,
                 headline: [
                     {
@@ -110,7 +110,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 15)],
+                styles: [fallbackMediaQuery(textSize * 29 + 31)],
                 logo: false,
                 headline: [
                     {

@@ -75,8 +75,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 29),
-                    gbPLAltContentMediaQuery(textSize * 17 + 7, textSize * 29),
+                    fallbackMediaQuery(textSize * 28),
+                    gbPLAltContentMediaQuery(textSize * 17 + 7, textSize * 28),
                     `.message__logo-container { width: ${textSize * 2}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
