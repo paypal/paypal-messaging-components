@@ -15,15 +15,9 @@ function getModalType(offerCountry, offerType) {
 }
 
 const renderModal = memoizeOnProps(
-    ({ options, meta, track, wrapper, type }) => {
+    ({ options, track, wrapper, type }) => {
         const { render, hide, updateProps } = Modal({
-            account: options.account,
-            merchantId: options.merchantId,
-            country: meta.offerCountry,
-            currency: options.currency,
             type,
-            amount: options.amount,
-            refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
             onClick: linkName => {
                 if (options.onApply && linkName.includes('Apply Now')) {
@@ -42,7 +36,7 @@ const renderModal = memoizeOnProps(
         // via updateProps so a small delay is added after the initial "render" promise
         return { renderProm: render('body').then(() => ZalgoPromise.delay(100)), updateProps };
     },
-    ['options', 'meta', 'type']
+    ['type']
 );
 
 export default {
@@ -73,7 +67,15 @@ export default {
                 renderProm.then(() => {
                     track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
 
-                    updateProps({ visible: true });
+                    updateProps({
+                        visible: true,
+                        account: options.account,
+                        merchantId: options.merchantId,
+                        country: meta.offerCountry,
+                        currency: options.currency,
+                        amount: options.amount,
+                        refId: meta.messageRequestId
+                    });
                 });
             });
         }

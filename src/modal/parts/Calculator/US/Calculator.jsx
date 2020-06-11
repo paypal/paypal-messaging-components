@@ -13,8 +13,15 @@ const Calculator = () => {
             <div className="calculator">
                 <h2 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h2>
                 <form className="calculator__form" onSubmit={submit}>
-                    <input className="calculator__input" type="text" value={value} onInput={changeInput} />
-                    <Button className="calculator__button" type="submit" secondary>
+                    <input
+                        className="calculator__input"
+                        type="text"
+                        value={value}
+                        onInput={changeInput}
+                        disabled={isLoading}
+                        style={{ opacity: isLoading ? '0.5' : '1' }}
+                    />
+                    <Button className="calculator__button" type="submit" secondary disabled={isLoading}>
                         Calculate
                     </Button>
                 </form>
@@ -22,9 +29,7 @@ const Calculator = () => {
 
             <section className="calculator__finance-terms">
                 <div className="spinner" style={{ opacity: isLoading ? '1' : '0' }} />
-                <div style={{ opacity: isLoading ? '0.5' : '1' }}>
-                    <TermsTable terms={terms} />
-                </div>
+                <div style={{ opacity: isLoading ? '0.5' : '1' }}>{terms ? <TermsTable terms={terms} /> : null}</div>
             </section>
         </Fragment>
     );

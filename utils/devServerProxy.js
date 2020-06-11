@@ -27,12 +27,9 @@ module.exports = app => {
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { country, amount } = req.query;
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
-            terms: getTerms(country, Number(amount)),
-            meta: {},
-            payerId: 'DEV00000000NI'
+            meta: {}
         };
 
         res.send(`
@@ -56,7 +53,9 @@ module.exports = app => {
     app.post('/credit-presentment/calculateTerms', (req, res) => {
         const { country, amount } = req.query;
 
-        res.send(getTerms(country, Number(amount)));
+        setTimeout(() => {
+            res.send(getTerms(country, Number(amount)));
+        }, 3000);
     });
 
     app.get('/credit-presentment/messages', (req, res) => {

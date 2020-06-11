@@ -32,7 +32,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: false,
                 sendToChild: false,
-                required: true
+                required: false
             },
             merchantId: {
                 type: 'string',
@@ -48,7 +48,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             country: {
                 type: 'string',
                 queryParam: true,
-                required: true
+                required: false
             },
             currency: {
                 type: 'string',
@@ -87,13 +87,15 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? undefined : props.account),
+                value: ({ props }) =>
+                    props.account && startsWith(props.account, 'client-id:') ? undefined : props.account,
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined),
+                value: ({ props }) =>
+                    props.account && startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
                 required: false
             },
             targetMeta: {

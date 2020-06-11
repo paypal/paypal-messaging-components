@@ -4,14 +4,24 @@ import { h } from 'preact';
 import { forwardRef } from 'preact/compat';
 
 const Button = forwardRef(
-    ({ secondary, children, size, className, type = 'button', style = {}, onClick = () => {} }, ref) => {
+    (
+        { secondary, children, size, className, type = 'button', style = {}, onClick = () => {}, disabled = false },
+        ref
+    ) => {
         const classes = ['button'];
         if (secondary) classes.push('button--secondary');
         if (size) classes.push(`button--${size}`);
         if (className) classes.push(className);
 
         return (
-            <button ref={ref} className={classes.join(' ')} type={type} style={style} onClick={onClick}>
+            <button
+                ref={ref}
+                className={classes.join(' ')}
+                type={type}
+                style={style}
+                onClick={onClick}
+                disabled={disabled}
+            >
                 {children}
             </button>
         );
