@@ -70,7 +70,7 @@
     .header__logo img:last-child {
         height: 28px;
         width: 98px;
-        padding-left: 10px;
+        padding-left: 7px;
         margin-top: 5px;
     }
     .content-body__terms {
@@ -224,18 +224,20 @@
 
     .header__logo {
         display: flex;
+        width: auto;
         align-items: center;
         justify-content: center;
     }
 
     .header__logo > img:first-child {
         width: 25px;
-        transform: translate(-12px, -2px);
+        margin-right: 13px;
+        transform: translateY(-1px);
     }
 
     .header__logo > img:last-child {
         width: 84px;
-        transform: translateX(-4px);
+        transform: translateX(-7px);
     }
 
     .header__close {
@@ -284,6 +286,10 @@
         z-index: 9;
         order: 2;
         margin-top: -250px;
+    }
+
+    .headline-container {
+        white-space: nowrap;
     }
 
     .subheadline {
