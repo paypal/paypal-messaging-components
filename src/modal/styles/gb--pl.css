@@ -21,7 +21,7 @@
         padding-left: 20px;
         color: white;
         font-family: 'PayPalSansBig';
-        font-size: 13px;
+        font-size: 14px;
         letter-spacing: 0.25px;
     }
     .modal__content-background {
@@ -103,7 +103,7 @@
     .modal__main::after {
         content: '';
         background-color: #0070ba;
-        width: 65%;
+        width: 67%;
         height: 850px;
         border-bottom-right-radius: 100%;
         border-top-right-radius: 100%;
@@ -116,7 +116,7 @@
         z-index: 9;
     }
     .container-right {
-        width: 38%;
+        width: 34%;
     }
 
     .modal__content-background::after {
