@@ -126,14 +126,7 @@ export default {
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 29 + 15),
-                    whiteTextMediaQuery(textSize * 29 + 15),
-                    '.locale--GB .message__headline .pp-text-logo::before { color: white; }',
-                    '.locale--GB .message__headline .pp-text-logo::after { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child::after { color: white; }'
-                ],
+                styles: [fallbackMediaQuery(textSize * 29 + 31), whiteTextMediaQuery()],
                 logo: false
             })
         ],
