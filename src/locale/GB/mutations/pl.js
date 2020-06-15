@@ -1,10 +1,5 @@
 import Logo from '../logos';
-import {
-    gbPLContentMediaQuery,
-    fallbackMediaQuery,
-    gbPLAltContentMediaQuery,
-    whiteTextMediaQuery
-} from './mediaQueries';
+import { gbPLContentMediaQuery, fallbackMediaQuery, gbPLAltContentMediaQuery } from './mediaQueries';
 import { messageDisclaimerMediaQuery } from '../../US/mutations/mediaQueries';
 
 export default {
@@ -120,7 +115,7 @@ export default {
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 25), whiteTextMediaQuery()],
+                styles: [fallbackMediaQuery(textSize * 29 + 25)],
                 logo: false
             })
         ],
