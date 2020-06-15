@@ -3,7 +3,22 @@ import { useContext, useReducer, useEffect } from 'preact/hooks';
 
 import { useXProps } from './helpers';
 import { ServerContext } from '../context';
-import { request } from '../../../utils';
+import { request, memoizeOnProps } from '../../../utils';
+
+const termsFetcher = memoizeOnProps(
+    (params, csrf) => {
+        const query = objectEntries(params)
+            .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
+            .slice(1);
+
+        return request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
+            headers: {
+                'x-csrf-token': csrf
+            }
+        });
+    },
+    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
+);
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -68,15 +83,7 @@ export default function useCalculator() {
             merchant_id: merchantId
         };
 
-        const query = objectEntries(params)
-            .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
-            .slice(1);
-
-        request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
-            headers: {
-                'x-csrf-token': meta.csrf
-            }
-        }).then(({ data }) => {
+        termsFetcher(params, meta.csrf).then(({ data }) => {
             dispatch({ type: 'terms', data });
         });
     };

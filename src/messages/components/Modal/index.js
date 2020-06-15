@@ -15,9 +15,18 @@ function getModalType(offerCountry, offerType) {
 }
 
 const renderModal = memoizeOnProps(
-    ({ options, track, wrapper, type }) => {
+    ({ options, track, wrapper, type, meta }) => {
         const { render, hide, updateProps } = Modal({
             type,
+
+            // Even though these props are not included in memoize,
+            // we want to pass the initial values in so we can preload one set of terms
+            account: options.account,
+            merchantId: options.merchantId,
+            country: meta.offerCountry,
+            currency: options.currency,
+            amount: options.amount,
+            refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
             onClick: linkName => {
                 if (options.onApply && linkName.includes('Apply Now')) {
