@@ -3,14 +3,14 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useViewport } from '../lib/hooks';
+import { useTransitionState, useXProps } from '../lib/hooks';
 import ScrollState from '../lib/scroll';
 import Header from './Header';
 import Overlay from './Overlay';
 
 const Modal = ({ children }) => {
     const [transitionState] = useTransitionState();
-    const [hijackViewport, resetViewport] = useViewport();
+    const { hijackViewport, replaceViewport } = useXProps();
     const contentWrapper = useRef();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const Modal = ({ children }) => {
         }
 
         if (transitionState === 'CLOSING') {
-            resetViewport();
+            replaceViewport();
         }
     }, [transitionState]);
 
