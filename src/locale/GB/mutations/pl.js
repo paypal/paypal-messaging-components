@@ -77,7 +77,7 @@ export default {
                     messageDisclaimerMediaQuery(textSize * 34 + 10),
                     fallbackMediaQuery(textSize * 28),
                     gbPLAltContentMediaQuery(textSize * 17 + 7, textSize * 28),
-                    `.message__logo-container { width: ${textSize * 2}px }`,
+                    `.message__logo-container { width: ${textSize * 1.75}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
                 ],
@@ -110,7 +110,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 14)],
+                styles: [fallbackMediaQuery(textSize * 29 + 25)],
                 logo: false,
                 headline: [{ tag: 'medium', replace: [['purchases.', 'purchases']] }, { tag: 'xsmall' }],
                 disclaimer: ['default']
@@ -120,14 +120,7 @@ export default {
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 29 + 15),
-                    whiteTextMediaQuery(textSize * 29 + 15),
-                    '.locale--GB .message__headline .pp-text-logo::before { color: white; }',
-                    '.locale--GB .message__headline .pp-text-logo::after { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child::after { color: white; }'
-                ],
+                styles: [fallbackMediaQuery(textSize * 29 + 25), whiteTextMediaQuery()],
                 logo: false
             })
         ],
