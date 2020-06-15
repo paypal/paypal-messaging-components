@@ -148,8 +148,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['of ']
+                        replace: [['month.', 'month']]
                     }
                 ],
                 disclaimer: 'xsmall'
@@ -161,18 +160,30 @@ export default {
                 logo: Logo.PRIMARY.WHITE
             }
         ],
-        // [
-        //     'ratio:20x1',
-        //     {
-        //         headline: ['xsmall', 'small']
-        //     }
-        // ],
-        // [
-        //     'ratio:8x1',
-        //     {
-        //         headline: ['xsmall', 'small']
-        //     }
-        // ],
+        [
+            'ratio:20x1',
+            {
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['of ']
+                    }
+                ]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['of ']
+                    }
+                ]
+            }
+        ],
 
         [
             'color:gray',

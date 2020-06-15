@@ -10,6 +10,10 @@
     width: 100%;
 }
 
+.message__headline {
+    line-height: 1.55em;
+}
+
 @media (min-width: 220px) {
     .message__headline span.multi:nth-of-type(1) {
         display: none;

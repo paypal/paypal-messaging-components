@@ -18,6 +18,10 @@
     flex: 0 0 75%;
 }
 
+.message__headline {
+    line-height: 1.4em;
+}
+
 @media (min-aspect-ratio: 80/11) {
     .message__headline {
         font-size: 3.4vw;

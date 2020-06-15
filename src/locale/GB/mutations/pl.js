@@ -142,8 +142,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['on ']
+                        replace: [['purchases.', 'purchases']]
                     }
                 ],
                 disclaimer: 'xsmall'
@@ -153,6 +152,18 @@ export default {
             'ratio:1x1',
             {
                 logo: Logo.PRIMARY.WHITE
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on ']
+                    }
+                ]
             }
         ],
         [
