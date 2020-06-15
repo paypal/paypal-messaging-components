@@ -6,6 +6,10 @@
     line-height: 1.1em;
 }
 
+.message__logo-container {
+    display: flex;
+}
+
 .message__logo:nth-of-type(1) {
     width: 12px;
     display: inline-block;
