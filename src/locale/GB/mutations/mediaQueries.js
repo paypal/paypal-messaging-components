@@ -30,34 +30,6 @@ export function fallbackMediaQuery(breakpoint) {
 `;
 }
 
-// Changes "PayPal Flex" font color to white for inline style.
-export function whiteTextMediaQuery() {
-    return `
-    .locale--GB .message__headline span.multi:nth-child(2) > span:first-child::after {
-        color: white;
-    }
-    .product-name::before {
-        color: white;
-    }
-    .product-name {
-        color: white;
-    }
-    .locale--GB .message__headline .pp-text-logo::before { 
-        color: white; 
-    }
-    .locale--GB .message__headline .pp-text-logo::after { 
-        color: white; 
-    }
-    .locale--GB .message__headline > span:last-child > span:last-child { 
-        color: white; 
-    }
-    .locale--GB .message__headline > span:last-child > span:last-child::after { 
-        color: white; 
-    }
-} 
-    `;
-}
-
 // Moves PayPal logo to position right for logo primary message config.
 export function gbPLContentMediaQuery(breakpoint) {
     return `
