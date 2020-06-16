@@ -82,16 +82,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-            hijackViewport: {
-                type: 'function',
-                queryParam: false,
-                required: false
-            },
-            replaceViewport: {
-                type: 'function',
-                queryParam: false,
-                required: false
-            },
 
             // Computed Props
             payerId: {

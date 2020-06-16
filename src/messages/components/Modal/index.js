@@ -87,19 +87,23 @@ const renderModal = memoizeOnProps(
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
             },
             onClose: linkName => {
+                replaceViewport();
                 wrapper.firstChild.focus();
                 track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
-            },
-            hijackViewport,
-            replaceViewport
+            }
         });
+
+        const show = () => {
+            hijackViewport();
+            updateProps({ visible: true });
+        };
 
         hide();
         // The render promise will resolve before Preact renders and picks up changes
         // via updateProps so a small delay is added after the initial "render" promise
         return {
             renderProm: render('body').then(() => ZalgoPromise.delay(100)),
-            updateProps
+            show
         };
     },
     ['options', 'meta', 'type']
@@ -127,13 +131,13 @@ export default {
             });
         } else {
             const modalType = getModalType(meta.offerCountry, meta.offerType);
-            const { renderProm, updateProps } = renderModal({ options, meta, track, wrapper, type: modalType });
+            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: modalType });
 
             events.on('click', () => {
                 renderProm.then(() => {
                     track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
 
-                    updateProps({ visible: true });
+                    show();
                 });
             });
         }
