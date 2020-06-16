@@ -3,22 +3,32 @@ import { useContext, useReducer, useEffect } from 'preact/hooks';
 
 import { useXProps } from './helpers';
 import { ServerContext } from '../context';
-import { request, memoizeOnProps } from '../../../utils';
+import { request } from '../../../utils';
 
-const termsFetcher = memoizeOnProps(
-    (params, csrf) => {
+const termsCache = new Map();
+
+const getCacheKey = params =>
+    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id'].map(key => params[key]).join('_');
+
+const termsFetcher = async (params, csrf) => {
+    const cacheKey = getCacheKey(params);
+
+    if (!termsCache.has(cacheKey)) {
         const query = objectEntries(params)
             .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
             .slice(1);
 
-        return request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
+        const { data } = await request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
             headers: {
                 'x-csrf-token': csrf
             }
         });
-    },
-    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
-);
+
+        termsCache.set(cacheKey, data);
+    }
+
+    return termsCache.get(cacheKey);
+};
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -63,34 +73,50 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms, meta } = useContext(ServerContext);
+    const { terms: initialTerms, meta } = useContext(ServerContext);
     const { payerId, clientId, merchantId, country, onCalculate, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: terms ? localize(country, terms.amount) : '',
-        prevValue: terms ? localize(country, terms.amount) : '',
-        terms,
+        inputValue: localize(country, initialTerms.amount),
+        prevValue: localize(country, initialTerms.amount),
+        terms: initialTerms,
         isLoading: false
     });
+
+    const params = {
+        country,
+        client_id: clientId,
+        payer_id: payerId,
+        merchant_id: merchantId
+    };
 
     const fetchTerms = inputAmount => {
         dispatch({ type: 'fetch' });
 
-        const params = {
-            amount: inputAmount,
-            country,
-            client_id: clientId,
-            payer_id: payerId,
-            merchant_id: merchantId
-        };
-
-        termsFetcher(params, meta.csrf).then(({ data }) => {
+        termsFetcher(
+            {
+                ...params,
+                amount: inputAmount
+            },
+            meta.csrf
+        ).then(data => {
             dispatch({ type: 'terms', data });
         });
     };
 
+    // Add server-rendered terms to cache
+    useEffect(() => {
+        termsCache.set(
+            getCacheKey({
+                ...params,
+                amount
+            }),
+            initialTerms
+        );
+    }, []);
+
     // Automatically fetch terms when props change
     useEffect(() => {
-        if (amount) {
+        if (localize(country, amount) !== state.inputValue) {
             fetchTerms(amount);
         }
     }, [payerId, clientId, merchantId, country, amount]);

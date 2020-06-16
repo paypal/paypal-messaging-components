@@ -29,7 +29,9 @@ const Calculator = () => {
 
             <section className="calculator__finance-terms">
                 <div className="spinner" style={{ opacity: isLoading ? '1' : '0' }} />
-                <div style={{ opacity: isLoading ? '0.5' : '1' }}>{terms ? <TermsTable terms={terms} /> : null}</div>
+                <div style={{ opacity: isLoading ? '0.5' : '1' }}>
+                    <TermsTable terms={terms} />
+                </div>
             </section>
         </Fragment>
     );

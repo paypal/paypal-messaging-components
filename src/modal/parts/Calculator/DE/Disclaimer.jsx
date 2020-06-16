@@ -3,7 +3,6 @@ import { h } from 'preact';
 
 const Disclaimer = ({ terms }) => {
     if (
-        terms &&
         !terms.error &&
         terms.formattedMinAmount &&
         terms.formattedMaxAmount &&

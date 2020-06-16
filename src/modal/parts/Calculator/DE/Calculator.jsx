@@ -22,8 +22,7 @@ const Calculator = () => {
                         style={{ opacity: isLoading ? '0.5' : '1' }}
                     />
                     <p className="calculator__instructions">
-                        {terms &&
-                            !terms.error &&
+                        {!terms.error &&
                             terms.formattedMinAmount &&
                             terms.formattedMaxAmount &&
                             `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`}
@@ -36,10 +35,10 @@ const Calculator = () => {
             <div className="calculator__finance-terms">
                 <div className="spinner calculator__spinner" style={{ opacity: isLoading ? '1' : '0' }} />
                 <div style={{ opacity: isLoading ? '0.5' : '1' }}>
-                    {terms && (terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
+                    {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
                 </div>
             </div>
-            {terms && !terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
+            {!terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
                 <p className="content__disclosure">
                     Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen.
                 </p>

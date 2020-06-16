@@ -32,7 +32,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: false,
                 sendToChild: false,
-                required: false
+                required: true
             },
             merchantId: {
                 type: 'string',
@@ -48,7 +48,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             country: {
                 type: 'string',
                 queryParam: true,
-                required: false
+                required: true
             },
             currency: {
                 type: 'string',
