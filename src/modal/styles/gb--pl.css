@@ -61,6 +61,7 @@
         display: flex;
         width: auto;
         padding-left: 20px;
+        align-items: center;
     }
 
     .header__logo img:first-child {
@@ -185,6 +186,11 @@
     .modal__content-wrapper {
         justify-content: flex-start;
     }
+
+    .thumbs-up {
+        z-index: 1;
+        transform: translate(0px, -120px);
+    }
 }
 
 @media (max-width: 749px) and (orientation: landscape), (max-height: 539px) and (orientation: landscape) {
@@ -232,11 +238,11 @@
     .header__logo > img:first-child {
         width: 25px;
         margin-right: 9px;
-        transform: translateY(-1px);
     }
 
     .header__logo > img:last-child {
         width: 84px;
+        margin-top: 5px;
     }
 
     .header__close {
