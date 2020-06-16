@@ -18,8 +18,8 @@ const selectors = {
         contentHeader: '.content-header',
         contentHeaderTitle: '.content-header__title',
         // Used in GB modal
-        containerLeft: '.content-container--left',
-        h1: 'h1'
+        containerLeft: '.content-body--left',
+        offer: '.content-body__offer'
     },
     calculator: {
         calc: '.calculator',

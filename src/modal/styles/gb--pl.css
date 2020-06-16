@@ -1,5 +1,5 @@
 @media (min-width: 750px) and (min-height: 540px) {
-    h1 {
+    .content-body__offer {
         color: white;
         white-space: nowrap;
         font-size: 30px;
@@ -10,7 +10,7 @@
         margin: 0px;
     }
 
-    h2 {
+    .content-body__title {
         font-family: 'PayPalSansBig';
         font-size: 24px;
         letter-spacing: 0.8px;
@@ -18,7 +18,7 @@
         margin-bottom: 20px;
     }
 
-    .content-container__subheadline--left {
+    .content-body__subheadline {
         padding-left: 20px;
         color: white;
         font-family: 'PayPalSansBig';
@@ -78,11 +78,11 @@
         width: 98px;
         margin-top: 5px;
     }
-    .content-container__terms--left {
+    .content-body__terms {
         padding-left: 15px;
     }
 
-    .content-container__terms--left p:first-child {
+    .content-body__terms p:first-child {
         line-height: 18px;
         letter-spacing: 0.5px;
         color: white;
@@ -90,7 +90,7 @@
         font-size: 13px;
     }
 
-    .content-container__thumbs-up--left {
+    .content-body__thumbs-up {
         height: 250px;
     }
 
@@ -104,11 +104,11 @@
         width: 60px;
     }
 
-    .content-container {
+    .content-body {
         display: flex;
     }
 
-    .content-container::after {
+    .content-body::after {
         content: '';
         background-color: #0070ba;
         width: 67%;
@@ -120,12 +120,12 @@
         left: 0;
     }
 
-    .content-container--left {
+    .content-body--left {
         flex-grow: 1;
         z-index: 9;
     }
 
-    .content-container--right {
+    .content-body--right {
         width: 34%;
     }
 
@@ -139,38 +139,38 @@
         background-color: white;
     }
 
-    .content-container__body--right {
+    .content-body__info {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .content-container__body--right > p {
+    .content-body__info > p {
         font-size: 15px;
         line-height: 23px;
         text-align: center;
         margin-top: 6px;
     }
 
-    .content-container__body--right > p:last-child > span {
+    .content-body__info > p:last-child > span {
         font-weight: 600;
         font-style: italic;
     }
 
-    .thumbs-up {
+    .icon--thumbs-up {
         position: absolute;
         transform: translate(0px, -30px);
     }
 
-    .checkmark {
+    .icon--checkmark {
         margin-top: 22px;
     }
 
-    .pp-button {
+    .icon--pp-button {
         margin-top: 22px;
     }
 
-    .icecream {
+    .icon--icecream {
         display: none;
     }
 
@@ -196,20 +196,20 @@
         justify-content: flex-start;
     }
 
-    .thumbs-up {
+    .icon--thumbs-up {
         z-index: 1;
         transform: translate(0px, -120px);
     }
 }
 
 @media (max-width: 749px) and (orientation: landscape), (max-height: 539px) and (orientation: landscape) {
-    .content-container::after {
+    .content-body::after {
         width: 1200px !important;
     }
 }
 
 @media (max-width: 749px), (max-height: 539px) {
-    h1 {
+    .content-body__offer {
         color: white;
         font-size: 24px;
         font-weight: 600;
@@ -221,7 +221,7 @@
         margin-bottom: 0px;
     }
 
-    h2 {
+    .content-body__title {
         display: none;
     }
 
@@ -278,7 +278,7 @@
         min-height: calc(100vh - 84px);
     }
 
-    .content-container {
+    .content-body {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -286,7 +286,7 @@
         min-height: calc(100vh - 184px);
     }
 
-    .content-container::after {
+    .content-body::after {
         content: '';
         background-color: #0070ba;
         width: 900px;
@@ -297,60 +297,56 @@
         margin-top: -280px;
     }
 
-    .content-container--left {
+    .content-body--left {
         z-index: 9;
         order: 2;
         margin-top: -250px;
     }
 
-    .headline-container {
-        white-space: nowrap;
-    }
-
-    .content-container__subheadline--left {
+    .content-body__subheadline {
         font-family: 'PayPalSansBig';
         color: white;
         text-align: center;
         letter-spacing: 0.25px;
     }
 
-    .content-container--right {
+    .content-body--right {
         order: 3;
         margin-top: 40px;
         text-align: center;
     }
 
-    .content-container__body--right > p {
+    .content-body__info > p {
         font-size: 15px;
         margin-top: 9px;
     }
 
-    .content-container__body--right > p:last-child > span {
+    .content-body__info > p:last-child > span {
         font-weight: 600;
         font-style: italic;
     }
 
-    .thumbs-up {
+    .icon--thumbs-up {
         display: none;
     }
 
-    .checkmark {
+    .icon--checkmark {
         margin-top: 35px;
     }
 
-    .pp-button {
+    .icon--pp-button {
         margin-top: 35px;
     }
 
-    .icecream {
+    .icon--icecream {
         margin-top: 32px;
     }
 
-    .content-container__terms--left > p {
+    .content-body__terms > p {
         color: #6c7378;
     }
 
-    .content-container__terms--left {
+    .content-body__terms {
         position: absolute;
         bottom: 10px;
         left: 0;
@@ -367,20 +363,20 @@
 
 /* iPhone 5/SE media query */
 @media (max-width: 350px) {
-    h1 {
+    .content-body__offer {
         font-size: 20px;
         line-height: 32px;
     }
 
-    .content-container__terms--left > p {
+    .content-body__terms > p {
         font-size: 12px;
     }
 
-    .icecream {
+    .icon--icecream {
         margin-top: 40px;
     }
 
-    .content-container::after {
+    .content-body::after {
         width: 800px;
     }
 }

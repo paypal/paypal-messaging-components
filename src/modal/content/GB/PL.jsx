@@ -6,13 +6,13 @@ import Icon from '../../parts/Icon';
 const isEligible = terms => {
     if (terms.amount === null || terms.amount < terms.minAmount || terms.amount > terms.maxAmount) {
         return (
-            <h1>
+            <h1 className="content-body__offer">
                 3 interest-free monthly <br /> payments with Flex
             </h1>
         );
     }
     return (
-        <h1>
+        <h1 className="content-body__offer">
             3 interest-free payments of <br /> £{terms.offers[0].monthly} per month with Flex
         </h1>
     );
@@ -21,15 +21,15 @@ const isEligible = terms => {
 const PL = () => {
     const { terms } = useCalculator();
     return (
-        <div className="content-container">
-            <div className="content-container--left">
+        <div className="content-body">
+            <div className="content-body--left">
                 {isEligible(terms)}
-                <p className="content-container__subheadline--left">On purchases of £45 to £2,000</p>
+                <p className="content-body__subheadline">On purchases of £45 to £2,000</p>
                 <Icon name="icecream" />
-                <div className="content-container__thumbs-up--left">
+                <div className="content-body__thumbs-up">
                     <Icon name="thumbs-up" />
                 </div>
-                <div className="content-container__terms--left">
+                <div className="content-body__terms">
                     <p>
                         Subject to status. T&Cs apply. UK residents only. <br />
                         PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et <br className="mobile-break" />
@@ -37,9 +37,9 @@ const PL = () => {
                     </p>
                 </div>
             </div>
-            <div className="content-container--right">
-                <h2>Buy now, pay later</h2>
-                <div className="content-container__body--right">
+            <div className="content-body--right">
+                <h2 className="content-body__title">Buy now, pay later</h2>
+                <div className="content-body__info">
                     <Icon name="shopping-bag" />
                     <p>
                         Get your goods now and <br /> pay nothing for 1 month.
