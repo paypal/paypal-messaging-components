@@ -41,7 +41,7 @@ const Modal = ({ children }) => {
         }
     }, [transitionState]);
 
-    const countryModalContainer = () => {
+    const countryModalContainer = (() => {
         switch (country) {
             case 'GB':
                 return (
@@ -54,6 +54,8 @@ const Modal = ({ children }) => {
                         </div>
                     </div>
                 );
+            case 'US':
+            case 'DE':
             default:
                 return (
                     <Fragment>
@@ -68,7 +70,7 @@ const Modal = ({ children }) => {
                     </Fragment>
                 );
         }
-    };
+    })();
 
     return (
         <ScrollState containerRef={contentWrapper}>
@@ -78,7 +80,7 @@ const Modal = ({ children }) => {
                 }`}
             >
                 <div className="modal__wrapper" id="modal__wrapper">
-                    {countryModalContainer()}
+                    {countryModalContainer}
                 </div>
                 <Overlay contentMaxWidth={contentMaxWidth} contentMaxHeight={contentMaxHeight} />
             </section>
