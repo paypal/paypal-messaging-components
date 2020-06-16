@@ -357,7 +357,7 @@
     }
 }
 
-/* iPhone 5/SE media query */
+/* Small mobile device media query */
 @media (max-width: 350px) {
     .content-body__offer {
         font-size: 20px;
