@@ -99,13 +99,8 @@ li {
     cursor: pointer;
 }
 
-.button:disabled {
-    cursor: default;
-    opacity: 0.5;
-}
-
-.button:not(:disabled):hover,
-.button:not(:disabled):focus {
+.button:hover,
+.button:focus {
     background: #003087;
     border: 1px solid #003087;
 }
@@ -121,8 +116,8 @@ li {
     border: 1px solid #0070ba;
 }
 
-.button--secondary:not(:disabled):hover,
-.button--secondary:not(:disabled):focus {
+.button--secondary:hover,
+.button--secondary:focus {
     border-color: #003087;
     box-shadow: 0 0 0 0.0625em #003087 inset;
     color: #003087;

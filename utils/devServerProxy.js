@@ -56,9 +56,7 @@ module.exports = app => {
     app.post('/credit-presentment/calculateTerms', (req, res) => {
         const { country, amount } = req.query;
 
-        setTimeout(() => {
-            res.send(getTerms(country, Number(amount)));
-        }, 3000);
+        res.send(getTerms(country, Number(amount)));
     });
 
     app.get('/credit-presentment/messages', (req, res) => {
