@@ -26,7 +26,7 @@ const Calculator = () => {
                             terms.formattedMaxAmount &&
                             `Geben Sie einen Betrag zwischen ${terms.formattedMinAmount}€ und ${terms.formattedMaxAmount}€ ein.`}
                     </p>
-                    <Button size="md" type="submit" disabled={isLoading}>
+                    <Button size="md" type="submit">
                         Berechnen
                     </Button>
                 </form>
