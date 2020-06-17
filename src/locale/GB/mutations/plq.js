@@ -181,7 +181,8 @@ export default {
                         replace: [['month.', 'month']],
                         br: ['of ']
                     }
-                ]
+                ],
+                styles: ['.message__headline { font-size: 4vw; }', '.message__disclaimer { display: block; }']
             }
         ],
 
