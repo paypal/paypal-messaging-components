@@ -1,8 +1,9 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps, createState } from '../../../utils';
+import { memoizeOnProps } from '../../../utils';
 import Modal from './component';
+import useViewportHijack from './viewportHijack';
 
 function getModalType(offerCountry, offerType) {
     switch (offerCountry) {
@@ -13,59 +14,6 @@ function getModalType(offerCountry, offerType) {
             return startsWith(offerType, 'NI') ? 'NI' : 'EZP';
     }
 }
-
-const useViewportHijack = () => {
-    const [viewportState, setViewportState] = createState({});
-
-    return [
-        () => {
-            // Save existing body style
-            const bodyStyle = document.body.getAttribute('style');
-
-            // Create hijack viewport
-            const newViewport = document.createElement('meta');
-            newViewport.setAttribute('name', 'viewport');
-            newViewport.setAttribute(
-                'content',
-                'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
-            );
-
-            // Save old viewport
-            const existingViewport = document.head.querySelector('meta[name="viewport"]');
-
-            const placeholderViewport = document.createElement('meta');
-            placeholderViewport.setAttribute('name', 'viewport');
-            placeholderViewport.setAttribute('content', '');
-
-            if (!existingViewport) {
-                // If no viewport exists, some browsers will not respect the change of simply removing the hijack viewport
-                // Add a blank viewport to replace the hijack in this case
-
-                document.head.appendChild(placeholderViewport);
-            }
-
-            const oldViewport = existingViewport || placeholderViewport;
-
-            document.head.removeChild(oldViewport);
-            document.head.appendChild(newViewport);
-
-            document.body.style.overflow = 'hidden';
-            document.body.style.msOverflowStyle = 'scrollbar';
-
-            setViewportState({
-                bodyStyle,
-                newViewport,
-                oldViewport
-            });
-        },
-        () => {
-            document.head.removeChild(viewportState.newViewport);
-            document.head.appendChild(viewportState.oldViewport);
-
-            document.body.setAttribute('style', viewportState.bodyStyle || '');
-        }
-    ];
-};
 
 const renderModal = memoizeOnProps(
     ({ options, meta, track, wrapper, type }) => {
