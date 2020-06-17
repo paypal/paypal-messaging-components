@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.10.2](https://github.com/paypal/paypal-messaging-components/compare/v1.10.1...v1.10.2) (2020-06-17)
+
+
+### Bug Fixes
+
+* cleanup on SDK replace ([#203](https://github.com/paypal/paypal-messaging-components/issues/203)) ([a2890db](https://github.com/paypal/paypal-messaging-components/commit/a2890db6bd2d09d054421f4dd24880e9903ff0bc))
+* DE hyperlink color, logo size, and remove period ([#205](https://github.com/paypal/paypal-messaging-components/issues/205)) ([5ebd7da](https://github.com/paypal/paypal-messaging-components/commit/5ebd7da819241785a89a4ca3cd79725b34c9fbff))
+* remove modal double scrollbar ([#207](https://github.com/paypal/paypal-messaging-components/issues/207)) ([44388c6](https://github.com/paypal/paypal-messaging-components/commit/44388c612b3bf3796690f2a4198f746e3242312f))
+
 ## [1.10.1](https://github.com/paypal/paypal-messaging-components/compare/v1.10.0...v1.10.1) (2020-05-13)
 
 
