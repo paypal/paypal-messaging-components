@@ -1,6 +1,5 @@
 import Logo from '../logos';
 import { gbPLContentMediaQuery, fallbackMediaQuery, gbPLAltContentMediaQuery } from './mediaQueries';
-import { messageDisclaimerMediaQuery } from '../../US/mutations/mediaQueries';
 
 export default {
     'layout:text': [
@@ -8,7 +7,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 25 + 10),
+                    fallbackMediaQuery(textSize * 13),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
                 ],
@@ -16,7 +15,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['on']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -27,7 +27,7 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 25 + 10),
+                    fallbackMediaQuery(textSize * 13),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
                 ],
@@ -35,7 +35,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -46,7 +47,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 26),
+                    fallbackMediaQuery(textSize * 13),
                     gbPLContentMediaQuery(textSize * 38 + 10),
                     `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
@@ -58,7 +59,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 26),
+                    fallbackMediaQuery(textSize * 13),
                     `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -69,9 +70,8 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 28),
-                    gbPLAltContentMediaQuery(textSize * 17 + 7, textSize * 28),
+                    gbPLAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
+                    fallbackMediaQuery(textSize * 20),
                     `.message__logo-container { width: ${textSize * 1.75}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -80,7 +80,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -90,12 +91,13 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 10)],
+                styles: [fallbackMediaQuery(textSize * 16)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -105,9 +107,9 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 25)],
+                styles: [fallbackMediaQuery(textSize * 16 + 2)],
                 logo: false,
-                headline: [{ tag: 'medium', replace: [['purchases.', 'purchases']] }, { tag: 'xsmall' }],
+                headline: [{ tag: 'medium', replace: [['purchases.', 'purchases']], br: ['on'] }, { tag: 'xsmall' }],
                 disclaimer: ['default']
             })
         ],
@@ -115,8 +117,9 @@ export default {
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 25)],
-                logo: false
+                styles: [fallbackMediaQuery(textSize * 16 + 2)],
+                logo: false,
+                headline: [{ tag: 'medium', replace: [['purchases.', 'purchases']], br: ['on'] }, { tag: 'xsmall' }]
             })
         ],
         ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]

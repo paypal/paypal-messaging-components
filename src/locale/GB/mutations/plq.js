@@ -1,6 +1,5 @@
 import Logo from '../logos';
 import { gbPLContentMediaQuery, fallbackMediaQuery, gbPLAltContentMediaQuery } from './mediaQueries';
-import { messageDisclaimerMediaQuery } from '../../US/mutations/mediaQueries';
 
 export default {
     'layout:text': [
@@ -16,7 +15,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['of']
                     }
                 ],
                 disclaimer: ['default']
@@ -26,7 +26,7 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 25 + 20),
+                    fallbackMediaQuery(textSize * 14 + 4),
                     `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -35,7 +35,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['of']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -46,7 +47,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 27),
+                    fallbackMediaQuery(textSize * 14 + 4),
                     gbPLContentMediaQuery(textSize * 38 + 10),
                     `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
@@ -58,7 +59,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 27),
+                    fallbackMediaQuery(textSize * 14 + 4),
                     `.message__logo-container { width: ${textSize * 6}px }`,
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -69,9 +70,8 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 28),
-                    gbPLAltContentMediaQuery(textSize * 17 + 8, textSize * 28),
+                    gbPLAltContentMediaQuery(textSize * 17, textSize * 34, textSize * 24),
+                    fallbackMediaQuery(textSize * 21),
                     `.message__logo-container { width: ${textSize * 1.75}px; }`,
                     `.message__logo { width: ${textSize * 4}px; }`,
                     `.message__logo:first-child { width: ${textSize * 1.25}px; }`
@@ -80,7 +80,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['of']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -90,12 +91,13 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 25)],
+                styles: [fallbackMediaQuery(textSize * 17)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['of']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -105,12 +107,13 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 31)],
+                styles: [fallbackMediaQuery(textSize * 17 + 4)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['month.', 'month']],
+                        br: ['of']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -121,8 +124,16 @@ export default {
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 31)],
-                logo: false
+                styles: [fallbackMediaQuery(textSize * 17 + 4)],
+                logo: false,
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['of']
+                    },
+                    { tag: 'xsmall' }
+                ]
             })
         ],
         ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]

@@ -5,6 +5,10 @@ export function fallbackMediaQuery(breakpoint) {
         white-space: nowrap;
     }
 
+    .message__headline > .tag--medium > span {
+        white-space: normal;
+    }
+
     .message__headline > span:nth-child(2) {
         display: none;
     }
@@ -41,10 +45,34 @@ export function gbPLContentMediaQuery(breakpoint) {
     `;
 }
 
-// Changes disclaimer to inline at specified breakpoints for the logo alternative message config.
-export function gbPLAltContentMediaQuery(minBreakpoint, maxBreakpoint) {
+/**
+ * Media query used for GBPL/GBPLQ logo alternative message config.
+ * @param {number} disclaimerBreak Changes disclaimer to inline at specified breakpoint.
+ * @param {number} productNameBreak Changes product name (i.e. "with Flex") to display block at specified breakpoint.
+ * @param {number} tagMediumBreak Breaks text inside of .tag--medium to two lines at specified breakpoint.
+ */
+export function gbPLAltContentMediaQuery(disclaimerBreak, productNameBreak, tagMediumBreak) {
     return `
-    @media (min-width: ${minBreakpoint}px) and (max-width: ${maxBreakpoint}px) {
+    @media (max-width: ${disclaimerBreak}px) {
+        .message__disclaimer {
+            display: block !important;
+        }
+    }
+    @media (max-width: ${productNameBreak}px) {
+        .message__headline > .tag--medium {
+            display: block;
+        }
+        .message__disclaimer {
+            display: inline;
+        }
+    }
+    @media (max-width: ${tagMediumBreak}px) {
+        .message__headline > .tag--medium {
+            display: inline;
+        }
+        .message__headline > .tag--medium .br:first-child {
+            display: block;
+        }
         .message__disclaimer {
             display: inline;
         }
