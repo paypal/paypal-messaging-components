@@ -3,32 +3,22 @@ import { useContext, useReducer, useEffect } from 'preact/hooks';
 
 import { useXProps } from './helpers';
 import { ServerContext } from '../context';
-import { request } from '../../../utils';
+import { request, memoizeOnProps } from '../../../utils';
 
-const termsCache = new Map();
-
-const getCacheKey = params =>
-    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id'].map(key => params[key]).join('_');
-
-const termsFetcher = async (params, csrf) => {
-    const cacheKey = getCacheKey(params);
-
-    if (!termsCache.has(cacheKey)) {
+const termsFetcher = memoizeOnProps(
+    (params, csrf) => {
         const query = objectEntries(params)
             .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
             .slice(1);
 
-        const { data } = await request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
+        return request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
             headers: {
                 'x-csrf-token': csrf
             }
         });
-
-        termsCache.set(cacheKey, data);
-    }
-
-    return termsCache.get(cacheKey);
-};
+    },
+    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
+);
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -98,21 +88,10 @@ export default function useCalculator() {
                 amount: inputAmount
             },
             meta.csrf
-        ).then(data => {
+        ).then(({ data }) => {
             dispatch({ type: 'terms', data });
         });
     };
-
-    // Add server-rendered terms to cache
-    useEffect(() => {
-        termsCache.set(
-            getCacheKey({
-                ...params,
-                amount
-            }),
-            initialTerms
-        );
-    }, []);
 
     // Automatically fetch terms when props change
     useEffect(() => {
