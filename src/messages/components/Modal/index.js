@@ -20,11 +20,14 @@ const renderModal = memoizeOnProps(
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const { render, hide, updateProps } = Modal({
+            type,
+
+            // Even though these props are not included in memoize,
+            // we want to pass the initial values in so we can preload one set of terms
             account: options.account,
             merchantId: options.merchantId,
             country: meta.offerCountry,
             currency: options.currency,
-            type,
             amount: options.amount,
             refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
@@ -41,9 +44,9 @@ const renderModal = memoizeOnProps(
             }
         });
 
-        const show = () => {
+        const show = props => {
             hijackViewport();
-            updateProps({ visible: true });
+            updateProps({ ...props, visible: true });
         };
 
         hide();
@@ -54,7 +57,7 @@ const renderModal = memoizeOnProps(
             show
         };
     },
-    ['options', 'meta', 'type']
+    ['type']
 );
 
 export default {
@@ -85,7 +88,14 @@ export default {
                 renderProm.then(() => {
                     track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
 
-                    show();
+                    show({
+                        account: options.account,
+                        merchantId: options.merchantId,
+                        country: meta.offerCountry,
+                        currency: options.currency,
+                        amount: options.amount,
+                        refId: meta.messageRequestId
+                    });
                 });
             });
         }
