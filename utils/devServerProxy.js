@@ -31,7 +31,9 @@ module.exports = app => {
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
-            meta: {},
+            meta: {
+                csrf: 'csrf'
+            },
             payerId: 'DEV00000000NI'
         };
 

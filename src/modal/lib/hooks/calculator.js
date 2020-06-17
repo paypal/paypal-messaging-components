@@ -6,7 +6,7 @@ import { ServerContext } from '../context';
 import { request, memoizeOnProps } from '../../../utils';
 
 const termsFetcher = memoizeOnProps(
-    (params, csrf) => {
+    ({ csrf, ...params }) => {
         const query = objectEntries(params)
             .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
             .slice(1);
@@ -82,13 +82,11 @@ export default function useCalculator() {
     const fetchTerms = inputAmount => {
         dispatch({ type: 'fetch' });
 
-        termsFetcher(
-            {
-                ...params,
-                amount: inputAmount
-            },
-            meta.csrf
-        ).then(({ data }) => {
+        termsFetcher({
+            ...params,
+            amount: inputAmount,
+            csrf: meta.csrf
+        }).then(({ data }) => {
             dispatch({ type: 'terms', data });
         });
     };
