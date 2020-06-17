@@ -18,7 +18,6 @@ const Calculator = () => {
                         className="calculator__input"
                         value={value}
                         onInput={changeInput}
-                        disabled={isLoading}
                         style={{ opacity: isLoading ? '0.5' : '1' }}
                     />
                     <p className="calculator__instructions">

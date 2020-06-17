@@ -18,10 +18,9 @@ const Calculator = () => {
                         type="text"
                         value={value}
                         onInput={changeInput}
-                        disabled={isLoading}
                         style={{ opacity: isLoading ? '0.5' : '1' }}
                     />
-                    <Button className="calculator__button" type="submit" secondary disabled={isLoading}>
+                    <Button className="calculator__button" type="submit" secondary>
                         Calculate
                     </Button>
                 </form>
