@@ -84,7 +84,7 @@ export default {
             {
                 headline: ['xsmall', 'small'],
                 styles: [
-                    `@media (min-aspect-ratio: 80/11) and (min-width: 500px) { 
+                    `@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
                         .message__headline { font-size: 2.3vw; display: block; }
                         .message__disclaimer { margin-top: .5rem; }
                         .message__logo-container { margin-bottom: 1vw }
