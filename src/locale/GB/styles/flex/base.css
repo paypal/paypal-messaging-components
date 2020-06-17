@@ -46,3 +46,9 @@
     font-style: normal;
     font-weight: normal;
 }
+
+@media (min-width: 220px) {
+    .message__disclaimer {
+        font-size: 0.9rem;
+    }
+}

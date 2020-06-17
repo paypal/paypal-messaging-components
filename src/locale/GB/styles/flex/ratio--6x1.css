@@ -1,7 +1,7 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
 
 .message__content {
-    display: block;
+    display: flex;
     padding: 0.25rem;
 }
 

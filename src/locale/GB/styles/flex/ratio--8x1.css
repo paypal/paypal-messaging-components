@@ -20,11 +20,19 @@
 
 .message__headline {
     line-height: 1.4em;
+    font-size: 6vw;
+}
+
+.message__headline .weak {
+    display: none;
+}
+
+.message__disclaimer {
+    display: none;
 }
 
 @media (min-aspect-ratio: 80/11) {
     .message__headline {
-        font-size: 3.4vw;
         padding-right: 1rem;
         display: inline;
     }
@@ -35,7 +43,6 @@
 
     .message__disclaimer {
         margin-top: 0;
-        display: inline;
     }
 
     .message__content {
@@ -43,7 +50,29 @@
     }
 }
 
-@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+@media (min-width: 350px) {
+    .message__headline {
+        font-size: 3.4vw;
+    }
+
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+
+    div.message__headline > span:not(.multi) {
+        display: inline;
+    }
+
+    .message__disclaimer {
+        display: block;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 480px) {
     .message__messaging {
         flex: 0 0 70%;
     }
@@ -63,6 +92,7 @@
     }
 
     .message__disclaimer {
+        display: inline;
         flex: 1 1 auto;
         margin-top: 0.5rem;
     }
