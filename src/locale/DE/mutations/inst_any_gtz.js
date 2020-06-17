@@ -25,9 +25,9 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 13}px }`],
+                logo: Logo.ALT_NO_PP.COLOR,
                 messageWidth: [textSize * 22, 1000],
-                logo: Logo.ALT_NO_PP.COLOR
+                styles: [`.message__logo { width: ${textSize * 12}px }`]
             })
         ],
         [
@@ -44,10 +44,10 @@ export default {
                     altLogoMediaQuery(textSize * 43.8, textSize),
                     `.message__logo-container { width: ${textSize * 10}px }`,
                     '.message__content { display: inline-block; }',
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
                 ],
-                messageWidth: [textSize * 15, 1000],
                 logo: Logo.ALTERNATIVE.COLOR,
+                messageWidth: [textSize * 15, 1000],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
