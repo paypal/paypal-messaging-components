@@ -169,6 +169,11 @@ export default {
                         replace: [['month.', 'month']],
                         br: ['of ']
                     }
+                ],
+                styles: [
+                    `@media (max-aspect-ratio: 61/10) {
+                        .message__disclaimer { font-size: .6rem; }
+                    }`
                 ]
             }
         ],
@@ -182,7 +187,20 @@ export default {
                         br: ['of ']
                     }
                 ],
-                styles: ['.message__headline { font-size: 4vw; }', '.message__disclaimer { display: block; }']
+                styles: [
+                    '.message__messaging { flex-basis: 80%; }',
+                    '.message__headline { font-size: 4vw; }',
+                    '.message__disclaimer { display: inline; font-size: .6rem; }',
+                    `@media (min-width: 480px) {
+                        .message__disclaimer { display: inline; font-size: .9rem; }
+                    }`,
+                    '.message__logo-container { flex-basis: 10%; }',
+                    '.message__logo:nth-of-type(2) { display: none; }',
+                    `@media (max-aspect-ratio: 61/10) {
+                        .message__logo-container { flex-basis: 33%; }
+                        .message__logo:nth-of-type(2) { display: inline-block; }
+                    }`
+                ]
             }
         ],
 
