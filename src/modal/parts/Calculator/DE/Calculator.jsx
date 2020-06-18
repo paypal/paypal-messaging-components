@@ -13,13 +13,8 @@ const Calculator = () => {
         <Fragment>
             <div className="calculator">
                 <h3 className="calculator__title">Monatliche Raten berechnen</h3>
-                <form className="calculator__form" onSubmit={submit}>
-                    <input
-                        className="calculator__input"
-                        value={value}
-                        onInput={changeInput}
-                        style={{ opacity: isLoading ? '0.5' : '1' }}
-                    />
+                <form className={`calculator__form ${isLoading ? 'calculator__form--loading' : ''}`} onSubmit={submit}>
+                    <input className="calculator__input" value={value} onInput={changeInput} />
                     <p className="calculator__instructions">
                         {!terms.error &&
                             terms.formattedMinAmount &&
