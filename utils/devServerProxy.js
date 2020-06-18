@@ -62,7 +62,7 @@ module.exports = app => {
         const csrf = req.headers['x-csrf-token'];
 
         if (!csrf) {
-            res.status(403).send('');
+            res.status(403).send('CSRF token required');
             return;
         }
 
