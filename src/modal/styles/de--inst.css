@@ -83,13 +83,6 @@
     border-bottom: 1px dotted #cbd2d6;
 }
 
-.calculator__input {
-    font-size: 20px;
-    text-align: center;
-    width: 100%;
-    border: none;
-}
-
 .calculator__form {
     width: 150px;
     margin: auto;
@@ -103,6 +96,21 @@
     position: absolute;
     top: 1px;
     right: 1.3rem;
+}
+
+.calculator__form.calculator__form--loading:after {
+    opacity: 0.5;
+}
+
+.calculator__input {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    border: none;
+}
+
+.calculator__form.calculator__form--loading .calculator__input {
+    opacity: 0.5;
 }
 
 .carousel {
