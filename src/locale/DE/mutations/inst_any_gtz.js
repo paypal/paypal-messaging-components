@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altLogoMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -40,9 +41,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    altLogoMediaQuery(textSize * 43.8, textSize),
+                    `.message__logo-container { width: ${textSize * 10}px }`,
                     '.message__content { display: inline-block; }',
-                    '.message__messaging, .message__headline span:only-child { white-space: normal }',
-                    `.message__logo-container { width: ${textSize * 11}px }`
+                    '.message__messaging, .message__headline span:only-child { white-space: normal }'
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
                 messageWidth: [textSize * 15, 1000],
