@@ -1,9 +1,9 @@
-import selectors from './selectors';
-import modalSnapshot from './modalSnapshot';
+import selectors from './utils/selectors';
+import modalSnapshot from './utils/modalSnapshot';
 
 /**
  * General modal function tests for the US, DE, and GB locales.
- * Runs inside of ModalFunc-(text/flex) for the US, DE, and GB locales.
+ * Runs inside of modalText and modalFlex test files for the US, DE, and GB locales.
  */
 
 export const xClosesModal = (account, viewport, bannerStyle) => async () => {

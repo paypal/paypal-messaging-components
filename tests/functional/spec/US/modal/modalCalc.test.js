@@ -1,6 +1,6 @@
-import openModal from '../../initializeModal';
+import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
-import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from '../../utils/us_modalTestDefs';
+import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from './us_modalTestDefs';
 
 const account = 'DEV0000000PSZ';
 
@@ -21,19 +21,19 @@ describe.each([
             style: bannerStyles
         });
     });
-    test.skip(
+    test(
         'show error message when entering a non-qualifying amount inside the calculator',
         nonQualErrorEZP(account, viewport, bannerStyles)
     );
-    test.skip(
+    test(
         'when an amount is passed into EZP message, the correct financing terms are loaded in a table',
         ezpFinanceTerms(account, viewport, bannerStyles)
     );
-    test.skip(
+    test(
         'update finance terms when user updates amount passed into calculator',
         updateFinanceTerms(account, viewport, bannerStyles)
     );
-    test.skip(
+    test(
         'when an ezp message is clicked ezp content is loaded including a calculator for finance terms',
         ezpModalContent(account, viewport, bannerStyles)
     );

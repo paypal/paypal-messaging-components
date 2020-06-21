@@ -1,6 +1,6 @@
-import openModal from '../../initializeModal';
+import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
-import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from '../../utils/de_modalTestDefs';
+import { nonQualErrorMsg, updateFinanceTerms, deModalContentAndCalc } from './de_modalTestDefs';
 
 const account = 'DEV0000000IAZ';
 
@@ -21,15 +21,15 @@ describe.each([
             style: bannerStyle
         });
     });
-    test.skip(
+    test(
         `show error message when entering a non-qualifying amount inside the calculator ${bannerStyle.layout} ${viewport.width}`,
         nonQualErrorMsg(account, viewport, bannerStyle)
     );
-    test.skip(
+    test(
         `update finance terms when user updates amount passed into calculator ${bannerStyle.layout} ${viewport.width}`,
         updateFinanceTerms(account, viewport, bannerStyle)
     );
-    test.skip(
+    test(
         `when an amount is passed into DE PP installments message, the correct financing terms are loaded in a table ${bannerStyle.layout} ${viewport.width}`,
         deModalContentAndCalc(account, viewport, bannerStyle)
     );

@@ -1,12 +1,7 @@
-import openModal from '../../initializeModal';
+import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
-import {
-    xClosesModal,
-    closeModalEsc,
-    clickOutsideClosesModal,
-    closeReopenModal
-} from '../../utils/globalModalTestDefs';
-import { gbModalContent } from '../../utils/gb_modalTestDefs';
+import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
+import { gbModalContent } from './gb_modalTestDefs';
 
 const accounts = ['DEV000000GBPL', 'DEV00000GBPLQ'];
 

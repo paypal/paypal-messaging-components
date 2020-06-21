@@ -1,39 +1,34 @@
-import openModal from '../../initializeModal';
+import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
-import {
-    xClosesModal,
-    closeModalEsc,
-    clickOutsideClosesModal,
-    closeReopenModal
-} from '../../utils/globalModalTestDefs';
+import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
 
-const accounts = 'DEV0000000IAZ';
+const account = 'DEV0000000IAZ';
 
 describe.each([
-    [accounts, viewports[0], bannerStyles[0]],
-    [accounts, viewports[1], bannerStyles[0]]
-])('DE Modal Functionality Tests %o', (account, viewport, bannerStyle) => {
+    [viewports[0], bannerStyles[0]],
+    [viewports[1], bannerStyles[0]]
+])('DE Modal Functionality Tests %o', (viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,
             style: bannerStyle
         });
     });
-    test.skip(
+    test(
         `x button closes modal - ${bannerStyle.layout} ${viewport.width}`,
         xClosesModal(account, viewport, bannerStyle)
     );
-    test.skip(
+    test(
         `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
         closeModalEsc(account, viewport, bannerStyle)
     );
     if (viewport.height === 1080) {
-        test.skip(
+        test(
             `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
             clickOutsideClosesModal(account, viewport, bannerStyle)
         );
     }
-    test.skip(
+    test(
         `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
         closeReopenModal(account, viewport, bannerStyle)
     );

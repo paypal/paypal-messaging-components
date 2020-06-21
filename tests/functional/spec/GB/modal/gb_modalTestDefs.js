@@ -1,8 +1,8 @@
-import selectors from './selectors';
-import modalSnapshot from './modalSnapshot';
+import selectors from '../../utils/selectors';
+import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
- * Runs inside gb_ModalFunc-text for the GB locale.
+ * Runs inside modalText.test.js for the GB locale.
  */
 
 export const gbModalContent = (account, viewport, bannerStyle) => async () => {

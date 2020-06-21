@@ -1,11 +1,13 @@
 import { viewports, bannerStyles } from '../../utils/testStylesConfig';
-import { niContentTest } from '../../utils/us_modalTestDefs';
-import openModal from '../../initializeModal';
+import { niContentTest } from './us_modalTestDefs';
+import openModal from '../../utils/initializeModal';
 
 const account = 'DEV00000000NI';
 
 describe.each([
+    [viewports[0], bannerStyles[0]],
     [viewports[0], bannerStyles[1]],
+    [viewports[1], bannerStyles[0]],
     [viewports[1], bannerStyles[1]]
 ])('NI modal tests %o', (viewport, bannerStyle) => {
     beforeEach(async () => {
