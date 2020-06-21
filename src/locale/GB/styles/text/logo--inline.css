@@ -20,9 +20,8 @@
     font-style: italic;
 }
 
-.message__headline > span:last-child > span:last-child {
+.message__headline strong {
     color: #003087;
-    font-weight: 600;
     font-style: italic;
 }
 

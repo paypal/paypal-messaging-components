@@ -9,25 +9,25 @@ export function fallbackMediaQuery(breakpoint) {
         white-space: normal;
     }
 
-    .message__headline > span:nth-child(2) {
+    .message__headline > .tag--xsmall {
         display: none;
     }
 
-    @media (max-width: ${breakpoint}px) {
+    @media screen and (max-width: ${breakpoint}px) {
 
-        .message__headline > span:first-child {
+        .message__headline > .tag--medium {
             display: none;
         }
 
-        .message__headline > span:nth-child(2) {
+        .message__headline > .tag--xsmall {
             display: inline;
         }
         
-        .message__headline span.multi:nth-child(2) > span {
+        .message__headline .tag--xsmall > span {
             white-space: nowrap;
         }
 
-        .locale--GB .message__headline > span:last-child {
+        .locale--GB .message__headline > span:nth-child(3) {
             display:none;
         }
     } 

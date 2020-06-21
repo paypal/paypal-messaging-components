@@ -71,11 +71,14 @@ module.exports = app => {
             const [bestOffer] = terms.offers || [{}];
 
             let formattedMonthlyPayment = `$${bestOffer.monthly}`;
+            let formattedTotalCost = `$${terms.formattedAmount}`;
 
             if (country === 'DE') {
                 formattedMonthlyPayment = `${bestOffer.monthly}€`;
+                formattedTotalCost = `${terms.formattedAmount}€`;
             } else if (country === 'GB') {
                 formattedMonthlyPayment = `£${bestOffer.monthly}`;
+                formattedTotalCost = `£${terms.formattedAmount}`;
             }
 
             const morsVars = {
@@ -83,7 +86,7 @@ module.exports = app => {
                     .toString(36)
                     .slice(2),
                 formattedMonthlyPayment,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedTotalCost,
                 total_payments: bestOffer.term
             };
 
