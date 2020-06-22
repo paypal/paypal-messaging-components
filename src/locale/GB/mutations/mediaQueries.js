@@ -46,6 +46,21 @@ export function gbPLContentMediaQuery(breakpoint) {
 }
 
 /**
+ * Used for GBPL/GBPLQ message logo width configurations.
+ * @param {number} logoContainerWidth Changes message logo container width.
+ * @param {number} logoWidth Changes overall logo width.
+ * @param {number} monogramWidth Changes width of the first-child of message__logo. In this case, the PP monogram.
+ */
+export function gbPLMessageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
+    const messageLogoContainer =
+        typeof logoContainerWidth === 'number' ? `.message__logo-container { width: ${logoContainerWidth}px; }` : '';
+    const messageLogo = typeof logoWidth === 'number' ? `.message__logo { width: ${logoWidth}px; }` : '';
+    const messageLogoFirstChild =
+        typeof monogramWidth === 'number' ? `.message__logo:first-child { width: ${monogramWidth}px; }` : '';
+    return [messageLogoContainer, messageLogo, messageLogoFirstChild].join('');
+}
+
+/**
  * Media query used for GBPL/GBPLQ logo alternative message config.
  * @param {number} disclaimerBreak Changes disclaimer to inline at specified breakpoint.
  * @param {number} productNameBreak Changes product name (i.e. "with Flex") to display block at specified breakpoint.
