@@ -24,16 +24,16 @@ const PL = () => {
         <div className="content-body">
             <div className="content-body--left">
                 {isEligible(terms)}
-                <p className="content-body__subheadline">On purchases of £45 to £2,000</p>
+                <p className="content-body__subheadline">For purchases between £45 to £2,000</p>
                 <Icon name="icecream" />
                 <div className="content-body__thumbs-up">
                     <Icon name="thumbs-up" />
                 </div>
                 <div className="content-body__terms">
                     <p>
-                        Subject to status. T&Cs apply. UK residents only. <br />
-                        PayPal Flex is a trading name of PayPal (Europe) S.a.r.l et <br className="mobile-break" />
-                        Cie, S.C.A <br className="desktop-break" /> 22-24 Boulevard Royal L-2449, Luxembourg.
+                        Subject to status. Terms and Conditions apply. UK residents only. <br />
+                        PayPal Flex is a trading name of PayPal (Europe) S.à.r.l. et <br />
+                        Cie, S.C.A., <br /> 22-24 Boulevard Royal, L-2449, Luxembourg.
                     </p>
                 </div>
             </div>
@@ -42,13 +42,11 @@ const PL = () => {
                 <div className="content-body__info">
                     <Icon name="shopping-bag" />
                     <p>
-                        Get your goods now and <br /> pay nothing for 1 month.
+                        Get your items straight away <br /> and pay nothing for 1 month.
                     </p>
                     <Icon name="checkmark" />
                     <p>
-                        Get an instant decision <br className="desktop-break" /> with <br className="mobile-break" /> no
-                        impact to your
-                        <br className="desktop-break" /> credit score.
+                        Apply easily and get an <br /> instant decision.
                     </p>
                     <Icon name="pp-button" />
                     <p>

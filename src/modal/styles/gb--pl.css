@@ -22,7 +22,7 @@
         padding-left: 20px;
         color: white;
         font-family: 'PayPalSansBig';
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 0.25px;
     }
     .modal__content-background {
@@ -86,6 +86,10 @@
         color: white;
         font-family: 'PayPalSansBig';
         font-size: 13px;
+    }
+
+    .content-body__terms p > br:nth-child(2) {
+        display: none;
     }
 
     .content-body__thumbs-up {
@@ -161,18 +165,14 @@
     }
 
     .icon--checkmark {
-        margin-top: 22px;
+        margin-top: 30px;
     }
 
     .icon--pp-button {
-        margin-top: 22px;
+        margin-top: 30px;
     }
 
     .icon--icecream {
-        display: none;
-    }
-
-    .mobile-break {
         display: none;
     }
 
@@ -322,6 +322,14 @@
         font-style: italic;
     }
 
+    .modal__overlay-side.top {
+        display: none;
+    }
+
+    .modal__overlay-side.bottom {
+        display: none;
+    }
+
     .icon--thumbs-up {
         display: none;
     }
@@ -340,11 +348,13 @@
 
     .content-body__terms > p {
         color: #6c7378;
+        padding-left: 13px;
+        padding-right: 13px;
     }
 
     .content-body__terms {
         position: absolute;
-        bottom: 10px;
+        bottom: 0px;
         left: 0;
         width: 100%;
         display: flex;
@@ -352,11 +362,22 @@
         border-top: 1px dashed #bd10e0;
     }
 
-    .desktop-break {
+    .content-body__terms > p > br:nth-child(3) {
         display: none;
     }
 }
 
+@media (max-width: 403px) {
+    .content-body__terms > p > br:first-child {
+        display: none;
+    }
+}
+
+@media (max-width: 395px) {
+    .content-body__terms > p > br:nth-child(2) {
+        display: none;
+    }
+}
 /* Small mobile device media query */
 @media (max-width: 350px) {
     .content-body__offer {

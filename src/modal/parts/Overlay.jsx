@@ -44,13 +44,13 @@ const Overlay = ({ contentMaxWidth, contentMaxHeight }) => {
                 <Fragment>
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
                     <div
-                        className="modal__overlay-side"
+                        className="modal__overlay-side top"
                         onClick={() => handleClose('Modal Overlay')}
                         style={{ left: 0, top: 0, width: `100%`, height: `calc((100% - ${contentMaxHeight}px) / 2)` }}
                     />
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
                     <div
-                        className="modal__overlay-side"
+                        className="modal__overlay-side bottom"
                         onClick={() => handleClose('Modal Overlay')}
                         style={{
                             left: 0,
