@@ -2,6 +2,7 @@ const fs = require('fs');
 const got = require('got');
 
 const { getTerms, populateTemplate } = require('./index');
+const { localizeCurrency } = require('./miscellaneous');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -70,20 +71,12 @@ module.exports = app => {
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
 
-            let formattedMonthlyPayment = `$${bestOffer.monthly}`;
-
-            if (country === 'DE') {
-                formattedMonthlyPayment = `${bestOffer.monthly}€`;
-            } else if (country === 'GB') {
-                formattedMonthlyPayment = `£${bestOffer.monthly}`;
-            }
-
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
                 total_payments: bestOffer.term
             };
 
@@ -127,20 +120,12 @@ module.exports = app => {
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
 
-            let formattedMonthlyPayment = `$${bestOffer.monthly}`;
-
-            if (country === 'DE') {
-                formattedMonthlyPayment = `${bestOffer.monthly}€`;
-            } else if (country === 'GB') {
-                formattedMonthlyPayment = `£${bestOffer.monthly}`;
-            }
-
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
-                formattedMonthlyPayment,
+                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
+                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
                 total_payments: bestOffer.term
             };
 

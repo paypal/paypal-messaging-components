@@ -1,5 +1,5 @@
 import createBannerTest from '../createBannerTest';
-import accounts from './acounts';
+import accounts from './accounts';
 
 describe('GB > text', () => {
     const viewport = {
@@ -19,8 +19,23 @@ describe('GB > text', () => {
                 }
             });
 
-            // Each valid logo type
-            ['primary', 'alternative', 'inline', 'none'].forEach(type => {
+            // Logo type primary and all valid logo position options
+            ['primary'].forEach(type => {
+                ['top', 'left', 'right'].forEach(position => {
+                    runBannerTest(
+                        viewport,
+                        getConfig({
+                            logo: {
+                                position,
+                                type
+                            }
+                        })
+                    );
+                });
+            });
+
+            // Logo types that do not have different logo position options
+            ['alternative', 'inline', 'none'].forEach(type => {
                 runBannerTest(
                     viewport,
                     getConfig({

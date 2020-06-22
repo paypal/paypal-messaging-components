@@ -11,7 +11,7 @@
     color: #0070ba;
 }
 
-.message__headline > span:last-child > span::before {
+.message__headline > span:last-child > strong::before {
     content: 'PayPal ';
 }
 
