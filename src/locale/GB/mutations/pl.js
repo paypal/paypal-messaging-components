@@ -1,16 +1,17 @@
 import Logo from '../logos';
-import { gbPLContentMediaQuery, fallbackMediaQuery, gbPLAltContentMediaQuery } from './mediaQueries';
+import {
+    gbPLContentMediaQuery,
+    fallbackMediaQuery,
+    gbPLAltContentMediaQuery,
+    gbPLMessageLogoWidth
+} from './mediaQueries';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
-                ],
+                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
@@ -26,11 +27,7 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
-                ]
+                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -39,9 +36,7 @@ export default {
                 styles: [
                     fallbackMediaQuery(textSize * 13),
                     gbPLContentMediaQuery(textSize * 38 + 10),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -50,9 +45,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     fallbackMediaQuery(textSize * 13),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -62,9 +55,7 @@ export default {
                 styles: [
                     gbPLAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
                     fallbackMediaQuery(textSize * 20),
-                    `.message__logo-container { width: ${textSize * 1.75}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
             })
