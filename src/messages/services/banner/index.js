@@ -14,7 +14,8 @@ import {
     request,
     getCurrency,
     createUUID,
-    getWhitelist
+    getWhitelist,
+    getEnv
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -255,7 +256,7 @@ const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount'
 
 function getFetcherByRamp(account, merchantId) {
     // Force new fetcher in sandbox
-    return __ENV__ === 'sandbox'
+    return getEnv() === 'sandbox'
         ? ZalgoPromise.resolve(memoFetcherB)
         : getWhitelist().then(whitelist => {
               const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
