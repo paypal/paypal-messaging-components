@@ -254,13 +254,16 @@ const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount'
 const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 
 function getFetcherByRamp(account, merchantId) {
-    return getWhitelist().then(whitelist => {
-        const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
+    // Force new fetcher in sandbox
+    return __ENV__ === 'sandbox'
+        ? ZalgoPromise.resolve(memoFetcherB)
+        : getWhitelist().then(whitelist => {
+              const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
 
-        return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
-            ? memoFetcherB
-            : memoFetcherA;
-    });
+              return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
+                  ? memoFetcherB
+                  : memoFetcherA;
+          });
 }
 
 export default function getBannerMarkup({ options, logger }) {
