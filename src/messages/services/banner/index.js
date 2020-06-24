@@ -14,7 +14,7 @@ import {
     request,
     getCurrency,
     createUUID,
-    getWhitelist,
+    getExclusionList,
     getEnv
 } from '../../../utils';
 
@@ -257,12 +257,12 @@ const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount'
 function getFetcherByRamp(account, merchantId) {
     // Ramp fetcher in production
     return getEnv() === 'production'
-        ? getWhitelist().then(whitelist => {
+        ? getExclusionList().then(exclusionList => {
               const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
 
-              return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
-                  ? memoFetcherB
-                  : memoFetcherA;
+              return arrayIncludes(exclusionList, id) || (merchantId && arrayIncludes(exclusionList, merchantId))
+                  ? memoFetcherA
+                  : memoFetcherB;
           })
         : ZalgoPromise.resolve(memoFetcherB);
 }
