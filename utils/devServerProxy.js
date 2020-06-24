@@ -75,6 +75,7 @@ module.exports = app => {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
+                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
                 formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
                 formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
                 total_payments: bestOffer.term
@@ -125,6 +126,7 @@ module.exports = app => {
                     .toString(36)
                     .slice(2),
                 formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
+                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
                 formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
                 total_payments: bestOffer.term
             };
