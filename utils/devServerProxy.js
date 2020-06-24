@@ -111,7 +111,7 @@ module.exports = app => {
                 .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
                 .slice(1);
 
-            got(`https://www.paypal.com/imadserver/upstream?${query}`)
+            got(`https://www.paypal.com/credit-presentment/messages?${query}`)
                 .then(({ body, headers }) => {
                     delete headers['content-encoding']; // eslint-disable-line no-param-reassign
                     res.set(headers);

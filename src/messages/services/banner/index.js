@@ -14,7 +14,8 @@ import {
     request,
     getCurrency,
     createUUID,
-    getWhitelist
+    getWhitelist,
+    getEnv
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -254,13 +255,16 @@ const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount'
 const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
 
 function getFetcherByRamp(account, merchantId) {
-    return getWhitelist().then(whitelist => {
-        const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
+    // Ramp fetcher in production
+    return getEnv() === 'production'
+        ? getWhitelist().then(whitelist => {
+              const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
 
-        return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
-            ? memoFetcherB
-            : memoFetcherA;
-    });
+              return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
+                  ? memoFetcherB
+                  : memoFetcherA;
+          })
+        : ZalgoPromise.resolve(memoFetcherB);
 }
 
 export default function getBannerMarkup({ options, logger }) {
