@@ -15,7 +15,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     const modalFrame = await elementModal.contentFrame();
 
     await frame.waitForSelector('.message__messaging', { visible: true });
-    if (config.account.includes('IAZ')) {
+    if (config.account !== 'DEV00000000NI' || config.account !== 'DEV0000000PSZ') {
         await modalFrame.waitForSelector('.modal__content');
     } else {
         await modalFrame.waitForSelector('.content-body');
