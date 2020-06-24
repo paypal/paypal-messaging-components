@@ -6,3 +6,14 @@ module.exports.populateTemplate = (morsVars, template) =>
             template
         )
         .replace(/\r\n|\r|\n/g, '');
+
+module.exports.localizeCurrency = (country, amount) => {
+    let localizedAmount = `$${amount}`;
+
+    if (country === 'DE') {
+        localizedAmount = `${amount}€`;
+    } else if (country === 'GB') {
+        localizedAmount = `£${amount}`;
+    }
+    return localizedAmount;
+};

@@ -2,6 +2,7 @@ const fs = require('fs');
 const got = require('got');
 
 const { getTerms, populateTemplate } = require('./index');
+const { localizeCurrency } = require('./miscellaneous');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -18,7 +19,10 @@ const devAccountMap = {
     DEV0000000IAZ: ['DE', 'inst_any_eqz'],
     DEV0000000IAG: ['DE', 'inst_any_gtz'],
     DEV000000PQAG: ['DE', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'palaq_any_eqz']
+    DEV000000PQAZ: ['DE', 'palaq_any_eqz'],
+
+    DEV000000GBPL: ['GB', 'pl'],
+    DEV00000GBPLQ: ['GB', 'plq']
 };
 
 module.exports = app => {
@@ -71,8 +75,9 @@ module.exports = app => {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
                 total_payments: bestOffer.term
             };
 
@@ -120,8 +125,9 @@ module.exports = app => {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
+                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
                 total_payments: bestOffer.term
             };
 
