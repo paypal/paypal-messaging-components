@@ -1,7 +1,7 @@
-import { setup as setupMessageComponent } from '../zoid/message';
+import { setup as setupMessageComponent } from '../controllers/message';
 
-export { Messages } from '../zoid/message';
-export { Modals } from '../zoid/modal';
+export { Messages } from '../controllers/message';
+export { Modal } from '../zoid/modal';
 
 export function setup() {
     setupMessageComponent();

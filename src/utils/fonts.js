@@ -5,7 +5,7 @@ import { prependStyle } from './elements';
 
 const loadedFonts = new Map();
 
-export default function(doc) {
+export function loadPPFonts(doc) {
     if (!loadedFonts.has(doc)) {
         loadedFonts.set(
             doc,

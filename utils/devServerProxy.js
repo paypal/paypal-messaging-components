@@ -20,23 +20,22 @@ const devAccountMap = {
 };
 
 module.exports = app => {
-    app.get('/ppcredit/messagingLogger', (req, res) => {
-        res.send('');
-    });
+    app.get('/ppcredit/messagingLogger', (req, res) => res.send(''));
+
+    app.post('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/credit-presentment/smart/message', (req, res) => {
         // const {} = req.query;
 
         const props = {
-            country: 'US',
-            offerType: 'NI',
-            uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
-            messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
-            markup:
-                '<span><style>body { margin: 0; }</style><strong>Free Money</strong> with PayPal Credit. Apply now or lose your chance!</span>',
-            trackingDetails: {
-                clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+            markup: '<span><style>body { margin: 0; }</style><strong>Free Money</strong> with PayPal Credit.</span>',
+            meta: {
+                uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
+                trackingDetails: {
+                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                }
             }
         };
 
@@ -90,8 +89,6 @@ module.exports = app => {
 
         res.send(getTerms(country, Number(amount)));
     });
-
-    app.post('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/imadserver/upstream', (req, res) => {
         const { call, currency_value: amount = 0, dimensions } = req.query;

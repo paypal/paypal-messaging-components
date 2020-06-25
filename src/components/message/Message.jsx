@@ -3,17 +3,20 @@ import { h } from 'preact';
 import { useEffect, useCallback } from 'preact/hooks';
 import { once } from 'belter/src';
 
-import { useModal } from './hooks';
+import { useXProps } from '../common/providers';
+import { useLogger } from './hooks';
 
-const Message = ({ logger, country, offerType, requestId, innerHTML }) => {
-    const { open } = useModal({ logger, country, offerType, requestId });
-    const { onReady } = window.xprops;
+const Message = ({ innerHTML, meta }) => {
+    const { onClick, onReady, amount, clientId, payerId, merchantId, placement } = useXProps();
+    const logger = useLogger(meta);
 
     const handleClick = () => {
         logger.track({ et: 'CLICK', event_type: 'MORS' });
         logger.track({ et: 'CLICK', event_type: 'click', link: 'Banner Wrapper' });
 
-        open();
+        if (typeof onClick === 'function') {
+            onClick();
+        }
     };
 
     const handleHover = useCallback(
@@ -23,9 +26,18 @@ const Message = ({ logger, country, offerType, requestId, innerHTML }) => {
 
     useEffect(() => {
         logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'MORS' });
+        logger.track({
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'render',
+            amount,
+            clientId,
+            payerId,
+            merchantId,
+            placement
+        });
 
         if (typeof onReady === 'function') {
-            onReady(logger);
+            onReady({ messageRequestId: meta.messageRequestId });
         }
     }, []);
 

@@ -1,12 +1,10 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
-import objectAssign from 'core-js-pure/stable/object/assign';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { globalState, setGlobalState, objectMerge, flattenedToObject, isElement, getInlineOptions } from '../../utils';
+import { objectMerge, flattenedToObject, isElement, getInlineOptions, runStats } from '../../utils';
 import { Logger } from '../../services/logger';
-import Message from './component';
-import runStats from './helpers/stats';
+import { Message } from '../../zoid/message';
 
 const messages = new Map();
 
@@ -16,7 +14,7 @@ const messages = new Map();
  * @param {Object} options Banner options
  * @returns {void}
  */
-function renderMessages(options, selector) {
+export default function renderMessages(options, selector) {
     let containers;
     // let selectorType;
     if (typeof selector === 'string') {
@@ -53,8 +51,7 @@ function renderMessages(options, selector) {
                 // Merchant options
                 ...objectMerge(options, getInlineOptions(container)),
                 // Library options
-                onReady: logger =>
-                    runStats({ container, logger, account: totalOptions.account, amount: totalOptions.amount })
+                onReady: ({ messageRequestId }) => runStats({ messageRequestId, container })
             };
 
             if (!messages.has(container)) {
@@ -63,6 +60,7 @@ function renderMessages(options, selector) {
 
             const { render, updateProps } = messages.get(container);
 
+            // TODO: Do not create observers when rerendering
             const observer = new MutationObserver(mutationList => {
                 const newConfig = mutationList.reduce((accumulator, mutation) => {
                     if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
@@ -84,21 +82,3 @@ function renderMessages(options, selector) {
         })
     );
 }
-
-// Setup global library state
-const Messages = (config = {}) => ({
-    render: (selector = '[data-pp-message]') => renderMessages({ ...globalState.config, ...config }, selector)
-});
-
-objectAssign(Messages, {
-    render: (config, selector) => Messages(config).render(selector),
-    setGlobalConfig: (config = {}) =>
-        setGlobalState({
-            config: {
-                ...globalState.config,
-                ...config
-            }
-        })
-});
-
-export default Messages;

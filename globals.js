@@ -34,7 +34,8 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __URI__: {
             __MESSAGE__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER__: '/ppcredit/messagingLogger'
+            __LOGGER__: '/ppcredit/messagingLogger',
+            __LOGGER_2__: '/credit-presentment/log'
         }
     }
 });

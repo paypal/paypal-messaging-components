@@ -1,7 +1,7 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl, getGlobalComponent } from '../../utils';
-import validate from './helpers/validation';
+import { getTargetMeta, getGlobalUrl, getGlobalComponent, getLogger } from '../../utils';
+import validate from './validation';
 import containerTemplate from './containerTemplate';
 
 export default getGlobalComponent('__paypal_credit_message__', () =>
@@ -61,12 +61,14 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.offer
             },
+            logger: {
+                type: 'object',
+                queryParam: false,
+                required: false,
+                value: getLogger
+            },
 
             // Callbacks
-            onApply: {
-                type: 'function',
-                required: false
-            },
             onClick: {
                 type: 'function',
                 required: false
@@ -80,13 +82,13 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (props.account.type === 'payer_id:' ? props.account.id : undefined),
+                value: ({ props }) => (props.account.type === 'payer_id' ? props.account.id : undefined),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (props.account.type === 'client-id:' ? props.account.id : undefined),
+                value: ({ props }) => (props.account.type === 'client_id' ? props.account.id : undefined),
                 required: false
             },
             merchantId: {

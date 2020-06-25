@@ -1,2 +1,1 @@
-export { default as Messages } from './interface';
-export { default as setup } from './setup';
+export { default as Message } from './component';

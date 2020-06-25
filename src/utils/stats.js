@@ -1,4 +1,6 @@
-import { checkAdblock, isHidden, isInViewport } from '../../../utils';
+import { checkAdblock } from './adblock';
+import { isHidden, isInViewport } from './elements';
+import { getLogger } from './logger';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -16,30 +18,24 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export default ({ container, amount, account, logger }) => {
+export function runStats({ messageRequestId, container }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
+    const logger = getLogger();
 
     // Create initial payload
     const payload = {
+        message_request_id: messageRequestId,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
         messaging_version: __MESSAGES__.__VERSION__,
-        // placement, TODO: This should now be handled on the server?
         pos_x: Math.round(containerRect.left),
         pos_y: Math.round(containerRect.top),
         browser_width: window.innerWidth,
         browser_height: window.innerHeight,
-        visible: isInViewport(container),
-        amount
+        visible: isInViewport(container)
     };
-
-    if (account.subject) {
-        payload.partner_client_id = account.id;
-    } else if (account.type === 'client_id:') {
-        payload.client_id = account.id;
-    }
 
     // No need for scroll event if banner is above the fold
     if (!payload.visible) {
@@ -47,6 +43,7 @@ export default ({ container, amount, account, logger }) => {
             if (isInViewport(container)) {
                 clearScroll();
                 logger.track({
+                    message_request_id: messageRequestId,
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'scroll',
                     visible: true
@@ -60,4 +57,4 @@ export default ({ container, amount, account, logger }) => {
         payload.blocked = isHidden(container);
         logger.track(payload); // TODO: , container.getAttribute('data-pp-message-hidden') === 'true');
     });
-};
+}

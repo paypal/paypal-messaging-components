@@ -1,1 +1,1 @@
-export { default as Modals } from './component';
+export { default as Modal } from './component';
