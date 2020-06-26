@@ -24,7 +24,11 @@ const PL = () => {
         <div className="content-body">
             <div className="content-body--left">
                 {isEligible(terms)}
-                <p className="content-body__subheadline">For purchases between £45 to £2,000</p>
+                <p className="content-body__subheadline">
+                    {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount
+                        ? `For purchases between £${terms.formattedMinAmount} and £${terms.formattedMaxAmount}`
+                        : 'On eligible purchases'}
+                </p>
                 <Icon name="icecream" />
                 <div className="content-body__thumbs-up">
                     <Icon name="thumbs-up" />

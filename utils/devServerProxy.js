@@ -70,14 +70,15 @@ module.exports = app => {
             const [country, offer] = devAccountMap[clientId || payerId];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
                 total_payments: bestOffer.term
             };
 
@@ -120,14 +121,15 @@ module.exports = app => {
             const [country, offer] = devAccountMap[account];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
-                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 total_payments: bestOffer.term
             };
 
