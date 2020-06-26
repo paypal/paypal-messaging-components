@@ -3,9 +3,8 @@ import {
     gbPLContentMediaQuery,
     fallbackMediaQuery,
     gbPLAltContentMediaQuery,
-    whiteTextMediaQuery
+    gbPLMessageLogoWidth
 } from './mediaQueries';
-import { messageDisclaimerMediaQuery } from '../../US/mutations/mediaQueries';
 
 export default {
     'layout:text': [
@@ -14,15 +13,16 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     fallbackMediaQuery(textSize * 25 + 20),
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
-                    }
+                        replace: [['month.', 'month']],
+                        br: ['of']
+                    },
+                    { tag: 'xsmall' }
                 ],
                 disclaimer: ['default']
             })
@@ -31,31 +31,18 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 25 + 20),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
-                ],
-                logo: Logo.PRIMARY.COLOR,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                    fallbackMediaQuery(textSize * 14 + 4),
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 27),
+                    fallbackMediaQuery(textSize * 14 + 4),
                     gbPLContentMediaQuery(textSize * 38 + 10),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -63,10 +50,8 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 27),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    fallbackMediaQuery(textSize * 14 + 4),
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -74,66 +59,32 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 30),
-                    gbPLAltContentMediaQuery(textSize * 17 + 8, textSize * 30),
-                    `.message__logo-container { width: ${textSize * 2}px; }`,
-                    `.message__logo { width: ${textSize * 4}px; }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLAltContentMediaQuery(textSize * 17, textSize * 34, textSize * 24),
+                    fallbackMediaQuery(textSize * 21),
+                    gbPLMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                logo: Logo.PRIMARY.COLOR[0],
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                logo: Logo.PRIMARY.COLOR[0]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 15)],
-                logo: false,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                styles: [fallbackMediaQuery(textSize * 17)],
+                logo: false
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 15)],
-                logo: false,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                styles: [fallbackMediaQuery(textSize * 17 + 4)],
+                logo: false
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 29 + 15),
-                    whiteTextMediaQuery(textSize * 29 + 15),
-                    '.locale--GB .message__headline .pp-text-logo::before { color: white; }',
-                    '.locale--GB .message__headline .pp-text-logo::after { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child::after { color: white; }'
-                ],
+                styles: [fallbackMediaQuery(textSize * 17 + 4)],
                 logo: false
             })
         ],

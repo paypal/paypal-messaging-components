@@ -358,14 +358,12 @@ function createTemplateNode(options, markup) {
         const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
         span.textContent = `${withText} `;
-
-        const nodeType = getLocaleClass() === 'locale--GB' ? 'span' : 'strong';
+        const nodeType = 'strong';
 
         /**
          * Inserts a new span with text "PayPal" when insertPPText param is true.
          * Used for stylizing the brand text for GPL UK inline messages.
          */
-
         if (insertPPText) {
             const paypalNode = document.createElement('span');
             paypalNode.className = 'pp-text-logo';
@@ -380,25 +378,17 @@ function createTemplateNode(options, markup) {
         headline.appendChild(span);
     };
 
+    if (getLocaleClass() === 'locale--GB') {
+        appendWithProductText(
+            objectGet(options, 'style.logo.type') === 'inline' || objectGet(options, 'style.layout') === 'flex'
+        );
+    } else if (objectGet(options, 'style.logo.type') === 'none') {
+        appendWithProductText();
+    }
+
     // Logo DOM location must be moved in order for logo to be inline between text content
     if (objectGet(options, 'style.logo.type') === 'inline') {
         headline.appendChild(logoContainer);
-        if (getLocaleClass() === 'locale--GB') {
-            appendWithProductText(true);
-        }
-    }
-
-    if (objectGet(options, 'style.logo.type') === 'none') {
-        appendWithProductText();
-    }
-
-    if (
-        (objectGet(options, 'style.logo.type') === 'primary' ||
-            objectGet(options, 'style.logo.type') === 'alternative' ||
-            objectGet(options, 'style.layout') === 'flex') &&
-        getLocaleClass() === 'locale--GB'
-    ) {
-        appendWithProductText();
     }
 
     const textSize = objectGet(options, 'style.text.size');

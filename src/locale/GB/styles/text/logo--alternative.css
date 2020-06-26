@@ -7,6 +7,7 @@
 .message__logo-container {
     display: inline;
     margin-right: 0px;
+    order: 0;
 }
 
 .message__logo {

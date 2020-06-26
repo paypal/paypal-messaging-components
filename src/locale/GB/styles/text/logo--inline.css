@@ -1,5 +1,5 @@
-.message__logo-container::before {
-    content: '';
+.message__logo-container {
+    display: none;
 }
 
 .message__headline > .tag--medium > span::before {
@@ -20,9 +20,8 @@
     font-style: italic;
 }
 
-.message__headline > span:last-child > span:last-child {
+.message__headline strong {
     color: #003087;
-    font-weight: 600;
     font-style: italic;
 }
 

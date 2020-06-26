@@ -3,25 +3,21 @@ import {
     gbPLContentMediaQuery,
     fallbackMediaQuery,
     gbPLAltContentMediaQuery,
-    whiteTextMediaQuery
+    gbPLMessageLogoWidth
 } from './mediaQueries';
-import { messageDisclaimerMediaQuery } from '../../US/mutations/mediaQueries';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 25 + 10),
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
-                ],
+                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']]
+                        replace: [['purchases.', 'purchases']],
+                        br: ['on']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -31,31 +27,16 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 25 + 10),
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; margin-right: 5px; }`
-                ],
-                logo: Logo.PRIMARY.COLOR,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 26),
+                    fallbackMediaQuery(textSize * 13),
                     gbPLContentMediaQuery(textSize * 38 + 10),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -63,10 +44,8 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 26),
-                    `.message__logo-container { width: ${textSize * 6}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    fallbackMediaQuery(textSize * 13),
+                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -74,60 +53,32 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    messageDisclaimerMediaQuery(textSize * 34 + 10),
-                    fallbackMediaQuery(textSize * 29),
-                    gbPLAltContentMediaQuery(textSize * 17 + 7, textSize * 29),
-                    `.message__logo-container { width: ${textSize * 2}px }`,
-                    `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo:first-child { width: ${textSize * 1.25}px; }`
+                    gbPLAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
+                    fallbackMediaQuery(textSize * 20),
+                    gbPLMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                logo: Logo.PRIMARY.COLOR[0],
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                logo: Logo.PRIMARY.COLOR[0]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 10)],
-                logo: false,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
-                    },
-                    { tag: 'xsmall' }
-                ],
-                disclaimer: ['default']
+                styles: [fallbackMediaQuery(textSize * 16)],
+                logo: false
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 29 + 14)],
-                logo: false,
-                headline: [{ tag: 'medium', replace: [['purchases.', 'purchases']] }, { tag: 'xsmall' }],
-                disclaimer: ['default']
+                styles: [fallbackMediaQuery(textSize * 17 + 2)],
+                logo: false
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         [
             'text.color:white && logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 29 + 15),
-                    whiteTextMediaQuery(textSize * 29 + 15),
-                    '.locale--GB .message__headline .pp-text-logo::before { color: white; }',
-                    '.locale--GB .message__headline .pp-text-logo::after { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child { color: white; }',
-                    '.locale--GB .message__headline > span:last-child > span:last-child::after { color: white; }'
-                ],
+                styles: [fallbackMediaQuery(textSize * 17 + 2)],
                 logo: false
             })
         ],
