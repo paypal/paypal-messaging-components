@@ -8,6 +8,8 @@ function getModalType(offerCountry, offerType) {
     switch (offerCountry) {
         case 'DE':
             return 'INST';
+        case 'GB':
+            return 'PL';
         case 'US':
         default:
             return startsWith(offerType, 'NI') ? 'NI' : 'EZP';

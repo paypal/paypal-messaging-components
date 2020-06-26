@@ -1,8 +1,8 @@
-import selectors from './selectors';
-import modalSnapshot from './modalSnapshot';
+import selectors from '../../utils/selectors';
+import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
- * Runs inside de_ModalCalc-flex & de_ModalCalc-text for the DE locale.
+ * Runs inside modalTextCalc and modalFlexCalc for the DE locale.
  */
 
 export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {

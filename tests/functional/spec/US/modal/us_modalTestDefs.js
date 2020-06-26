@@ -1,8 +1,8 @@
-import selectors from './selectors';
-import modalSnapshot from './modalSnapshot';
+import selectors from '../../utils/selectors';
+import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
- * This function runs inside niModal-flex & niModal-text for the US locale.
+ * This function runs inside modalNI.test.js for the US locale.
  */
 
 export const niContentTest = (account, viewport, bannerStyle) => async () => {
@@ -32,7 +32,7 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
 };
 
 /**
- * Runs inside us_ModalFunc-flex & us_ModalFunc-text for the US locale.
+ * Runs inside modalText and modalFlex.test.js for the US locale.
  */
 
 export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () => {
@@ -60,7 +60,7 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
 };
 
 /**
- * Runs inside us_ModalCalc-flex & us_ModalCalc-text for the US locale.
+ * Runs inside modalCalc.test.js for the US locale.
  * Passes in bannerStyles instead of bannerStyle.
  */
 
