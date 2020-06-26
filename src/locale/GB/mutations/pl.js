@@ -197,7 +197,9 @@ export default {
                         .message__disclaimer { display: inline; font-size: .9rem; }
                     }`,
                     '.message__logo-container { flex-basis: 33%; }',
-                    '@media (min-aspect-ratio: 80/11) and (min-width: 500px) { .message__headline > span:not(.multi) { display: inline; } }'
+                    `@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+                        .message__headline > span:not(.multi) { display: inline; }
+                    }`
                 ]
             }
         ],

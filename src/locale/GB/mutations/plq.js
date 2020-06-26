@@ -172,7 +172,16 @@ export default {
                 ],
                 styles: [
                     `@media (max-aspect-ratio: 61/10) {
+                        .message__logo-container { flex-basis: 26%; }
+                        .message__logo:nth-of-type(2) { display: inline-block; }
                         .message__disclaimer { font-size: .6rem; }
+                    }`,
+                    `@media (max-width: 250px) {
+                        .message__logo-container { flex-basis: 13%; }
+                        .message__logo:nth-of-type(2) { display: none; }
+                        .message__promo-container { display: inline; }
+                        .message__headline { display: inline; width: 75%; }
+                        .message__disclaimer { display: inline; }
                     }`
                 ]
             }
@@ -196,9 +205,24 @@ export default {
                     }`,
                     '.message__logo-container { flex-basis: 10%; }',
                     '.message__logo:nth-of-type(2) { display: none; }',
-                    `@media (max-aspect-ratio: 61/10) {
-                        .message__logo-container { flex-basis: 33%; }
+                    `@media (max-aspect-ratio: 61/10)  {
+                        .message__logo-container { flex-basis: 26%; }
                         .message__logo:nth-of-type(2) { display: inline-block; }
+                    }`,
+                    `@media (max-width: 250px) {
+                        .message__logo-container { flex-basis: 13%; }
+                        .message__logo:nth-of-type(2) { display: none; }
+                        .message__promo-container { display: inline; }
+                        .message__headline { display: inline; width: 75%; }
+                    }`,
+                    `@media (min-width: 495px) {
+                        .message__logo-container { flex-basis: 23%; }
+                        div.message__logo:nth-of-type(1) { width: 20px; }
+                        div.message__logo:nth-of-type(2) { width: 60px; display: inline-block; }
+                    }`,
+                    `@media (min-width: 495px) {
+                        div.message__logo:nth-of-type(1) { width: 25px; }
+                        div.message__logo:nth-of-type(2) { width: 76px; display: inline-block; }
                     }`
                 ]
             }
