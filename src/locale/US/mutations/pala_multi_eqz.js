@@ -57,7 +57,10 @@ export default {
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
         ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
-        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
+        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }],
+        ['text.color:monochrome && logo.type:primary', { logo: Logo.PRIMARY.BLACK }],
+        ['text.color:monochrome && logo.type:alternative', { logo: Logo.ALTERNATIVE.BLACK }],
+        ['text.color:monochrome && logo.type:inline', { logo: Logo.ALT_NO_PP.BLACK }]
     ],
 
     'layout:flex': [
@@ -72,6 +75,7 @@ export default {
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
         ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
+        // ['color:monochrome', { logo: Logo.PRIMARY.BLACK }]
     ],
 
     'layout:legacy': [

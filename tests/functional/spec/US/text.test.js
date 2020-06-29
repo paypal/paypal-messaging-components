@@ -77,6 +77,22 @@ describe('US > text', () => {
                 );
             });
 
+            // Each logo type, logo.position-left_text.color-monochrome
+            ['primary', 'alternative', 'inline', 'none'].forEach(type => {
+                runBannerTest(
+                    viewport,
+                    getConfig({
+                        logo: {
+                            type,
+                            position: 'left'
+                        },
+                        text: {
+                            color: 'monochrome'
+                        }
+                    })
+                );
+            });
+
             // Small viewport
             runBannerTest(
                 {

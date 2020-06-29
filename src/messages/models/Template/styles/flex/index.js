@@ -11,6 +11,7 @@ import colorBlueRatio1x4 from './color--blue&&ratio--1x4.css';
 import colorBlack from './color--black.css';
 import colorWhite from './color--white.css';
 import colorWhiteNoBorder from './color--white-no-border.css';
+import colorMonochrome from './color--monochrome.css';
 
 export default [
     ['default', [common, base].join('\n')],
@@ -25,6 +26,7 @@ export default [
     ['color:black', colorBlack],
     ['color:white', colorWhite],
     ['color:white-no-border', colorWhiteNoBorder],
+    ['color:monochrome', colorMonochrome],
 
     ['color:blue && ratio:1x4', colorBlueRatio1x4]
 ];

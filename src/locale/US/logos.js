@@ -7,6 +7,10 @@ export default {
         WHITE: {
             src: 'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_pri.svg',
             dimensions: [453, 152]
+        },
+        BLACK: {
+            src: '',
+            dimensions: [453, 152]
         }
     },
     ALTERNATIVE: {
@@ -17,6 +21,10 @@ export default {
         WHITE: {
             src: 'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_alt.svg',
             dimensions: [573, 80]
+        },
+        BLACK: {
+            src: '',
+            dimensions: [573, 80]
         }
     },
     ALT_NO_PP: {
@@ -26,6 +34,10 @@ export default {
         },
         WHITE: {
             src: 'https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/ppc_wh_alt_noPP.svg',
+            dimensions: [477, 64]
+        },
+        BLACK: {
+            src: '',
             dimensions: [477, 64]
         }
     }
