@@ -71,10 +71,12 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
             // Callbacks
             onClick: {
                 type: 'function',
+                queryParam: false,
                 required: false
             },
             onReady: {
                 type: 'function',
+                queryParam: false,
                 required: false
             },
 

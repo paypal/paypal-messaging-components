@@ -59,10 +59,12 @@ module.exports = app => {
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { country, amount } = req.query;
+        const { country = 'US', amount } = req.query;
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {}
+            meta: {},
+            country,
+            type: 'NI'
         };
 
         res.send(`

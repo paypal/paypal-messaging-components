@@ -5,6 +5,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import { objectMerge, flattenedToObject, isElement, getInlineOptions, runStats } from '../../utils';
 import { Logger } from '../../services/logger';
 import { Message } from '../../zoid/message';
+import { Modal } from '../modal';
 
 const messages = new Map();
 
@@ -47,38 +48,83 @@ export default function renderMessages(options, selector) {
 
     return ZalgoPromise.all(
         containers.map(container => {
-            const totalOptions = {
-                // Merchant options
-                ...objectMerge(options, getInlineOptions(container)),
-                // Library options
-                onReady: ({ messageRequestId }) => runStats({ messageRequestId, container })
-            };
+            const merchantOptions = objectMerge(options, getInlineOptions(container));
 
             if (!messages.has(container)) {
-                messages.set(container, Message(totalOptions));
+                const modal = Modal({
+                    account: merchantOptions.account,
+                    currency: merchantOptions.currency,
+                    amount: merchantOptions.amount,
+                    onApply: merchantOptions.onApply
+                });
+
+                const totalOptions = {
+                    ...merchantOptions,
+                    // Library options
+                    onReady: ({ messageRequestId }) => {
+                        modal.render('body');
+                        runStats({ messageRequestId, container });
+                    },
+                    onClick: ({ messageRequestId }) => {
+                        modal.show({
+                            messageRequestId,
+                            currency: merchantOptions.currency,
+                            amount: merchantOptions.amount,
+                            onApply: merchantOptions.onApply
+                        });
+
+                        if (typeof merchantOptions.onClick === 'function') {
+                            merchantOptions.onClick({ messageRequestId });
+                        }
+                    }
+                };
+
+                const message = Message(totalOptions);
+
+                const updateProps = newProps => {
+                    message.updateProps({
+                        ...newProps,
+                        onClick: ({ messageRequestId }) => {
+                            modal.show({
+                                messageRequestId,
+                                currency: newProps.currency,
+                                amount: newProps.amount,
+                                onApply: newProps.onApply
+                            });
+
+                            if (typeof newProps.onClick === 'function') {
+                                newProps.onClick({ messageRequestId });
+                            }
+                        }
+                    });
+                };
+
+                const observer = new MutationObserver(mutationList => {
+                    const newMerchantOptions = mutationList.reduce((accumulator, mutation) => {
+                        if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
+
+                        return objectMerge(
+                            accumulator,
+                            flattenedToObject(
+                                mutation.attributeName.slice(8),
+                                mutation.target.getAttribute(mutation.attributeName)
+                            )
+                        );
+                    }, {});
+
+                    updateProps(newMerchantOptions);
+                });
+                observer.observe(container, { attributes: true });
+
+                messages.set(container, { render: message.render, updateProps });
+
+                modal.render('body');
+                return message.render(container);
             }
 
-            const { render, updateProps } = messages.get(container);
+            const { updateProps } = messages.get(container);
 
-            // TODO: Do not create observers when rerendering
-            const observer = new MutationObserver(mutationList => {
-                const newConfig = mutationList.reduce((accumulator, mutation) => {
-                    if (!stringStartsWith(mutation.attributeName, 'data-pp-')) return accumulator;
-
-                    return objectMerge(
-                        accumulator,
-                        flattenedToObject(
-                            mutation.attributeName.slice(8),
-                            mutation.target.getAttribute(mutation.attributeName)
-                        )
-                    );
-                }, {});
-
-                updateProps(newConfig);
-            });
-            observer.observe(container, { attributes: true });
-
-            return render(container);
+            return updateProps(merchantOptions);
         })
     );
 }

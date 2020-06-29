@@ -1,6 +1,7 @@
 import { create } from 'zoid/src';
 
 import { getTargetMeta, getGlobalUrl, getGlobalComponent } from '../../utils';
+import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
 export default getGlobalComponent('__paypal_credit_modal__', () =>
@@ -20,17 +21,8 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 type: 'object',
                 queryParam: false,
                 required: true,
-                serialization: 'json'
-            },
-            type: {
-                type: 'string',
-                queryParam: true,
-                required: true
-            },
-            country: {
-                type: 'string',
-                queryParam: true,
-                required: true
+                serialization: 'json',
+                value: validate.account
             },
             currency: {
                 type: 'string',

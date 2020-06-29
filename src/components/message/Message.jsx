@@ -15,7 +15,7 @@ const Message = ({ innerHTML, meta }) => {
         logger.track({ et: 'CLICK', event_type: 'click', link: 'Banner Wrapper' });
 
         if (typeof onClick === 'function') {
-            onClick();
+            onClick({ messageRequestId: meta.messageRequestId });
         }
     };
 

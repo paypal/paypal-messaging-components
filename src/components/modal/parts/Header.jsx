@@ -1,7 +1,9 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
 
-import { useTransitionState, useXProps } from '../lib/hooks';
+import { useTransitionState } from '../lib/hooks';
+import { ServerContext } from '../lib/context';
 import Icon from './Icon';
 
 const LOCALE = {
@@ -16,7 +18,7 @@ const LOCALE = {
 };
 
 const Header = ({ shadow }) => {
-    const { country } = useXProps();
+    const { country } = useContext(ServerContext);
     const [, handleClose] = useTransitionState();
 
     return (

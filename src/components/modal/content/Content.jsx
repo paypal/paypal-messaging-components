@@ -1,7 +1,8 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
+import { useContext } from 'preact/hooks';
 
-import { useXProps } from '../lib/hooks';
+import { ServerContext } from '../lib/context';
 import deInstStyle from '../styles/de--inst.css';
 import usEzpStyle from '../styles/us--ezp.css';
 import NI from './US/NI';
@@ -10,7 +11,7 @@ import INST from './DE/INST';
 import Tabs from '../parts/Tabs';
 
 const Content = () => {
-    const { type } = useXProps();
+    const { type } = useContext(ServerContext);
 
     switch (type) {
         case 'NI':

@@ -48,8 +48,8 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms, meta } = useContext(ServerContext);
-    const { payerId, clientId, merchantId, country } = useXProps();
+    const { terms, meta, country } = useContext(ServerContext);
+    const { payerId, clientId, merchantId } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, terms.amount),
         prevValue: localize(country, terms.amount),
