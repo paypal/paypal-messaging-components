@@ -9,7 +9,7 @@ export default {
             dimensions: [453, 152]
         },
         BLACK: {
-            src: '',
+            src: 'https://www.paypalobjects.com/upstream/assets/logos/ppc_mono_pri.svg',
             dimensions: [453, 152]
         }
     },
@@ -23,7 +23,7 @@ export default {
             dimensions: [573, 80]
         },
         BLACK: {
-            src: '',
+            src: 'https://www.paypalobjects.com/upstream/assets/logos/ppc_mono_alt.svg',
             dimensions: [573, 80]
         }
     },
@@ -37,7 +37,7 @@ export default {
             dimensions: [477, 64]
         },
         BLACK: {
-            src: '',
+            src: 'https://www.paypalobjects.com/upstream/assets/logos/ppc_mono_alt_noPP.svg',
             dimensions: [477, 64]
         }
     }

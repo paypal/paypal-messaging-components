@@ -68,8 +68,8 @@ export default {
         ],
         ['color:gray', { logo: Logo.PRIMARY.COLOR }],
         ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
-        // ['color:monochrome', { logo: Logo.PRIMARY.COLOR }]
+        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
+        ['color:monochrome', { logo: Logo.PRIMARY.BLACK }]
     ],
 
     'layout:legacy': [
