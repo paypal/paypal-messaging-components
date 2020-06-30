@@ -2,6 +2,10 @@
     color: black;
 }
 
+.locale--US.message__container .message__headline > span:first-of-type {
+    color: black;
+}
+
 .message__container .message__headline > span:not(:nth-of-type(2)) {
     color: black;
 }
