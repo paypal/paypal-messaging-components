@@ -93,6 +93,22 @@ describe('US > text', () => {
                 );
             });
 
+            // Each logo type, logo.position-left_text.color-grayscale
+            ['primary', 'alternative', 'inline', 'none'].forEach(type => {
+                runBannerTest(
+                    viewport,
+                    getConfig({
+                        logo: {
+                            type,
+                            position: 'left'
+                        },
+                        text: {
+                            color: 'grayscale'
+                        }
+                    })
+                );
+            });
+
             // Small viewport
             runBannerTest(
                 {

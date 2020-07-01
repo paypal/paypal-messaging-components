@@ -1,5 +1,6 @@
 import Logo from '../logos';
 import { altContentMediaQuery } from './mediaQueries';
+import { textLogosArr, flexLogosArr } from './logoUtil';
 
 const defaultTextStyles = [
     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
@@ -64,12 +65,7 @@ export default {
                 ]
             }
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
-        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }],
-        ['text.color:monochrome && logo.type:primary', { logo: Logo.PRIMARY.BLACK }],
-        ['text.color:monochrome && logo.type:alternative', { logo: Logo.ALTERNATIVE.BLACK }],
-        ['text.color:monochrome && logo.type:inline', { logo: Logo.ALT_NO_PP.BLACK }]
+        ...textLogosArr
     ],
 
     'layout:flex': [
@@ -87,10 +83,7 @@ export default {
                 headline: { br: ['over', 'months'] }
             }
         ],
-        ['color:gray', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white', { logo: Logo.PRIMARY.COLOR }],
-        ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
-        ['color:monochrome', { logo: Logo.PRIMARY.BLACK }]
+        ...flexLogosArr
     ],
 
     'layout:legacy': [
