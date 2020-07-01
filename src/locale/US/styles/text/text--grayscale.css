@@ -1,11 +1,7 @@
-.message__headline {
-    color: #1a1a1a;
-}
-
-.message__headline > span:first-of-type {
-    color: #1a1a1a;
+.message__messaging .message__headline > span:first-of-type {
+    color: #2c2e2f;
 }
 
 .message__disclaimer span {
-    color: #1a1a1a;
+    color: #2c2e2f;
 }

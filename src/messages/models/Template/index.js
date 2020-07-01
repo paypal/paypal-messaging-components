@@ -331,7 +331,7 @@ function createTemplateNode(options, markup) {
     const localeClass = getLocaleClass();
     // Scope all locale-specific styles to the selected locale
     const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(layoutProp)).map(rule =>
-        rule.replace(/^\.message/gm, `.${localeClass} .message`)
+        rule.replace(/(^|,)[ ]*?\.message/gm, `.${localeClass} .message`)
     );
     const styleRules = [...globalStyleRules, ...localeStyleRules];
 
