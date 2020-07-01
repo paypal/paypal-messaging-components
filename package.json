@@ -12,6 +12,7 @@
     "files": [
         "banners/",
         "src/",
+        "server/",
         "dist/",
         "__sdk__.js",
         "globals.js"

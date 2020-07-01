@@ -61,6 +61,14 @@ export function getCurrency() {
     }
 }
 
+export function getMeta() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKMeta();
+    } else {
+        return undefined;
+    }
+}
+
 export function getTargetMeta() {
     const metaObject = {
         target: __MESSAGES__.__TARGET__,

@@ -6,7 +6,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../services/logger';
-import { nextId, getGlobalUrl } from '../utils';
+import { nextIndex, getGlobalUrl } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -309,7 +309,7 @@ scripts.some(script => {
         // Fallback to legacy pipeline
         if (!success) {
             const logger = Logger.create({
-                id: nextId(),
+                id: nextIndex(),
                 account,
                 selector: '__internal__',
                 type: 'Legacy_Banner'

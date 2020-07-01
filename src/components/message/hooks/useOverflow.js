@@ -17,15 +17,19 @@ export default function useOverflow(ref) {
                 return this._state[0];
             },
             set width(val) {
-                this._state[0] = val;
-                this._checkOverflow();
+                if (val !== this._state[0]) {
+                    this._state[0] = val;
+                    this._checkOverflow();
+                }
             },
             get height() {
                 return this._state[1];
             },
             set height(val) {
-                this._state[1] = val;
-                this._checkOverflow();
+                if (val !== this._state[1]) {
+                    this._state[1] = val;
+                    this._checkOverflow();
+                }
             }
         };
 

@@ -2,6 +2,7 @@ const fs = require('fs');
 const got = require('got');
 
 const getTerms = require('./mockTerms');
+const renderMessage = require('../server/render');
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -28,7 +29,7 @@ module.exports = app => {
         // const {} = req.query;
 
         const props = {
-            markup: '<span><style>body { margin: 0; }</style><strong>Free Money</strong> with PayPal Credit.</span>',
+            markup: renderMessage().replace(/\r\n|\n|\r/g, ' '),
             meta: {
                 uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                 messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
@@ -38,6 +39,8 @@ module.exports = app => {
                 }
             }
         };
+
+        res.set('Cache-Control', 'public, max-age=10');
 
         res.send(`
             <!DOCTYPE html>

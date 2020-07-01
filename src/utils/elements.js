@@ -1,4 +1,5 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
+import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
@@ -218,4 +219,20 @@ export function isHidden(container) {
         return true;
 
     return container.offsetWidth === 0 || container.offsetHeight === 0;
+}
+
+export function getAllBySelector(selector) {
+    if (typeof selector === 'string') {
+        return arrayFrom(document.querySelectorAll(selector));
+    }
+
+    if (isElement(selector)) {
+        return [selector];
+    }
+
+    if (Array.isArray(selector) && selector.every(isElement)) {
+        return arrayFlatMap(selector, getAllBySelector);
+    }
+
+    return [];
 }

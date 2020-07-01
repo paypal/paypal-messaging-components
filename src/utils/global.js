@@ -1,7 +1,7 @@
 import { getEnv } from './sdk';
 import { createState } from './miscellaneous';
 
-export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { nextId: 1, config: {} });
+export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { index: 1, config: {} });
 
 Object.defineProperty(window, '__paypal_messages_state__', {
     value: globalState,
@@ -10,9 +10,9 @@ Object.defineProperty(window, '__paypal_messages_state__', {
     writable: false
 });
 
-export const nextId = () => {
-    setGlobalState({ nextId: globalState.nextId + 1 });
-    return globalState.nextId - 1;
+export const nextIndex = () => {
+    setGlobalState({ index: globalState.index + 1 });
+    return globalState.index - 1;
 };
 
 const DOMAINS = __MESSAGES__.__DOMAIN__;

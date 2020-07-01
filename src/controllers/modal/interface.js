@@ -6,7 +6,7 @@ import { Modal } from '../../zoid/modal';
 export default memoizeOnProps(
     ({ account, currency, amount, messageRequestId, onApply }) => {
         const logger = getLogger();
-        const { render, hide, updateProps, ...rest } = Modal({
+        const { render, hide, updateProps } = Modal({
             account,
             currency,
             amount,
@@ -55,8 +55,6 @@ export default memoizeOnProps(
                 updateProps({ visible: false });
             });
         };
-
-        console.warn(1, rest.clone({ decorate: props => ({ ...props, currency: 'GBP' }) }).render('body'));
 
         // Follow existing zoid interface
         return {

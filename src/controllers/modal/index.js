@@ -1,1 +1,1 @@
-export { default as Modal } from './render';
+export { default as Modal } from './interface';

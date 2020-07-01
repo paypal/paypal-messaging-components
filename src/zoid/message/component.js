@@ -1,6 +1,6 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl, getGlobalComponent, getLogger } from '../../utils';
+import { getTargetMeta, getEnv, getGlobalUrl, getGlobalComponent, getLogger, nextIndex } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -61,12 +61,6 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.offer
             },
-            logger: {
-                type: 'object',
-                queryParam: false,
-                required: false,
-                value: getLogger
-            },
 
             // Callbacks
             onClick: {
@@ -107,14 +101,24 @@ export default getGlobalComponent('__paypal_credit_message__', () =>
             },
             index: {
                 type: 'number',
+                queryParam: false,
+                value: nextIndex
+            },
+            env: {
+                type: 'string',
                 queryParam: true,
-                value: () => {
-                    if (!window.__paypal_credit_message__.index) {
-                        window.__paypal_credit_message__.index = 0;
-                    }
-                    // eslint-disable-next-line no-plusplus
-                    return window.__paypal_credit_message__.index++;
-                }
+                value: getEnv
+            },
+            version: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__VERSION__
+            },
+            logger: {
+                type: 'object',
+                queryParam: false,
+                required: false,
+                value: getLogger
             }
         }
     })
