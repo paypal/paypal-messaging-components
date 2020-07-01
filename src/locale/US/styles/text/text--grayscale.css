@@ -3,7 +3,7 @@
 }
 
 .message__headline > span:first-of-type {
-    color: #1a1a1a !important;
+    color: #1a1a1a;
 }
 
 .message__disclaimer span {
