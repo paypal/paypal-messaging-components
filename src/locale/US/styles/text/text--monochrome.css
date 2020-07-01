@@ -2,7 +2,7 @@
     color: black;
 }
 
-.message__container .message__headline > span:first-of-type {
+.message__headline > span:first-of-type {
     color: black;
 }
 
