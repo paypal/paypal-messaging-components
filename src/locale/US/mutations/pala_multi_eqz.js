@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { altContentMediaQuery } from './mediaQueries';
-import { textLogosArr, flexLogosArr } from './logoUtil';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -56,7 +56,7 @@ export default {
                 styles: [`.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': [
@@ -68,7 +68,7 @@ export default {
                 disclaimer: 'small'
             }
         ],
-        ...flexLogosArr
+        ...flexLogoMutations
     ],
 
     'layout:legacy': [

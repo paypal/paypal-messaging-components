@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { altContentMediaQuery } from './mediaQueries';
-import { textLogosArr, flexLogosArr } from './logoUtil';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
@@ -65,7 +65,7 @@ export default {
                 ]
             }
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': [
@@ -83,7 +83,7 @@ export default {
                 headline: { br: ['over', 'months'] }
             }
         ],
-        ...flexLogosArr
+        ...flexLogoMutations
     ],
 
     'layout:legacy': [

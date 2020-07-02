@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
-import { textLogosArr, flexLogosArr } from './logoUtil';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export const legacyNI = [
     [
@@ -58,7 +58,7 @@ export const flex = [
             disclaimer: ['xlarge', 'xsmall']
         }
     ],
-    ...flexLogosArr
+    ...flexLogoMutations
 ];
 
 export default {
@@ -137,7 +137,7 @@ export default {
                 styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
             })
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,

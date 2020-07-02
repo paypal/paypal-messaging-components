@@ -2,7 +2,7 @@ import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
 import { flex } from './ni_non-us';
-import { textLogosArr } from './logoUtil';
+import { textLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -128,7 +128,7 @@ export default {
                 ]
             })
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,

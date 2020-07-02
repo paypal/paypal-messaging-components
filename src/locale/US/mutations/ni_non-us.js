@@ -1,7 +1,7 @@
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
-import { textLogosArr, flexLogosArr } from './logoUtil';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export const flex = [
     [
@@ -32,7 +32,7 @@ export const flex = [
             disclaimer: ['xlarge', 'extra.2', 'small']
         }
     ],
-    ...flexLogosArr
+    ...flexLogoMutations
 ];
 export default {
     'layout:text': [
@@ -129,7 +129,7 @@ export default {
                 return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
             }
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,

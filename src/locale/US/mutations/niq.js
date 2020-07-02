@@ -1,7 +1,7 @@
 import Logo from '../logos';
 import { legacyNI, flex } from './ni';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
-import { textLogosArr } from './logoUtil';
+import { textLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -113,7 +113,7 @@ export default {
                 ]
             })
         ],
-        ...textLogosArr
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,
