@@ -40,7 +40,7 @@
     display: inline-block;
 }
 
-.message__headline > span:last-child > span:last-child::after {
+.message__headline strong::after {
     content: '.';
     color: white;
     font-style: normal;

@@ -1,6 +1,23 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
 
-.message__content {
+.message__logo:nth-of-type(2) {
+    display: none;
+}
+
+.message__headline {
+    font-size: 4vw;
+}
+
+/* remove extra "with Flex" */
+.message__headline > span:nth-of-type(3) {
+    display: none;
+}
+
+.message__disclaimer {
+    font-size: 0.625rem;
+}
+
+/* .message__content {
     display: flex;
     padding: 0.25rem;
 }
@@ -66,4 +83,4 @@
     .message__disclaimer span.multi:nth-of-type(1) {
         display: inline;
     }
-}
+} */
