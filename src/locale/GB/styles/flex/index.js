@@ -15,7 +15,6 @@ export default [
     ['ratio:1x4', ratio1x4],
     ['ratio:8x1', [ratio6x1, ratio8x1].join('\n')],
     ['ratio:20x1', [ratio6x1, ratio20x1].join('\n')],
-    ['color:blue', colorBlue],
     ['color:black', colorBlack],
     ['color:gray', colorGray],
     ['color:white', colorWhite]
