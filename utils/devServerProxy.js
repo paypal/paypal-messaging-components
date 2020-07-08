@@ -35,7 +35,9 @@ module.exports = app => {
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
-            meta: {},
+            meta: {
+                csrf: 'csrf'
+            },
             payerId: 'DEV00000000NI'
         };
 
@@ -47,7 +49,10 @@ module.exports = app => {
             </head>
             <body>
                 <script>
-                    var interface = window.top.document.querySelector('script').outerHTML;
+                    var interfaceScript = window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                        || window.top.document.querySelector('script[src*="messaging.js"]')
+                        || window.top.document.querySelector('script[src*="merchant.js"]');
+                    var interface = interfaceScript && interfaceScript.outerHTML;
                     var modal = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
                     var data = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
 
@@ -58,9 +63,18 @@ module.exports = app => {
     });
 
     app.post('/credit-presentment/calculateTerms', (req, res) => {
+        const csrf = req.headers['x-csrf-token'];
+
+        if (!csrf) {
+            res.status(403).send('CSRF token required');
+            return;
+        }
+
         const { country, amount } = req.query;
 
-        res.send(getTerms(country, Number(amount)));
+        setTimeout(() => {
+            res.send(getTerms(country, Number(amount)));
+        }, 1000);
     });
 
     app.get('/credit-presentment/messages', (req, res) => {
@@ -70,14 +84,15 @@ module.exports = app => {
             const [country, offer] = devAccountMap[clientId || payerId];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
                 total_payments: bestOffer.term
             };
 
@@ -102,7 +117,7 @@ module.exports = app => {
                 .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
                 .slice(1);
 
-            got(`https://www.paypal.com/imadserver/upstream?${query}`)
+            got(`https://www.paypal.com/credit-presentment/messages?${query}`)
                 .then(({ body, headers }) => {
                     delete headers['content-encoding']; // eslint-disable-line no-param-reassign
                     res.set(headers);
@@ -120,14 +135,15 @@ module.exports = app => {
             const [country, offer] = devAccountMap[account];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedTotalCost: localizeCurrency(country, terms.formattedAmount),
-                formattedPeriodicPayment: localizeCurrency(country, bestOffer.monthly),
-                formattedMonthlyPayment: localizeCurrency(country, bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 total_payments: bestOffer.term
             };
 

@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altLogoMediaQuery } from './mediaQueries';
 
 export default {
     'layout:text': [
@@ -6,20 +7,27 @@ export default {
             'default',
             ({ textSize }) => ({
                 logo: Logo.PRIMARY.COLOR,
-                styles: [`.message__logo { width: ${textSize * 12}px }`],
                 messageWidth: [textSize * 20, 1000],
+                headline: 'default',
+                disclaimer: 'default'
+            })
+        ],
+        [
+            'logo.type:primary',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 13}px }`],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
-                },
-                disclaimer: 'default'
+                }
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.ALT_NO_PP.COLOR,
-                messageWidth: [textSize * 21, 1000]
+                messageWidth: [textSize * 21, 1000],
+                styles: [`.message__logo { width: ${textSize * 12}px }`]
             })
         ],
         [
@@ -33,6 +41,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    altLogoMediaQuery(textSize * 36, textSize),
                     '.message__content { display: inline-block; }',
                     '.message__messaging, .message__headline span:only-child { white-space: normal }',
                     `.message__logo-container { width: ${textSize * 11}px }`

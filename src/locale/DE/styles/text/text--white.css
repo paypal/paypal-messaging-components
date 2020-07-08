@@ -2,3 +2,7 @@
 .message__disclaimer > span > span.em {
     color: white;
 }
+
+.message__disclaimer > .tag--default:first-of-type > span {
+    color: white;
+}

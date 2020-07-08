@@ -1,4 +1,5 @@
 import Logo from '../logos';
+import { altLogoMediaQuery } from './mediaQueries';
 
 const textDisclaimerStyles = [
     '.message__disclaimer > .multi.tag--extra > span { display: block; white-space: normal; margin-top: .5rem }'
@@ -43,6 +44,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    altLogoMediaQuery(textSize * 35, textSize),
                     ...textDisclaimerStyles,
                     '.message__messaging, .message__headline span:only-child { white-space: normal }',
                     `.message__logo-container { width: ${textSize * 11}px }`

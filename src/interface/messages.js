@@ -1,3 +1,5 @@
+import { destroy as zoidDestroy } from 'zoid/src';
+import { destroy as bannerDestroy } from '../messages/controllers/render';
 import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../utils';
 import Messages from '../messages';
 
@@ -46,6 +48,17 @@ export function setup() {
             Messages.render({ _auto: true });
         }
     }
+}
+
+export function destroy() {
+    zoidDestroy();
+
+    bannerDestroy();
+
+    document.querySelectorAll('[data-pp-id]').forEach(node => {
+        node.removeAttribute('data-pp-id');
+        node.firstChild.remove();
+    });
 }
 
 export { Messages };

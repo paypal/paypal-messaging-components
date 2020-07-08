@@ -161,7 +161,7 @@
 
     .icon--thumbs-up {
         position: absolute;
-        transform: translate(0px, -30px);
+        transform: translate(0px, -25px);
     }
 
     .icon--checkmark {
