@@ -8,10 +8,7 @@
     height: calc(100% - 36px - 4px);
     display: flex;
     flex-direction: column;
-}
-
-.message__promo-container {
-    margin-top: auto;
+    justify-content: center;
 }
 
 .message__headline {
@@ -24,7 +21,7 @@
 }
 
 .message__disclaimer {
-    margin-bottom: auto;
+    font-size: 0.9rem;
 }
 
 .message__disclaimer span.multi:nth-of-type(1) {
@@ -32,10 +29,6 @@
 }
 
 @media (min-height: 500px) {
-    .message__logo-container {
-        /* margin-bottom: 75%; */
-    }
-
     .message__headline {
         font-size: 1.7rem;
     }

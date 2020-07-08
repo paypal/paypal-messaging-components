@@ -107,26 +107,8 @@ export default {
                     {
                         tag: 'medium',
                         replace: [['purchases.', 'purchases']],
-                        br: ['on ']
+                        br: ['eligible ']
                     }
-                ],
-
-                // styles: [
-                //     '.message__headline { font-size: .8rem; }',
-                //     '.message__headline > span:not(.multi) { display: none; }',
-                //     `@media (min-aspect-ratio: 200/11) and (min-width: 600px) {
-                //         .message__headline {
-                //             font-size: 1.75vw;
-                //         }
-                //     }`,
-                //     '@media (min-aspect-ratio: 80/11) and (min-width: 600px) { .message__headline > span:not(.multi) { display: inline; } }'
-                // ]
-                styles: [
-                    `
-                        .message__logo:nth-of-type(2) {
-                            display: inline-block;
-                        }
-                    `
                 ]
             }
         ],
@@ -138,22 +120,9 @@ export default {
                     {
                         tag: 'medium',
                         replace: [['purchases.', 'purchases']],
-                        br: ['on ']
+                        br: ['eligible ']
                     }
-                ],
-
-                // styles: [
-                //     '.message__headline > span:not(.multi) { display: none; }',
-                //     '.message__disclaimer { display: block; font-size: .6rem; }',
-                //     `@media (min-width: 480px) {
-                //         .message__disclaimer { display: inline; font-size: .9rem; }
-                //     }`,
-                //     '.message__logo-container { flex-basis: 33%; }',
-                //     `@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
-                //         .message__headline > span:not(.multi) { display: inline; }
-                //     }`
-                // ]
-                styles: []
+                ]
             }
         ],
 

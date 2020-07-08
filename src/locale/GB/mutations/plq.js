@@ -106,47 +106,28 @@ export default {
             }
         ],
         [
-            'ratio:20x1',
+            'ratio:1x4',
             {
                 headline: [
                     {
                         tag: 'medium',
                         replace: [['month.', 'month']],
-                        br: ['of ']
+                        br: ['per ']
                     }
                 ],
-                // styles: [
-                //     `@media (max-aspect-ratio: 61/10) {
-                //         .message__logo-container { flex-basis: 26%; }
-                //         .message__logo:nth-of-type(2) { display: inline-block; }
-                //         .message__disclaimer { font-size: .6rem; }
-                //     }`,
-                //     `@media (max-width: 250px) {
-                //         .message__logo-container { flex-basis: 13%; }
-                //         .message__logo:nth-of-type(2) { display: none; }
-                //         .message__promo-container { display: inline; }
-                //         .message__headline { display: inline; width: 75%; }
-                //         .message__disclaimer { display: inline; }
-                //     }`
-                // ]
-                styles: [
-                    `
-                    .message__logo-container {
-                        margin-right: 0;
-                        flex-basis: 3%;
+                styles: [`@media (min-height: 500px) {.message__headline {font-size: 1.4rem;}}`]
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['per ']
                     }
-                    .message__logo:nth-of-type(1) {
-                        width: 45%;
-                    }
-                    .message__headline {
-                        font-size: 2.8vw;
-                    }
-                    @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
-                        .message__logo:nth-of-type(1) {
-                            width: 20%;
-                        }
-                    }
-                    `
                 ]
             }
         ],
@@ -154,47 +135,12 @@ export default {
             'ratio:8x1',
             {
                 headline: [
+                    'default',
                     {
                         tag: 'medium',
                         replace: [['month.', 'month']],
-                        br: ['of ']
+                        br: ['per ']
                     }
-                ],
-                // styles: [
-                //     '.message__messaging { flex-basis: 80%; }',
-                //     '.message__headline { font-size: 4vw; }',
-                //     '.message__disclaimer { display: inline; font-size: .6rem; }',
-                //     `@media (min-width: 480px) {
-                //         .message__disclaimer { display: inline; font-size: .9rem; }
-                //     }`,
-                //     '.message__logo-container { flex-basis: 10%; }',
-                //     '.message__logo:nth-of-type(2) { display: none; }',
-                //     `@media (max-aspect-ratio: 61/10)  {
-                //         .message__logo-container { flex-basis: 26%; }
-                //         .message__logo:nth-of-type(2) { display: inline-block; }
-                //     }`,
-                //     `@media (max-width: 250px) {
-                //         .message__logo-container { flex-basis: 13%; }
-                //         .message__logo:nth-of-type(2) { display: none; }
-                //         .message__promo-container { display: inline; }
-                //         .message__headline { display: inline; width: 75%; }
-                //     }`,
-                //     `@media (min-width: 495px) {
-                //         .message__logo-container { flex-basis: 23%; }
-                //         div.message__logo:nth-of-type(1) { width: 20px; }
-                //         div.message__logo:nth-of-type(2) { width: 60px; display: inline-block; }
-                //     }`,
-                //     `@media (min-width: 495px) {
-                //         div.message__logo:nth-of-type(1) { width: 25px; }
-                //         div.message__logo:nth-of-type(2) { width: 76px; display: inline-block; }
-                //     }`
-                // ]
-                styles: [
-                    `
-                    .message__headline {
-                        font-size: 3vw;
-                    }
-                    `
                 ]
             }
         ],

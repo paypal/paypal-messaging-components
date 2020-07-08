@@ -1,7 +1,6 @@
 .message__logo-container {
     display: flex;
     align-items: center;
-    margin-right: 2.5%;
 }
 
 .message__headline {
