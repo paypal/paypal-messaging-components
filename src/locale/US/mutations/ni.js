@@ -1,5 +1,6 @@
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export const legacyNI = [
     [
@@ -57,9 +58,7 @@ export const flex = [
             disclaimer: ['xlarge', 'xsmall']
         }
     ],
-    ['color:gray', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
+    ...flexLogoMutations
 ];
 
 export default {
@@ -138,9 +137,7 @@ export default {
                 styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
             })
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
-        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,

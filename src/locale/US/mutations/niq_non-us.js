@@ -2,6 +2,7 @@ import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
 import { flex } from './ni_non-us';
+import { textLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -127,9 +128,7 @@ export default {
                 ]
             })
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
-        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,
