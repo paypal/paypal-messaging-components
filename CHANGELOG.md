@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.11.0](https://github.com/paypal/paypal-messaging-components/compare/v1.10.4...v1.11.0) (2020-07-08)
+
+
+### Features
+
+* add black message variants for US PPC ([#220](https://github.com/paypal/paypal-messaging-components/issues/220)) ([2ab3a50](https://github.com/paypal/paypal-messaging-components/commit/2ab3a50c54ddad746e8add08ce8a9c6b0a1e82e6))
+
 ## [1.10.4](https://github.com/paypal/paypal-messaging-components/compare/v1.10.3...v1.10.4) (2020-06-30)
 
 ## [1.10.3](https://github.com/paypal/paypal-messaging-components/compare/v1.10.2...v1.10.3) (2020-06-18)
