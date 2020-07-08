@@ -36,6 +36,12 @@ Run in dev mode:
 npm start
 ```
 
+## Testing
+
+### Functional
+
+To run functional tests, first run `npm run dev:snapshot` in one command line instance and `npm run test:func` in a second command line instance. The `dev:snapshot` command creates static pages that the functional tests are run on.
+
 ## Releasing
 
 This package is published weekly, **Every Wednesday**. Please [view our Changelog](CHANGELOG.md) to stay updated with bug fixes and new features.

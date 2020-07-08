@@ -1,9 +1,24 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { useContext, useReducer } from 'preact/hooks';
+import { useContext, useReducer, useEffect } from 'preact/hooks';
 
 import { useXProps } from './helpers';
 import { ServerContext } from '../context';
-import { request } from '../../../utils';
+import { request, memoizeOnProps } from '../../../utils';
+
+const termsFetcher = memoizeOnProps(
+    ({ csrf, ...params }) => {
+        const query = objectEntries(params)
+            .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
+            .slice(1);
+
+        return request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
+            headers: {
+                'x-csrf-token': csrf
+            }
+        });
+    },
+    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
+);
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -48,14 +63,40 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms, meta } = useContext(ServerContext);
-    const { payerId, clientId, merchantId, country, onCalculate } = useXProps();
+    const { terms: initialTerms, meta } = useContext(ServerContext);
+    const { payerId, clientId, merchantId, country, onCalculate, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(country, terms.amount),
-        prevValue: localize(country, terms.amount),
-        terms,
+        inputValue: localize(country, initialTerms.amount),
+        prevValue: localize(country, initialTerms.amount),
+        terms: initialTerms,
         isLoading: false
     });
+
+    const params = {
+        country,
+        client_id: clientId,
+        payer_id: payerId,
+        merchant_id: merchantId
+    };
+
+    const fetchTerms = inputAmount => {
+        dispatch({ type: 'fetch' });
+
+        termsFetcher({
+            ...params,
+            amount: inputAmount,
+            csrf: meta.csrf
+        }).then(({ data }) => {
+            dispatch({ type: 'terms', data });
+        });
+    };
+
+    // Automatically fetch terms when props change
+    useEffect(() => {
+        if (localize(country, amount) !== state.inputValue) {
+            fetchTerms(amount);
+        }
+    }, [payerId, clientId, merchantId, country, amount]);
 
     // TODO: Stronger input validation
     const changeInput = evt => {
@@ -67,28 +108,8 @@ export default function useCalculator() {
         const delocalizedValue = delocalize(country, state.inputValue);
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
-            dispatch({ type: 'fetch' });
             onCalculate(delocalizedValue);
-
-            const params = {
-                amount: delocalizedValue,
-                country,
-                client_id: clientId,
-                payer_id: payerId,
-                merchant_id: merchantId
-            };
-
-            const query = objectEntries(params)
-                .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
-                .slice(1);
-
-            request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
-                headers: {
-                    'x-csrf-token': meta.csrf
-                }
-            }).then(({ data }) => {
-                dispatch({ type: 'terms', data });
-            });
+            fetchTerms(delocalizedValue);
         }
     };
 
