@@ -5,7 +5,8 @@
 }
 
 .message__messaging {
-    height: calc(100% - 36px - 4px);
+    height: 100%;
+    transform: translateY(-80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,5 +32,11 @@
 @media (min-height: 500px) {
     .message__headline {
         font-size: 1.7rem;
+    }
+}
+
+@media (aspect-ratio: 1/2) {
+    .message__messaging {
+        transform: translateY(-40px);
     }
 }

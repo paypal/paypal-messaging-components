@@ -30,6 +30,9 @@
     .message__headline .tag--medium .br:first-child {
         display: block;
     }
+    .message__logo:nth-of-type(1) {
+        width: 40%;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) {
@@ -45,9 +48,14 @@
         margin-left: 5px;
     }
     .message__logo:nth-of-type(1) {
-        width: 50%;
         margin-left: 10px;
         margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+    .message__logo:nth-of-type(1) {
+        width: 50%;
     }
 }
 

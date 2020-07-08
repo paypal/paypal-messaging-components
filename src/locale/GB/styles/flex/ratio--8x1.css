@@ -28,7 +28,7 @@
     }
 }
 
-@media (min-aspect-ratio: 80/11) and (min-width: 536px) {
+@media (min-aspect-ratio: 80/11) and (min-width: 501px) {
     .message__logo-container {
         flex-basis: 22%;
     }
