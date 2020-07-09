@@ -1,8 +1,8 @@
-const fs = require('fs');
-const got = require('got');
+import fs from 'fs';
+import got from 'got';
 
-const getTerms = require('./mockTerms');
-const renderMessage = require('../server/render');
+import getTerms from './mockTerms';
+import renderMessage from '../../server/render';
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'ni'],
@@ -20,7 +20,7 @@ const devAccountMap = {
     DEV000000PQAZ: ['DE', 'palaq_any_eqz']
 };
 
-module.exports = app => {
+export default app => {
     app.get('/ppcredit/messagingLogger', (req, res) => res.send(''));
 
     app.post('/credit-presentment/log', (req, res) => res.send(''));

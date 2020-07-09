@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const localize = country => (amount, fractionDigits = 2) => {
     const number = Number(amount) || Number(0);
@@ -21,7 +21,7 @@ const localize = country => (amount, fractionDigits = 2) => {
 };
 
 // This function does not represent how PayPal calculates the true rates
-module.exports = (country, amount) => {
+export default (country, amount) => {
     const terms = JSON.parse(fs.readFileSync(path.resolve(__dirname, './terms.json'), 'utf-8'));
     const toLocaleString = localize(country);
 

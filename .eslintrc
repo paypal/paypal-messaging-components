@@ -2,7 +2,8 @@
     "extends": ["airbnb", "prettier"],
     "parser": "babel-eslint",
     "env": {
-        "browser": true
+        "browser": true,
+        "node": true
     },
     "globals": {
         "__MESSAGES__": true
@@ -22,12 +23,5 @@
         "react/jsx-one-expression-per-line": 0,
         "react/jsx-filename-extension": 0,
         "react/jsx-curly-spacing": 0
-    },
-    "settings": {
-        "import/resolver": {
-            "jest": {
-                "jestConfigFile": "./jest.config.js"
-            }
-        }
     }
 }

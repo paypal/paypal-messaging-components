@@ -1,4 +1,4 @@
-module.exports = function renderMessage() {
+export default function renderMessage() {
     return `
         <div>
             <style>
@@ -13,4 +13,4 @@ module.exports = function renderMessage() {
             <span><strong>Free Money</strong> with PayPal Credit.</span>
         </div>
     `;
-};
+}

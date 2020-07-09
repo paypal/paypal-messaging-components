@@ -46,6 +46,7 @@
         "zoid": "^9.0.46"
     },
     "devDependencies": {
+        "@babel/register": "^7.10.4",
         "@semantic-release/changelog": "^3.0.4",
         "@semantic-release/exec": "^3.3.6",
         "@semantic-release/git": "^7.0.16",
