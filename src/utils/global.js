@@ -1,11 +1,12 @@
 import { getEnv } from './sdk';
 import { createState } from './miscellaneous';
 
-export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { index: 1, config: {} });
+const NAMESPACE = '__paypal_messages_state__';
 
-export const destroyGlobalState = () => delete window.__paypal_messages_state__;
+export const [globalState, setGlobalState] = createState(window[NAMESPACE] || { index: 1, config: {} });
+export const destroyGlobalState = () => delete window[NAMESPACE];
 
-Object.defineProperty(window, '__paypal_messages_state__', {
+Object.defineProperty(window, NAMESPACE, {
     value: globalState,
     enumerable: false,
     configurable: true,
@@ -31,4 +32,12 @@ export function getGlobalUrl(type) {
     const domain = (DOMAINS[typeField] && DOMAINS[typeField][envField]) || DOMAINS[envField];
 
     return `${domain}${URI[typeField]}`;
+}
+
+export function getGlobalVariable(variable, fn) {
+    if (!window[NAMESPACE][variable]) {
+        window[NAMESPACE][variable] = fn();
+    }
+
+    return window[NAMESPACE][variable];
 }

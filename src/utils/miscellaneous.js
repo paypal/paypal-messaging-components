@@ -132,14 +132,3 @@ export function createUUID() {
         return v.toString(16);
     });
 }
-
-// Multiple Zoid components of the same tag cannot be created, so a
-// global instance must be shared between all variants of the library running
-// on a single page. Predominantly solves for multiple instances of merchant.js.
-export function getGlobalComponent(namespace, fn) {
-    if (!window[namespace]) {
-        window[namespace] = fn();
-    }
-
-    return window[namespace];
-}

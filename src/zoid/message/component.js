@@ -1,10 +1,10 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getEnv, getGlobalUrl, getGlobalComponent, getLogger, nextIndex } from '../../utils';
+import { getTargetMeta, getEnv, getGlobalUrl, getGlobalVariable, getLogger, nextIndex } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalComponent('__paypal_credit_message__', () =>
+export default getGlobalVariable('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
         url: getGlobalUrl('MESSAGE'),

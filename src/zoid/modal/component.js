@@ -1,10 +1,10 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl, getGlobalComponent } from '../../utils';
+import { getTargetMeta, getGlobalUrl, getGlobalVariable } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalComponent('__paypal_credit_modal__', () =>
+export default getGlobalVariable('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
         url: getGlobalUrl('MODAL'),
