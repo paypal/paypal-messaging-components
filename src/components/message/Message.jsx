@@ -47,7 +47,13 @@ const Message = ({ innerHTML, meta }) => {
             onMouseOver={handleHover}
             onFocus={handleHover}
             aria-label="PayPal Credit Message"
-            style={{ display: 'block' }}
+            style={{
+                display: 'block',
+                background: 'transparent',
+                padding: 0,
+                border: 'none',
+                outline: 'none'
+            }}
             innerHTML={innerHTML}
         />
     );
