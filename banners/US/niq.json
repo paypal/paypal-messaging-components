@@ -2,7 +2,14 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "NIQ",
-        "lander": "https://www.paypal.com/ppclander"
+        "lander": "https://www.paypal.com/ppclander",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
 
     "headline": [

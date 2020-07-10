@@ -4,12 +4,11 @@
         "offerType": "INST:ANY:GTZ",
         "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
         "variables": {
-            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
-            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
             "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
             "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
-            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
 
