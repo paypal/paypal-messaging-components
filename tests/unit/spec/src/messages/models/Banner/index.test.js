@@ -1,11 +1,11 @@
 import Banner from 'src/messages/models/Banner';
-import Modal from 'src/messages/components/Modal';
+import Modal from 'src/controllers/modal';
 import { objectFlattenToArray as mockFlatten } from 'src/utils';
 
 const mockTemplate = document.createElement('div');
-mockTemplate.innerHTML = '<h1>test header</h1><p>see terms</p>';
+mockTemplate.innerHTML = '<h1>test header</h1><p>learn more</p>';
 
-jest.mock('src/messages/components/Modal', () => ({ init: jest.fn() }));
+jest.mock('src/controllers/modal', () => ({ init: jest.fn() }));
 jest.mock('src/messages/services/banner', () =>
     jest.fn(({ options }) => {
         const config = {

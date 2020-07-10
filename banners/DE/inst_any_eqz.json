@@ -2,23 +2,27 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "INST:ANY:EQZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
 
     "headline": [
-        [
-            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins",
-            ["default", "small"]
-        ],
-        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["xsmall"]],
-        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten", ["xsmall.2"]]
+        ["Bezahlen Sie in {total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
+        ["{total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["xsmall"]],
+        ["{total_payments} monatlichen Raten", ["xsmall.2"]]
     ],
 
     "subHeadline": [],
 
     "disclaimer": [
         [
-            ["Ab 199€ - 5.000€.", ["Mehr erfahren", "em"]],
+            ["Ab 99€ - 5.000€.", ["Ratenrechner", "em"]],
             ["default", "xsmall"]
         ]
     ]

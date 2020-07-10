@@ -2,22 +2,26 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "PALAQ:ANY:EQZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
 
     "headline": [
-        [
-            "Bezahlen Sie in ${CREDIT_OFFERS_DS.total_payments} monatlichen Raten von je ${CREDIT_OFFERS_DS.formattedMonthlyPayment} bei 0% effektivem Jahreszins",
-            ["default", "large"]
-        ],
-        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
-        ["${CREDIT_OFFERS_DS.total_payments} monatlichen Raten", ["xsmall"]]
+        ["{total_payments} monatl. Raten, 0% eff. Jahreszins", ["default", "large"]],
+        ["{total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
+        ["{total_payments} monatlichen Raten", ["xsmall"]]
     ],
 
     "subHeadline": [],
 
     "disclaimer": [
-        ["Mehr erfahren", ["default", "xsmall"]],
-        ["Kreditgeber: PayPal (Europe) S.á.r.l. et Cie, S.C.A. 22-24 Boulevard Royal, L-2449 Luxembourg", ["extra"]]
+        ["Ratenrechner", ["default", "xsmall"]],
+        ["Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A.", ["extra"]]
     ]
 }

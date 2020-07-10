@@ -1,7 +1,7 @@
 import createContainer from 'utils/createContainer';
 import setSize from 'src/messages/models/Container/setSize';
 import template from 'src/messages/models/Template/template.html';
-import { ERRORS } from 'src/messages/services/logger';
+import { ERRORS } from 'src/services/logger';
 import { setLocale } from 'src/locale';
 
 setLocale('US');

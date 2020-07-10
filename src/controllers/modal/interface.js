@@ -2,9 +2,11 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import { getLogger, memoizeOnProps } from '../../utils';
 import { Modal } from '../../zoid/modal';
+import useViewportHijack from './viewportHijack';
 
 export default memoizeOnProps(
     ({ account, currency, amount, messageRequestId, onApply }) => {
+        const [hijackViewport, replaceViewport] = useViewportHijack();
         const logger = getLogger();
         const { render, hide, updateProps } = Modal({
             account,
@@ -21,6 +23,7 @@ export default memoizeOnProps(
             },
             onClose: linkName => {
                 // TODO: wrapper.firstChild.focus();
+                replaceViewport();
                 logger.track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
             }
         });
@@ -43,6 +46,7 @@ export default memoizeOnProps(
             }
             return renderProm.then(() => {
                 logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'FIXME:' });
+                hijackViewport();
                 updateProps({ visible: true, ...newOptions });
             });
         };

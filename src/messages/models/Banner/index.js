@@ -154,6 +154,7 @@ export default {
                 })
             );
         }
+
         const logger = loggers.get(wrapper);
 
         let banner;

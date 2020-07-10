@@ -2,25 +2,29 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "EZP:ANY:EQZ",
-        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
 
     "headline": [
-        ["Pay over ${CREDIT_OFFERS_DS.total_payments} months at 0% APR", ["default", "small"]],
-        ["Enjoy ${CREDIT_OFFERS_DS.total_payments} Easy Payments with No Interest.", ["legacy-small"]]
+        ["Pay over {total_payments} months at 0% APR", ["default", "small"]],
+        ["Enjoy {total_payments} Easy Payments with No Interest.", ["legacy-small"]]
     ],
 
     "subHeadline": [
-        [
-            "Choose PayPal Credit and select ${CREDIT_OFFERS_DS.total_payments} Easy Payments to pay over time",
-            ["legacy-medium"]
-        ]
+        ["Choose PayPal Credit and select {total_payments} Easy Payments to pay over time", ["legacy-medium"]]
     ],
 
     "disclaimer": [
-        ["See terms", ["default", "xsmall"]],
+        ["Learn more", ["default", "xsmall"]],
         ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],
-        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
-        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-large"]]
+        [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]],
+        [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-large"]]
     ]
 }

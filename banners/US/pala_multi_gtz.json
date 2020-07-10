@@ -2,16 +2,23 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PALA:MULTI:GTZ",
-        "clickUrl": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments"
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
 
     "headline": [
         [
-            [["As low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"],
+            [["As low as", "weak"], "{formattedMonthlyPayment}/mo"],
             ["default", "xsmall"]
         ],
         [
-            [["Pay as low as", "weak"], "${CREDIT_OFFERS_DS.formattedMonthlyPayment}/mo"],
+            [["Pay as low as", "weak"], "{formattedMonthlyPayment}/mo"],
             ["small", "medium", "large", "xlarge"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]]
@@ -19,14 +26,14 @@
 
     "subHeadline": [
         [
-            "Make ${CREDIT_OFFERS_DS.total_payments} Easy Payments as low as ${CREDIT_OFFERS_DS.formattedMonthlyPayment}/month for est. total pymts of ${CREDIT_OFFERS_DS.formattedTotalCost}.",
+            "Make {total_payments} Easy Payments as low as {formattedMonthlyPayment}/month for est. total pymts of {formattedTotalCost}.",
             ["legacy-large"]
         ]
     ],
 
     "disclaimer": [
-        ["See terms", ["default", "xsmall"]],
-        [["Minimum purchase required. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium"]],
-        [["Min purch req'd. Subject to credit approval.", ["See terms", "em"]], ["legacy-medium.2"]]
+        ["Learn more", ["default", "xsmall"]],
+        [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]],
+        [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium.2"]]
     ]
 }

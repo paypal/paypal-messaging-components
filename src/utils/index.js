@@ -8,3 +8,5 @@ export * from './fonts';
 export * from './adblock';
 export * from './logger';
 export * from './stats';
+export * from './experimentation';
+export * from './observers';

@@ -12,6 +12,11 @@ export const ServerContext = createContext({
     terms: {}
 });
 
+export const ScrollContext = createContext({
+    addScrollCallback: () => {},
+    removeScrollCallback: () => {}
+});
+
 export const TransitionContext = createContext({
     status: STATUS.CLOSED,
     setStatus: () => {}

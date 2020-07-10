@@ -3,6 +3,8 @@ import { createState } from './miscellaneous';
 
 export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { index: 1, config: {} });
 
+export const destroyGlobalState = () => delete window.__paypal_messages_state__;
+
 Object.defineProperty(window, '__paypal_messages_state__', {
     value: globalState,
     enumerable: false,

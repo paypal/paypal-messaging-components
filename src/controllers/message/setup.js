@@ -1,8 +1,17 @@
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
+import {
+    getInlineOptions,
+    globalState,
+    setGlobalState,
+    getScript,
+    getAccount,
+    getCurrency,
+    getPartnerAccount
+} from '../../utils';
 import Messages from './interface';
 import { Modal } from '../../zoid/modal';
 
 export default function setup() {
+    setGlobalState({ messagesMap: new Map() });
     // Populate global config options
     const script = getScript();
     if (script) {

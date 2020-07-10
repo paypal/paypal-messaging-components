@@ -1,38 +1,22 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import objectValues from 'core-js-pure/stable/object/values';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { objectMerge, flattenedToObject, getInlineOptions, runStats, globalState, getAllBySelector } from '../../utils';
+import {
+    objectMerge,
+    getInlineOptions,
+    runStats,
+    globalState,
+    getAllBySelector,
+    attributeObserver,
+    nextIndex
+} from '../../utils';
 
 import { Logger } from '../../services/logger';
 import { Message } from '../../zoid/message';
 import { Modal } from '../modal';
 
-const messages = new Map();
-
-const attributeObserver = new MutationObserver(mutationList => {
-    const messagesToUpdate = mutationList.reduce((accumulator, mutation) => {
-        if (!messages.has(mutation.target) || !stringStartsWith(mutation.attributeName, 'data-pp-')) {
-            return accumulator;
-        }
-
-        const id = mutation.target.getAttribute('data-pp-id');
-
-        return {
-            [id]: objectMerge(
-                accumulator[id] || { container: mutation.target },
-                flattenedToObject(mutation.attributeName.slice(8), mutation.target.getAttribute(mutation.attributeName))
-            )
-        };
-    }, {});
-
-    objectValues(messagesToUpdate).forEach(({ container, ...newMerchantOptions }) =>
-        messages.get(container).updateProps(newMerchantOptions)
-    );
-});
-
 export default options => ({
     render: (selector = '[data-pp-message]') => {
+        const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
         if (selector.length === 0) {
@@ -61,7 +45,11 @@ export default options => ({
                     objectMerge(options, getInlineOptions(container))
                 );
 
-                if (!messages.has(container)) {
+                if (!container.hasAttribute('data-pp-id')) {
+                    container.setAttribute('data-pp-id', nextIndex());
+                }
+
+                if (!messagesMap.has(container)) {
                     const modal = Modal({
                         account: merchantOptions.account,
                         currency: merchantOptions.currency,
@@ -72,6 +60,7 @@ export default options => ({
                     const totalOptions = {
                         ...merchantOptions,
                         // Library options
+                        index: container.getAttribute('data-pp-id'),
                         onReady: ({ messageRequestId }) => {
                             modal.render('body');
                             runStats({ messageRequestId, container });
@@ -109,14 +98,14 @@ export default options => ({
                             }
                         });
 
-                    messages.set(container, { render: message.render, updateProps });
+                    messagesMap.set(container, { render: message.render, updateProps });
                     attributeObserver.observe(container, { attributes: true });
                     modal.render('body');
 
                     return message.render(container);
                 }
 
-                const { updateProps } = messages.get(container);
+                const { updateProps } = messagesMap.get(container);
 
                 return updateProps(merchantOptions);
             })
