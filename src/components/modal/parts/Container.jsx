@@ -3,8 +3,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useEffect } from 'preact/hooks';
 
-import { useTransitionState } from '../lib/hooks';
-import ScrollState from '../lib/scroll';
+import { useTransitionState, ScrollProvider } from '../lib';
 import Header from './Header';
 import Overlay from './Overlay';
 
@@ -25,7 +24,7 @@ const Modal = ({ children }) => {
     }, [transitionState]);
 
     return (
-        <ScrollState containerRef={contentWrapper}>
+        <ScrollProvider containerRef={contentWrapper}>
             <section
                 className={`modal__container ${
                     stringStartsWith(transitionState, 'OPEN') ? 'modal__container--show' : ''
@@ -43,7 +42,7 @@ const Modal = ({ children }) => {
                 </div>
                 <Overlay contentMaxWidth={612} />
             </section>
-        </ScrollState>
+        </ScrollProvider>
     );
 };
 

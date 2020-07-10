@@ -1,10 +1,13 @@
 /** @jsx h */
-import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { h, createContext } from 'preact';
+import { useEffect, useState, useContext, useCallback } from 'preact/hooks';
 
-import { ScrollContext } from './context';
+const ScrollContext = createContext({
+    addScrollCallback: () => {},
+    removeScrollCallback: () => {}
+});
 
-export default ({ children, containerRef }) => {
+export const ScrollProvider = ({ children, containerRef }) => {
     const [callbacks, setCallbacks] = useState([]);
 
     const addScrollCallback = callback => {
@@ -36,4 +39,15 @@ export default ({ children, containerRef }) => {
     return (
         <ScrollContext.Provider value={{ addScrollCallback, removeScrollCallback }}>{children}</ScrollContext.Provider>
     );
+};
+
+export const useScroll = (cb, dependencies) => {
+    const { addScrollCallback, removeScrollCallback } = useContext(ScrollContext);
+    const callback = useCallback(cb, dependencies);
+
+    useEffect(() => {
+        addScrollCallback(callback);
+
+        return () => removeScrollCallback(callback);
+    }, [callback]);
 };

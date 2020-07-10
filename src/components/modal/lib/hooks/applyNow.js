@@ -1,11 +1,8 @@
-import { useContext } from 'preact/hooks';
-
-import { useXProps } from './helpers';
-import useTransitionState from './transitionState';
-import { ServerContext } from '../context';
+import { useXProps, useServerData } from '../../../lib';
+import { useTransitionState } from '../providers';
 
 export default clickTitle => {
-    const { payerId } = useContext(ServerContext);
+    const { payerId } = useServerData();
     const { onClick, refId } = useXProps();
     const [, handleClose] = useTransitionState();
 

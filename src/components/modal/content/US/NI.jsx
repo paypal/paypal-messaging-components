@@ -1,12 +1,11 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef, useContext } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 
-import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
+import { useXProps, useServerData, useScroll, useApplyNow } from '../../lib';
 import { createEvent } from '../../../../utils';
 import Icon from '../../parts/Icon';
 import Button from '../../parts/Button';
-import { ServerContext } from '../../lib/context';
 
 const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
@@ -59,7 +58,7 @@ export const Header = () => {
 
 export const Content = () => {
     const { onClick } = useXProps();
-    const { aprEntry } = useContext(ServerContext);
+    const { aprEntry } = useServerData();
 
     return (
         <section className="content-body">

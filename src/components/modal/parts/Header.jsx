@@ -1,9 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef, useState, useEffect, useContext } from 'preact/hooks';
+import { useRef, useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useApplyNow } from '../lib/hooks';
-import { ServerContext } from '../lib/context';
+import { useTransitionState, useApplyNow, useServerData } from '../lib';
 import Icon from './Icon';
 import Button from './Button';
 
@@ -16,7 +15,7 @@ const LOCALE = {
 
 const Header = () => {
     const headerRef = useRef();
-    const { country } = useContext(ServerContext);
+    const { country } = useServerData();
     const [transitionState, handleClose] = useTransitionState();
     const [showApplyNow, setApplyNow] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now Header');

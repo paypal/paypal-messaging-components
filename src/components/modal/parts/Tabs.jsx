@@ -2,7 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps } from '../lib/hooks';
+import { useTransitionState, useXProps } from '../lib';
 
 const Tabs = ({ tabs }) => {
     const [currentTab, selectTab] = useState(0);

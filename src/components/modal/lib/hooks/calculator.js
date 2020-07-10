@@ -1,8 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { useContext, useReducer, useEffect } from 'preact/hooks';
+import { useReducer, useEffect } from 'preact/hooks';
 
-import { useXProps } from './helpers';
-import { ServerContext } from '../context';
+import { useXProps, useServerData } from '../../../lib';
 import { request, memoizeOnProps } from '../../../../utils';
 
 const termsFetcher = memoizeOnProps(
@@ -63,7 +62,7 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms: initialTerms, meta, country } = useContext(ServerContext);
+    const { terms: initialTerms, meta, country } = useServerData();
     const { payerId, clientId, merchantId, onCalculate, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),

@@ -1,7 +1,7 @@
 import { useMemo } from 'preact/hooks';
 import { noop } from 'belter/src';
 
-import { useXProps } from '../../common/providers';
+import { useXProps } from '../../../lib';
 
 export default function useLogger(meta) {
     const { logger, index } = useXProps();

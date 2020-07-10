@@ -1,13 +1,12 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef, useContext } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 
-import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
+import { useXProps, useServerData, useScroll, useApplyNow } from '../../lib';
 import { createEvent } from '../../../../utils';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
 import Button from '../../parts/Button';
-import { ServerContext } from '../../lib/context';
 
 const instructions = [
     ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payments offer that works for you.'],
@@ -54,7 +53,7 @@ export const Header = () => {
 
 export const Content = () => {
     const { onClick } = useXProps();
-    const { aprEntry } = useContext(ServerContext);
+    const { aprEntry } = useServerData();
 
     return (
         <section className="content-body">

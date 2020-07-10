@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 
-import { useCalculator } from '../../../lib/hooks';
+import { useCalculator } from '../../../lib';
 import TermsTable from './TermsTable';
 import Button from '../../Button';
 

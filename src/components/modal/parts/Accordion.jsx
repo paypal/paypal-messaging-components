@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
 
-import { useTransitionState } from '../lib/hooks';
+import { useTransitionState } from '../lib';
 import Icon from './Icon';
 
 const Accordion = ({ title, description, children }) => {

@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, render } from 'preact';
 
-import { XPropsProvider } from '../common/providers';
+import { XPropsProvider } from '../lib';
 import Message from './Message';
 
 export function setupMessage({ markup, meta }) {

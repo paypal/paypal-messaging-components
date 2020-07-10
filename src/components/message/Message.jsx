@@ -3,8 +3,7 @@ import { h } from 'preact';
 import { useEffect, useCallback } from 'preact/hooks';
 import { once } from 'belter/src';
 
-import { useXProps } from '../common/providers';
-import { useLogger } from './hooks';
+import { useLogger, useXProps } from './lib';
 
 const Message = ({ innerHTML, meta }) => {
     const { onClick, onReady, amount, clientId, payerId, merchantId, placement } = useXProps();

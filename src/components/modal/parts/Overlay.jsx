@@ -2,7 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useEffect } from 'preact/hooks';
 
-import { useTransitionState } from '../lib/hooks';
+import { useTransitionState } from '../lib';
 
 const Overlay = ({ contentMaxWidth }) => {
     const [, handleClose] = useTransitionState();

@@ -1,8 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useContext } from 'preact/hooks';
 
-import { ServerContext } from '../lib/context';
+import { useServerData } from '../lib';
 import { commonUS, USEzp, DEInst } from '../styles';
 import * as NI from './US/NI';
 import * as EZP from './US/EZP';
@@ -10,7 +9,7 @@ import INST from './DE/INST';
 import Tabs from '../parts/Tabs';
 
 const Content = () => {
-    const { type } = useContext(ServerContext);
+    const { type } = useServerData();
 
     switch (type) {
         case 'NI':
