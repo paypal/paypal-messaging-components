@@ -51,32 +51,36 @@ export default options => ({
 
                 if (!messagesMap.has(container)) {
                     const modal = Modal({
-                        account: merchantOptions.account,
-                        currency: merchantOptions.currency,
-                        amount: merchantOptions.amount,
-                        onApply: merchantOptions.onApply
+                        ...merchantOptions,
+                        onClose: () => container.firstChild.focus()
                     });
+
+                    const createOnReadyHandler = props => ({ messageRequestId }) => {
+                        runStats({ messageRequestId, container });
+
+                        if (typeof props.onReady === 'function') {
+                            props.OnReady({ messageRequestId });
+                        }
+                    };
+
+                    const createOnClickHandler = props => ({ messageRequestId }) => {
+                        modal.show({
+                            refId: messageRequestId,
+                            ...props,
+                            onClose: () => container.firstChild.focus()
+                        });
+
+                        if (typeof props.onClick === 'function') {
+                            props.onClick({ messageRequestId });
+                        }
+                    };
 
                     const totalOptions = {
                         ...merchantOptions,
                         // Library options
                         index: container.getAttribute('data-pp-id'),
-                        onReady: ({ messageRequestId }) => {
-                            modal.render('body');
-                            runStats({ messageRequestId, container });
-                        },
-                        onClick: ({ messageRequestId }) => {
-                            modal.show({
-                                messageRequestId,
-                                currency: merchantOptions.currency,
-                                amount: merchantOptions.amount,
-                                onApply: merchantOptions.onApply
-                            });
-
-                            if (typeof merchantOptions.onClick === 'function') {
-                                merchantOptions.onClick({ messageRequestId });
-                            }
-                        }
+                        onReady: createOnReadyHandler(options),
+                        onClick: createOnClickHandler(options)
                     };
 
                     const message = Message(totalOptions);
@@ -84,23 +88,17 @@ export default options => ({
                     const updateProps = newProps =>
                         message.updateProps({
                             ...newProps,
-                            onClick: ({ messageRequestId }) => {
-                                modal.show({
-                                    messageRequestId,
-                                    currency: newProps.currency,
-                                    amount: newProps.amount,
-                                    onApply: newProps.onApply
-                                });
-
-                                if (typeof newProps.onClick === 'function') {
-                                    newProps.onClick({ messageRequestId });
-                                }
-                            }
+                            // Library options
+                            index: container.getAttribute('data-pp-id'),
+                            onReady: createOnReadyHandler(newProps),
+                            onClick: createOnClickHandler(newProps)
                         });
 
                     messagesMap.set(container, { render: message.render, updateProps });
-                    attributeObserver.observe(container, { attributes: true });
+
                     modal.render('body');
+
+                    attributeObserver.observe(container, { attributes: true });
 
                     return message.render(container);
                 }

@@ -59,7 +59,7 @@ export const useTransitionState = () => {
                 setStatus(STATUS.CLOSING);
                 setTimeout(() => {
                     if (onClose) {
-                        onClose(linkName);
+                        onClose({ linkName });
                     }
                     hide().then(() => setStatus(STATUS.CLOSED));
                 }, TRANSITION_TIME);

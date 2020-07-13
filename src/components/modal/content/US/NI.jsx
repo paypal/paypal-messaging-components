@@ -88,7 +88,7 @@ export const Content = () => {
             <div className="content-body__terms">
                 <p>
                     <a
-                        onClick={() => onClick('Legal Terms')}
+                        onClick={() => onClick({ linkName: 'Legal Terms' })}
                         target="_blank"
                         rel="noopener noreferrer"
                         href="https://www.paypal.com/us/webapps/mpp/ppcterms"

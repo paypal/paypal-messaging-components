@@ -5,27 +5,44 @@ import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 
 export default memoizeOnProps(
-    ({ account, currency, amount, messageRequestId, onApply }) => {
+    ({ account, currency, amount, refId, onApply, onClose }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
         const logger = getLogger();
+
+        const createOnCalculateHandler = (props = {}) => value => {
+            logger.track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount: value });
+
+            if (typeof props.onCalculate === 'function') {
+                props.onCalculate({ value });
+            }
+        };
+
+        const createOnClickHandler = (props = {}) => ({ linkName }) => {
+            logger.track({ et: 'CLICK', event_type: 'click', link: linkName });
+
+            if (typeof props.onApply === 'function' && linkName.includes('Apply Now')) {
+                props.onApply();
+            }
+        };
+
+        const createOnCloseHandler = (props = {}) => ({ linkName }) => {
+            replaceViewport();
+            logger.track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
+
+            if (typeof props.onClose === 'function') {
+                props.onClose({ linkName });
+            }
+        };
+
         const { render, hide, updateProps } = Modal({
             account,
             currency,
             amount,
-            refId: messageRequestId,
+            refId,
             logger,
-            onCalculate: value => logger.track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount: value }),
-            onClick: linkName => {
-                if (onApply && linkName.includes('Apply Now')) {
-                    onApply();
-                }
-                logger.track({ et: 'CLICK', event_type: 'click', link: linkName });
-            },
-            onClose: linkName => {
-                // TODO: wrapper.firstChild.focus();
-                replaceViewport();
-                logger.track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
-            }
+            onCalculate: createOnCalculateHandler(),
+            onClick: createOnClickHandler({ onApply }),
+            onClose: createOnCloseHandler({ onClose })
         });
 
         let renderProm;
@@ -47,7 +64,14 @@ export default memoizeOnProps(
             return renderProm.then(() => {
                 logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'FIXME:' });
                 hijackViewport();
-                updateProps({ visible: true, ...newOptions });
+
+                return updateProps({
+                    visible: true,
+                    ...newOptions,
+                    onCalculate: createOnCalculateHandler(),
+                    onClick: createOnClickHandler(newOptions),
+                    onClose: createOnCloseHandler(newOptions)
+                });
             });
         };
 
@@ -55,9 +79,7 @@ export default memoizeOnProps(
             if (!renderProm) {
                 renderProm = renderModal('body');
             }
-            return renderProm.then(() => {
-                updateProps({ visible: false });
-            });
+            return renderProm.then(() => updateProps({ visible: false }));
         };
 
         // Follow existing zoid interface
