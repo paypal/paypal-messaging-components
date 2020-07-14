@@ -161,6 +161,7 @@ export const validateStyleOptions = curry((logger, style) => {
  */
 export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
+    const { buyerCountry } = otherOptions;
 
     if (!validateType(Types.STRING, account)) {
         logInvalidType(logger, 'account', Types.STRING, account);
@@ -203,6 +204,14 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
 
         // Get the default settings for a text banner
         validOptions.style = { layout: 'text' };
+    }
+
+    if (typeof buyerCountry !== 'undefined' && buyerCountry !== 'US') {
+        if (typeof amount !== 'undefined') {
+            logger.warn(
+                'When using a non-US buyerCountry override with an amount, please add corresponding currency code to your config.'
+            );
+        }
     }
 
     logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });
