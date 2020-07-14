@@ -1,0 +1,11 @@
+.message__disclaimer > .tag--default > span {
+    color: white;
+}
+
+.message__headline strong::after {
+    color: white;
+}
+
+.weak {
+    color: white;
+}

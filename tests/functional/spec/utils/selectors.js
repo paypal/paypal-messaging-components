@@ -16,7 +16,10 @@ const selectors = {
         contentBodyTitle: '.content-body__title',
         contentBodyTerms: '.content-body__terms',
         contentHeader: '.content-header',
-        contentHeaderTitle: '.content-header__title'
+        contentHeaderTitle: '.content-header__title',
+        // Used in GB modal
+        containerLeft: '.content-body--left',
+        offer: '.content-body__offer'
     },
     calculator: {
         calc: '.calculator',
