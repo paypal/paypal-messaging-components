@@ -10,6 +10,7 @@ import colorGray from './color--gray.css';
 import colorBlueRatio1x4 from './color--blue&&ratio--1x4.css';
 import colorBlack from './color--black.css';
 import colorWhite from './color--white.css';
+import colorSalmon from './color--salmon.css';
 import colorWhiteNoBorder from './color--white-no-border.css';
 
 export default [
@@ -24,6 +25,7 @@ export default [
     ['color:gray', colorGray],
     ['color:black', colorBlack],
     ['color:white', colorWhite],
+    ['color:salmon', colorSalmon],
     ['color:white-no-border', colorWhiteNoBorder],
 
     ['color:blue && ratio:1x4', colorBlueRatio1x4]
