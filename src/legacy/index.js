@@ -8,7 +8,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
-import { nextId, getGlobalUrl, getWhitelist } from '../utils';
+import { nextId, getGlobalUrl, getExclusionList } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -229,10 +229,10 @@ class Ad {
 
     request() {
         (__ENV__ === 'production'
-            ? getWhitelist().then(whitelist =>
-                  arrayIncludes(whitelist, this.kvs.payer_id || this.kvs.pub_id)
-                      ? getGlobalUrl('MESSAGE_B_LEGACY')
-                      : getGlobalUrl('MESSAGE_A')
+            ? getExclusionList().then(exclusionList =>
+                  arrayIncludes(exclusionList, this.kvs.payer_id || this.kvs.pub_id)
+                      ? getGlobalUrl('MESSAGE_A')
+                      : getGlobalUrl('MESSAGE_B_LEGACY')
               )
             : ZalgoPromise.resolve(getGlobalUrl('MESSAGE_B_LEGACY'))
         ).then(origin => {
