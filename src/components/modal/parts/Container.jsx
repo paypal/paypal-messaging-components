@@ -3,11 +3,13 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useEffect } from 'preact/hooks';
 
-import { useTransitionState, ScrollProvider } from '../lib';
+import { useTransitionState, ScrollProvider, useServerData, useXProps } from '../lib';
 import Header from './Header';
 import Overlay from './Overlay';
 
 const Modal = ({ children }) => {
+    const { type } = useServerData();
+    const { onReady } = useXProps();
     const [transitionState] = useTransitionState();
     const contentWrapper = useRef();
 
@@ -22,6 +24,12 @@ const Modal = ({ children }) => {
             contentWrapper.current.scrollTop = 0;
         }
     }, [transitionState]);
+
+    useEffect(() => {
+        if (typeof onReady === 'function') {
+            onReady({ type });
+        }
+    }, []);
 
     return (
         <ScrollProvider containerRef={contentWrapper}>

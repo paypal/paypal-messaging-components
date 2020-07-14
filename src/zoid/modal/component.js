@@ -61,6 +61,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            onReady: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
 
             // Computed Props
             payerId: {

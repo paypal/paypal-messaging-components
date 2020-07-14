@@ -1,42 +1,27 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useEffect, useCallback } from 'preact/hooks';
-import { once } from 'belter/src';
+import { useEffect } from 'preact/hooks';
 
-import { useLogger, useXProps } from './lib';
+import { useXProps } from './lib';
 
 const Message = ({ innerHTML, meta }) => {
-    const { onClick, onReady, amount, clientId, payerId, merchantId, placement } = useXProps();
-    const logger = useLogger(meta);
+    const { onClick, onReady, onHover } = useXProps();
 
     const handleClick = () => {
-        logger.track({ et: 'CLICK', event_type: 'MORS' });
-        logger.track({ et: 'CLICK', event_type: 'click', link: 'Banner Wrapper' });
-
         if (typeof onClick === 'function') {
-            onClick({ messageRequestId: meta.messageRequestId });
+            onClick({ meta });
         }
     };
 
-    const handleHover = useCallback(
-        once(() => logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'hover' })),
-        []
-    );
+    const handleHover = () => {
+        if (typeof onHover === 'function') {
+            onHover({ meta });
+        }
+    };
 
     useEffect(() => {
-        logger.track({ et: 'CLIENT_IMPRESSION', event_type: 'MORS' });
-        logger.track({
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'render',
-            amount,
-            clientId,
-            payerId,
-            merchantId,
-            placement
-        });
-
         if (typeof onReady === 'function') {
-            onReady({ messageRequestId: meta.messageRequestId });
+            onReady({ meta });
         }
     }, []);
 

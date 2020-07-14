@@ -1,4 +1,5 @@
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { once } from 'belter/src';
 
 import {
     objectMerge,
@@ -7,7 +8,8 @@ import {
     globalState,
     getAllBySelector,
     attributeObserver,
-    nextIndex
+    nextIndex,
+    getLogger
 } from '../../utils';
 
 import { Logger } from '../../services/logger';
@@ -17,6 +19,7 @@ import { Modal } from '../modal';
 export default options => ({
     render: (selector = '[data-pp-message]') => {
         const { messagesMap } = globalState;
+        const logger = getLogger();
         const containers = getAllBySelector(selector);
 
         if (selector.length === 0) {
@@ -50,53 +53,92 @@ export default options => ({
                 }
 
                 if (!messagesMap.has(container)) {
+                    const index = container.getAttribute('data-pp-id');
                     const modal = Modal({
                         ...merchantOptions,
                         onClose: () => container.firstChild.focus()
                     });
 
-                    const createOnReadyHandler = props => ({ messageRequestId }) => {
-                        runStats({ messageRequestId, container });
+                    const createOnReadyHandler = props => ({ meta }) => {
+                        runStats({ container, refId: `${meta.messageRequestId}-${index}` });
+
+                        modal.updateProps({ refId: `${meta.messageRequestId}-${index}` });
+                        modal.render('body');
+
+                        logger.track({
+                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'MORS',
+                            url: meta.trackingDetails.impressionUrl
+                        });
+                        logger.track({
+                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'render',
+                            amount: props.amount,
+                            clientId: props.clientId,
+                            payerId: props.payerId,
+                            merchantId: props.merchantId,
+                            placement: props.placement,
+                            uuid: meta.uuid
+                        });
 
                         if (typeof props.onReady === 'function') {
-                            props.OnReady({ messageRequestId });
+                            props.onReady({ meta });
                         }
                     };
 
-                    const createOnClickHandler = props => ({ messageRequestId }) => {
+                    const createOnClickHandler = props => ({ meta }) => {
                         modal.show({
-                            refId: messageRequestId,
                             ...props,
+                            refId: `${meta.messageRequestId}-${index}`,
                             onClose: () => container.firstChild.focus()
                         });
 
+                        logger.track({
+                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            et: 'CLICK',
+                            event_type: 'MORS'
+                        });
+                        logger.track({
+                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            et: 'CLICK',
+                            event_type: 'click',
+                            link: 'Banner Wrapper'
+                        });
+
                         if (typeof props.onClick === 'function') {
-                            props.onClick({ messageRequestId });
+                            props.onClick({ meta });
                         }
                     };
 
+                    const handleHover = once(({ meta }) => {
+                        logger.track({
+                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'hover'
+                        });
+                    });
+                    const createOnHoverHandler = () => ({ meta }) => handleHover({ meta });
+
                     const totalOptions = {
                         ...merchantOptions,
-                        // Library options
-                        index: container.getAttribute('data-pp-id'),
                         onReady: createOnReadyHandler(options),
-                        onClick: createOnClickHandler(options)
+                        onClick: createOnClickHandler(options),
+                        onHover: createOnHoverHandler(options)
                     };
 
                     const message = Message(totalOptions);
 
-                    const updateProps = newProps =>
+                    const updateProps = newOptions =>
                         message.updateProps({
-                            ...newProps,
-                            // Library options
-                            index: container.getAttribute('data-pp-id'),
-                            onReady: createOnReadyHandler(newProps),
-                            onClick: createOnClickHandler(newProps)
+                            ...newOptions,
+                            onReady: createOnReadyHandler(newOptions),
+                            onClick: createOnClickHandler(newOptions),
+                            onHover: createOnHoverHandler(newOptions)
                         });
 
                     messagesMap.set(container, { render: message.render, updateProps });
-
-                    modal.render('body');
 
                     attributeObserver.observe(container, { attributes: true });
 

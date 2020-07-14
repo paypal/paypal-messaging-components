@@ -107,7 +107,7 @@ export default function useCalculator() {
         const delocalizedValue = delocalize(country, state.inputValue);
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
-            onCalculate(delocalizedValue);
+            onCalculate({ value: delocalizedValue });
             fetchTerms(delocalizedValue);
         }
     };

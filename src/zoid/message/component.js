@@ -1,6 +1,6 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getEnv, getGlobalUrl, getGlobalVariable, getLogger, nextIndex } from '../../utils';
+import { getTargetMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -68,6 +68,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 queryParam: false,
                 required: false
             },
+            onHover: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
             onReady: {
                 type: 'function',
                 queryParam: false,
@@ -99,11 +104,6 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 sendToChild: false,
                 value: getTargetMeta
             },
-            index: {
-                type: 'number',
-                queryParam: false,
-                value: nextIndex
-            },
             env: {
                 type: 'string',
                 queryParam: true,
@@ -113,12 +113,6 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: () => __MESSAGES__.__VERSION__
-            },
-            logger: {
-                type: 'object',
-                queryParam: false,
-                required: false,
-                value: getLogger
             }
         }
     })

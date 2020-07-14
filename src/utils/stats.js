@@ -18,14 +18,14 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ messageRequestId, container }) {
+export function runStats({ container, refId }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const logger = getLogger();
 
     // Create initial payload
     const payload = {
-        message_request_id: messageRequestId,
+        message_request_id: refId,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
@@ -43,7 +43,7 @@ export function runStats({ messageRequestId, container }) {
             if (isInViewport(container)) {
                 clearScroll();
                 logger.track({
-                    message_request_id: messageRequestId,
+                    message_request_id: refId,
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'scroll',
                     visible: true
