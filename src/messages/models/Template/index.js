@@ -379,7 +379,9 @@ function createTemplateNode(options, markup) {
     };
 
     if (getLocaleClass() === 'locale--GB') {
-        appendWithProductText(objectGet(options, 'style.logo.type') === 'inline');
+        appendWithProductText(
+            objectGet(options, 'style.logo.type') === 'inline' || objectGet(options, 'style.layout') === 'flex'
+        );
     } else if (objectGet(options, 'style.logo.type') === 'none') {
         appendWithProductText();
     }

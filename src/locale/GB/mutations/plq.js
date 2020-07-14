@@ -89,5 +89,79 @@ export default {
             })
         ],
         ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+    ],
+
+    'layout:flex': [
+        [
+            'default',
+            {
+                logo: Logo.PRIMARY.WHITE,
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']]
+                    }
+                ],
+                disclaimer: 'xsmall'
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['per ']
+                    }
+                ],
+                styles: [`@media (min-height: 500px) {.message__headline {font-size: 1.4rem;}}`]
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['per ']
+                    }
+                ]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['month.', 'month']],
+                        br: ['per ']
+                    }
+                ]
+            }
+        ],
+
+        [
+            'color:gray',
+            {
+                logo: Logo.PRIMARY.COLOR
+            }
+        ],
+        [
+            'color:white',
+            {
+                logo: Logo.PRIMARY.COLOR
+            }
+        ],
+        [
+            'color:black',
+            {
+                logo: Logo.PRIMARY.WHITE
+            }
+        ]
     ]
 };

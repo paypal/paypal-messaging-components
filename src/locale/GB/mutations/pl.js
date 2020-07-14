@@ -83,5 +83,66 @@ export default {
             })
         ],
         ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+    ],
+
+    'layout:flex': [
+        [
+            'default',
+            {
+                logo: Logo.PRIMARY.WHITE,
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']]
+                    }
+                ],
+                disclaimer: 'xsmall'
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']],
+                        br: ['eligible ']
+                    }
+                ]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: [
+                    'default',
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']],
+                        br: ['eligible ']
+                    }
+                ]
+            }
+        ],
+
+        [
+            'color:gray',
+            {
+                logo: Logo.PRIMARY.COLOR
+            }
+        ],
+        [
+            'color:white',
+            {
+                logo: Logo.PRIMARY.COLOR
+            }
+        ],
+        [
+            'color:black',
+            {
+                logo: Logo.PRIMARY.WHITE
+            }
+        ]
     ]
 };
