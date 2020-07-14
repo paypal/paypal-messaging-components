@@ -26,6 +26,7 @@ export function getInlineOptions(container) {
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
+                if (nodeName === 'data-pp-buyercountry') nodeName = 'data-pp-buyerCountry'; // eslint-disable-line no-param-reassign
                 return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
             }
 

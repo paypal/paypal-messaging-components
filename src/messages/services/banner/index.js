@@ -58,14 +58,14 @@ function mutateMarkup(markup) {
     }
 }
 
-function fetcherB({ account, merchantId, amount, offerType, currency, countryCode, style: { typeEZP } }) {
+function fetcherB({ account, merchantId, amount, offerType, currency, buyerCountry, style: { typeEZP } }) {
     const rootUrl = getGlobalUrl('MESSAGE_B');
 
     const queryParams = {
         merchant_id: merchantId, // Partner integrations
         amount,
         currency,
-        country_code: countryCode,
+        buyer_country: buyerCountry,
         variant: PLACEMENT_VARIANT,
         credit_type: typeEZP === '' || offerType === 'NI' ? 'NI' : undefined
     };
@@ -102,7 +102,7 @@ function fetcherA(options) {
         amount,
         offerType,
         currency,
-        countryCode,
+        buyerCountry,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -118,7 +118,7 @@ function fetcherA(options) {
             dimensions,
             currency_value: amount,
             currency_code: currency || getCurrency(),
-            country_code: countryCode,
+            buyer_country: buyerCountry,
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
@@ -251,8 +251,8 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
-const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
+const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
+const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
 
 function getFetcherByRamp(account, merchantId) {
     // Ramp fetcher in production
