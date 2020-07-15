@@ -36,6 +36,7 @@
             window.CONFIG = {
                 // prettier-ignore
                 account: [
+                    // US
                     'DEV00000000NI',
                     'DEV0000000NIQ',
                     'DEV000NINONUS',
@@ -46,6 +47,8 @@
                     'DEV0000000PSG',
                     'DEV0000000PMZ',
                     'DEV0000000PMG'
+
+                    // DE
                     // 'DEV0000000IAZ',
                     // 'DEV0000000IAG',
                     // 'DEV000000PQAG',
@@ -57,7 +60,7 @@
                         // prettier-ignore
                         type: [
                             // 'primary',
-                            'alternative'
+                            'alternative',
                             // 'inline',
                             // 'none'
                         ],
@@ -99,6 +102,7 @@
                 container.appendChild(h2);
 
                 configs.forEach(conf => {
+                    conf.amount = 500;
                     const h4 = document.createElement('h4');
                     h4.textContent = `${objectFlattenToArray(conf.style).join(' | ')}`;
                     container.appendChild(h4);
