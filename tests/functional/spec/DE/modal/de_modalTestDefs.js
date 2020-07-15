@@ -23,6 +23,7 @@ export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
         () => document.querySelector('.calculator__instructions').innerHTML
     );
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
+    await page.waitFor(800);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
@@ -46,6 +47,7 @@ export const updateFinanceTerms = (account, viewport, bannerStyle) => async () =
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnMd);
+    await page.waitFor(800);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
@@ -62,6 +64,7 @@ export const deModalContentAndCalc = (account, viewport, bannerStyle) => async (
     const calcTitle = await modalFrame.evaluate(() => document.querySelector('.calculator__title').innerText);
 
     expect(calcTitle).toContain('Monatliche Raten berechnen');
+    await page.waitFor(800);
 
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
 };
