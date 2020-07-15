@@ -1,0 +1,25 @@
+{
+    "meta": {
+        "offerCountry": "GB",
+        "offerType": "PLQ",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+        }
+    },
+
+    "headline": [
+        [
+            ["Pay later with", ["Flex", "product-name"], [".", "weak"]],
+            ["default", "xsmall", "small"]
+        ],
+        ["3 interest-free payments of {formattedPeriodicPayment} per month.", ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Learn more", ["default"]]]
+}
