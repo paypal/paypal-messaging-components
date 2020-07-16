@@ -1,29 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-
-const localize = country => (amount, fractionDigits = 2) => {
-    const number = Number(amount) || Number(0);
-
-    // toLocaleString only bundled with US locale on node
-    const baseFormat = number.toLocaleString('en-US', {
-        currency: 'USD',
-        minimumFractionDigits: fractionDigits,
-        maximumFractionDigits: fractionDigits
-    });
-
-    switch (country) {
-        case 'DE':
-            return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
-        case 'US':
-        default:
-            return baseFormat;
-    }
-};
+const { localizeNumber } = require('./miscellaneous');
 
 // This function does not represent how PayPal calculates the true rates
 module.exports.getTerms = (country, amount) => {
     const terms = JSON.parse(fs.readFileSync(path.resolve(__dirname, './terms.json'), 'utf-8'));
-    const toLocaleString = localize(country);
+    const toLocaleString = localizeNumber(country);
 
     return {
         type: amount ? 'pala' : 'generic',

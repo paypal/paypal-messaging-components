@@ -2,11 +2,14 @@ import { createState } from '../utils/miscellaneous';
 
 import US from './US';
 import DE from './DE';
+import GB from './GB';
 
 const getLocaleSettings = offerCountry => {
     switch (offerCountry) {
         case 'DE':
             return DE;
+        case 'GB':
+            return GB;
         case 'US':
         default:
             return US;

@@ -9,6 +9,7 @@ import Button from './Button';
 const LOCALE = {
     LOGO: {
         DE: 'logo-de',
+        GB: 'logo-gb',
         US: 'logo'
     }
 };
@@ -51,16 +52,18 @@ const Header = () => {
                                 <Icon name={LOCALE.LOGO[country]} />
                             </div>
                         </div>
-                        <Button
-                            className="header__apply-now"
-                            style={{
-                                opacity: showApplyNow ? 1 : 0,
-                                transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
-                            }}
-                            onClick={handleApplyNowClick}
-                        >
-                            Apply Now
-                        </Button>
+                        {country !== 'GB' && (
+                            <Button
+                                className="header__apply-now"
+                                style={{
+                                    opacity: showApplyNow ? 1 : 0,
+                                    transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
+                                }}
+                                onClick={handleApplyNowClick}
+                            >
+                                Apply Now
+                            </Button>
+                        )}
                         <button
                             className="header__close"
                             aria-label="Close"
