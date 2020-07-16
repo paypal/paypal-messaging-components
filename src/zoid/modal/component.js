@@ -1,6 +1,6 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl, getGlobalVariable } from '../../utils';
+import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
@@ -27,12 +27,14 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             currency: {
                 type: 'string',
                 queryParam: true,
-                required: false
+                required: false,
+                value: validate.currency
             },
             amount: {
                 type: 'number',
                 queryParam: true,
-                required: false
+                required: false,
+                value: validate.amount
             },
             refId: {
                 type: 'string',
@@ -86,11 +88,22 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: ({ props }) => props.account.subject,
                 required: false
             },
-            targetMeta: {
+            sdkMeta: {
                 type: 'string',
                 queryParam: true,
                 sendToChild: false,
-                value: getTargetMeta
+                required: false,
+                value: getMeta
+            },
+            env: {
+                type: 'string',
+                queryParam: true,
+                value: getEnv
+            },
+            version: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__VERSION__
             }
         }
     })

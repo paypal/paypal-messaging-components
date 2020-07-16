@@ -37,7 +37,9 @@ const Message = ({ innerHTML, meta }) => {
                 background: 'transparent',
                 padding: 0,
                 border: 'none',
-                outline: 'none'
+                outline: 'none',
+                textAlign: 'left',
+                fontFamily: 'inherit'
             }}
             innerHTML={innerHTML}
         />

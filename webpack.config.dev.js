@@ -65,7 +65,7 @@ module.exports = (env = {}) => {
         overlay: true,
         watchContentBase: true,
         before: devServerProxy,
-        https: env.NODE_ENV !== 'local',
+        https: true,
         disableHostCheck: true // IE11
     };
 

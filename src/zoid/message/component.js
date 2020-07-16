@@ -1,6 +1,6 @@
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
+import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -98,11 +98,12 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 value: ({ props }) => props.account.subject,
                 required: false
             },
-            targetMeta: {
+            sdkMeta: {
                 type: 'string',
                 queryParam: true,
                 sendToChild: false,
-                value: getTargetMeta
+                required: false,
+                value: getMeta
             },
             env: {
                 type: 'string',
