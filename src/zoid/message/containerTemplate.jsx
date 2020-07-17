@@ -84,7 +84,7 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
 
             style.textContent = `
                 ${baseStyles}
-                ${styles.replace(/\.pp-flex\S*/, `#${uid}`)}
+                ${styles.replace(/\.pp-flex[^\s:]*/, `#${uid}`)}
             `;
         }
     });
