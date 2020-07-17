@@ -17,7 +17,7 @@ const VALID_OPTIONS = {
     onRender: [Types.FUNCTION],
     onClick: [Types.FUNCTION],
     onApply: [Types.FUNCTION],
-    currency: [Types.STRING, ['USD', 'EUR']],
+    currency: [Types.STRING, ['USD', 'EUR', 'GBP']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
     buyerCountry: [Types.STRING, [undefined, 'US', 'DE', 'GB']]
 };
