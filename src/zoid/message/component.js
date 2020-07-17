@@ -76,7 +76,17 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props, event }) => {
+                    const { onReady } = props;
+
+                    return ({ styles, ...rest }) => {
+                        if (styles) {
+                            event.trigger('styles', { styles });
+                        }
+
+                        return onReady && onReady({ styles, ...rest });
+                    };
+                }
             },
 
             // Computed Props

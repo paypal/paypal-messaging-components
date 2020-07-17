@@ -97,6 +97,20 @@ export default app => {
         `);
     });
 
+    app.get('/credit-presentment/renderMessage', (req, res) => {
+        res.send({
+            markup: renderMessage().replace(/\r\n|\n|\r/g, ' '),
+            meta: {
+                uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
+                trackingDetails: {
+                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                }
+            }
+        });
+    });
+
     app.post('/credit-presentment/calculateTerms', (req, res) => {
         const csrf = req.headers['x-csrf-token'];
 

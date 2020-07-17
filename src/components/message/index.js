@@ -1,13 +1,15 @@
 /** @jsx h */
 import { h, render } from 'preact';
 
-import { XPropsProvider } from '../lib';
+import { XPropsProvider, ServerDataProvider } from '../lib';
 import Message from './Message';
 
-export function setupMessage({ markup, meta }) {
+export function setupMessage({ markup, meta, parentStyles, warnings }) {
     render(
         <XPropsProvider>
-            <Message innerHTML={markup} meta={meta} />
+            <ServerDataProvider data={{ markup, meta, parentStyles, warnings }}>
+                <Message />
+            </ServerDataProvider>
         </XPropsProvider>,
         document.body
     );

@@ -67,20 +67,31 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
         });
     };
 
+    const baseStyles = `
+        #${uid} > iframe {
+            width: 100%;
+            height: 0;
+        }
+
+        #${uid} > iframe:nth-of-type(2) {
+            display: none;
+        }
+    `;
+
+    event.on('styles', ({ styles }) => {
+        if (styles) {
+            const style = document.querySelector(`#${uid} style`);
+
+            style.textContent = `
+                ${baseStyles}
+                ${styles.replace(/\.pp-flex\S*/, `#${uid}`)}
+            `;
+        }
+    });
+
     return (
         <span id={uid}>
-            <style>
-                {`
-                    #${uid} > iframe {
-                        width: 100%;
-                        height: 0;
-                    }
-
-                    #${uid} > iframe:nth-of-type(2) {
-                        display: none;
-                    }
-                `}
-            </style>
+            <style>{baseStyles}</style>
             <node el={frame} onRender={setupAutoResize} />
             <node el={prerenderFrame} />
         </span>
