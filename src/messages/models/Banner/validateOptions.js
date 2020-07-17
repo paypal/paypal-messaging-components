@@ -94,7 +94,6 @@ function getValidVal(logger, typeArr, val, location) {
 function populateDefaults(logger, defaults, options, prefix = 'style.') {
     return objectEntries(defaults).reduce((accumulator, [key, val]) => {
         if (Array.isArray(val)) {
-            // console.log({key, val, oKey: options[key],  pfKey: `${prefix}${key}`})
             const validVal = getValidVal(logger, val, options[key], `${prefix}${key}`);
 
             // Don't put empty properties on the object
