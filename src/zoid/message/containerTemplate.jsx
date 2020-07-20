@@ -2,7 +2,7 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-export default ({ uid, frame, prerenderFrame, doc, event }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     event.on(EVENT.RENDERED, () => {
         // prerenderFrame.style.setProperty('display', 'none');
         prerenderFrame.parentNode.removeChild(prerenderFrame);
@@ -37,7 +37,7 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
         };
 
         event.on(EVENT.RESIZE, ({ width: newWidth, height: newHeight }) => {
-            if (typeof newHeight === 'number') {
+            if (props.style.layout !== 'flex' && typeof newHeight === 'number') {
                 el.style.setProperty('height', `${newHeight}px`);
 
                 requestAnimationFrame(() => {
