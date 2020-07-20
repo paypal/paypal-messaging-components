@@ -2,6 +2,8 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
+import { overflowObserver } from '../../utils';
+
 export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     event.on(EVENT.RENDERED, () => {
         // prerenderFrame.style.setProperty('display', 'none');
@@ -9,60 +11,19 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     });
 
     const setupAutoResize = el => {
-        const overflow = {
-            _state: [false, false],
-            _checkOverflow() {
-                if (this._state.some(Boolean)) {
-                    el.style.setProperty('opacity', 0, 'important');
-                    el.style.setProperty('pointer-events', 'none', 'important');
-                } else {
-                    el.style.setProperty('opacity', null);
-                    el.style.setProperty('pointer-events', null);
-                }
-            },
-            get width() {
-                return this._state[0];
-            },
-            set width(val) {
-                this._state[0] = val;
-                this._checkOverflow();
-            },
-            get height() {
-                return this._state[1];
-            },
-            set height(val) {
-                this._state[1] = val;
-                this._checkOverflow();
-            }
-        };
-
         event.on(EVENT.RESIZE, ({ width: newWidth, height: newHeight }) => {
-            if (props.style.layout !== 'flex' && typeof newHeight === 'number') {
-                el.style.setProperty('height', `${newHeight}px`);
+            if (newWidth !== 0 || newHeight !== 0) {
+                el.setAttribute('data-width', newWidth);
+                el.setAttribute('data-height', newHeight);
 
-                requestAnimationFrame(() => {
-                    if (el.parentNode.parentNode.offsetHeight < newHeight) {
-                        if (!overflow.height) {
-                            console.warn(
-                                `[PayPal Messages] PayPal Credit Message requires minimum height of ${newHeight}px. Current container is ${el.parentNode.parentNode.offsetHeight}px. Message has been hidden.`
-                            );
-                        }
-                        overflow.height = true;
-                    } else {
-                        overflow.height = false;
-                    }
-                });
-            }
-
-            if (el.parentNode.parentNode.offsetWidth < newWidth) {
-                if (!overflow.width) {
-                    console.warn(
-                        `[PayPal Messages] PayPal Credit Message requires minimum width of ${newWidth}px. Current container is ${el.parentNode.parentNode.offsetWidth}px. Message has been hidden.`
-                    );
+                if (props.style.layout !== 'flex' && typeof newHeight === 'number') {
+                    el.style.setProperty('height', `${newHeight}px`);
                 }
-                overflow.width = true;
-            } else {
-                overflow.width = false;
+
+                overflowObserver.then(observer => {
+                    // The observer will check the element once, then unsubscribe
+                    observer.observe(el);
+                });
             }
         });
     };

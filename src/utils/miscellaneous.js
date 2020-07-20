@@ -5,7 +5,7 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { partial } from './functional';
+import { partial, memoize } from './functional';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -132,3 +132,15 @@ export function createUUID() {
         return v.toString(16);
     });
 }
+
+export const dynamicImport = memoize(url => {
+    return new ZalgoPromise(resolve => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.addEventListener('load', () => {
+            document.body.removeChild(script);
+            resolve();
+        });
+        document.body.appendChild(script);
+    });
+});
