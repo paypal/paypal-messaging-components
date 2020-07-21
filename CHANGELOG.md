@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.12.1](https://github.com/paypal/paypal-messaging-components/compare/v1.12.0...v1.12.1) (2020-07-21)
+
 # [1.12.0](https://github.com/paypal/paypal-messaging-components/compare/v1.11.0...v1.12.0) (2020-07-15)
 
 
