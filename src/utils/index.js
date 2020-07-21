@@ -4,7 +4,6 @@ export * from './functional';
 export * from './objects';
 export * from './miscellaneous';
 export * from './sdk';
-export * from './fonts';
 export * from './adblock';
 export * from './logger';
 export * from './stats';

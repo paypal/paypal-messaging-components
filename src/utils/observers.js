@@ -1,7 +1,6 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import objectValues from 'core-js-pure/stable/object/values';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { globalState, getGlobalVariable } from './global';
@@ -18,20 +17,22 @@ export const attributeObserver = getGlobalVariable(
                     return accumulator;
                 }
 
-                const id = mutation.target.getAttribute('data-pp-id');
+                const newOption = flattenedToObject(
+                    mutation.attributeName.slice(8),
+                    mutation.target.getAttribute(mutation.attributeName)
+                );
 
-                return {
-                    [id]: objectMerge(
-                        accumulator[id] || { container: mutation.target },
-                        flattenedToObject(
-                            mutation.attributeName.slice(8),
-                            mutation.target.getAttribute(mutation.attributeName)
-                        )
-                    )
-                };
-            }, {});
+                accumulator.set(
+                    mutation.target,
+                    accumulator.has(mutation.target)
+                        ? objectMerge(accumulator.get(mutation.target), newOption)
+                        : newOption
+                );
 
-            objectValues(messagesToUpdate).forEach(({ container, ...newMerchantOptions }) =>
+                return accumulator;
+            }, new Map());
+
+            messagesToUpdate.forEach((newMerchantOptions, container) =>
                 messagesMap.get(container).updateProps(newMerchantOptions)
             );
         })
@@ -57,25 +58,27 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
             new IntersectionObserver(
                 (entries, observer) => {
                     entries.forEach(entry => {
-                        const minWidth = Number(entry.target.getAttribute('data-width'));
-                        const minHeight = Number(entry.target.getAttribute('data-height'));
+                        const iframe = entry.target;
+                        const container = iframe.parentNode.parentNode;
+                        const minWidth = Number(iframe.getAttribute('data-width'));
+                        const minHeight = Number(iframe.getAttribute('data-height'));
 
                         if (entry.intersectionRatio < 0.9 || entry.boundingClientRect.width < minWidth) {
-                            // if (arrayEvery(objectEntries(minSizeOptions), ([key, val]) => objectGet(options, key) === val)) {
-                            entry.target.style.setProperty('display', 'none');
-                            console.warn(
-                                `[PayPal Messages] PayPal Credit Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px. Message has been hidden.`
-                            );
-                            // } else {
-                            //     // Highest priority styles, will re-render from attribute observer
-                            //     objectEntries(minSizeOptions).forEach(([key, val]) => {
-                            //         const attributeKey = `data-pp-${key.replace(/\./g, '-')}`;
-                            //         wrapper.parentNode.setAttribute(attributeKey, val);
-                            //     });
-                            // }
+                            if (container.getAttribute('data-pp-style-preset') === 'smallest') {
+                                iframe.style.setProperty('opacity', '0', 'important');
+                                console.warn(
+                                    `[PayPal Messages]  PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`
+                                );
+                            } else {
+                                iframe.style.setProperty('opacity', '0', 'important');
+                                container.setAttribute('data-pp-style-preset', 'smallest');
+                                console.warn(
+                                    `[PayPal Messages]  PayPal Message attempting fallback. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`
+                                );
+                            }
                         }
 
-                        observer.unobserve(entry.target);
+                        observer.unobserve(iframe);
                     });
                 },
                 {

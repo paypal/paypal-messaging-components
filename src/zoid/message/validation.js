@@ -100,13 +100,19 @@ export default {
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
     style: ({ props: { style } }) => {
-        if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
-            return style;
+        if (validateType(Types.OBJECT, style)) {
+            if (validateType(Types.STRING, style.layout)) {
+                return style;
+            }
+
+            if (validateType(Types.STRING, style.preset)) {
+                return { layout: 'text', ...style };
+            }
         }
 
         if (validateType(Types.OBJECT, style)) {
             logInvalidType('style.layout', Types.STRING, style.layout);
-        } else if (style !== undefined) {
+        } else if (typeof style !== 'undefined') {
             logInvalidType('style', Types.OBJECT, style);
         }
 

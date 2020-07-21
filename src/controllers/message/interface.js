@@ -123,20 +123,24 @@ export default options => ({
 
                     const totalOptions = {
                         ...merchantOptions,
-                        onReady: createOnReadyHandler(options),
-                        onClick: createOnClickHandler(options),
-                        onHover: createOnHoverHandler(options)
+                        onReady: createOnReadyHandler(merchantOptions),
+                        onClick: createOnClickHandler(merchantOptions),
+                        onHover: createOnHoverHandler(merchantOptions)
                     };
 
                     const message = Message(totalOptions);
+                    message.state.options = merchantOptions;
 
-                    const updateProps = newOptions =>
-                        message.updateProps({
-                            ...newOptions,
-                            onReady: createOnReadyHandler(newOptions),
-                            onClick: createOnClickHandler(newOptions),
-                            onHover: createOnHoverHandler(newOptions)
+                    const updateProps = newOptions => {
+                        message.state.options = objectMerge(message.state.options, newOptions);
+
+                        return message.updateProps({
+                            ...message.state.options,
+                            onReady: createOnReadyHandler(message.state.options),
+                            onClick: createOnClickHandler(message.state.options),
+                            onHover: createOnHoverHandler(message.state.options)
                         });
+                    };
 
                     messagesMap.set(container, { render: message.render, updateProps });
 
