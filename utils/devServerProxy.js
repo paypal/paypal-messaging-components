@@ -76,6 +76,13 @@ module.exports = app => {
             res.send(getTerms(country, Number(amount)));
         }, 1000);
     });
+    app.get('/credit-presentment/calculateTerms', (req, res) => {
+        const { country, amount } = req.query;
+
+        setTimeout(() => {
+            res.send(getTerms(country, Number(amount)));
+        }, 1000);
+    });
 
     app.get('/credit-presentment/messages', (req, res) => {
         const { amount, client_id: clientId, payer_id: payerId, credit_type: preferredCreditType } = req.query;
