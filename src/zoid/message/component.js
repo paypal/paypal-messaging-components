@@ -57,7 +57,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             },
             offer: {
                 type: 'string',
-                queryParam: true,
+                queryParam: 'credit_type',
                 required: false,
                 value: validate.offer
             },
