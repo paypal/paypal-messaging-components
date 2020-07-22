@@ -4,7 +4,7 @@ import { useEffect } from 'preact/hooks';
 
 import { useTransitionState } from '../lib';
 
-const Overlay = ({ contentMaxWidth }) => {
+const Overlay = ({ contentMaxWidth, contentMaxHeight }) => {
     const [, handleClose] = useTransitionState();
 
     useEffect(() => {
@@ -24,18 +24,44 @@ const Overlay = ({ contentMaxWidth }) => {
     return (
         <Fragment>
             <div className="modal__overlay" />
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-            <div
-                className="modal__overlay-side"
-                onClick={() => handleClose('Modal Overlay')}
-                style={{ left: 0, width: `calc((100% - ${contentMaxWidth}px) / 2)` }}
-            />
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-            <div
-                className="modal__overlay-side"
-                onClick={() => handleClose('Modal Overlay')}
-                style={{ right: 0, width: `calc((100% - ${contentMaxWidth}px) / 2)` }}
-            />
+            {contentMaxWidth && (
+                <Fragment>
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                    <div
+                        className="modal__overlay-side left"
+                        onClick={() => handleClose('Modal Overlay')}
+                        style={{ left: 0, width: `calc((100% - ${contentMaxWidth}px) / 2)` }}
+                    />
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                    <div
+                        className="modal__overlay-side right"
+                        onClick={() => handleClose('Modal Overlay')}
+                        style={{ right: 0, width: `calc((100% - ${contentMaxWidth}px) / 2)` }}
+                    />
+                </Fragment>
+            )}
+            {contentMaxHeight && (
+                <Fragment>
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                    <div
+                        className="modal__overlay-side top"
+                        onClick={() => handleClose('Modal Overlay')}
+                        style={{ left: 0, top: 0, width: `100%`, height: `calc((100% - ${contentMaxHeight}px) / 2)` }}
+                    />
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                    <div
+                        className="modal__overlay-side bottom"
+                        onClick={() => handleClose('Modal Overlay')}
+                        style={{
+                            left: 0,
+                            bottom: 0,
+                            top: 'auto',
+                            width: `100%`,
+                            height: `calc((100% - ${contentMaxHeight}px) / 2)`
+                        }}
+                    />
+                </Fragment>
+            )}
         </Fragment>
     );
 };

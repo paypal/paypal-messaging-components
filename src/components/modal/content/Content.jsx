@@ -2,10 +2,11 @@
 import { h, Fragment } from 'preact';
 
 import { useServerData } from '../lib';
-import { commonUS, USEzp, DEInst } from '../styles';
+import { commonUS, USEzp, DEInst, GBPl } from '../styles';
 import * as NI from './US/NI';
 import * as EZP from './US/EZP';
 import INST from './DE/INST';
+import PL from './GB/PL';
 import Tabs from '../parts/Tabs';
 
 const Content = () => {
@@ -48,6 +49,13 @@ const Content = () => {
                 <Fragment>
                     <style>{DEInst}</style>
                     <INST />
+                </Fragment>
+            );
+        case 'PL':
+            return (
+                <Fragment>
+                    <style>{GBPl}</style>
+                    <PL />
                 </Fragment>
             );
         default:

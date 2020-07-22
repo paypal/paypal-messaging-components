@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.12.1](https://github.com/paypal/paypal-messaging-components/compare/v1.12.0...v1.12.1) (2020-07-21)
+
+# [1.12.0](https://github.com/paypal/paypal-messaging-components/compare/v1.11.0...v1.12.0) (2020-07-15)
+
+
+### Bug Fixes
+
+* cleanup message variables ([#227](https://github.com/paypal/paypal-messaging-components/issues/227)) ([aefed8d](https://github.com/paypal/paypal-messaging-components/commit/aefed8d0670b854ee8fe0a5a6d7913d201b1b7ad))
+
+
+### Features
+
+* PayPal Flex ([#230](https://github.com/paypal/paypal-messaging-components/issues/230)) ([4ba0b32](https://github.com/paypal/paypal-messaging-components/commit/4ba0b32546338af8c7f7864096c974a2ab1585ea))
+
 # [1.11.0](https://github.com/paypal/paypal-messaging-components/compare/v1.10.4...v1.11.0) (2020-07-08)
 
 

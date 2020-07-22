@@ -10,11 +10,7 @@ const termsFetcher = memoizeOnProps(
             .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
             .slice(1);
 
-        return request('POST', `${window.location.origin}/credit-presentment/calculateTerms?${query}`, {
-            headers: {
-                'x-csrf-token': csrf
-            }
-        });
+        return request('GET', `${window.location.origin}/credit-presentment/calculateTerms?${query}`);
     },
     ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
 );

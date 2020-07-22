@@ -41,6 +41,12 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            buyerCountry: {
+                type: 'string',
+                queryParam: 'buyer_country',
+                required: false,
+                value: validate.buyerCountry
+            },
 
             // Callbacks
             onClick: {

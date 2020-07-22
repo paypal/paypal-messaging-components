@@ -1,7 +1,7 @@
 import fs from 'fs';
 import got from 'got';
 
-import { getTerms, populateTemplate } from '..';
+import { getTerms, populateTemplate, localizeCurrency } from '..';
 import renderMessage from '../../server/render';
 
 const devAccountMap = {
@@ -19,7 +19,10 @@ const devAccountMap = {
     DEV0000000IAZ: ['DE', 'inst_any_eqz'],
     DEV0000000IAG: ['DE', 'inst_any_gtz'],
     DEV000000PQAG: ['DE', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'palaq_any_eqz']
+    DEV000000PQAZ: ['DE', 'palaq_any_eqz'],
+
+    DEV000000GBPL: ['GB', 'pl'],
+    DEV00000GBPLQ: ['GB', 'plq']
 };
 
 export default app => {
@@ -125,6 +128,13 @@ export default app => {
             res.send(getTerms(country, Number(amount)));
         }, 1000);
     });
+    app.get('/credit-presentment/calculateTerms', (req, res) => {
+        const { country, amount } = req.query;
+
+        setTimeout(() => {
+            res.send(getTerms(country, Number(amount)));
+        }, 1000);
+    });
 
     app.get('/credit-presentment/messages', (req, res) => {
         const { amount, client_id: clientId, payer_id: payerId, credit_type: preferredCreditType } = req.query;
@@ -133,13 +143,15 @@ export default app => {
             const [country, offer] = devAccountMap[clientId || payerId];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
                 total_payments: bestOffer.term
             };
 
@@ -182,13 +194,15 @@ export default app => {
             const [country, offer] = devAccountMap[account];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
 
             const morsVars = {
                 financing_code: Math.random()
                     .toString(36)
                     .slice(2),
-                formattedMonthlyPayment: country === 'DE' ? `${bestOffer.monthly}€` : `$${bestOffer.monthly}`,
-                formattedTotalCost: country === 'DE' ? `${terms.formattedAmount}€` : `$${terms.formattedAmount}`,
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 total_payments: bestOffer.term
             };
 

@@ -23,10 +23,16 @@ export function isElement(el) {
  * @returns {Object} Options object
  */
 export function getInlineOptions(container) {
+    // Allows for data attributes dependent on camel casing to function properly.
+    const attributeNameOverride = {
+        'data-pp-buyercountry': 'data-pp-buyerCountry'
+    };
+
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
+                if (attributeNameOverride[nodeName]) nodeName = attributeNameOverride[nodeName]; // eslint-disable-line no-param-reassign
                 return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
             }
 
