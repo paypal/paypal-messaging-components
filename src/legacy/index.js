@@ -4,10 +4,11 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
-import { nextId, getGlobalUrl, getWhitelist } from '../utils';
+import { nextId, getGlobalUrl, getExclusionList } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -227,10 +228,14 @@ class Ad {
     }
 
     request() {
-        getWhitelist().then(whitelist => {
-            const origin = arrayIncludes(whitelist, this.kvs.payer_id || this.kvs.pub_id)
-                ? getGlobalUrl('MESSAGE_B_LEGACY')
-                : getGlobalUrl('MESSAGE_A');
+        (__ENV__ === 'production'
+            ? getExclusionList().then(exclusionList =>
+                  arrayIncludes(exclusionList, this.kvs.payer_id || this.kvs.pub_id)
+                      ? getGlobalUrl('MESSAGE_A')
+                      : getGlobalUrl('MESSAGE_B_LEGACY')
+              )
+            : ZalgoPromise.resolve(getGlobalUrl('MESSAGE_B_LEGACY'))
+        ).then(origin => {
             this.logger.info(EVENTS.FETCH_START);
             this.script = new JSONPRequest(`${origin}${this.queryString}`);
         });

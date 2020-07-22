@@ -12,7 +12,7 @@ const Calculator = () => {
         <Fragment>
             <div className="calculator">
                 <h2 className="calculator__title">Enter a purchase amount to calculate your monthly Easy Payments.</h2>
-                <form className="calculator__form" onSubmit={submit}>
+                <form className={`calculator__form ${isLoading ? 'calculator__form--loading' : ''}`} onSubmit={submit}>
                     <input className="calculator__input" type="text" value={value} onInput={changeInput} />
                     <Button className="calculator__button" type="submit" secondary>
                         Calculate

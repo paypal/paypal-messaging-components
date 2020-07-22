@@ -1,6 +1,7 @@
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export const flex = [
     [
@@ -31,9 +32,7 @@ export const flex = [
             disclaimer: ['xlarge', 'extra.2', 'small']
         }
     ],
-    ['color:gray', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }]
+    ...flexLogoMutations
 ];
 export default {
     'layout:text': [
@@ -130,9 +129,7 @@ export default {
                 return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
             }
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
-        ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
+        ...textLogoMutations
     ],
 
     'layout:flex': flex,

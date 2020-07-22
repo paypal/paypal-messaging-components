@@ -17,10 +17,10 @@ const VALID_OPTIONS = {
     onRender: [Types.FUNCTION],
     onClick: [Types.FUNCTION],
     onApply: [Types.FUNCTION],
-    currency: [Types.STRING, ['USD', 'EUR']],
+    currency: [Types.STRING, ['USD', 'EUR', 'GBP']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
     _modalOnly: [Types.BOOLEAN],
-    countryCode: [Types.STRING, [undefined, 'US', 'DE']]
+    buyerCountry: [Types.STRING, [undefined, 'US', 'DE', 'GB']]
 };
 
 // Formalized validation logger helper functions
@@ -162,6 +162,7 @@ export const validateStyleOptions = curry((logger, style) => {
  */
 export default curry((logger, { account, amount, style, offer, ...otherOptions }) => {
     const validOptions = populateDefaults(logger, VALID_OPTIONS, otherOptions, ''); // Combination of all valid style option combinations
+    const { buyerCountry, currency } = otherOptions;
 
     if (!validateType(Types.STRING, account)) {
         logInvalidType(logger, 'account', Types.STRING, account);
@@ -204,6 +205,14 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
 
         // Get the default settings for a text banner
         validOptions.style = { layout: 'text' };
+    }
+
+    if (typeof buyerCountry !== 'undefined' && buyerCountry !== 'US') {
+        if (typeof amount !== 'undefined' && (currency === 'USD' || typeof currency === 'undefined')) {
+            logger.warn(
+                'When using a non-US buyerCountry override with an amount, please add corresponding currency code to your config.'
+            );
+        }
     }
 
     logger.info(EVENTS.VALIDATE_CONFIG, { options: objectClone(validOptions) });

@@ -4,3 +4,4 @@ export { default as common } from './common.css';
 export { default as commonUS } from './common--us.css';
 export { default as USEzp } from './us--ezp.css';
 export { default as DEInst } from './de--inst.css';
+export { default as GBPl } from './gb--pl.css';

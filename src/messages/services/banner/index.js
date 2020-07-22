@@ -14,7 +14,8 @@ import {
     request,
     getCurrency,
     createUUID,
-    getWhitelist
+    getExclusionList,
+    getEnv
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
@@ -61,14 +62,14 @@ function mutateMarkup(markup) {
     }
 }
 
-function fetcherB({ account, merchantId, amount, offerType, currency, countryCode, style: { typeEZP } }) {
+function fetcherB({ account, merchantId, amount, offerType, currency, buyerCountry, style: { typeEZP } }) {
     const rootUrl = getGlobalUrl('MESSAGE_B');
 
     const queryParams = {
         merchant_id: merchantId, // Partner integrations
         amount,
         currency,
-        country_code: countryCode,
+        buyer_country: buyerCountry,
         variant: PLACEMENT_VARIANT,
         credit_type: typeEZP === '' || offerType === 'NI' ? 'NI' : undefined
     };
@@ -105,7 +106,7 @@ function fetcherA(options) {
         amount,
         offerType,
         currency,
-        countryCode,
+        buyerCountry,
         style: { typeEZP }
     } = options;
     return new ZalgoPromise(resolve => {
@@ -121,7 +122,7 @@ function fetcherA(options) {
             dimensions,
             currency_value: amount,
             currency_code: currency || getCurrency(),
-            country_code: countryCode,
+            buyer_country: buyerCountry,
             format: 'HTML',
             presentation_types: 'HTML',
             ch: 'UPSTREAM',
@@ -254,17 +255,20 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
-const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'countryCode']);
+const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
+const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
 
 function getFetcherByRamp(account, merchantId) {
-    return getWhitelist().then(whitelist => {
-        const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
+    // Ramp fetcher in production
+    return getEnv() === 'production'
+        ? getExclusionList().then(exclusionList => {
+              const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
 
-        return arrayIncludes(whitelist, id) || (merchantId && arrayIncludes(whitelist, merchantId))
-            ? memoFetcherB
-            : memoFetcherA;
-    });
+              return arrayIncludes(exclusionList, id) || (merchantId && arrayIncludes(exclusionList, merchantId))
+                  ? memoFetcherA
+                  : memoFetcherB;
+          })
+        : ZalgoPromise.resolve(memoFetcherB);
 }
 
 export default function getBannerMarkup({ options, logger }) {

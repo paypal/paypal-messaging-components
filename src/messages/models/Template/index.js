@@ -331,7 +331,7 @@ function createTemplateNode(options, markup) {
     const localeClass = getLocaleClass();
     // Scope all locale-specific styles to the selected locale
     const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(layoutProp)).map(rule =>
-        rule.replace(/\.message/g, `.${localeClass} .message`)
+        rule.replace(/(^|,)[ ]*?\.message/gm, `.${localeClass} .message`)
     );
     const styleRules = [...globalStyleRules, ...localeStyleRules];
 
@@ -353,20 +353,42 @@ function createTemplateNode(options, markup) {
     prependText(disclaimer, toMarkup('disclaimer', mutationRules.disclaimer));
     appendImage(logoContainer, mutationRules.logo, 'PayPal Credit logo');
 
-    // Logo DOM location must be moved in order for logo to be inline between text content
-    if (objectGet(options, 'style.logo.type') === 'inline') {
-        headline.appendChild(logoContainer);
-    }
-
-    if (objectGet(options, 'style.logo.type') === 'none') {
+    // Appends the message with the word "with" along with the product name. i.e. "with PayPal Credit"
+    const appendWithProductText = (insertPPText = false) => {
         const [withText, productName] = getLocalProductName();
         const span = document.createElement('span');
         span.textContent = `${withText} `;
-        const strong = document.createElement('strong');
-        strong.textContent = productName;
-        span.appendChild(strong);
+        const nodeType = 'strong';
+
+        /**
+         * Inserts a new span with text "PayPal" when insertPPText param is true.
+         * Used for stylizing the brand text for GPL UK inline messages.
+         */
+        if (insertPPText) {
+            const paypalNode = document.createElement('span');
+            paypalNode.className = 'pp-text-logo';
+            span.appendChild(paypalNode);
+        }
+
+        const productNode = document.createElement(nodeType);
+        productNode.textContent = productName;
+        span.appendChild(productNode);
+
         headline.appendChild(document.createTextNode(' '));
         headline.appendChild(span);
+    };
+
+    if (getLocaleClass() === 'locale--GB') {
+        appendWithProductText(
+            objectGet(options, 'style.logo.type') === 'inline' || objectGet(options, 'style.layout') === 'flex'
+        );
+    } else if (objectGet(options, 'style.logo.type') === 'none') {
+        appendWithProductText();
+    }
+
+    // Logo DOM location must be moved in order for logo to be inline between text content
+    if (objectGet(options, 'style.logo.type') === 'inline') {
+        headline.appendChild(logoContainer);
     }
 
     const textSize = objectGet(options, 'style.text.size');
