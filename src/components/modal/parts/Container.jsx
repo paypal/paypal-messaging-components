@@ -8,10 +8,9 @@ import Header from './Header';
 import Overlay from './Overlay';
 
 const Modal = ({ children }) => {
-    const { type } = useServerData();
+    const { type, country } = useServerData();
     const { onReady } = useXProps();
     const [transitionState] = useTransitionState();
-    const { country } = useXProps();
     const contentWrapper = useRef();
 
     const { contentMaxWidth, contentMaxHeight } = (() => {

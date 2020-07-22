@@ -5,24 +5,24 @@ import { getTerms, populateTemplate, localizeCurrency } from '..';
 import renderMessage from '../../server/render';
 
 const devAccountMap = {
-    DEV00000000NI: ['US', 'ni'],
-    DEV0000000NIQ: ['US', 'niq'],
-    DEV000NINONUS: ['US', 'ni_non-us'],
-    DEV00NINONUSQ: ['US', 'niq_non-us'],
-    DEV0000000EAZ: ['US', 'ezp_any_eqz'],
-    DEV0000000EAG: ['US', 'ezp_any_gtz'],
-    DEV0000000PSZ: ['US', 'pala_single_eqz'],
-    DEV0000000PSG: ['US', 'pala_single_gtz'],
-    DEV0000000PMZ: ['US', 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', 'pala_multi_gtz'],
+    DEV00000000NI: ['US', 'NI', 'ni'],
+    DEV0000000NIQ: ['US', 'NI', 'niq'],
+    DEV000NINONUS: ['US', 'NI', 'ni_non-us'],
+    DEV00NINONUSQ: ['US', 'NI', 'niq_non-us'],
+    DEV0000000EAZ: ['US', 'EZP', 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', 'EZP', 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', 'EZP', 'pala_single_eqz'],
+    DEV0000000PSG: ['US', 'EZP', 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', 'EZP', 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', 'EZP', 'pala_multi_gtz'],
 
-    DEV0000000IAZ: ['DE', 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'palaq_any_eqz'],
+    DEV0000000IAZ: ['DE', 'INST', 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', 'INST', 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', 'INST', 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', 'INST', 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', 'pl'],
-    DEV00000GBPLQ: ['GB', 'plq']
+    DEV000000GBPL: ['GB', 'PL', 'pl'],
+    DEV00000GBPLQ: ['GB', 'PL', 'plq']
 };
 
 export default app => {
@@ -67,7 +67,10 @@ export default app => {
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { country = 'US', amount } = req.query;
+        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
+        const account = clientId || payerId || merchantId;
+        const [country, type] = devAccountMap[account];
+
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
@@ -75,8 +78,8 @@ export default app => {
                 csrf: 'csrf'
             },
             country,
-            type: 'NI',
-            payerId: 'DEV00000000NI'
+            type,
+            payerId: account
         };
 
         res.send(`
@@ -140,7 +143,7 @@ export default app => {
         const { amount, client_id: clientId, payer_id: payerId, credit_type: preferredCreditType } = req.query;
 
         if (devAccountMap[clientId || payerId]) {
-            const [country, offer] = devAccountMap[clientId || payerId];
+            const [country, , offer] = devAccountMap[clientId || payerId];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
             const toLocaleCurrency = localizeCurrency(country);
@@ -191,7 +194,7 @@ export default app => {
         const account = req.query.pub_id ? req.query.pub_id : req.query.client_id;
 
         if (devAccountMap[account]) {
-            const [country, offer] = devAccountMap[account];
+            const [country, , offer] = devAccountMap[account];
             const terms = getTerms(country, Number(amount));
             const [bestOffer] = terms.offers || [{}];
             const toLocaleCurrency = localizeCurrency(country);

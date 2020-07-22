@@ -79,13 +79,13 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (props.account.type === 'payer_id:' ? props.account.id : undefined),
+                value: ({ props }) => (props.account.type === 'payer_id' ? props.account.id : undefined),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (props.account.type === 'client-id:' ? props.account.id : undefined),
+                value: ({ props }) => (props.account.type === 'client_id' ? props.account.id : undefined),
                 required: false
             },
             merchantId: {

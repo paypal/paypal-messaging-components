@@ -5,7 +5,7 @@ import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 
 export default memoizeOnProps(
-    ({ account, currency, amount, onApply, onClose }) => {
+    ({ account, merchantId, currency, amount, onApply, onClose }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
         const logger = getLogger();
 
@@ -61,6 +61,7 @@ export default memoizeOnProps(
 
         const { render, hide, updateProps } = Modal({
             account,
+            merchantId,
             currency,
             amount,
             onReady: createOnReadyHandler(),
@@ -129,5 +130,5 @@ export default memoizeOnProps(
             updateProps: updateModal
         };
     },
-    ['account']
+    ['account', 'merchantId']
 );
