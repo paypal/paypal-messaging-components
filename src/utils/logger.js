@@ -20,4 +20,4 @@ export function createLogger() {
 const globalLogger = createLogger();
 
 // TODO: Memoize and share between script instances
-export const getLogger = () => globalLogger;
+export const logger = globalLogger;

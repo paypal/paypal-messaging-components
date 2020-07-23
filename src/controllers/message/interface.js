@@ -9,7 +9,7 @@ import {
     getAllBySelector,
     attributeObserver,
     nextIndex,
-    getLogger
+    logger
 } from '../../utils';
 
 import { Logger } from '../../services/logger';
@@ -19,7 +19,6 @@ import { Modal } from '../modal';
 export default options => ({
     render: (selector = '[data-pp-message]') => {
         const { messagesMap } = globalState;
-        const logger = getLogger();
         const containers = getAllBySelector(selector);
 
         if (selector.length === 0) {

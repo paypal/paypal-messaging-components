@@ -1,13 +1,12 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { getLogger, memoizeOnProps } from '../../utils';
+import { logger, memoizeOnProps } from '../../utils';
 import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 
 export default memoizeOnProps(
     ({ account, merchantId, currency, amount, onApply, onClose }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
-        const logger = getLogger();
 
         const createOnReadyHandler = (props = {}) => ({ type }) => {
             logger.track({

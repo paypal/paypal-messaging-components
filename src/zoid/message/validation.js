@@ -60,11 +60,16 @@ export default {
                 }
             }
 
-            return {
+            const accountObj = {
                 id,
-                type,
-                subject: validatedMerchantId
+                type
             };
+
+            if (validatedMerchantId) {
+                accountObj.subject = validatedMerchantId;
+            }
+
+            return accountObj;
         }
 
         return undefined;
@@ -120,7 +125,7 @@ export default {
         return { layout: 'text' };
     },
     currency: ({ props: { currency } }) => {
-        if (typeof placement !== 'undefined') {
+        if (typeof currency !== 'undefined') {
             const options = ['USD', 'EUR', 'GBP'];
 
             if (!validateType(Types.STRING, currency)) {

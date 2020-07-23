@@ -1,6 +1,6 @@
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport } from './elements';
-import { getLogger } from './logger';
+import { logger } from './logger';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -21,7 +21,6 @@ const onScroll = (elem, handler) => {
 export function runStats({ container, refId }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
-    const logger = getLogger();
 
     // Create initial payload
     const payload = {
