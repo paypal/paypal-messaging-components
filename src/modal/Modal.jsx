@@ -16,7 +16,7 @@ const Modal = ({ serverData }) => (
                 {common}
             </style>
             <Container>
-                <Content />
+                <Content modalType={serverData.type} country={serverData.country} />
             </Container>
         </TransitionState>
     </ServerContext.Provider>

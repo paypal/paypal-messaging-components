@@ -4,14 +4,25 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib/hooks';
 
-const Tabs = ({ tabs }) => {
-    const [currentTab, selectTab] = useState(0);
+const getInitialTabIndex = (initialTabKey, tabs) => {
+    let selected = 0;
+    tabs.forEach(({ tabKey }, index) => {
+        if (tabKey === initialTabKey) {
+            selected = index;
+        }
+    });
+    return selected;
+};
+
+const Tabs = ({ tabs, initialTabKey }) => {
+    // TODO :: Initialize current tab based on 'pre-selected' criteria
+    const [currentTab, selectTab] = useState(getInitialTabIndex(initialTabKey, tabs));
     const [transitionState] = useTransitionState();
     const { onClick } = useXProps();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
-            selectTab(0);
+            selectTab(getInitialTabIndex(initialTabKey, tabs));
         }
     }, [transitionState]);
 
