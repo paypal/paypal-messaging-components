@@ -84,7 +84,9 @@ export default {
             });
         } else {
             const modalType = getModalType(meta.offerCountry, meta.offerType);
-            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: modalType });
+            // The type passed in here is the offer type from the messages call.
+            // The modal type is returned from a separate call and passed in as a prop
+            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: meta.offerType });
 
             events.on('click', () => {
                 renderProm.then(() => {

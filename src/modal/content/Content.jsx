@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 
+import { useXProps } from '../lib/hooks';
 import { commonUS, USEzp, DEInst, GBPl } from '../styles';
 import * as NI from './US/NI';
 import * as EZP from './US/EZP';
@@ -52,8 +53,11 @@ const determineInitialTab = (type = 'NI', country = 'US') => {
     }[country];
 };
 
-// type, country sent from serverData.
+// Props type, country sent from serverData.
 const Content = ({ modalType = 'NI', country = 'US' }) => {
+    // Type of the banner displayed to user.
+    const { type } = useXProps();
+
     switch (modalType) {
         case 'NI':
             return (
@@ -71,8 +75,7 @@ const Content = ({ modalType = 'NI', country = 'US' }) => {
                         {USEzp}
                     </style>
                     <Tabs
-                        // TODO :: Pass in offer type from messages call
-                        initialTabKey={determineInitialTab(modalType, country)}
+                        initialTabKey={determineInitialTab(type, country)}
                         tabs={[
                             {
                                 tabKey: 'US:EZP',
