@@ -11,18 +11,20 @@ const getInitialTabIndex = (initialTabKey, tabs) => {
             selected = index;
         }
     });
+
     return selected;
 };
 
 const Tabs = ({ tabs, initialTabKey }) => {
-    // TODO :: Initialize current tab based on 'pre-selected' criteria
-    const [currentTab, selectTab] = useState(getInitialTabIndex(initialTabKey, tabs));
+    const initialTab = getInitialTabIndex(initialTabKey, tabs);
+
+    const [currentTab, selectTab] = useState(initialTab);
     const [transitionState] = useTransitionState();
     const { onClick } = useXProps();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
-            selectTab(getInitialTabIndex(initialTabKey, tabs));
+            selectTab(initialTab);
         }
     }, [transitionState]);
 
