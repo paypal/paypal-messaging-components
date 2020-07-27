@@ -11,50 +11,29 @@ import Tabs from '../parts/Tabs';
 
 // Utilize a combination of offer type and country code to determine pre-selected tab.
 const determineInitialTab = (type = 'NI', country = 'US') => {
-    return {
-        US: (() => {
-            switch (type) {
-                case 'NI':
-                case 'NIQ':
-                case 'NI:NON-US':
-                    return 'US:NI';
-                case 'EZP:ANY:EQZ':
-                case 'EZP:ANY:GTZ':
-                case 'PALA:MULTI:EQZ':
-                case 'PALA:MULTI:GTZ':
-                case 'PALA:SINGLE:EQZ':
-                case 'PALA:SINGLE:GTZ':
-                    return 'US:EZP';
-                default:
-                    return 'US:NI';
-            }
-        })(),
-        DE: (() => {
-            switch (type) {
-                case 'INST:ANY:EQZ':
-                case 'INST:ANY:GTZ':
-                    return 'DE:INST';
-                case 'PALAQ:ANY:EQZ':
-                case 'PALAQ:ANY:GTZ':
-                    return 'DE:PALAQ';
-                default:
-                    return 'DE:INST';
-            }
-        })(),
-        GB: (() => {
-            switch (type) {
-                case 'PL':
-                case 'PLQ':
-                    return 'GB:PLQ';
-                default:
-                    return 'GB:PLQ';
-            }
-        })()
-    }[country];
+    switch (country) {
+        case 'US':
+            return [
+                'EZP:ANY:EQZ',
+                'EZP:ANY:GTZ',
+                'PALA:MULTI:EQZ',
+                'PALA:MULTI:GTZ',
+                'PALA:SINGLE:EQZ',
+                'PALA:SINGLE:GTZ'
+            ].includes(type)
+                ? 'EZP'
+                : 'NI';
+        case 'DE':
+            return 'INST';
+        case 'GB':
+            return 'PL';
+        default:
+            return 'NI';
+    }
 };
 
 // Props type, country sent from serverData.
-const Content = ({ modalType = 'NI', country = 'US' }) => {
+const Content = ({ modalType, country }) => {
     // Type of the banner displayed to user.
     const { type } = useXProps();
 
@@ -78,13 +57,13 @@ const Content = ({ modalType = 'NI', country = 'US' }) => {
                         initialTabKey={determineInitialTab(type, country)}
                         tabs={[
                             {
-                                tabKey: 'US:EZP',
+                                tabKey: 'EZP',
                                 title: 'Easy Payments',
                                 header: <EZP.Header />,
                                 body: <EZP.Content />
                             },
                             {
-                                tabKey: 'US:NI',
+                                tabKey: 'NI',
                                 title: '6 Months Special Financing',
                                 header: <NI.Header />,
                                 body: <NI.Content />
