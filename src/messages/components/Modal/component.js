@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl } from '../../../utils';
+import { getEnv, getTargetMeta, getGlobalUrl } from '../../../utils';
 import containerTemplate from './containerTemplate';
 
 // Multiple Zoid components of the same tag cannot be created, so a
@@ -64,6 +64,12 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: false,
                 required: false
+            },
+            sdkEnv: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getEnv
             },
 
             // Callbacks
