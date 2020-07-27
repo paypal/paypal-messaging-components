@@ -21,14 +21,17 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
         __DOMAIN__: {
-            __LOCAL__: `${env.NODE_ENV === 'local' ? 'http' : 'https'}://localhost.paypal.com:8080`,
+            __LOCAL__: 'https://localhost.paypal.com:8080',
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com',
 
             // Manual endpoint override example:
             // __MODAL__: {
-            //     __STAGE__: 'https://localhost.paypal.com:8443'
+            //     __LOCAL__: 'https://localhost.paypal.com:8443'
+            // },
+            // __MESSAGE__: {
+            //     __LOCAL__: 'https://localhost.paypal.com:8443'
             // },
             __MESSAGE_B__: {
                 __STAGE__: 'https://localhost.paypal.com:8443'
@@ -48,8 +51,10 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __MESSAGE_A__: '/imadserver/upstream',
             __MESSAGE_B__: '/credit-presentment/messages',
             __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
+            __MESSAGE__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER__: '/ppcredit/messagingLogger'
+            __LOGGER__: '/ppcredit/messagingLogger',
+            __LOGGER_2__: '/credit-presentment/log'
         }
     }
 });

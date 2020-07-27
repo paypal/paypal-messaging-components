@@ -2,7 +2,8 @@
     "extends": ["airbnb", "prettier"],
     "parser": "babel-eslint",
     "env": {
-        "browser": true
+        "browser": true,
+        "node": true
     },
     "globals": {
         "__MESSAGES__": true
@@ -11,6 +12,7 @@
     "rules": {
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
+        "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": ["/*.js", "/utils/**/*.js", "/tools/**/*.js", "/tests/**/*.js"] }
@@ -20,13 +22,16 @@
         "react/prop-types": 0,
         "react/jsx-one-expression-per-line": 0,
         "react/jsx-filename-extension": 0,
-        "react/jsx-curly-spacing": 0,
-        "import/prefer-default-export": 0
+        "react/jsx-curly-spacing": 0
     },
     "settings": {
         "import/resolver": {
-            "jest": {
-                "jestConfigFile": "./jest.config.js"
+            "babel-module": {
+                "alias": {
+                    "src": "./src",
+                    "server": "./server",
+                    "utils": "./utils"
+                }
             }
         }
     }

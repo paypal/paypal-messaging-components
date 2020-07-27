@@ -1,4 +1,5 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
+import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
@@ -176,3 +177,68 @@ export const waitForElementReady = element =>
             resolve();
         }
     });
+
+/**
+ * Check if an element is within the current viewport
+ * @param {HTMLElement} container DOM element
+ * @returns {boolean} Visible or not visible
+ */
+export function isInViewport(container) {
+    const containerRect = container.getBoundingClientRect();
+
+    const bannerY = (containerRect.top + containerRect.bottom) / 2;
+    const bannerX = (containerRect.left + containerRect.right) / 2;
+
+    if (bannerY > window.innerHeight || bannerY < 0) {
+        return false;
+    }
+    if (bannerX > window.innerWidth || bannerX < 0) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Check if an element is visually hidden on a page
+ * @param {HTMLElement} container DOM element
+ * @returns {boolean} Hidden or not hidden
+ */
+export function isHidden(container) {
+    if (typeof window.getComputedStyle === 'function') {
+        const containerStyles = window.getComputedStyle(container);
+        if (
+            containerStyles.getPropertyValue('display') === 'none' ||
+            containerStyles.getPropertyValue('visibility') === 'hidden' ||
+            containerStyles.getPropertyValue('clip') !== 'auto'
+        )
+            return true;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    if (
+        containerRect.left > window.document.body.scrollWidth ||
+        containerRect.right < 0 ||
+        containerRect.top > window.document.body.scrollHeight ||
+        containerRect.bottom < 0
+    )
+        return true;
+
+    return container.offsetWidth === 0 || container.offsetHeight === 0;
+}
+
+export function getAllBySelector(selector) {
+    if (typeof selector === 'string') {
+        return arrayFrom(document.querySelectorAll(selector));
+    }
+
+    if (isElement(selector)) {
+        return [selector];
+    }
+
+    if (Array.isArray(selector) && selector.every(isElement)) {
+        return arrayFlatMap(selector, getAllBySelector);
+    }
+
+    return [];
+}

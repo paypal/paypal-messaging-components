@@ -13,7 +13,7 @@ const createSpy = async ({ keyword = 'bdata' }) => {
 };
 
 const setupPage = async ({ config, testPage = 'banner.html' }) => {
-    await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
+    await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
     await page.waitForSelector('.container iframe', { visible: true });
     await page.waitForSelector("iframe[title='paypal_credit_modal']");
 

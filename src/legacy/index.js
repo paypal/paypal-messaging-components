@@ -6,9 +6,9 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
+import { nextIndex, getGlobalUrl, getExclusionList } from '../utils';
 import toNewPipeline from './toNewPipeline';
-import { Logger, EVENTS } from '../messages/services/logger';
-import { nextId, getGlobalUrl, getExclusionList } from '../utils';
+import { Logger, EVENTS } from '../services/logger';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -320,7 +320,7 @@ scripts.some(script => {
         // Fallback to legacy pipeline
         if (!success) {
             const logger = Logger.create({
-                id: nextId(),
+                id: nextIndex(),
                 account,
                 selector: '__internal__',
                 type: 'Legacy_Banner'

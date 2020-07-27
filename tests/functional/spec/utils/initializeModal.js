@@ -3,7 +3,7 @@
  */
 const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await page.setViewport(viewport);
-    await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
+    await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
     await page.waitForSelector('.banner-1 iframe', { visible: true });
     await page.waitForSelector("iframe[title='paypal_credit_modal']");
