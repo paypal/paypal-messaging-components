@@ -60,7 +60,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         test(testNameParts.slice(-1)[0], async () => {
             await page.setViewport(viewport);
 
-            await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
+            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
             await waitForBanner(1000);
 

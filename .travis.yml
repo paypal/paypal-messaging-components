@@ -17,7 +17,7 @@ before_install:
     - npm i -g npm@6
 
 before_script:
-    - npm run dev:snapshot &
+    - npm run dev:standalone &
     # Give dev server time to startup
     - sleep 20
 
