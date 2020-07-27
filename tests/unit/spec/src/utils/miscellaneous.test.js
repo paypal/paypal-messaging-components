@@ -1,4 +1,4 @@
-import { createState } from 'src/utils';
+import { createState } from 'utils';
 
 describe('utils/miscellaneous', () => {
     describe('createState', () => {

@@ -115,6 +115,7 @@ export const Logger = {
             },
             track: sendBeacon,
             warn(...messages) {
+                // eslint-disable-next-line no-console
                 console.warn('[PayPal Messages]', ...messages);
             }
         };
@@ -122,6 +123,7 @@ export const Logger = {
         return logger;
     },
     warn(...messages) {
+        // eslint-disable-next-line no-console
         console.warn('[PayPal Messages]', ...messages);
     }
 };

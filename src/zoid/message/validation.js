@@ -32,7 +32,9 @@ export function validateType(expectedType, val) {
 
 // Formalized validation logger helper functions
 const logInvalid = (location, message) =>
+    // eslint-disable-next-line no-console
     console.warn(`[PayPal Messages] Invalid option value (${location}). ${message}`);
+
 const logInvalidType = (location, expectedType, val) =>
     logInvalid(location, `Expected type "${expectedType.toLowerCase()}" but instead received "${typeof val}".`);
 const logInvalidOption = (location, options, val) =>
