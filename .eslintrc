@@ -23,5 +23,16 @@
         "react/jsx-one-expression-per-line": 0,
         "react/jsx-filename-extension": 0,
         "react/jsx-curly-spacing": 0
+    },
+    "settings": {
+        "import/resolver": {
+            "babel-module": {
+                "alias": {
+                    "src": "./src",
+                    "server": "./server",
+                    "utils": "./utils"
+                }
+            }
+        }
     }
 }

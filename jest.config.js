@@ -3,7 +3,9 @@ module.exports = {
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
-        '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
+        '^server/(.*)': '<rootDir>/server/$1',
+        '^utils/(.*)': '<rootDir>/utils/$1',
+        '^utils': '<rootDir>/utils',
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',
         'jsx-pragmatic/src': 'jsx-pragmatic',

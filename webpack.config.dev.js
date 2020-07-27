@@ -64,6 +64,7 @@ module.exports = (env = {}) => {
         open: true,
         overlay: true,
         watchContentBase: true,
+        injectClient: compiler => !!compiler.devServer,
         before: devServerProxy,
         https: true,
         disableHostCheck: true // IE11
@@ -90,5 +91,15 @@ module.exports = (env = {}) => {
         name: 'smart-credit-common'
     };
 
-    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG];
+    const RENDERING_DEV_CONFIG = getWebpackConfig({
+        entry: ['./server/index.js'],
+        libraryTarget: 'global',
+        modulename: 'renderMessage',
+        debug: true,
+        minify: false,
+        sourcemaps: false,
+        filename: 'render.js'
+    });
+
+    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];
 };

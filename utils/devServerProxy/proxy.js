@@ -1,8 +1,10 @@
 import fs from 'fs';
+import path from 'path';
 import got from 'got';
 
-import { getTerms, populateTemplate, localizeCurrency } from '..';
-import renderMessage from '../../server/render';
+import { VARIANT } from 'server/constants';
+import { populateTemplate, localizeCurrency } from './miscellaneous';
+import { getTerms } from './mockTerms';
 
 const devAccountMap = {
     DEV00000000NI: ['US', 'NI', 'ni'],
@@ -25,45 +27,130 @@ const devAccountMap = {
     DEV00000GBPLQ: ['GB', 'PL', 'plq']
 };
 
-export default app => {
+export default (app, server, compiler) => {
+    const getMockBanner = req => {
+        const { amount, client_id: clientId, payer_id: payerId, credit_type: preferredCreditType } = req.query;
+
+        if (devAccountMap[clientId || payerId]) {
+            const [country, , offer] = devAccountMap[clientId || payerId];
+            const terms = getTerms(country, Number(amount));
+            const [bestOffer] = terms.offers || [{}];
+            const toLocaleCurrency = localizeCurrency(country);
+
+            const morsVars = {
+                financing_code: Math.random()
+                    .toString(36)
+                    .slice(2),
+                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
+                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                total_payments: bestOffer.term
+            };
+
+            const banner =
+                preferredCreditType !== 'NI'
+                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+
+            return JSON.parse(populateTemplate(morsVars, banner));
+        }
+
+        return null;
+    };
+
+    const createMockZoidMarkup = (component, initializer) => `
+        <!DOCTYPE html>
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body>
+            <script>
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                    || window.top.document.querySelector('script[src*="messaging.js"]')
+                    || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
+
+                document.write(interface);
+            </script>
+            <script src="//localhost.paypal.com:8080/smart-credit-common.js"></script>
+            <script src="//localhost.paypal.com:8080/smart-credit-${component}.js"></script>
+            ${initializer}            
+        </body>
+    `;
+
+    const passthroughMessageReq = async req => {
+        const { style, ...params } = req.query;
+        const query = Object.entries({
+            ...params,
+            variant: VARIANT
+        })
+            .reduce((accumulator, [key, val]) => `${accumulator}&${key}=${val}`, '')
+            .slice(1);
+
+        const { statusCode, body } = await got(`https://www.paypal.com/credit-presentment/messages?${query}`);
+
+        return statusCode === 200 ? JSON.parse(body) : null;
+    };
+
+    const getRenderedMessage = async req => {
+        try {
+            const populatedBanner = getMockBanner(req) ?? (await passthroughMessageReq(req));
+
+            if (populatedBanner) {
+                const style = JSON.parse(req.query.style);
+
+                // eslint-disable-next-line no-eval, security/detect-eval-with-expression
+                const { render, validateStyle, getParentStyles } = eval(
+                    compiler.compilers[2].outputFileSystem
+                        .readFileSync(path.resolve(__dirname, '../../dist/render.js'))
+                        .toString()
+                );
+
+                const warnings = [];
+
+                const validatedStyle = validateStyle(
+                    warnings.push.bind(warnings),
+                    style,
+                    populatedBanner.meta.offerCountry
+                );
+
+                const markup = render({ style: validatedStyle }, populatedBanner);
+
+                return {
+                    markup,
+                    warnings,
+                    parentStyles: getParentStyles(style),
+                    meta: {
+                        uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                        messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
+                        trackingDetails: {
+                            clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                            impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                        }
+                    }
+                };
+            }
+        } catch (err) {
+            console.log(err);
+        }
+
+        return null;
+    };
+
     app.get('/ppcredit/messagingLogger', (req, res) => res.send(''));
 
     app.post('/credit-presentment/log', (req, res) => res.send(''));
 
-    app.get('/credit-presentment/smart/message', (req, res) => {
-        // const {} = req.query;
+    app.get('/credit-presentment/smart/message', async (req, res) => {
+        const props = await getRenderedMessage(req);
 
-        const props = {
-            markup: renderMessage().replace(/\r\n|\n|\r/g, ' '),
-            meta: {
-                uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
-                messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
-                trackingDetails: {
-                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
-                }
-            }
-        };
+        if (props) {
+            res.set('Cache-Control', 'public, max-age=10');
 
-        res.set('Cache-Control', 'public, max-age=10');
-
-        res.send(`
-            <!DOCTYPE html>
-            <head>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-            <body>
-                <script>
-                    var interface = window.top.document.querySelector('script').outerHTML;
-                    var common = '<script src="//localhost.paypal.com:8080/smart-credit-common.js"><'+'/script>'
-                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-message.js"><'+'/script>';
-                    var initializer = '<script>crc.setupMessage(${JSON.stringify(props)})<'+'/script>';
-
-                    document.write(interface+common+component+initializer);
-                </script>
-            </body>
-        `);
+            res.send(createMockZoidMarkup('message', `<script>crc.setupMessage(${JSON.stringify(props)})</script>`));
+        } else {
+            res.status(400).send('');
+        }
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
@@ -82,39 +169,11 @@ export default app => {
             payerId: account
         };
 
-        res.send(`
-            <!DOCTYPE html>
-            <head>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-            <body>
-                <script>
-                    var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
-                        || window.top.document.querySelector('script[src*="messaging.js"]')
-                        || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
-                    var common = '<script src="//localhost.paypal.com:8080/smart-credit-common.js"><'+'/script>'
-                    var component = '<script src="//localhost.paypal.com:8080/smart-credit-modal.js"><'+'/script>';
-                    var initializer = '<script>crc.setupModal(${JSON.stringify(props)})<'+'/script>';
-
-                    document.write(interface + common + component + initializer);
-                </script>
-            </body>
-        `);
+        res.send(createMockZoidMarkup('modal', `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
     });
 
-    app.get('/credit-presentment/renderMessage', (req, res) => {
-        res.send({
-            markup: renderMessage().replace(/\r\n|\n|\r/g, ' '),
-            meta: {
-                uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
-                messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
-                trackingDetails: {
-                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
-                }
-            }
-        });
+    app.get('/credit-presentment/renderMessage', async (req, res) => {
+        res.send(await getRenderedMessage(req));
     });
 
     app.post('/credit-presentment/calculateTerms', (req, res) => {
@@ -140,38 +199,18 @@ export default app => {
     });
 
     app.get('/credit-presentment/messages', (req, res) => {
-        const { amount, client_id: clientId, payer_id: payerId, credit_type: preferredCreditType } = req.query;
+        const populatedBanner = getMockBanner(req);
 
-        if (devAccountMap[clientId || payerId]) {
-            const [country, , offer] = devAccountMap[clientId || payerId];
-            const terms = getTerms(country, Number(amount));
-            const [bestOffer] = terms.offers || [{}];
-            const toLocaleCurrency = localizeCurrency(country);
-
-            const morsVars = {
-                financing_code: Math.random()
-                    .toString(36)
-                    .slice(2),
-                formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
-                formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
-                formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
-                total_payments: bestOffer.term
-            };
-
-            const banner =
-                preferredCreditType !== 'NI'
-                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
-
-            const populatedBanner = JSON.parse(populateTemplate(morsVars, banner));
-
+        if (populatedBanner) {
             res.send({
                 ...populatedBanner,
                 meta: {
                     ...populatedBanner.meta,
-                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    messageRequestId: '1234'
+                    messageRequestId: '1234',
+                    trackingDetails: {
+                        impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                        clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                    }
                 }
             });
         } else {

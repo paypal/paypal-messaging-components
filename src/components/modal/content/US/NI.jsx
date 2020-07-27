@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
+import { createEvent } from 'utils';
 import { useXProps, useServerData, useScroll, useApplyNow } from '../../lib';
-import { createEvent } from '../../../../utils';
 import Icon from '../../parts/Icon';
 import Button from '../../parts/Button';
 

@@ -1,0 +1,24 @@
+.message__content {
+    display: inline-block;
+}
+
+.message__disclaimer > span {
+    text-decoration: none;
+}
+
+.message__headline > span:last-child > strong:last-child {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.message__headline strong::after {
+    content: '.';
+    color: #2c2e2f;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.weak {
+    transform: translateX(-90%);
+    display: inline-block;
+}

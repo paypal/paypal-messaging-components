@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { useEffect } from 'preact/hooks';
 
+import { request } from 'utils';
 import { useXProps, useServerData, useDidUpdateEffect } from './lib';
-import { request } from '../../utils';
 
 const Message = () => {
     const { amount, currency, style, offer, payerId, clientId, merchantId, onClick, onReady, onHover } = useXProps();
@@ -52,7 +52,8 @@ const Message = () => {
                 border: 'none',
                 outline: 'none',
                 textAlign: 'left',
-                fontFamily: 'inherit'
+                fontFamily: 'inherit',
+                fontSize: 'inherit'
             }}
             innerHTML={markup}
         />

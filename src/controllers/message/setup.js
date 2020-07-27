@@ -6,7 +6,7 @@ import {
     getAccount,
     getCurrency,
     getPartnerAccount
-} from '../../utils';
+} from 'utils';
 import Messages from './interface';
 import { Modal } from '../../zoid/modal';
 

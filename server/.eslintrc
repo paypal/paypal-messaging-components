@@ -1,0 +1,11 @@
+{
+    "extends": ["../node_modules/grumbler-scripts/config/.eslintrc-browser.js", "../.eslintrc"],
+    "rules": {
+        "flowtype/require-valid-file-annotation": "off",
+        "flowtype/require-return-type": "off",
+        "import/no-extraneous-dependencies": [
+            "error",
+            { "devDependencies": true, "optionalDependencies": false, "peerDependencies": false }
+        ]
+    }
+}

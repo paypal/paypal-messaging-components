@@ -1,6 +1,6 @@
 import { create } from 'zoid/src';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
+import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from 'utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 

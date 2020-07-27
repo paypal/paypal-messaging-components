@@ -1,0 +1,24 @@
+.message__logo-container {
+    width: 175px;
+}
+
+.message__messaging {
+    width: 335px;
+    padding: 30px 30px 20px 0;
+}
+
+.message__headline {
+    font-size: 26px;
+    line-height: 1.3em;
+    padding-bottom: 10px;
+}
+
+.message__sub-headline {
+    font-size: 13px;
+    line-height: 20px;
+    padding-bottom: 10px;
+}
+
+.message__disclaimer {
+    font-size: 9px;
+}

@@ -1,6 +1,6 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, memoizeOnProps } from '../../utils';
+import { logger, memoizeOnProps } from 'utils';
 import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 

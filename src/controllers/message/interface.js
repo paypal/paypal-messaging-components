@@ -10,7 +10,7 @@ import {
     attributeObserver,
     nextIndex,
     logger
-} from '../../utils';
+} from 'utils';
 
 import { Logger } from '../../services/logger';
 import { Message } from '../../zoid/message';
