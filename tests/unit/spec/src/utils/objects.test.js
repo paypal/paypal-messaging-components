@@ -1,4 +1,10 @@
-import { objectClone, objectDiff, objectMerge, objectFlattenToArray, objectGet } from 'utils/objects';
+import {
+    objectClone,
+    objectDiff,
+    objectMerge,
+    objectFlattenToArray,
+    objectGet
+} from '../../../../../src/utils/objects';
 
 describe('utils/objects', () => {
     describe('objectDiff', () => {

@@ -4,18 +4,5 @@ module.exports = {
         test: {
             presets: [['@babel/env', { targets: { node: 'current' } }]]
         }
-    },
-    plugins: [
-        [
-            'module-resolver',
-            {
-                root: ['./'],
-                alias: {
-                    src: './src',
-                    server: './server',
-                    utils: './utils'
-                }
-            }
-        ]
-    ]
+    }
 };

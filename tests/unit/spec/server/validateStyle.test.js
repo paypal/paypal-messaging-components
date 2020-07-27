@@ -1,5 +1,5 @@
-import validateStyle from 'server/validateStyle';
-import { getValidOptions } from 'server/locale';
+import validateStyle from '../../../../server/validateStyle';
+import { getValidOptions } from '../../../../server/locale';
 
 const mockLogger = jest.fn();
 

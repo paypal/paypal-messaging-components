@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import { h, Fragment } from 'preact';
 
-import { objectMerge, objectFlattenToArray, curry } from '../../utils/server';
+import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
 import fonts from './styles/fonts.css';

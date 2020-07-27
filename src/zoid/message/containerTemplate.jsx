@@ -2,7 +2,7 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { overflowObserver } from 'utils';
+import { overflowObserver } from '../../utils';
 
 export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     event.on(EVENT.RENDERED, () => {

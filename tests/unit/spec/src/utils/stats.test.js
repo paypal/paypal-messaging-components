@@ -1,10 +1,10 @@
 import { fireEvent } from '@testing-library/dom';
 
-import { runStats } from 'utils/stats';
-import { logger } from 'utils/logger';
-import createContainer from '../../../utils/createContainer';
+import createContainer from 'utils/createContainer';
+import { runStats } from '../../../../../src/utils/stats';
+import { logger } from '../../../../../src/utils/logger';
 
-jest.mock('utils/logger', () => ({
+jest.mock('src/utils/logger', () => ({
     logger: {
         track: jest.fn()
     }

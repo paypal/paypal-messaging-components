@@ -1,6 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 
-import { curry } from 'utils';
+import { curry } from '../../utils';
 
 /**
  * Create a function that sends data to a specified url

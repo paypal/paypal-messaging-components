@@ -1,4 +1,4 @@
-import { memoize, memoizeOnProps, partial, curry, pipe, passThrough } from 'utils/functional';
+import { memoize, memoizeOnProps, partial, curry, pipe, passThrough } from '../../../../../src/utils/functional';
 
 describe('utils/functional', () => {
     describe('memoize', () => {

@@ -1,7 +1,7 @@
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
 
-import { createState } from 'utils';
+import { createState } from '../../utils';
 
 export default function viewportHijack() {
     const [viewportState, setViewportState] = createState({});

@@ -4,8 +4,7 @@ module.exports = {
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
         '^server/(.*)': '<rootDir>/server/$1',
-        '^utils/(.*)': '<rootDir>/utils/$1',
-        '^utils': '<rootDir>/utils',
+        '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',
         'jsx-pragmatic/src': 'jsx-pragmatic',

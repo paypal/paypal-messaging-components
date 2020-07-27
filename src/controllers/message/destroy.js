@@ -1,4 +1,4 @@
-import { attributeObserver, destroyGlobalState } from 'utils';
+import { attributeObserver, destroyGlobalState } from '../../utils';
 
 export default function destroy() {
     attributeObserver.disconnect();

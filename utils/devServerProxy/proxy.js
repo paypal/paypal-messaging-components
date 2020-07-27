@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { VARIANT } from 'server/constants';
+import { VARIANT } from '../../server/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 

@@ -1,7 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { useReducer, useEffect } from 'preact/hooks';
 
-import { request, memoizeOnProps } from 'utils';
+import { request, memoizeOnProps } from '../../../../utils';
 import { useXProps, useServerData } from '../../../lib';
 
 const termsFetcher = memoizeOnProps(

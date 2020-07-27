@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useEffect } from 'preact/hooks';
 
-import { request } from 'utils';
+import { request } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect } from './lib';
 
 const Message = () => {
