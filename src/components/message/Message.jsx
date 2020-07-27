@@ -1,4 +1,5 @@
 /** @jsx h */
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useEffect } from 'preact/hooks';
 
@@ -28,7 +29,24 @@ const Message = () => {
     }, [meta]);
 
     useDidUpdateEffect(() => {
-        request('GET', `${window.location.origin}/credit-presentment/renderMessage`).then(({ data }) =>
+        const query = objectEntries({
+            amount,
+            currency,
+            style,
+            offer,
+            payer_id: payerId,
+            client_id: clientId,
+            merchant_id: merchantId
+        })
+            .filter(([, val]) => Boolean(val))
+            .reduce(
+                (acc, [key, val]) =>
+                    `${acc}&${key}=${encodeURIComponent(typeof val === 'object' ? JSON.stringify(val) : val)}`,
+                ''
+            )
+            .slice(1);
+
+        request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) =>
             setServerData({
                 markup: data.markup || markup,
                 meta: data.meta || meta,
