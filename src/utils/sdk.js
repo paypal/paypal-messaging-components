@@ -1,6 +1,3 @@
-import objectAssign from 'core-js-pure/stable/object/assign';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import {
     getClientID,
@@ -10,7 +7,6 @@ import {
     getCurrency as getSDKCurrency,
     getSDKMeta
 } from '@paypal/sdk-client/src';
-import { base64encode } from 'belter/src';
 
 // SDK helper functions with standalone build polyfills
 
@@ -66,43 +62,4 @@ export function getMeta() {
     } else {
         return undefined;
     }
-}
-
-export function getTargetMeta() {
-    const metaObject = {
-        target: __MESSAGES__.__TARGET__,
-        componentUrl:
-            getEnv() !== 'production'
-                ? `${window.location.origin}/smart-credit-modal.js`
-                : `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
-    };
-
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        objectAssign(
-            metaObject,
-            JSON.parse(
-                // Slightly modified from belter/src base64decode due to clash on merchant site:
-                // https://www.myrobotcenter.de/de_de/yardforce-sa600h-2019
-                decodeURIComponent(
-                    atob(getSDKMeta())
-                        .split('')
-                        .map(c => {
-                            return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
-                        })
-                        .join('')
-                )
-            )
-        );
-    } else {
-        const script = getScript();
-
-        objectAssign(metaObject, {
-            url:
-                script && (stringStartsWith(script.src, 'https') || getEnv() === 'local')
-                    ? script.src
-                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
-        });
-    }
-
-    return base64encode(JSON.stringify(metaObject));
 }

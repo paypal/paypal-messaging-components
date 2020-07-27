@@ -69,28 +69,6 @@ module.exports = (env = {}) => {
         disableHostCheck: true // IE11
     };
 
-    // const MESSAGE_DEV_CONFIG = getWebpackConfig({
-    //     entry: './src/components/message/index.js',
-    //     libraryTarget: 'window',
-    //     modulename: 'crc',
-    //     debug: true,
-    //     minify: false,
-    //     sourcemaps: true,
-    //     filename: 'smart-credit-message.js',
-    //     vars: globals(env)
-    // });
-
-    // const MODAL_DEV_CONFIG = getWebpackConfig({
-    //     entry: './src/components/modal/index.js',
-    //     libraryTarget: 'window',
-    //     modulename: 'crc',
-    //     debug: true,
-    //     minify: false,
-    //     sourcemaps: true,
-    //     filename: 'smart-credit-modal.js',
-    //     vars: globals(env)
-    // });
-
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
         entry: ['./src/components/message/index.js', './src/components/modal/index.js'],
         libraryTarget: 'window',
