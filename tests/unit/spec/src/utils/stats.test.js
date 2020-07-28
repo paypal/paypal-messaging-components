@@ -1,8 +1,8 @@
 import { fireEvent } from '@testing-library/dom';
 
 import createContainer from 'utils/createContainer';
-import { runStats } from '../../../../../src/utils/stats';
-import { logger } from '../../../../../src/utils/logger';
+import { runStats } from 'src/utils/stats';
+import { logger } from 'src/utils/logger';
 
 jest.mock('src/utils/logger', () => ({
     logger: {
