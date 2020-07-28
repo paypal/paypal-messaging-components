@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-import validate from '../../../../../../src/zoid/message/validation';
+import validate from 'src/zoid/message/validation';
 
-const warn = console.warn.bind(console);
-console.warn = jest.fn((...args) => warn(args));
+console.warn = jest.fn();
 
 describe('validate', () => {
     beforeEach(() => {
-        console.warn.mockReset();
+        console.warn.mockClear();
     });
 
     it('validates account', () => {
@@ -43,19 +42,28 @@ describe('validate', () => {
 
         expect(account).toBeUndefined();
         expect(console.warn).toHaveBeenCalledTimes(1);
-        expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(account)'));
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'account' })
+        );
 
         account = validate.account({ props: { account: undefined } });
 
         expect(account).toBeUndefined();
         expect(console.warn).toHaveBeenCalledTimes(2);
-        expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(account)'));
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'account' })
+        );
 
         account = validate.account({ props: { account: 12345 } });
 
         expect(account).toBeUndefined();
         expect(console.warn).toHaveBeenCalledTimes(3);
-        expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(account)'));
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'account' })
+        );
 
         account = validate.account({ props: { account: clientId, merchantId: 'invalid' } });
 
@@ -64,7 +72,10 @@ describe('validate', () => {
             type: 'client_id'
         });
         expect(console.warn).toHaveBeenCalledTimes(4);
-        expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(merchantId)'));
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'merchantId' })
+        );
 
         account = validate.account({ props: { account: clientId, merchantId: 12345 } });
 
@@ -73,7 +84,10 @@ describe('validate', () => {
             type: 'client_id'
         });
         expect(console.warn).toHaveBeenCalledTimes(5);
-        expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(merchantId)'));
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'merchantId' })
+        );
     });
 
     it('validates amount', () => {
@@ -96,7 +110,10 @@ describe('validate', () => {
 
             expect(amount).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(amount)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'amount' })
+            );
         });
     });
 
@@ -120,7 +137,10 @@ describe('validate', () => {
 
             expect(offer).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(offer)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'offer' })
+            );
         });
     });
 
@@ -143,22 +163,28 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        [{}, { color: 'blue' }].forEach((invalidStyle, index) => {
+        [{ color: 'blue' }].forEach((invalidStyle, index) => {
             const style = validate.style({ props: { style: invalidStyle } });
 
             expect(style).toEqual(fallback);
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(style.layout)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'style.layout' })
+            );
         });
 
-        console.warn.mockReset();
+        console.warn.mockClear();
 
         ['abc', null, 12345].forEach((invalidStyle, index) => {
-            const style = validate.style({ props: { style: 'abc' } });
+            const style = validate.style({ props: { style: invalidStyle } });
 
             expect(style).toEqual(fallback);
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(style)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'style' })
+            );
         });
     });
 
@@ -182,7 +208,10 @@ describe('validate', () => {
 
             expect(currency).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(currency)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'currency' })
+            );
         });
     });
 
@@ -206,7 +235,10 @@ describe('validate', () => {
 
             expect(placement).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(placement)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'placement' })
+            );
         });
     });
 
@@ -230,7 +262,10 @@ describe('validate', () => {
 
             expect(buyerCountry).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(expect.stringContaining('(buyerCountry)'));
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'buyerCountry' })
+            );
         });
     });
 });

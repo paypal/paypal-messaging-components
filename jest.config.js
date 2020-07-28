@@ -1,5 +1,5 @@
 module.exports = {
-    testEnvironment: 'jest-environment-jsdom-fifteen',
+    testEnvironment: 'jest-environment-jsdom-sixteen',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',

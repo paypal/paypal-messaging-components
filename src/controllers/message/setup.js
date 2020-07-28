@@ -1,17 +1,7 @@
-import {
-    getInlineOptions,
-    globalState,
-    setGlobalState,
-    getScript,
-    getAccount,
-    getCurrency,
-    getPartnerAccount
-} from '../../utils';
-import Messages from './interface';
-import { Modal } from '../../zoid/modal';
+import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
+import Messages from './adapter';
 
 export default function setup() {
-    setGlobalState({ messagesMap: new Map() });
     // Populate global config options
     const script = getScript();
     if (script) {
@@ -41,7 +31,6 @@ export default function setup() {
 
     // When importing the library directly using UMD, window.paypal will not exist
     if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
-        window.paypal.Modal = Modal;
         // Alias for pilot merchant support
         window.paypal.Message = Messages;
     }

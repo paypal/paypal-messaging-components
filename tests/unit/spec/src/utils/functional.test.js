@@ -1,4 +1,4 @@
-import { memoize, memoizeOnProps, partial, curry, pipe, passThrough } from '../../../../../src/utils/functional';
+import { memoize, memoizeOnProps, partial, curry, pipe, passThrough, pluck, assignToProp } from 'src/utils/functional';
 
 describe('utils/functional', () => {
     describe('memoize', () => {
@@ -99,6 +99,33 @@ describe('utils/functional', () => {
             expect(passThroughFn(10)).toEqual(10);
             expect(fn).toHaveBeenCalledTimes(1);
             expect(fn).toHaveBeenCalledWith(10);
+        });
+    });
+
+    describe('pluck', () => {
+        it('Returns the property value from the object', () => {
+            const obj = { a: 1, b: 2, c: 3 };
+            const pluckA = pluck('a');
+            const pluckB = pluck('b');
+
+            expect(pluckA).toEqual(expect.any(Function));
+            expect(pluckB).toEqual(expect.any(Function));
+            expect(pluckA(obj)).toEqual(1);
+            expect(pluckB(obj)).toEqual(2);
+            expect(pluck('d', obj)).toBeUndefined();
+        });
+    });
+
+    describe('assignToProp', () => {
+        it('Creates an object from a property name and a value', () => {
+            const assignToA = assignToProp('a');
+            const assignToB = assignToProp('b');
+
+            expect(assignToA).toEqual(expect.any(Function));
+            expect(assignToB).toEqual(expect.any(Function));
+            expect(assignToA(1)).toEqual({ a: 1 });
+            expect(assignToB(2)).toEqual({ b: 2 });
+            expect(assignToProp('c', 3)).toEqual({ c: 3 });
         });
     });
 });

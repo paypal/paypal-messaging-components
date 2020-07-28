@@ -70,7 +70,7 @@ export default memoizeOnProps(
         });
 
         let renderProm;
-        const renderModal = selector => {
+        const renderModal = (selector = 'body') => {
             // The render promise will resolve before Preact renders and picks up changes
             // via updateProps so a small delay is added after the initial "render" promise
             if (!renderProm) {
