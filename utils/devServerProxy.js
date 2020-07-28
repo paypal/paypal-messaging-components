@@ -33,6 +33,8 @@ module.exports = app => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { country, amount } = req.query;
         const props = {
+            type: 'NI',
+            country: 'US',
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
