@@ -4,16 +4,7 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib/hooks';
 
-const getInitialTabIndex = (initialTabKey, tabs) => {
-    let selected = 0;
-    tabs.forEach(({ tabKey }, index) => {
-        if (tabKey === initialTabKey) {
-            selected = index;
-        }
-    });
-
-    return selected;
-};
+const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
 
 const Tabs = ({ tabs, initialTabKey }) => {
     const initialTab = getInitialTabIndex(initialTabKey, tabs);
