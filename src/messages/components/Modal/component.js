@@ -65,13 +65,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-            sdkEnv: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: getEnv
-            },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -88,8 +81,12 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-
             // Computed Props
+            env: {
+                type: 'string',
+                queryParam: true,
+                value: getEnv
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',

@@ -6,11 +6,11 @@ import { ServerContext } from '../context';
 
 export default clickTitle => {
     const { payerId } = useContext(ServerContext);
-    const { onClick, refId, sdkEnv } = useXProps();
+    const { onClick, refId, env } = useXProps();
 
     const [, handleClose] = useTransitionState();
 
-    const urlBase = sdkEnv === 'production' ? 'paypal' : 'sandbox.paypal';
+    const urlBase = env === 'production' ? 'paypal' : 'sandbox.paypal';
 
     return () => {
         onClick(clickTitle);

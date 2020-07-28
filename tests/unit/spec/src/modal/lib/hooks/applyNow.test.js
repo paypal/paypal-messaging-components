@@ -6,7 +6,7 @@ global.open = jest.fn();
 
 const defaultXProps = {
     refId: '1',
-    sdkEnv: 'local',
+    env: 'local',
     onClick: jest.fn()
 };
 
@@ -34,7 +34,7 @@ describe('Apply Now URL hook', () => {
             'https://www.sandbox.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
         );
 
-        useXProps.mockReturnValue({ ...defaultXProps, sdkEnv: 'sandbox' });
+        useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
         applyNow()();
 
         expect(global.open).toBeCalledWith(
@@ -43,7 +43,7 @@ describe('Apply Now URL hook', () => {
     });
 
     it('Should return production URL', () => {
-        useXProps.mockReturnValue({ ...defaultXProps, sdkEnv: 'production' });
+        useXProps.mockReturnValue({ ...defaultXProps, env: 'production' });
         applyNow()();
 
         // Production URL
