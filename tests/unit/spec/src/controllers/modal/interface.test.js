@@ -126,4 +126,137 @@ describe('modal interface', () => {
             })
         );
     });
+
+    it('Shares a common modal instance', async () => {
+        const modal = Modal({ account: '7' });
+
+        expect(modal).toBe(Modal({ account: '7' }));
+        expect(modal).not.toBe(Modal({ account: '8' }));
+    });
+
+    it('Passes onReady handler', async () => {
+        const onReady = jest.fn();
+        await Modal({ account: '9', refId: '12345', onReady }).render();
+
+        expect(zoidModal).toHaveBeenCalledTimes(1);
+        expect(zoidModal).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onReady: expect.any(Function)
+            })
+        );
+        expect(onReady).not.toHaveBeenCalled();
+        expect(logger.track).not.toHaveBeenCalled();
+
+        const [[{ onReady: onReadyHandler }]] = zoidModal.mock.calls;
+
+        onReadyHandler({ type: 'NI' });
+
+        expect(onReady).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                message_request_id: '12345',
+                modal: 'NI'
+            })
+        );
+    });
+
+    it('Passes onCalculate handler', async () => {
+        const onCalculate = jest.fn();
+        await Modal({ account: '10', refId: '12345', onCalculate }).render();
+
+        expect(zoidModal).toHaveBeenCalledTimes(1);
+        expect(zoidModal).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onCalculate: expect.any(Function)
+            })
+        );
+        expect(logger.track).not.toHaveBeenCalled();
+        expect(onCalculate).not.toHaveBeenCalled();
+
+        const [[{ onCalculate: onCalculateHandler }]] = zoidModal.mock.calls;
+
+        onCalculateHandler({ value: 100 });
+
+        expect(onCalculate).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                message_request_id: '12345',
+                link: 'Calculator',
+                amount: 100
+            })
+        );
+    });
+
+    it('Passes onClick handler', async () => {
+        const onApply = jest.fn();
+        await Modal({ account: '11', refId: '12345', onApply }).render();
+
+        expect(zoidModal).toHaveBeenCalledTimes(1);
+        expect(zoidModal).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onCalculate: expect.any(Function)
+            })
+        );
+        expect(logger.track).not.toHaveBeenCalled();
+        expect(onApply).not.toHaveBeenCalled();
+
+        const [[{ onClick: onClickHandler }]] = zoidModal.mock.calls;
+
+        onClickHandler({ linkName: 'Close Button' });
+
+        expect(onApply).not.toHaveBeenCalled();
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                message_request_id: '12345',
+                event_type: 'click',
+                link: 'Close Button'
+            })
+        );
+
+        onClickHandler({ linkName: 'Apply Now' });
+
+        expect(onApply).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledTimes(2);
+        expect(logger.track).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                message_request_id: '12345',
+                event_type: 'click',
+                link: 'Apply Now'
+            })
+        );
+    });
+
+    it('Passes onClose handler', async () => {
+        const onClose = jest.fn();
+        const modal = Modal({ account: '12', refId: '12345', onClose });
+
+        await modal.render();
+        await modal.show();
+
+        expect(zoidModal).toHaveBeenCalledTimes(1);
+        expect(zoidModal).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onClose: expect.any(Function)
+            })
+        );
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(onClose).not.toHaveBeenCalled();
+
+        const [[{ onClose: onCloseHandler }]] = zoidModal.mock.calls;
+
+        onCloseHandler({ linkName: 'Close Button' });
+
+        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledTimes(2);
+        expect(logger.track).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                message_request_id: '12345',
+                event_type: 'modal-close',
+                link: 'Close Button'
+            })
+        );
+    });
 });

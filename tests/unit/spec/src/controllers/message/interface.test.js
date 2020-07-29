@@ -20,11 +20,13 @@ jest.mock('src/zoid/message', () => {
 jest.mock('src/controllers/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
+    const mockShow = jest.fn(() => Promise.resolve());
 
     return {
         Modal: jest.fn(() => ({
             render: mockRender,
-            updateProps: mockUpdateProps
+            updateProps: mockUpdateProps,
+            show: mockShow
         }))
     };
 });
@@ -38,6 +40,7 @@ jest.mock('src/utils/logger', () => ({
 
 const clearMocks = () => {
     logger.warn.mockClear();
+    logger.track.mockClear();
 
     Message().render.mockClear();
     Message().updateProps.mockClear();
@@ -45,6 +48,7 @@ const clearMocks = () => {
 
     Modal().render.mockClear();
     Modal().updateProps.mockClear();
+    Modal().show.mockClear();
     Modal.mockClear();
 };
 
@@ -225,5 +229,92 @@ describe('message interface', () => {
         expect(Message).toHaveBeenCalledTimes(1);
         expect(Message().render).toHaveBeenCalledTimes(1);
         expect(Message().render).toHaveBeenLastCalledWith(container);
+    });
+
+    it('Passes onReady handler', async () => {
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        const onReady = jest.fn();
+
+        await Messages({ onReady }).render(container);
+
+        expect(Message).toHaveBeenCalledTimes(1);
+        expect(Message).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onReady: expect.any(Function)
+            })
+        );
+        expect(onReady).not.toHaveBeenCalled();
+        expect(Modal().updateProps).not.toHaveBeenCalled();
+        expect(Modal().render).not.toHaveBeenCalled();
+
+        const [[{ onReady: onReadyHandler }]] = Message.mock.calls;
+
+        onReadyHandler({ meta: { messageRequestId: '12345', trackingDetails: {} } });
+
+        expect(onReady).toHaveBeenCalledTimes(1);
+        expect(Modal().updateProps).toHaveBeenCalledTimes(1);
+        expect(Modal().updateProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                refId: '12345-1'
+            })
+        );
+        expect(Modal().render).toHaveBeenCalledTimes(1);
+        expect(Modal().render).toHaveBeenLastCalledWith('body');
+    });
+
+    it('Passes onClick handler', async () => {
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        const onClick = jest.fn();
+
+        await Messages({ onClick }).render(container);
+
+        expect(Message).toHaveBeenCalledTimes(1);
+        expect(Message).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onClick: expect.any(Function)
+            })
+        );
+        expect(onClick).not.toHaveBeenCalled();
+        expect(Modal().show).not.toHaveBeenCalled();
+
+        const [[{ onClick: onClickHandler }]] = Message.mock.calls;
+
+        onClickHandler({ meta: { messageRequestId: '12345' } });
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(Modal().show).toHaveBeenCalledTimes(1);
+        expect(Modal().show).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                refId: '12345-1'
+            })
+        );
+    });
+
+    it('Passes onHover handler', async () => {
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+
+        await Messages({}).render(container);
+
+        expect(Message).toHaveBeenCalledTimes(1);
+        expect(Message).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onHover: expect.any(Function)
+            })
+        );
+
+        const [[{ onHover: onHoverHandler }]] = Message.mock.calls;
+
+        expect(logger.track).not.toHaveBeenCalled();
+
+        onHoverHandler({ meta: { messageRequestId: '12345' } });
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+
+        onHoverHandler({ meta: { messageRequestId: '12345' } });
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
     });
 });
