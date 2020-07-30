@@ -24,8 +24,7 @@ describe('Modal Component', () => {
     };
 
     const defaultXProps = {
-        type: 'NI',
-        country: 'US',
+        offer: 'NI',
         show: jest.fn(),
         onProps: jest.fn()
     };
@@ -50,7 +49,7 @@ describe('Modal Component', () => {
     });
 
     it('Should render EZP modal, selecting EZP tab', () => {
-        useXProps.mockReturnValue({ ...defaultXProps, type: 'PALA:MULTI:GTZ' });
+        useXProps.mockReturnValue({ ...defaultXProps, offer: 'EZP' });
 
         setupModal({ ...defaultProps, type: 'EZP' });
 

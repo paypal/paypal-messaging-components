@@ -15,6 +15,10 @@ const getGlobalComponent = (namespace, fn) => {
     return window[namespace];
 };
 
+// Utilize a combination of offer type and country code to determine pre-selected tab.
+// Currently only applicable to the US
+const determineInitialTab = (type = 'NI') => (startsWith(type, 'EZP') || startsWith(type, 'PALA') ? 'EZP' : 'NI');
+
 export default getGlobalComponent('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
@@ -84,6 +88,11 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             },
 
             // Computed Props
+            offer: {
+                type: 'string',
+                value: ({ props }) => determineInitialTab(props.type),
+                required: false
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',

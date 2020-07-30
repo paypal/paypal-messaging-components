@@ -9,33 +9,10 @@ import INST from './DE/INST';
 import PL from './GB/PL';
 import Tabs from '../parts/Tabs';
 
-// Utilize a combination of offer type and country code to determine pre-selected tab.
-const determineInitialTab = (type = 'NI', country = 'US') => {
-    switch (country) {
-        case 'US':
-            return [
-                'EZP:ANY:EQZ',
-                'EZP:ANY:GTZ',
-                'PALA:MULTI:EQZ',
-                'PALA:MULTI:GTZ',
-                'PALA:SINGLE:EQZ',
-                'PALA:SINGLE:GTZ'
-            ].includes(type)
-                ? 'EZP'
-                : 'NI';
-        case 'DE':
-            return 'INST';
-        case 'GB':
-            return 'PL';
-        default:
-            return 'NI';
-    }
-};
-
 // Props type, country sent from serverData.
-const Content = ({ modalType, country }) => {
+const Content = ({ modalType }) => {
     // Type of the banner displayed to user.
-    const { type } = useXProps();
+    const { offer } = useXProps();
 
     switch (modalType) {
         case 'NI':
@@ -54,7 +31,7 @@ const Content = ({ modalType, country }) => {
                         {USEzp}
                     </style>
                     <Tabs
-                        initialTabKey={determineInitialTab(type, country)}
+                        initialTabKey={offer}
                         tabs={[
                             {
                                 tabKey: 'EZP',
