@@ -10,7 +10,13 @@ export default clickTitle => {
 
     const [, handleClose] = useTransitionState();
 
-    const urlBase = env === 'production' ? 'paypal' : 'sandbox.paypal';
+    const urlBase =
+        {
+            local: 'msmaster.qa.paypal',
+            stage: 'msmaster.qa.paypal',
+            sandbox: 'sandbox.paypal',
+            production: 'paypal'
+        }[env] ?? 'msmaster.qa.paypal';
 
     return () => {
         onClick(clickTitle);

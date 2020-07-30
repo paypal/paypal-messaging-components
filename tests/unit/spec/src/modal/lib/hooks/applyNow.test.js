@@ -27,13 +27,29 @@ describe('Apply Now URL hook', () => {
 
     useXProps.mockReturnValue(defaultXProps);
 
-    it('Should return the sandbox URL', () => {
+    it('Should return the staging URL', () => {
         applyNow()();
 
         expect(global.open).toBeCalledWith(
-            'https://www.sandbox.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
         );
 
+        useXProps.mockReturnValue({ ...defaultXProps, env: undefined });
+        applyNow()();
+
+        expect(global.open).toBeCalledWith(
+            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+        );
+
+        useXProps.mockReturnValue({ ...defaultXProps, env: 'staging' });
+        applyNow()();
+
+        expect(global.open).toBeCalledWith(
+            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+        );
+    });
+
+    it('Should return the sandbox URL', () => {
         useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
         applyNow()();
 
