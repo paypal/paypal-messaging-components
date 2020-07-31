@@ -30,12 +30,14 @@ export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
-    useScroll(event => {
+    useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
 
         // Ensure first that the button is being displayed
-        if (offsetTop) {
-            if (event.target.scrollTop - offsetTop < clientHeight + 30) {
+        // event.target.scrollTop alternates between 0 and some positive number as the user scrolls
+        // Checking the value here prevents erratic behavior wrt the logo and apply now button
+        if (scrollTop && offsetTop) {
+            if (scrollTop - offsetTop < clientHeight + 30) {
                 window.dispatchEvent(createEvent('apply-now-hidden'));
             } else {
                 window.dispatchEvent(createEvent('apply-now-visible'));
