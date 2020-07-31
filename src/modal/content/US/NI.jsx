@@ -33,8 +33,10 @@ export const Header = () => {
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
 
+        console.info(scrollTop);
+
         // Ensure first that the button is being displayed
-        // event.target.scrollTop alternates between 0 and some positive number as the user scrolls
+        // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
         // Checking the value here prevents erratic behavior wrt the logo and apply now button
         if (scrollTop && offsetTop) {
             if (scrollTop - offsetTop < clientHeight + 30) {
