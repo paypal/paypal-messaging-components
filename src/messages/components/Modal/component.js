@@ -17,7 +17,21 @@ const getGlobalComponent = (namespace, fn) => {
 
 // Determine pre-selected tab based on the offer type of the banner.
 // Currently only applicable to the US
-const determineInitialTab = (type = 'NI') => (startsWith(type, 'EZP') || startsWith(type, 'PALA') ? 'EZP' : 'NI');
+const determineInitialTab = (type = 'NI') => {
+    switch (true) {
+        case [
+            'EZP:ANY:EQZ',
+            'EZP:ANY:GTZ',
+            'PALA:MULTI:EQZ',
+            'PALA:MULTI:GTZ',
+            'PALA:SINGLE:EQZ',
+            'PALA:SINGLE:GTZ'
+        ].includes(type):
+            return 'EZP';
+        default:
+            return 'NI';
+    }
+};
 
 export default getGlobalComponent('__paypal_credit_modal__', () =>
     create({
