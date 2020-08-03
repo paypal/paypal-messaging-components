@@ -6,12 +6,12 @@ import { useTransitionState, useXProps } from '../lib/hooks';
 
 const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
 
-const Tabs = ({ tabs, initialTabKey }) => {
-    const initialTab = getInitialTabIndex(initialTabKey, tabs);
+const Tabs = ({ tabs }) => {
+    const { offer, onClick } = useXProps();
+    const initialTab = getInitialTabIndex(offer, tabs);
+    const [transitionState] = useTransitionState();
 
     const [currentTab, selectTab] = useState(initialTab);
-    const [transitionState] = useTransitionState();
-    const { onClick } = useXProps();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {

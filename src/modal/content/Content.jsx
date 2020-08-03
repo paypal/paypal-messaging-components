@@ -12,7 +12,7 @@ import Tabs from '../parts/Tabs';
 // Props type, country sent from serverData.
 const Content = ({ modalType }) => {
     // Type of the banner displayed to user.
-    const { track, offer } = useXProps();
+    const { track } = useXProps();
 
     // Calling track here in order to use correct modal type from server.
     track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
@@ -34,7 +34,6 @@ const Content = ({ modalType }) => {
                         {USEzp}
                     </style>
                     <Tabs
-                        initialTabKey={offer}
                         tabs={[
                             {
                                 tabKey: 'EZP',
