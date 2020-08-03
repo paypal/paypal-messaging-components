@@ -15,7 +15,7 @@ const getGlobalComponent = (namespace, fn) => {
     return window[namespace];
 };
 
-// Utilize a combination of offer type and country code to determine pre-selected tab.
+// Determine pre-selected tab based on the offer type of the banner.
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => (startsWith(type, 'EZP') || startsWith(type, 'PALA') ? 'EZP' : 'NI');
 
@@ -44,7 +44,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 sendToChild: true,
                 required: false
             },
-            type: {
+            messageOfferType: {
                 type: 'string',
                 queryParam: true,
                 required: true
@@ -90,7 +90,7 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             // Computed Props
             offer: {
                 type: 'string',
-                value: ({ props }) => determineInitialTab(props.type),
+                value: ({ props }) => determineInitialTab(props.messageOfferType),
                 required: false
             },
             payerId: {

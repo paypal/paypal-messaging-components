@@ -5,24 +5,12 @@ import { memoizeOnProps } from '../../../utils';
 import Modal from './component';
 import useViewportHijack from './viewportHijack';
 
-function getModalType(offerCountry, offerType) {
-    switch (offerCountry) {
-        case 'DE':
-            return 'INST';
-        case 'GB':
-            return 'PL';
-        case 'US':
-        default:
-            return startsWith(offerType, 'NI') ? 'NI' : 'EZP';
-    }
-}
-
 const renderModal = memoizeOnProps(
-    ({ options, meta, track, wrapper, type }) => {
+    ({ options, meta, track, wrapper, messageOfferType }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const { render, hide, updateProps } = Modal({
-            type,
+            messageOfferType,
 
             // Even though these props are not included in memoize,
             // we want to pass the initial values in so we can preload one set of terms
@@ -83,14 +71,19 @@ export default {
                 }
             });
         } else {
-            const modalType = getModalType(meta.offerCountry, meta.offerType);
             // The type passed in here is the offer type from the messages call.
             // The modal type is returned from a separate call and passed in as a prop
-            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: meta.offerType });
+            const { renderProm, show } = renderModal({
+                options,
+                meta,
+                track,
+                wrapper,
+                messageOfferType: meta.offerType
+            });
 
             events.on('click', () => {
                 renderProm.then(() => {
-                    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
+                    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: meta.offerType });
 
                     show({
                         account: options.account,
