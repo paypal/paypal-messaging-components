@@ -71,6 +71,11 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             },
 
             // Callbacks
+            track: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
             onClick: {
                 type: 'function',
                 queryParam: false,

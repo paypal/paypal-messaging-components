@@ -10,8 +10,8 @@ const renderModal = memoizeOnProps(
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const { render, hide, updateProps } = Modal({
+            track,
             messageOfferType,
-
             // Even though these props are not included in memoize,
             // we want to pass the initial values in so we can preload one set of terms
             account: options.account,
@@ -83,8 +83,6 @@ export default {
 
             events.on('click', () => {
                 renderProm.then(() => {
-                    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: meta.offerType });
-
                     show({
                         account: options.account,
                         merchantId: options.merchantId,

@@ -26,6 +26,7 @@ describe('Modal Component', () => {
     const defaultXProps = {
         offer: 'NI',
         show: jest.fn(),
+        track: jest.fn(),
         onProps: jest.fn()
     };
 
@@ -38,6 +39,14 @@ describe('Modal Component', () => {
         useXProps.mockClear();
         // Need to destroy the 'preact tree' in order to clear component state.
         render(null, document.body);
+    });
+
+    it('Should call track with the appropriate modal type', () => {
+        setupModal(defaultProps);
+        expect(defaultXProps.track).toBeCalledWith({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'NI' });
+
+        setupModal({ ...defaultProps, type: 'EZP' });
+        expect(defaultXProps.track).toBeCalledWith({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'EZP' });
     });
 
     it('Should render NI modal', () => {
