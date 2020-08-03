@@ -67,19 +67,31 @@ export default options => ({
                     });
 
                     const createOnReadyHandler = props => ({ meta }) => {
-                        runStats({ container, refId: `${meta.messageRequestId}-${index}` });
+                        logger.addMetaBuilder(() => {
+                            return {
+                                [index]: meta.messageRequestId,
+                                [meta.messageRequestId]: {
+                                    uuid:
+                                        meta.uuid ||
+                                        // FIXME:
+                                        'NI:NON-US::layout:text::logo.position:left::logo.type:primary::text.color:black::text.size:12',
+                                    ...meta.trackingDetails
+                                }
+                            };
+                        });
 
-                        modal.updateProps({ refId: `${meta.messageRequestId}-${index}` });
+                        runStats({ container, index });
+
+                        modal.updateProps({ index });
                         modal.render('body');
 
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS',
-                            url: meta.trackingDetails.impressionUrl
+                            event_type: 'MORS'
                         });
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'render',
                             amount: props.amount,
@@ -98,17 +110,17 @@ export default options => ({
                     const createOnClickHandler = props => ({ meta }) => {
                         modal.show({
                             ...props,
-                            refId: `${meta.messageRequestId}-${index}`,
+                            index,
                             onClose: () => container.firstChild.focus()
                         });
 
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLICK',
                             event_type: 'MORS'
                         });
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Banner Wrapper'
@@ -119,9 +131,9 @@ export default options => ({
                         }
                     };
 
-                    const handleHover = once(({ meta }) => {
+                    const handleHover = once(() => {
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'hover'
                         });
