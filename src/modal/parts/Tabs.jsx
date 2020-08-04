@@ -7,6 +7,7 @@ import { useTransitionState, useXProps } from '../lib/hooks';
 const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
 
 const Tabs = ({ tabs }) => {
+    // offer type of banner used to determine which tab to pre-select
     const { offer, onClick } = useXProps();
     const initialTab = getInitialTabIndex(offer, tabs);
     const [transitionState] = useTransitionState();

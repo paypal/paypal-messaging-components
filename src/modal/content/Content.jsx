@@ -9,7 +9,7 @@ import INST from './DE/INST';
 import PL from './GB/PL';
 import Tabs from '../parts/Tabs';
 
-// Props type, country sent from serverData.
+// modalType sent from server.
 const Content = ({ modalType }) => {
     // Type of the banner displayed to user.
     const { track } = useXProps();
