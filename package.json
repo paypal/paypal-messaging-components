@@ -19,10 +19,9 @@
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
-        "build:standalone": "webpack --env.TARGET=standalone",
-        "build:legacy": "webpack --env.TARGET=legacy",
-        "build:analyze": "webpack --env.analyze --env.TARGET=standalone",
-        "build:demo": "webpack --env.demo --env.TARGET=standalone",
+        "build:prod": "webpack",
+        "build:analyze": "webpack --env.analyze",
+        "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local",
         "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=legacy --env.NODE_ENV=local",
