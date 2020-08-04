@@ -74,7 +74,7 @@ export default (app, server, compiler) => {
             </script>
             <script src="//localhost.paypal.com:8080/smart-credit-common.js"></script>
             <script src="//localhost.paypal.com:8080/smart-credit-${component}.js"></script>
-            ${initializer}            
+            ${initializer}
         </body>
     `;
 

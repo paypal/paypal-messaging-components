@@ -195,6 +195,7 @@ export function objectSet(object, propString, value) {
  */
 export function flattenedToObject(option, attributeValue, delimiter = '-') {
     const firstIndex = option.indexOf(delimiter);
+
     if (firstIndex === -1) {
         return { [option]: attributeValue };
     }
@@ -202,5 +203,5 @@ export function flattenedToObject(option, attributeValue, delimiter = '-') {
     const key = option.slice(0, firstIndex);
     const val = option.slice(firstIndex + 1);
 
-    return { [key]: flattenedToObject(val, attributeValue) };
+    return { [key]: flattenedToObject(val, attributeValue, delimiter) };
 }

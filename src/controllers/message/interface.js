@@ -12,7 +12,6 @@ import {
     logger
 } from '../../utils';
 
-import { Logger } from '../../services/logger';
 import { Message } from '../../zoid/message';
 import { Modal } from '../modal';
 
@@ -21,14 +20,23 @@ export default options => ({
         const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
-        if (selector.length === 0) {
-            return Logger.warn('Invalid selector', selector);
+        if (containers.length === 0) {
+            logger.warn('invalid_selector', {
+                description: `No elements were found with the following selector: "${selector}"`,
+                selector
+            });
+
+            return ZalgoPromise.resolve();
         }
 
         const validContainers = containers.filter(container => {
             // Ensure container is in the DOM in order for proper iframe population
             if (!container.ownerDocument.body.contains(container)) {
-                Logger.warn('Skipping container. Must be in the document:', container);
+                logger.warn('not_in_document', {
+                    description: 'Container must be in the document.',
+                    container
+                });
+
                 return false;
             }
 

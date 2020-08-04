@@ -1,5 +1,5 @@
 module.exports = {
-    testEnvironment: 'jest-environment-jsdom-fifteen',
+    testEnvironment: 'jest-environment-jsdom-sixteen',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
@@ -17,6 +17,8 @@ module.exports = {
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
+    // grumbler-scripts includes babel-plugin-istanbul
+    coveragePathIgnorePatterns: ['<rootDir>'],
     globals: {
         __ENV__: 'test',
         __MESSAGES__: {

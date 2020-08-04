@@ -1,10 +1,24 @@
+import objectKeys from 'core-js-pure/stable/object/keys';
+import objectAssign from 'core-js-pure/stable/object/assign';
+
 import { getEnv } from './sdk';
 import { createState } from './miscellaneous';
 
 const NAMESPACE = '__paypal_messages_state__';
 
-export const [globalState, setGlobalState] = createState(window[NAMESPACE] || { index: 1, config: {} });
-export const destroyGlobalState = () => delete window[NAMESPACE];
+const createDefaultState = () => ({
+    index: 1,
+    config: {},
+    messagesMap: new Map()
+});
+
+export const [globalState, setGlobalState] = createState(window[NAMESPACE] || createDefaultState());
+export const destroyGlobalState = () => {
+    objectKeys(globalState).forEach(key => delete globalState[key]);
+    objectAssign(globalState, createDefaultState());
+
+    delete window[NAMESPACE];
+};
 
 Object.defineProperty(window, NAMESPACE, {
     value: globalState,

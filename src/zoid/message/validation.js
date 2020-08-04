@@ -2,6 +2,8 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
+import { logger, memoize } from '../../utils';
+
 export const Types = {
     ANY: 'ANY',
     STRING: 'STRING',
@@ -31,12 +33,17 @@ export function validateType(expectedType, val) {
 }
 
 // Formalized validation logger helper functions
-const logInvalid = (location, message) =>
-    // eslint-disable-next-line no-console
-    console.warn(`[PayPal Messages] Invalid option value (${location}). ${message}`);
-
+const logInvalid = memoize((location, message) =>
+    logger.warn('invalid_option_value', {
+        description: message,
+        location
+    })
+);
 const logInvalidType = (location, expectedType, val) =>
-    logInvalid(location, `Expected type "${expectedType.toLowerCase()}" but instead received "${typeof val}".`);
+    logInvalid(
+        location,
+        `Expected type "${expectedType.toLowerCase()}" but instead received "${typeof val}" (${val}).`
+    );
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 

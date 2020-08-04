@@ -5,7 +5,7 @@ import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 
 export default memoizeOnProps(
-    ({ account, merchantId, currency, amount, onApply, onClose }) => {
+    ({ account, merchantId, currency, amount, onReady, onCalculate, onApply, onClose, refId }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const createOnReadyHandler = (props = {}) => ({ type }) => {
@@ -15,6 +15,10 @@ export default memoizeOnProps(
                 event_type: 'render',
                 modal: type
             });
+
+            if (typeof props.onReady === 'function') {
+                props.onReady({ type });
+            }
         };
 
         const createOnCalculateHandler = (props = {}) => ({ value }) => {
@@ -59,18 +63,19 @@ export default memoizeOnProps(
         };
 
         const { render, hide, updateProps } = Modal({
+            refId,
             account,
             merchantId,
             currency,
             amount,
-            onReady: createOnReadyHandler(),
-            onCalculate: createOnCalculateHandler(),
-            onClick: createOnClickHandler({ onApply }),
-            onClose: createOnCloseHandler({ onClose })
+            onReady: createOnReadyHandler({ refId, onReady }),
+            onCalculate: createOnCalculateHandler({ refId, onCalculate }),
+            onClick: createOnClickHandler({ refId, onApply }),
+            onClose: createOnCloseHandler({ refId, onClose })
         });
 
         let renderProm;
-        const renderModal = selector => {
+        const renderModal = (selector = 'body') => {
             // The render promise will resolve before Preact renders and picks up changes
             // via updateProps so a small delay is added after the initial "render" promise
             if (!renderProm) {

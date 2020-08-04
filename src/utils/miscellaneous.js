@@ -17,20 +17,6 @@ export function createState(initialState = {}) {
     return [state, partial(objectAssign, state)];
 }
 
-/**
- * Create a new error with a special onEnd attribute that
- * will be called after the error has been handled
- * @param {String} message Error message
- * @param {Function} cb Callback function
- */
-export function createCallbackError(message, cb) {
-    const error = new Error(message);
-    // onEnd callback will be called after completing the current logger
-    error.onEnd = cb;
-
-    return error;
-}
-
 export function getDataByTag(data, tag) {
     let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
     if (selected) {
