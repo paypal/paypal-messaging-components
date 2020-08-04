@@ -3,6 +3,13 @@ import { render } from 'preact';
 import { setupModal } from 'src/modal';
 import { useXProps } from 'src/modal/lib/hooks/helpers';
 
+// Mock only useEffect
+// Mocking as useLayoutEffect here in order to fire synchronously for tests.
+jest.mock('preact/hooks', () => ({
+    ...jest.requireActual('preact/hooks'),
+    useEffect: jest.requireActual('preact/hooks').useLayoutEffect
+}));
+
 jest.mock('src/modal/lib/hooks/helpers');
 
 describe('Modal Component', () => {
@@ -26,8 +33,8 @@ describe('Modal Component', () => {
     const defaultXProps = {
         offer: 'NI',
         show: jest.fn(),
-        track: jest.fn(),
-        onProps: jest.fn()
+        onProps: jest.fn(),
+        onReady: jest.fn()
     };
 
     beforeEach(() => {
@@ -41,12 +48,16 @@ describe('Modal Component', () => {
         render(null, document.body);
     });
 
-    it('Should call track with the appropriate modal type', () => {
+    it('Should call onReady with the appropriate modal type', () => {
         setupModal(defaultProps);
-        expect(defaultXProps.track).toBeCalledWith({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'NI' });
+        expect(defaultXProps.onReady).toBeCalledWith({
+            modalType: 'NI'
+        });
 
         setupModal({ ...defaultProps, type: 'EZP' });
-        expect(defaultXProps.track).toBeCalledWith({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: 'EZP' });
+        expect(defaultXProps.onReady).toBeCalledWith({
+            modalType: 'EZP'
+        });
     });
 
     it('Should render NI modal', () => {

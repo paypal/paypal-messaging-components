@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 import { useXProps } from '../lib/hooks';
 import { commonUS, USEzp, DEInst, GBPl } from '../styles';
@@ -12,10 +13,14 @@ import Tabs from '../parts/Tabs';
 // modalType sent from server.
 const Content = ({ modalType }) => {
     // Type of the banner displayed to user.
-    const { track } = useXProps();
+    const { onReady } = useXProps();
 
     // Calling track here in order to use correct modal type from server.
-    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
+    useEffect(() => {
+        if (typeof onReady === 'function') {
+            onReady({ modalType });
+        }
+    }, [modalType]);
 
     switch (modalType) {
         case 'NI':

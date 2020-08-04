@@ -9,6 +9,9 @@ const renderModal = memoizeOnProps(
     ({ options, meta, track, wrapper, messageOfferType }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
+        const createOnReadyHandler = () => ({ modalType }) =>
+            track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
+
         const { render, hide, updateProps } = Modal({
             track,
             messageOfferType,
@@ -31,7 +34,8 @@ const renderModal = memoizeOnProps(
                 replaceViewport();
                 wrapper.firstChild.focus();
                 track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
-            }
+            },
+            onReady: createOnReadyHandler()
         });
 
         const show = props => {

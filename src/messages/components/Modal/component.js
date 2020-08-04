@@ -58,11 +58,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 sendToChild: true,
                 required: false
             },
-            messageOfferType: {
-                type: 'string',
-                queryParam: true,
-                required: true
-            },
             country: {
                 type: 'string',
                 queryParam: true,
@@ -85,11 +80,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
             },
 
             // Callbacks
-            track: {
-                type: 'function',
-                queryParam: false,
-                required: false
-            },
             onClick: {
                 type: 'function',
                 queryParam: false,
@@ -105,11 +95,15 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-
+            onReady: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
             // Computed Props
             offer: {
                 type: 'string',
-                value: ({ props }) => determineInitialTab(props.messageOfferType),
+                value: ({ props }) => determineInitialTab(props.offer),
                 required: false
             },
             payerId: {
