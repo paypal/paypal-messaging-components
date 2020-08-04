@@ -99,6 +99,7 @@ function populateDefaults(addLog, defaults, options, prefix = 'style.') {
 function getValidStyleOptions(addLog, localeStyleOptions, options) {
     const defaultValues = {
         layout: options.layout,
+        preset: options.preset,
         ...populateDefaults(addLog, localeStyleOptions[options.layout], options)
     };
 
