@@ -17,6 +17,8 @@ module.exports = {
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
+    // grumbler-scripts includes babel-plugin-istanbul
+    coveragePathIgnorePatterns: ['<rootDir>'],
     globals: {
         __ENV__: 'test',
         __MESSAGES__: {
