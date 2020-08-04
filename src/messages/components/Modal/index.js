@@ -13,6 +13,7 @@ const renderModal = memoizeOnProps(
             track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
 
         const { render, hide, updateProps } = Modal({
+            offer: meta.offerType,
             // Even though these props are not included in memoize,
             // we want to pass the initial values in so we can preload one set of terms
             account: options.account,

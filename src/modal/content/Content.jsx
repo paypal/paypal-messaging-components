@@ -12,7 +12,6 @@ import Tabs from '../parts/Tabs';
 
 // modalType sent from server.
 const Content = ({ modalType }) => {
-    // Type of the banner displayed to user.
     const { onReady } = useXProps();
 
     // Calling track here in order to use correct modal type from server.
