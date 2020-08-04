@@ -26,7 +26,7 @@ const determineInitialTab = (type = 'NI') => {
             'PALA:MULTI:GTZ',
             'PALA:SINGLE:EQZ',
             'PALA:SINGLE:GTZ'
-        ].includes(type):
+        ].includes(type.toUpperCase()):
             return 'EZP';
         default:
             return 'NI';
