@@ -21,13 +21,10 @@ export default options => ({
         const containers = getAllBySelector(selector);
 
         if (containers.length === 0) {
-            // Prevent firing off extra log when loaded inside zoid iframe
-            if (selector !== '[data-pp-message]') {
-                logger.warn('invalid_selector', {
-                    description: `No elements were found with the following selector: "${selector}"`,
-                    selector
-                });
-            }
+            logger.warn('invalid_selector', {
+                description: `No elements were found with the following selector: "${selector}"`,
+                selector
+            });
 
             return ZalgoPromise.resolve();
         }

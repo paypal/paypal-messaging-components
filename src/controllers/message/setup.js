@@ -1,3 +1,5 @@
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+
 import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
 import Messages from './adapter';
 
@@ -36,7 +38,8 @@ export default function setup() {
     }
 
     // Requires a merchant account to render a message
-    if (globalState.config.account) {
+    // Prevent auto render from firing inside zoid iframe
+    if (globalState.config.account && !stringStartsWith(window.name, '__zoid__')) {
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
         } else {
