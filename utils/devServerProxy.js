@@ -25,16 +25,23 @@ const devAccountMap = {
     DEV00000GBPLQ: ['GB', 'plq']
 };
 
+const mockModalType = ([country, offer]) =>
+    ({
+        GB: 'PL',
+        DE: 'INST',
+        US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(offer) ? 'NI' : 'EZP'
+    }[country]);
+
 module.exports = app => {
     app.get('/ppcredit/messagingLogger', (req, res) => {
         res.send('');
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { country, amount } = req.query;
+        const { country, amount, client_id: clientId } = req.query;
         const props = {
-            type: 'NI',
-            country: 'US',
+            type: mockModalType(devAccountMap[clientId]),
+            country,
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
