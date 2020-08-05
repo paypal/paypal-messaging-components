@@ -33,23 +33,23 @@ describe('stats', () => {
             top: 30,
             bottom: 25
         });
-        const refId = '12345';
+        const index = '1';
         const payload = {
-            message_request_id: refId,
+            index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
             integration_type: 'STANDALONE',
             messaging_version: expect.any(String),
-            pos_x: 100,
-            pos_y: 30,
-            browser_width: 1024,
-            browser_height: 768,
-            visible: true,
-            adblock: true,
-            blocked: true
+            pos_x: '100',
+            pos_y: '30',
+            browser_width: '1024',
+            browser_height: '768',
+            visible: 'true',
+            adblock: 'true',
+            blocked: 'true'
         };
 
-        runStats({ container, refId });
+        runStats({ container, index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -68,23 +68,23 @@ describe('stats', () => {
             top: 30,
             bottom: 25
         });
-        const refId = '12345';
+        const index = '1';
         const payload = {
-            message_request_id: refId,
+            index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
             messaging_version: expect.any(String),
             integration_type: 'STANDALONE',
-            pos_x: 100,
-            pos_y: 30,
-            browser_width: 1024,
-            browser_height: 10,
-            visible: false,
-            adblock: true,
-            blocked: true
+            pos_x: '100',
+            pos_y: '30',
+            browser_width: '1024',
+            browser_height: '10',
+            visible: 'false',
+            adblock: 'true',
+            blocked: 'true'
         };
 
-        runStats({ container, refId });
+        runStats({ container, index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -104,10 +104,10 @@ describe('stats', () => {
 
         expect(logger.track).toHaveBeenCalledTimes(2);
         expect(logger.track).toHaveBeenLastCalledWith({
-            message_request_id: refId,
+            index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'scroll',
-            visible: true
+            visible: 'true'
         });
         expect(window.removeEventListener).toHaveBeenCalledTimes(1);
         expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function));

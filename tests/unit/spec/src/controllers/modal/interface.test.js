@@ -76,7 +76,7 @@ describe('modal interface', () => {
     });
 
     it('Opens modal', async () => {
-        await Modal({ account: '5' }).show({ refId: '12345' });
+        await Modal({ account: '5' }).show({ index: '1' });
 
         const modalViewport = document.head.querySelector('meta[name="viewport"]');
 
@@ -100,7 +100,7 @@ describe('modal interface', () => {
         // Tracks modal open event
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 et: 'CLIENT_IMPRESSION',
                 event_type: 'modal-open'
             })
@@ -136,7 +136,7 @@ describe('modal interface', () => {
 
     it('Passes onReady handler', async () => {
         const onReady = jest.fn();
-        await Modal({ account: '9', refId: '12345', onReady }).render();
+        await Modal({ account: '9', index: '1', onReady }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal).toHaveBeenLastCalledWith(
@@ -155,7 +155,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 modal: 'NI'
             })
         );
@@ -163,7 +163,7 @@ describe('modal interface', () => {
 
     it('Passes onCalculate handler', async () => {
         const onCalculate = jest.fn();
-        await Modal({ account: '10', refId: '12345', onCalculate }).render();
+        await Modal({ account: '10', index: '1', onCalculate }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal).toHaveBeenLastCalledWith(
@@ -182,7 +182,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 link: 'Calculator',
                 amount: 100
             })
@@ -191,7 +191,7 @@ describe('modal interface', () => {
 
     it('Passes onClick handler', async () => {
         const onApply = jest.fn();
-        await Modal({ account: '11', refId: '12345', onApply }).render();
+        await Modal({ account: '11', index: '1', onApply }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal).toHaveBeenLastCalledWith(
@@ -210,7 +210,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 event_type: 'click',
                 link: 'Close Button'
             })
@@ -222,7 +222,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(2);
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 event_type: 'click',
                 link: 'Apply Now'
             })
@@ -231,7 +231,7 @@ describe('modal interface', () => {
 
     it('Passes onClose handler', async () => {
         const onClose = jest.fn();
-        const modal = Modal({ account: '12', refId: '12345', onClose });
+        const modal = Modal({ account: '12', index: '1', onClose });
 
         await modal.render();
         await modal.show();
@@ -253,7 +253,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(2);
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                message_request_id: '12345',
+                index: '1',
                 event_type: 'modal-close',
                 link: 'Close Button'
             })

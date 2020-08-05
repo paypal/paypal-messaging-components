@@ -39,7 +39,7 @@ export function runStats({ container, index }) {
     };
 
     // No need for scroll event if banner is above the fold
-    if (!payload.visible) {
+    if (payload.visible === 'false') {
         const clearScroll = onScroll(container, () => {
             if (isInViewport(container)) {
                 clearScroll();
