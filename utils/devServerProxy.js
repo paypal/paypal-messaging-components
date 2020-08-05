@@ -40,7 +40,7 @@ module.exports = app => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { country, amount, client_id: clientId, payer_id: payerId = 'DEV00000000NI' } = req.query;
 
-        const offer = devAccountMap[clientId || payerId] ? devAccountMap[clientId || payerId][1] : 'NI';
+        const offer = devAccountMap[clientId || payerId] ? devAccountMap[clientId || payerId][1] : 'ni';
 
         const props = {
             type: mockModalType(country, offer),
