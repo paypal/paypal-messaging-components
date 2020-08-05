@@ -4,7 +4,7 @@ import { useCalculator } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
 
 const isEligible = terms => {
-    if (terms.amount === null || terms.amount < terms.minAmount || terms.amount > terms.maxAmount) {
+    if (typeof terms.amount === 'undefined' || terms.amount < terms.minAmount || terms.amount > terms.maxAmount) {
         return (
             <h1 className="content-body__offer">
                 3 interest-free monthly <br /> payments with Flex
@@ -13,7 +13,7 @@ const isEligible = terms => {
     }
     return (
         <h1 className="content-body__offer">
-            3 interest-free payments of <br /> £{terms.offers[0].monthly} per month with Flex
+            3 interest-free payments of <br /> £{terms.offers[0].periodic} per month with Flex
         </h1>
     );
 };

@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl } from '../../../utils';
+import { getEnv, getTargetMeta, getGlobalUrl } from '../../../utils';
 import containerTemplate from './containerTemplate';
 
 // Multiple Zoid components of the same tag cannot be created, so a
@@ -78,7 +78,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -105,6 +104,11 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 type: 'string',
                 value: ({ props }) => determineInitialTab(props.offer),
                 required: false
+            },
+            env: {
+                type: 'string',
+                queryParam: true,
+                value: getEnv
             },
             payerId: {
                 type: 'string',

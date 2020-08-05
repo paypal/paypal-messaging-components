@@ -11,7 +11,8 @@ module.exports.getTerms = (country, amount) => {
         type: amount ? 'pala' : 'generic',
         maxAmount: terms.maxAmount,
         minAmount: terms.minAmount,
-        amount,
+        // If no amount passed in, set amount to undefined to match production
+        amount: amount || undefined,
         formattedAmount: toLocaleString(amount),
         offers: terms.offers.map(({ term, apr, nominalRate }) => {
             const total = amount + amount * (apr * 0.01) * (term / 12);
@@ -24,7 +25,8 @@ module.exports.getTerms = (country, amount) => {
                 qualified: amount > terms.minAmount && amount < terms.maxAmount,
                 monthly: toLocaleString(total / term),
                 total: toLocaleString(total),
-                totalInterest: toLocaleString(total - amount)
+                totalInterest: toLocaleString(total - amount),
+                periodic: toLocaleString(total / term)
             };
         }),
         formattedMinAmount: toLocaleString(terms.minAmount),
