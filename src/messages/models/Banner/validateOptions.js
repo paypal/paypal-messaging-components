@@ -61,22 +61,22 @@ function getValidVal(logger, typeArr, val, location) {
             return validVal.split('|')[0];
         }
 
-        return val;
-    }
+        const numberVal = Number(val);
+        if (type === Types.NUMBER && validateType(type, numberVal)) {
+            if (validVals.length > 0) {
+                const validVal = arrayFind(validVals, v => v === numberVal);
+                if (validVal === undefined) {
+                    logInvalidOption(logger, location, validVals, numberVal);
+                    return validVals[0];
+                }
 
-    const numberVal = Number(val);
-    if (type === Types.NUMBER && validateType(type, numberVal)) {
-        if (validVals.length > 0) {
-            const validVal = arrayFind(validVals, v => v === numberVal);
-            if (validVal === undefined) {
-                logInvalidOption(logger, location, validVals, numberVal);
-                return validVals[0];
+                return validVal;
             }
 
-            return validVal;
+            return numberVal;
         }
 
-        return numberVal;
+        return val;
     }
 
     logInvalidType(logger, location, type, val);
