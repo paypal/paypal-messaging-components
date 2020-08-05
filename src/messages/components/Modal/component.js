@@ -15,6 +15,24 @@ const getGlobalComponent = (namespace, fn) => {
     return window[namespace];
 };
 
+// Determine pre-selected tab based on the offer type of the banner.
+// Currently only applicable to the US
+const determineInitialTab = (type = 'NI') => {
+    switch (true) {
+        case [
+            'EZP:ANY:EQZ',
+            'EZP:ANY:GTZ',
+            'PALA:MULTI:EQZ',
+            'PALA:MULTI:GTZ',
+            'PALA:SINGLE:EQZ',
+            'PALA:SINGLE:GTZ'
+        ].includes(type.toUpperCase()):
+            return 'EZP';
+        default:
+            return 'NI';
+    }
+};
+
 export default getGlobalComponent('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
@@ -39,11 +57,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: 'merchant_id',
                 sendToChild: true,
                 required: false
-            },
-            type: {
-                type: 'string',
-                queryParam: true,
-                required: true
             },
             country: {
                 type: 'string',
@@ -81,7 +94,17 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            onReady: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
             // Computed Props
+            offer: {
+                type: 'string',
+                value: ({ props }) => determineInitialTab(props.offer),
+                required: false
+            },
             env: {
                 type: 'string',
                 queryParam: true,

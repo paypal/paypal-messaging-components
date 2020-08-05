@@ -4,14 +4,19 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib/hooks';
 
+const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
+
 const Tabs = ({ tabs }) => {
-    const [currentTab, selectTab] = useState(0);
+    // offer type of banner used to determine which tab to pre-select
+    const { offer, onClick } = useXProps();
+    const initialTab = getInitialTabIndex(offer, tabs);
     const [transitionState] = useTransitionState();
-    const { onClick } = useXProps();
+
+    const [currentTab, selectTab] = useState(initialTab);
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
-            selectTab(0);
+            selectTab(initialTab);
         }
     }, [transitionState]);
 

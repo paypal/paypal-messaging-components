@@ -5,25 +5,12 @@ import { memoizeOnProps } from '../../../utils';
 import Modal from './component';
 import useViewportHijack from './viewportHijack';
 
-function getModalType(offerCountry, offerType) {
-    switch (offerCountry) {
-        case 'DE':
-            return 'INST';
-        case 'GB':
-            return 'PL';
-        case 'US':
-        default:
-            return startsWith(offerType, 'NI') ? 'NI' : 'EZP';
-    }
-}
-
 const renderModal = memoizeOnProps(
-    ({ options, meta, track, wrapper, type }) => {
+    ({ options, meta, track, wrapper }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const { render, hide, updateProps } = Modal({
-            type,
-
+            offer: meta.offerType,
             // Even though these props are not included in memoize,
             // we want to pass the initial values in so we can preload one set of terms
             account: options.account,
@@ -43,7 +30,8 @@ const renderModal = memoizeOnProps(
                 replaceViewport();
                 wrapper.firstChild.focus();
                 track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
-            }
+            },
+            onReady: ({ modalType }) => track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType })
         });
 
         const show = props => {
@@ -83,13 +71,17 @@ export default {
                 }
             });
         } else {
-            const modalType = getModalType(meta.offerCountry, meta.offerType);
-            const { renderProm, show } = renderModal({ options, meta, track, wrapper, type: modalType });
+            // The type passed in here is the offer type from the messages call.
+            // The modal type is returned from a separate call and passed in as a prop
+            const { renderProm, show } = renderModal({
+                options,
+                meta,
+                track,
+                wrapper
+            });
 
             events.on('click', () => {
                 renderProm.then(() => {
-                    track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType });
-
                     show({
                         account: options.account,
                         merchantId: options.merchantId,
