@@ -25,12 +25,12 @@ const devAccountMap = {
     DEV00000GBPLQ: ['GB', 'plq']
 };
 
-const mockModalType = ([country, offer]) =>
+const mockModalType = account =>
     ({
         GB: 'PL',
         DE: 'INST',
-        US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(offer) ? 'NI' : 'EZP'
-    }[country]);
+        US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(account[1]) ? 'NI' : 'EZP'
+    }[account[0]]);
 
 module.exports = app => {
     app.get('/ppcredit/messagingLogger', (req, res) => {
