@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 import { useXProps } from '../lib/hooks';
 import { commonUS, USEzp, DEInst, GBPl } from '../styles';
@@ -9,10 +10,18 @@ import INST from './DE/INST';
 import PL from './GB/PL';
 import Tabs from '../parts/Tabs';
 
-const Content = () => {
-    const { type } = useXProps();
+// modalType sent from server.
+const Content = ({ modalType }) => {
+    const { onReady } = useXProps();
 
-    switch (type) {
+    // Calling track here in order to use correct modal type from server.
+    useEffect(() => {
+        if (typeof onReady === 'function') {
+            onReady({ modalType });
+        }
+    }, [modalType]);
+
+    switch (modalType) {
         case 'NI':
             return (
                 <Fragment>
@@ -31,11 +40,13 @@ const Content = () => {
                     <Tabs
                         tabs={[
                             {
+                                tabKey: 'EZP',
                                 title: 'Easy Payments',
                                 header: <EZP.Header />,
                                 body: <EZP.Content />
                             },
                             {
+                                tabKey: 'NI',
                                 title: '6 Months Special Financing',
                                 header: <NI.Header />,
                                 body: <NI.Content />
