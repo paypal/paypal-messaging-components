@@ -40,7 +40,9 @@ const applyCascade = curry((style, flattened, type, rules) =>
 
 export default ({ options, markup, locale }) => {
     const style =
-        options.preset === 'smallest' ? objectMerge(options.style, getMinimumWidthOptions(locale)) : options.style;
+        options.style.preset === 'smallest'
+            ? objectMerge(options.style, getMinimumWidthOptions(locale))
+            : options.style;
 
     const { layout } = style;
 

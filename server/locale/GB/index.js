@@ -7,12 +7,10 @@ export default {
     localeClass: 'locale--GB',
     productName: ['with', 'Flex'],
     minimumSizeOptions: {
-        style: {
-            layout: 'text',
-            logo: {
-                position: 'top',
-                type: 'primary'
-            }
+        layout: 'text',
+        logo: {
+            position: 'top',
+            type: 'primary'
         }
     },
     validOptions,
