@@ -81,10 +81,15 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    COMPONENTS_DEV_CONFIG.entry = {
-        'smart-credit-message': './src/components/message/index.js',
-        'smart-credit-modal': './src/components/modal/index.js'
-    };
+    COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+        (accumulator, locale) => ({
+            ...accumulator,
+            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+        }),
+        {
+            'smart-credit-message': './src/components/message/index.js'
+        }
+    );
 
     COMPONENTS_DEV_CONFIG.optimization.splitChunks = {
         chunks: 'all',
