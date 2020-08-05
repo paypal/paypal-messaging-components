@@ -6,17 +6,16 @@ import { ServerContext } from '../context';
 
 export default clickTitle => {
     const { payerId } = useContext(ServerContext);
-    const { onClick, refId, env } = useXProps();
+    const { onClick, refId, env = 'production' } = useXProps();
 
     const [, handleClose] = useTransitionState();
 
-    const urlBase =
-        {
-            local: 'msmaster.qa.paypal',
-            stage: 'msmaster.qa.paypal',
-            sandbox: 'sandbox.paypal',
-            production: 'paypal'
-        }[env] ?? 'msmaster.qa.paypal';
+    const urlBase = {
+        local: 'msmaster.qa.paypal',
+        stage: 'msmaster.qa.paypal',
+        sandbox: 'sandbox.paypal',
+        production: 'paypal'
+    }[env];
 
     return () => {
         onClick(clickTitle);

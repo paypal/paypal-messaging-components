@@ -27,44 +27,52 @@ describe('Apply Now URL hook', () => {
 
     useXProps.mockReturnValue(defaultXProps);
 
-    it('Should return the staging URL', () => {
-        applyNow()();
+    describe('Should return the staging URL', () => {
+        test('env = local', () => {
+            applyNow()();
 
-        expect(global.open).toBeCalledWith(
-            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
-        );
+            expect(global.open).toBeCalledWith(
+                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            );
+        });
+        test('env = stage', () => {
+            useXProps.mockReturnValue({ ...defaultXProps, env: 'stage' });
+            applyNow()();
 
-        useXProps.mockReturnValue({ ...defaultXProps, env: undefined });
-        applyNow()();
-
-        expect(global.open).toBeCalledWith(
-            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
-        );
-
-        useXProps.mockReturnValue({ ...defaultXProps, env: 'staging' });
-        applyNow()();
-
-        expect(global.open).toBeCalledWith(
-            'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
-        );
+            expect(global.open).toBeCalledWith(
+                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            );
+        });
     });
 
-    it('Should return the sandbox URL', () => {
-        useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
-        applyNow()();
+    describe('Should return the sandbox URL', () => {
+        test('env = sandbox', () => {
+            useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
+            applyNow()();
 
-        expect(global.open).toBeCalledWith(
-            'https://www.sandbox.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
-        );
+            expect(global.open).toBeCalledWith(
+                'https://www.sandbox.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            );
+        });
     });
 
-    it('Should return production URL', () => {
-        useXProps.mockReturnValue({ ...defaultXProps, env: 'production' });
-        applyNow()();
+    describe('Should return production URL', () => {
+        test('env = production', () => {
+            useXProps.mockReturnValue({ ...defaultXProps, env: 'production' });
+            applyNow()();
 
-        // Production URL
-        expect(global.open).toBeCalledWith(
-            'https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
-        );
+            // Production URL
+            expect(global.open).toBeCalledWith(
+                'https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            );
+        });
+        test('env = undefined', () => {
+            useXProps.mockReturnValue({ ...defaultXProps, env: undefined });
+            applyNow()();
+
+            expect(global.open).toBeCalledWith(
+                'https://www.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+            );
+        });
     });
 });
