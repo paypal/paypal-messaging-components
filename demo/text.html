@@ -106,7 +106,6 @@
                 container.appendChild(h2);
 
                 configs.forEach(conf => {
-                    conf.amount = 500;
                     const h4 = document.createElement('h4');
                     h4.textContent = `${objectFlattenToArray(conf.style).join(' | ')}`;
                     container.appendChild(h4);
