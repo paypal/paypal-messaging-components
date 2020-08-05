@@ -152,5 +152,18 @@ describe('validateOptions', () => {
             expect(validated.logo.type).toBe(validLogoTypes[0]);
             expect(validated.logo.position).toBe(validLogoPositions[0]);
         });
+
+        it.only('Warns on invalid font sizes outside of 10-16 range', () => {
+            const validated = validateStyleOptions(mockLogger, {
+                ...validOptions,
+                style: {
+                    layout: 'text',
+                    size: 30
+                }
+            });
+
+            expect(mockLogger.warn).toHaveBeenCalledTimes(1);
+            expect(validated.text.size).toBe(12);
+        });
     });
 });

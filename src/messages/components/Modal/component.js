@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getTargetMeta, getGlobalUrl } from '../../../utils';
+import { getEnv, getTargetMeta, getGlobalUrl } from '../../../utils';
 import containerTemplate from './containerTemplate';
 
 // Multiple Zoid components of the same tag cannot be created, so a
@@ -13,6 +13,24 @@ const getGlobalComponent = (namespace, fn) => {
     }
 
     return window[namespace];
+};
+
+// Determine pre-selected tab based on the offer type of the banner.
+// Currently only applicable to the US
+const determineInitialTab = (type = 'NI') => {
+    switch (true) {
+        case [
+            'EZP:ANY:EQZ',
+            'EZP:ANY:GTZ',
+            'PALA:MULTI:EQZ',
+            'PALA:MULTI:GTZ',
+            'PALA:SINGLE:EQZ',
+            'PALA:SINGLE:GTZ'
+        ].includes(type.toUpperCase()):
+            return 'EZP';
+        default:
+            return 'NI';
+    }
 };
 
 export default getGlobalComponent('__paypal_credit_modal__', () =>
@@ -40,11 +58,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 sendToChild: true,
                 required: false
             },
-            type: {
-                type: 'string',
-                queryParam: true,
-                required: true
-            },
             country: {
                 type: 'string',
                 queryParam: true,
@@ -65,7 +78,6 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -82,8 +94,22 @@ export default getGlobalComponent('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-
+            onReady: {
+                type: 'function',
+                queryParam: false,
+                required: false
+            },
             // Computed Props
+            offer: {
+                type: 'string',
+                value: ({ props }) => determineInitialTab(props.offer),
+                required: false
+            },
+            env: {
+                type: 'string',
+                queryParam: true,
+                value: getEnv
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
