@@ -2,12 +2,12 @@
 import { h, render } from 'preact';
 
 import Modal from '../../parts/Modal';
-import styles from './de--inst.css';
-import Content from './INST';
+import styles from './styles/index.scss';
+import Content from './parts/INST';
 
 export function setupModal(props) {
     render(
-        <Modal serverData={props} styles={styles}>
+        <Modal serverData={props} styles={styles._getCss()}>
             <Content />
         </Modal>,
         document.body

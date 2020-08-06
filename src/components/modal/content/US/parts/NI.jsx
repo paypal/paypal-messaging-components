@@ -2,10 +2,10 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { createEvent } from '../../../../utils';
-import { useXProps, useServerData, useScroll, useApplyNow } from '../../lib';
-import Icon from '../../parts/Icon';
-import Button from '../../parts/Button';
+import { createEvent } from '../../../../../utils';
+import { useXProps, useServerData, useScroll, useApplyNow } from '../../../lib';
+import Icon from '../../../parts/Icon';
+import Button from '../../../parts/Button';
 
 const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',

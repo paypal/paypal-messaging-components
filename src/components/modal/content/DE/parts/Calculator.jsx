@@ -2,7 +2,7 @@
 import { h, Fragment } from 'preact';
 
 import { useCalculator } from '../../../lib';
-import Button from '../../Button';
+import Button from '../../../parts/Button';
 import TermsTable from './TermsTable';
 import Disclaimer from './Disclaimer';
 
@@ -12,10 +12,10 @@ const Calculator = () => {
     return (
         <Fragment>
             <div className="calculator">
-                <h3 className="calculator__title">Monatliche Raten berechnen</h3>
-                <form className={`calculator__form ${isLoading ? 'calculator__form--loading' : ''}`} onSubmit={submit}>
-                    <input className="calculator__input" value={value} onInput={changeInput} />
-                    <p className="calculator__instructions">
+                <h3 className="title">Monatliche Raten berechnen</h3>
+                <form className={`form ${isLoading ? 'form--loading' : ''}`} onSubmit={submit}>
+                    <input className="input" value={value} onInput={changeInput} />
+                    <p className="instructions">
                         {!terms.error &&
                             terms.formattedMinAmount &&
                             terms.formattedMaxAmount &&
@@ -26,12 +26,7 @@ const Calculator = () => {
                     </Button>
                 </form>
             </div>
-            <div className="calculator__finance-terms">
-                <div className="spinner calculator__spinner" style={{ opacity: isLoading ? '1' : '0' }} />
-                <div style={{ opacity: isLoading ? '0.5' : '1' }}>
-                    {(terms.type === 'pala' || terms.error) && <TermsTable terms={terms} />}
-                </div>
-            </div>
+            <TermsTable terms={terms} isLoading={isLoading} />
             {!terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
                 <p className="content__disclosure">
                     Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen.

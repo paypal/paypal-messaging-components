@@ -169,7 +169,7 @@ export default (app, server, compiler) => {
             payerId: account
         };
 
-        res.send(createMockZoidMarkup('modal', `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
+        res.send(createMockZoidMarkup(`modal-${country}`, `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {

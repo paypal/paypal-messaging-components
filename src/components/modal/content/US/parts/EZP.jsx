@@ -2,11 +2,11 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { createEvent } from '../../../../utils';
-import { useXProps, useServerData, useScroll, useApplyNow } from '../../lib';
-import Icon from '../../parts/Icon';
-import Calculator from '../../parts/Calculator';
-import Button from '../../parts/Button';
+import { createEvent } from '../../../../../utils';
+import { useXProps, useServerData, useScroll, useApplyNow } from '../../../lib';
+import Icon from '../../../parts/Icon';
+import Calculator from './Calculator';
+import Button from '../../../parts/Button';
 
 const instructions = [
     ['monogram', 'Choose PayPal Credit at checkout and use the Easy Payments offer that works for you.'],

@@ -67,16 +67,16 @@ const Carousel = ({ items }) => {
     }, [index]);
 
     return (
-        <div ref={wrapperRef} className="carousel__background">
-            <h1 className="carousel__title">So funktioniert&apos;s</h1>
+        <div ref={wrapperRef} className="carousel">
+            <h1 className="title">So funktioniert&apos;s</h1>
 
             {/* <!-- Carousel start--> */}
-            <div className="carousel">
-                <div className="carousel__arrows">
+            <div className="outer">
+                <div className="arrows">
                     {index !== 0 && (
                         <button
                             type="button"
-                            className="carousel__arrow carousel__arrow--prev"
+                            className="arrow arrow--prev"
                             aria-label="Previous"
                             onClick={() => setIndex(index - 1)}
                         />
@@ -84,30 +84,30 @@ const Carousel = ({ items }) => {
                     {index !== items.length - 1 && (
                         <button
                             type="button"
-                            className="carousel__arrow carousel__arrow--next"
+                            className="arrow arrow--next"
                             aria-label="Next"
                             onClick={() => setIndex(index + 1)}
                         />
                     )}
                 </div>
-                <div className="carousel__shadow" />
-                <div ref={sliderRef} className="carousel__inner" style={{ transform: `translateX(-${100 * index}%)` }}>
+                <div className="shadow" />
+                <div ref={sliderRef} className="inner" style={{ transform: `translateX(-${100 * index}%)` }}>
                     {items.map(item => (
-                        <div className="carousel__item">
+                        <div className="item">
                             <div>
-                                <img className="carousel__image" src={item.imageSrc} alt={item.imageAlt} />
+                                <img className="image" src={item.imageSrc} alt={item.imageAlt} />
                             </div>
-                            <p className="carousel__text">{item.description}</p>
+                            <p className="text">{item.description}</p>
                         </div>
                     ))}
                 </div>
 
-                <ol className="carousel__indicators">
+                <ol className="indicators">
                     {items.map((_, i) => (
                         <li>
                             <button
                                 type="button"
-                                className={`carousel__bullet ${i === index ? 'active' : ''}`}
+                                className={`bullet ${i === index ? 'active' : ''}`}
                                 onClick={() => setIndex(i)}
                                 aria-label={index + 1}
                             />

@@ -1,8 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import Carousel from '../../parts/Carousel';
-import Calculator from '../../parts/Calculator';
+import Carousel from './Carousel';
+import Calculator from './Calculator';
 
 const INST = () => (
     <section className="content">

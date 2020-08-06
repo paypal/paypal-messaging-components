@@ -1,0 +1,43 @@
+.header__logo {
+    width: 200px;
+    padding: 28px 0;
+}
+
+.modal__header {
+    background: rgb(246, 247, 251);
+}
+
+.modal__header::after {
+    background: linear-gradient(rgba(246, 247, 251, 1), rgba(246, 247, 251, 0));
+    height: 20px;
+}
+
+.modal__content {
+    padding-top: 72px;
+}
+
+.content {
+    overflow: hidden;
+}
+
+.content__calculator {
+    margin: auto;
+    max-width: 400px;
+    padding-bottom: 3rem;
+}
+
+.content__disclosure {
+    color: #687173;
+    font-size: 0.75rem;
+}
+
+.content__disclosure {
+    color: #687173;
+    font-size: 0.75rem;
+}
+
+@media only screen and (max-width: 612px) {
+    .content__calculator {
+        padding: 0 18px;
+    }
+}

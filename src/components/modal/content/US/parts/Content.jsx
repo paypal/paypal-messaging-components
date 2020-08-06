@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 import * as NI from './NI';
 import * as EZP from './EZP';
-import Tabs from '../../parts/Tabs';
+import Tabs from '../../../parts/Tabs';
 
 const Content = () => (
     <Tabs

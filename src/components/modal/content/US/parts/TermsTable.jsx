@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 
-import Icon from '../../Icon';
+import Icon from '../../../parts/Icon';
 
 const invalidAmountWarning = terms =>
     terms.maxAmount ? (
@@ -27,10 +27,10 @@ const invalidAmountWarning = terms =>
         <p style={{ textAlign: 'center' }}>No offers are available for this amount. Please enter a new amount.</p>
     );
 
-const TermsTable = ({ terms }) => {
+const TableContent = ({ terms }) => {
     if (terms.error) {
         return (
-            <h3 className="finance-terms__error">
+            <h3 className="error">
                 There was an error retrieving your payment options for this purchase. Please try again later.{' '}
             </h3>
         );
@@ -61,7 +61,7 @@ const TermsTable = ({ terms }) => {
 
     return (
         <Fragment>
-            <table className="finance-terms__table">
+            <table className="table">
                 <thead>
                     <tr>
                         {terms.type === 'pala' && (
@@ -106,9 +106,18 @@ const TermsTable = ({ terms }) => {
                 </tbody>
             </table>
             {(!terms.offers || terms.offers.length === 0) && invalidAmountWarning(terms)}
-            <p className="finance-terms__note">These estimates may not include taxes and shipping.</p>
+            <p className="note">These estimates may not include taxes and shipping.</p>
         </Fragment>
     );
 };
+
+const TermsTable = ({ terms, isLoading }) => (
+    <section className="finance-terms">
+        <div className="spinner" style={{ opacity: isLoading ? '1' : '0' }} />
+        <div style={{ opacity: isLoading ? '0.5' : '1' }}>
+            <TableContent terms={terms} />
+        </div>
+    </section>
+);
 
 export default TermsTable;
