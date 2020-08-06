@@ -3,12 +3,12 @@ import { h, render } from 'preact';
 
 import Modal from '../../parts/Modal';
 import styles from './styles/index.scss';
-import Content from './parts/INST';
+import Container from './parts/Container';
 
 export function setupModal(props) {
     render(
         <Modal serverData={props} styles={styles._getCss()}>
-            <Content />
+            <Container />
         </Modal>,
         document.body
     );

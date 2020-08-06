@@ -3,7 +3,6 @@ import { h } from 'preact';
 
 import { XPropsProvider, ServerDataProvider } from '../../lib';
 import { TransitionStateProvider } from '../lib';
-import Container from './Container';
 import { fonts, modalFrame, common } from '../styles';
 
 const Modal = ({ styles, serverData, children }) => (
@@ -16,7 +15,7 @@ const Modal = ({ styles, serverData, children }) => (
                     {common}
                     {styles}
                 </style>
-                <Container>{children}</Container>
+                {children}
             </TransitionStateProvider>
         </ServerDataProvider>
     </XPropsProvider>
