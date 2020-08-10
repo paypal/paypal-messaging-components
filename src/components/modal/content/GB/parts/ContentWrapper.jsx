@@ -3,13 +3,13 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import PL from './PL';
 import Header from '../../../parts/Header';
-import BaseContainer from '../../../parts/Container';
+import Container from '../../../parts/Container';
 
-const Container = () => {
+const ContentWrapper = () => {
     const contentWrapper = useRef();
 
     return (
-        <BaseContainer contentWrapper={contentWrapper}>
+        <Container contentWrapper={contentWrapper}>
             <div className="modal__content-wrapper" ref={contentWrapper}>
                 <div className="modal__content-background">
                     <Header />
@@ -20,8 +20,8 @@ const Container = () => {
                     </div>
                 </div>
             </div>
-        </BaseContainer>
+        </Container>
     );
 };
 
-export default Container;
+export default ContentWrapper;

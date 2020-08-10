@@ -1,10 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useApplyNow, useServerData } from '../lib';
+import { useTransitionState, useServerData } from '../lib';
 import Icon from './Icon';
-import Button from './Button';
 
 const LOCALE = {
     LOGO: {
@@ -14,54 +12,20 @@ const LOCALE = {
     }
 };
 
-const Header = () => {
+const Header = ({ children, className = '' }) => {
     const { country } = useServerData();
-    const [transitionState, handleClose] = useTransitionState();
-    const [showApplyNow, setApplyNow] = useState(false);
-    const handleApplyNowClick = useApplyNow('Apply Now Header');
-
-    useEffect(() => {
-        const handleApplyNowShow = () => !showApplyNow && setApplyNow(true);
-        const handleApplyNowHide = () => showApplyNow && setApplyNow(false);
-
-        window.addEventListener('apply-now-visible', handleApplyNowShow);
-        window.addEventListener('apply-now-hidden', handleApplyNowHide);
-
-        return () => {
-            window.removeEventListener('apply-now-visible', handleApplyNowShow);
-            window.removeEventListener('apply-now-hidden', handleApplyNowHide);
-        };
-    }, [showApplyNow]);
-
-    useEffect(() => {
-        if (transitionState === 'CLOSED') {
-            setApplyNow(false);
-        }
-    }, [transitionState]);
-
-    // const showApplyNow = country === 'US' && hasShadow;
+    const [, handleClose] = useTransitionState();
 
     return (
-        <div className="modal__header-wrapper">
+        <div className={`modal__header-wrapper ${className}`}>
             <div className="modal__header-container">
                 <header className="modal__header">
-                    <div className={`header__logo-wrapper ${showApplyNow ? 'header__logo-wrapper--shift' : ''}`}>
+                    <div className="header__logo-wrapper">
                         <div className="header__logo" alt="PayPal Credit Logo">
                             <Icon name={LOCALE.LOGO[country]} />
                         </div>
                     </div>
-                    {country !== 'GB' && (
-                        <Button
-                            className="header__apply-now"
-                            style={{
-                                opacity: showApplyNow ? 1 : 0,
-                                transform: showApplyNow ? 'translate(-50%, 0)' : 'translate(-50%, 1.3rem)'
-                            }}
-                            onClick={handleApplyNowClick}
-                        >
-                            Apply Now
-                        </Button>
-                    )}
+                    {children}
                     <button
                         className="header__close"
                         aria-label="Close"

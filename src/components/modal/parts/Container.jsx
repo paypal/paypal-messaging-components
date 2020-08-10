@@ -6,26 +6,10 @@ import { useLayoutEffect, useEffect } from 'preact/hooks';
 import { useTransitionState, ScrollProvider, useServerData, useXProps } from '../lib';
 import Overlay from './Overlay';
 
-const Container = ({ children, contentWrapper }) => {
-    const { type, country } = useServerData();
+const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
+    const { type } = useServerData();
     const { onReady } = useXProps();
     const [transitionState] = useTransitionState();
-
-    const { contentMaxWidth, contentMaxHeight } = (() => {
-        switch (country) {
-            case 'GB':
-                return {
-                    contentMaxWidth: 750,
-                    contentMaxHeight: 537
-                };
-            case 'US':
-            case 'DE':
-            default:
-                return {
-                    contentMaxWidth: 612
-                };
-        }
-    })();
 
     useEffect(() => {
         if (transitionState === 'OPENING') {
