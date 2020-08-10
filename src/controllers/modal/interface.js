@@ -8,16 +8,16 @@ export default memoizeOnProps(
     ({ account, merchantId, currency, amount, onReady, onCalculate, onApply, onClose, refId }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
-        const createOnReadyHandler = (props = {}) => ({ type }) => {
+        const createOnReadyHandler = (props = {}) => ({ products }) => {
             logger.track({
                 message_request_id: props.refId,
                 et: 'CLIENT_IMPRESSION',
                 event_type: 'render',
-                modal: type
+                modal: products.join('&')
             });
 
             if (typeof props.onReady === 'function') {
-                props.onReady({ type });
+                props.onReady({ products });
             }
         };
 

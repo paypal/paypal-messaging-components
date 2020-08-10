@@ -7,7 +7,7 @@ import { useTransitionState, ScrollProvider, useServerData, useXProps } from '..
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
-    const { type } = useServerData();
+    const { type, products } = useServerData();
     const { onReady } = useXProps();
     const [transitionState] = useTransitionState();
 
@@ -26,7 +26,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     useEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ type });
+            onReady({ type, products });
         }
     }, []);
 

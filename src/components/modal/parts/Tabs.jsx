@@ -34,7 +34,7 @@ const Tabs = ({ tabs }) => {
                     <button
                         className={`tab ${currentTab === index ? 'tab--selected' : ''}`}
                         type="button"
-                        onClick={() => onClick({ linkName: tab.title }) && selectTab(index)}
+                        onClick={() => onClick({ linkName: tab.product }) && selectTab(index)}
                         role="tab"
                         ariaSelected={currentTab === index}
                         id={index}

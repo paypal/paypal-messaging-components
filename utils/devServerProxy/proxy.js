@@ -165,7 +165,8 @@ export default (app, server, compiler) => {
                 csrf: 'csrf'
             },
             country,
-            type,
+            // TODO: mock multiple products
+            products: [type],
             payerId: account
         };
 
