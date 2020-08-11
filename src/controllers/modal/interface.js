@@ -9,10 +9,11 @@ export default memoizeOnProps(
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const createOnReadyHandler = (props = {}) => ({ type }) => {
+            logger.info('modal_render', { index: props.index });
             logger.track({
                 index: props.index,
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'render',
+                event_type: 'modal-render',
                 modal: type
             });
 

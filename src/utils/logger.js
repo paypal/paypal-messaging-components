@@ -12,3 +12,12 @@ export const logger = Logger({
     // Interval to flush logs to server
     flushInterval: 10 * 1000
 });
+
+logger.addPayloadBuilder(payload => {
+    // Remove properties holding DOM element references that are
+    // only useful in the context of the browser console window
+    delete payload.container; // eslint-disable-line no-param-reassign
+    delete payload.selector; // eslint-disable-line no-param-reassign
+
+    return {};
+});

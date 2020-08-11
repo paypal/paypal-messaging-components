@@ -17,6 +17,7 @@ import { Modal } from '../modal';
 
 export default options => ({
     render: (selector = '[data-pp-message]') => {
+        const renderStart = Date.now();
         const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
@@ -147,28 +148,34 @@ export default options => ({
                         onHover: createOnHoverHandler(merchantOptions)
                     };
 
-                    const message = Message(totalOptions);
-                    message.state.options = merchantOptions;
+                    const { render, state, updateProps } = Message(totalOptions);
 
-                    const updateProps = newOptions => {
-                        message.state.options = objectMerge(message.state.options, newOptions);
+                    state.renderStart = renderStart;
+                    state.options = merchantOptions;
 
-                        return message.updateProps({
-                            ...message.state.options,
-                            onReady: createOnReadyHandler(message.state.options),
-                            onClick: createOnClickHandler(message.state.options),
-                            onHover: createOnHoverHandler(message.state.options)
+                    const updatePropsWithHandlers = newOptions => {
+                        state.options = objectMerge(state.options, newOptions);
+
+                        return updateProps({
+                            ...state.options,
+                            onReady: createOnReadyHandler(state.options),
+                            onClick: createOnClickHandler(state.options),
+                            onHover: createOnHoverHandler(state.options)
                         });
                     };
 
-                    messagesMap.set(container, { render: message.render, updateProps });
+                    messagesMap.set(container, { render, updateProps: updatePropsWithHandlers, state });
 
                     attributeObserver.observe(container, { attributes: true });
 
-                    return message.render(container);
+                    return render(container);
                 }
 
-                const { updateProps } = messagesMap.get(container);
+                const { updateProps, state } = messagesMap.get(container);
+
+                if (state.renderComplete) {
+                    state.renderStart = renderStart;
+                }
 
                 return updateProps(merchantOptions);
             })
