@@ -1,0 +1,30 @@
+{
+    "meta": {
+        "offerCountry": "US",
+        "offerType": "PAY4Q",
+        "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [
+        ["Buy now and pay later with", ["default", "xsmall", "small"]],
+        [["Pay in 4 interest-free payments on qualifying purchases."], ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [["Check out with PayPal and choose PayPal Credit.", ["default", "small"]]],
+
+    "disclaimer": [
+        ["Learn more", ["default", "xsmall"]],
+        [["US customers only. Subject to credit approval", ["Learn more", "em"]], ["legacy-medium"]],
+        [
+            "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months. Minimum monthly payments required.",
+            ["xlarge"]
+        ]
+    ]
+}
