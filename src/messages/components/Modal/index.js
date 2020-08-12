@@ -88,7 +88,7 @@ export default {
                         country: meta.offerCountry,
                         currency: options.currency,
                         amount: options.amount,
-                        refId: meta.messageRequestId
+                        refId: `${meta.messageRequestId}-${id}`
                     });
                 });
             });

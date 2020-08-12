@@ -1,5 +1,6 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import {
@@ -63,10 +64,9 @@ export function getCurrency() {
 export function getTargetMeta() {
     const metaObject = {
         target: __MESSAGES__.__TARGET__,
-        componentUrl:
-            getEnv() !== 'production'
-                ? `${window.location.origin}/smart-credit-modal.js`
-                : `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
+        componentUrl: arrayIncludes(['production', 'sandbox'], getEnv())
+            ? `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
+            : `${window.location.origin}/smart-credit-modal.js`
     };
 
     if (__MESSAGES__.__TARGET__ === 'SDK') {
