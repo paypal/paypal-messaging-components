@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.3](https://github.com/paypal/paypal-messaging-components/compare/v1.12.2...v1.12.3) (2020-08-12)
+
+
+### Bug Fixes
+
+* send flf5 post-fix to CAPE ([#247](https://github.com/paypal/paypal-messaging-components/issues/247)) ([d5692ef](https://github.com/paypal/paypal-messaging-components/commit/d5692efb1cf1eec39c40fa87c2f920868049f4bd))
+* use production modal script in sandbox ([#248](https://github.com/paypal/paypal-messaging-components/issues/248)) ([6595790](https://github.com/paypal/paypal-messaging-components/commit/65957905bd818649563499e132fefa36bf9e7c87))
+
 ## [1.12.2](https://github.com/paypal/paypal-messaging-components/compare/v1.12.1...v1.12.2) (2020-08-05)
 
 
