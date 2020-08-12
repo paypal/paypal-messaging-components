@@ -27,5 +27,15 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [MESSAGES_CONFIG, MODAL_CONFIG];
+    const RENDERING_CONFIG = getWebpackConfig({
+        entry: ['./server/index.js'],
+        libraryTarget: 'global',
+        modulename: 'renderMessage',
+        minify: true,
+        debug: false,
+        filename: 'render.js',
+        vars: globals(env)
+    });
+
+    return [MESSAGES_CONFIG, MODAL_CONFIG, RENDERING_CONFIG];
 };
