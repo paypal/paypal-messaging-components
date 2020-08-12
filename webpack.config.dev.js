@@ -98,7 +98,8 @@ module.exports = (env = {}) => {
         debug: true,
         minify: false,
         sourcemaps: false,
-        filename: 'render.js'
+        filename: 'render.js',
+        vars: globals(env)
     });
 
     return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];
