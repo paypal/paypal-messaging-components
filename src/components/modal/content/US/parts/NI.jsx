@@ -44,11 +44,11 @@ export const Header = () => {
 
     return (
         <div className="content-header">
-            <div className="content-header__image-wrapper">
+            <div className="image-wrapper">
                 <Icon name="rocket" />
             </div>
-            <h1 className="content-header__title">Buy now and pay over time with PayPal Credit</h1>
-            <p className="content-header__tag">Subject to credit approval.</p>
+            <h1 className="title">Buy now and pay over time with PayPal Credit</h1>
+            <p className="tag">Subject to credit approval.</p>
             <Button ref={buttonRef} onClick={handleApplyNowClick}>
                 Apply Now
             </Button>
@@ -62,19 +62,19 @@ export const Content = () => {
 
     return (
         <section className="content-body">
-            <h2 className="content-body__title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
-            <ul className="content-body__terms-list">
+            <h2 className="title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
+            <ul className="terms-list">
                 {terms(aprEntry).map(term => (
-                    <li className="content-body__terms-item">{term}</li>
+                    <li className="terms-item">{term}</li>
                 ))}
             </ul>
 
-            <hr className="content-body__divider" />
+            <hr className="divider" />
 
-            <h2 className="content-body__title">How PayPal Credit works</h2>
-            <ul className="content-body__instructions-list">
+            <h2 className="title">How PayPal Credit works</h2>
+            <ul className="instructions-list">
                 {instructions.map(([icon, instruction]) => (
-                    <li className="content-body__instructions-item">
+                    <li className="instructions-item">
                         <div>
                             <Icon name={icon} />
                         </div>
@@ -83,9 +83,9 @@ export const Content = () => {
                 ))}
             </ul>
 
-            <hr className="content-body__divider" />
+            <hr className="divider" />
 
-            <div className="content-body__terms">
+            <div className="terms">
                 <p>
                     <a
                         onClick={() => onClick({ linkName: 'Legal Terms' })}

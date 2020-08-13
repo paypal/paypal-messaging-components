@@ -1,3 +1,6 @@
-export { default as fonts } from './fonts.css';
-export { default as modalFrame } from './modal-frame.css';
-export { default as common } from './common.css';
+import fonts from './fonts.scss';
+import common from './common.scss';
+import modalFrame from './modal-frame.scss';
+import header from './header.scss';
+
+export default [fonts._getCss(), common._getCss(), modalFrame._getCss(), header._getCss()].join('\n');

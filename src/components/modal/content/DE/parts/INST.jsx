@@ -5,7 +5,7 @@ import Carousel from './Carousel';
 import Calculator from './Calculator';
 
 const INST = () => (
-    <section className="content">
+    <section className="content-body">
         <Carousel
             items={[
                 {
@@ -27,7 +27,7 @@ const INST = () => (
         />
 
         {/* <!-- Calculator --> */}
-        <div className="content__calculator">
+        <div className="calculator-container">
             <Calculator country="DE" />
         </div>
     </section>

@@ -33,19 +33,19 @@ const ContentWrapper = () => {
     }, [showApplyNow]);
 
     return (
-        <Container contentWrapper={contentWrapper}>
+        <Container contentWrapper={contentWrapper} contentMaxWidth={612}>
             <Header className={showApplyNow ? 'logo-wrapper--shift' : ''}>
                 <Button
-                    className={`header__apply-now ${showApplyNow ? 'header__apply-now--show' : ''}`}
+                    className={`apply-now ${showApplyNow ? 'show' : ''}`}
                     onClick={showApplyNow ? handleApplyNowClick : null}
                 >
                     Apply Now
                 </Button>
             </Header>
-            <div className="modal__content-wrapper" ref={contentWrapper}>
-                <div className="modal__content-background">
-                    <div className="modal__content">
-                        <main className="modal__main">
+            <div className="content-wrapper" ref={contentWrapper}>
+                <div className="content-background">
+                    <div className="content">
+                        <main className="main">
                             <Content />
                         </main>
                     </div>

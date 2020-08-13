@@ -1,80 +1,83 @@
-@include desktop {
-    .modal__header {
-        max-width: 800px;
-        background-color: transparent;
-        position: absolute;
-        z-index: 999;
+.header-container {
+    @include desktop {
+        .header {
+            max-width: 800px;
+            background-color: transparent;
+            position: absolute;
+            z-index: 999;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        .logo {
+            display: flex;
+            width: auto;
+            padding-left: 20px;
+            align-items: center;
+
+            & img {
+                &:first-child {
+                    height: 35px;
+                    margin-right: 9px;
+                }
+                &:last-child {
+                    height: 28px;
+                    width: 98px;
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .close {
+            top: 5px;
+            right: 5px;
+
+            svg {
+                height: 60px;
+                width: 60px;
+            }
+        }
     }
 
-    .modal__header::after {
-        display: none;
-    }
+    @include mobile {
+        .header {
+            background-color: transparent;
 
-    .header__logo {
-        display: flex;
-        width: auto;
-        padding-left: 20px;
-        align-items: center;
-    }
+            &::after {
+                display: none;
+            }
+        }
 
-    .header__logo img:first-child {
-        height: 35px;
-        margin-right: 9px;
-    }
+        .logo {
+            display: flex;
+            width: auto;
+            align-items: center;
+            justify-content: center;
 
-    .header__logo img:last-child {
-        height: 28px;
-        width: 98px;
-        margin-top: 5px;
-    }
+            & > img:first-child {
+                width: 25px;
+                margin-right: 9px;
+            }
 
-    .header__close {
-        top: 5px;
-        right: 5px;
-    }
+            & > img:last-child {
+                width: 84px;
+                margin-top: 5px;
+            }
+        }
 
-    .header__close svg {
-        height: 60px;
-        width: 60px;
-    }
-}
+        .close {
+            transform: translate(-2px, -6px);
 
-@include mobile {
-    .modal__header::after {
-        display: none;
-    }
+            & > svg {
+                height: 55px;
+                width: 55px;
 
-    .modal__header {
-        background-color: transparent;
-    }
-
-    .header__logo {
-        display: flex;
-        width: auto;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .header__logo > img:first-child {
-        width: 25px;
-        margin-right: 9px;
-    }
-
-    .header__logo > img:last-child {
-        width: 84px;
-        margin-top: 5px;
-    }
-
-    .header__close {
-        transform: translate(-2px, -6px);
-    }
-
-    .header__close > svg {
-        height: 55px;
-        width: 55px;
-    }
-
-    .header__close > svg > path {
-        stroke: white;
+                & > path {
+                    stroke: white;
+                }
+            }
+        }
     }
 }

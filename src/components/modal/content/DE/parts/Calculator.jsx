@@ -28,7 +28,7 @@ const Calculator = () => {
             </div>
             <TermsTable terms={terms} isLoading={isLoading} />
             {!terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
-                <p className="content__disclosure">
+                <p className="disclosure">
                     Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen.
                 </p>
             )}

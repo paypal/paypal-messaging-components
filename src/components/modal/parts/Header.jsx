@@ -17,17 +17,17 @@ const Header = ({ children, className = '' }) => {
     const [, handleClose] = useTransitionState();
 
     return (
-        <div className={`modal__header-wrapper ${className}`}>
-            <div className="modal__header-container">
-                <header className="modal__header">
-                    <div className="header__logo-wrapper">
-                        <div className="header__logo" alt="PayPal Credit Logo">
+        <div className={`header-wrapper ${className}`}>
+            <div className="header-container">
+                <header className="header">
+                    <div className="logo-wrapper">
+                        <div className="logo" alt="PayPal Credit Logo">
                             <Icon name={LOCALE.LOGO[country]} />
                         </div>
                     </div>
                     {children}
                     <button
-                        className="header__close"
+                        className="close"
                         aria-label="Close"
                         type="button"
                         id="close-btn"

@@ -32,14 +32,8 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <section
-                className={`modal__container ${
-                    stringStartsWith(transitionState, 'OPEN') ? 'modal__container--show' : ''
-                }`}
-            >
-                <div className="modal__wrapper" id="modal__wrapper">
-                    {children}
-                </div>
+            <section className={`modal-container ${stringStartsWith(transitionState, 'OPEN') ? 'show' : ''}`}>
+                <div className="wrapper">{children}</div>
                 <Overlay contentMaxWidth={contentMaxWidth} contentMaxHeight={contentMaxHeight} />
             </section>
         </ScrollProvider>

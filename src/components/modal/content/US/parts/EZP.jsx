@@ -37,13 +37,13 @@ export const Header = () => {
 
     return (
         <div className="content-header">
-            <div className="content-header__image-wrapper">
+            <div className="image-wrapper">
                 <div style={{ width: '115%' }}>
                     <Icon name="cart" />
                 </div>
             </div>
-            <h1 className="content-header__title">Split your purchases into equal monthly payments</h1>
-            <p className="content-header__tag">Subject to credit approval.</p>
+            <h1 className="title">Split your purchases into equal monthly payments</h1>
+            <p className="tag">Subject to credit approval.</p>
             <Button ref={buttonRef} onClick={handleApplyNowClick}>
                 Apply Now
             </Button>
@@ -59,12 +59,12 @@ export const Content = () => {
         <section className="content-body">
             <Calculator />
 
-            <hr className="content-body__divider" />
+            <hr className="divider" />
 
-            <h2 className="content-body__title">How it works</h2>
-            <ul className="content-body__instructions-list">
+            <h2 className="title">How it works</h2>
+            <ul className="instructions-list">
                 {instructions.map(([icon, instruction]) => (
-                    <li className="content-body__instructions-item">
+                    <li className="instructions-item">
                         <div>
                             <Icon name={icon} />
                         </div>
@@ -73,18 +73,18 @@ export const Content = () => {
                 ))}
             </ul>
 
-            <hr className="content-body__divider" />
+            <hr className="divider" />
 
-            <h2 className="content-body__title">About promotional offers</h2>
+            <h2 className="title">About promotional offers</h2>
             <p>
                 PayPal Credit promotional offers are available for a limited time only and may vary, depending on where
                 you shop. Offers aren&apos;t valid on previous returns, refunds, and exchanges, or when using the Send
                 Money feature in your PayPal account.
             </p>
 
-            <hr className="content-body__divider" />
+            <hr className="divider" />
 
-            <div className="content-body__terms">
+            <div className="terms">
                 <p>
                     <a
                         onClick={() => onClick({ linkName: 'Legal Terms' })}

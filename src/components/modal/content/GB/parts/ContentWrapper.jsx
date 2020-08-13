@@ -9,12 +9,12 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
 
     return (
-        <Container contentWrapper={contentWrapper}>
-            <div className="modal__content-wrapper" ref={contentWrapper}>
-                <div className="modal__content-background">
+        <Container contentWrapper={contentWrapper} contentMaxWidth={750} contentMaxHeight={537}>
+            <div className="content-wrapper" ref={contentWrapper}>
+                <div className="content-background">
                     <Header />
-                    <div className="modal__content">
-                        <main className="modal__main">
+                    <div className="content">
+                        <main className="main">
                             <PL />
                         </main>
                     </div>
