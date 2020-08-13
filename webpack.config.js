@@ -16,9 +16,9 @@ module.exports = (env = {}) => {
     });
     MESSAGES_CONFIG.output.libraryExport = 'Messages';
 
-    const MODAL_CONFIG = getWebpackConfig({
+    const COMPONENTS_DEV_CONFIG = getWebpackConfig({
         entry: './src/modal/index.js',
-        filename: 'smart-credit-modal.js',
+        filename: '[name].js',
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
@@ -27,5 +27,15 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [MESSAGES_CONFIG, MODAL_CONFIG];
+    COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+        (accumulator, locale) => ({
+            ...accumulator,
+            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+        }),
+        {
+            'smart-credit-message': './src/components/message/index.js'
+        }
+    );
+
+    return [MESSAGES_CONFIG, COMPONENTS_DEV_CONFIG];
 };

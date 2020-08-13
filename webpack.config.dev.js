@@ -71,7 +71,6 @@ module.exports = (env = {}) => {
     };
 
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
-        entry: ['./src/components/message/index.js', './src/components/modal/index.js'],
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,
