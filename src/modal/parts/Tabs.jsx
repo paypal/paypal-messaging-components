@@ -18,7 +18,7 @@ const Tabs = ({ tabs }) => {
         if (transitionState === 'CLOSED') {
             selectTab(initialTab);
         }
-    }, [transitionState]);
+    }, [transitionState, initialTab]);
 
     // TODO: Accessibility
     return (
