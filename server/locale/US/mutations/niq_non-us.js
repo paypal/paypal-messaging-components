@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { legacyNI } from './ni';
 import { flex } from './ni_non-us';
 import { textLogoMutations } from './common';
@@ -27,9 +27,26 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
+            'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 27]
+                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                messageWidth: [textSize * 13, textSize * 27],
+                styles: [
+                    basicMediaQuery(textSize * 12),
+                    `
+                    .weak {
+                        display:none;
+                    }
+                    `,
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        logoSvgBP: textSize * 41.75,
+                        whiteSpaceBP: textSize * 27
+                    }),
+                    altContentMediaQuery(textSize * 41.75)
+                ]
             })
         ],
         [
@@ -119,12 +136,28 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.weak {
-                display:none;
-                }
-                .message__disclaimer {
-                display:block;
-                }`,
+                        display:none;
+                    }
+                    .message__disclaimer {
+                        display:block;
+                    }`,
+                    `.message__logo-container { width: ${textSize * 9}px }`,
                     basicMediaQuery(textSize * 18)
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 10, 1000],
+                styles: [
+                    `
+                    .weak { display: none; }
+                    .message__logo-container { width: ${textSize * 9}px }
+                    .message__content { display: inline-block; }
+                    `,
+                    basicMediaQuery(textSize * 18),
+                    altContentMediaQuery(textSize * 37)
                 ]
             })
         ],

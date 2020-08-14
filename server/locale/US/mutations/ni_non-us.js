@@ -1,5 +1,10 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
+import {
+    basicMediaQuery,
+    altContentMediaQuery,
+    primaryContentMediaQuery,
+    messageDisclaimerMediaQuery
+} from './mediaQueries';
 import { legacyNI } from './ni';
 import { textLogoMutations, flexLogoMutations } from './common';
 
@@ -34,6 +39,7 @@ export const flex = [
     ],
     ...flexLogoMutations
 ];
+
 export default {
     'layout:text': [
         [
@@ -52,9 +58,23 @@ export default {
             }
         ],
         [
-            'logo.type:primary',
+            'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 27]
+                messageWidth: [textSize * 13, textSize * 27],
+                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                headline: [
+                    { tag: 'xsmall', br: ['time.'] },
+                    { tag: 'medium', br: ['on '], replace: [['99+', '99+.']] }
+                ],
+                styles: [
+                    basicMediaQuery(textSize * 18),
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        whiteSpaceBP: textSize * 27
+                    })
+                ]
             })
         ],
         [
@@ -126,8 +146,35 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => {
                 const breakpointCalc = textSize * 21;
-                return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
+                return {
+                    styles: [
+                        messageDisclaimerMediaQuery(breakpointCalc - 1),
+                        basicMediaQuery(breakpointCalc),
+                        `
+                        @media (min-width: ${textSize * 28}px) {
+                            .message__disclaimer {
+                                display:block;
+                            }
+                        }
+                        `,
+                        `.message__logo-container { width: ${textSize * 9}px }`
+                    ]
+                };
             }
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 10, 1000],
+                styles: [
+                    `
+                    .message__logo-container { width: ${textSize * 9}px }
+                    .message__content { display: inline-block; }
+                    `,
+                    basicMediaQuery(textSize * 18),
+                    altContentMediaQuery(textSize * 46.25)
+                ]
+            })
         ],
         ...textLogoMutations
     ],

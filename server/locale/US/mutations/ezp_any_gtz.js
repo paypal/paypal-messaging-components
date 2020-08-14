@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
@@ -22,9 +22,48 @@ export default {
             }
         ],
         [
-            'logo.type:primary',
+            'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: textSize * 11
+                messageWidth: textSize * 11,
+                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                headline: {
+                    tag: 'xsmall',
+                    br: ['months.'],
+                    replace: [['months', 'months.']]
+                },
+                styles: [
+                    ...defaultTextStyles,
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        whiteSpaceBP: textSize * 27
+                    })
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:top',
+            ({ textSize }) => ({
+                headline: {
+                    tag: 'small',
+                    replace: [['APR', 'APR.']]
+                },
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 10, 1000],
+                styles: [
+                    ...defaultTextStyles,
+                    `
+                    .message__logo-container { width: ${textSize * 9}px }
+                    .message__content { display: inline-block; }
+                    `,
+                    altContentMediaQuery(textSize * 30.6)
+                ]
             })
         ],
         [

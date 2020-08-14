@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { legacyNI, flex } from './ni';
-import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations } from './common';
 
 export default {
@@ -9,11 +9,9 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    `.weak {
-                    display:none;
-                }
-                .message__disclaimer {
-                        display:block;
+                    `
+                    .weak {
+                        display:none;
                     }
                    `,
                     [basicMediaQuery(textSize * 18.5 + 70)]
@@ -27,9 +25,26 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
+            'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 27]
+                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                messageWidth: [textSize * 13, textSize * 27],
+                styles: [
+                    basicMediaQuery(textSize * 12),
+                    `
+                    .weak {
+                        display:none;
+                    }
+                    `,
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        logoSvgBP: textSize * 41.75,
+                        whiteSpaceBP: textSize * 27
+                    }),
+                    altContentMediaQuery(textSize * 41.75)
+                ]
             })
         ],
         [
@@ -37,8 +52,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.weak {
-                    display:none;
-                }`,
+                        display:none;
+                    }`,
                     basicMediaQuery(textSize * 12 + 80),
                     `.message__logo { width: ${textSize * 7}px }`
                 ],
@@ -54,8 +69,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.weak {
-                    display:none;
-                }`,
+                        display:none;
+                    }`,
                     basicMediaQuery(textSize * 17)
                 ],
                 logo: false,
@@ -90,14 +105,34 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    `.weak {
-                    display:none;
-                }
-                .message__disclaimer {
-                        display:block;
+                    `
+                    .weak {
+                        display:none;
                     }
-`,
+                    .message__disclaimer {
+                        display: block;
+                    }
+                    `,
+                    `.message__logo-container { width: ${textSize * 9}px }`,
                     basicMediaQuery(textSize * 18.5)
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    `
+                    .weak {
+                        display:none;
+                    }
+                    .message__content {
+                        display: inline-block;
+                    }
+                    `,
+                    basicMediaQuery(textSize * 18.5),
+                    altContentMediaQuery(textSize * 33),
+                    `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
         ],

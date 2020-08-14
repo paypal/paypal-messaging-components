@@ -1,5 +1,10 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
+import {
+    basicMediaQuery,
+    altContentMediaQuery,
+    primaryContentMediaQuery,
+    messageDisclaimerMediaQuery
+} from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export const legacyNI = [
@@ -81,7 +86,44 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 27]
+                messageWidth: [textSize * 13, textSize * 32],
+                styles: [
+                    basicMediaQuery(textSize * 19 + 70),
+                    `
+                    .message__logo-container {
+                        width: ${textSize * 9}px;
+                    }
+                    .message__content {
+                        display: inline-block;
+                    }
+                    .message__disclaimer {
+                        display: inline;
+                    }
+                    `,
+                    altContentMediaQuery(textSize * 42.25)
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && logo.position:left',
+            ({ textSize }) => ({
+                messageWidth: [textSize * 13, textSize * 32],
+                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                headline: [
+                    { tag: 'xsmall', br: ['time.'] },
+                    { tag: 'medium', br: ['on ', 'months'] }
+                ],
+                styles: [
+                    basicMediaQuery(textSize * 18),
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        logoSvgBP: textSize * 41.75,
+                        whiteSpaceBP: textSize * 27
+                    }),
+                    altContentMediaQuery(textSize * 41.75)
+                ]
             })
         ],
         [
@@ -128,7 +170,18 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => {
                 const breakpointCalc = textSize * 19;
-                return { styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)] };
+                return {
+                    styles: [
+                        messageDisclaimerMediaQuery(breakpointCalc - 1),
+                        basicMediaQuery(breakpointCalc),
+                        `
+                        .message__disclaimer {
+                            display:block;
+                        }
+                        `,
+                        `.message__logo-container { width: ${textSize * 9}px }`
+                    ]
+                };
             }
         ],
         [
