@@ -115,9 +115,9 @@ export default {
                         messageDisclaimerMediaQuery(breakpointCalc - 1),
                         basicMediaQuery(breakpointCalc),
                         altContentMediaQuery(textSize * 45),
-                        `.message__logo-container { width: ${textSize * 9}px }`
+                        `.message__logo-container { width: ${textSize * 5}px }`
                     ],
-                    logo: Logo.ALTERNATIVE.COLOR,
+                    logo: Logo.ALT_NO_PAYPAL.COLOR,
                     headline: [
                         'xsmall',
                         {
@@ -132,7 +132,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 20), `.message__logo-container { width: ${textSize * 8}px }`],
+                styles: [basicMediaQuery(textSize * 20), `.message__logo-container { width: ${textSize * 5}px }`],
                 headline: [
                     'xsmall',
                     {

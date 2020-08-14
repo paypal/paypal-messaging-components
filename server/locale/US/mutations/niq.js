@@ -96,9 +96,9 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18),
                     altContentMediaQuery(textSize * 33),
-                    `.message__logo-container { width: ${textSize * 9}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALTERNATIVE.COLOR
+                logo: Logo.ALT_NO_PAYPAL.COLOR
             })
         ],
         [
@@ -144,7 +144,7 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18.5),
-                    `.message__logo-container { width: ${textSize * 8}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ]
             })
         ],

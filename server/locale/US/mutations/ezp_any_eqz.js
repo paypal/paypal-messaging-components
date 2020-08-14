@@ -80,10 +80,10 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     altContentMediaQuery(textSize * 35.8),
-                    `.message__logo-container { width: ${textSize * 9}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 messageWidth: [textSize * 15, 1000],
-                logo: Logo.ALTERNATIVE.COLOR,
+                logo: Logo.ALT_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
                     br: ['APR.']
@@ -93,7 +93,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [

@@ -80,9 +80,9 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     altContentMediaQuery(textSize * 30.6),
-                    `.message__logo-container { width: ${textSize * 9}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALTERNATIVE.COLOR,
+                logo: Logo.ALT_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
                     br: ['months.']
@@ -92,7 +92,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [

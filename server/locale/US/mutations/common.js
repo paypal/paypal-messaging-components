@@ -7,13 +7,13 @@ import Logo from '../logos';
 
 export const textLogoMutations = [
     ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-    ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
+    ['text.color:white && logo.type:alternative', { logo: Logo.ALT_NO_PAYPAL.WHITE }],
     ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }],
     ['text.color:monochrome && logo.type:primary', { logo: Logo.PRIMARY.BLACK }],
-    ['text.color:monochrome && logo.type:alternative', { logo: Logo.ALTERNATIVE.BLACK }],
+    ['text.color:monochrome && logo.type:alternative', { logo: Logo.ALT_NO_PAYPAL.BLACK }],
     ['text.color:monochrome && logo.type:inline', { logo: Logo.ALT_NO_PP.BLACK }],
     ['text.color:grayscale && logo.type:primary', { logo: Logo.PRIMARY.GRAYSCALE }],
-    ['text.color:grayscale && logo.type:alternative', { logo: Logo.ALTERNATIVE.GRAYSCALE }],
+    ['text.color:grayscale && logo.type:alternative', { logo: Logo.ALT_NO_PAYPAL.GRAYSCALE }],
     ['text.color:grayscale && logo.type:inline', { logo: Logo.ALT_NO_PP.GRAYSCALE }]
 ];
 

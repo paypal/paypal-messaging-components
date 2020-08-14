@@ -161,9 +161,9 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 18),
                     altContentMediaQuery(textSize * 42),
-                    `.message__logo-container { width: ${textSize * 9}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALTERNATIVE.COLOR
+                logo: Logo.ALT_NO_PAYPAL.COLOR
             })
         ],
         [
@@ -187,7 +187,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 8}px }`]
+                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         ...textLogoMutations

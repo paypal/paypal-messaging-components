@@ -75,16 +75,16 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     altContentMediaQuery(textSize * 34.3),
-                    `.message__logo-container { width: ${textSize * 9}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALTERNATIVE.COLOR,
+                logo: Logo.ALT_NO_PAYPAL.COLOR,
                 messageWidth: [textSize * 10, 1000]
             })
         ],
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         ...textLogoMutations
