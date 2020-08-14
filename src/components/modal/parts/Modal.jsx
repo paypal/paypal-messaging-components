@@ -3,14 +3,14 @@ import { h } from 'preact';
 
 import { XPropsProvider, ServerDataProvider } from '../../lib';
 import { TransitionStateProvider } from '../lib';
-import commonStyles from '../styles';
+import commonStyles from '../styles/index.scss';
 
 const Modal = ({ styles, serverData, children }) => (
     <XPropsProvider>
         <ServerDataProvider data={serverData}>
             <TransitionStateProvider>
                 <style>
-                    {commonStyles}
+                    {commonStyles._getCss()}
                     {styles}
                 </style>
                 {children}
