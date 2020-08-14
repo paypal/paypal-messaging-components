@@ -2,9 +2,17 @@
 /** @jsxFrag Fragment */
 // eslint-disable-next-line no-unused-vars
 import { h, Fragment } from 'preact';
+import render from 'preact-render-to-string';
 
-import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
-import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
+import { objectMerge, objectFlattenToArray, curry, getDataByTag } from '../../src/utils/server';
+import {
+    getMutations,
+    getLocaleStyles,
+    getLocaleClass,
+    getLocalProductName,
+    getMinimumWidthOptions,
+    getLogos
+} from '../locale';
 import allStyles from './styles';
 import fonts from './styles/fonts.css';
 import Logo from './parts/Logo';
@@ -50,7 +58,10 @@ export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
 
     const applyCascadeRules = applyCascade(style, styleSelectors);
-    const mutationRules = applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, markup));
+    const mutationRules =
+        options.style.layout === 'custom'
+            ? { logo: false, styles: [], headline: [], disclaimer: '' }
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, markup));
 
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
@@ -85,11 +96,6 @@ export default ({ options, markup, locale }) => {
 
     const [withText, productName] = getLocalProductName(locale);
 
-    // TODO: custom banner support
-    // if (layout === 'text' && objectGet(options, 'style.text.fontFamily')) {
-    //     prependStyle(newTemplate, createCustomFontFamily(options.account, objectGet(options, 'style.text.fontFamily')));
-    // }
-
     const productNameEl = (
         <span>
             {' '}
@@ -98,13 +104,91 @@ export default ({ options, markup, locale }) => {
         </span>
     );
 
+    const injectSpaceNodes = spans => {
+        return spans.reduce((accumulator, span) => [...accumulator, span, ' '], []).slice(0, -1);
+    };
+
+    const CustomSpan = ({ textContent, className = '' }) => <span className={className}>{textContent}</span>;
+
+    const getMarkup = textData => {
+        const uniformText = Array.isArray(textData) ? textData : [textData];
+
+        const spans = uniformText.map(text => {
+            if (Array.isArray(text)) {
+                const [textContent, className] = text;
+                return <CustomSpan className={className} textContent={textContent} />;
+            }
+            return <CustomSpan textContent={text} />;
+        });
+
+        return injectSpaceNodes(spans);
+    };
+
+    const createCustomTemplateNode = ({ data, meta, template }) => {
+        const newTemplate = template;
+
+        // Invalid sign will return empty string template
+        if (template === '') {
+            return newTemplate;
+        }
+
+        const populatedMarkup = template.replace(/{{\s*?([^\s]+?)\s*?}}/g, (_, templateVariable) => {
+            const [type, ...parts] = templateVariable.split('.');
+            const tag = parts.join('.');
+
+            if (type === 'logo') {
+                return `<img alt="PayPal Credit logo" src="${
+                    getLogos(meta.offerCountry)[parts[0].toUpperCase()][parts[1].toUpperCase()]?.src
+                }" />`;
+            }
+            return getMarkup(getDataByTag(data[type], tag)).reduce(
+                (accumulator, span) => {
+                    return `${accumulator}${render(span) || ' '}`;
+                }, // Space fallback for textNodes
+                ''
+            );
+        });
+        return populatedMarkup;
+    };
+
+    createCustomTemplateNode({ data: markup, meta: markup.meta, template: options.customMarkup });
+
+    // Shared mutations, styles, and fonts between custom and non-custom messages/banners.
+    const Styles = () => {
+        return (
+            <>
+                <style className="styles__fonts" dangerouslySetInnerHTML={{ __html: fonts }} />
+                <style className="styles__global" dangerouslySetInnerHTML={{ __html: globalStyleRules.join('\n') }} />
+                <style className="styles__locale" dangerouslySetInnerHTML={{ __html: localeStyleRules.join('\n') }} />
+                <style
+                    className="styles__mutations"
+                    dangerouslySetInnerHTML={{ __html: mutationStyleRules.join('\n') }}
+                />
+                <style className="styles__misc" dangerouslySetInnerHTML={{ __html: miscStyleRules.join('\n') }} />
+            </>
+        );
+    };
+
+    if (options.style.layout === 'custom') {
+        return (
+            <div role="button" className="message" tabIndex="0">
+                <Styles />
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: createCustomTemplateNode({
+                            data: markup,
+                            meta: markup.meta,
+                            template: options.customMarkup
+                        })
+                    }}
+                />
+            </div>
+        );
+    }
+
     return (
         <div role="button" className="message" tabIndex="0">
-            <style className="styles__fonts" dangerouslySetInnerHTML={{ __html: fonts }} />
-            <style className="styles__global" dangerouslySetInnerHTML={{ __html: globalStyleRules.join('\n') }} />
-            <style className="styles__locale" dangerouslySetInnerHTML={{ __html: localeStyleRules.join('\n') }} />
-            <style className="styles__mutations" dangerouslySetInnerHTML={{ __html: mutationStyleRules.join('\n') }} />
-            <style className="styles__misc" dangerouslySetInnerHTML={{ __html: miscStyleRules.join('\n') }} />
+            <Styles />
             <div className={`message__container ${localeClass}`}>
                 {/* foreground layer */}
                 <div className="message__foreground" />
