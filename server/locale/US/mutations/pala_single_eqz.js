@@ -11,7 +11,7 @@ export default {
                 messageWidth: [textSize * 17, textSize * 21],
                 headline: {
                     tag: 'small',
-                    br: ['/mo']
+                    br: ['/mo.']
                 },
                 disclaimer: 'xsmall'
             })

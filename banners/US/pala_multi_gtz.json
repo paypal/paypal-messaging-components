@@ -14,7 +14,7 @@
 
     "headline": [
         [
-            [["As low as", "weak"], "{formattedMonthlyPayment}/mo"],
+            [["As low as", "weak"], "{formattedMonthlyPayment}/mo."],
             ["default", "xsmall"]
         ],
         [

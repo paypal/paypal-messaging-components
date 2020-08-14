@@ -137,7 +137,8 @@ export default {
                     'xsmall',
                     {
                         tag: 'medium',
-                        br: ['months']
+                        br: ['months'],
+                        replace: [['99+', '99+.']]
                     }
                 ]
             })
