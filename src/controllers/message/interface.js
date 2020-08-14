@@ -9,7 +9,8 @@ import {
     getAllBySelector,
     attributeObserver,
     nextIndex,
-    logger
+    logger,
+    getCurrentTime
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -17,7 +18,7 @@ import { Modal } from '../modal';
 
 export default options => ({
     render: (selector = '[data-pp-message]') => {
-        const renderStart = Date.now();
+        const renderStart = getCurrentTime();
         const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
@@ -70,10 +71,10 @@ export default options => ({
                     const createOnReadyHandler = props => ({ meta }) => {
                         logger.addMetaBuilder(() => {
                             return {
-                                [index]: meta.messageRequestId,
+                                [index]: { messageRequestId: meta.messageRequestId, account: merchantOptions.account },
                                 [meta.messageRequestId]: {
                                     uuid:
-                                        meta.uuid ||
+                                        meta.displayedMessage ||
                                         // FIXME:
                                         'NI:NON-US::layout:text::logo.position:left::logo.type:primary::text.color:black::text.size:12',
                                     ...meta.trackingDetails

@@ -11,7 +11,8 @@ jest.mock('src/zoid/modal', () => {
         Modal: jest.fn(() => ({
             render: mockRender,
             updateProps: mockUpdateProps,
-            hide: mockHide
+            hide: mockHide,
+            state: {}
         }))
     };
 });
@@ -19,7 +20,8 @@ jest.mock('src/zoid/modal', () => {
 jest.mock('src/utils/logger', () => ({
     logger: {
         warn: jest.fn(),
-        track: jest.fn()
+        track: jest.fn(),
+        info: jest.fn()
     }
 }));
 
@@ -51,7 +53,7 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).not.toHaveBeenCalled();
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -61,7 +63,7 @@ describe('modal interface', () => {
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -71,7 +73,7 @@ describe('modal interface', () => {
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -88,7 +90,7 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
         // Sends open event to zoid iframe
         expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
@@ -114,12 +116,12 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
 
         await modal.hide();
 
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(3);
         expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 visible: false
@@ -139,7 +141,8 @@ describe('modal interface', () => {
         await Modal({ account: '9', index: '1', onReady }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onReady: expect.any(Function)
             })
@@ -147,7 +150,7 @@ describe('modal interface', () => {
         expect(onReady).not.toHaveBeenCalled();
         expect(logger.track).not.toHaveBeenCalled();
 
-        const [[{ onReady: onReadyHandler }]] = zoidModal.mock.calls;
+        const [[{ onReady: onReadyHandler }]] = zoidModal().updateProps.mock.calls;
 
         onReadyHandler({ type: 'NI' });
 
@@ -166,7 +169,8 @@ describe('modal interface', () => {
         await Modal({ account: '10', index: '1', onCalculate }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onCalculate: expect.any(Function)
             })
@@ -174,7 +178,7 @@ describe('modal interface', () => {
         expect(logger.track).not.toHaveBeenCalled();
         expect(onCalculate).not.toHaveBeenCalled();
 
-        const [[{ onCalculate: onCalculateHandler }]] = zoidModal.mock.calls;
+        const [[{ onCalculate: onCalculateHandler }]] = zoidModal().updateProps.mock.calls;
 
         onCalculateHandler({ value: 100 });
 
@@ -194,7 +198,8 @@ describe('modal interface', () => {
         await Modal({ account: '11', index: '1', onApply }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onCalculate: expect.any(Function)
             })
@@ -202,7 +207,7 @@ describe('modal interface', () => {
         expect(logger.track).not.toHaveBeenCalled();
         expect(onApply).not.toHaveBeenCalled();
 
-        const [[{ onClick: onClickHandler }]] = zoidModal.mock.calls;
+        const [[{ onClick: onClickHandler }]] = zoidModal().updateProps.mock.calls;
 
         onClickHandler({ linkName: 'Close Button' });
 
@@ -237,7 +242,8 @@ describe('modal interface', () => {
         await modal.show();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onClose: expect.any(Function)
             })
@@ -245,7 +251,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(onClose).not.toHaveBeenCalled();
 
-        const [[{ onClose: onCloseHandler }]] = zoidModal.mock.calls;
+        const [[{ onClose: onCloseHandler }]] = zoidModal().updateProps.mock.calls;
 
         onCloseHandler({ linkName: 'Close Button' });
 

@@ -1,6 +1,6 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, memoizeOnProps } from '../../utils';
+import { logger, memoizeOnProps, getCurrentTime } from '../../utils';
 import { Modal } from '../../zoid/modal';
 import useViewportHijack from './viewportHijack';
 
@@ -8,8 +8,16 @@ export default memoizeOnProps(
     ({ account, merchantId, currency, amount, onReady, onCalculate, onApply, onClose, index }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
+        const { render, hide, updateProps, state } = Modal({
+            index,
+            account,
+            merchantId,
+            currency,
+            amount
+        });
+
         const createOnReadyHandler = (props = {}) => ({ type }) => {
-            logger.info('modal_render', { index: props.index });
+            logger.info('modal_render', { index: props.index, duration: getCurrentTime() - state.renderStart });
             logger.track({
                 index: props.index,
                 et: 'CLIENT_IMPRESSION',
@@ -63,12 +71,8 @@ export default memoizeOnProps(
             }
         };
 
-        const { render, hide, updateProps } = Modal({
-            index,
-            account,
-            merchantId,
-            currency,
-            amount,
+        // This is called separately so that the zoid state can be closed into the factory functions
+        updateProps({
             onReady: createOnReadyHandler({ index, onReady }),
             onCalculate: createOnCalculateHandler({ index, onCalculate }),
             onClick: createOnClickHandler({ index, onApply }),
@@ -77,6 +81,7 @@ export default memoizeOnProps(
 
         let renderProm;
         const renderModal = (selector = 'body') => {
+            state.renderStart = getCurrentTime();
             // The render promise will resolve before Preact renders and picks up changes
             // via updateProps so a small delay is added after the initial "render" promise
             if (!renderProm) {
@@ -88,6 +93,7 @@ export default memoizeOnProps(
         };
 
         const showModal = (newOptions = {}) => {
+            state.renderStart = getCurrentTime();
             if (!renderProm) {
                 renderProm = renderModal('body');
             }

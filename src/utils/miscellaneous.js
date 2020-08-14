@@ -130,3 +130,6 @@ export const dynamicImport = memoize(url => {
         document.body.appendChild(script);
     });
 });
+
+// // Date.now() altered on some sites: https://www.hydropool.com
+export const getCurrentTime = () => new Date().getTime();
