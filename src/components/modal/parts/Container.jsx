@@ -1,7 +1,7 @@
 /** @jsx h */
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
-import { useLayoutEffect, useEffect } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 
 import { useTransitionState, ScrollProvider, useServerData, useXProps } from '../lib';
 import Overlay from './Overlay';
@@ -14,11 +14,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
     useEffect(() => {
         if (transitionState === 'OPENING') {
             window.focus();
-        }
-    }, [transitionState]);
 
-    useLayoutEffect(() => {
-        if (transitionState === 'CLOSING') {
             // eslint-disable-next-line no-param-reassign
             contentWrapper.current.scrollTop = 0;
         }
