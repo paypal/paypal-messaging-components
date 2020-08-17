@@ -8,7 +8,7 @@ import allStyles from './styles';
 import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
 import Styles from './parts/Styles';
-import createCustomTemplateNode from './parts/CustomMessage';
+import CustomMessage from './parts/CustomMessage';
 
 /**
  * Get all applicable rules based on user flattened options
@@ -98,23 +98,14 @@ export default ({ options, markup, locale }) => {
 
     if (options.style.layout === 'custom') {
         return (
-            <div role="button" className="message" tabIndex="0">
+            <CustomMessage data={markup} meta={markup.meta} template={options.customMarkup}>
                 <Styles
                     globalStyleRules={globalStyleRules}
                     localeStyleRules={localeStyleRules}
                     mutationStyleRules={mutationStyleRules}
                     miscStyleRules={miscStyleRules}
                 />
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: createCustomTemplateNode({
-                            data: markup,
-                            meta: markup.meta,
-                            template: options.customMarkup
-                        })
-                    }}
-                />
-            </div>
+            </CustomMessage>
         );
     }
 

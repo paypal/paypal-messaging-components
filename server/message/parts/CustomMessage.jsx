@@ -23,7 +23,7 @@ const getMarkup = textData => {
     return spans;
 };
 
-const createCustomTemplateNode = ({ data, meta, template }) => {
+const CustomMessage = ({ children, data, meta, template }) => {
     const newTemplate = template;
 
     // Invalid sign will return empty string template
@@ -47,7 +47,16 @@ const createCustomTemplateNode = ({ data, meta, template }) => {
             ''
         );
     });
-    return populatedMarkup;
+    return (
+        <div role="button" className="message" tabIndex="0">
+            {children}
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: populatedMarkup
+                }}
+            />
+        </div>
+    );
 };
 
-export default createCustomTemplateNode;
+export default CustomMessage;
