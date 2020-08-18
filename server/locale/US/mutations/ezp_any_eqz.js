@@ -13,7 +13,7 @@ export default {
             'default',
             {
                 styles: defaultTextStyles,
-                logo: Logo.PRIMARY.COLOR,
+                logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'small',
                     br: ['APR']
@@ -25,7 +25,7 @@ export default {
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
                 messageWidth: textSize * 16,
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 headline: {
                     tag: 'small',
                     br: ['APR.'],
@@ -69,7 +69,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
@@ -83,7 +83,7 @@ export default {
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 messageWidth: [textSize * 15, 1000],
-                logo: Logo.ALT_NO_PAYPAL.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
                     br: ['APR.']
@@ -112,7 +112,7 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: { tag: 'small', br: ['months', 'APR'] },
                 disclaimer: ['xsmall.2', 'xsmall']
             }
@@ -140,12 +140,12 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: 'legacy-small',
                 disclaimer: 'legacy-large'
             }
         ],
-        ['size:1000x36', { logo: Logo.PRIMARY.COLOR }],
+        ['size:1000x36', { logo: Logo.STACKED.COLOR }],
         [
             'size:120x90',
             {

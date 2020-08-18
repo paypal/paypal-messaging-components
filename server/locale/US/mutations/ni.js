@@ -11,7 +11,7 @@ export const legacyNI = [
     [
         'default',
         {
-            logo: Logo.PRIMARY.COLOR,
+            logo: Logo.STACKED.COLOR,
             headline: 'medium',
             subHeadline: 'small',
             disclaimer: 'legacy-medium'
@@ -23,12 +23,12 @@ export const legacyNI = [
             styles: ['.message__sub-headline { color: #009cde }', '.message__headline { display: block }']
         }
     ],
-    ['size:234x100', { logo: Logo.PRIMARY.WHITE }],
-    ['size:310x100', { logo: Logo.PRIMARY.WHITE }],
+    ['size:234x100', { logo: Logo.STACKED.WHITE }],
+    ['size:310x100', { logo: Logo.STACKED.WHITE }],
     [
         'size:340x60',
         {
-            logo: Logo.PRIMARY.WHITE,
+            logo: Logo.STACKED.WHITE,
             styles: ['.message { max-width: 100% }']
         }
     ]
@@ -38,7 +38,7 @@ export const flex = [
     [
         'default',
         {
-            logo: Logo.PRIMARY.WHITE,
+            logo: Logo.STACKED.WHITE,
             headline: ['xsmall', { tag: 'medium', br: ['months'] }],
             disclaimer: 'xsmall'
         }
@@ -74,7 +74,7 @@ export default {
                 const breakpointCalc = textSize * 19 + 70;
                 return {
                     styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), [basicMediaQuery(breakpointCalc)]],
-                    logo: Logo.PRIMARY.COLOR,
+                    logo: Logo.SINGLE_LINE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
                         { tag: 'medium', br: ['months'] }
@@ -108,7 +108,7 @@ export default {
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
                 messageWidth: [textSize * 13, textSize * 32],
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
                     { tag: 'medium', br: ['on ', 'months'] }
@@ -130,7 +130,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
@@ -163,7 +163,7 @@ export default {
                     altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALT_NO_PAYPAL.COLOR
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
         ],
         [

@@ -12,7 +12,7 @@ export const flex = [
     [
         'default',
         {
-            logo: Logo.PRIMARY.WHITE,
+            logo: Logo.STACKED.WHITE,
             headline: ['xsmall', { tag: 'medium', br: ['months'] }],
             disclaimer: ['extra.2', 'small']
         }
@@ -48,7 +48,7 @@ export default {
                 const breakpointCalc = textSize * 22 + 70;
                 return {
                     styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)],
-                    logo: Logo.PRIMARY.COLOR,
+                    logo: Logo.SINGLE_LINE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
                         { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }
@@ -61,7 +61,7 @@ export default {
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
                 messageWidth: [textSize * 13, textSize * 27],
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
                     { tag: 'medium', br: ['on '], replace: [['99+', '99+.']] }
@@ -81,7 +81,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [basicMediaQuery(textSize * 23), `.message__logo { width: ${textSize * 7}px }`],
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
@@ -117,7 +117,7 @@ export default {
                         altContentMediaQuery(textSize * 45),
                         `.message__logo-container { width: ${textSize * 5}px }`
                     ],
-                    logo: Logo.ALT_NO_PAYPAL.COLOR,
+                    logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                     headline: [
                         'xsmall',
                         {

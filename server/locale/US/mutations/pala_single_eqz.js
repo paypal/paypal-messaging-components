@@ -7,7 +7,7 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                logo: Logo.PRIMARY.COLOR,
+                logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 17, textSize * 21],
                 headline: {
                     tag: 'small',
@@ -19,7 +19,7 @@ export default {
         [
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
@@ -54,7 +54,7 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
                 messageWidth: false,
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: {
                     br: ['APR']
                 }
@@ -77,7 +77,7 @@ export default {
                     altContentMediaQuery(textSize * 34.3),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALT_NO_PAYPAL.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 messageWidth: [textSize * 10, 1000]
             })
         ],
@@ -93,7 +93,7 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: { tag: 'small', br: [' of', 'at'] },
                 disclaimer: 'xsmall'
             }
@@ -119,13 +119,13 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: 'legacy-small',
                 subHeadline: 'legacy-xlarge',
                 disclaimer: 'legacy-medium'
             }
         ],
-        ['size:1000x36', { logo: Logo.PRIMARY.COLOR }],
+        ['size:1000x36', { logo: Logo.STACKED.COLOR }],
         ['size:120x90', { logo: false, headline: 'legacy-xsmall' }],
         ['size:234x60', { headline: 'legacy-xsmall', disclaimer: 'legacy-medium.2' }],
         ['size:250x250', { headline: 'legacy-small.2', disclaimer: 'legacy-medium.2' }],

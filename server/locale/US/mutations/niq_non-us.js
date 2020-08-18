@@ -18,7 +18,7 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18.5 + 70)
                 ],
-                logo: Logo.PRIMARY.COLOR,
+                logo: Logo.SINGLE_LINE.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
                     { tag: 'medium', br: ['months.'], replace: [['months', 'months.']] }
@@ -29,7 +29,7 @@ export default {
         [
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 messageWidth: [textSize * 13, textSize * 27],
                 styles: [
                     basicMediaQuery(textSize * 12),
@@ -59,7 +59,7 @@ export default {
                     basicMediaQuery(textSize * 18),
                     `.message__logo { width: ${textSize * 7}px }`
                 ],
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
                     { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
@@ -100,7 +100,7 @@ export default {
                     altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
-                logo: Logo.ALT_NO_PAYPAL.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: [
                     'xsmall',
                     {

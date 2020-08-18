@@ -7,7 +7,7 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                logo: Logo.PRIMARY.COLOR,
+                logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 13, textSize * 18],
                 headline: { tag: 'small', br: ['/mo.'] },
                 disclaimer: 'xsmall'
@@ -16,7 +16,7 @@ export default {
         [
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                logo: [Logo.ALT_NO_PAYPAL.COLOR, Logo.PRIMARY.COLOR],
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
@@ -50,7 +50,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: [textSize * 19, 1000]
             })
         ],
@@ -69,7 +69,7 @@ export default {
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 messageWidth: false,
-                logo: Logo.ALT_NO_PAYPAL.COLOR
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
         ],
         [
@@ -84,7 +84,7 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: { tag: 'small', br: ['of'] },
                 disclaimer: 'xsmall'
             }
@@ -102,13 +102,13 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.STACKED.WHITE,
                 headline: 'legacy-xsmall',
                 subHeadline: 'legacy-large',
                 disclaimer: 'legacy-medium'
             }
         ],
-        ['size:1000x36', { logo: Logo.PRIMARY.COLOR }],
+        ['size:1000x36', { logo: Logo.STACKED.COLOR }],
         ['size:120x90', { logo: false }],
         ['size:250x250', { disclaimer: 'legacy-medium.2' }],
         ['size:340x60', { disclaimer: 'legacy-medium.2' }],
