@@ -10,6 +10,8 @@ function collectDiffs() {
         const fullPath = path.resolve(pathTo, folder);
         const contents = fs.readdirSync(fullPath);
 
+        console.log(`collectDiffs.searchFolder ${pathTo} ${folder}`);
+
         contents.forEach(name => {
             if (fs.statSync(path.resolve(fullPath, name)).isDirectory()) {
                 searchFolders(name, fullPath);
@@ -37,7 +39,7 @@ function collectDiffs() {
     fs.mkdirSync(DIFF_DIR);
     fs.mkdirSync(path.resolve(DIFF_DIR, 'modal'));
     fs.mkdirSync(path.resolve(DIFF_DIR, 'banner'));
-
+    console.log('Collecting diffs');
     searchFolders('snapshots', path.resolve(__dirname, '..'));
 }
 

@@ -32,7 +32,8 @@
         "preinstall": "rm -rf node_modules",
         "start": "npm run dev",
         "test": "jest",
-        "test:func": "jest --projects tests/functional",
+        "test:func": "jest --config tests/functional/jest.config.js",
+        "test:func:payload": "jest --config tests/functional/jest.payload.config.js",
         "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
     },
     "dependencies": {

@@ -4,6 +4,7 @@ import { bannerStyles } from './utils/testStylesConfig';
 import selectors from './utils/selectors';
 
 const createSpy = async ({ keyword = 'bdata' }) => {
+    console.log('create spy');
     const spy = { matchedUrls: [] };
     page.on('request', request => {
         const url = request.url();
@@ -13,6 +14,7 @@ const createSpy = async ({ keyword = 'bdata' }) => {
 };
 
 const setupPage = async ({ config, testPage = 'banner.html' }) => {
+    console.log('setup page');
     await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
     await page.waitForSelector('.container iframe', { visible: true });
     await page.waitForSelector("iframe[title='paypal_credit_modal']");
@@ -65,6 +67,7 @@ describe('payload testing', () => {
     const testPage = 'banner.html';
 
     test('initial payload', async () => {
+        console.log('run payload test');
         const requests = await runTest({
             config,
             testPage,
@@ -72,7 +75,7 @@ describe('payload testing', () => {
                 await page.waitFor(5 * 1000);
             }
         });
-
+        console.log('check requests');
         const request = requests.find(r => r.bdata.event_type === 'stats');
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
