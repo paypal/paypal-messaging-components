@@ -6,14 +6,14 @@ import Modal from './component';
 import useViewportHijack from './viewportHijack';
 
 const renderModal = memoizeOnProps(
-    ({ options, meta, track, wrapper }) => {
+    ({ options, account, meta, track, wrapper }) => {
         const [hijackViewport, replaceViewport] = useViewportHijack();
 
         const { render, hide, updateProps } = Modal({
-            offer: meta.offerType,
+            account,
             // Even though these props are not included in memoize,
             // we want to pass the initial values in so we can preload one set of terms
-            account: options.account,
+            offer: meta.offerType,
             merchantId: options.merchantId,
             country: meta.offerCountry,
             currency: options.currency,
@@ -47,12 +47,12 @@ const renderModal = memoizeOnProps(
             show
         };
     },
-    ['type']
+    ['account']
 );
 
 export default {
     // Extract out the id from options for modal memoization
-    init: ({ options: { id, ...options }, meta, events, track, wrapper }) => {
+    init: ({ options: { id, account, ...options }, meta, events, track, wrapper }) => {
         // For legacy image banners, open a popup instead of the modal
         if (options._legacy && startsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {
@@ -75,6 +75,7 @@ export default {
             // The modal type is returned from a separate call and passed in as a prop
             const { renderProm, show } = renderModal({
                 options,
+                account,
                 meta,
                 track,
                 wrapper
@@ -83,7 +84,7 @@ export default {
             events.on('click', () => {
                 renderProm.then(() => {
                     show({
-                        account: options.account,
+                        offer: meta.offerType,
                         merchantId: options.merchantId,
                         country: meta.offerCountry,
                         currency: options.currency,
