@@ -37,5 +37,10 @@ module.exports = (env = {}) => {
         }
     );
 
+    COMPONENTS_DEV_CONFIG.optimization.splitChunks = {
+        chunks: 'all',
+        name: 'smart-credit-common'
+    };
+
     return [MESSAGES_CONFIG, COMPONENTS_DEV_CONFIG];
 };
