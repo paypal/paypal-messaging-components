@@ -16,6 +16,8 @@ export function basicMediaQuery(breakpoint) {
 `;
 }
 
+// This allows the logo to switch from SINGLE_LINE logo to SINGLE_LINE_NO_PAYPAL logo
+// And allows for word wrapping under the logo
 export function primaryContentMediaQuery({ logoContainerBP, logoAltWidth, logoWidth, logoSvgBP, whiteSpaceBP }) {
     const logoSvgCss = logoSvgBP
         ? `
