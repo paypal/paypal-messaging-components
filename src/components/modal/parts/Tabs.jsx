@@ -4,7 +4,8 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib';
 
-const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
+const getInitialTabIndex = (initialTabProduct, tabs) =>
+    tabs.findIndex(({ product }) => product === initialTabProduct) || 0;
 
 const Tabs = ({ tabs }) => {
     // offer type of banner used to determine which tab to pre-select
