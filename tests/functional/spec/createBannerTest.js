@@ -36,17 +36,17 @@ const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
 
 const waitForBanner = async timeout => {
     try {
-        // console.log('waitFor load');
-        // await page.waitForNavigation({ waitUntil: 'load' }); // consider nav done when the load event is fired
-        // console.log('waitFor domcontentloaded');
-        // await page.waitForNavigation({ waitUntil: 'domcontentloaded' }); // consider nav done when the DOMContentLoaded event is fired
-        console.log('waitFor networkidle0');
-        await page.waitForNavigation({ waitUntil: 'networkidle0' }); // consider nav done when no more than 0 network connections for at least 500 ms
-
         await page.waitForFunction(
-            () => {
-                const el = document.querySelector('[data-pp-id] iframe');
-                return el && el.clientHeight !== 0;
+            async () => {
+                const iframe = document.querySelector('[data-pp-id] iframe');
+                if (iframe) {
+                    const iframeBody = iframe.contentWindow.document.body;
+                    const banner = iframeBody.querySelector('.message__container');
+                    return banner && banner.clientHeight > 0;
+                }
+
+                const legacyBanner = document.querySelector('div[role="button"].message');
+                return legacyBanner && legacyBanner.clientHeight > 0;
             },
             {
                 polling: 10,
@@ -57,7 +57,7 @@ const waitForBanner = async timeout => {
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
     } catch (e) {
-        // Do nothing
+        console.log('waitForBanner error', e); // eslint-disable-line no-console
     }
 };
 
@@ -66,10 +66,20 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
             await page.setViewport(viewport);
+            page.on('console', consoleObj => {
+                const text = consoleObj.text();
+                if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
+                    return;
+                }
+                console.log(text); // eslint-disable-line no-console
+            });
 
+            // nav done when 0 network connections for at least 500 ms
+            const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
             await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
+            await waitForNavPromise;
 
-            await waitForBanner(1000);
+            await waitForBanner(10000);
 
             const image = await page.screenshot(
                 {
