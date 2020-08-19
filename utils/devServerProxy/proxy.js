@@ -123,6 +123,7 @@ export default (app, server, compiler) => {
                     warnings,
                     parentStyles: getParentStyles(style),
                     meta: {
+                        ...populatedBanner.meta,
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
@@ -138,6 +139,13 @@ export default (app, server, compiler) => {
 
         return null;
     };
+
+    const mockModalType = (country, offer) =>
+        ({
+            GB: 'PL',
+            DE: 'INST',
+            US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(offer) ? 'NI' : 'EZP'
+        }[country] || 'NI');
 
     app.get('/ppcredit/messagingLogger', (req, res) => res.send(''));
 
@@ -158,16 +166,16 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
-        const [country, type] = devAccountMap[account];
+        const [country, , offer] = devAccountMap[account] ?? ['US', 'NI', 'ni'];
 
         const props = {
+            type: mockModalType(country, offer),
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
                 csrf: 'csrf'
             },
             country,
-            type,
             payerId: account
         };
 
@@ -290,6 +298,4 @@ export default (app, server, compiler) => {
 
     app.get('/ptrk', (req, res) => res.send(''));
     app.post('/ppcredit/messagingLogger', (req, res) => res.send(''));
-    // TODO: Remove this once the apply now ramp is complete
-    app.get('/smart-credit-modal-apply-now.js', (req, res) => res.redirect('/smart-credit-modal.js'));
 };
