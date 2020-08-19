@@ -40,6 +40,7 @@ export default {
     SINGLE_LINE,
     SINGLE_LINE_NO_PP,
     SINGLE_LINE_NO_PAYPAL,
+    // Alias clarified names to conventional ones for custom banner purposes
     PRIMARY: STACKED,
     ALTERNATIVE: SINGLE_LINE,
     ALT_NO_PAYPAL: SINGLE_LINE_NO_PAYPAL,
