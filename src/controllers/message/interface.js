@@ -69,7 +69,12 @@ export default options => ({
                     const createOnReadyHandler = props => ({ meta }) => {
                         runStats({ container, refId: `${meta.messageRequestId}-${index}` });
 
-                        modal.updateProps({ refId: `${meta.messageRequestId}-${index}` });
+                        console.log(meta);
+                        modal.updateProps({
+                            refId: `${meta.messageRequestId}-${index}`,
+                            offer: meta.offerType
+                        });
+
                         modal.render('body');
 
                         logger.track({

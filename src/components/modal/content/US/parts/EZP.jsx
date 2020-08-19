@@ -22,12 +22,13 @@ export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
-    useScroll(event => {
+    useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
 
         // Ensure first that the button is being displayed
-        if (offsetTop) {
-            if (event.target.scrollTop - offsetTop < clientHeight + 30) {
+        // See NI.jsx for comment on why value of scrollTop is checked here.
+        if (scrollTop && offsetTop) {
+            if (scrollTop - offsetTop < clientHeight + 30) {
                 window.dispatchEvent(createEvent('apply-now-hidden'));
             } else {
                 window.dispatchEvent(createEvent('apply-now-visible'));
