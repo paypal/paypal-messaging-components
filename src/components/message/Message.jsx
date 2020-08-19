@@ -62,7 +62,7 @@ const Message = () => {
             amount,
             currency,
             style,
-            offer,
+            credit_type: offer,
             payer_id: payerId,
             client_id: clientId,
             merchant_id: merchantId
