@@ -242,6 +242,9 @@ describe('payload testing', () => {
         });
 
         const request = requests.find(r => r.bdata.event_type === 'modal-close');
+        if (!request) {
+            console.log(requests);
+        }
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',

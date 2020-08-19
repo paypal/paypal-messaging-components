@@ -36,6 +36,13 @@ const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
 
 const waitForBanner = async timeout => {
     try {
+        console.log('waitFor load');
+        await page.waitForNavigation({ waitUntil: 'load' }); // consider nav done when the load event is fired
+        console.log('waitFor domcontentloaded');
+        await page.waitForNavigation({ waitUntil: 'domcontentloaded' }); // consider nav done when the DOMContentLoaded event is fired
+        console.log('waitFor networkidle0');
+        await page.waitForNavigation({ waitUntil: 'networkidle0' }); // consider nav done when no more than 0 network connections for at least 500 ms
+
         await page.waitForFunction(
             () => {
                 const el = document.querySelector('[data-pp-id] iframe');
@@ -46,13 +53,6 @@ const waitForBanner = async timeout => {
                 timeout
             }
         );
-
-        console.log('waitFor load');
-        await page.waitForNavigation({ waitUntil: 'load' }); // consider nav done when the load event is fired
-        console.log('waitFor domcontentloaded');
-        await page.waitForNavigation({ waitUntil: 'domcontentloaded' }); // consider nav done when the DOMContentLoaded event is fired
-        console.log('waitFor networkidle0');
-        await page.waitForNavigation({ waitUntil: 'networkidle0' }); // consider nav done when no more than 0 network connections for at least 500 ms
 
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
