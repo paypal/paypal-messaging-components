@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.4](https://github.com/paypal/paypal-messaging-components/compare/v1.12.3...v1.12.4) (2020-08-19)
+
+
+### Bug Fixes
+
+* handle modal prop changes correctly ([#251](https://github.com/paypal/paypal-messaging-components/issues/251)) ([2a5dd0f](https://github.com/paypal/paypal-messaging-components/commit/2a5dd0f711a6d89cd0f47655829910abd3ae8c06))
+
 ## [1.12.3](https://github.com/paypal/paypal-messaging-components/compare/v1.12.2...v1.12.3) (2020-08-12)
 
 
