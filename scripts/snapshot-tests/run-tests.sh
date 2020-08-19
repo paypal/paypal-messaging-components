@@ -1,11 +1,11 @@
-set -ev
+#!/bin/bash
+# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eevxo
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
-    echo "About to run test:func"
     npm run test:func
-    echo "About to collect diffs"
+
     node ./tests/functional/utils/collectDiffs.js
-    echo "Diffs collected"
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u

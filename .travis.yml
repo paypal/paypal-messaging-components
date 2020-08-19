@@ -22,7 +22,6 @@ before_script:
     - sleep 20
 
 script:
-    # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
     - npm run lint
     - npm run test
     - ./scripts/snapshot-tests/run-tests.sh

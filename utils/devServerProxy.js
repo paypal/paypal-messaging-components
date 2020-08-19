@@ -61,7 +61,7 @@ module.exports = app => {
             </head>
             <body>
                 <script>
-                    var interfaceScript = window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                    var interfaceScript = window.top.document.querySelector('script[src*="components"][src*="messages"]')
                         || window.top.document.querySelector('script[src*="messaging.js"]')
                         || window.top.document.querySelector('script[src*="merchant.js"]');
                     var interface = interfaceScript && interfaceScript.outerHTML;
@@ -142,7 +142,7 @@ module.exports = app => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.log(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 
@@ -200,7 +200,7 @@ module.exports = app => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.log(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 

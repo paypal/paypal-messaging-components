@@ -4,7 +4,6 @@ import { bannerStyles } from './utils/testStylesConfig';
 import selectors from './utils/selectors';
 
 const createSpy = async ({ keyword = 'bdata' }) => {
-    console.log('create spy');
     const spy = { matchedUrls: [] };
     page.on('request', request => {
         const url = request.url();
@@ -14,7 +13,6 @@ const createSpy = async ({ keyword = 'bdata' }) => {
 };
 
 const setupPage = async ({ config, testPage = 'banner.html' }) => {
-    console.log('setup page');
     await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
     await page.waitForSelector('.container iframe', { visible: true });
     await page.waitForSelector("iframe[title='paypal_credit_modal']");
@@ -67,7 +65,7 @@ describe('payload testing', () => {
     const testPage = 'banner.html';
 
     test('initial payload', async () => {
-        console.log('run payload test');
+        console.log('initial payload'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
@@ -75,7 +73,7 @@ describe('payload testing', () => {
                 await page.waitFor(5 * 1000);
             }
         });
-        console.log('check requests');
+
         const request = requests.find(r => r.bdata.event_type === 'stats');
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -99,6 +97,7 @@ describe('payload testing', () => {
     });
 
     test('scroll stat sent if below fold', async () => {
+        console.log('scroll stat sent if below fold'); // eslint-disable-line no-console
         await page.viewport({ width: 600, height: 200 });
         const requests = await runTest({
             config,
@@ -121,6 +120,7 @@ describe('payload testing', () => {
     });
 
     test('scroll stat not sent if above fold', async () => {
+        console.log('scroll stat not sent if above fold'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage
@@ -131,6 +131,7 @@ describe('payload testing', () => {
     });
 
     test('click stat sent', async () => {
+        console.log('click stat sent'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
@@ -161,6 +162,7 @@ describe('payload testing', () => {
     });
 
     test('hover stat sent', async () => {
+        console.log('hover stat sent'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
@@ -180,6 +182,7 @@ describe('payload testing', () => {
     });
 
     test('modal calculate stat sent', async () => {
+        console.log('modal calculate stat sent'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
@@ -205,6 +208,7 @@ describe('payload testing', () => {
     });
 
     test('modal click stat sent', async () => {
+        console.log('modal click stat sent'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
@@ -226,6 +230,7 @@ describe('payload testing', () => {
     });
 
     test('modal close stat sent', async () => {
+        console.log('modal close stat sent'); // eslint-disable-line no-console
         const requests = await runTest({
             config,
             testPage,
