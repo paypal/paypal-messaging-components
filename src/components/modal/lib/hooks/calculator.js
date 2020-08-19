@@ -5,7 +5,7 @@ import { request, memoizeOnProps } from '../../../../utils';
 import { useXProps, useServerData } from '../../../lib';
 
 const termsFetcher = memoizeOnProps(
-    ({ csrf, ...params }) => {
+    params => {
         const query = objectEntries(params)
             .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
             .slice(1);
@@ -58,7 +58,7 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms: initialTerms, meta, country } = useServerData();
+    const { terms: initialTerms, country } = useServerData();
     const { payerId, clientId, merchantId, onCalculate, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
@@ -79,8 +79,7 @@ export default function useCalculator() {
 
         termsFetcher({
             ...params,
-            amount: inputAmount,
-            csrf: meta.csrf
+            amount: inputAmount
         }).then(({ data }) => {
             dispatch({ type: 'terms', data });
         });
