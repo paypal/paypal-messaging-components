@@ -24,6 +24,7 @@ module.exports = (env = {}) => {
         web: true,
         minify: true,
         debug: false,
+        analyze: env.analyzeComponents,
         vars: globals(env)
     });
 
