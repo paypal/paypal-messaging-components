@@ -1,6 +1,5 @@
-export const flex = [];
-
-export const text = [];
+import flex from './flex';
+import text from './text';
 
 export default {
     'layout:flex': flex,
