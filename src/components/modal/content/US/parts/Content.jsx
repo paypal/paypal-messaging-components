@@ -1,37 +1,34 @@
 /** @jsx h */
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 
-import * as NI from './NI';
-import * as EZP from './EZP';
+import NI from './NI';
+import PI4 from './PI4';
+import PI4Q from './PI4Q';
 import Tabs from '../../../parts/Tabs';
 import { useServerData } from '../../../lib';
 
 const tabsMap = {
-    EZP: {
-        title: 'Easy Payments',
-        product: 'EZP',
-        header: <EZP.Header />,
-        body: <EZP.Content />
+    PI4: {
+        title: 'Pay in 4',
+        product: 'PI4',
+        body: <PI4 />
+    },
+    PI4Q: {
+        title: 'Pay in 4',
+        product: 'PI4Q',
+        body: <PI4Q />
     },
     NI: {
-        title: '6 Months Special Financing',
+        title: 'PayPal Credit',
         product: 'NI',
-        header: <NI.Header />,
-        body: <NI.Content />
+        body: <NI />
     }
 };
+
 const Content = () => {
     const { products } = useServerData();
 
-    if (products.length === 1) {
-        return (
-            <Fragment>
-                {tabsMap[products[0]].header}
-                {tabsMap[products[0]].body}
-            </Fragment>
-        );
-    }
-    return <Tabs tabs={[tabsMap.EZP, tabsMap.NI]} />;
+    return <Tabs tabs={products.map(prod => tabsMap[prod])} />;
 };
 
 export default Content;

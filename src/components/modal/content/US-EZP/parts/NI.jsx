@@ -1,8 +1,11 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useRef } from 'preact/hooks';
 
-import { useXProps, useServerData } from '../../../lib';
+import { createEvent } from '../../../../../utils';
+import { useXProps, useServerData, useScroll, useApplyNow } from '../../../lib';
 import Icon from '../../../parts/Icon';
+import Button from '../../../parts/Button';
 
 const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
@@ -22,7 +25,40 @@ const instructions = [
     ['monogram', 'Click the PayPal button at checkout and pay with PayPal Credit.']
 ];
 
-export default () => {
+export const Header = () => {
+    const buttonRef = useRef();
+    const handleApplyNowClick = useApplyNow('Apply Now');
+
+    useScroll(({ target: { scrollTop } }) => {
+        const { offsetTop, clientHeight } = buttonRef.current;
+
+        // Ensure first that the button is being displayed
+        // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
+        // Checking the value here prevents erratic behavior wrt the logo and apply now button
+        if (scrollTop && offsetTop) {
+            if (scrollTop - offsetTop < clientHeight + 30) {
+                window.dispatchEvent(createEvent('apply-now-hidden'));
+            } else {
+                window.dispatchEvent(createEvent('apply-now-visible'));
+            }
+        }
+    }, []);
+
+    return (
+        <div className="content-header">
+            <div className="image-wrapper">
+                <Icon name="rocket" />
+            </div>
+            <h1 className="title">Buy now and pay over time with PayPal Credit</h1>
+            <p className="tag">Subject to credit approval.</p>
+            <Button ref={buttonRef} onClick={handleApplyNowClick}>
+                Apply Now
+            </Button>
+        </div>
+    );
+};
+
+export const Content = () => {
     const { onClick } = useXProps();
     const { aprEntry } = useServerData();
 
