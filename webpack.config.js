@@ -38,22 +38,29 @@ module.exports = (env = {}) => {
 
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
-        entry: ['./src/components/message/index.js', './src/components/modal/index.js'],
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
         minify: true,
         debug: false,
+        analyze: env.analyzeComponents,
         filename: '[name].js',
         vars: globals({
             ...env,
             TARGET: 'components'
         })
     });
-    COMPONENTS_CONFIG.entry = {
-        'smart-credit-message': './src/components/message/index.js',
-        'smart-credit-modal': './src/components/modal/index.js'
-    };
+
+    COMPONENTS_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+        (accumulator, locale) => ({
+            ...accumulator,
+            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+        }),
+        {
+            'smart-credit-message': './src/components/message/index.js'
+        }
+    );
+
     COMPONENTS_CONFIG.optimization.splitChunks = {
         chunks: 'all',
         name: 'smart-credit-common'

@@ -152,7 +152,7 @@ describe('modal interface', () => {
 
         const [[{ onReady: onReadyHandler }]] = zoidModal().updateProps.mock.calls;
 
-        onReadyHandler({ type: 'NI' });
+        onReadyHandler({ products: ['NI'] });
 
         expect(onReady).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledTimes(1);

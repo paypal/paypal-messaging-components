@@ -5,6 +5,7 @@ import { h, Fragment } from 'preact';
 import { logos } from '../lib';
 
 const Icon = ({ name, color }) => {
+    const className = `icon icon--${name}`;
     switch (name) {
         case 'logo':
             return (
@@ -303,7 +304,7 @@ const Icon = ({ name, color }) => {
                         }}
                     />
                     <svg
-                        className={`icon icon--${name}`}
+                        className={className}
                         version="1.1"
                         id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -358,7 +359,7 @@ const Icon = ({ name, color }) => {
             );
         case 'shopping-bag':
             return (
-                <svg className={`icon icon--${name}`} width="26" height="39" xmlns="http://www.w3.org/2000/svg">
+                <svg className={className} width="26" height="39" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(0 2)" fill="none" fill-rule="evenodd">
                         <circle stroke="#0070BA" stroke-width="3" cx="13" cy="7" r="7" />
                         <rect fill="#FFC43A" y="6" width="26" height="31" rx="3" />
@@ -369,7 +370,7 @@ const Icon = ({ name, color }) => {
         case 'checkmark':
             return (
                 <svg
-                    className={`icon icon--${name}`}
+                    className={className}
                     width="31"
                     height="30"
                     xmlns="http://www.w3.org/2000/svg"
@@ -396,7 +397,7 @@ const Icon = ({ name, color }) => {
             );
         case 'pp-button':
             return (
-                <svg className={`icon icon--${name}`} width="55" height="19" xmlns="http://www.w3.org/2000/svg">
+                <svg className={className} width="55" height="19" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd">
                         <rect fill="#FFC43A" width="55" height="19" rx="9.5" />
                         <path
@@ -409,7 +410,7 @@ const Icon = ({ name, color }) => {
             );
         case 'icecream':
             return (
-                <svg className={`icon icon--${name}`} width="192" height="98" xmlns="http://www.w3.org/2000/svg">
+                <svg className={className} width="192" height="98" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd">
                         <g transform="translate(2 21)">
                             <circle fill="#8C44AA" cx="145.5" cy="33.5" r="29.5" />

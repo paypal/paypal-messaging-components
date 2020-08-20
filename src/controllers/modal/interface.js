@@ -16,17 +16,17 @@ export default memoizeOnProps(
             amount
         });
 
-        const createOnReadyHandler = (props = {}) => ({ type }) => {
+        const createOnReadyHandler = (props = {}) => ({ products }) => {
             logger.info('modal_render', { index: props.index, duration: getCurrentTime() - state.renderStart });
             logger.track({
                 index: props.index,
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-render',
-                modal: type
+                event_type: 'render',
+                modal: products.join('&')
             });
 
             if (typeof props.onReady === 'function') {
-                props.onReady({ type });
+                props.onReady({ products });
             }
         };
 
