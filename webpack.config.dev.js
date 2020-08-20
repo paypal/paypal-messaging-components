@@ -77,7 +77,10 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         filename: '[name].js',
-        vars: globals(env)
+        vars: globals({
+            ...env,
+            TARGET: 'components'
+        })
     });
 
     COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(

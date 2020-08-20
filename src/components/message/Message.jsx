@@ -1,14 +1,28 @@
 /** @jsx h */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
-import { useEffect } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 
 import { request } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect } from './lib';
 
 const Message = () => {
-    const { amount, currency, style, offer, payerId, clientId, merchantId, onClick, onReady, onHover } = useXProps();
+    const {
+        amount,
+        currency,
+        style,
+        offer,
+        payerId,
+        clientId,
+        merchantId,
+        onClick,
+        onReady,
+        onHover,
+        resize
+    } = useXProps();
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
+    const dimensionsRef = useRef({ width: 0, height: 0 });
+    const buttonRef = useRef();
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
@@ -22,18 +36,33 @@ const Message = () => {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (typeof onReady === 'function') {
             onReady({ meta, warnings, styles: parentStyles });
         }
-    }, [meta]);
+    }, [meta.messageRequestId]);
+
+    useLayoutEffect(() => {
+        const buttonWidth = buttonRef.current.offsetWidth;
+        const buttonHeight = buttonRef.current.offsetHeight;
+
+        // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
+        // in the overflow observer will not fire. This forces the resize event to fire for every render
+        // so that the render complete logs will always fire
+        if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
+            resize({ width: buttonWidth, height: buttonHeight });
+        } else {
+            dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
+        }
+    });
 
     useDidUpdateEffect(() => {
         const query = objectEntries({
+            message_request_id: meta.messageRequestId,
             amount,
             currency,
             style,
-            offer,
+            credit_type: offer,
             payer_id: payerId,
             client_id: clientId,
             merchant_id: merchantId
@@ -46,19 +75,20 @@ const Message = () => {
             )
             .slice(1);
 
-        request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) =>
+        request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
             setServerData({
                 markup: data.markup || markup,
                 meta: data.meta || meta,
                 parentStyles: data.parentStyles || parentStyles,
                 warnings: data.warnings || warnings
-            })
-        );
+            });
+        });
     }, [amount, currency, JSON.stringify(style), offer, payerId, clientId, merchantId]);
 
     return (
         <button
             type="button"
+            ref={buttonRef}
             onClick={handleClick}
             onMouseOver={handleHover}
             onFocus={handleHover}

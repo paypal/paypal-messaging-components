@@ -10,18 +10,18 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     });
 
     const setupAutoResize = el => {
-        event.on(EVENT.RESIZE, ({ width: newWidth, height: newHeight }) => {
-            if (newWidth !== 0 || newHeight !== 0) {
+        event.on(EVENT.RESIZE, ({ width, height }) => {
+            if (width !== 0 || height !== 0) {
                 // Reset opacity if previously hidden from overflow
                 el.style.setProperty('opacity', 1);
 
                 // Attributes used by the overflow observer
-                el.setAttribute('data-width', newWidth);
-                el.setAttribute('data-height', newHeight);
+                el.setAttribute('data-width', width);
+                el.setAttribute('data-height', height);
 
                 // Auto resize height for non-layout flex messages
-                if (props.style.layout !== 'flex' && typeof newHeight === 'number') {
-                    el.style.setProperty('height', `${newHeight}px`);
+                if (props.style.layout !== 'flex' && typeof height === 'number') {
+                    el.style.setProperty('height', `${height}px`);
                 }
 
                 overflowObserver.then(observer => {

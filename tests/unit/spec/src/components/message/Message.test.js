@@ -12,7 +12,9 @@ jest.mock('src/utils', () => ({
         Promise.resolve({
             data: {
                 markup: '<div>mock</div>',
-                meta: 'test-meta-2',
+                meta: {
+                    messageRequestId: '23456'
+                },
                 parentStyles: 'body { color: blue; }',
                 warnings: []
             }
@@ -28,14 +30,17 @@ describe('<Message />', () => {
         payerId: 'DEV00000000NI',
         onClick: jest.fn(),
         onReady: jest.fn(),
-        onHover: jest.fn()
+        onHover: jest.fn(),
+        resize: jest.fn()
     });
     const wrapper = ({ children }) => (
         <XPropsProvider>
             <ServerDataProvider
                 data={{
                     markup: '<div>test</div>',
-                    meta: 'test-meta',
+                    meta: {
+                        messageRequestId: '12345'
+                    },
                     parentStyles: 'body { color: black; }',
                     warnings: []
                 }}
@@ -63,7 +68,9 @@ describe('<Message />', () => {
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: 'test-meta',
+            meta: {
+                messageRequestId: '12345'
+            },
             styles: 'body { color: black; }',
             warnings: []
         });
@@ -77,7 +84,9 @@ describe('<Message />', () => {
 
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
         expect(window.xprops.onClick).toHaveBeenLastCalledWith({
-            meta: 'test-meta'
+            meta: {
+                messageRequestId: '12345'
+            }
         });
     });
 
@@ -89,7 +98,9 @@ describe('<Message />', () => {
 
         expect(window.xprops.onHover).toHaveBeenCalledTimes(1);
         expect(window.xprops.onHover).toHaveBeenLastCalledWith({
-            meta: 'test-meta'
+            meta: {
+                messageRequestId: '12345'
+            }
         });
     });
 
@@ -111,7 +122,9 @@ describe('<Message />', () => {
         expect(getByText(/mock/i)).toBeInTheDocument();
         expect(request).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: 'test-meta-2',
+            meta: {
+                messageRequestId: '23456'
+            },
             styles: 'body { color: blue; }',
             warnings: []
         });
