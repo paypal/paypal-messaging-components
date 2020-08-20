@@ -84,7 +84,7 @@ export default options => ({
 
                         runStats({ container, index });
 
-                        modal.updateProps({ index });
+                        modal.updateProps({ index, offer: meta.offerType });
                         modal.render('body');
 
                         logger.track({
