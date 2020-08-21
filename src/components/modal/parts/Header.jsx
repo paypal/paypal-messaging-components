@@ -8,7 +8,8 @@ const LOCALE = {
     LOGO: {
         DE: 'logo-de',
         GB: 'logo-gb',
-        US: 'logo'
+        US: 'logo',
+        'US-EZP': 'logo-ezp'
     }
 };
 

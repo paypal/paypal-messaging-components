@@ -1,10 +1,13 @@
 .tabs {
     margin: auto;
     max-width: 400px;
+    width: 100%;
     padding: 0 18px;
     white-space: nowrap;
     font-size: 0;
     display: flex;
+    position: absolute;
+    top: -60px;
 }
 
 .tab {
@@ -58,6 +61,8 @@
 
 .tab-transition {
     position: relative;
+    height: 100%;
+    overflow: auto;
 }
 
 .tab-transition-item {
