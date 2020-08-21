@@ -8,6 +8,8 @@ const Icon = ({ name, color }) => {
     const className = `icon icon--${name}`;
     switch (name) {
         case 'logo':
+            return <img alt="PayPal Logo" src={logos.PRIMARY.WHITE[0].src} />;
+        case 'logo-ezp':
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 204.12 68.53">
                     <path

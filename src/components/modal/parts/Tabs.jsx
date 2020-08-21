@@ -21,14 +21,19 @@ const Tabs = ({ tabs }) => {
         }
     }, [transitionState, initialTab]);
 
+    const hasHeader = tabs.some(tab => Boolean(tab.header));
     // TODO: Accessibility
     return (
         <Fragment>
-            <div className="tab-transition">
-                {tabs.map((tab, index) => (
-                    <div className={`tab-transition-item ${currentTab === index ? 'selected' : ''}`}>{tab.header}</div>
-                ))}
-            </div>
+            {hasHeader && (
+                <div className="tab-transition">
+                    {tabs.map((tab, index) => (
+                        <div className={`tab-transition-item ${currentTab === index ? 'selected' : ''}`}>
+                            {tab.header}
+                        </div>
+                    ))}
+                </div>
+            )}
             <div className="tabs" role="tablist">
                 {tabs.map((tab, index) => (
                     <button
