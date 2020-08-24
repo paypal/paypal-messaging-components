@@ -1,5 +1,5 @@
 import { setup } from './interface/messages';
 
-export { Messages, Modal } from './interface/messages';
+export { Messages } from './interface/messages';
 
 setup();

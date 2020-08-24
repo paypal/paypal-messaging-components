@@ -44,9 +44,16 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
                 __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __SANDBOX__: 'https://www.paypalobjects.com',
                 __PRODUCTION__: 'https://www.paypalobjects.com'
+            },
+            __RAMP_INCLUSION_LIST__: {
+                __LOCAL__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
+                __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
+                __SANDBOX__: 'https://www.paypalobjects.com',
+                __PRODUCTION__: 'https://www.paypalobjects.com'
             }
         },
         __URI__: {
+            __RAMP_INCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-inclusion.json',
             __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
             __MESSAGE_A__: '/imadserver/upstream',
             __MESSAGE_B__: '/credit-presentment/messages',

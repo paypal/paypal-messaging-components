@@ -1,0 +1,122 @@
+.modal__container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.modal__container--show .modal__wrapper {
+    transform: translateY(0);
+}
+
+.modal__container--show .modal__overlay {
+    opacity: 1;
+}
+
+.modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(108, 115, 120, 0.85);
+    transition: opacity 350ms;
+    opacity: 0;
+    z-index: -1;
+}
+
+.modal__overlay-side {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 2;
+}
+
+.modal__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transition: transform 350ms;
+    transform: translateY(100%);
+}
+
+.modal__header-wrapper {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.modal__header-wrapper::after {
+    content: '';
+    display: table-cell;
+    visibility: hidden;
+    overflow-y: scroll;
+}
+
+.modal__header-container {
+    display: table-cell;
+    width: 100%;
+}
+
+.modal__header {
+    background: rgba(0, 0, 0, 0);
+    text-align: center;
+    width: 100%;
+    max-width: 612px;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    height: 70px;
+}
+
+.modal__header::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 99%;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
+.modal__content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+}
+
+.modal__content-background {
+    width: 100%;
+    max-width: 612px;
+    margin: auto;
+    background: white;
+    min-height: 100%;
+}
+
+.modal__content {
+    position: relative;
+    z-index: 50;
+    padding-top: 84px;
+    overflow: hidden;
+}
+
+.modal__main {
+    -webkit-overflow-scrolling: touch;
+    /*overflow-scrolling: touch;*/
+    -moz-overflow-scrolling: touch;
+    position: relative;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 350ms;
+}

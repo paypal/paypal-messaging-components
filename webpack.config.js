@@ -66,5 +66,17 @@ module.exports = (env = {}) => {
         name: 'smart-credit-common'
     };
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG];
+    // TODO: Remove this after the ramp
+    const MODAL_CONFIG = getWebpackConfig({
+        entry: './src/modal/index.js',
+        filename: 'smart-credit-modal-old.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        vars: globals(env)
+    });
+
+    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, MODAL_CONFIG];
 };
