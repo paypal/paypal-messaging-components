@@ -45,7 +45,7 @@ const Tabs = ({ tabs }) => {
                         id={index}
                         ariaControls={`${index}-2`}
                     >
-                        {tab.title}
+                        <span className="title">{tab.title}</span>
                     </button>
                 ))}
             </div>

@@ -1,20 +1,25 @@
 .tabs {
     margin: auto;
-    max-width: 400px;
-    width: 100%;
-    padding: 0 18px;
+    max-width: 360px;
+    padding: 0.2rem 0.2rem;
     white-space: nowrap;
     font-size: 0;
     display: flex;
     position: absolute;
-    top: -60px;
+    top: -2rem;
+    background: #003087;
+    border-radius: 1.7rem;
+    height: 3rem;
+    box-sizing: border-box;
+    margin: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
 }
 
 .tab {
     cursor: pointer;
     display: block;
-    padding: 30px 0px 15px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 0;
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
@@ -27,23 +32,29 @@
     outline: none;
     position: relative;
     transition: color 0.3s;
+    color: white;
 
-    &::after {
+    .title {
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before {
         content: '';
         display: block;
         position: absolute;
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 3px;
-        background: #0070ba;
-        transform: scaleX(0);
-        transition: transform 0.2s ease;
-        transform-origin: center right;
+        height: 100%;
+        background: white;
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        border-radius: 1.7rem;
     }
 
-    &:nth-of-type(2)::after {
-        transform-origin: center left;
+    &:nth-child(2):before {
+        transform: translateX(-100%);
     }
 
     &:hover {
@@ -51,10 +62,10 @@
     }
 
     &.selected {
-        color: #005187;
+        color: #003087;
 
-        &::after {
-            transform: scaleX(1);
+        &::before {
+            transform: translateX(0);
         }
     }
 }
@@ -76,6 +87,7 @@
     pointer-events: none;
     transition: opacity 0.3s;
     transition-delay: 0.3s;
+    overflow: hidden;
 
     &.selected {
         position: relative;
@@ -84,5 +96,6 @@
         opacity: 1;
         pointer-events: all;
         transition-delay: 0s;
+        overflow: auto;
     }
 }

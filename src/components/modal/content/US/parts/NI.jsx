@@ -1,8 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import { useXProps, useServerData } from '../../../lib';
-import Icon from '../../../parts/Icon';
+import { useServerData, useApplyNow } from '../../../lib';
+import Button from '../../../parts/Button';
 
 const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
@@ -13,66 +13,39 @@ const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
     'Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount.'
 ];
 
-const instructions = [
-    [
-        'card',
-        'PayPal Credit is a reusable credit line you can use to shop online at millions of stores that accept PayPal.'
-    ],
-    ['shield', 'Shop with trust, security, and flexibility when you pay with PayPal.'],
-    ['monogram', 'Click the PayPal button at checkout and pay with PayPal Credit.']
-];
-
 export default () => {
-    const { onClick } = useXProps();
+    const handleApplyNowClick = useApplyNow('Apply Now');
     const { aprEntry } = useServerData();
 
     return (
         <section className="content-body">
-            <h2 className="title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
-            <ul className="terms-list">
-                {terms(aprEntry).map(term => (
-                    <li className="terms-item">{term}</li>
-                ))}
-            </ul>
+            <div className="description">
+                <h2>6 months special financing</h2>
 
-            <hr className="divider" />
+                <p>No Interest if paid in full in 6 months on purchases of $99+. No money due today.</p>
 
-            <h2 className="title">How PayPal Credit works</h2>
-            <ul className="instructions-list">
-                {instructions.map(([icon, instruction]) => (
-                    <li className="instructions-item">
-                        <div>
-                            <Icon name={icon} />
-                        </div>
-                        <p>{instruction}</p>
-                    </li>
-                ))}
-            </ul>
+                <div className="payment-breakdown" />
+
+                <p className="apply-now">
+                    <div>
+                        <p>
+                            <b>Get a decision in seconds</b>
+                        </p>
+                        <span>Subject to credit approval</span>
+                    </div>
+                    <Button onClick={handleApplyNowClick}>Apply Now</Button>
+                </p>
+            </div>
 
             <hr className="divider" />
 
             <div className="terms">
-                <p>
-                    <a
-                        onClick={() => onClick({ linkName: 'Legal Terms' })}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.paypal.com/us/webapps/mpp/ppcterms"
-                    >
-                        Click here
-                    </a>{' '}
-                    to view the PayPal Credit Terms and Conditions.
-                </p>
-                <p>
-                    PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
-                    available to US customers who are of legal age in their state of residence. You must pay with PayPal
-                    Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is{' '}
-                    {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market
-                    based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is
-                    $2.00.
-                </p>
-                <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
+                <h3>About Special Financing with PayPal Credit</h3>
+                <ul>
+                    {terms(aprEntry).map(term => (
+                        <li>{term}</li>
+                    ))}
+                </ul>
             </div>
         </section>
     );

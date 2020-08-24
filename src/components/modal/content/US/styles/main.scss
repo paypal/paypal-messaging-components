@@ -19,27 +19,24 @@
 .content-background {
     min-height: 100%;
     max-width: 612px;
+    position: relative;
     width: 100%;
     margin: auto;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 main {
-    margin: auto;
-    flex: 1 1 100%;
-}
-
-.content-body {
-    margin: auto;
-    max-width: 500px;
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
 }
 
 @include desktop {
     .content-background {
-        max-width: 750px;
+        max-width: 640px;
         min-height: auto;
-        position: relative;
-        overflow: hidden;
         margin: auto;
         width: 100%;
         box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
@@ -82,15 +79,12 @@ main {
     .content-background {
         box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
         background: white;
+        margin-top: 84px;
     }
 
     .overlay-side.left,
     .overlay-side.right {
         width: calc((100% - 612px) / 2) !important;
-    }
-
-    .overlay-side.top {
-        display: none;
     }
 
     .overlay-side.bottom {
