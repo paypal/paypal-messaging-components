@@ -1,34 +1,50 @@
 .content-body {
-    @include desktop {
-        display: flex;
-
-        .left {
-            flex-grow: 1;
-            z-index: 9;
-        }
-
-        .right {
-            width: 34%;
-        }
-    }
+    padding: 0 1rem;
+    margin: auto;
+    max-width: 500px;
 
     @include mobile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 100px;
-        min-height: calc(100vh - 184px);
+        max-width: 400px;
+    }
 
-        .left {
-            z-index: 9;
-            order: 2;
-            margin-top: -250px;
+    h2 {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .payment-breakdown {
+        height: 6rem;
+    }
+
+    .divider {
+        border: none;
+        border-bottom: 1px dashed #aaa;
+    }
+
+    p,
+    li {
+        color: #687173;
+    }
+
+    .description {
+        max-width: 400px;
+    }
+
+    .apply-now {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            font-size: 1rem;
+            margin-top: 0;
         }
 
-        .right {
-            order: 3;
-            margin-top: 40px;
-            text-align: center;
+        button {
+            background: #ffc43a;
+            color: #2c2e2f;
+            border: none;
         }
     }
 }
