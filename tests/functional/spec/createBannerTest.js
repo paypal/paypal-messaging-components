@@ -66,9 +66,19 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
             await page.setViewport(viewport);
-            page.on('console', consoleObj => {
+            page.on('console', async consoleObj => {
                 const text = consoleObj.text();
                 if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
+                    return;
+                }
+                if (text.includes('JSHandle')) {
+                    const args = await Promise.all(
+                        consoleObj.args().map(arg =>
+                            // in page context, get error message or its JSON value if possible or undefined
+                            arg.executionContext().evaluate(a => (a instanceof Error ? a.message : a), arg)
+                        )
+                    );
+                    console.log(text, ...args); // eslint-disable-line no-console
                     return;
                 }
                 console.log(text); // eslint-disable-line no-console

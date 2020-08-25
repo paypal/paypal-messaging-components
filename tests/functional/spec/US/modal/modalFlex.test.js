@@ -1,5 +1,5 @@
 import openModal from '../../utils/initializeModal';
-import { viewports, bannerStyles } from '../../utils/testStylesConfig';
+import { viewports, bannerStyles, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
 import { clickHereSeeTerms, applyNowBtn, niContentTest } from './us_modalTestDefs';
 
@@ -15,35 +15,29 @@ describe.each([
             style: bannerStyle
         });
     });
-    test(
-        `x button closes modal - ${bannerStyle.layout} ${viewport.width}`,
-        xClosesModal(account, viewport, bannerStyle)
-    );
-    test(
-        `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
-        closeModalEsc(account, viewport, bannerStyle)
-    );
+
+    const groupString = getGroupString({ viewport, bannerStyle });
+
+    test(`x button closes modal ${groupString}`, xClosesModal(account, viewport, bannerStyle));
+    test(`close modal on escape key press ${groupString}`, closeModalEsc(account, viewport, bannerStyle));
     if (viewport.height === 1080) {
-        test(
-            `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
-            clickOutsideClosesModal(account, viewport, bannerStyle)
-        );
+        test(`close modal on click outside ${groupString}`, clickOutsideClosesModal(account, viewport, bannerStyle));
     }
     test(
-        `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
+        `after modal close, modal can reopen and close again ${groupString}`,
         closeReopenModal(account, viewport, bannerStyle)
     );
 
     test(
-        `click here inside modal takes user to see terms page - ${bannerStyle.layout} ${viewport.width}`,
+        `click here inside modal takes user to see terms page ${groupString}`,
         clickHereSeeTerms(account, viewport, bannerStyle)
     );
     test(
-        `apply now button opens browser to credit application login - ${bannerStyle.layout} ${viewport.width}`,
+        `apply now button opens browser to credit application login ${groupString}`,
         applyNowBtn(account, viewport, bannerStyle)
     );
     test(
-        `NI content is loaded when NI message is clicked - ${viewport.width} ${bannerStyle.layout}`,
+        `NI content is loaded when NI message is clicked ${groupString}`,
         niContentTest(account, viewport, bannerStyle)
     );
 });

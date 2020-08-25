@@ -1,5 +1,5 @@
 import openModal from '../../utils/initializeModal';
-import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
+import { viewports, bannerStyles, amounts, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
 import { gbModalContent } from './gb_modalTestDefs';
 
@@ -18,26 +18,17 @@ describe.each([
             amount
         });
     });
-    test(
-        `x button closes modal - ${bannerStyle.layout} ${viewport.width}`,
-        xClosesModal(account, viewport, bannerStyle)
-    );
-    test(
-        `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
-        closeModalEsc(account, viewport, bannerStyle)
-    );
+
+    const groupString = getGroupString({ viewport, bannerStyle, amount });
+
+    test(`x button closes modal ${groupString}`, xClosesModal(account, viewport, bannerStyle));
+    test(`close modal on escape key press ${groupString}`, closeModalEsc(account, viewport, bannerStyle));
     if (viewport.height === 1080) {
-        test(
-            `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
-            clickOutsideClosesModal(account, viewport, bannerStyle)
-        );
+        test(`close modal on click outside ${groupString}`, clickOutsideClosesModal(account, viewport, bannerStyle));
     }
     test(
-        `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
+        `after modal close, modal can reopen and close again ${groupString}`,
         closeReopenModal(account, viewport, bannerStyle)
     );
-    test(
-        `verify that value prop in modal is correct - ${bannerStyle.layout} ${viewport.width})`,
-        gbModalContent(account, viewport, bannerStyle)
-    );
+    test(`verify that value prop in modal is correct ${groupString})`, gbModalContent(account, viewport, bannerStyle));
 });

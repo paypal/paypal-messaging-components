@@ -236,14 +236,18 @@ describe('payload testing', () => {
             testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
+                await page.waitFor(10 * 1000);
                 await modalFrame.click(selectors.button.closeBtn);
-                await page.waitFor(30 * 1000);
+                await page.waitFor(15 * 1000);
             }
         });
 
         const request = requests.find(r => r.bdata.event_type === 'modal-close');
         if (!request) {
-            console.log(requests);
+            console.log(
+                'modal close stat not found, sent requests:',
+                requests.map(r => r.bdata)
+            );
         }
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
