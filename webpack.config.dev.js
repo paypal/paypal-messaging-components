@@ -98,7 +98,7 @@ module.exports = (env = {}) => {
         debug: true,
         minify: false,
         sourcemaps: false,
-        filename: 'render.js',
+        filename: 'renderMessage.js',
         vars: globals(env)
     });
 

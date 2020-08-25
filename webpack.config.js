@@ -33,7 +33,7 @@ module.exports = (env = {}) => {
         modulename: 'renderMessage',
         minify: true,
         debug: false,
-        filename: 'render.js',
+        filename: 'renderMessage.js',
         vars: globals(env)
     });
 
