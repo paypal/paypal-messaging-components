@@ -1,11 +1,11 @@
 import validOptions from './validOptions';
 import getMutations from './mutations';
 import logos from './logos';
-import styles from '../PPC/styles';
+import styles from './styles';
 
 export default {
     localeClass: 'locale--US',
-    productName: ['with', 'PayPal.'],
+    productName: ['with', 'PayPal Credit.'],
     validOptions,
     minimumSizeOptions: {
         layout: 'text',

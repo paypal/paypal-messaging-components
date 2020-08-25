@@ -100,6 +100,7 @@ export default (app, server, compiler) => {
 
             if (populatedBanner) {
                 const style = JSON.parse(req.query.style);
+                const { amount } = req.query;
 
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
@@ -116,7 +117,7 @@ export default (app, server, compiler) => {
                     populatedBanner.meta.offerCountry
                 );
 
-                const markup = render({ style: validatedStyle }, populatedBanner);
+                const markup = render({ style: validatedStyle, amount }, populatedBanner);
 
                 return {
                     markup,

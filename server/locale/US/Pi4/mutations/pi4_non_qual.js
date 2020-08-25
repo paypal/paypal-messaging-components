@@ -17,7 +17,6 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
                         br: ['on']
                     },
                     { tag: 'xsmall' }
@@ -65,14 +64,26 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [fallbackMediaQuery(textSize * 16)],
-                logo: false
+                logo: false,
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']]
+                    }
+                ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
+                logo: Logo.PRIMARY.COLOR,
+                headline: [
+                    {
+                        tag: 'medium',
+                        replace: [['purchases.', 'purchases']]
+                    }
+                ]
             })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
@@ -84,66 +95,5 @@ export default {
             })
         ],
         ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
-    ],
-
-    'layout:flex': [
-        [
-            'default',
-            {
-                logo: Logo.PRIMARY.WHITE,
-                headline: [
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
-                    }
-                ],
-                disclaimer: 'xsmall'
-            }
-        ],
-        [
-            'ratio:20x1',
-            {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
-            }
-        ],
-        [
-            'ratio:8x1',
-            {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
-            }
-        ],
-
-        [
-            'color:gray',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:white',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:black',
-            {
-                logo: Logo.PRIMARY.WHITE
-            }
-        ]
     ]
 };

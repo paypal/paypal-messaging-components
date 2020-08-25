@@ -1,4 +1,4 @@
-import { Types } from '../../types';
+import { Types } from '../../../types';
 
 export default {
     text: {
@@ -18,16 +18,5 @@ export default {
             ['blue', 'black', 'white', 'white-no-border', 'gray|grey', 'monochrome', 'grayscale|greyscale']
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']]
-    },
-    legacy: {
-        typeNI: [Types.STRING, ['', 'image', 'html']],
-        typeEZP: [Types.STRING, ['', 'html']],
-        size: [Types.STRING],
-        color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-        border: [Types.BOOLEAN, [true, false]]
-    },
-    custom: {
-        markup: [Types.STRING],
-        ratio: [Types.ANY]
     }
 };
