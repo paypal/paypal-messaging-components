@@ -1,3 +1,5 @@
+import arrayIncludes from 'core-js-pure/stable/array/includes';
+
 import { getInclusionList, getInlineOptions, getScript, getAccount, getPartnerAccount } from '../utils';
 import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
@@ -13,19 +15,23 @@ function getGlobalAccount() {
         const globalAccount = merchantId || account;
 
         if (globalAccount) {
-            return globalAccount.replace(/^client-id:/, '');
+            return { normalizedAccount: globalAccount.replace(/^client-id:/, ''), merchantId };
         }
     }
 
-    return undefined;
+    return {};
 }
 
 export const Messages = config => ({
     render: selector =>
         getInclusionList().then(inclusionList => {
-            const account = config.merchantId || config.account;
+            const { account, merchantId } = config;
+            const normalizedAccount = account.replace(/^client-id:/, '');
 
-            if (inclusionList.includes(account)) {
+            if (
+                arrayIncludes(inclusionList, normalizedAccount) ||
+                (merchantId && arrayIncludes(inclusionList, merchantId))
+            ) {
                 NewMessages(config).render(selector);
             } else {
                 OldMessages(config).render(selector);
@@ -38,10 +44,19 @@ Messages.render = (config, selector) => Messages(config).render(selector);
 Messages.setGlobalConfig = NewMessages.setGlobalConfig;
 
 export function setup() {
-    getInclusionList().then(inclusionList => {
-        const account = getGlobalAccount();
+    // This must run synchronously so that it's available immediately for the merchant to use
+    if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
+        // Alias for pilot merchant support
+        window.paypal.Message = Messages;
+    }
 
-        if (inclusionList.includes(account)) {
+    getInclusionList().then(inclusionList => {
+        const { normalizedAccount, merchantId } = getGlobalAccount();
+
+        if (
+            arrayIncludes(inclusionList, normalizedAccount) ||
+            (merchantId && arrayIncludes(inclusionList, merchantId))
+        ) {
             newSetup();
         } else {
             oldSetup();
@@ -50,13 +65,6 @@ export function setup() {
 }
 
 export function destroy() {
-    getInclusionList().then(inclusionList => {
-        const account = getGlobalAccount();
-
-        if (inclusionList.includes(account)) {
-            newDestroy();
-        } else {
-            oldDestroy();
-        }
-    });
+    newDestroy();
+    oldDestroy();
 }
