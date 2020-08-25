@@ -4,6 +4,24 @@ import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
+// Determine pre-selected tab based on the offer type of the banner.
+// Currently only applicable to the US
+const determineInitialTab = (type = 'NI') => {
+    switch (true) {
+        case [
+            'EZP:ANY:EQZ',
+            'EZP:ANY:GTZ',
+            'PALA:MULTI:EQZ',
+            'PALA:MULTI:GTZ',
+            'PALA:SINGLE:EQZ',
+            'PALA:SINGLE:GTZ'
+        ].includes(type.toUpperCase()):
+            return 'EZP';
+        default:
+            return 'NI';
+    }
+};
+
 export default getGlobalVariable('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
@@ -64,11 +82,6 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
-            onApply: {
-                type: 'function',
-                queryParam: false,
-                required: false
-            },
             onReady: {
                 type: 'function',
                 queryParam: false,
@@ -76,6 +89,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             },
 
             // Computed Props
+            offer: {
+                type: 'string',
+                value: ({ props }) => determineInitialTab(props.offer),
+                required: false
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',

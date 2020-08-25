@@ -1,0 +1,66 @@
+.finance-terms {
+    position: relative;
+
+    .note {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        font-weight: 400;
+        font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+        color: #2c2e2f;
+    }
+
+    .error {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        position: relative;
+    }
+
+    .table thead tr {
+        height: 50px;
+        padding: 5px 0 0 5px;
+        background: #f5f5f5;
+        font-weight: 600;
+        font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+        margin-bottom: 0;
+        font-size: 13px;
+    }
+
+    .table thead th {
+        padding-top: 5px;
+        text-align: left;
+        padding-left: 8px;
+        vertical-align: top;
+        line-height: 1.38;
+        letter-spacing: -0.2px;
+        color: #2c2e2f;
+    }
+
+    .table tbody tr:not(:first-of-type) {
+        border-top: solid 0.5px #eaeced;
+        clear: both;
+        width: 99.99%;
+    }
+
+    .table tbody tr:last-of-type {
+        margin-bottom: 38px;
+    }
+
+    .table tbody td {
+        padding: 7px 0 7px 5px;
+        box-sizing: border-box;
+        font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+        margin: 0;
+        padding-left: 8px;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: -0.2px;
+        color: #2c2e2f;
+    }
+}

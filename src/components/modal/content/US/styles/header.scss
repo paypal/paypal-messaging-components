@@ -1,0 +1,33 @@
+.header-wrapper {
+    &.logo-wrapper--shift .logo-wrapper {
+        transform: translateX(calc(-50% + 35px + 16px)) scale(0.7);
+    }
+
+    @media (min-width: 26.25rem) {
+        &.logo-wrapper--shift .logo-wrapper {
+            transform: translateX(calc(-50% + 50px + 24px)) scale(1);
+        }
+    }
+
+    .apply-now {
+        position: absolute;
+        top: 1.1rem;
+        left: 50%;
+        font-size: 0.9rem;
+        cursor: default;
+        opacity: 0;
+        transform: translate(-50%, 1.3rem);
+
+        &.show {
+            cursor: pointer;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    @media (min-width: 22.5rem) {
+        .apply-now {
+            font-size: 1rem;
+        }
+    }
+}

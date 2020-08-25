@@ -7,24 +7,24 @@ import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 const devAccountMap = {
-    DEV00000000NI: ['US', 'NI', 'ni'],
-    DEV0000000NIQ: ['US', 'NI', 'niq'],
-    DEV000NINONUS: ['US', 'NI', 'ni_non-us'],
-    DEV00NINONUSQ: ['US', 'NI', 'niq_non-us'],
-    DEV0000000EAZ: ['US', 'EZP', 'ezp_any_eqz'],
-    DEV0000000EAG: ['US', 'EZP', 'ezp_any_gtz'],
-    DEV0000000PSZ: ['US', 'EZP', 'pala_single_eqz'],
-    DEV0000000PSG: ['US', 'EZP', 'pala_single_gtz'],
-    DEV0000000PMZ: ['US', 'EZP', 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', 'EZP', 'pala_multi_gtz'],
+    DEV00000000NI: ['US', ['NI'], 'ni'],
+    DEV0000000NIQ: ['US', ['NI'], 'niq'],
+    DEV000NINONUS: ['US', ['NI'], 'ni_non-us'],
+    DEV00NINONUSQ: ['US', ['NI'], 'niq_non-us'],
+    DEV0000000EAZ: ['US', ['NI', 'EZP'], 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', ['NI', 'EZP'], 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', ['NI', 'EZP'], 'pala_single_eqz'],
+    DEV0000000PSG: ['US', ['NI', 'EZP'], 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', ['NI', 'EZP'], 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', ['NI', 'EZP'], 'pala_multi_gtz'],
 
-    DEV0000000IAZ: ['DE', 'INST', 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', 'INST', 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', 'INST', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'INST', 'palaq_any_eqz'],
+    DEV0000000IAZ: ['DE', ['INST'], 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', ['INST'], 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', ['INST'], 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', ['INST'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', 'PL', 'pl'],
-    DEV00000GBPLQ: ['GB', 'PL', 'plq']
+    DEV000000GBPL: ['GB', ['PL'], 'pl'],
+    DEV00000GBPLQ: ['GB', ['PL'], 'plq']
 };
 
 export default (app, server, compiler) => {
@@ -121,6 +121,7 @@ export default (app, server, compiler) => {
                     warnings,
                     parentStyles: getParentStyles(style),
                     meta: {
+                        ...populatedBanner.meta,
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
@@ -156,7 +157,7 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
-        const [country, type] = devAccountMap[account];
+        const [country, products] = devAccountMap[account] ?? ['US', ['NI']];
 
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
@@ -165,11 +166,11 @@ export default (app, server, compiler) => {
                 csrf: 'csrf'
             },
             country,
-            type,
+            products,
             payerId: account
         };
 
-        res.send(createMockZoidMarkup('modal', `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
+        res.send(createMockZoidMarkup(`modal-${country}`, `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
@@ -288,6 +289,4 @@ export default (app, server, compiler) => {
 
     app.get('/ptrk', (req, res) => res.send(''));
     app.post('/ppcredit/messagingLogger', (req, res) => res.send(''));
-    // TODO: Remove this once the apply now ramp is complete
-    app.get('/smart-credit-modal-apply-now.js', (req, res) => res.redirect('/smart-credit-modal.js'));
 };

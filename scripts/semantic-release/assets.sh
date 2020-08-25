@@ -3,8 +3,7 @@ VERSION=$1
 
 rm -rf ./dist
 
-npm run --silent build:standalone -- --bail --display none &> /dev/null
-npm run --silent build:legacy -- --bail --display none &> /dev/null
+npm run --silent build:prod -- --bail --display none &> /dev/null
 
 rm ./dist/*.LICENSE.txt
 mkdir -p ./dist/bizcomponents/js/versioned

@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.12.3](https://github.com/paypal/paypal-messaging-components/compare/v1.12.2...v1.12.3) (2020-08-12)
+
+
+### Bug Fixes
+
+* send flf5 post-fix to CAPE ([#247](https://github.com/paypal/paypal-messaging-components/issues/247)) ([d5692ef](https://github.com/paypal/paypal-messaging-components/commit/d5692efb1cf1eec39c40fa87c2f920868049f4bd))
+* use production modal script in sandbox ([#248](https://github.com/paypal/paypal-messaging-components/issues/248)) ([6595790](https://github.com/paypal/paypal-messaging-components/commit/65957905bd818649563499e132fefa36bf9e7c87))
+
+## [1.12.2](https://github.com/paypal/paypal-messaging-components/compare/v1.12.1...v1.12.2) (2020-08-05)
+
+
+### Bug Fixes
+
+* apply now link consistent with sdk environment ([#242](https://github.com/paypal/paypal-messaging-components/issues/242)) ([0bb93da](https://github.com/paypal/paypal-messaging-components/commit/0bb93da3e59f852fdc683d718913ae833e977fbb))
+* correct validation for font sizes ([#235](https://github.com/paypal/paypal-messaging-components/issues/235)) ([db5f9be](https://github.com/paypal/paypal-messaging-components/commit/db5f9be3becf966edb670713c225a809fa921c16))
+* correctly pass terms values to PayPal Flex modal ([#239](https://github.com/paypal/paypal-messaging-components/issues/239)) ([3d77fa4](https://github.com/paypal/paypal-messaging-components/commit/3d77fa4a50a7fe4d08d9c4c29b7e93ccbe866b44))
+* modal slow scroll behavior on mobile ([#243](https://github.com/paypal/paypal-messaging-components/issues/243)) ([ce83fac](https://github.com/paypal/paypal-messaging-components/commit/ce83fac130ce18f5c7c37e165deea64b1a44f927))
+
 ## [1.12.1](https://github.com/paypal/paypal-messaging-components/compare/v1.12.0...v1.12.1) (2020-07-21)
 
 # [1.12.0](https://github.com/paypal/paypal-messaging-components/compare/v1.11.0...v1.12.0) (2020-07-15)
