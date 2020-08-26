@@ -24,6 +24,8 @@
 .message__messaging {
     white-space: normal;
     margin-right: 0.8rem;
+    position: relative;
+    top: -1px;
 }
 
 .message__messaging span.br {
