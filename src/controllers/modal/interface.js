@@ -1,3 +1,4 @@
+import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { logger, memoizeOnProps, getCurrentTime } from '../../utils';
@@ -52,7 +53,7 @@ export default memoizeOnProps(
                 link: linkName
             });
 
-            if (typeof props.onApply === 'function' && linkName.includes('Apply Now')) {
+            if (typeof props.onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
                 props.onApply();
             }
         };

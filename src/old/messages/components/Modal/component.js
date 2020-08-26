@@ -1,4 +1,5 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
 
 import { getEnv, getTargetMeta, getGlobalUrl } from '../../../../utils';
@@ -19,14 +20,10 @@ const getGlobalComponent = (namespace, fn) => {
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => {
     switch (true) {
-        case [
-            'EZP:ANY:EQZ',
-            'EZP:ANY:GTZ',
-            'PALA:MULTI:EQZ',
-            'PALA:MULTI:GTZ',
-            'PALA:SINGLE:EQZ',
-            'PALA:SINGLE:GTZ'
-        ].includes(type.toUpperCase()):
+        case arrayIncludes(
+            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
+            type.toUpperCase()
+        ):
             return 'EZP';
         default:
             return 'NI';
@@ -113,13 +110,14 @@ export default getGlobalComponent('__paypal_credit_modal_old__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? undefined : props.account),
+                value: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? undefined : props.account),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (startsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined),
+                value: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
                 required: false
             },
             targetMeta: {

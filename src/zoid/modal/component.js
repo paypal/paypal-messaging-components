@@ -1,3 +1,4 @@
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
 
 import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
@@ -8,14 +9,10 @@ import containerTemplate from './containerTemplate';
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => {
     switch (true) {
-        case [
-            'EZP:ANY:EQZ',
-            'EZP:ANY:GTZ',
-            'PALA:MULTI:EQZ',
-            'PALA:MULTI:GTZ',
-            'PALA:SINGLE:EQZ',
-            'PALA:SINGLE:GTZ'
-        ].includes(type.toUpperCase()):
+        case arrayIncludes(
+            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
+            type.toUpperCase()
+        ):
             return 'EZP';
         default:
             return 'NI';

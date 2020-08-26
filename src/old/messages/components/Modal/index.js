@@ -1,4 +1,5 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps } from '../../../../utils';
@@ -21,7 +22,7 @@ const renderModal = memoizeOnProps(
             refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
             onClick: linkName => {
-                if (options.onApply && linkName.includes('Apply Now')) {
+                if (options.onApply && stringIncludes(linkName, 'Apply Now')) {
                     options.onApply();
                 }
                 track({ et: 'CLICK', event_type: 'click', link: linkName });

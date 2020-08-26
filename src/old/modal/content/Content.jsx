@@ -1,4 +1,5 @@
 /** @jsx h */
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { h, Fragment } from 'preact';
 import { useEffect } from 'preact/hooks';
 
@@ -21,7 +22,7 @@ const Content = ({ products }) => {
         }
     }, [...products]);
 
-    if (products.includes('EZP')) {
+    if (arrayIncludes(products, 'EZP')) {
         return (
             <Fragment>
                 <style>
@@ -48,7 +49,7 @@ const Content = ({ products }) => {
         );
     }
 
-    if (products.includes('NI')) {
+    if (arrayIncludes(products, 'NI')) {
         return (
             <Fragment>
                 <style>{commonUS}</style>
@@ -58,7 +59,7 @@ const Content = ({ products }) => {
         );
     }
 
-    if (products.includes('INST')) {
+    if (arrayIncludes(products, 'INST')) {
         return (
             <Fragment>
                 <style>{DEInst}</style>
@@ -67,7 +68,7 @@ const Content = ({ products }) => {
         );
     }
 
-    if (products.includes('PL')) {
+    if (arrayIncludes(products, 'PL')) {
         return (
             <Fragment>
                 <style>{GBPl}</style>

@@ -127,7 +127,12 @@ export const dynamicImport = memoize(url => {
             document.body.removeChild(script);
             resolve();
         });
-        document.body.appendChild(script);
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', () => document.body.appendChild(script));
+        } else {
+            document.body.appendChild(script);
+        }
     });
 });
 
