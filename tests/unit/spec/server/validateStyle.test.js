@@ -1,6 +1,20 @@
 import validateStyle from '../../../../server/validateStyle';
 import { getValidOptions } from '../../../../server/locale';
 
+jest.mock('../../../../server/locale/GB/logos.js', () => ({
+    __esModule: true,
+    default: {
+        PRIMARY: {
+            COLOR: {},
+            WHITE: {}
+        },
+        ALT_NO_PP: {
+            COLOR: {},
+            WHITE: {}
+        }
+    }
+}));
+
 const mockLogger = jest.fn();
 
 const VALID_STYLE_OPTIONS = getValidOptions('US');

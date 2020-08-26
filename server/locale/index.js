@@ -27,6 +27,7 @@ export function getValidOptions(locale) {
 }
 
 export function getMutations(locale, id, type) {
+    if (type === 'layout:custom') return {};
     const mutations = getLocaleSettings(locale)
         .getMutations(id, type)
         .map(mutation => {
