@@ -102,7 +102,7 @@ export default (app, server, compiler) => {
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
                     compiler.compilers[2].outputFileSystem
-                        .readFileSync(path.resolve(__dirname, '../../dist/render.js'))
+                        .readFileSync(path.resolve(__dirname, '../../dist/renderMessage.js'))
                         .toString()
                 );
 
