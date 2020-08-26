@@ -66,22 +66,24 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
             await page.setViewport(viewport);
-            page.on('console', async consoleObj => {
-                const text = consoleObj.text();
+            page.on('console', async message => {
+                const location = message.location();
+                const locationString = `url::${location.url} | position::${location.lineNumber}:${location.columNumber}\n`;
+                const text = message.text();
                 if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
                     return;
                 }
                 if (text.includes('JSHandle')) {
                     const args = await Promise.all(
-                        consoleObj.args().map(arg =>
+                        message.args().map(arg =>
                             // in page context, get error message or its JSON value if possible or undefined
                             arg.executionContext().evaluate(a => (a instanceof Error ? a.message : a), arg)
                         )
                     );
-                    console.log(text, ...args); // eslint-disable-line no-console
+                    console.log(locationString, 'Text [', text, ']\nArgs [', ...args, ']'); // eslint-disable-line no-console
                     return;
                 }
-                console.log(text); // eslint-disable-line no-console
+                console.log(locationString, 'Text [', text, ']'); // eslint-disable-line no-console
             });
 
             // nav done when 0 network connections for at least 500 ms

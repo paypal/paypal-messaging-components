@@ -1,11 +1,20 @@
 #!/bin/bash
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-set -Eevxo
+# set -Eevxo
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
-    npm run test:func
+    npm run test:func 2> test_errors.log | tee test_output.log
 
     node ./tests/functional/utils/collectDiffs.js
+
+    failed_count=$(grep failed test_output.log | wc -l)
+    if [[ $count -gt 0 ]]; then
+        echo 'FAILURES FOUND';
+        grep FAIL test_output.log
+        echo ''
+        echo 'FULL LIST OF FAILURES'
+        cat test_errors.log
+    fi
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u
@@ -20,6 +29,14 @@ else
         git commit -m "chore(snapshots): update snapshots [skip ci]"
         git push
     else
-        npm run test:func:payload
+        npm run test:func:payload 2> test_errors.log | tee test_output.log
+
+        if [[ $count -gt 0 ]]; then
+            echo 'FAILURES FOUND';
+            grep FAIL test_output.log
+            echo ''
+            echo 'FULL LIST OF FAILURES'
+            cat test_errors.log
+        fi
     fi
 fi
