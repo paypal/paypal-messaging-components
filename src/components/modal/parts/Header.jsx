@@ -13,7 +13,7 @@ const LOCALE = {
     }
 };
 
-const Header = ({ children, className = '' }) => {
+const Header = ({ children, className = '', logo }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
 
@@ -23,7 +23,7 @@ const Header = ({ children, className = '' }) => {
                 <header className="header">
                     <div className="logo-wrapper">
                         <div className="logo" alt="PayPal Credit Logo">
-                            <Icon name={LOCALE.LOGO[country]} />
+                            <Icon name={LOCALE.LOGO[logo || country]} />
                         </div>
                     </div>
                     {children}

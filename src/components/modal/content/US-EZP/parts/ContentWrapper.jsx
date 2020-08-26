@@ -34,7 +34,7 @@ const ContentWrapper = () => {
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={612}>
-            <Header className={showApplyNow ? 'logo-wrapper--shift' : ''}>
+            <Header className={showApplyNow ? 'logo-wrapper--shift' : ''} logo="US-EZP">
                 <Button
                     className={`apply-now ${showApplyNow ? 'show' : ''}`}
                     onClick={showApplyNow ? handleApplyNowClick : null}
