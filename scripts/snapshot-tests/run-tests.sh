@@ -8,12 +8,13 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     node ./tests/functional/utils/collectDiffs.js
 
     failed_count=$(grep failed test_output.log | wc -l)
-    if [[ $count -gt 0 ]]; then
+    if [[ $failed_count -gt 0 ]]; then
         echo 'FAILURES FOUND';
         grep FAIL test_output.log
         echo ''
         echo 'FULL LIST OF FAILURES'
         cat test_errors.log
+        exit 1
     fi
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
@@ -31,12 +32,14 @@ else
     else
         npm run test:func:payload 2> test_errors.log | tee test_output.log
 
-        if [[ $count -gt 0 ]]; then
+        failed_count=$(grep failed test_output.log | wc -l)
+        if [[ $failed_count -gt 0 ]]; then
             echo 'FAILURES FOUND';
             grep FAIL test_output.log
             echo ''
             echo 'FULL LIST OF FAILURES'
             cat test_errors.log
+            exit 1
         fi
     fi
 fi
