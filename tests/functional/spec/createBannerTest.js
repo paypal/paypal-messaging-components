@@ -65,10 +65,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
+            const configString = JSON.stringify(config);
             await page.setViewport(viewport);
             page.on('console', async message => {
-                const location = message.location();
-                const locationString = `url::${location.url} | position::${location.lineNumber}:${location.columNumber}\n`;
                 const text = message.text();
                 if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
                     return;
@@ -80,15 +79,15 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                             arg.executionContext().evaluate(a => (a instanceof Error ? a.message : a), arg)
                         )
                     );
-                    console.log(locationString, 'Text [', text, ']\nArgs [', ...args, ']'); // eslint-disable-line no-console
+                    console.log(configString, 'Text [', text, ']\n Args [', ...args, ']'); // eslint-disable-line no-console
                     return;
                 }
-                console.log(locationString, 'Text [', text, ']'); // eslint-disable-line no-console
+                console.log(configString, 'Text [', text, ']'); // eslint-disable-line no-console
             });
 
             // nav done when 0 network connections for at least 500 ms
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
-            await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${JSON.stringify(config)}`);
+            await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${configString}`);
             await waitForNavPromise;
 
             await waitForBanner(10000);

@@ -21,7 +21,9 @@ function collectDiffs() {
                     .replace(/\//g, '__');
 
                 const subDir = file.includes('/modal/') ? 'modal' : 'banner';
-                fs.renameSync(file, path.resolve(DIFF_DIR, subDir, `${configName}__${name}`));
+                const newFile = path.resolve(DIFF_DIR, subDir, `${configName}__${name}`);
+                console.log(`  Move: ${file}\n    To: ${newFile}`); // eslint-disable-line no-console
+                fs.renameSync(file, newFile);
             }
         });
     };
@@ -30,7 +32,7 @@ function collectDiffs() {
         fs.rmdirSync(DIFF_DIR);
     } catch (e) {
         if (e.code === 'ENOTEMPTY') {
-            console.log(e);
+            console.log(e); // eslint-disable-line no-console
         }
     }
 
@@ -52,23 +54,21 @@ async function uploadToImgur(subDir) {
             snapshots.map(fileName => imgur.uploadFile(path.resolve(folder, fileName), album.data.deletehash, fileName))
         );
 
-        console.log('\n');
-        console.log(
-            `\u001b[31m${result.length} failed ${subDir} snapshots uploaded and viewable at https://imgur.com/a/${album.data.id}`
-        );
-        console.log('\n');
+        const albumUrl = `https://imgur.com/a/${album.data.id}`;
+        console.log(`\n\u001b[31m${result.length} failed ${subDir} snapshots uploaded and viewable at ${albumUrl}\n`); // eslint-disable-line no-console
     } else {
-        console.log(`No snapshots found in ${folder}`);
+        console.log(`No snapshots found in ${folder}`); // eslint-disable-line no-console
     }
 
     return snapshots.length;
 }
 
+console.log('COLLECTING DIFFS'); // eslint-disable-line no-console
 collectDiffs();
 
 (async () => {
-    const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(e =>
-        console.log(e)
+    const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(
+        e => console.log(e) // eslint-disable-line no-console
     );
 
     if (bannerDiffs + modalDiffs > 0) {

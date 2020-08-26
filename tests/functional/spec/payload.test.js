@@ -214,6 +214,7 @@ describe('payload testing', () => {
             testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
+                await page.waitFor(10 * 1000);
                 await modalFrame.click(selectors.button.btn);
             }
         });
