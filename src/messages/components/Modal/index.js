@@ -1,4 +1,5 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoizeOnProps } from '../../../utils';
@@ -21,7 +22,7 @@ const renderModal = memoizeOnProps(
             refId: meta.messageRequestId,
             onCalculate: amount => track({ et: 'CLICK', event_type: 'click', link: 'Calculator', amount }),
             onClick: linkName => {
-                if (options.onApply && linkName.includes('Apply Now')) {
+                if (options.onApply && arrayIncludes(linkName, 'Apply Now')) {
                     options.onApply();
                 }
                 track({ et: 'CLICK', event_type: 'click', link: linkName });
@@ -54,7 +55,7 @@ export default {
     // Extract out the id from options for modal memoization
     init: ({ options: { id, account, ...options }, meta, events, track, wrapper }) => {
         // For legacy image banners, open a popup instead of the modal
-        if (options._legacy && startsWith(meta.offerType, 'NI')) {
+        if (options._legacy && stringStartsWith(meta.offerType, 'NI')) {
             events.on('click', evt => {
                 const { target } = evt;
 
