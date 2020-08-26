@@ -66,5 +66,15 @@ module.exports = (env = {}) => {
         name: 'smart-credit-common'
     };
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG];
+    const RENDERING_CONFIG = getWebpackConfig({
+        entry: ['./server/index.js'],
+        libraryTarget: 'commonjs',
+        modulename: 'renderMessage',
+        minify: true,
+        debug: false,
+        filename: 'renderMessage.js',
+        vars: globals(env)
+    });
+
+    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG];
 };
