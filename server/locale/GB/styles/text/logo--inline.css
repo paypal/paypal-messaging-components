@@ -35,11 +35,6 @@
     transform: translateX(12%);
 }
 
-.message__disclaimer > .tag--default > span {
-    font-weight: 500;
-    color: #0070ba;
-}
-
 .product-name {
     color: #003087;
     font-weight: 600;
