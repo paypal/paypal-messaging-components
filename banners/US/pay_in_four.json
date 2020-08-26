@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "offerType": "PAY4Q",
+        "offerType": "PI4",
         "lander": "",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
