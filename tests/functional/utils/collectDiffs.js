@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const path = require('path');
 const fs = require('fs');
 const imgur = require('imgur');
@@ -22,7 +21,7 @@ function collectDiffs() {
 
                 const subDir = file.includes('/modal/') ? 'modal' : 'banner';
                 const newFile = path.resolve(DIFF_DIR, subDir, `${configName}__${name}`);
-                console.log(`  Move: ${file}\n    To: ${newFile}`); // eslint-disable-line no-console
+                console.info(`Move: ${file}\n    To: ${newFile}`);
                 fs.renameSync(file, newFile);
             }
         });
@@ -32,7 +31,7 @@ function collectDiffs() {
         fs.rmdirSync(DIFF_DIR);
     } catch (e) {
         if (e.code === 'ENOTEMPTY') {
-            console.log(e); // eslint-disable-line no-console
+            console.error(e);
         }
     }
 
@@ -55,23 +54,24 @@ async function uploadToImgur(subDir) {
         );
 
         const albumUrl = `https://imgur.com/a/${album.data.id}`;
-        console.log(`\n\u001b[31m${result.length} failed ${subDir} snapshots uploaded and viewable at ${albumUrl}\n`); // eslint-disable-line no-console
+        console.info(`\n\u001b[31m${result.length} failed ${subDir} snapshots uploaded and viewable at ${albumUrl}\n`);
     } else {
-        console.log(`No snapshots found in ${folder}`); // eslint-disable-line no-console
+        console.info(`No snapshots found in ${folder}`);
     }
 
     return snapshots.length;
 }
 
-console.log('COLLECTING DIFFS'); // eslint-disable-line no-console
+console.group('COLLECTING DIFFS');
 collectDiffs();
 
 (async () => {
-    const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(
-        e => console.log(e) // eslint-disable-line no-console
+    const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(e =>
+        console.error(e)
     );
 
     if (bannerDiffs + modalDiffs > 0) {
         process.exit(1);
     }
 })();
+console.groupEnd();

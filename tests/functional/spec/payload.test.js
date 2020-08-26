@@ -65,7 +65,7 @@ describe('payload testing', () => {
     const testPage = 'banner.html';
 
     test('initial payload', async () => {
-        console.log('initial payload'); // eslint-disable-line no-console
+        console.info('initial payload');
         const requests = await runTest({
             config,
             testPage,
@@ -97,7 +97,7 @@ describe('payload testing', () => {
     });
 
     test('scroll stat sent if below fold', async () => {
-        console.log('scroll stat sent if below fold'); // eslint-disable-line no-console
+        console.info('scroll stat sent if below fold');
         await page.viewport({ width: 600, height: 200 });
         const requests = await runTest({
             config,
@@ -120,7 +120,7 @@ describe('payload testing', () => {
     });
 
     test('scroll stat not sent if above fold', async () => {
-        console.log('scroll stat not sent if above fold'); // eslint-disable-line no-console
+        console.info('scroll stat not sent if above fold');
         const requests = await runTest({
             config,
             testPage
@@ -131,7 +131,7 @@ describe('payload testing', () => {
     });
 
     test('click stat sent', async () => {
-        console.log('click stat sent'); // eslint-disable-line no-console
+        console.info('click stat sent');
         const requests = await runTest({
             config,
             testPage,
@@ -162,7 +162,7 @@ describe('payload testing', () => {
     });
 
     test('hover stat sent', async () => {
-        console.log('hover stat sent'); // eslint-disable-line no-console
+        console.info('hover stat sent');
         const requests = await runTest({
             config,
             testPage,
@@ -182,7 +182,7 @@ describe('payload testing', () => {
     });
 
     test('modal calculate stat sent', async () => {
-        console.log('modal calculate stat sent'); // eslint-disable-line no-console
+        console.info('modal calculate stat sent');
         const requests = await runTest({
             config,
             testPage,
@@ -208,7 +208,7 @@ describe('payload testing', () => {
     });
 
     test('modal click stat sent', async () => {
-        console.log('modal click stat sent'); // eslint-disable-line no-console
+        console.info('modal click stat sent');
         const requests = await runTest({
             config,
             testPage,
@@ -231,7 +231,7 @@ describe('payload testing', () => {
     });
 
     test('modal close stat sent', async () => {
-        console.log('modal close stat sent'); // eslint-disable-line no-console
+        console.info('modal close stat sent');
         const requests = await runTest({
             config,
             testPage,

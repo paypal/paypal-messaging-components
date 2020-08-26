@@ -115,13 +115,13 @@ export const Logger = {
             },
             track: sendBeacon,
             warn(...messages) {
-                console.warn('[PayPal Messages]', ...messages); // eslint-disable-line no-console
+                console.warn('[PayPal Messages]', ...messages);
             }
         };
 
         return logger;
     },
     warn(...messages) {
-        console.warn('[PayPal Messages]', ...messages); // eslint-disable-line no-console
+        console.warn('[PayPal Messages]', ...messages);
     }
 };

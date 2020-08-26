@@ -142,7 +142,7 @@ module.exports = app => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err)); // eslint-disable-line no-console
+                .catch(err => console.error(err) || res.status(500).send(err));
         }
     });
 
@@ -200,7 +200,7 @@ module.exports = app => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err)); // eslint-disable-line no-console
+                .catch(err => console.error(err) || res.status(500).send(err));
         }
     });
 

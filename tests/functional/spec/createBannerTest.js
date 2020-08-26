@@ -57,7 +57,7 @@ const waitForBanner = async timeout => {
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
     } catch (e) {
-        console.log('waitForBanner error', e); // eslint-disable-line no-console
+        console.error('waitForBanner error', e);
     }
 };
 
@@ -72,6 +72,8 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
                     return;
                 }
+                console.group(configString);
+                console.info(`Text [${text}]`);
                 if (text.includes('JSHandle')) {
                     const args = await Promise.all(
                         message.args().map(arg =>
@@ -79,10 +81,10 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                             arg.executionContext().evaluate(a => (a instanceof Error ? a.message : a), arg)
                         )
                     );
-                    console.log(configString, 'Text [', text, ']\n Args [', ...args, ']'); // eslint-disable-line no-console
+                    console.info('Args [', ...args, ']');
                     return;
                 }
-                console.log(configString, 'Text [', text, ']'); // eslint-disable-line no-console
+                console.groupEnd();
             });
 
             // nav done when 0 network connections for at least 500 ms
