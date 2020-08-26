@@ -100,12 +100,13 @@ module.exports = (env = {}) => {
 
     const RENDERING_DEV_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
-        libraryTarget: 'global',
+        libraryTarget: 'commonjs',
         modulename: 'renderMessage',
         debug: true,
         minify: false,
         sourcemaps: false,
-        filename: 'render.js'
+        filename: 'renderMessage.js',
+        vars: globals(env)
     });
 
     // TODO: Remove this after the ramp
