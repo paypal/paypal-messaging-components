@@ -27,6 +27,7 @@ showFailures () {
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func 2> $ERROR_FILE | tee $OUTPUT_FILE
 
+    rm -r ./tests/functional/__diff_output__
     node ./tests/functional/utils/collectDiffs.js
 
     showFailures

@@ -3,7 +3,6 @@ const fs = require('fs');
 const readline = require('readline');
 
 const OUTPUT_LOG = path.resolve(__dirname, '../../../test_output.log');
-// const OUTPUT_LOG = path.resolve(__dirname, '../../../test_payload.log');
 const SUMMARY_START = 'Test Suites:';
 const FILE_FAIL_START = 'FAIL';
 const FILE_FAIL_END = 'failed';
@@ -29,10 +28,12 @@ const collectFailedTests = async () => {
     let summary = '';
     // eslint-disable-next-line no-restricted-syntax
     for await (const line of readInterface) {
+        if (line.length === 0) return;
+
         if (line.includes(FILE_FAIL_START)) {
             isInFile = true;
             files.push({ startLine: line, suites: [], suiteIndex: 0 });
-        } else if (isInFile && (line.includes(FILE_FAIL_END) || line.length === 0)) {
+        } else if (isInFile && line.includes(FILE_FAIL_END)) {
             const file = files[fileIndex];
             file.endLine = line;
             isInFile = false;
