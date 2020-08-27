@@ -9,8 +9,6 @@ const FILE_FAIL_END = 'failed';
 const TEST_SUCCESS_SYMBOL = '✓';
 const TEST_FAIL_SYMBOL = '✕';
 
-console.info({ OUTPUT_LOG });
-
 const isSuiteStart = line => !line.includes(TEST_SUCCESS_SYMBOL) && !line.includes(TEST_FAIL_SYMBOL);
 
 const collectFailedTests = async () => {

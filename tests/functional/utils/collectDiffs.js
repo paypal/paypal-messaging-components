@@ -1,59 +1,44 @@
 const path = require('path');
 const fs = require('fs');
+const readline = require('readline');
 const imgur = require('imgur');
 
-const DIFF_DIR = path.resolve(__dirname, '../__diff_output__');
+const DIFF_FOLDER = '__diff_output__';
+const DIFF_DIR = path.resolve(__dirname, `../${DIFF_FOLDER}`);
+const DIFF_FOLDERS_LIST = path.resolve(__dirname, '../../../diff_folders.log');
 
-function collectDiffs() {
-    const searchFolders = (folder, pathTo) => {
-        const fullPath = path.resolve(pathTo, folder);
-        const contents = fs.readdirSync(fullPath);
-
-        contents.forEach(name => {
-            const longPath = path.resolve(fullPath, name);
-            const index = longPath.indexOf('/DEV') || longPath.indexOf('/custom');
-            if (index > -1) {
-                const shortPath = longPath.slice(index);
-                console.log({
-                    folder,
-                    path: shortPath,
-                    isDiffOutputFolder: folder === '__diff_output__'
-                });
-            }
-
-            if (fs.statSync(path.resolve(fullPath, name)).isDirectory()) {
-                searchFolders(name, fullPath);
-            } else if (folder === '__diff_output__') {
-                const file = path.resolve(fullPath, name);
-                const configName = path
-                    .relative(path.resolve(__dirname, '../snapshots'), pathTo)
-                    .replace(/:/g, '-')
-                    .replace(/\//g, '__');
-
-                const subDir = file.includes('/modal/') ? 'modal' : 'banner';
-                const newFile = path.resolve(DIFF_DIR, subDir, `${configName}__${name}`);
-                console.info(`Move: ${file}\n    To: ${newFile}`);
-                fs.renameSync(file, newFile);
-            }
-        });
-    };
-
-    try {
-        fs.rmdirSync(DIFF_DIR);
-    } catch (e) {
-        if (e.code === 'ENOTEMPTY') {
-            console.error(e);
-        }
-    }
+const collectDiffs = async () => {
+    const snapshotPath = path.resolve(__dirname, '../snapshots');
 
     fs.mkdirSync(DIFF_DIR);
     fs.mkdirSync(path.resolve(DIFF_DIR, 'modal'));
     fs.mkdirSync(path.resolve(DIFF_DIR, 'banner'));
 
-    searchFolders('snapshots', path.resolve(__dirname, '..'));
-}
+    const readInterface = readline.createInterface({
+        input: fs.createReadStream(DIFF_FOLDERS_LIST),
+        output: null,
+        console: false
+    });
 
-async function uploadToImgur(subDir) {
+    // eslint-disable-next-line no-restricted-syntax
+    for await (const fullPath of readInterface) {
+        const contents = fs.readdirSync(fullPath);
+        contents.forEach(name => {
+            const file = path.resolve(fullPath, name);
+            const configName = path
+                .relative(snapshotPath, fullPath.replace(DIFF_FOLDER, ''))
+                .replace(/:/g, '-')
+                .replace(/\//g, '__');
+
+            const subDir = file.includes('/modal/') ? 'modal' : 'banner';
+            const newFile = path.resolve(DIFF_DIR, subDir, `${configName}__${name}`);
+            console.info(`Mv: ${file}\n  To: ${newFile}`);
+            fs.renameSync(file, newFile);
+        });
+    }
+};
+
+const uploadToImgur = async subDir => {
     const folder = path.resolve(DIFF_DIR, subDir);
     const snapshots = fs.readdirSync(folder);
 
@@ -71,7 +56,7 @@ async function uploadToImgur(subDir) {
     }
 
     return snapshots.length;
-}
+};
 
 console.group('COLLECTING DIFFS');
 collectDiffs();

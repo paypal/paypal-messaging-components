@@ -4,6 +4,7 @@
 
 OUTPUT_FILE=test_output.log
 ERROR_FILE=test_errors.log
+DIFF_FOLDERS_LIST=diff_folders.lo
 
 showFailures () {
     failedCount=$(grep failed $OUTPUT_FILE | wc -l)
@@ -28,6 +29,10 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func 2> $ERROR_FILE | tee $OUTPUT_FILE
 
     rm -r ./tests/functional/__diff_output__
+    find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
+    echo '-----DIFF_FOLDERS-----'
+    echo $DIFF_FOLDERS_LIST
+    echo '-----END OF DIFF FOLDERS-----'
     node ./tests/functional/utils/collectDiffs.js
 
     showFailures
