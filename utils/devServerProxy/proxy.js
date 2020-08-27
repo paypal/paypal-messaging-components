@@ -115,11 +115,12 @@ export default (app, server, compiler) => {
                 );
 
                 const markup = render({ style: validatedStyle }, populatedBanner);
+                const parentStyles = getParentStyles(validatedStyle);
 
                 return {
                     markup,
                     warnings,
-                    parentStyles: getParentStyles(style),
+                    parentStyles,
                     meta: {
                         ...populatedBanner.meta,
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
