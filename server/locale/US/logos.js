@@ -6,7 +6,7 @@ const getSvgSrc = svgFileName => `${ROOT_URL}/${svgFileName}.svg`;
 const STACKED = TYPES.reduce(
     (object, type) => ({
         ...object,
-        [type]: { dimensions: [573, 80], src: getSvgSrc(`ppc_${TYPE_MAP[type]}_pri`) }
+        [type]: { dimensions: [453, 152], src: getSvgSrc(`ppc_${TYPE_MAP[type]}_pri`) }
     }),
     {}
 );
