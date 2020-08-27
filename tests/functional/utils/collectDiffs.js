@@ -20,9 +20,14 @@ const collectDiffs = async () => {
         console: false
     });
 
+    console.group('COLLECTING DIFFS');
     // eslint-disable-next-line no-restricted-syntax
     for await (const fullPath of readInterface) {
         const contents = fs.readdirSync(fullPath);
+
+        console.group(`MOVING SNAPSHOTS in ${fullPath}`);
+        console.info(contents.length ? `${contents.join('\n  ')}` : `None found`);
+
         contents.forEach(name => {
             const file = path.resolve(fullPath, name);
             const configName = path
@@ -35,15 +40,19 @@ const collectDiffs = async () => {
             console.info(`Mv: ${file}\n  To: ${newFile}`);
             fs.renameSync(file, newFile);
         });
+
+        console.groupEnd();
     }
+    console.groupEnd();
 };
 
 const uploadToImgur = async subDir => {
     const folder = path.resolve(DIFF_DIR, subDir);
     const snapshots = fs.readdirSync(folder);
 
-    console.info(`SNAPSHOTS for ${subDir}`);
-    console.info(snapshots.length ? `  ${snapshots.join('\n  ')}` : `None found`);
+    console.group(`UPLOADING SNAPSHOTS for ${subDir}`);
+    console.info(snapshots.length ? `${snapshots.join('\n  ')}` : `None found`);
+    console.groupEnd();
 
     if (snapshots.length > 0) {
         const album = await imgur.createAlbum();
@@ -61,10 +70,9 @@ const uploadToImgur = async subDir => {
     return snapshots.length;
 };
 
-console.group('COLLECTING DIFFS');
-collectDiffs();
-
 (async () => {
+    await collectDiffs();
+
     const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(e =>
         console.error(e)
     );
@@ -73,4 +81,3 @@ collectDiffs();
         process.exit(1);
     }
 })();
-console.groupEnd();
