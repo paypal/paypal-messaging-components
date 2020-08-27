@@ -70,6 +70,9 @@ export default ({ options, markup, locale }) => {
     if (layout === 'text' && textSize) {
         miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
         miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
+
+        // Scale to match line-height display of quirks mode
+        miscStyleRules.push(`.message__messaging { line-height: ${(textSize - 10) * 0.05 + 1} }`);
     }
 
     // Set boundaries on the width of the message text to ensure proper line counts
