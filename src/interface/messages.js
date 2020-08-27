@@ -4,7 +4,12 @@ import { getInclusionList, getInlineOptions, getScript, getAccount, getPartnerAc
 import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
 
-function getGlobalAccount() {
+function getAccounts(config = {}) {
+    if (config.account) {
+        const { account, merchantId } = config;
+        return { normalizedAccount: account.account.replace(/^client-id:/, ''), merchantId };
+    }
+
     const script = getScript();
 
     if (script) {
@@ -25,8 +30,7 @@ function getGlobalAccount() {
 export const Messages = config => ({
     render: selector =>
         getInclusionList().then(inclusionList => {
-            const { account, merchantId } = config;
-            const normalizedAccount = account.replace(/^client-id:/, '');
+            const { normalizedAccount, merchantId } = getAccounts(config);
 
             if (
                 arrayIncludes(inclusionList, normalizedAccount) ||
@@ -51,7 +55,7 @@ export function setup() {
     }
 
     getInclusionList().then(inclusionList => {
-        const { normalizedAccount, merchantId } = getGlobalAccount();
+        const { normalizedAccount, merchantId } = getAccounts();
 
         if (
             arrayIncludes(inclusionList, normalizedAccount) ||

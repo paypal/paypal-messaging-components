@@ -45,7 +45,9 @@ export function setup() {
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
         } else {
-            Messages.render({ _auto: true });
+            setTimeout(() => {
+                Messages.render({ _auto: true });
+            }, 0);
         }
     }
 }
