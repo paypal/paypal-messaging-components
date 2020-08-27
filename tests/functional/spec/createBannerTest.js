@@ -65,7 +65,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
         test(testNameParts.slice(-1)[0], async () => {
-            const configString = JSON.stringify(config);
+            const configString = JSON.stringify({ account: config.account, ...viewport, ...config.style });
             await page.setViewport(viewport);
             page.on('console', async message => {
                 const text = message.text();
