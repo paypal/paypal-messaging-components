@@ -42,6 +42,9 @@ const uploadToImgur = async subDir => {
     const folder = path.resolve(DIFF_DIR, subDir);
     const snapshots = fs.readdirSync(folder);
 
+    console.info(`SNAPSHOTS for ${subDir}`);
+    console.info(snapshots.length ? `  ${snapshots.join('\n  ')}` : `None found`);
+
     if (snapshots.length > 0) {
         const album = await imgur.createAlbum();
 

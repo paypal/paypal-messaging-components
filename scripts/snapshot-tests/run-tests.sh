@@ -31,13 +31,7 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     rm -r ./tests/functional/__diff_output__
     find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
     echo 'DIFF FOLDERS FOUND'
-    echo $DIFF_FOLDERS_LIST
-    echo ''
-    echo 'DIFF OUTPUT BANNERS LIST'
-    ls ./tests/functional/__diff_output__/banner
-    echo ''
-    echo 'DIFF OUTPUT MODAL LIST'
-    ls ./tests/functional/__diff_output__/modal
+    cat $DIFF_FOLDERS_LIST
     echo ''
     node ./tests/functional/utils/collectDiffs.js
 
