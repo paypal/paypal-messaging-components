@@ -72,8 +72,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 if (text.startsWith('[WDS]') || text.includes('::req') || text.includes('::res')) {
                     return;
                 }
-                console.group(configString);
-                console.info(`Text [${text}]`);
+
                 if (text.includes('JSHandle')) {
                     const args = await Promise.all(
                         message.args().map(arg =>
@@ -81,10 +80,10 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                             arg.executionContext().evaluate(a => (a instanceof Error ? a.message : a), arg)
                         )
                     );
-                    console.info('Args [', ...args, ']');
+                    console.info(`${configString}\n  Text [${text}]`, '\n  Args [', ...args, ']');
                     return;
                 }
-                console.groupEnd();
+                console.info(`${configString}\n  Text [${text}]`);
             });
 
             // nav done when 0 network connections for at least 500 ms

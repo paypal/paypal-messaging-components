@@ -2,20 +2,34 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 # set -Eevxo
 
+OUTPUT_FILE=test_output.log
+ERROR_FILE=test_errors.log
+
+showFailures () {
+    failedCount=$(grep failed $OUTPUT_FILE | wc -l)
+    if [[ $failedCount -gt 0 ]]; then
+        echo ''
+        echo 'FAILURES FOUND';
+        node ./tests/functional/utils/collectFailedTests.js
+
+        echo ''
+        snapCount=$(grep -h __diff_output__ $ERROR_FILE -B 1 | wc -l)
+        if [[ $snapCount -gt 0 ]]; then
+            echo 'FULL LIST OF FAILED SNAPSHOTS'
+            grep -h __diff_output__ $ERROR_FILE -B 1
+        else
+            echo 'NO FAILED SNAPSHOTS'
+        fi
+        exit 1
+    fi
+}
+
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
-    npm run test:func 2> test_errors.log | tee test_output.log
+    npm run test:func:payload 2> $ERROR_FILE | tee $OUTPUT_FILE
 
     node ./tests/functional/utils/collectDiffs.js
 
-    failed_count=$(grep failed test_output.log | wc -l)
-    if [[ $failed_count -gt 0 ]]; then
-        echo 'FAILURES FOUND';
-        grep FAIL test_output.log
-        echo ''
-        echo 'FULL LIST OF FAILURES'
-        cat test_errors.log
-        exit 1
-    fi
+    showFailures
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u
@@ -30,16 +44,8 @@ else
         git commit -m "chore(snapshots): update snapshots [skip ci]"
         git push
     else
-        npm run test:func:payload 2> test_errors.log | tee test_output.log
+        npm run test:func:payload 2> $ERROR_FILE | tee $OUTPUT_FILE
 
-        failed_count=$(grep failed test_output.log | wc -l)
-        if [[ $failed_count -gt 0 ]]; then
-            echo 'FAILURES FOUND';
-            grep FAIL test_output.log
-            echo ''
-            echo 'FULL LIST OF FAILURES'
-            cat test_errors.log
-            exit 1
-        fi
+        showFailures
     fi
 fi

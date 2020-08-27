@@ -22,9 +22,9 @@ const bannerStyles = [
 const amounts = [1, 10000, undefined, 500];
 
 const getGroupString = ({ viewport, bannerStyle, amount }) => {
-    const layoutString = bannerStyle?.layout ? `layout:${bannerStyle.layout}, ` : '';
-    const widthString = viewport?.width ? `width:${viewport.width}, ` : '';
-    const amountString = `amount:${amount}`;
+    const layoutString = bannerStyle?.layout ? `${bannerStyle.layout},` : '';
+    const widthString = viewport?.width ? `wid:${viewport.width},` : '';
+    const amountString = amount ? `amt:${amount}` : `amt:undef`;
     return `(${layoutString}${widthString}${amountString})`;
 };
 

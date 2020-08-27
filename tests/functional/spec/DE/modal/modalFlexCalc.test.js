@@ -21,17 +21,19 @@ describe.each([
             style: bannerStyle
         });
     });
+
     const groupString = getGroupString({ viewport, bannerStyle, amount });
+
     test(
-        `show error message when entering a non-qualifying amount inside the calculator ${groupString}`,
+        `show error when entering a non-qualifying amount in the calculator ${groupString}`,
         nonQualErrorMsg(account, viewport, bannerStyle)
     );
     test(
-        `update finance terms when user updates amount passed into calculator ${groupString}`,
+        `update finance terms when user updates amount in calculator ${groupString}`,
         updateFinanceTerms(account, viewport, bannerStyle)
     );
     test(
-        `when an amount is passed into DE PP installments message, the correct financing terms are loaded in a table ${groupString}`,
+        `passing amount to DE installment message loads correct finance terms in table ${groupString}`,
         deModalContentAndCalc(account, viewport, bannerStyle)
     );
 });

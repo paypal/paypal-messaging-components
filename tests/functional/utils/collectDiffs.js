@@ -10,6 +10,12 @@ function collectDiffs() {
         const contents = fs.readdirSync(fullPath);
 
         contents.forEach(name => {
+            console.log({
+                folder,
+                path: path.resolve(fullPath, name),
+                isDirectory: fs.statSync(path.resolve(fullPath, name)).isDirectory(),
+                isDiffOutputFolder: folder === '__diff_output__'
+            });
             if (fs.statSync(path.resolve(fullPath, name)).isDirectory()) {
                 searchFolders(name, fullPath);
             } else if (folder === '__diff_output__') {

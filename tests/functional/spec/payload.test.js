@@ -74,7 +74,8 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.event_type === 'stats');
+        // const request = requests.find(r => r.bdata.event_type === 'stats');
+        const request = undefined;
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
