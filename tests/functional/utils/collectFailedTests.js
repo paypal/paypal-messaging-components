@@ -17,12 +17,12 @@ const collectFailedTests = () => {
 
     let isInSuite = false;
     let isInSummary = false;
-    readInterface.on('line', function(line) {
+    readInterface.on('line', line => {
         if (line.includes(SUITE_FAIL_START)) {
             isInSuite = true;
         }
         if (isInSuite && !line.includes(TEST_SUCCESS_SYMBOL)) {
-            console.log(line);
+            console.info(line);
         }
         if (line.includes(SUITE_FAIL_END)) {
             isInSuite = false;
@@ -33,7 +33,7 @@ const collectFailedTests = () => {
             isInSummary = true;
         }
         if (isInSummary) {
-            console.log(line);
+            console.info(line);
         }
     });
 };
