@@ -66,16 +66,15 @@ describe('payload testing', () => {
 
     test('initial payload', async () => {
         console.info('initial payload');
-        // const requests = await runTest({
-        //     config,
-        //     testPage,
-        //     callback: async () => {
-        //         await page.waitFor(5 * 1000);
-        //     }
-        // });
+        const requests = await runTest({
+            config,
+            testPage,
+            callback: async () => {
+                await page.waitFor(5 * 1000);
+            }
+        });
 
-        // const request = requests.find(r => r.bdata.event_type === 'stats');
-        const request = undefined;
+        const request = requests.find(r => r.bdata.event_type === 'stats');
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
