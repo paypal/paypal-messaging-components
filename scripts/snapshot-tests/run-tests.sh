@@ -4,7 +4,7 @@
 
 OUTPUT_FILE=test_output.log
 ERROR_FILE=test_errors.log
-DIFF_FOLDERS_LIST=diff_folders.lo
+DIFF_FOLDERS_LIST=diff_folders.log
 
 showFailures () {
     failedCount=$(grep failed $OUTPUT_FILE | wc -l)
@@ -30,9 +30,15 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
 
     rm -r ./tests/functional/__diff_output__
     find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
-    echo '-----DIFF_FOLDERS-----'
+    echo 'DIFF FOLDERS FOUND'
     echo $DIFF_FOLDERS_LIST
-    echo '-----END OF DIFF FOLDERS-----'
+    echo ''
+    echo 'DIFF OUTPUT BANNERS LIST'
+    ls ./tests/functional/__diff_output__/banner
+    echo ''
+    echo 'DIFF OUTPUT MODAL LIST'
+    ls ./tests/functional/__diff_output__/modal
+    echo ''
     node ./tests/functional/utils/collectDiffs.js
 
     showFailures
