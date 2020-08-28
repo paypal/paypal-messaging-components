@@ -25,7 +25,7 @@ const getGroupString = ({ viewport, bannerStyle, amount }) => {
     const layoutString = bannerStyle?.layout ? `${bannerStyle.layout},` : '';
     const widthString = viewport?.width ? `wid:${viewport.width},` : '';
     const amountString = amount ? `amt:${amount}` : `amt:undef`;
-    return `${layoutString}${widthString}${amountString}:`;
+    return `${layoutString}${widthString}${amountString}::`;
 };
 
 module.exports = {
