@@ -34,7 +34,7 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     cat $DIFF_FOLDERS_LIST
     echo ''
     echo 'DIFF FILES FOUND'
-    cat find ./tests/functional/ -type f -name '*png'
+    find ./tests/functional/ -type f -name '*png'
     echo ''
     node ./tests/functional/utils/collectDiffs.js
 
