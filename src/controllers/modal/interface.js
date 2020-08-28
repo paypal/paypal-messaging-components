@@ -22,8 +22,8 @@ export default memoizeOnProps(
             logger.track({
                 index: props.index,
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'render',
-                modal: products.join('&')
+                event_type: 'modal-render',
+                modal: products.join('_').toLowerCase()
             });
 
             if (typeof props.onReady === 'function') {

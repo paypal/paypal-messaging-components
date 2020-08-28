@@ -69,39 +69,24 @@ export default options => ({
                     });
 
                     const createOnReadyHandler = props => ({ meta }) => {
+                        const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
+                        const { account } = props;
+
                         logger.addMetaBuilder(() => {
                             return {
-                                [index]: { messageRequestId: meta.messageRequestId, account: merchantOptions.account },
-                                [meta.messageRequestId]: {
-                                    uuid:
-                                        meta.displayedMessage ||
-                                        // FIXME:
-                                        'NI:NON-US::layout:text::logo.position:left::logo.type:primary::text.color:black::text.size:12',
-                                    ...meta.trackingDetails
-                                }
+                                [index]: { messageRequestId, account, displayedMessage, ...trackingDetails }
                             };
                         });
 
                         runStats({ container, index });
 
-                        modal.updateProps({ index, offer: meta.offerType });
+                        modal.updateProps({ index, offer: offerType });
                         modal.render('body');
 
                         logger.track({
                             index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'MORS'
-                        });
-                        logger.track({
-                            index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'render',
-                            amount: props.amount,
-                            clientId: props.clientId,
-                            payerId: props.payerId,
-                            merchantId: props.merchantId,
-                            placement: props.placement,
-                            uuid: meta.uuid
                         });
 
                         if (typeof props.onReady === 'function') {

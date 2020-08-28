@@ -159,7 +159,7 @@ describe('modal interface', () => {
         expect(logger.track).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 index: '1',
-                modal: 'NI'
+                modal: 'ni'
             })
         );
     });
