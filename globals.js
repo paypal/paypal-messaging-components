@@ -44,7 +44,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __RAMP_INCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-inclusion.json',
             __MESSAGE_A__: '/credit-presentment/messages',
             __MESSAGE_A_LEGACY__: '/credit-presentment/messages/legacy',
-            __MESSAGE_B_: '/credit-presentment/smart/message',
+            __MESSAGE_B__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER_A__: '/ppcredit/messagingLogger',
             __LOGGER_B__: '/credit-presentment/log'

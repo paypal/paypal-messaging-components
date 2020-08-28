@@ -7,7 +7,7 @@ import containerTemplate from './containerTemplate';
 export default getGlobalVariable('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
-        url: getGlobalUrl('MESSAGE'),
+        url: getGlobalUrl('MESSAGE_B'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
