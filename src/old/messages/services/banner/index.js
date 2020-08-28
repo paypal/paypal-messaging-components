@@ -2,21 +2,9 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import {
-    memoizeOnProps,
-    objectGet,
-    objectMerge,
-    objectFlattenToArray,
-    getGlobalUrl,
-    request,
-    getCurrency,
-    createUUID,
-    getExclusionList,
-    getEnv
-} from '../../../../utils';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '../../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';
@@ -28,39 +16,9 @@ import { validateStyleOptions } from '../../models/Banner/validateOptions';
 // New fetcher
 // FIXME: Change this back to 'C' before production
 const PLACEMENT_VARIANT = 'B'; // A | B | C
-// Old fetcher
-const PLACEMENT = 'x200x51';
-const NI_ONLY_PLACEMENT = 'x199x99';
 
-// Using same JSONP callback namespace as original merchant.js
-window.__PP = window.__PP || {};
-
-function mutateMarkup(markup) {
-    try {
-        const content = markup.content.json;
-        const tracking = markup.tracking_details;
-        const meta = JSON.parse(content.meta);
-        const mutatedMarkup = {
-            data: {
-                disclaimer: JSON.parse(content.disclaimer),
-                headline: JSON.parse(content.headline),
-                subHeadline: JSON.parse(content.subHeadline)
-            },
-            meta: {
-                clickUrl: tracking.click_url,
-                messageRequestId: createUUID(),
-                impressionUrl: tracking.impression_url,
-                ...meta
-            }
-        };
-        return mutatedMarkup;
-    } catch (err) {
-        throw new Error(ERRORS.MESSAGE_INVALID_MARKUP);
-    }
-}
-
-function fetcherB({ account, merchantId, amount, offerType, currency, buyerCountry, style: { typeEZP } }) {
-    const rootUrl = getGlobalUrl('MESSAGE_B');
+function fetcher({ account, merchantId, amount, offerType, currency, buyerCountry, style: { typeEZP } }) {
+    const rootUrl = getGlobalUrl('MESSAGE_A');
 
     const queryParams = {
         merchant_id: merchantId, // Partner integrations
@@ -87,89 +45,6 @@ function fetcherB({ account, merchantId, amount, offerType, currency, buyerCount
 
         return {
             markup: { meta, data }
-        };
-    });
-}
-
-/**
- * Fetch banner markup from imadserver via JSONP
- * @param {Object} options Banner options
- * @returns {Promise<string>} Banner Markup
- */
-function fetcherA(options) {
-    const {
-        account,
-        merchantId,
-        amount,
-        offerType,
-        currency,
-        buyerCountry,
-        style: { typeEZP }
-    } = options;
-    return new ZalgoPromise(resolve => {
-        // Create JSONP callback
-        const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
-
-        // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
-
-        // Fire off JSONP request
-        const rootUrl = getGlobalUrl('MESSAGE_A');
-        const queryParams = {
-            dimensions,
-            currency_value: amount,
-            currency_code: currency || getCurrency(),
-            buyer_country: buyerCountry,
-            format: 'HTML',
-            presentation_types: 'HTML',
-            ch: 'UPSTREAM',
-            call: `__PP.${callbackName}`,
-            // Future prep for credit-presentment partner integration, ignored by imadserv
-            merchant_id: merchantId
-        };
-
-        const queryString = objectEntries(queryParams)
-            .filter(([, val]) => val)
-            .reduce(
-                (accumulator, [key, val]) => `${accumulator}&${key}=${val}`,
-                // TODO: This logic needs to be modified when switching from imadserv
-                // to credit-presentment in order to properly handle partner integrations
-                !merchantId && stringStartsWith(account, 'client-id')
-                    ? `client_id=${account.slice(10)}`
-                    : `pub_id=${merchantId || account}`
-            );
-        const script = document.createElement('script');
-        script.async = true;
-
-        // Manual request instead of traditional JSONP so that we can catch 204 no content stalling
-        request('GET', `${rootUrl}?${queryString}`, { withCredentials: true }).then(res => {
-            script.text = res.data || `__PP.${callbackName}('')`;
-            document.head.appendChild(script);
-        });
-
-        window.__PP[callbackName] = markup => {
-            document.head.removeChild(script);
-            delete window.__PP[callbackName];
-
-            if (__MESSAGES__.__DEMO__) {
-                if (window.__PP_DEMO_BANNER_HOOK) {
-                    window.__PP_DEMO_BANNER_HOOK(markup);
-                }
-            }
-
-            // Handles markup for v2, v1, v0
-            if (typeof markup === 'object') {
-                // Mutate Markup handles personalization studio json response
-                resolve({ markup: mutateMarkup(markup) });
-            } else {
-                try {
-                    resolve({
-                        markup: JSON.parse(markup.replace(/<\/?div>/g, ''))
-                    });
-                } catch (err) {
-                    resolve({ markup });
-                }
-            }
         };
     });
 }
@@ -252,90 +127,73 @@ const getContentMinWidth = templateNode => {
     });
 };
 
-const memoFetcherA = memoizeOnProps(fetcherA, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
-const memoFetcherB = memoizeOnProps(fetcherB, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
-
-function getFetcherByRamp(account, merchantId) {
-    // Ramp fetcher in production
-    return getEnv() === 'production'
-        ? getExclusionList().then(exclusionList => {
-              const id = stringStartsWith(account, 'client-id') ? account.slice(10) : account;
-
-              return arrayIncludes(exclusionList, id) || (merchantId && arrayIncludes(exclusionList, merchantId))
-                  ? memoFetcherA
-                  : memoFetcherB;
-          })
-        : ZalgoPromise.resolve(memoFetcherB);
-}
+const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 'offerType', 'buyerCountry']);
 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
 
-    return getFetcherByRamp(options.account, options.merchantId)
-        .then(fetcher =>
-            objectGet(options, 'style.layout') !== 'custom'
-                ? fetcher(options)
-                : ZalgoPromise.all([fetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
-                      if (typeof data.markup === 'object') {
-                          if (template === '') {
-                              logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
-                          }
-                          data.markup.template = template; // eslint-disable-line no-param-reassign
+    return (objectGet(options, 'style.layout') !== 'custom'
+        ? memoFetcher(options)
+        : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
+              if (typeof data.markup === 'object') {
+                  if (template === '') {
+                      logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
+                  }
+                  data.markup.template = template; // eslint-disable-line no-param-reassign
 
-                          return {
-                              markup: data.markup,
-                              options: objectMerge(options, getBannerOptions(logger, template))
-                          };
-                      }
+                  return {
+                      markup: data.markup,
+                      options: objectMerge(options, getBannerOptions(logger, template))
+                  };
+              }
 
-                      return { markup: data.markup };
-                  })
-        )
-        .then(({ markup, options: customOptions = {} }) => {
-            logger.info(EVENTS.FETCH_END);
+              return { markup: data.markup };
+          })
+    ).then(({ markup, options: customOptions = {} }) => {
+        logger.info(EVENTS.FETCH_END);
 
-            const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
-            setLocale(offerCountry);
+        const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
+        setLocale(offerCountry);
 
-            const style = validateStyleOptions(logger, options.style);
+        const style = validateStyleOptions(logger, options.style);
 
-            const totalOptions = {
-                ...options,
-                style,
-                ...customOptions
+        const totalOptions = {
+            ...options,
+            style,
+            ...customOptions
+        };
+
+        totalOptions.style._flattened = objectFlattenToArray(style);
+
+        if (typeof markup === 'object') {
+            const meta = {
+                ...markup.meta,
+                offerCountry
             };
 
-            totalOptions.style._flattened = objectFlattenToArray(style);
+            const template = Template.getTemplateNode(totalOptions, markup);
 
-            if (typeof markup === 'object') {
-                const meta = {
-                    ...markup.meta,
-                    offerCountry
-                };
+            return objectGet(totalOptions, 'style.layout') === 'text'
+                ? getContentMinWidth(template).then(minWidth => ({
+                      markup,
+                      options: totalOptions,
+                      template,
+                      meta: { ...meta, minWidth }
+                  }))
+                : {
+                      markup,
+                      options: totalOptions,
+                      template,
+                      meta: { ...meta, minWidth: template.minWidth }
+                  };
+        }
 
-                const template = Template.getTemplateNode(totalOptions, markup);
+        const template = document.createElement('div');
+        template.innerHTML = markup || '';
+        if (markup === '') {
+            logger.warn('No message was found for the given configuration parameters.');
+        }
 
-                return objectGet(totalOptions, 'style.layout') === 'text'
-                    ? getContentMinWidth(template).then(minWidth => ({
-                          markup,
-                          options: totalOptions,
-                          template,
-                          meta: { ...meta, minWidth }
-                      }))
-                    : {
-                          markup,
-                          options: totalOptions,
-                          template,
-                          meta: { ...meta, minWidth: template.minWidth }
-                      };
-            }
-
-            const template = document.createElement('div');
-            template.innerHTML = markup || '';
-            if (markup === '') {
-                logger.warn('No message was found for the given configuration parameters.');
-            }
-
-            return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
-        });
+        return { markup, options: totalOptions, template, meta: { offerCountry: 'US', offerType: 'NI' } };
+    });
 }

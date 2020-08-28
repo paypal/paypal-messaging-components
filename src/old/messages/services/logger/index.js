@@ -74,7 +74,7 @@ export const Logger = {
                 delete Array.prototype.toJSON;
             }
 
-            request('POST', getGlobalUrl('LOGGER'), {
+            request('POST', getGlobalUrl('LOGGER_A'), {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },

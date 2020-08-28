@@ -77,7 +77,7 @@ export function createCallbackError(message, cb) {
 }
 
 export const nextId = () => {
-    setGlobalState({ nextId: globalState.nextId + 1 });
+    setGlobalState({ nextId: (globalState.nextId ?? 1) + 1 });
     return globalState.nextId - 1;
 };
 
