@@ -1,41 +1,33 @@
-// import Logo from '../logos';
 import Logo from '../logos';
-import {
-    gbPLContentMediaQuery,
-    fallbackMediaQuery,
-    plAltContentMediaQuery,
-    messageLogoWidth
-} from '../../../GB/mutations/mediaQueries';
+import { plAltContentMediaQuery, messageLogoWidth } from '../../../GB/mutations/mediaQueries';
+
+import { xsmallTagMediaQuery, setLogoTop } from './mediaQueries';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [
+                    xsmallTagMediaQuery(textSize),
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    setLogoTop(textSize * 20)
+                ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default',
-                        br: ['on']
-                    },
-                    { tag: 'xsmall' }
+                        tag: 'default'
+                    }
                 ],
                 disclaimer: ['default']
-            })
-        ],
-        [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    gbPLContentMediaQuery(textSize * 38 + 10),
+                    xsmallTagMediaQuery(textSize * 16),
+                    setLogoTop(textSize * 21),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -43,10 +35,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                styles: [xsmallTagMediaQuery(textSize), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -54,7 +43,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
-                    fallbackMediaQuery(textSize * 20),
+                    xsmallTagMediaQuery(textSize),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -63,7 +52,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 16)],
+                styles: [xsmallTagMediaQuery(textSize)],
                 logo: false,
                 headline: [
                     {
@@ -76,8 +65,8 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: Logo.PRIMARY.COLOR,
+                styles: [xsmallTagMediaQuery(textSize), `.message__logo { width: ${textSize * 4}px }`],
+                logo: Logo.INLINE.COLOR,
                 headline: [
                     {
                         tag: 'small',
@@ -85,15 +74,6 @@ export default {
                     }
                 ]
             })
-        ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        [
-            'text.color:white && logo.type:inline',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
-            })
-        ],
-        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+        ]
     ]
 };

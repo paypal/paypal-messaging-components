@@ -61,6 +61,10 @@ export function xsmallTagMediaQuery(breakpoint) {
 
     @media screen and (max-width: ${breakpoint}px) {
 
+        .message__content {
+            display: inline-flex;
+        }
+
         .message__headline > .tag--medium {
             display: none;
         }
@@ -71,10 +75,6 @@ export function xsmallTagMediaQuery(breakpoint) {
         
         .message__headline .tag--xsmall > span {
             white-space: nowrap;
-        }
-
-        .locale--US .message__headline > span:nth-child(3) {
-            // display:none;
         }
     } 
 `;

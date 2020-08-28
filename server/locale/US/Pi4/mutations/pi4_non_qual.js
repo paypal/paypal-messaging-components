@@ -1,7 +1,5 @@
-// import Logo from '../logos';
 import Logo from '../logos';
 import { plAltContentMediaQuery, messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-
 import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop } from './mediaQueries';
 
 export default {
@@ -9,7 +7,11 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [
+                    xsmallTagMediaQuery(textSize * 37.5),
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    setLogoTop(textSize * 20)
+                ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
@@ -19,16 +21,6 @@ export default {
                     { tag: 'xsmall' }
                 ],
                 disclaimer: ['default']
-            })
-        ],
-        [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [
-                    xsmallTagMediaQuery(textSize * 37.5),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
-                ]
             })
         ],
         [
@@ -96,16 +88,6 @@ export default {
                     }
                 ]
             })
-        ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        [
-            'text.color:white && logo.type:inline',
-            ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 17 + 2)],
-                logo: Logo.PRIMARY.COLOR
-            })
         ]
-        // ['text.color:white && logo.type:alternative', { logo: Logo.ALT_PP.WHITE[0] }]
-        // ['text.color:grayscale && logo.type:alternative', { logo: Logo.ALT_PP.GRAYSCALE[0] }]
     ]
 };
