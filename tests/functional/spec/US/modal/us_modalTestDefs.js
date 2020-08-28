@@ -5,7 +5,7 @@ import modalSnapshot from '../../utils/modalSnapshot';
  * This function runs inside modalNI.test.js for the US locale.
  */
 
-export const niContentTest = (account, viewport, bannerStyle) => async () => {
+export const niContentTest = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ni content in modal';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
@@ -28,14 +28,14 @@ export const niContentTest = (account, viewport, bannerStyle) => async () => {
     expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
 /**
  * Runs inside modalText and modalFlex.test.js for the US locale.
  */
 
-export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () => {
+export const clickHereSeeTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'see terms page on modal hyperlink click';
     await page.waitFor(1000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
@@ -45,10 +45,10 @@ export const clickHereSeeTerms = (account, viewport, bannerStyle) => async () =>
     await modalFrame.click('a');
     await page.waitFor(1000);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
+export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'apply now button to credit application login';
     await page.waitFor(1000);
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
@@ -57,15 +57,15 @@ export const applyNowBtn = (account, viewport, bannerStyle) => async () => {
     await modalFrame.click(selectors.button.btn);
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
 /**
  * Runs inside modalCalc.test.js for the US locale.
- * Passes in bannerStyles instead of bannerStyle.
+ * Passes in groupString instead of groupString.
  */
 
-export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => {
+export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
@@ -78,20 +78,20 @@ export const nonQualErrorEZP = (account, viewport, bannerStyles) => async () => 
     await modalFrame.click(selectors.button.btnSecondary);
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const ezpFinanceTerms = (account, viewport, bannerStyles) => async () => {
+export const ezpFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp finance terms';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const updateFinanceTerms = (account, viewport, bannerStyles) => async () => {
+export const updateFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'update finance terms';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
@@ -101,10 +101,10 @@ export const updateFinanceTerms = (account, viewport, bannerStyles) => async () 
     await modalFrame.click(selectors.button.btnSecondary);
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const ezpModalContent = (account, viewport, bannerStyles) => async () => {
+export const ezpModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp message content';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
@@ -130,10 +130,10 @@ export const ezpModalContent = (account, viewport, bannerStyles) => async () => 
     expect(calcTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
     await page.waitFor(300);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyles[0].layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const switchTabs = (account, viewport, bannerStyle) => async () => {
+export const switchTabs = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'EZP and NI tabs click';
     const elementModal = await page.$("iframe[title='paypal_credit_modal']");
     const modalFrame = await elementModal.contentFrame();
@@ -143,7 +143,7 @@ export const switchTabs = (account, viewport, bannerStyle) => async () => {
     await modalFrame.click('button.tab:not(.tab--selected)');
     await page.waitFor(200);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     await page.waitFor(200);
     await modalFrame.click('button.tab:not(.tab--selected)');
 };

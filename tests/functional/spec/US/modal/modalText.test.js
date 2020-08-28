@@ -20,34 +20,37 @@ describe.each([
 
     const groupString = getGroupString({ viewport, bannerStyle });
 
-    test(`x button closes modal ${groupString}`, xClosesModal(account, viewport, bannerStyle));
-    test(`close modal on escape key press ${groupString}`, closeModalEsc(account, viewport, bannerStyle));
+    test(`${groupString} x button closes modal`, xClosesModal({ account, viewport, groupString }));
+    test(`${groupString} close modal on escape key press`, closeModalEsc({ account, viewport, groupString }));
     if (viewport.height === 1080) {
-        test(`close modal on click outside ${groupString}`, clickOutsideClosesModal(account, viewport, bannerStyle));
+        test(
+            `${groupString} close modal on click outside`,
+            clickOutsideClosesModal({ account, viewport, groupString })
+        );
     }
     test(
-        `after modal close, modal can reopen and close again ${groupString}`,
-        closeReopenModal(account, viewport, bannerStyle)
+        `${groupString} after modal close, modal can reopen and close again`,
+        closeReopenModal({ account, viewport, groupString })
     );
 
     test(
-        `click here inside modal takes user to see terms page ${groupString}`,
-        clickHereSeeTerms(account, viewport, bannerStyle)
+        `${groupString} click here inside modal takes user to see terms page`,
+        clickHereSeeTerms({ account, viewport, groupString })
     );
     test(
-        `apply now button opens browser to credit application login ${groupString}`,
-        applyNowBtn(account, viewport, bannerStyle)
+        `${groupString} apply now button opens browser to credit application login`,
+        applyNowBtn({ account, viewport, groupString })
     );
     if (account === 'DEV0000000PSZ') {
         test(
-            `switch between EZP and NI content by clicking tabs ${groupString}`,
-            switchTabs(account, viewport, bannerStyle)
+            `${groupString} switch between EZP and NI content by clicking tabs`,
+            switchTabs({ account, viewport, groupString })
         );
     }
     if (account === 'DEV00000000NI') {
         test(
-            `NI content is loaded when NI message is clicked ${groupString}`,
-            niContentTest(account, viewport, bannerStyle)
+            `${groupString} NI content is loaded when NI message is clicked`,
+            niContentTest({ account, viewport, groupString })
         );
     }
 });

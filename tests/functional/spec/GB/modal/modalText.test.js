@@ -21,14 +21,20 @@ describe.each([
 
     const groupString = getGroupString({ viewport, bannerStyle, amount });
 
-    test(`x button closes modal ${groupString}`, xClosesModal(account, viewport, bannerStyle));
-    test(`close modal on escape key press ${groupString}`, closeModalEsc(account, viewport, bannerStyle));
+    test(`${groupString} x button closes modal`, xClosesModal({ account, viewport, groupString }));
+    test(`${groupString} close modal on escape key press`, closeModalEsc({ account, viewport, groupString }));
     if (viewport.height === 1080) {
-        test(`close modal on click outside ${groupString}`, clickOutsideClosesModal(account, viewport, bannerStyle));
+        test(
+            `${groupString} close modal on click outside`,
+            clickOutsideClosesModal({ account, viewport, groupString })
+        );
     }
     test(
-        `after modal close, modal can reopen and close again ${groupString}`,
-        closeReopenModal(account, viewport, bannerStyle)
+        `${groupString} after modal close, modal can reopen and close again`,
+        closeReopenModal({ account, viewport, groupString })
     );
-    test(`verify that value prop in modal is correct ${groupString})`, gbModalContent(account, viewport, bannerStyle));
+    test(
+        `${groupString} verify that value prop in modal is correct`,
+        gbModalContent({ account, viewport, groupString })
+    );
 });

@@ -22,8 +22,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         3
     );
 
-    const _testNameParts = testNameParts.replace(/( )/g, '-');
-    const customSnapshotIdentifier = `${_testNameParts}-${viewport.width}`;
+    const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
     let locale = 'US';
 
     if (account.includes('IAZ')) {

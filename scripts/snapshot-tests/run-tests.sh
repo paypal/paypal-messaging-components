@@ -36,9 +36,6 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     echo 'DIFF FILES FOUND'
     find ./tests/functional/ -type f -name '*png' | grep -h __diff_output__
     echo ''
-    echo 'ORIGINAL AND DIFF PNG FILES FOUND'
-    find ./tests/functional/ -type f -name '*png'
-    echo ''
     node ./tests/functional/utils/collectDiffs.js
 
     showFailures
