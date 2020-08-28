@@ -26,20 +26,20 @@ const collectFailedTests = async () => {
     let summary = '';
     // eslint-disable-next-line no-restricted-syntax
     for await (const line of readInterface) {
-        if (line.length === 0) return;
+        if (line.length === 0) continue; // eslint-disable-line no-continue
 
-        if (line.includes(FILE_FAIL_START)) {
-            isInFile = true;
-            files.push({ startLine: line, suites: [], suiteIndex: 0 });
+        if (line.includes(SUMMARY_START)) {
+            isInFile = false;
+            isInSummary = true;
         } else if (isInFile && line.includes(FILE_FAIL_END)) {
             const file = files[fileIndex];
             file.endLine = line;
             isInFile = false;
             fileIndex = files.length;
-        } else if (line.includes(SUMMARY_START)) {
-            isInFile = false;
-            isInSummary = true;
-        } else if (isInFile && line.length > 0) {
+        } else if (line.includes(FILE_FAIL_START)) {
+            isInFile = true;
+            files.push({ startLine: line, suites: [], suiteIndex: 0 });
+        } else if (isInFile) {
             const file = files[fileIndex];
             if (isSuiteStart(line)) {
                 isInSuite = true;
@@ -62,8 +62,8 @@ const collectFailedTests = async () => {
     files.forEach(file => {
         console.info(file.startLine);
         file.suites.forEach(suite => {
-            console.info(suite.startLine);
             if (suite.tests.length) {
+                console.info(suite.startLine);
                 suite.tests.forEach(test => {
                     console.info(test);
                 });
@@ -74,4 +74,6 @@ const collectFailedTests = async () => {
     console.info(`\n${summary}`);
 };
 
-collectFailedTests();
+(async () => {
+    await collectFailedTests();
+})();
