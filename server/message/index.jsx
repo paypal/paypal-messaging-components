@@ -2,13 +2,13 @@
 /** @jsxFrag Fragment */
 // eslint-disable-next-line no-unused-vars
 import { h, Fragment } from 'preact';
-
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
-import fonts from './styles/fonts.css';
 import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
+import Styles from './parts/Styles';
+import CustomMessage from './parts/CustomMessage';
 
 /**
  * Get all applicable rules based on user flattened options
@@ -49,7 +49,10 @@ export default ({ options, markup, locale }) => {
 
     const styleSelectors = objectFlattenToArray(style);
     const applyCascadeRules = applyCascade(style, styleSelectors);
-    const mutationRules = applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, options));
+    const mutationRules =
+        options.style.layout === 'custom'
+            ? { logo: false, styles: [], headline: [], disclaimer: '' }
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, options, markup));
 
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
@@ -84,11 +87,6 @@ export default ({ options, markup, locale }) => {
 
     const [withText, productName] = getLocalProductName(locale, offerType);
 
-    // TODO: custom banner support
-    // if (layout === 'text' && objectGet(options, 'style.text.fontFamily')) {
-    //     prependStyle(newTemplate, createCustomFontFamily(options.account, objectGet(options, 'style.text.fontFamily')));
-    // }
-
     const productNameEl = (
         <span>
             {' '}
@@ -97,13 +95,27 @@ export default ({ options, markup, locale }) => {
         </span>
     );
 
+    if (options.style.layout === 'custom') {
+        return (
+            <CustomMessage data={markup} meta={markup.meta} template={options.customMarkup}>
+                <Styles
+                    globalStyleRules={globalStyleRules}
+                    localeStyleRules={localeStyleRules}
+                    mutationStyleRules={mutationStyleRules}
+                    miscStyleRules={miscStyleRules}
+                />
+            </CustomMessage>
+        );
+    }
+
     return (
         <div role="button" className="message" tabIndex="0">
-            <style className="styles__fonts" dangerouslySetInnerHTML={{ __html: fonts }} />
-            <style className="styles__global" dangerouslySetInnerHTML={{ __html: globalStyleRules.join('\n') }} />
-            <style className="styles__locale" dangerouslySetInnerHTML={{ __html: localeStyleRules.join('\n') }} />
-            <style className="styles__mutations" dangerouslySetInnerHTML={{ __html: mutationStyleRules.join('\n') }} />
-            <style className="styles__misc" dangerouslySetInnerHTML={{ __html: miscStyleRules.join('\n') }} />
+            <Styles
+                globalStyleRules={globalStyleRules}
+                localeStyleRules={localeStyleRules}
+                mutationStyleRules={mutationStyleRules}
+                miscStyleRules={miscStyleRules}
+            />
             <div className={`message__container ${localeClass}`}>
                 {/* foreground layer */}
                 <div className="message__foreground" />

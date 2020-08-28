@@ -7,26 +7,26 @@ import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 const devAccountMap = {
-    DEV00000000NI: ['US', 'NI', 'ni'],
-    DEV0000000NIQ: ['US', 'NI', 'niq'],
-    DEV000NINONUS: ['US', 'NI', 'ni_non-us'],
-    DEV00NINONUSQ: ['US', 'NI', 'niq_non-us'],
-    DEV0000000EAZ: ['US', 'EZP', 'ezp_any_eqz'],
-    DEV0000000EAG: ['US', 'EZP', 'ezp_any_gtz'],
-    DEV0000000PSZ: ['US', 'EZP', 'pala_single_eqz'],
-    DEV0000000PSG: ['US', 'EZP', 'pala_single_gtz'],
-    DEV0000000PMZ: ['US', 'EZP', 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', 'EZP', 'pala_multi_gtz'],
-    DEV0000000PI4: ['US', 'PI4', 'pay_in_4'],
-    DEV000000PI4Q: ['US', 'PI4Q', 'pay_in_4_q'],
+    DEV00000000NI: ['US', ['NI'], 'ni'],
+    DEV0000000NIQ: ['US', ['NI'], 'niq'],
+    DEV000NINONUS: ['US', ['NI'], 'ni_non-us'],
+    DEV00NINONUSQ: ['US', ['NI'], 'niq_non-us'],
+    DEV0000000EAZ: ['US', ['NI', 'EZP'], 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', ['NI', 'EZP'], 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', ['NI', 'EZP'], 'pala_single_eqz'],
+    DEV0000000PSG: ['US', ['NI', 'EZP'], 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', ['NI', 'EZP'], 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', ['NI', 'EZP'], 'pala_multi_gtz'],
+    DEV0000000PI4: ['US', ['PI4'], 'pay_in_four'],
+    DEV000000PI4Q: ['US', ['PI4'], 'pay_in_four_q'],
 
-    DEV0000000IAZ: ['DE', 'INST', 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', 'INST', 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', 'INST', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'INST', 'palaq_any_eqz'],
+    DEV0000000IAZ: ['DE', ['INST'], 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', ['INST'], 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', ['INST'], 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', ['INST'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', 'PL', 'pl'],
-    DEV00000GBPLQ: ['GB', 'PL', 'plq']
+    DEV000000GBPL: ['GB', ['PL'], 'pl'],
+    DEV00000GBPLQ: ['GB', ['PL'], 'plq']
 };
 
 export default (app, server, compiler) => {
@@ -105,7 +105,7 @@ export default (app, server, compiler) => {
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
                     compiler.compilers[2].outputFileSystem
-                        .readFileSync(path.resolve(__dirname, '../../dist/render.js'))
+                        .readFileSync(path.resolve(__dirname, '../../dist/renderMessage.js'))
                         .toString()
                 );
 
@@ -141,13 +141,6 @@ export default (app, server, compiler) => {
         return null;
     };
 
-    const mockModalType = (country, offer) =>
-        ({
-            GB: 'PL',
-            DE: 'INST',
-            US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(offer) ? 'NI' : 'EZP'
-        }[country] || 'NI');
-
     app.get('/ppcredit/messagingLogger', (req, res) => res.send(''));
 
     app.post('/credit-presentment/log', (req, res) => res.send(''));
@@ -167,20 +160,20 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
-        const [country, , offer] = devAccountMap[account] ?? ['US', 'NI', 'ni'];
+        const [country, products] = devAccountMap[account] ?? ['US', ['NI']];
 
         const props = {
-            type: mockModalType(country, offer),
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
                 csrf: 'csrf'
             },
             country,
+            products,
             payerId: account
         };
 
-        res.send(createMockZoidMarkup('modal', `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
+        res.send(createMockZoidMarkup(`modal-${country}`, `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {

@@ -9,7 +9,8 @@ import {
     getAllBySelector,
     attributeObserver,
     nextIndex,
-    logger
+    logger,
+    getCurrentTime
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -17,6 +18,7 @@ import { Modal } from '../modal';
 
 export default options => ({
     render: (selector = '[data-pp-message]') => {
+        const renderStart = getCurrentTime();
         const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
@@ -67,24 +69,31 @@ export default options => ({
                     });
 
                     const createOnReadyHandler = props => ({ meta }) => {
-                        runStats({ container, refId: `${meta.messageRequestId}-${index}` });
-
-                        console.log(meta);
-                        modal.updateProps({
-                            refId: `${meta.messageRequestId}-${index}`,
-                            offer: meta.offerType
+                        logger.addMetaBuilder(() => {
+                            return {
+                                [index]: { messageRequestId: meta.messageRequestId, account: merchantOptions.account },
+                                [meta.messageRequestId]: {
+                                    uuid:
+                                        meta.displayedMessage ||
+                                        // FIXME:
+                                        'NI:NON-US::layout:text::logo.position:left::logo.type:primary::text.color:black::text.size:12',
+                                    ...meta.trackingDetails
+                                }
+                            };
                         });
 
+                        runStats({ container, index });
+
+                        modal.updateProps({ index, offer: meta.offerType });
                         modal.render('body');
 
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS',
-                            url: meta.trackingDetails.impressionUrl
+                            event_type: 'MORS'
                         });
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'render',
                             amount: props.amount,
@@ -103,17 +112,17 @@ export default options => ({
                     const createOnClickHandler = props => ({ meta }) => {
                         modal.show({
                             ...props,
-                            refId: `${meta.messageRequestId}-${index}`,
+                            index,
                             onClose: () => container.firstChild.focus()
                         });
 
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLICK',
                             event_type: 'MORS'
                         });
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Banner Wrapper'
@@ -124,9 +133,9 @@ export default options => ({
                         }
                     };
 
-                    const handleHover = once(({ meta }) => {
+                    const handleHover = once(() => {
                         logger.track({
-                            message_request_id: `${meta.messageRequestId}-${index}`,
+                            index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'hover'
                         });
@@ -140,28 +149,34 @@ export default options => ({
                         onHover: createOnHoverHandler(merchantOptions)
                     };
 
-                    const message = Message(totalOptions);
-                    message.state.options = merchantOptions;
+                    const { render, state, updateProps } = Message(totalOptions);
 
-                    const updateProps = newOptions => {
-                        message.state.options = objectMerge(message.state.options, newOptions);
+                    state.renderStart = renderStart;
+                    state.options = merchantOptions;
 
-                        return message.updateProps({
-                            ...message.state.options,
-                            onReady: createOnReadyHandler(message.state.options),
-                            onClick: createOnClickHandler(message.state.options),
-                            onHover: createOnHoverHandler(message.state.options)
+                    const updatePropsWithHandlers = newOptions => {
+                        state.options = objectMerge(state.options, newOptions);
+
+                        return updateProps({
+                            ...state.options,
+                            onReady: createOnReadyHandler(state.options),
+                            onClick: createOnClickHandler(state.options),
+                            onHover: createOnHoverHandler(state.options)
                         });
                     };
 
-                    messagesMap.set(container, { render: message.render, updateProps });
+                    messagesMap.set(container, { render, updateProps: updatePropsWithHandlers, state });
 
                     attributeObserver.observe(container, { attributes: true });
 
-                    return message.render(container);
+                    return render(container);
                 }
 
-                const { updateProps } = messagesMap.get(container);
+                const { updateProps, state } = messagesMap.get(container);
+
+                if (state.renderComplete) {
+                    state.renderStart = renderStart;
+                }
 
                 return updateProps(merchantOptions);
             })

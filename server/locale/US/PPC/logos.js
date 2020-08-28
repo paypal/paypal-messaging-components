@@ -6,7 +6,7 @@ const getSvgSrc = svgFileName => `${ROOT_URL}/${svgFileName}.svg`;
 const STACKED = TYPES.reduce(
     (object, type) => ({
         ...object,
-        [type]: { dimensions: [573, 80], src: getSvgSrc(`ppc_${TYPE_MAP[type]}_pri`) }
+        [type]: { dimensions: [453, 152], src: getSvgSrc(`ppc_${TYPE_MAP[type]}_pri`) }
     }),
     {}
 );
@@ -40,6 +40,7 @@ export default {
     SINGLE_LINE,
     SINGLE_LINE_NO_PP,
     SINGLE_LINE_NO_PAYPAL,
+    // Alias clarified names to conventional ones for custom banner purposes
     PRIMARY: STACKED,
     ALTERNATIVE: SINGLE_LINE,
     ALT_NO_PAYPAL: SINGLE_LINE_NO_PAYPAL,

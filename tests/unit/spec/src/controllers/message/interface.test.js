@@ -34,7 +34,8 @@ jest.mock('src/controllers/modal', () => {
 jest.mock('src/utils/logger', () => ({
     logger: {
         warn: jest.fn(),
-        track: jest.fn()
+        track: jest.fn(),
+        addMetaBuilder: jest.fn()
     }
 }));
 
@@ -256,7 +257,7 @@ describe('message interface', () => {
         expect(Modal().updateProps).toHaveBeenCalledTimes(1);
         expect(Modal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                refId: '12345-1'
+                index: '1'
             })
         );
         expect(Modal().render).toHaveBeenCalledTimes(1);
@@ -287,7 +288,7 @@ describe('message interface', () => {
         expect(Modal().show).toHaveBeenCalledTimes(1);
         expect(Modal().show).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                refId: '12345-1'
+                index: '1'
             })
         );
     });

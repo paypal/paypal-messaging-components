@@ -71,20 +71,27 @@ module.exports = (env = {}) => {
     };
 
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
-        entry: ['./src/components/message/index.js', './src/components/modal/index.js'],
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,
         minify: false,
         sourcemaps: true,
         filename: '[name].js',
-        vars: globals(env)
+        vars: globals({
+            ...env,
+            TARGET: 'components'
+        })
     });
 
-    COMPONENTS_DEV_CONFIG.entry = {
-        'smart-credit-message': './src/components/message/index.js',
-        'smart-credit-modal': './src/components/modal/index.js'
-    };
+    COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+        (accumulator, locale) => ({
+            ...accumulator,
+            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+        }),
+        {
+            'smart-credit-message': './src/components/message/index.js'
+        }
+    );
 
     COMPONENTS_DEV_CONFIG.optimization.splitChunks = {
         chunks: 'all',
@@ -93,12 +100,13 @@ module.exports = (env = {}) => {
 
     const RENDERING_DEV_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
-        libraryTarget: 'global',
+        libraryTarget: 'commonjs',
         modulename: 'renderMessage',
         debug: true,
         minify: false,
         sourcemaps: false,
-        filename: 'render.js'
+        filename: 'renderMessage.js',
+        vars: globals(env)
     });
 
     return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];

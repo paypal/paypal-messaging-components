@@ -107,7 +107,7 @@ export default {
         [
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 32],
+                messageWidth: [textSize * 13, textSize * 33],
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },

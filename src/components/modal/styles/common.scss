@@ -1,0 +1,164 @@
+html,
+body {
+    height: 100% !important;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    min-width: inherit !important;
+}
+
+body {
+    margin: 0;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+li {
+    color: #2c2e2f;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 16px;
+    line-height: 42px;
+    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+    font-weight: 200;
+}
+
+h2 {
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+}
+
+svg {
+    margin: auto;
+    display: block;
+}
+
+h4 {
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+a {
+    text-decoration: none;
+    color: #0070ba;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-weight: 600;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style-type: disc;
+    margin-left: 18px;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0;
+}
+
+.button {
+    display: inline-block;
+    background: #0070ba;
+    border: none;
+    color: white;
+    border-radius: 3rem;
+    padding: 0.7em 1.5em;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.2s;
+    font-weight: 500;
+    border: 1px solid #0070ba;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background: #003087;
+        border: 1px solid #003087;
+    }
+
+    &:focus {
+        text-decoration: underline;
+        outline: none;
+    }
+
+    &.secondary {
+        background: white;
+        color: #0070ba;
+        border: 1px solid #0070ba;
+    }
+
+    &.secondary:hover,
+    &.secondary:focus {
+        border-color: #003087;
+        box-shadow: 0 0 0 0.0625em #003087 inset;
+        color: #003087;
+        background: white;
+    }
+
+    &.md {
+        font-size: 0.9rem;
+    }
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    border-top: 4px solid #00ff7f;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    transform-origin: 0 0;
+    z-index: 5;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg) translate(-50%, -50%);
+    }
+    100% {
+        -webkit-transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) translate(-50%, -50%);
+    }
+    100% {
+        transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
