@@ -41,10 +41,10 @@ export const attributeObserver = getGlobalVariable(
 
 const getRoot = () => {
     const { innerWidth, innerHeight } = window;
-    const elementsFromPoint =
-        typeof document.elementsFromPoint === 'function'
-            ? document.elementsFromPoint.bind(document)
-            : document.msElementsFromPoint.bind(document);
+    const elementsFromPoint = (typeof document.elementsFromPoint === 'function'
+        ? document.elementsFromPoint
+        : document.msElementsFromPoint
+    ).bind(document);
 
     return arrayFind(
         arrayFrom(elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),

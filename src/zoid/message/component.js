@@ -82,15 +82,20 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
+                required: false
+            },
+            onMarkup: {
+                type: 'function',
+                queryParam: false,
                 value: ({ props, event }) => {
-                    const { onReady } = props;
+                    const { onMarkup } = props;
 
                     return ({ styles, ...rest }) => {
                         if (styles) {
                             event.trigger('styles', { styles });
                         }
 
-                        return onReady && onReady({ styles, ...rest });
+                        return onMarkup && onMarkup({ styles, ...rest });
                     };
                 }
             },

@@ -41,9 +41,9 @@ export function getScript() {
         return getSDKScript();
     } else {
         return (
-            document.currentScript ||
             document.querySelector('script[src$="messaging.js"]') ||
-            document.querySelector('script[src$="merchant.js"]')
+            document.querySelector('script[src$="merchant.js"]') ||
+            document.currentScript
         );
     }
 }
