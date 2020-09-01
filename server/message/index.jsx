@@ -68,8 +68,9 @@ export default ({ options, markup, locale }) => {
 
     const textSize = style.text?.size;
     if (layout === 'text' && textSize) {
-        miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
-        miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
+        // miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
+        // miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
+        miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
     }
 
     // Set boundaries on the width of the message text to ensure proper line counts
