@@ -4,7 +4,7 @@ import { getGlobalUrl } from './global';
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalUrl('LOGGER'),
+    url: getGlobalUrl('LOGGER_B'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console

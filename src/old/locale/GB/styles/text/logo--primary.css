@@ -1,0 +1,25 @@
+.message__messaging {
+    display: inline-block;
+    white-space: normal;
+    flex: 0 0 auto;
+}
+
+.message__logo-container {
+    display: inline;
+    margin-right: 0.4rem;
+}
+
+.message__logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.message__disclaimer > .tag--default > span {
+    font-weight: 500;
+    color: #0070ba;
+}
+
+.message__logo:first-child {
+    margin-right: 5px;
+    margin-top: 2px;
+}

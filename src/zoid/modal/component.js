@@ -1,6 +1,9 @@
+import stringIncludes from 'core-js-pure/stable/string/includes';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
+import { getMeta, getEnv, getGlobalUrl, getGlobalVariable, getCurrentTime, viewportHijack, logger } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
@@ -8,14 +11,10 @@ import containerTemplate from './containerTemplate';
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => {
     switch (true) {
-        case [
-            'EZP:ANY:EQZ',
-            'EZP:ANY:GTZ',
-            'PALA:MULTI:EQZ',
-            'PALA:MULTI:GTZ',
-            'PALA:SINGLE:EQZ',
-            'PALA:SINGLE:GTZ'
-        ].includes(type.toUpperCase()):
+        case arrayIncludes(
+            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
+            type.toUpperCase()
+        ):
             return 'EZP';
         default:
             return 'NI';
@@ -36,11 +35,16 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
         },
         props: {
             account: {
-                type: 'object',
+                type: 'string',
                 queryParam: false,
                 required: true,
-                serialization: 'json',
                 value: validate.account
+            },
+            merchantId: {
+                type: 'string',
+                queryParam: 'merchant_id',
+                required: false,
+                value: validate.merchantId
             },
             currency: {
                 type: 'string',
@@ -70,22 +74,96 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             onClick: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props }) => {
+                    const { onClick, onApply } = props;
+
+                    return ({ linkName }) => {
+                        logger.track({
+                            index: props.index,
+                            et: 'CLICK',
+                            event_type: 'click',
+                            link: linkName
+                        });
+
+                        if (typeof onClick === 'function') {
+                            onClick({ linkName });
+
+                            if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
+                                onApply();
+                            }
+                        }
+                    };
+                }
             },
             onCalculate: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props }) => {
+                    const { onCalculate } = props;
+
+                    return ({ value }) => {
+                        logger.track({
+                            index: props.index,
+                            et: 'CLICK',
+                            event_type: 'click',
+                            link: 'Calculator',
+                            amount: value
+                        });
+
+                        if (typeof onCalculate === 'function') {
+                            onCalculate({ value });
+                        }
+                    };
+                }
             },
             onClose: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props }) => {
+                    const { onClose } = props;
+                    const [, replaceViewport] = viewportHijack();
+
+                    return ({ linkName }) => {
+                        replaceViewport();
+
+                        logger.track({
+                            index: props.index,
+                            et: 'CLICK',
+                            event_type: 'modal-close',
+                            link: linkName
+                        });
+
+                        if (typeof onClose === 'function') {
+                            onClose({ linkName });
+                        }
+                    };
+                }
             },
             onReady: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props, state }) => {
+                    const { onReady } = props;
+
+                    return ({ products }) => {
+                        const { index } = props;
+
+                        logger.info('modal_render', {
+                            index,
+                            duration: getCurrentTime() - state.renderStart
+                        });
+                        logger.track({
+                            index,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'modal-render',
+                            modal: products.join('_').toLowerCase()
+                        });
+
+                        if (typeof onReady === 'function') {
+                            onReady({ products });
+                        }
+                    };
+                }
             },
 
             // Computed Props
@@ -97,19 +175,14 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (props.account.type === 'payer_id' ? props.account.id : undefined),
+                value: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : undefined),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (props.account.type === 'client_id' ? props.account.id : undefined),
-                required: false
-            },
-            merchantId: {
-                type: 'string',
-                queryParam: 'merchant_id',
-                value: ({ props }) => props.account.subject,
+                value: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
                 required: false
             },
             sdkMeta: {

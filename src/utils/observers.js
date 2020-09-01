@@ -41,9 +41,13 @@ export const attributeObserver = getGlobalVariable(
 
 const getRoot = () => {
     const { innerWidth, innerHeight } = window;
+    const elementsFromPoint = (typeof document.elementsFromPoint === 'function'
+        ? document.elementsFromPoint
+        : document.msElementsFromPoint
+    ).bind(document);
 
     return arrayFind(
-        arrayFrom(document.elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),
+        arrayFrom(elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),
         el => window.getComputedStyle(el).height !== `${innerHeight}px`
     );
 };

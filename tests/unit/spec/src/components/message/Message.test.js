@@ -31,6 +31,7 @@ describe('<Message />', () => {
         onClick: jest.fn(),
         onReady: jest.fn(),
         onHover: jest.fn(),
+        onMarkup: jest.fn(),
         resize: jest.fn()
     });
     const wrapper = ({ children }) => (
@@ -54,6 +55,7 @@ describe('<Message />', () => {
         window.xprops.onClick.mockClear();
         window.xprops.onReady.mockClear();
         window.xprops.onClick.mockClear();
+        window.xprops.onMarkup.mockClear();
         request.mockClear();
     });
 
@@ -70,9 +72,7 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '12345'
-            },
-            styles: 'body { color: black; }',
-            warnings: []
+            }
         });
     });
 
@@ -104,11 +104,25 @@ describe('<Message />', () => {
         });
     });
 
-    it('Re-renders on xProp change', async () => {
+    it('Fires onMarkup and onReady on complete re-render', async () => {
         const { getByText, queryByText } = render(<Message />, { wrapper });
 
         expect(request).not.toHaveBeenCalled();
         expect(getByText(/test/i)).toBeInTheDocument();
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            }
+        });
+        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            styles: 'body { color: black; }',
+            warnings: []
+        });
 
         act(() => {
             updateProps({ amount: 200 });
@@ -116,12 +130,18 @@ describe('<Message />', () => {
 
         await waitFor(() => {
             expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
+            expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
         });
 
         expect(queryByText(/test/i)).toBeNull();
         expect(getByText(/mock/i)).toBeInTheDocument();
         expect(request).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '23456'
+            }
+        });
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '23456'
             },

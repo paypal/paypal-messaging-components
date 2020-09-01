@@ -246,22 +246,13 @@ describe('message interface', () => {
             })
         );
         expect(onReady).not.toHaveBeenCalled();
-        expect(Modal().updateProps).not.toHaveBeenCalled();
-        expect(Modal().render).not.toHaveBeenCalled();
 
         const [[{ onReady: onReadyHandler }]] = Message.mock.calls;
 
         onReadyHandler({ meta: { messageRequestId: '12345', trackingDetails: {} } });
 
         expect(onReady).toHaveBeenCalledTimes(1);
-        expect(Modal().updateProps).toHaveBeenCalledTimes(1);
-        expect(Modal().updateProps).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1'
-            })
-        );
-        expect(Modal().render).toHaveBeenCalledTimes(1);
-        expect(Modal().render).toHaveBeenLastCalledWith('body');
+        expect(onReady).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345', trackingDetails: {} } });
     });
 
     it('Passes onClick handler', async () => {
@@ -278,26 +269,21 @@ describe('message interface', () => {
             })
         );
         expect(onClick).not.toHaveBeenCalled();
-        expect(Modal().show).not.toHaveBeenCalled();
 
         const [[{ onClick: onClickHandler }]] = Message.mock.calls;
 
         onClickHandler({ meta: { messageRequestId: '12345' } });
 
         expect(onClick).toHaveBeenCalledTimes(1);
-        expect(Modal().show).toHaveBeenCalledTimes(1);
-        expect(Modal().show).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1'
-            })
-        );
+        expect(onClick).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
     });
 
     it('Passes onHover handler', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
+        const onHover = jest.fn();
 
-        await Messages({}).render(container);
+        await Messages({ onHover }).render(container);
 
         expect(Message).toHaveBeenCalledTimes(1);
         expect(Message).toHaveBeenLastCalledWith(
@@ -308,14 +294,9 @@ describe('message interface', () => {
 
         const [[{ onHover: onHoverHandler }]] = Message.mock.calls;
 
-        expect(logger.track).not.toHaveBeenCalled();
-
         onHoverHandler({ meta: { messageRequestId: '12345' } });
 
-        expect(logger.track).toHaveBeenCalledTimes(1);
-
-        onHoverHandler({ meta: { messageRequestId: '12345' } });
-
-        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(onHover).toHaveBeenCalledTimes(1);
+        expect(onHover).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
     });
 });

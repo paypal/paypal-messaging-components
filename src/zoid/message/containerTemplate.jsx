@@ -19,8 +19,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
                 el.setAttribute('data-width', width);
                 el.setAttribute('data-height', height);
 
-                // Auto resize height for non-layout flex messages
-                if (props.style.layout !== 'flex' && typeof height === 'number') {
+                if (props.style.layout === 'flex') {
+                    // Ensure height property does not exist for flex especially when swapping from text to flex
+                    el.style.setProperty('height', null);
+                } else if (typeof height === 'number') {
+                    // Auto resize height for non-layout flex messages
                     el.style.setProperty('height', `${height}px`);
                 }
 

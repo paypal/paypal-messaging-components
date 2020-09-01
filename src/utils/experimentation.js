@@ -7,3 +7,9 @@ export const getExclusionList = memoize(() =>
         .then(res => res?.data ?? [])
         .catch(() => [])
 );
+
+export const getInclusionList = memoize(() =>
+    request('GET', getGlobalUrl('RAMP_INCLUSION_LIST'))
+        .then(res => res?.data ?? [])
+        .catch(() => [])
+);
