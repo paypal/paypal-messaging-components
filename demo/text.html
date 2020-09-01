@@ -10,7 +10,6 @@
             body {
                 padding: 0;
                 margin: 0;
-                /* background: #2d2d2d; */
             }
 
             h2 {
@@ -26,6 +25,10 @@
                 margin: 0;
                 padding: 0.1rem 0.3rem;
                 font-family: monospace;
+            }
+
+            .text-color-white {
+                background: #2d2d2d;
             }
         </style>
     </head>
@@ -114,6 +117,9 @@
                     container.appendChild(h4);
 
                     const wrapper = document.createElement('div');
+                    if (conf.style.text.color === 'white') {
+                        wrapper.classList.add('text-color-white');
+                    }
                     container.appendChild(wrapper);
                     paypal.Message(conf).render(wrapper);
                 });
