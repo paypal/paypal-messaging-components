@@ -82,11 +82,12 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ meta }) => {
                         const { modal, index } = props;
-                        const { offerType } = meta;
+                        const { offerType, messageRequestId } = meta;
 
                         modal.show({
                             ...props,
                             index,
+                            refId: messageRequestId,
                             offer: offerType,
                             onClose: () => focus()
                         });
