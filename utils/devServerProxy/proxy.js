@@ -167,6 +167,7 @@ export default (app, server, compiler) => {
             },
             country,
             products,
+            type: products.slice(-1)[0], // TODO: Can be removed after the ramp
             payerId: account
         };
 

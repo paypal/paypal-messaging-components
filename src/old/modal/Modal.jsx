@@ -16,7 +16,7 @@ const Modal = ({ serverData }) => (
                 {common}
             </style>
             <Container>
-                <Content products={serverData.products} />
+                <Content modalType={serverData.type} />
             </Container>
         </TransitionState>
     </ServerContext.Provider>
