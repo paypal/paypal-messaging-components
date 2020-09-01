@@ -7,7 +7,7 @@ import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } fro
 function getAccounts(config = {}) {
     if (config.account) {
         const { account, merchantId } = config;
-        return { normalizedAccount: account.account.replace(/^client-id:/, ''), merchantId };
+        return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
     }
 
     const script = getScript();
