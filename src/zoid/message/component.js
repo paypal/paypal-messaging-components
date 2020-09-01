@@ -27,14 +27,13 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: false,
                 required: true,
-                // Creates object from account string and merchantId string
                 value: validate.account
             },
             merchantId: {
                 type: 'string',
                 queryParam: 'merchant_id',
-                value: validate.merchantId,
-                required: false
+                required: false,
+                value: validate.merchantId
             },
             amount: {
                 type: 'number',

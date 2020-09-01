@@ -65,19 +65,15 @@ describe('validate', () => {
             expect.objectContaining({ location: 'merchantId' })
         );
 
-        merchantId = validate.merchantId({ props: { merchantId: undefined } });
+        merchantId = validate.merchantId({ props: {} });
 
         expect(merchantId).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(2);
-        expect(console.warn).toHaveBeenLastCalledWith(
-            expect.stringContaining('invalid_option_value'),
-            expect.objectContaining({ location: 'merchantId' })
-        );
+        expect(console.warn).toHaveBeenCalledTimes(1);
 
         merchantId = validate.merchantId({ props: { merchantId: 12345 } });
 
         expect(merchantId).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(3);
+        expect(console.warn).toHaveBeenCalledTimes(2);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({ location: 'merchantId' })
