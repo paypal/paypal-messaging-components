@@ -14,8 +14,7 @@ import { setLocale } from '../../../locale';
 import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
 // New fetcher
-// FIXME: Change this back to 'C' before production
-const PLACEMENT_VARIANT = 'B'; // A | B | C
+const PLACEMENT_VARIANT = 'C'; // A | B | C
 
 function fetcher({ account, merchantId, amount, offerType, currency, buyerCountry, style: { typeEZP } }) {
     const rootUrl = getGlobalUrl('MESSAGE_A');
