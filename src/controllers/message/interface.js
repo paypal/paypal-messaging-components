@@ -1,10 +1,8 @@
 import { ZalgoPromise } from 'zalgo-promise/src';
-import { once } from 'belter/src';
 
 import {
     objectMerge,
     getInlineOptions,
-    runStats,
     globalState,
     getAllBySelector,
     attributeObserver,
@@ -63,94 +61,19 @@ export default options => ({
 
                 if (!messagesMap.has(container)) {
                     const index = container.getAttribute('data-pp-id');
-                    const modal = Modal({
-                        ...merchantOptions,
-                        onClose: () => container.firstChild.focus()
-                    });
-
-                    const createOnReadyHandler = props => ({ meta }) => {
-                        const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
-                        const { account } = props;
-
-                        logger.addMetaBuilder(() => {
-                            return {
-                                [index]: { messageRequestId, account, displayedMessage, ...trackingDetails }
-                            };
-                        });
-
-                        runStats({ container, index });
-
-                        modal.updateProps({ index, offer: offerType });
-                        modal.render('body');
-
-                        logger.track({
-                            index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS'
-                        });
-
-                        if (typeof props.onReady === 'function') {
-                            props.onReady({ meta });
-                        }
-                    };
-
-                    const createOnClickHandler = props => ({ meta }) => {
-                        modal.show({
-                            ...props,
-                            index,
-                            onClose: () => container.firstChild.focus()
-                        });
-
-                        logger.track({
-                            index,
-                            et: 'CLICK',
-                            event_type: 'MORS'
-                        });
-                        logger.track({
-                            index,
-                            et: 'CLICK',
-                            event_type: 'click',
-                            link: 'Banner Wrapper'
-                        });
-
-                        if (typeof props.onClick === 'function') {
-                            props.onClick({ meta });
-                        }
-                    };
-
-                    const handleHover = once(() => {
-                        logger.track({
-                            index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'hover'
-                        });
-                    });
-                    const createOnHoverHandler = () => ({ meta }) => handleHover({ meta });
+                    const modal = Modal(merchantOptions);
 
                     const totalOptions = {
                         ...merchantOptions,
-                        onReady: createOnReadyHandler(merchantOptions),
-                        onClick: createOnClickHandler(merchantOptions),
-                        onHover: createOnHoverHandler(merchantOptions)
+                        modal,
+                        index
                     };
 
                     const { render, state, updateProps } = Message(totalOptions);
 
                     state.renderStart = renderStart;
-                    state.options = merchantOptions;
 
-                    const updatePropsWithHandlers = newOptions => {
-                        state.options = objectMerge(state.options, newOptions);
-
-                        return updateProps({
-                            ...state.options,
-                            onReady: createOnReadyHandler(state.options),
-                            onClick: createOnClickHandler(state.options),
-                            onHover: createOnHoverHandler(state.options)
-                        });
-                    };
-
-                    messagesMap.set(container, { render, updateProps: updatePropsWithHandlers, state });
+                    messagesMap.set(container, { render, updateProps, state });
 
                     attributeObserver.observe(container, { attributes: true });
 

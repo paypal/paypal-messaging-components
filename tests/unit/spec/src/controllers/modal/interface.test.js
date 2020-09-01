@@ -53,7 +53,7 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(0);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -63,7 +63,7 @@ describe('modal interface', () => {
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -73,7 +73,7 @@ describe('modal interface', () => {
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
@@ -90,7 +90,7 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
         // Sends open event to zoid iframe
         expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
@@ -116,12 +116,12 @@ describe('modal interface', () => {
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
 
         await modal.hide();
 
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(3);
+        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
         expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 visible: false
@@ -141,27 +141,19 @@ describe('modal interface', () => {
         await Modal({ account: '9', index: '1', onReady }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(zoidModal).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onReady: expect.any(Function)
             })
         );
         expect(onReady).not.toHaveBeenCalled();
-        expect(logger.track).not.toHaveBeenCalled();
 
-        const [[{ onReady: onReadyHandler }]] = zoidModal().updateProps.mock.calls;
+        const [[{ onReady: onReadyHandler }]] = zoidModal.mock.calls;
 
         onReadyHandler({ products: ['NI'] });
 
         expect(onReady).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                modal: 'ni'
-            })
-        );
+        expect(onReady).toHaveBeenLastCalledWith({ products: ['NI'] });
     });
 
     it('Passes onCalculate handler', async () => {
@@ -169,69 +161,38 @@ describe('modal interface', () => {
         await Modal({ account: '10', index: '1', onCalculate }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(zoidModal).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onCalculate: expect.any(Function)
             })
         );
-        expect(logger.track).not.toHaveBeenCalled();
         expect(onCalculate).not.toHaveBeenCalled();
 
-        const [[{ onCalculate: onCalculateHandler }]] = zoidModal().updateProps.mock.calls;
+        const [[{ onCalculate: onCalculateHandler }]] = zoidModal.mock.calls;
 
         onCalculateHandler({ value: 100 });
 
         expect(onCalculate).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                link: 'Calculator',
-                amount: 100
-            })
-        );
+        expect(onCalculate).toHaveBeenLastCalledWith({ value: 100 });
     });
 
-    it('Passes onClick handler', async () => {
+    it('Passes onApply handler', async () => {
         const onApply = jest.fn();
         await Modal({ account: '11', index: '1', onApply }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(zoidModal).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                onCalculate: expect.any(Function)
+                onApply: expect.any(Function)
             })
         );
-        expect(logger.track).not.toHaveBeenCalled();
         expect(onApply).not.toHaveBeenCalled();
 
-        const [[{ onClick: onClickHandler }]] = zoidModal().updateProps.mock.calls;
+        const [[{ onApply: onApplyHandler }]] = zoidModal.mock.calls;
 
-        onClickHandler({ linkName: 'Close Button' });
-
-        expect(onApply).not.toHaveBeenCalled();
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                event_type: 'click',
-                link: 'Close Button'
-            })
-        );
-
-        onClickHandler({ linkName: 'Apply Now' });
+        onApplyHandler();
 
         expect(onApply).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                event_type: 'click',
-                link: 'Apply Now'
-            })
-        );
     });
 
     it('Passes onClose handler', async () => {
@@ -242,27 +203,18 @@ describe('modal interface', () => {
         await modal.show();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(zoidModal).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onClose: expect.any(Function)
             })
         );
-        expect(logger.track).toHaveBeenCalledTimes(1);
         expect(onClose).not.toHaveBeenCalled();
 
-        const [[{ onClose: onCloseHandler }]] = zoidModal().updateProps.mock.calls;
+        const [[{ onClose: onCloseHandler }]] = zoidModal.mock.calls;
 
         onCloseHandler({ linkName: 'Close Button' });
 
         expect(onClose).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                event_type: 'modal-close',
-                link: 'Close Button'
-            })
-        );
+        expect(onClose).toHaveBeenLastCalledWith({ linkName: 'Close Button' });
     });
 });

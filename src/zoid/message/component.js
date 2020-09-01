@@ -1,6 +1,7 @@
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable } from '../../utils';
+import { getMeta, getEnv, getGlobalUrl, getGlobalVariable, runStats, logger } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -23,12 +24,17 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
         },
         props: {
             account: {
-                type: 'object',
-                serialization: 'json',
+                type: 'string',
                 queryParam: false,
                 required: true,
                 // Creates object from account string and merchantId string
                 value: validate.account
+            },
+            merchantId: {
+                type: 'string',
+                queryParam: 'merchant_id',
+                value: validate.merchantId,
+                required: false
             },
             amount: {
                 type: 'number',
@@ -72,17 +78,95 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             onClick: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props, focus }) => {
+                    const { onClick } = props;
+
+                    return ({ meta }) => {
+                        const { modal, index } = props;
+                        const { offerType } = meta;
+
+                        modal.show({
+                            ...props,
+                            index,
+                            offer: offerType,
+                            onClose: () => focus()
+                        });
+
+                        logger.track({
+                            index,
+                            et: 'CLICK',
+                            event_type: 'MORS'
+                        });
+                        logger.track({
+                            index,
+                            et: 'CLICK',
+                            event_type: 'click',
+                            link: 'Banner Wrapper'
+                        });
+
+                        if (typeof onClick === 'function') {
+                            onClick({ meta });
+                        }
+                    };
+                }
             },
             onHover: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props }) => {
+                    const { onHover } = props;
+                    let hasHovered = false;
+
+                    return ({ meta }) => {
+                        const { index } = props;
+
+                        if (!hasHovered) {
+                            hasHovered = true;
+                            logger.track({
+                                index,
+                                et: 'CLIENT_IMPRESSION',
+                                event_type: 'hover'
+                            });
+                        }
+
+                        if (typeof onHover === 'function') {
+                            onHover({ meta });
+                        }
+                    };
+                }
             },
             onReady: {
                 type: 'function',
                 queryParam: false,
-                required: false
+                value: ({ props }) => {
+                    const { onReady } = props;
+
+                    return ({ meta }) => {
+                        const { account, index, modal } = props;
+                        const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
+
+                        logger.addMetaBuilder(() => {
+                            return {
+                                [index]: { messageRequestId, account, displayedMessage, ...trackingDetails }
+                            };
+                        });
+
+                        runStats({ container: document.querySelector(`[data-pp-id="${index}"]`), index });
+
+                        modal.updateProps({ index, offer: offerType });
+                        modal.render('body');
+
+                        logger.track({
+                            index,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'MORS'
+                        });
+
+                        if (typeof onReady === 'function') {
+                            onReady({ meta });
+                        }
+                    };
+                }
             },
             onMarkup: {
                 type: 'function',
@@ -90,12 +174,22 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 value: ({ props, event }) => {
                     const { onMarkup } = props;
 
-                    return ({ styles, ...rest }) => {
+                    return ({ styles, warnings, ...rest }) => {
+                        const { index } = props;
                         if (styles) {
                             event.trigger('styles', { styles });
                         }
 
-                        return onMarkup && onMarkup({ styles, ...rest });
+                        if (warnings) {
+                            warnings.forEach(warning => {
+                                logger.warn('render_warning', {
+                                    description: warning,
+                                    container: document.querySelector(`[data-pp-id="${index}"]`)
+                                });
+                            });
+                        }
+
+                        return onMarkup && onMarkup({ styles, warnings, ...rest });
                     };
                 }
             },
@@ -104,19 +198,14 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (props.account.type === 'payer_id' ? props.account.id : undefined),
+                value: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : undefined),
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) => (props.account.type === 'client_id' ? props.account.id : undefined),
-                required: false
-            },
-            merchantId: {
-                type: 'string',
-                queryParam: 'merchant_id',
-                value: ({ props }) => props.account.subject,
+                value: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
                 required: false
             },
             sdkMeta: {

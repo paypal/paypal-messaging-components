@@ -11,31 +11,15 @@ describe('validate', () => {
     it('validates account', () => {
         const payerId = 'DEV00000000NI';
         const clientId = 'client-id:test_client_id';
-        const merchantId = 'DEV0000000NIQ';
 
         let account = validate.account({ props: { account: payerId } });
 
-        expect(account).toEqual({
-            id: payerId,
-            type: 'payer_id'
-        });
+        expect(account).toEqual(payerId);
         expect(console.warn).not.toHaveBeenCalled();
 
         account = validate.account({ props: { account: clientId } });
 
-        expect(account).toEqual({
-            id: clientId.slice(10),
-            type: 'client_id'
-        });
-        expect(console.warn).not.toHaveBeenCalled();
-
-        account = validate.account({ props: { account: clientId, merchantId } });
-
-        expect(account).toEqual({
-            id: clientId.slice(10),
-            type: 'client_id',
-            subject: merchantId
-        });
+        expect(account).toEqual(clientId);
         expect(console.warn).not.toHaveBeenCalled();
 
         account = validate.account({ props: { account: 'invalid' } });
@@ -64,26 +48,36 @@ describe('validate', () => {
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({ location: 'account' })
         );
+    });
 
-        account = validate.account({ props: { account: clientId, merchantId: 'invalid' } });
+    it('validates merchantId', () => {
+        let merchantId = validate.merchantId({ props: { merchantId: 'DEV00000000NI' } });
 
-        expect(account).toEqual({
-            id: clientId.slice(10),
-            type: 'client_id'
-        });
-        expect(console.warn).toHaveBeenCalledTimes(4);
+        expect(merchantId).toEqual(merchantId);
+        expect(console.warn).not.toHaveBeenCalled();
+
+        merchantId = validate.merchantId({ props: { merchantId: 'client-id:test_client_id' } });
+
+        expect(merchantId).toBeUndefined();
+        expect(console.warn).toHaveBeenCalledTimes(1);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({ location: 'merchantId' })
         );
 
-        account = validate.account({ props: { account: clientId, merchantId: 12345 } });
+        merchantId = validate.merchantId({ props: { merchantId: undefined } });
 
-        expect(account).toEqual({
-            id: clientId.slice(10),
-            type: 'client_id'
-        });
-        expect(console.warn).toHaveBeenCalledTimes(5);
+        expect(merchantId).toBeUndefined();
+        expect(console.warn).toHaveBeenCalledTimes(2);
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'merchantId' })
+        );
+
+        merchantId = validate.merchantId({ props: { merchantId: 12345 } });
+
+        expect(merchantId).toBeUndefined();
+        expect(console.warn).toHaveBeenCalledTimes(3);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({ location: 'merchantId' })
