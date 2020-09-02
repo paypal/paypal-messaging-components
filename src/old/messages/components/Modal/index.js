@@ -32,8 +32,7 @@ const renderModal = memoizeOnProps(
                 wrapper.firstChild.focus();
                 track({ et: 'CLICK', event_type: 'modal-close', link: linkName });
             },
-            onReady: ({ products }) =>
-                track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: products.join('&') })
+            onReady: ({ modalType }) => track({ et: 'CLIENT_IMPRESSION', event_type: 'modal-open', modal: modalType })
         });
 
         const show = props => {

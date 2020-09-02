@@ -19,7 +19,7 @@ before_install:
 before_script:
     - npm run dev:standalone &
     # Give dev server time to startup
-    - sleep 20
+    - sleep 40
 
 script:
     - npm run lint
