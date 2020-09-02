@@ -86,7 +86,7 @@ export function getTargetMeta() {
         target: __MESSAGES__.__TARGET__,
         componentUrl: arrayIncludes(['production', 'sandbox'], getEnv())
             ? `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
-            : `${window.location.origin}/smart-credit-modal-old.js`
+            : `${window.location.origin}/smart-credit-modal.js`
     };
 
     if (__MESSAGES__.__TARGET__ === 'SDK') {
