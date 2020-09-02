@@ -27,6 +27,11 @@
                 font-family: monospace;
             }
 
+            /* separates h2's from color:white messages if needed */
+            h2:not(:first-child) {
+                border-top: 1px solid white;
+            }
+
             .text-color-white {
                 background: #2d2d2d;
             }
@@ -105,6 +110,7 @@
         <script src="./helpers/utils.js"></script>
         <script>
             const container = document.querySelector('.container');
+            let allWhite = true;
 
             Object.entries(getVariantsByAccount(window.CONFIG)).map(([account, configs]) => {
                 const h2 = document.createElement('h2');
@@ -119,11 +125,17 @@
                     const wrapper = document.createElement('div');
                     if (conf.style.text.color === 'white') {
                         wrapper.classList.add('text-color-white');
+                    } else {
+                        allWhite = false;
                     }
                     container.appendChild(wrapper);
                     paypal.Message(conf).render(wrapper);
                 });
             });
+
+            if (allWhite) {
+                document.body.classList.add('text-color-white');
+            }
         </script>
     </body>
 </html>
