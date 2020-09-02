@@ -17,14 +17,17 @@ before_install:
     - npm i -g npm@6
 
 before_script:
-    - npm run dev:standalone &
+    # TODO: Re-enable once snapshot tests are reliably improved
+    # - npm run dev:standalone &
     # Give dev server time to startup
-    - sleep 40
+    # TODO: Re-enable once snapshot tests are reliably improved
+    # - sleep 40
 
 script:
     - npm run lint
     - npm run test
-    - ./scripts/snapshot-tests/run-tests.sh
+    # TODO: Re-enable once snapshot tests are reliably improved
+    # - ./scripts/snapshot-tests/run-tests.sh
 
 deploy:
     provider: script
