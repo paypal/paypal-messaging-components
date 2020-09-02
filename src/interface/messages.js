@@ -1,64 +1,74 @@
-import { destroy as zoidDestroy } from 'zoid/src';
-import { destroy as bannerDestroy } from '../messages/controllers/render';
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../utils';
-import Messages from '../messages';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 
-export function setup() {
-    // Populate global config options
+import { getInclusionList, getInlineOptions, getScript, getAccount, getPartnerAccount } from '../utils';
+import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
+import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
+
+function getAccounts(config = {}) {
+    if (config.account) {
+        const { account, merchantId } = config;
+        return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
+    }
+
     const script = getScript();
+
     if (script) {
-        // Inline attributes are set to lowercase
-        const { merchantid, ...inlineScriptOptions } = getInlineOptions(script);
+        const { merchantid, account: inlineAccount } = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
+        const account = partnerAccount || getAccount() || inlineAccount;
+        const merchantId = (partnerAccount && getAccount()) || merchantid;
+        const globalAccount = merchantId || account;
 
-        Messages.setGlobalConfig({
-            account: partnerAccount || getAccount(),
-            merchantId: (partnerAccount && getAccount()) || merchantid,
-            currency: getCurrency(),
-            ...inlineScriptOptions
-        });
-
-        // Allow specified global namespace override
-        if (inlineScriptOptions.namespace) {
-            window[inlineScriptOptions.namespace] = {
-                ...(window[inlineScriptOptions.namespace] || {}),
-                Messages
-            };
-
-            // Don't clear window.paypal if SDK loaded first
-            if (window.paypal && !window.paypal.version) {
-                delete window.paypal;
-            }
+        if (globalAccount) {
+            return { normalizedAccount: globalAccount.replace(/^client-id:/, ''), merchantId };
         }
     }
 
-    if (__MESSAGES__.__TARGET__ !== 'SDK') {
-        // When importing the library directly using UMD, window.paypal will not exist
-        if (window.paypal) {
-            // Alias for pilot merchant support
-            window.paypal.Message = Messages;
-        }
-    }
-
-    // Requires a merchant account to render a message
-    if (globalState.config.account) {
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
-        } else {
-            Messages.render({ _auto: true });
-        }
-    }
+    return {};
 }
 
-export function destroy() {
-    zoidDestroy();
+export const Messages = config => ({
+    render: selector =>
+        getInclusionList().then(inclusionList => {
+            const { normalizedAccount, merchantId } = getAccounts(config);
 
-    bannerDestroy();
+            if (
+                arrayIncludes(inclusionList, normalizedAccount) ||
+                (merchantId && arrayIncludes(inclusionList, merchantId))
+            ) {
+                NewMessages(config).render(selector);
+            } else {
+                OldMessages(config).render(selector);
+            }
+        })
+});
 
-    document.querySelectorAll('[data-pp-id]').forEach(node => {
-        node.removeAttribute('data-pp-id');
-        node.firstChild.remove();
+Messages.render = (config, selector) => Messages(config).render(selector);
+// Old and New are the same
+Messages.setGlobalConfig = NewMessages.setGlobalConfig;
+
+export function setup() {
+    // This must run synchronously so that it's available immediately for the merchant to use
+    if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
+        // Alias for pilot merchant support
+        window.paypal.Message = Messages;
+    }
+
+    getInclusionList().then(inclusionList => {
+        const { normalizedAccount, merchantId } = getAccounts();
+
+        if (
+            arrayIncludes(inclusionList, normalizedAccount) ||
+            (merchantId && arrayIncludes(inclusionList, merchantId))
+        ) {
+            newSetup();
+        } else {
+            oldSetup();
+        }
     });
 }
 
-export { Messages };
+export function destroy() {
+    newDestroy();
+    oldDestroy();
+}

@@ -1,0 +1,21 @@
+.message__headline span.multi:nth-child(2) > span:first-child::after {
+    color: white;
+}
+.product-name::before {
+    color: white;
+}
+.product-name {
+    color: white;
+}
+.message__headline .pp-text-logo::before {
+    color: white;
+}
+.message__headline .pp-text-logo::after {
+    color: white;
+}
+.message__headline > span:last-child > strong:last-child {
+    color: white;
+}
+.message__headline strong::after {
+    color: white;
+}

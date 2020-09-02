@@ -1,8 +1,9 @@
 module.exports = {
-    testEnvironment: 'jest-environment-jsdom-fifteen',
+    testEnvironment: 'jest-environment-jsdom-sixteen',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
+        '^server/(.*)': '<rootDir>/server/$1',
         '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',
@@ -16,6 +17,8 @@ module.exports = {
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
+    // grumbler-scripts includes babel-plugin-istanbul
+    coveragePathIgnorePatterns: ['<rootDir>'],
     globals: {
         __ENV__: 'test',
         __MESSAGES__: {
@@ -24,10 +27,13 @@ module.exports = {
                 __TEST__: 'http://localhost.paypal.com:8080'
             },
             __URI__: {
-                __MESSAGE__: '/imadserver/upstream',
+                __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
+                __MESSAGE_A__: '/imadserver/upstream',
+                __MESSAGE_B__: '/credit-presentment/messages',
+                __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
+                __MESSAGE__: '/credit-presentment/smart/message',
                 __MODAL__: '/credit-presentment/smart/modal',
-                __LOGGER__: '/ppcredit/messagingLogger',
-                __TERMS__: '/ppcredit/finance/terms'
+                __LOGGER__: '/credit-presentment/log'
             }
         }
     }

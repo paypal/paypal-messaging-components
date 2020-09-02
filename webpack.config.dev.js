@@ -9,12 +9,15 @@ const HOSTNAME = 'localhost.paypal.com';
 const PORT = 8080;
 
 module.exports = (env = {}) => {
-    const MESSAGES_DEV_CONFIG =
+    const LIBRARY_DEV_CONFIG =
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
-                  entry: env.TARGET === 'legacy' ? './src/legacy/index.js' : './src/index.js',
-                  filename: env.TARGET === 'legacy' ? 'merchant.js' : 'messaging.js',
-                  modulename: env.TARGET === 'legacy' ? undefined : ['paypal', 'Messages'],
+                  entry: {
+                      messaging: './src/index.js',
+                      merchant: './src/old/legacy/index.js'
+                  },
+                  filename: '[name].js',
+                  modulename: ['paypal', 'Messages'],
                   libraryTarget: 'window',
                   debug: true,
                   minify: false,
@@ -43,8 +46,8 @@ module.exports = (env = {}) => {
                   }
               });
 
-    MESSAGES_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
-    MESSAGES_DEV_CONFIG.devServer = {
+    LIBRARY_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
+    LIBRARY_DEV_CONFIG.devServer = {
         contentBase: './demo',
         publicPath: '/',
         openPage: (() => {
@@ -64,21 +67,62 @@ module.exports = (env = {}) => {
         open: true,
         overlay: true,
         watchContentBase: true,
+        injectClient: compiler => !!compiler.devServer,
         before: devServerProxy,
-        https: env.NODE_ENV !== 'local',
+        https: true,
         disableHostCheck: true // IE11
     };
 
-    const MODAL_DEV_CONFIG = getWebpackConfig({
-        entry: './src/modal/index.js',
+    const COMPONENTS_DEV_CONFIG = getWebpackConfig({
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,
         minify: false,
         sourcemaps: true,
-        filename: 'smart-credit-modal.js',
+        filename: '[name].js',
+        vars: globals({
+            ...env,
+            TARGET: 'components'
+        })
+    });
+
+    COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+        (accumulator, locale) => ({
+            ...accumulator,
+            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+        }),
+        {
+            'smart-credit-message': './src/components/message/index.js'
+        }
+    );
+
+    COMPONENTS_DEV_CONFIG.optimization.splitChunks = {
+        chunks: 'all',
+        name: 'smart-credit-common'
+    };
+
+    const RENDERING_DEV_CONFIG = getWebpackConfig({
+        entry: ['./server/index.js'],
+        libraryTarget: 'commonjs',
+        modulename: 'renderMessage',
+        debug: true,
+        minify: false,
+        sourcemaps: false,
+        filename: 'renderMessage.js',
         vars: globals(env)
     });
 
-    return [MESSAGES_DEV_CONFIG, MODAL_DEV_CONFIG];
+    // TODO: Remove this after the ramp
+    const MODAL_DEV_CONFIG = getWebpackConfig({
+        entry: './src/old/modal/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-modal-old.js',
+        vars: globals(env)
+    });
+
+    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG, MODAL_DEV_CONFIG];
 };
