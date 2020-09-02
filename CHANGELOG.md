@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.13.0](https://github.com/paypal/paypal-messaging-components/compare/v1.12.4...v1.13.0) (2020-09-02)
+
+
+### Features
+
+* zoid message ([#262](https://github.com/paypal/paypal-messaging-components/issues/262)) ([36f8321](https://github.com/paypal/paypal-messaging-components/commit/36f8321f15d846232cf2b8665b4b0e96a471f4d6))
+
 ## [1.12.4](https://github.com/paypal/paypal-messaging-components/compare/v1.12.3...v1.12.4) (2020-08-19)
 
 
