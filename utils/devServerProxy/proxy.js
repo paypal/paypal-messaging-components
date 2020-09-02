@@ -156,7 +156,7 @@ export default (app, server, compiler) => {
     });
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
+        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount, targetMeta } = req.query;
         const account = clientId || payerId || merchantId;
         const [country, products] = devAccountMap[account] ?? ['US', ['NI']];
 
@@ -172,7 +172,12 @@ export default (app, server, compiler) => {
             payerId: account
         };
 
-        res.send(createMockZoidMarkup(`modal-${country}`, `<script>crc.setupModal(${JSON.stringify(props)})</script>`));
+        res.send(
+            createMockZoidMarkup(
+                targetMeta ? 'modal-old' : `modal-${country}`,
+                `<script>crc.setupModal(${JSON.stringify(props)})</script>`
+            )
+        );
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
@@ -210,10 +215,8 @@ export default (app, server, compiler) => {
                 meta: {
                     ...populatedBanner.meta,
                     messageRequestId: '1234',
-                    trackingDetails: {
-                        impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                        clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
-                    }
+                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
+                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
                 }
             });
         } else {
