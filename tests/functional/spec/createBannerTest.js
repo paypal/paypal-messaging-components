@@ -37,7 +37,7 @@ const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
 const waitForBanner = async timeout => {
     try {
         await page.waitForFunction(
-            async () => {
+            () => {
                 const iframe = document.querySelector('[data-pp-id] iframe');
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
