@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/paypal/paypal-messaging-components/compare/v1.13.0...v1.13.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* production modal bundle name ([#269](https://github.com/paypal/paypal-messaging-components/issues/269)) ([97278d8](https://github.com/paypal/paypal-messaging-components/commit/97278d88bfe7c1f7c5b4fa7f9c3a31ab07510c71))
+
 # [1.13.0](https://github.com/paypal/paypal-messaging-components/compare/v1.12.4...v1.13.0) (2020-09-02)
 
 
