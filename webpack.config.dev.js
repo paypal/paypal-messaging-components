@@ -12,9 +12,12 @@ module.exports = (env = {}) => {
     const LIBRARY_DEV_CONFIG =
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
-                  entry: env.TARGET === 'legacy' ? './src/legacy/index.js' : './src/index.js',
-                  filename: env.TARGET === 'legacy' ? 'merchant.js' : 'messaging.js',
-                  modulename: env.TARGET === 'legacy' ? undefined : ['paypal', 'Messages'],
+                  entry: {
+                      messaging: './src/index.js',
+                      merchant: './src/old/legacy/index.js'
+                  },
+                  filename: '[name].js',
+                  modulename: ['paypal', 'Messages'],
                   libraryTarget: 'window',
                   debug: true,
                   minify: false,
