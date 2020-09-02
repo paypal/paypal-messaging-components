@@ -69,7 +69,7 @@ module.exports = (env = {}) => {
     // TODO: Remove this after the ramp
     const MODAL_CONFIG = getWebpackConfig({
         entry: './src/old/modal/index.js',
-        filename: 'smart-credit-modal-old.js',
+        filename: 'smart-credit-modal.js',
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
