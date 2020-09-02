@@ -21,22 +21,19 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
         __DOMAIN__: {
-            __LOCAL__: `${env.NODE_ENV === 'local' ? 'http' : 'https'}://localhost.paypal.com:8080`,
+            __LOCAL__: 'https://localhost.paypal.com:8080',
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com',
 
             // Manual endpoint override example:
             // __MODAL__: {
-            //     __STAGE__: 'https://localhost.paypal.com:8443'
+            //     __LOCAL__: 'https://localhost.paypal.com:8443'
             // },
-            __MESSAGE_B__: {
-                __STAGE__: 'https://localhost.paypal.com:8443'
-            },
-            __MESSAGE_B_LEGACY__: {
-                __STAGE__: 'https://localhost.paypal.com:8443'
-            },
-            __RAMP_EXCLUSION_LIST__: {
+            // __LOGGER_A__: {
+            //     __LOCAL__: 'https://www.msmaster.qa.paypal.com'
+            // },
+            __RAMP_INCLUSION_LIST__: {
                 __LOCAL__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __SANDBOX__: 'https://www.paypalobjects.com',
@@ -44,12 +41,13 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             }
         },
         __URI__: {
-            __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
-            __MESSAGE_A__: '/imadserver/upstream',
-            __MESSAGE_B__: '/credit-presentment/messages',
-            __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
+            __RAMP_INCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-inclusion.json',
+            __MESSAGE_A__: '/credit-presentment/messages',
+            __MESSAGE_A_LEGACY__: '/credit-presentment/messages/legacy',
+            __MESSAGE_B__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER__: '/ppcredit/messagingLogger'
+            __LOGGER_A__: '/ppcredit/messagingLogger',
+            __LOGGER_B__: '/credit-presentment/log'
         }
     }
 });
