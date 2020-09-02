@@ -62,7 +62,6 @@ export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
 
 /**
  * Runs inside modalCalc.test.js for the US locale.
- * Passes in groupString instead of groupString.
  */
 
 export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () => {
