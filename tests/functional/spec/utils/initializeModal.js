@@ -6,10 +6,10 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
     await page.waitForSelector('.banner-1 iframe', { visible: true });
-    await page.waitForSelector("iframe[title='paypal_credit_modal']");
+    await page.waitForSelector('iframe[title*="paypal_credit_modal"]');
 
     const elementHandle = await page.$('.banner-1 iframe');
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
     const frame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();
@@ -21,7 +21,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
         await modalFrame.waitForSelector('.content-body');
     }
     await frame.click('.message__messaging');
-    await page.waitForSelector("iframe[title='paypal_credit_modal']", { visible: true });
+    await page.waitForSelector('iframe[title*="paypal_credit_modal"]', { visible: true });
 };
 
 export default openModal;

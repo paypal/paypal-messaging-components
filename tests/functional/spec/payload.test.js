@@ -15,10 +15,10 @@ const createSpy = async ({ keyword = 'bdata' }) => {
 const setupPage = async ({ config, testPage = 'banner.html' }) => {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
     await page.waitForSelector('.container iframe', { visible: true });
-    await page.waitForSelector("iframe[title='paypal_credit_modal']");
+    await page.waitForSelector('iframe[title*="paypal_credit_modal"]');
 
     const elementHandle = await page.$('.container iframe');
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const bannerFrame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();
 
@@ -31,7 +31,7 @@ const setupPage = async ({ config, testPage = 'banner.html' }) => {
 
 const clickBanner = async bannerFrame => {
     await bannerFrame.click('.message__messaging');
-    await page.waitForSelector("iframe[title='paypal_credit_modal']", { visible: true });
+    await page.waitForSelector('iframe[title*="paypal_credit_modal"]', { visible: true });
 };
 
 const getParsedRequests = spy => {
