@@ -26,7 +26,12 @@ export default {
                         logoAltWidth: textSize * 5,
                         logoWidth: textSize * 9,
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    `
+                    @media (max-width: ${textSize * 17}px) {
+                        .message__messaging { display: block; }
+                    }
+                    `
                 ]
             })
         ],
@@ -56,6 +61,7 @@ export default {
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: {
+                    replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
             })
@@ -66,6 +72,7 @@ export default {
                 messageWidth: false,
                 logo: false,
                 headline: {
+                    replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
             }

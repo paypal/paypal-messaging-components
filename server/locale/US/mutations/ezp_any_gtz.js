@@ -16,7 +16,8 @@ export default {
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'xsmall',
-                    br: ['months']
+                    replace: [['months', 'months.']],
+                    br: ['months.']
                 },
                 disclaimer: 'xsmall.2'
             }
@@ -26,11 +27,6 @@ export default {
             ({ textSize }) => ({
                 messageWidth: textSize * 11,
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
-                headline: {
-                    tag: 'xsmall',
-                    br: ['months.'],
-                    replace: [['months', 'months.']]
-                },
                 styles: [
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
@@ -38,18 +34,32 @@ export default {
                         logoAltWidth: textSize * 5,
                         logoWidth: textSize * 9,
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    '.message__messaging span.br { white-space: nowrap; }'
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                headline: {
-                    tag: 'small',
-                    replace: [['APR', 'APR.']]
-                },
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    ...defaultTextStyles,
+                    `.message__logo-container { width: ${textSize * 9}px }`,
+
+                    `
+                    .message__logo--svg:nth-child(2) {
+                        display: none;
+                    }
+                    @media (min-width: ${textSize * 21}px) {
+                        .message__logo--svg:nth-child(1) {
+                            display: none;
+                        }
+                        .message__logo--svg:nth-child(2) {
+                            display: block;
+                        }
+                    }
+                    `
+                ]
             })
         ],
         [
@@ -103,6 +113,23 @@ export default {
                     '.message__disclaimer > span { color: white; text-decoration: none; }'
                 ]
             }
+        ],
+        [
+            'logo.type:primary && logo.position:left && text.color:white',
+            ({ textSize }) => ({
+                styles: [
+                    ...defaultTextStyles,
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        whiteSpaceBP: textSize * 27
+                    }),
+                    '.message__messaging span.br { white-space: nowrap; }',
+                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
+                    '.message__disclaimer > span { color: white; text-decoration: none; }'
+                ]
+            })
         ],
         ...textLogoMutations
     ],

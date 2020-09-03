@@ -49,9 +49,9 @@
     font-weight: 400;
 }
 
-.message__disclaimer > span {
+.message__disclaimer > span.tag--xsmall {
     color: #0070ba;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 /* For non-US NI disclaimer */

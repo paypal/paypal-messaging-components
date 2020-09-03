@@ -119,7 +119,8 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 20),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    `.message__headline span:only-child { white-space: nowrap; }`
                 ],
                 headline: [
                     'xsmall',
