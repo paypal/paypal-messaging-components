@@ -1,0 +1,8 @@
+.message__logo-container::before {
+    height: 120%;
+    width: 100%;
+    transform: skewY(9deg);
+    top: 0;
+    left: 0;
+    top: -30%;
+}

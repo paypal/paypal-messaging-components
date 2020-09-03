@@ -1,0 +1,24 @@
+.message__logo-container {
+    padding: 0 2% 0 0;
+}
+
+.message__logo-container::before,
+.message__logo-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    background-color: #003087;
+    transform: skewX(-9deg);
+}
+
+.message__logo-container::before {
+    height: 101%;
+    width: 105%;
+    left: -15%;
+}
+
+.message__logo-container::after {
+    height: 70%;
+    width: 160%;
+    left: -70%;
+}

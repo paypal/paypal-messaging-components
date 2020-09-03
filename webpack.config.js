@@ -66,6 +66,18 @@ module.exports = (env = {}) => {
         name: 'smart-credit-common'
     };
 
+    // TODO: Remove this after the ramp
+    const MODAL_CONFIG = getWebpackConfig({
+        entry: './src/modal/index.js',
+        filename: 'smart-credit-modal-old.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        vars: globals(env)
+    });
+
     const RENDERING_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
         libraryTarget: 'commonjs',
@@ -76,5 +88,5 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG];
+    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG, MODAL_CONFIG];
 };

@@ -1,0 +1,11 @@
+.message__messaging {
+    white-space: normal;
+}
+
+.message__headline span:only-child {
+    white-space: normal;
+}
+
+.message__logo-container {
+    display: block;
+}
