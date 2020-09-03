@@ -176,7 +176,7 @@ export default (app, server, compiler) => {
 
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal-old' : `modal-${country}`,
+                targetMeta ? 'modal' : `modal-${country}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`
             )
         );
