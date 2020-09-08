@@ -12,27 +12,6 @@
         font-weight: bold;
     }
 
-    .payment-breakdown {
-        height: 5rem;
-        display: flex;
-
-        & > * {
-            color: #687173;
-            flex: 0 0 25%;
-            font-size: 0.8rem;
-            text-align: center;
-            line-height: 1.5;
-
-            svg {
-                margin-bottom: 0.25rem;
-            }
-
-            b {
-                font-size: 1rem;
-            }
-        }
-    }
-
     .divider {
         border: none;
         border-bottom: 1px dashed #aaa;
@@ -47,11 +26,12 @@
         max-width: 400px;
     }
 
-    .apply-now {
+    .call-to-action {
         display: flex;
         width: 100%;
         align-items: center;
         justify-content: space-between;
+        margin-top: 3rem;
 
         p {
             font-size: 1rem;
