@@ -6,3 +6,7 @@
     margin-top: -1px;
     margin-right: 0px;
 }
+
+.weak {
+    display: none;
+}

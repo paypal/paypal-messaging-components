@@ -1,4 +1,4 @@
-import { PayPalLogo, PPLogo, LOGO_COLOR } from '@paypal/sdk-logos';
+import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos';
 import { html } from 'jsx-pragmatic';
 
 function getSrc(component) {
@@ -13,6 +13,9 @@ function getPPLogoBase64(logoColor) {
 }
 
 function getPPMonogramBase64(logoColor) {
+    if (logoColor === 'monochrome') {
+        return getSrc(PPMonochrome({ logoColor }));
+    }
     return getSrc(PPLogo({ logoColor }));
 }
 
@@ -48,10 +51,16 @@ export default {
                 dimensions: [100, 32]
             }
         ],
-        MONOCHROME: {
-            src: 'https://www.paypalobjects.com/upstream/assets/logos/US/pi4_mono_pri.svg',
-            dimensions: [573, 80]
-        }
+        MONOCHROME: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.MONOCHROME),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
+                dimensions: [100, 32]
+            }
+        ]
     },
     ALT_PP: {
         COLOR: [
@@ -72,10 +81,12 @@ export default {
                 dimensions: [24, 32]
             }
         ],
-        MONOCHROME: {
-            src: 'https://www.paypalobjects.com/upstream/assets/logos/US/pi4_mono_pp.svg',
-            dimensions: [24, 32]
-        }
+        MONOCHROME: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.MONOCHROME),
+                dimensions: [24, 32]
+            }
+        ]
     },
     INLINE: {
         COLOR: {
@@ -91,7 +102,7 @@ export default {
             dimensions: [100, 32]
         },
         MONOCHROME: {
-            src: 'https://www.paypalobjects.com/upstream/assets/logos/US/pi4_mono_inline.svg',
+            src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
             dimensions: [100, 32]
         }
     }

@@ -1,6 +1,7 @@
 import Logo from '../logos';
-import { plAltContentMediaQuery, messageLogoWidth } from '../../../GB/mutations/mediaQueries';
+import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
 import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop } from './mediaQueries';
+import { textLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -46,7 +47,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
+                    // plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
                     xsmallTagMediaQuery(textSize * 27),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -88,6 +89,7 @@ export default {
                     }
                 ]
             })
-        ]
+        ],
+        ...textLogoMutations
     ]
 };

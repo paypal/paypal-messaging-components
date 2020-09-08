@@ -1,6 +1,7 @@
 import Logo from '../logos';
-import { plAltContentMediaQuery, messageLogoWidth } from '../../../GB/mutations/mediaQueries';
+import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
 import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop } from './mediaQueries';
+import { textLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -9,11 +10,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__headline > .tag--medium .weak.br { margin-left: -4.5px; }`,
-                    `@media screen and (max-width: ${textSize *
-                        32}px) { .message__content { display: inline-block; } }`,
+                    // `@media screen and (max-width: ${textSize *
+                    //     32}px) { .message__content { display: inline-block; } }`,
                     xsmallTagMediaQuery(textSize * 21),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25)
+                    // setLogoTop(textSize * 20)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
@@ -56,7 +57,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__headline > .tag--medium .weak.br { margin-left: -4.5px; }`,
-                    plAltContentMediaQuery(textSize * 15.75, textSize * 28, textSize * 23),
+                    // plAltContentMediaQuery(textSize * 15.75, textSize * 28, textSize * 23),
                     xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -66,10 +67,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [
-                    `.message__headline > .tag--medium .weak.br { display:none; }`,
-                    smallTagMediaQuery(textSize * 18)
-                ],
+                styles: [smallTagMediaQuery(textSize * 18)],
                 logo: false,
                 headline: [
                     {
@@ -87,11 +85,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    `.message__headline > .tag--medium .weak.br { display:none; }`,
-                    smallTagMediaQuery(textSize * 18),
-                    `.message__logo { width: ${textSize * 4}px }`
-                ],
+                styles: [smallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
@@ -105,6 +99,7 @@ export default {
                     }
                 ]
             })
-        ]
+        ],
+        ...textLogoMutations
     ]
 };
