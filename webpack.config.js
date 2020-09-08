@@ -22,7 +22,7 @@ module.exports = (env = {}) => {
 
     // merchant.js
     const MERCHANT_CONFIG = getWebpackConfig({
-        entry: './src/legacy/index.js',
+        entry: './src/old/legacy/index.js',
         filename: 'merchant.js',
         libraryTarget: 'window',
         web: true,
@@ -66,6 +66,21 @@ module.exports = (env = {}) => {
         name: 'smart-credit-common'
     };
 
+    // TODO: Remove this after the ramp
+    const MODAL_CONFIG = getWebpackConfig({
+        entry: './src/old/modal/index.js',
+        filename: 'smart-credit-modal.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        vars: globals({
+            ...env,
+            TARGET: 'modal'
+        })
+    });
+
     const RENDERING_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
         libraryTarget: 'commonjs',
@@ -73,8 +88,11 @@ module.exports = (env = {}) => {
         minify: true,
         debug: false,
         filename: 'renderMessage.js',
-        vars: globals(env)
+        vars: globals({
+            ...env,
+            TARGET: 'render'
+        })
     });
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG];
+    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG, MODAL_CONFIG];
 };

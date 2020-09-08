@@ -18,6 +18,7 @@ const Message = () => {
         onClick,
         onReady,
         onHover,
+        onMarkup,
         resize
     } = useXProps();
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
@@ -37,8 +38,14 @@ const Message = () => {
     };
 
     useLayoutEffect(() => {
+        if (typeof onMarkup === 'function') {
+            onMarkup({ meta, styles: parentStyles, warnings });
+        }
+    }, [parentStyles, warnings, markup]);
+
+    useLayoutEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ meta, warnings, styles: parentStyles });
+            onReady({ meta });
         }
     }, [meta.messageRequestId]);
 

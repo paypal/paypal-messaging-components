@@ -1,0 +1,30 @@
+.message__logo-container {
+    width: 35%;
+}
+
+.message__messaging {
+    width: 65%;
+    padding: 2px 5px;
+    line-height: 0;
+}
+
+.message__promo-container {
+    display: inline;
+    line-height: 0;
+}
+
+.message__headline {
+    font-size: 12px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.message__sub-headline {
+    font-size: 8px;
+    display: inline;
+}
+
+.message__disclaimer {
+    font-size: 7px;
+    display: inline;
+}

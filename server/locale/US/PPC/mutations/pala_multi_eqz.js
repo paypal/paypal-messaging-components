@@ -26,7 +26,12 @@ export default {
                         logoAltWidth: textSize * 5,
                         logoWidth: textSize * 9,
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    `
+                    @media (max-width: ${textSize * 11}px) {
+                        .message__messaging { display: block; }
+                    }
+                    `
                 ]
             })
         ],

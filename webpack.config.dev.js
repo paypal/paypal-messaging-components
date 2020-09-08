@@ -12,9 +12,12 @@ module.exports = (env = {}) => {
     const LIBRARY_DEV_CONFIG =
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
-                  entry: env.TARGET === 'legacy' ? './src/legacy/index.js' : './src/index.js',
-                  filename: env.TARGET === 'legacy' ? 'merchant.js' : 'messaging.js',
-                  modulename: env.TARGET === 'legacy' ? undefined : ['paypal', 'Messages'],
+                  entry: {
+                      messaging: './src/index.js',
+                      merchant: './src/old/legacy/index.js'
+                  },
+                  filename: '[name].js',
+                  modulename: ['paypal', 'Messages'],
                   libraryTarget: 'window',
                   debug: true,
                   minify: false,
@@ -109,5 +112,17 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];
+    // TODO: Remove this after the ramp
+    const MODAL_DEV_CONFIG = getWebpackConfig({
+        entry: './src/old/modal/index.js',
+        libraryTarget: 'window',
+        modulename: 'crc',
+        debug: true,
+        minify: false,
+        sourcemaps: true,
+        filename: 'smart-credit-modal-old.js',
+        vars: globals(env)
+    });
+
+    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG, MODAL_DEV_CONFIG];
 };

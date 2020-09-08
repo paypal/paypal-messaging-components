@@ -109,7 +109,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => {
-                const breakpointCalc = textSize * 20;
+                const breakpointCalc = textSize * 17;
                 return {
                     styles: [
                         messageDisclaimerMediaQuery(breakpointCalc - 1),
@@ -132,7 +132,11 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 20), `.message__logo-container { width: ${textSize * 5}px }`],
+                styles: [
+                    basicMediaQuery(textSize * 20),
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    `.message__headline span:only-child { white-space: nowrap; }`
+                ],
                 headline: [
                     'xsmall',
                     {

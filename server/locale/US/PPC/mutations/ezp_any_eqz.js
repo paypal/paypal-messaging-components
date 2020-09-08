@@ -3,6 +3,7 @@ import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
+    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
     '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
 ];
@@ -22,15 +23,20 @@ export default {
             }
         ],
         [
-            'logo.type:primary && logo.position:left',
-            ({ textSize }) => ({
-                messageWidth: textSize * 16,
-                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
+            'logo.type:primary',
+            {
                 headline: {
                     tag: 'small',
                     br: ['APR.'],
                     replace: [['APR', 'APR.']]
-                },
+                }
+            }
+        ],
+        [
+            'logo.type:primary && logo.position:left',
+            ({ textSize }) => ({
+                messageWidth: textSize * 16,
+                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
@@ -45,10 +51,6 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                headline: {
-                    tag: 'small',
-                    replace: [['APR', 'APR.']]
-                },
                 styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
@@ -100,10 +102,28 @@ export default {
             'text.color:white',
             {
                 styles: [
+                    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
                     '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
                     '.message__disclaimer > span { color: white; text-decoration: none; }'
                 ]
             }
+        ],
+        [
+            'logo.type:primary && logo.position:left && text.color:white',
+            ({ textSize }) => ({
+                styles: [
+                    ...defaultTextStyles,
+                    primaryContentMediaQuery({
+                        logoContainerBP: textSize * 21,
+                        logoAltWidth: textSize * 5,
+                        logoWidth: textSize * 9,
+                        whiteSpaceBP: textSize * 27
+                    }),
+                    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
+                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
+                    '.message__disclaimer > span { color: white; text-decoration: none; }'
+                ]
+            })
         ],
         ...textLogoMutations
     ],

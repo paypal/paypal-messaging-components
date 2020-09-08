@@ -24,6 +24,9 @@
 .message__messaging {
     white-space: normal;
     margin-right: 0.8rem;
+    position: relative;
+    top: -0.05em;
+    line-height: 1.3;
 }
 
 .message__messaging span.br {
@@ -37,21 +40,24 @@
 .message__headline {
     display: inline;
     font-weight: 400;
+    font-size: inherit;
 }
 
 .message__sub-headline {
     display: none;
+    font-size: inherit;
 }
 
 .message__disclaimer {
     display: inline;
     white-space: nowrap;
     font-weight: 400;
+    font-size: inherit;
 }
 
-.message__disclaimer > span {
+.message__disclaimer > span.tag--xsmall {
     color: #0070ba;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 /* For non-US NI disclaimer */

@@ -86,9 +86,9 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 32],
+                messageWidth: [textSize * 13, textSize * 33],
                 styles: [
-                    basicMediaQuery(textSize * 19 + 70),
+                    basicMediaQuery(textSize * 17),
                     `
                     .message__logo-container {
                         width: ${textSize * 9}px;
@@ -100,7 +100,7 @@ export default {
                         display: inline;
                     }
                     `,
-                    altContentMediaQuery(textSize * 42.25)
+                    altContentMediaQuery(textSize * 43.5)
                 ]
             })
         ],
@@ -132,8 +132,16 @@ export default {
                 styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
-                    { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
-                    { tag: 'medium', br: ['purchases'] }
+                    {
+                        tag: 'xsmall',
+                        replace: [['time.', 'time']],
+                        br: ['time']
+                    },
+                    {
+                        tag: 'medium',
+                        replace: [['$99+.', '$99+']],
+                        br: ['purchases']
+                    }
                 ]
             })
         ],
@@ -150,6 +158,7 @@ export default {
                     },
                     {
                         tag: 'medium',
+                        replace: [['$99+.', '$99+']],
                         br: ['purchases']
                     }
                 ]

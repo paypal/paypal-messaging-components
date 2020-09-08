@@ -1,0 +1,3 @@
+.message__headline > span:last-of-type {
+    display: inline-block;
+}
