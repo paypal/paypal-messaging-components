@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop } from './mediaQueries';
+import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap } from './mediaQueries';
 import { textLogoMutations } from './common';
 
 export default {
@@ -9,7 +9,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    xsmallTagMediaQuery(textSize * 37.5),
+                    textWrap(textSize * 37, textSize),
+                    xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
@@ -47,8 +48,9 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    // plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
-                    xsmallTagMediaQuery(textSize * 27),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 37, textSize),
+                    xsmallTagMediaQuery(textSize * 15.4),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]

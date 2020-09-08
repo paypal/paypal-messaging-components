@@ -1,3 +1,25 @@
+/**
+ * Wrap text under logo for default/primary left and alternative config types.
+ */
+export function textWrap(breakpoint, textSize) {
+    return `@media screen and (max-width: ${breakpoint}px) { 
+        .locale--US .message__content {
+            display: block;
+            margin-top: -${textSize / 2}px;
+        } 
+        .locale--US .message__logo-container {
+            display: inline-flex;
+            transform: translateY(${textSize / 2}px);
+        } 
+        .locale--US .message__messaging {
+            display: inline;
+        }
+        .locale--US .message__messaging span.br:first-child {
+            white-space: normal;
+        }
+    }`;
+}
+
 export function setLogoTop(breakpoint) {
     return `
         @media screen and (max-width: ${breakpoint}px) {

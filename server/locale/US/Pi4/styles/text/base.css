@@ -5,3 +5,7 @@
 .message__disclaimer > .tag--default {
     text-decoration: none;
 }
+
+.message__disclaimer span {
+    color: #0070ba;
+}
