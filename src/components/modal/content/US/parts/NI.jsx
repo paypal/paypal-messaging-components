@@ -24,9 +24,7 @@ export default () => {
 
                 <p>No Interest if paid in full in 6 months on purchases of $99+. No money due today.</p>
 
-                <div className="payment-breakdown" />
-
-                <p className="apply-now">
+                <p className="call-to-action">
                     <div>
                         <p>
                             <b>Get a decision in seconds</b>

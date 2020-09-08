@@ -8,7 +8,10 @@ import { useTransitionState, useXProps } from '../lib';
 const getInitialTabIndex = (initialTabProduct, tabs) =>
     arrayFindIndex(tabs, ({ product }) => product === initialTabProduct) || 0;
 
-const Tabs = ({ tabs }) => {
+const Tabs = props => {
+    console.log(props);
+    const { tabs } = props;
+    console.log(tabs);
     // offer type of banner used to determine which tab to pre-select
     const { offer, onClick } = useXProps();
     const initialTab = getInitialTabIndex(offer, tabs);
