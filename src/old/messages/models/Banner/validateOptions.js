@@ -195,6 +195,10 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
 
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
         validOptions.style = style;
+        const sizeVal = validOptions.style?.text?.size;
+        if (typeof sizeVal === 'string') {
+            validOptions.style.text.size = Number(sizeVal);
+        }
     } else {
         if (validateType(Types.OBJECT, style)) {
             logInvalidType(logger, 'style.layout', Types.STRING, style.layout);
