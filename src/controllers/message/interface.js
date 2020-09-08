@@ -14,17 +14,19 @@ import {
 import { Message } from '../../zoid/message';
 import { Modal } from '../modal';
 
-export default options => ({
+export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
         const renderStart = getCurrentTime();
         const { messagesMap } = globalState;
         const containers = getAllBySelector(selector);
 
         if (containers.length === 0) {
-            logger.warn('invalid_selector', {
-                description: `No elements were found with the following selector: "${selector}"`,
-                selector
-            });
+            if (selector !== '[data-pp-message]') {
+                logger.warn('invalid_selector', {
+                    description: `No elements were found with the following selector: "${selector}"`,
+                    selector
+                });
+            }
 
             return ZalgoPromise.resolve();
         }
@@ -69,11 +71,11 @@ export default options => ({
                         index
                     };
 
-                    const { render, state, updateProps } = Message(totalOptions);
+                    const { render, state, updateProps, clone } = Message(totalOptions);
 
                     state.renderStart = renderStart;
 
-                    messagesMap.set(container, { render, updateProps, state });
+                    messagesMap.set(container, { render, updateProps, state, clone });
 
                     attributeObserver.observe(container, { attributes: true });
 
