@@ -3,7 +3,6 @@ import Logo from '../logos';
 /**
  * Assigns appropriate logo based on message config options.
  * Used in mutations files where config settings are the same across many accounts.
- * These do not apply to Pay in 4 messages.
  */
 
 export const textLogoMutations = [
