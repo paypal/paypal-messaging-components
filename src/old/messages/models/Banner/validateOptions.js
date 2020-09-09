@@ -193,6 +193,18 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
         }
     }
 
+    let sizeVal = validOptions.style?.text?.size;
+
+    if (typeof sizeVal !== 'undefined') {
+        sizeVal = Number(sizeVal);
+        if (!validateType(Types.NUMBER, sizeVal)) {
+            logInvalidType(logger, 'style.text.size', Types.NUMBER, sizeVal);
+            delete validOptions.style.text.size;
+        } else {
+            validOptions.style.text.size = sizeVal;
+        }
+    }
+
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
         validOptions.style = style;
     } else {
