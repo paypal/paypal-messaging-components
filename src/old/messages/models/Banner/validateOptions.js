@@ -193,12 +193,19 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
         }
     }
 
+    let sizeVal = validOptions.style?.text?.size;
+
+    if (typeof sizeVal !== 'undefined') {
+        sizeVal = Number(sizeVal);
+        if (!validateType(Types.NUMBER, sizeVal)) {
+            logInvalidType(logger, 'text size', Types.NUMBER, sizeVal);
+        } else {
+            validOptions.style.text.size = sizeVal;
+        }
+    }
+
     if (validateType(Types.OBJECT, style) && validateType(Types.STRING, style.layout)) {
         validOptions.style = style;
-        const sizeVal = validOptions.style?.text?.size;
-        if (typeof sizeVal === 'string') {
-            validOptions.style.text.size = Number(sizeVal);
-        }
     } else {
         if (validateType(Types.OBJECT, style)) {
             logInvalidType(logger, 'style.layout', Types.STRING, style.layout);
