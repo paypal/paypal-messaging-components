@@ -198,7 +198,8 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
     if (typeof sizeVal !== 'undefined') {
         sizeVal = Number(sizeVal);
         if (!validateType(Types.NUMBER, sizeVal)) {
-            logInvalidType(logger, 'text size', Types.NUMBER, sizeVal);
+            logInvalidType(logger, 'style.text.size', Types.NUMBER, sizeVal);
+            delete validOptions.style.text.size;
         } else {
             validOptions.style.text.size = sizeVal;
         }
