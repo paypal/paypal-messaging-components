@@ -55,7 +55,7 @@
     font-size: inherit;
 }
 
-.message__disclaimer > span.tag--xsmall {
+.message__disclaimer > span {
     color: #0070ba;
     font-weight: 500;
 }
