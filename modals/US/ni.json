@@ -3,10 +3,13 @@
         "product": "NI"
     },
     "content": {
-        "headline": "6 months special financing",
+        "headline": {
+            "multiProduct": "6 months special financing",
+            "singleProduct": "PayPal Credit"
+        },
         "subHeadline": "No Interest if paid in full in 6 months on purchases of $99+. No money due today.",
         "applyNow": {
-            "headline": "Get a decision in seconds",
+            "headline": "Get a decision in seconds.",
             "subHeadline": "Subject to credit approval"
         },
         "terms": {

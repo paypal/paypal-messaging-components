@@ -2,15 +2,15 @@
 import { h } from 'preact';
 
 import NI from './NI';
-import PI4 from './PI4';
+import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
 import { useServerData } from '../../../lib';
 
 const tabsMap = {
-    PI4: {
+    GPL: {
         title: 'Pay in 4',
-        product: 'PI4',
-        body: <PI4 />
+        product: 'GPL',
+        body: <GPL />
     },
     NI: {
         title: 'PayPal Credit',

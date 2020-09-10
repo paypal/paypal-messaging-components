@@ -22,7 +22,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     useEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ type, products });
+            onReady({ type, products: products.map(({ meta }) => meta.product) });
         }
     }, []);
 

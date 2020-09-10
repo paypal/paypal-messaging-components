@@ -31,6 +31,8 @@ main {
     height: 100%;
     padding-top: 1.5rem;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 @include desktop {
