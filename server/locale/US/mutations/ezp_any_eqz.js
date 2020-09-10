@@ -8,6 +8,12 @@ const defaultTextStyles = [
     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
 ];
 
+const whiteStyles = [
+    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
+    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
+    '.message__disclaimer > span { color: white; text-decoration: none; }'
+];
+
 export default {
     'layout:text': [
         [
@@ -100,13 +106,21 @@ export default {
         ],
         [
             'text.color:white',
-            {
-                styles: [
-                    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                    '.message__disclaimer > span { color: white; text-decoration: none; }'
-                ]
-            }
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+            })
+        ],
+        [
+            'logo.type:alternative && text.color:white',
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 5}px }`]
+            })
+        ],
+        [
+            'logo.type:inline && text.color:white',
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
+            })
         ],
         [
             'logo.type:primary && logo.position:left && text.color:white',
@@ -119,9 +133,7 @@ export default {
                         logoWidth: textSize * 9,
                         whiteSpaceBP: textSize * 27
                     }),
-                    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                    '.message__disclaimer > span { color: white; text-decoration: none; }'
+                    ...whiteStyles
                 ]
             })
         ],

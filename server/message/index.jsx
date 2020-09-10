@@ -91,8 +91,7 @@ export default ({ options, markup, locale }) => {
 
     const productNameEl = (
         <span>
-            {' '}
-            {withText} <span className="pp-text-logo" />
+            &nbsp;{withText} <span className="pp-text-logo" />
             <strong>{productName}</strong>
         </span>
     );

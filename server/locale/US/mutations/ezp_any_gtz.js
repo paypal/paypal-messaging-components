@@ -3,8 +3,15 @@ import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
+    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
     '.message__headline > span:not(:nth-of-type(2)) { text-decoration: underline; color: #0076ff; font-weight: 600; }',
     '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+];
+
+const whiteStyles = [
+    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
+    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
+    '.message__disclaimer > span { color: white; text-decoration: none; }'
 ];
 
 export default {
@@ -42,24 +49,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-
-                    `
-                    .message__logo--svg:nth-child(2) {
-                        display: none;
-                    }
-                    @media (min-width: ${textSize * 21}px) {
-                        .message__logo--svg:nth-child(1) {
-                            display: none;
-                        }
-                        .message__logo--svg:nth-child(2) {
-                            display: block;
-                        }
-                    }
-                    `
-                ]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -80,10 +70,25 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`],
+                headline: {
+                    tag: 'xsmall',
+                    replace: [['months.', 'months']],
+                    br: ['months']
+                },
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR
             })
         ],
-        ['logo.type:none', { logo: false }],
+        [
+            'logo.type:none',
+            {
+                logo: false,
+                headline: {
+                    tag: 'xsmall',
+                    replace: [['months.', 'months']],
+                    br: ['months']
+                }
+            }
+        ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
@@ -107,12 +112,21 @@ export default {
         ],
         [
             'text.color:white',
-            {
-                styles: [
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                    '.message__disclaimer > span { color: white; text-decoration: none; }'
-                ]
-            }
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+            })
+        ],
+        [
+            'logo.type:alternative && text.color:white',
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 5}px }`]
+            })
+        ],
+        [
+            'logo.type:inline && text.color:white',
+            ({ textSize }) => ({
+                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
+            })
         ],
         [
             'logo.type:primary && logo.position:left && text.color:white',
@@ -126,8 +140,7 @@ export default {
                         whiteSpaceBP: textSize * 27
                     }),
                     '.message__messaging span.br { white-space: nowrap; }',
-                    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-                    '.message__disclaimer > span { color: white; text-decoration: none; }'
+                    ...whiteStyles
                 ]
             })
         ],
