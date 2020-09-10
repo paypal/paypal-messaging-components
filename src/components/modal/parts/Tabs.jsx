@@ -1,16 +1,14 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
+import arrayFindIndex from 'core-js-pure/stable/array/find-index';
 
 import { useTransitionState, useXProps } from '../lib';
 
 const getInitialTabIndex = (initialTabProduct, tabs) =>
-    tabs.findIndex(({ product }) => product === initialTabProduct) || 0;
+    arrayFindIndex(tabs, ({ product }) => product === initialTabProduct) || 0;
 
-const Tabs = props => {
-    console.log(props);
-    const { tabs } = props;
-    console.log(tabs);
+const Tabs = ({ tabs }) => {
     // offer type of banner used to determine which tab to pre-select
     const { offer, onClick } = useXProps();
     const initialTab = getInitialTabIndex(offer, tabs);

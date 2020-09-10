@@ -7,24 +7,24 @@ import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 const devAccountMap = {
-    DEV00000000NI: ['US', ['NI'], 'ni'],
-    DEV0000000NIQ: ['US', ['NI'], 'niq'],
-    DEV000NINONUS: ['US', ['NI'], 'ni_non-us'],
-    DEV00NINONUSQ: ['US', ['NI'], 'niq_non-us'],
-    DEV0000000EAZ: ['US', ['NI', 'EZP'], 'ezp_any_eqz'],
-    DEV0000000EAG: ['US', ['NI', 'EZP'], 'ezp_any_gtz'],
-    DEV0000000PSZ: ['US', ['NI', 'EZP'], 'pala_single_eqz'],
-    DEV0000000PSG: ['US', ['NI', 'EZP'], 'pala_single_gtz'],
-    DEV0000000PMZ: ['US', ['NI', 'EZP'], 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', ['NI', 'EZP'], 'pala_multi_gtz'],
+    DEV00000000NI: ['US', ['ni'], 'ni'],
+    DEV0000000NIQ: ['US', ['ni'], 'niq'],
+    DEV000NINONUS: ['US', ['ni'], 'ni_non-us'],
+    DEV00NINONUSQ: ['US', ['ni'], 'niq_non-us'],
+    DEV0000000EAZ: ['US', ['ni_old', 'ezp_old'], 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', ['ni_old', 'ezp_old'], 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', ['ni_old', 'ezp_old'], 'pala_single_eqz'],
+    DEV0000000PSG: ['US', ['ni_old', 'ezp_old'], 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', ['ni_old', 'ezp_old'], 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
 
-    DEV0000000IAZ: ['DE', ['INST'], 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', ['INST'], 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', ['INST'], 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', ['INST'], 'palaq_any_eqz'],
+    DEV0000000IAZ: ['DE', ['inst'], 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', ['inst'], 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', ['inst'], 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', ['PL'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['PL'], 'plq']
+    DEV000000GBPL: ['GB', ['pl'], 'pl'],
+    DEV00000GBPLQ: ['GB', ['pl'], 'plq']
 };
 
 export default (app, server, compiler) => {
@@ -102,7 +102,7 @@ export default (app, server, compiler) => {
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
                     compiler.compilers[2].outputFileSystem
-                        .readFileSync(path.resolve(__dirname, '../../dist/render.js'))
+                        .readFileSync(path.resolve(__dirname, '../../dist/renderMessage.js'))
                         .toString()
                 );
 
@@ -157,7 +157,11 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
-        const [country, products] = devAccountMap[account] ?? ['US', ['NI']];
+        const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
+
+        const products = productNames.map(product =>
+            JSON.parse(fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString())
+        );
 
         const props = {
             aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },

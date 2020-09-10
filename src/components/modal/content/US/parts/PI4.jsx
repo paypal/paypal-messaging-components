@@ -1,32 +1,25 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import { useServerData } from '../../../lib';
 import Icon from '../../../parts/Icon';
-
-const instructions = [
-    'Pay in 4 is not available to residents of Wisconsin, North Dakota, Missouri, or any U.S. Territories.',
-    'Late fees may apply for missed payments depending on your state of residency',
-    'When applying, a soft credit check may be needed, but will not affect your credit score.'
-];
+import { useContent } from '../../../lib';
 
 export default () => {
-    const { terms } = useServerData();
+    const { content } = useContent('GPL');
 
     return (
         <section className="content-body">
             <div className="description">
-                <h2>Simple, short-term installments</h2>
+                <h2>{content.headline}</h2>
 
-                <p>
-                    Interest-free payments every 2 weeks, starting today, with no impact to your credit score. Available
-                    on purchases from ${terms.minAmount}-${terms.maxAmount}.
-                </p>
+                <p>{content.subHeadline}</p>
 
                 <div className="call-to-action">
                     <p>
-                        Check out securely with <b>PayPal</b>
-                        <br /> and choose <b>Pay in 4</b>
+                        {content.instructions.title[0]}
+                        <b>{content.instructions.title[1]}</b>
+                        {content.instructions.title[2]}
+                        <b>{content.instructions.title[3]}</b>
                     </p>
                     <Icon name="secure" />
                 </div>
@@ -37,7 +30,7 @@ export default () => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
-                    {instructions.map(inst => (
+                    {content.instructions.items.map(inst => (
                         <li>{inst}</li>
                     ))}
                 </ul>
