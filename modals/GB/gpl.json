@@ -1,0 +1,34 @@
+{
+    "meta": {
+        "product": "GPL",
+        "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+        "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+        "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+        "amount": "${eval(transaction_amount ? transaction_amount : '-')}"
+    },
+    "content": {
+        "headline": {
+            "qualified": [
+                "3 interest-free payments of",
+                "${CREDIT_OFFERS_DS.formattedPeriodicPayment} per month with Flex"
+            ],
+            "unqualified": ["3 interest-free monthly", "payments with Flex"]
+        },
+        "subHeadline": {
+            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "unqualified": "On eligible purchases"
+        },
+        "terms": [
+            "Subject to status. Terms and Conditions apply. UK residents only.",
+            "PayPal Flex is a trading name of PayPal (Europe) S.à.r.l. et",
+            "Cie, S.C.A.,",
+            "22-24 Boulevard Royal, L-2449, Luxembourg."
+        ],
+        "instructions": [
+            ["shopping-bag", "Get your items straight away", "and pay nothing for 1 month."],
+            ["checkmark", "Apply easily and get an", "instant decision."],
+            ["pp-button", "Check out with PayPal and", "choose", "PRODUCT_NAME"]
+        ],
+        "productName": "Flex"
+    }
+}

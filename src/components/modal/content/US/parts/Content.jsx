@@ -22,7 +22,7 @@ const tabsMap = {
 const Content = () => {
     const { products } = useServerData();
 
-    const tabs = products.map(prod => tabsMap[prod]);
+    const tabs = products.map(({ meta }) => tabsMap[meta.product]);
 
     return tabs.length > 1 ? <Tabs tabs={tabs} /> : <div className="tab-transition-item selected">{tabs[0].body}</div>;
 };
