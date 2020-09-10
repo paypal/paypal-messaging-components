@@ -2,25 +2,29 @@
 import { h } from 'preact';
 
 import Icon from '../../../parts/Icon';
-import { useContent } from '../../../lib';
+import { useContent, useServerData } from '../../../lib';
 
 export default () => {
+    const { products } = useServerData();
     const { content } = useContent('GPL');
 
     return (
         <section className="content-body">
             <div className="description">
-                <h2>{content.headline}</h2>
+                <h2>{products.length > 1 ? content.headline.multiProduct : content.headline.singleProduct}</h2>
 
                 <p>{content.subHeadline}</p>
 
                 <div className="call-to-action">
-                    <p>
-                        {content.instructions.title[0]}
-                        <b>{content.instructions.title[1]}</b>
-                        {content.instructions.title[2]}
-                        <b>{content.instructions.title[3]}</b>
-                    </p>
+                    <div>
+                        <p>
+                            <p>
+                                {content.instructions.title[0]}{' '}
+                                <b className="dark-text">{content.instructions.title[1]}</b>
+                            </p>
+                            {content.instructions.title[2]} <b className="dark-text">{content.instructions.title[3]}</b>
+                        </p>
+                    </div>
                     <Icon name="secure" />
                 </div>
             </div>

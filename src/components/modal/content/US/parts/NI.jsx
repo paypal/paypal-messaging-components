@@ -1,18 +1,19 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import { useApplyNow, useContent } from '../../../lib';
+import { useApplyNow, useContent, useServerData } from '../../../lib';
 import Button from '../../../parts/Button';
 
 export default () => {
     const handleApplyNowClick = useApplyNow('Apply Now');
 
+    const { products } = useServerData();
     const { content } = useContent('NI');
 
     return (
         <section className="content-body">
             <div className="description">
-                <h2>{content.headline}</h2>
+                <h2>{products.length > 1 ? content.headline.multiProduct : content.headline.singleProduct}</h2>
 
                 <p>{content.subHeadline}</p>
 
@@ -23,7 +24,9 @@ export default () => {
                         </p>
                         <span>{content.applyNow.subHeadline}</span>
                     </div>
-                    <Button onClick={handleApplyNowClick}>Apply Now</Button>
+                    <Button onClick={handleApplyNowClick}>
+                        Apply <span className="hidden-xs">Now</span>
+                    </Button>
                 </p>
             </div>
 

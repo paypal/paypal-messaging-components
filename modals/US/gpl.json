@@ -7,14 +7,17 @@
         "amount": "${eval(transaction_amount ? transaction_amount : '-')}"
     },
     "content": {
-        "headline": "Pay in 4",
+        "headline": {
+            "singleProduct": "Pay in 4",
+            "multiProduct": "Simple, short-term installments"
+        },
         "subHeadline": {
             "unqualified": "4 interest-free payments every 2 weeks, starting today, with no impact to your credit score. Available on purchases from ${CREDIT_OFFERS_DS.formattedMinAmount}-{CREDIT_OFFERS_DS.formattedMinAmount}.",
             "qualified": "${CREDIT_OFFERS_DS.formattedTransactionAmount} divided into 4 interest-free payments of ${CREDIT_OFFERS_DS.formattedPeriodicPayment} every 2 weeks, with no impact to your credit score. First payment due today."
         },
 
         "instructions": {
-            "title": ["Check out with", "PayPal", "and choose", "Pay Later"],
+            "title": ["Check out securely with", "PayPal", "and choose", "Pay Later"],
             "items": [
                 "Pay in 4 is not available to residents of Wisconsin, North Dakota, Missouri, or any U.S. Territories.",
                 "Late fees may apply for missed payments depending on your state of residency",

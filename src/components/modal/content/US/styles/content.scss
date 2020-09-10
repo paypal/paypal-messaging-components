@@ -5,11 +5,16 @@
 
     @include mobile {
         max-width: 400px;
+
+        .hidden-xs {
+            display: none;
+        }
     }
 
     h2 {
         text-align: left;
         font-weight: bold;
+        font-size: 19px;
     }
 
     .divider {
@@ -32,16 +37,26 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 3rem;
+        font-size: 0.9rem;
+
+        svg {
+            margin: 0;
+        }
 
         p {
-            font-size: 1rem;
             margin-top: 0;
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
         }
 
         button {
             background: #ffc43a;
             color: #2c2e2f;
             border: none;
+        }
+
+        .dark-text {
+            color: #2c2e2f;
         }
     }
 }
