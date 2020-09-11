@@ -24,7 +24,7 @@ export default () => {
                         </p>
                         <span>{content.applyNow.subHeadline}</span>
                     </div>
-                    <Button onClick={handleApplyNowClick}>
+                    <Button onClick={handleApplyNowClick} className="apply-now">
                         Apply <span className="hidden-xs">Now</span>
                     </Button>
                 </p>
