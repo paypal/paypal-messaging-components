@@ -26,8 +26,7 @@ export default {
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        logoAltWidth: textSize * 5,
-                        logoWidth: textSize * 9,
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     })
                 ]

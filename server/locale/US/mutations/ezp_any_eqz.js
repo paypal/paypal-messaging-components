@@ -3,15 +3,14 @@ import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
-    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
-    '.message__headline > span:first-of-type { text-decoration: underline; color: #0076ff; font-weight: 600; }',
-    '.message__disclaimer > span { color: #2c2e2f; text-decoration: none; }'
+    '.message__headline > span:first-of-type { color: #0070ba; text-decoration: underline; font-weight: 500; }',
+    '.message__disclaimer > span:not(.multi) { color: #2c2e2f; text-decoration: none; }'
 ];
 
 const whiteStyles = [
     '.message__headline > span:nth-last-child(2)::after { content: ""; }',
-    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-    '.message__disclaimer > span { color: white; text-decoration: none; }'
+    '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 500; }',
+    '.message__disclaimer > span:not(.multi) { color: white; text-decoration: none; }'
 ];
 
 export default {
@@ -47,8 +46,7 @@ export default {
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        logoAltWidth: textSize * 5,
-                        logoWidth: textSize * 9,
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     })
                 ]
@@ -129,8 +127,7 @@ export default {
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        logoAltWidth: textSize * 5,
-                        logoWidth: textSize * 9,
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
                     ...whiteStyles

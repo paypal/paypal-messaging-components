@@ -16,9 +16,16 @@ export function basicMediaQuery(breakpoint) {
 `;
 }
 
-// This allows the logo to switch from SINGLE_LINE logo to SINGLE_LINE_NO_PAYPAL logo
-// And allows for word wrapping under the logo
-export function primaryContentMediaQuery({ logoContainerBP, logoAltWidth, logoWidth, logoSvgBP, whiteSpaceBP }) {
+/**
+ * This allows the logo to switch from the SINGLE_LINE_NO_PAYPAL logo on mobile to SINGLE_LINE logo on larger sizes
+ * Also allows for word wrapping under the logo.
+ * @param {number} logoContainerBP - breakpoint that the logo changes to SINGLE_LINE at
+ * @param {number} width.smallLogo - width for the logo used on mobile
+ * @param {number} width.largeLogo - width for the logo used on larger sizes
+ * @param {number} logoSvgBP - breakpoint to adjust logo position on larger sizes
+ * @param {number} whiteSpaceBP - brekpoint to adjust for not wrapping on larger sizes
+ */
+export function primaryContentMediaQuery({ logoContainerBP, width, logoSvgBP, whiteSpaceBP }) {
     const logoSvgCss = logoSvgBP
         ? `
         @media (min-width: ${logoSvgBP}px) {
@@ -36,12 +43,12 @@ export function primaryContentMediaQuery({ logoContainerBP, logoAltWidth, logoWi
 
     .message__logo-container {
         display: inline-block;
-        width: ${logoAltWidth}px;
+        width: ${width.smallLogo}px;
         margin-right: 0.4rem;
     }
     @media (min-width: ${logoContainerBP}px) {
         .message__logo-container {
-            width: ${logoWidth}px;
+            width: ${width.largeLogo}px;
         }
     }
 

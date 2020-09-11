@@ -58,16 +58,28 @@ export default {
         ],
         [
             'text.color:white',
-            {
+            ({ textSize }) => ({
                 styles: [
                     ...textDisclaimerStyles,
+                    `.message__logo-container { width: ${textSize * 13}px }`,
                     '.message__disclaimer > .multi.tag--default:first-of-type > span { color: white }',
                     '.message__disclaimer > .multi.tag--extra > span { color: white; }'
                 ]
-            }
+            })
         ],
         ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        ['text.color:white && logo.type:alternative', { logo: Logo.ALTERNATIVE.WHITE }],
+        [
+            'text.color:white && logo.type:alternative',
+            ({ textSize }) => ({
+                logo: Logo.ALTERNATIVE.WHITE,
+                styles: [
+                    ...textDisclaimerStyles,
+                    `.message__logo-container { width: ${textSize * 11}px }`,
+                    '.message__disclaimer > .multi.tag--default:first-of-type > span { color: white }',
+                    '.message__disclaimer > .multi.tag--extra > span { color: white; }'
+                ]
+            })
+        ],
         ['text.color:white && logo.type:inline', { logo: Logo.ALT_NO_PP.WHITE }]
     ],
 
