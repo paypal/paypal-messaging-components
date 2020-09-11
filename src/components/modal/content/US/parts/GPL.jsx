@@ -18,11 +18,14 @@ export default () => {
                 <div className="call-to-action">
                     <div>
                         <p>
-                            <p>
+                            <span className="d-inline-block">
                                 {content.instructions.title[0]}{' '}
                                 <b className="dark-text">{content.instructions.title[1]}</b>
-                            </p>
-                            {content.instructions.title[2]} <b className="dark-text">{content.instructions.title[3]}</b>
+                            </span>{' '}
+                            <span className="d-inline-block">
+                                {content.instructions.title[2]}{' '}
+                                <b className="dark-text">{content.instructions.title[3]}</b>
+                            </span>
                         </p>
                     </div>
                     <Icon name="secure" />
