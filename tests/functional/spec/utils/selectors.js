@@ -16,10 +16,7 @@ const selectors = {
         contentBodyTitle: '.content-body__title',
         contentBodyTerms: '.content-body__terms',
         contentHeader: '.content-header',
-        contentHeaderTitle: '.content-header__title',
-        // Used in GB modal
-        containerLeft: '.content-body--left',
-        offer: '.content-body__offer'
+        contentHeaderTitle: '.content-header__title'
     },
     calculator: {
         calc: '.calculator',
@@ -34,9 +31,7 @@ const selectors = {
         tab: '.tab',
         btn: '.button',
         closeBtn: '#close-btn',
-        btnSecondary: '.button--secondary',
-        // Used in DE modal instead of .btnSecondary
-        btnMd: '.button--md'
+        btnSecondary: '.button--secondary'
     }
 };
 

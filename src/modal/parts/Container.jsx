@@ -15,13 +15,7 @@ const Modal = ({ children }) => {
 
     const { contentMaxWidth, contentMaxHeight } = (() => {
         switch (country) {
-            case 'GB':
-                return {
-                    contentMaxWidth: 750,
-                    contentMaxHeight: 537
-                };
             case 'US':
-            case 'DE':
             default:
                 return {
                     contentMaxWidth: 612

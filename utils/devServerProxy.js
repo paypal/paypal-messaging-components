@@ -14,21 +14,11 @@ const devAccountMap = {
     DEV0000000PSZ: ['US', 'pala_single_eqz'],
     DEV0000000PSG: ['US', 'pala_single_gtz'],
     DEV0000000PMZ: ['US', 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', 'pala_multi_gtz'],
-
-    DEV0000000IAZ: ['DE', 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', 'palaq_any_eqz'],
-
-    DEV000000GBPL: ['GB', 'pl'],
-    DEV00000GBPLQ: ['GB', 'plq']
+    DEV0000000PMG: ['US', 'pala_multi_gtz']
 };
 
 const mockModalType = (country, offer) =>
     ({
-        GB: 'PL',
-        DE: 'INST',
         US: ['ni', 'niq', 'ni_non-us', 'niq_non-us'].includes(offer) ? 'NI' : 'EZP'
     }[country] || 'NI');
 

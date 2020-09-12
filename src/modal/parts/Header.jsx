@@ -8,8 +8,6 @@ import Button from './Button';
 
 const LOCALE = {
     LOGO: {
-        DE: 'logo-de',
-        GB: 'logo-gb',
         US: 'logo'
     }
 };

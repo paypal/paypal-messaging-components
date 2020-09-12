@@ -8,10 +8,6 @@
         const localize = country => (amount, fractionDigits = 2) => {
             const number = Number(amount) || Number(0);
             const options = {
-                DE: {
-                    locale: 'de-DE',
-                    currency: 'EUR'
-                },
                 US: {
                     locale: 'en-US',
                     currency: 'USD'

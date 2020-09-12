@@ -3,11 +3,9 @@ import { h, Fragment } from 'preact';
 import { useEffect } from 'preact/hooks';
 
 import { useXProps } from '../lib/hooks';
-import { commonUS, USEzp, DEInst, GBPl } from '../styles';
+import { commonUS, USEzp } from '../styles';
 import * as NI from './US/NI';
 import * as EZP from './US/EZP';
-import INST from './DE/INST';
-import PL from './GB/PL';
 import Tabs from '../parts/Tabs';
 
 // modalType sent from server.
@@ -53,20 +51,6 @@ const Content = ({ modalType }) => {
                             }
                         ]}
                     />
-                </Fragment>
-            );
-        case 'INST':
-            return (
-                <Fragment>
-                    <style>{DEInst}</style>
-                    <INST />
-                </Fragment>
-            );
-        case 'PL':
-            return (
-                <Fragment>
-                    <style>{GBPl}</style>
-                    <PL />
                 </Fragment>
             );
         default:

@@ -1,7 +1,6 @@
 /** @jsx h */
 /* eslint-disable react/no-unknown-property, eslint-comments/disable-enable-pair */
 import { h, Fragment } from 'preact';
-import logos from '../../locale/GB/logos';
 
 const Icon = ({ name, color }) => {
     switch (name) {
@@ -109,14 +108,6 @@ const Icon = ({ name, color }) => {
                         />
                     </g>
                 </svg>
-            );
-        case 'logo-gb':
-            return (
-                <Fragment>
-                    {logos.PRIMARY.WHITE.map(logo => (
-                        <img alt="PayPal Logo" src={logo.src} />
-                    ))}
-                </Fragment>
             );
         case 'caret':
             return (

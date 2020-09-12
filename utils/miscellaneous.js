@@ -18,9 +18,6 @@ module.exports.localizeNumber = country => (amount, fractionDigits = 2) => {
     });
 
     switch (country) {
-        case 'DE':
-        case 'GB':
-            return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
         case 'US':
         default:
             return baseFormat;
@@ -34,10 +31,6 @@ module.exports.localizeCurrency = country => (amount, fractionDigits = 2) => {
         : module.exports.localizeNumber(country)(amount, fractionDigits);
 
     switch (country) {
-        case 'DE':
-            return `${localizedAmount}€`;
-        case 'GB':
-            return `£${localizedAmount}`;
         case 'US':
         default:
             return `$${localizedAmount}`;

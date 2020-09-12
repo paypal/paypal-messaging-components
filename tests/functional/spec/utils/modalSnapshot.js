@@ -24,13 +24,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
 
     const _testNameParts = testNameParts.replace(/( )/g, '-');
     const customSnapshotIdentifier = `${_testNameParts}-${viewport.width}`;
-    let locale = 'US';
-
-    if (account.includes('IAZ')) {
-        locale = 'DE';
-    } else if (account.includes('GBPL')) {
-        locale = 'GB';
-    }
+    const locale = 'US';
 
     expect(image).toMatchImageSnapshot({
         customSnapshotsDir: `./tests/functional/snapshots/${locale}/${account}/modal`,
