@@ -62,7 +62,11 @@ export function setup() {
             (merchantId && arrayIncludes(inclusionList, merchantId))
         ) {
             newSetup();
-        } else {
+        } else if (
+            // Ensure account exists otherwise the alias above can be improperly overwritten
+            normalizedAccount ||
+            merchantId
+        ) {
             oldSetup();
         }
     });

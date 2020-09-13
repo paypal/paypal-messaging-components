@@ -19,7 +19,7 @@ function getValidVal(addLog, typeArr, val, location) {
         return validVals[0];
     }
 
-    if (validateType(type, val)) {
+    if (type !== Types.NUMBER && validateType(type, val)) {
         if (type === Types.STRING && validVals.length > 0) {
             // Check if aliased value used.
             const validVal = validVals.find(v => {

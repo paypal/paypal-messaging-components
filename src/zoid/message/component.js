@@ -1,7 +1,17 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
+import { ZalgoPromise } from 'zalgo-promise';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable, runStats, logger } from '../../utils';
+import {
+    getMeta,
+    getEnv,
+    getGlobalUrl,
+    getGlobalVariable,
+    runStats,
+    logger,
+    globalState,
+    getCurrentTime
+} from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -190,6 +200,37 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         }
 
                         return onMarkup && onMarkup({ styles, warnings, ...rest });
+                    };
+                }
+            },
+            onDestroy: {
+                type: 'function',
+                queryParam: false,
+                value: ({ props }) => {
+                    const { onDestroy } = props;
+
+                    // Handle moving the iframe around the DOM
+                    return () => {
+                        const { index } = props;
+                        const { messagesMap } = globalState;
+                        const container = document.querySelector(`[data-pp-id="${index}"]`);
+                        // Let the cleanup finish before re-rendering
+                        ZalgoPromise.delay(0).then(() => {
+                            if (container && container.ownerDocument.body.contains(container)) {
+                                // Will re-render with the full config options stored in the zoid props
+                                const { render, state, updateProps, clone } = messagesMap.get(container).clone();
+
+                                state.renderStart = getCurrentTime();
+
+                                messagesMap.set(container, { render, updateProps, state, clone });
+
+                                render(container);
+                            }
+                        });
+
+                        if (typeof onDestroy === 'function') {
+                            onDestroy();
+                        }
                     };
                 }
             },
