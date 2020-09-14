@@ -91,12 +91,19 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const { modal, index } = props;
+                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
+                        // Avoid spreading message props because both message and modal
+                        // zoid components have an onClick prop that functions differently
                         modal.show({
-                            ...props,
                             index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            onApply,
                             refId: messageRequestId,
                             offer: offerType,
                             onClose: () => focus()
