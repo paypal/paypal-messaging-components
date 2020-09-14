@@ -78,16 +78,19 @@ export default (options = {}) => ({
 
                 // Explicitly select props to pass in to avoid unintentionally sending
                 // in props meant for only either the message or modal (e.g. onClick)
-                const messageProps = {
+                const commonProps = {
                     index,
                     account,
                     merchantId,
                     currency,
                     amount,
+                    buyerCountry
+                };
+                const messageProps = {
+                    ...commonProps,
                     placement,
                     style,
                     offer,
-                    buyerCountry,
                     onClick,
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
@@ -95,14 +98,8 @@ export default (options = {}) => ({
                         }
                     }
                 };
-
                 const modalProps = {
-                    index,
-                    account,
-                    merchantId,
-                    currency,
-                    amount,
-                    buyerCountry,
+                    ...commonProps,
                     onApply
                 };
 
