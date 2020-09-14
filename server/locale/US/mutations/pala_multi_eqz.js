@@ -79,10 +79,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    altContentMediaQuery(textSize * 29.1),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

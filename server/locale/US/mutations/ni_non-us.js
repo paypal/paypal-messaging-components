@@ -113,7 +113,6 @@ export default {
                     styles: [
                         messageDisclaimerMediaQuery(breakpointCalc - 1),
                         basicMediaQuery(breakpointCalc),
-                        altContentMediaQuery(textSize * 45),
                         `.message__logo-container { width: ${textSize * 5}px }`
                     ],
                     logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,

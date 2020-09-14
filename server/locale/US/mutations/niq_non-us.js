@@ -95,7 +95,6 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18),
-                    altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,

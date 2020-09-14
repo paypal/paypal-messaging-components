@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
+import { primaryContentMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -78,10 +78,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    altContentMediaQuery(textSize * 34.3),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 messageWidth: [textSize * 10, 1000]
             })

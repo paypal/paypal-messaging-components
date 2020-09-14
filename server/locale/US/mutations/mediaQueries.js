@@ -64,7 +64,7 @@ export function primaryContentMediaQuery({ logoContainerBP, width, logoSvgBP, wh
         }
     }
     .message__logo--svg {
-        top:2px;
+        top: 2px;
     }
     ${logoSvgCss}
 
