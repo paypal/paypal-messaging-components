@@ -7,21 +7,20 @@ import Container from '../../../parts/Container';
 import Icon from '../../../parts/Icon';
 
 const ContentWrapper = () => {
+    const headerRef = useRef();
     const contentWrapper = useRef();
 
     return (
-        <Container contentWrapper={contentWrapper} contentMaxWidth={640} contentMaxHeight={740}>
+        <Container contentWrapper={contentWrapper} contentMaxWidth={640}>
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
-                    <Header>
+                    <Header wrapperRef={headerRef}>
                         <h1>Buy now, pay later</h1>
-                        <Icon name="phone-arm" />
                     </Header>
-                    <div className="content">
-                        <main className="main">
-                            <Content />
-                        </main>
+                    <div className="hero-image">
+                        <Icon name="phone-arm" />
                     </div>
+                    <Content headerRef={headerRef} />
                 </div>
             </div>
         </Container>

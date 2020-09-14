@@ -13,12 +13,12 @@ const LOCALE = {
     }
 };
 
-const Header = ({ children, className = '', logo }) => {
+const Header = ({ children, className = '', logo, wrapperRef }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
 
     return (
-        <div className={`header-wrapper ${className}`}>
+        <div className={`header-wrapper ${className}`} ref={wrapperRef}>
             <div className="header-container">
                 <header className="header">
                     <div className="logo-wrapper">

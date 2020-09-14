@@ -6,14 +6,14 @@ import { useContent, useServerData } from '../../../lib';
 
 export default () => {
     const { products } = useServerData();
-    const { content } = useContent('GPL');
+    const { content, meta } = useContent('GPL');
 
     return (
         <section className="content-body">
             <div className="description">
                 <h2>{products.length > 1 ? content.headline.multiProduct : content.headline.singleProduct}</h2>
 
-                <p>{content.subHeadline}</p>
+                <p>{meta.periodicPayment !== '-' ? content.subHeadline.qualified : content.subHeadline.unqualified}</p>
 
                 <div className="call-to-action">
                     <div>
