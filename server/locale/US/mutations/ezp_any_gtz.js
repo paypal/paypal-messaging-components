@@ -141,6 +141,18 @@ export default {
                 ]
             })
         ],
+        [
+            'logo.type:none && text.color:monochrome',
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
+            })
+        ],
+        [
+            'logo.type:none && text.color:grayscale',
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
+            })
+        ],
         ...textLogoMutations
     ],
 
