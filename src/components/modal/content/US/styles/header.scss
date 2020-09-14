@@ -1,10 +1,20 @@
 .header-wrapper {
     background: white;
+    pointer-events: none;
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    @include mobile {
+        position: fixed;
+        width: 100%;
+        max-width: 640px;
+        z-index: 51;
+    }
 }
 
 .header-container {
     background-color: #3e9dea;
-    border-bottom-left-radius: 100px 20px;
     position: relative;
     overflow: hidden;
 
@@ -20,7 +30,7 @@
         z-index: 999;
         display: block;
         height: auto;
-        padding: 40px 0;
+        padding-top: 40px;
     }
 
     .logo {
@@ -35,6 +45,7 @@
     .close {
         top: 5px;
         right: 5px;
+        pointer-events: all;
 
         svg {
             height: 40px;
@@ -46,23 +57,11 @@
         }
     }
 
-    @include desktop {
-        .icon {
-            position: absolute;
-            bottom: -1rem;
-            right: 3rem;
-        }
-    }
-
     @include mobile {
         text-align: center;
 
         h1 {
-            margin-top: 0;
-        }
-
-        .icon {
-            margin-bottom: -4rem;
+            margin: 0 auto;
         }
 
         .logo {
@@ -78,5 +77,28 @@
                 width: 35px;
             }
         }
+    }
+}
+
+.hero-image {
+    background-color: #3e9dea;
+
+    @include desktop {
+        height: 2rem;
+        position: relative;
+
+        .icon {
+            position: absolute;
+            right: 3rem;
+            bottom: -1rem;
+        }
+    }
+
+    @include mobile {
+        position: fixed;
+        width: 100%;
+        padding: 60px 0;
+        top: 12rem;
+        max-width: 640px;
     }
 }

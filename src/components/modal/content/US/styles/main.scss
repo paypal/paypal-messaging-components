@@ -5,6 +5,8 @@
     right: 0;
     bottom: 0;
     overflow-y: scroll;
+    max-width: 640px;
+    margin: auto;
 }
 
 .content {
@@ -74,6 +76,11 @@ main {
 }
 
 @include mobile {
+    .content-wrapper {
+        margin-top: 84px;
+        border-radius: 10px;
+    }
+
     .content {
         min-height: calc(100vh - 84px);
     }
@@ -81,7 +88,6 @@ main {
     .content-background {
         box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
         background: white;
-        margin-top: 84px;
     }
 
     .overlay-side.left,

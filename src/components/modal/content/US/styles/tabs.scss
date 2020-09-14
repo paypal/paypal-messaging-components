@@ -1,14 +1,26 @@
 .tabs {
     margin: auto;
     width: 100%;
-    max-width: 280px;
-    padding: 0.2rem 0.2rem;
+    padding: 1rem 0.2rem 0.5rem;
     white-space: nowrap;
     font-size: 0;
     display: flex;
-    border-radius: 1.7rem;
-    height: 2.4rem;
+    border-radius: 1rem;
     box-sizing: border-box;
+    background: white;
+    justify-content: center;
+    position: relative;
+    z-index: 51;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 1rem;
+        background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    }
 }
 
 .tab {
@@ -27,6 +39,8 @@
     outline: none;
     position: relative;
     transition: color 0.3s;
+    height: 2rem;
+    max-width: 140px;
 
     .title {
         position: relative;
@@ -99,5 +113,15 @@
         &.selected {
             position: absolute;
         }
+    }
+}
+
+@include mobile {
+    .tabs {
+        position: absolute;
+    }
+
+    .tab-transition-item {
+        padding-top: 3rem;
     }
 }

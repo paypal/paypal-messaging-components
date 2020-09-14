@@ -1,14 +1,30 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useRef } from 'preact/hooks';
 
-import { useApplyNow, useContent, useServerData } from '../../../lib';
+import { useApplyNow, useContent, useServerData, useScroll } from '../../../lib';
 import Button from '../../../parts/Button';
+import { createEvent } from '../../../../../utils';
 
 export default () => {
+    const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-
     const { products } = useServerData();
     const { content } = useContent('NI');
+
+    useScroll(({ target: { scrollTop } }) => {
+        const { offsetTop, clientHeight } = buttonRef.current;
+        console.log(scrollTop, offsetTop, scrollTop - offsetTop, clientHeight);
+
+        // Ensure first that the button is being displayed
+        if (scrollTop && offsetTop) {
+            if (scrollTop - offsetTop < clientHeight + 60) {
+                window.dispatchEvent(createEvent('apply-now-hidden'));
+            } else {
+                window.dispatchEvent(createEvent('apply-now-visible'));
+            }
+        }
+    }, []);
 
     return (
         <section className="content-body">
@@ -24,7 +40,7 @@ export default () => {
                         </p>
                         <span>{content.applyNow.subHeadline}</span>
                     </div>
-                    <Button onClick={handleApplyNowClick} className="apply-now">
+                    <Button onClick={handleApplyNowClick} className="apply-now" ref={buttonRef}>
                         Apply <span className="hidden-xs">Now</span>
                     </Button>
                 </p>
