@@ -8,7 +8,6 @@ const defaultTextStyles = [
 ];
 
 const whiteStyles = [
-    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
     '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
     '.message__disclaimer > span:not(.multi) { color: white; text-decoration: none; }'
 ];
