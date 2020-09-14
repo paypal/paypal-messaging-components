@@ -43,8 +43,7 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
-                    }),
-                    altContentMediaQuery(textSize * 41.75)
+                    })
                 ]
             })
         ],

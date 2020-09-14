@@ -52,8 +52,7 @@ export default {
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: false,
                 headline: {
-                    replace: [['/mo.', '/mo']],
-                    br: ['/mo']
+                    br: ['/mo.']
                 }
             })
         ],
@@ -63,8 +62,7 @@ export default {
                 logo: false,
                 messageWidth: false,
                 headline: {
-                    replace: [['/mo.', '/mo']],
-                    br: ['/mo']
+                    br: ['/mo.']
                 }
             }
         ],

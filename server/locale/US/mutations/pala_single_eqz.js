@@ -48,8 +48,7 @@ export default {
                     `
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
-                    `,
-                    altContentMediaQuery(textSize * 34.3)
+                    `
                 ]
             })
         ],
