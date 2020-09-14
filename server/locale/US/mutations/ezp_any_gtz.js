@@ -90,11 +90,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    altContentMediaQuery(textSize * 30.6),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
@@ -103,9 +99,14 @@ export default {
             })
         ],
         [
-            'logo.type:alternative && logo.position:top',
+            'logo.type:alternative && logo.position:right',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [
+                    ...defaultTextStyles,
+
+                    altContentMediaQuery(textSize * 30.6),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ]
             })
         ],
         [

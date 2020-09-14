@@ -146,6 +146,17 @@ export default {
             })
         ],
         [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    basicMediaQuery(textSize * 20),
+                    altContentMediaQuery(textSize * 45),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
+            })
+        ],
+        [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => {
                 const breakpointCalc = textSize * 21;

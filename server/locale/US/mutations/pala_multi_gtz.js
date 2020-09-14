@@ -80,6 +80,16 @@ export default {
                 styles: [`.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
+        [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    altContentMediaQuery(textSize * 23.8),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
+            })
+        ],
         ...textLogoMutations
     ],
 
