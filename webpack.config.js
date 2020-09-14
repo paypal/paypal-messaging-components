@@ -20,22 +20,6 @@ module.exports = (env = {}) => {
     });
     MESSAGES_CONFIG.output.libraryExport = 'Messages';
 
-    // merchant.js
-    const MERCHANT_CONFIG = getWebpackConfig({
-        entry: './src/old/legacy/index.js',
-        filename: 'merchant.js',
-        libraryTarget: 'window',
-        web: true,
-        minify: true,
-        debug: false,
-        analyze: env.analyze,
-        vars: globals({
-            ...env,
-            TARGET: 'legacy'
-        })
-    });
-    MERCHANT_CONFIG.output.libraryExport = 'Messages';
-
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
         libraryTarget: 'window',
@@ -94,5 +78,5 @@ module.exports = (env = {}) => {
         })
     });
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG, MODAL_CONFIG];
+    return [MESSAGES_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG, MODAL_CONFIG];
 };

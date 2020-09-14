@@ -40,11 +40,7 @@ export function getScript() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKScript();
     } else {
-        return (
-            document.querySelector('script[src$="messaging.js"]') ||
-            document.querySelector('script[src$="merchant.js"]') ||
-            document.currentScript
-        );
+        return document.querySelector('script[src$="messaging.js"]') || document.currentScript;
     }
 }
 
