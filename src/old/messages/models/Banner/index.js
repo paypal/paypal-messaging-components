@@ -53,15 +53,12 @@ const Banner = {
     create(initialOptions, inputWrapper, logger) {
         logger.info(EVENTS.CREATE);
         const [currentOptions, updateOptions] = createState(initialOptions);
-        const isLegacy = currentOptions._legacy;
 
         // Div container for legacy banners. Iframe container for new banners.
-        const [container, { insertMarkup, setSize, events, runStats, clearEvents }] = createContainer(
-            isLegacy ? 'div' : 'iframe'
-        );
+        const [container, { insertMarkup, setSize, events, runStats, clearEvents }] = createContainer('iframe');
 
         // Wrapper span element used for flex banners. Not needed for legacy banners.
-        const wrapper = isLegacy ? container : document.createElement('span');
+        const wrapper = document.createElement('span');
         if (wrapper !== container) wrapper.appendChild(container);
 
         const logBefore = curry((fn, name, args) => {
@@ -119,23 +116,21 @@ const Banner = {
             update
         };
 
-        if (!isLegacy) {
-            // Must be after appending iframe into DOM to prevent immediate re-render
-            // Used to repopulate iframe if moved throughout the DOM
-            waitForElementReady(container).then(() => {
-                container.addEventListener('load', () => {
-                    // Ensure initial render finishes before firing another render.
-                    // This prevent multiple renders from happening at the same time on initial load causing
-                    // multiple sets of events being attached to a single message.
-                    banner.renderProm
-                        .catch(() => {})
-                        .finally(() => {
-                            clearEvents();
-                            banner.renderProm = render(currentOptions);
-                        });
-                });
+        // Must be after appending iframe into DOM to prevent immediate re-render
+        // Used to repopulate iframe if moved throughout the DOM
+        waitForElementReady(container).then(() => {
+            container.addEventListener('load', () => {
+                // Ensure initial render finishes before firing another render.
+                // This prevent multiple renders from happening at the same time on initial load causing
+                // multiple sets of events being attached to a single message.
+                banner.renderProm
+                    .catch(() => {})
+                    .finally(() => {
+                        clearEvents();
+                        banner.renderProm = render(currentOptions);
+                    });
             });
-        }
+        });
 
         return banner;
     }

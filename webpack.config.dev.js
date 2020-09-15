@@ -13,8 +13,7 @@ module.exports = (env = {}) => {
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
                   entry: {
-                      messaging: './src/index.js',
-                      merchant: './src/old/legacy/index.js'
+                      messaging: './src/index.js'
                   },
                   filename: '[name].js',
                   modulename: ['paypal', 'Messages'],
@@ -54,8 +53,6 @@ module.exports = (env = {}) => {
             switch (env.TARGET) {
                 case 'standalone':
                     return 'standalone.html';
-                case 'legacy':
-                    return 'legacy.html';
                 case 'sdk':
                 default:
                     return '';

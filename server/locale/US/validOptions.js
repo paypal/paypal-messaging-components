@@ -19,13 +19,6 @@ export default {
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']]
     },
-    legacy: {
-        typeNI: [Types.STRING, ['', 'image', 'html']],
-        typeEZP: [Types.STRING, ['', 'html']],
-        size: [Types.STRING],
-        color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
-        border: [Types.BOOLEAN, [true, false]]
-    },
     custom: {
         markup: [Types.STRING],
         ratio: [Types.ANY]
