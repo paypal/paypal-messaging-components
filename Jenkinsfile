@@ -14,7 +14,7 @@ pipeline {
         stage('Publish') {
             when {
                 expression {
-                    return env.GIT_COMMIT_MESSAGE ==~ /^(chore\(release\):.+)/
+                    return env.GIT_COMMIT_MESSAGE =~ /^chore\(release\): \d+\.\d+\.\d+/
                 }
             }
             steps {

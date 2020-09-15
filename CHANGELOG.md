@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.13.2](https://github.com/paypal/paypal-messaging-components/compare/v1.13.1...v1.13.2) (2020-09-09)
+
+
+### Bug Fixes
+
+* allow for inline text size attribute ([#273](https://github.com/paypal/paypal-messaging-components/issues/273)) ([c511b50](https://github.com/paypal/paypal-messaging-components/commit/c511b50985cbd96645fef937c46902a31f75cbae))
+* improve handling iframe moving around the DOM ([#274](https://github.com/paypal/paypal-messaging-components/issues/274)) ([93e9323](https://github.com/paypal/paypal-messaging-components/commit/93e93232ac37247c13f63f3fc9346a4187992d0e))
+* prevent setup from overwritting alias if no account present ([#271](https://github.com/paypal/paypal-messaging-components/issues/271)) ([11c0527](https://github.com/paypal/paypal-messaging-components/commit/11c0527fdd1c17eb4afcbedcb8fc92500fee56bc))
+
 ## [1.13.1](https://github.com/paypal/paypal-messaging-components/compare/v1.13.0...v1.13.1) (2020-09-02)
 
 
