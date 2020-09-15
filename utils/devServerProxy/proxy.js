@@ -160,19 +160,57 @@ export default (app, server, compiler) => {
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
-        const products = productNames.map(product =>
-            JSON.parse(fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString())
+        const productsJSON = productNames.map(product =>
+            fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString()
         );
 
+        const terms = getTerms(country, Number(amount));
+        const [bestOffer] = terms.offers || [{}];
+        const toLocaleCurrency = localizeCurrency(country);
+
+        const morsVars = {
+            formattedPeriodicPayment: amount ? toLocaleCurrency(bestOffer.monthly) : '-',
+            apr: bestOffer.apr,
+            minAmount: terms.minAmount,
+            maxAmount: terms.maxAmount,
+            formattedTransactionAmount: terms.amount ?? '-',
+            qualifying_offer: terms.amount ? 'TRUE' : 'FALSE',
+            total_payments: bestOffer.term,
+            formattedMinAmount: terms.formattedMinAmount,
+            formattedMaxAmount: terms.formattedMaxAmount,
+            nominal_rate: bestOffer.nominalRate
+        };
+
+        const otherVars = {
+            'aprEntry.apr': 25.49,
+            'aprEntry.formattedDate': '9/01/2020',
+            fullYear: 2020
+        };
+
+        const products = productsJSON.map(json => {
+            const morsPopulatedJSON = populateTemplate(morsVars, json);
+
+            const populatedJSON = Object.entries(otherVars).reduce(
+                (accumulator, [variable, val]) =>
+                    // eslint-disable-next-line security/detect-non-literal-regexp
+                    accumulator.replace(new RegExp(`{${variable}}`, 'g'), val),
+                morsPopulatedJSON.replace(
+                    /\${eval\(transaction_amount \? transaction_amount : '-'\)}/g,
+                    terms.amount ?? '-'
+                )
+            );
+
+            return JSON.parse(populatedJSON);
+        });
+
         const props = {
-            aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
                 csrf: 'csrf'
             },
             country,
             products,
-            type: products.slice(-1)[0], // TODO: Can be removed after the ramp
+            type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account
         };
 
