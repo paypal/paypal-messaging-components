@@ -2,11 +2,12 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { useApplyNow, useContent, useServerData, useScroll } from '../../../lib';
+import { useApplyNow, useContent, useServerData, useScroll, useXProps } from '../../../lib';
 import Button from '../../../parts/Button';
 import { createEvent } from '../../../../../utils';
 
 export default () => {
+    const { onClick } = useXProps();
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
@@ -14,11 +15,13 @@ export default () => {
 
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
-        console.log(scrollTop, offsetTop, scrollTop - offsetTop, clientHeight);
+        const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
+
+        const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
 
         // Ensure first that the button is being displayed
         if (scrollTop && offsetTop) {
-            if (scrollTop - offsetTop < clientHeight + 60) {
+            if (scrollTop - offsetTop < clientHeight + triggerOffset) {
                 window.dispatchEvent(createEvent('apply-now-hidden'));
             } else {
                 window.dispatchEvent(createEvent('apply-now-visible'));
@@ -56,6 +59,20 @@ export default () => {
                     ))}
                 </ul>
             </div>
+
+            <p>
+                <a
+                    onClick={() => onClick({ linkName: 'Legal Terms' })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.paypal.com/us/webapps/mpp/ppcterms"
+                >
+                    Click here
+                </a>{' '}
+                to view the PayPal Credit Terms and Conditions.
+            </p>
+            <p>{content.disclaimer}</p>
+            <p>{content.copyright}</p>
         </section>
     );
 };

@@ -4,13 +4,10 @@
     overflow: hidden;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-
-    @include mobile {
-        position: fixed;
-        width: 100%;
-        max-width: 640px;
-        z-index: 51;
-    }
+    position: fixed;
+    width: 100%;
+    max-width: 640px;
+    z-index: 51;
 }
 
 .header-container {
@@ -82,23 +79,24 @@
 
 .hero-image {
     background-color: #3e9dea;
+    position: fixed;
+    width: 100%;
+    padding: 60px 0;
+    top: 12rem;
+    max-width: 640px;
 
     @include desktop {
-        height: 2rem;
-        position: relative;
+        background-color: transparent;
+        height: 12rem;
+        top: 0;
+        overflow: hidden;
+        padding: 0;
+        z-index: 51;
 
         .icon {
             position: absolute;
             right: 3rem;
             bottom: -1rem;
         }
-    }
-
-    @include mobile {
-        position: fixed;
-        width: 100%;
-        padding: 60px 0;
-        top: 12rem;
-        max-width: 640px;
     }
 }

@@ -7,6 +7,7 @@
     overflow-y: scroll;
     max-width: 640px;
     margin: auto;
+    border-radius: 10px;
 }
 
 .content {
@@ -22,7 +23,6 @@
     width: 100%;
     margin: auto;
     border-radius: 10px;
-    overflow: hidden;
     max-width: 640px;
 }
 
@@ -78,7 +78,6 @@ main {
 @include mobile {
     .content-wrapper {
         margin-top: 84px;
-        border-radius: 10px;
     }
 
     .content {

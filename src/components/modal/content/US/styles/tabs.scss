@@ -9,7 +9,7 @@
     box-sizing: border-box;
     background: white;
     justify-content: center;
-    position: relative;
+    position: absolute;
     z-index: 51;
 
     &:after {
@@ -81,7 +81,6 @@
 .tab-transition {
     position: relative;
     flex: 1 1 auto;
-    overflow: auto;
 }
 
 .tab-transition-item {
@@ -96,6 +95,7 @@
     transition: opacity 0.3s;
     transition-delay: 0.3s;
     overflow: hidden;
+    padding-top: 3rem;
 
     &.selected {
         z-index: 2;
@@ -105,23 +105,5 @@
         transition-delay: 0s;
         height: auto;
         position: relative;
-    }
-}
-
-@include desktop {
-    .tab-transition-item {
-        &.selected {
-            position: absolute;
-        }
-    }
-}
-
-@include mobile {
-    .tabs {
-        position: absolute;
-    }
-
-    .tab-transition-item {
-        padding-top: 3rem;
     }
 }

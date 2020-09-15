@@ -1,6 +1,8 @@
 .content {
     position: relative;
     background: transparent;
+    box-sizing: border-box;
+    padding-top: 20rem;
 
     .corner {
         position: absolute;
@@ -11,6 +13,8 @@
         overflow: hidden;
         background-color: white;
         z-index: 51;
+        top: 18rem;
+        max-width: 640px;
 
         &:after {
             content: '';
@@ -130,33 +134,45 @@
             max-width: 400px;
         }
 
-        @include mobile {
-            &.show {
-                opacity: 1;
-                transform: translateY(0);
+        &.show {
+            opacity: 1;
+            transform: translateY(0);
 
-                button {
-                    transform: scaleX(1) translateX(0);
-                }
+            button {
+                transform: scaleX(1) translateX(0);
+            }
 
-                div {
-                    transform: translateX(0);
-                }
+            div {
+                transform: translateX(0);
             }
         }
     }
 
-    @include mobile {
-        padding-top: 20rem;
+    @include desktop {
+        padding-top: 12rem;
 
         .corner {
-            top: 18rem;
+            top: 10rem;
+            position: fixed;
+            left: auto;
+            width: 100%;
         }
 
+        .tabs {
+            position: fixed;
+            top: 12rem;
+            max-width: 640px;
+        }
+
+        .sticky-apply-now {
+            top: 12rem;
+        }
+    }
+
+    @include mobile {
         &.sticky {
             .corner {
                 width: 100%;
-                max-width: 640px;
                 position: fixed;
                 top: calc(8rem + 84px);
                 left: auto;
