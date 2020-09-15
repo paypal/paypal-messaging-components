@@ -39,14 +39,22 @@ export default function setup() {
 
     // Requires a merchant account to render a message
     // Prevent auto render from firing inside zoid iframe
-    if (globalState.config.account && !stringStartsWith(window.name, '__zoid__')) {
+    if (!stringStartsWith(window.name, '__zoid__')) {
         if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
+            window.addEventListener('DOMContentLoaded', () => {
+                // If merchant includes multiple SDK scripts, the 1st script will destroy itself
+                // and its globalState before this runs causing the account to be undefined
+                if (globalState.config.account) {
+                    Messages.render({ _auto: true });
+                }
+            });
         } else {
             // TODO: Remove setTimeout after ramp. Needed for ramp because the async top level inclusion/exclusion
             // list fetch causes the order of manual render calls and the auto render call to mix up
             setTimeout(() => {
-                Messages.render({ _auto: true });
+                if (globalState.config.account) {
+                    Messages.render({ _auto: true });
+                }
             }, 0);
         }
     }
