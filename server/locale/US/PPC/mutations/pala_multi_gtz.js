@@ -52,8 +52,7 @@ export default {
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: false,
                 headline: {
-                    replace: [['/mo.', '/mo']],
-                    br: ['/mo']
+                    br: ['/mo.']
                 }
             })
         ],
@@ -63,18 +62,14 @@ export default {
                 logo: false,
                 messageWidth: false,
                 headline: {
-                    replace: [['/mo.', '/mo']],
-                    br: ['/mo']
+                    br: ['/mo.']
                 }
             }
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    altContentMediaQuery(textSize * 23.8),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -83,6 +78,16 @@ export default {
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
                 styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    altContentMediaQuery(textSize * 23.8),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
         ],
         ...textLogoMutations

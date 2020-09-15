@@ -11,7 +11,7 @@ export default {
                 messageWidth: [textSize * 11, textSize * 18],
                 headline: {
                     tag: 'small',
-                    br: ['/mo']
+                    br: ['/mo.']
                 },
                 disclaimer: 'small'
             })
@@ -79,10 +79,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    altContentMediaQuery(textSize * 29.1),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -91,6 +88,16 @@ export default {
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
                 styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    altContentMediaQuery(textSize * 29.1),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
         ],
         ...textLogoMutations

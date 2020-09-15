@@ -165,6 +165,13 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
+                styles: [basicMediaQuery(textSize * 18), `.message__logo-container { width: ${textSize * 5}px }`],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
                 styles: [
                     basicMediaQuery(textSize * 18),
                     altContentMediaQuery(textSize * 42),
