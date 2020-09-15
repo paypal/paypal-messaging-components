@@ -48,7 +48,6 @@ export function smallTagMediaQuery(breakpoint) {
     }
 
     @media screen and (max-width: ${breakpoint}px) {
-
         .message__headline > .tag--medium {
             display: none;
         }
@@ -82,7 +81,6 @@ export function xsmallTagMediaQuery(breakpoint) {
     }
 
     @media screen and (max-width: ${breakpoint}px) {
-
         .message__content {
             display: inline-flex;
         }
