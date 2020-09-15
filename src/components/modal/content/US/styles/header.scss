@@ -92,6 +92,7 @@
         overflow: hidden;
         padding: 0;
         z-index: 51;
+        pointer-events: none;
 
         .icon {
             position: absolute;

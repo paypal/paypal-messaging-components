@@ -8,13 +8,21 @@ import { useTransitionState, useXProps } from '../lib';
 const getInitialTabIndex = (initialTabProduct, tabs) =>
     arrayFindIndex(tabs, ({ product }) => product === initialTabProduct) || 0;
 
-const Tabs = ({ tabs }) => {
+const Tabs = ({ tabs, onSelect }) => {
     // offer type of banner used to determine which tab to pre-select
     const { offer, onClick } = useXProps();
     const initialTab = getInitialTabIndex(offer, tabs);
     const [transitionState] = useTransitionState();
 
-    const [currentTab, selectTab] = useState(initialTab);
+    const [currentTab, setCurrentTab] = useState(initialTab);
+
+    const selectTab = index => {
+        setCurrentTab(index);
+
+        if (onSelect) {
+            onSelect(index);
+        }
+    };
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -23,6 +31,12 @@ const Tabs = ({ tabs }) => {
     }, [transitionState, initialTab]);
 
     const hasHeader = tabs.some(tab => Boolean(tab.header));
+
+    const tabSelected = (tab, index) => {
+        onClick({ linkName: tab.product });
+        selectTab(index);
+    };
+
     // TODO: Accessibility
     return (
         <Fragment>
@@ -40,7 +54,7 @@ const Tabs = ({ tabs }) => {
                     <button
                         className={`tab ${currentTab === index ? 'selected' : ''}`}
                         type="button"
-                        onClick={() => onClick({ linkName: tab.product }) && selectTab(index)}
+                        onClick={() => tabSelected(tab, index)}
                         role="tab"
                         ariaSelected={currentTab === index}
                         id={index}

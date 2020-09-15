@@ -4,7 +4,7 @@ import { h } from 'preact';
 import Icon from '../../../parts/Icon';
 import { useContent, useServerData } from '../../../lib';
 
-export default () => {
+export default ({ switchTab }) => {
     const { products } = useServerData();
     const { content, meta } = useContent('GPL');
 
@@ -42,6 +42,12 @@ export default () => {
                     ))}
                 </ul>
             </div>
+
+            {meta.qualifying === 'TRUE' && products.length > 1 ? (
+                <button type="button" className="tab-switch-button" onClick={switchTab}>
+                    Or see 6 months special financing
+                </button>
+            ) : null}
         </section>
     );
 };

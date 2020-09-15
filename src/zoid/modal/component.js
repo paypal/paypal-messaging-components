@@ -16,6 +16,10 @@ const determineInitialTab = (type = 'NI') => {
             type.toUpperCase()
         ):
             return 'EZP';
+
+        // TODO: Remove?
+        case type === 'PI4':
+            return 'GPL';
         default:
             return 'NI';
     }

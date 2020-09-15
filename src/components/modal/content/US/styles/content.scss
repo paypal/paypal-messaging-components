@@ -117,7 +117,6 @@
 
         button {
             margin-bottom: 0.5rem;
-            pointer-events: all;
             transition: all 0.3s;
             transform-origin: right center;
             transform: scaleX(0.5) translateX(25px);
@@ -140,11 +139,37 @@
 
             button {
                 transform: scaleX(1) translateX(0);
+                pointer-events: all;
             }
 
             div {
                 transform: translateX(0);
             }
+        }
+    }
+
+    .tab-switch-button {
+        border: none;
+        outline: none;
+        background: none;
+        text-decoration: none;
+        padding: 0;
+        color: #0070ba;
+        font-weight: 600;
+        position: relative;
+        margin-bottom: 1rem;
+        cursor: pointer;
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: calc(100% + 0.25rem);
+            border-top: 2px solid #0070ba;
+            border-right: 2px solid #0070ba;
+            transform: rotate(45deg);
+            width: 0.5rem;
+            height: 0.5rem;
+            top: 0.1rem;
         }
     }
 

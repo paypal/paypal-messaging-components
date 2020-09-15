@@ -4,30 +4,36 @@ import { useRef } from 'preact/hooks';
 
 import { useApplyNow, useContent, useServerData, useScroll, useXProps } from '../../../lib';
 import Button from '../../../parts/Button';
-import { createEvent } from '../../../../../utils';
 
-export default () => {
+export default ({ showApplyNow, switchTab }) => {
+    // Use a ref so that the callback can be used in the useScroll handler without creating an infinite re-render
+    const showApplyNowRef = useRef();
     const { onClick } = useXProps();
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
-    const { content } = useContent('NI');
+    const { content, meta } = useContent('NI');
 
-    useScroll(({ target: { scrollTop } }) => {
-        const { offsetTop, clientHeight } = buttonRef.current;
-        const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
+    showApplyNowRef.current = showApplyNow;
 
-        const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
+    useScroll(
+        ({ target: { scrollTop } }) => {
+            const { offsetTop, clientHeight } = buttonRef.current;
+            const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
 
-        // Ensure first that the button is being displayed
-        if (scrollTop && offsetTop) {
-            if (scrollTop - offsetTop < clientHeight + triggerOffset) {
-                window.dispatchEvent(createEvent('apply-now-hidden'));
-            } else {
-                window.dispatchEvent(createEvent('apply-now-visible'));
+            const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
+
+            // Ensure first that the button is being displayed
+            if (scrollTop && offsetTop) {
+                if (scrollTop - offsetTop < clientHeight + triggerOffset) {
+                    showApplyNowRef.current(false);
+                } else {
+                    showApplyNowRef.current(true);
+                }
             }
-        }
-    }, []);
+        },
+        [showApplyNowRef]
+    );
 
     return (
         <section className="content-body">
@@ -73,6 +79,12 @@ export default () => {
             </p>
             <p>{content.disclaimer}</p>
             <p>{content.copyright}</p>
+
+            {meta.qualifying === 'TRUE' && products.length > 1 ? (
+                <button type="button" className="tab-switch-button" onClick={switchTab}>
+                    Or see Pay in 4
+                </button>
+            ) : null}
         </section>
     );
 };
