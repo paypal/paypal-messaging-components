@@ -56,7 +56,7 @@ const runTest = async ({ config, testPage, callback }) => {
     return getParsedRequests(payloadSpy);
 };
 
-describe('payload testing', () => {
+describe.skip('payload testing', () => {
     const config = {
         account: 'DEV0000000EAZ',
         amount: 500,

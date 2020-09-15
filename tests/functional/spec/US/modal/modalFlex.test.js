@@ -6,8 +6,8 @@ import { clickHereSeeTerms, applyNowBtn, niContentTest } from './us_modalTestDef
 const account = 'DEV00000000NI';
 
 describe.each([
-    [viewports[0], bannerStyles[1]],
-    [viewports[1], bannerStyles[1]]
+    [viewports[0], bannerStyles[0]],
+    [viewports[1], bannerStyles[0]]
 ])('US EZP and NI basic modal functionality tests %o', (viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {

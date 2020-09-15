@@ -6,13 +6,6 @@ const viewports = [
 
 const bannerStyles = [
     {
-        layout: 'text',
-        logo: {
-            position: 'left',
-            type: 'primary'
-        }
-    },
-    {
         layout: 'flex',
         ratio: '8x1',
         color: 'blue'
