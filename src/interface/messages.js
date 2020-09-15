@@ -17,10 +17,9 @@ function getAccounts(config = {}) {
         const partnerAccount = getPartnerAccount();
         const account = partnerAccount || getAccount() || inlineAccount;
         const merchantId = (partnerAccount && getAccount()) || merchantid;
-        const globalAccount = merchantId || account;
 
-        if (globalAccount) {
-            return { normalizedAccount: globalAccount.replace(/^client-id:/, ''), merchantId };
+        if (account || merchantId) {
+            return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
         }
     }
 
