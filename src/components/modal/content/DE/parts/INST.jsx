@@ -12,7 +12,6 @@ const INST = () => {
         <section className="content-body">
             <Carousel items={carousel} />
 
-            {/* <!-- Calculator --> */}
             <div className="calculator-container">
                 <Calculator country="DE" />
             </div>

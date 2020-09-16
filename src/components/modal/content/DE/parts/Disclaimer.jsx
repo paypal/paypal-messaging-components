@@ -2,12 +2,14 @@
 import { h } from 'preact';
 import { useContent } from '../../../../lib';
 
+const isZeroAPR = val => Number(val.replace(/[,.]/g, '')) === 0;
+
 const Disclaimer = ({ terms: { error, formattedMinAmount, formattedMaxAmount, offers } }) => {
     const { disclosure, disclosureZeroAPR, disclaimer } = useContent('INST');
 
     if (!error && formattedMinAmount && formattedMaxAmount && offers && offers.length > 0) {
         const [offer] = offers;
-        const shownDisclosure = Number(offer.apr.replace(/[,.]/g, '')) === 0 ? disclosureZeroAPR : disclosure;
+        const shownDisclosure = isZeroAPR(offer.apr) ? disclosureZeroAPR : disclosure;
 
         return (
             <p className="disclosure">
