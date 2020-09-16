@@ -46,10 +46,14 @@ const getRoot = () => {
         : document.msElementsFromPoint
     ).bind(document);
 
-    return arrayFind(
+    const root = arrayFind(
         arrayFrom(elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),
         el => window.getComputedStyle(el).height !== `${innerHeight}px`
     );
+
+    // IntersectionObserver appears to act correctly in more scenarios when null (defaults to browser viewport)
+    // is passed in vs supplying the <html> element
+    return root === document.documentElement ? null : root;
 };
 
 export const overflowObserver = getGlobalVariable('__intersection_observer__', () =>
