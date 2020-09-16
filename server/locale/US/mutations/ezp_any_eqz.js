@@ -4,12 +4,12 @@ import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
     '.message__headline > span:first-of-type { color: #0070ba; text-decoration: underline; font-weight: 500; }',
-    '.message__disclaimer > span:not(.multi) { color: #2c2e2f; text-decoration: none; }'
+    '.message__disclaimer > span:not(.multi) { color: #2c2e2f; font-weight: normal; text-decoration: none; }'
 ];
 
 const whiteStyles = [
     '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 500; }',
-    '.message__disclaimer > span:not(.multi) { color: white; text-decoration: none; }'
+    '.message__disclaimer > span:not(.multi) { color: white; font-weight: normal; text-decoration: none; }'
 ];
 
 export default {
