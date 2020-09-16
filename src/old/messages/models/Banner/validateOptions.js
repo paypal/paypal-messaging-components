@@ -193,15 +193,15 @@ export default curry((logger, { account, amount, style, offer, ...otherOptions }
         }
     }
 
-    let sizeVal = validOptions.style?.text?.size;
+    let sizeVal = style?.text?.size;
 
     if (typeof sizeVal !== 'undefined') {
         sizeVal = Number(sizeVal);
         if (!validateType(Types.NUMBER, sizeVal)) {
             logInvalidType(logger, 'style.text.size', Types.NUMBER, sizeVal);
-            delete validOptions.style.text.size;
+            delete style.text.size; // eslint-disable-line no-param-reassign
         } else {
-            validOptions.style.text.size = sizeVal;
+            style.text.size = sizeVal; // eslint-disable-line no-param-reassign
         }
     }
 
