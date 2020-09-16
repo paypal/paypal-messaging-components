@@ -61,17 +61,53 @@ export default (options = {}) => ({
                     container.setAttribute('data-pp-id', nextIndex());
                 }
 
+                const index = container.getAttribute('data-pp-id');
+                const {
+                    account,
+                    merchantId,
+                    currency,
+                    amount,
+                    placement,
+                    style,
+                    offer,
+                    buyerCountry,
+                    onClick,
+                    onRender,
+                    onApply
+                } = merchantOptions;
+
+                // Explicitly select props to pass in to avoid unintentionally sending
+                // in props meant for only either the message or modal (e.g. onClick)
+                const commonProps = {
+                    index,
+                    account,
+                    merchantId,
+                    currency,
+                    amount,
+                    buyerCountry
+                };
+                const messageProps = {
+                    ...commonProps,
+                    placement,
+                    style,
+                    offer,
+                    onClick,
+                    onReady: (...args) => {
+                        if (typeof onRender === 'function') {
+                            onRender(...args);
+                        }
+                    }
+                };
+                const modalProps = {
+                    ...commonProps,
+                    onApply
+                };
+
                 if (!messagesMap.has(container)) {
-                    const index = container.getAttribute('data-pp-id');
-                    const modal = Modal(merchantOptions);
-
-                    const totalOptions = {
-                        ...merchantOptions,
-                        modal,
-                        index
-                    };
-
-                    const { render, state, updateProps, clone } = Message(totalOptions);
+                    const { render, state, updateProps, clone } = Message({
+                        ...messageProps,
+                        modal: Modal(modalProps)
+                    });
 
                     state.renderStart = renderStart;
 
@@ -88,7 +124,7 @@ export default (options = {}) => ({
                     state.renderStart = renderStart;
                 }
 
-                return updateProps(merchantOptions);
+                return updateProps(messageProps);
             })
         );
     }
