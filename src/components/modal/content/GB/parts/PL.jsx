@@ -6,7 +6,7 @@ import { useContent } from '../../../lib';
 const headline = () => {
     const { content, meta } = useContent('GPL');
 
-    if (meta.periodicPayment === '-' || meta.amount < meta.minAmount || meta.amount > meta.maxAmount) {
+    if (meta.qualifying !== 'TRUE') {
         return (
             <h1 className="offer">
                 {content.headline.unqualified[0]} <br /> {content.headline.unqualified[1]}
@@ -30,7 +30,7 @@ const PL = () => {
             <div className="left">
                 {headline()}
                 <p className="subheadline">
-                    {meta.periodicPayment !== '-' ? content.subHeadline.qualified : content.subHeadline.unqualified}
+                    {meta.qualifying === 'TRUE' ? content.subHeadline.qualified : content.subHeadline.unqualified}
                 </p>
                 <Icon name="icecream" />
                 <div className="thumbs-up">

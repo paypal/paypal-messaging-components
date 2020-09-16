@@ -13,7 +13,11 @@ export default ({ switchTab }) => {
             <div className="description">
                 <h2>{products.length > 1 ? content.headline.multiProduct : content.headline.singleProduct}</h2>
 
-                <p>{meta.periodicPayment !== '-' ? content.subHeadline.qualified : content.subHeadline.unqualified}</p>
+                <p>
+                    {meta.qualifying === 'TRUE'
+                        ? content.subHeadline.qualified
+                        : content.subHeadline.unqualified.replace(/.00/g, '')}
+                </p>
 
                 <div className="call-to-action">
                     <div>
@@ -37,6 +41,7 @@ export default ({ switchTab }) => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
+                    {meta.qualifying === 'TRUE' ? content.instructions.purchaseAmount : null}
                     {content.instructions.items.map(inst => (
                         <li>{inst}</li>
                     ))}
