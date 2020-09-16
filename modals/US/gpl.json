@@ -21,7 +21,7 @@
             "title": ["Check out securely with", "PayPal", "and choose", "Pay Later"],
             "purchaseAmount": "Pay in 4 is available on purchases from ${CREDIT_OFFERS_DS.formattedMinAmount}-${CREDIT_OFFERS_DS.formattedMaxAmount}.",
             "items": [
-                "California, Georgia, Idaho, Louisiana, New Mexico, North Dakota, Missouri, South Dakota, Wisconsin, or any U.S. Territories.",
+                "Pay in 4 is not currently available to residents of California, Georgia, Idaho, Louisiana, New Mexico, North Dakota, Missouri, South Dakota, Wisconsin, or any U.S. Territories.",
                 "Late fees may apply for missed payments depending on your state of residency.",
                 "When applying, a soft credit check may be needed, but will not affect your credit score.",
                 "You must be of legal age in your state of residence to use Pay in 4."
