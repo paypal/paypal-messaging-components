@@ -1,9 +1,26 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
 import { xsmallTagMediaQuery, setLogoTop, textWrap } from './mediaQueries';
-import { textLogoMutations } from './common';
+import { flexLogoMutations, textLogoMutations } from './common';
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PRIMARY.WHITE,
+            headline: [
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: 'xsmall'
+        }
+    ],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',
