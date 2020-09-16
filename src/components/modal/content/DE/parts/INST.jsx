@@ -6,11 +6,11 @@ import Calculator from './Calculator';
 import { useContent } from '../../../lib';
 
 const INST = () => {
-    const { content } = useContent('INST');
+    const { carousel } = useContent('INST');
 
     return (
         <section className="content-body">
-            <Carousel items={content.carousel} />
+            <Carousel items={carousel} />
 
             {/* <!-- Calculator --> */}
             <div className="calculator-container">

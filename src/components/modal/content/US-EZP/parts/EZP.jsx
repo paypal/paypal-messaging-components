@@ -11,7 +11,7 @@ import Button from '../../../parts/Button';
 export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-    const { content } = useContent('EZP');
+    const { title, subtitle } = useContent('EZP');
 
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
@@ -34,8 +34,8 @@ export const Header = () => {
                     <Icon name="cart" />
                 </div>
             </div>
-            <h1 className="title">{content.title}</h1>
-            <p className="tag">{content.subtitle}</p>
+            <h1 className="title">{title}</h1>
+            <p className="tag">{subtitle}</p>
             <Button ref={buttonRef} onClick={handleApplyNowClick}>
                 Apply Now
             </Button>
@@ -46,7 +46,7 @@ export const Header = () => {
 export const Content = () => {
     const { onClick } = useXProps();
 
-    const { content } = useContent('EZP');
+    const { instructions, about, disclaimer, copyright } = useContent('EZP');
 
     return (
         <section className="content-body">
@@ -56,7 +56,7 @@ export const Content = () => {
 
             <h2 className="title">How it works</h2>
             <ul className="instructions-list">
-                {content.instructions.map(([icon, instruction]) => (
+                {instructions.map(([icon, instruction]) => (
                     <li className="instructions-item">
                         <div>
                             <Icon name={icon} />
@@ -68,8 +68,8 @@ export const Content = () => {
 
             <hr className="divider" />
 
-            <h2 className="title">{content.about.title}</h2>
-            <p>{content.about.text}</p>
+            <h2 className="title">{about.title}</h2>
+            <p>{about.text}</p>
 
             <hr className="divider" />
 
@@ -85,8 +85,8 @@ export const Content = () => {
                     </a>{' '}
                     to view the PayPal Credit Terms and Conditions.
                 </p>
-                <p>{content.disclaimer}</p>
-                <p>{content.copyright}</p>
+                <p>{disclaimer}</p>
+                <p>{copyright}</p>
             </div>
         </section>
     );

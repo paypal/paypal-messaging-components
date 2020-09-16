@@ -10,7 +10,7 @@ import Button from '../../../parts/Button';
 export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-    const { content } = useContent('NI');
+    const { title, subtitle } = useContent('NI');
 
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
@@ -32,8 +32,8 @@ export const Header = () => {
             <div className="image-wrapper">
                 <Icon name="rocket" />
             </div>
-            <h1 className="title">{content.title}</h1>
-            <p className="tag">{content.subtitle}</p>
+            <h1 className="title">{title}</h1>
+            <p className="tag">{subtitle}</p>
             <Button ref={buttonRef} onClick={handleApplyNowClick}>
                 Apply Now
             </Button>
@@ -44,22 +44,22 @@ export const Header = () => {
 export const Content = () => {
     const { onClick } = useXProps();
 
-    const { content } = useContent('NI');
+    const { terms, instructions, disclaimer, copyright } = useContent('NI');
 
     return (
         <section className="content-body">
-            <h2 className="title">{content.terms.title}</h2>
+            <h2 className="title">{terms.title}</h2>
             <ul className="terms-list">
-                {content.terms.items.map(term => (
+                {terms.items.map(term => (
                     <li className="terms-item">{term}</li>
                 ))}
             </ul>
 
             <hr className="divider" />
 
-            <h2 className="title">{content.instructions.title}</h2>
+            <h2 className="title">{instructions.title}</h2>
             <ul className="instructions-list">
-                {content.instructions.items.map(([icon, instruction]) => (
+                {instructions.items.map(([icon, instruction]) => (
                     <li className="instructions-item">
                         <div>
                             <Icon name={icon} />
@@ -83,8 +83,8 @@ export const Content = () => {
                     </a>{' '}
                     to view the PayPal Credit Terms and Conditions.
                 </p>
-                <p>{content.disclaimer}</p>
-                <p>{content.copyright}</p>
+                <p>{disclaimer}</p>
+                <p>{copyright}</p>
             </div>
         </section>
     );

@@ -2,22 +2,16 @@
 import { h } from 'preact';
 import { useContent } from '../../../../lib';
 
-const Disclaimer = ({ terms }) => {
-    const { content } = useContent('INST');
+const Disclaimer = ({ terms: { error, formattedMinAmount, formattedMaxAmount, offers } }) => {
+    const { disclosure, disclosureZeroAPR, disclaimer } = useContent('INST');
 
-    if (
-        !terms.error &&
-        terms.formattedMinAmount &&
-        terms.formattedMaxAmount &&
-        terms.offers &&
-        terms.offers.length > 0
-    ) {
-        const [offer] = terms.offers;
-        const disclosure = Number(offer.apr.replace(/[,.]/g, '')) === 0 ? content.disclosure0 : content.disclosure;
+    if (!error && formattedMinAmount && formattedMaxAmount && offers && offers.length > 0) {
+        const [offer] = offers;
+        const shownDisclosure = Number(offer.apr.replace(/[,.]/g, '')) === 0 ? disclosureZeroAPR : disclosure;
 
         return (
             <p className="disclosure">
-                {disclosure.replace(/,00/g, '')}{' '}
+                {shownDisclosure.replace(/,00/g, '')}{' '}
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -29,7 +23,7 @@ const Disclaimer = ({ terms }) => {
         );
     }
 
-    return <p className="disclosure">{content.disclaimer}</p>;
+    return <p className="disclosure">{disclaimer}</p>;
 };
 
 export default Disclaimer;

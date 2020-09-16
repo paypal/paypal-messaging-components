@@ -1,44 +1,46 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import Icon from '../../../parts/Icon';
-import { useContent } from '../../../lib';
+import { useContent, useProductMeta } from '../../../lib';
 
 const headline = () => {
-    const { content, meta } = useContent('GPL');
+    const {
+        headline: { unqualified, qualified }
+    } = useContent('GPL');
 
-    if (meta.qualifying !== 'TRUE') {
+    const { qualifying } = useProductMeta('GPL');
+
+    if (qualifying !== 'TRUE') {
         return (
             <h1 className="offer">
-                {content.headline.unqualified[0]} <br /> {content.headline.unqualified[1]}
+                {unqualified[0]} <br /> {unqualified[1]}
             </h1>
         );
     }
 
     return (
         <h1 className="offer">
-            {content.headline.qualified[0].replace(/\.00/g, '')} <br />{' '}
-            {content.headline.qualified[1].replace(/\.00/g, '')}
+            {qualified[0].replace(/\.00/g, '')} <br /> {qualified[1].replace(/\.00/g, '')}
         </h1>
     );
 };
 
 const PL = () => {
-    const { content, meta } = useContent('GPL');
+    const { subHeadline, terms, instructions, productName } = useContent('GPL');
+    const { qualifying } = useProductMeta('GPL');
 
     return (
         <div className="content-body">
             <div className="left">
                 {headline()}
-                <p className="subheadline">
-                    {meta.qualifying === 'TRUE' ? content.subHeadline.qualified : content.subHeadline.unqualified}
-                </p>
+                <p className="subheadline">{qualifying === 'TRUE' ? subHeadline.qualified : subHeadline.unqualified}</p>
                 <Icon name="icecream" />
                 <div className="thumbs-up">
                     <Icon name="thumbs-up" />
                 </div>
                 <div className="terms">
                     <p>
-                        {content.terms.map(term => (
+                        {terms.map(term => (
                             <Fragment>
                                 {term}
                                 <br />
@@ -50,14 +52,14 @@ const PL = () => {
             <div className="right">
                 <h2 className="title">Buy now, pay later</h2>
                 <div className="info">
-                    {content.instructions.map(([icon, ...text]) => (
+                    {instructions.map(([icon, ...text]) => (
                         <Fragment>
                             <Icon name={icon} />
                             <p>
                                 {text.map((textPart, idx) => (
                                     <Fragment>
                                         {idx !== 0 && textPart !== 'PRODUCT_NAME' ? <br /> : null}
-                                        {textPart === 'PRODUCT_NAME' ? <span>{content.productName}</span> : textPart}
+                                        {textPart === 'PRODUCT_NAME' ? <span>{productName}</span> : textPart}
                                     </Fragment>
                                 ))}
                             </p>

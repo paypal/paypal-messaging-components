@@ -8,18 +8,20 @@ import Disclaimer from './Disclaimer';
 
 const Calculator = () => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
-    const { content } = useContent('INST');
+    const {
+        calculator: { title, instructions, disclosure }
+    } = useContent('INST');
+
+    const { error, formattedMinAmount, formattedMaxAmount, offers } = terms;
 
     return (
         <Fragment>
             <div className="calculator">
-                <h3 className="title">{content.calculator.title}</h3>
+                <h3 className="title">{title}</h3>
                 <form className={`form ${isLoading ? 'form--loading' : ''}`} onSubmit={submit}>
                     <input className="input" value={value} onInput={changeInput} />
                     <p className="instructions">
-                        {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount
-                            ? content.calculator.instructions.replace(/,00/g, '')
-                            : null}
+                        {!error && formattedMinAmount && formattedMaxAmount ? instructions.replace(/,00/g, '') : null}
                     </p>
                     <Button size="md" type="submit">
                         Berechnen
@@ -27,9 +29,7 @@ const Calculator = () => {
                 </form>
             </div>
             <TermsTable terms={terms} isLoading={isLoading} />
-            {!terms.error && terms.offers && terms.offers.length > 0 && terms.offers[0].qualified && (
-                <p className="disclosure">{content.calculator.disclosure}</p>
-            )}
+            {!error && offers && offers.length > 0 && offers[0].qualified && <p className="disclosure">{disclosure}</p>}
             <Disclaimer terms={terms} />
         </Fragment>
     );

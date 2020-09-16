@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { useApplyNow, useContent, useServerData, useScroll, useXProps } from '../../../lib';
+import { useApplyNow, useContent, useServerData, useScroll, useXProps, useProductMeta } from '../../../lib';
 import Button from '../../../parts/Button';
 
 export default ({ showApplyNow, switchTab }) => {
@@ -12,7 +12,8 @@ export default ({ showApplyNow, switchTab }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
-    const { content, meta } = useContent('NI');
+    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('NI');
+    const { qualifying } = useProductMeta('NI');
 
     showApplyNowRef.current = showApplyNow;
 
@@ -38,16 +39,16 @@ export default ({ showApplyNow, switchTab }) => {
     return (
         <section className="content-body">
             <div className="description">
-                <h2>{products.length > 1 ? content.headline.multiProduct : content.headline.singleProduct}</h2>
+                <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
 
-                <p>{content.subHeadline}</p>
+                <p>{subHeadline}</p>
 
                 <p className="call-to-action">
                     <div>
                         <p>
-                            <b>{content.applyNow.headline}</b>
+                            <b>{applyNow.headline}</b>
                         </p>
-                        <span>{content.applyNow.subHeadline}</span>
+                        <span>{applyNow.subHeadline}</span>
                     </div>
                     <Button onClick={handleApplyNowClick} className="apply-now" ref={buttonRef}>
                         Apply <span className="hidden-xs">Now</span>
@@ -58,9 +59,9 @@ export default ({ showApplyNow, switchTab }) => {
             <hr className="divider" />
 
             <div className="terms">
-                <h3>{content.terms.title}</h3>
+                <h3>{terms.title}</h3>
                 <ul>
-                    {content.terms.items.map(term => (
+                    {terms.items.map(term => (
                         <li>{term}</li>
                     ))}
                 </ul>
@@ -77,10 +78,10 @@ export default ({ showApplyNow, switchTab }) => {
                 </a>{' '}
                 to view the PayPal Credit Terms and Conditions.
             </p>
-            <p>{content.disclaimer}</p>
-            <p>{content.copyright}</p>
+            <p>{disclaimer}</p>
+            <p>{copyright}</p>
 
-            {meta.qualifying === 'TRUE' && products.length > 1 ? (
+            {qualifying === 'TRUE' && products.length > 1 ? (
                 <button type="button" className="tab-switch-button" onClick={switchTab}>
                     Or see Pay in 4
                 </button>
