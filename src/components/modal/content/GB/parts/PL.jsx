@@ -7,13 +7,13 @@ const isEligible = terms => {
     if (typeof terms.amount === 'undefined' || terms.amount < terms.minAmount || terms.amount > terms.maxAmount) {
         return (
             <h1 className="offer">
-                3 interest-free monthly <br /> payments with Flex
+                Pay in 3 interest-free <br /> payments
             </h1>
         );
     }
     return (
         <h1 className="offer">
-            3 interest-free payments of <br /> £{terms.offers[0].periodic} per month with Flex
+            Pay in 3 interest-free <br /> payments of £{terms.offers[0].periodic}
         </h1>
     );
 };
@@ -36,7 +36,7 @@ const PL = () => {
                 <div className="terms">
                     <p>
                         Subject to status. Terms and Conditions apply. UK residents only. <br />
-                        PayPal Flex is a trading name of PayPal (Europe) S.à.r.l. et <br />
+                        PayPal Pay in 3 is a trading name of PayPal (Europe) S.à.r.l. et <br />
                         Cie, S.C.A., <br /> 22-24 Boulevard Royal, L-2449, Luxembourg.
                     </p>
                 </div>
@@ -46,7 +46,7 @@ const PL = () => {
                 <div className="info">
                     <Icon name="shopping-bag" />
                     <p>
-                        Get your items straight away <br /> and pay nothing for 1 month.
+                        Make one payment today, <br /> then pay the rest monthly.
                     </p>
                     <Icon name="checkmark" />
                     <p>
@@ -54,7 +54,7 @@ const PL = () => {
                     </p>
                     <Icon name="pp-button" />
                     <p>
-                        Check out with PayPal and <br /> choose <span>Flex.</span>
+                        Check out with PayPal and <br /> choose Pay in 3.
                     </p>
                 </div>
             </div>
