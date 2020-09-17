@@ -9,7 +9,3 @@
 .message__disclaimer span {
     color: black;
 }
-
-.message__disclaimer > .tag--default {
-    text-decoration: none;
-}
