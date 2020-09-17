@@ -2,7 +2,6 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "INST:ANY:GTZ",
-        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
