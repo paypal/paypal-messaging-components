@@ -46,7 +46,8 @@ describe('stats', () => {
             browser_height: '768',
             visible: 'true',
             adblock: 'true',
-            blocked: 'true'
+            blocked: 'true',
+            banner_type: expect.any(String)
         };
 
         runStats({ container, index });
@@ -81,7 +82,8 @@ describe('stats', () => {
             browser_height: '10',
             visible: 'false',
             adblock: 'true',
-            blocked: 'true'
+            blocked: 'true',
+            banner_type: expect.any(String)
         };
 
         runStats({ container, index });

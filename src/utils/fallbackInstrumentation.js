@@ -1,7 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 
-import { logger } from './logger';
-
 // Using spread operator here (e.g [...node.children] results in [HtmlCollection]
 // rather than [child, child, ...] for some reason
 const getChildren = node => Array.prototype.slice.call(node.children);
@@ -42,7 +40,10 @@ const getTagSize = node => {
     }, null);
 };
 
-export function instrumentFallback({ container, index }) {
+export function instrumentFallback(container) {
+    if (!container) {
+        return `headline:NONE::subheadline:NONE::disclaimer:NONE`;
+    }
     const content = container.contentDocument || container.contentWindow.document;
 
     const [headline, subHeadline, disclaimer] = [
@@ -51,10 +52,7 @@ export function instrumentFallback({ container, index }) {
         content.querySelector('.message__disclaimer')
     ];
 
-    logger.track({
-        index,
-        banner_type: `headline:${getTagSize(headline)}::subheadline:${getTagSize(subHeadline)}::disclaimer:${getTagSize(
-            disclaimer
-        )}`
-    });
+    return `headline:${getTagSize(headline)}::subheadline:${getTagSize(subHeadline)}::disclaimer:${getTagSize(
+        disclaimer
+    )}`;
 }
