@@ -9,6 +9,7 @@ export * from './logger';
 export * from './stats';
 export * from './experimentation';
 export * from './observers';
+export * from './fallbackInstrumentation';
 
 // TODO: Remove this after the ramp
 export * from './old';

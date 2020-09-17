@@ -10,7 +10,8 @@ import {
     runStats,
     logger,
     globalState,
-    getCurrentTime
+    getCurrentTime,
+    instrumentFallback
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -159,6 +160,12 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             return {
                                 [index]: { messageRequestId, account, displayedMessage, ...trackingDetails }
                             };
+                        });
+
+                        // Query iframe content to determine which content is actually shown
+                        instrumentFallback({
+                            container: document.querySelector(`[data-pp-id="${index}"] iframe`),
+                            index
                         });
 
                         runStats({ container: document.querySelector(`[data-pp-id="${index}"]`), index });
