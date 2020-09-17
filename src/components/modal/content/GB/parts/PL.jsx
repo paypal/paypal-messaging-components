@@ -54,7 +54,7 @@ const PL = () => {
                     </p>
                     <Icon name="pp-button" />
                     <p>
-                        Check out with PayPal and <br /> choose Pay in 3.
+                        Check out with PayPal and <br /> choose <span>Pay in 3.</span>
                     </p>
                 </div>
             </div>

@@ -18,9 +18,9 @@ export const gbModalContent = (account, viewport, bannerStyle) => async () => {
     const h1 = await modalFrame.evaluate(() => document.querySelector('.content-body__offer').innerHTML);
 
     if (account.includes('GBPLQ')) {
-        expect(h1).toContain('3 interest-free payments of <br> £41,67 per month with Flex');
+        expect(h1).toContain('Pay in 3 interest-free <br /> payments of £41,67');
     } else {
-        expect(h1).toContain('3 interest-free monthly <br> payments with Flex');
+        expect(h1).toContain('Pay in 3 interest-free <br /> payments');
     }
     await page.waitFor(500);
     await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
