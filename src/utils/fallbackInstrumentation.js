@@ -1,3 +1,4 @@
+import arrayFind from 'core-js-pure/stable/array/find';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
 // Using spread operator here (e.g [...node.children] results in [HtmlCollection]
@@ -15,13 +16,9 @@ const toTagSize = classList => {
     };
 
     // Match on first tag contained in classList, ignoring other values.
-    return objectEntries(tagMap).reduce((acc, [key, value]) => {
-        if (acc) {
-            return acc;
-        }
+    const tag = arrayFind(objectEntries(tagMap), ([key]) => classList.contains(key));
 
-        return classList.contains(key) ? value : null;
-    }, null);
+    return tagMap[tag];
 };
 
 const getTagSize = node => {
@@ -30,14 +27,13 @@ const getTagSize = node => {
         return 'NONE';
     }
 
-    // Get the tag size of the visible element
-    return getChildren(node).reduce((acc, next) => {
-        if (acc) {
-            return acc;
-        }
+    const visibleElement = arrayFind(
+        getChildren(node),
+        element => window.getComputedStyle(element).getPropertyValue('display') !== 'none'
+    );
 
-        return window.getComputedStyle(next).getPropertyValue('display') !== 'none' ? toTagSize(next.classList) : null;
-    }, null);
+    // Get the tag size of the element shown
+    return toTagSize(visibleElement.classList);
 };
 
 export function instrumentFallback(container) {
