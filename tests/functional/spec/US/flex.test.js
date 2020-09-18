@@ -1,7 +1,7 @@
 import createBannerTest from '../createBannerTest';
 import accounts from './accounts';
 
-describe('US > flex', () => {
+describe.skip('US > flex', () => {
     const viewport = {
         width: 1100,
         height: 700

@@ -4,7 +4,7 @@ import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent }
 
 const account = 'DEV0000000PSZ';
 
-describe.each([
+describe.skip.each([
     [viewports[0], amounts[0], bannerStyles[0]],
     [viewports[0], amounts[1], bannerStyles[0]],
     [viewports[0], amounts[2], bannerStyles[0]],
