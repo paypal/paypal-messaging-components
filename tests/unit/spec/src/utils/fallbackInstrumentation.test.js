@@ -67,14 +67,12 @@ describe('fallback', () => {
         test('LARGE:XSMALL:XSMALL', () => {
             appendElements(container, [document.createElement('div')]);
 
-            // Append appropriate children to container
             const sections = [
                 createSection('headline', 'large', ['xsmall', 'small', 'medium', 'large']),
                 createSection('subheadline', 'xsmall', ['xsmall', 'small', 'medium']),
                 createSection('disclaimer', 'xsmall', ['xsmall', 'small', 'medium'])
             ];
 
-            // Test for expected sizes
             const expected = createOutput(['LARGE', 'XSMALL', 'XSMALL']);
 
             appendElements(container, sections);
