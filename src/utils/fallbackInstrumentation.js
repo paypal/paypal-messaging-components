@@ -1,5 +1,4 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import objectEntries from 'core-js-pure/stable/object/entries';
 
 // Using spread operator here (e.g [...node.children] results in [HtmlCollection]
 // rather than [child, child, ...] for some reason
@@ -7,18 +6,12 @@ const getChildren = node => Array.prototype.slice.call(node.children);
 
 // Map class name of visible element to size tag.
 const toTagSize = classList => {
-    const tagMap = {
-        'tag--xsmall': 'XSMALL',
-        'tag--small': 'SMALL',
-        'tag--medium': 'MEDIUM',
-        'tag--large': 'LARGE',
-        'tag--xlarge': 'XLARGE'
-    };
+    const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 
     // Match on first tag contained in classList, ignoring other values.
-    const tag = arrayFind(objectEntries(tagMap), ([key]) => classList.contains(key));
+    const tag = arrayFind(sizes, size => classList.contains(`tag--${size}`)) || 'NONE';
 
-    return tagMap[tag];
+    return tag.toUpperCase();
 };
 
 const getTagSize = node => {
