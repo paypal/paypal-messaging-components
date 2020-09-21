@@ -14,7 +14,7 @@
 }
 
 .message__disclaimer {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
