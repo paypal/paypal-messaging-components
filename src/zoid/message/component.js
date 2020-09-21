@@ -151,7 +151,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta }) => {
+                    return ({ meta, bannerType }) => {
                         const { account, index, modal } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
@@ -163,7 +163,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                         runStats({
                             container: document.querySelector(`[data-pp-id="${index}"]`),
-                            bannerType: meta.bannerType,
+                            bannerType,
                             index
                         });
 

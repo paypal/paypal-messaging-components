@@ -44,11 +44,8 @@ const Message = () => {
     }, [parentStyles, warnings, markup]);
 
     useLayoutEffect(() => {
-        // Examine DOM to determine message section sizes
-        meta.bannerType = instrumentFallback(buttonRef.current);
-
         if (typeof onReady === 'function') {
-            onReady({ meta });
+            onReady({ meta, bannerType: instrumentFallback(buttonRef.current) });
         }
     }, [meta.messageRequestId]);
 
