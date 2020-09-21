@@ -4,7 +4,7 @@ import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
 import { request, instrumentFallback } from '../../utils';
-import { useXProps, useServerData, useDidUpdateEffect } from './lib';
+import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
     const {
@@ -49,7 +49,7 @@ const Message = () => {
         }
     }, [meta.messageRequestId]);
 
-    useLayoutEffect(() => {
+    useDidUpdateLayoutEffect(() => {
         const buttonWidth = buttonRef.current.offsetWidth;
         const buttonHeight = buttonRef.current.offsetHeight;
 
