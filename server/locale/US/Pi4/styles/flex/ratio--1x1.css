@@ -24,10 +24,15 @@
 }
 
 .message__headline {
+    font-size: 10vw;
     line-height: 1.55em;
 }
 
-@media (min-width: 220px) {
+@media (min-width: 140px) {
+    .message__headline {
+        font-size: 8.4vw;
+    }
+
     .message__headline span.multi:nth-of-type(1) {
         display: none;
     }

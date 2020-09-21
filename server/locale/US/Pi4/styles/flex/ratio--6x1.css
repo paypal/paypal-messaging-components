@@ -17,7 +17,7 @@
     font-size: 0.75rem;
 }
 
-@media (max-aspect-ratio: 61/10) and (min-width: 375px) {
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
     .message__headline span.multi:nth-of-type(2) {
         display: inline;
     }

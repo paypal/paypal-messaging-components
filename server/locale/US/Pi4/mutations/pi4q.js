@@ -10,11 +10,15 @@ const flex = [
             logo: Logo.PRIMARY.WHITE,
             headline: [
                 {
+                    tag: 'xsmall'
+                },
+                {
                     tag: 'medium'
                 }
             ],
-            disclaimer: 'xsmall',
+            disclaimer: ['default'],
             styles: [
+                '@media (max-width: 767px) { .message__headline::after { content: " "; } }',
                 '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                 '.message__headline .tag--medium .weak { display: none; }'
             ]
@@ -24,6 +28,9 @@ const flex = [
         'ratio:8x1',
         {
             headline: [
+                {
+                    tag: 'xsmall'
+                },
                 {
                     tag: 'medium',
                     br: ['payments']

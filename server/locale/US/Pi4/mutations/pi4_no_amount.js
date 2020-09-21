@@ -10,10 +10,11 @@ const flex = [
             logo: Logo.PRIMARY.WHITE,
             headline: [
                 {
-                    tag: 'medium'
+                    tag: 'default'
                 }
             ],
-            disclaimer: 'xsmall'
+            disclaimer: ['default'],
+            styles: ['@media (max-width: 767px) { .message__headline::after { content: " "; } }']
         }
     ],
     ...flexLogoMutations
