@@ -82,10 +82,6 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                     const minHeight = Number(iframe.getAttribute('data-height'));
                     const duration = getCurrentTime() - state.renderStart;
 
-                    // console.warn(0, root, JSON.parse(JSON.stringify(root.getBoundingClientRect())));
-                    // console.warn(1, entry);
-                    // console.warn(2, entry.target, JSON.parse(JSON.stringify(entry.target.getBoundingClientRect())));
-
                     let isIntersectingFallback;
                     // TODO: Further investigate why in some edge-cases the entry values are all 0.
                     // If this is the case we run our own calculations as a fallback.
