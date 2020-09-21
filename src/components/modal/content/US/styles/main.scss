@@ -4,6 +4,8 @@
     margin: auto;
     border-radius: 10px;
     height: 100%;
+    // Keep the content from overflowing the page
+    margin-bottom: -84px;
 }
 
 .content {
