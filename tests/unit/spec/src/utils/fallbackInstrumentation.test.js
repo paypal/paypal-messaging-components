@@ -33,9 +33,9 @@ const createSection = (section, sizeDisplayed, sizes) => {
     return sectionWrapper;
 };
 
-const appendElements = (iframe, elements) => {
+const appendElements = (wrapper, elements) => {
     elements.forEach(el => {
-        iframe.contentDocument.body.appendChild(el);
+        wrapper.appendChild(el);
     });
 };
 
@@ -45,9 +45,9 @@ describe('fallback', () => {
     });
 
     describe('Returns correct sizes for visible message sections', () => {
-        const { container } = createContainer('iframe');
-
         test('MEDIUM:NONE:SMALL', () => {
+            const { container } = createContainer('div');
+
             appendElements(container, [document.createElement('div')]);
 
             // Append appropriate children to container
@@ -65,6 +65,8 @@ describe('fallback', () => {
         });
 
         test('LARGE:XSMALL:XSMALL', () => {
+            const { container } = createContainer('div');
+
             appendElements(container, [document.createElement('div')]);
 
             const sections = [
@@ -82,8 +84,8 @@ describe('fallback', () => {
     });
 
     it('Returns none given an invalid container', () => {
-        // Iframe with no elements
-        const { container } = createContainer('iframe');
+        // Wrapper with no elements
+        const { container } = createContainer('div');
 
         const expected = createOutput(['NONE', 'NONE', 'NONE']);
 

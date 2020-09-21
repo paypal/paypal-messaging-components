@@ -50,7 +50,7 @@ describe('stats', () => {
             banner_type: expect.any(String)
         };
 
-        runStats({ container, index });
+        runStats({ container, bannerType: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -86,7 +86,7 @@ describe('stats', () => {
             banner_type: expect.any(String)
         };
 
-        runStats({ container, index });
+        runStats({ container, bannerType: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 

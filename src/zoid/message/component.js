@@ -161,7 +161,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             };
                         });
 
-                        runStats({ container: document.querySelector(`[data-pp-id="${index}"]`), index });
+                        runStats({
+                            container: document.querySelector(`[data-pp-id="${index}"]`),
+                            bannerType: meta.bannerType,
+                            index
+                        });
 
                         modal.updateProps({ index, offer: offerType });
                         modal.render('body');

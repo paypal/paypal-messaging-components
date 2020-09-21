@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request } from '../../utils';
+import { request, instrumentFallback } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect } from './lib';
 
 const Message = () => {
@@ -44,6 +44,9 @@ const Message = () => {
     }, [parentStyles, warnings, markup]);
 
     useLayoutEffect(() => {
+        // Examine DOM to determine message section sizes
+        meta.bannerType = instrumentFallback(buttonRef.current);
+
         if (typeof onReady === 'function') {
             onReady({ meta });
         }

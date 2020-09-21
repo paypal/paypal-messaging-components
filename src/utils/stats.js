@@ -2,8 +2,6 @@ import { checkAdblock } from './adblock';
 import { isHidden, isInViewport } from './elements';
 import { logger } from './logger';
 
-import { instrumentFallback } from './fallbackInstrumentation';
-
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
 const onScroll = (elem, handler) => {
@@ -20,7 +18,7 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ container, index }) {
+export function runStats({ container, bannerType, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
 
@@ -39,7 +37,7 @@ export function runStats({ container, index }) {
         browser_height: window.innerHeight.toString(),
         visible: isInViewport(container).toString(),
         // Query iframe to determine size of message sections
-        banner_type: instrumentFallback(document.querySelector(`[data-pp-id="${index}"] iframe`))
+        banner_type: bannerType
     };
 
     // No need for scroll event if banner is above the fold

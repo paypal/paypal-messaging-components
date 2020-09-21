@@ -33,12 +33,11 @@ export function instrumentFallback(container) {
     if (!container) {
         return `headline:NONE::subheadline:NONE::disclaimer:NONE`;
     }
-    const content = container.contentDocument || container.contentWindow.document;
 
     const [headline, subHeadline, disclaimer] = [
-        content.querySelector('.message__headline'),
-        content.querySelector('.message__subheadline'),
-        content.querySelector('.message__disclaimer')
+        container.querySelector('.message__headline'),
+        container.querySelector('.message__subheadline'),
+        container.querySelector('.message__disclaimer')
     ];
 
     return `headline:${getTagSize(headline)}::subheadline:${getTagSize(subHeadline)}::disclaimer:${getTagSize(
