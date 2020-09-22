@@ -16,8 +16,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default'],
-            styles: ['@media (max-width: 767px) { .message__headline::after { content: " "; } }']
+            disclaimer: ['default']
         }
     ],
     [

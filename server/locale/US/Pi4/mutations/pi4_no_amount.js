@@ -13,8 +13,45 @@ const flex = [
                     tag: 'default'
                 }
             ],
-            disclaimer: ['default'],
-            styles: ['@media (max-width: 767px) { .message__headline::after { content: " "; } }']
+            disclaimer: ['default']
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [
+                `
+                .message__logo:nth-of-type(2) {
+                    display: inline-block;
+                }
+
+                @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+                    .message__logo-container {
+                        margin-right: 7%;
+                    }
+                    .message__logo:nth-of-type(1) {
+                        margin: 0 5px;
+                        width: 30%;
+                    }
+                    .message__logo:nth-of-type(2) {
+                        display: inline;
+                        width: 70px;
+                    }
+                }
+
+                @media (min-aspect-ratio: 200/11) and (min-width: 300px) {
+                    .message__logo-container {
+                        max-width: 15%;
+                    }
+                    .message__logo:nth-of-type(1) {
+                        width: 20%;
+                    }
+                    .message__logo:nth-of-type(2) {
+                        width: 60%;
+                    }
+                }
+                `
+            ]
         }
     ],
     ...flexLogoMutations

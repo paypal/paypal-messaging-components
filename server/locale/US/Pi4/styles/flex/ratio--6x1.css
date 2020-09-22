@@ -76,3 +76,23 @@
         margin-left: -1.6%;
     }
 }
+
+@media (max-aspect-ratio: 61/10) and (max-width: 767px) {
+    .message__headline::after {
+        content: ' ';
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+    .message__logo-container {
+        margin-right: 7%;
+    }
+    .message__logo:nth-of-type(1) {
+        margin: 0 5px;
+        width: 30%;
+    }
+    .message__logo:nth-of-type(2) {
+        display: inline;
+        width: 70px;
+    }
+}

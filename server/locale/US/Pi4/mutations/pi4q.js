@@ -18,7 +18,6 @@ const flex = [
             ],
             disclaimer: ['default'],
             styles: [
-                '@media (max-width: 767px) { .message__headline::after { content: " "; } }',
                 '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                 '.message__headline .tag--medium .weak { display: none; }'
             ]
@@ -38,7 +37,8 @@ const flex = [
             ],
             styles: [
                 '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
-                '.message__headline .tag--medium .weak { display: none; }'
+                '.message__headline .tag--medium .weak { display: none; }',
+                '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
             ]
         }
     ],
