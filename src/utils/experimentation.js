@@ -5,6 +5,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 import { memoize } from './functional';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+import { getEnv } from './sdk';
 
 export const Treatment = {
     CONTROL: 'CONTROL',
@@ -16,15 +17,21 @@ const fallback = {
     list: []
 };
 
-const getExperiment = memoize(() =>
-    __ENV__ === 'local'
-        ? ZalgoPromise.resolve(fallback)
-        : request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
-              .then(res => res?.data ?? fallback)
-              .catch(() => fallback)
-);
+const getExperiment = memoize(() => {
+    switch (getEnv()) {
+        case 'local':
+            return ZalgoPromise.resolve(fallback);
+        case 'sandbox':
+            // Enable test for all of sandbox
+            return ZalgoPromise.resolve({ type: 'exclusion', list: [] });
+        default:
+            return request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
+                .then(res => res?.data ?? fallback)
+                .catch(() => fallback);
+    }
+});
 
-export const getExperimentTreatment = memoize(id =>
+export const getExperimentTreatment = id =>
     getExperiment().then(({ type, list }) => {
         const ids = isArray(id) ? id : [id];
 
@@ -36,5 +43,4 @@ export const getExperimentTreatment = memoize(id =>
             default:
                 return Treatment.CONTROL;
         }
-    })
-);
+    });
