@@ -36,7 +36,7 @@ export function runStats({ container, activeTags, index }) {
         browser_width: window.innerWidth.toString(),
         browser_height: window.innerHeight.toString(),
         visible: isInViewport(container).toString(),
-        // Query iframe to determine size of message sections
+        // Visible message sections
         active_tags: activeTags
     };
 
