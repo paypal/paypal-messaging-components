@@ -20,7 +20,7 @@ const flex = [
         }
     ],
     [
-        'ratio:1x1',
+        'ratio:8x1',
         {
             headline: [
                 {
@@ -28,7 +28,7 @@ const flex = [
                 },
                 {
                     tag: 'medium',
-                    br: ['interest-']
+                    br: ['on']
                 }
             ]
         }
