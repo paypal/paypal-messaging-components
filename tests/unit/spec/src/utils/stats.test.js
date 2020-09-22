@@ -47,10 +47,10 @@ describe('stats', () => {
             visible: 'true',
             adblock: 'true',
             blocked: 'true',
-            banner_type: expect.any(String)
+            active_tags: expect.any(String)
         };
 
-        runStats({ container, bannerType: '', index });
+        runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -83,10 +83,10 @@ describe('stats', () => {
             visible: 'false',
             adblock: 'true',
             blocked: 'true',
-            banner_type: expect.any(String)
+            active_tags: expect.any(String)
         };
 
-        runStats({ container, bannerType: '', index });
+        runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 

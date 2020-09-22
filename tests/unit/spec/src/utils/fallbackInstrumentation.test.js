@@ -1,5 +1,5 @@
 import createContainer from 'utils/createContainer';
-import { instrumentFallback } from 'src/utils/fallbackInstrumentation';
+import { getActiveTags } from 'src/utils/fallbackInstrumentation';
 
 const createOutput = sizes => {
     const [head, sub, disc] = sizes;
@@ -61,7 +61,7 @@ describe('fallback', () => {
 
             appendElements(container, sections);
 
-            expect(expected).toEqual(instrumentFallback(container));
+            expect(expected).toEqual(getActiveTags(container));
         });
 
         test('LARGE:XSMALL:XSMALL', () => {
@@ -79,7 +79,7 @@ describe('fallback', () => {
 
             appendElements(container, sections);
 
-            expect(expected).toEqual(instrumentFallback(container));
+            expect(expected).toEqual(getActiveTags(container));
         });
     });
 
@@ -89,6 +89,6 @@ describe('fallback', () => {
 
         const expected = createOutput(['NONE', 'NONE', 'NONE']);
 
-        expect(expected).toEqual(instrumentFallback(container));
+        expect(expected).toEqual(getActiveTags(container));
     });
 });

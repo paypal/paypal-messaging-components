@@ -18,7 +18,7 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ container, bannerType, index }) {
+export function runStats({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
 
@@ -37,7 +37,7 @@ export function runStats({ container, bannerType, index }) {
         browser_height: window.innerHeight.toString(),
         visible: isInViewport(container).toString(),
         // Query iframe to determine size of message sections
-        banner_type: bannerType
+        active_tags: activeTags
     };
 
     // No need for scroll event if banner is above the fold

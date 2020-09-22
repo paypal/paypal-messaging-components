@@ -1,8 +1,9 @@
 import arrayFind from 'core-js-pure/stable/array/find';
+import arrayFrom from 'core-js-pure/stable/array/from';
 
 // Using spread operator here (e.g [...node.children] results in [HtmlCollection]
 // rather than [child, child, ...] for some reason
-const getChildren = node => Array.prototype.slice.call(node.children);
+const getChildren = node => arrayFrom(node.children);
 
 // Map class name of visible element to size tag.
 const toTagSize = classList => {
@@ -29,7 +30,7 @@ const getTagSize = node => {
     return toTagSize(visibleElement.classList);
 };
 
-export function instrumentFallback(container) {
+export function getActiveTags(container) {
     if (!container) {
         return `headline:NONE::subheadline:NONE::disclaimer:NONE`;
     }
