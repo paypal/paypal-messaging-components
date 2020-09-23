@@ -1,44 +1,46 @@
+import isArray from 'core-js-pure/stable/array/is-array';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { memoize } from './functional';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+import { getEnv } from './sdk';
 
-const DEV_ACCOUNTS = [
-    'DEV00000000NI',
-    'DEV0000000NIQ',
-    'DEV000NINONUS',
-    'DEV00NINONUSQ',
-    'DEV0000000EAZ',
-    'DEV0000000EAG',
-    'DEV0000000PSZ',
-    'DEV0000000PSG',
-    'DEV0000000PMZ',
-    'DEV0000000PMG',
-    'DEV0000000PI4',
-    'DEV000000PI4Q',
+export const Treatment = {
+    CONTROL: 'CONTROL',
+    TEST: 'TEST'
+};
 
-    'DEV0000000IAZ',
-    'DEV0000000IAG',
-    'DEV000000PQAG',
-    'DEV000000PQAZ',
+const fallback = {
+    type: 'inclusion',
+    list: []
+};
 
-    'DEV000000GBPL',
-    'DEV00000GBPLQ'
-];
+const getExperiment = memoize(() => {
+    switch (getEnv()) {
+        case 'local':
+            return ZalgoPromise.resolve(fallback);
+        case 'sandbox':
+            // Enable test for all of sandbox
+            return ZalgoPromise.resolve({ type: 'exclusion', list: [] });
+        default:
+            return request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
+                .then(res => res?.data ?? fallback)
+                .catch(() => fallback);
+    }
+});
 
-export const getExclusionList = memoize(() =>
-    __ENV__ === 'local'
-        ? ZalgoPromise.resolve([])
-        : request('GET', getGlobalUrl('RAMP_EXCLUSION_LIST'))
-              .then(res => res?.data ?? [])
-              .catch(() => [])
-);
+export const getExperimentTreatment = id =>
+    getExperiment().then(({ type, list }) => {
+        const ids = isArray(id) ? id : [id];
 
-export const getInclusionList = memoize(() =>
-    __ENV__ === 'local'
-        ? ZalgoPromise.resolve(DEV_ACCOUNTS)
-        : request('GET', getGlobalUrl('RAMP_INCLUSION_LIST'))
-              .then(res => res?.data ?? [])
-              .catch(() => [])
-);
+        switch (type) {
+            case 'inclusion':
+                return ids.some(i => arrayIncludes(list, i)) ? Treatment.TEST : Treatment.CONTROL;
+            case 'exclusion':
+                return ids.some(i => arrayIncludes(list, i)) ? Treatment.CONTROL : Treatment.TEST;
+            default:
+                return Treatment.CONTROL;
+        }
+    });

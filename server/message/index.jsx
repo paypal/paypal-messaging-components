@@ -1,6 +1,5 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-// eslint-disable-next-line no-unused-vars
 import { h, Fragment } from 'preact';
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
@@ -41,7 +40,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
 export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
-        options.style.preset === 'smallest'
+        options.style.layout === 'text' && options.style.preset === 'smallest'
             ? objectMerge(options.style, getMinimumWidthOptions(locale, offerType))
             : options.style;
 
