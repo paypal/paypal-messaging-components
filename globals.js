@@ -33,7 +33,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             // __LOGGER_A__: {
             //     __LOCAL__: 'https://www.msmaster.qa.paypal.com'
             // },
-            __RAMP_INCLUSION_LIST__: {
+            __RAMP_EXPERIMENT__: {
                 __LOCAL__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
                 __SANDBOX__: 'https://www.paypalobjects.com',
@@ -41,7 +41,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             }
         },
         __URI__: {
-            __RAMP_INCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-inclusion.json',
+            __RAMP_EXPERIMENT__: '/upstream/assets/messaging/modal/ramp-experiment.json',
             __MESSAGE_A__: '/credit-presentment/messages',
             __MESSAGE_A_LEGACY__: '/credit-presentment/messages/legacy',
             __MESSAGE_B__: '/credit-presentment/smart/message',
