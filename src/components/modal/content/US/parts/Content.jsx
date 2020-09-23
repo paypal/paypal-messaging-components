@@ -26,8 +26,8 @@ const Content = () => {
     if (products.length === 1) {
         return (
             <Fragment>
-                {tabsMap[products[0]].header}
-                {tabsMap[products[0]].body}
+                {tabsMap[products[0]]?.header}
+                {tabsMap[products[0]]?.body}
             </Fragment>
         );
     }

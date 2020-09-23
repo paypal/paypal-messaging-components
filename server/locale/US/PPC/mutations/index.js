@@ -4,8 +4,6 @@ import niNonUs from './ni_non-us';
 import niQNonUs from './niq_non-us';
 import ezpAnyEqz from './ezp_any_eqz';
 import ezpAnyGtz from './ezp_any_gtz';
-import payInFour from './pay-in-four/pay_in_four';
-import payInFourQ from './pay-in-four/pay_in_four_q';
 import palaMultiEqz from './pala_multi_eqz';
 import palaMultiGtz from './pala_multi_gtz';
 import palaSingleEqz from './pala_single_eqz';
@@ -25,10 +23,6 @@ export default function getMutations(id, type) {
             return palaSingleEqz[type];
         case 'PALA:SINGLE:GTZ':
             return palaSingleGtz[type];
-        case 'PAY4Q':
-            return payInFourQ[type];
-        case 'PAY4':
-            return payInFour[type];
         case 'NIQ:NON-US':
             return niQNonUs[type];
         case 'NI:NON-US':
