@@ -14,11 +14,11 @@
 
     "headline": [
         [
-            [["As low as", "weak"], "{formattedMonthlyPayment}/mo"],
+            [["As low as", "weak"], "{formattedMonthlyPayment}/mo."],
             ["default", "xsmall"]
         ],
         [
-            [["Pay as low as", "weak"], "{formattedMonthlyPayment}/mo"],
+            [["Pay as low as", "weak"], "{formattedMonthlyPayment}/mo."],
             ["small", "medium", "large", "xlarge"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]]

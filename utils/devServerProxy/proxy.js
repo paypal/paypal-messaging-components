@@ -17,6 +17,8 @@ const devAccountMap = {
     DEV0000000PSG: ['US', ['NI', 'EZP'], 'pala_single_gtz'],
     DEV0000000PMZ: ['US', ['NI', 'EZP'], 'pala_multi_eqz'],
     DEV0000000PMG: ['US', ['NI', 'EZP'], 'pala_multi_gtz'],
+    DEV0000000PI4: ['US', ['PI4'], 'pay_in_four'],
+    DEV000000PI4Q: ['US', ['PI4'], 'pay_in_four_q'],
 
     DEV0000000IAZ: ['DE', ['INST'], 'inst_any_eqz'],
     DEV0000000IAG: ['DE', ['INST'], 'inst_any_gtz'],
@@ -66,7 +68,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
                     || window.top.document.querySelector('script[src*="messaging.js"]')
                     || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
 
@@ -98,6 +100,7 @@ export default (app, server, compiler) => {
 
             if (populatedBanner) {
                 const style = JSON.parse(req.query.style);
+                const { amount } = req.query;
 
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
@@ -114,7 +117,7 @@ export default (app, server, compiler) => {
                     populatedBanner.meta.offerCountry
                 );
 
-                const markup = render({ style: validatedStyle }, populatedBanner);
+                const markup = render({ style: validatedStyle, amount }, populatedBanner);
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
