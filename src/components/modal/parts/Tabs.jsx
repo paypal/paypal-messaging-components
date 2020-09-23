@@ -3,7 +3,7 @@ import arrayFindIndex from 'core-js-pure/stable/array/find-index';
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps } from '../lib';
+import { useTransitionState, useXProps, useScroll } from '../lib';
 
 const getInitialTabIndex = (initialTabProduct, tabs) =>
     arrayFindIndex(tabs, ({ product }) => product === initialTabProduct) || 0;
@@ -16,8 +16,11 @@ const Tabs = ({ tabs, onSelect }) => {
 
     const [currentTab, setCurrentTab] = useState(initialTab);
 
+    const { scrollTo } = useScroll();
+
     const selectTab = index => {
         setCurrentTab(index);
+        scrollTo(0);
 
         if (onSelect) {
             onSelect(index);

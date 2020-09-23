@@ -19,21 +19,23 @@ export default ({ showApplyNow, switchTab }) => {
 
     useScroll(
         ({ target: { scrollTop } }) => {
-            const { offsetTop, clientHeight } = buttonRef.current;
-            const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
+            if (buttonRef.current) {
+                const { offsetTop, clientHeight } = buttonRef.current;
+                const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
 
-            const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
+                const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
 
-            // Ensure first that the button is being displayed
-            if (scrollTop && offsetTop) {
-                if (scrollTop - offsetTop < clientHeight + triggerOffset) {
-                    showApplyNowRef.current(false);
-                } else {
-                    showApplyNowRef.current(true);
+                // Ensure first that the button is being displayed
+                if (scrollTop && offsetTop) {
+                    if (scrollTop - offsetTop < clientHeight + triggerOffset) {
+                        showApplyNowRef.current(false);
+                    } else {
+                        showApplyNowRef.current(true);
+                    }
                 }
             }
         },
-        [showApplyNowRef]
+        [showApplyNowRef, buttonRef.current]
     );
 
     return (

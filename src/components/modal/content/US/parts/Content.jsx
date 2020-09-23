@@ -14,6 +14,7 @@ const Content = ({ headerRef }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
     const { offer } = useXProps();
+    const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
@@ -25,6 +26,7 @@ const Content = ({ headerRef }) => {
 
     useScroll(
         ({ target: { scrollTop } }) => {
+            console.log(scrollTop);
             const { clientHeight: headerHeight } = headerRef.current;
             const { clientHeight: cornerHeight } = cornerRef.current;
 
@@ -38,6 +40,12 @@ const Content = ({ headerRef }) => {
         },
         [sticky]
     );
+
+    const selectProduct = product => {
+        scrollTo(0);
+
+        setSelectedProduct(product);
+    };
 
     const tabsMap = {
         GPL: {
@@ -64,21 +72,21 @@ const Content = ({ headerRef }) => {
     };
 
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={() => setSelectedProduct('NI')} />;
+    tabsMap.GPL.body = <GPL switchTab={() => selectProduct('NI')} />;
 
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
             switchTab={() => {
                 setApplyNow(false);
-                setSelectedProduct('GPL');
+                selectProduct('GPL');
             }}
         />
     );
 
     const tabsContent =
         tabs.length > 1 ? (
-            <Tabs tabs={tabs} onSelect={index => setSelectedProduct(tabs[index].product)} />
+            <Tabs tabs={tabs} onSelect={index => selectProduct(tabs[index].product)} />
         ) : (
             <div className="tab-transition-item selected">{tabs[0].body}</div>
         );

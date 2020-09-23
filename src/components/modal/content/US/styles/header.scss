@@ -11,7 +11,7 @@
 }
 
 .header-container {
-    background-color: #3e9dea;
+    background-color: $header-background;
     position: relative;
     overflow: hidden;
 
@@ -78,7 +78,7 @@
 }
 
 .hero-image {
-    background-color: #3e9dea;
+    background-color: $header-background;
     position: fixed;
     width: 100%;
     padding: 60px 0;
