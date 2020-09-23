@@ -14,17 +14,23 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
             if (width !== 0 || height !== 0) {
                 // Reset opacity if previously hidden from overflow
                 el.style.setProperty('opacity', 1);
-
-                // Attributes used by the overflow observer
-                el.setAttribute('data-width', width);
-                el.setAttribute('data-height', height);
+                el.style.setProperty('pointer-events', null);
 
                 if (props.style.layout === 'flex') {
                     // Ensure height property does not exist for flex especially when swapping from text to flex
                     el.style.setProperty('height', null);
-                } else if (typeof height === 'number') {
-                    // Auto resize height for non-layout flex messages
-                    el.style.setProperty('height', `${height}px`);
+                    // Prevent the observer from trying to render a fallback message
+                    el.setAttribute('data-width', 0);
+                    el.setAttribute('data-height', 0);
+                } else {
+                    // Attributes used by the overflow observer
+                    el.setAttribute('data-width', width);
+                    el.setAttribute('data-height', height);
+
+                    if (typeof height === 'number') {
+                        // Auto resize height for non-layout flex messages
+                        el.style.setProperty('height', `${height}px`);
+                    }
                 }
 
                 overflowObserver.then(observer => {
