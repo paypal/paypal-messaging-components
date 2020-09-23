@@ -20,37 +20,35 @@ const flex = [
         'ratio:20x1',
         {
             styles: [
+             logo6x1(),
                 `
                 .message__logo:nth-of-type(2) {
                     display: inline-block;
                 }
 
-                @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+                 @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
                     .message__logo-container {
-                        margin-right: 7%;
-                    }
-                    .message__logo:nth-of-type(1) {
-                        margin: 0 5px;
-                        width: 30%;
-                    }
-                    .message__logo:nth-of-type(2) {
-                        display: inline;
-                        width: 70px;
+                        max-width: 12%;
                     }
                 }
 
                 @media (min-aspect-ratio: 200/11) and (min-width: 300px) {
-                    .message__logo-container {
-                        max-width: 15%;
-                    }
                     .message__logo:nth-of-type(1) {
-                        width: 20%;
+                        width: 18%;
                     }
                     .message__logo:nth-of-type(2) {
                         width: 60%;
                     }
                 }
                 `
+            ]
+        }
+    ],
+       [
+        'ratio:8x1', 
+        {
+            styles: [
+                logo6x1()
             ]
         }
     ],

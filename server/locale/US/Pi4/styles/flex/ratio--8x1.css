@@ -12,7 +12,7 @@
 
     .message__logo-container {
         flex-basis: 12%;
-        margin-bottom: -3px;
+        margin-bottom: -6px;
         justify-content: flex-start;
         margin-left: 5px;
     }
@@ -24,7 +24,7 @@
     }
 
     .message__disclaimer {
-        margin-left: 1%;
+        margin-left: 7px;
     }
 }
 
@@ -34,13 +34,13 @@
     }
 
     .message__logo:nth-of-type(1) {
-        width: 15%;
+        width: 18%;
         margin-right: 5%;
     }
 
     .message__logo:nth-of-type(2) {
         display: inline-block;
-        width: 50%;
+        width: 55%;
     }
 
     .message__disclaimer {

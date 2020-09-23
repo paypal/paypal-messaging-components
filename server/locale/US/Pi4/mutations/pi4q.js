@@ -23,6 +23,21 @@ const flex = [
             ]
         }
     ],
+     [
+        'ratio:20x1',
+        {
+            styles: [
+                logo20x1(),
+                `.message__headline .tag--medium.multi .weak {
+                    display: inline-block;
+                    transform: translateX(-100%);
+                    font-weight: 500;
+                    margin: 0px;
+                }
+                `
+            ]
+        } 
+    ],
     [
         'ratio:8x1',
         {

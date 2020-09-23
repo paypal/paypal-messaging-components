@@ -37,7 +37,7 @@
 
 @media (max-aspect-ratio: 61/10) {
     .message__headline {
-        font-size: 3.5vw;
+        font-size: 5vw;
         line-height: 1.3em;
         display: inline;
     }
@@ -93,6 +93,5 @@
     }
     .message__logo:nth-of-type(2) {
         display: inline;
-        width: 70px;
     }
 }

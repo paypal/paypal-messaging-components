@@ -19,6 +19,14 @@ const flex = [
             disclaimer: ['default']
         }
     ],
+     [
+        'ratio:20x1',
+        {
+            styles: [
+                logo20x1()
+            ]
+        } 
+    ],
     [
         'ratio:8x1',
         {
@@ -30,6 +38,14 @@ const flex = [
                     tag: 'medium',
                     br: ['on']
                 }
+            ],
+            styles: [
+                `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
+                    .message__headline .tag--medium .br:first-child {
+                        display: inline;
+                    }
+                }
+                `
             ]
         }
     ],
