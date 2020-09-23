@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap } from './mediaQueries';
+import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -19,13 +19,11 @@ const flex = [
             disclaimer: ['default']
         }
     ],
-     [
+    [
         'ratio:20x1',
         {
-            styles: [
-                logo20x1()
-            ]
-        } 
+            styles: [logo20x1()]
+        }
     ],
     [
         'ratio:8x1',
