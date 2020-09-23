@@ -26,7 +26,6 @@ const Content = ({ headerRef }) => {
 
     useScroll(
         ({ target: { scrollTop } }) => {
-            console.log(scrollTop);
             const { clientHeight: headerHeight } = headerRef.current;
             const { clientHeight: cornerHeight } = cornerRef.current;
 
