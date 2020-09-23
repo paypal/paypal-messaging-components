@@ -3,9 +3,7 @@
     max-width: 640px;
     margin: auto;
     border-radius: 10px;
-    height: 100%;
-    // Keep the content from overflowing the page
-    margin-bottom: -84px;
+    height: calc(100% - 84px);
 }
 
 .content {

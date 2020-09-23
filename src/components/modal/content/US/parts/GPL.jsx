@@ -36,7 +36,7 @@ export default ({ switchTab }) => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
-                    {qualifying === 'TRUE' ? instructions.purchaseAmount : null}
+                    {qualifying === 'TRUE' ? <li>{instructions.purchaseAmount}</li> : null}
                     {instructions.items.map(inst => (
                         <li>{inst}</li>
                     ))}

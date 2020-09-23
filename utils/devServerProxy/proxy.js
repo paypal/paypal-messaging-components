@@ -173,11 +173,11 @@ export default (app, server, compiler) => {
             apr: bestOffer.apr,
             minAmount: terms.minAmount,
             maxAmount: terms.maxAmount,
-            formattedTransactionAmount: terms.amount ?? '-',
+            formattedTransactionAmount: terms.amount ? toLocaleCurrency(terms.amount) : '-',
             qualifying_offer: terms.amount ? 'TRUE' : 'FALSE',
             total_payments: bestOffer.term,
-            formattedMinAmount: terms.formattedMinAmount,
-            formattedMaxAmount: terms.formattedMaxAmount,
+            formattedMinAmount: toLocaleCurrency(terms.minAmount),
+            formattedMaxAmount: toLocaleCurrency(terms.maxAmount),
             nominal_rate: bestOffer.nominalRate
         };
 
