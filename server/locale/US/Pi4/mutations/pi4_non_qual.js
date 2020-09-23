@@ -1,9 +1,57 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap } from './mediaQueries';
-import { textLogoMutations } from './common';
+import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
+import { flexLogoMutations, textLogoMutations } from './common';
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PRIMARY.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default']
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [logo20x1()]
+        }
+    ],
+    [
+        'ratio:8x1',
+        {
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium',
+                    br: ['on']
+                }
+            ],
+            styles: [
+                `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
+                    .message__headline .tag--medium .br:first-child {
+                        display: inline;
+                    }
+                }
+                `
+            ]
+        }
+    ],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',

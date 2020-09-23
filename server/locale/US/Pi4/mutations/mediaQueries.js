@@ -2,15 +2,15 @@
  * Wrap text under logo for default/primary left and alternative config types.
  */
 export function textWrap(breakpoint, textSize) {
-    return `@media screen and (max-width: ${breakpoint}px) { 
+    return `@media screen and (max-width: ${breakpoint}px) {
         .locale--US .message__content {
             display: block;
             margin-top: -${textSize / 2}px;
-        } 
+        }
         .locale--US .message__logo-container {
             display: inline-flex;
             transform: translateY(${textSize / 2}px);
-        } 
+        }
         .locale--US .message__messaging {
             display: inline;
         }
@@ -55,11 +55,11 @@ export function smallTagMediaQuery(breakpoint) {
         .message__headline > .tag--small {
             display: inline;
         }
-        
+
         .message__headline .tag--small > span {
             white-space: nowrap;
         }
-    } 
+    }
 `;
 }
 
@@ -92,10 +92,51 @@ export function xsmallTagMediaQuery(breakpoint) {
         .message__headline > .tag--xsmall {
             display: inline;
         }
-        
+
         .message__headline .tag--xsmall > span {
             white-space: nowrap;
         }
-    } 
+    }
 `;
+}
+
+// Sets logo position for Pi4 6x1 ratio
+export function logo6x1() {
+    return `
+    @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+        .message__logo-container {
+            margin-right: 5%;
+            margin-top: 2px;
+        }
+        .message__logo:nth-of-type(1) {
+            margin: 0 5px;
+            width: 30%;
+        }
+        .message__logo:nth-of-type(2) {
+            display: inline;
+            width: 105px;
+        }
+    }
+    `;
+}
+
+// Sets logo position for Pi4 20x1 ratio
+export function logo20x1() {
+    return `
+    @media (min-aspect-ratio: 200/11) {
+        .message__logo:nth-of-type(1) {
+            width: 18%;
+            margin-right: 5%;
+        }
+
+        .message__logo:nth-of-type(2) {
+            display: inline;
+        }
+    }
+    @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
+        .message__logo-container {
+            max-width: 12%;
+        }
+    }
+    `;
 }
