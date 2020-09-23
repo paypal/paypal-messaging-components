@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.13.4](https://github.com/paypal/paypal-messaging-components/compare/v1.13.3...v1.13.4) (2020-09-21)
+
+
+### Bug Fixes
+
+* zoid container overflow detection and modal iframe styles ([#290](https://github.com/paypal/paypal-messaging-components/issues/290)) ([4185290](https://github.com/paypal/paypal-messaging-components/commit/4185290ad5b58951979b776214e18f78dd399a5f))
+
+## [1.13.3](https://github.com/paypal/paypal-messaging-components/compare/v1.13.2...v1.13.3) (2020-09-16)
+
+
+### Bug Fixes
+
+* inline text size ([#280](https://github.com/paypal/paypal-messaging-components/issues/280)) ([f8ea320](https://github.com/paypal/paypal-messaging-components/commit/f8ea320db03cfcd66b629a1a1df45a81aaa69429))
+* prevent firing message onClick with modal onClick ([#282](https://github.com/paypal/paypal-messaging-components/issues/282)) ([d8df44b](https://github.com/paypal/paypal-messaging-components/commit/d8df44b9956030ff04a3db0afd0ed30bf9d2f1b1))
+* update message render variant ([#279](https://github.com/paypal/paypal-messaging-components/issues/279)) ([11d2211](https://github.com/paypal/paypal-messaging-components/commit/11d2211b4cd55e27809e8711695d53874cc9e4e8))
+
 ## [1.13.2](https://github.com/paypal/paypal-messaging-components/compare/v1.13.1...v1.13.2) (2020-09-09)
 
 

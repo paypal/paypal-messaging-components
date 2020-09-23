@@ -10,7 +10,6 @@ describe('US > text', () => {
     const runBannerTest = createBannerTest('US');
 
     accounts.forEach(account => {
-        const amounts = [undefined, 5];
         const accountTest = amount =>
             describe(account, () => {
                 const getConfig = style => ({
@@ -128,6 +127,7 @@ describe('US > text', () => {
             });
 
         if (account === 'DEV0000000PI4') {
+            const amounts = [undefined, 5];
             amounts.forEach(amount => {
                 accountTest({ amount });
             });

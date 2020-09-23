@@ -2,7 +2,7 @@ import US from './US';
 import DE from './DE';
 import GB from './GB';
 
-const getLocaleSettings = (offerCountry, id) => {
+const getLocaleSettings = (offerCountry, offerType) => {
     switch (offerCountry) {
         case 'DE':
             return DE;
@@ -10,26 +10,26 @@ const getLocaleSettings = (offerCountry, id) => {
             return GB;
         case 'US':
         default:
-            return US(id);
+            return US(offerType);
     }
 };
 
-export function getLocaleClass(locale, id) {
-    return getLocaleSettings(locale, id).localeClass;
+export function getLocaleClass(locale, offerType) {
+    return getLocaleSettings(locale, offerType).localeClass;
 }
 
-export function getLocalProductName(locale, id) {
-    return getLocaleSettings(locale, id).productName;
+export function getLocalProductName(locale, offerType) {
+    return getLocaleSettings(locale, offerType).productName;
 }
 
 export function getValidOptions(locale) {
     return getLocaleSettings(locale, '').validOptions;
 }
 
-export function getMutations(locale, id, type, options) {
+export function getMutations(locale, offerType, type, options) {
     if (type === 'layout:custom') return {};
-    const mutations = getLocaleSettings(locale, id)
-        .getMutations(id, type, options)
+    const mutations = getLocaleSettings(locale, offerType)
+        .getMutations(offerType, type, options)
         .map(mutation => {
             if (mutation[1].styles) {
                 return [
@@ -37,7 +37,7 @@ export function getMutations(locale, id, type, options) {
                     {
                         ...mutation[1],
                         styles: mutation[1].styles.map(style =>
-                            style.replace(/\.message/g, `.${getLocaleClass(locale, id)} .message`)
+                            style.replace(/\.message/g, `.${getLocaleClass(locale, offerType)} .message`)
                         )
                     }
                 ];
@@ -49,14 +49,14 @@ export function getMutations(locale, id, type, options) {
     return mutations;
 }
 
-export function getLogos(locale, id) {
-    return getLocaleSettings(locale, id).logos;
+export function getLogos(locale, offerType) {
+    return getLocaleSettings(locale, offerType).logos;
 }
 
-export function getLocaleStyles(locale, layout, id) {
-    return (getLocaleSettings(locale, id).styles && getLocaleSettings(locale, id).styles[layout]) ?? [];
+export function getLocaleStyles(locale, layout, offerType) {
+    return (getLocaleSettings(locale, offerType).styles && getLocaleSettings(locale, offerType).styles[layout]) ?? [];
 }
 
-export function getMinimumWidthOptions(locale, id) {
-    return getLocaleSettings(locale, id).minimumSizeOptions ?? {};
+export function getMinimumWidthOptions(locale, offerType) {
+    return getLocaleSettings(locale, offerType).minimumSizeOptions ?? {};
 }

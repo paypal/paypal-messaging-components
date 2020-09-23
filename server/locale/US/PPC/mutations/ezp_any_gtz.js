@@ -4,13 +4,12 @@ import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
     '.message__headline > span:first-of-type { color: #0070ba; text-decoration: underline; font-weight: 500; }',
-    '.message__disclaimer > span:not(.multi) { color: #2c2e2f; text-decoration: none; }'
+    '.message__disclaimer > span:not(.multi) { color: #2c2e2f; font-weight: normal; text-decoration: none; }'
 ];
 
 const whiteStyles = [
-    '.message__headline > span:nth-last-child(2)::after { content: ""; }',
     '.message__headline > span:first-of-type { text-decoration: underline; color: white; font-weight: 600; }',
-    '.message__disclaimer > span:not(.multi) { color: white; text-decoration: none; }'
+    '.message__disclaimer > span:not(.multi) { color: white; font-weight: normal; text-decoration: none; }'
 ];
 
 export default {
@@ -90,11 +89,7 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    altContentMediaQuery(textSize * 30.6),
-                    `.message__logo-container { width: ${textSize * 5}px }`
-                ],
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['months', 'months.']],
@@ -103,9 +98,14 @@ export default {
             })
         ],
         [
-            'logo.type:alternative && logo.position:top',
+            'logo.type:alternative && logo.position:right',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [
+                    ...defaultTextStyles,
+
+                    altContentMediaQuery(textSize * 30.6),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ]
             })
         ],
         [
@@ -139,6 +139,18 @@ export default {
                     '.message__messaging span.br { white-space: nowrap; }',
                     ...whiteStyles
                 ]
+            })
+        ],
+        [
+            'logo.type:none && text.color:monochrome',
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
+            })
+        ],
+        [
+            'logo.type:none && text.color:grayscale',
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations

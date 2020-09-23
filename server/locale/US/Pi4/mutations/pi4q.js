@@ -67,7 +67,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-4.5px); white-space: nowrap; }`,
+                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; }
+                    .message__disclaimer > .tag--default { margin-left: -2px;}`,
                     textWrap(textSize * 32, textSize),
                     xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
@@ -88,7 +89,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { margin-left: -4.5px; white-space: nowrap; }`,
+                    `.message__headline > .tag--medium .weak.br { margin-left: -3.8px; white-space: nowrap; }`,
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xsmallTagMediaQuery(textSize * 10.75),
@@ -101,7 +102,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { margin-left: -4.5px; }`,
+                    `.message__headline > .tag--medium .weak.br { margin-left: -3.8px; white-space: nowrap;}`,
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xsmallTagMediaQuery(textSize * 10.75),
@@ -113,8 +114,9 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-4.5px); white-space: nowrap; } .message__messaging span.br { white-space: nowrap; }`,
-                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; } .message__messaging span.br { white-space: nowrap; }`,
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}
+                    .message__disclaimer > .tag--default { margin-left: -2px;}`,
                     textWrap(textSize * 32, textSize),
                     xsmallTagMediaQuery(textSize * 11.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)

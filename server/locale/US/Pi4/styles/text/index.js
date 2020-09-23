@@ -7,10 +7,8 @@ import logoInline from './logo--inline.css';
 import logoNone from './logo--none.css';
 import logoTop from './logo--top.css';
 import logoRight from './logo--right.css';
-import base from './base.css';
 
 export default [
-    ['default', base],
     ['logo.type:primary', logoPrimary],
     ['logo.position:top', logoTop],
     ['logo.position:right', logoRight],

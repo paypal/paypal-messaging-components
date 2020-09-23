@@ -16,10 +16,9 @@
 }
 
 .message__logo:first-child {
-    margin-top: 2px;
     margin-right: 5px;
 }
 
 .message__logo:last-child {
-    margin-top: 4px;
+    margin-top: 2px;
 }

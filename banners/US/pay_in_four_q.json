@@ -2,6 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PI4Q",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",

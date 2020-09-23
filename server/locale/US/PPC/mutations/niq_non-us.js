@@ -43,8 +43,7 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
-                    }),
-                    altContentMediaQuery(textSize * 41.75)
+                    })
                 ]
             })
         ],
@@ -96,7 +95,6 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18),
-                    altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
@@ -129,6 +127,17 @@ export default {
                         replace: [['months', 'months.']]
                     }
                 ]
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:right',
+            ({ textSize }) => ({
+                styles: [
+                    basicMediaQuery(textSize * 20),
+                    altContentMediaQuery(textSize * 35),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
+                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
         ],
         [

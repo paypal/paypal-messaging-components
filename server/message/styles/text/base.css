@@ -68,5 +68,6 @@
 /* For non-US NI disclaimer */
 .message__disclaimer > span.multi:first-of-type {
     color: #2c2e2f;
+    font-weight: normal;
     text-decoration: none;
 }
