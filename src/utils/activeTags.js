@@ -1,10 +1,6 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
-// Using spread operator here (e.g [...node.children] results in [HtmlCollection]
-// rather than [child, child, ...] for some reason
-const getChildren = node => arrayFrom(node.children);
-
 // Map class name of visible element to size tag.
 const toTagSize = classList => {
     const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
@@ -22,7 +18,7 @@ const getTagSize = node => {
     }
 
     const visibleElement = arrayFind(
-        getChildren(node),
+        arrayFrom(node.children),
         element => window.getComputedStyle(element).getPropertyValue('display') !== 'none'
     );
 

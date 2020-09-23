@@ -1,5 +1,5 @@
 import createContainer from 'utils/createContainer';
-import { getActiveTags } from 'src/utils/fallbackInstrumentation';
+import { getActiveTags } from 'src/utils/activeTags';
 
 const createOutput = sizes => {
     const [head, sub, disc] = sizes;
