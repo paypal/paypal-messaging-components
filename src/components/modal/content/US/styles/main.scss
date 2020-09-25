@@ -3,7 +3,7 @@
     max-width: 640px;
     margin: auto;
     border-radius: 10px;
-    height: calc(100% - 84px);
+    height: 100%;
 }
 
 .content {
@@ -74,6 +74,7 @@ main {
 @include mobile {
     .content-wrapper {
         margin-top: 84px;
+        height: calc(100% - 84px);
     }
 
     .content {
