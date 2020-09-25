@@ -2,114 +2,92 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { createEvent } from '../../../../../utils';
-import { useXProps, useServerData, useScroll, useApplyNow } from '../../../lib';
-import Icon from '../../../parts/Icon';
+import { useApplyNow, useContent, useServerData, useScroll, useXProps, useProductMeta } from '../../../lib';
 import Button from '../../../parts/Button';
 
-const terms = (aprEntry = { apr: '', formattedDate: '' }) => [
-    'Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.',
-    'A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.',
-    'No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.',
-    `For New Accounts: Variable Purchase APR is ${aprEntry.apr}%. The APR is accurate as of ${aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.`,
-    'Individual items that are less than $99 qualify for special financing when combined for a total of $99 or more in a single transaction.',
-    'Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount.'
-];
-
-const instructions = [
-    [
-        'card',
-        'PayPal Credit is a reusable credit line you can use to shop online at millions of stores that accept PayPal.'
-    ],
-    ['shield', 'Shop with trust, security, and flexibility when you pay with PayPal.'],
-    ['monogram', 'Click the PayPal button at checkout and pay with PayPal Credit.']
-];
-
-export const Header = () => {
+export default ({ showApplyNow, switchTab }) => {
+    // Use a ref so that the callback can be used in the useScroll handler without creating an infinite re-render
+    const showApplyNowRef = useRef();
+    const { onClick } = useXProps();
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
+    const { products } = useServerData();
+    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('NI');
+    const { qualifying } = useProductMeta('NI');
 
-    useScroll(({ target: { scrollTop } }) => {
-        const { offsetTop, clientHeight } = buttonRef.current;
+    showApplyNowRef.current = showApplyNow;
 
-        // Ensure first that the button is being displayed
-        // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
-        // Checking the value here prevents erratic behavior wrt the logo and apply now button
-        if (scrollTop && offsetTop) {
-            if (scrollTop - offsetTop < clientHeight + 30) {
-                window.dispatchEvent(createEvent('apply-now-hidden'));
-            } else {
-                window.dispatchEvent(createEvent('apply-now-visible'));
+    useScroll(
+        ({ target: { scrollTop } }) => {
+            if (buttonRef.current) {
+                const { offsetTop, clientHeight } = buttonRef.current;
+                const { width: pageWidth, height: pageHeight } = document.body.getBoundingClientRect();
+
+                const triggerOffset = pageWidth > 639 && pageHeight > 539 ? -100 : 60;
+
+                // Ensure first that the button is being displayed
+                if (scrollTop && offsetTop) {
+                    if (scrollTop - offsetTop < clientHeight + triggerOffset) {
+                        showApplyNowRef.current(false);
+                    } else {
+                        showApplyNowRef.current(true);
+                    }
+                }
             }
-        }
-    }, []);
-
-    return (
-        <div className="content-header">
-            <div className="image-wrapper">
-                <Icon name="rocket" />
-            </div>
-            <h1 className="title">Buy now and pay over time with PayPal Credit</h1>
-            <p className="tag">Subject to credit approval.</p>
-            <Button ref={buttonRef} onClick={handleApplyNowClick}>
-                Apply Now
-            </Button>
-        </div>
+        },
+        [showApplyNowRef, buttonRef.current]
     );
-};
-
-export const Content = () => {
-    const { onClick } = useXProps();
-    const { aprEntry } = useServerData();
 
     return (
         <section className="content-body">
-            <h2 className="title">No Interest if paid in full in 6 months on purchases of $99 or more</h2>
-            <ul className="terms-list">
-                {terms(aprEntry).map(term => (
-                    <li className="terms-item">{term}</li>
-                ))}
-            </ul>
+            <div className="description">
+                <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
 
-            <hr className="divider" />
+                <p>{subHeadline}</p>
 
-            <h2 className="title">How PayPal Credit works</h2>
-            <ul className="instructions-list">
-                {instructions.map(([icon, instruction]) => (
-                    <li className="instructions-item">
-                        <div>
-                            <Icon name={icon} />
-                        </div>
-                        <p>{instruction}</p>
-                    </li>
-                ))}
-            </ul>
+                <p className="call-to-action">
+                    <div>
+                        <p>
+                            <b>{applyNow.headline}</b>
+                        </p>
+                        <span>{applyNow.subHeadline}</span>
+                    </div>
+                    <Button onClick={handleApplyNowClick} className="apply-now" ref={buttonRef}>
+                        Apply <span className="hidden-xs">Now</span>
+                    </Button>
+                </p>
+            </div>
 
             <hr className="divider" />
 
             <div className="terms">
-                <p>
-                    <a
-                        onClick={() => onClick({ linkName: 'Legal Terms' })}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.paypal.com/us/webapps/mpp/ppcterms"
-                    >
-                        Click here
-                    </a>{' '}
-                    to view the PayPal Credit Terms and Conditions.
-                </p>
-                <p>
-                    PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is
-                    available to US customers who are of legal age in their state of residence. You must pay with PayPal
-                    Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum
-                    purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is{' '}
-                    {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market
-                    based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is
-                    $2.00.
-                </p>
-                <p>Copyright {new Date().getFullYear()} Bill Me Later, Inc. All rights reserved.</p>
+                <h3>{terms.title}</h3>
+                <ul>
+                    {terms.items.map(term => (
+                        <li>{term}</li>
+                    ))}
+                </ul>
             </div>
+
+            <p>
+                <a
+                    onClick={() => onClick({ linkName: 'Legal Terms' })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.paypal.com/us/webapps/mpp/ppcterms"
+                >
+                    Click here
+                </a>{' '}
+                to view the PayPal Credit Terms and Conditions.
+            </p>
+            <p>{disclaimer}</p>
+            <p>{copyright}</p>
+
+            {qualifying === 'TRUE' && products.length > 1 ? (
+                <button type="button" className="tab-switch-button" onClick={switchTab}>
+                    Or see Pay in 4
+                </button>
+            ) : null}
         </section>
     );
 };

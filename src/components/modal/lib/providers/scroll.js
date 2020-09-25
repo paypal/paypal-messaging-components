@@ -4,7 +4,8 @@ import { useEffect, useState, useContext, useCallback } from 'preact/hooks';
 
 const ScrollContext = createContext({
     addScrollCallback: () => {},
-    removeScrollCallback: () => {}
+    removeScrollCallback: () => {},
+    scrollTo: () => {}
 });
 
 export const ScrollProvider = ({ children, containerRef }) => {
@@ -24,6 +25,13 @@ export const ScrollProvider = ({ children, containerRef }) => {
         });
     };
 
+    const scrollTo = scrollTop => {
+        if (containerRef.current) {
+            // eslint-disable-next-line no-param-reassign
+            containerRef.current.scrollTop = scrollTop;
+        }
+    };
+
     useEffect(() => {
         const handleScroll = event => callbacks.forEach(callback => callback(event));
 
@@ -37,17 +45,25 @@ export const ScrollProvider = ({ children, containerRef }) => {
     }, [callbacks]);
 
     return (
-        <ScrollContext.Provider value={{ addScrollCallback, removeScrollCallback }}>{children}</ScrollContext.Provider>
+        <ScrollContext.Provider value={{ addScrollCallback, removeScrollCallback, scrollTo }}>
+            {children}
+        </ScrollContext.Provider>
     );
 };
 
 export const useScroll = (cb, dependencies) => {
-    const { addScrollCallback, removeScrollCallback } = useContext(ScrollContext);
-    const callback = useCallback(cb, dependencies);
+    const { addScrollCallback, removeScrollCallback, scrollTo } = useContext(ScrollContext);
+    const callback = cb ? useCallback(cb, dependencies) : null;
 
     useEffect(() => {
-        addScrollCallback(callback);
+        if (callback) {
+            addScrollCallback(callback);
 
-        return () => removeScrollCallback(callback);
+            return () => removeScrollCallback(callback);
+        }
+
+        return () => {};
     }, [callback]);
+
+    return { scrollTo };
 };

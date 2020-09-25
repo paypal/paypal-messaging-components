@@ -16,6 +16,9 @@ const determineInitialTab = (type = 'NI') => {
             type.toUpperCase()
         ):
             return 'EZP';
+
+        case type === 'GPL':
+            return 'GPL';
         default:
             return 'NI';
     }
@@ -146,7 +149,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const { onReady } = props;
 
                     return ({ products }) => {
-                        const { index } = props;
+                        const { index, offer } = props;
 
                         logger.info('modal_render', {
                             index,
@@ -156,7 +159,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: products.join('_').toLowerCase()
+                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
                         });
 
                         if (typeof onReady === 'function') {

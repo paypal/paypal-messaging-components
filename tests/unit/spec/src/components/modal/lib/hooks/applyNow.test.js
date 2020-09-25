@@ -12,6 +12,10 @@ const defaultXProps = {
 
 jest.mock('src/utils/sdk');
 jest.mock('src/components/lib/providers/xprops');
+jest.mock('src/components/lib/hooks/content', () => ({
+    default: () => '',
+    __esModule: true
+}));
 
 jest.mock('preact/hooks', () => ({
     useContext: () => ({

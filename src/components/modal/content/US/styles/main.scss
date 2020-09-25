@@ -1,108 +1,97 @@
 .content-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     overflow-y: scroll;
-}
-
-.content-background {
-    width: 100%;
-    max-width: 612px;
+    max-width: 640px;
     margin: auto;
-    background: white;
-    min-height: 100%;
+    border-radius: 10px;
+    height: 100%;
 }
 
 .content {
+    padding-top: 0;
     position: relative;
     z-index: 50;
-    padding-top: 84px;
-    overflow: hidden;
+    background: white;
 }
 
-.content-header {
-    text-align: center;
-    padding: 0.5rem 0 2rem;
-
-    .image-wrapper {
-        max-width: 10rem;
-        margin: 0 auto 1rem;
-        height: 11rem;
-        position: relative;
-
-        & > :first-child {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-    }
-
-    .title {
-        font-size: 1.25rem;
-        font-weight: 200;
-        text-align: center;
-        max-width: 16rem;
-        margin: auto;
-        line-height: 1.4;
-    }
-
-    .tag {
-        text-align: center;
-        margin: 0.7rem 0 1rem;
-    }
-}
-
-.content-body {
-    padding: 2rem 1.5rem;
-    max-width: 26rem;
+.content-background {
+    min-height: 100%;
+    position: relative;
+    width: 100%;
     margin: auto;
+    border-radius: 10px;
+    max-width: 640px;
+}
 
-    &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 0;
+main {
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+@include desktop {
+    .content-background {
+        min-height: auto;
+        margin: auto;
         width: 100%;
-        border-top: 1px solid #eaeced;
-        transform: translateY(-2rem);
-    }
-
-    .title {
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: left;
-        margin-top: 0;
-    }
-
-    .terms-item,
-    .instructions-item {
-        margin-bottom: 1.5rem;
-    }
-
-    .divider {
-        border: none;
-        border-top: 1px solid #eaeced;
-        margin: 2rem 0;
-    }
-
-    .instructions-item {
-        list-style: none;
+        height: 100%;
+        box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
         display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1 1 auto;
+    }
+
+    .content-wrapper {
+        display: flex;
+        justify-content: center;
         align-items: center;
-        margin-left: 0;
+    }
 
-        & > :first-child {
-            flex: 0 0 3rem;
-            margin-right: 1.5rem;
-        }
+    .wrapper {
+        opacity: 0;
+        transform: translateY(5%);
+        transition: transform 350ms ease, opacity 250ms ease;
+    }
 
-        & > :last-child {
-            flex: 1 1 100%;
-            margin: 0;
-        }
+    &.show .wrapper {
+        opacity: 1;
+        transform: translateY(0%);
+        transition: transform 350ms ease, opacity 250ms ease;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .content-wrapper {
+        justify-content: flex-start;
+    }
+}
+
+@include mobile {
+    .content-wrapper {
+        margin-top: 84px;
+        height: calc(100% - 84px);
+    }
+
+    .content {
+        min-height: calc(100vh - 84px);
+    }
+
+    .content-background {
+        box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
+        background: white;
+    }
+
+    .overlay-side.left,
+    .overlay-side.right {
+        width: calc((100% - 612px) / 2) !important;
+    }
+
+    .overlay-side.bottom {
+        display: none;
     }
 }
