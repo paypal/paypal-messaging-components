@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.5](https://github.com/paypal/paypal-messaging-components/compare/v1.13.4...v1.13.5) (2020-09-23)
+
+
+### Bug Fixes
+
+* ensure DOM ready before searching for root page element ([#294](https://github.com/paypal/paypal-messaging-components/issues/294)) ([511d268](https://github.com/paypal/paypal-messaging-components/commit/511d2685eb8fd84525385c0e6ebabc7394f54b14))
+* protect against server side document check ([#295](https://github.com/paypal/paypal-messaging-components/issues/295)) ([807d56e](https://github.com/paypal/paypal-messaging-components/commit/807d56e6ffb1595e07b11754d49795c8bff13d37))
+
 ## [1.13.4](https://github.com/paypal/paypal-messaging-components/compare/v1.13.3...v1.13.4) (2020-09-21)
 
 
