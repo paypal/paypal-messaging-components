@@ -39,6 +39,7 @@ export default memoizeOnProps(
                 renderProm = renderModal('body');
             }
             return renderProm.then(() => {
+                console.log(newOptions);
                 hijackViewport();
 
                 logger.track({

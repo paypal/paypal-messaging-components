@@ -7,7 +7,7 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
-import { useServerData, useScroll, useApplyNow, useXProps } from '../../../lib';
+import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect } from '../../../lib';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef }) => {
@@ -46,6 +46,10 @@ const Content = ({ headerRef }) => {
         setSelectedProduct(product);
     };
 
+    useDidUpdateEffect(() => {
+        setSelectedProduct(offer);
+    }, [offer]);
+
     const tabsMap = {
         GPL: {
             title: 'Pay in 4',
@@ -61,7 +65,9 @@ const Content = ({ headerRef }) => {
         .map(({ meta }) => tabsMap[meta.product])
         // Filter to a only the visible tab if this is a qualified offer
         .filter(
-            tab => arrayEvery(products, prod => prod.meta.qualifying !== 'TRUE') || tab.product === selectedProduct
+            tab =>
+                arrayEvery(products, prod => prod.meta.qualifying.toLowerCase() !== 'true') ||
+                tab.product === selectedProduct
         );
 
     const setShowApplyNow = show => {
@@ -70,16 +76,21 @@ const Content = ({ headerRef }) => {
         }
     };
 
+    const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={() => selectProduct('NI')} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
 
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
-            switchTab={() => {
-                setApplyNow(false);
-                selectProduct('GPL');
-            }}
+            switchTab={
+                showTabSwitch
+                    ? () => {
+                          setApplyNow(false);
+                          selectProduct('GPL');
+                      }
+                    : null
+            }
         />
     );
 

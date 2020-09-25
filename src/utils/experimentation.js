@@ -14,7 +14,7 @@ export const Treatment = {
 
 const fallback = {
     type: 'inclusion',
-    list: []
+    list: ['WHFPN7CP5G2PA']
 };
 
 const getExperiment = memoize(() => {

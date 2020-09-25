@@ -31,6 +31,12 @@ main {
     flex-direction: column;
 }
 
+.modal-container.loading {
+    main > * {
+        opacity: 0.3;
+    }
+}
+
 @include desktop {
     .content-background {
         min-height: auto;
