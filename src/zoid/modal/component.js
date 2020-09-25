@@ -17,8 +17,7 @@ const determineInitialTab = (type = 'NI') => {
         ):
             return 'EZP';
 
-        // TODO: Remove?
-        case type === 'PI4':
+        case type === 'GPL':
             return 'GPL';
         default:
             return 'NI';
