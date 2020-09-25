@@ -24,8 +24,9 @@ export const localizeNumber = country => (amount, fractionDigits = 2) => {
 
     switch (country) {
         case 'DE':
-        case 'GB':
             return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
+        case 'GB':
+            return baseFormat;
         case 'US':
         default:
             return baseFormat;

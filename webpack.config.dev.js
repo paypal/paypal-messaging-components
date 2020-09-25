@@ -120,7 +120,7 @@ module.exports = (env = {}) => {
         debug: true,
         minify: false,
         sourcemaps: true,
-        filename: 'smart-credit-modal.js',
+        filename: 'smart-credit-modal-old.js',
         vars: globals(env)
     });
 

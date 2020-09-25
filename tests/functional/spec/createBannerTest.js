@@ -28,7 +28,9 @@ const getConfigStr = obj =>
         .sort()
         .join('_');
 
-const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
+const getTestNameParts = (locale, { account, amount, style: { layout, ...style } }) => {
+    // eslint-disable-next-line no-param-reassign
+    if (amount) style = { ...style, amount };
     const styleStr = getConfigStr(style);
 
     return [locale, account, layout, styleStr];

@@ -66,7 +66,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
                     || window.top.document.querySelector('script[src*="messaging.js"]')
                     || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
 
@@ -98,6 +98,7 @@ export default (app, server, compiler) => {
 
             if (populatedBanner) {
                 const style = JSON.parse(req.query.style);
+                const { amount } = req.query;
 
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
@@ -114,7 +115,7 @@ export default (app, server, compiler) => {
                     populatedBanner.meta.offerCountry
                 );
 
-                const markup = render({ style: validatedStyle }, populatedBanner);
+                const markup = render({ style: validatedStyle, amount }, populatedBanner);
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
