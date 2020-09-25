@@ -149,8 +149,8 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: ({ props, state }) => {
                     const { onReady } = props;
 
-                    return ({ products, type }) => {
-                        const { index } = props;
+                    return ({ products }) => {
+                        const { index, offer } = props;
 
                         logger.info('modal_render', {
                             index,
@@ -160,7 +160,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${type}`
+                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
                         });
 
                         if (typeof onReady === 'function') {
