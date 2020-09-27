@@ -67,8 +67,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; }
-                    .message__disclaimer > .tag--default { margin-left: -2px;}`,
+                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; }`,
                     textWrap(textSize * 32, textSize),
                     xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
@@ -115,8 +114,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; } .message__messaging span.br { white-space: nowrap; }`,
-                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}
-                    .message__disclaimer > .tag--default { margin-left: -2px;}`,
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize),
                     xsmallTagMediaQuery(textSize * 11.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
