@@ -17,6 +17,8 @@ const devAccountMap = {
     DEV0000000PSG: ['US', ['ni_old', 'ezp_old'], 'pala_single_gtz'],
     DEV0000000PMZ: ['US', ['ni_old', 'ezp_old'], 'pala_multi_eqz'],
     DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
+    DEV0000000GPL: ['US', ['gpl'], 'gpl'],
+    DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
 
     DEV0000000IAZ: ['DE', ['inst'], 'inst_any_eqz'],
     DEV0000000IAG: ['DE', ['inst'], 'inst_any_gtz'],

@@ -100,7 +100,7 @@ export function xsmallTagMediaQuery(breakpoint) {
 `;
 }
 
-// Sets logo position for Pi4 6x1 ratio
+// Sets logo position for GPL 6x1 ratio
 export function logo6x1() {
     return `
     @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
@@ -120,7 +120,7 @@ export function logo6x1() {
     `;
 }
 
-// Sets logo position for Pi4 20x1 ratio
+// Sets logo position for GPL 20x1 ratio
 export function logo20x1() {
     return `
     @media (min-aspect-ratio: 200/11) {

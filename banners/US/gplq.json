@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "offerType": "PI4",
+        "offerType": "GPLQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
@@ -14,8 +14,11 @@
 
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
-        ["Buy now and pay later.", ["small"]],
-        ["Pay in 4 interest-free payments on qualifying purchases.", ["medium", "large", "xlarge"]]
+        [["Buy now and pay later."], ["small"]],
+        [
+            ["Pay in 4 interest-free payments of {formattedPeriodicPayment}", [".", "weak"]],
+            ["medium", "large", "xlarge"]
+        ]
     ],
 
     "subHeadline": [],
