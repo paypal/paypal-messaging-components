@@ -110,6 +110,7 @@ export default (options = {}) => ({
                     });
 
                     state.renderStart = renderStart;
+                    state.style = messageProps.style;
 
                     messagesMap.set(container, { render, updateProps, state, clone });
 
@@ -122,6 +123,12 @@ export default (options = {}) => ({
 
                 if (state.renderComplete) {
                     state.renderStart = renderStart;
+                }
+
+                // Merge new styles into previous styles
+                // Especially useful when combining inline attribute styles with JS API styles
+                if (state.style && messageProps.style) {
+                    messageProps.style = objectMerge(state.style, messageProps.style);
                 }
 
                 return updateProps(messageProps);
