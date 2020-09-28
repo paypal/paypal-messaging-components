@@ -10,7 +10,6 @@ import containerTemplate from './containerTemplate';
 // Determine pre-selected tab based on the offer type of the banner.
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => {
-    console.log(type);
     switch (true) {
         case arrayIncludes(
             ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
