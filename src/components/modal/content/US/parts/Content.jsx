@@ -76,7 +76,6 @@ const Content = ({ headerRef }) => {
     tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
 
     const GPLProduct = products.find(({ meta }) => meta.product === 'GPL');
-    console.log(GPLProduct, amount);
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
