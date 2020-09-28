@@ -17,7 +17,7 @@ export default ({ switchTab }) => {
                 <p>
                     {qualifying.toLowerCase() === 'true'
                         ? subHeadline.qualified
-                        : subHeadline.unqualified.replace(/.00/g, '')}
+                        : subHeadline.unqualified.replace(/\.00/g, '')}
                 </p>
 
                 <div className="call-to-action">
@@ -40,7 +40,9 @@ export default ({ switchTab }) => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
-                    {qualifying.toLowerCase() !== 'true' ? <li>{instructions.purchaseAmount}</li> : null}
+                    {qualifying.toLowerCase() !== 'true' ? (
+                        <li>{instructions.purchaseAmount.replace(/\.00/g, '')}</li>
+                    ) : null}
                     {instructions.items.map(inst => (
                         <li>{inst}</li>
                     ))}

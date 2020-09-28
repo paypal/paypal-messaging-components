@@ -32,8 +32,13 @@ main {
 }
 
 .modal-container.loading {
+    .content-wrapper {
+        overflow: hidden;
+    }
+
     main > * {
-        opacity: 0.3;
+        filter: blur(3px);
+        opacity: 0.6;
     }
 }
 

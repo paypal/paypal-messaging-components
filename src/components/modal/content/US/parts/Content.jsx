@@ -75,11 +75,13 @@ const Content = ({ headerRef }) => {
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
     tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
 
+    const GPLProduct = products.find(({ meta }) => meta.product === 'GPL');
+    console.log(GPLProduct, amount);
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
             switchTab={
-                showTabSwitch
+                showTabSwitch && +GPLProduct.meta.maxAmount >= +amount
                     ? () => {
                           setApplyNow(false);
                           selectProduct('GPL');
