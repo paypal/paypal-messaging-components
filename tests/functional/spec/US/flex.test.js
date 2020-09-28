@@ -77,7 +77,7 @@ describe('US > flex', () => {
         };
 
         const amounts = [undefined, 5];
-        if (account === 'DEV0000000PI4') {
+        if (account === 'DEV0000000GPL') {
             amounts.forEach(amount => {
                 accountTest({ amount });
             });

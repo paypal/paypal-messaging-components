@@ -126,7 +126,7 @@ describe('US > text', () => {
                 );
             });
 
-        if (account === 'DEV0000000PI4') {
+        if (account === 'DEV0000000GPL') {
             const amounts = [undefined, 5];
             amounts.forEach(amount => {
                 accountTest({ amount });
