@@ -9,7 +9,7 @@ import Overlay from './Overlay';
 import { request } from '../../../utils';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
-    const { type, products, setServerData, country } = useServerData();
+    const { type, products, setServerData, ...serverData } = useServerData();
     const { onReady, currency, amount, payerId, clientId, merchantId } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -48,7 +48,8 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
         request('GET', `${window.location.origin}/credit-presentment/modalContent?${query}`).then(({ data }) => {
             setServerData({
-                country,
+                type,
+                ...serverData,
                 products: data.products
             });
             setLoading(false);

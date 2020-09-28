@@ -1,7 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
-import arrayEvery from 'core-js-pure/stable/array/every';
 import arrayFind from 'core-js-pure/stable/array/find';
 
 import NI from './NI';
@@ -13,7 +12,7 @@ import Button from '../../../parts/Button';
 const Content = ({ headerRef }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
-    const { offer } = useXProps();
+    const { offer, amount } = useXProps();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now');
@@ -64,11 +63,7 @@ const Content = ({ headerRef }) => {
     const tabs = products
         .map(({ meta }) => tabsMap[meta.product])
         // Filter to a only the visible tab if this is a qualified offer
-        .filter(
-            tab =>
-                arrayEvery(products, prod => prod.meta.qualifying.toLowerCase() !== 'true') ||
-                tab.product === selectedProduct
-        );
+        .filter(tab => amount === 0 || tab.product === selectedProduct);
 
     const setShowApplyNow = show => {
         if (selectedProduct === 'NI' && show !== showApplyNow) {
