@@ -115,8 +115,8 @@ function getValidStyleOptions(addLog, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default (addLog, style, locale) => {
-    const validStyleOptions = getValidOptions(locale);
+export default (addLog, style, locale, offerType) => {
+    const validStyleOptions = getValidOptions(locale, offerType);
 
     if (validStyleOptions[style.layout]) {
         return getValidStyleOptions(addLog, validStyleOptions, style);

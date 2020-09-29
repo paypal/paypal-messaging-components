@@ -22,8 +22,8 @@ export function getLocalProductName(locale, offerType) {
     return getLocaleSettings(locale, offerType).productName;
 }
 
-export function getValidOptions(locale) {
-    return getLocaleSettings(locale, '').validOptions;
+export function getValidOptions(locale, offerType) {
+    return getLocaleSettings(locale, offerType).validOptions;
 }
 
 export function getMutations(locale, offerType, type, options) {
