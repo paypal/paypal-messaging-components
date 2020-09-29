@@ -13,6 +13,7 @@ module.exports = (env = {}) => {
         minify: true,
         debug: false,
         analyze: env.analyze,
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'standalone'
@@ -29,6 +30,7 @@ module.exports = (env = {}) => {
         minify: true,
         debug: false,
         analyze: env.analyze,
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'legacy'
@@ -45,6 +47,7 @@ module.exports = (env = {}) => {
         debug: false,
         analyze: env.analyzeComponents,
         filename: '[name].js',
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'components'
@@ -75,6 +78,7 @@ module.exports = (env = {}) => {
         web: true,
         minify: true,
         debug: false,
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'modal'
@@ -88,6 +92,7 @@ module.exports = (env = {}) => {
         minify: true,
         debug: false,
         filename: 'renderMessage.js',
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'render'

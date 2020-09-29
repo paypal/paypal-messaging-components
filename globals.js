@@ -34,8 +34,8 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             //     __LOCAL__: 'https://www.msmaster.qa.paypal.com'
             // },
             __RAMP_EXPERIMENT__: {
-                __LOCAL__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
-                __STAGE__: 'https://UIDeploy--StaticContent--51bfac9aaef3f--ghe.preview.dev.paypalinc.com',
+                __LOCAL__: 'https://www.paypalobjects.com',
+                __STAGE__: 'https://www.paypalobjects.com',
                 __SANDBOX__: 'https://www.paypalobjects.com',
                 __PRODUCTION__: 'https://www.paypalobjects.com'
             }

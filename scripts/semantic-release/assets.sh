@@ -3,22 +3,30 @@ VERSION=$1
 
 rm -rf ./dist
 
-npm run --silent build:prod -- --bail --display none &> /dev/null
+for env in "production" "sandbox" "stage"
+do
+    npm run --silent build:"$env" -- --bail --display none &> /dev/null
 
-rm ./dist/*.LICENSE.txt
-mkdir -p ./dist/bizcomponents/js/versioned
-mv ./dist/*.{js,map} ./dist/bizcomponents/js
+    if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
-cd ./dist/bizcomponents/js
+    rm ./dist/*.LICENSE.txt
+    mkdir -p ./dist/bizcomponents/"$dir"/versioned
+    mv ./dist/*.{js,map} ./dist/bizcomponents/"$dir"
 
-for fullfile in ./*.js; do
-    filename=$(basename $fullfile .js)
+    cd ./dist/bizcomponents/"$dir"
 
-    sed '/LICENSE.txt/d' ./"$filename".js > ./temp.txt
-    cat ./temp.txt > ./"$filename".js
-    rm ./temp.txt
+    for fullfile in ./*.js
+    do
+        filename=$(basename $fullfile .js)
 
-    sed \$d ./"$filename".js > ./versioned/"$filename"@"$VERSION".js
-    echo "//# sourceMappingURL=$filename@$VERSION.js.map" >> ./versioned/"$filename"@"$VERSION".js
-    cp ./"$filename".js.map ./versioned/"$filename"@"$VERSION".js.map
+        sed '/LICENSE.txt/d' ./"$filename".js > ./temp.txt
+        cat ./temp.txt > ./"$filename".js
+        rm ./temp.txt
+
+        sed \$d ./"$filename".js > ./versioned/"$filename"@"$VERSION".js
+        echo "//# sourceMappingURL=$filename@$VERSION.js.map" >> ./versioned/"$filename"@"$VERSION".js
+        cp ./"$filename".js.map ./versioned/"$filename"@"$VERSION".js.map
+    done
+
+    cd ../../..
 done

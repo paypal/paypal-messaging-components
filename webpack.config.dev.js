@@ -80,6 +80,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         filename: '[name].js',
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'components'
@@ -109,6 +110,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: false,
         filename: 'renderMessage.js',
+        env: env.NODE_ENV,
         vars: globals(env)
     });
 
@@ -121,6 +123,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         filename: 'smart-credit-modal-old.js',
+        env: env.NODE_ENV,
         vars: globals(env)
     });
 
