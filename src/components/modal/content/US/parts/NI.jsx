@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
-import { useApplyNow, useContent, useServerData, useScroll, useXProps, useProductMeta } from '../../../lib';
+import { useApplyNow, useContent, useServerData, useScroll, useXProps } from '../../../lib';
 import Button from '../../../parts/Button';
 
 export default ({ showApplyNow, switchTab }) => {
@@ -13,7 +13,6 @@ export default ({ showApplyNow, switchTab }) => {
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
     const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('NI');
-    const { qualifying } = useProductMeta('NI');
 
     showApplyNowRef.current = showApplyNow;
 
@@ -83,7 +82,7 @@ export default ({ showApplyNow, switchTab }) => {
             <p>{disclaimer}</p>
             <p>{copyright}</p>
 
-            {qualifying === 'TRUE' && products.length > 1 ? (
+            {switchTab ? (
                 <button type="button" className="tab-switch-button" onClick={switchTab}>
                     Or see Pay in 4
                 </button>

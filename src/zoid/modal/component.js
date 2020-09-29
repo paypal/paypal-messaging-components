@@ -17,8 +17,9 @@ const determineInitialTab = (type = 'NI') => {
         ):
             return 'EZP';
 
-        case type === 'GPL':
+        case arrayIncludes(['GPL', 'GPLQ'], type.toUpperCase()):
             return 'GPL';
+
         default:
             return 'NI';
     }

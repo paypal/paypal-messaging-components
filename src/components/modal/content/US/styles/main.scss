@@ -31,6 +31,17 @@ main {
     flex-direction: column;
 }
 
+.modal-container.loading {
+    .content-wrapper {
+        overflow: hidden;
+    }
+
+    main > * {
+        filter: blur(3px);
+        opacity: 0.6;
+    }
+}
+
 @include desktop {
     .content-background {
         min-height: auto;

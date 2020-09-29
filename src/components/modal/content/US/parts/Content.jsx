@@ -1,19 +1,18 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
-import arrayEvery from 'core-js-pure/stable/array/every';
 import arrayFind from 'core-js-pure/stable/array/find';
 
 import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
-import { useServerData, useScroll, useApplyNow, useXProps } from '../../../lib';
+import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect } from '../../../lib';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
-    const { offer } = useXProps();
+    const { offer, amount } = useXProps();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now');
@@ -46,6 +45,10 @@ const Content = ({ headerRef }) => {
         setSelectedProduct(product);
     };
 
+    useDidUpdateEffect(() => {
+        setSelectedProduct(offer);
+    }, [offer]);
+
     const tabsMap = {
         GPL: {
             title: 'Pay in 4',
@@ -59,10 +62,8 @@ const Content = ({ headerRef }) => {
 
     const tabs = products
         .map(({ meta }) => tabsMap[meta.product])
-        // Filter to a only the visible tab if this is a qualified offer
-        .filter(
-            tab => arrayEvery(products, prod => prod.meta.qualifying !== 'TRUE') || tab.product === selectedProduct
-        );
+        // Filter to only the visible tab if no amount is passed in
+        .filter(tab => typeof amount === 'undefined' || amount === 0 || tab.product === selectedProduct);
 
     const setShowApplyNow = show => {
         if (selectedProduct === 'NI' && show !== showApplyNow) {
@@ -70,16 +71,22 @@ const Content = ({ headerRef }) => {
         }
     };
 
+    const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={() => selectProduct('NI')} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
 
+    const GPLProduct = arrayFind(products, ({ meta }) => meta.product === 'GPL');
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
-            switchTab={() => {
-                setApplyNow(false);
-                selectProduct('GPL');
-            }}
+            switchTab={
+                showTabSwitch && +GPLProduct.meta.maxAmount >= +amount
+                    ? () => {
+                          setApplyNow(false);
+                          selectProduct('GPL');
+                      }
+                    : null
+            }
         />
     );
 

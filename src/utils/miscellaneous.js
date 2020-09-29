@@ -141,12 +141,15 @@ export const dynamicImport = memoize(url => {
 // // Date.now() altered on some sites: https://www.hydropool.com
 export const getCurrentTime = () => new Date().getTime();
 
+const PAYPAL_MODAL_VIEWPORT_ID = '__paypal_modal_viewport__';
+
 export const viewportHijack = memoize(() => {
     const [viewportState, setViewportState] = createState({});
 
     // Create hijack viewport
     const newViewport = (
         <meta
+            id={PAYPAL_MODAL_VIEWPORT_ID}
             name="viewport"
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no"
         />
@@ -154,6 +157,11 @@ export const viewportHijack = memoize(() => {
 
     return [
         () => {
+            if (document.getElementById(PAYPAL_MODAL_VIEWPORT_ID)) {
+                // Viewport has already been hijacked - do nothing for now
+                return;
+            }
+
             // Save existing body style
             const bodyStyle = document.body.getAttribute('style');
 

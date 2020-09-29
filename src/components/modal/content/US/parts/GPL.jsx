@@ -14,7 +14,11 @@ export default ({ switchTab }) => {
             <div className="description">
                 <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
 
-                <p>{qualifying === 'TRUE' ? subHeadline.qualified : subHeadline.unqualified.replace(/.00/g, '')}</p>
+                <p>
+                    {qualifying.toLowerCase() === 'true'
+                        ? subHeadline.qualified
+                        : subHeadline.unqualified.replace(/\.00/g, '')}
+                </p>
 
                 <div className="call-to-action">
                     <div>
@@ -36,14 +40,16 @@ export default ({ switchTab }) => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
-                    {qualifying === 'TRUE' ? <li>{instructions.purchaseAmount}</li> : null}
+                    {qualifying.toLowerCase() !== 'true' ? (
+                        <li>{instructions.purchaseAmount.replace(/\.00/g, '')}</li>
+                    ) : null}
                     {instructions.items.map(inst => (
                         <li>{inst}</li>
                     ))}
                 </ul>
             </div>
 
-            {qualifying === 'TRUE' && products.length > 1 ? (
+            {switchTab ? (
                 <button type="button" className="tab-switch-button" onClick={switchTab}>
                     Or see 6 months special financing
                 </button>
