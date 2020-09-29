@@ -12,8 +12,8 @@ export const ServerDataProvider = ({ children, data }) => {
     };
     if (processedData.products) {
         processedData.products = processedData.products
-            .map(prod => (typeof prod === 'string' ? prod : prod.meta.product))
-            .filter(prod => prod !== 'GPL');
+            .map(product => (typeof product === 'string' ? product : product.meta.product))
+            .filter(product => product !== 'GPL');
     }
 
     const [serverData, setServerData] = useState(processedData);
