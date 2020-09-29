@@ -62,8 +62,8 @@ const Content = ({ headerRef }) => {
 
     const tabs = products
         .map(({ meta }) => tabsMap[meta.product])
-        // Filter to a only the visible tab if this is a qualified offer
-        .filter(tab => amount === 0 || tab.product === selectedProduct);
+        // Filter to only the visible tab if no amount is passed in
+        .filter(tab => amount === undefined || amount === 0 || tab.product === selectedProduct);
 
     const setShowApplyNow = show => {
         if (selectedProduct === 'NI' && show !== showApplyNow) {
@@ -75,7 +75,7 @@ const Content = ({ headerRef }) => {
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
     tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
 
-    const GPLProduct = products.find(({ meta }) => meta.product === 'GPL');
+    const GPLProduct = arrayFind(products, ({ meta }) => meta.product === 'GPL');
     tabsMap.NI.body = (
         <NI
             showApplyNow={setShowApplyNow}
