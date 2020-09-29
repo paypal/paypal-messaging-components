@@ -114,7 +114,8 @@ export default (app, server, compiler) => {
                 const validatedStyle = validateStyle(
                     warnings.push.bind(warnings),
                     style,
-                    populatedBanner.meta.offerCountry
+                    populatedBanner.meta.offerCountry,
+                    populatedBanner.meta.offerType
                 );
 
                 const markup = render({ style: validatedStyle, amount }, populatedBanner);
@@ -197,10 +198,12 @@ export default (app, server, compiler) => {
                 (accumulator, [variable, val]) =>
                     // eslint-disable-next-line security/detect-non-literal-regexp
                     accumulator.replace(new RegExp(`{${variable}}`, 'g'), val),
-                morsPopulatedJSON.replace(
-                    /\${eval\(transaction_amount \? transaction_amount : '-'\)}/g,
-                    terms.amount ?? '-'
-                )
+                morsPopulatedJSON
+                    .replace(/\${eval\(transaction_amount \? transaction_amount : '-'\)}/g, terms.amount ?? '-')
+                    .replace(
+                        /\${eval\(CREDIT_OFFERS_DS\.qualifying_offer \? CREDIT_OFFERS_DS\.qualifying_offer : 'false'\)}/g,
+                        terms.qualifying_offer
+                    )
             );
 
             return JSON.parse(populatedJSON);
