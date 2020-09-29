@@ -128,7 +128,9 @@ export default (options = {}) => ({
                 // Merge new styles into previous styles
                 // Especially useful when combining inline attribute styles with JS API styles
                 if (state.style && messageProps.style) {
-                    messageProps.style = objectMerge(state.style, messageProps.style);
+                    const totalStyle = objectMerge(state.style, messageProps.style);
+                    state.style = totalStyle;
+                    messageProps.style = totalStyle;
                 }
 
                 return updateProps(messageProps);
