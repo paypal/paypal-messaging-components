@@ -53,7 +53,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     `;
 
     event.on('styles', ({ styles }) => {
-        if (styles) {
+        if (typeof styles === 'string') {
             const style = document.querySelector(`#${uid} style`);
 
             style.textContent = `
