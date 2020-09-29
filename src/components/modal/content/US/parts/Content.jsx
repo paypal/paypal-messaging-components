@@ -63,7 +63,7 @@ const Content = ({ headerRef }) => {
     const tabs = products
         .map(({ meta }) => tabsMap[meta.product])
         // Filter to only the visible tab if no amount is passed in
-        .filter(tab => amount === undefined || amount === 0 || tab.product === selectedProduct);
+        .filter(tab => typeof amount === 'undefined' || amount === 0 || tab.product === selectedProduct);
 
     const setShowApplyNow = show => {
         if (selectedProduct === 'NI' && show !== showApplyNow) {
