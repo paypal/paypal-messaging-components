@@ -1,4 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
+import stringIncludes from 'core-js-pure/stable/string/includes';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { curry } from '../../../utils/index';
 
@@ -16,12 +18,31 @@ export default curry(({ uuid, urls, messageRequestId }, payload, bannerHidden = 
             message_request_id: messageRequestId,
             uuid: bannerHidden ? `${uuid}::banner.hidden:true` : uuid
         };
-        const bdataKVPairs = objectEntries(fullPayload).reduce(
-            (accumulator, [key, value]) => (value === undefined ? accumulator : `${accumulator}&${key}=${value}`),
-            ''
-        );
+        const bdataKVPairs = objectEntries(fullPayload)
+            .reduce(
+                (accumulator, [key, value]) => (value === undefined ? accumulator : `${accumulator}&${key}=${value}`),
+                ''
+            )
+            .slice(1);
 
-        beacon.src = `${urls[payload.et] || urls.DEFAULT}&bdata=${encodeURIComponent(bdataKVPairs.slice(1))}`;
+        const rootUrl = urls[payload.et] || urls.DEFAULT;
+
+        if (stringIncludes(rootUrl, 'bdata')) {
+            beacon.src = rootUrl
+                .split('&')
+                .map(part => {
+                    if (stringStartsWith(part, 'bdata')) {
+                        const [key, val] = part.split('=');
+                        const newVal = encodeURIComponent(`${decodeURIComponent(val)}&${bdataKVPairs}`);
+                        return `${key}=${newVal}`;
+                    }
+
+                    return part;
+                })
+                .join('&');
+        } else {
+            beacon.src = `${rootUrl}&bdata=${encodeURIComponent(bdataKVPairs)}`;
+        }
     } else if (typeof payload === 'string') {
         beacon.src = urls[payload] || urls.DEFAULT;
     }
