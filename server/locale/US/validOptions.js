@@ -24,14 +24,14 @@ export default {
     legacy: {
         typeNI: [Types.STRING, ['', 'image', 'html']],
         typeEZP: [Types.STRING, ['', 'html']],
-        size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
+        size: [Types.STRING],
         color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
         border: [Types.BOOLEAN, [true, false]],
         preset: [Types.STRING, ['smallest']]
     },
     custom: {
         markup: [Types.STRING],
-        ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
+        ratio: [Types.ANY],
         preset: [Types.STRING, ['smallest']]
     }
 };
