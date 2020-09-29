@@ -39,6 +39,9 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
+// Needed for attribute observer re-render test
+window.paypal = { Messages };
+
 const clearMocks = () => {
     logger.warn.mockClear();
     logger.track.mockClear();
