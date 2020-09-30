@@ -25,7 +25,7 @@ module.exports = {
         [
             '@semantic-release/exec',
             {
-                prepareCmd: './scripts/semantic-release/assets.sh ${nextRelease.version}',
+                prepareCmd: './scripts/semantic-release/assets.sh -v ${nextRelease.version}',
                 successCmd: './scripts/semantic-release/merge.sh ${options.repositoryUrl}'
             }
         ],
