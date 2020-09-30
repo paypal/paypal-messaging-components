@@ -75,11 +75,14 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                     entries.forEach(entry => {
                         const iframe = entry.target;
                         const container = iframe.parentNode.parentNode;
-                        const { state } = messagesMap.get(container);
+                        // If the library has been cleaned up by an SDK destroy, the container
+                        // may not exist in the current SDK script messageMap. In this scenario
+                        // we will short circuit on the state.render check
+                        const { state } = messagesMap.get(container) || {};
 
                         // Only run in the context of a render call, and NOT when resizing the
                         // element for other reasons such as window resizing
-                        if (!state.renderStart) {
+                        if (!state?.renderStart) {
                             return;
                         }
 

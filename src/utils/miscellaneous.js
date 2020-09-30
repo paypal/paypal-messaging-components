@@ -142,46 +142,43 @@ export const dynamicImport = memoize(url => {
 export const getCurrentTime = () => new Date().getTime();
 
 export const viewportHijack = memoize(() => {
-    const [viewportState, setViewportState] = createState({});
+    const viewport =
+        document.head.querySelector('meta[name="viewport"]') ||
+        (<meta name="viewport" content="" />).render(dom({ doc: document }));
 
-    // Create hijack viewport
-    const newViewport = (
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no"
-        />
-    ).render(dom({ doc: document }));
+    // Ensure a viewport exists in the DOM
+    if (!viewport.parentNode) {
+        document.head.appendChild(viewport);
+    }
 
     return [
+        // We store state on the DOM elements themselves because we do not want multiple SDK scripts
+        // with their own states causing an error preventing elements from being updated as needed
         () => {
-            // Save existing body style
-            const bodyStyle = document.body.getAttribute('style');
-
-            // If no viewport exists, some browsers will not respect the change of simply removing the hijack viewport
-            // Add a blank viewport to replace the hijack in this case
-            const oldViewport =
-                document.head.querySelector('meta[name="viewport"]') ||
-                (<meta name="viewport" content="" />).render(dom({ doc: document }));
-
-            if (oldViewport.parentNode) {
-                document.head.removeChild(oldViewport);
+            if (viewport.__pp_prev_content__) {
+                // Viewport has already been hijacked - do nothing for now
+                return;
             }
 
-            document.head.appendChild(newViewport);
+            viewport.__pp_prev_content__ = viewport.getAttribute('content') ?? '';
+            viewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
+            );
 
-            document.body.style.overflow = 'hidden';
-            document.body.style.msOverflowStyle = 'scrollbar';
-
-            setViewportState({
-                bodyStyle,
-                oldViewport
-            });
+            document.body.__pp_prev_overflow__ = document.body.style.overflow ?? '';
+            document.body.__pp_prev_msOverflowStyle__ = document.body.style.msOverflowStyle ?? '';
+            document.body.style.setProperty('overflow', 'hidden');
+            document.body.style.setProperty('-ms-overflow-style', 'scrollbar');
         },
         () => {
-            document.head.removeChild(newViewport);
-            document.head.appendChild(viewportState.oldViewport);
+            viewport.setAttribute('content', viewport.__pp_prev_content__);
+            delete viewport.__pp_prev_content__;
 
-            document.body.setAttribute('style', viewportState.bodyStyle || '');
+            document.body.style.setProperty('overflow', document.body.__pp_prev_overflow__);
+            document.body.style.setProperty('-ms-overflow-style', document.body.__pp_prev_msOverflowStyle__);
+            delete document.body.__pp_prev_overflow__;
+            delete document.body.__pp_prev_msOverflowStyle__;
         }
     ];
 });
