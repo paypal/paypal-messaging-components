@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.13.6](https://github.com/paypal/paypal-messaging-components/compare/v1.13.5...v1.13.6) (2020-09-30)
+
+
+### Bug Fixes
+
+* append data to existing bdata ([#307](https://github.com/paypal/paypal-messaging-components/issues/307)) ([febf58d](https://github.com/paypal/paypal-messaging-components/commit/febf58d9c7c74bcef8c6dd9b5aca896bce9df2db))
+* improve updating message styles ([#305](https://github.com/paypal/paypal-messaging-components/issues/305)) ([0ed2449](https://github.com/paypal/paypal-messaging-components/commit/0ed2449a0947a032cf561669d967e98ffd5b181a))
+* polyfill in old modal code ([#301](https://github.com/paypal/paypal-messaging-components/issues/301)) ([e8b68b5](https://github.com/paypal/paypal-messaging-components/commit/e8b68b5b330d1ef6982d4dabfbee157530c940fc))
+* store viewport state on DOM elements to prevent SDK destroy issues ([#314](https://github.com/paypal/paypal-messaging-components/issues/314)) ([bd9220f](https://github.com/paypal/paypal-messaging-components/commit/bd9220f4e15933511e7a48c396e571968032397e))
+
 ## [1.13.5](https://github.com/paypal/paypal-messaging-components/compare/v1.13.4...v1.13.5) (2020-09-23)
 
 
