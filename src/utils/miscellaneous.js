@@ -141,6 +141,7 @@ export const dynamicImport = memoize(url => {
 // // Date.now() altered on some sites: https://www.hydropool.com
 export const getCurrentTime = () => new Date().getTime();
 
+// Memoized so that the 2 return functions can be called from different modules
 export const viewportHijack = memoize(() => {
     const viewport =
         document.head.querySelector('meta[name="viewport"]') ||
@@ -157,6 +158,7 @@ export const viewportHijack = memoize(() => {
         () => {
             if (viewport.__pp_prev_content__) {
                 // Viewport has already been hijacked - do nothing for now
+                // This can happen when multiple messages are clicked before the modal loads
                 return;
             }
 
