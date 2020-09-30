@@ -35,7 +35,7 @@ printf "\n\n"
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
 do
-    npm run --silent build:"$env" -- --bail --display none &> /dev/null
+    npm run --silent build:"$env" -- --env.VERSION="$version" --bail --display none &> /dev/null
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 

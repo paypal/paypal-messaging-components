@@ -17,7 +17,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
     },
 
     __MESSAGES__: {
-        __VERSION__: version,
+        __VERSION__: env.VERSION || version,
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
         __DOMAIN__: {
