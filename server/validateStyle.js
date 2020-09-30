@@ -9,7 +9,10 @@ const logInvalidOption = (addLog, location, options, val) =>
     logInvalid(
         addLog,
         location,
-        `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`
+        // Filter out potentially malicious inputs from warnings.
+        `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${
+            /^[a-z0-9]+$/i.test(val) ? val : 'REDACTED'
+        }".`
     );
 
 function getValidVal(addLog, typeArr, val, location) {

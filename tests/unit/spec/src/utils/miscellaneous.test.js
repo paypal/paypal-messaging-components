@@ -94,34 +94,36 @@ describe('utils/miscellaneous', () => {
             document.head.innerHTML = '';
         });
 
-        it('Replaces the existing viewport with a new one', () => {
-            const [hijackViewport, replaceViewport] = viewportHijack();
+        it('Reuses existing viewport', () => {
             const defaultViewport = (<meta name="viewport" content="test=true" />).render(dom({ doc: document }));
             document.head.appendChild(defaultViewport);
+
+            const [hijackViewport, replaceViewport] = viewportHijack(0);
 
             expect(defaultViewport).toBeInTheDocument();
 
             hijackViewport();
 
-            const newViewport = document.head.querySelector('meta[name="viewport"]');
+            const currentViewport = document.head.querySelector('meta[name="viewport"]');
 
-            expect(newViewport).not.toBe(defaultViewport);
-            expect(defaultViewport).not.toBeInTheDocument();
-            expect(newViewport.getAttribute('content')).toBe(
+            expect(currentViewport).toBe(defaultViewport);
+            expect(defaultViewport).toBeInTheDocument();
+            expect(currentViewport.getAttribute('content')).toBe(
                 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
             );
 
             replaceViewport();
 
-            expect(newViewport).not.toBeInTheDocument();
+            expect(currentViewport).toBe(defaultViewport);
             expect(defaultViewport).toBeInTheDocument();
         });
 
         it('Creates an empty viewport if one is missing', () => {
-            const [hijackViewport, replaceViewport] = viewportHijack();
-            const missingViewport = document.head.querySelector('meta[name="missingViewport"]');
+            expect(document.head.querySelector('meta[name="viewport"]')).toBeNull();
 
-            expect(missingViewport).toBeNull();
+            const [hijackViewport, replaceViewport] = viewportHijack(1);
+
+            expect(document.head.querySelector('meta[name="viewport"]')).not.toBeNull();
 
             hijackViewport();
 
@@ -135,13 +137,13 @@ describe('utils/miscellaneous', () => {
 
             const emptyViewport = document.head.querySelector('meta[name="viewport"]');
 
-            expect(emptyViewport).not.toBe(newViewport);
-            expect(newViewport).not.toBeInTheDocument();
+            expect(emptyViewport).toBe(newViewport);
+            expect(emptyViewport).toBeInTheDocument();
             expect(emptyViewport.getAttribute('content')).toBe('');
         });
 
         it('Removes scrollbar with overflow hidden', () => {
-            const [hijackViewport, replaceViewport] = viewportHijack();
+            const [hijackViewport, replaceViewport] = viewportHijack(2);
 
             expect(document.body.getAttribute('style')).toBe('');
 

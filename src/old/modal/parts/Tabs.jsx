@@ -1,10 +1,11 @@
 /** @jsx h */
+import arrayFindIndex from 'core-js-pure/stable/array/find-index';
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps } from '../lib/hooks';
 
-const getInitialTabIndex = (initialTabKey, tabs) => tabs.findIndex(({ tabKey }) => tabKey === initialTabKey) || 0;
+const getInitialTabIndex = (initialTabKey, tabs) => arrayFindIndex(tabs, ({ tabKey }) => tabKey === initialTabKey) || 0;
 
 const Tabs = ({ tabs }) => {
     // offer type of banner used to determine which tab to pre-select

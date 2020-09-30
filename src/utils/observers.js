@@ -4,38 +4,27 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { globalState, getGlobalVariable } from './global';
-import { objectMerge, flattenedToObject } from './objects';
 import { dynamicImport, getCurrentTime, DOMContentLoaded } from './miscellaneous';
 import { logger } from './logger';
+import { getNamespace } from './sdk';
 
 export const attributeObserver = getGlobalVariable(
     '__attribute_observer__',
     () =>
         new MutationObserver(mutationList => {
             const { messagesMap } = globalState;
-            const messagesToUpdate = mutationList.reduce((accumulator, mutation) => {
+            const containersToUpdate = mutationList.reduce((accumulator, mutation) => {
                 if (!messagesMap.has(mutation.target) || !stringStartsWith(mutation.attributeName, 'data-pp-')) {
                     return accumulator;
                 }
 
-                const newOption = flattenedToObject(
-                    mutation.attributeName.slice(8),
-                    mutation.target.getAttribute(mutation.attributeName)
-                );
-
-                accumulator.set(
-                    mutation.target,
-                    accumulator.has(mutation.target)
-                        ? objectMerge(accumulator.get(mutation.target), newOption)
-                        : newOption
-                );
+                accumulator.push(mutation.target);
 
                 return accumulator;
-            }, new Map());
+            }, []);
 
-            messagesToUpdate.forEach((newMerchantOptions, container) =>
-                messagesMap.get(container).updateProps(newMerchantOptions)
-            );
+            // Re-render each container without options because the render will scan for all inline attributes
+            containersToUpdate.forEach(container => window[getNamespace()]?.Messages().render(container));
         })
 );
 
@@ -48,7 +37,19 @@ const getRoot = () => {
 
     const root = arrayFind(
         arrayFrom(elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),
-        el => window.getComputedStyle(el).height !== `${innerHeight}px`
+        (el, index, elements) => {
+            // We are searching for the element that contains the page scrolling.
+            // Some merchant sites will use height 100% on elements such as html and body
+            // that cause the intersection observer to hide elements below the fold.
+            const { height } = window.getComputedStyle(el);
+            const child = elements[index + 1];
+
+            return (
+                height !== `${innerHeight}px` ||
+                // Ensure that the selected root is the larger of the parent and child
+                (child && window.getComputedStyle(child).height < height)
+            );
+        }
     );
 
     return root;
@@ -60,11 +61,11 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
             ? dynamicImport('https://polyfill.io/v3/polyfill.js?features=IntersectionObserver')
             : undefined
     )
+        // Ensure DOM has loaded otherwise root can default to null (viewport)
+        // and cause messages below the fold to hide
+        // e.g. https://www.escortradar.com/products/escort_redline_360c
         .then(() => DOMContentLoaded)
         .then(() => {
-            // Ensure DOM has loaded otherwise root will default to null (viewport)
-            // and cause messages below the fold to hide
-            // e.g. https://www.escortradar.com/products/escort_redline_360c
             const root = getRoot();
             // eslint-disable-next-line compat/compat
             return new IntersectionObserver(
@@ -74,11 +75,14 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                     entries.forEach(entry => {
                         const iframe = entry.target;
                         const container = iframe.parentNode.parentNode;
-                        const { state } = messagesMap.get(container);
+                        // If the library has been cleaned up by an SDK destroy, the container
+                        // may not exist in the current SDK script messageMap. In this scenario
+                        // we will short circuit on the state.render check
+                        const { state } = messagesMap.get(container) || {};
 
                         // Only run in the context of a render call, and NOT when resizing the
                         // element for other reasons such as window resizing
-                        if (!state.renderStart) {
+                        if (!state?.renderStart) {
                             return;
                         }
 
@@ -103,7 +107,9 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                         }
 
                         if (
-                            (entry.intersectionRatio < 0.9 || entry.boundingClientRect.width < minWidth) &&
+                            (entry.intersectionRatio < 0.9 ||
+                                // Round up for decimal values
+                                Math.ceil(entry.boundingClientRect.width) < minWidth) &&
                             !isIntersectingFallback
                         ) {
                             if (container.getAttribute('data-pp-style-preset') === 'smallest') {
