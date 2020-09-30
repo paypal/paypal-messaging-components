@@ -25,8 +25,8 @@ const devAccountMap = {
     DEV000000PQAG: ['DE', ['inst'], 'palaq_any_gtz'],
     DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', ['pl'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['pl'], 'plq']
+    DEV000000GBPL: ['GB', ['gpl'], 'pl'],
+    DEV00000GBPLQ: ['GB', ['gpl'], 'plq']
 };
 
 export default (app, server, compiler) => {
