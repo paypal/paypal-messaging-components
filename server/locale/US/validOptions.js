@@ -11,7 +11,7 @@ export default {
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             fontFamily: [Types.STRING]
         },
-        preset: [Types.STRING, ['smallest']]
+        preset: [Types.STRING, [undefined, 'smallest']]
     },
     flex: {
         color: [
@@ -19,7 +19,7 @@ export default {
             ['blue', 'black', 'white', 'white-no-border', 'gray|grey', 'monochrome', 'grayscale|greyscale']
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
-        preset: [Types.STRING, ['smallest']]
+        preset: [Types.STRING, [undefined, 'smallest']]
     },
     legacy: {
         typeNI: [Types.STRING, ['', 'image', 'html']],
@@ -27,11 +27,11 @@ export default {
         size: [Types.STRING],
         color: [Types.STRING, ['none', 'blue', 'black', 'gray|grey', 'white']],
         border: [Types.BOOLEAN, [true, false]],
-        preset: [Types.STRING, ['smallest']]
+        preset: [Types.STRING, [undefined, 'smallest']]
     },
     custom: {
         markup: [Types.STRING],
         ratio: [Types.ANY],
-        preset: [Types.STRING, ['smallest']]
+        preset: [Types.STRING, [undefined, 'smallest']]
     }
 };
