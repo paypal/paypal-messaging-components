@@ -41,13 +41,13 @@ const getRoot = () => {
             // We are searching for the element that contains the page scrolling.
             // Some merchant sites will use height 100% on elements such as html and body
             // that cause the intersection observer to hide elements below the fold.
-            const { height } = window.getComputedStyle(el);
+            const height = el.offsetHeight;
             const child = elements[index + 1];
 
             return (
-                height !== `${innerHeight}px` ||
+                height !== innerHeight ||
                 // Ensure that the selected root is the larger of the parent and child
-                (child && window.getComputedStyle(child).height < height)
+                (child && child.offsetHeight < height)
             );
         }
     );
