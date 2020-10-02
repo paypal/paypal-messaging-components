@@ -84,10 +84,11 @@ const Message = () => {
 
         request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
             setServerData({
-                markup: data.markup || markup,
-                meta: data.meta || meta,
-                parentStyles: data.parentStyles || parentStyles,
-                warnings: data.warnings || warnings
+                markup: data.markup ?? markup,
+                meta: data.meta ?? meta,
+                // Respect empty string value in order to remove styles when switch from flex to text layout
+                parentStyles: data.parentStyles ?? parentStyles,
+                warnings: data.warnings ?? warnings
             });
         });
     }, [amount, currency, JSON.stringify(style), offer, payerId, clientId, merchantId]);

@@ -1,6 +1,7 @@
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport } from './elements';
 import { logger } from './logger';
+import { getLibraryVersion } from './sdk';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -28,7 +29,7 @@ export function runStats({ container, index }) {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
-        messaging_version: __MESSAGES__.__VERSION__,
+        messaging_version: getLibraryVersion(),
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
         pos_x: Math.round(containerRect.left).toString(),

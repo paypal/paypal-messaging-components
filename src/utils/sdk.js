@@ -5,7 +5,8 @@ import {
     getSDKScript,
     getEnv as getSDKEnv,
     getCurrency as getSDKCurrency,
-    getSDKMeta
+    getSDKMeta,
+    getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
 
 // SDK helper functions with standalone build polyfills
@@ -62,4 +63,16 @@ export function getMeta() {
     } else {
         return undefined;
     }
+}
+
+export function getNamespace() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKNamespace();
+    } else {
+        return getScript()?.getAttribute('data-pp-namespace') || 'paypal';
+    }
+}
+
+export function getLibraryVersion() {
+    return __MESSAGES__.__VERSION__;
 }
