@@ -3,7 +3,16 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable, getCurrentTime, viewportHijack, logger } from '../../utils';
+import {
+    getMeta,
+    getEnv,
+    getGlobalUrl,
+    getGlobalVariable,
+    getCurrentTime,
+    getLibraryVersion,
+    viewportHijack,
+    logger
+} from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
@@ -200,7 +209,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             version: {
                 type: 'string',
                 queryParam: true,
-                value: () => __MESSAGES__.__VERSION__
+                value: getLibraryVersion
             }
         }
     })
