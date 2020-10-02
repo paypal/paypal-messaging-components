@@ -12,13 +12,18 @@ do
 done
 
 if [ -z "$version" ]; then
-    printf "\nPlease supply a version number (-v)\n\n"
+    printf "\nPlease supply a build version (-v)\n\n"
+    exit 1
+fi
+
+if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9]+(\.[0-9]+)?)?$ ]]; then
+    printf "\nInvalid version provided ($version). Please chack the format (ex: 1.0.0-beta.0)\n\n"
     exit 1
 fi
 
 rm -rf ./dist
 
-IFS=','
+IFS=',' # Set the delimiter for splitting into an array
 read -a envarr <<< "$environment"
 
 printf "\nBuilding the following environments (v$version):"
@@ -39,7 +44,9 @@ do
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
+    # Remove the license file from the asset bundle
     rm ./dist/*.LICENSE.txt
+    # Create the necessary directories
     mkdir -p ./dist/bizcomponents/"$dir"/versioned
     mv ./dist/*.{js,map} ./dist/bizcomponents/"$dir"
 
@@ -50,12 +57,16 @@ do
     do
         filename=$(basename $fullfile .js)
 
-        sed '/LICENSE.txt/d' ./"$filename".js > ./temp.txt
-        cat ./temp.txt > ./"$filename".js
-        rm ./temp.txt
+        echo "/* version: $version */" > ./temp.txt
 
+        # Remove license file line
+        sed '/LICENSE.txt/d' ./"$filename".js >> ./temp.txt && mv ./temp.txt ./"$filename".js
+
+        # Copy file minus the source map url on the last line
         sed \$d ./"$filename".js > ./versioned/"$filename"@"$version".js
+        # Append the source map url to the file
         echo "//# sourceMappingURL=$filename@$version.js.map" >> ./versioned/"$filename"@"$version".js
+        # Copy source map to versioned copy
         cp ./"$filename".js.map ./versioned/"$filename"@"$version".js.map
     done
 
