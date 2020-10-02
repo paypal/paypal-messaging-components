@@ -19,15 +19,20 @@ import containerTemplate from './containerTemplate';
 // Determine pre-selected tab based on the offer type of the banner.
 // Currently only applicable to the US
 const determineInitialTab = (type = 'NI') => {
-    switch (true) {
-        case arrayIncludes(
+    if (
+        arrayIncludes(
             ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
             type.toUpperCase()
-        ):
-            return 'EZP';
-        default:
-            return 'NI';
+        )
+    ) {
+        return 'EZP';
     }
+
+    if (arrayIncludes(['GPL', 'GPLQ'], type.toUpperCase())) {
+        return 'GPL';
+    }
+
+    return 'NI';
 };
 
 export default getGlobalVariable('__paypal_credit_modal__', () =>
