@@ -1,10 +1,11 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
 import objectAssign from 'core-js-pure/stable/object/assign';
 
-import { getEnv } from './sdk';
+import { getEnv, getLibraryVersion } from './sdk';
 import { createState } from './miscellaneous';
 
-const NAMESPACE = '__paypal_messages_state__';
+// Following the global naming convention of zoid and prevent collision with merchant.js
+const NAMESPACE = `__paypal_messages_${getLibraryVersion().replace(/[.-]/g, '_')}__`;
 
 const createDefaultState = () => ({
     index: 1,
