@@ -5,7 +5,7 @@ import { getEnv, getLibraryVersion } from './sdk';
 import { createState } from './miscellaneous';
 
 // Following the global naming convention of zoid and prevent collision with merchant.js
-const NAMESPACE = `__paypal_messages_${getLibraryVersion().replace(/\./g, '_')}__`;
+const NAMESPACE = `__paypal_messages_${getLibraryVersion().replace(/[.-]/g, '_')}__`;
 
 const createDefaultState = () => ({
     index: 1,
