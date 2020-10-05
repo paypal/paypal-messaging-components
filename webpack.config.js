@@ -99,5 +99,14 @@ module.exports = (env = {}) => {
         })
     });
 
-    return [MESSAGES_CONFIG, MERCHANT_CONFIG, COMPONENTS_CONFIG, RENDERING_CONFIG, MODAL_CONFIG];
+    const modules = {
+        library: [MESSAGES_CONFIG, MERCHANT_CONFIG],
+        components: [COMPONENTS_CONFIG, MODAL_CONFIG],
+        render: [RENDERING_CONFIG]
+    };
+
+    return Array.prototype.concat.apply(
+        [],
+        (env.MODULE || 'library,components,render').split(',').map(module => modules[module])
+    );
 };

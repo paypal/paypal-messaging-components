@@ -1,13 +1,16 @@
 #!/bin/bash
 SUPPORTED_ENVIRONMENTS=("production" "sandbox" "stage")
+SUPPORTED_MODULES=("library" "components" "render")
 # default value if none supplied
 environment="production"
+module="library,components,render"
 
-while getopts ":v:e:" flag
+while getopts ":v:e:m:" flag
 do
     case "$flag" in
         v) version=$OPTARG;;
         e) environment=$OPTARG;;
+        m) module=$OPTARG;;
     esac
 done
 
@@ -25,6 +28,7 @@ rm -rf ./dist
 
 IFS=',' # Set the delimiter for splitting into an array
 read -a envarr <<< "$environment"
+read -a modulearr <<< "$module"
 
 printf "\nBuilding the following environments (v$version):"
 # Filter out unsupported environment keywords or typos
@@ -35,17 +39,29 @@ do
         filteredEnvArr+=("$env")
     fi
 done
+printf "\n"
+
+printf "\nBuilding the following modules (v$version):"
+# Filter out unsupported environment keywords or typos
+for mod in "${modulearr[@]}"
+do
+    if printf '%s\n' "${SUPPORTED_MODULES[@]}" | grep -q -e "^$mod$"; then
+        printf "\n  - $mod"
+        filteredModule+=",$mod"
+    fi
+done
 printf "\n\n"
+filteredModule="${filteredModule:1}"
 
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
 do
-    npm run --silent build:"$env" -- --env.VERSION="$version" --bail --display none &> /dev/null
+    npm run --silent build:"$env" -- --env.VERSION="$version" --env.MODULE="$filteredModule" --bail --display none &> /dev/null
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
     # Remove the license file from the asset bundle
-    rm ./dist/*.LICENSE.txt
+    rm ./dist/*.LICENSE.txt &> /dev/null
     # Create the necessary directories
     mkdir -p ./dist/bizcomponents/"$dir"/versioned
     mv ./dist/*.{js,map} ./dist/bizcomponents/"$dir"
