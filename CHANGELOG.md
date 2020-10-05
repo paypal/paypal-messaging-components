@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.13.7](https://github.com/paypal/paypal-messaging-components/compare/v1.13.6...v1.13.7) (2020-10-05)
+
+
+### Bug Fixes
+
+* compare numeric values with root height calculations ([#317](https://github.com/paypal/paypal-messaging-components/issues/317)) ([38daae6](https://github.com/paypal/paypal-messaging-components/commit/38daae684fc78e9f831962e2876d1a223c47d6cf))
+* DE modal preact className issue ([#316](https://github.com/paypal/paypal-messaging-components/issues/316)) ([e7ea62e](https://github.com/paypal/paypal-messaging-components/commit/e7ea62e2c7ef3afe931ea84632ae963bb6ef5f63))
+* handle GPL modal type ([#320](https://github.com/paypal/paypal-messaging-components/issues/320)) ([b1b4131](https://github.com/paypal/paypal-messaging-components/commit/b1b41312007061f8adef1cbdc8617cda4b002da2))
+* handle undefined window reference when running locally ([#325](https://github.com/paypal/paypal-messaging-components/issues/325)) ([c53e4dc](https://github.com/paypal/paypal-messaging-components/commit/c53e4dc3ced6538dd6db2558004e0366e4b0b9a0))
+* improve overflow detection with html and body height 100% ([#323](https://github.com/paypal/paypal-messaging-components/issues/323)) ([c857953](https://github.com/paypal/paypal-messaging-components/commit/c857953b7d3adfab701d6783302fa4e4f557c003))
+* remove default preset value ([#318](https://github.com/paypal/paypal-messaging-components/issues/318)) ([8f18e0f](https://github.com/paypal/paypal-messaging-components/commit/8f18e0f2ec2722695ef06192ba36e57104a4bcc2))
+
 ## [1.13.6](https://github.com/paypal/paypal-messaging-components/compare/v1.13.5...v1.13.6) (2020-09-30)
 
 
