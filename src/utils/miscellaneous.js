@@ -186,7 +186,7 @@ export const viewportHijack = memoize(() => {
 });
 
 export const awaitWindowLoad = new ZalgoPromise(resolve =>
-    typeof document !== 'undefined' && document.readyState === 'complete'
-        ? resolve()
-        : window.addEventListener('load', resolve)
+    typeof document !== 'undefined' && document.readyState !== 'complete'
+        ? window.addEventListener('load', resolve)
+        : resolve()
 );
