@@ -45,7 +45,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         },
         __URI__: {
             __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
-            __MESSAGE_A__: '/imadserver/upstream',
+            __MESSAGE_A__: '/credit-presentment/messages',
             __MESSAGE_B__: '/credit-presentment/messages',
             __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
             __MODAL__: '/credit-presentment/smart/modal',
