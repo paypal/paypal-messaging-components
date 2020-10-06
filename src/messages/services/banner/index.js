@@ -7,7 +7,6 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import {
     memoizeOnProps,
     objectGet,
-    objectMerge,
     objectFlattenToArray,
     getGlobalUrl,
     request,
@@ -16,7 +15,6 @@ import {
 } from '../../../utils';
 
 import { EVENTS, ERRORS } from '../logger';
-import getCustomTemplate from './customTemplate';
 import Template from '../../models/Template';
 import createContainer from '../../models/Container';
 import { setLocale } from '../../../locale';
@@ -79,7 +77,7 @@ function fetcher(options) {
         const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
-        const rootUrl = getGlobalUrl('MESSAGE_A');
+        const rootUrl = getGlobalUrl('MESSAGE');
         const queryParams = {
             dimensions,
             currency_value: amount,
@@ -137,24 +135,6 @@ function fetcher(options) {
             }
         };
     });
-}
-
-/**
- * Extract annotations from markup into a single options object
- * @param {string} markup String of banner HTML markup
- * @returns {Object} Banner annotations
- */
-function getBannerOptions(logger, markup) {
-    const annotationsString = markup.match(/^<!--([\s\S]+?)-->/);
-    if (annotationsString) {
-        try {
-            return JSON.parse(annotationsString[1]);
-        } catch (err) {
-            logger.error({ name: ERRORS.CUSTOM_JSON_OPTIONS_FAIL });
-        }
-    }
-
-    return {};
 }
 
 /**
@@ -222,24 +202,7 @@ const memoFetcher = memoizeOnProps(fetcher, ['account', 'merchantId', 'amount', 
 export default function getBannerMarkup({ options, logger }) {
     logger.info(EVENTS.FETCH_START);
 
-    return (objectGet(options, 'style.layout') !== 'custom'
-        ? memoFetcher(options)
-        : ZalgoPromise.all([memoFetcher(options), getCustomTemplate(options.style)]).then(([data, template]) => {
-              if (typeof data.markup === 'object') {
-                  if (template === '') {
-                      logger.error({ name: ERRORS.CUSTOM_TEMPLATE_FAIL });
-                  }
-                  data.markup.template = template; // eslint-disable-line no-param-reassign
-
-                  return {
-                      markup: data.markup,
-                      options: objectMerge(options, getBannerOptions(logger, template))
-                  };
-              }
-
-              return { markup: data.markup };
-          })
-    ).then(({ markup, options: customOptions = {} }) => {
+    return memoFetcher(options).then(({ markup }) => {
         logger.info(EVENTS.FETCH_END);
 
         const offerCountry = (markup && markup.meta && markup.meta.offerCountry) || 'US';
@@ -249,8 +212,7 @@ export default function getBannerMarkup({ options, logger }) {
 
         const totalOptions = {
             ...options,
-            style,
-            ...customOptions
+            style
         };
 
         totalOptions.style._flattened = objectFlattenToArray(style);

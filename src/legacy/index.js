@@ -231,10 +231,10 @@ class Ad {
         (__ENV__ === 'production'
             ? getExclusionList().then(exclusionList =>
                   arrayIncludes(exclusionList, this.kvs.payer_id || this.kvs.pub_id)
-                      ? getGlobalUrl('MESSAGE_A')
-                      : getGlobalUrl('MESSAGE_B_LEGACY')
+                      ? getGlobalUrl('MESSAGE')
+                      : getGlobalUrl('MESSAGE_LEGACY')
               )
-            : ZalgoPromise.resolve(getGlobalUrl('MESSAGE_B_LEGACY'))
+            : ZalgoPromise.resolve(getGlobalUrl('MESSAGE_LEGACY'))
         ).then(origin => {
             this.logger.info(EVENTS.FETCH_START);
             this.script = new JSONPRequest(`${origin}${this.queryString}`);

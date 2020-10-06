@@ -30,10 +30,10 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             // __MODAL__: {
             //     __STAGE__: 'https://localhost.paypal.com:8443'
             // },
-            __MESSAGE_B__: {
+            __MESSAGE__: {
                 __STAGE__: 'https://localhost.paypal.com:8443'
             },
-            __MESSAGE_B_LEGACY__: {
+            __MESSAGE_LEGACY__: {
                 __STAGE__: 'https://localhost.paypal.com:8443'
             },
             __RAMP_EXCLUSION_LIST__: {
@@ -45,9 +45,8 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         },
         __URI__: {
             __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
-            __MESSAGE_A__: '/credit-presentment/messages',
-            __MESSAGE_B__: '/credit-presentment/messages',
-            __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
+            __MESSAGE__: '/credit-presentment/messages',
+            __MESSAGE_LEGACY__: '/credit-presentment/messages/legacy',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER__: '/ppcredit/messagingLogger'
         }
