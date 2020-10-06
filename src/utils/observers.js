@@ -2,7 +2,8 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { globalState, getGlobalVariable } from './global';
-import { dynamicImport, getCurrentTime, awaitWindowLoad } from './miscellaneous';
+import { dynamicImport, getCurrentTime } from './miscellaneous';
+import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace } from './sdk';
 import { getRoot, elementContains } from './elements';
@@ -34,10 +35,16 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
             ? dynamicImport('https://polyfill.io/v3/polyfill.js?features=IntersectionObserver')
             : undefined
     )
-        // Ensure window has loaded otherwise root can be miscalculated and default to null (viewport)
-        // and cause messages below the fold to hide
-        // e.g. https://www.escortradar.com/products/escort_redline_360c
-        .then(() => awaitWindowLoad)
+        .then(() =>
+            ZalgoPromise.all([
+                // Ensure window has loaded otherwise root can be miscalculated and default to null (viewport)
+                // and cause messages below the fold to hide
+                // e.g. https://www.escortradar.com/products/escort_redline_360c
+                awaitWindowLoad,
+                // Ensure a message has rendered so that the [data-pp-id] querySelector below is not null
+                awaitFirstRender
+            ])
+        )
         .then(() => {
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
