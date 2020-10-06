@@ -12,7 +12,7 @@
 
     .message__logo-container {
         flex-basis: 12%;
-        margin-bottom: -3px;
+        margin-bottom: -6px;
         justify-content: flex-start;
         margin-left: 5px;
     }

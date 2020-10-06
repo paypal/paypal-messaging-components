@@ -3,7 +3,8 @@ import {
     gbPLContentMediaQuery,
     fallbackMediaQuery,
     gbPLAltContentMediaQuery,
-    gbPLMessageLogoWidth
+    gbPLMessageLogoWidth,
+    logo20x1
 } from './mediaQueries';
 
 export default {
@@ -92,40 +93,21 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
+                        tag: 'xsmall'
+                    },
+                    {
+                        tag: 'medium'
                     }
                 ],
-                disclaimer: 'xsmall'
+                disclaimer: ['default']
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
+                styles: [logo20x1()]
             }
         ],
-        [
-            'ratio:8x1',
-            {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
-            }
-        ],
-
         [
             'color:gray',
             {

@@ -1,6 +1,6 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-import { h, Fragment } from 'preact';
+import { h, Fragment } from 'preact'; // eslint-disable-line no-unused-vars
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
@@ -131,7 +131,7 @@ export default ({ options, markup, locale }) => {
                         <div className="message__promo-container">
                             <h5 className="message__headline">
                                 <MutatedText tagData={markup.headline} options={mutationRules.headline} />
-                                {logoType === 'none' || locale === 'GB' ? productNameEl : null}
+                                {logoType === 'none' ? productNameEl : null}
                                 {logoType === 'inline' ? <> {logoEl}</> : null}
                             </h5>{' '}
                             <h6 className="message__sub-headline">
