@@ -1,5 +1,6 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
 import objectAssign from 'core-js-pure/stable/object/assign';
+import { eventEmitter } from 'belter/src';
 
 import { getEnv, getLibraryVersion } from './sdk';
 import { createState } from './miscellaneous';
@@ -56,3 +57,5 @@ export function getGlobalVariable(variable, fn) {
 
     return window[NAMESPACE][variable];
 }
+
+export const globalEvent = eventEmitter();

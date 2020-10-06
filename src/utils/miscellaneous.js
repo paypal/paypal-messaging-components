@@ -184,9 +184,3 @@ export const viewportHijack = memoize(() => {
         }
     ];
 });
-
-export const awaitWindowLoad = new ZalgoPromise(resolve =>
-    typeof document !== 'undefined' && document.readyState !== 'complete'
-        ? window.addEventListener('load', resolve)
-        : resolve()
-);
