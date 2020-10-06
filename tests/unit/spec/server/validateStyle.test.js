@@ -6,11 +6,15 @@ jest.mock('../../../../server/locale/GB/logos.js', () => ({
     default: {
         PRIMARY: {
             COLOR: {},
-            WHITE: {}
+            WHITE: {},
+            GRAYSCALE: {},
+            MONOCHROME: {}
         },
         ALT_NO_PP: {
             COLOR: {},
-            WHITE: {}
+            WHITE: {},
+            GRAYSCALE: {},
+            MONOCHROME: {}
         }
     }
 }));
