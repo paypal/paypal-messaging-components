@@ -158,7 +158,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta }) => {
+                    return ({ meta, activeTags }) => {
                         const { account, index, modal } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
@@ -168,7 +168,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             };
                         });
 
-                        runStats({ container: document.querySelector(`[data-pp-id="${index}"]`), index });
+                        runStats({
+                            container: document.querySelector(`[data-pp-id="${index}"]`),
+                            activeTags,
+                            index
+                        });
 
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
