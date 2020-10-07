@@ -2,7 +2,7 @@
 SUPPORTED_ENVIRONMENTS=("production" "sandbox" "stage")
 SUPPORTED_MODULES=("library" "components" "render")
 # default value if none supplied
-environment="production"
+environment="production,sandbox,stage"
 module="library,components,render"
 
 while getopts ":v:e:m:" flag
