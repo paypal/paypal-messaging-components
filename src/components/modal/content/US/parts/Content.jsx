@@ -21,7 +21,9 @@ const Content = ({ headerRef }) => {
     const initialProduct = arrayFind(products, prod => prod.meta.product === getProductForOffer(offer));
     // In case the product shown in the message, for some reason, does not come back with the modal
     // Ideally, this should never happen
-    const [selectedProduct, setSelectedProduct] = useState(initialProduct ? offer : products[0].meta.product);
+    const [selectedProduct, setSelectedProduct] = useState(
+        initialProduct ? getProductForOffer(offer) : products[0].meta.product
+    );
 
     useScroll(
         ({ target: { scrollTop } }) => {
