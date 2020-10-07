@@ -137,7 +137,7 @@ export default (app, server, compiler) => {
                 };
             }
         } catch (err) {
-            console.log(err);
+            console.error(err); // eslint-disable-line no-console
         }
 
         return null;
@@ -278,7 +278,7 @@ export default (app, server, compiler) => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.error(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 
@@ -336,7 +336,7 @@ export default (app, server, compiler) => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.error(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 
