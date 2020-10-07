@@ -72,3 +72,7 @@ export function getNamespace() {
         return getScript()?.getAttribute('data-pp-namespace') || 'paypal';
     }
 }
+
+export function getLibraryVersion() {
+    return __MESSAGES__.__VERSION__;
+}
