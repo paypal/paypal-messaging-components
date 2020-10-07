@@ -1,10 +1,10 @@
 import Logo from '../logos';
 import {
-    gbPLContentMediaQuery,
-    gbPLAltContentMediaQuery,
-    gbPLMessageLogoWidth,
-    xSmallTagMediaQuery,
-    smallTagMediaQuery
+    gbplContentMediaQuery,
+    gbplAltContentMediaQuery,
+    gbplMessageLogoWidth,
+    xSmallFallback,
+    smallFallback
 } from './mediaQueries';
 import { textLogoMutations } from './common';
 
@@ -15,8 +15,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__headline > .tag--medium .weak.br { white-space: nowrap; }`,
-                    xSmallTagMediaQuery(textSize * 15.5),
-                    gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 15.5),
+                    gbplMessageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
@@ -33,8 +33,8 @@ export default {
             'logo.type:primary',
             ({ textSize }) => ({
                 styles: [
-                    xSmallTagMediaQuery(textSize * 15.5),
-                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 15.5),
+                    gbplMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -42,9 +42,9 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallTagMediaQuery(textSize * 15.5),
-                    gbPLContentMediaQuery(textSize * 31 + 10),
-                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 15.5),
+                    gbplContentMediaQuery(textSize * 31 + 10),
+                    gbplMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -52,8 +52,8 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    xSmallTagMediaQuery(textSize * 15.5),
-                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 15.5),
+                    gbplMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -61,9 +61,9 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    gbPLAltContentMediaQuery(textSize * 17, textSize * 26.5),
-                    xSmallTagMediaQuery(textSize * 17),
-                    gbPLMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    gbplAltContentMediaQuery(textSize * 17, textSize * 26.5),
+                    xSmallFallback(textSize * 17),
+                    gbplMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
             })
@@ -71,7 +71,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 17)],
+                styles: [smallFallback(textSize * 17)],
                 logo: false,
                 headline: [
                     {
@@ -87,7 +87,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 17 + 4), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [smallFallback(textSize * 17 + 4), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     {

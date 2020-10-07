@@ -1,5 +1,5 @@
 // Media query used to fallback to "Buy now, pay later."
-export function xSmallTagMediaQuery(breakpoint) {
+export function xSmallFallback(breakpoint) {
     return `
     .message__headline {
         white-space: nowrap;
@@ -35,7 +35,7 @@ export function xSmallTagMediaQuery(breakpoint) {
 }
 
 // Media query used to fallback to "Buy now and pay later with PayPal."
-export function smallTagMediaQuery(breakpoint) {
+export function smallFallback(breakpoint) {
     return `
     .message__headline {
         white-space: nowrap;
@@ -66,7 +66,7 @@ export function smallTagMediaQuery(breakpoint) {
 }
 
 // Moves PayPal logo to position right for logo primary message config.
-export function gbPLContentMediaQuery(breakpoint) {
+export function gbplContentMediaQuery(breakpoint) {
     return `
     @media (min-width: ${breakpoint}px) {
         .locale--GB .message__content {
@@ -82,7 +82,7 @@ export function gbPLContentMediaQuery(breakpoint) {
  * @param {number} logoWidth Changes overall logo width.
  * @param {number} monogramWidth Changes width of the first-child of message__logo. In this case, the PP monogram.
  */
-export function gbPLMessageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
+export function gbplMessageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
     const messageLogoContainer =
         typeof logoContainerWidth === 'number' ? `.message__logo-container { width: ${logoContainerWidth}px; }` : '';
     const messageLogo = typeof logoWidth === 'number' ? `.message__logo { width: ${logoWidth}px; }` : '';
@@ -96,7 +96,7 @@ export function gbPLMessageLogoWidth(logoContainerWidth, logoWidth, monogramWidt
  * @param {number} disclaimerBreak Changes disclaimer to inline at specified breakpoint.
  * @param {number} tagMediumBreak Breaks text inside of .tag--medium to two lines at specified breakpoint.
  */
-export function gbPLAltContentMediaQuery(disclaimerBreak, tagMediumBreak) {
+export function gbplAltContentMediaQuery(disclaimerBreak, tagMediumBreak) {
     return `
     @media (max-width: ${disclaimerBreak}px) {
         .message__disclaimer {
