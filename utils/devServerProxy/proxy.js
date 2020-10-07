@@ -214,6 +214,10 @@ export default (app, server, compiler) => {
             meta: {
                 csrf: 'csrf'
             },
+            aprEntry: {
+                apr: 25.49,
+                formattedDate: '9/01/2020'
+            },
             country,
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
