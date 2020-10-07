@@ -1,12 +1,12 @@
-import arrayFind from 'core-js-pure/stable/array/find';
-import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise';
 
 import { globalState, getGlobalVariable } from './global';
-import { dynamicImport, getCurrentTime, DOMContentLoaded } from './miscellaneous';
+import { dynamicImport, getCurrentTime } from './miscellaneous';
+import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace } from './sdk';
+import { getRoot, elementContains } from './elements';
 
 export const attributeObserver = getGlobalVariable(
     '__attribute_observer__',
@@ -28,45 +28,27 @@ export const attributeObserver = getGlobalVariable(
         })
 );
 
-const getRoot = () => {
-    const { innerWidth, innerHeight } = window;
-    const elementsFromPoint = (typeof document.elementsFromPoint === 'function'
-        ? document.elementsFromPoint
-        : document.msElementsFromPoint
-    ).bind(document);
-
-    const root = arrayFind(
-        arrayFrom(elementsFromPoint(innerWidth / 2, innerHeight / 2)).reverse(),
-        (el, index, elements) => {
-            // We are searching for the element that contains the page scrolling.
-            // Some merchant sites will use height 100% on elements such as html and body
-            // that cause the intersection observer to hide elements below the fold.
-            const { height } = window.getComputedStyle(el);
-            const child = elements[index + 1];
-
-            return (
-                height !== `${innerHeight}px` ||
-                // Ensure that the selected root is the larger of the parent and child
-                (child && window.getComputedStyle(child).height < height)
-            );
-        }
-    );
-
-    return root;
-};
-
 export const overflowObserver = getGlobalVariable('__intersection_observer__', () =>
     ZalgoPromise.resolve(
+        // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'
             ? dynamicImport('https://polyfill.io/v3/polyfill.js?features=IntersectionObserver')
             : undefined
     )
-        // Ensure DOM has loaded otherwise root can default to null (viewport)
-        // and cause messages below the fold to hide
-        // e.g. https://www.escortradar.com/products/escort_redline_360c
-        .then(() => DOMContentLoaded)
+        .then(() =>
+            ZalgoPromise.all([
+                // Ensure window has loaded otherwise root can be miscalculated and default to null (viewport)
+                // and cause messages below the fold to hide
+                // e.g. https://www.escortradar.com/products/escort_redline_360c
+                awaitWindowLoad,
+                // Ensure a message has rendered so that the [data-pp-id] querySelector below is not null
+                awaitFirstRender
+            ])
+        )
         .then(() => {
-            const root = getRoot();
+            // A single page app could cause an issue here if the root element is
+            // determined to be inside the main single page app code
+            const root = getRoot(document.querySelector('[data-pp-id]'));
             // eslint-disable-next-line compat/compat
             return new IntersectionObserver(
                 (entries, observer) => {
@@ -96,14 +78,7 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                         // If this is the case we run our own calculations as a fallback.
                         // e.g. https://www.auto-protect-shop.de/nanolex-ultra-glasversiegelung-set/a-528
                         if (entry.rootBounds.width === 0 && entry.rootBounds.height === 0) {
-                            const rootBounds = root.getBoundingClientRect();
-                            const boundingClientRect = entry.target.getBoundingClientRect();
-
-                            isIntersectingFallback =
-                                rootBounds.top <= boundingClientRect.top &&
-                                rootBounds.bottom >= boundingClientRect.bottom &&
-                                rootBounds.left <= boundingClientRect.left &&
-                                rootBounds.right >= boundingClientRect.right;
+                            isIntersectingFallback = elementContains(root, entry.target);
                         }
 
                         if (

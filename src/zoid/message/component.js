@@ -7,6 +7,7 @@ import {
     getEnv,
     getGlobalUrl,
     getGlobalVariable,
+    getLibraryVersion,
     runStats,
     logger,
     globalState,
@@ -278,7 +279,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             version: {
                 type: 'string',
                 queryParam: true,
-                value: () => __MESSAGES__.__VERSION__
+                value: getLibraryVersion
             }
         }
     })

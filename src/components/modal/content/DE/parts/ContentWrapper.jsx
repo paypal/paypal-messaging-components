@@ -10,7 +10,9 @@ const ContentWrapper = () => {
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={612}>
-            <Header />
+            {/* The empty className is needed to prevent a Preact issue that was introduced */}
+            {/* https://github.com/preactjs/preact/issues/2781 */}
+            <Header className="" />
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
                     <div className="content">

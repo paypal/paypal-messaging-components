@@ -10,6 +10,7 @@ export * from './stats';
 export * from './experimentation';
 export * from './observers';
 export * from './activeTags';
+export * from './events';
 
 // TODO: Remove this after the ramp
 export * from './old';
