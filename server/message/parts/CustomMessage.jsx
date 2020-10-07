@@ -50,6 +50,7 @@ const CustomMessage = ({ children, data, meta, template }) => {
     return (
         <div role="button" className="message" tabIndex="0">
             {children}
+            {/* eslint-disable-next-line react/no-danger */}
             <div dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
         </div>
     );
