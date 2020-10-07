@@ -41,6 +41,13 @@ main {
     }
 }
 
+.top-overlay {
+    position: fixed;
+    height: 84px;
+    left: 0;
+    right: 0;
+}
+
 @include desktop {
     .content-background {
         min-height: auto;
