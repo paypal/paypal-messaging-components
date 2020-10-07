@@ -1,6 +1,5 @@
 .content-wrapper {
     overflow-y: scroll;
-    max-width: 640px;
     margin: auto;
     border-radius: 10px;
     height: 100%;
@@ -86,6 +85,14 @@ main {
     .content-wrapper {
         margin-top: 84px;
         height: calc(100% - 84px);
+
+        // Hide scrollbar at mobile sizes
+        // TODO: Find a better way to fix scrollbar appearance issues
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .content {

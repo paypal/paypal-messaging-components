@@ -2,31 +2,12 @@
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 
 import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
-import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect } from '../../../lib';
+import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, getProductForOffer } from '../../../lib';
 import Button from '../../../parts/Button';
-
-// Determine pre-selected tab based on the offer type of the banner.
-const determineInitialTab = (offer = 'NI') => {
-    if (
-        arrayIncludes(
-            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
-            offer.toUpperCase()
-        )
-    ) {
-        return 'EZP';
-    }
-
-    if (arrayIncludes(['GPL', 'GPLQ'], offer.toUpperCase())) {
-        return 'GPL';
-    }
-
-    return 'NI';
-};
 
 const Content = ({ headerRef }) => {
     const cornerRef = useRef();
@@ -37,7 +18,7 @@ const Content = ({ headerRef }) => {
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
 
-    const initialProduct = arrayFind(products, prod => prod.meta.product === determineInitialTab(offer));
+    const initialProduct = arrayFind(products, prod => prod.meta.product === getProductForOffer(offer));
     // In case the product shown in the message, for some reason, does not come back with the modal
     // Ideally, this should never happen
     const [selectedProduct, setSelectedProduct] = useState(initialProduct ? offer : products[0].meta.product);
