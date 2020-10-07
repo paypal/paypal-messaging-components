@@ -7,24 +7,26 @@ import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 const devAccountMap = {
-    DEV00000000NI: ['US', ['NI'], 'ni'],
-    DEV0000000NIQ: ['US', ['NI'], 'niq'],
-    DEV000NINONUS: ['US', ['NI'], 'ni_non-us'],
-    DEV00NINONUSQ: ['US', ['NI'], 'niq_non-us'],
-    DEV0000000EAZ: ['US', ['NI', 'EZP'], 'ezp_any_eqz'],
-    DEV0000000EAG: ['US', ['NI', 'EZP'], 'ezp_any_gtz'],
-    DEV0000000PSZ: ['US', ['NI', 'EZP'], 'pala_single_eqz'],
-    DEV0000000PSG: ['US', ['NI', 'EZP'], 'pala_single_gtz'],
-    DEV0000000PMZ: ['US', ['NI', 'EZP'], 'pala_multi_eqz'],
-    DEV0000000PMG: ['US', ['NI', 'EZP'], 'pala_multi_gtz'],
+    DEV00000000NI: ['US', ['ni'], 'ni'],
+    DEV0000000NIQ: ['US', ['ni'], 'niq'],
+    DEV000NINONUS: ['US', ['ni'], 'ni_non-us'],
+    DEV00NINONUSQ: ['US', ['ni'], 'niq_non-us'],
+    DEV0000000EAZ: ['US', ['ni_old', 'ezp_old'], 'ezp_any_eqz'],
+    DEV0000000EAG: ['US', ['ni_old', 'ezp_old'], 'ezp_any_gtz'],
+    DEV0000000PSZ: ['US', ['ni_old', 'ezp_old'], 'pala_single_eqz'],
+    DEV0000000PSG: ['US', ['ni_old', 'ezp_old'], 'pala_single_gtz'],
+    DEV0000000PMZ: ['US', ['ni_old', 'ezp_old'], 'pala_multi_eqz'],
+    DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
+    DEV0000000GPL: ['US', ['gpl'], 'gpl'],
+    DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
 
-    DEV0000000IAZ: ['DE', ['INST'], 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', ['INST'], 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', ['INST'], 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', ['INST'], 'palaq_any_eqz'],
+    DEV0000000IAZ: ['DE', ['inst'], 'inst_any_eqz'],
+    DEV0000000IAG: ['DE', ['inst'], 'inst_any_gtz'],
+    DEV000000PQAG: ['DE', ['inst'], 'palaq_any_gtz'],
+    DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', ['PL'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['PL'], 'plq']
+    DEV000000GBPL: ['GB', ['gpl'], 'pl'],
+    DEV00000GBPLQ: ['GB', ['gpl'], 'plq']
 };
 
 export default (app, server, compiler) => {
@@ -66,7 +68,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
                     || window.top.document.querySelector('script[src*="messaging.js"]')
                     || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
 
@@ -98,6 +100,7 @@ export default (app, server, compiler) => {
 
             if (populatedBanner) {
                 const style = JSON.parse(req.query.style);
+                const { amount } = req.query;
 
                 // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                 const { render, validateStyle, getParentStyles } = eval(
@@ -111,10 +114,11 @@ export default (app, server, compiler) => {
                 const validatedStyle = validateStyle(
                     warnings.push.bind(warnings),
                     style,
-                    populatedBanner.meta.offerCountry
+                    populatedBanner.meta.offerCountry,
+                    populatedBanner.meta.offerType
                 );
 
-                const markup = render({ style: validatedStyle }, populatedBanner);
+                const markup = render({ style: validatedStyle, amount }, populatedBanner);
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
@@ -133,7 +137,7 @@ export default (app, server, compiler) => {
                 };
             }
         } catch (err) {
-            console.log(err);
+            console.error(err); // eslint-disable-line no-console
         }
 
         return null;
@@ -158,23 +162,71 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', (req, res) => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount, targetMeta } = req.query;
         const account = clientId || payerId || merchantId;
-        const [country, products] = devAccountMap[account] ?? ['US', ['NI']];
+        const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
+
+        const productsJSON = productNames.map(product =>
+            fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString()
+        );
+
+        const terms = getTerms(country, Number(amount));
+        const [bestOffer] = terms.offers || [{}];
+        const toLocaleCurrency = localizeCurrency(country);
+
+        const morsVars = {
+            formattedPeriodicPayment: amount ? toLocaleCurrency(bestOffer.monthly) : '-',
+            apr: bestOffer.apr,
+            minAmount: terms.minAmount,
+            maxAmount: terms.maxAmount,
+            formattedTransactionAmount: terms.amount ? toLocaleCurrency(terms.amount) : '-',
+            qualifying_offer: terms.amount ? 'true' : 'false',
+            total_payments: bestOffer.term,
+            formattedMinAmount: toLocaleCurrency(terms.minAmount),
+            formattedMaxAmount: toLocaleCurrency(terms.maxAmount),
+            nominal_rate: bestOffer.nominalRate
+        };
+
+        const otherVars = {
+            'aprEntry.apr': 25.49,
+            'aprEntry.formattedDate': '9/01/2020',
+            fullYear: 2020
+        };
+
+        const products = productsJSON.map(json => {
+            const morsPopulatedJSON = populateTemplate(morsVars, json);
+
+            const populatedJSON = Object.entries(otherVars).reduce(
+                (accumulator, [variable, val]) =>
+                    // eslint-disable-next-line security/detect-non-literal-regexp
+                    accumulator.replace(new RegExp(`{${variable}}`, 'g'), val),
+                morsPopulatedJSON
+                    .replace(/\${eval\(transaction_amount \? transaction_amount : '-'\)}/g, terms.amount ?? '-')
+                    .replace(
+                        /\${eval\(CREDIT_OFFERS_DS\.qualifying_offer \? CREDIT_OFFERS_DS\.qualifying_offer : 'false'\)}/g,
+                        terms.qualifying_offer
+                    )
+            );
+
+            return JSON.parse(populatedJSON);
+        });
 
         const props = {
-            aprEntry: { formattedDate: '3/1/2020', apr: 25.49 },
             terms: getTerms(country, Number(amount)),
             meta: {
                 csrf: 'csrf'
             },
+            aprEntry: {
+                apr: 25.49,
+                formattedDate: '9/01/2020'
+            },
             country,
             products,
-            type: products.slice(-1)[0], // TODO: Can be removed after the ramp
+            type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account
         };
 
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${country}`,
+                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : country}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`
             )
         );
@@ -230,7 +282,7 @@ export default (app, server, compiler) => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.error(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 
@@ -288,7 +340,7 @@ export default (app, server, compiler) => {
                     res.set(headers);
                     res.send(body);
                 })
-                .catch(err => console.log(err) || res.status(500).send(err));
+                .catch(err => console.error(err) || res.status(500).send(err)); // eslint-disable-line no-console
         }
     });
 

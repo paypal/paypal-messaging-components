@@ -1,17 +1,12 @@
 import Logo from '../logos';
-import {
-    gbPLContentMediaQuery,
-    fallbackMediaQuery,
-    gbPLAltContentMediaQuery,
-    gbPLMessageLogoWidth
-} from './mediaQueries';
+import { gbPLContentMediaQuery, fallbackMediaQuery, plAltContentMediaQuery, messageLogoWidth } from './mediaQueries';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
@@ -27,7 +22,7 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), gbPLMessageLogoWidth(false, textSize * 4, textSize * 1.25)]
+                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -36,7 +31,7 @@ export default {
                 styles: [
                     fallbackMediaQuery(textSize * 13),
                     gbPLContentMediaQuery(textSize * 38 + 10),
-                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -45,7 +40,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     fallbackMediaQuery(textSize * 13),
-                    gbPLMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
@@ -53,9 +48,9 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    gbPLAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
+                    plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
                     fallbackMediaQuery(textSize * 20),
-                    gbPLMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
             })

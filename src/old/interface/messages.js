@@ -1,3 +1,4 @@
+import arrayFrom from 'core-js-pure/stable/array/from';
 import { destroy as zoidDestroy } from 'zoid/src';
 import { destroy as bannerDestroy } from '../messages/controllers/render';
 import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
@@ -57,7 +58,7 @@ export function destroy() {
 
     bannerDestroy();
 
-    document.querySelectorAll('[data-pp-id]').forEach(node => {
+    arrayFrom(document.querySelectorAll('[data-pp-id]')).forEach(node => {
         node.removeAttribute('data-pp-id');
         node.firstChild.remove();
     });

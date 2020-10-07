@@ -14,11 +14,6 @@
     vertical-align: middle;
 }
 
-.message__disclaimer > .tag--default > span {
-    font-weight: 500;
-    color: #0070ba;
-}
-
 .message__logo:first-child {
     margin-right: 5px;
     margin-top: 2px;

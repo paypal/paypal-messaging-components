@@ -1,0 +1,55 @@
+.header-wrapper {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    &::after {
+        content: '';
+        display: table-cell;
+        visibility: hidden;
+        overflow-y: scroll;
+    }
+
+    .header-container {
+        display: table-cell;
+        width: 100%;
+    }
+
+    .header {
+        background: rgb(246, 247, 251);
+        text-align: center;
+        width: 100%;
+        max-width: 612px;
+        margin: 0 auto;
+        position: relative;
+        height: 100%;
+    }
+
+    .logo {
+        box-sizing: border-box;
+        display: block;
+        margin: 0 auto;
+        height: 72px;
+        transition: all 0.3s;
+    }
+
+    .close {
+        svg {
+            height: 48px;
+            width: 48px;
+        }
+
+        path {
+            stroke-width: 1px;
+            transition: all 0.3s;
+        }
+    }
+
+    .logo-wrapper {
+        transition: all 0.3s;
+        transform: translateX(0) scale(1);
+    }
+}
