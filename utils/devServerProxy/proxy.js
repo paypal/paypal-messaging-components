@@ -222,7 +222,7 @@ export default (app, server, compiler) => {
 
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${country}`,
+                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : country}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`
             )
         );
