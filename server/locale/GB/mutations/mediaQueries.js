@@ -77,12 +77,12 @@ export function gbplContentMediaQuery(breakpoint) {
 }
 
 /**
- * Used for GBPL/GBPLQ message logo width configurations.
+ * Used for message logo width configurations.
  * @param {number} logoContainerWidth Changes message logo container width.
  * @param {number} logoWidth Changes overall logo width.
  * @param {number} monogramWidth Changes width of the first-child of message__logo. In this case, the PP monogram.
  */
-export function gbplMessageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
+export function messageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
     const messageLogoContainer =
         typeof logoContainerWidth === 'number' ? `.message__logo-container { width: ${logoContainerWidth}px; }` : '';
     const messageLogo = typeof logoWidth === 'number' ? `.message__logo { width: ${logoWidth}px; }` : '';

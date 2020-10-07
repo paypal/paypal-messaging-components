@@ -3,7 +3,7 @@ import {
     gbplContentMediaQuery,
     xSmallFallback,
     gbplAltContentMediaQuery,
-    gbplMessageLogoWidth,
+    messageLogoWidth,
     smallFallback
 } from './mediaQueries';
 import { textLogoMutations } from './common';
@@ -13,7 +13,7 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), gbplMessageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
@@ -28,7 +28,7 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), gbplMessageLogoWidth(false, textSize * 4, textSize * 1.25)]
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -37,17 +37,14 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     gbplContentMediaQuery(textSize * 36 + 10),
-                    gbplMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    xSmallFallback(textSize * 16),
-                    gbplMessageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -56,7 +53,7 @@ export default {
                 styles: [
                     gbplAltContentMediaQuery(textSize * 17, textSize * 32),
                     xSmallFallback(textSize * 18),
-                    gbplMessageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
             })

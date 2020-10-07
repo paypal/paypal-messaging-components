@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.13.6",
+    "version": "1.14.0",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -19,19 +19,22 @@
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
-        "build:prod": "webpack",
+        "build:stage": "webpack --env.NODE_ENV=stage",
+        "build:sandbox": "webpack --env.NODE_ENV=sandbox",
+        "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local",
         "dev:legacy": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=legacy --env.NODE_ENV=local",
         "dev:stage": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=stage",
-        "dev:prod": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=production",
+        "dev:sandbox": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=sandbox",
+        "dev:production": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=production",
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
         "start": "npm run dev",
-        "test": "jest",
-        "test:func": "jest --projects tests/functional",
+        "test": "jest --verbose",
+        "test:func": "jest --verbose --projects tests/functional",
         "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
     },
     "dependencies": {

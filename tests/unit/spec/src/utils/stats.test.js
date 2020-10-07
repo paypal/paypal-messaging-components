@@ -46,10 +46,11 @@ describe('stats', () => {
             browser_height: '768',
             visible: 'true',
             adblock: 'true',
-            blocked: 'true'
+            blocked: 'true',
+            active_tags: expect.any(String)
         };
 
-        runStats({ container, index });
+        runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -81,10 +82,11 @@ describe('stats', () => {
             browser_height: '10',
             visible: 'false',
             adblock: 'true',
-            blocked: 'true'
+            blocked: 'true',
+            active_tags: expect.any(String)
         };
 
-        runStats({ container, index });
+        runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
