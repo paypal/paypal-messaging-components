@@ -5,7 +5,7 @@ import modalSnapshot from '../../utils/modalSnapshot';
  * Runs inside modalTextCalc and modalFlexCalc for the DE locale.
  */
 
-export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
+export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
@@ -25,10 +25,10 @@ export const nonQualErrorMsg = (account, viewport, bannerStyle) => async () => {
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const updateFinanceTerms = (account, viewport, bannerStyle) => async () => {
+export const updateFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'DE update finance terms';
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll('iframe[title*="paypal_credit_modal"]')).find(
@@ -49,10 +49,10 @@ export const updateFinanceTerms = (account, viewport, bannerStyle) => async () =
     await modalFrame.click(selectors.button.btnMd);
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const deModalContentAndCalc = (account, viewport, bannerStyle) => async () => {
+export const deModalContentAndCalc = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp message content';
 
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
@@ -66,5 +66,5 @@ export const deModalContentAndCalc = (account, viewport, bannerStyle) => async (
     expect(calcTitle).toContain('Monatliche Raten berechnen');
     await page.waitFor(800);
 
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };

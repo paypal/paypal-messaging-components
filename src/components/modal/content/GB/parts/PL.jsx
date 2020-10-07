@@ -1,61 +1,70 @@
 /** @jsx h */
-import { h } from 'preact';
-import { useCalculator } from '../../../lib/hooks';
+import { h, Fragment } from 'preact';
 import Icon from '../../../parts/Icon';
+import { useContent, useProductMeta } from '../../../lib';
 
-const isEligible = terms => {
-    if (typeof terms.amount === 'undefined' || terms.amount < terms.minAmount || terms.amount > terms.maxAmount) {
+const headline = () => {
+    const {
+        headline: { unqualified, qualified }
+    } = useContent('GPL');
+
+    const { qualifying } = useProductMeta('GPL');
+
+    if (qualifying !== 'TRUE') {
         return (
             <h1 className="offer">
-                3 interest-free monthly <br /> payments with Flex
+                {unqualified[0]} <br /> {unqualified[1]}
             </h1>
         );
     }
+
     return (
         <h1 className="offer">
-            3 interest-free payments of <br /> £{terms.offers[0].periodic} per month with Flex
+            {qualified[0].replace(/\.00/g, '')} <br /> {qualified[1].replace(/\.00/g, '')}
         </h1>
     );
 };
 
 const PL = () => {
-    const { terms } = useCalculator();
+    const { subHeadline, terms, instructions, productName } = useContent('GPL');
+    const { qualifying } = useProductMeta('GPL');
+
     return (
         <div className="content-body">
             <div className="left">
-                {isEligible(terms)}
-                <p className="subheadline">
-                    {!terms.error && terms.formattedMinAmount && terms.formattedMaxAmount
-                        ? `For purchases between £${terms.formattedMinAmount} and £${terms.formattedMaxAmount}`
-                        : 'On eligible purchases'}
-                </p>
+                {headline()}
+                <p className="subheadline">{qualifying === 'TRUE' ? subHeadline.qualified : subHeadline.unqualified}</p>
                 <Icon name="icecream" />
                 <div className="thumbs-up">
                     <Icon name="thumbs-up" />
                 </div>
                 <div className="terms">
                     <p>
-                        Subject to status. Terms and Conditions apply. UK residents only. <br />
-                        PayPal Flex is a trading name of PayPal (Europe) S.à.r.l. et <br />
-                        Cie, S.C.A., <br /> 22-24 Boulevard Royal, L-2449, Luxembourg.
+                        {terms.map(term => (
+                            <Fragment>
+                                {term}
+                                <br />
+                            </Fragment>
+                        ))}
                     </p>
                 </div>
             </div>
             <div className="right">
                 <h2 className="title">Buy now, pay later</h2>
                 <div className="info">
-                    <Icon name="shopping-bag" />
-                    <p>
-                        Get your items straight away <br /> and pay nothing for 1 month.
-                    </p>
-                    <Icon name="checkmark" />
-                    <p>
-                        Apply easily and get an <br /> instant decision.
-                    </p>
-                    <Icon name="pp-button" />
-                    <p>
-                        Check out with PayPal and <br /> choose <span>Flex.</span>
-                    </p>
+                    {instructions.map(([icon, ...text]) => (
+                        <Fragment>
+                            <Icon name={icon} />
+                            <p>
+                                {text.map((textPart, idx) => (
+                                    <Fragment>
+                                        {idx !== 0 && textPart !== 'PRODUCT_NAME' ? <br /> : null}
+                                        {textPart === 'PRODUCT_NAME' ? <span>{productName}</span> : textPart}
+                                    </Fragment>
+                                ))}
+                            </p>
+                        </Fragment>
+                    ))}
                 </div>
             </div>
         </div>
