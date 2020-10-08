@@ -7,7 +7,7 @@ import modalSnapshot from '../../utils/modalSnapshot';
 
 export const gbModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'gb modal content';
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);

@@ -1,19 +1,37 @@
-import { getEnv } from './sdk';
+import objectKeys from 'core-js-pure/stable/object/keys';
+import objectAssign from 'core-js-pure/stable/object/assign';
+import { eventEmitter } from 'belter/src';
+
+import { getEnv, getLibraryVersion } from './sdk';
 import { createState } from './miscellaneous';
 
-// TODO: refactor top-level use of window object to allow server-side rendering
-export const [globalState, setGlobalState] = createState(window.__paypal_messages_state__ || { nextId: 1, config: {} });
+// Following the global naming convention of zoid and prevent collision with merchant.js
+const NAMESPACE = `__paypal_messages_${getLibraryVersion().replace(/[.-]/g, '_')}__`;
 
-Object.defineProperty(window, '__paypal_messages_state__', {
+const createDefaultState = () => ({
+    index: 1,
+    config: {},
+    messagesMap: new Map()
+});
+
+export const [globalState, setGlobalState] = createState(window[NAMESPACE] || createDefaultState());
+export const destroyGlobalState = () => {
+    objectKeys(globalState).forEach(key => delete globalState[key]);
+    objectAssign(globalState, createDefaultState());
+
+    delete window[NAMESPACE];
+};
+
+Object.defineProperty(window, NAMESPACE, {
     value: globalState,
     enumerable: false,
     configurable: true,
     writable: false
 });
 
-export const nextId = () => {
-    setGlobalState({ nextId: globalState.nextId + 1 });
-    return globalState.nextId - 1;
+export const nextIndex = () => {
+    setGlobalState({ index: globalState.index + 1 });
+    return globalState.index - 1;
 };
 
 const DOMAINS = __MESSAGES__.__DOMAIN__;
@@ -31,3 +49,13 @@ export function getGlobalUrl(type) {
 
     return `${domain}${URI[typeField]}`;
 }
+
+export function getGlobalVariable(variable, fn) {
+    if (!window[NAMESPACE][variable]) {
+        window[NAMESPACE][variable] = fn();
+    }
+
+    return window[NAMESPACE][variable];
+}
+
+export const globalEvent = eventEmitter();

@@ -1,5 +1,95 @@
 # Changelog
 
+# [1.14.0](https://github.com/paypal/paypal-messaging-components/compare/v1.13.8...v1.14.0) (2020-10-07)
+
+
+### Features
+
+* GPL US messages ([#332](https://github.com/paypal/paypal-messaging-components/issues/332)) ([dff3ed6](https://github.com/paypal/paypal-messaging-components/commit/dff3ed694336b0ec3d78b30e7371c1b24b20a7a8))
+
+## [1.13.8](https://github.com/paypal/paypal-messaging-components/compare/v1.13.7...v1.13.8) (2020-10-06)
+
+
+### Bug Fixes
+
+* prevent overflow observer race condition ([#329](https://github.com/paypal/paypal-messaging-components/issues/329)) ([b9e81d7](https://github.com/paypal/paypal-messaging-components/commit/b9e81d7759cb32c938c465e4f50ffbdf21ebf685))
+
+## [1.13.7](https://github.com/paypal/paypal-messaging-components/compare/v1.13.6...v1.13.7) (2020-10-05)
+
+
+### Bug Fixes
+
+* compare numeric values with root height calculations ([#317](https://github.com/paypal/paypal-messaging-components/issues/317)) ([38daae6](https://github.com/paypal/paypal-messaging-components/commit/38daae684fc78e9f831962e2876d1a223c47d6cf))
+* DE modal preact className issue ([#316](https://github.com/paypal/paypal-messaging-components/issues/316)) ([e7ea62e](https://github.com/paypal/paypal-messaging-components/commit/e7ea62e2c7ef3afe931ea84632ae963bb6ef5f63))
+* handle GPL modal type ([#320](https://github.com/paypal/paypal-messaging-components/issues/320)) ([b1b4131](https://github.com/paypal/paypal-messaging-components/commit/b1b41312007061f8adef1cbdc8617cda4b002da2))
+* handle undefined window reference when running locally ([#325](https://github.com/paypal/paypal-messaging-components/issues/325)) ([c53e4dc](https://github.com/paypal/paypal-messaging-components/commit/c53e4dc3ced6538dd6db2558004e0366e4b0b9a0))
+* improve overflow detection with html and body height 100% ([#323](https://github.com/paypal/paypal-messaging-components/issues/323)) ([c857953](https://github.com/paypal/paypal-messaging-components/commit/c857953b7d3adfab701d6783302fa4e4f557c003))
+* remove default preset value ([#318](https://github.com/paypal/paypal-messaging-components/issues/318)) ([8f18e0f](https://github.com/paypal/paypal-messaging-components/commit/8f18e0f2ec2722695ef06192ba36e57104a4bcc2))
+
+## [1.13.6](https://github.com/paypal/paypal-messaging-components/compare/v1.13.5...v1.13.6) (2020-09-30)
+
+
+### Bug Fixes
+
+* append data to existing bdata ([#307](https://github.com/paypal/paypal-messaging-components/issues/307)) ([febf58d](https://github.com/paypal/paypal-messaging-components/commit/febf58d9c7c74bcef8c6dd9b5aca896bce9df2db))
+* improve updating message styles ([#305](https://github.com/paypal/paypal-messaging-components/issues/305)) ([0ed2449](https://github.com/paypal/paypal-messaging-components/commit/0ed2449a0947a032cf561669d967e98ffd5b181a))
+* polyfill in old modal code ([#301](https://github.com/paypal/paypal-messaging-components/issues/301)) ([e8b68b5](https://github.com/paypal/paypal-messaging-components/commit/e8b68b5b330d1ef6982d4dabfbee157530c940fc))
+* store viewport state on DOM elements to prevent SDK destroy issues ([#314](https://github.com/paypal/paypal-messaging-components/issues/314)) ([bd9220f](https://github.com/paypal/paypal-messaging-components/commit/bd9220f4e15933511e7a48c396e571968032397e))
+
+## [1.13.5](https://github.com/paypal/paypal-messaging-components/compare/v1.13.4...v1.13.5) (2020-09-23)
+
+
+### Bug Fixes
+
+* ensure DOM ready before searching for root page element ([#294](https://github.com/paypal/paypal-messaging-components/issues/294)) ([511d268](https://github.com/paypal/paypal-messaging-components/commit/511d2685eb8fd84525385c0e6ebabc7394f54b14))
+* protect against server side document check ([#295](https://github.com/paypal/paypal-messaging-components/issues/295)) ([807d56e](https://github.com/paypal/paypal-messaging-components/commit/807d56e6ffb1595e07b11754d49795c8bff13d37))
+
+## [1.13.4](https://github.com/paypal/paypal-messaging-components/compare/v1.13.3...v1.13.4) (2020-09-21)
+
+
+### Bug Fixes
+
+* zoid container overflow detection and modal iframe styles ([#290](https://github.com/paypal/paypal-messaging-components/issues/290)) ([4185290](https://github.com/paypal/paypal-messaging-components/commit/4185290ad5b58951979b776214e18f78dd399a5f))
+
+## [1.13.3](https://github.com/paypal/paypal-messaging-components/compare/v1.13.2...v1.13.3) (2020-09-16)
+
+
+### Bug Fixes
+
+* inline text size ([#280](https://github.com/paypal/paypal-messaging-components/issues/280)) ([f8ea320](https://github.com/paypal/paypal-messaging-components/commit/f8ea320db03cfcd66b629a1a1df45a81aaa69429))
+* prevent firing message onClick with modal onClick ([#282](https://github.com/paypal/paypal-messaging-components/issues/282)) ([d8df44b](https://github.com/paypal/paypal-messaging-components/commit/d8df44b9956030ff04a3db0afd0ed30bf9d2f1b1))
+* update message render variant ([#279](https://github.com/paypal/paypal-messaging-components/issues/279)) ([11d2211](https://github.com/paypal/paypal-messaging-components/commit/11d2211b4cd55e27809e8711695d53874cc9e4e8))
+
+## [1.13.2](https://github.com/paypal/paypal-messaging-components/compare/v1.13.1...v1.13.2) (2020-09-09)
+
+
+### Bug Fixes
+
+* allow for inline text size attribute ([#273](https://github.com/paypal/paypal-messaging-components/issues/273)) ([c511b50](https://github.com/paypal/paypal-messaging-components/commit/c511b50985cbd96645fef937c46902a31f75cbae))
+* improve handling iframe moving around the DOM ([#274](https://github.com/paypal/paypal-messaging-components/issues/274)) ([93e9323](https://github.com/paypal/paypal-messaging-components/commit/93e93232ac37247c13f63f3fc9346a4187992d0e))
+* prevent setup from overwritting alias if no account present ([#271](https://github.com/paypal/paypal-messaging-components/issues/271)) ([11c0527](https://github.com/paypal/paypal-messaging-components/commit/11c0527fdd1c17eb4afcbedcb8fc92500fee56bc))
+
+## [1.13.1](https://github.com/paypal/paypal-messaging-components/compare/v1.13.0...v1.13.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* production modal bundle name ([#269](https://github.com/paypal/paypal-messaging-components/issues/269)) ([97278d8](https://github.com/paypal/paypal-messaging-components/commit/97278d88bfe7c1f7c5b4fa7f9c3a31ab07510c71))
+
+# [1.13.0](https://github.com/paypal/paypal-messaging-components/compare/v1.12.4...v1.13.0) (2020-09-02)
+
+
+### Features
+
+* zoid message ([#262](https://github.com/paypal/paypal-messaging-components/issues/262)) ([36f8321](https://github.com/paypal/paypal-messaging-components/commit/36f8321f15d846232cf2b8665b4b0e96a471f4d6))
+
+## [1.12.4](https://github.com/paypal/paypal-messaging-components/compare/v1.12.3...v1.12.4) (2020-08-19)
+
+
+### Bug Fixes
+
+* handle modal prop changes correctly ([#251](https://github.com/paypal/paypal-messaging-components/issues/251)) ([2a5dd0f](https://github.com/paypal/paypal-messaging-components/commit/2a5dd0f711a6d89cd0f47655829910abd3ae8c06))
+
 ## [1.12.3](https://github.com/paypal/paypal-messaging-components/compare/v1.12.2...v1.12.3) (2020-08-12)
 
 

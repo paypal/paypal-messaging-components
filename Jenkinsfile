@@ -14,7 +14,7 @@ pipeline {
         stage('Publish') {
             when {
                 expression {
-                    return env.GIT_COMMIT_MESSAGE ==~ /^(chore\(release\):.+)/
+                    return env.GIT_COMMIT_MESSAGE =~ /^chore\(release\): \d+\.\d+\.\d+/
                 }
             }
             steps {
@@ -29,7 +29,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
                         OUTPUT=$(web stage --json)
-                        BUNDLE_ID=`echo $output | jq .id`
+                        BUNDLE_ID=$(node -e 'console.log(JSON.parse(process.argv[1]).id)' "$OUTPUT")
                         web notify $BUNDLE_ID
                     '''
                 }

@@ -1,0 +1,22 @@
+.header-wrapper {
+    .close {
+        display: block;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        position: absolute;
+        top: 12px;
+        right: 8px;
+
+        svg {
+            height: 48px;
+            width: 48px;
+        }
+
+        path {
+            stroke-width: 1px;
+            transition: all 0.3s;
+        }
+    }
+}

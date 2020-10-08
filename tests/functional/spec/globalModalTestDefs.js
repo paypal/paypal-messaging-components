@@ -14,7 +14,7 @@ export const xClosesModal = ({ account, viewport, groupString }) => async () => 
     } else if (account.includes('GBPL')) {
         testNameParts = 'gb x button closes modal';
     }
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
     await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
@@ -38,7 +38,7 @@ export const closeModalEsc = ({ account, viewport, groupString }) => async () =>
 export const clickOutsideClosesModal = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'click outside modal close';
     await page.waitFor(1000);
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
@@ -51,7 +51,7 @@ export const clickOutsideClosesModal = ({ account, viewport, groupString }) => a
 
 export const closeReopenModal = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'reopen and close modal';
-    const elementModal = await page.$("iframe[title='paypal_credit_modal']");
+    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const elementHandle = await page.$('[data-pp-id] iframe');
     const frame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();

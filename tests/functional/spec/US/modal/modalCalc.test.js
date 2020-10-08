@@ -10,7 +10,7 @@ describe.each([
     [viewports[0], bannerStyles[0], amounts[1]],
     [viewports[0], bannerStyles[0], amounts[2]],
     [viewports[0], bannerStyles[0], amounts[3]],
-    // mobile, flex
+    // mobile, text
     [viewports[1], bannerStyles[0], amounts[0]],
     [viewports[1], bannerStyles[0], amounts[1]],
     [viewports[1], bannerStyles[0], amounts[2]],
@@ -20,13 +20,12 @@ describe.each([
     [viewports[0], bannerStyles[1], amounts[1]],
     [viewports[0], bannerStyles[1], amounts[2]],
     [viewports[0], bannerStyles[1], amounts[3]],
-    [viewports[1], bannerStyles[0], amounts[3]],
     // mobile, flex
     [viewports[1], bannerStyles[1], amounts[0]],
     [viewports[1], bannerStyles[1], amounts[1]],
     [viewports[1], bannerStyles[1], amounts[2]],
     [viewports[1], bannerStyles[1], amounts[3]]
-])('EZP modal calculator tests %o %i', (viewport, bannerStyle, amount) => {
+])('EZP modal calculator tests %o', (viewport, bannerStyle, amount) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,

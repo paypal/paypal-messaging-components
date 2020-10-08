@@ -28,7 +28,9 @@ const getConfigStr = obj =>
         .sort()
         .join('_');
 
-const getTestNameParts = (locale, { account, style: { layout, ...style } }) => {
+const getTestNameParts = (locale, { account, amount, style: { layout, ...style } }) => {
+    // eslint-disable-next-line no-param-reassign
+    if (amount) style = { ...style, amount };
     const styleStr = getConfigStr(style);
 
     return [locale, account, layout, styleStr];
@@ -88,7 +90,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
             // nav done when 0 network connections for at least 500 ms
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
-            await page.goto(`http://localhost.paypal.com:8080/${testPage}?config=${configString}`);
+            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${configString}`);
             await waitForNavPromise;
 
             await waitForBanner(10000);

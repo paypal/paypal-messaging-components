@@ -1,64 +1,75 @@
-import { destroy as zoidDestroy } from 'zoid/src';
-import { destroy as bannerDestroy } from '../messages/controllers/render';
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../utils';
-import Messages from '../messages';
+import {
+    Treatment,
+    getExperimentTreatment,
+    getInlineOptions,
+    getScript,
+    getAccount,
+    getPartnerAccount
+} from '../utils';
+import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
+import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
+
+function getAccounts(config = {}) {
+    if (config.account) {
+        const { account, merchantId } = config;
+        return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
+    }
+
+    const script = getScript();
+
+    if (script) {
+        const { merchantid, account: inlineAccount } = getInlineOptions(script);
+        const partnerAccount = getPartnerAccount();
+        const account = partnerAccount || getAccount() || inlineAccount;
+        const merchantId = (partnerAccount && getAccount()) || merchantid;
+
+        if (account || merchantId) {
+            return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
+        }
+    }
+
+    return {};
+}
+
+export const Messages = config => ({
+    render: selector => {
+        const { normalizedAccount, merchantId } = getAccounts(config);
+
+        return getExperimentTreatment([normalizedAccount, merchantId]).then(treatment => {
+            if (treatment === Treatment.TEST) {
+                NewMessages(config).render(selector);
+            } else {
+                OldMessages(config).render(selector);
+            }
+        });
+    }
+});
+
+Messages.render = (config, selector) => Messages(config).render(selector);
+// Old and New are the same
+Messages.setGlobalConfig = NewMessages.setGlobalConfig;
 
 export function setup() {
-    // Populate global config options
-    const script = getScript();
-    if (script) {
-        // Inline attributes are set to lowercase
-        const { merchantid, ...inlineScriptOptions } = getInlineOptions(script);
-        const partnerAccount = getPartnerAccount();
+    // This must run synchronously so that it's available immediately for the merchant to use
+    if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
+        // Alias for pilot merchant support
+        window.paypal.Message = Messages;
+    }
 
-        Messages.setGlobalConfig({
-            account: partnerAccount || getAccount(),
-            merchantId: (partnerAccount && getAccount()) || merchantid,
-            currency: getCurrency(),
-            ...inlineScriptOptions
-        });
+    const { normalizedAccount, merchantId } = getAccounts();
 
-        // Allow specified global namespace override
-        if (inlineScriptOptions.namespace) {
-            window[inlineScriptOptions.namespace] = {
-                ...(window[inlineScriptOptions.namespace] || {}),
-                Messages
-            };
-
-            // Don't clear window.paypal if SDK loaded first
-            if (window.paypal && !window.paypal.version) {
-                delete window.paypal;
+    if (normalizedAccount || merchantId) {
+        getExperimentTreatment([normalizedAccount, merchantId]).then(treatment => {
+            if (treatment === Treatment.TEST) {
+                newSetup();
+            } else {
+                oldSetup();
             }
-        }
-    }
-
-    if (__MESSAGES__.__TARGET__ !== 'SDK') {
-        // When importing the library directly using UMD, window.paypal will not exist
-        if (window.paypal) {
-            // Alias for pilot merchant support
-            window.paypal.Message = Messages;
-        }
-    }
-
-    // Requires a merchant account to render a message
-    if (globalState.config.account) {
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
-        } else {
-            Messages.render({ _auto: true });
-        }
+        });
     }
 }
 
 export function destroy() {
-    zoidDestroy();
-
-    bannerDestroy();
-
-    document.querySelectorAll('[data-pp-id]').forEach(node => {
-        node.removeAttribute('data-pp-id');
-        node.firstChild.remove();
-    });
+    newDestroy();
+    oldDestroy();
 }
-
-export { Messages };

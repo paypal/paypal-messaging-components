@@ -10,7 +10,6 @@
             body {
                 padding: 0;
                 margin: 0;
-                /* background: #2d2d2d; */
             }
 
             h2 {
@@ -26,6 +25,15 @@
                 margin: 0;
                 padding: 0.1rem 0.3rem;
                 font-family: monospace;
+            }
+
+            /* separates h2's from color:white messages if needed */
+            h2:not(:first-child) {
+                border-top: 1px solid white;
+            }
+
+            .text-color-white {
+                background: #2d2d2d;
             }
         </style>
     </head>
@@ -46,7 +54,9 @@
                     'DEV0000000PSZ',
                     'DEV0000000PSG',
                     'DEV0000000PMZ',
-                    'DEV0000000PMG'
+                    'DEV0000000PMG',
+                    'DEV0000000GPL',
+                    'DEV000000GPLQ',
 
                     // DE
                     // 'DEV0000000IAZ',
@@ -76,8 +86,9 @@
                         ]
                     },
                     text: {
+                        // prettier-ignore
                         color: [
-                            'black'
+                            'black',
                             // 'white',
                             // 'monochrome',
                             // 'grayscale'
@@ -90,7 +101,7 @@
                             // 13,
                             // 14,
                             // 15,
-                            16
+                            // 16
                         ]
                     }
                 }
@@ -99,6 +110,7 @@
         <script src="./helpers/utils.js"></script>
         <script>
             const container = document.querySelector('.container');
+            let allWhite = true;
 
             Object.entries(getVariantsByAccount(window.CONFIG)).map(([account, configs]) => {
                 const h2 = document.createElement('h2');
@@ -111,10 +123,19 @@
                     container.appendChild(h4);
 
                     const wrapper = document.createElement('div');
+                    if (conf.style.text.color === 'white') {
+                        wrapper.classList.add('text-color-white');
+                    } else {
+                        allWhite = false;
+                    }
                     container.appendChild(wrapper);
-                    paypal.Message(conf).render(wrapper);
+                    paypal.Messages(conf).render(wrapper);
                 });
             });
+
+            if (allWhite) {
+                document.body.classList.add('text-color-white');
+            }
         </script>
     </body>
 </html>

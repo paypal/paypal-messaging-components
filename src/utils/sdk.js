@@ -1,7 +1,3 @@
-import objectAssign from 'core-js-pure/stable/object/assign';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import {
     getClientID,
@@ -9,9 +5,9 @@ import {
     getSDKScript,
     getEnv as getSDKEnv,
     getCurrency as getSDKCurrency,
-    getSDKMeta
+    getSDKMeta,
+    getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
-import { base64encode } from 'belter/src';
 
 // SDK helper functions with standalone build polyfills
 
@@ -46,9 +42,9 @@ export function getScript() {
         return getSDKScript();
     } else {
         return (
-            document.currentScript ||
             document.querySelector('script[src$="messaging.js"]') ||
-            document.querySelector('script[src$="merchant.js"]')
+            document.querySelector('script[src$="merchant.js"]') ||
+            document.currentScript
         );
     }
 }
@@ -61,40 +57,22 @@ export function getCurrency() {
     }
 }
 
-export function getTargetMeta() {
-    const metaObject = {
-        target: __MESSAGES__.__TARGET__,
-        componentUrl: arrayIncludes(['production', 'sandbox'], getEnv())
-            ? `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
-            : `${window.location.origin}/smart-credit-modal.js`
-    };
-
+export function getMeta() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        objectAssign(
-            metaObject,
-            JSON.parse(
-                // Slightly modified from belter/src base64decode due to clash on merchant site:
-                // https://www.myrobotcenter.de/de_de/yardforce-sa600h-2019
-                decodeURIComponent(
-                    atob(getSDKMeta())
-                        .split('')
-                        .map(c => {
-                            return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
-                        })
-                        .join('')
-                )
-            )
-        );
+        return getSDKMeta();
     } else {
-        const script = getScript();
-
-        objectAssign(metaObject, {
-            url:
-                script && (stringStartsWith(script.src, 'https') || getEnv() === 'local')
-                    ? script.src
-                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
-        });
+        return undefined;
     }
+}
 
-    return base64encode(JSON.stringify(metaObject));
+export function getNamespace() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKNamespace();
+    } else {
+        return getScript()?.getAttribute('data-pp-namespace') || 'paypal';
+    }
+}
+
+export function getLibraryVersion() {
+    return __MESSAGES__.__VERSION__;
 }

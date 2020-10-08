@@ -1,11 +1,13 @@
+/** @jsx node */
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
+import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { partial } from './functional';
+import { partial, memoize } from './functional';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -15,20 +17,6 @@ import { partial } from './functional';
 export function createState(initialState = {}) {
     const state = { ...initialState };
     return [state, partial(objectAssign, state)];
-}
-
-/**
- * Create a new error with a special onEnd attribute that
- * will be called after the error has been handled
- * @param {String} message Error message
- * @param {Function} cb Callback function
- */
-export function createCallbackError(message, cb) {
-    const error = new Error(message);
-    // onEnd callback will be called after completing the current logger
-    error.onEnd = cb;
-
-    return error;
 }
 
 export function getDataByTag(data, tag) {
@@ -132,3 +120,67 @@ export function createUUID() {
         return v.toString(16);
     });
 }
+
+export const dynamicImport = memoize(url => {
+    return new ZalgoPromise(resolve => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.addEventListener('load', () => {
+            document.body.removeChild(script);
+            resolve();
+        });
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', () => document.body.appendChild(script));
+        } else {
+            document.body.appendChild(script);
+        }
+    });
+});
+
+// // Date.now() altered on some sites: https://www.hydropool.com
+export const getCurrentTime = () => new Date().getTime();
+
+// Memoized so that the 2 return functions can be called from different modules
+export const viewportHijack = memoize(() => {
+    const viewport =
+        document.head.querySelector('meta[name="viewport"]') ||
+        (<meta name="viewport" content="" />).render(dom({ doc: document }));
+
+    // Ensure a viewport exists in the DOM
+    if (!viewport.parentNode) {
+        document.head.appendChild(viewport);
+    }
+
+    return [
+        // We store state on the DOM elements themselves because we do not want multiple SDK scripts
+        // with their own states causing an error preventing elements from being updated as needed
+        () => {
+            if (viewport.__pp_prev_content__) {
+                // Viewport has already been hijacked - do nothing for now
+                // This can happen when multiple messages are clicked before the modal loads
+                return;
+            }
+
+            viewport.__pp_prev_content__ = viewport.getAttribute('content') ?? '';
+            viewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
+            );
+
+            document.body.__pp_prev_overflow__ = document.body.style.overflow ?? '';
+            document.body.__pp_prev_msOverflowStyle__ = document.body.style.msOverflowStyle ?? '';
+            document.body.style.setProperty('overflow', 'hidden');
+            document.body.style.setProperty('-ms-overflow-style', 'scrollbar');
+        },
+        () => {
+            viewport.setAttribute('content', viewport.__pp_prev_content__);
+            delete viewport.__pp_prev_content__;
+
+            document.body.style.setProperty('overflow', document.body.__pp_prev_overflow__);
+            document.body.style.setProperty('-ms-overflow-style', document.body.__pp_prev_msOverflowStyle__);
+            delete document.body.__pp_prev_overflow__;
+            delete document.body.__pp_prev_msOverflowStyle__;
+        }
+    ];
+});

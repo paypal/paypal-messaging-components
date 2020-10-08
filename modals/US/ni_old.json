@@ -1,0 +1,34 @@
+{
+    "meta": {
+        "product": "NI",
+        "legacy": true
+    },
+    "content": {
+        "title": "Buy now and pay over time with PayPal Credit",
+        "subtitle": "Subject to credit approval.",
+        "terms": {
+            "title": "No Interest if paid in full in 6 months on purchases of $99 or more",
+            "items": [
+                "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.",
+                "A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.",
+                "No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.",
+                "For New Accounts: Variable Purchase APR is {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.",
+                "Individual items that are less than $99 qualify for special financing when combined for a total of $99 or more in a single transaction.",
+                "Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount."
+            ]
+        },
+        "instructions": {
+            "title": "How PayPal Credit works",
+            "items": [
+                [
+                    "card",
+                    "PayPal Credit is a reusable credit line you can use to shop online at millions of stores that accept PayPal."
+                ],
+                ["shield", "Shop with trust, security, and flexibility when you pay with PayPal."],
+                ["monogram", "Click the PayPal button at checkout and pay with PayPal Credit."]
+            ]
+        },
+        "disclaimer": "PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is available to US customers who are of legal age in their state of residence. You must pay with PayPal Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.",
+        "copyright": "Copyright {fullYear} Bill Me Later, Inc. All rights reserved."
+    }
+}

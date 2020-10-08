@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    color: #2d2d2d;
+    font-family: PayPal-Sans, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.message__logo--svg {
+    position: relative;
+}
+
+.message__logo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* IE will not properly scale a SVG element, but will scale a canvas element */
+.message__logo canvas {
+    display: block;
+    width: 100%;
+    visibility: hidden;
+}

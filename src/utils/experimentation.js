@@ -1,9 +1,46 @@
+import isArray from 'core-js-pure/stable/array/is-array';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
+import { ZalgoPromise } from 'zalgo-promise';
+
 import { memoize } from './functional';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+import { getEnv } from './sdk';
 
-export const getExclusionList = memoize(() =>
-    request('GET', getGlobalUrl('RAMP_EXCLUSION_LIST'))
-        .then(res => res?.data ?? [])
-        .catch(() => [])
-);
+export const Treatment = {
+    CONTROL: 'CONTROL',
+    TEST: 'TEST'
+};
+
+const fallback = {
+    type: 'inclusion',
+    list: []
+};
+
+const getExperiment = memoize(() => {
+    switch (getEnv()) {
+        case 'local':
+            return ZalgoPromise.resolve(fallback);
+        case 'sandbox':
+            // Enable test for all of sandbox
+            return ZalgoPromise.resolve({ type: 'exclusion', list: [] });
+        default:
+            return request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
+                .then(res => res?.data ?? fallback)
+                .catch(() => fallback);
+    }
+});
+
+export const getExperimentTreatment = id =>
+    getExperiment().then(({ type, list }) => {
+        const ids = isArray(id) ? id : [id];
+
+        switch (type) {
+            case 'inclusion':
+                return ids.some(i => arrayIncludes(list, i)) ? Treatment.TEST : Treatment.CONTROL;
+            case 'exclusion':
+                return ids.some(i => arrayIncludes(list, i)) ? Treatment.CONTROL : Treatment.TEST;
+            default:
+                return Treatment.CONTROL;
+        }
+    });

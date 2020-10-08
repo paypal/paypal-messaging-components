@@ -1,0 +1,101 @@
+.header-container {
+    .header {
+        width: 100%;
+    }
+
+    @include desktop {
+        .header {
+            max-width: 800px;
+            background-color: transparent;
+            position: absolute;
+            z-index: 999;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        .logo {
+            display: flex;
+            width: auto;
+            padding: 18px 0;
+            padding-left: 20px;
+            align-items: center;
+            box-sizing: border-box;
+            margin: 0 auto;
+            height: 72px;
+
+            & img {
+                &:first-child {
+                    height: 35px;
+                    margin-right: 9px;
+                }
+                &:last-child {
+                    height: 28px;
+                    width: 98px;
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .close {
+            top: 5px;
+            right: 5px;
+
+            svg {
+                height: 48px;
+                width: 48px;
+            }
+
+            path {
+                stroke-width: 1px;
+                transition: all 0.3s;
+            }
+
+            svg {
+                height: 60px;
+                width: 60px;
+            }
+        }
+    }
+
+    @include mobile {
+        .header {
+            background-color: transparent;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        .logo {
+            display: flex;
+            width: auto;
+            align-items: center;
+            justify-content: center;
+
+            & > img:first-child {
+                width: 25px;
+                margin-right: 9px;
+            }
+
+            & > img:last-child {
+                width: 84px;
+                margin-top: 5px;
+            }
+        }
+
+        .close {
+            transform: translate(-2px, -6px);
+
+            & > svg {
+                height: 55px;
+                width: 55px;
+
+                & > path {
+                    stroke: white;
+                }
+            }
+        }
+    }
+}

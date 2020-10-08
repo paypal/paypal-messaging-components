@@ -22,6 +22,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         3
     );
 
+    // replace double colons with underscores, and replace spaces and colons with dashes
     const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
     let locale = 'US';
 
