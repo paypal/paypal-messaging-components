@@ -56,6 +56,23 @@ const runTest = async ({ config, testPage, callback }) => {
     return getParsedRequests(payloadSpy);
 };
 
+const getStatRequest = ({ requests, statName, eventType, link }) => {
+    const request = requests.find(r => {
+        const eventMatches = eventType && r.bdata.event_type === eventType;
+        const linkMatches = link && r.bdata.link && r.bdata.link.toLowerCase().includes(link.toLowerCase());
+        return eventMatches || linkMatches;
+    });
+    if (!request) {
+        // eslint-disable-next-line no-console
+        console.error(
+            `[${statName}] stat not found, sent requests:`,
+            requests.map(r => r.bdata)
+        );
+        return null;
+    }
+    return request;
+};
+
 describe('payload testing', () => {
     const config = {
         account: 'DEV0000000EAZ',
@@ -73,7 +90,8 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.event_type === 'stats');
+        // const request = requests.find(r => r.bdata.event_type === 'stats');
+        const request = getStatRequest({ requests, statName: 'initial payload', eventType: 'stats' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
@@ -106,7 +124,8 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.event_type === 'scroll');
+        // const request = requests.find(r => r.bdata.event_type === 'scroll');
+        const request = getStatRequest({ requests, statName: 'scroll', eventType: 'scroll' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
@@ -136,7 +155,8 @@ describe('payload testing', () => {
             }
         });
 
-        const clickRequest = requests.find(r => r.bdata.event_type === 'click');
+        // const clickRequest = requests.find(r => r.bdata.event_type === 'click');
+        const clickRequest = getStatRequest({ requests, statName: 'click', eventType: 'click' });
         expect(clickRequest).toBeDefined();
         expect(clickRequest.bdata).toMatchObject({
             et: 'CLICK',
@@ -146,7 +166,8 @@ describe('payload testing', () => {
             uuid: expect.any(String)
         });
 
-        const modalOpenRequest = requests.find(r => r.bdata.event_type === 'modal-open');
+        // const modalOpenRequest = requests.find(r => r.bdata.event_type === 'modal-open');
+        const modalOpenRequest = getStatRequest({ requests, statName: 'click - modal open', eventType: 'modal-open' });
         expect(modalOpenRequest).toBeDefined();
         expect(modalOpenRequest.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
@@ -166,7 +187,8 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.event_type === 'hover');
+        // const request = requests.find(r => r.bdata.event_type === 'hover');
+        const request = getStatRequest({ requests, statName: 'hover', eventType: 'hover' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
@@ -189,7 +211,8 @@ describe('payload testing', () => {
             }
         });
 
-        const request = requests.find(r => r.bdata.link === 'Calculator');
+        // const request = requests.find(r => r.bdata.link === 'Calculator');
+        const request = getStatRequest({ requests, statName: 'modal calculate', link: 'calculator' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
@@ -207,11 +230,13 @@ describe('payload testing', () => {
             testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
+                await page.waitFor(10 * 1000);
                 await modalFrame.click(selectors.button.btn);
             }
         });
 
-        const request = requests.find(r => r.bdata.link && r.bdata.link.includes('Apply Now'));
+        // const request = requests.find(r => r.bdata.link && r.bdata.link.includes('Apply Now'));
+        const request = getStatRequest({ requests, statName: 'modal click', link: 'apply now' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
@@ -228,12 +253,14 @@ describe('payload testing', () => {
             testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
+                await page.waitFor(10 * 1000);
                 await modalFrame.click(selectors.button.closeBtn);
-                await page.waitFor(30 * 1000);
+                await page.waitFor(15 * 1000);
             }
         });
 
-        const request = requests.find(r => r.bdata.event_type === 'modal-close');
+        // const request = requests.find(r => r.bdata.event_type === 'modal-close');
+        const request = getStatRequest({ requests, statName: 'close', eventType: 'modal-close' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
