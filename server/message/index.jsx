@@ -1,6 +1,6 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-import { h, Fragment } from 'preact'; // eslint-disable-line no-unused-vars
+import { h, Fragment } from 'preact';
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
@@ -38,28 +38,27 @@ const applyCascade = curry((style, flattened, type, rules) =>
 );
 
 export default ({ options, markup, locale }) => {
+    const offerType = markup?.meta?.offerType;
     const style =
         options.style.layout === 'text' && options.style.preset === 'smallest'
-            ? objectMerge(options.style, getMinimumWidthOptions(locale))
+            ? objectMerge(options.style, getMinimumWidthOptions(locale, offerType))
             : options.style;
 
     const { layout } = style;
 
     const styleSelectors = objectFlattenToArray(style);
-    const offerType = markup?.meta?.offerType;
-
     const applyCascadeRules = applyCascade(style, styleSelectors);
     const mutationRules =
         options.style.layout === 'custom'
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
-            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, markup));
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, options, markup));
 
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
 
-    const localeClass = getLocaleClass(locale);
+    const localeClass = getLocaleClass(locale, offerType);
     // Scope all locale-specific styles to the selected locale
-    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(locale, layoutProp)).map(rule =>
+    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(locale, layoutProp, offerType)).map(rule =>
         rule.replace(/\.message/g, `.${localeClass} .message`)
     );
     const mutationStyleRules = mutationRules.styles ?? [];
@@ -86,7 +85,7 @@ export default ({ options, markup, locale }) => {
     const logoType = style.logo?.type;
     const logoEl = <Logo mutations={mutationRules.logo} />;
 
-    const [withText, productName] = getLocalProductName(locale);
+    const [withText, productName] = getLocalProductName(locale, offerType);
 
     const productNameEl = (
         <span>

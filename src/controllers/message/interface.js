@@ -8,7 +8,8 @@ import {
     attributeObserver,
     nextIndex,
     logger,
-    getCurrentTime
+    getCurrentTime,
+    globalEvent
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -116,7 +117,7 @@ export default (options = {}) => ({
 
                     attributeObserver.observe(container, { attributes: true });
 
-                    return render(container);
+                    return render(container).then(() => globalEvent.trigger('render'));
                 }
 
                 const { updateProps, state } = messagesMap.get(container);
@@ -133,7 +134,8 @@ export default (options = {}) => ({
                     messageProps.style = totalStyle;
                 }
 
-                return updateProps(messageProps);
+                // Filter out undefined to prevent overwriting previous values
+                return updateProps(JSON.parse(JSON.stringify(messageProps))).then(() => globalEvent.trigger('render'));
             })
         );
     }

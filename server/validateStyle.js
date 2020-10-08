@@ -22,7 +22,7 @@ function getValidVal(addLog, typeArr, val, location) {
         return validVals[0];
     }
 
-    if (validateType(type, val)) {
+    if (type !== Types.NUMBER && validateType(type, val)) {
         if (type === Types.STRING && validVals.length > 0) {
             // Check if aliased value used.
             const validVal = validVals.find(v => {
@@ -114,8 +114,8 @@ function getValidStyleOptions(addLog, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default (addLog, style, locale) => {
-    const validStyleOptions = getValidOptions(locale);
+export default (addLog, style, locale, offerType) => {
+    const validStyleOptions = getValidOptions(locale, offerType);
 
     if (validStyleOptions[style.layout]) {
         return getValidStyleOptions(addLog, validStyleOptions, style);

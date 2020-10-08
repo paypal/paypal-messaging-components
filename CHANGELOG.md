@@ -1,5 +1,19 @@
 # Changelog
 
+# [1.14.0](https://github.com/paypal/paypal-messaging-components/compare/v1.13.8...v1.14.0) (2020-10-07)
+
+
+### Features
+
+* GPL US messages ([#332](https://github.com/paypal/paypal-messaging-components/issues/332)) ([dff3ed6](https://github.com/paypal/paypal-messaging-components/commit/dff3ed694336b0ec3d78b30e7371c1b24b20a7a8))
+
+## [1.13.8](https://github.com/paypal/paypal-messaging-components/compare/v1.13.7...v1.13.8) (2020-10-06)
+
+
+### Bug Fixes
+
+* prevent overflow observer race condition ([#329](https://github.com/paypal/paypal-messaging-components/issues/329)) ([b9e81d7](https://github.com/paypal/paypal-messaging-components/commit/b9e81d7759cb32c938c465e4f50ffbdf21ebf685))
+
 ## [1.13.7](https://github.com/paypal/paypal-messaging-components/compare/v1.13.6...v1.13.7) (2020-10-05)
 
 
