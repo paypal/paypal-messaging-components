@@ -1,7 +1,7 @@
 import qs from 'qs';
-import packageConfig from '../../../package.json';
-import { bannerStyles } from './utils/testStylesConfig';
-import selectors from './utils/selectors';
+import packageConfig from '../../../../package.json';
+import { bannerStyles } from '../utils/testStylesConfig';
+import selectors from '../utils/selectors';
 
 const createSpy = async ({ keyword = 'bdata' }) => {
     const spy = { matchedUrls: [] };
