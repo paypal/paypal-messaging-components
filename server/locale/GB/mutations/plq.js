@@ -115,7 +115,11 @@ export default {
         [
             'ratio:20x1',
             {
-                styles: [logo20x1()]
+                styles: [
+                logo20x1(),
+                '.message__headline .tag--medium .weak { display: none; }',
+                '.message__headline .tag--medium > span:first-child:after { content: "."; }'
+                ]
             }
         ],
         [
