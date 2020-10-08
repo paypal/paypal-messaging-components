@@ -58,20 +58,20 @@ const collectFailedTests = async () => {
         }
     }
 
-    console.info('');
+    console.info(''); // eslint-disable-line no-console
     files.forEach(file => {
-        console.info(file.startLine);
+        console.info(file.startLine); // eslint-disable-line no-console
         file.suites.forEach(suite => {
             if (suite.tests.length) {
-                console.info(suite.startLine);
+                console.info(suite.startLine); // eslint-disable-line no-console
                 suite.tests.forEach(test => {
-                    console.info(test);
+                    console.info(test); // eslint-disable-line no-console
                 });
             }
         });
-        console.info(file.endLine || '');
+        console.info(file.endLine || ''); // eslint-disable-line no-console
     });
-    console.info(`\n${summary}`);
+    console.info(`\n${summary}`); // eslint-disable-line no-console
 };
 
 (async () => {
