@@ -66,7 +66,7 @@ export function smallFallback(breakpoint) {
 }
 
 // Moves PayPal logo to position right for logo primary message config.
-export function gbplContentMediaQuery(breakpoint) {
+export function plContentMediaQuery(breakpoint) {
     return `
     @media (min-width: ${breakpoint}px) {
         .locale--GB .message__content {
@@ -96,7 +96,7 @@ export function messageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
  * @param {number} disclaimerBreak Changes disclaimer to inline at specified breakpoint.
  * @param {number} tagMediumBreak Breaks text inside of .tag--medium to two lines at specified breakpoint.
  */
-export function gbplAltContentMediaQuery(disclaimerBreak, tagMediumBreak) {
+export function plAltContentMediaQuery(disclaimerBreak, tagMediumBreak) {
     return `
     @media (max-width: ${disclaimerBreak}px) {
         .message__disclaimer {

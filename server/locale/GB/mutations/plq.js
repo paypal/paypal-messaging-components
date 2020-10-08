@@ -1,7 +1,7 @@
 import Logo from '../logos';
 import {
-    gbplContentMediaQuery,
-    gbplAltContentMediaQuery,
+    plContentMediaQuery,
+    plAltContentMediaQuery,
     messageLogoWidth,
     xSmallFallback,
     smallFallback
@@ -40,7 +40,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 15.5),
-                    gbplContentMediaQuery(textSize * 31 + 10),
+                    plContentMediaQuery(textSize * 31 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -55,7 +55,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    gbplAltContentMediaQuery(textSize * 17, textSize * 26.5),
+                    plAltContentMediaQuery(textSize * 17, textSize * 26.5),
                     xSmallFallback(textSize * 17),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
