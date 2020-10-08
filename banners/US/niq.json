@@ -2,6 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "NIQ",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -15,7 +16,7 @@
     "headline": [
         ["Buy now. Pay over time.", ["default", "xsmall", "small"]],
         [
-            ["No Interest if paid in full in 6 months", ["on purchases of $99+", "weak"]],
+            ["No Interest if paid in full in 6 months", ["on purchases of $99+.", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],

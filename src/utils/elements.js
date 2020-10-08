@@ -1,3 +1,4 @@
+import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
@@ -242,3 +243,51 @@ export function getAllBySelector(selector) {
 
     return [];
 }
+
+export const elementContains = (parentEl, childEl) => {
+    if (parentEl?.nodeType !== Node.ELEMENT_NODE || childEl?.nodeType !== Node.ELEMENT_NODE) {
+        return false;
+    }
+
+    const parentBounds = parentEl.getBoundingClientRect();
+    const childBounds = childEl.getBoundingClientRect();
+
+    return (
+        parentBounds.top <= childBounds.top &&
+        parentBounds.bottom >= childBounds.bottom &&
+        parentBounds.left <= childBounds.left &&
+        parentBounds.right >= childBounds.right
+    );
+};
+
+export const getRoot = baseElement => {
+    const { innerHeight } = window;
+
+    const domPath = [];
+    {
+        let el = baseElement;
+        // Loop up the DOM tree to the root html node
+        while (el?.parentNode.nodeType === Node.ELEMENT_NODE) {
+            domPath.push(el.parentNode);
+            el = el.parentNode;
+        }
+    }
+
+    const root = arrayFind(domPath.reverse(), (el, index, elements) => {
+        // We are searching for the element that contains the page scrolling.
+        // Some merchant sites will use height 100% on elements such as html and body
+        // that cause the intersection observer to hide elements below the fold.
+        const height = el.offsetHeight;
+        const child = elements[index + 1];
+
+        return (
+            height !== innerHeight ||
+            // Ensure that the selected root is the larger of the parent
+            // and contains the child otherwise there may not be a proper page wrapper
+            // e.g. https://www.acwholesalers.com
+            (child && child.offsetHeight < height && elementContains(el.parentNode, el))
+        );
+    });
+
+    return root;
+};

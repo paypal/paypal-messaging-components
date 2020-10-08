@@ -5,15 +5,17 @@
 .message__disclaimer > span {
     text-decoration: none;
     color: #2c2e2f;
+    font-weight: 400;
     white-space: normal;
 }
 
 .message__disclaimer > span > span {
     white-space: nowrap;
 }
+
 .message__disclaimer > .tag--default > span:only-child,
 .message__disclaimer > .tag--default > span.em {
-    text-decoration: underline;
-    color: #0076ff;
+    color: #0070ba;
+    font-weight: 500;
     white-space: nowrap;
 }

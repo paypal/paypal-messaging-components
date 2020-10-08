@@ -21,8 +21,17 @@ const bannerStyles = [
 
 const amounts = [1, 10000, undefined, 500];
 
+// creates a unique test identifier for output and file names
+const getGroupString = ({ viewport, bannerStyle, amount }) => {
+    const layoutString = bannerStyle?.layout ? `${bannerStyle.layout},` : '';
+    const widthString = viewport?.width ? `wid:${viewport.width},` : '';
+    const amountString = amount ? `amt:${amount}` : `amt:undef`;
+    return `${layoutString}${widthString}${amountString}::`;
+};
+
 module.exports = {
     viewports,
     bannerStyles,
-    amounts
+    amounts,
+    getGroupString
 };

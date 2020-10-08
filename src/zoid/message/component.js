@@ -7,6 +7,7 @@ import {
     getEnv,
     getGlobalUrl,
     getGlobalVariable,
+    getLibraryVersion,
     runStats,
     logger,
     globalState,
@@ -158,7 +159,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta }) => {
+                    return ({ meta, activeTags }) => {
                         const { account, index, modal } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
@@ -168,9 +169,15 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             };
                         });
 
-                        runStats({ container: document.querySelector(`[data-pp-id="${index}"]`), index });
+                        runStats({
+                            container: document.querySelector(`[data-pp-id="${index}"]`),
+                            activeTags,
+                            index
+                        });
 
-                        modal.updateProps({ index, offer: offerType });
+                        // Set visible to false to prevent this update from popping open the modal
+                        // when the user has previously opened the modal
+                        modal.updateProps({ index, offer: offerType, visible: false });
                         modal.render('body');
 
                         logger.track({
@@ -193,7 +200,8 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ styles, warnings, ...rest }) => {
                         const { index } = props;
-                        if (styles) {
+
+                        if (typeof styles !== 'undefined') {
                             event.trigger('styles', { styles });
                         }
 
@@ -271,7 +279,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             version: {
                 type: 'string',
                 queryParam: true,
-                value: () => __MESSAGES__.__VERSION__
+                value: getLibraryVersion
             }
         }
     })

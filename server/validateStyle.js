@@ -9,7 +9,10 @@ const logInvalidOption = (addLog, location, options, val) =>
     logInvalid(
         addLog,
         location,
-        `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`
+        // Filter out potentially malicious inputs from warnings.
+        `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${
+            /^[a-z0-9]+$/i.test(val) ? val : 'REDACTED'
+        }".`
     );
 
 function getValidVal(addLog, typeArr, val, location) {
@@ -19,7 +22,7 @@ function getValidVal(addLog, typeArr, val, location) {
         return validVals[0];
     }
 
-    if (validateType(type, val)) {
+    if (type !== Types.NUMBER && validateType(type, val)) {
         if (type === Types.STRING && validVals.length > 0) {
             // Check if aliased value used.
             const validVal = validVals.find(v => {
@@ -99,7 +102,6 @@ function populateDefaults(addLog, defaults, options, prefix = 'style.') {
 function getValidStyleOptions(addLog, localeStyleOptions, options) {
     const defaultValues = {
         layout: options.layout,
-        preset: options.preset,
         ...populateDefaults(addLog, localeStyleOptions[options.layout], options)
     };
 
@@ -112,8 +114,8 @@ function getValidStyleOptions(addLog, localeStyleOptions, options) {
  * @param {Object} options User options object
  * @returns {Object} Object containing only valid options
  */
-export default (addLog, style, locale) => {
-    const validStyleOptions = getValidOptions(locale);
+export default (addLog, style, locale, offerType) => {
+    const validStyleOptions = getValidOptions(locale, offerType);
 
     if (validStyleOptions[style.layout]) {
         return getValidStyleOptions(addLog, validStyleOptions, style);

@@ -1,20 +1,12 @@
-import validOptions from './validOptions';
-import getMutations from './mutations';
-import logos from './logos';
-import styles from './styles';
+import gpl from './GPL/index';
+import ppc from './PPC/index';
 
-export default {
-    localeClass: 'locale--US',
-    productName: ['with', 'PayPal Credit.'],
-    validOptions,
-    minimumSizeOptions: {
-        layout: 'text',
-        logo: {
-            position: 'top',
-            type: 'primary'
-        }
-    },
-    getMutations,
-    logos,
-    styles
+export default offerType => {
+    switch (offerType) {
+        case 'GPL':
+        case 'GPLQ':
+            return gpl;
+        default:
+            return ppc;
+    }
 };

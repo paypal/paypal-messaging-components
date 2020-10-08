@@ -5,7 +5,7 @@ import modalSnapshot from '../../utils/modalSnapshot';
  * Runs inside modalText.test.js for the GB locale.
  */
 
-export const gbModalContent = (account, viewport, bannerStyle) => async () => {
+export const gbModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'gb modal content';
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
@@ -23,5 +23,5 @@ export const gbModalContent = (account, viewport, bannerStyle) => async () => {
         expect(h1).toContain('Pay in 3 interest-free <br /> payments');
     }
     await page.waitFor(500);
-    await modalSnapshot(`${testNameParts} ${bannerStyle.layout}`, viewport, account);
+    await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };

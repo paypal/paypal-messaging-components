@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request } from '../../utils';
+import { request, getActiveTags } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -45,7 +45,7 @@ const Message = () => {
 
     useLayoutEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ meta });
+            onReady({ meta, activeTags: getActiveTags(buttonRef.current) });
         }
     }, [meta.messageRequestId]);
 
@@ -84,10 +84,11 @@ const Message = () => {
 
         request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
             setServerData({
-                markup: data.markup || markup,
-                meta: data.meta || meta,
-                parentStyles: data.parentStyles || parentStyles,
-                warnings: data.warnings || warnings
+                markup: data.markup ?? markup,
+                meta: data.meta ?? meta,
+                // Respect empty string value in order to remove styles when switch from flex to text layout
+                parentStyles: data.parentStyles ?? parentStyles,
+                warnings: data.warnings ?? warnings
             });
         });
     }, [amount, currency, JSON.stringify(style), offer, payerId, clientId, merchantId]);

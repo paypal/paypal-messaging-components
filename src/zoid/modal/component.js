@@ -1,25 +1,19 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
 
-import { getMeta, getEnv, getGlobalUrl, getGlobalVariable, getCurrentTime, viewportHijack, logger } from '../../utils';
+import {
+    getMeta,
+    getEnv,
+    getGlobalUrl,
+    getGlobalVariable,
+    getCurrentTime,
+    getLibraryVersion,
+    viewportHijack,
+    logger
+} from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
-
-// Determine pre-selected tab based on the offer type of the banner.
-// Currently only applicable to the US
-const determineInitialTab = (type = 'NI') => {
-    switch (true) {
-        case arrayIncludes(
-            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
-            type.toUpperCase()
-        ):
-            return 'EZP';
-        default:
-            return 'NI';
-    }
-};
 
 export default getGlobalVariable('__paypal_credit_modal__', () =>
     create({
@@ -68,6 +62,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 queryParam: 'buyer_country',
                 required: false,
                 value: validate.buyerCountry
+            },
+            offer: {
+                type: 'string',
+                queryParam: false,
+                required: false
             },
 
             // Callbacks
@@ -146,7 +145,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const { onReady } = props;
 
                     return ({ products }) => {
-                        const { index } = props;
+                        const { index, offer } = props;
 
                         logger.info('modal_render', {
                             index,
@@ -156,7 +155,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: products.join('_').toLowerCase()
+                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
                         });
 
                         if (typeof onReady === 'function') {
@@ -167,11 +166,6 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             },
 
             // Computed Props
-            offer: {
-                type: 'string',
-                value: ({ props }) => determineInitialTab(props.offer),
-                required: false
-            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
@@ -200,7 +194,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             version: {
                 type: 'string',
                 queryParam: true,
-                value: () => __MESSAGES__.__VERSION__
+                value: getLibraryVersion
             }
         }
     })
