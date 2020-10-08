@@ -26,14 +26,6 @@ function collectDiffs() {
         });
     };
 
-    try {
-        fs.rmdirSync(DIFF_DIR);
-    } catch (e) {
-        if (e.code === 'ENOTEMPTY') {
-            console.log(e);
-        }
-    }
-
     fs.mkdirSync(DIFF_DIR);
     fs.mkdirSync(path.resolve(DIFF_DIR, 'modal'));
     fs.mkdirSync(path.resolve(DIFF_DIR, 'banner'));

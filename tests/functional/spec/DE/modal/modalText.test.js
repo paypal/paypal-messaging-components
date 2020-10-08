@@ -1,5 +1,5 @@
 import openModal from '../../utils/initializeModal';
-import { viewports, bannerStyles } from '../../utils/testStylesConfig';
+import { viewports, bannerStyles, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
 
 const account = 'DEV0000000IAZ';
@@ -14,22 +14,19 @@ describe.each([
             style: bannerStyle
         });
     });
-    test(
-        `x button closes modal - ${bannerStyle.layout} ${viewport.width}`,
-        xClosesModal(account, viewport, bannerStyle)
-    );
-    test(
-        `close modal on escape key press - ${bannerStyle.layout} ${viewport.width}`,
-        closeModalEsc(account, viewport, bannerStyle)
-    );
+
+    const groupString = getGroupString({ viewport, bannerStyle });
+
+    test(`${groupString} x button closes modal`, xClosesModal({ account, viewport, groupString }));
+    test(`${groupString} close modal on escape key press`, closeModalEsc({ account, viewport, groupString }));
     if (viewport.height === 1080) {
         test(
-            `close modal on click outside - ${bannerStyle.layout} ${viewport.width}`,
-            clickOutsideClosesModal(account, viewport, bannerStyle)
+            `${groupString} close modal on click outside`,
+            clickOutsideClosesModal({ account, viewport, groupString })
         );
     }
     test(
-        `after modal close, modal can reopen and close again - ${bannerStyle.layout} ${viewport.width}`,
-        closeReopenModal(account, viewport, bannerStyle)
+        `${groupString} after modal close, modal can reopen and close again`,
+        closeReopenModal({ account, viewport, groupString })
     );
 });

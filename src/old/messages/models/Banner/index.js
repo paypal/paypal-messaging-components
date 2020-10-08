@@ -169,7 +169,7 @@ export default {
             }
         } catch (err) {
             if (__LOCAL__ || __STAGE__) {
-                console.error(err);
+                console.error(err); // eslint-disable-line no-console
             }
 
             logger.error({ name: ERRORS.INTERNAL_FAIL, message: err.message });
@@ -180,7 +180,7 @@ export default {
 
         banner.renderProm = banner.renderProm.then(logger.end).catch(err => {
             if (__LOCAL__ || __STAGE__) {
-                console.error(err);
+                console.error(err); // eslint-disable-line no-console
             }
 
             const name = ERRORS[err.message] || ERRORS.INTERNAL_FAIL;

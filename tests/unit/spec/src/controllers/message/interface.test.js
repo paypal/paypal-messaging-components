@@ -39,6 +39,9 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
+// Needed for attribute observer re-render test
+window.paypal = { Messages };
+
 const clearMocks = () => {
     logger.warn.mockClear();
     logger.track.mockClear();
@@ -186,10 +189,7 @@ describe('message interface', () => {
             expect.objectContaining({
                 account: 'DEV00000000NI',
                 amount: '100',
-                currency: 'USD',
-                style: {
-                    layout: 'flex'
-                }
+                currency: 'USD'
             })
         );
         expect(Modal().render).not.toHaveBeenCalled();
@@ -232,12 +232,12 @@ describe('message interface', () => {
         expect(Message().render).toHaveBeenLastCalledWith(container);
     });
 
-    it('Passes onReady handler', async () => {
+    it('Passes onRender handler', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
-        const onReady = jest.fn();
+        const onRender = jest.fn();
 
-        await Messages({ onReady }).render(container);
+        await Messages({ onRender }).render(container);
 
         expect(Message).toHaveBeenCalledTimes(1);
         expect(Message).toHaveBeenLastCalledWith(
@@ -245,14 +245,14 @@ describe('message interface', () => {
                 onReady: expect.any(Function)
             })
         );
-        expect(onReady).not.toHaveBeenCalled();
+        expect(onRender).not.toHaveBeenCalled();
 
         const [[{ onReady: onReadyHandler }]] = Message.mock.calls;
 
         onReadyHandler({ meta: { messageRequestId: '12345', trackingDetails: {} } });
 
-        expect(onReady).toHaveBeenCalledTimes(1);
-        expect(onReady).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345', trackingDetails: {} } });
+        expect(onRender).toHaveBeenCalledTimes(1);
+        expect(onRender).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345', trackingDetails: {} } });
     });
 
     it('Passes onClick handler', async () => {
@@ -278,7 +278,7 @@ describe('message interface', () => {
         expect(onClick).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
     });
 
-    it('Passes onHover handler', async () => {
+    it.skip('Passes onHover handler', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
         const onHover = jest.fn();

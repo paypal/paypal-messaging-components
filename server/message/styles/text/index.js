@@ -7,6 +7,7 @@ import logoRight from './logo--right.css';
 import logoTop from './logo--top.css';
 import logoAlternativeTop from './logo--alternativetop.css';
 import textWhite from './text--white.css';
+import textBlack from './text--black.css';
 
 export default [
     ['default', [common, base].join('\n')],
@@ -19,5 +20,8 @@ export default [
     ['logo.position:top', logoTop],
     ['logo.type:alternative && logo.position:top', logoAlternativeTop],
 
+    ['text.color:black', textBlack],
     ['text.color:white', textWhite]
+    // ['text.color:white', textWhite, disclaimerInverse],
+    // ['text.color:white', textWhite, disclaimerInverse],
 ];

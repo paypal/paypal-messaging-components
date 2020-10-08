@@ -8,7 +8,8 @@ import {
     attributeObserver,
     nextIndex,
     logger,
-    getCurrentTime
+    getCurrentTime,
+    globalEvent
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -61,25 +62,62 @@ export default (options = {}) => ({
                     container.setAttribute('data-pp-id', nextIndex());
                 }
 
+                const index = container.getAttribute('data-pp-id');
+                const {
+                    account,
+                    merchantId,
+                    currency,
+                    amount,
+                    placement,
+                    style,
+                    offer,
+                    buyerCountry,
+                    onClick,
+                    onRender,
+                    onApply
+                } = merchantOptions;
+
+                // Explicitly select props to pass in to avoid unintentionally sending
+                // in props meant for only either the message or modal (e.g. onClick)
+                const commonProps = {
+                    index,
+                    account,
+                    merchantId,
+                    currency,
+                    amount,
+                    buyerCountry
+                };
+                const messageProps = {
+                    ...commonProps,
+                    placement,
+                    style,
+                    offer,
+                    onClick,
+                    onReady: (...args) => {
+                        if (typeof onRender === 'function') {
+                            onRender(...args);
+                        }
+                    }
+                };
+                const modalProps = {
+                    ...commonProps,
+                    onApply
+                };
+
                 if (!messagesMap.has(container)) {
-                    const index = container.getAttribute('data-pp-id');
-                    const modal = Modal(merchantOptions);
-
-                    const totalOptions = {
-                        ...merchantOptions,
-                        modal,
-                        index
-                    };
-
-                    const { render, state, updateProps, clone } = Message(totalOptions);
+                    const { render, state, updateProps, clone } = Message({
+                        ...messageProps,
+                        modal: Modal(modalProps)
+                    });
 
                     state.renderStart = renderStart;
+                    state.style = messageProps.style;
 
                     messagesMap.set(container, { render, updateProps, state, clone });
 
                     attributeObserver.observe(container, { attributes: true });
 
-                    return render(container);
+                    return render(container).then(() => globalEvent.trigger('render'));
                 }
 
                 const { updateProps, state } = messagesMap.get(container);
@@ -88,7 +126,16 @@ export default (options = {}) => ({
                     state.renderStart = renderStart;
                 }
 
-                return updateProps(merchantOptions);
+                // Merge new styles into previous styles
+                // Especially useful when combining inline attribute styles with JS API styles
+                if (state.style && messageProps.style) {
+                    const totalStyle = objectMerge(state.style, messageProps.style);
+                    state.style = totalStyle;
+                    messageProps.style = totalStyle;
+                }
+
+                // Filter out undefined to prevent overwriting previous values
+                return updateProps(JSON.parse(JSON.stringify(messageProps))).then(() => globalEvent.trigger('render'));
             })
         );
     }

@@ -66,7 +66,9 @@
                     'DEV0000000PSZ',
                     'DEV0000000PSG',
                     'DEV0000000PMZ',
-                    'DEV0000000PMG'
+                    'DEV0000000PMG',
+                    'DEV0000000PI4',
+                    'DEV000000PI4Q',
 
                     // DE
                     // 'DEV0000000IAZ',
@@ -124,7 +126,7 @@
                     const sideContainer = document.createElement('div');
                     wrapper.appendChild(sideContainer);
 
-                    paypal.Message(conf).render([mainContainer, sideContainer]);
+                    paypal.Messages(conf).render([mainContainer, sideContainer]);
                 });
             });
         </script>

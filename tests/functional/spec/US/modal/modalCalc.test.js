@@ -1,40 +1,55 @@
 import openModal from '../../utils/initializeModal';
-import { viewports, bannerStyles, amounts } from '../../utils/testStylesConfig';
+import { viewports, bannerStyles, amounts, getGroupString } from '../../utils/testStylesConfig';
 import { nonQualErrorEZP, ezpFinanceTerms, updateFinanceTerms, ezpModalContent } from './us_modalTestDefs';
 
 const account = 'DEV0000000PSZ';
 
 describe.each([
-    [viewports[0], amounts[0]],
-    [viewports[0], amounts[1]],
-    [viewports[0], amounts[2]],
-    [viewports[0], amounts[3]],
-    [viewports[1], amounts[0]],
-    [viewports[1], amounts[1]],
-    [viewports[1], amounts[2]],
-    [viewports[1], amounts[3]]
-])('EZP modal calculator tests %o %i', (viewport, amount) => {
+    // desktop, text
+    [viewports[0], bannerStyles[0], amounts[0]],
+    [viewports[0], bannerStyles[0], amounts[1]],
+    [viewports[0], bannerStyles[0], amounts[2]],
+    [viewports[0], bannerStyles[0], amounts[3]],
+    // mobile, text
+    [viewports[1], bannerStyles[0], amounts[0]],
+    [viewports[1], bannerStyles[0], amounts[1]],
+    [viewports[1], bannerStyles[0], amounts[2]],
+    [viewports[1], bannerStyles[0], amounts[3]],
+    // desktop, flex
+    [viewports[0], bannerStyles[1], amounts[0]],
+    [viewports[0], bannerStyles[1], amounts[1]],
+    [viewports[0], bannerStyles[1], amounts[2]],
+    [viewports[0], bannerStyles[1], amounts[3]],
+    // mobile, flex
+    [viewports[1], bannerStyles[1], amounts[0]],
+    [viewports[1], bannerStyles[1], amounts[1]],
+    [viewports[1], bannerStyles[1], amounts[2]],
+    [viewports[1], bannerStyles[1], amounts[3]]
+])('EZP modal calculator tests %o', (viewport, bannerStyle, amount) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,
             amount,
-            style: bannerStyles
+            style: bannerStyle
         });
     });
+
+    const groupString = getGroupString({ viewport, amount });
+
     test(
-        'show error message when entering a non-qualifying amount inside the calculator',
-        nonQualErrorEZP(account, viewport, bannerStyles)
+        `${groupString} show error message when entering a non-qualifying amount inside calculator`,
+        nonQualErrorEZP({ account, viewport, groupString })
     );
     test(
-        'when an amount is passed into EZP message, the correct financing terms are loaded in a table',
-        ezpFinanceTerms(account, viewport, bannerStyles)
+        `${groupString} when amount is passed to EZP message, correct financing terms load in table`,
+        ezpFinanceTerms({ account, viewport, groupString })
     );
     test(
-        'update finance terms when user updates amount passed into calculator',
-        updateFinanceTerms(account, viewport, bannerStyles)
+        `${groupString} update finance terms when user updates amount passed into calculator`,
+        updateFinanceTerms({ account, viewport, groupString })
     );
     test(
-        'when an ezp message is clicked ezp content is loaded including a calculator for finance terms',
-        ezpModalContent(account, viewport, bannerStyles)
+        `${groupString} clicking EZP message loads EZP content with calculator for finance terms`,
+        ezpModalContent({ account, viewport, groupString })
     );
 });

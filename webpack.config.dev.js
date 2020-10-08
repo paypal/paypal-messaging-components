@@ -77,13 +77,14 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         filename: '[name].js',
+        env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'components'
         })
     });
 
-    COMPONENTS_DEV_CONFIG.entry = ['US', 'DE', 'GB'].reduce(
+    COMPONENTS_DEV_CONFIG.entry = ['US', 'US-EZP', 'DE', 'GB'].reduce(
         (accumulator, locale) => ({
             ...accumulator,
             [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
@@ -106,6 +107,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: false,
         filename: 'renderMessage.js',
+        env: env.NODE_ENV,
         vars: globals(env)
     });
 
@@ -118,6 +120,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         filename: 'smart-credit-modal.js',
+        env: env.NODE_ENV,
         vars: globals(env)
     });
 

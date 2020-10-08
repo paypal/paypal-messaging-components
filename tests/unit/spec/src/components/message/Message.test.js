@@ -8,6 +8,7 @@ import { request } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 jest.mock('src/utils', () => ({
+    getActiveTags: jest.fn(),
     request: jest.fn(() =>
         Promise.resolve({
             data: {

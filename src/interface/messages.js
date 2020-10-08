@@ -1,6 +1,11 @@
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-
-import { getInclusionList, getInlineOptions, getScript, getAccount, getPartnerAccount } from '../utils';
+import {
+    Treatment,
+    getExperimentTreatment,
+    getInlineOptions,
+    getScript,
+    getAccount,
+    getPartnerAccount
+} from '../utils';
 import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
 
@@ -17,10 +22,9 @@ function getAccounts(config = {}) {
         const partnerAccount = getPartnerAccount();
         const account = partnerAccount || getAccount() || inlineAccount;
         const merchantId = (partnerAccount && getAccount()) || merchantid;
-        const globalAccount = merchantId || account;
 
-        if (globalAccount) {
-            return { normalizedAccount: globalAccount.replace(/^client-id:/, ''), merchantId };
+        if (account || merchantId) {
+            return { normalizedAccount: account.replace(/^client-id:/, ''), merchantId };
         }
     }
 
@@ -28,19 +32,17 @@ function getAccounts(config = {}) {
 }
 
 export const Messages = config => ({
-    render: selector =>
-        getInclusionList().then(inclusionList => {
-            const { normalizedAccount, merchantId } = getAccounts(config);
+    render: selector => {
+        const { normalizedAccount, merchantId } = getAccounts(config);
 
-            if (
-                arrayIncludes(inclusionList, normalizedAccount) ||
-                (merchantId && arrayIncludes(inclusionList, merchantId))
-            ) {
+        return getExperimentTreatment([normalizedAccount, merchantId]).then(treatment => {
+            if (treatment === Treatment.TEST) {
                 NewMessages(config).render(selector);
             } else {
                 OldMessages(config).render(selector);
             }
-        })
+        });
+    }
 });
 
 Messages.render = (config, selector) => Messages(config).render(selector);
@@ -54,22 +56,17 @@ export function setup() {
         window.paypal.Message = Messages;
     }
 
-    getInclusionList().then(inclusionList => {
-        const { normalizedAccount, merchantId } = getAccounts();
+    const { normalizedAccount, merchantId } = getAccounts();
 
-        if (
-            arrayIncludes(inclusionList, normalizedAccount) ||
-            (merchantId && arrayIncludes(inclusionList, merchantId))
-        ) {
-            newSetup();
-        } else if (
-            // Ensure account exists otherwise the alias above can be improperly overwritten
-            normalizedAccount ||
-            merchantId
-        ) {
-            oldSetup();
-        }
-    });
+    if (normalizedAccount || merchantId) {
+        getExperimentTreatment([normalizedAccount, merchantId]).then(treatment => {
+            if (treatment === Treatment.TEST) {
+                newSetup();
+            } else {
+                oldSetup();
+            }
+        });
+    }
 }
 
 export function destroy() {
