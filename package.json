@@ -33,7 +33,7 @@
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
         "start": "npm run dev",
-        "test": "jest",
+        "test": "jest --verbose",
         "test:func": "jest --verbose --config tests/functional/jest.config.js",
         "test:func:payload": "jest --verbose --config tests/functional/jest.payload.config.js",
         "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
