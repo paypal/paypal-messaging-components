@@ -22,6 +22,8 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     }
     await frame.click('.message__messaging');
     await page.waitForSelector('iframe[title*="paypal_credit_modal"]', { visible: true });
+
+    await page.waitFor(10 * 1000);
 };
 
 export default openModal;

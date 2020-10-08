@@ -90,7 +90,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.event_type === 'stats');
         const request = getStatRequest({ requests, statName: 'initial payload', eventType: 'stats' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -124,7 +123,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.event_type === 'scroll');
         const request = getStatRequest({ requests, statName: 'scroll', eventType: 'scroll' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -155,7 +153,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const clickRequest = requests.find(r => r.bdata.event_type === 'click');
         const clickRequest = getStatRequest({ requests, statName: 'click', eventType: 'click' });
         expect(clickRequest).toBeDefined();
         expect(clickRequest.bdata).toMatchObject({
@@ -166,7 +163,6 @@ describe('payload testing', () => {
             uuid: expect.any(String)
         });
 
-        // const modalOpenRequest = requests.find(r => r.bdata.event_type === 'modal-open');
         const modalOpenRequest = getStatRequest({ requests, statName: 'click - modal open', eventType: 'modal-open' });
         expect(modalOpenRequest).toBeDefined();
         expect(modalOpenRequest.bdata).toMatchObject({
@@ -187,7 +183,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.event_type === 'hover');
         const request = getStatRequest({ requests, statName: 'hover', eventType: 'hover' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -211,7 +206,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.link === 'Calculator');
         const request = getStatRequest({ requests, statName: 'modal calculate', link: 'calculator' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -235,7 +229,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.link && r.bdata.link.includes('Apply Now'));
         const request = getStatRequest({ requests, statName: 'modal click', link: 'apply now' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
@@ -259,7 +252,6 @@ describe('payload testing', () => {
             }
         });
 
-        // const request = requests.find(r => r.bdata.event_type === 'modal-close');
         const request = getStatRequest({ requests, statName: 'close', eventType: 'modal-close' });
         expect(request).toBeDefined();
         expect(request.bdata).toMatchObject({
