@@ -59,7 +59,7 @@ const PL = () => {
                                 {text.map((textPart, idx) => (
                                     <Fragment>
                                         {idx !== 0 && textPart !== 'PRODUCT_NAME' ? <br /> : null}
-                                        {textPart === 'PRODUCT_NAME' ? <span>{productName}</span> : textPart}
+                                        {textPart === 'PRODUCT_NAME' ? <span> {productName}</span> : textPart}
                                     </Fragment>
                                 ))}
                             </p>
