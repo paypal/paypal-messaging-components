@@ -104,10 +104,6 @@
     .message__headline > span:nth-of-type(3) {
         display: none;
     }
-
-    .weak {
-        margin-left: -1.6%;
-    }
 }
 
 @media (min-aspect-ratio: 200/11) and (max-width: 350px) {
