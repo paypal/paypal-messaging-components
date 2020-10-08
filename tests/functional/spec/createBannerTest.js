@@ -67,7 +67,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${configString}`);
 
-            await waitForBanner(1000);
+            await waitForBanner({ configString, timeout: 1000 });
 
             const image = await page.screenshot(
                 {

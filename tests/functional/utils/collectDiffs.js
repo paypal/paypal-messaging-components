@@ -25,8 +25,8 @@ const collectDiffs = async () => {
     for await (const fullPath of readInterface) {
         const contents = fs.readdirSync(fullPath);
 
-        console.group(`MOVING SNAPSHOTS in ${fullPath}`); // eslint-disable-line no-console
-        console.info(contents.length ? `${contents.join('\n  ')}` : `None found`); // eslint-disable-line no-console
+        console.group(`MOVING ${contents.length} SNAPSHOTS in ${fullPath}`); // eslint-disable-line no-console
+        console.info(contents.length ? `${contents.join('\n')}` : `None found`); // eslint-disable-line no-console
 
         contents.forEach(name => {
             const file = path.resolve(fullPath, name);
@@ -50,8 +50,8 @@ const uploadToImgur = async subDir => {
     const folder = path.resolve(DIFF_DIR, subDir);
     const snapshots = fs.readdirSync(folder);
 
-    console.group(`UPLOADING SNAPSHOTS for ${subDir}`); // eslint-disable-line no-console
-    console.info(snapshots.length ? `${snapshots.join('\n  ')}` : `None found`); // eslint-disable-line no-console
+    console.group(`UPLOADING ${snapshots.length} SNAPSHOTS for ${subDir}`); // eslint-disable-line no-console
+    console.info(snapshots.length ? `${snapshots.join('\n')}` : `None found`); // eslint-disable-line no-console
     console.groupEnd(); // eslint-disable-line no-console
 
     if (snapshots.length > 0) {
