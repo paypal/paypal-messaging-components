@@ -1,5 +1,6 @@
 module.exports = {
-    testMatch: ['<rootDir>/**/?(*.)test.js?(x)'],
+    reporters: ['jest-standard-reporter'],
+    testMatch: ['<rootDir>/spec/non-snapshot-tests/**/*.test.js?(x)'],
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
