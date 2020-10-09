@@ -58,8 +58,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
     }, [currency, amount, payerId, clientId, merchantId]);
 
     // Force repaint. Needed for FF on Windows otherwise when the modal
-    // opens it will not be scrollable due to a weird issue with the iframe
-    // displaying and immediately animating from
+    // opens it will not be scrollable. When animating from offscreen while
+    // immediately displaying the iframe, FF appears to treat the wrapper
+    // as still being offscreen even though it has animated onscreen. Forcing
+    // a repaint forces FF to respect the position of the wrapper and allow scrolling.
     useLayoutEffect(() => {
         requestAnimationFrame(() => {
             if (stringStartsWith(transitionState, 'OPEN')) {
