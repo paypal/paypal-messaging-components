@@ -93,6 +93,10 @@
 
     .sticky-apply-now {
         position: fixed;
+
+        // iOS has an issue with position: fixed; elements within scrollable containers
+        transform: translate3d(0, 0, 0);
+
         width: 100%;
         max-width: 640px;
         top: calc(10rem + 84px);
@@ -102,7 +106,6 @@
         background: white;
         pointer-events: none;
         opacity: 0;
-        transform: translateY(0);
         transition: all 0.3s;
 
         &:after {
@@ -135,7 +138,6 @@
 
         &.show {
             opacity: 1;
-            transform: translateY(0);
 
             button {
                 transform: scaleX(1) translateX(0);
@@ -185,12 +187,16 @@
         .corner {
             top: 10rem;
             position: fixed;
+            // see .sticky-apply-now for why this transform is needed
+            transform: translate3d(0, 0, 0);
             left: auto;
             width: 100%;
         }
 
         .tabs {
             position: fixed;
+            // see .sticky-apply-now for why this transform is needed
+            transform: translate3d(0, 0, 0);
             top: 12rem;
             max-width: 640px;
         }
@@ -205,12 +211,16 @@
             .corner {
                 width: 100%;
                 position: fixed;
+                // see .sticky-apply-now for why this transform is needed
+                transform: translate3d(0, 0, 0);
                 top: calc(8rem + 84px);
                 left: auto;
             }
 
             .tabs {
                 position: fixed;
+                // see .sticky-apply-now for why this transform is needed
+                transform: translate3d(0, 0, 0);
                 top: calc(10rem + 84px);
                 max-width: 640px;
             }
