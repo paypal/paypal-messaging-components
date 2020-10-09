@@ -36,7 +36,7 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
     return [locale, account, layout, styleStr];
 };
 
-const waitForBanner = async ({ configString, timeout }) => {
+const waitForBanner = async ({ configString, testName, timeout }) => {
     try {
         await page.waitForFunction(
             () => {
@@ -52,7 +52,7 @@ const waitForBanner = async ({ configString, timeout }) => {
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-        console.error(`waitForBanner error for config: [${configString}]`, error); // eslint-disable-line no-console
+        console.warn(`waitForBanner error for test [${testName}] with config: [${configString}]`, error); // eslint-disable-line no-console
     }
 };
 
@@ -67,7 +67,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${configString}`);
 
-            await waitForBanner({ configString, timeout: 1000 });
+            await waitForBanner({ configString, testName: testNameParts.join('/'), timeout: 1000 });
 
             const image = await page.screenshot(
                 {

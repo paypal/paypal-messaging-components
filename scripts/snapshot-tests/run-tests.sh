@@ -13,18 +13,31 @@ showFailures () {
         echo ''
         echo 'FAILURES FOUND';
         node ./tests/functional/utils/collectFailedTests.js
+        echo ''
 
         echo ''
         snapCount=$(grep -h __diff_output__ $ERROR_FILE | wc -l)
         echo "FULL LIST OF FAILED SNAPSHOTS ($snapCount found)"
         grep -h __diff_output__ $ERROR_FILE -B 1
+        echo ''
         exit 1
     fi
+}
+
+printFullLogs () {
+    echo 'FULL OUTPUT LOGS'
+    cat $OUTPUT_FILE
+    echo ''
+
+    echo 'FULL ERROR LOGS'
+    cat $ERROR_FILE
+    echo ''
 }
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func 2> $ERROR_FILE | tee $OUTPUT_FILE
 
+    echo ''
     rm -r ./tests/functional/__diff_output__
     find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
     diffFolderCount=$(cat $DIFF_FOLDERS_LIST | wc -l)
@@ -32,6 +45,7 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     cat $DIFF_FOLDERS_LIST
     echo ''
 
+    echo ''
     find ./tests/functional/ -type f -name '*png' | grep -h __diff_output__
     diffFileCount=$(cat $DIFF_FILES_LIST | wc -l)
     echo "DIFF FILES FOUND ($diffFileCount found)"
@@ -41,6 +55,8 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     node ./tests/functional/utils/collectDiffs.js
 
     showFailures
+
+    printFullLogs
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u
@@ -58,5 +74,7 @@ else
         npm run test:func:nosnaps 2> $ERROR_FILE | tee $OUTPUT_FILE
 
         showFailures
+
+        printFullLogs
     fi
 fi
