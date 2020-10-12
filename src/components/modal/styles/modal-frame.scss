@@ -4,7 +4,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    overflow: hidden;
+    // This prevents FF from allowing the wrapper to be scrollable
+    // since it is animating from offscreen in the "hidden" part of
+    // this container.
+    // overflow: hidden;
 
     &.show {
         .wrapper {
