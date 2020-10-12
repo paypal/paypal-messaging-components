@@ -1,5 +1,6 @@
 .content-wrapper {
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     margin: auto;
     border-radius: 10px;
     height: 100%;

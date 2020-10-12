@@ -10,7 +10,7 @@ import { request } from '../../../utils';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
     const { type, products, setServerData, ...serverData } = useServerData();
-    const { onReady, currency, amount, payerId, clientId, merchantId } = useXProps();
+    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,8 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             amount,
             payer_id: payerId,
             client_id: clientId,
-            merchant_id: merchantId
+            merchant_id: merchantId,
+            buyer_country: buyerCountry
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
