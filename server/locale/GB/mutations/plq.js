@@ -6,6 +6,7 @@ import {
     messageLogoWidth,
     logo20x1
 } from './mediaQueries';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -89,7 +90,8 @@ export default {
                 logo: false
             })
         ],
-        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }],
+        ...textLogoMutations
     ],
 
     'layout:flex': [
@@ -141,24 +143,6 @@ export default {
                 ]
             }
         ],
-
-        [
-            'color:gray',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:white',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:black',
-            {
-                logo: Logo.PRIMARY.WHITE
-            }
-        ]
+        ...flexLogoMutations
     ]
 };

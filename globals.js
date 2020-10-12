@@ -3,6 +3,8 @@ const zoidGlobals = require('zoid/globals');
 
 const { version } = require('./package.json');
 
+const PORT = process.env.PORT || 8080;
+
 module.exports = (env = { TARGET: 'sdk' }) => ({
     __ZOID__: {
         ...zoidGlobals.__ZOID__,
@@ -21,7 +23,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
         __DOMAIN__: {
-            __LOCAL__: 'https://localhost.paypal.com:8080',
+            __LOCAL__: `https://localhost.paypal.com:${PORT}`,
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com',
