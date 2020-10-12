@@ -36,7 +36,7 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
     return [locale, account, layout, styleStr];
 };
 
-const waitForBanner = async ({ configString, testName, timeout }) => {
+const waitForBanner = async ({ testName, timeout }) => {
     try {
         await page.waitForFunction(
             () => {
@@ -52,22 +52,20 @@ const waitForBanner = async ({ configString, testName, timeout }) => {
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
-        console.warn(`waitForBanner error for test [${testName}] with config: [${configString}]`, error); // eslint-disable-line no-console
+        console.warn(`waitForBanner error for [${testName}]`, error); // eslint-disable-line no-console
     }
 };
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
-        test(testNameParts.slice(-1)[0], async () => {
-            // clone config so later code doesn't change the logged string
-            const configString = JSON.stringify({ account: config.account, ...viewport, ...config.style });
-
+        const testName = testNameParts.join('/');
+        test(testName, async () => {
             await page.setViewport(viewport);
 
-            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${configString}`);
+            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
-            await waitForBanner({ configString, testName: testNameParts.join('/'), timeout: 1000 });
+            await waitForBanner({ testName, timeout: 1000 });
 
             const image = await page.screenshot(
                 {
