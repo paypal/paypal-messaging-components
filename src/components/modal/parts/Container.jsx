@@ -59,15 +59,17 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <section
-                className={`modal-container ${stringStartsWith(transitionState, 'OPEN') ? 'show' : ''} ${
-                    loading ? 'loading' : ''
-                }`}
-            >
-                <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
-                <div className="wrapper">{children}</div>
-                <Overlay contentMaxWidth={contentMaxWidth} contentMaxHeight={contentMaxHeight} />
-            </section>
+            <div className="modal-wrapper">
+                <section
+                    className={`modal-container ${stringStartsWith(transitionState, 'OPEN') ? 'show' : ''} ${
+                        loading ? 'loading' : ''
+                    }`}
+                >
+                    <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
+                    <div className="wrapper">{children}</div>
+                    <Overlay contentMaxWidth={contentMaxWidth} contentMaxHeight={contentMaxHeight} />
+                </section>
+            </div>
         </ScrollProvider>
     );
 };
