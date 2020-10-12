@@ -2,7 +2,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
-import { useEffect, useState, useLayoutEffect, useMemo } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect } from '../lib';
 import Overlay from './Overlay';
@@ -13,7 +13,6 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
     const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
-    const repaintForceEl = useMemo(() => typeof document !== 'undefined' && document.createTextNode(''));
 
     useEffect(() => {
         if (transitionState === 'OPENING') {
@@ -57,21 +56,6 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             setLoading(false);
         });
     }, [currency, amount, payerId, clientId, merchantId]);
-
-    // Force repaint. Needed for FF on Windows otherwise when the modal
-    // opens it will not be scrollable. When animating from offscreen while
-    // immediately displaying the iframe, FF appears to treat the wrapper
-    // as still being offscreen even though it has animated onscreen. Forcing
-    // a repaint forces FF to respect the position of the wrapper and allow scrolling.
-    useLayoutEffect(() => {
-        requestAnimationFrame(() => {
-            if (stringStartsWith(transitionState, 'OPEN')) {
-                document.body.appendChild(repaintForceEl);
-            } else if (document.body.contains(repaintForceEl)) {
-                document.body.removeChild(repaintForceEl);
-            }
-        });
-    }, [transitionState]);
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
