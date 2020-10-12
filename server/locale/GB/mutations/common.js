@@ -23,6 +23,6 @@ export const flexLogoMutations = [
     ['color:gray', { logo: Logo.PRIMARY.COLOR }],
     ['color:white', { logo: Logo.PRIMARY.COLOR }],
     ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
-    ['color:monochrome', { logo: Logo.PRIMARY.BLACK }],
+    ['color:monochrome', { logo: Logo.PRIMARY.MONOCHROME }],
     ['color:grayscale', { logo: Logo.PRIMARY.GRAYSCALE }]
 ];
