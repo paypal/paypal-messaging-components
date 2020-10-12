@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file, eslint-comments/disable-enable-pair */
 import arrayFrom from 'core-js-pure/stable/array/from';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
@@ -8,7 +7,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
-import { nextId, getGlobalUrl, getExclusionList } from '../utils';
+import { nextId, getGlobalUrl } from '../utils';
 
 /**
  * This script is a combination of 2 similar legacy scripts (merchant.js and partner.js)
@@ -228,14 +227,7 @@ class Ad {
     }
 
     request() {
-        (__ENV__ === 'production'
-            ? getExclusionList().then(exclusionList =>
-                  arrayIncludes(exclusionList, this.kvs.payer_id || this.kvs.pub_id)
-                      ? getGlobalUrl('MESSAGE')
-                      : getGlobalUrl('MESSAGE_LEGACY')
-              )
-            : ZalgoPromise.resolve(getGlobalUrl('MESSAGE_LEGACY'))
-        ).then(origin => {
+        ZalgoPromise.resolve(getGlobalUrl('MESSAGE_LEGACY')).then(origin => {
             this.logger.info(EVENTS.FETCH_START);
             this.script = new JSONPRequest(`${origin}${this.queryString}`);
         });
