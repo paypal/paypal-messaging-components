@@ -1,6 +1,5 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
-// eslint-disable-next-line no-unused-vars
 import { h, Fragment } from 'preact';
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
