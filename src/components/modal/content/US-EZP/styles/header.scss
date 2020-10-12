@@ -8,7 +8,7 @@
 
     &::after {
         content: '';
-        display: table-cell;
+        display: block;
         visibility: hidden;
         overflow-y: scroll;
     }

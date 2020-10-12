@@ -8,6 +8,8 @@
     width: 100%;
     max-width: 640px;
     z-index: 51;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
 }
 
 .header-container {
@@ -80,6 +82,8 @@
 .hero-image {
     background-color: $header-background;
     position: fixed;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
     width: 100%;
     padding: 60px 0;
     top: 12rem;
