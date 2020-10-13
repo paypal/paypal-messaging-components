@@ -31,7 +31,7 @@
             "disclosure": "Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen."
         },
         "terms": {
-            "tableHeader": "{terms.offers.0.term} monatliche Raten von je {terms.offers.0.periodic}€",
+            "tableHeader": "${CREDIT_OFFERS_DS.total_payments} monatliche Raten von je ${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
             "genericError": "Es ist ein Fehler bei der Berechnung Ihres Angebots aufgetreten. Bitte versuchen Sie es später noch einmal.",
             "minError": "PayPal Ratenzahlung steht ab einem Bestellwert von ${CREDIT_OFFERS_DS.formattedMinAmount} zur Verfügung. Bitte geben Sie einen Betrag von ${CREDIT_OFFERS_DS.formattedMinAmount} oder mehr ein.",
             "maxError": "PayPal Ratenzahlung steht bis zu einem Bestellwert von ${CREDIT_OFFERS_DS.formattedMaxAmount} zur Verfügung. Bitte geben Sie einen Betrag von ${CREDIT_OFFERS_DS.formattedMaxAmount} oder weniger ein."
