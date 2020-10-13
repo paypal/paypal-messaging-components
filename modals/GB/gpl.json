@@ -15,7 +15,7 @@
             "unqualified": ["3 interest-free monthly", "payments with Flex"]
         },
         "subHeadline": {
-            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "unqualified": "On eligible purchases"
         },
         "terms": [
