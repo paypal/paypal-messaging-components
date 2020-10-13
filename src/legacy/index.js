@@ -3,7 +3,6 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
-import { ZalgoPromise } from 'zalgo-promise/src';
 
 import toNewPipeline from './toNewPipeline';
 import { Logger, EVENTS } from '../messages/services/logger';
@@ -227,10 +226,9 @@ class Ad {
     }
 
     request() {
-        ZalgoPromise.resolve(getGlobalUrl('MESSAGE_LEGACY')).then(origin => {
-            this.logger.info(EVENTS.FETCH_START);
-            this.script = new JSONPRequest(`${origin}${this.queryString}`);
-        });
+        const origin = getGlobalUrl('MESSAGE_LEGACY');
+        this.logger.info(EVENTS.FETCH_START);
+        this.script = new JSONPRequest(`${origin}${this.queryString}`);
     }
 
     initQueryString() {
