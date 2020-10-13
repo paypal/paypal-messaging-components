@@ -58,7 +58,7 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
-    const { terms: initialTerms, country } = useServerData();
+    const { terms: initialTerms, country, setServerData } = useServerData();
     const { payerId, clientId, merchantId, onCalculate, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
@@ -82,6 +82,8 @@ export default function useCalculator() {
             amount: inputAmount
         }).then(({ data }) => {
             dispatch({ type: 'terms', data });
+
+            setServerData({ terms: data });
         });
     };
 
