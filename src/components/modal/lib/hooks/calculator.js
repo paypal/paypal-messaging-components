@@ -1,19 +1,7 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { useReducer, useEffect } from 'preact/hooks';
 
-import { request, memoizeOnProps } from '../../../../utils';
 import { useXProps, useServerData } from '../../../lib';
-
-const termsFetcher = memoizeOnProps(
-    params => {
-        const query = objectEntries(params)
-            .reduce((acc, [key, val]) => (val ? `${acc}&${key}=${val}` : acc), '')
-            .slice(1);
-
-        return request('GET', `${window.location.origin}/credit-presentment/calculateTerms?${query}`);
-    },
-    ['amount', 'country', 'client_id', 'payer_id', 'merchant_id']
-);
+import { getContent } from '../utils';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -59,7 +47,7 @@ const localize = (country, amount) => {
 
 export default function useCalculator() {
     const { terms: initialTerms, country, setServerData } = useServerData();
-    const { payerId, clientId, merchantId, onCalculate, amount } = useXProps();
+    const { currency, payerId, clientId, merchantId, onCalculate, amount, buyerCountry } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
         prevValue: localize(country, initialTerms.amount),
@@ -67,23 +55,21 @@ export default function useCalculator() {
         isLoading: false
     });
 
-    const params = {
-        country,
-        client_id: clientId,
-        payer_id: payerId,
-        merchant_id: merchantId
-    };
-
     const fetchTerms = inputAmount => {
         dispatch({ type: 'fetch' });
 
-        termsFetcher({
-            ...params,
-            amount: inputAmount
-        }).then(({ data }) => {
-            dispatch({ type: 'terms', data });
+        getContent({
+            currency,
+            amount: inputAmount,
+            payerId,
+            clientId,
+            merchantId,
+            buyerCountry
+        }).then(data => {
+            setServerData(data);
 
-            setServerData({ terms: data });
+            // TODO: do not store terms in reducer since serverData will be kept up-to-date
+            dispatch({ type: 'terms', data: data.terms });
         });
     };
 
