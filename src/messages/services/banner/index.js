@@ -22,10 +22,10 @@ import { validateStyleOptions } from '../../models/Banner/validateOptions';
 
 // Old fetcher
 // Swap the placement tag when changes for banners and messaging.js are required in sync
-const PLACEMENT = 'x200x51';
-// const PLACEMENT = 'x215x80';
+const PLACEMENT = 'UCCU_200x51';
+// const PLACEMENT = 'UCCU_215x80';
 
-const NI_ONLY_PLACEMENT = 'x199x99';
+const NI_ONLY_PLACEMENT = 'UCCU_199x99';
 
 // Using same JSONP callback namespace as original merchant.js
 window.__PP = window.__PP || {};
@@ -74,12 +74,12 @@ function fetcher(options) {
         const callbackName = `c${Math.floor(Math.random() * 10 ** 19)}`;
 
         // For legacy banner placements where there is no EZP banner, use a separate placement tag that will always return NI
-        const dimensions = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
+        const touchpoint = typeEZP === '' || offerType === 'NI' ? NI_ONLY_PLACEMENT : PLACEMENT;
 
         // Fire off JSONP request
         const rootUrl = getGlobalUrl('MESSAGE');
         const queryParams = {
-            dimensions,
+            touchpoint,
             currency_value: amount,
             currency_code: currency || getCurrency(),
             buyer_country: buyerCountry,
