@@ -1,5 +1,4 @@
 module.exports = {
-    reporters: ['jest-standard-reporter'],
     testEnvironment: 'jest-environment-jsdom-sixteen',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {

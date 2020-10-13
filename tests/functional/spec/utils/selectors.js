@@ -19,7 +19,13 @@ const selectors = {
         contentHeaderTitle: '.content-header__title',
         // Used in GB modal
         containerLeft: '.content-body--left',
-        offer: '.content-body__offer'
+        offer: '.content-body__offer',
+        gbContainer: '.modal-container',
+        gbContent: '.content',
+        gbMain: '.main',
+        gbContainerLeft: '.left',
+        gbOffer: '.offer',
+        gbOverlay: '.overlay-side'
     },
     calculator: {
         calc: '.calculator',

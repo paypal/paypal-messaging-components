@@ -3,7 +3,6 @@
 # set -Eevxo
 
 OUTPUT_FILE=test_output.log
-ERROR_FILE=test_errors.log
 DIFF_FOLDERS_LIST=diff_folders.log
 DIFF_FILES_LIST=diff_files.log
 
@@ -16,38 +15,41 @@ showFailures () {
         echo ''
 
         echo ''
-        snapCount=$(grep -h __diff_output__ $ERROR_FILE | wc -l)
+        snapCount=$(grep -h __diff_output__ $OUTPUT_FILE | wc -l)
         echo "FULL LIST OF FAILED SNAPSHOTS ($snapCount found)"
-        grep -h __diff_output__ $ERROR_FILE -B 1
+        grep -h __diff_output__ $OUTPUT_FILE -B 1
         echo ''
-        exit 1
     fi
 }
 
 printFullLogs () {
+    echo ''
     echo 'FULL OUTPUT LOGS'
     cat $OUTPUT_FILE
     echo ''
+}
 
-    echo 'FULL ERROR LOGS'
-    cat $ERROR_FILE
-    echo ''
+exitOnFailure () {
+    failedCount=$(grep failed $OUTPUT_FILE | wc -l)
+    if [[ $failedCount -gt 0 ]]; then
+        exit
+    fi
 }
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
-    npm run test:func 2> $ERROR_FILE | tee $OUTPUT_FILE
+    npm run test:func 2> $OUTPUT_FILE | tee $OUTPUT_FILE
 
     echo ''
     rm -r ./tests/functional/__diff_output__
     find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
-    diffFolderCount=$(cat $DIFF_FOLDERS_LIST | wc -l)
+    diffFolderCount=$(wc -l < $DIFF_FOLDERS_LIST)
     echo 'DIFF FOLDERS FOUND'
     cat $DIFF_FOLDERS_LIST
     echo ''
 
     echo ''
-    find ./tests/functional/ -type f -name '*png' | grep -h __diff_output__
-    diffFileCount=$(cat $DIFF_FILES_LIST | wc -l)
+    find ./tests/functional/ -type f -name '*png' | grep -h __diff_output__ > $DIFF_FILES_LIST
+    diffFileCount=$(wc -l < $DIFF_FILES_LIST)
     echo "DIFF FILES FOUND ($diffFileCount found)"
     cat $DIFF_FILES_LIST
     echo ''
@@ -57,6 +59,8 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     showFailures
 
     printFullLogs
+
+    exitOnFailure
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u
@@ -71,10 +75,12 @@ else
         git commit -m "chore(snapshots): update snapshots [skip ci]"
         git push
     else
-        npm run test:func:nosnaps 2> $ERROR_FILE | tee $OUTPUT_FILE
+        npm run test:func:nosnaps 2> $OUTPUT_FILE | tee $OUTPUT_FILE
 
         showFailures
 
         printFullLogs
+
+        exitOnFailure
     fi
 fi

@@ -26,7 +26,7 @@ const collectDiffs = async () => {
         const contents = fs.readdirSync(fullPath);
 
         console.group(`MOVING ${contents.length} SNAPSHOTS in ${fullPath}`); // eslint-disable-line no-console
-        console.info(contents.length ? `${contents.join('\n')}` : `None found`); // eslint-disable-line no-console
+        if (contents.length) console.info(contents.join('\n')); // eslint-disable-line no-console
 
         contents.forEach(name => {
             const file = path.resolve(fullPath, name);
@@ -37,7 +37,9 @@ const collectDiffs = async () => {
 
             const subDir = file.includes('/modal/') ? 'modal' : 'banner';
             const newFile = path.resolve(DIFF_DIR, subDir, `${configName}__${name}`);
-            console.info(`Mv: ${file}\n  To: ${newFile}`); // eslint-disable-line no-console
+            const shortPath = file.slice(file.indexOf('snapshots/'));
+            const shortNewPath = newFile.slice(file.indexOf(DIFF_FOLDER));
+            console.info(`Mv: ${shortPath}\nTo: ${shortNewPath}`); // eslint-disable-line no-console
             fs.renameSync(file, newFile);
         });
 
@@ -57,9 +59,8 @@ const uploadToImgur = async subDir => {
     if (snapshots.length > 0) {
         const album = await imgur.createAlbum();
 
-        const result = await Promise.all(
-            snapshots.map(fileName => imgur.uploadFile(path.resolve(folder, fileName), album.data.deletehash, fileName))
-        );
+        const snapshotsArray = snapshots.map(fileName => `${folder}/${fileName}`);
+        const result = await imgur.uploadImages(snapshotsArray, 'File', album.data.deletehash);
 
         const albumUrl = `https://imgur.com/a/${album.data.id}`;
         // eslint-disable-next-line no-console
