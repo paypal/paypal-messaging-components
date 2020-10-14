@@ -1,0 +1,50 @@
+{
+    "name": "@paypal/messaging-components",
+    "version": "1.0.0",
+    "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
+    "homepage": "https://github.com/paypal/paypal-messaging-components",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/paypal/paypal-messaging-components.git"
+    },
+    "files": [],
+    "scripts": {
+        "lint": "eslint . --ext .js,.jsx",
+        "preinstall": "rm -rf node_modules",
+        "start": "",
+        "test": ""
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/register": "^7.10.4",
+        "@semantic-release/changelog": "^3.0.4",
+        "@semantic-release/exec": "^3.3.6",
+        "@semantic-release/git": "^7.0.16",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^25.1.0",
+        "babel-plugin-module-resolver": "^4.0.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-import-resolver-babel-module": "^5.1.2",
+        "eslint-import-resolver-jest": "^3.0.0",
+        "eslint-plugin-import": "^2.20.0",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.17.0",
+        "eslint-plugin-react-hooks": "^1.7.0",
+        "got": "^9.6.0",
+        "grumbler-scripts": "^3.0.46",
+        "husky": "^2.3.0",
+        "lint-staged": "^8.0.4",
+        "prettier": "^1.14.3",
+        "prettier-eslint": "^9.0.1",
+        "webpack": "^4.32.0",
+        "webpack-dev-server": "^3.4.1"
+    },
+    "sideEffects": false,
+    "publishConfig": {
+        "access": "public"
+    }
+}
