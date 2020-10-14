@@ -1,4 +1,5 @@
 import selectors from '../../utils/selectors';
+import logTestName from '../../utils/logTestName';
 import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
@@ -7,6 +8,8 @@ import modalSnapshot from '../../utils/modalSnapshot';
 
 export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
     const modalFrame = await elementModal.contentFrame();
@@ -30,6 +33,8 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
 
 export const updateFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'DE update finance terms';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitForFunction(() =>
         Array.from(document.querySelectorAll('iframe[title*="paypal_credit_modal"]')).find(
             el => el.parentElement.parentElement.style.display !== 'none'
@@ -54,6 +59,7 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
 
 export const deModalContentAndCalc = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp message content';
+    logTestName({ account, viewport, groupString, testNameParts });
 
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();

@@ -1,4 +1,5 @@
 import selectors from '../../utils/selectors';
+import logTestName from '../../utils/logTestName';
 import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
@@ -7,6 +8,8 @@ import modalSnapshot from '../../utils/modalSnapshot';
 
 export const gbModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'gb modal content';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
 
     const modalFrame = await elementModal.contentFrame();

@@ -1,4 +1,5 @@
 import selectors from '../../utils/selectors';
+import logTestName from '../../utils/logTestName';
 import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
@@ -6,6 +7,8 @@ import modalSnapshot from '../../utils/modalSnapshot';
  */
 export const niContentTest = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ni content in modal';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     /**
@@ -35,6 +38,8 @@ export const niContentTest = ({ account, viewport, groupString }) => async () =>
  */
 export const clickHereSeeTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'see terms page on modal hyperlink click';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(1000);
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
@@ -48,6 +53,8 @@ export const clickHereSeeTerms = ({ account, viewport, groupString }) => async (
 
 export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'apply now button to credit application login';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(1000);
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     await page.waitFor(500);
@@ -63,6 +70,8 @@ export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
  */
 export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
 
@@ -79,6 +88,8 @@ export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () 
 
 export const ezpFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp finance terms';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
@@ -89,6 +100,8 @@ export const ezpFinanceTerms = ({ account, viewport, groupString }) => async () 
 
 export const updateFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'update finance terms';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
@@ -102,6 +115,8 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
 
 export const ezpModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp message content';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(1000);
@@ -131,6 +146,8 @@ export const ezpModalContent = ({ account, viewport, groupString }) => async () 
 
 export const switchTabs = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'EZP and NI tabs click';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.button.tabs);

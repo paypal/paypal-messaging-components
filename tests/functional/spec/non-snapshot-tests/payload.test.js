@@ -71,7 +71,7 @@ const getStatRequest = ({ requests, statName, eventType, link }) => {
     return request;
 };
 
-describe('payload testing', () => {
+describe.skip('payload testing', () => {
     const config = {
         account: 'DEV0000000EAZ',
         amount: 500
