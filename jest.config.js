@@ -5,7 +5,7 @@ module.exports = {
             'jest-html-reporter',
             {
                 pageTitle: 'Unit Tests - PayPal Messaging Components',
-                outputPath: './tests/reports/unit.html',
+                outputPath: './tests/__reports__/unit.html',
                 // outputs detailed message for complete suite failures
                 includeSuiteFailure: true,
                 // outputs detailed message for test failure
