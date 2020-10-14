@@ -40,8 +40,15 @@ const waitForBanner = async ({ testName, timeout }) => {
     try {
         await page.waitForFunction(
             () => {
-                const el = document.querySelector('[data-pp-id] iframe');
-                return el && el.clientHeight !== 0;
+                const iframe = document.querySelector('[data-pp-id] iframe');
+                if (iframe) {
+                    const iframeBody = iframe.contentWindow.document.body;
+                    const banner = iframeBody.querySelector('.message__container');
+                    return banner && banner.clientHeight > 0;
+                }
+
+                const legacyBanner = document.querySelector('div[role="button"].message');
+                return legacyBanner && legacyBanner.clientHeight > 0;
             },
             {
                 polling: 10,
@@ -63,7 +70,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         test(testName, async () => {
             await page.setViewport(viewport);
 
+            const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
+            await waitForNavPromise;
 
             await waitForBanner({ testName, timeout: 2000 });
 

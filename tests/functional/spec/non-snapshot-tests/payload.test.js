@@ -92,7 +92,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'initial payload', eventType: 'stats' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
@@ -125,7 +125,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'scroll', eventType: 'scroll' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
             event_type: 'scroll',
@@ -185,7 +185,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'hover', eventType: 'hover' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLIENT_IMPRESSION',
             event_type: 'hover',
@@ -208,7 +208,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'modal calculate', link: 'calculator' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
             event_type: 'click',
@@ -231,7 +231,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'modal click', link: 'apply now' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
             event_type: 'click',
@@ -254,7 +254,7 @@ describe('payload testing', () => {
         });
 
         const request = getStatRequest({ requests, statName: 'close', eventType: 'modal-close' });
-        expect(request).toBeDefined();
+        expect(request).not.toBeNull();
         expect(request.bdata).toMatchObject({
             et: 'CLICK',
             event_type: 'modal-close',

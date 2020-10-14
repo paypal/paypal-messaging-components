@@ -37,7 +37,7 @@ exitOnFailure () {
 }
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
-    npm run test:func 2> $OUTPUT_FILE | tee $OUTPUT_FILE
+    npm run test:func
 
     echo ''
     rm -r ./tests/functional/__diff_output__
@@ -75,7 +75,7 @@ else
         git commit -m "chore(snapshots): update snapshots [skip ci]"
         git push
     else
-        npm run test:func:nosnaps 2> $OUTPUT_FILE | tee $OUTPUT_FILE
+        npm run test:func:nosnaps
 
         showFailures
 
