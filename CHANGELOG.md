@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.14.1](https://github.com/paypal/paypal-messaging-components/compare/v1.14.0...v1.14.1) (2020-10-14)
+
+
+### Bug Fixes
+
+* force repaint to prevent Firefox locked scroll ([#344](https://github.com/paypal/paypal-messaging-components/issues/344)) ([70d996a](https://github.com/paypal/paypal-messaging-components/commit/70d996ad07dfde1c1b164e9b65c23e7493a46d10))
+* GPL modal height ([#338](https://github.com/paypal/paypal-messaging-components/issues/338)) ([4f50c22](https://github.com/paypal/paypal-messaging-components/commit/4f50c22bb67bf9236b6ab28624e1257297fd3e2f))
+* modal scroll on iOS ([#343](https://github.com/paypal/paypal-messaging-components/issues/343)) ([70ff0ae](https://github.com/paypal/paypal-messaging-components/commit/70ff0aec2c7c5cccd4c6ad90a730b30c48886252))
+* modal scrollbar accessibility on Windows ([#346](https://github.com/paypal/paypal-messaging-components/issues/346)) ([2824597](https://github.com/paypal/paypal-messaging-components/commit/28245975adcc535b1ef7ace7573c143886b5152f))
+* NI/GB modal content ([#348](https://github.com/paypal/paypal-messaging-components/issues/348)) ([49cc2f3](https://github.com/paypal/paypal-messaging-components/commit/49cc2f32325d234721868598c47246aa6fe81f49))
+* over extended header in Firefox ([#345](https://github.com/paypal/paypal-messaging-components/issues/345)) ([4d5856e](https://github.com/paypal/paypal-messaging-components/commit/4d5856e9f9b0d3b752134ae5bd790cfb0c13b9c9))
+* pass buyer country in modal data re-fetch ([#342](https://github.com/paypal/paypal-messaging-components/issues/342)) ([0d8e1af](https://github.com/paypal/paypal-messaging-components/commit/0d8e1af20e76acad709ad9a9cb90946409c3405e))
+* select correct tab when modal offer changes ([#341](https://github.com/paypal/paypal-messaging-components/issues/341)) ([c2cc0e8](https://github.com/paypal/paypal-messaging-components/commit/c2cc0e8c618dcdbdb3e4f481af67cef082fea6c3))
+* substitute modal terms variables dynamically ([#350](https://github.com/paypal/paypal-messaging-components/issues/350)) ([6c2b9ef](https://github.com/paypal/paypal-messaging-components/commit/6c2b9ef063c2be569e30fbd488465752542a9d55))
+
 # [1.14.0](https://github.com/paypal/paypal-messaging-components/compare/v1.13.8...v1.14.0) (2020-10-07)
 
 
