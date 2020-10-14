@@ -205,7 +205,7 @@ export default (app, server, compiler) => {
                     .replace(/\${eval\(transaction_amount \? transaction_amount : '-'\)}/g, terms.amount ?? '-')
                     .replace(
                         /\${eval\(CREDIT_OFFERS_DS\.qualifying_offer \? CREDIT_OFFERS_DS\.qualifying_offer : 'false'\)}/g,
-                        terms.qualifying_offer
+                        morsVars.qualifying_offer
                     )
             );
 
