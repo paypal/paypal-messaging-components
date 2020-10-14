@@ -1,6 +1,6 @@
 module.exports = {
     launch: {
-        headless: false,
+        headless: true,
         devtools: false,
         // dumpio pipes browser stdout and stderr to process stdout and stderr
         // dumpio: true,
