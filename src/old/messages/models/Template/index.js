@@ -7,7 +7,6 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';
-import { ERRORS } from '../../services/logger';
 import {
     curry,
     memoize,
@@ -269,28 +268,6 @@ function createCustomTemplateNode({ data, meta, template }) {
     return newTemplate;
 }
 
-function createImageTemplateNode(style, { meta }) {
-    const newTemplate = imageTemplate.cloneNode(true);
-    const getTemplateElement = getElement('pp-legacy', newTemplate);
-    const [link, pixel] = ['link', 'pixel'].map(getTemplateElement);
-
-    const size = objectGet(style, 'size');
-    const color = objectGet(style, 'color');
-    const border = objectGet(style, 'border');
-
-    link.setAttribute('href', meta.clickUrl);
-    pixel.setAttribute('href', meta.impressionUrl);
-
-    const baseUrl = 'https://www.paypalobjects.com/upstream/assets/messaging/legacy';
-    const styleType = color === 'none' ? '' : `-${color}${border === true ? '' : '-no-border'}`;
-    const formattedName = `${color === 'none' ? 'v1' : 'v2'}/${size.replace(/x/, '-')}${styleType}`;
-    const srcset = [1, 1.5, 2].map(dpr => `${baseUrl}/${formattedName}@${dpr}x.png ${dpr}x`);
-
-    appendImage(link, `${baseUrl}/${formattedName}@1x.png`, 'PayPal Credit Message', srcset.join(', '));
-
-    return newTemplate;
-}
-
 /**
  * Create a new template DOM element
  * @param {Object} options Banner options, including style rules to be applied to the template
@@ -306,20 +283,6 @@ function createTemplateNode(options, markup) {
     const styleSelectors = objectGet(options, 'style._flattened');
     const offerType = objectGet(markup, 'meta.offerType');
     const data = objectGet(markup, 'data');
-
-    if (layout === 'legacy') {
-        const typeNI = objectGet(options, 'style.typeNI');
-        const typeEZP = objectGet(options, 'style.typeEZP');
-        const type = offerType.split(':')[0] === 'NI' ? typeNI : typeEZP;
-
-        if (type === 'image') {
-            return createImageTemplateNode(options.style, markup);
-        }
-
-        if (!type) {
-            throw new Error(ERRORS.MESSAGE_INVALID_LEGACY);
-        }
-    }
 
     const classNamePrefix = 'message';
     const applyCascadeRules = applyCascade(options.style, styleSelectors);
@@ -409,10 +372,6 @@ function createTemplateNode(options, markup) {
     }
 
     const prefixStyles = styles => {
-        if (layout === 'legacy') {
-            return styles.replace(/\.message/g, `[data-pp-id="${options.id}"] .message`);
-        }
-
         return styles;
     };
 

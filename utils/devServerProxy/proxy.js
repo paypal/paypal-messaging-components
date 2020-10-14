@@ -71,9 +71,8 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
-                    || window.top.document.querySelector('script[src*="messaging.js"]')
-                    || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                    || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
 
                 document.write(interface);
             </script>
