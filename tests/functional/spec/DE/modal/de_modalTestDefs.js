@@ -16,7 +16,7 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await page.waitFor(1000);
     await modalFrame.type(selectors.calculator.calcInput, '2');
-    await modalFrame.click(selectors.button.btnMd);
+    await modalFrame.click(selectors.button.closeBtn);
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(2000);
     const calcInstructions = await modalFrame.evaluate(
@@ -46,7 +46,7 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
     });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
-    await modalFrame.click(selectors.button.btnMd);
+    await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
