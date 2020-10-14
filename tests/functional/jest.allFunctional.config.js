@@ -15,9 +15,7 @@ module.exports = {
             }
         ]
     ],
-    // testMatch: ['<rootDir>/**/?(*.)test.js?(x)'],
-    testMatch: ['<rootDir>/spec/US/custom.test.js?(x)'],
-
+    testMatch: ['<rootDir>/**/?(*.)test.js?(x)'],
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
