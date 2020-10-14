@@ -68,6 +68,8 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
+            // Outputs current test so CI does not stall
+            console.info(`Running test [${testName}], with viewport [${viewport}]`); // eslint-disable-line no-console
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
