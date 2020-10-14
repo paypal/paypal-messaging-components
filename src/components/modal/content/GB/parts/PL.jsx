@@ -33,7 +33,9 @@ const PL = () => {
         <div className="content-body">
             <div className="left">
                 {headline()}
-                <p className="subheadline">{qualifying === 'TRUE' ? subHeadline.qualified : subHeadline.unqualified}</p>
+                <p className="subheadline">
+                    {qualifying.toLowerCase() === 'true' ? subHeadline.qualified : subHeadline.unqualified}
+                </p>
                 <Icon name="icecream" />
                 <div className="thumbs-up">
                     <Icon name="thumbs-up" />
