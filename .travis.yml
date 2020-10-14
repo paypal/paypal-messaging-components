@@ -18,10 +18,10 @@ before_install:
 
 before_script:
     # TODO: Re-enable once snapshot tests are reliably improved
-    - npm run dev:standalone &
+    # - npm run dev:standalone &
     # Give dev server time to startup
     # TODO: Re-enable once snapshot tests are reliably improved
-    - sleep 40
+    # - sleep 40
 
 script:
     - npm run lint
