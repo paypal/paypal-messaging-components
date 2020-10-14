@@ -1,6 +1,5 @@
 import qs from 'qs';
 import packageConfig from '../../../../package.json';
-import { bannerStyles } from '../utils/testStylesConfig';
 import selectors from '../utils/selectors';
 
 const createSpy = async ({ keyword = 'bdata' }) => {
@@ -22,8 +21,7 @@ const setupPage = async ({ config, testPage = 'banner.html' }) => {
     const bannerFrame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();
 
-    const modalContentSelector = config.account.includes('IAZ') ? '.modal__content' : '.content-body';
-    await modalFrame.waitForSelector(modalContentSelector);
+    await modalFrame.waitForSelector('.content-body');
     await bannerFrame.waitForSelector('.message__messaging', { visible: true });
 
     return { bannerFrame, modalFrame };
@@ -76,16 +74,13 @@ const getStatRequest = ({ requests, statName, eventType, link }) => {
 describe('payload testing', () => {
     const config = {
         account: 'DEV0000000EAZ',
-        amount: 500,
-        style: bannerStyles
+        amount: 500
     };
-    const testPage = 'banner.html';
 
     test('initial payload', async () => {
         await page.waitFor(30 * 1000);
         const requests = await runTest({
             config,
-            testPage,
             callback: async () => {
                 await page.waitFor(5 * 1000);
             }
@@ -137,8 +132,7 @@ describe('payload testing', () => {
 
     test('scroll stat not sent if above fold', async () => {
         const requests = await runTest({
-            config,
-            testPage
+            config
         });
 
         const request = requests.find(r => r.bdata.event_type === 'scroll');
@@ -148,7 +142,6 @@ describe('payload testing', () => {
     test('click stat sent', async () => {
         const requests = await runTest({
             config,
-            testPage,
             callback: async ({ bannerFrame }) => {
                 await clickBanner(bannerFrame);
             }
@@ -178,7 +171,6 @@ describe('payload testing', () => {
     test('hover stat sent', async () => {
         const requests = await runTest({
             config,
-            testPage,
             callback: async ({ bannerFrame }) => {
                 await bannerFrame.hover('.message__messaging');
             }
@@ -197,7 +189,6 @@ describe('payload testing', () => {
     test('modal calculate stat sent', async () => {
         const requests = await runTest({
             config,
-            testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
                 await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
@@ -222,7 +213,6 @@ describe('payload testing', () => {
     test('modal click stat sent', async () => {
         const requests = await runTest({
             config,
-            testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
                 await page.waitFor(10 * 1000);
@@ -244,7 +234,6 @@ describe('payload testing', () => {
     test('modal close stat sent', async () => {
         const requests = await runTest({
             config,
-            testPage,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
                 await page.waitFor(10 * 1000);
