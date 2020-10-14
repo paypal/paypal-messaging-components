@@ -10,7 +10,7 @@ const headline = () => {
 
     const { qualifying } = useProductMeta('GPL');
 
-    if (qualifying.toLowerCase() !== 'true') {
+    if (qualifying?.toLowerCase() !== 'true') {
         return (
             <h1 className="offer">
                 {unqualified[0]} <br /> {unqualified[1]}
@@ -34,7 +34,7 @@ const PL = () => {
             <div className="left">
                 {headline()}
                 <p className="subheadline">
-                    {qualifying.toLowerCase() === 'true' ? subHeadline.qualified : subHeadline.unqualified}
+                    {qualifying?.toLowerCase() === 'true' ? subHeadline.qualified : subHeadline.unqualified}
                 </p>
                 <Icon name="icecream" />
                 <div className="thumbs-up">
