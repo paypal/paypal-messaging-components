@@ -1,20 +1,14 @@
 .header-wrapper {
-    display: table;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
 
-    &::after {
-        content: '';
-        display: block;
-        visibility: hidden;
-        overflow-y: scroll;
-    }
-
+    // TODO: This container can likely be removed. It was originally used strictly for the
+    // scroll bar hack for Windows, but that hack has been moved further up to the root
+    // modal wrapper
     .header-container {
-        display: table-cell;
         width: 100%;
     }
 
