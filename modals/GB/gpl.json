@@ -1,10 +1,10 @@
 {
     "meta": {
         "product": "GPL",
-        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'FALSE')}",
         "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
-        "minAmount": "{CREDIT_OFFERS_DS.minAmount}",
-        "maxAmount": "{CREDIT_OFFERS_DS.maxAmount}",
+        "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+        "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
         "amount": "${eval(transaction_amount ? transaction_amount : '-')}"
     },
     "content": {
