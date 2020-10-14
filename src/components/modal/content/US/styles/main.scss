@@ -1,8 +1,13 @@
 .content-wrapper {
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     margin: auto;
     border-radius: 10px;
     height: 100%;
+    // Important: This forces the wrapper to be the entire width of the screen
+    // which is needed in Windows due to the scroll bar offset hack used
+    // on the topmost parent container
+    width: 100vw;
 }
 
 .content {
@@ -53,6 +58,7 @@ main {
         min-height: auto;
         margin: auto;
         width: 100%;
+        height: 100%;
         box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;

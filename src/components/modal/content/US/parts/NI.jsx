@@ -42,7 +42,7 @@ export default ({ showApplyNow, switchTab }) => {
             <div className="description">
                 <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
 
-                <p>{subHeadline}</p>
+                <h3>{subHeadline}</h3>
 
                 <p className="call-to-action">
                     <div>

@@ -17,13 +17,12 @@ const Content = ({ headerRef }) => {
     const [sticky, setSticky] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
+    const product = getProductForOffer(offer);
 
-    const initialProduct = arrayFind(products, prod => prod.meta.product === getProductForOffer(offer));
+    const initialProduct = arrayFind(products, prod => prod.meta.product === product);
     // In case the product shown in the message, for some reason, does not come back with the modal
     // Ideally, this should never happen
-    const [selectedProduct, setSelectedProduct] = useState(
-        initialProduct ? getProductForOffer(offer) : products[0].meta.product
-    );
+    const [selectedProduct, setSelectedProduct] = useState(initialProduct ? product : products[0].meta.product);
 
     useScroll(
         ({ target: { scrollTop } }) => {
@@ -45,15 +44,15 @@ const Content = ({ headerRef }) => {
         [sticky]
     );
 
-    const selectProduct = product => {
+    const selectProduct = newProduct => {
         scrollTo(0);
 
-        setSelectedProduct(product);
+        setSelectedProduct(newProduct);
     };
 
     useDidUpdateEffect(() => {
-        setSelectedProduct(offer);
-    }, [offer]);
+        setSelectedProduct(product);
+    }, [product]);
 
     const tabsMap = {
         GPL: {

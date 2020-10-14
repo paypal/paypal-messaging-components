@@ -1,5 +1,5 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import { useServerData } from '../providers';
+import { useServerData } from '../../../lib';
 
 export function useProduct(product) {
     const { products } = useServerData();

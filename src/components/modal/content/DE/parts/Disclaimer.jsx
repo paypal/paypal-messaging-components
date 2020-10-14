@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useContent } from '../../../../lib';
+import { useContent } from '../../../lib';
 
 const isZeroAPR = val => Number(val.replace(/[,.]/g, '')) === 0;
 
