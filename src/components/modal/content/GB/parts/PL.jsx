@@ -10,7 +10,7 @@ const headline = () => {
 
     const { qualifying } = useProductMeta('GPL');
 
-    if (qualifying !== 'TRUE') {
+    if (qualifying.toLowerCase() !== 'true') {
         return (
             <h1 className="offer">
                 {unqualified[0]} <br /> {unqualified[1]}
