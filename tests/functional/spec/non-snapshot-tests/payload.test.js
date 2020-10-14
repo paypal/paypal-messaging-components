@@ -81,7 +81,7 @@ describe('payload testing', () => {
     };
     const testPage = 'banner.html';
 
-    test.only('initial payload', async () => {
+    test('initial payload', async () => {
         await page.waitFor(30 * 1000);
         const requests = await runTest({
             config,

@@ -2,39 +2,10 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 # set -Eevxo
 
-OUTPUT_FILE=test_output.log
+# TODO add commands to push HTML reports to a hosting branch/repo
+
 DIFF_FOLDERS_LIST=diff_folders.log
 DIFF_FILES_LIST=diff_files.log
-
-showFailures () {
-    failedCount=$(grep failed $OUTPUT_FILE | wc -l)
-    if [[ $failedCount -gt 0 ]]; then
-        echo ''
-        echo 'FAILURES FOUND';
-        node ./tests/functional/utils/collectFailedTests.js
-        echo ''
-
-        echo ''
-        snapCount=$(grep -h __diff_output__ $OUTPUT_FILE | wc -l)
-        echo "FULL LIST OF FAILED SNAPSHOTS ($snapCount found)"
-        grep -h __diff_output__ $OUTPUT_FILE -B 1
-        echo ''
-    fi
-}
-
-printFullLogs () {
-    echo ''
-    echo 'FULL OUTPUT LOGS'
-    cat $OUTPUT_FILE
-    echo ''
-}
-
-exitOnFailure () {
-    failedCount=$(grep failed $OUTPUT_FILE | wc -l)
-    if [[ $failedCount -gt 0 ]]; then
-        exit
-    fi
-}
 
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func
@@ -56,11 +27,9 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
 
     node ./tests/functional/utils/collectDiffs.js
 
-    showFailures
-
-    printFullLogs
-
-    exitOnFailure
+    if [[ $diffFileCount -gt 0 ]]; then
+        exit 1
+    fi
 else
     if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
         npm run test:func -- -u
@@ -76,11 +45,5 @@ else
         git push
     else
         npm run test:func:nosnaps
-
-        showFailures
-
-        printFullLogs
-
-        exitOnFailure
     fi
 fi
