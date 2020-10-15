@@ -1,11 +1,14 @@
 #!/bin/bash
 set -ev
 
+DIFF_FOLDERS_LIST=diff_folders.log
+DIFF_FILES_LIST=diff_files.log
+
 echo ''
-rm -r ./tests/functional/__diff_output__
+rm -rf ./tests/functional/__diff_output__
 find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
 diffFolderCount=$(wc -l < $DIFF_FOLDERS_LIST)
-echo 'DIFF FOLDERS FOUND'
+echo "DIFF FOLDERS FOUND ($diffFolderCount found)"
 cat $DIFF_FOLDERS_LIST
 echo ''
 

@@ -10,7 +10,7 @@ if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func
 
     echo ''
-    rm -r ./tests/functional/__diff_output__
+    rm -rf ./tests/functional/__diff_output__
     find ./tests/functional/snapshots -type d | grep -h __diff_output__ > $DIFF_FOLDERS_LIST
     diffFolderCount=$(wc -l < $DIFF_FOLDERS_LIST)
     echo 'DIFF FOLDERS FOUND'
