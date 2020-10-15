@@ -1,6 +1,5 @@
 #!/bin/bash
-# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
-# set -Eevxo
+set -ev
 
 # TODO add commands to push HTML reports to a hosting branch/repo
 

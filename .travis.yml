@@ -16,18 +16,64 @@ addons:
 before_install:
     - npm i -g npm@6
 
-before_script:
-    # TODO: Re-enable once snapshot tests are reliably improved
-    - npm run dev:standalone &
-    # Give dev server time to startup
-    # TODO: Re-enable once snapshot tests are reliably improved
-    - sleep 40
+# before_script:
+#     # TODO: Re-enable once snapshot tests are reliably improved
+#     - npm run dev:standalone &
+#     # Give dev server time to startup
+#     # TODO: Re-enable once snapshot tests are reliably improved
+#     - sleep 40
 
-script:
-    - npm run lint
-    - npm run test
-    # TODO: Re-enable once snapshot tests are reliably improved
-    - ./scripts/snapshot-tests/run-tests.sh
+# script:
+#     - npm run lint
+#     - npm run test
+#     # TODO: Re-enable once snapshot tests are reliably improved
+#     - npm run test:
+#     - ./scripts/snapshot-tests/run-tests.sh
+
+jobs:
+    include:
+        - name: 'Lint, Unit and Non-Snap Tests'
+          script:
+              - npm run lint
+              - npm run test
+              - npm run test:func:nosnaps
+        - name: 'Functional US Tests'
+          if: DIRTY_SNAPSHOTS = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/US
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional DE Tests'
+          if: DIRTY_SNAPSHOTS = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/DE
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional GB Tests'
+          if: DIRTY_SNAPSHOTS = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/GB
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Update Snapshots'
+          if: DIRTY_SNAPSHOTS = 1
+          script:
+              - ./scripts/snapshot-tests/update-snapshots.sh
 
 deploy:
     provider: script
