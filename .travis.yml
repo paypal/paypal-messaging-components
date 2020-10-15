@@ -38,7 +38,7 @@ jobs:
               - npm run test
               - npm run test:func:nosnaps
         - name: 'Functional US Tests'
-          if: DIRTY_SNAPSHOTS = 0
+          if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
               - npm run dev:standalone &
@@ -49,7 +49,7 @@ jobs:
               - npm run test:func -- --testPathPattern spec/US
               - ./scripts/snapshot-tests/collect-diffs.sh
         - name: 'Functional DE Tests'
-          if: DIRTY_SNAPSHOTS = 0
+          if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
               - npm run dev:standalone &
@@ -60,7 +60,7 @@ jobs:
               - npm run test:func -- --testPathPattern spec/DE
               - ./scripts/snapshot-tests/collect-diffs.sh
         - name: 'Functional GB Tests'
-          if: DIRTY_SNAPSHOTS = 0
+          if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
               - npm run dev:standalone &
@@ -71,7 +71,7 @@ jobs:
               - npm run test:func -- --testPathPattern spec/GB
               - ./scripts/snapshot-tests/collect-diffs.sh
         - name: 'Update Snapshots'
-          if: DIRTY_SNAPSHOTS = 1
+          if: env(DIRTY_SNAPSHOTS) = 1
           script:
               - ./scripts/snapshot-tests/update-snapshots.sh
 
