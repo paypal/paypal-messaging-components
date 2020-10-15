@@ -5,7 +5,6 @@ import {
     primaryContentMediaQuery,
     messageDisclaimerMediaQuery
 } from './mediaQueries';
-import { legacyNI } from './ni';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export const flex = [
@@ -193,6 +192,5 @@ export default {
         ...textLogoMutations
     ],
 
-    'layout:flex': flex,
-    'layout:legacy': legacyNI
+    'layout:flex': flex
 };
