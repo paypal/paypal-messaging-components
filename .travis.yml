@@ -39,7 +39,7 @@ jobs:
               - npm run lint
               - npm run test
               - npm run test:func:nosnaps
-        - name: 'Functional US Tests'
+        - name: 'Functional DE Banner Tests'
           if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
@@ -48,9 +48,9 @@ jobs:
               # TODO: Re-enable once snapshot tests are reliably improved
               - sleep 40
           script:
-              - npm run test:func -- --testPathPattern spec/US
+              - npm run test:func -- --testPathPattern spec/DE/banner
               - ./scripts/snapshot-tests/collect-diffs.sh
-        - name: 'Functional DE Tests'
+        - name: 'Functional DE Modal Tests'
           if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
@@ -59,9 +59,10 @@ jobs:
               # TODO: Re-enable once snapshot tests are reliably improved
               - sleep 40
           script:
-              - npm run test:func -- --testPathPattern spec/DE
+              - npm run test:func -- --testPathPattern spec/DE/modal
               - ./scripts/snapshot-tests/collect-diffs.sh
-        - name: 'Functional GB Tests'
+
+        - name: 'Functional GB Banner Tests'
           if: env(DIRTY_SNAPSHOTS) = 0
           before_script:
               # TODO: Re-enable once snapshot tests are reliably improved
@@ -70,7 +71,52 @@ jobs:
               # TODO: Re-enable once snapshot tests are reliably improved
               - sleep 40
           script:
-              - npm run test:func -- --testPathPattern spec/GB
+              - npm run test:func -- --testPathPattern spec/GB/banner
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional GB Modal Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/GB/modal
+              - ./scripts/snapshot-tests/collect-diffs.sh
+
+        - name: 'Functional US Banner Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/US/banner
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional US Modal Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/US/modal
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional US Custom/Legacy Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          before_script:
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - npm run dev:standalone &
+              # Give dev server time to startup
+              # TODO: Re-enable once snapshot tests are reliably improved
+              - sleep 40
+          script:
+              - npm run test:func -- --testPathPattern spec/US/custom-and-legacy
               - ./scripts/snapshot-tests/collect-diffs.sh
         - name: 'Update Snapshots'
           if: env(DIRTY_SNAPSHOTS) = 1

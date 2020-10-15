@@ -1,4 +1,4 @@
-import createBannerTest from '../createBannerTest';
+import createBannerTest from '../../createBannerTest';
 
 describe('US > custom', () => {
     const viewport = {

@@ -1,5 +1,5 @@
-import createBannerTest from '../createBannerTest';
-import accounts from './accounts';
+import createBannerTest from '../../createBannerTest';
+import accounts from '../accounts';
 
 describe('DE > text', () => {
     const viewport = {
