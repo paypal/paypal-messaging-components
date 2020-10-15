@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.14.2](https://github.com/paypal/paypal-messaging-components/compare/v1.14.1...v1.14.2) (2020-10-15)
+
+
+### Bug Fixes
+
+* account for mobile URL search bar in overflow calculation ([#356](https://github.com/paypal/paypal-messaging-components/issues/356)) ([f2098c5](https://github.com/paypal/paypal-messaging-components/commit/f2098c588246c77059b55fb9e049c8fd62129d60))
+* hide sticky apply now on modal close or tab switch ([#354](https://github.com/paypal/paypal-messaging-components/issues/354)) ([b2f12e8](https://github.com/paypal/paypal-messaging-components/commit/b2f12e811d08d800f7f644a6cad5cafcccba2a25))
+* modal scroll ([#355](https://github.com/paypal/paypal-messaging-components/issues/355)) ([53ac3c1](https://github.com/paypal/paypal-messaging-components/commit/53ac3c1f72a26134c618ec3377c1806e4d70ae05))
+
 ## [1.14.1](https://github.com/paypal/paypal-messaging-components/compare/v1.14.0...v1.14.1) (2020-10-14)
 
 
