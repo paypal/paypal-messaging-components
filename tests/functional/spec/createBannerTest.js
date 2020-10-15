@@ -36,19 +36,20 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
     return [locale, account, layout, styleStr];
 };
 
+// returns height and width of banner in pixels
 const waitForBanner = async ({ testName, timeout }) => {
     try {
-        await page.waitForFunction(
+        const result = await page.waitForFunction(
             () => {
                 const iframe = document.querySelector('[data-pp-id] iframe');
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
                     const banner = iframeBody.querySelector('.message__container');
-                    return banner && banner.clientHeight > 0;
+                    return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
 
-                const legacyBanner = document.querySelector('div[role="button"].message');
-                return legacyBanner && legacyBanner.clientHeight > 0;
+                const legacy = document.querySelector('div[role="button"].message');
+                return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
                 polling: 10,
@@ -58,10 +59,15 @@ const waitForBanner = async ({ testName, timeout }) => {
 
         // Give time for fonts to load after banner is rendered
         await new Promise(resolve => setTimeout(resolve, 500));
+        return await result.jsonValue();
     } catch (error) {
         console.warn(`waitForBanner error for [${testName}]`, error); // eslint-disable-line no-console
     }
+
+    return { height: null, width: null };
 };
+
+const roundWithPadding = number => 10 * Math.ceil(number / 10) + 5;
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
@@ -77,12 +83,18 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
             await waitForNavPromise;
 
-            await waitForBanner({ testName, timeout: 2000 });
+            const bannerDimensions = await waitForBanner({ testName, timeout: 2000 });
+            // pad text banners to account for variation in size
+            const paddedDimensions = {
+                height: roundWithPadding(bannerDimensions.height),
+                width: roundWithPadding(bannerDimensions.width)
+            };
+            const snapshotDimensions = config.layout === 'text' ? paddedDimensions : bannerDimensions;
 
             const image = await page.screenshot(
                 {
                     clip: {
-                        ...viewport,
+                        ...snapshotDimensions,
                         x: 0,
                         y: 0
                     }
@@ -92,6 +104,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
             const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
             expect(image).toMatchImageSnapshot({
+                diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
                 customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
                 customSnapshotIdentifier
             });
