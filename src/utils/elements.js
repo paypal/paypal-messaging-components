@@ -281,7 +281,10 @@ export const getRoot = baseElement => {
         const child = elements[index + 1];
 
         return (
-            height !== innerHeight ||
+            // window.innerHeight has a variable value on mobile based on the URL bar so
+            // we are looking for the element that is larger than the window
+            // TODO: This could potentially provide a false positive if a merchant is using height 100vh
+            height > innerHeight ||
             // Ensure that the selected root is the larger of the parent
             // and contains the child otherwise there may not be a proper page wrapper
             // e.g. https://www.acwholesalers.com
