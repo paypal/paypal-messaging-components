@@ -8,14 +8,15 @@ node_js:
 env:
     global:
         - DIRTY_SNAPSHOTS=0
-    jobs:
-        - TEST_PATH_PATTERN=spec/DE/banner
-        - TEST_PATH_PATTERN=spec/DE/modal
-        - TEST_PATH_PATTERN=spec/GB/banner
-        - TEST_PATH_PATTERN=spec/GB/modal
-        - TEST_PATH_PATTERN=spec/US/custom-and-legacy
-        - TEST_PATH_PATTERN=spec/US/banner
-        - TEST_PATH_PATTERN=spec/US/modal
+    # TODO re-enable once support replies
+    # jobs:
+    #     - TEST_PATH_PATTERN=spec/DE/banner
+    #     - TEST_PATH_PATTERN=spec/DE/modal
+    #     - TEST_PATH_PATTERN=spec/GB/banner
+    #     - TEST_PATH_PATTERN=spec/GB/modal
+    #     - TEST_PATH_PATTERN=spec/US/custom-and-legacy
+    #     - TEST_PATH_PATTERN=spec/US/banner
+    #     - TEST_PATH_PATTERN=spec/US/modal
 
 cache:
     npm: false
@@ -49,52 +50,52 @@ jobs:
           script:
               - ./scripts/snapshot-tests/update-snapshots.sh
 
-        - name: 'Functional Tests'
+        # - name: 'Functional Tests'
+        #   if: env(DIRTY_SNAPSHOTS) = 0
+        #   script:
+        #       - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
+        #       - ./scripts/snapshot-tests/collect-diffs.sh
+
+        # DE
+        - name: 'Functional DE Banner Tests'
           if: env(DIRTY_SNAPSHOTS) = 0
           script:
-              - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
+              - npm run test:func -- --testPathPattern spec/DE/banner
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional DE Modal Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/DE/modal
               - ./scripts/snapshot-tests/collect-diffs.sh
 
-        # # DE
-        # - name: 'Functional DE Banner Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/DE/banner
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        # - name: 'Functional DE Modal Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/DE/modal
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        #
-        # # GB
-        # - name: 'Functional GB Banner Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/GB/banner
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        # - name: 'Functional GB Modal Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/GB/modal
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        #
-        # # US
-        # - name: 'Functional US Custom/Legacy Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/US/custom-and-legacy
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        # - name: 'Functional US Banner Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/US/banner
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
-        # - name: 'Functional US Modal Tests'
-        #   if: env(DIRTY_SNAPSHOTS) = 0
-        #   script:
-        #       - npm run test:func -- --testPathPattern spec/US/modal
-        #       - ./scripts/snapshot-tests/collect-diffs.sh
+        # GB
+        - name: 'Functional GB Banner Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/GB/banner
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional GB Modal Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/GB/modal
+              - ./scripts/snapshot-tests/collect-diffs.sh
+
+        # US
+        - name: 'Functional US Custom/Legacy Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/US/custom-and-legacy
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional US Banner Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/US/banner
+              - ./scripts/snapshot-tests/collect-diffs.sh
+        - name: 'Functional US Modal Tests'
+          if: env(DIRTY_SNAPSHOTS) = 0
+          script:
+              - npm run test:func -- --testPathPattern spec/US/modal
+              - ./scripts/snapshot-tests/collect-diffs.sh
 
 deploy:
     provider: script
