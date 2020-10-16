@@ -1,9 +1,10 @@
 import Logo from '../logos';
 import {
-    gbPLContentMediaQuery,
-    fallbackMediaQuery,
+    plContentMediaQuery,
+    xSmallFallback,
     plAltContentMediaQuery,
     messageLogoWidth,
+    smallFallback,
     logo20x1
 } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
@@ -13,12 +14,11 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
                         br: ['on']
                     },
                     { tag: 'xsmall' }
@@ -29,15 +29,15 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    gbPLContentMediaQuery(textSize * 38 + 10),
+                    xSmallFallback(textSize * 16),
+                    plContentMediaQuery(textSize * 36 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -45,18 +45,15 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
-                    fallbackMediaQuery(textSize * 20),
+                    plAltContentMediaQuery(textSize * 17, textSize * 32),
+                    xSmallFallback(textSize * 18),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -65,26 +62,39 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 16)],
-                logo: false
+                styles: [smallFallback(textSize * 18)],
+                logo: false,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'small',
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
+                styles: [smallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                logo: Logo.ALT_NO_PP.COLOR,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'small',
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        [
-            'text.color:white && logo.type:inline',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
-            })
-        ],
-        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }],
         ...textLogoMutations
     ],
 

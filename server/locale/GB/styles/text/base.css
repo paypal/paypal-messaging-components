@@ -6,16 +6,14 @@
     text-decoration: none;
 }
 
-.message__headline > span:last-child > strong:last-child {
-    font-style: normal;
-    font-weight: normal;
+.message__disclaimer > .tag--default > span {
+    font-weight: 500;
+    color: #0070ba;
 }
 
-.message__headline strong::after {
-    content: '.';
-    color: #2c2e2f;
+.message__headline > span:last-child > strong:last-child {
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 .weak {

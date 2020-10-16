@@ -7,7 +7,7 @@ export default {
             position: [Types.STRING, ['left', 'right', 'top']]
         },
         text: {
-            color: [Types.STRING, ['black', 'white']],
+            color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             fontFamily: [Types.STRING]
         },
