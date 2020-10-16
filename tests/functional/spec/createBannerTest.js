@@ -68,7 +68,7 @@ const waitForBanner = async ({ testName, timeout }) => {
     return { height: null, width: null };
 };
 
-const roundWithPadding = number => 10 * Math.ceil(number / 10) + 5;
+const padDimension = number => 10 * Math.ceil(number / 10) + 5;
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
@@ -77,7 +77,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         test(testName, async () => {
             // Outputs current test so CI does not stall
             // eslint-disable-next-line no-console
-            console.info(`Running test [${testName}], with viewport [${JSON.stringify(viewport)}]`);
+            console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
@@ -85,16 +85,18 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             await waitForNavPromise;
 
             const bannerDimensions = await waitForBanner({ testName, timeout: 2000 });
+            expect(bannerDimensions.height).toBeGreaterThan(0);
+            expect(bannerDimensions.width).toBeGreaterThan(0);
+
             // pad text banners to account for variation in size
             const paddedDimensions = {
-                height: roundWithPadding(bannerDimensions.height),
-                width: roundWithPadding(bannerDimensions.width)
+                height: padDimension(bannerDimensions.height),
+                width: padDimension(bannerDimensions.width)
             };
             const snapshotDimensions = config.layout === 'text' ? paddedDimensions : bannerDimensions;
 
-            expect(snapshotDimensions.height).toBeGreaterThan(0);
-            expect(snapshotDimensions.width).toBeGreaterThan(0);
-
+            // eslint-disable-next-line no-console
+            console.log(`Taking screenshot of [${testName}] with dimensions ${JSON.stringify(snapshotDimensions)}`);
             const image = await page.screenshot(
                 {
                     clip: {
