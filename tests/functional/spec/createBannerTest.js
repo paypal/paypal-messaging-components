@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import selectors from './utils/selectors';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -41,14 +42,14 @@ const waitForBanner = async ({ testName, timeout }) => {
     try {
         const result = await page.waitForFunction(
             () => {
-                const iframe = document.querySelector('[data-pp-id] iframe');
+                const iframe = document.querySelector(selectors.banner.iframeByAttribute);
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
-                    const banner = iframeBody.querySelector('.message__container');
+                    const banner = iframeBody.querySelector(selectors.banner.container);
                     return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
 
-                const legacy = document.querySelector('div[role="button"].message');
+                const legacy = document.querySelector(selectors.banner.legacyContainer);
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {

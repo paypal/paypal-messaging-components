@@ -1,9 +1,14 @@
 // Selectors used in modal tests
 const selectors = {
-    message: {
-        messageMessaging: '.message__messaging'
+    banner: {
+        iframe: '.banner-1 iframe',
+        iframeByAttribute: '[data-pp-id] iframe',
+        container: '.message__container',
+        messageMessaging: '.message__messaging',
+        legacyContainer: 'div[role="button"].message'
     },
     modal: {
+        iframe: 'iframe[title*="paypal_credit_modal"]',
         container: '.modal-container',
         wrapper: '.wrapper',
         overlay: '.overlay',
@@ -18,8 +23,8 @@ const selectors = {
         contentHeader: '.content-header',
         contentHeaderTitle: '.content-header .title',
         // Used in GB modal
-        containerLeft: '.content-body--left',
-        offer: '.content-body__offer',
+        containerLeft: '.left',
+        offer: '.content-body .offer',
         gbContainer: '.modal-container',
         gbContent: '.content',
         gbMain: '.main',
@@ -38,6 +43,7 @@ const selectors = {
     button: {
         tabs: '.tabs',
         tab: '.tab',
+        tabUnselected: 'button.tab:not(.tab--selected)',
         btn: '.button',
         closeBtn: '#close-btn',
         btnSecondary: '.button--secondary',

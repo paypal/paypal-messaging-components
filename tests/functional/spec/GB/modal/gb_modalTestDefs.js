@@ -10,7 +10,7 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
     const testNameParts = 'gb modal content';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.modal.iframe);
 
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
@@ -18,7 +18,7 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
     await modalFrame.waitForSelector(selectors.modal.gbMain);
     await modalFrame.waitForSelector(selectors.modal.gbContainerLeft);
     await modalFrame.waitForSelector(selectors.modal.gbOffer);
-    const h1 = await modalFrame.evaluate(() => document.querySelector('.content-body .offer').innerHTML);
+    const h1 = await modalFrame.evaluate(() => document.querySelector(selectors.modal.gbOffer).innerHTML);
 
     if (account.includes('GBPLQ')) {
         expect(h1).toContain('3 interest-free payments of <br> £41,67 per month with Flex');

@@ -1,3 +1,5 @@
+import selectors from './selectors';
+
 /**
  * The purpose of this function is to click on the message and open the modal. openModal runs beforeEach US & DE modal test.
  */
@@ -5,23 +7,20 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await page.setViewport(viewport);
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
-    await page.waitForSelector('.banner-1 iframe', { visible: true });
-    await page.waitForSelector('iframe[title*="paypal_credit_modal"]');
+    await page.waitForSelector(selectors.banner.iframe, { visible: true });
+    await page.waitForSelector(selectors.modal.iframe);
 
-    const elementHandle = await page.$('.banner-1 iframe');
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementHandle = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
 
     const frame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();
 
-    await frame.waitForSelector('.message__messaging', { visible: true });
-    if (config.account !== 'DEV00000000NI' || config.account !== 'DEV0000000PSZ') {
-        await modalFrame.waitForSelector('.modal__content');
-    } else {
-        await modalFrame.waitForSelector('.content-body');
-    }
-    await frame.click('.message__messaging');
-    await page.waitForSelector('iframe[title*="paypal_credit_modal"]', { visible: true });
+    await frame.waitForSelector(selectors.banner.messageMessaging, { visible: true });
+    const hasContentBody = ['DEV00000000NI', 'DEV0000000PSZ'].includes(config.account);
+    await modalFrame.waitForSelector(hasContentBody ? selectors.modal.contentBody : selectors.modal.modalContent);
+    await frame.click(selectors.banner.messageMessaging);
+    await page.waitForSelector(selectors.modal.iframe, { visible: true });
 
     await page.waitFor(10 * 1000);
 };

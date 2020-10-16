@@ -10,7 +10,7 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     const testNameParts = 'non-qualifying ezp amount error message';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.banner.iframe);
 
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
@@ -23,7 +23,7 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(2000);
     const calcInstructions = await modalFrame.evaluate(
-        () => document.querySelector('.calculator__instructions').innerHTML
+        () => document.querySelector(selectors.calculate.calcInstructions).innerHTML
     );
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
     await page.waitFor(800);
@@ -36,11 +36,11 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
     logTestName({ account, viewport, groupString, testNameParts });
 
     await page.waitForFunction(() =>
-        Array.from(document.querySelectorAll('iframe[title*="paypal_credit_modal"]')).find(
+        Array.from(document.querySelectorAll(selectors.banner.iframe)).find(
             el => el.parentElement.parentElement.style.display !== 'none'
         )
     );
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.banner.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
@@ -61,13 +61,13 @@ export const deModalContentAndCalc = ({ account, viewport, groupString }) => asy
     const testNameParts = 'ezp message content';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.banner.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc);
 
-    expect(await modalFrame.evaluate(() => document.querySelector('.calculator'))).toBeTruthy();
+    expect(await modalFrame.evaluate(() => document.querySelector(selectors.calculator.calc))).toBeTruthy();
 
-    const calcTitle = await modalFrame.evaluate(() => document.querySelector('.calculator__title').innerText);
+    const calcTitle = await modalFrame.evaluate(() => document.querySelector(selectors.calculator.calcTitle).innerText);
 
     expect(calcTitle).toContain('Monatliche Raten berechnen');
     await page.waitFor(800);
