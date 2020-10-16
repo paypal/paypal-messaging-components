@@ -48,7 +48,7 @@ describe('GB > flex', () => {
             });
 
             // Each additional background color option, ratio-1x1
-            ['black', 'white', 'gray', 'white-no-border'].forEach(color => {
+            ['black', 'white', 'gray'].forEach(color => {
                 runBannerTest(
                     viewport,
                     getConfig({
@@ -57,20 +57,6 @@ describe('GB > flex', () => {
                     })
                 );
             });
-
-            // Small viewport
-            runBannerTest(
-                {
-                    width: 200,
-                    height: 100
-                },
-                getConfig({
-                    logo: {
-                        type: 'primary',
-                        position: 'left'
-                    }
-                })
-            );
         });
     });
 });

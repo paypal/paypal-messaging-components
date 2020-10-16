@@ -33,7 +33,7 @@ describe.each([
         `${groupString} after modal close, modal can reopen and close again`,
         closeReopenModal({ account, viewport, groupString })
     );
-    test(
+    test.skip(
         `${groupString} verify that value prop in modal is correct`,
         gbModalContent({ account, viewport, groupString })
     );

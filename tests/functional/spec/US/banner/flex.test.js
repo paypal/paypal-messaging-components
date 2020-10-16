@@ -59,20 +59,6 @@ describe('US > flex', () => {
                         })
                     );
                 });
-
-                // Small viewport
-                runBannerTest(
-                    {
-                        width: 200,
-                        height: 100
-                    },
-                    getConfig({
-                        logo: {
-                            type: 'primary',
-                            position: 'left'
-                        }
-                    })
-                );
             });
         };
 
