@@ -18,13 +18,13 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await page.waitFor(1000);
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await page.waitFor(1000);
+
     await modalFrame.type(selectors.calculator.calcInput, '2');
     await modalFrame.click(selectors.button.closeBtn);
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(2000);
-    const calcInstructions = await modalFrame.evaluate(
-        () => document.querySelector(selectors.calculate.calcInstructions).innerHTML
-    );
+
+    const calcInstructions = await modalFrame.$eval(selectors.calculate.calcInstructions, element => element.innerHTML);
     expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
     await page.waitFor(800);
 
@@ -35,20 +35,20 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
     const testNameParts = 'DE update finance terms';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    await page.waitForFunction(() =>
-        Array.from(document.querySelectorAll(selectors.banner.iframe)).find(
-            el => el.parentElement.parentElement.style.display !== 'none'
-        )
+    await page.waitForFunction(
+        iframeSelector =>
+            Array.from(document.querySelectorAll(iframeSelector)).find(
+                el => el.parentElement.parentElement.style.display !== 'none'
+            ),
+        {},
+        selectors.banner.iframe
     );
     const elementModal = await page.$(selectors.banner.iframe);
     const modalFrame = await elementModal.contentFrame();
-    await modalFrame.waitForSelector(selectors.modal.container, {
-        visible: true
-    });
+    await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await page.waitFor(2000);
-    await modalFrame.waitForSelector(selectors.calculator.calc, {
-        visible: true
-    });
+
+    await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.closeBtn);
@@ -65,10 +65,10 @@ export const deModalContentAndCalc = ({ account, viewport, groupString }) => asy
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc);
 
-    expect(await modalFrame.evaluate(() => document.querySelector(selectors.calculator.calc))).toBeTruthy();
+    const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
+    expect(calc).toBeTruthy();
 
-    const calcTitle = await modalFrame.evaluate(() => document.querySelector(selectors.calculator.calcTitle).innerText);
-
+    const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
     expect(calcTitle).toContain('Monatliche Raten berechnen');
     await page.waitFor(800);
 

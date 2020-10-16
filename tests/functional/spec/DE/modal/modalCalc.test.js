@@ -40,7 +40,7 @@ describe.each([
         `${groupString} show error when entering a non-qualifying amount in the calculator`,
         nonQualErrorMsg({ account, viewport, groupString })
     );
-    test(
+    test.only(
         `${groupString} update finance terms when user updates amount in calculator`,
         updateFinanceTerms({ account, viewport, groupString })
     );

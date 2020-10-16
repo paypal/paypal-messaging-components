@@ -11,20 +11,10 @@ export const niContentTest = ({ account, viewport, groupString }) => async () =>
 
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
-    /**
-     * selectors.modal.contentHeaderTitle and selectors.modal.contentBodyTitle are passed to the variables
-     * of the same name beginning with the underscore in order to pass the nodeJS variable to the browser through
-     * document.querySelector with Puppeteer.
-     */
 
-    const contentHeaderTitle = await modalFrame.evaluate(
-        _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
-        selectors.modal.contentHeaderTitle
-    );
-    const contentBodyTitle = await modalFrame.evaluate(
-        _contentBodyTitle => document.querySelector(_contentBodyTitle).innerText,
-        selectors.modal.contentBodyTitle
-    );
+    // $eval uses a selector to get an element which can then be evaluated with typical DOM methods
+    const contentHeaderTitle = await modalFrame.$eval(selectors.modal.contentHeaderTitle, element => element.innerText);
+    const contentBodyTitle = await modalFrame.$eval(selectors.modal.contentBodyTitle, element => element.innerText);
 
     expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit');
     expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
@@ -123,19 +113,14 @@ export const ezpModalContent = ({ account, viewport, groupString }) => async () 
     await modalFrame.waitForSelector(selectors.calculator.calc);
     await page.waitFor(800);
 
-    expect(await modalFrame.evaluate(() => document.querySelector(selectors.calculator.calc))).toBeTruthy();
+    const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
+    expect(calc).toBeTruthy();
 
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await modalFrame.waitForSelector(selectors.modal.contentBodyTitle);
 
-    const contentHeaderTitle = await modalFrame.evaluate(
-        _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
-        selectors.modal.contentHeaderTitle
-    );
-    const calcTitle = await modalFrame.evaluate(
-        _calcTitle => document.querySelector(_calcTitle).innerText,
-        selectors.calculator.calcTitle
-    );
+    const contentHeaderTitle = await modalFrame.$eval(selectors.modal.contentHeaderTitle, element => element.innerText);
+    const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
 
     expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments');
     expect(calcTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');

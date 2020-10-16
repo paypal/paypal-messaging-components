@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import selectors from './utils/selectors';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -41,21 +42,22 @@ const waitForBanner = async ({ testName, timeout }) => {
     try {
         // selectors must remain as strings because puppeteer will not understand babel transforms for imports
         const result = await page.waitForFunction(
-            () => {
-                const iframe = document.querySelector('[data-pp-id] iframe');
+            bannerSelectors => {
+                const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
                     const banner = iframeBody.querySelector('.message__container');
                     return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
 
-                const legacy = document.querySelector('div[role="button"].message');
+                const legacy = document.querySelector(bannerSelectors.legacy);
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
                 polling: 10,
                 timeout
-            }
+            },
+            selectors.banner
         );
 
         // Give time for fonts to load after banner is rendered
@@ -93,7 +95,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 height: padDimension(bannerDimensions.height),
                 width: padDimension(bannerDimensions.width)
             };
-            const snapshotDimensions = config.layout === 'text' ? paddedDimensions : bannerDimensions;
+            const snapshotDimensions = config?.style?.layout === 'text' ? paddedDimensions : bannerDimensions;
 
             // eslint-disable-next-line no-console
             console.log(`Taking screenshot of [${testName}] with dimensions ${JSON.stringify(snapshotDimensions)}`);

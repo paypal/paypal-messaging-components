@@ -18,7 +18,7 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
     await modalFrame.waitForSelector(selectors.modal.gbMain);
     await modalFrame.waitForSelector(selectors.modal.gbContainerLeft);
     await modalFrame.waitForSelector(selectors.modal.gbOffer);
-    const h1 = await modalFrame.evaluate(() => document.querySelector(selectors.modal.gbOffer).innerHTML);
+    const h1 = await modalFrame.$eval(selectors.modal.gbOffer, element => element.innerHTML);
 
     if (account.includes('GBPLQ')) {
         expect(h1).toContain('3 interest-free payments of <br> £41,67 per month with Flex');
