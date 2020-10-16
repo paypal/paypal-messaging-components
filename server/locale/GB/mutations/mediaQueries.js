@@ -22,7 +22,7 @@ export function fallbackMediaQuery(breakpoint) {
         .message__headline > .tag--xsmall {
             display: inline;
         }
-        
+
         .message__headline .tag--xsmall > span {
             white-space: nowrap;
         }
@@ -30,7 +30,7 @@ export function fallbackMediaQuery(breakpoint) {
         .locale--GB .message__headline > span:nth-child(3) {
             display:none;
         }
-    } 
+    }
 `;
 }
 
@@ -90,6 +90,27 @@ export function plAltContentMediaQuery(disclaimerBreak, productNameBreak, tagMed
         }
         .message__disclaimer {
             display: inline;
+        }
+    }
+    `;
+}
+
+// Sets logo position for GPL 20x1 ratio
+export function logo20x1() {
+    return `
+    @media (min-aspect-ratio: 200/11) {
+        .message__logo:nth-of-type(1) {
+            width: 18%;
+            margin-right: 5%;
+        }
+
+        .message__logo:nth-of-type(2) {
+            display: inline;
+        }
+    }
+    @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
+        .message__logo-container {
+            max-width: 12%;
         }
     }
     `;
