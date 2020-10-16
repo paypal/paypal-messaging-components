@@ -51,6 +51,7 @@ jobs:
         - name: 'Functional Tests'
           if: env(DIRTY_SNAPSHOTS) = 0 AND env(TEST_PATH_PATTERN) != 'none'
           script:
+              - npm run test:func -- --testPathPattern ${TEST_PATH_PATTERN}
               - ./scripts/snapshot-tests/run-tests-by-pattern.sh
               - ./scripts/snapshot-tests/collect-diffs.sh
 
