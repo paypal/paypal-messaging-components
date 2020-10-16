@@ -1,6 +1,5 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import selectors from './utils/selectors';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -40,16 +39,17 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
 // returns height and width of banner in pixels
 const waitForBanner = async ({ testName, timeout }) => {
     try {
+        // selectors must remain as strings because puppeteer will not understand babel transforms for imports
         const result = await page.waitForFunction(
             () => {
-                const iframe = document.querySelector(selectors.banner.iframeByAttribute);
+                const iframe = document.querySelector('[data-pp-id] iframe');
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
-                    const banner = iframeBody.querySelector(selectors.banner.container);
+                    const banner = iframeBody.querySelector('.message__container');
                     return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
 
-                const legacy = document.querySelector(selectors.banner.legacyContainer);
+                const legacy = document.querySelector('div[role="button"].message');
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
@@ -91,6 +91,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 width: roundWithPadding(bannerDimensions.width)
             };
             const snapshotDimensions = config.layout === 'text' ? paddedDimensions : bannerDimensions;
+
+            expect(snapshotDimensions.height).toBeGreaterThan(0);
+            expect(snapshotDimensions.width).toBeGreaterThan(0);
 
             const image = await page.screenshot(
                 {
