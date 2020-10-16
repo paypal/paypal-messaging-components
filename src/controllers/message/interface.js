@@ -1,3 +1,4 @@
+import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
@@ -87,28 +88,28 @@ export default (options = {}) => ({
                     amount,
                     buyerCountry
                 };
+                const modalProps = {
+                    ...commonProps,
+                    onApply
+                };
                 const messageProps = {
                     ...commonProps,
                     placement,
                     style,
                     offer,
                     onClick,
+                    modal: Modal(modalProps),
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
                             onRender(...args);
                         }
-                    }
-                };
-                const modalProps = {
-                    ...commonProps,
-                    onApply
+                    },
+                    // Used in the computed callback props
+                    getContainer: () => container
                 };
 
                 if (!messagesMap.has(container)) {
-                    const { render, state, updateProps, clone } = Message({
-                        ...messageProps,
-                        modal: Modal(modalProps)
-                    });
+                    const { render, state, updateProps, clone } = Message(messageProps);
 
                     state.renderStart = renderStart;
                     state.style = messageProps.style;
@@ -135,7 +136,12 @@ export default (options = {}) => ({
                 }
 
                 // Filter out undefined to prevent overwriting previous values
-                return updateProps(JSON.parse(JSON.stringify(messageProps))).then(() => globalEvent.trigger('render'));
+                const updatedMessageProps = objectEntries(messageProps).reduce(
+                    (acc, [key, val]) => (typeof val === 'undefined' ? acc : Object.assign(acc, { [key]: val })),
+                    {}
+                );
+
+                return updateProps(updatedMessageProps).then(() => globalEvent.trigger('render'));
             })
         );
     }

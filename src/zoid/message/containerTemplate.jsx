@@ -4,7 +4,7 @@ import { EVENT } from 'zoid/src';
 
 import { overflowObserver } from '../../utils';
 
-export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     event.on(EVENT.RENDERED, () => {
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
@@ -54,7 +54,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
 
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
-            const style = document.querySelector(`#${uid} style`);
+            const style = container.querySelector(`#${uid} style`);
 
             style.textContent = `
                 ${baseStyles}

@@ -1,12 +1,13 @@
-import arrayFrom from 'core-js-pure/stable/array/from';
-import { attributeObserver, destroyGlobalState } from '../../utils';
+import { attributeObserver, destroyGlobalState, globalState } from '../../utils';
 
 export default function destroy() {
+    const { messagesMap } = globalState;
+
+    messagesMap.forEach((_, container) => {
+        container.removeAttribute('data-pp-id');
+        container.firstChild.remove();
+    });
+
     attributeObserver.disconnect();
     destroyGlobalState();
-
-    arrayFrom(document.querySelectorAll('[data-pp-id]')).forEach(node => {
-        node.removeAttribute('data-pp-id');
-        node.firstChild.remove();
-    });
 }
