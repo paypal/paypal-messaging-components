@@ -16,7 +16,7 @@ export const xClosesModal = ({ account, viewport, groupString }) => async () => 
     } else if (account.includes('GBPL')) {
         testNameParts = 'gb x button closes modal';
     }
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
     await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
@@ -44,7 +44,7 @@ export const clickOutsideClosesModal = ({ account, viewport, groupString }) => a
     logTestName({ account, viewport, groupString, testNameParts });
 
     await page.waitFor(1000);
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
@@ -59,7 +59,7 @@ export const closeReopenModal = ({ account, viewport, groupString }) => async ()
     const testNameParts = 'reopen and close modal';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
     const elementHandle = await page.$(selectors.banner.iframeByAttribute);
     const frame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();

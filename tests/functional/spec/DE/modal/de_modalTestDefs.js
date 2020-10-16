@@ -10,7 +10,7 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     const testNameParts = 'non-qualifying ezp amount error message';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
 
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
@@ -41,9 +41,9 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
                 el => el.parentElement.parentElement.style.display !== 'none'
             ),
         {},
-        selectors.banner.iframe
+        selectors.modal.iframe
     );
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await page.waitFor(2000);
@@ -61,7 +61,7 @@ export const deModalContentAndCalc = ({ account, viewport, groupString }) => asy
     const testNameParts = 'ezp message content';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$(selectors.banner.iframe);
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc);
 
