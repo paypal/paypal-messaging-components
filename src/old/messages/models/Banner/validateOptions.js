@@ -13,7 +13,6 @@ import { getValidOptions } from '../../../locale';
 const VALID_OPTIONS = {
     id: [Types.STRING],
     merchantId: [Types.STRING],
-    _legacy: [Types.BOOLEAN],
     onRender: [Types.FUNCTION],
     onClick: [Types.FUNCTION],
     onApply: [Types.FUNCTION],

@@ -1,4 +1,3 @@
-import startsWith from 'core-js-pure/stable/string/starts-with';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
@@ -54,46 +53,27 @@ const renderModal = memoizeOnProps(
 export default {
     // Extract out the id from options for modal memoization
     init: ({ options: { id, account, ...options }, meta, events, track, wrapper }) => {
-        // For legacy image banners, open a popup instead of the modal
-        if (options._legacy && startsWith(meta.offerType, 'NI')) {
-            events.on('click', evt => {
-                const { target } = evt;
+        // The type passed in here is the offer type from the messages call.
+        // The modal type is returned from a separate call and passed in as a prop
+        const { renderProm, show } = renderModal({
+            options,
+            account,
+            meta,
+            track,
+            wrapper
+        });
 
-                if (target.tagName === 'IMG' && target.parentNode.tagName === 'A') {
-                    window.open(
-                        target.parentNode.href,
-                        'PayPal Credit Terms',
-                        'width=650,height=600,scrollbars=yes,resizable=no,location=no,toolbar=no,menubar=no,dependent=no,dialog=yes,minimizable=no'
-                    );
-
-                    evt.preventDefault();
-                } else {
-                    window.open(meta.clickUrl, '_blank');
-                }
-            });
-        } else {
-            // The type passed in here is the offer type from the messages call.
-            // The modal type is returned from a separate call and passed in as a prop
-            const { renderProm, show } = renderModal({
-                options,
-                account,
-                meta,
-                track,
-                wrapper
-            });
-
-            events.on('click', () => {
-                renderProm.then(() => {
-                    show({
-                        offer: meta.offerType,
-                        merchantId: options.merchantId,
-                        country: meta.offerCountry,
-                        currency: options.currency,
-                        amount: options.amount,
-                        refId: `${meta.messageRequestId}-${id}`
-                    });
+        events.on('click', () => {
+            renderProm.then(() => {
+                show({
+                    offer: meta.offerType,
+                    merchantId: options.merchantId,
+                    country: meta.offerCountry,
+                    currency: options.currency,
+                    amount: options.amount,
+                    refId: `${meta.messageRequestId}-${id}`
                 });
             });
-        }
+        });
     }
 };

@@ -4,7 +4,6 @@ import modalSnapshot from '../../utils/modalSnapshot';
 /**
  * This function runs inside modalNI.test.js for the US locale.
  */
-
 export const niContentTest = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ni content in modal';
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
@@ -34,7 +33,6 @@ export const niContentTest = ({ account, viewport, groupString }) => async () =>
 /**
  * Runs inside modalText and modalFlex.test.js for the US locale.
  */
-
 export const clickHereSeeTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'see terms page on modal hyperlink click';
     await page.waitFor(1000);
@@ -62,9 +60,7 @@ export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
 
 /**
  * Runs inside modalCalc.test.js for the US locale.
- * Passes in bannerStyles instead of bannerStyle.
  */
-
 export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
     const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
