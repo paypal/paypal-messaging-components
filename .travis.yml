@@ -6,17 +6,7 @@ node_js:
     - '10'
 
 env:
-    global:
-        - DIRTY_SNAPSHOTS=0
-    jobs:
-        - TEST_PATH_PATTERN=none
-        - TEST_PATH_PATTERN=spec/DE/banner
-        - TEST_PATH_PATTERN=spec/DE/modal
-        - TEST_PATH_PATTERN=spec/GB/banner
-        - TEST_PATH_PATTERN=spec/GB/modal
-        - TEST_PATH_PATTERN=spec/US/custom-and-legacy
-        - TEST_PATH_PATTERN=spec/US/banner
-        - TEST_PATH_PATTERN=spec/US/modal
+    - DIRTY_SNAPSHOTS=0
 
 cache:
     npm: false
@@ -36,22 +26,29 @@ before_script:
 jobs:
     include:
         - name: 'Lint, Unit and Non-Snap Tests'
-          env: TEST_PATH_PATTERN=none
           script:
               - npm run lint
               - npm run test
               - npm run test:func:nosnaps
 
         - name: 'Update Snapshots'
-          env: TEST_PATH_PATTERN=none
           if: env(DIRTY_SNAPSHOTS) = 1
           script:
               - ./scripts/snapshot-tests/update-snapshots.sh
 
         - name: 'Functional Tests'
-          if: env(DIRTY_SNAPSHOTS) = 0 AND env(TEST_PATH_PATTERN) != 'none'
+          env:
+              - TEST_PATH_PATTERN=spec/DE/banner
+              - TEST_PATH_PATTERN=spec/DE/modal
+              - TEST_PATH_PATTERN=spec/GB/banner
+              - TEST_PATH_PATTERN=spec/GB/modal
+              - TEST_PATH_PATTERN=spec/US/custom-and-legacy
+              - TEST_PATH_PATTERN=spec/US/banner
+              - TEST_PATH_PATTERN=spec/US/modal
+          if: env(DIRTY_SNAPSHOTS) = 0
           script:
-              - npm run test:func -- --testPathPattern ${TEST_PATH_PATTERN}
+              - echo $TEST_PATH_PATTERN
+              - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
               - ./scripts/snapshot-tests/run-tests-by-pattern.sh
               - ./scripts/snapshot-tests/collect-diffs.sh
 
