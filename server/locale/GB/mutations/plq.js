@@ -1,12 +1,12 @@
 import Logo from '../logos';
 import {
-    plContentMediaQuery,
-    plAltContentMediaQuery,
+    textWrap,
     messageLogoWidth,
     xSmallFallback,
     smallFallback,
-    logo20x1
-} from './mediaQueries';
+    logo20x1,
+    setLogoTop
+} from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -16,7 +16,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__headline > .tag--medium .weak.br { white-space: nowrap; }`,
-                    xSmallFallback(textSize * 15.5),
+                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 32, textSize, '.locale--GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
@@ -31,17 +32,14 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 15.5), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
-            })
-        ],
-        [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15.5),
-                    plContentMediaQuery(textSize * 31 + 10),
+                    `.message__headline > .tag--medium .weak.br { white-space: nowrap; }`,
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
+                    setLogoTop(textSize * 31 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -49,15 +47,23 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 15.5), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    `.message__headline > .tag--medium .weak.br { white-space: nowrap; }`,
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 26.5),
-                    xSmallFallback(textSize * 17),
+                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; } .message__messaging span.br { white-space: nowrap; }`,
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 32, textSize, '.locale--GB'),
+                    xSmallFallback(textSize * 11.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]

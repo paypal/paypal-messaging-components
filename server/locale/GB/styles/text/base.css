@@ -1,7 +1,3 @@
-.message__content {
-    display: inline-block;
-}
-
 .message__disclaimer > span {
     text-decoration: none;
 }

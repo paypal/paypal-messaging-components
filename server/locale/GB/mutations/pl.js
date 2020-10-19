@@ -1,12 +1,12 @@
 import Logo from '../logos';
 import {
-    plContentMediaQuery,
-    xSmallFallback,
-    plAltContentMediaQuery,
+    textWrap,
     messageLogoWidth,
+    xSmallFallback,
     smallFallback,
-    logo20x1
-} from './mediaQueries';
+    logo20x1,
+    setLogoTop
+} from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -14,7 +14,11 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [
+                    textWrap(textSize * 37, textSize, '.locale--GB'),
+                    xSmallFallback(textSize * 16),
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25)
+                ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
@@ -27,17 +31,11 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
-            })
-        ],
-        [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    plContentMediaQuery(textSize * 36 + 10),
+                    setLogoTop(textSize * 36 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -52,7 +50,8 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 32),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 32, textSize, '.locale--GB'),
                     xSmallFallback(textSize * 18),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
