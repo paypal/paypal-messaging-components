@@ -13,7 +13,7 @@ export const Treatment = {
 };
 
 const fallback = {
-    type: 'inclusion',
+    type: 'exclusion',
     list: []
 };
 
