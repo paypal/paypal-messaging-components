@@ -1,0 +1,26 @@
+// prettier-ignore
+const accounts = [
+    // US
+    'DEV00000000NI',
+    'DEV0000000NIQ',
+    'DEV000NINONUS',
+    'DEV00NINONUSQ',
+    'DEV0000000EAZ',
+    'DEV0000000EAG',
+    'DEV0000000PSZ',
+    'DEV0000000PSG',
+    'DEV0000000PMZ',
+    'DEV0000000PMG',
+    'DEV0000000GPL',
+    'DEV000000GPLQ',
+
+    // DE
+    // 'DEV0000000IAZ',
+    // 'DEV0000000IAG',
+    // 'DEV000000PQAG',
+    // 'DEV000000PQAZ',
+
+    // GB
+    // 'DEV000000GBPL',
+    // 'DEV00000GBPLQ',
+];

@@ -14,11 +14,11 @@ export default ({ switchTab }) => {
             <div className="description">
                 <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
 
-                <p>
+                <h3>
                     {qualifying.toLowerCase() === 'true'
                         ? subHeadline.qualified
                         : subHeadline.unqualified.replace(/\.00/g, '')}
-                </p>
+                </h3>
 
                 <div className="call-to-action">
                     <div>

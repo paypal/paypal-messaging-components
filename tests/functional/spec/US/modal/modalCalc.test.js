@@ -30,7 +30,7 @@ describe.each([
         await openModal(viewport, {
             account,
             amount,
-            style: bannerStyles
+            style: bannerStyle
         });
     });
 

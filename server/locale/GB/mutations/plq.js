@@ -4,9 +4,10 @@ import {
     plAltContentMediaQuery,
     messageLogoWidth,
     xSmallFallback,
-    smallFallback
+    smallFallback,
+    logo20x1
 } from './mediaQueries';
-import { textLogoMutations } from './common';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -104,36 +105,26 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    }
-                ],
-                disclaimer: 'xsmall'
-            }
-        ],
-        [
-            'ratio:1x4',
-            {
-                headline: [
+                        tag: 'xsmall'
+                    },
                     {
-                        tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
+                        tag: 'medium'
                     }
                 ],
-                styles: [`@media (min-height: 500px) {.message__headline {font-size: 1.4rem;}}`]
+                disclaimer: ['default'],
+                styles: [
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }'
+                ]
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
-                    }
+                styles: [
+                    logo20x1(),
+                    '.message__headline .tag--medium .weak { display: none; }',
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ]
             }
         ],
@@ -141,33 +132,21 @@ export default {
             'ratio:8x1',
             {
                 headline: [
-                    'default',
+                    {
+                        tag: 'xsmall'
+                    },
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
+                        br: ['payments']
                     }
+                ],
+                styles: [
+                    '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }',
+                    '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
                 ]
             }
         ],
-
-        [
-            'color:gray',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:white',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:black',
-            {
-                logo: Logo.PRIMARY.WHITE
-            }
-        ]
+        ...flexLogoMutations
     ]
 };

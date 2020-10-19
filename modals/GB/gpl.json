@@ -4,7 +4,8 @@
         "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
         "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
         "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
-        "amount": "${eval(transaction_amount ? transaction_amount : '-')}"
+        "amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}"
     },
     "content": {
         "headline": {
@@ -15,7 +16,7 @@
             "unqualified": ["3 interest-free monthly", "payments with Flex"]
         },
         "subHeadline": {
-            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "unqualified": "On eligible purchases"
         },
         "terms": [

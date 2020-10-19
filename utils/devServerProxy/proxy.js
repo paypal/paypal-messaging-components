@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { VARIANT } from '../../server/constants';
+import { PORT, VARIANT } from '../../server/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
@@ -19,6 +19,9 @@ const devAccountMap = {
     DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
     DEV0000000GPL: ['US', ['gpl'], 'gpl'],
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
+
+    // Multi product modal
+    DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
 
     DEV0000000IAZ: ['DE', ['inst'], 'inst_any_eqz'],
     DEV0000000IAG: ['DE', ['inst'], 'inst_any_gtz'],
@@ -68,14 +71,13 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
-                    || window.top.document.querySelector('script[src*="messaging.js"]')
-                    || window.top.document.querySelector('script[src*="merchant.js"]')).outerHTML;
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                    || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
 
                 document.write(interface);
             </script>
-            <script src="//localhost.paypal.com:8080/smart-credit-common.js"></script>
-            <script src="//localhost.paypal.com:8080/smart-credit-${component}.js"></script>
+            <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
+            <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
             ${initializer}
         </body>
     `;
@@ -130,8 +132,8 @@ export default (app, server, compiler) => {
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
-                            clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                            impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                            clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                         }
                     }
                 };
@@ -202,7 +204,7 @@ export default (app, server, compiler) => {
                     .replace(/\${eval\(transaction_amount \? transaction_amount : '-'\)}/g, terms.amount ?? '-')
                     .replace(
                         /\${eval\(CREDIT_OFFERS_DS\.qualifying_offer \? CREDIT_OFFERS_DS\.qualifying_offer : 'false'\)}/g,
-                        terms.qualifying_offer
+                        morsVars.qualifying_offer
                     )
             );
 
@@ -267,8 +269,8 @@ export default (app, server, compiler) => {
                 meta: {
                     ...populatedBanner.meta,
                     messageRequestId: '1234',
-                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                 }
             });
         } else {
@@ -323,8 +325,8 @@ export default (app, server, compiler) => {
                     json: populatedBanner
                 },
                 tracking_details: {
-                    click_url: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    impression_url: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                    click_url: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impression_url: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                 }
             });
 
