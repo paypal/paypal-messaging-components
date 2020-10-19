@@ -1,4 +1,4 @@
-// Media queries shared across numerous locales.
+// Media queries shared across numerous locales. All other media queries should be placed in their specific locale folders.
 
 /**
  * Used for primary and alternative GPL US/GB styles in order to fallback to the .tag--xsmall message.
