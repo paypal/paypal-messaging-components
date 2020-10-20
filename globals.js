@@ -33,9 +33,6 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             // __LOGGER_A__: {
             //     __LOCAL__: 'https://www.msmaster.qa.paypal.com'
             // },
-            __MESSAGE_B__: {
-                __LOCAL__: 'https://localhost.paypal.com:8443'
-            },
             __RAMP_EXPERIMENT__: {
                 __LOCAL__: 'https://www.paypalobjects.com',
                 __STAGE__: 'https://www.paypalobjects.com',
