@@ -81,10 +81,6 @@ export function xsmallTagMediaQuery(breakpoint) {
     }
 
     @media screen and (max-width: ${breakpoint}px) {
-        .message__headline {
-            white-space: normal;
-        }
-
         .message__content {
             display: inline-flex;
         }
