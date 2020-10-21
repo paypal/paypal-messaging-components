@@ -1,3 +1,6 @@
+# Use this URL to test out config changes
+# https://config.travis-ci.com/explore
+
 os: linux
 dist: xenial
 language: node_js
@@ -42,13 +45,11 @@ jobs:
         - stage: updateSnaphots
           name: 'Update Snapshots'
           env: TEST_PATH_PATTERN=none
-          if: env(DIRTY_SNAPSHOTS) = 1 AND branch = develop AND type != pull_request
           script:
               - ./scripts/snapshot-tests/update-snapshots.sh
 
         - stage: functional
           # Prevent script phase from running with TEST_PATH_PATTERN=none
-          if: env(TEST_PATH_PATTERN) != none
         - env: TEST_PATH_PATTERN=spec/DE/banner
         - env: TEST_PATH_PATTERN=spec/DE/modal
         - env: TEST_PATH_PATTERN=spec/GB/banner
@@ -60,8 +61,6 @@ jobs:
         - stage: deploy
           name: 'Deploy'
           env: TEST_PATH_PATTERN=none
-          # Prevent deploy stage from being listed in UI except on release branch
-          if: branch = release
           # Override script so deploy doesn't run snapshot tests
           script:
           deploy:
@@ -74,5 +73,9 @@ jobs:
 stages:
     - name: basics
     - name: updateSnapshots
+      if: env(DIRTY_SNAPSHOTS) = 1 AND branch = develop AND type != pull_request
     - name: functional
+      if: env(DIRTY_SNAPSHOTS) = 1 AND env(TEST_PATH_PATTERN) != none
     - name: deploy
+      # Prevent deploy stage from being listed in UI except on release branch
+      if: branch = release
