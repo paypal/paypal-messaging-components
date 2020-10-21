@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { xsmallTagMediaQuery, setLogoTop, textWrap, logo6x1 } from './mediaQueries';
+import { xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -10,7 +10,10 @@ const flex = [
             logo: Logo.PRIMARY.WHITE,
             headline: [
                 {
-                    tag: 'default'
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
                 }
             ],
             disclaimer: ['default']
@@ -19,35 +22,29 @@ const flex = [
     [
         'ratio:20x1',
         {
-            styles: [
-                logo6x1(),
-                `
-                .message__logo:nth-of-type(2) {
-                    display: inline-block;
-                }
-
-                 @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
-                    .message__logo-container {
-                        max-width: 12%;
-                    }
-                }
-
-                @media (min-aspect-ratio: 200/11) and (min-width: 300px) {
-                    .message__logo:nth-of-type(1) {
-                        width: 18%;
-                    }
-                    .message__logo:nth-of-type(2) {
-                        width: 60%;
-                    }
-                }
-                `
-            ]
+            styles: [logo20x1()]
         }
     ],
     [
         'ratio:8x1',
         {
-            styles: [logo6x1()]
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium',
+                    br: ['on']
+                }
+            ],
+            styles: [
+                `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
+                    .message__headline .tag--medium .br:first-child {
+                        display: inline;
+                    }
+                }
+                `
+            ]
         }
     ],
     ...flexLogoMutations
@@ -60,16 +57,18 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize),
+                    textWrap(textSize * 37, textSize),
+                    xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
-                    }
+                        tag: 'medium',
+                        br: ['on']
+                    },
+                    { tag: 'xsmall' }
                 ],
                 disclaimer: ['default']
             })
@@ -79,7 +78,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xsmallTagMediaQuery(textSize * 16),
-                    setLogoTop(textSize * 21),
+                    setLogoTop(textSize * 38),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -87,16 +86,19 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xsmallTagMediaQuery(textSize * 14.75 + 10),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 37, textSize),
+                    xsmallTagMediaQuery(textSize * 15.4),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -105,11 +107,16 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize)],
+                styles: [xsmallTagMediaQuery(textSize * 18)],
                 logo: false,
                 headline: [
                     {
-                        tag: 'small',
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -118,11 +125,16 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xsmallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
-                        tag: 'small',
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]

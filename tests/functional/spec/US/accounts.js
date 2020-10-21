@@ -10,5 +10,6 @@ export default [
     'DEV0000000PMZ',
     'DEV0000000PMG',
     'DEV0000000GPL',
-    'DEV000000GPLQ'
+    'DEV000000GPLQ',
+    'DEV00000GPLNQ'
 ];

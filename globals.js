@@ -43,7 +43,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             }
         },
         __URI__: {
-            __RAMP_EXPERIMENT__: '/upstream/assets/messaging/modal/ramp-experiment.json',
+            __RAMP_EXPERIMENT__: '/upstream/assets/messaging/modal/ramp-experiment-ssr.json',
             __MESSAGE_A__: '/credit-presentment/messages',
             __MESSAGE_B__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
