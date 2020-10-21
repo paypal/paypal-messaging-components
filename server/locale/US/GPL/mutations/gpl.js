@@ -81,7 +81,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xsmallTagMediaQuery(textSize * 16),
-                    setLogoTop(textSize * 21),
+                    setLogoTop(textSize * 38),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -100,7 +100,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 38, textSize),
+                    textWrap(textSize * 32, textSize),
                     xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
