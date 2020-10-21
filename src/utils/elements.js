@@ -7,6 +7,17 @@ import { ZalgoPromise } from 'zalgo-promise';
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
 
+export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
+
+export const getTopWindow = () => {
+    try {
+        // Try to access body which will throw an error if cross domain
+        return window.top.document.body && window.top;
+    } catch (err) {
+        return undefined;
+    }
+};
+
 /**
  * Check if object is an HTMLElement instance
  * @param {HTMLElement} el Element to check
@@ -66,105 +77,6 @@ export const getElement = curry(
 );
 
 /**
- * Create a new style element and prepend it to the container
- * @param {HTMLElement} container Container element to prepend new style
- * @param {String} text Text content of the style element
- * @returns {void}
- */
-export const prependStyle = curry((container, text) => {
-    const elem = document.createElement('style');
-    elem.textContent = text;
-    container.insertBefore(elem, container.firstChild);
-});
-
-/**
- * Append text data into the container element
- * @param {HTMLElement} container Container element to append text
- * @param {any} obj Various inputs representing text to be appended
- * @returns {void}
- */
-export const appendText = curry((container, obj) => {
-    if (Array.isArray(obj)) {
-        obj.forEach(elem => container.appendChild(elem));
-    } else if (obj instanceof HTMLElement) {
-        container.appendChild(obj);
-    } else if (typeof obj === 'string') {
-        const span = document.createElement('span');
-        span.innerHTML = obj;
-        container.appendChild(span);
-    } else if (obj === false) {
-        container.parentNode.removeChild(container);
-    }
-});
-
-/**
- * Append text data into the container element
- * @param {HTMLElement} container Container element to append text
- * @param {any} obj Various inputs representing text to be appended
- * @returns {void}
- */
-export const prependText = curry((container, obj) => {
-    if (Array.isArray(obj)) {
-        [...obj].reverse().forEach(elem => container.insertBefore(elem, container.firstChild));
-    } else if (obj instanceof HTMLElement) {
-        container.insertBefore(obj, container.firstChild);
-    } else if (typeof obj === 'string') {
-        const span = document.createElement('span');
-        span.innerHTML = obj;
-        container.insertBefore(span, container.firstChild);
-    } else if (obj === false) {
-        container.parentNode.removeChild(container);
-    }
-});
-
-/**
- * Append a new image into the container element
- * @param {HTMLElement} container Container element to append image
- * @param {String} url Image src attribute
- * @param {String} alt Image alt attribute
- * @param {String} srcset Image srcset attribute
- * @returns {void}
- */
-export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset = '') => {
-    if (Array.isArray(url)) {
-        url.forEach(logo => appendImage(container, logo, alt));
-    } else if (typeof url === 'string') {
-        const logo = new Image();
-        logo.alt = alt;
-        logo.className = 'message__logo';
-        logo.src = url;
-
-        if (srcset) {
-            logo.srcset = srcset;
-        }
-
-        container.appendChild(logo);
-    } else if (typeof url === 'object') {
-        const {
-            src,
-            dimensions: [width, height]
-        } = url;
-
-        const logo = new Image();
-        logo.src = src;
-        logo.alt = alt;
-
-        const svgWrapper = document.createElement('div');
-        svgWrapper.className = 'message__logo message__logo--svg';
-
-        const canvas = document.createElement('canvas');
-        canvas.height = height;
-        canvas.width = width;
-
-        svgWrapper.appendChild(logo);
-        svgWrapper.appendChild(canvas);
-        container.appendChild(svgWrapper);
-    } else {
-        container.parentNode.removeChild(container);
-    }
-}, 2); // Need to manually set curry arity because of default parameters and transpiling
-
-/**
  * Ensure element is ready to be worked with. Necessary since
  * creating an iframe is asynchronous
  * @param {HTMLElement} element HTML Element
@@ -186,14 +98,15 @@ export const waitForElementReady = element =>
  */
 export function isInViewport(container) {
     const containerRect = container.getBoundingClientRect();
+    const containerWindow = getWindowFromElement(container);
 
     const bannerY = (containerRect.top + containerRect.bottom) / 2;
     const bannerX = (containerRect.left + containerRect.right) / 2;
 
-    if (bannerY > window.innerHeight || bannerY < 0) {
+    if (bannerY > containerWindow.innerHeight || bannerY < 0) {
         return false;
     }
-    if (bannerX > window.innerWidth || bannerX < 0) {
+    if (bannerX > containerWindow.innerWidth || bannerX < 0) {
         return false;
     }
 
@@ -206,8 +119,10 @@ export function isInViewport(container) {
  * @returns {boolean} Hidden or not hidden
  */
 export function isHidden(container) {
-    if (typeof window.getComputedStyle === 'function') {
-        const containerStyles = window.getComputedStyle(container);
+    const containerWindow = getWindowFromElement(container);
+
+    if (typeof containerWindow.getComputedStyle === 'function') {
+        const containerStyles = containerWindow.getComputedStyle(container);
         if (
             containerStyles.getPropertyValue('display') === 'none' ||
             containerStyles.getPropertyValue('visibility') === 'hidden' ||
@@ -218,9 +133,9 @@ export function isHidden(container) {
 
     const containerRect = container.getBoundingClientRect();
     if (
-        containerRect.left > window.document.body.scrollWidth ||
+        containerRect.left > containerWindow.document.body.scrollWidth ||
         containerRect.right < 0 ||
-        containerRect.top > window.document.body.scrollHeight ||
+        containerRect.top > containerWindow.document.body.scrollHeight ||
         containerRect.bottom < 0
     )
         return true;
@@ -261,7 +176,7 @@ export const elementContains = (parentEl, childEl) => {
 };
 
 export const getRoot = baseElement => {
-    const { innerHeight } = window;
+    const { innerHeight } = getWindowFromElement(baseElement);
 
     const domPath = [];
     {

@@ -215,7 +215,7 @@ describe('message interface', () => {
         expect(Message).not.toHaveBeenCalled();
         expect(Message().render).not.toHaveBeenCalled();
         expect(Message().updateProps).toHaveBeenCalledTimes(1);
-        expect(Modal).not.toHaveBeenCalled();
+        expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
     });

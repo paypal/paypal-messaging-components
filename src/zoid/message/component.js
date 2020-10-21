@@ -254,15 +254,14 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : undefined),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
+                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
                 default: () => '',
                 required: false
             },

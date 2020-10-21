@@ -5,7 +5,10 @@ export default function destroy() {
 
     messagesMap.forEach((_, container) => {
         container.removeAttribute('data-pp-id');
-        container.firstChild.remove();
+
+        if (container.firstChild) {
+            container.firstChild.remove();
+        }
     });
 
     attributeObserver.disconnect();

@@ -46,9 +46,10 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
             ])
         )
         .then(() => {
+            const firstContainer = globalState.messagesMap.keys().next().value;
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
-            const root = getRoot(document.querySelector('[data-pp-id]'));
+            const root = getRoot(firstContainer);
             // eslint-disable-next-line compat/compat
             return new IntersectionObserver(
                 (entries, observer) => {
