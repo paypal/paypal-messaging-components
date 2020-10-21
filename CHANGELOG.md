@@ -1,5 +1,22 @@
 # Changelog
 
+# [1.15.0](https://github.com/paypal/paypal-messaging-components/compare/v1.14.2...v1.15.0) (2020-10-21)
+
+
+### Bug Fixes
+
+* expand content height for IE11 ([#359](https://github.com/paypal/paypal-messaging-components/issues/359)) ([c853eaf](https://github.com/paypal/paypal-messaging-components/commit/c853eafaa5f563f463fc9b946583f981a42d11de))
+* GB mobile modal header ([#358](https://github.com/paypal/paypal-messaging-components/issues/358)) ([a298ea6](https://github.com/paypal/paypal-messaging-components/commit/a298ea65bde3494512ada1308588f1d9e624d6ba))
+* GPL no amount flex styles ([#365](https://github.com/paypal/paypal-messaging-components/issues/365)) ([df9f943](https://github.com/paypal/paypal-messaging-components/commit/df9f943047557d69c7e365ee556d9e1318524fb1))
+* GPL wrapping mutations ([#364](https://github.com/paypal/paypal-messaging-components/issues/364)) ([3cbed11](https://github.com/paypal/paypal-messaging-components/commit/3cbed1159609c27e302a96e1af60adf6f65fbe46))
+* update GB qualifying attribute check ([#353](https://github.com/paypal/paypal-messaging-components/issues/353)) ([fface76](https://github.com/paypal/paypal-messaging-components/commit/fface763ecec3374f5cd82967be73ecf673e4c8c))
+* update modal content ([#362](https://github.com/paypal/paypal-messaging-components/issues/362)) ([544ac58](https://github.com/paypal/paypal-messaging-components/commit/544ac581fb455a8ea87921dbe161b1f081564d3f))
+
+
+### Features
+
+* update GPL message logic ([#363](https://github.com/paypal/paypal-messaging-components/issues/363)) ([8511a4f](https://github.com/paypal/paypal-messaging-components/commit/8511a4f38438fc0408caba40bd85c4b1b3863443))
+
 ## [1.14.2](https://github.com/paypal/paypal-messaging-components/compare/v1.14.1...v1.14.2) (2020-10-15)
 
 
