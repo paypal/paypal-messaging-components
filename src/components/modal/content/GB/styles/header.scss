@@ -1,3 +1,7 @@
+.header-wrapper {
+    background: #0070ba;
+}
+
 .header-container {
     .header {
         width: 100%;
@@ -60,12 +64,18 @@
     }
 
     @include mobile {
+        position: relative;
+
         .header {
             background-color: transparent;
 
             &::after {
                 display: none;
             }
+        }
+
+        .logo-wrapper {
+            padding-top: 18px;
         }
 
         .logo {
@@ -86,6 +96,7 @@
         }
 
         .close {
+            z-index: 1000;
             transform: translate(-2px, -6px);
 
             & > svg {

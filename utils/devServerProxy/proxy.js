@@ -19,6 +19,7 @@ const devAccountMap = {
     DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
     DEV0000000GPL: ['US', ['gpl'], 'gpl'],
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
+    DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
@@ -204,7 +205,7 @@ export default (app, server, compiler) => {
                     .replace(/\${eval\(transaction_amount \? transaction_amount : '-'\)}/g, terms.amount ?? '-')
                     .replace(
                         /\${eval\(CREDIT_OFFERS_DS\.qualifying_offer \? CREDIT_OFFERS_DS\.qualifying_offer : 'false'\)}/g,
-                        terms.qualifying_offer
+                        morsVars.qualifying_offer
                     )
             );
 

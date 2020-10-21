@@ -1,6 +1,6 @@
 // Windows scrollbar offset hack
 .modal-wrapper {
-    display: table;
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
@@ -20,8 +20,7 @@
 }
 
 .modal-container {
-    display: table-cell;
-    width: 100%;
+    flex: 1 1 auto;
     position: relative;
 
     &.show {
