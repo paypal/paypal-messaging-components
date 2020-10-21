@@ -78,8 +78,12 @@ stages:
     - name: updateSnapshots
       if: env(DIRTY_SNAPSHOTS) = 1
     - name: functional
-      # Prevent script phase from running with TEST_PATH_PATTERN=none
       if: env(DIRTY_SNAPSHOTS) = 0
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
+
+branches:
+    only:
+        - develop
+        - release
