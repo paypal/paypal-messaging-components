@@ -10,13 +10,6 @@ env:
         - DIRTY_SNAPSHOTS=0
     jobs:
         - TEST_PATH_PATTERN=none
-        - TEST_PATH_PATTERN=spec/DE/banner
-        - TEST_PATH_PATTERN=spec/DE/modal
-        - TEST_PATH_PATTERN=spec/GB/banner
-        - TEST_PATH_PATTERN=spec/GB/modal
-        - TEST_PATH_PATTERN=spec/US/custom-and-legacy
-        - TEST_PATH_PATTERN=spec/US/banner
-        - TEST_PATH_PATTERN=spec/US/modal
 
 cache:
     npm: false
@@ -33,32 +26,51 @@ before_script:
     # Give dev server time to startup
     - sleep 40
 
+script:
+    - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
+
 jobs:
     include:
-        - name: 'Lint, Unit and Non-Snap Tests'
+        - stage: basics
+          name: 'Lint, Unit and Functional Non-Snapshot Tests'
           env: TEST_PATH_PATTERN=none
           script:
               - npm run lint
               - npm run test
               - npm run test:func:nosnaps
 
-        - name: 'Update Snapshots'
+        - stage: updateSnaphots
+          name: 'Update Snapshots'
           env: TEST_PATH_PATTERN=none
-          if: env(DIRTY_SNAPSHOTS) = 1
+          if: env(DIRTY_SNAPSHOTS) = 1 AND branch = develop AND type != pull_request
           script:
               - ./scripts/snapshot-tests/update-snapshots.sh
 
-        - name: 'Functional Tests'
-          if: env(DIRTY_SNAPSHOTS) = 0
-          script:
-              - echo $TEST_PATH_PATTERN
-              - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
-              - ./scripts/snapshot-tests/collect-diffs.sh
+        - stage: functional
+          # Prevent script phase from running with TEST_PATH_PATTERN=none
+          if: env(TEST_PATH_PATTERN) != none
+        - env: TEST_PATH_PATTERN=spec/DE/banner
+        - env: TEST_PATH_PATTERN=spec/DE/modal
+        - env: TEST_PATH_PATTERN=spec/GB/banner
+        - env: TEST_PATH_PATTERN=spec/GB/modal
+        - env: TEST_PATH_PATTERN=spec/US/custom-and-legacy
+        - env: TEST_PATH_PATTERN=spec/US/banner
+        - env: TEST_PATH_PATTERN=spec/US/modal
 
-deploy:
-    provider: script
-    skip_cleanup: true
-    script:
-        - npx semantic-release@15
-    on:
-        branch: release
+        - stage: deploy
+          name: 'Deploy'
+          env: TEST_PATH_PATTERN=none
+          # Override script so deploy doesn't run snapshot tests
+          script:
+          deploy:
+              provider: script
+              skip_cleanup: true
+              script: npx semantic-release@15
+              on:
+                  branch: release
+
+stages:
+    - name: basics
+    - name: updateSnapshots
+    - name: functional
+    - name: deploy
