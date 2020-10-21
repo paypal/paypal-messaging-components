@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
+import { xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -125,7 +125,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 18)],
+                styles: [xsmallTagMediaQuery(textSize * 18)],
                 logo: false,
                 headline: [
                     {
@@ -134,7 +134,7 @@ export default {
                         replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -143,7 +143,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xsmallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
@@ -152,7 +152,7 @@ export default {
                         replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]

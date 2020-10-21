@@ -60,16 +60,18 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize),
+                    textWrap(textSize * 38, textSize),
+                    xsmallTagMediaQuery(textSize * 21),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
-                        tag: 'default'
-                    }
+                        tag: 'medium',
+                        br: ['on']
+                    },
+                    { tag: 'xsmall' }
                 ],
                 disclaimer: ['default']
             })
@@ -87,7 +89,10 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xsmallTagMediaQuery(textSize * 16),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
@@ -95,8 +100,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize),
+                    textWrap(textSize * 38, textSize),
+                    xsmallTagMediaQuery(textSize * 16),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -105,11 +110,20 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize)],
+                styles: [xsmallTagMediaQuery(textSize * 16)],
                 logo: false,
                 headline: [
                     {
-                        tag: 'small',
+                        tag: 'medium.2',
+                        br: ['on'],
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -118,11 +132,20 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xsmallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
-                        tag: 'small',
+                        tag: 'medium.2',
+                        br: ['on'],
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]

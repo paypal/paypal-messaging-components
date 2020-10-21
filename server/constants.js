@@ -1,1 +1,1 @@
-export const VARIANT = 'C';
+export const VARIANT = 'A';
