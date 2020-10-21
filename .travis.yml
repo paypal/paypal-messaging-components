@@ -60,6 +60,8 @@ jobs:
         - stage: deploy
           name: 'Deploy'
           env: TEST_PATH_PATTERN=none
+          # Prevent deploy stage from being listed in UI except on release branch
+          if: branch = release
           # Override script so deploy doesn't run snapshot tests
           script:
           deploy:
