@@ -1,6 +1,6 @@
 import Logo from '../logos';
 import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { xsmallTagMediaQuery, setLogoTop, textWrap, logo6x1 } from './mediaQueries';
+import { xsmallTagMediaQuery, setLogoTop, textWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -10,7 +10,10 @@ const flex = [
             logo: Logo.PRIMARY.WHITE,
             headline: [
                 {
-                    tag: 'default'
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
                 }
             ],
             disclaimer: ['default']
@@ -20,13 +23,8 @@ const flex = [
         'ratio:20x1',
         {
             styles: [
-                logo6x1(),
                 `
-                .message__logo:nth-of-type(2) {
-                    display: inline-block;
-                }
-
-                 @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
+                @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
                     .message__logo-container {
                         max-width: 12%;
                     }
@@ -40,6 +38,12 @@ const flex = [
                         width: 60%;
                     }
                 }
+
+                @media (min-aspect-ratio: 60/11) and (min-width: 324px) {
+                    .message__headline .tag--medium .br:first-child {
+                        display: inline;
+                    }
+                }
                 `
             ]
         }
@@ -47,7 +51,23 @@ const flex = [
     [
         'ratio:8x1',
         {
-            styles: [logo6x1()]
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium',
+                    br: ['on']
+                }
+            ],
+            styles: [
+                `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
+                    .message__headline .tag--medium .br:first-child {
+                        display: inline;
+                    }
+                }
+                `
+            ]
         }
     ],
     ...flexLogoMutations
