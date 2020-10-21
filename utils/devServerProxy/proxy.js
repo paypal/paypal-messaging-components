@@ -19,6 +19,7 @@ const devAccountMap = {
     DEV0000000PMG: ['US', ['ni_old', 'ezp_old'], 'pala_multi_gtz'],
     DEV0000000GPL: ['US', ['gpl'], 'gpl'],
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
+    DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],

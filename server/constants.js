@@ -1,2 +1,2 @@
-export const VARIANT = 'C';
+export const VARIANT = 'A';
 export const PORT = process.env.PORT || 8080;

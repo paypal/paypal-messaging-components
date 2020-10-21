@@ -51,7 +51,7 @@ export default ({ options, markup, locale }) => {
     const mutationRules =
         options.style.layout === 'custom'
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
-            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, options, markup));
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`));
 
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
