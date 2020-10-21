@@ -75,7 +75,7 @@ stages:
     - name: updateSnapshots
       if: env(DIRTY_SNAPSHOTS) = 1 AND branch = develop AND type != pull_request
     - name: functional
-      if: env(DIRTY_SNAPSHOTS) = 1 AND env(TEST_PATH_PATTERN) != none
+      if: env(DIRTY_SNAPSHOTS) = 0 AND env(TEST_PATH_PATTERN) != none
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
