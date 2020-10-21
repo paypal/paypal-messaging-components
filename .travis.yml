@@ -31,6 +31,7 @@ before_script:
 
 script:
     - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
+    - ./scripts/snapshot-tests/collect-diffs.sh
 
 jobs:
     include:
