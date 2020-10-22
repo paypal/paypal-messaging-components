@@ -36,23 +36,8 @@ const CustomMessage = ({ children, data, meta, template }) => {
         const [type, ...parts] = templateVariable.split('.');
 
         if (type === 'logo') {
-            const logo = getLogos(meta.offerCountry, meta.offerType)[parts[0].toUpperCase()][parts[1].toUpperCase()];
-
-            if (logo) {
-                const {
-                    src,
-                    dimensions: [width, height]
-                } = logo;
-
-                return render(
-                    <div className="message__logo message__logo--svg">
-                        <img src={src} alt="PayPal Credit logo" />
-                        <canvas height={height} width={width} />
-                    </div>
-                );
-            }
-
-            return '';
+            const src = getLogos(meta.offerCountry)[parts[0].toUpperCase()][parts[1].toUpperCase()]?.src;
+            return `<img alt="PayPal Credit logo" src="${src}" />`;
         }
 
         const tag = parts.join('.');
