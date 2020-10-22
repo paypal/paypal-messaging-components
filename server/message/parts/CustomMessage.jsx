@@ -1,5 +1,6 @@
 /** @jsx h */
-import { h } from 'preact';
+/** @jsxFrag Fragment */
+import { h, Fragment } from 'preact';
 import render from 'preact-render-to-string';
 import { getLogos } from '../../locale';
 import { getDataByTag } from '../../../src/utils/server';
@@ -35,8 +36,23 @@ const CustomMessage = ({ children, data, meta, template }) => {
         const [type, ...parts] = templateVariable.split('.');
 
         if (type === 'logo') {
-            const src = getLogos(meta.offerCountry)[parts[0].toUpperCase()][parts[1].toUpperCase()]?.src;
-            return `<img alt="PayPal Credit logo" src="${src}" />`;
+            const logo = getLogos(meta.offerCountry, meta.offerType)[parts[0].toUpperCase()][parts[1].toUpperCase()];
+
+            if (logo) {
+                const {
+                    src,
+                    dimensions: [width, height]
+                } = logo;
+
+                return render(
+                    <div className="message__logo message__logo--svg">
+                        <img src={src} alt="PayPal Credit logo" />
+                        <canvas height={height} width={width} />
+                    </div>
+                );
+            }
+
+            return '';
         }
 
         const tag = parts.join('.');
@@ -48,11 +64,11 @@ const CustomMessage = ({ children, data, meta, template }) => {
         );
     });
     return (
-        <div role="button" className="message" tabIndex="0">
+        <>
             {children}
-            {/* eslint-disable-next-line react/no-danger */}
-            <div dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
-        </div>
+            {/* eslint-disable-next-line react/no-danger, jsx-a11y/control-has-associated-label */}
+            <div role="button" className="message" tabIndex="0" dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
+        </>
     );
 };
 
