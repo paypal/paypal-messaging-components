@@ -126,9 +126,9 @@ function fetcher(options) {
                 resolve({ markup: mutateMarkup(markup) });
             } else {
                 try {
-                    resolve({
-                        markup: JSON.parse(markup.replace(/<\/?div>/g, ''))
-                    });
+                    const { meta, ...data } = JSON.parse(markup.replace(/<\/?div>/g, ''));
+
+                    resolve({ markup: { meta, data } });
                 } catch (err) {
                     resolve({ markup });
                 }
