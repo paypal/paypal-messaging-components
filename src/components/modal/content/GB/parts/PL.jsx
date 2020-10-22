@@ -3,73 +3,51 @@ import { h, Fragment } from 'preact';
 import Icon from '../../../parts/Icon';
 import { useContent, useProductMeta } from '../../../lib';
 
-const headline = () => {
-    const {
-        headline: { unqualified, qualified }
-    } = useContent('GPL');
-
-    const { qualifying } = useProductMeta('GPL');
-
-    if (qualifying?.toLowerCase() !== 'true') {
-        return (
-            <h1 className="offer">
-                {unqualified[0]} <br /> {unqualified[1]}
-            </h1>
-        );
-    }
-
-    return (
-        <h1 className="offer">
-            {qualified[0].replace(/\.00/g, '')} <br /> {qualified[1].replace(/\.00/g, '')}
-        </h1>
-    );
-};
+const replaceZeros = string => string.replace(/\.00/g, '');
 
 const PL = () => {
-    const { subHeadline, terms, instructions, productName } = useContent('GPL');
-    const { qualifying } = useProductMeta('GPL');
+    const { headline, subHeadline, terms, instructions } = useContent('GPL');
+    const { qualifying: qualifyingString } = useProductMeta('GPL');
+    const qualifying = qualifyingString?.toLowerCase() === 'true';
 
     return (
-        <div className="content-body">
-            <div className="left">
-                {headline()}
-                <p className="subheadline">
-                    {qualifying?.toLowerCase() === 'true' ? subHeadline.qualified : subHeadline.unqualified}
-                </p>
-                <Icon name="icecream" />
-                <div className="thumbs-up">
-                    <Icon name="thumbs-up" />
-                </div>
-                <div className="terms">
-                    <p>
-                        {terms.map(term => (
-                            <Fragment>
-                                {term}
-                                <br />
-                            </Fragment>
-                        ))}
-                    </p>
+        <section className="content-body">
+            <div className="description">
+                <h2>{headline}</h2>
+
+                <h3>
+                    {subHeadline.pay.start} {qualifying && subHeadline.pay.amount} {subHeadline.pay.end}{' '}
+                    {qualifying && replaceZeros(subHeadline.available)} {subHeadline.apply}
+                </h3>
+
+                <div className="call-to-action">
+                    <div>
+                        <p>
+                            <span className="d-inline-block">
+                                {instructions.title[0]} <b className="dark-text">{instructions.title[1]}</b>
+                            </span>{' '}
+                            <span className="d-inline-block">
+                                {instructions.title[2]} <b className="dark-text">{instructions.title[3]}</b>
+                            </span>
+                        </p>
+                    </div>
+                    <Icon name="secure" />
                 </div>
             </div>
-            <div className="right">
-                <h2 className="title">Buy now, pay later</h2>
-                <div className="info">
-                    {instructions.map(([icon, ...text]) => (
+
+            <hr className="divider" />
+
+            <div className="terms">
+                <p>
+                    {terms.map(term => (
                         <Fragment>
-                            <Icon name={icon} />
-                            <p>
-                                {text.map((textPart, idx) => (
-                                    <Fragment>
-                                        {idx !== 0 && textPart !== 'PRODUCT_NAME' ? <br /> : null}
-                                        {textPart === 'PRODUCT_NAME' ? <span> {productName}</span> : textPart}
-                                    </Fragment>
-                                ))}
-                            </p>
+                            {term}
+                            <br />
                         </Fragment>
                     ))}
-                </div>
+                </p>
             </div>
-        </div>
+        </section>
     );
 };
 
