@@ -27,3 +27,13 @@
 .message__content {
     display: inline-flex;
 }
+
+.message__headline > .tag--medium .weak.br {
+    display: inline-block;
+    transform: translateX(-3.8px);
+    white-space: nowrap;
+}
+
+.message__messaging span.br {
+    white-space: nowrap;
+}
