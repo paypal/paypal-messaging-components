@@ -58,7 +58,9 @@ jobs:
         - env: TEST_PATH_PATTERN=spec/GB/banner
         - env: TEST_PATH_PATTERN=spec/GB/modal
         - env: TEST_PATH_PATTERN=spec/US/custom-and-legacy
-        - env: TEST_PATH_PATTERN=spec/US/banner
+        # US Banner tests are split due to the number of offer types that exist for it
+        - env: TEST_PATH_PATTERN=spec/US/banner/flex
+        - env: TEST_PATH_PATTERN=spec/US/banner/text
         - env: TEST_PATH_PATTERN=spec/US/modal
 
         - stage: deploy
@@ -83,6 +85,7 @@ stages:
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
 
+# Restricts push builds to develop and release, thus preventing duplicate builds on PRs
 branches:
     only:
         - develop
