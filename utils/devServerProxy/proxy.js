@@ -121,7 +121,20 @@ export default (app, server, compiler) => {
                     populatedBanner.meta.offerType
                 );
 
-                const markup = render({ style: validatedStyle, amount }, populatedBanner);
+                let customMarkup = '';
+
+                if (validatedStyle.layout === 'custom' && validatedStyle.markup) {
+                    if (validatedStyle.markup.includes('https://localhost.paypal.com:8080/')) {
+                        customMarkup = fs.readFileSync(
+                            `demo/${validatedStyle.markup.replace('https://localhost.paypal.com:8080/', '')}`,
+                            'utf-8'
+                        );
+                    } else {
+                        ({ body: customMarkup } = await got(validatedStyle.markup));
+                    }
+                }
+
+                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {

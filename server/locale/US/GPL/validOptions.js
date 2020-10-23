@@ -20,5 +20,10 @@ export default {
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
         preset: [Types.STRING, [undefined, 'smallest']]
+    },
+    custom: {
+        markup: [Types.STRING],
+        ratio: [Types.ANY],
+        preset: [Types.STRING, [undefined, 'smallest']]
     }
 };
