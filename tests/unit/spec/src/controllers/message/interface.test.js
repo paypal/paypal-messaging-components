@@ -101,12 +101,13 @@ describe('message interface', () => {
         await Messages({}).render(container);
 
         expect(logger.warn).toHaveBeenCalledTimes(1);
-        expect(logger.warn).toHaveBeenLastCalledWith(
-            expect.stringContaining('not_in_document'),
-            expect.objectContaining({
-                container
-            })
-        );
+        // This fixes an issue with the previous expect where using container with toHaveBeenLastCalledWith
+        // caused the below error
+        // TypeError: Cannot set property offsetParent of [object HTMLElement] which has only a getter
+        // This may be linked to https://stackoverflow.com/questions/53162001/typeerror-during-jests-spyon-cannot-set-property-getrequest-of-object-which
+        const [string, object] = logger.warn.mock.calls[0];
+        expect(string).toBe('not_in_document');
+        expect(object.container).toBe(container);
     });
 
     it('Accepts a string selector, element reference, or mixed array', async () => {
