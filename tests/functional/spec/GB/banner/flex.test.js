@@ -1,62 +1,39 @@
 import createBannerTest from '../../createBannerTest';
 import accounts from '../accounts';
 
-describe('GB > flex', () => {
-    const viewport = {
-        width: 1100,
-        height: 700
-    };
+const ratios = ['1x1', '1x4', '8x1', '20x1'];
+const colors = ['blue', 'black', 'white', 'gray'];
+// each viewport has a height of 700 as defined in the describe block below
+const viewports = [
+    { name: 'Large', width: 1100 },
+    { name: 'Small', width: 100 },
+    { name: 'Medium', width: 400 }
+];
 
+const tests = [].concat(
+    viewports.reduce(
+        (array, { name, width }) =>
+            array.concat(ratios.map(ratio => [`Viewport:${name} Ratio:${ratio}`, { ratio, color: 'blue' }, { width }])),
+        []
+    ),
+    colors.slice(1).map(color => [`Ratio:1x1. Color:${color}`, { ratio: '1x1', color }])
+);
+
+describe(`GB > flex (Test Count: ${tests.length * accounts.length})`, () => {
     const runBannerTest = createBannerTest('GB');
 
-    accounts.forEach(account => {
-        describe(account, () => {
-            const getConfig = style => ({
-                account,
-                style: {
-                    layout: 'flex',
-                    ...style
-                }
-            });
+    describe.each(accounts)(`> %s (Test Count: ${tests.length})`, account => {
+        const getConfig = style => ({
+            account,
+            style: {
+                layout: 'flex',
+                ...style
+            }
+        });
 
-            // Each valid ratio
-            ['1x1', '1x4', '8x1', '20x1'].forEach(ratio => {
-                const config = getConfig({
-                    ratio,
-                    color: 'blue'
-                });
-
-                runBannerTest(viewport, config);
-
-                // Small viewport
-                runBannerTest(
-                    {
-                        width: 100,
-                        height: 700
-                    },
-                    config
-                );
-
-                // Medium viewport
-                runBannerTest(
-                    {
-                        width: 400,
-                        height: 700
-                    },
-                    config
-                );
-            });
-
-            // Each additional background color option, ratio-1x1
-            ['black', 'white', 'gray'].forEach(color => {
-                runBannerTest(
-                    viewport,
-                    getConfig({
-                        ratio: '1x1',
-                        color
-                    })
-                );
-            });
+        describe.each(tests)('%s', (name, style, viewport = { width: 1100 }) => {
+            viewport.height = 700; // eslint-disable-line no-param-reassign
+            runBannerTest(viewport, getConfig(style));
         });
     });
 });

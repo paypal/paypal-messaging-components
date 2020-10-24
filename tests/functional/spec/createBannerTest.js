@@ -77,6 +77,12 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
+            page.on('pageerror', error => {
+                // TODO: find a way to re-launch the browser on error so tests can continue
+                // eslint-disable-next-line no-console
+                console.log(`page error for [${testName}]`, error);
+            });
+
             // Outputs current test so CI does not stall
             // eslint-disable-next-line no-console
             console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
