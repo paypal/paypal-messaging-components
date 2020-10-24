@@ -22,6 +22,10 @@ const getTagSize = node => {
         element => window.getComputedStyle(element).getPropertyValue('display') !== 'none'
     );
 
+    if (!visibleElement) {
+        return 'NONE';
+    }
+
     // Get the tag size of the element shown
     return toTagSize(visibleElement.classList);
 };
