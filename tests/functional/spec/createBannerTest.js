@@ -73,6 +73,7 @@ const padDimension = number => 10 * Math.ceil(number / 10) + 5;
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
+        const isCustomOrLegacy = ['custom', 'legacy'].includes(config.style.layout);
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
@@ -91,7 +92,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
             await waitForNavPromise;
 
-            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000 });
+            const bannerDimensions = await waitForBanner({ testName, timeout: (isCustomOrLegacy ? 10 : 2) * 1000 });
             expect(bannerDimensions.height).toBeGreaterThan(0);
             expect(bannerDimensions.width).toBeGreaterThan(0);
 
