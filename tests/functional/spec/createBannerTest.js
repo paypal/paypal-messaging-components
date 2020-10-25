@@ -40,23 +40,34 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
 // returns height and width of banner in pixels
 const waitForBanner = async ({ testName, timeout }) => {
     try {
-        // selectors must remain as strings because puppeteer will not understand babel transforms for imports
+        const polling = 10;
         const result = await page.waitForFunction(
-            bannerSelectors => {
+            ({ bannerSelectors, _testName, _polling, _timeout }) => {
+                Window.timeTaken = (Window.timeTaken || 0) + _polling;
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
-                    const banner = iframeBody.querySelector('.message__container');
+                    const banner = iframeBody.querySelector(bannerSelectors.container);
                     return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
+
                 const legacy = document.querySelector(bannerSelectors.legacyContainer);
+                if (Window.timeTaken % 1000 === 0 && Window.timeTaken >= _timeout - 2000) {
+                    // eslint-disable-next-line no-console
+                    console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
+                }
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
-                polling: 10,
+                polling,
                 timeout
             },
-            selectors.banner
+            {
+                bannerSelectors: selectors.banner,
+                _testName: testName,
+                _polling: polling,
+                _timeout: timeout
+            }
         );
 
         // Give time for fonts to load after banner is rendered
@@ -77,6 +88,14 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
+            page.on('console', message => {
+                const text = message.text();
+
+                if (text.includes('waitForBanner')) {
+                    // eslint-disable-next-line no-console
+                    console.log(text);
+                }
+            });
             page.on('pageerror', error => {
                 // TODO: find a way to re-launch the browser on error so tests can continue
                 // eslint-disable-next-line no-console
