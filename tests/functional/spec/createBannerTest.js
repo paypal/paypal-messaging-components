@@ -49,8 +49,7 @@ const waitForBanner = async ({ testName, timeout }) => {
                     const banner = iframeBody.querySelector('.message__container');
                     return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
                 }
-
-                const legacy = document.querySelector(bannerSelectors.legacy);
+                const legacy = document.querySelector(bannerSelectors.legacyContainer);
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
@@ -92,7 +91,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
             await waitForNavPromise;
 
-            const bannerDimensions = await waitForBanner({ testName, timeout: 2000 });
+            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000 });
             expect(bannerDimensions.height).toBeGreaterThan(0);
             expect(bannerDimensions.width).toBeGreaterThan(0);
 
