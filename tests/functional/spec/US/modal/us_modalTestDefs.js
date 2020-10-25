@@ -11,13 +11,18 @@ export const niContentTest = ({ account, viewport, groupString }) => async () =>
 
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
-
+    // await page.waitFor(60 * 1000);
     // $eval uses a selector to get an element which can then be evaluated with typical DOM methods
-    const contentHeaderTitle = await modalFrame.$eval(selectors.modal.contentHeaderTitle, element => element.innerText);
-    const contentBodyTitle = await modalFrame.$eval(selectors.modal.contentBodyTitle, element => element.innerText);
+    const contentDescriptionTitle = await modalFrame.$eval(
+        selectors.modal.contentDescriptionTitle,
+        element => element.innerText
+    );
+    const contentTermsTitle = await modalFrame.$eval(selectors.modal.contentTermsTitle, element => element.innerText);
 
-    expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit');
-    expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
+    expect(contentDescriptionTitle).toContain(
+        'Pay over time and get 6 months special financing on purchases of $99+ with no money due today.'
+    );
+    expect(contentTermsTitle).toContain('No Interest if paid in full in 6 months on purchases of $99');
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
@@ -119,7 +124,10 @@ export const ezpModalContent = ({ account, viewport, groupString }) => async () 
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await modalFrame.waitForSelector(selectors.modal.contentBodyTitle);
 
-    const contentHeaderTitle = await modalFrame.$eval(selectors.modal.contentHeaderTitle, element => element.innerText);
+    const contentHeaderTitle = await modalFrame.$eval(
+        selectors.modal.ezpContentHeaderTitle,
+        element => element.innerText
+    );
     const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
 
     expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments');

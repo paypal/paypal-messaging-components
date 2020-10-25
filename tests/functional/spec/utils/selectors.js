@@ -21,7 +21,9 @@ const selectors = {
         contentBodyTitle: '.content-body .title',
         contentBodyTerms: '.content-body .terms',
         contentHeader: '.content-header',
-        contentHeaderTitle: '.content-header .title',
+        contentDescriptionTitle: '.content-body .description h3',
+        contentTermsTitle: '.content-body .terms h3',
+        ezpContentHeaderTitle: '.content-header .title',
         // Used in GB modal
         containerLeft: '.left',
         offer: '.content-body .offer',
