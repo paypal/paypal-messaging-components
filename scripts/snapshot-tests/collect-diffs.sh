@@ -26,7 +26,7 @@ echo "DIFF FILES FOUND ($diffFileCount found)"
 cat $DIFF_FILES_LIST
 echo ''
 
-# node ./tests/functional/utils/collectDiffs.js
+node ./tests/functional/utils/collectDiffs.js
 
 if [[ $diffFileCount -gt 0 ]]; then
     echo 'Diffs found, exiting with failure'
