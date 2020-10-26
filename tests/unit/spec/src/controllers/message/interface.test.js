@@ -104,9 +104,14 @@ describe('message interface', () => {
         expect(logger.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('not_in_document'),
             expect.objectContaining({
-                container
+                // Passing the container as a ref here causes some jest/babel compiling issue
+                container: expect.any(Object)
             })
         );
+
+        const [, { container: warningContainer }] = logger.warn.mock.calls[0];
+
+        expect(warningContainer).toBe(container);
     });
 
     it('Accepts a string selector, element reference, or mixed array', async () => {
