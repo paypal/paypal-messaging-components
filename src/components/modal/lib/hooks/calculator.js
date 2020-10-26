@@ -4,7 +4,6 @@ import { useXProps, useServerData } from '../../../lib';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
-    console.log({ state, action });
     switch (action.type) {
         case 'input':
             return {
