@@ -22,9 +22,3 @@
 .message__logo:last-child {
     margin-top: 2px;
 }
-
-.message__headline > .tag--medium .weak.br {
-    display: inline-block;
-    transform: translateX(-3.8px);
-    white-space: nowrap;
-}

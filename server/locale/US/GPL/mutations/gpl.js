@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { xSmallFallback, textWrap, messageLogoWidth, setLogoTop } from '../../../../message/mediaQueries';
+import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -118,6 +118,7 @@ export default {
                     `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize, '.locale--US'),
                     xSmallFallback(textSize * 16),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]

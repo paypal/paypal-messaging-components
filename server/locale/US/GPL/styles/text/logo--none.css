@@ -1,3 +1,7 @@
 .weak {
     display: none;
 }
+
+.message__headline {
+    white-space: normal;
+}

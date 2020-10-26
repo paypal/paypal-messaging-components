@@ -6,11 +6,15 @@
 export function xSmallFallback(breakpoint) {
     return `
     .message__headline {
-        white-space: nowrap;
+        white-space: normal;
     }
 
     .message__headline > .tag--medium > span {
         white-space: normal;
+    }
+
+    .message__headline > .tag--medium > .weak.br {
+        white-space: nowrap;
     }
 
     .message__headline > .tag--xsmall {
@@ -38,39 +42,6 @@ export function xSmallFallback(breakpoint) {
 }
 
 /**
- * Used for inline and none GPL US/GB styles in order to fallback to the .tag--small message.
- */
-export function smallFallback(breakpoint) {
-    return `
-    .message__headline {
-        white-space: nowrap;
-    }
-
-    .message__headline > .tag--medium > span {
-        white-space: normal;
-    }
-
-    .message__headline > .tag--small {
-        display: none;
-    }
-
-    @media screen and (max-width: ${breakpoint}px) {
-        .message__headline > .tag--medium {
-            display: none;
-        }
-
-        .message__headline > .tag--small {
-            display: inline;
-        }
-
-        .message__headline .tag--small > span {
-            white-space: nowrap;
-        }
-    }
-`;
-}
-
-/**
  * Used in US and GB GPL text messages.
  * Wraps text under logo for default/primary left and alternative config types.
  */
@@ -91,6 +62,19 @@ export function textWrap(breakpoint, textSize, localeClass) {
             white-space: normal;
         }
     }`;
+}
+
+/**
+ * Prevents alternative-style monogram logo from sitting above the message.
+ */
+export function altNoWrap(breakpoint) {
+    return `
+        @media screen and (max-width: ${breakpoint}px) {
+            .message__headline {
+                white-space: nowrap;
+            }
+        }
+    `;
 }
 
 /**

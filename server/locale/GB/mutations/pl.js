@@ -3,8 +3,8 @@ import {
     textWrap,
     messageLogoWidth,
     xSmallFallback,
-    smallFallback,
     logo20x1,
+    altNoWrap,
     setLogoTop
 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
@@ -53,6 +53,7 @@ export default {
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize, '.locale--GB'),
                     xSmallFallback(textSize * 18),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -61,16 +62,20 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [smallFallback(textSize * 18)],
+                styles: [xSmallFallback(textSize * 16)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
+                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -79,16 +84,20 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [smallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
+                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]
