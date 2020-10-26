@@ -1,12 +1,12 @@
 import Logo from '../logos';
 import {
-    plContentMediaQuery,
-    plAltContentMediaQuery,
+    textWrap,
     messageLogoWidth,
     xSmallFallback,
-    smallFallback,
-    logo20x1
-} from './mediaQueries';
+    logo20x1,
+    altNoWrap,
+    setLogoTop
+} from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -15,8 +15,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { white-space: nowrap; }`,
-                    xSmallFallback(textSize * 15.5),
+                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 32, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
@@ -31,17 +31,13 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 15.5), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
-            })
-        ],
-        [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15.5),
-                    plContentMediaQuery(textSize * 31 + 10),
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
+                    setLogoTop(textSize * 32 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -49,15 +45,22 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 15.5), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 26.5),
-                    xSmallFallback(textSize * 17),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 32, textSize, 'GB'),
+                    xSmallFallback(textSize * 11.5),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -66,14 +69,16 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [smallFallback(textSize * 17)],
+                styles: [xSmallFallback(textSize * 18)],
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium'
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -82,14 +87,16 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [smallFallback(textSize * 17 + 4), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.ALT_NO_PP.COLOR,
                 headline: [
                     {
-                        tag: 'medium'
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]

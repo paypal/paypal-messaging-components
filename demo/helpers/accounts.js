@@ -12,6 +12,7 @@ const accounts = [
     'DEV0000000PMZ',
     'DEV0000000PMG',
     'DEV0000000GPL',
+    'DEV00000GPLNQ',
     'DEV000000GPLQ',
 
     // DE
