@@ -99,7 +99,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             page.on('pageerror', error => {
                 // TODO: find a way to re-launch the browser on error so tests can continue
                 // eslint-disable-next-line no-console
-                console.log(`page error for [${testName}]`, error);
+                console.log(`banner page error for [${testName}]`, error);
             });
 
             // Outputs current test so CI does not stall

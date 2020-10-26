@@ -7,7 +7,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     page.on('pageerror', error => {
         // TODO: find a way to re-launch the browser on error so tests can continue
         // eslint-disable-next-line no-console
-        console.log(`page error for ${JSON.stringify(config)} with viewport ${JSON.stringify(viewport)}`, error);
+        console.log(`modal page error for ${JSON.stringify(config)} with viewport ${JSON.stringify(viewport)}`, error);
     });
 
     await page.setViewport(viewport);

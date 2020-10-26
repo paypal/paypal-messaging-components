@@ -48,7 +48,7 @@ const selectors = {
         tabUnselected: 'button.tab:not(.tab--selected)',
         btn: '.button',
         closeBtn: '#close-btn',
-        btnSecondary: '.button--secondary',
+        btnSecondary: '.button.secondary',
         // Used in DE modal instead of .btnSecondary
         btnMd: '.button--md'
     }
