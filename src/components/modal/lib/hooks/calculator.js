@@ -69,7 +69,7 @@ export default function useCalculator() {
             setServerData(data);
 
             // TODO: do not store terms in reducer since serverData will be kept up-to-date
-            dispatch({ type: 'terms', data: data.terms });
+            dispatch({ type: 'terms', data });
         });
     };
 
