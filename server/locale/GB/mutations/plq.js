@@ -16,7 +16,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    textWrap(textSize * 32, textSize, '.locale--GB'),
+                    textWrap(textSize * 32, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
@@ -58,7 +58,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, '.locale--GB'),
+                    textWrap(textSize * 32, textSize, 'GB'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)

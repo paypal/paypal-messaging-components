@@ -45,20 +45,20 @@ export function xSmallFallback(breakpoint) {
  * Used in US and GB GPL text messages.
  * Wraps text under logo for default/primary left and alternative config types.
  */
-export function textWrap(breakpoint, textSize, localeClass) {
+export function textWrap(breakpoint, textSize, locale) {
     return `@media screen and (max-width: ${breakpoint}px) {
-        ${localeClass} .message__content {
+        .locale--${locale} .message__content {
             display: block;
             margin-top: -${textSize / 2}px;
         }
-        ${localeClass} .message__logo-container {
+        .locale--${locale} .message__logo-container {
             display: inline-flex;
             transform: translateY(${textSize / 2}px);
         }
-        ${localeClass} .message__messaging {
+        .locale--${locale} .message__messaging {
             display: inline;
         }
-        ${localeClass} .message__messaging span.br:first-child {
+        .locale--${locale} .message__messaging span.br:first-child {
             white-space: normal;
         }
     }`;
