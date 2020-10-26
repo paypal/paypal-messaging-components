@@ -50,7 +50,7 @@ const selectors = {
         closeBtn: '#close-btn',
         btnSecondary: '.button.secondary',
         // Used in DE modal instead of .btnSecondary
-        btnMd: '.button--md'
+        btnMd: '.button.md'
     }
 };
 

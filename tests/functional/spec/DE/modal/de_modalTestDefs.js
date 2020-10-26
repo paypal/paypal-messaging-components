@@ -20,12 +20,15 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await page.waitFor(1000);
 
     await modalFrame.type(selectors.calculator.calcInput, '2');
-    await modalFrame.click(selectors.button.closeBtn);
+    await modalFrame.click(selectors.button.btnMd);
     await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(2000);
 
-    const calcInstructions = await modalFrame.$eval(selectors.calculate.calcInstructions, element => element.innerHTML);
-    expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199,00€ und 5.000,00€ ein.');
+    const calcInstructions = await modalFrame.$eval(
+        selectors.calculator.calcInstructions,
+        element => element.innerHTML
+    );
+    expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199€ und 5.000€ ein.');
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
