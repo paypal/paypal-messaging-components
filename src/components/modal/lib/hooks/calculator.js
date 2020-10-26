@@ -4,6 +4,7 @@ import { useXProps, useServerData } from '../../../lib';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
+    console.log({ state, action });
     switch (action.type) {
         case 'input':
             return {
@@ -69,7 +70,7 @@ export default function useCalculator() {
             setServerData(data);
 
             // TODO: do not store terms in reducer since serverData will be kept up-to-date
-            dispatch({ type: 'terms', data: data.terms });
+            dispatch({ type: 'terms', data });
         });
     };
 

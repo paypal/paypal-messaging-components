@@ -20,7 +20,7 @@ export const getContent = memoizeOnProps(
             )
             .slice(1);
 
-        return request('GET', `${window.location.origin}/credit-presentment/modalContent?${query}`).then(
+        return request('GET', `${window.location.origin}/credit-presentment/calculateTerms?${query}`).then(
             ({ data }) => data
         );
     },
