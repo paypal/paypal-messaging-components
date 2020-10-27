@@ -51,7 +51,7 @@ export default ({ options, markup, locale }) => {
     const mutationRules =
         options.style.layout === 'custom'
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
-            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, options, markup));
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`));
 
     const layoutProp = `layout:${layout}`;
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
@@ -130,7 +130,7 @@ export default ({ options, markup, locale }) => {
                         <div className="message__promo-container">
                             <h5 className="message__headline">
                                 <MutatedText tagData={markup.headline} options={mutationRules.headline} />
-                                {logoType === 'none' || locale === 'GB' ? productNameEl : null}
+                                {logoType === 'none' ? productNameEl : null}
                                 {logoType === 'inline' ? <> {logoEl}</> : null}
                             </h5>{' '}
                             <h6 className="message__sub-headline">

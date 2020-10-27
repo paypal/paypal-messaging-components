@@ -1,6 +1,12 @@
 import Logo from '../logos';
-import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { smallTagMediaQuery, xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    xSmallFallback,
+    logo20x1
+} from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -67,9 +73,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; }`,
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize * 16),
+                    textWrap(textSize * 32, textSize, 'US'),
+                    xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16)
                 ],
@@ -88,10 +93,9 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { margin-left: -3.8px; white-space: nowrap; }`,
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xsmallTagMediaQuery(textSize * 10.75),
+                    xSmallFallback(textSize * 10.75),
                     setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
@@ -101,10 +105,9 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { margin-left: -3.8px; white-space: nowrap;}`,
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xsmallTagMediaQuery(textSize * 10.75),
+                    xSmallFallback(textSize * 10.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -113,10 +116,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `.message__headline > .tag--medium .weak.br { display: inline-block; transform: translateX(-3.8px); white-space: nowrap; } .message__messaging span.br { white-space: nowrap; }`,
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize),
-                    xsmallTagMediaQuery(textSize * 11.5),
+                    textWrap(textSize * 32, textSize, 'US'),
+                    xSmallFallback(textSize * 11.5),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -125,7 +128,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 18)],
+                styles: [xSmallFallback(textSize * 18)],
                 logo: false,
                 headline: [
                     {
@@ -134,7 +137,7 @@ export default {
                         replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -143,7 +146,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [smallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
@@ -152,7 +155,7 @@ export default {
                         replace: [['purchases.', 'purchases']]
                     },
                     {
-                        tag: 'small',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]

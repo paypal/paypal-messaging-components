@@ -4,9 +4,10 @@ import logoAlternative from './logo--alternative.css';
 import logoTop from './logo--top.css';
 import logoRight from './logo--right.css';
 import logoInline from './logo--inline.css';
-import logoInlineWhite from './logo--inlinewhite.css';
 import logoNone from './logo--none.css';
 import textWhite from './text--white.css';
+import textMonochrome from './text--monochrome.css';
+import textGrayscale from './text--grayscale.css';
 
 export default [
     ['default', base],
@@ -17,9 +18,10 @@ export default [
     ['logo.type:alternative', logoAlternative],
 
     ['logo.type:inline', logoInline],
-    ['logo.type:inline && text.color:white', logoInlineWhite],
 
     ['logo.type:none', logoNone],
 
-    ['text.color:white', textWhite]
+    ['text.color:white', textWhite],
+    ['text.color:monochrome', textMonochrome],
+    ['text.color:grayscale', textGrayscale]
 ];

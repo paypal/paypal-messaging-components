@@ -6,7 +6,7 @@ const globals = require('./globals');
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
 const HOSTNAME = 'localhost.paypal.com';
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 module.exports = (env = {}) => {
     const LIBRARY_DEV_CONFIG =
