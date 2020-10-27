@@ -71,13 +71,14 @@ const getStatRequest = ({ requests, statName, eventType, link }) => {
     return request;
 };
 
-describe.skip('payload testing', () => {
+describe('payload testing', () => {
     const config = {
         account: 'DEV0000000EAZ',
         amount: 500
     };
 
-    test('initial payload', async () => {
+    test.todo('update payload tests');
+    test.skip('initial payload', async () => {
         await page.waitFor(30 * 1000);
         const requests = await runTest({
             config,
@@ -108,7 +109,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('scroll stat sent if below fold', async () => {
+    test.skip('scroll stat sent if below fold', async () => {
         await page.viewport({ width: 600, height: 200 });
         const requests = await runTest({
             config,
@@ -130,7 +131,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('scroll stat not sent if above fold', async () => {
+    test.skip('scroll stat not sent if above fold', async () => {
         const requests = await runTest({
             config
         });
@@ -139,7 +140,7 @@ describe.skip('payload testing', () => {
         expect(request).not.toBeDefined();
     });
 
-    test('click stat sent', async () => {
+    test.skip('click stat sent', async () => {
         const requests = await runTest({
             config,
             callback: async ({ bannerFrame }) => {
@@ -168,7 +169,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('hover stat sent', async () => {
+    test.skip('hover stat sent', async () => {
         const requests = await runTest({
             config,
             callback: async ({ bannerFrame }) => {
@@ -186,7 +187,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('modal calculate stat sent', async () => {
+    test.skip('modal calculate stat sent', async () => {
         const requests = await runTest({
             config,
             callback: async ({ bannerFrame, modalFrame }) => {
@@ -210,7 +211,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('modal click stat sent', async () => {
+    test.skip('modal click stat sent', async () => {
         const requests = await runTest({
             config,
             callback: async ({ bannerFrame, modalFrame }) => {
@@ -231,7 +232,7 @@ describe.skip('payload testing', () => {
         });
     });
 
-    test('modal close stat sent', async () => {
+    test.skip('modal close stat sent', async () => {
         const requests = await runTest({
             config,
             callback: async ({ bannerFrame, modalFrame }) => {

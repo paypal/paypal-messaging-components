@@ -11,24 +11,22 @@ DIFF_FILES_LIST=diff_files.log
 touch $DIFF_FOLDERS_LIST
 touch $DIFF_FILES_LIST
 
-echo ''
 rm -rf ./tests/functional/__diff_output__
 find ./tests/functional/snapshots -type d | (grep __diff_output__ || [[ $? == 1 ]]) > $DIFF_FOLDERS_LIST
 diffFolderCount=$(wc -l < $DIFF_FOLDERS_LIST)
-echo "DIFF FOLDERS FOUND ($diffFolderCount found)"
+echo -e "\nDIFF FOLDERS FOUND ($diffFolderCount found)\n"
 cat $DIFF_FOLDERS_LIST
 echo ''
 
-echo ''
 find ./tests/functional/ -type f -name '*png' | (grep -h __diff_output__ || [[ $? == 1 ]]) > $DIFF_FILES_LIST
 diffFileCount=$(wc -l < $DIFF_FILES_LIST)
-echo "DIFF FILES FOUND ($diffFileCount found)"
+echo -e "\nDIFF FILES FOUND ($diffFileCount found)\n"
 cat $DIFF_FILES_LIST
 echo ''
 
 node ./tests/functional/utils/collectDiffs.js
 
 if [[ $diffFileCount -gt 0 ]]; then
-    echo 'Diffs found, exiting with failure'
+    echo -e '\nDiffs found, exiting with failure\n'
     exit 1
 fi

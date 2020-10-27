@@ -2,6 +2,8 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import selectors from './utils/selectors';
 
+const isComparingSnapshots = process.env.DIRTY_SNAPSHOTS == 0; // eslint-disable-line eqeqeq
+
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
     failureThreshold: 0.002,
@@ -44,6 +46,11 @@ const waitForBanner = async ({ testName, timeout }) => {
         const result = await page.waitForFunction(
             ({ bannerSelectors, _testName, _polling, _timeout }) => {
                 Window.timeTaken = (Window.timeTaken || 0) + _polling;
+                if (Window.timeTaken % 1000 === 0 && Window.timeTaken >= _timeout - 2000) {
+                    // eslint-disable-next-line no-console
+                    console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
+                }
+
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 if (iframe) {
                     const iframeBody = iframe.contentWindow.document.body;
@@ -52,10 +59,6 @@ const waitForBanner = async ({ testName, timeout }) => {
                 }
 
                 const legacy = document.querySelector(bannerSelectors.legacyContainer);
-                if (Window.timeTaken % 1000 === 0 && Window.timeTaken >= _timeout - 2000) {
-                    // eslint-disable-next-line no-console
-                    console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
-                }
                 return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
             },
             {
@@ -84,7 +87,6 @@ const padDimension = number => 10 * Math.ceil(number / 10) + 5;
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
-        const isCustomOrLegacy = ['custom', 'legacy'].includes(config.style.layout);
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
@@ -103,15 +105,17 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             });
 
             // Outputs current test so CI does not stall
-            // eslint-disable-next-line no-console
-            console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
+            if (isComparingSnapshots) {
+                // eslint-disable-next-line no-console
+                console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
+            }
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
             await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
             await waitForNavPromise;
 
-            const bannerDimensions = await waitForBanner({ testName, timeout: (isCustomOrLegacy ? 10 : 2) * 1000 });
+            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000 });
             expect(bannerDimensions.height).toBeGreaterThan(0);
             expect(bannerDimensions.width).toBeGreaterThan(0);
 
@@ -124,6 +128,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
             // eslint-disable-next-line no-console
             console.log(`Taking screenshot of [${testName}] with dimensions ${JSON.stringify(snapshotDimensions)}`);
+
             const image = await page.screenshot(
                 {
                     clip: {

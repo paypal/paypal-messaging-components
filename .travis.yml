@@ -10,7 +10,7 @@ node_js:
 
 env:
     global:
-        - DIRTY_SNAPSHOTS=1
+        - DIRTY_SNAPSHOTS=0
     jobs:
         - TEST_PATH_PATTERN=none
 
@@ -43,12 +43,26 @@ jobs:
               - npm run test
               - npm run test:func:nosnaps
 
-        - stage: updateSnaphots
-          name: 'Update Snapshots'
-          env: TEST_PATH_PATTERN=none
+        # Update snapshots are split into non-US, US modal, and US banner/custom so the CI doesn't time out
+        - stage: update_snapshots_non_US
+          env: TEST_PATH_PATTERN=spec/[^U][^S]/
           if: branch = develop AND type != pull_request
           script:
-              - ./scripts/snapshot-tests/update-snapshots.sh
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - COMMIT_DETAIL="non-US" ./scripts/snapshot-tests/git-push.sh
+        - stage: update_snapshots_US_banner_and_custom
+          env: TEST_PATH_PATTERN=spec/US/[bc]
+          if: branch = develop AND type != pull_request
+          script:
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - COMMIT_DETAIL="US banner and custom" ./scripts/snapshot-tests/git-push.sh
+        - stage: update_snapshots_US_modal
+          env: TEST_PATH_PATTERN=spec/US/modal
+          if: branch = develop AND type != pull_request
+          script:
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - sed -i -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
+              - COMMIT_DETAIL="US modal" ./scripts/snapshot-tests/git-push.sh
 
         - stage: functional
           # Prevent script phase from running with TEST_PATH_PATTERN=none
@@ -64,7 +78,6 @@ jobs:
         - env: TEST_PATH_PATTERN=spec/US/modal
 
         - stage: deploy
-          name: 'Deploy'
           env: TEST_PATH_PATTERN=none
           # Override script so deploy doesn't run snapshot tests
           script:
@@ -77,7 +90,11 @@ jobs:
 
 stages:
     - name: basics
-    - name: updateSnapshots
+    - name: update_snapshots_non_US
+      if: env(DIRTY_SNAPSHOTS) = 1
+    - name: update_snapshots_US_banner_and_custom
+      if: env(DIRTY_SNAPSHOTS) = 1
+    - name: update_snapshots_US_modal
       if: env(DIRTY_SNAPSHOTS) = 1
     - name: functional
       if: env(DIRTY_SNAPSHOTS) = 0
