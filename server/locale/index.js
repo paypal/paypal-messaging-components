@@ -26,10 +26,10 @@ export function getValidOptions(locale, offerType) {
     return getLocaleSettings(locale, offerType).validOptions;
 }
 
-export function getMutations(locale, offerType, type, options) {
+export function getMutations(locale, offerType, type) {
     if (type === 'layout:custom') return {};
     const mutations = getLocaleSettings(locale, offerType)
-        .getMutations(offerType, type, options)
+        .getMutations(offerType, type)
         .map(mutation => {
             if (mutation[1].styles) {
                 return [

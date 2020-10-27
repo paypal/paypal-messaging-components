@@ -5,6 +5,7 @@ export default offerType => {
     switch (offerType) {
         case 'GPL':
         case 'GPLQ':
+        case 'GPLNQ':
             return gpl;
         default:
             return ppc;

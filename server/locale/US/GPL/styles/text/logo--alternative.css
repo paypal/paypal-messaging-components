@@ -27,3 +27,7 @@
 .message__content {
     display: inline-flex;
 }
+
+.message__messaging span.br {
+    white-space: nowrap;
+}

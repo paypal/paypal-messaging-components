@@ -1,5 +1,46 @@
 # Changelog
 
+# [1.15.0](https://github.com/paypal/paypal-messaging-components/compare/v1.14.2...v1.15.0) (2020-10-21)
+
+
+### Bug Fixes
+
+* expand content height for IE11 ([#359](https://github.com/paypal/paypal-messaging-components/issues/359)) ([c853eaf](https://github.com/paypal/paypal-messaging-components/commit/c853eafaa5f563f463fc9b946583f981a42d11de))
+* GB mobile modal header ([#358](https://github.com/paypal/paypal-messaging-components/issues/358)) ([a298ea6](https://github.com/paypal/paypal-messaging-components/commit/a298ea65bde3494512ada1308588f1d9e624d6ba))
+* GPL no amount flex styles ([#365](https://github.com/paypal/paypal-messaging-components/issues/365)) ([df9f943](https://github.com/paypal/paypal-messaging-components/commit/df9f943047557d69c7e365ee556d9e1318524fb1))
+* GPL wrapping mutations ([#364](https://github.com/paypal/paypal-messaging-components/issues/364)) ([3cbed11](https://github.com/paypal/paypal-messaging-components/commit/3cbed1159609c27e302a96e1af60adf6f65fbe46))
+* update GB qualifying attribute check ([#353](https://github.com/paypal/paypal-messaging-components/issues/353)) ([fface76](https://github.com/paypal/paypal-messaging-components/commit/fface763ecec3374f5cd82967be73ecf673e4c8c))
+* update modal content ([#362](https://github.com/paypal/paypal-messaging-components/issues/362)) ([544ac58](https://github.com/paypal/paypal-messaging-components/commit/544ac581fb455a8ea87921dbe161b1f081564d3f))
+
+
+### Features
+
+* update GPL message logic ([#363](https://github.com/paypal/paypal-messaging-components/issues/363)) ([8511a4f](https://github.com/paypal/paypal-messaging-components/commit/8511a4f38438fc0408caba40bd85c4b1b3863443))
+
+## [1.14.2](https://github.com/paypal/paypal-messaging-components/compare/v1.14.1...v1.14.2) (2020-10-15)
+
+
+### Bug Fixes
+
+* account for mobile URL search bar in overflow calculation ([#356](https://github.com/paypal/paypal-messaging-components/issues/356)) ([f2098c5](https://github.com/paypal/paypal-messaging-components/commit/f2098c588246c77059b55fb9e049c8fd62129d60))
+* hide sticky apply now on modal close or tab switch ([#354](https://github.com/paypal/paypal-messaging-components/issues/354)) ([b2f12e8](https://github.com/paypal/paypal-messaging-components/commit/b2f12e811d08d800f7f644a6cad5cafcccba2a25))
+* modal scroll ([#355](https://github.com/paypal/paypal-messaging-components/issues/355)) ([53ac3c1](https://github.com/paypal/paypal-messaging-components/commit/53ac3c1f72a26134c618ec3377c1806e4d70ae05))
+
+## [1.14.1](https://github.com/paypal/paypal-messaging-components/compare/v1.14.0...v1.14.1) (2020-10-14)
+
+
+### Bug Fixes
+
+* force repaint to prevent Firefox locked scroll ([#344](https://github.com/paypal/paypal-messaging-components/issues/344)) ([70d996a](https://github.com/paypal/paypal-messaging-components/commit/70d996ad07dfde1c1b164e9b65c23e7493a46d10))
+* GPL modal height ([#338](https://github.com/paypal/paypal-messaging-components/issues/338)) ([4f50c22](https://github.com/paypal/paypal-messaging-components/commit/4f50c22bb67bf9236b6ab28624e1257297fd3e2f))
+* modal scroll on iOS ([#343](https://github.com/paypal/paypal-messaging-components/issues/343)) ([70ff0ae](https://github.com/paypal/paypal-messaging-components/commit/70ff0aec2c7c5cccd4c6ad90a730b30c48886252))
+* modal scrollbar accessibility on Windows ([#346](https://github.com/paypal/paypal-messaging-components/issues/346)) ([2824597](https://github.com/paypal/paypal-messaging-components/commit/28245975adcc535b1ef7ace7573c143886b5152f))
+* NI/GB modal content ([#348](https://github.com/paypal/paypal-messaging-components/issues/348)) ([49cc2f3](https://github.com/paypal/paypal-messaging-components/commit/49cc2f32325d234721868598c47246aa6fe81f49))
+* over extended header in Firefox ([#345](https://github.com/paypal/paypal-messaging-components/issues/345)) ([4d5856e](https://github.com/paypal/paypal-messaging-components/commit/4d5856e9f9b0d3b752134ae5bd790cfb0c13b9c9))
+* pass buyer country in modal data re-fetch ([#342](https://github.com/paypal/paypal-messaging-components/issues/342)) ([0d8e1af](https://github.com/paypal/paypal-messaging-components/commit/0d8e1af20e76acad709ad9a9cb90946409c3405e))
+* select correct tab when modal offer changes ([#341](https://github.com/paypal/paypal-messaging-components/issues/341)) ([c2cc0e8](https://github.com/paypal/paypal-messaging-components/commit/c2cc0e8c618dcdbdb3e4f481af67cef082fea6c3))
+* substitute modal terms variables dynamically ([#350](https://github.com/paypal/paypal-messaging-components/issues/350)) ([6c2b9ef](https://github.com/paypal/paypal-messaging-components/commit/6c2b9ef063c2be569e30fbd488465752542a9d55))
+
 # [1.14.0](https://github.com/paypal/paypal-messaging-components/compare/v1.13.8...v1.14.0) (2020-10-07)
 
 

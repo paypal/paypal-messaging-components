@@ -6,15 +6,14 @@ const globals = require('./globals');
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
 const HOSTNAME = 'localhost.paypal.com';
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 module.exports = (env = {}) => {
     const LIBRARY_DEV_CONFIG =
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
                   entry: {
-                      messaging: './src/index.js',
-                      merchant: './src/old/legacy/index.js'
+                      messaging: './src/index.js'
                   },
                   filename: '[name].js',
                   modulename: ['paypal', 'Messages'],
@@ -54,8 +53,6 @@ module.exports = (env = {}) => {
             switch (env.TARGET) {
                 case 'standalone':
                     return 'standalone.html';
-                case 'legacy':
-                    return 'legacy.html';
                 case 'sdk':
                 default:
                     return '';

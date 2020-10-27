@@ -57,7 +57,7 @@ jobs:
         - env: TEST_PATH_PATTERN=spec/DE/modal
         - env: TEST_PATH_PATTERN=spec/GB/banner
         - env: TEST_PATH_PATTERN=spec/GB/modal
-        - env: TEST_PATH_PATTERN=spec/US/custom-and-legacy
+        - env: TEST_PATH_PATTERN=spec/US/custom
         # US Banner tests are split due to the number of offer types that exist for it
         - env: TEST_PATH_PATTERN=spec/US/banner/flex
         - env: TEST_PATH_PATTERN=spec/US/banner/text

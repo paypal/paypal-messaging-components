@@ -37,7 +37,7 @@ export function getProductForOffer(offer) {
         return 'EZP';
     }
 
-    if (arrayIncludes(['GPL', 'GPLQ'], offer.toUpperCase())) {
+    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ'], offer.toUpperCase())) {
         return 'GPL';
     }
 

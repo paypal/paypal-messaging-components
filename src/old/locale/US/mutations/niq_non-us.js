@@ -1,6 +1,5 @@
 import Logo from '../logos';
 import { basicMediaQuery, altContentMediaQuery } from './mediaQueries';
-import { legacyNI } from './ni';
 import { flex } from './ni_non-us';
 import { textLogoMutations } from './common';
 
@@ -131,6 +130,5 @@ export default {
         ...textLogoMutations
     ],
 
-    'layout:flex': flex,
-    'layout:legacy': legacyNI
+    'layout:flex': flex
 };

@@ -3,6 +3,8 @@ const zoidGlobals = require('zoid/globals');
 
 const { version } = require('./package.json');
 
+const PORT = process.env.PORT || 8080;
+
 module.exports = (env = { TARGET: 'sdk' }) => ({
     __ZOID__: {
         ...zoidGlobals.__ZOID__,
@@ -21,7 +23,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEMO__: !!env.demo,
         __TARGET__: env.TARGET.toUpperCase(),
         __DOMAIN__: {
-            __LOCAL__: 'https://localhost.paypal.com:8080',
+            __LOCAL__: `https://localhost.paypal.com:${PORT}`,
             __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com',
@@ -41,9 +43,8 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             }
         },
         __URI__: {
-            __RAMP_EXPERIMENT__: '/upstream/assets/messaging/modal/ramp-experiment.json',
+            __RAMP_EXPERIMENT__: '/upstream/assets/messaging/modal/ramp-experiment-ssr.json',
             __MESSAGE_A__: '/credit-presentment/messages',
-            __MESSAGE_A_LEGACY__: '/credit-presentment/messages/legacy',
             __MESSAGE_B__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER_A__: '/ppcredit/messagingLogger',
