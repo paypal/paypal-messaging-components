@@ -3,9 +3,9 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { XPropsProvider, ServerDataProvider } from 'src/components/lib';
 import { request } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
+import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
@@ -35,22 +35,15 @@ describe('<Message />', () => {
         onMarkup: jest.fn(),
         resize: jest.fn()
     });
-    const wrapper = ({ children }) => (
-        <XPropsProvider>
-            <ServerDataProvider
-                data={{
-                    markup: '<div>test</div>',
-                    meta: {
-                        messageRequestId: '12345'
-                    },
-                    parentStyles: 'body { color: black; }',
-                    warnings: []
-                }}
-            >
-                {children}
-            </ServerDataProvider>
-        </XPropsProvider>
-    );
+
+    const wrapper = zoidComponentWrapper({
+        markup: '<div>test</div>',
+        meta: {
+            messageRequestId: '12345'
+        },
+        parentStyles: 'body { color: black; }',
+        warnings: []
+    });
 
     afterEach(() => {
         window.xprops.onClick.mockClear();

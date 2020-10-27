@@ -1,16 +1,18 @@
 /** @jsx h */
-import { h } from 'preact';
-import { render } from '@testing-library/preact';
-import { XPropsProvider, ServerDataProvider } from 'src/components/lib';
+import { createContext, h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { render, act } from '@testing-library/preact';
+
 import { useTransitionState } from 'src/components/modal/lib/providers/transition';
 import { getContent } from 'src/components/modal/lib/utils';
 import xPropsMock from 'utils/xPropsMock';
 import Container from 'src/components/modal/parts/Container';
-import { act } from 'preact/test-utils';
+import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
+const mockTransitionContext = createContext(['CLOSED']);
 jest.mock('src/components/modal/lib/logos', () => ({}));
 jest.mock('src/components/modal/lib/providers/transition', () => ({
-    useTransitionState: jest.fn().mockReturnValue(['CLOSED'])
+    useTransitionState: jest.fn()
 }));
 
 jest.mock('src/components/modal/lib/utils', () => ({
@@ -19,6 +21,9 @@ jest.mock('src/components/modal/lib/utils', () => ({
 
 describe('<Container />', () => {
     const product = 'product';
+
+    useTransitionState.mockImplementation(() => useContext(mockTransitionContext));
+
     const contentWrapper = {
         current: document.createElement('div')
     };
@@ -27,28 +32,24 @@ describe('<Container />', () => {
         onReady: jest.fn()
     });
 
-    const wrapper = (
-        <XPropsProvider>
-            <ServerDataProvider
-                data={{
-                    products: [
-                        {
-                            meta: {
-                                product
-                            }
-                        }
-                    ]
-                }}
-            >
-                <Container contentWrapper={contentWrapper}>
-                    <span>modal</span>
-                </Container>
-            </ServerDataProvider>
-        </XPropsProvider>
+    const wrapper = zoidComponentWrapper({
+        products: [
+            {
+                meta: {
+                    product
+                }
+            }
+        ]
+    });
+
+    const content = (
+        <Container contentWrapper={contentWrapper}>
+            <span>modal</span>
+        </Container>
     );
 
     test('renders modal content', () => {
-        const { queryByText } = render(wrapper);
+        const { queryByText } = render(content, { wrapper });
 
         expect(queryByText('modal')).not.toBeNull();
         expect(window.xprops.onReady).toHaveBeenCalledWith(
@@ -60,19 +61,21 @@ describe('<Container />', () => {
 
     test('scrolls to top when opening', () => {
         window.focus = jest.fn();
-        render(wrapper);
+        const { rerender } = render(
+            <mockTransitionContext.Provider value={['CLOSED']}>{content}</mockTransitionContext.Provider>,
+            { wrapper }
+        );
 
         contentWrapper.current.scrollTop = 20;
-        useTransitionState.mockReturnValue(['OPENING']);
 
-        render(wrapper);
+        rerender(<mockTransitionContext.Provider value={['OPENING']}>{content}</mockTransitionContext.Provider>);
 
         expect(window.focus).toHaveBeenCalled();
         expect(contentWrapper.current.scrollTop).toBe(0);
     });
 
     test('updates content when props change', async () => {
-        render(wrapper);
+        const { rerender } = render(content, { wrapper });
 
         Object.entries({
             currency: 'USD',
@@ -89,7 +92,7 @@ describe('<Container />', () => {
                     [k]: v
                 });
             });
-            render(wrapper);
+            rerender(content);
 
             expect(getContent).toHaveBeenCalled();
         });
