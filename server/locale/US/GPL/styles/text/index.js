@@ -1,3 +1,4 @@
+import base from './base.css';
 import textMonochrome from './text--monochrome.css';
 import textGrayscale from './text--grayscale.css';
 import textWhite from './text--white.css';
@@ -9,6 +10,7 @@ import logoTop from './logo--top.css';
 import logoRight from './logo--right.css';
 
 export default [
+    ['default', base],
     ['logo.type:primary', logoPrimary],
     ['logo.position:top', logoTop],
     ['logo.position:right', logoRight],

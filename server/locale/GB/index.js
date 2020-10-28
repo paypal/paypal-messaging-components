@@ -5,7 +5,7 @@ import validOptions from './validOptions';
 
 export default {
     localeClass: 'locale--GB',
-    productName: ['with', 'Flex'],
+    productName: ['with', 'PayPal.'],
     minimumSizeOptions: {
         layout: 'text',
         logo: {
