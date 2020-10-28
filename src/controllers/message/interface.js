@@ -98,7 +98,6 @@ export default (options = {}) => ({
                     style,
                     offer,
                     onClick,
-                    modal: Modal(modalProps),
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
                             onRender(...args);
@@ -107,6 +106,12 @@ export default (options = {}) => ({
                     // Used in the computed callback props
                     getContainer: () => container
                 };
+
+                // Account can be undefined in the case where the attribute observer fires and there
+                // is no global account, such as when rendering entirely using the JavaScript API
+                if (account) {
+                    messageProps.modal = Modal(modalProps);
+                }
 
                 if (!messagesMap.has(container)) {
                     const { render, state, updateProps, clone } = Message(messageProps);

@@ -66,6 +66,7 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                         // Only run in the context of a render call, and NOT when resizing the
                         // element for other reasons such as window resizing
                         if (!state?.renderStart) {
+                            observer.unobserve(iframe);
                             return;
                         }
 
@@ -78,7 +79,7 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                         // TODO: Further investigate why in some edge-cases the entry values are all 0.
                         // If this is the case we run our own calculations as a fallback.
                         // e.g. https://www.auto-protect-shop.de/nanolex-ultra-glasversiegelung-set/a-528
-                        if (entry.rootBounds.width === 0 && entry.rootBounds.height === 0) {
+                        if (entry.rootBounds?.width === 0 && entry.rootBounds.height === 0) {
                             isIntersectingFallback = elementContains(root, entry.target);
                         }
 
@@ -89,8 +90,6 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                             !isIntersectingFallback
                         ) {
                             if (container.getAttribute('data-pp-style-preset') === 'smallest') {
-                                iframe.style.setProperty('opacity', '0', 'important');
-                                iframe.style.setProperty('pointer-events', 'none', 'important');
                                 logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
                                     description: `PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
                                     container,
@@ -100,8 +99,6 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                 state.renderComplete = true;
                                 delete state.renderStart;
                             } else {
-                                iframe.style.setProperty('opacity', '0', 'important');
-                                iframe.style.setProperty('pointer-events', 'none', 'important');
                                 container.setAttribute('data-pp-style-preset', 'smallest');
                                 logger.warn(state.renderComplete ? 'update_overflow' : 'overflow', {
                                     description: `PayPal Message attempting fallback. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
@@ -111,8 +108,15 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                 });
                             }
 
+                            iframe.style.setProperty('opacity', '0', 'important');
+                            iframe.style.setProperty('pointer-events', 'none', 'important');
+
                             observer.unobserve(iframe);
                         } else {
+                            // Reset if previously hidden
+                            iframe.style.setProperty('opacity', 1);
+                            iframe.style.setProperty('pointer-events', null);
+
                             logger.info(state.renderComplete ? 'update_visible' : 'visible', {
                                 index,
                                 duration
