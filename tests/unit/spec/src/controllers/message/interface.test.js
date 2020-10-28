@@ -65,7 +65,7 @@ describe('message interface', () => {
 
     // Possible bug with JSDOM MutationObserver implementation where it is
     // firing duplicate events from other messages being observed, so this test is first
-    it('Re-renders on attribute change', async () => {
+    test('Re-renders on attribute change', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
 
@@ -83,7 +83,7 @@ describe('message interface', () => {
         expect(Message().updateProps).toHaveBeenCalledTimes(1);
     });
 
-    it('Requires valid DOM selector', async () => {
+    test('Requires valid DOM selector', async () => {
         await Messages({}).render('.invalid');
 
         expect(logger.warn).toHaveBeenCalledTimes(1);
@@ -95,7 +95,7 @@ describe('message interface', () => {
         );
     });
 
-    it('Requires the container to be in the document', async () => {
+    test('Requires the container to be in the document', async () => {
         const container = document.createElement('div');
 
         await Messages({}).render(container);
@@ -109,7 +109,7 @@ describe('message interface', () => {
         );
     });
 
-    it('Accepts a string selector, element reference, or mixed array', async () => {
+    test('Accepts a string selector, element reference, or mixed array', async () => {
         const containers = Array.from({ length: 2 }).map(() => {
             const container = document.createElement('div');
             container.classList.add('pp-message');
@@ -160,7 +160,7 @@ describe('message interface', () => {
         containers.forEach(container => document.body.removeChild(container));
     });
 
-    it('Combines global, inline, and JavaScript options', async () => {
+    test('Combines global, inline, and JavaScript options', async () => {
         // Global
         setGlobalState({ config: { account: 'DEV00000000NI' } });
         const container = document.createElement('div');
@@ -195,7 +195,7 @@ describe('message interface', () => {
         expect(Modal().render).not.toHaveBeenCalled();
     });
 
-    it('Calls updateProps on re-render', async () => {
+    test('Calls updateProps on re-render', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
 
@@ -220,7 +220,7 @@ describe('message interface', () => {
         expect(Modal().updateProps).not.toHaveBeenCalled();
     });
 
-    it('Default renders to [data-pp-message]', async () => {
+    test('Default renders to [data-pp-message]', async () => {
         const container = document.createElement('div');
         container.setAttribute('data-pp-message', true);
         document.body.appendChild(container);
@@ -232,7 +232,7 @@ describe('message interface', () => {
         expect(Message().render).toHaveBeenLastCalledWith(container);
     });
 
-    it('Passes onRender handler', async () => {
+    test('Passes onRender handler', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
         const onRender = jest.fn();
@@ -255,7 +255,7 @@ describe('message interface', () => {
         expect(onRender).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345', trackingDetails: {} } });
     });
 
-    it('Passes onClick handler', async () => {
+    test('Passes onClick handler', async () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
         const onClick = jest.fn();

@@ -2,7 +2,7 @@ import destroy from 'src/controllers/message/destroy';
 import { setGlobalState, globalState } from 'src/utils';
 
 describe('message destroy', () => {
-    it('Cleans up messaging', () => {
+    test('Cleans up messaging', () => {
         const mockContainers = Array.from({ length: 4 }).map((_, index) => {
             const mockContainer = document.createElement('div');
             const mockWrapper = document.createElement('span');

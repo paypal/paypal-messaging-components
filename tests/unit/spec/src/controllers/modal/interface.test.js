@@ -40,7 +40,7 @@ describe('modal interface', () => {
         clearMocks();
     });
 
-    it('Default renders to body', async () => {
+    test('Default renders to body', async () => {
         await Modal({ account: '1' }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
@@ -48,7 +48,7 @@ describe('modal interface', () => {
         expect(zoidModal().render).toHaveBeenLastCalledWith('body');
     });
 
-    it('Renders a hidden modal', async () => {
+    test('Renders a hidden modal', async () => {
         await Modal({ account: '2' }).render();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
@@ -57,7 +57,7 @@ describe('modal interface', () => {
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
-    it('Default renders to body when attempting to show', async () => {
+    test('Default renders to body when attempting to show', async () => {
         await Modal({ account: '3' }).show();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ describe('modal interface', () => {
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
-    it('Default renders to body when attempting to hide', async () => {
+    test('Default renders to body when attempting to hide', async () => {
         await Modal({ account: '4' }).hide();
 
         expect(zoidModal).toHaveBeenCalledTimes(1);
@@ -77,7 +77,7 @@ describe('modal interface', () => {
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
     });
 
-    it('Opens modal', async () => {
+    test('Opens modal', async () => {
         await Modal({ account: '5' }).show({ index: '1' });
 
         const modalViewport = document.head.querySelector('meta[name="viewport"]');
@@ -109,7 +109,7 @@ describe('modal interface', () => {
         );
     });
 
-    it('Closes modal', async () => {
+    test('Closes modal', async () => {
         const modal = Modal({ account: '6' });
 
         await modal.show();
@@ -129,14 +129,14 @@ describe('modal interface', () => {
         );
     });
 
-    it('Shares a common modal instance', async () => {
+    test('Shares a common modal instance', async () => {
         const modal = Modal({ account: '7' });
 
         expect(modal).toBe(Modal({ account: '7' }));
         expect(modal).not.toBe(Modal({ account: '8' }));
     });
 
-    it('Passes onReady handler', async () => {
+    test('Passes onReady handler', async () => {
         const onReady = jest.fn();
         await Modal({ account: '9', index: '1', onReady }).render();
 
@@ -156,7 +156,7 @@ describe('modal interface', () => {
         expect(onReady).toHaveBeenLastCalledWith({ products: ['NI'] });
     });
 
-    it('Passes onCalculate handler', async () => {
+    test('Passes onCalculate handler', async () => {
         const onCalculate = jest.fn();
         await Modal({ account: '10', index: '1', onCalculate }).render();
 
@@ -176,7 +176,7 @@ describe('modal interface', () => {
         expect(onCalculate).toHaveBeenLastCalledWith({ value: 100 });
     });
 
-    it('Passes onApply handler', async () => {
+    test('Passes onApply handler', async () => {
         const onApply = jest.fn();
         await Modal({ account: '11', index: '1', onApply }).render();
 
@@ -195,7 +195,7 @@ describe('modal interface', () => {
         expect(onApply).toHaveBeenCalledTimes(1);
     });
 
-    it('Passes onClose handler', async () => {
+    test('Passes onClose handler', async () => {
         const onClose = jest.fn();
         const modal = Modal({ account: '12', index: '1', onClose });
 

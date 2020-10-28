@@ -25,7 +25,7 @@ describe('stats', () => {
         logger.track.mockReset();
     });
 
-    it('Fires standard payload and attaches events', async () => {
+    test('Fires standard payload and attaches events', async () => {
         const { container } = createContainer('iframe');
         container.getBoundingClientRect = () => ({
             left: 100,
@@ -59,7 +59,7 @@ describe('stats', () => {
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
-    it('Fires scroll event when loads below fold and scrolls into view', async () => {
+    test('Fires scroll event when loads below fold and scrolls into view', async () => {
         window.innerHeight = 10;
 
         const { container } = createContainer('iframe');

@@ -20,7 +20,7 @@ describe('transition', () => {
         defaultXProps.onProps.mockClear();
     });
 
-    it('useTransitionState updates when modal opens and can trigger closing', async () => {
+    test('useTransitionState updates when modal opens and can trigger closing', async () => {
         const wrapper = ({ children }) => <TransitionStateProvider>{children}</TransitionStateProvider>;
         const { result } = renderHook(
             () => {

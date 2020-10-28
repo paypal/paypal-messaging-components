@@ -53,13 +53,13 @@ describe('<Message />', () => {
         request.mockClear();
     });
 
-    it('Renders the server markup', () => {
+    test('Renders the server markup', () => {
         const { getByText } = render(<Message />, { wrapper });
 
         expect(getByText(/test/i)).toBeInTheDocument();
     });
 
-    it('Fires onReady xProp after render', () => {
+    test('Fires onReady xProp after render', () => {
         render(<Message />, { wrapper });
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
@@ -70,7 +70,7 @@ describe('<Message />', () => {
         });
     });
 
-    it('Fires onClick xProp when clicked', () => {
+    test('Fires onClick xProp when clicked', () => {
         const { container } = render(<Message />, { wrapper });
         const button = container.firstChild;
 
@@ -84,7 +84,7 @@ describe('<Message />', () => {
         });
     });
 
-    it('Fires onHover xProp when hovered', () => {
+    test('Fires onHover xProp when hovered', () => {
         const { container } = render(<Message />, { wrapper });
         const button = container.firstChild;
 
@@ -98,7 +98,7 @@ describe('<Message />', () => {
         });
     });
 
-    it('Fires onMarkup and onReady on complete re-render', async () => {
+    test('Fires onMarkup and onReady on complete re-render', async () => {
         const { getByText, queryByText } = render(<Message />, { wrapper });
 
         expect(request).not.toHaveBeenCalled();
