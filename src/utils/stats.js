@@ -1,5 +1,5 @@
 import { checkAdblock } from './adblock';
-import { isHidden, isInViewport } from './elements';
+import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getLibraryVersion } from './sdk';
 
@@ -22,6 +22,7 @@ const onScroll = (elem, handler) => {
 export function runStats({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
+    const topWindow = getTopWindow();
 
     // Create initial payload
     const payload = {
@@ -34,8 +35,8 @@ export function runStats({ container, activeTags, index }) {
         // so everything must be converted to a string to prevent unintended filtering
         pos_x: Math.round(containerRect.left).toString(),
         pos_y: Math.round(containerRect.top).toString(),
-        browser_width: window.innerWidth.toString(),
-        browser_height: window.innerHeight.toString(),
+        browser_width: (topWindow?.innerWidth).toString(),
+        browser_height: (topWindow?.innerHeight).toString(),
         visible: isInViewport(container).toString(),
         // Visible message sections
         active_tags: activeTags
