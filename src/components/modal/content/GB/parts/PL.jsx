@@ -17,7 +17,7 @@ const PL = () => {
 
                 <h3>
                     {subHeadline.pay.start} {qualifying && subHeadline.pay.amount} {subHeadline.pay.end}{' '}
-                    {qualifying && replaceZeros(subHeadline.available)} {subHeadline.apply}
+                    {replaceZeros(subHeadline.available)} {subHeadline.apply}
                 </h3>
 
                 <div className="call-to-action">
