@@ -48,7 +48,7 @@ describe('GB > flex', () => {
             });
 
             // Each additional background color option, ratio-1x1
-            ['black', 'white', 'gray', 'white-no-border'].forEach(color => {
+            ['black', 'white', 'gray', 'monochrome', 'grayscale'].forEach(color => {
                 runBannerTest(
                     viewport,
                     getConfig({

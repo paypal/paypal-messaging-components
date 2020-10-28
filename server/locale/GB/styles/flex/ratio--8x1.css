@@ -7,12 +7,12 @@
     }
 
     .message__headline .tag--medium .br:first-child {
-        display: block;
+        display: inline;
     }
 
     .message__logo-container {
         flex-basis: 12%;
-        margin-bottom: -3px;
+        margin-bottom: -6px;
         justify-content: flex-start;
         margin-left: 5px;
     }
@@ -63,5 +63,11 @@
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
     .message__headline {
         font-size: 10px;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 360px) {
+    .message__messaging {
+        line-height: 1.3rem;
     }
 }

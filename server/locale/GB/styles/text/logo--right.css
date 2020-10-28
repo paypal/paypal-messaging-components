@@ -1,9 +1,8 @@
-.message__logo-container {
-    display: block;
-    order: 2;
-    width: auto;
+.message__logo:first-child {
+    margin-top: 3px;
+    margin-right: 5px;
 }
 
-.message__logo:last-child {
-    margin-top: 4px;
+.message__content {
+    align-items: center;
 }
