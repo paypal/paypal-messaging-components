@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.15.1](https://github.com/paypal/paypal-messaging-components/compare/v1.15.0...v1.15.1) (2020-10-28)
+
+
+### Bug Fixes
+
+* enable GPL custom messages ([#370](https://github.com/paypal/paypal-messaging-components/issues/370)) ([939ba54](https://github.com/paypal/paypal-messaging-components/commit/939ba54f02eab18fb3dd0eefa7800a5947a495ef))
+* return NONE tag when visible element is not found ([#371](https://github.com/paypal/paypal-messaging-components/issues/371)) ([9301be6](https://github.com/paypal/paypal-messaging-components/commit/9301be668ee8fce4f6bc3c08080bd1129968900d))
+* various bug fixes for demo app support ([#367](https://github.com/paypal/paypal-messaging-components/issues/367)) ([df94ad7](https://github.com/paypal/paypal-messaging-components/commit/df94ad7dc052f6302795b918a9a8c32b963ac3f4))
+
 # [1.15.0](https://github.com/paypal/paypal-messaging-components/compare/v1.14.2...v1.15.0) (2020-10-21)
 
 
