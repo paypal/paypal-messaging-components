@@ -30,7 +30,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
                 }
 
                 if (el.__hasResizedBefore__) {
-                    // The styles event will first before the resize event for the initial render
+                    // The styles event will fire first before the resize event for the initial render
                     event.once('styles', () => {
                         overflowObserver.then(observer => {
                             observer.observe(el); // The observer will immediately check the element once, then unsubscribe
