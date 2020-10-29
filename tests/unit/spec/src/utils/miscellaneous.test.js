@@ -1,6 +1,9 @@
 /** @jsx node */
+import { fireEvent } from '@testing-library/dom';
 import { node, dom } from 'jsx-pragmatic/src';
-import { createState, getDataByTag, createEvent, viewportHijack } from 'src/utils';
+import { createState, getDataByTag, createEvent, viewportHijack, dynamicImport } from 'src/utils';
+
+jest.mock('src/utils/observers', () => ({}));
 
 describe('utils/miscellaneous', () => {
     describe('createState', () => {
@@ -161,6 +164,21 @@ describe('utils/miscellaneous', () => {
     });
 
     describe('dynamicImport', () => {
-        it.todo('tests');
+        test('loads a script', async () => {
+            const url = 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js';
+            const loadPromise = dynamicImport(url);
+
+            expect(document.querySelectorAll('script')).toHaveLength(1);
+            expect(document.querySelector('script')).toHaveAttribute('src', url);
+
+            fireEvent.load(document.querySelector('script'));
+            await loadPromise;
+
+            expect(document.querySelectorAll('script')).toHaveLength(0);
+
+            // Import should be memoized
+            dynamicImport(url);
+            expect(document.querySelectorAll('script')).toHaveLength(0);
+        });
     });
 });
