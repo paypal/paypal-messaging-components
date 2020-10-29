@@ -220,7 +220,8 @@ export default function getBannerMarkup({ options, logger }) {
         if (typeof markup === 'object') {
             const meta = {
                 ...markup.meta,
-                offerCountry
+                offerCountry,
+                messageRequestId: createUUID()
             };
 
             const template = Template.getTemplateNode(totalOptions, markup);
