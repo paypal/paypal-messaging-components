@@ -25,7 +25,7 @@ describe('stats', () => {
         logger.track.mockReset();
     });
 
-    it('Fires standard payload and attaches events', async () => {
+    test('Fires standard payload and attaches events', async () => {
         const { container } = createContainer('iframe');
         container.getBoundingClientRect = () => ({
             left: 100,
@@ -59,7 +59,43 @@ describe('stats', () => {
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
-    it('Fires scroll event when loads below fold and scrolls into view', async () => {
+    test('Fires payload with sdk attributes', async () => {
+        const { container } = createContainer('iframe');
+        container.getBoundingClientRect = () => ({
+            left: 100,
+            right: 20,
+            top: 30,
+            bottom: 25
+        });
+        const index = '1';
+        const payload = {
+            index,
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'stats',
+            integration_type: 'STANDALONE',
+            messaging_version: expect.any(String),
+            bn_code: 'some-partner-id',
+            pos_x: '100',
+            pos_y: '30',
+            browser_width: '1024',
+            browser_height: '768',
+            visible: 'true',
+            adblock: 'true',
+            blocked: 'true',
+            active_tags: expect.any(String)
+        };
+        const sdkMetaAttributes = { partnerAttributionId: 'some-partner-id' };
+
+        runStats({ container, activeTags: '', index, sdkMetaAttributes });
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledWith(payload);
+        expect(window.addEventListener).not.toHaveBeenCalled();
+    });
+
+    test('Fires scroll event when loads below fold and scrolls into view', async () => {
         window.innerHeight = 10;
 
         const { container } = createContainer('iframe');
