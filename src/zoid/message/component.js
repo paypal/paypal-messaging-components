@@ -4,6 +4,7 @@ import { ZalgoPromise } from 'zalgo-promise';
 
 import {
     getMeta,
+    getMetaAttributes,
     getEnv,
     getGlobalUrl,
     getGlobalVariable,
@@ -160,7 +161,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags }) => {
-                        const { account, index, modal, getContainer } = props;
+                        const { account, index, modal, getContainer, sdkMetaAttributes } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
                         logger.addMetaBuilder(() => {
@@ -171,6 +172,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                         runStats({
                             container: getContainer(),
+                            sdkMetaAttributes,
                             activeTags,
                             index
                         });
@@ -271,6 +273,13 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 sendToChild: false,
                 required: false,
                 value: getMeta
+            },
+            sdkMetaAttributes: {
+                type: 'object',
+                queryParam: false,
+                sendToChild: false,
+                required: false,
+                value: getMetaAttributes
             },
             env: {
                 type: 'string',

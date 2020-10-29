@@ -8,6 +8,8 @@ import {
     getSDKMeta,
     getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
+import { base64decode } from 'belter/src';
+import 'core-js-pure/stable/object/entries';
 
 // SDK helper functions with standalone build polyfills
 
@@ -60,6 +62,22 @@ export function getCurrency() {
 export function getMeta() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKMeta();
+    } else {
+        return undefined;
+    }
+}
+
+export function getMetaAttributes() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        const sdkMetaString = getMeta();
+        const sdkMeta = JSON.parse(base64decode(sdkMetaString));
+        return Object.entries(sdkMeta.attrs).reduce((object, [key, value]) => {
+            const camelCasedKey = key
+                .replace('data-', '')
+                .replace(/-([a-z])/g, match => match.toUpperCase())
+                .replace(/-/g, '');
+            return { ...object, [camelCasedKey]: value };
+        }, {});
     } else {
         return undefined;
     }
