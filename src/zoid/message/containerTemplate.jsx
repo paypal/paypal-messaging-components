@@ -4,7 +4,7 @@ import { EVENT } from 'zoid/src';
 
 import { overflowObserver } from '../../utils';
 
-export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     event.on(EVENT.RENDERED, () => {
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
@@ -12,10 +12,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
     const setupAutoResize = el => {
         event.on(EVENT.RESIZE, ({ width, height }) => {
             if (width !== 0 || height !== 0) {
-                // Reset opacity if previously hidden from overflow
-                el.style.setProperty('opacity', 1);
-                el.style.setProperty('pointer-events', null);
-
                 if (props.style.layout === 'flex') {
                     // Ensure height property does not exist for flex especially when swapping from text to flex
                     el.style.setProperty('height', null);
@@ -33,10 +29,20 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
                     }
                 }
 
-                overflowObserver.then(observer => {
-                    // The observer will check the element once, then unsubscribe
-                    observer.observe(el);
-                });
+                if (el.__hasResizedBefore__) {
+                    // The styles event will fire first before the resize event for the initial render
+                    event.once('styles', () => {
+                        overflowObserver.then(observer => {
+                            observer.observe(el); // The observer will immediately check the element once, then unsubscribe
+                        });
+                    });
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    el.__hasResizedBefore__ = true;
+                    overflowObserver.then(observer => {
+                        observer.observe(el); // The observer will immediately check the element once, then unsubscribe
+                    });
+                }
             }
         });
     };
@@ -54,7 +60,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props }) => {
 
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
-            const style = document.querySelector(`#${uid} style`);
+            const style = container.querySelector(`#${uid} style`);
 
             style.textContent = `
                 ${baseStyles}

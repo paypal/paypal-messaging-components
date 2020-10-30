@@ -1,5 +1,6 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
 import objectAssign from 'core-js-pure/stable/object/assign';
+import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from 'belter/src';
 
 import { getEnv, getLibraryVersion } from './sdk';
