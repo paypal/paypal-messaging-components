@@ -1,4 +1,5 @@
 import selectors from '../../utils/selectors';
+import logTestName from '../../utils/logTestName';
 import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
@@ -6,25 +7,22 @@ import modalSnapshot from '../../utils/modalSnapshot';
  */
 export const niContentTest = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ni content in modal';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
-    /**
-     * selectors.modal.contentHeaderTitle and selectors.modal.contentBodyTitle are passed to the variables
-     * of the same name beginning with the underscore in order to pass the nodeJS variable to the browser through
-     * document.querySelector with Puppeteer.
-     */
-
-    const contentHeaderTitle = await modalFrame.evaluate(
-        _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
-        selectors.modal.contentHeaderTitle
+    // await page.waitFor(60 * 1000);
+    // $eval uses a selector to get an element which can then be evaluated with typical DOM methods
+    const contentDescriptionTitle = await modalFrame.$eval(
+        selectors.modal.contentDescriptionTitle,
+        element => element.innerText
     );
-    const contentBodyTitle = await modalFrame.evaluate(
-        _contentBodyTitle => document.querySelector(_contentBodyTitle).innerText,
-        selectors.modal.contentBodyTitle
-    );
+    const contentTermsTitle = await modalFrame.$eval(selectors.modal.contentTermsTitle, element => element.innerText);
 
-    expect(contentHeaderTitle).toContain('Buy now and pay over time with PayPal Credit');
-    expect(contentBodyTitle).toContain('No Interest if paid in full in 6 months on purchases of $99 or more');
+    expect(contentDescriptionTitle).toContain(
+        'Pay over time and get 6 months special financing on purchases of $99+ with no money due today.'
+    );
+    expect(contentTermsTitle).toContain('No Interest if paid in full in 6 months on purchases of $99');
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
@@ -35,8 +33,10 @@ export const niContentTest = ({ account, viewport, groupString }) => async () =>
  */
 export const clickHereSeeTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'see terms page on modal hyperlink click';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(1000);
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector('a');
     await page.waitFor(1000);
@@ -48,8 +48,10 @@ export const clickHereSeeTerms = ({ account, viewport, groupString }) => async (
 
 export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'apply now button to credit application login';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(1000);
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.modal.iframe);
     await page.waitFor(500);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.click(selectors.button.btn);
@@ -63,7 +65,9 @@ export const applyNowBtn = ({ account, viewport, groupString }) => async () => {
  */
 export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'non-qualifying ezp amount error message';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
 
     await modalFrame.waitForSelector(selectors.calculator.calc);
@@ -72,14 +76,16 @@ export const nonQualErrorEZP = ({ account, viewport, groupString }) => async () 
     await page.waitFor(1000);
     await modalFrame.type(selectors.calculator.calcInput, '2');
     await modalFrame.click(selectors.button.btnSecondary);
-    await page.waitFor(800);
+    await page.waitFor(4 * 1000);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
 export const ezpFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp finance terms';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
     await page.waitFor(800);
@@ -89,38 +95,40 @@ export const ezpFinanceTerms = ({ account, viewport, groupString }) => async () 
 
 export const updateFinanceTerms = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'update finance terms';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
     await modalFrame.click(selectors.button.btnSecondary);
-    await page.waitFor(800);
+    await page.waitFor(4 * 1000);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
 export const ezpModalContent = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'ezp message content';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(1000);
     await modalFrame.waitForSelector(selectors.calculator.calc);
     await page.waitFor(800);
 
-    expect(await modalFrame.evaluate(() => document.querySelector('.calculator'))).toBeTruthy();
+    const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
+    expect(calc).toBeTruthy();
 
     await modalFrame.waitForSelector(selectors.modal.contentBody);
     await modalFrame.waitForSelector(selectors.modal.contentBodyTitle);
 
-    const contentHeaderTitle = await modalFrame.evaluate(
-        _contentHeaderTitle => document.querySelector(_contentHeaderTitle).innerText,
-        selectors.modal.contentHeaderTitle
+    const contentHeaderTitle = await modalFrame.$eval(
+        selectors.modal.ezpContentHeaderTitle,
+        element => element.innerText
     );
-    const calcTitle = await modalFrame.evaluate(
-        _calcTitle => document.querySelector(_calcTitle).innerText,
-        selectors.calculator.calcTitle
-    );
+    const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
 
     expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments');
     expect(calcTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
@@ -131,15 +139,17 @@ export const ezpModalContent = ({ account, viewport, groupString }) => async () 
 
 export const switchTabs = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'EZP and NI tabs click';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.button.tabs);
     await page.waitFor(500);
     // Select the tab that is NOT currently selected.
-    await modalFrame.click('button.tab:not(.tab--selected)');
+    await modalFrame.click(selectors.button.tabUnselected);
     await page.waitFor(200);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     await page.waitFor(200);
-    await modalFrame.click('button.tab:not(.tab--selected)');
+    await modalFrame.click(selectors.button.tabUnselected);
 };

@@ -1,12 +1,17 @@
+const showBrowser = process.env.HEADLESS === 'false';
+
 module.exports = {
     launch: {
-        headless: true,
-        devtools: false,
+        headless: !showBrowser,
+        devtools: showBrowser,
         // dumpio pipes browser stdout and stderr to process stdout and stderr
-        dumpio: true,
+        // dumpio: true,
         // slows puppeteer in milliseconds so you can see what is going on
-        // slowMo: 5 * 1000
-        ignoreHTTPSErrors: true
+        slowMo: showBrowser ? 50 : 0,
+        ignoreHTTPSErrors: true,
+        server: {
+            port: 8080
+        }
     },
     browser: 'chromium',
     browserContext: 'default'

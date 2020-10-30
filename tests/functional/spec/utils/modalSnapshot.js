@@ -11,6 +11,9 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 expect.extend({ toMatchImageSnapshot });
 
 const modalSnapshot = async (testNameParts, viewport, account) => {
+    // eslint-disable-next-line no-console
+    console.log(`Taking screenshot of [${testNameParts}] with dimensions ${JSON.stringify(viewport)}`);
+
     const image = await page.screenshot(
         {
             clip: {
