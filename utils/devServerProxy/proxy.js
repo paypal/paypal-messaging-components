@@ -72,7 +72,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
                     || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
 
                 document.write(interface);
@@ -175,8 +175,8 @@ export default (app, server, compiler) => {
         }
     });
 
-    app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount, targetMeta } = req.query;
+    const getModalData = req => {
+        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
@@ -240,12 +240,25 @@ export default (app, server, compiler) => {
             payerId: account
         };
 
+        return { props, productNames };
+    };
+
+    app.get('/credit-presentment/smart/modal', (req, res) => {
+        const { targetMeta } = req.query;
+        const { props, productNames } = getModalData(req);
+
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : country}`,
+                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : props.country}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`
             )
         );
+    });
+    app.get('/credit-presentment/modalContent', (req, res) => {
+        const { props: data } = getModalData(req);
+        setTimeout(() => {
+            res.send(data);
+        }, 1000);
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
