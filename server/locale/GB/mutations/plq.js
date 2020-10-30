@@ -1,5 +1,13 @@
 import Logo from '../logos';
-import { gbPLContentMediaQuery, fallbackMediaQuery, plAltContentMediaQuery, messageLogoWidth } from './mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    xSmallFallback,
+    logo20x1,
+    altNoWrap,
+    setLogoTop
+} from '../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
     'layout:text': [
@@ -7,15 +15,15 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 25 + 20),
+                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 32, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['of']
+                        br: ['payments']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -23,20 +31,13 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 14 + 4),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
-            })
-        ],
-        [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 14 + 4),
-                    gbPLContentMediaQuery(textSize * 38 + 10),
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
+                    setLogoTop(textSize * 32 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -45,7 +46,9 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 14 + 4),
+                    `@media screen and (max-width: ${textSize *
+                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    xSmallFallback(textSize * 10.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -54,8 +57,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 34, textSize * 24),
-                    fallbackMediaQuery(textSize * 21),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 32, textSize, 'GB'),
+                    xSmallFallback(textSize * 11.5),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -64,26 +69,40 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17)],
-                logo: false
+                styles: [xSmallFallback(textSize * 18)],
+                logo: false,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 4)],
-                logo: false
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                logo: Logo.ALT_NO_PP.COLOR,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [['purchases.', 'purchases']]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        [
-            'text.color:white && logo.type:inline',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 4)],
-                logo: false
-            })
-        ],
-        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+        ...textLogoMutations
     ],
 
     'layout:flex': [
@@ -93,36 +112,26 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'medium',
-                        replace: [['month.', 'month']]
-                    }
-                ],
-                disclaimer: 'xsmall'
-            }
-        ],
-        [
-            'ratio:1x4',
-            {
-                headline: [
+                        tag: 'xsmall'
+                    },
                     {
-                        tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
+                        tag: 'medium'
                     }
                 ],
-                styles: [`@media (min-height: 500px) {.message__headline {font-size: 1.4rem;}}`]
+                disclaimer: ['default'],
+                styles: [
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }'
+                ]
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
-                    }
+                styles: [
+                    logo20x1(),
+                    '.message__headline .tag--medium .weak { display: none; }',
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ]
             }
         ],
@@ -130,33 +139,21 @@ export default {
             'ratio:8x1',
             {
                 headline: [
-                    'default',
+                    {
+                        tag: 'xsmall'
+                    },
                     {
                         tag: 'medium',
-                        replace: [['month.', 'month']],
-                        br: ['per ']
+                        br: ['payments']
                     }
+                ],
+                styles: [
+                    '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }',
+                    '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
                 ]
             }
         ],
-
-        [
-            'color:gray',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:white',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:black',
-            {
-                logo: Logo.PRIMARY.WHITE
-            }
-        ]
+        ...flexLogoMutations
     ]
 };

@@ -104,9 +104,14 @@ describe('message interface', () => {
         expect(logger.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('not_in_document'),
             expect.objectContaining({
-                container
+                // Passing the container as a ref here causes some jest/babel compiling issue
+                container: expect.any(Object)
             })
         );
+
+        const [, { container: warningContainer }] = logger.warn.mock.calls[0];
+
+        expect(warningContainer).toBe(container);
     });
 
     it('Accepts a string selector, element reference, or mixed array', async () => {
@@ -121,7 +126,7 @@ describe('message interface', () => {
 
         expect(Message).toHaveBeenCalledTimes(0);
 
-        await Messages({}).render('.pp-message');
+        await Messages({ account: 'DEV00000000NI' }).render('.pp-message');
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(2);
@@ -134,7 +139,7 @@ describe('message interface', () => {
         clearMocks();
         destroyGlobalState();
 
-        await Messages({}).render(containers[0]);
+        await Messages({ account: 'DEV00000000NI' }).render(containers[0]);
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(1);
@@ -147,7 +152,7 @@ describe('message interface', () => {
         clearMocks();
         destroyGlobalState();
 
-        await Messages({}).render(containers);
+        await Messages({ account: 'DEV00000000NI' }).render(containers);
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(2);
@@ -199,7 +204,7 @@ describe('message interface', () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
 
-        await Messages({}).render(container);
+        await Messages({ account: 'DEV00000000NI' }).render(container);
 
         expect(Message).toHaveBeenCalledTimes(1);
         expect(Message().render).toHaveBeenCalledTimes(1);
@@ -210,12 +215,12 @@ describe('message interface', () => {
 
         clearMocks();
 
-        await Messages({}).render(container);
+        await Messages({ account: 'DEV00000000NI' }).render(container);
 
         expect(Message).not.toHaveBeenCalled();
         expect(Message().render).not.toHaveBeenCalled();
         expect(Message().updateProps).toHaveBeenCalledTimes(1);
-        expect(Modal).not.toHaveBeenCalled();
+        expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
     });

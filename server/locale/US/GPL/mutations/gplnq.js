@@ -1,6 +1,12 @@
 import Logo from '../logos';
-import { messageLogoWidth } from '../../../GB/mutations/mediaQueries';
-import { xsmallTagMediaQuery, setLogoTop, textWrap, logo20x1 } from './mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    xSmallFallback,
+    logo20x1
+} from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from './common';
 
 const flex = [
@@ -57,8 +63,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 37, textSize),
-                    xsmallTagMediaQuery(textSize * 16),
+                    textWrap(textSize * 37, textSize, 'US'),
+                    xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
@@ -77,7 +83,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xsmallTagMediaQuery(textSize * 16),
+                    xSmallFallback(textSize * 16),
                     setLogoTop(textSize * 38),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
@@ -87,7 +93,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    xsmallTagMediaQuery(textSize * 14.75 + 10),
+                    xSmallFallback(textSize * 14.75 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -97,8 +103,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 37, textSize),
-                    xsmallTagMediaQuery(textSize * 15.4),
+                    textWrap(textSize * 37, textSize, 'US'),
+                    xSmallFallback(textSize * 15.4),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -107,7 +114,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize * 18)],
+                styles: [xSmallFallback(textSize * 18)],
                 logo: false,
                 headline: [
                     {
@@ -125,7 +132,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xsmallTagMediaQuery(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.INLINE.COLOR,
                 headline: [
                     {
