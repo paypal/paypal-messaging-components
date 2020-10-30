@@ -46,6 +46,7 @@ const selectors = {
         tabs: '.tabs',
         tab: '.tab',
         tabUnselected: 'button.tab:not(.tab--selected)',
+        contentHeader: '.content-header .button',
         btn: '.button',
         closeBtn: '#close-btn',
         btnSecondary: '.button.secondary',
