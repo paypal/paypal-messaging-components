@@ -10,7 +10,7 @@ node_js:
 
 env:
     global:
-        - DIRTY_SNAPSHOTS=1
+        - DIRTY_SNAPSHOTS=0
     jobs:
         - TEST_PATH_PATTERN=none
 
@@ -61,7 +61,7 @@ jobs:
           if: branch = develop AND type != pull_request
           script:
               - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
-              - sed -i -e 's/DIRTY_SNAPSHOTS=1/DIRTY_SNAPSHOTS=0/g' .travis.yml
+              - sed -i -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=0/g' .travis.yml
               - COMMIT_DETAIL="US modal" ./scripts/snapshot-tests/git-push.sh
 
         - stage: functional
