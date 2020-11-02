@@ -1,10 +1,18 @@
+# Use this URL to test out config changes
+# https://config.travis-ci.com/explore
+
+os: linux
+dist: xenial
 language: node_js
 
 node_js:
     - '10'
 
 env:
-    - DIRTY_SNAPSHOTS=1
+    global:
+        - DIRTY_SNAPSHOTS=0
+    jobs:
+        - TEST_PATH_PATTERN=none
 
 cache:
     npm: false
@@ -17,22 +25,85 @@ before_install:
     - npm i -g npm@6
 
 before_script:
-    # TODO: Re-enable once snapshot tests are reliably improved
-    # - npm run dev:standalone &
+    - npm run dev:standalone &
     # Give dev server time to startup
-    # TODO: Re-enable once snapshot tests are reliably improved
-    # - sleep 40
+    - sleep 40
 
 script:
-    - npm run lint
-    - npm run test
-    # TODO: Re-enable once snapshot tests are reliably improved
-    # - ./scripts/snapshot-tests/run-tests.sh
+    - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
+    - ./scripts/snapshot-tests/collect-diffs.sh
 
-deploy:
-    provider: script
-    skip_cleanup: true
-    script:
-        - npx semantic-release@15
-    on:
-        branch: release
+jobs:
+    include:
+        - stage: basics
+          name: 'Lint, Unit and Functional Non-Snapshot Tests'
+          env: TEST_PATH_PATTERN=none
+          script:
+              - npm run lint
+              - npm run test
+              - npm run test:func:nosnaps
+
+        # Update snapshots are split into non-US, US modal, and US banner/custom so the CI doesn't time out
+        - stage: update_snapshots_non_US
+          env: TEST_PATH_PATTERN=spec/[^U][^S]/
+          if: branch = develop AND type != pull_request
+          script:
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - COMMIT_DETAIL="non-US" ./scripts/snapshot-tests/git-push.sh
+        - stage: update_snapshots_US_banner_and_custom
+          env: TEST_PATH_PATTERN=spec/US/[bc]
+          if: branch = develop AND type != pull_request
+          script:
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - COMMIT_DETAIL="US banner and custom" ./scripts/snapshot-tests/git-push.sh
+        - stage: update_snapshots_US_modal
+          env: TEST_PATH_PATTERN=spec/US/modal
+          if: branch = develop AND type != pull_request
+          script:
+              - npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - sed -i -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=0/g' .travis.yml
+              - COMMIT_DETAIL="US modal" ./scripts/snapshot-tests/git-push.sh
+
+        - stage: functional
+          # Prevent script phase from running with TEST_PATH_PATTERN=none
+          if: env(TEST_PATH_PATTERN) != none
+        - env: TEST_PATH_PATTERN=spec/DE/banner
+        - env: TEST_PATH_PATTERN=spec/DE/modal
+        - env: TEST_PATH_PATTERN=spec/GB/banner
+        - env: TEST_PATH_PATTERN=spec/GB/modal
+        - env: TEST_PATH_PATTERN=spec/US/custom
+        # US Banner tests are split due to the number of offer types that exist for it
+        - env: TEST_PATH_PATTERN=spec/US/banner/flex
+        - env: TEST_PATH_PATTERN=spec/US/banner/text
+        - env: TEST_PATH_PATTERN=spec/US/modal
+
+        - stage: deploy
+          env: TEST_PATH_PATTERN=none
+          # Override script so deploy doesn't run snapshot tests
+          script:
+          deploy:
+              provider: script
+              skip_cleanup: true
+              script: npx semantic-release@15
+              on:
+                  branch: release
+
+stages:
+    - name: basics
+    - name: update_snapshots_non_US
+      if: env(DIRTY_SNAPSHOTS) = 1
+    - name: update_snapshots_US_banner_and_custom
+      if: env(DIRTY_SNAPSHOTS) = 1
+    - name: update_snapshots_US_modal
+      if: env(DIRTY_SNAPSHOTS) = 1
+    - name: functional
+      if: env(DIRTY_SNAPSHOTS) = 0
+    - name: deploy
+      # Prevent deploy stage from being listed in UI except on release branch
+      if: branch = release
+
+# Restricts push builds to develop and release, thus preventing duplicate builds on PRs
+branches:
+    only:
+        - develop
+        - release

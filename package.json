@@ -33,8 +33,9 @@
         "preinstall": "rm -rf node_modules",
         "start": "npm run dev",
         "test": "jest --verbose",
-        "test:func": "jest --verbose --config tests/functional/jest.allFunctional.config.js",
-        "test:func:nosnaps": "jest --verbose --config tests/functional/jest.noSnapshots.config.js",
+        "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
+        "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
+        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
         "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
     },
     "dependencies": {
@@ -78,7 +79,8 @@
         "jest": "^26.1.0",
         "jest-environment-jsdom-sixteen": "^1.0.3",
         "jest-environment-puppeteer": "^4.3.0",
-        "jest-image-snapshot": "^2.11.1",
+        "jest-html-reporter": "^3.3.0",
+        "jest-image-snapshot": "^4.2.0",
         "lint-staged": "^8.0.4",
         "preact": "^10.1.1",
         "preact-render-to-string": "^5.1.9",

@@ -13,6 +13,7 @@ coverage
 *.swp
 oom_1
 **/__diff_output__/**
+tests/__reports__/*.html
 
 # OS generated files #
 ######################
