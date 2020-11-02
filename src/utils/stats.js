@@ -1,7 +1,8 @@
+import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
-import { getLibraryVersion } from './sdk';
+import { getLibraryVersion, getMetaAttributes } from './sdk';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -19,10 +20,12 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ container, activeTags, index, sdkMetaAttributes = {} }) {
+export function runStats({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
+
+    const sdkMetaAttributes = getMetaAttributes();
 
     // Create initial payload
     const payload = {
@@ -31,7 +34,7 @@ export function runStats({ container, activeTags, index, sdkMetaAttributes = {} 
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
         messaging_version: getLibraryVersion(),
-        bn_code: sdkMetaAttributes.partnerAttributionId,
+        bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
         pos_x: Math.round(containerRect.left).toString(),

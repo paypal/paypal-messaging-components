@@ -69,15 +69,9 @@ export function getMeta() {
 
 export function getMetaAttributes() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return Object.entries(getSDKAttributes()).reduce((object, [key, value]) => {
-            const camelCasedKey = key
-                .replace('data-', '')
-                .replace(/-([a-z])/g, match => match.toUpperCase())
-                .replace(/-/g, '');
-            return { ...object, [camelCasedKey]: value };
-        }, {});
+        return getSDKAttributes();
     } else {
-        return undefined;
+        return {};
     }
 }
 

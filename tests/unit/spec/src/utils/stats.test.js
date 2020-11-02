@@ -1,5 +1,7 @@
 import { fireEvent } from '@testing-library/dom';
 
+import { getSDKAttributes } from '@paypal/sdk-client/src';
+
 import createContainer from 'utils/createContainer';
 import { runStats } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
@@ -8,6 +10,10 @@ jest.mock('src/utils/logger', () => ({
     logger: {
         track: jest.fn()
     }
+}));
+
+jest.mock('@paypal/sdk-client/src', () => ({
+    getSDKAttributes: jest.fn().mockReturnValue({ 'data-partner-attribution-id': 'some-partner-id' })
 }));
 
 window.getComputedStyle = () => ({
@@ -20,6 +26,10 @@ window.addEventListener = jest.fn((...args) => addEventListener(...args));
 window.removeEventListener = jest.fn((...args) => removeEventListener(...args));
 
 describe('stats', () => {
+    beforeEach(() => {
+        __MESSAGES__.__TARGET__ = 'STANDALONE';
+    });
+
     afterEach(() => {
         document.body.innerHTML = '';
         logger.track.mockReset();
@@ -60,6 +70,7 @@ describe('stats', () => {
     });
 
     test('Fires payload with sdk attributes', async () => {
+        __MESSAGES__.__TARGET__ = 'SDK';
         const { container } = createContainer('iframe');
         container.getBoundingClientRect = () => ({
             left: 100,
@@ -72,7 +83,7 @@ describe('stats', () => {
             index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
-            integration_type: 'STANDALONE',
+            integration_type: 'SDK',
             messaging_version: expect.any(String),
             bn_code: 'some-partner-id',
             pos_x: '100',
@@ -84,12 +95,12 @@ describe('stats', () => {
             blocked: 'true',
             active_tags: expect.any(String)
         };
-        const sdkMetaAttributes = { partnerAttributionId: 'some-partner-id' };
 
-        runStats({ container, activeTags: '', index, sdkMetaAttributes });
+        runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
+        expect(getSDKAttributes).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledWith(payload);
         expect(window.addEventListener).not.toHaveBeenCalled();
