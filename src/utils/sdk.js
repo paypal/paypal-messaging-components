@@ -6,9 +6,9 @@ import {
     getEnv as getSDKEnv,
     getCurrency as getSDKCurrency,
     getSDKMeta,
+    getSDKAttributes,
     getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
-import { base64decode } from 'belter/src';
 import 'core-js-pure/stable/object/entries';
 
 // SDK helper functions with standalone build polyfills
@@ -69,9 +69,7 @@ export function getMeta() {
 
 export function getMetaAttributes() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        const sdkMetaString = getMeta();
-        const sdkMeta = JSON.parse(base64decode(sdkMetaString));
-        return Object.entries(sdkMeta.attrs).reduce((object, [key, value]) => {
+        return Object.entries(getSDKAttributes()).reduce((object, [key, value]) => {
             const camelCasedKey = key
                 .replace('data-', '')
                 .replace(/-([a-z])/g, match => match.toUpperCase())
