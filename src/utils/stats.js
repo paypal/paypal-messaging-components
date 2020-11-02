@@ -19,7 +19,7 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ container, activeTags, index, sdkMetaAttributes }) {
+export function runStats({ container, activeTags, index, sdkMetaAttributes = {} }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -31,7 +31,7 @@ export function runStats({ container, activeTags, index, sdkMetaAttributes }) {
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
         messaging_version: getLibraryVersion(),
-        ...(sdkMetaAttributes && { bn_code: sdkMetaAttributes.partnerAttributionId }),
+        bn_code: sdkMetaAttributes.partnerAttributionId,
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
         pos_x: Math.round(containerRect.left).toString(),
