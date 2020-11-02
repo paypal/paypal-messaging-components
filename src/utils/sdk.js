@@ -67,7 +67,7 @@ export function getMeta() {
     }
 }
 
-export function getMetaAttributes() {
+export function getScriptAttributes() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKAttributes();
     } else {

@@ -2,7 +2,7 @@ import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
-import { getLibraryVersion, getMetaAttributes } from './sdk';
+import { getLibraryVersion, getScriptAttributes } from './sdk';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -25,7 +25,7 @@ export function runStats({ container, activeTags, index }) {
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
 
-    const sdkMetaAttributes = getMetaAttributes();
+    const sdkMetaAttributes = getScriptAttributes();
 
     // Create initial payload
     const payload = {
