@@ -26,12 +26,16 @@ before_install:
 
 before_script:
     - npm run dev:standalone &
+    - DEV_SERVER_PID=$!
     # Give dev server time to startup
     - sleep 40
 
 script:
     - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
     - ./scripts/snapshot-tests/collect-diffs.sh
+
+after_script:
+    - kill $DEV_SERVER_PID
 
 jobs:
     include:
