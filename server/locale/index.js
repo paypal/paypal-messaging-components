@@ -18,7 +18,7 @@ export function getLocaleClass(locale, offerType) {
     return getLocaleSettings(locale, offerType).localeClass;
 }
 
-export function getLocalProductName(locale, offerType) {
+export function getLocaleProductName(locale, offerType) {
     return getLocaleSettings(locale, offerType).productName;
 }
 
