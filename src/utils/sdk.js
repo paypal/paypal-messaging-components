@@ -6,8 +6,10 @@ import {
     getEnv as getSDKEnv,
     getCurrency as getSDKCurrency,
     getSDKMeta,
+    getSDKAttributes,
     getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
+import 'core-js-pure/stable/object/entries';
 
 // SDK helper functions with standalone build polyfills
 
@@ -62,6 +64,14 @@ export function getMeta() {
         return getSDKMeta();
     } else {
         return undefined;
+    }
+}
+
+export function getScriptAttributes() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKAttributes();
+    } else {
+        return {};
     }
 }
 

@@ -27,7 +27,7 @@
 
             const config = JSON.parse(mappedParams.config);
 
-            if (config.style.text && config.style.text.color === 'white') {
+            if (config?.style?.text?.color === 'white') {
                 document.body.style = 'background: #000';
             }
 

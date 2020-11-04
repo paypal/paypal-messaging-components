@@ -29,6 +29,10 @@
     display: inline;
 }
 
+.message__headline .tag--xsmall {
+    display: none;
+}
+
 @media (min-height: 500px) {
     .message__headline {
         font-size: 1.7rem;

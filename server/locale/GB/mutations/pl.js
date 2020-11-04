@@ -1,17 +1,28 @@
 import Logo from '../logos';
-import { gbPLContentMediaQuery, fallbackMediaQuery, plAltContentMediaQuery, messageLogoWidth } from './mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    xSmallFallback,
+    logo20x1,
+    altNoWrap,
+    setLogoTop
+} from '../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)],
+                styles: [
+                    textWrap(textSize * 37, textSize, 'GB'),
+                    xSmallFallback(textSize * 16),
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25)
+                ],
                 logo: Logo.PRIMARY.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
                         br: ['on']
                     },
                     { tag: 'xsmall' }
@@ -20,17 +31,11 @@ export default {
             })
         ],
         [
-            'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 13), messageLogoWidth(false, textSize * 4, textSize * 1.25)]
-            })
-        ],
-        [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    gbPLContentMediaQuery(textSize * 38 + 10),
+                    xSmallFallback(textSize * 16),
+                    setLogoTop(textSize * 36 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -38,18 +43,17 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    fallbackMediaQuery(textSize * 13),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    plAltContentMediaQuery(textSize * 17, textSize * 33, textSize * 23),
-                    fallbackMediaQuery(textSize * 20),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
+                    textWrap(textSize * 32, textSize, 'GB'),
+                    xSmallFallback(textSize * 18),
+                    altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PRIMARY.COLOR[0]
@@ -58,26 +62,48 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 16)],
-                logo: false
+                styles: [xSmallFallback(textSize * 16)],
+                logo: false,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        br: ['later.'],
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                logo: Logo.ALT_NO_PP.COLOR,
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['on'],
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['later.', 'later']
+                        ]
+                    },
+                    {
+                        tag: 'xsmall.2',
+                        br: ['later.'],
+                        replace: [['later.', 'later']]
+                    }
+                ]
             })
         ],
-        ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-        [
-            'text.color:white && logo.type:inline',
-            ({ textSize }) => ({
-                styles: [fallbackMediaQuery(textSize * 17 + 2)],
-                logo: false
-            })
-        ],
-        ['text.color:white && logo.type:alternative', { logo: Logo.PRIMARY.WHITE[0] }]
+        ...textLogoMutations
     ],
 
     'layout:flex': [
@@ -87,57 +113,21 @@ export default {
                 logo: Logo.PRIMARY.WHITE,
                 headline: [
                     {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']]
+                        tag: 'xsmall'
+                    },
+                    {
+                        tag: 'medium'
                     }
                 ],
-                disclaimer: 'xsmall'
+                disclaimer: ['default']
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
+                styles: [logo20x1()]
             }
         ],
-        [
-            'ratio:8x1',
-            {
-                headline: [
-                    'default',
-                    {
-                        tag: 'medium',
-                        replace: [['purchases.', 'purchases']],
-                        br: ['eligible ']
-                    }
-                ]
-            }
-        ],
-
-        [
-            'color:gray',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:white',
-            {
-                logo: Logo.PRIMARY.COLOR
-            }
-        ],
-        [
-            'color:black',
-            {
-                logo: Logo.PRIMARY.WHITE
-            }
-        ]
+        ...flexLogoMutations
     ]
 };

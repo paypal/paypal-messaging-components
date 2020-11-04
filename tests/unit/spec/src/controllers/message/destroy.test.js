@@ -2,8 +2,8 @@ import destroy from 'src/controllers/message/destroy';
 import { setGlobalState, globalState } from 'src/utils';
 
 describe('message destroy', () => {
-    test('Cleans up messaging', () => {
-        const mockContainers = Array.from({ length: 4 }).map((_, index) => {
+    it('Cleans up messaging', () => {
+        const messagesMap = Array.from({ length: 4 }).reduce((acc, _, index) => {
             const mockContainer = document.createElement('div');
             const mockWrapper = document.createElement('span');
 
@@ -12,12 +12,14 @@ describe('message destroy', () => {
 
             document.body.appendChild(mockContainer);
 
-            return mockContainer;
-        });
+            acc.set(mockContainer, {});
 
-        setGlobalState({ test: true });
+            return acc;
+        }, new Map());
 
-        mockContainers.forEach(mockContainer => {
+        setGlobalState({ test: true, messagesMap });
+
+        messagesMap.forEach((_, mockContainer) => {
             expect(mockContainer.hasAttribute('data-pp-id')).toBe(true);
             expect(mockContainer.children.length).toBe(1);
         });
@@ -26,7 +28,7 @@ describe('message destroy', () => {
 
         destroy();
 
-        mockContainers.forEach(mockContainer => {
+        messagesMap.forEach((_, mockContainer) => {
             expect(mockContainer.hasAttribute('data-pp-id')).toBe(false);
             expect(mockContainer.children.length).toBe(0);
         });

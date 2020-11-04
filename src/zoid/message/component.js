@@ -160,7 +160,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags }) => {
-                        const { account, index, modal } = props;
+                        const { account, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
                         logger.addMetaBuilder(() => {
@@ -170,7 +170,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         });
 
                         runStats({
-                            container: document.querySelector(`[data-pp-id="${index}"]`),
+                            container: getContainer(),
                             activeTags,
                             index
                         });
@@ -199,7 +199,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     const { onMarkup } = props;
 
                     return ({ styles, warnings, ...rest }) => {
-                        const { index } = props;
+                        const { getContainer } = props;
 
                         if (typeof styles !== 'undefined') {
                             event.trigger('styles', { styles });
@@ -209,7 +209,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             warnings.forEach(warning => {
                                 logger.warn('render_warning', {
                                     description: warning,
-                                    container: document.querySelector(`[data-pp-id="${index}"]`)
+                                    container: getContainer()
                                 });
                             });
                         }
@@ -226,9 +226,9 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     // Handle moving the iframe around the DOM
                     return () => {
-                        const { index } = props;
+                        const { getContainer } = props;
                         const { messagesMap } = globalState;
-                        const container = document.querySelector(`[data-pp-id="${index}"]`);
+                        const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
                             if (container && container.ownerDocument.body.contains(container)) {
@@ -254,14 +254,15 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : undefined),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
+                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                default: () => '',
                 required: false
             },
             sdkMeta: {
