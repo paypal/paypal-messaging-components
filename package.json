@@ -40,6 +40,7 @@
     },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
+        "@paypal/sdk-constants": "^1.0.75",
         "@paypal/sdk-logos": "^1.0.26",
         "beaver-logger": "^4.0.14",
         "belter": "^1.0.112",

@@ -26,12 +26,16 @@ before_install:
 
 before_script:
     - npm run dev:standalone &
+    - DEV_SERVER_PID=$!
     # Give dev server time to startup
     - sleep 40
 
 script:
     - npm run test:func -- --testPathPattern $TEST_PATH_PATTERN
     - ./scripts/snapshot-tests/collect-diffs.sh
+
+after_script:
+    - kill $DEV_SERVER_PID
 
 jobs:
     include:
@@ -64,18 +68,18 @@ jobs:
               - sed -i -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=0/g' .travis.yml
               - COMMIT_DETAIL="US modal" ./scripts/snapshot-tests/git-push.sh
 
+        # Stage is propagated through each job below it.
+        # Jobs are ordered by time taken (which roughly corresponds to number of tests) in order to take advantage of parallelization
+        # US Banner tests are split further due to the number of offer types that exist for it
         - stage: functional
-          # Prevent script phase from running with TEST_PATH_PATTERN=none
-          if: env(TEST_PATH_PATTERN) != none
-        - env: TEST_PATH_PATTERN=spec/DE/banner
+          env: TEST_PATH_PATTERN=spec/US/modal
         - env: TEST_PATH_PATTERN=spec/DE/modal
+        - env: TEST_PATH_PATTERN=spec/US/banner/text
+        - env: TEST_PATH_PATTERN=spec/US/banner/flex
+        - env: TEST_PATH_PATTERN=spec/DE/banner
         - env: TEST_PATH_PATTERN=spec/GB/banner
         - env: TEST_PATH_PATTERN=spec/GB/modal
         - env: TEST_PATH_PATTERN=spec/US/custom
-        # US Banner tests are split due to the number of offer types that exist for it
-        - env: TEST_PATH_PATTERN=spec/US/banner/flex
-        - env: TEST_PATH_PATTERN=spec/US/banner/text
-        - env: TEST_PATH_PATTERN=spec/US/modal
 
         - stage: deploy
           env: TEST_PATH_PATTERN=none
