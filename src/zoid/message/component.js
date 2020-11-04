@@ -160,12 +160,17 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags }) => {
-                        const { account, index, modal, getContainer } = props;
+                        const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
                         logger.addMetaBuilder(() => {
                             return {
-                                [index]: { messageRequestId, account, displayedMessage, ...trackingDetails }
+                                [index]: {
+                                    messageRequestId,
+                                    account: merchantId || account,
+                                    displayedMessage,
+                                    ...trackingDetails
+                                }
                             };
                         });
 

@@ -1,42 +1,57 @@
 // Selectors used in modal tests
 const selectors = {
-    message: {
-        messageMessaging: '.message__messaging'
+    banner: {
+        iframe: '.banner-1 iframe',
+        iframeByAttribute: '[data-pp-id] iframe',
+        container: '.message__container',
+        messageMessaging: '.message__messaging',
+        legacyContainer: 'div[role="button"].message'
     },
     modal: {
-        container: '.modal__container',
-        wrapper: '.modal__wrapper',
-        overlay: '.modal__overlay',
-        overlaySide: '.modal__overlay-side',
-        contentWrapper: '.modal__content-wrapper',
-        contentBackground: '.modal__content-background',
-        modalContent: '.modal__content',
-        modalMain: '.modal__main',
+        iframe: 'iframe[title*="paypal_credit_modal"]',
+        container: '.modal-container',
+        wrapper: '.wrapper',
+        overlay: '.overlay',
+        overlaySide: '.overlay-side',
+        contentWrapper: '.content-wrapper',
+        contentBackground: '.content-background',
+        modalContent: '.content',
+        modalMain: '.main',
         contentBody: '.content-body',
-        contentBodyTitle: '.content-body__title',
-        contentBodyTerms: '.content-body__terms',
+        contentBodyTitle: '.content-body .title',
+        contentBodyTerms: '.content-body .terms',
         contentHeader: '.content-header',
-        contentHeaderTitle: '.content-header__title',
+        contentDescriptionTitle: '.content-body .description h3',
+        contentTermsTitle: '.content-body .terms h3',
+        ezpContentHeaderTitle: '.content-header .title',
         // Used in GB modal
-        containerLeft: '.content-body--left',
-        offer: '.content-body__offer'
+        containerLeft: '.left',
+        offer: '.content-body .offer',
+        gbContainer: '.modal-container',
+        gbContent: '.content',
+        gbMain: '.main',
+        gbContainerLeft: '.left',
+        gbOffer: '.offer',
+        gbOverlay: '.overlay-side'
     },
     calculator: {
         calc: '.calculator',
-        contentCalc: '.content__calculator',
-        calcTitle: '.calculator__title',
-        calcInstructions: '.calculator__instructions',
-        calcForm: '.calculator__form',
-        calcInput: '.calculator__input'
+        contentCalc: '.calculator-container',
+        calcTitle: '.calculator .title',
+        calcInstructions: '.calculator .instructions',
+        calcForm: '.calculator .form',
+        calcInput: '.calculator .input'
     },
     button: {
         tabs: '.tabs',
         tab: '.tab',
+        tabUnselected: 'button.tab:not(.tab--selected)',
+        contentHeader: '.content-header .button',
         btn: '.button',
         closeBtn: '#close-btn',
-        btnSecondary: '.button--secondary',
+        btnSecondary: '.button.secondary',
         // Used in DE modal instead of .btnSecondary
-        btnMd: '.button--md'
+        btnMd: '.button.md'
     }
 };
 

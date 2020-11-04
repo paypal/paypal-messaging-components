@@ -34,7 +34,7 @@ describe.each([
         });
     });
 
-    const groupString = getGroupString({ viewport, amount });
+    const groupString = getGroupString({ viewport, amount, bannerStyle });
 
     test(
         `${groupString} show error message when entering a non-qualifying amount inside calculator`,
