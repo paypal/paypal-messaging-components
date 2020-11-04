@@ -49,6 +49,9 @@ module.exports = (env = {}) => {
     LIBRARY_DEV_CONFIG.devServer = {
         contentBase: './demo',
         publicPath: '/',
+        // set and export DEV_BROWSER in Terminal config to open that specific browser
+        // otherwise opens default browser if not set
+        open: process.env.DEV_BROWSER || true,
         openPage: (() => {
             switch (env.TARGET) {
                 case 'standalone':
@@ -61,7 +64,6 @@ module.exports = (env = {}) => {
         compress: true,
         host: 'localhost.paypal.com',
         port: PORT,
-        open: true,
         overlay: true,
         watchContentBase: true,
         injectClient: compiler => !!compiler.devServer,
