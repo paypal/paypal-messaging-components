@@ -18,7 +18,7 @@ jest.mock('@paypal/sdk-logos/src', () => {
     };
 });
 
-jest.mock('server/locale/US/PPC/mutations/niQ', () => ({
+jest.mock('server/locale/US/PPC/mutations/niq', () => ({
     'layout:text': [
         [
             'default',
