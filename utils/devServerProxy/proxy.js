@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { VARIANT } from '../../server/constants';
+import { PORT, VARIANT } from '../../server/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
@@ -72,13 +72,13 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]') 
+                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
                     || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
 
                 document.write(interface);
             </script>
-            <script src="//localhost.paypal.com:8080/smart-credit-common.js"></script>
-            <script src="//localhost.paypal.com:8080/smart-credit-${component}.js"></script>
+            <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
+            <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
             ${initializer}
         </body>
     `;
@@ -121,7 +121,20 @@ export default (app, server, compiler) => {
                     populatedBanner.meta.offerType
                 );
 
-                const markup = render({ style: validatedStyle, amount }, populatedBanner);
+                let customMarkup = '';
+
+                if (validatedStyle.layout === 'custom' && validatedStyle.markup) {
+                    if (validatedStyle.markup.includes('https://localhost.paypal.com:8080/')) {
+                        customMarkup = fs.readFileSync(
+                            `demo/${validatedStyle.markup.replace('https://localhost.paypal.com:8080/', '')}`,
+                            'utf-8'
+                        );
+                    } else {
+                        ({ body: customMarkup } = await got(validatedStyle.markup));
+                    }
+                }
+
+                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
@@ -133,8 +146,8 @@ export default (app, server, compiler) => {
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
-                            clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                            impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                            clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                         }
                     }
                 };
@@ -162,8 +175,8 @@ export default (app, server, compiler) => {
         }
     });
 
-    app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount, targetMeta } = req.query;
+    const getModalData = req => {
+        const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
@@ -227,12 +240,25 @@ export default (app, server, compiler) => {
             payerId: account
         };
 
+        return { props, productNames };
+    };
+
+    app.get('/credit-presentment/smart/modal', (req, res) => {
+        const { targetMeta } = req.query;
+        const { props, productNames } = getModalData(req);
+
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : country}`,
+                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : props.country}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`
             )
         );
+    });
+    app.get('/credit-presentment/modalContent', (req, res) => {
+        const { props: data } = getModalData(req);
+        setTimeout(() => {
+            res.send(data);
+        }, 1000);
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
@@ -270,8 +296,8 @@ export default (app, server, compiler) => {
                 meta: {
                     ...populatedBanner.meta,
                     messageRequestId: '1234',
-                    impressionUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    clickUrl: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                 }
             });
         } else {
@@ -326,8 +352,8 @@ export default (app, server, compiler) => {
                     json: populatedBanner
                 },
                 tracking_details: {
-                    click_url: '//localhost.paypal.com:8080/ptrk/?fdata=null',
-                    impression_url: '//localhost.paypal.com:8080/ptrk/?fdata=null'
+                    click_url: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impression_url: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
                 }
             });
 

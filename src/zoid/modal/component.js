@@ -86,10 +86,10 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
 
                         if (typeof onClick === 'function') {
                             onClick({ linkName });
+                        }
 
-                            if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
-                                onApply();
-                            }
+                        if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
+                            onApply();
                         }
                     };
                 }
@@ -169,14 +169,15 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                value: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : undefined),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                value: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : undefined,
+                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                default: () => '',
                 required: false
             },
             sdkMeta: {

@@ -1,4 +1,18 @@
 module.exports = {
+    reporters: [
+        'default',
+        [
+            'jest-html-reporter',
+            {
+                pageTitle: 'Unit Tests - PayPal Messaging Components',
+                outputPath: './tests/__reports__/unit.html',
+                // outputs detailed message for complete suite failures
+                includeSuiteFailure: true,
+                // outputs detailed message for test failure
+                includeFailureMsg: true
+            }
+        ]
+    ],
     testEnvironment: 'jest-environment-jsdom-sixteen',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {

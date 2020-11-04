@@ -101,14 +101,17 @@ describe('message interface', () => {
         await Messages({}).render(container);
 
         expect(logger.warn).toHaveBeenCalledTimes(1);
+        expect(logger.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('not_in_document'),
+            expect.objectContaining({
+                // Passing the container as a ref here causes some jest/babel compiling issue
+                container: expect.any(Object)
+            })
+        );
 
-        // This fixes an issue with the previous expect where using container with toHaveBeenLastCalledWith
-        // caused the below error
-        // TypeError: Cannot set property offsetParent of [object HTMLElement] which has only a getter
-        // This may be linked to https://stackoverflow.com/questions/53162001/typeerror-during-jests-spyon-cannot-set-property-getrequest-of-object-which
-        const [string, object] = logger.warn.mock.calls[0];
-        expect(string).toBe('not_in_document');
-        expect(object.container).toBe(container);
+        const [, { container: warningContainer }] = logger.warn.mock.calls[0];
+
+        expect(warningContainer).toBe(container);
     });
 
     it('Accepts a string selector, element reference, or mixed array', async () => {
@@ -123,7 +126,7 @@ describe('message interface', () => {
 
         expect(Message).toHaveBeenCalledTimes(0);
 
-        await Messages({}).render('.pp-message');
+        await Messages({ account: 'DEV00000000NI' }).render('.pp-message');
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(2);
@@ -136,7 +139,7 @@ describe('message interface', () => {
         clearMocks();
         destroyGlobalState();
 
-        await Messages({}).render(containers[0]);
+        await Messages({ account: 'DEV00000000NI' }).render(containers[0]);
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(1);
@@ -149,7 +152,7 @@ describe('message interface', () => {
         clearMocks();
         destroyGlobalState();
 
-        await Messages({}).render(containers);
+        await Messages({ account: 'DEV00000000NI' }).render(containers);
 
         expect(logger.warn).not.toHaveBeenCalled();
         expect(Message).toHaveBeenCalledTimes(2);
@@ -201,7 +204,7 @@ describe('message interface', () => {
         const container = document.createElement('div');
         document.body.appendChild(container);
 
-        await Messages({}).render(container);
+        await Messages({ account: 'DEV00000000NI' }).render(container);
 
         expect(Message).toHaveBeenCalledTimes(1);
         expect(Message().render).toHaveBeenCalledTimes(1);
@@ -212,12 +215,12 @@ describe('message interface', () => {
 
         clearMocks();
 
-        await Messages({}).render(container);
+        await Messages({ account: 'DEV00000000NI' }).render(container);
 
         expect(Message).not.toHaveBeenCalled();
         expect(Message().render).not.toHaveBeenCalled();
         expect(Message().updateProps).toHaveBeenCalledTimes(1);
-        expect(Modal).not.toHaveBeenCalled();
+        expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
     });

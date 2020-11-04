@@ -1,4 +1,5 @@
 import selectors from './utils/selectors';
+import logTestName from './utils/logTestName';
 import modalSnapshot from './utils/modalSnapshot';
 
 /**
@@ -8,13 +9,14 @@ import modalSnapshot from './utils/modalSnapshot';
 
 export const xClosesModal = ({ account, viewport, groupString }) => async () => {
     let testNameParts = 'ezp x button closes modal';
+    logTestName({ account, viewport, groupString, testNameParts });
 
     if (account.includes('NI')) {
         testNameParts = 'ni x button closes modal';
     } else if (account.includes('GBPL')) {
         testNameParts = 'gb x button closes modal';
     }
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
     await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
@@ -27,6 +29,8 @@ export const xClosesModal = ({ account, viewport, groupString }) => async () => 
 
 export const closeModalEsc = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'esc key modal close';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(500);
     await page.keyboard.press('Escape');
     await page.waitForSelector('body');
@@ -37,8 +41,10 @@ export const closeModalEsc = ({ account, viewport, groupString }) => async () =>
 
 export const clickOutsideClosesModal = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'click outside modal close';
+    logTestName({ account, viewport, groupString, testNameParts });
+
     await page.waitFor(1000);
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
+    const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.container, {
         visible: true
@@ -51,16 +57,18 @@ export const clickOutsideClosesModal = ({ account, viewport, groupString }) => a
 
 export const closeReopenModal = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'reopen and close modal';
-    const elementModal = await page.$('iframe[title*="paypal_credit_modal"]');
-    const elementHandle = await page.$('[data-pp-id] iframe');
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
+    const elementHandle = await page.$(selectors.banner.iframeByAttribute);
     const frame = await elementHandle.contentFrame();
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.button.closeBtn);
     await page.waitFor(1000);
     await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(1000);
-    await frame.waitForSelector(selectors.message.messageMessaging);
-    await frame.click(selectors.message.messageMessaging);
+    await frame.waitForSelector(selectors.banner.messageMessaging);
+    await frame.click(selectors.banner.messageMessaging);
     await page.waitFor(1000);
     await modalFrame.waitForSelector('body');
     await page.waitFor(1000);

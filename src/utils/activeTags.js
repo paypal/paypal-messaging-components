@@ -1,6 +1,8 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
+import { getWindowFromElement } from './elements';
+
 // Map class name of visible element to size tag.
 const toTagSize = classList => {
     const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
@@ -19,8 +21,15 @@ const getTagSize = node => {
 
     const visibleElement = arrayFind(
         arrayFrom(node.children),
-        element => window.getComputedStyle(element).getPropertyValue('display') !== 'none'
+        element =>
+            getWindowFromElement(node)
+                .getComputedStyle(element)
+                .getPropertyValue('display') !== 'none'
     );
+
+    if (!visibleElement) {
+        return 'NONE';
+    }
 
     // Get the tag size of the element shown
     return toTagSize(visibleElement.classList);
