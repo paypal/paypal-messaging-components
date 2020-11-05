@@ -86,10 +86,10 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
 
                         if (typeof onClick === 'function') {
                             onClick({ linkName });
+                        }
 
-                            if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
-                                onApply();
-                            }
+                        if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
+                            onApply();
                         }
                     };
                 }
