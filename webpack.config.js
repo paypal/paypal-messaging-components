@@ -1,6 +1,6 @@
 const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 
-const globals = require('./globals');
+const globals = require('./packages/library/globals');
 
 module.exports = (env = {}) => {
     // messaging.js

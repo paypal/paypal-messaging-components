@@ -8,11 +8,10 @@
         "url": "https://github.com/paypal/paypal-messaging-components.git"
     },
     "main": "dist/messaging.js",
-    "module": "src/index.js",
+    "module": "packages/library/src/index.js",
     "files": [
-        "banners/",
-        "src/",
-        "server/",
+        "content/",
+        "packages/",
         "dist/",
         "__sdk__.js",
         "globals.js"
@@ -66,6 +65,7 @@
         "eslint-config-airbnb": "^18.0.1",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-config-prettier": "^6.9.0",
+        "eslint-import-resolver-alias": "^1.1.2",
         "eslint-import-resolver-babel-module": "^5.1.2",
         "eslint-import-resolver-jest": "^3.0.0",
         "eslint-plugin-import": "^2.20.0",
@@ -82,6 +82,7 @@
         "jest-environment-puppeteer": "^4.3.0",
         "jest-html-reporter": "^3.3.0",
         "jest-image-snapshot": "^4.2.0",
+        "lerna": "^3.22.1",
         "lint-staged": "^8.0.4",
         "preact": "^10.1.1",
         "preact-render-to-string": "^5.1.9",

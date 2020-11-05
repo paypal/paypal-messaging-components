@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import validate from 'src/zoid/message/validation';
+import validate from '@library/zoid/message/validation';
 
 console.warn = jest.fn();
 

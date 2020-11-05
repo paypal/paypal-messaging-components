@@ -2,12 +2,5 @@
     "env": {
         "jest": true,
         "browser": true
-    },
-    "settings": {
-        "import/resolver": {
-            "jest": {
-                "jestConfigFile": "./jest.config.js"
-            }
-        }
     }
 }

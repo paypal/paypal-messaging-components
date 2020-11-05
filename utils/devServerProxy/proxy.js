@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { PORT, VARIANT } from '../../server/constants';
+import { PORT, VARIANT } from '../../packages/renderer/src/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
@@ -55,8 +55,8 @@ export default (app, server, compiler) => {
 
             const banner =
                 preferredCreditType !== 'NI'
-                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+                    ? fs.readFileSync(`content/banners/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`content/banners/US/ni.json`, 'utf-8');
 
             return JSON.parse(populateTemplate(morsVars, banner));
         }
@@ -181,7 +181,7 @@ export default (app, server, compiler) => {
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
         const productsJSON = productNames.map(product =>
-            fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString()
+            fs.readFileSync(`content/modals/${country}/${product}.json`, 'utf-8').toString()
         );
 
         const terms = getTerms(country, Number(amount));
