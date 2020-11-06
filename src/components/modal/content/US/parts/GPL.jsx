@@ -40,7 +40,7 @@ export default ({ switchTab }) => {
             <div className="terms">
                 <h3>About Pay in 4</h3>
                 <ul>
-                    {qualifying.toLowerCase() !== 'true' ? (
+                    {qualifying.toLowerCase() === 'true' ? (
                         <li>{instructions.purchaseAmount.replace(/\.00/g, '')}</li>
                     ) : null}
                     {instructions.items.map(inst => (
