@@ -7,7 +7,7 @@ import { XPropsProvider, ServerDataProvider } from '@components/lib';
 import { request } from '@common';
 import xPropsMock from '@tests/utils/xPropsMock';
 
-jest.mock('src/utils', () => ({
+jest.mock('@common', () => ({
     getActiveTags: jest.fn(),
     request: jest.fn(() =>
         Promise.resolve({

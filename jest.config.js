@@ -14,11 +14,12 @@ module.exports = {
         ]
     ],
     testEnvironment: 'jest-environment-jsdom-sixteen',
-    testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
+    testMatch: ['<rootDir>/**/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^@components/(.*)': '<rootDir>/packages/components/src/$1',
         '^@library/(.*)': '<rootDir>/packages/library/src/$1',
         '^@renderer/(.*)': '<rootDir>/packages/renderer/src/$1',
+        '^@common/(.*)': '<rootDir>/utils/common/$1',
         '^@tests/utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',

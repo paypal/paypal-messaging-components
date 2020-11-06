@@ -21,10 +21,7 @@ module.exports = (env = {}) => {
                   minify: false,
                   sourcemaps: true,
                   env: env.NODE_ENV,
-                  vars: globals(env),
-                  alias: {
-                      '@common': path.resolve(__dirname, '../../utils/common')
-                  }
+                  vars: globals(env)
               })
             : getWebpackConfig({
                   entry: path.resolve(__dirname, 'paypal.dev.js'),
@@ -45,9 +42,6 @@ module.exports = (env = {}) => {
                       __NAMESPACE__: 'paypal',
                       __VERSION__: '1.0.55',
                       __COMPONENTS__: ['messages']
-                  },
-                  alias: {
-                      '@common': path.resolve(__dirname, '../../utils/common')
                   }
               });
 
@@ -64,10 +58,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: true,
         env: env.NODE_ENV,
-        vars: globals(env),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        vars: globals(env)
     });
 
     return [LIBRARY_DEV_CONFIG, MODAL_DEV_CONFIG];

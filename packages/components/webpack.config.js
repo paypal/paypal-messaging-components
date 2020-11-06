@@ -17,10 +17,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'components'
-        }),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        })
     });
 
     COMPONENTS_CONFIG.entry = ['US', 'US-EZP', 'DE', 'GB'].reduce(

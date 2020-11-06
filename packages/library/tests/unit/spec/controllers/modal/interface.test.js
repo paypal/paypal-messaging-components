@@ -2,7 +2,7 @@ import Modal from '@library/controllers/modal/interface';
 import { Modal as zoidModal } from '@library/zoid/modal';
 import { logger } from '@common';
 
-jest.mock('src/zoid/modal', () => {
+jest.mock('@library/zoid/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockHide = jest.fn(() => Promise.resolve());
@@ -17,7 +17,7 @@ jest.mock('src/zoid/modal', () => {
     };
 });
 
-jest.mock('src/utils/logger', () => ({
+jest.mock('@common/logger', () => ({
     logger: {
         warn: jest.fn(),
         track: jest.fn(),

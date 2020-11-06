@@ -4,7 +4,7 @@ import { Modal } from '@library/controllers/modal';
 import destroy from '@library/controllers/message/destroy';
 import { destroyGlobalState, setGlobalState, logger } from '@common';
 
-jest.mock('src/zoid/message', () => {
+jest.mock('@library/zoid/message', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
 
@@ -17,7 +17,7 @@ jest.mock('src/zoid/message', () => {
     };
 });
 
-jest.mock('src/controllers/modal', () => {
+jest.mock('@library/controllers/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockShow = jest.fn(() => Promise.resolve());
@@ -31,7 +31,7 @@ jest.mock('src/controllers/modal', () => {
     };
 });
 
-jest.mock('src/utils/logger', () => ({
+jest.mock('@common/logger', () => ({
     logger: {
         warn: jest.fn(),
         track: jest.fn(),

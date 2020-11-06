@@ -16,10 +16,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'render'
-        }),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        })
     });
 
     return [RENDERER_CONFIG];

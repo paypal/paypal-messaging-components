@@ -5,7 +5,7 @@ import { globalState } from '@common';
 
 // TODO: Re-enable skipped tests after ramp
 
-jest.mock('src/controllers/message/interface', () => {
+jest.mock('@library/controllers/message/interface', () => {
     const mockRender = jest.fn();
 
     return jest.fn(() => ({

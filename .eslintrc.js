@@ -19,6 +19,7 @@ module.exports = {
                 devDependencies: [
                     '/*.js',
                     '/**/webpack*.js',
+                    '/**/*.dev.js',
                     '**/tests/**/*.js',
                     '/packages/library/src/old/**/*.js?(x)',
                     '/utils/devServerProxy/**/*.js'

@@ -14,10 +14,7 @@ module.exports = (env = {}) => {
         minify: false,
         sourcemaps: false,
         env: env.NODE_ENV,
-        vars: globals(env),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        vars: globals(env)
     });
 
     return [RENDERER_DEV_CONFIG];

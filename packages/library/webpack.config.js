@@ -19,10 +19,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'standalone'
-        }),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        })
     });
     MESSAGES_CONFIG.output.libraryExport = 'Messages';
 
@@ -40,10 +37,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'modal'
-        }),
-        alias: {
-            '@common': path.resolve(__dirname, '../../utils/common')
-        }
+        })
     });
 
     return [MESSAGES_CONFIG, MODAL_CONFIG];

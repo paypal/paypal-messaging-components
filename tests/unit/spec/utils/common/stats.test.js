@@ -5,7 +5,7 @@ import { getSDKAttributes } from '@paypal/sdk-client/src';
 import createContainer from '@tests/utils/createContainer';
 import { runStats, logger } from '@common';
 
-jest.mock('src/utils/logger', () => ({
+jest.mock('@common/logger', () => ({
     logger: {
         track: jest.fn()
     }
