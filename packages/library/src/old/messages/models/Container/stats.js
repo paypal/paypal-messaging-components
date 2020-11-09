@@ -1,7 +1,7 @@
 import startsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { curry } from '@common';
+import { curry } from '@library/common';
 
 /**
  * Check if an element is within the current viewport

@@ -1,7 +1,7 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
-import { objectMerge, objectFlattenToArray, curry } from '@common/server';
+import { objectMerge, objectFlattenToArray, curry } from '@library/common/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
 import Logo from './parts/Logo';

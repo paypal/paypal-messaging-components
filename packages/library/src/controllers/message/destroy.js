@@ -1,4 +1,4 @@
-import { attributeObserver, destroyGlobalState, globalState } from '@common';
+import { attributeObserver, destroyGlobalState, globalState } from '@library/common';
 
 export default function destroy() {
     const { messagesMap } = globalState;

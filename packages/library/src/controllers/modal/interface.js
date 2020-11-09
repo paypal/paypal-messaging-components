@@ -1,6 +1,6 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, memoizeOnProps, getCurrentTime, viewportHijack, awaitWindowLoad } from '@common';
+import { logger, memoizeOnProps, getCurrentTime, viewportHijack, awaitWindowLoad } from '@library/common';
 import { Modal } from '../../zoid/modal';
 
 export default memoizeOnProps(

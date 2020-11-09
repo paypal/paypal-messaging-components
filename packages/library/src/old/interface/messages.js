@@ -1,7 +1,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { destroy as zoidDestroy } from 'zoid/src';
 
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '@common';
+import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '@library/common';
 import { destroy as bannerDestroy } from '../messages/controllers/render';
 import Messages from '../messages';
 

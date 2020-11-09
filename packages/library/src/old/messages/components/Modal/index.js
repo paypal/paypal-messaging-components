@@ -1,7 +1,7 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { memoizeOnProps } from '@common';
+import { memoizeOnProps } from '@library/common';
 import Modal from './component';
 import useViewportHijack from './viewportHijack';
 

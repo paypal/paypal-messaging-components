@@ -1,4 +1,11 @@
-import { Treatment, getExperimentTreatment, getInlineOptions, getScript, getAccount, getPartnerAccount } from '@common';
+import {
+    Treatment,
+    getExperimentTreatment,
+    getInlineOptions,
+    getScript,
+    getAccount,
+    getPartnerAccount
+} from '@library/common';
 import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
 

@@ -1,5 +1,5 @@
 import createContainer from '@tests/utils/createContainer';
-import { getActiveTags } from '@common';
+import { getActiveTags } from '@library/common';
 
 const createOutput = sizes => {
     const [head, sub, disc] = sizes;

@@ -1,6 +1,6 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 
-import { globalState, setGlobalState } from '@common';
+import { globalState, setGlobalState } from '@library/common';
 import render from './controllers/render';
 
 // Setup global library state

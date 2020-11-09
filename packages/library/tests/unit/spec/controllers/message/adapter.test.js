@@ -1,5 +1,5 @@
 import Messages from '@library/controllers/message/adapter';
-import { globalState } from '@common';
+import { globalState } from '@library/common';
 
 describe('message adapter', () => {
     it('Exports the correct interface', () => {

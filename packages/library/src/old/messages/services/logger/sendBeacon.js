@@ -2,7 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { curry } from '@common';
+import { curry } from '@library/common';
 
 /**
  * Create a function that sends data to a specified url

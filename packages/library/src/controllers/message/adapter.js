@@ -1,6 +1,6 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 
-import { globalState, setGlobalState } from '@common';
+import { globalState, setGlobalState } from '@library/common';
 import Messages from './interface';
 
 objectAssign(Messages, {

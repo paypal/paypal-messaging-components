@@ -13,7 +13,9 @@
         "src/",
         "dist/"
     ],
-    "scripts": {},
+    "scripts": {
+        "build": "webpack --env.NODE_ENV=production"
+    },
     "dependencies": {
         "@paypal/sdk-logos": "^1.0.26",
         "core-js-pure": "^3.0.1",

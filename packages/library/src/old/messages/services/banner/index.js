@@ -4,7 +4,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '@common';
+import { memoizeOnProps, objectGet, objectMerge, objectFlattenToArray, getGlobalUrl, request } from '@library/common';
 
 import { EVENTS, ERRORS } from '../logger';
 import getCustomTemplate from './customTemplate';

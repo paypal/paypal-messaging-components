@@ -2,7 +2,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } from '@common';
+import { objectMerge, flattenedToObject, isElement, getInlineOptions, nextId } from '@library/common';
 import { Logger } from '../services/logger';
 import Banner from '../models/Banner';
 

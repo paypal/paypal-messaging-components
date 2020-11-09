@@ -16,8 +16,11 @@
         "__sdk__.js",
         "globals.js"
     ],
-    "scripts": {},
+    "scripts": {
+        "build": "webpack --env.NODE_ENV=production"
+    },
     "dependencies": {
+        "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",
         "@paypal/sdk-logos": "^1.0.26",
         "beaver-logger": "^4.0.14",
@@ -29,7 +32,7 @@
         "zoid": "^9.0.46"
     },
     "devDependencies": {
-        "@paypal/sdk-client": "^4.0.80",
+        "@testing-library/dom": "^6.2.0",
         "grumbler-scripts": "^3.0.46",
         "preact": "^10.1.1"
     },

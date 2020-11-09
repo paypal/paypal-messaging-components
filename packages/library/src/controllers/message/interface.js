@@ -11,7 +11,7 @@ import {
     logger,
     getCurrentTime,
     globalEvent
-} from '@common';
+} from '@library/common';
 
 import { Message } from '../../zoid/message';
 import { Modal } from '../modal';

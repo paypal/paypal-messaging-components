@@ -12,7 +12,7 @@ import {
     pluck,
     assignToProp,
     waitForElementReady
-} from '@common';
+} from '@library/common';
 import getBannerMarkup from '../../services/banner';
 import { Logger, EVENTS, ERRORS } from '../../services/logger';
 import createContainer from '../Container';

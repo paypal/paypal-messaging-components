@@ -1,4 +1,4 @@
-import { createState } from '@common';
+import { createState } from '@library/common';
 
 import US from './US';
 import DE from './DE';

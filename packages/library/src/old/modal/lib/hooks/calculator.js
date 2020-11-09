@@ -1,7 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { useContext, useReducer, useEffect } from 'preact/hooks';
 
-import { request, memoizeOnProps } from '@common';
+import { request, memoizeOnProps } from '@library/common';
 import { useXProps } from './helpers';
 import { ServerContext } from '../context';
 

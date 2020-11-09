@@ -3,7 +3,9 @@
         "baseUrl": ".",
         "jsx": "react",
         "paths": {
-            "@common/*": ["./utils/common/*"]
+            "@components/*": ["./packages/components/src/*"],
+            "@library/*": ["./packages/library/src/*"],
+            "@renderer/*": ["./packages/renderer/src/*"]
         }
     }
 }

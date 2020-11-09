@@ -15,7 +15,7 @@ import {
     appendText,
     appendImage,
     getDataByTag
-} from '@common';
+} from '@library/common';
 import templateMarkup from './template.html';
 import imageTemplateMarkup from './template--image.html';
 import allStyles from './styles';

@@ -1,7 +1,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { curry, waitForElementReady, loadPPFonts } from '@common';
+import { curry, waitForElementReady, loadPPFonts } from '@library/common';
 
 const createNodeWithInnerHTML = (doc, type, html) => {
     const node = doc.createElement(type);

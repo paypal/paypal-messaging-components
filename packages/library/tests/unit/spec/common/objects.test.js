@@ -6,7 +6,7 @@ import {
     objectGet,
     objectSet,
     flattenedToObject
-} from '@common';
+} from '@library/common';
 
 describe('utils/objects', () => {
     describe('objectDiff', () => {

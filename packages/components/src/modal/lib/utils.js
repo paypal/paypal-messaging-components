@@ -1,7 +1,7 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
-import { request, memoizeOnProps } from '@common';
+import { request, memoizeOnProps } from '@library/common';
 
 export const getContent = memoizeOnProps(
     ({ currency, amount, payerId, clientId, merchantId, buyerCountry }) => {

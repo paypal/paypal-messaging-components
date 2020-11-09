@@ -3,9 +3,9 @@ import { fireEvent } from '@testing-library/dom';
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from '@tests/utils/createContainer';
-import { runStats, logger } from '@common';
+import { runStats, logger } from '@library/common';
 
-jest.mock('@common/logger', () => ({
+jest.mock('@library/common/logger', () => ({
     logger: {
         track: jest.fn()
     }

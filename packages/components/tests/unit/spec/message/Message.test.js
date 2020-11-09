@@ -4,10 +4,10 @@ import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from '@components/message/Message';
 import { XPropsProvider, ServerDataProvider } from '@components/lib';
-import { request } from '@common';
+import { request } from '@library/common';
 import xPropsMock from '@tests/utils/xPropsMock';
 
-jest.mock('@common', () => ({
+jest.mock('@library/common', () => ({
     getActiveTags: jest.fn(),
     request: jest.fn(() =>
         Promise.resolve({

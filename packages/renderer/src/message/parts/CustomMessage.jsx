@@ -3,7 +3,7 @@
 import { h, Fragment } from 'preact';
 import render from 'preact-render-to-string';
 
-import { getDataByTag } from '@common/server';
+import { getDataByTag } from '@library/common/server';
 import { getLogos } from '../../locale';
 import Text from './Text';
 

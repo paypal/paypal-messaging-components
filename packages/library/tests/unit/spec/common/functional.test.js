@@ -1,4 +1,4 @@
-import { memoize, memoizeOnProps, partial, curry, pipe, passThrough, pluck, assignToProp } from '@common';
+import { memoize, memoizeOnProps, partial, curry, pipe, passThrough, pluck, assignToProp } from '@library/common';
 
 describe('utils/functional', () => {
     describe('memoize', () => {

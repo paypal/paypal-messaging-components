@@ -11,7 +11,7 @@ import {
     getLibraryVersion,
     viewportHijack,
     logger
-} from '@common';
+} from '@library/common';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 

@@ -1,7 +1,7 @@
 import stringPadStart from 'core-js-pure/stable/string/pad-start';
 import arrayFind from 'core-js-pure/stable/array/find';
 
-import { createState, objectGet, getGlobalUrl, request } from '@common';
+import { createState, objectGet, getGlobalUrl, request } from '@library/common';
 import sendBeacon from './sendBeacon';
 
 export const EVENTS = {

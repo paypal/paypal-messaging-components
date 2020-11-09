@@ -1,6 +1,6 @@
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
-import { createState, getDataByTag, createEvent, createUUID, viewportHijack } from '@common';
+import { createState, getDataByTag, createEvent, createUUID, viewportHijack } from '@library/common';
 
 describe('utils/miscellaneous', () => {
     describe('createState', () => {

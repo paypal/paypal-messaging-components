@@ -5,7 +5,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { getSDKMeta } from '@paypal/sdk-client/src';
 import { base64encode } from 'belter/src';
 
-import fonts from '../../packages/library/src/old/messages/models/Template/styles/fonts.css';
+import fonts from '../old/messages/models/Template/styles/fonts.css';
 import { prependStyle } from './elements';
 import { globalState, setGlobalState } from './global';
 import { getEnv, getScript } from './sdk';

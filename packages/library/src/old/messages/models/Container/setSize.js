@@ -2,7 +2,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayEvery from 'core-js-pure/stable/array/every';
 import objectEntries from 'core-js-pure/stable/object/entries';
 
-import { curry, objectGet, createCallbackError } from '@common';
+import { curry, objectGet, createCallbackError } from '@library/common';
 import events from './events';
 import { ERRORS } from '../../services/logger';
 import { getMinimumWidthOptions } from '../../../locale';

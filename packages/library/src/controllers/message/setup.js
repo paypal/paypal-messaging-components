@@ -1,6 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '@common';
+import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '@library/common';
 import Messages from './adapter';
 
 export default function setup() {

@@ -2,7 +2,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
-import { logger, memoize } from '@common';
+import { logger, memoize } from '@library/common';
 
 export const Types = {
     ANY: 'ANY',

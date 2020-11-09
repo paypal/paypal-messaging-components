@@ -1,6 +1,6 @@
 import Modal from '@library/controllers/modal/interface';
 import { Modal as zoidModal } from '@library/zoid/modal';
-import { logger } from '@common';
+import { logger } from '@library/common';
 
 jest.mock('@library/zoid/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
@@ -17,7 +17,7 @@ jest.mock('@library/zoid/modal', () => {
     };
 });
 
-jest.mock('@common/logger', () => ({
+jest.mock('@library/common/logger', () => ({
     logger: {
         warn: jest.fn(),
         track: jest.fn(),

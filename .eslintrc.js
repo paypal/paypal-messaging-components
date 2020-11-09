@@ -37,16 +37,7 @@ module.exports = {
     },
     settings: {
         'import/resolver': {
-            alias: {
-                map: [
-                    ['@components', './packages/components/src'],
-                    ['@library', './packages/library/src'],
-                    ['@renderer', './packages/renderer/src'],
-                    ['@common', './utils/common'],
-                    ['@tests/utils', './tests/unit/utils']
-                ],
-                extensions: ['.js', '.jsx', '.json']
-            }
+            'babel-module': {}
         }
     }
 };

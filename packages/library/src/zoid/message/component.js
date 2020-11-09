@@ -12,7 +12,7 @@ import {
     logger,
     globalState,
     getCurrentTime
-} from '@common';
+} from '@library/common';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 

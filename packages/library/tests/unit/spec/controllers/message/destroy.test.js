@@ -1,5 +1,5 @@
 import destroy from '@library/controllers/message/destroy';
-import { setGlobalState, globalState } from '@common';
+import { setGlobalState, globalState } from '@library/common';
 
 describe('message destroy', () => {
     it('Cleans up messaging', () => {

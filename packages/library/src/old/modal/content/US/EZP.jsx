@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useRef, useContext } from 'preact/hooks';
 
-import { createEvent } from '@common';
+import { createEvent } from '@library/common';
 import { useXProps, useScroll, useApplyNow } from '../../lib/hooks';
 import Icon from '../../parts/Icon';
 import Calculator from '../../parts/Calculator';
