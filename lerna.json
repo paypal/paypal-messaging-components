@@ -22,8 +22,6 @@
                 ]
             },
             "message": "chore(release): [skip ci]",
-            "noPush": true,
-            "noGitTagVersion": true,
             "yes": true
         }
     }

@@ -19,6 +19,10 @@
     "scripts": {
         "build": "webpack --env.NODE_ENV=production"
     },
+    "localDependencies": {
+        "messaging-components": "^1.0.0",
+        "messaging-renderer": "^1.0.0"
+    },
     "dependencies": {
         "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",

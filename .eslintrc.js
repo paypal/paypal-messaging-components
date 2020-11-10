@@ -21,6 +21,7 @@ module.exports = {
                     '/**/webpack*.js',
                     '/**/*.dev.js',
                     '**/tests/**/*.js',
+                    '/scripts/**/*.js',
                     '/packages/library/src/old/**/*.js?(x)',
                     '/utils/devServerProxy/**/*.js'
                 ]
