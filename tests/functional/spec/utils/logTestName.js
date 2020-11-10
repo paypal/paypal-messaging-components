@@ -1,11 +1,12 @@
-const isComparingSnapshots = process.env.DIRTY_SNAPSHOTS == 0; // eslint-disable-line eqeqeq
+// const isComparingSnapshots = process.env.DIRTY_SNAPSHOTS == 0; // eslint-disable-line eqeqeq
 
-const logTestName = ({ account, viewport, groupString, testNameParts }) => {
-    if (isComparingSnapshots) {
+// Outputs current test so CI does not stall
+const logTestName = ({ account, viewport, groupString, testNameParts, testName }) => {
+    const name = testName || `${account} ${groupString} ${testNameParts}`;
+    // eslint-disable-next-line no-constant-condition
+    if (false) {
         // eslint-disable-next-line no-console
-        console.log(
-            `Running test [${account} ${groupString} ${testNameParts}] with viewport [${JSON.stringify(viewport)}]`
-        );
+        console.log(`Running test [${name}] with viewport [${JSON.stringify(viewport)}]`);
     }
 };
 

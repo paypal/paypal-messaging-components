@@ -1,8 +1,7 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import logTestName from './utils/logTestName';
 import selectors from './utils/selectors';
-
-const isComparingSnapshots = process.env.DIRTY_SNAPSHOTS == 0; // eslint-disable-line eqeqeq
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -104,11 +103,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 console.log(`banner page error for [${testName}]`, error);
             });
 
-            // Outputs current test so CI does not stall
-            if (isComparingSnapshots) {
-                // eslint-disable-next-line no-console
-                console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
-            }
+            logTestName({ testName, viewport });
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
