@@ -1,4 +1,5 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import logScreenshot from './logScreenshot';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -11,8 +12,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
 expect.extend({ toMatchImageSnapshot });
 
 const modalSnapshot = async (testNameParts, viewport, account) => {
-    // eslint-disable-next-line no-console
-    console.log(`Taking screenshot of [${testNameParts}] with dimensions ${JSON.stringify(viewport)}`);
+    logScreenshot({ name: testNameParts, viewport });
 
     const image = await page.screenshot(
         {

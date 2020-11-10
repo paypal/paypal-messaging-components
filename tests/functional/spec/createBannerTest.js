@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import logScreenshot from './utils/logScreenshot';
 import logTestName from './utils/logTestName';
 import selectors from './utils/selectors';
 
@@ -121,9 +122,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             };
             const snapshotDimensions = config?.style?.layout === 'text' ? paddedDimensions : bannerDimensions;
 
-            // eslint-disable-next-line no-console
-            console.log(`Taking screenshot of [${testName}] with dimensions ${JSON.stringify(snapshotDimensions)}`);
-
+            logScreenshot({ name: testName, viewport: snapshotDimensions });
             const image = await page.screenshot(
                 {
                     clip: {
