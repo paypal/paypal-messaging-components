@@ -70,16 +70,11 @@ jobs:
 
         # Stage is propagated through each job below it.
         # Jobs are ordered by time taken (which roughly corresponds to number of tests) in order to take advantage of parallelization
-        # US Banner tests are split further due to the number of offer types that exist for it
         - stage: functional
           env: TEST_PATH_PATTERN=spec/US/modal
-        - env: TEST_PATH_PATTERN=spec/DE/modal
-        - env: TEST_PATH_PATTERN=spec/US/banner/text
-        - env: TEST_PATH_PATTERN=spec/US/banner/flex
-        - env: TEST_PATH_PATTERN=spec/DE/banner
-        - env: TEST_PATH_PATTERN=spec/GB/banner
-        - env: TEST_PATH_PATTERN=spec/GB/modal
-        - env: TEST_PATH_PATTERN=spec/US/custom
+        - env: TEST_PATH_PATTERN=spec/US/[bc]
+        - env: TEST_PATH_PATTERN=spec/DE
+        - env: TEST_PATH_PATTERN=spec/GB
 
         - stage: deploy
           env: TEST_PATH_PATTERN=none
