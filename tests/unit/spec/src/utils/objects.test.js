@@ -10,7 +10,7 @@ import {
 
 describe('utils/objects', () => {
     describe('objectDiff', () => {
-        it('Returns a new object with only properties that are different', () => {
+        test('Returns a new object with only properties that are different', () => {
             const original = {
                 odd: 'odd',
                 test: 'testState',
@@ -39,7 +39,7 @@ describe('utils/objects', () => {
     });
 
     describe('objectClone', () => {
-        it('Deeply clones object', () => {
+        test('Deeply clones object', () => {
             const original = {
                 test: 'testState',
                 odd: 'odd',
@@ -57,7 +57,7 @@ describe('utils/objects', () => {
     });
 
     describe('objectMerge', () => {
-        it('Deeply merges two objects', () => {
+        test('Deeply merges two objects', () => {
             const original = {
                 odd: 'odd',
                 test: 'testState',
@@ -89,7 +89,7 @@ describe('utils/objects', () => {
     });
 
     describe('objectFlattenToArray', () => {
-        it('Flattens all object properties and values as an array of strings', () => {
+        test('Flattens all object properties and values as an array of strings', () => {
             const original = {
                 test: 'testState',
                 odd: 'odd',
@@ -114,7 +114,7 @@ describe('utils/objects', () => {
     });
 
     describe('flattenedToObject', () => {
-        it('Converts flattened string to object', () => {
+        test('Converts flattened string to object', () => {
             const cases = [
                 ['test.test', true, { test: { test: true } }],
                 ['odd.0', 100, { odd: { 0: 100 } }],
@@ -128,7 +128,7 @@ describe('utils/objects', () => {
     });
 
     describe('objectGet', () => {
-        it('Safely gets the property value of an object', () => {
+        test('Safely gets the property value of an object', () => {
             const original = {
                 test: 'testState',
                 odd: 'odd',
@@ -148,7 +148,7 @@ describe('utils/objects', () => {
     });
 
     describe('objectSet', () => {
-        it('Safely adds value by nesting objects', () => {
+        test('Safely adds value by nesting objects', () => {
             const original = {};
 
             objectSet(original, 'test', true);

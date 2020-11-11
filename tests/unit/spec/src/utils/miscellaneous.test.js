@@ -1,10 +1,13 @@
 /** @jsx node */
+import { fireEvent } from '@testing-library/dom';
 import { node, dom } from 'jsx-pragmatic/src';
-import { createState, getDataByTag, createEvent, createUUID, viewportHijack } from 'src/utils';
+import { createState, getDataByTag, createEvent, viewportHijack, dynamicImport } from 'src/utils';
+
+jest.mock('src/utils/observers', () => ({}));
 
 describe('utils/miscellaneous', () => {
     describe('createState', () => {
-        it('Creates a state object', () => {
+        test('Creates a state object', () => {
             const [state, setState] = createState({ x: 1, y: 1 });
 
             expect(state).toEqual({
@@ -37,28 +40,28 @@ describe('utils/miscellaneous', () => {
             ['Message three', ['medium.2', 'large']]
         ];
 
-        it('Retrieves a message by tag', () => {
+        test('Retrieves a message by tag', () => {
             expect(getDataByTag(data, 'small')).toBe('Message one');
             expect(getDataByTag(data, 'medium')).toBe('Message two');
             expect(getDataByTag(data, 'medium.2')).toBe('Message three');
         });
 
-        it('Falls back to default if tag is missing', () => {
+        test('Falls back to default if tag is missing', () => {
             expect(getDataByTag(data, 'xlarge')).toBe('Message one');
             expect(getDataByTag(data, 'xlarge.3')).toBe('Message one');
         });
 
-        it('Falls back to main tag if sub-tag is missing', () => {
+        test('Falls back to main tag if sub-tag is missing', () => {
             expect(getDataByTag(data, 'medium.3')).toBe('Message two');
         });
 
-        it('Returns empty string when no default provided', () => {
+        test('Returns empty string when no default provided', () => {
             expect(getDataByTag([['Message one', ['small']]], 'large')).toBe('');
         });
     });
 
     describe('createEvent', () => {
-        it('Returns an event object', () => {
+        test('Returns an event object', () => {
             const event = createEvent('click');
 
             expect(typeof event).toBe('object');
@@ -77,24 +80,12 @@ describe('utils/miscellaneous', () => {
         });
     });
 
-    describe('createUUID', () => {
-        it('Creates a random uuid', () => {
-            const uuid = createUUID();
-
-            expect(uuid).toMatch(/[a-z0-9]{8}-[a-z0-9]{4}-4[a-z0-9]{3}-[a-z0-9]{4}-[a-z0-9]{12}/);
-
-            const uuids = Array.from({ length: 10 }).map(createUUID);
-
-            expect(uuids.length).toBe(new Set(uuids).size);
-        });
-    });
-
     describe('viewportHijack', () => {
         afterEach(() => {
             document.head.innerHTML = '';
         });
 
-        it('Reuses existing viewport', () => {
+        test('Reuses existing viewport', () => {
             const defaultViewport = (<meta name="viewport" content="test=true" />).render(dom({ doc: document }));
             document.head.appendChild(defaultViewport);
 
@@ -118,7 +109,7 @@ describe('utils/miscellaneous', () => {
             expect(defaultViewport).toBeInTheDocument();
         });
 
-        it('Creates an empty viewport if one is missing', () => {
+        test('Creates an empty viewport if one is missing', () => {
             expect(document.head.querySelector('meta[name="viewport"]')).toBeNull();
 
             const [hijackViewport, replaceViewport] = viewportHijack(1);
@@ -142,7 +133,7 @@ describe('utils/miscellaneous', () => {
             expect(emptyViewport.getAttribute('content')).toBe('');
         });
 
-        it('Removes scrollbar with overflow hidden', () => {
+        test('Removes scrollbar with overflow hidden', () => {
             const [hijackViewport, replaceViewport] = viewportHijack(2);
 
             expect(document.body.getAttribute('style')).toBe('');
@@ -173,6 +164,21 @@ describe('utils/miscellaneous', () => {
     });
 
     describe('dynamicImport', () => {
-        it.todo('tests');
+        test('loads a script', async () => {
+            const url = 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js';
+            const loadPromise = dynamicImport(url);
+
+            expect(document.querySelectorAll('script')).toHaveLength(1);
+            expect(document.querySelector('script')).toHaveAttribute('src', url);
+
+            fireEvent.load(document.querySelector('script'));
+            await loadPromise;
+
+            expect(document.querySelectorAll('script')).toHaveLength(0);
+
+            // Import should be memoized
+            dynamicImport(url);
+            expect(document.querySelectorAll('script')).toHaveLength(0);
+        });
     });
 });
