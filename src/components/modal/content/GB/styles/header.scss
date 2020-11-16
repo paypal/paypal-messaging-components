@@ -1,112 +1,107 @@
 .header-wrapper {
-    background: #0070ba;
+    background: white;
+    pointer-events: none;
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: fixed;
+    width: 100%;
+    max-width: 640px;
+    z-index: 51;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
 }
 
 .header-container {
-    .header {
-        width: 100%;
+    background-color: $header-background;
+    position: relative;
+    overflow: hidden;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
     }
 
-    @include desktop {
-        .header {
-            max-width: 800px;
-            background-color: transparent;
-            position: absolute;
-            z-index: 999;
+    .header {
+        max-width: 500px;
+        margin: auto;
+        z-index: 999;
+        display: block;
+        height: auto;
+        padding-top: 40px;
+    }
 
-            &::after {
-                display: none;
-            }
+    .logo {
+        display: inline-block;
+
+        & img {
+            height: 45px;
+            margin-right: 9px;
         }
+    }
 
-        .logo {
-            display: flex;
-            width: auto;
-            padding: 18px 0;
-            padding-left: 20px;
-            align-items: center;
-            box-sizing: border-box;
-            margin: 0 auto;
-            height: 72px;
+    .close {
+        top: 5px;
+        right: 5px;
+        pointer-events: all;
 
-            & img {
-                &:first-child {
-                    height: 35px;
-                    margin-right: 9px;
-                }
-                &:last-child {
-                    height: 28px;
-                    width: 98px;
-                    margin-top: 5px;
-                }
-            }
-        }
-
-        .close {
-            top: 5px;
-            right: 5px;
-
-            svg {
-                height: 48px;
-                width: 48px;
-            }
+        svg {
+            height: 40px;
+            width: 40px;
 
             path {
-                stroke-width: 1px;
-                transition: all 0.3s;
-            }
-
-            svg {
-                height: 60px;
-                width: 60px;
+                stroke: white !important;
             }
         }
     }
 
     @include mobile {
-        position: relative;
+        text-align: center;
 
-        .header {
-            background-color: transparent;
-
-            &::after {
-                display: none;
-            }
-        }
-
-        .logo-wrapper {
-            padding-top: 18px;
+        h1 {
+            margin: 0 auto;
         }
 
         .logo {
-            display: flex;
-            width: auto;
-            align-items: center;
-            justify-content: center;
-
-            & > img:first-child {
-                width: 25px;
+            & img {
+                height: 45px;
                 margin-right: 9px;
-            }
-
-            & > img:last-child {
-                width: 84px;
-                margin-top: 5px;
             }
         }
 
         .close {
-            z-index: 1000;
-            transform: translate(-2px, -6px);
-
-            & > svg {
-                height: 55px;
-                width: 55px;
-
-                & > path {
-                    stroke: white;
-                }
+            svg {
+                height: 35px;
+                width: 35px;
             }
+        }
+    }
+}
+
+.hero-image {
+    background-color: $header-background;
+    position: fixed;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
+    width: 100%;
+    padding: 60px 0;
+    top: 12rem;
+    max-width: 640px;
+
+    @include desktop {
+        background-color: transparent;
+        height: 12rem;
+        top: 0;
+        overflow: hidden;
+        padding: 0;
+        z-index: 51;
+        pointer-events: none;
+
+        .icon {
+            position: absolute;
+            right: 3rem;
+            bottom: -1rem;
         }
     }
 }

@@ -9,27 +9,24 @@
     },
     "content": {
         "headline": {
-            "qualified": [
-                "3 interest-free payments of",
-                "${CREDIT_OFFERS_DS.formattedPeriodicPayment} per month with Flex"
-            ],
-            "unqualified": ["3 interest-free monthly", "payments with Flex"]
+            "singleProduct": "Pay in 3"
         },
         "subHeadline": {
-            "qualified": "For purchases between ${CREDIT_OFFERS_DS.formattedMinAmount} and ${CREDIT_OFFERS_DS.formattedMaxAmount}",
-            "unqualified": "On eligible purchases"
+            "pay": {
+                "start": "Make one interest-free payment",
+                "amount": "of ${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+                "end": "today, then pay the rest monthly."
+            },
+            "available": "Available on purchases from ${CREDIT_OFFERS_DS.formattedMinAmount} to ${CREDIT_OFFERS_DS.formattedMaxAmount}.",
+            "apply": "Apply easily and get an instant decision."
         },
         "terms": [
             "Subject to status. Terms and Conditions apply. UK residents only.",
-            "PayPal Flex is a trading name of PayPal (Europe) S.à.r.l. et",
-            "Cie, S.C.A.,",
+            "PayPal Pay in 3 is a trading name of PayPal (Europe) S.à.r.l. et Cie, S.C.A.,",
             "22-24 Boulevard Royal, L-2449, Luxembourg."
         ],
-        "instructions": [
-            ["shopping-bag", "Get your items straight away", "and pay nothing for 1 month."],
-            ["checkmark", "Apply easily and get an", "instant decision."],
-            ["pp-button", "Check out with PayPal and", "choose", "PRODUCT_NAME"]
-        ],
-        "productName": "Flex"
+        "instructions": {
+            "title": ["Check out securely with", "PayPal", "and choose", "Pay in 3"]
+        }
     }
 }
