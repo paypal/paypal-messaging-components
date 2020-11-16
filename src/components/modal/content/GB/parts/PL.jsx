@@ -13,7 +13,7 @@ const PL = () => {
     return (
         <section className="content-body">
             <div className="description">
-                <h2>{headline}</h2>
+                <h2>{headline.singleProduct}</h2>
 
                 <h3>
                     {subHeadline.pay.start} {qualifying && subHeadline.pay.amount} {subHeadline.pay.end}{' '}

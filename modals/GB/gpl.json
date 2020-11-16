@@ -8,7 +8,9 @@
         "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}"
     },
     "content": {
-        "headline": "Pay in 3",
+        "headline": {
+            "singleProduct": "Pay in 3"
+        },
         "subHeadline": {
             "pay": {
                 "start": "Make one interest-free payment",
