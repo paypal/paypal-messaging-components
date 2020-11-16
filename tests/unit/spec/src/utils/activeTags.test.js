@@ -83,7 +83,7 @@ describe('fallback', () => {
         });
     });
 
-    it('Returns none given an invalid container', () => {
+    test('Returns none given an invalid container', () => {
         // Wrapper with no elements
         const { container } = createContainer('div');
 

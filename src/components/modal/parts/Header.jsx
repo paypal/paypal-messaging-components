@@ -7,7 +7,7 @@ import Icon from './Icon';
 const LOCALE = {
     LOGO: {
         DE: 'logo-de',
-        GB: 'logo-gb',
+        GB: 'logo',
         US: 'logo',
         'US-EZP': 'logo-ezp'
     }
