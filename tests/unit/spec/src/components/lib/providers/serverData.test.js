@@ -4,7 +4,7 @@ import { renderHook, act } from '@testing-library/preact-hooks';
 import { ServerDataProvider, useServerData } from 'src/components/lib/providers/serverData';
 
 describe('serverData', () => {
-    it('useServerData can access and update ServerDataProvider', () => {
+    test('useServerData can access and update ServerDataProvider', () => {
         const wrapper = ({ children }) => (
             <ServerDataProvider data={{ markup: 'test-markup', meta: 'test-meta' }}>{children}</ServerDataProvider>
         );

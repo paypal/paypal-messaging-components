@@ -79,8 +79,13 @@ jobs:
 
         - stage: deploy
           env: TEST_PATH_PATTERN=none
-          # Override script so deploy doesn't run snapshot tests
+          # Overrides so deploy doesn't run these steps
+          before_script:
+              - true
           script:
+              - true
+          after_script:
+              - true
           deploy:
               provider: script
               skip_cleanup: true

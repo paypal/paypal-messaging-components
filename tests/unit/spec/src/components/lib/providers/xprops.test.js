@@ -6,7 +6,7 @@ import { XPropsProvider, useXProps } from 'src/components/lib/providers/xprops';
 import xPropsMock from 'utils/xPropsMock';
 
 describe('xprops', () => {
-    it('useXProps can access XPropsProvider and receives updates', () => {
+    test('useXProps can access XPropsProvider and receives updates', () => {
         const updateProps = xPropsMock({ payerId: 'DEV00000000NI', amount: 100 });
         const wrapper = ({ children }) => <XPropsProvider>{children}</XPropsProvider>;
         const { result } = renderHook(

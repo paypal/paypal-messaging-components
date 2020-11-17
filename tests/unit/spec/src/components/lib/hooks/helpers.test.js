@@ -3,7 +3,7 @@ import { useAutoFocus, useDidUpdateEffect } from 'src/components/lib/hooks/helpe
 
 describe('hooks helpers', () => {
     describe('useAutoFocus', () => {
-        it('Auto focuses the returned ref', () => {
+        test('Auto focuses the returned ref', () => {
             const button = document.createElement('button');
             button.focus = jest.fn();
             const { rerender } = renderHook(() => {
@@ -20,7 +20,7 @@ describe('hooks helpers', () => {
     });
 
     describe('useDidUpdateEffect', () => {
-        it('Runs effect function only when dependencies update', () => {
+        test('Runs effect function only when dependencies update', () => {
             const effectFn = jest.fn();
             const { rerender } = renderHook(
                 ({ dependencies }) => {
