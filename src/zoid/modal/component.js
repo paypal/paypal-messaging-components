@@ -144,8 +144,16 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: ({ props, state }) => {
                     const { onReady } = props;
 
-                    return ({ products }) => {
+                    return ({ products, trackingPayload }) => {
                         const { index, offer } = props;
+
+                        logger.addMetaBuilder(() => {
+                            return {
+                                [`modal-${index}`]: {
+                                    trackingPayload
+                                }
+                            };
+                        });
 
                         logger.info('modal_render', {
                             index,
@@ -155,7 +163,8 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             index,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
+                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`,
+                            trackingPayload
                         });
 
                         if (typeof onReady === 'function') {
