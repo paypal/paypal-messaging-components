@@ -20,7 +20,7 @@ import Button from '../../../parts/Button';
 const Content = ({ headerRef }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
-    const { offer, amount } = useXProps();
+    const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
@@ -63,6 +63,11 @@ const Content = ({ headerRef }) => {
         setSelectedProduct(newProduct);
     };
 
+    const switchTab = newProduct => {
+        onClick({ linkName: newProduct });
+        selectProduct(newProduct);
+    };
+
     useDidUpdateEffect(() => {
         setSelectedProduct(product);
     }, [product]);
@@ -98,15 +103,9 @@ const Content = ({ headerRef }) => {
 
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => selectProduct('NI') : null} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => switchTab('NI') : null} />;
 
-    const GPLProduct = arrayFind(products, ({ meta }) => meta.product === 'GPL');
-    tabsMap.NI.body = (
-        <NI
-            showApplyNow={setShowApplyNow}
-            switchTab={showTabSwitch && +GPLProduct.meta.maxAmount >= +amount ? () => selectProduct('GPL') : null}
-        />
-    );
+    tabsMap.NI.body = <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => switchTab('GPL') : null} />;
 
     const tabsContent =
         tabs.length > 1 ? (
