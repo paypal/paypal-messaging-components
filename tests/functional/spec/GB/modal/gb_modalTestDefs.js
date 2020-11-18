@@ -14,16 +14,15 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
 
     const modalFrame = await elementModal.contentFrame();
     await page.waitFor(2000);
-    await modalFrame.waitForSelector(selectors.modal.gbContent);
-    await modalFrame.waitForSelector(selectors.modal.gbMain);
-    await modalFrame.waitForSelector(selectors.modal.gbContainerLeft);
-    await modalFrame.waitForSelector(selectors.modal.gbOffer);
-    const h1 = await modalFrame.$eval(selectors.modal.gbOffer, element => element.innerHTML);
+    await modalFrame.waitForSelector(selectors.modal.modalContent);
+    await modalFrame.waitForSelector(selectors.modal.modalMain);
+    await modalFrame.waitForSelector(selectors.modal.contentDescriptionTitle);
+    const h3 = await modalFrame.$eval(selectors.modal.contentDescriptionTitle, element => element.innerHTML);
 
     if (account.includes('GBPLQ')) {
-        expect(h1).toContain('3 interest-free payments of <br> £41,67 per month with Flex');
+        expect(h3).toContain('Make one interest-free payment of £41.67 today');
     } else {
-        expect(h1).toContain('3 interest-free monthly <br> payments with Flex');
+        expect(h3).toContain('Make one interest-free payment today, then pay the rest monthly.');
     }
     await page.waitFor(500);
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
