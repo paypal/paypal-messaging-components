@@ -23,16 +23,7 @@ const selectors = {
         contentHeader: '.content-header',
         contentDescriptionTitle: '.content-body .description h3',
         contentTermsTitle: '.content-body .terms h3',
-        ezpContentHeaderTitle: '.content-header .title',
-        // Used in GB modal
-        containerLeft: '.left',
-        offer: '.content-body .offer',
-        gbContainer: '.modal-container',
-        gbContent: '.content',
-        gbMain: '.main',
-        gbContainerLeft: '.left',
-        gbOffer: '.offer',
-        gbOverlay: '.overlay-side'
+        ezpContentHeaderTitle: '.content-header .title'
     },
     calculator: {
         calc: '.calculator',
