@@ -10,6 +10,7 @@ const Message = () => {
     const {
         amount,
         currency,
+        buyerCountry,
         style,
         offer,
         payerId,
@@ -68,6 +69,7 @@ const Message = () => {
             message_request_id: meta.messageRequestId,
             amount,
             currency,
+            buyer_country: buyerCountry,
             style,
             credit_type: offer,
             payer_id: payerId,
@@ -91,7 +93,7 @@ const Message = () => {
                 warnings: data.warnings ?? warnings
             });
         });
-    }, [amount, currency, JSON.stringify(style), offer, payerId, clientId, merchantId]);
+    }, [amount, currency, buyerCountry, JSON.stringify(style), offer, payerId, clientId, merchantId]);
 
     return (
         <button
