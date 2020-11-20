@@ -44,7 +44,7 @@ const ContentWrapper = () => {
     const classNames = ['content', sticky ? 'sticky' : ''];
 
     return (
-        <Container contentWrapper={contentWrapper} contentMaxWidth={750} contentMaxHeight={537}>
+        <Container contentWrapper={contentWrapper} contentMaxWidth={640}>
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
                     <Header wrapperRef={headerRef}>
