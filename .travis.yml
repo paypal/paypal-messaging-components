@@ -89,6 +89,7 @@ jobs:
           deploy:
               provider: script
               skip_cleanup: true
+              # Unclear if these are redundant or not
               before_script:
                   - true
               script: npx semantic-release@15
