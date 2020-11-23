@@ -20,7 +20,7 @@ const onScroll = (elem, handler) => {
     };
 };
 
-export function runStats({ container, activeTags, index }) {
+export function runStats({ container, activeTags, index, messageRequestId }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -30,6 +30,7 @@ export function runStats({ container, activeTags, index }) {
     // Create initial payload
     const payload = {
         index,
+        messageRequestId,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
         integration_type: __MESSAGES__.__TARGET__,
@@ -53,6 +54,7 @@ export function runStats({ container, activeTags, index }) {
                 clearScroll();
                 logger.track({
                     index,
+                    messageRequestId,
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'scroll',
                     visible: 'true'

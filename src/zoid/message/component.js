@@ -99,6 +99,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         // zoid components have an onClick prop that functions differently
                         modal.show({
                             index,
+                            messageRequestId,
                             account,
                             merchantId,
                             currency,
@@ -117,6 +118,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         });
                         logger.track({
                             index,
+                            messageRequestId,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Banner Wrapper'
@@ -137,11 +139,13 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ meta }) => {
                         const { index } = props;
+                        const { messageRequestId } = meta;
 
                         if (!hasHovered) {
                             hasHovered = true;
                             logger.track({
                                 index,
+                                messageRequestId,
                                 et: 'CLIENT_IMPRESSION',
                                 event_type: 'hover'
                             });
@@ -177,6 +181,13 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                                     displayedMessage,
                                     trackingPayload,
                                     ...trackingDetails
+                                },
+                                [messageRequestId]: {
+                                    messageRequestId,
+                                    account: merchantId || account,
+                                    displayedMessage,
+                                    trackingPayload,
+                                    ...trackingDetails
                                 }
                             };
                         });
@@ -184,16 +195,18 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         runStats({
                             container: getContainer(),
                             activeTags,
+                            messageRequestId,
                             index
                         });
 
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
-                        modal.updateProps({ index, offer: offerType, visible: false });
+                        modal.updateProps({ index, messageRequestId, offer: offerType, visible: false });
                         modal.render('body');
 
                         logger.track({
                             index,
+                            messageRequestId,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'MORS'
                         });

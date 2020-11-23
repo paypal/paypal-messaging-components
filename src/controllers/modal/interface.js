@@ -49,6 +49,7 @@ export default memoizeOnProps(
 
                 logger.track({
                     index: newOptions.index,
+                    messageRequestId: newOptions.messageRequestId,
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'modal-open'
                 });
