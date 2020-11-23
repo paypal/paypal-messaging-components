@@ -104,3 +104,19 @@ export function messageDisclaimerMediaQuery(breakpoint) {
     }
     `;
 }
+
+/**
+ * Only shows "at 0% APR" at larger sizes
+ */
+export function zeroAprMediaQuery(breakpoint) {
+    return `
+    .weakest {
+        display: none;
+    }
+    @media (min-width: ${breakpoint}px) {
+        .weakest {
+            display: inline;
+        }
+    }
+    `;
+}

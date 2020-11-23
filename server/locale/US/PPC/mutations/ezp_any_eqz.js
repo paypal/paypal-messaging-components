@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, zeroAprMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
@@ -43,6 +43,7 @@ export default {
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 17),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
@@ -54,7 +55,11 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
             })
         ],
         [
@@ -67,6 +72,7 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
+                    zeroAprMediaQuery(textSize * 17),
                     altContentMediaQuery(textSize * 35.8)
                 ]
             })
@@ -82,7 +88,11 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`],
+                styles: [
+                    ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ],
                 messageWidth: [textSize * 15, 1000],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
@@ -96,6 +106,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 17),
                     altContentMediaQuery(textSize * 35.8),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ]
@@ -108,9 +119,23 @@ export default {
             })
         ],
         [
+            'logo.type:primary && text.color:white',
+            ({ textSize }) => ({
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
+            })
+        ],
+        [
             'logo.type:alternative && text.color:white',
             ({ textSize }) => ({
-                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo-container { width: ${textSize * 5}px }`
+                ]
             })
         ],
         [
@@ -129,6 +154,7 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
+                    zeroAprMediaQuery(textSize * 17),
                     ...whiteStyles
                 ]
             })
