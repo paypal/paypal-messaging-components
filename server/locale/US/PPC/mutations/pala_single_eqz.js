@@ -26,7 +26,7 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16.5),
                     `
                     @media (max-width: ${textSize * 17}px) {
                         .message__messaging { display: block; }
@@ -38,7 +38,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [zeroAprMediaQuery(textSize * 17), `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [zeroAprMediaQuery(textSize * 16.5), `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -58,7 +58,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 7}px }`],
+                styles: [zeroAprMediaQuery(textSize * 17), `.message__logo { width: ${textSize * 7}px }`],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: {
@@ -69,14 +69,15 @@ export default {
         ],
         [
             'logo.type:none',
-            {
+            ({ textSize }) => ({
+                styles: [zeroAprMediaQuery(textSize * 17)],
                 messageWidth: false,
                 logo: false,
                 headline: {
                     replace: [['APR.', 'APR']],
                     br: ['APR']
                 }
-            }
+            })
         ],
         [
             'logo.type:alternative',

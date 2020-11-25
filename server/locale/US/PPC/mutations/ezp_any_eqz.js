@@ -81,7 +81,11 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
-                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
+                styles: [
+                    ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo { width: ${textSize * 7}px }`
+                ]
             })
         ],
         ['logo.type:none', { logo: false }],
@@ -115,7 +119,11 @@ export default {
         [
             'text.color:white',
             ({ textSize }) => ({
-                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
             })
         ],
         [
@@ -141,7 +149,11 @@ export default {
         [
             'logo.type:inline && text.color:white',
             ({ textSize }) => ({
-                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 17),
+                    `.message__logo { width: ${textSize * 7}px }`
+                ]
             })
         ],
         [
@@ -161,14 +173,14 @@ export default {
         ],
         [
             'logo.type:none && text.color:monochrome',
-            () => ({
-                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 17), `.tag--small { color: black; }`]
             })
         ],
         [
             'logo.type:none && text.color:grayscale',
-            () => ({
-                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 17), `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations

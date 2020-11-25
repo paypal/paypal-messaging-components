@@ -58,7 +58,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 7}px }`],
+                styles: [zeroAprMediaQuery(textSize * 16), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: [textSize * 19, 1000],
                 headline: {
@@ -70,6 +70,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
+                styles: [zeroAprMediaQuery(textSize * 16)],
                 logo: false,
                 messageWidth: [textSize * 17, 1000],
                 headline: {
