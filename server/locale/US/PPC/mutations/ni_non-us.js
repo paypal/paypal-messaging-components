@@ -3,7 +3,8 @@ import {
     basicMediaQuery,
     altContentMediaQuery,
     primaryContentMediaQuery,
-    messageDisclaimerMediaQuery
+    messageDisclaimerMediaQuery,
+    textWrap
 } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
@@ -46,11 +47,19 @@ export default {
             ({ textSize }) => {
                 const breakpointCalc = textSize * 22 + 70;
                 return {
-                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)],
+                    styles: [
+                        messageDisclaimerMediaQuery(breakpointCalc - 1),
+                        basicMediaQuery(breakpointCalc),
+                        textWrap(textSize * 38, textSize, 'US')
+                    ],
                     logo: Logo.SINGLE_LINE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
-                        { tag: 'medium', br: ['months'], replace: [['99+', '99+.']] }
+                        {
+                            tag: 'medium',
+                            br: ['months'],
+                            replace: [['99+', '99+.']]
+                        }
                     ],
                     disclaimer: ['extra', 'xsmall']
                 };
@@ -63,25 +72,41 @@ export default {
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
-                    { tag: 'medium', br: ['on '], replace: [['99+', '99+.']] }
+                    {
+                        tag: 'medium',
+                        br: ['on '],
+                        replace: [['99+', '99+.']]
+                    }
                 ],
                 styles: [
                     basicMediaQuery(textSize * 18),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
+                        width: {
+                            smallLogo: textSize * 5,
+                            largeLogo: textSize * 9
+                        },
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    textWrap(textSize * 38, textSize, 'US')
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 23), `.message__logo { width: ${textSize * 7}px }`],
+                styles: [
+                    basicMediaQuery(textSize * 23),
+                    `.message__logo { width: ${textSize * 7}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
+                ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
-                    { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
+                    {
+                        tag: 'xsmall',
+                        replace: [['time.', 'time']],
+                        br: ['time']
+                    },
                     { tag: 'medium', br: ['purchases'] }
                 ]
             })
@@ -89,7 +114,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 21)],
+                styles: [basicMediaQuery(textSize * 21), textWrap(textSize * 38, textSize, 'US')],
                 logo: false,
                 headline: [
                     {
@@ -112,7 +137,8 @@ export default {
                     styles: [
                         messageDisclaimerMediaQuery(breakpointCalc - 1),
                         basicMediaQuery(breakpointCalc),
-                        `.message__logo-container { width: ${textSize * 5}px }`
+                        `.message__logo-container { width: ${textSize * 5}px }`,
+                        textWrap(textSize * 38, textSize, 'US')
                     ],
                     logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                     headline: [
