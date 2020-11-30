@@ -47,11 +47,7 @@ export default {
             ({ textSize }) => {
                 const breakpointCalc = textSize * 22 + 70;
                 return {
-                    styles: [
-                        messageDisclaimerMediaQuery(breakpointCalc - 1),
-                        basicMediaQuery(breakpointCalc),
-                        textWrap(textSize * 38, textSize, 'US')
-                    ],
+                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), basicMediaQuery(breakpointCalc)],
                     logo: Logo.SINGLE_LINE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
@@ -87,19 +83,14 @@ export default {
                             largeLogo: textSize * 9
                         },
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    basicMediaQuery(textSize * 23),
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ],
+                styles: [basicMediaQuery(textSize * 23), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
                     {
@@ -114,7 +105,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 21), textWrap(textSize * 38, textSize, 'US')],
+                styles: [basicMediaQuery(textSize * 21)],
                 logo: false,
                 headline: [
                     {
@@ -158,7 +149,8 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 20),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `.message__headline span:only-child { white-space: nowrap; }`
+                    `.message__headline span:only-child { white-space: nowrap; }`,
+                    textWrap(textSize * 38, textSize, 'US')
                 ],
                 headline: [
                     'xsmall',
@@ -176,7 +168,8 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 45),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

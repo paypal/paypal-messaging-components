@@ -14,8 +14,7 @@ export default {
                         display:none;
                     }
                    `,
-                    [basicMediaQuery(textSize * 18.5 + 70)],
-                    textWrap(textSize * 38, textSize, 'US')
+                    [basicMediaQuery(textSize * 18.5 + 70)]
                 ],
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: [
@@ -49,8 +48,7 @@ export default {
                         },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
@@ -62,8 +60,7 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 12 + 80),
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    `.message__logo { width: ${textSize * 7}px }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
@@ -83,8 +80,7 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 17),
-                    textWrap(textSize * 38, textSize, 'US')
+                    basicMediaQuery(textSize * 17)
                 ],
                 logo: false,
                 headline: [
@@ -127,8 +123,7 @@ export default {
                     }
                     `,
                     `.message__logo-container { width: ${textSize * 9}px }`,
-                    basicMediaQuery(textSize * 18.5),
-                    textWrap(textSize * 38, textSize, 'US')
+                    basicMediaQuery(textSize * 18.5)
                 ]
             })
         ],
@@ -146,8 +141,7 @@ export default {
                     `,
                     basicMediaQuery(textSize * 18.5),
                     altContentMediaQuery(textSize * 33),
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
         ],

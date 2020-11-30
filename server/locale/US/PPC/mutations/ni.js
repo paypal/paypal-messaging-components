@@ -47,11 +47,7 @@ export default {
             ({ textSize }) => {
                 const breakpointCalc = textSize * 19 + 70;
                 return {
-                    styles: [
-                        messageDisclaimerMediaQuery(breakpointCalc - 1),
-                        [basicMediaQuery(breakpointCalc)],
-                        textWrap(textSize * 38, textSize, 'US')
-                    ],
+                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), [basicMediaQuery(breakpointCalc)]],
                     logo: Logo.SINGLE_LINE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
@@ -78,8 +74,7 @@ export default {
                         display: inline;
                     }
                     `,
-                    altContentMediaQuery(textSize * 43.5),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 43.5)
                 ]
             })
         ],
@@ -102,19 +97,14 @@ export default {
                         },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    basicMediaQuery(textSize * 15 + 80),
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ],
+                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
                     {
@@ -133,7 +123,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 20), textWrap(textSize * 38, textSize, 'US')],
+                styles: [basicMediaQuery(textSize * 20)],
                 logo: false,
                 headline: [
                     {
@@ -185,8 +175,7 @@ export default {
                             display:block;
                         }
                         `,
-                        `.message__logo-container { width: ${textSize * 9}px }`,
-                        textWrap(textSize * 38, textSize, 'US')
+                        `.message__logo-container { width: ${textSize * 9}px }`
                     ]
                 };
             }

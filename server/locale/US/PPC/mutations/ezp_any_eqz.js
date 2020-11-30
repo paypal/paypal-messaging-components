@@ -16,8 +16,8 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize }) => ({
-                styles: [defaultTextStyles, textWrap(textSize * 38, textSize, 'US')],
+            () => ({
+                styles: [defaultTextStyles],
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'small',
@@ -28,8 +28,8 @@ export default {
         ],
         [
             'logo.type:primary',
-            ({ textSize }) => ({
-                styles: [textWrap(textSize * 38, textSize, 'US')],
+            () => ({
+                styles: [],
                 headline: {
                     tag: 'small',
                     br: ['APR.'],
@@ -51,19 +51,14 @@ export default {
                             largeLogo: textSize * 9
                         },
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -76,8 +71,7 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    altContentMediaQuery(textSize * 35.8),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 35.8)
                 ]
             })
         ],
@@ -85,11 +79,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         ['logo.type:none', { logo: false }],
@@ -123,11 +113,7 @@ export default {
         [
             'text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -143,11 +129,7 @@ export default {
         [
             'logo.type:inline && text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         [
@@ -163,25 +145,20 @@ export default {
                         },
                         whiteSpaceBP: textSize * 27
                     }),
-                    ...whiteStyles,
-                    textWrap(textSize * 38, textSize, 'US')
+                    ...whiteStyles
                 ]
             })
         ],
         [
             'logo.type:none && text.color:monochrome',
-            ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.tag--small { color: black; }`, textWrap(textSize * 38, textSize, 'US')]
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
             })
         ],
         [
             'logo.type:none && text.color:grayscale',
-            ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.tag--small { color: #2c2e2f; }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations

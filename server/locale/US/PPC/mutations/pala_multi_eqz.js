@@ -7,7 +7,7 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [textWrap(textSize * 38, textSize, 'US')],
+                styles: [],
                 logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 11, textSize * 18],
                 headline: {
@@ -34,18 +34,14 @@ export default {
                     @media (max-width: ${textSize * 11}px) {
                         .message__messaging { display: block; }
                     }
-                    `,
-                    textWrap(textSize * 38, textSize, 'US')
+                    `
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -57,15 +53,14 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    altContentMediaQuery(textSize * 34.3),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 34.3)
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 7}px }`, textWrap(textSize * 38, textSize, 'US')],
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: [textSize * 19, 1000],
                 headline: {
@@ -77,7 +72,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [textWrap(textSize * 38, textSize, 'US')],
+                styles: [],
                 logo: false,
                 messageWidth: [textSize * 17, 1000],
                 headline: {

@@ -11,16 +11,13 @@ export default {
                 messageWidth: [textSize * 11, textSize * 12],
                 headline: { tag: 'xsmall' },
                 disclaimer: 'xsmall',
-                styles: [textWrap(textSize * 38, textSize, 'US')]
+                styles: []
             })
         ],
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                styles: [
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -35,8 +32,7 @@ export default {
                             largeLogo: textSize * 9
                         },
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
@@ -49,15 +45,14 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    altContentMediaQuery(textSize * 34.3),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 34.3)
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 7}px }`, textWrap(textSize * 38, textSize, 'US')],
+                styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: false,
                 headline: {
@@ -67,8 +62,8 @@ export default {
         ],
         [
             'logo.type:none',
-            ({ textSize }) => ({
-                style: [textWrap(textSize * 38, textSize, 'US')],
+            () => ({
+                style: [],
                 logo: false,
                 messageWidth: false,
                 headline: {

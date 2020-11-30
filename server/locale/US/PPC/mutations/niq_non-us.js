@@ -15,8 +15,7 @@ export default {
                     .message__disclaimer {
                         display:block;
                     }`,
-                    basicMediaQuery(textSize * 18.5 + 70),
-                    textWrap(textSize * 38, textSize, 'US')
+                    basicMediaQuery(textSize * 18.5 + 70)
                 ],
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: [
@@ -50,8 +49,7 @@ export default {
                         },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
-                    }),
-                    textWrap(textSize * 38, textSize, 'US')
+                    })
                 ]
             })
         ],
@@ -63,8 +61,7 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18),
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    `.message__logo { width: ${textSize * 7}px }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
@@ -84,8 +81,7 @@ export default {
                     `.weak {
                         display:none;
                     }`,
-                    basicMediaQuery(textSize * 18),
-                    textWrap(textSize * 38, textSize, 'US')
+                    basicMediaQuery(textSize * 18)
                 ],
                 logo: false,
                 headline: [
@@ -168,8 +164,7 @@ export default {
                         display:block;
                     }`,
                     `.message__logo-container { width: ${textSize * 9}px }`,
-                    basicMediaQuery(textSize * 18),
-                    textWrap(textSize * 38, textSize, 'US')
+                    basicMediaQuery(textSize * 18)
                 ]
             })
         ],
@@ -184,8 +179,7 @@ export default {
                     .message__content { display: inline-block; }
                     `,
                     basicMediaQuery(textSize * 18),
-                    altContentMediaQuery(textSize * 37),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 37)
                 ]
             })
         ],

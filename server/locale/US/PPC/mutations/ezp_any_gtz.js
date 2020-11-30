@@ -16,8 +16,8 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize }) => ({
-                styles: [defaultTextStyles, textWrap(textSize * 38, textSize, 'US')],
+            () => ({
+                styles: [defaultTextStyles],
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'xsmall',
@@ -39,19 +39,14 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
-                    '.message__messaging span.br { white-space: nowrap; }',
-                    textWrap(textSize * 38, textSize, 'US')
+                    '.message__messaging span.br { white-space: nowrap; }'
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -64,19 +59,14 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    altContentMediaQuery(textSize * 30.6),
-                    textWrap(textSize * 38, textSize, 'US')
+                    altContentMediaQuery(textSize * 30.6)
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ],
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`],
                 headline: {
                     tag: 'xsmall',
                     replace: [['months.', 'months']],
@@ -87,8 +77,8 @@ export default {
         ],
         [
             'logo.type:none',
-            ({ textSize }) => ({
-                style: [textWrap(textSize * 38, textSize, 'US')],
+            () => ({
+                styles: [],
                 logo: false,
                 headline: {
                     tag: 'xsmall',
@@ -126,11 +116,7 @@ export default {
         [
             'text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    `.message__logo-container { width: ${textSize * 9}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -146,11 +132,7 @@ export default {
         [
             'logo.type:inline && text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    `.message__logo { width: ${textSize * 7}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         [
@@ -164,25 +146,20 @@ export default {
                         whiteSpaceBP: textSize * 27
                     }),
                     '.message__messaging span.br { white-space: nowrap; }',
-                    ...whiteStyles,
-                    textWrap(textSize * 38, textSize, 'US')
+                    ...whiteStyles
                 ]
             })
         ],
         [
             'logo.type:none && text.color:monochrome',
-            ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.tag--small { color: black; }`, textWrap(textSize * 38, textSize, 'US')]
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
             })
         ],
         [
             'logo.type:none && text.color:grayscale',
-            ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    `.tag--small { color: #2c2e2f; }`,
-                    textWrap(textSize * 38, textSize, 'US')
-                ]
+            () => ({
+                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations
