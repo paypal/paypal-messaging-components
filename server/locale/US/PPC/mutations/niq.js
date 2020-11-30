@@ -19,11 +19,7 @@ export default {
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
-                    {
-                        tag: 'medium',
-                        br: ['months.'],
-                        replace: [['months', 'months.']]
-                    }
+                    { tag: 'medium', br: ['months.'], replace: [['months', 'months.']] }
                 ],
                 disclaimer: 'xsmall'
             })
@@ -42,10 +38,7 @@ export default {
                     `,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
                     })
@@ -64,11 +57,7 @@ export default {
                 ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
-                    {
-                        tag: 'xsmall',
-                        replace: [['time.', 'time']],
-                        br: ['time']
-                    },
+                    { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['months'] }
                 ]
             })
@@ -105,7 +94,7 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 30, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -140,7 +129,7 @@ export default {
                     }
                     `,
                     basicMediaQuery(textSize * 18.5),
-                    altContentMediaQuery(textSize * 33),
+                    altContentMediaQuery(textSize * 30),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -154,7 +143,7 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18.5),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 30, textSize, 'US')
                 ]
             })
         ],
@@ -165,7 +154,7 @@ export default {
                     basicMediaQuery(textSize * 18.5),
                     altContentMediaQuery(textSize * 33),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 30, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

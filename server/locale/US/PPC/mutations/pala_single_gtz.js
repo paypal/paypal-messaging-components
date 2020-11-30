@@ -7,7 +7,6 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [],
                 logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 13, textSize * 18],
                 headline: { tag: 'small', br: ['/mo.'] },
@@ -21,10 +20,7 @@ export default {
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
                     `
@@ -66,8 +62,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 logo: false,
-                messageWidth: [textSize * 17, 1000],
-                styles: []
+                messageWidth: [textSize * 17, 1000]
             })
         ],
         [
@@ -75,7 +70,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
@@ -86,7 +81,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ]
             })
         ],
@@ -96,7 +91,7 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 29.3),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

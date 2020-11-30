@@ -20,11 +20,7 @@ export default {
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
-                    {
-                        tag: 'medium',
-                        br: ['months.'],
-                        replace: [['months', 'months.']]
-                    }
+                    { tag: 'medium', br: ['months.'], replace: [['months', 'months.']] }
                 ],
                 disclaimer: ['extra', 'xsmall']
             })
@@ -43,10 +39,7 @@ export default {
                     `,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
                     })
@@ -65,11 +58,7 @@ export default {
                 ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 headline: [
-                    {
-                        tag: 'xsmall',
-                        replace: [['time.', 'time']],
-                        br: ['time']
-                    },
+                    { tag: 'xsmall', replace: [['time.', 'time']], br: ['time'] },
                     { tag: 'medium', br: ['purchases'] }
                 ]
             })
@@ -106,7 +95,7 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 34, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: [
@@ -129,7 +118,7 @@ export default {
                     basicMediaQuery(textSize * 20),
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     `.message__headline span:only-child { white-space: nowrap; }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 34, textSize, 'US')
                 ],
                 headline: [
                     'xsmall',
@@ -148,7 +137,7 @@ export default {
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 34, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

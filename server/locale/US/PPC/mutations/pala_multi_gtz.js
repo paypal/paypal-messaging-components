@@ -10,8 +10,7 @@ export default {
                 logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 11, textSize * 12],
                 headline: { tag: 'xsmall' },
-                disclaimer: 'xsmall',
-                styles: []
+                disclaimer: 'xsmall'
             })
         ],
         [
@@ -27,10 +26,7 @@ export default {
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     })
                 ]
@@ -62,21 +58,20 @@ export default {
         ],
         [
             'logo.type:none',
-            () => ({
-                style: [],
+            {
                 logo: false,
                 messageWidth: false,
                 headline: {
                     br: ['/mo.']
                 }
-            })
+            }
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 22, textSize, 'US')
                 ],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
@@ -87,7 +82,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 22, textSize, 'US')
                 ]
             })
         ],
@@ -97,7 +92,7 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 23.8),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 22, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

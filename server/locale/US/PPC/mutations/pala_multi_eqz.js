@@ -7,7 +7,6 @@ export default {
         [
             'default',
             ({ textSize }) => ({
-                styles: [],
                 logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 11, textSize * 18],
                 headline: {
@@ -24,10 +23,7 @@ export default {
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
                     `
@@ -72,7 +68,6 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [],
                 logo: false,
                 messageWidth: [textSize * 17, 1000],
                 headline: {
@@ -86,7 +81,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 27, textSize, 'US')
                 ],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
@@ -97,7 +92,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 27, textSize, 'US')
                 ]
             })
         ],
@@ -107,7 +102,7 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 29.1),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 27, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

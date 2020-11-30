@@ -16,26 +16,25 @@ export default {
     'layout:text': [
         [
             'default',
-            () => ({
-                styles: [defaultTextStyles],
+            {
+                styles: defaultTextStyles,
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'small',
                     br: ['APR']
                 },
                 disclaimer: 'xsmall.2'
-            })
+            }
         ],
         [
             'logo.type:primary',
-            () => ({
-                styles: [],
+            {
                 headline: {
                     tag: 'small',
                     br: ['APR.'],
                     replace: [['APR', 'APR.']]
                 }
-            })
+            }
         ],
         [
             'logo.type:primary && logo.position:left',
@@ -46,10 +45,7 @@ export default {
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     })
                 ]
@@ -89,7 +85,7 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 33, textSize, 'US')
                 ],
                 messageWidth: [textSize * 15, 1000],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
@@ -106,7 +102,7 @@ export default {
                     ...defaultTextStyles,
                     altContentMediaQuery(textSize * 35.8),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 33, textSize, 'US')
                 ]
             })
         ],
@@ -122,7 +118,7 @@ export default {
                 styles: [
                     ...whiteStyles,
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 33, textSize, 'US')
                 ]
             })
         ],
@@ -139,10 +135,7 @@ export default {
                     ...defaultTextStyles,
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
                     ...whiteStyles

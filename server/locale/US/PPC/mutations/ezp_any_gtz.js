@@ -16,8 +16,8 @@ export default {
     'layout:text': [
         [
             'default',
-            () => ({
-                styles: [defaultTextStyles],
+            {
+                styles: defaultTextStyles,
                 logo: Logo.SINGLE_LINE.COLOR,
                 headline: {
                     tag: 'xsmall',
@@ -25,7 +25,7 @@ export default {
                     br: ['months.']
                 },
                 disclaimer: 'xsmall.2'
-            })
+            }
         ],
         [
             'logo.type:primary && logo.position:left',
@@ -77,15 +77,14 @@ export default {
         ],
         [
             'logo.type:none',
-            () => ({
-                styles: [],
+            {
                 logo: false,
                 headline: {
                     tag: 'xsmall',
                     replace: [['months.', 'months']],
                     br: ['months']
                 }
-            })
+            }
         ],
         [
             'logo.type:alternative',
@@ -93,7 +92,7 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
@@ -107,9 +106,10 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
+
                     altContentMediaQuery(textSize * 30.6),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ]
             })
         ],
@@ -125,7 +125,7 @@ export default {
                 styles: [
                     ...whiteStyles,
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 28, textSize, 'US')
                 ]
             })
         ],

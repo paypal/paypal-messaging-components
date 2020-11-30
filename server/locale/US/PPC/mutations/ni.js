@@ -91,10 +91,7 @@ export default {
                     basicMediaQuery(textSize * 18),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: {
-                            smallLogo: textSize * 5,
-                            largeLogo: textSize * 9
-                        },
+                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         logoSvgBP: textSize * 41.75,
                         whiteSpaceBP: textSize * 27
                     })
@@ -145,7 +142,7 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 18),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 39, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -157,7 +154,7 @@ export default {
                     basicMediaQuery(textSize * 18),
                     altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 39, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -186,7 +183,7 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 18.5),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 38, textSize, 'US')
+                    textWrap(textSize * 39, textSize, 'US')
                 ]
             })
         ],
