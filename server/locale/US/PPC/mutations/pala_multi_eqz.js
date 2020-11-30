@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, textWrap } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -7,6 +7,7 @@ export default {
         [
             'default',
             ({ textSize }) => ({
+                styles: [textWrap(textSize * 38, textSize, 'US')],
                 logo: Logo.SINGLE_LINE.COLOR,
                 messageWidth: [textSize * 11, textSize * 18],
                 headline: {
@@ -23,21 +24,28 @@ export default {
                 styles: [
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
-                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
+                        width: {
+                            smallLogo: textSize * 5,
+                            largeLogo: textSize * 9
+                        },
                         whiteSpaceBP: textSize * 27
                     }),
                     `
                     @media (max-width: ${textSize * 11}px) {
                         .message__messaging { display: block; }
                     }
-                    `
+                    `,
+                    textWrap(textSize * 38, textSize, 'US')
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    `.message__logo-container { width: ${textSize * 9}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
+                ]
             })
         ],
         [
@@ -49,14 +57,15 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    altContentMediaQuery(textSize * 34.3)
+                    altContentMediaQuery(textSize * 34.3),
+                    textWrap(textSize * 38, textSize, 'US')
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 7}px }`],
+                styles: [`.message__logo { width: ${textSize * 7}px }`, textWrap(textSize * 38, textSize, 'US')],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: [textSize * 19, 1000],
                 headline: {
@@ -68,6 +77,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
+                styles: [textWrap(textSize * 38, textSize, 'US')],
                 logo: false,
                 messageWidth: [textSize * 17, 1000],
                 headline: {
@@ -79,7 +89,10 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 5}px }`],
+                styles: [
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
+                ],
                 messageWidth: false,
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
@@ -87,7 +100,10 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
+                ]
             })
         ],
         [
@@ -95,7 +111,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     altContentMediaQuery(textSize * 29.1),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 38, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
