@@ -180,11 +180,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    basicMediaQuery(textSize * 18.5),
-                    `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 39, textSize, 'US')
-                ]
+                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         ...textLogoMutations

@@ -114,6 +114,12 @@ export default {
             })
         ],
         [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+            })
+        ],
+        [
             'text.color:white',
             ({ textSize }) => ({
                 styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]

@@ -79,10 +79,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 28, textSize, 'US')
-                ]
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [

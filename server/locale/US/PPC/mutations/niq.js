@@ -142,8 +142,7 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18.5),
-                    `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 30, textSize, 'US')
+                    `.message__logo-container { width: ${textSize * 5}px }`
                 ]
             })
         ],
@@ -152,9 +151,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     basicMediaQuery(textSize * 18.5),
-                    altContentMediaQuery(textSize * 33),
+                    altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 30, textSize, 'US')
+                    textWrap(textSize * 40, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

@@ -111,10 +111,10 @@ export default {
                 const breakpointCalc = textSize * 17;
                 return {
                     styles: [
-                        messageDisclaimerMediaQuery(breakpointCalc - 1),
                         basicMediaQuery(breakpointCalc),
                         `.message__logo-container { width: ${textSize * 5}px }`,
-                        textWrap(textSize * 43, textSize, 'US')
+                        textWrap(textSize * 43, textSize, 'US'),
+                        `.message__headline span:only-child { white-space: normal; }`
                     ],
                     logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                     headline: [
@@ -134,8 +134,7 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 20),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `.message__headline span:only-child { white-space: nowrap; }`,
-                    textWrap(textSize * 43, textSize, 'US')
+                    `.message__headline span:only-child { white-space: nowrap; }`
                 ],
                 headline: [
                     'xsmall',
@@ -154,7 +153,8 @@ export default {
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 45),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 43, textSize, 'US')
+                    textWrap(textSize * 43, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })

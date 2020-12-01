@@ -95,7 +95,8 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 18),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 34, textSize, 'US')
+                    textWrap(textSize * 34, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: [
@@ -117,8 +118,7 @@ export default {
                     }`,
                     basicMediaQuery(textSize * 20),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `.message__headline span:only-child { white-space: nowrap; }`,
-                    textWrap(textSize * 34, textSize, 'US')
+                    `.message__headline span:only-child { white-space: nowrap; }`
                 ],
                 headline: [
                     'xsmall',
@@ -137,7 +137,8 @@ export default {
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 35),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 34, textSize, 'US')
+                    textWrap(textSize * 34, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
