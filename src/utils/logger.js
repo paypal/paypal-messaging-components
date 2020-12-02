@@ -1,6 +1,7 @@
 import { Logger, LOG_LEVEL } from 'beaver-logger';
 
 import { getGlobalUrl } from './global';
+import { request } from './miscellaneous';
 
 export const logger = Logger({
     // Url to send logs to
@@ -10,7 +11,17 @@ export const logger = Logger({
     // Log level to display in the browser console
     logLevel: LOG_LEVEL.WARN,
     // Interval to flush logs to server
-    flushInterval: 10 * 1000
+    flushInterval: 10 * 1000,
+    // Override transport so we can use withCredentials
+    transport: ({ url, method, json, headers }) =>
+        request(method, url, {
+            headers: {
+                'content-type': 'application/json',
+                ...headers
+            },
+            data: json,
+            withCredentials: true
+        })
 });
 
 logger.addPayloadBuilder(payload => {
