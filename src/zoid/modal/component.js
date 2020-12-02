@@ -74,12 +74,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClick, onApply, messageRequestId } = props;
+                    const { onClick, onApply, index } = props;
 
                     return ({ linkName }) => {
                         logger.track({
-                            index: props.index,
-                            messageRequestId,
+                            index,
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName
@@ -99,12 +98,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onCalculate, index, messageRequestId } = props;
+                    const { onCalculate, index } = props;
 
                     return ({ value }) => {
                         logger.track({
                             index,
-                            messageRequestId,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
@@ -121,7 +119,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClose, index, messageRequestId } = props;
+                    const { onClose, index } = props;
                     const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
@@ -129,7 +127,6 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
 
                         logger.track({
                             index,
-                            messageRequestId,
                             et: 'CLICK',
                             event_type: 'modal-close',
                             link: linkName
@@ -148,11 +145,17 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const { onReady } = props;
 
                     return ({ products, trackingPayload }) => {
-                        const { index, offer, messageRequestId } = props;
+                        const { index, offer } = props;
 
-                        logger.addMetaBuilder(() => {
+                        logger.addMetaBuilder(existingMeta => {
+                            const key = `modal-${index}`;
+
+                            // Remove potential existing meta info
+                            // Necessary because beaver-logger will not override an existing meta key if these values change
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta[key];
                             return {
-                                [`modal-${messageRequestId}`]: {
+                                [key]: {
                                     trackingPayload
                                 }
                             };
@@ -164,11 +167,9 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                         });
                         logger.track({
                             index,
-                            messageRequestId,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`,
-                            trackingPayload
+                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
                         });
 
                         if (typeof onReady === 'function') {
