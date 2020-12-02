@@ -135,7 +135,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     basicMediaQuery(textSize * 20),
-                    altContentMediaQuery(textSize * 35),
+                    altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 34, textSize, 'US'),
                     `.message__headline span:only-child { white-space: normal; }`

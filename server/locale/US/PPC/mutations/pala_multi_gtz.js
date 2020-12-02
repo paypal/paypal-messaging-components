@@ -90,7 +90,8 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 23.8),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 22, textSize, 'US')
+                    textWrap(textSize * 22, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
