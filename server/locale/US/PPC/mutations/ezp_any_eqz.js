@@ -43,7 +43,7 @@ export default {
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
@@ -57,7 +57,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -72,7 +72,7 @@ export default {
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8)
                 ]
             })
@@ -83,7 +83,7 @@ export default {
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo { width: ${textSize * 7}px }`
                 ]
             })
@@ -94,7 +94,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 messageWidth: [textSize * 15, 1000],
@@ -110,7 +110,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ]
@@ -121,7 +121,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -131,7 +131,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -141,7 +141,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ]
             })
@@ -151,7 +151,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     `.message__logo { width: ${textSize * 7}px }`
                 ]
             })
@@ -166,7 +166,7 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
-                    zeroAprMediaQuery(textSize * 17),
+                    zeroAprMediaQuery(textSize * 16),
                     ...whiteStyles
                 ]
             })
@@ -174,13 +174,13 @@ export default {
         [
             'logo.type:none && text.color:monochrome',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 17), `.tag--small { color: black; }`]
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: black; }`]
             })
         ],
         [
             'logo.type:none && text.color:grayscale',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 17), `.tag--small { color: #2c2e2f; }`]
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations

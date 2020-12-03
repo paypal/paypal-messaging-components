@@ -55,14 +55,14 @@ export default {
             ({ textSize }) => ({
                 styles: [`.message__logo { width: ${textSize * 7}px }`],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
-                messageWidth: [textSize * 19, 1000]
+                messageWidth: false
             })
         ],
         [
             'logo.type:none',
-            ({ textSize }) => ({
+            () => ({
                 logo: false,
-                messageWidth: [textSize * 17, 1000]
+                messageWidth: false
             })
         ],
         [
