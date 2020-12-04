@@ -58,7 +58,14 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [zeroAprMediaQuery(textSize * 16), `.message__logo { width: ${textSize * 7}px }`],
+                styles: [
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16}px) {
+                        .message__logo-container { display: block; }
+                    }
+                    .message__logo { width: ${textSize * 7}px }`
+                ],
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
                 messageWidth: [textSize * 19, 1000],
                 headline: {
@@ -70,7 +77,14 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [zeroAprMediaQuery(textSize * 16)],
+                styles: [
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 15}px) {
+                        .message__logo-container { display: block; }
+                    }
+                    `
+                ],
                 logo: false,
                 messageWidth: [textSize * 17, 1000],
                 headline: {

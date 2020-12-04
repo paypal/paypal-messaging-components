@@ -31,6 +31,7 @@ export default {
                     @media (max-width: ${textSize * 17}px) {
                         .message__messaging { display: block; }
                     }
+                    .message__headline > .tag--small > .br:nth-child(2) { display: block; }
                     `
                 ]
             })
@@ -38,7 +39,15 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [zeroAprMediaQuery(textSize * 16), `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16}px) {
+                        .message__headline > .tag--small > .br:nth-child(2) { display: block; }
+                    }
+                    .message__logo-container { width: ${textSize * 9}px }
+                    `
+                ]
             })
         ],
         [
