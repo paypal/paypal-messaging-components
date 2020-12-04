@@ -28,10 +28,10 @@ export default {
                     }),
                     zeroAprMediaQuery(textSize * 16),
                     `
-                    @media (max-width: ${textSize * 17}px) {
+                    @media (max-width: ${textSize * 11}px) {
                         .message__messaging { display: block; }
+                        .message__headline > .tag--small > .br:nth-child(2) { display: block; }
                     }
-                    .message__headline > .tag--small > .br:nth-child(2) { display: block; }
                     `
                 ]
             })

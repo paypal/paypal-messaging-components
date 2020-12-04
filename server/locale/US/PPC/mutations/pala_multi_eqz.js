@@ -81,7 +81,7 @@ export default {
                     zeroAprMediaQuery(textSize * 16),
                     `
                     @media (max-width: ${textSize * 15}px) {
-                        .message__logo-container { display: block; }
+                        .message__disclaimer { display: block; }
                     }
                     `
                 ],
