@@ -48,7 +48,12 @@ export default {
                         logoContainerBP: textSize * 21,
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `
                 ]
             })
         ],
@@ -58,6 +63,11 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -68,6 +78,11 @@ export default {
                 messageWidth: [textSize * 10, 1000],
                 styles: [
                     ...defaultTextStyles,
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
@@ -95,6 +110,11 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ],
                 messageWidth: [textSize * 15, 1000],
@@ -112,6 +132,11 @@ export default {
                     ...defaultTextStyles,
                     zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ]
             })
@@ -132,6 +157,11 @@ export default {
                 styles: [
                     ...whiteStyles,
                     zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
@@ -142,6 +172,11 @@ export default {
                 styles: [
                     ...whiteStyles,
                     zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`
                 ]
             })
