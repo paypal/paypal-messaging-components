@@ -202,7 +202,12 @@ export default {
                         whiteSpaceBP: textSize * 27
                     }),
                     zeroAprMediaQuery(textSize * 16),
-                    ...whiteStyles
+                    ...whiteStyles,
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `
                 ]
             })
         ],
