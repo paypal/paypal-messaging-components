@@ -169,12 +169,8 @@ export default {
     },
     ignoreCache: ({ props: { ignoreCache } }) => {
         if (typeof ignoreCache !== 'undefined') {
-            const options = [true, false];
-
             if (!validateType(Types.BOOLEAN, ignoreCache)) {
                 logInvalidType('ignoreCache', Types.BOOLEAN, ignoreCache);
-            } else if (!arrayIncludes(options, ignoreCache)) {
-                logInvalidOption('ignoreCache', options, ignoreCache);
             } else {
                 return ignoreCache;
             }
