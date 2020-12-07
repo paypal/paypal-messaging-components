@@ -8,7 +8,8 @@ export default {
         text: {
             color: [Types.STRING, ['black', 'white']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
-            fontFamily: [Types.STRING]
+            fontFamily: [Types.STRING],
+            fontSrc: [Types.STRING]
         },
         preset: [Types.STRING, [undefined, 'smallest']]
     },

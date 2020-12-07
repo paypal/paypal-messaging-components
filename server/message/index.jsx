@@ -62,13 +62,28 @@ export default ({ options, markup, locale }) => {
         rule.replace(/\.message/g, `.${localeClass} .message`)
     );
     const mutationStyleRules = mutationRules.styles ?? [];
+    const customFontStyleRules = [];
     const miscStyleRules = [];
-
     const textSize = style.text?.size;
+    const fontFamily = style.text?.fontFamily;
+    const fontSrc = style.text?.fontSrc;
     if (layout === 'text' && textSize) {
         // miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
         // miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
         miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
+    }
+    if (fontSrc) {
+        customFontStyleRules.push(`
+            @font-face {
+                font-family: 'MerchantCustomFont'; 
+                src: url(${fontSrc});
+            }`);
+        customFontStyleRules.push(`
+            .message__messaging { 
+                font-family: 'MerchantCustomFont'; 
+            }`);
+    } else if (fontFamily) {
+        customFontStyleRules.push(`.message__messaging { font-family: '${fontFamily}'; }`);
     }
 
     // Set boundaries on the width of the message text to ensure proper line counts
@@ -103,6 +118,7 @@ export default ({ options, markup, locale }) => {
                     localeStyleRules={localeStyleRules}
                     mutationStyleRules={mutationStyleRules}
                     miscStyleRules={miscStyleRules}
+                    customFontStyleRules={customFontStyleRules}
                 />
             </CustomMessage>
         );
@@ -115,6 +131,7 @@ export default ({ options, markup, locale }) => {
                 localeStyleRules={localeStyleRules}
                 mutationStyleRules={mutationStyleRules}
                 miscStyleRules={miscStyleRules}
+                customFontStyleRules={customFontStyleRules}
             />
             <div className={`message__container ${localeClass}`}>
                 {/* foreground layer */}
