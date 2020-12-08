@@ -64,26 +64,28 @@ export default ({ options, markup, locale }) => {
     const mutationStyleRules = mutationRules.styles ?? [];
     const customFontStyleRules = [];
     const miscStyleRules = [];
-    const textSize = style.text?.size;
-    const fontFamily = style.text?.fontFamily;
+    const textSize = layout === 'flex' ? undefined : style.text?.size;
     const fontSrc = style.text?.fontSrc;
+    const fontFamily = fontSrc ? 'MerchantCustomFont' : style.text?.fontFamily;
+    const fontSelector = `
+.message__messaging, 
+.message__messaging .message__headline span, 
+.message__messaging .message__disclaimer span`;
+    const textSizeRule = textSize ? `font-size: ${textSize}px; ` : '';
+    const fontFamilyRule = fontFamily ? `font-family: '${fontFamily}'; ` : '';
+
     if (layout === 'text' && textSize) {
-        // miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
-        // miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
         miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
     }
     if (fontSrc) {
         customFontStyleRules.push(`
             @font-face {
-                font-family: 'MerchantCustomFont'; 
+                font-family: '${fontFamily}'; 
                 src: url(${fontSrc});
             }`);
-        customFontStyleRules.push(`
-            .message__messaging { 
-                font-family: 'MerchantCustomFont'; 
-            }`);
-    } else if (fontFamily) {
-        customFontStyleRules.push(`.message__messaging { font-family: '${fontFamily}'; }`);
+    }
+    if (fontFamilyRule || textSizeRule) {
+        customFontStyleRules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
     }
 
     // Set boundaries on the width of the message text to ensure proper line counts
