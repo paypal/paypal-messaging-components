@@ -1,7 +1,5 @@
-// import text from './text';
-// import flex from './flex';
+import text from './text';
 
-// export default {
-//     'layout:text': text,
-//     'layout:flex': flex
-// };
+export default {
+    'layout:text': text
+};
