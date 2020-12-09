@@ -24,4 +24,8 @@ const accounts = [
     // GB
     // 'DEV000000GBPL',
     // 'DEV00000GBPLQ',
+
+    // FR
+    // 'DEV000000FRPL',
+    // 'DEV00000FRPLQ'
 ];
