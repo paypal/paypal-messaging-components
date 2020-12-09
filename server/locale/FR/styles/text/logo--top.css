@@ -1,8 +1,9 @@
+.message__content {
+    display: inline-block;
+}
+
 .message__logo-container {
-    display: flex;
-    align-items: center;
-    width: auto;
-    margin-right: 0.4rem;
+    margin-bottom: 0px;
 }
 
 .message__logo:first-child {

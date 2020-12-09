@@ -6,6 +6,11 @@
     content: '.';
 }
 
+.message__logo:last-child {
+    margin-top: -1px;
+    margin-right: 0px;
+}
+
 .weak {
     display: none;
 }
