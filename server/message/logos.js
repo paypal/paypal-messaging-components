@@ -20,7 +20,7 @@ function getPPMonogramBase64(logoColor) {
 }
 
 export default {
-    PRIMARY: {
+    PP_PAYPAL: {
         COLOR: [
             {
                 src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
@@ -62,7 +62,7 @@ export default {
             }
         ]
     },
-    ALT_NO_PP: {
+    NO_PP_MONOGRAM: {
         COLOR: {
             src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
             dimensions: [100, 32]

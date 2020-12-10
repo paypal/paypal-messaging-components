@@ -1,23 +1,23 @@
-import Logo from '../logos';
+import Logo from '../../../../message/logos';
 
 export const textLogoMutations = [
-    ['text.color:white && logo.type:primary', { logo: Logo.PRIMARY.WHITE }],
-    ['text.color:grayscale && logo.type:primary', { logo: Logo.PRIMARY.GRAYSCALE }],
-    ['text.color:monochrome && logo.type:primary', { logo: Logo.PRIMARY.MONOCHROME }],
+    ['text.color:white && logo.type:primary', { logo: Logo.PP_PAYPAL.WHITE }],
+    ['text.color:grayscale && logo.type:primary', { logo: Logo.PP_PAYPAL.GRAYSCALE }],
+    ['text.color:monochrome && logo.type:primary', { logo: Logo.PP_PAYPAL.MONOCHROME }],
 
-    ['text.color:white && logo.type:alternative', { logo: Logo.ALT_PP.WHITE }],
-    ['text.color:grayscale && logo.type:alternative', { logo: Logo.ALT_PP.GRAYSCALE }],
-    ['text.color:monochrome && logo.type:alternative', { logo: Logo.ALT_PP.MONOCHROME }],
+    ['text.color:white && logo.type:alternative', { logo: Logo.PP_PAYPAL.WHITE[0] }],
+    ['text.color:grayscale && logo.type:alternative', { logo: Logo.PP_PAYPAL.GRAYSCALE[0] }],
+    ['text.color:monochrome && logo.type:alternative', { logo: Logo.PP_PAYPAL.MONOCHROME[0] }],
 
-    ['text.color:white && logo.type:inline', { logo: Logo.INLINE.WHITE }],
-    ['text.color:grayscale && logo.type:inline', { logo: Logo.INLINE.GRAYSCALE }],
-    ['text.color:monochrome && logo.type:inline', { logo: Logo.INLINE.MONOCHROME }]
+    ['text.color:white && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.WHITE }],
+    ['text.color:grayscale && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.GRAYSCALE }],
+    ['text.color:monochrome && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.MONOCHROME }]
 ];
 
 export const flexLogoMutations = [
-    ['color:gray', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white', { logo: Logo.PRIMARY.COLOR }],
-    ['color:white-no-border', { logo: Logo.PRIMARY.COLOR }],
-    ['color:monochrome', { logo: Logo.PRIMARY.MONOCHROME }],
-    ['color:grayscale', { logo: Logo.PRIMARY.GRAYSCALE }]
+    ['color:gray', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:white', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:monochrome', { logo: Logo.PP_PAYPAL.MONOCHROME }],
+    ['color:grayscale', { logo: Logo.PP_PAYPAL.GRAYSCALE }]
 ];

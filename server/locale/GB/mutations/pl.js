@@ -1,4 +1,4 @@
-import Logo from '../logos';
+import Logo from '../../../message/logos';
 import {
     textWrap,
     messageLogoWidth,
@@ -19,7 +19,7 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
-                logo: Logo.PRIMARY.COLOR,
+                logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
@@ -56,7 +56,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                logo: Logo.PRIMARY.COLOR[0]
+                logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
         [
@@ -85,7 +85,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
-                logo: Logo.ALT_NO_PP.COLOR,
+                logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium',
@@ -110,7 +110,7 @@ export default {
         [
             'default',
             {
-                logo: Logo.PRIMARY.WHITE,
+                logo: Logo.PP_PAYPAL.WHITE,
                 headline: [
                     {
                         tag: 'xsmall'
