@@ -7,7 +7,12 @@ import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpd
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
-    const { type, products, setServerData, trackingPayload } = useServerData();
+    const {
+        type,
+        products,
+        setServerData,
+        trackingDetails: { payload: trackingPayload }
+    } = useServerData();
     const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
