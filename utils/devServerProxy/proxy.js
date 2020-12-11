@@ -147,7 +147,8 @@ export default (app, server, compiler) => {
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
-                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            payload: {}
                         }
                     }
                 };
@@ -198,7 +199,10 @@ export default (app, server, compiler) => {
             total_payments: bestOffer.term,
             formattedMinAmount: toLocaleCurrency(terms.minAmount),
             formattedMaxAmount: toLocaleCurrency(terms.maxAmount),
-            nominal_rate: bestOffer.nominalRate
+            nominal_rate: bestOffer.nominalRate,
+            trackingDetails: {
+                payload: {}
+            }
         };
 
         const otherVars = {
