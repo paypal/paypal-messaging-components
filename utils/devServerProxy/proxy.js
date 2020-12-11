@@ -199,10 +199,7 @@ export default (app, server, compiler) => {
             total_payments: bestOffer.term,
             formattedMinAmount: toLocaleCurrency(terms.minAmount),
             formattedMaxAmount: toLocaleCurrency(terms.maxAmount),
-            nominal_rate: bestOffer.nominalRate,
-            trackingDetails: {
-                payload: {}
-            }
+            nominal_rate: bestOffer.nominalRate
         };
 
         const otherVars = {
@@ -241,7 +238,10 @@ export default (app, server, compiler) => {
             country,
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
-            payerId: account
+            payerId: account,
+            trackingDetails: {
+                payload: {}
+            }
         };
 
         return { props, productNames };
