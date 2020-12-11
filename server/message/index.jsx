@@ -38,7 +38,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
 );
 const getFontSrcRule = fontSrc => {
     /* eslint-disable-next-line security/detect-unsafe-regex */
-    const urlPat = RegExp(/\.(?<ext>woff|woff2|otf|tff)$/);
+    const urlPat = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
         woff: 'woff', // woff
         // woff2: 'woff2', // woff2
@@ -49,11 +49,8 @@ const getFontSrcRule = fontSrc => {
     };
     if (fontSrc?.constructor === Array) {
         const ruleVal = fontSrc
-            .map(i => {
-                // const { url, ext } = urlPat.exec(i)?.groups ?? {};
-                const match = urlPat.exec(i);
-                // const [matchAll, url, ext, ...rest] = match ?? [];
-                const url = i;
+            .map(url => {
+                const match = urlPat.exec(url);
                 const ext = match ? match[2] : null;
                 const fmt = fontFormats[ext];
                 if (url && fmt) {
@@ -67,33 +64,7 @@ const getFontSrcRule = fontSrc => {
     }
     return '';
 };
-// const getFontSrcRule = fontSrc => {
-//     const fontFormats = {
-//         woff: 'woff', // woff
-//         // woff2: 'woff2', // woff2
-//         ttf: 'ttf', // truetype
-//         otf: 'otf' // opentype
-//         // eot: 'eot', // embedded opentype
-//         // svg: 'svg' // svg
-//     };
-//     if (fontSrc?.constructor === Array) {
-//         const ruleVal = fontSrc
-//             .map(url => {
-//                 const sections = url?.split('.') ?? [];
-//                 const ext = sections.slice(-1)[0];
-//                 const fmt = fontFormats[ext];
-//                 if (url && fmt) {
-//                     return `url('${url}') format('${fmt}')`;
-//                 }
-//                 return '';
-//             })
-//             .filter(e => e)
-//             .join(', ')
-//             .trim();
-//         return ruleVal ? `src: ${ruleVal};` : '';
-//     }
-//     return '';
-// };
+
 export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
