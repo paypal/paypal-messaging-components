@@ -36,38 +36,9 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-// const getFontSrcRule = fontSrc => {
-//     const urlPat = toString(/^(?<url>https?:\/\/.+\.(?<ext>woff|woff2|otf|tff))$/);
-//     const fontFormats = {
-//         woff: 'woff', // woff
-//         // woff2: 'woff2', // woff2
-//         ttf: 'ttf', // truetype
-//         otf: 'otf' // opentype
-//         // eot: 'eot', // embedded opentype
-//         // svg: 'svg' // svg
-//     };
-//     if (fontSrc.constructor === Array) {
-//         const ruleVal = fontSrc
-//             .map(i => {
-//                 // const { url, ext } = urlPat.exec(i)?.groups ?? {};
-//                 const match = urlPat.exec(i);
-//                 // const [matchAll, url, ext, ...rest] = match ?? [];
-//                 const url = match ? match[1] : null;
-//                 const ext = match ? match[2] : null;
-//                 const fmt = fontFormats[ext];
-//                 if (url && fmt) {
-//                     return `url('${url}') format('${fmt}')`;
-//                 }
-//                 return '';
-//             })
-//             .filter(e => e)
-//             .join(', ');
-//         // .trim();
-//         return ruleVal ? `src: ${ruleVal};` : '';
-//     }
-//     return '';
-// };
 const getFontSrcRule = fontSrc => {
+    /* eslint-disable-next-line security/detect-unsafe-regex */
+    const urlPat = RegExp(/\.(?<ext>woff|woff2|otf|tff)$/);
     const fontFormats = {
         woff: 'woff', // woff
         // woff2: 'woff2', // woff2
@@ -78,9 +49,12 @@ const getFontSrcRule = fontSrc => {
     };
     if (fontSrc?.constructor === Array) {
         const ruleVal = fontSrc
-            .map(url => {
-                const sections = url?.split('.') ?? [];
-                const ext = sections.slice(-1)[0];
+            .map(i => {
+                // const { url, ext } = urlPat.exec(i)?.groups ?? {};
+                const match = urlPat.exec(i);
+                // const [matchAll, url, ext, ...rest] = match ?? [];
+                const url = i;
+                const ext = match ? match[2] : null;
                 const fmt = fontFormats[ext];
                 if (url && fmt) {
                     return `url('${url}') format('${fmt}')`;
@@ -88,12 +62,38 @@ const getFontSrcRule = fontSrc => {
                 return '';
             })
             .filter(e => e)
-            .join(', ')
-            .trim();
+            .join(', ');
         return ruleVal ? `src: ${ruleVal};` : '';
     }
     return '';
 };
+// const getFontSrcRule = fontSrc => {
+//     const fontFormats = {
+//         woff: 'woff', // woff
+//         // woff2: 'woff2', // woff2
+//         ttf: 'ttf', // truetype
+//         otf: 'otf' // opentype
+//         // eot: 'eot', // embedded opentype
+//         // svg: 'svg' // svg
+//     };
+//     if (fontSrc?.constructor === Array) {
+//         const ruleVal = fontSrc
+//             .map(url => {
+//                 const sections = url?.split('.') ?? [];
+//                 const ext = sections.slice(-1)[0];
+//                 const fmt = fontFormats[ext];
+//                 if (url && fmt) {
+//                     return `url('${url}') format('${fmt}')`;
+//                 }
+//                 return '';
+//             })
+//             .filter(e => e)
+//             .join(', ')
+//             .trim();
+//         return ruleVal ? `src: ${ruleVal};` : '';
+//     }
+//     return '';
+// };
 export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
