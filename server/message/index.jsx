@@ -36,7 +36,64 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-
+// const getFontSrcRule = fontSrc => {
+//     const urlPat = toString(/^(?<url>https?:\/\/.+\.(?<ext>woff|woff2|otf|tff))$/);
+//     const fontFormats = {
+//         woff: 'woff', // woff
+//         // woff2: 'woff2', // woff2
+//         ttf: 'ttf', // truetype
+//         otf: 'otf' // opentype
+//         // eot: 'eot', // embedded opentype
+//         // svg: 'svg' // svg
+//     };
+//     if (fontSrc.constructor === Array) {
+//         const ruleVal = fontSrc
+//             .map(i => {
+//                 // const { url, ext } = urlPat.exec(i)?.groups ?? {};
+//                 const match = urlPat.exec(i);
+//                 // const [matchAll, url, ext, ...rest] = match ?? [];
+//                 const url = match ? match[1] : null;
+//                 const ext = match ? match[2] : null;
+//                 const fmt = fontFormats[ext];
+//                 if (url && fmt) {
+//                     return `url('${url}') format('${fmt}')`;
+//                 }
+//                 return '';
+//             })
+//             .filter(e => e)
+//             .join(', ');
+//         // .trim();
+//         return ruleVal ? `src: ${ruleVal};` : '';
+//     }
+//     return '';
+// };
+const getFontSrcRule = fontSrc => {
+    const fontFormats = {
+        woff: 'woff', // woff
+        // woff2: 'woff2', // woff2
+        ttf: 'ttf', // truetype
+        otf: 'otf' // opentype
+        // eot: 'eot', // embedded opentype
+        // svg: 'svg' // svg
+    };
+    if (fontSrc?.constructor === Array) {
+        const ruleVal = fontSrc
+            .map(url => {
+                const sections = url?.split('.') ?? [];
+                const ext = sections.slice(-1)[0];
+                const fmt = fontFormats[ext];
+                if (url && fmt) {
+                    return `url('${url}') format('${fmt}')`;
+                }
+                return '';
+            })
+            .filter(e => e)
+            .join(', ')
+            .trim();
+        return ruleVal ? `src: ${ruleVal};` : '';
+    }
+    return '';
+};
 export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
@@ -72,7 +129,10 @@ export default ({ options, markup, locale }) => {
 .message__messaging .message__headline span, 
 .message__messaging .message__disclaimer span`;
     const textSizeRule = textSize ? `font-size: ${textSize}px; ` : '';
-    const fontFamilyRule = fontFamily ? `font-family: '${fontFamily}'; ` : '';
+    const fontFamilyRule = fontFamily
+        ? `font-family: '${fontFamily}', PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `
+        : '';
+    const fontSrcRule = getFontSrcRule(fontSrc);
 
     if (layout === 'text' && textSize) {
         miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
@@ -81,12 +141,18 @@ export default ({ options, markup, locale }) => {
         customFontStyleRules.push(`
             @font-face {
                 font-family: '${fontFamily}'; 
-                src: url(${fontSrc});
+                ${fontSrcRule}
             }`);
     }
     if (fontFamilyRule || textSizeRule) {
         customFontStyleRules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
     }
+    // const textSize = style.text?.size;
+    // if (layout === 'text' && textSize) {
+    //     // miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
+    //     // miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
+    //     miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
+    // }
 
     // Set boundaries on the width of the message text to ensure proper line counts
     if (mutationRules.messageWidth) {

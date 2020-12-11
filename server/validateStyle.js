@@ -42,7 +42,14 @@ function getValidVal(addLog, typeArr, val, location) {
 
             return validVal.split('|')[0];
         }
-
+        if (type === Types.MULTI_STRING) {
+            if (typeof val === 'string') {
+                return [val];
+            }
+            if (val?.constructor === Array) {
+                return val.filter(e => e);
+            }
+        }
         return val;
     }
 
