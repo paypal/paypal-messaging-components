@@ -16,8 +16,8 @@ const PL = () => {
                 <h2>{headline.singleProduct}</h2>
 
                 <h3>
-                    {subHeadline.pay.start} {qualifying && subHeadline.pay.amount} {subHeadline.pay.end}{' '}
-                    {replaceZeros(subHeadline.available)} {subHeadline.apply}
+                    {subHeadline.pay.start} {qualifying && `${subHeadline.pay.amount} `}
+                    {subHeadline.pay.end} {replaceZeros(subHeadline.available)} {subHeadline.apply}
                 </h3>
 
                 <div className="call-to-action">

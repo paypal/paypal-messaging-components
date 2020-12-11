@@ -45,7 +45,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             setServerData(data);
             setLoading(false);
         });
-    }, [currency, amount, payerId, clientId, merchantId]);
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
