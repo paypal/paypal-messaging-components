@@ -103,6 +103,33 @@ export default {
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
     style: ({ props: { style } }) => {
+        let fontSrc = style?.text?.fontSrc;
+
+        if (fontSrc) {
+            if (typeof fontSrc === 'string') {
+                fontSrc = [fontSrc];
+            }
+            if (fontSrc?.constructor === Array) {
+                fontSrc.filter(url => {
+                    const fontFormats = {
+                        woff: 'woff', // woff
+                        // woff2: 'woff2', // woff2
+                        ttf: 'ttf', // truetype
+                        otf: 'otf' // opentype
+                        // eot: 'eot', // embedded opentype
+                        // svg: 'svg' // svg
+                    };
+                    const ext = url?.split('.').slice(-1);
+                    return url && url.indexOf('http') === 0 && fontFormats[ext];
+                });
+            }
+            if (fontSrc) {
+                console.log(`fontSrc:`, fontSrc);
+                style.text.fontSrc = fontSrc;
+            } else {
+                delete style.text.fontSrc;
+            }
+        }
         if (validateType(Types.OBJECT, style)) {
             if (validateType(Types.STRING, style.layout)) {
                 return style;

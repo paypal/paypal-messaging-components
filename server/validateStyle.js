@@ -14,7 +14,38 @@ const logInvalidOption = (addLog, location, options, val) =>
             /^[a-z0-9]+$/i.test(val) ? val : 'REDACTED'
         }".`
     );
-
+function validateFontSrc(fontSrc) {
+    /* eslint-disable-next-line security/detect-unsafe-regex */
+    const urlPat = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
+    const fontFormats = {
+        woff: 'woff', // woff
+        // woff2: 'woff2', // woff2
+        ttf: 'ttf', // truetype
+        otf: 'otf' // opentype
+        // eot: 'eot', // embedded opentype
+        // svg: 'svg' // svg
+    };
+    let result = [];
+    const verifyUrls = fontSrc => {
+        return fontSrc
+            .map(url => {
+                const match = urlPat.exec(url);
+                const ext = match ? match[2] : null;
+                const fmt = fontFormats[ext];
+                if (url && fmt) {
+                    return url;
+                }
+                return '';
+            })
+            .filter(e => e);
+    };
+    if (typeof fontSrc === 'string') {
+        result = verifyUrls([fontSrc]);
+    } else if (fontSrc?.constructor === Array) {
+        result = verifyUrls(fontSrc);
+    }
+    return result;
+}
 function getValidVal(addLog, typeArr, val, location) {
     const [type, validVals = []] = typeArr;
 
@@ -42,11 +73,15 @@ function getValidVal(addLog, typeArr, val, location) {
 
             return validVal.split('|')[0];
         }
+        if (location === 'style.text.fontSrc') {
+            return validateFontSrc(val);
+        }
         if (type === Types.MULTI_STRING) {
             if (typeof val === 'string') {
                 return [val];
             }
             if (val?.constructor === Array) {
+                console.log(val);
                 return val.filter(e => e);
             }
         }
