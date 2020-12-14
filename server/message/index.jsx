@@ -51,6 +51,7 @@ const getFontSrcRule = val => {
         const fontSrc = JSON.parse(Buffer.from(val, 'base64').toString('ascii'));
         // const fontSrc = JSON.parse(atob(val));
         const ruleVal = (fontSrc?.constructor === Array ? fontSrc : [fontSrc])
+            .slice(0, 10)
             .filter(e => typeof e === 'string')
             .map(url => {
                 const match = urlPat.exec(url);
