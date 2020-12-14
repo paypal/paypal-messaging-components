@@ -36,7 +36,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-const getFontSrcRule = fontSrc => {
+const getFontSrcRule = val => {
     /* eslint-disable-next-line security/detect-unsafe-regex */
     const urlPat = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
@@ -47,8 +47,11 @@ const getFontSrcRule = fontSrc => {
         // eot: 'eot', // embedded opentype
         // svg: 'svg' // svg
     };
-    if (fontSrc?.constructor === Array) {
-        const ruleVal = fontSrc
+    try {
+        const fontSrc = JSON.parse(Buffer.from(val, 'base64').toString('ascii'));
+        // const fontSrc = JSON.parse(atob(val));
+        const ruleVal = (fontSrc?.constructor === Array ? fontSrc : [fontSrc])
+            .filter(e => typeof e === 'string')
             .map(url => {
                 const match = urlPat.exec(url);
                 const ext = match ? match[2] : null;
@@ -61,8 +64,10 @@ const getFontSrcRule = fontSrc => {
             .filter(e => e)
             .join(', ');
         return ruleVal ? `src: ${ruleVal};` : '';
+    } catch (err) {
+        // TODO: report on failed parameter?
+        return '';
     }
-    return '';
 };
 
 export default ({ options, markup, locale }) => {

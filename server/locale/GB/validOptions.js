@@ -10,7 +10,7 @@ export default {
             color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             fontFamily: [Types.STRING],
-            fontSrc: [Types.MULTI_STRING]
+            fontSrc: [Types.STRING]
         },
         preset: [Types.STRING, [undefined, 'smallest']]
     },
@@ -22,7 +22,7 @@ export default {
             color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             // size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             fontFamily: [Types.STRING],
-            fontSrc: [Types.MULTI_STRING]
+            fontSrc: [Types.STRING]
         }
     }
 };
