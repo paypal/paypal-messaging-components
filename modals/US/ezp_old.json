@@ -1,7 +1,8 @@
 {
     "meta": {
         "product": "EZP",
-        "legacy": true
+        "legacy": true,
+        "variables": {}
     },
     "content": {
         "title": "Split your purchases into equal monthly payments",

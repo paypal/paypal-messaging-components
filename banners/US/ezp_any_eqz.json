@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "EZP:ANY:EQZ",
-        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
