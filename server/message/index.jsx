@@ -36,7 +36,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-const getFontSrcRule = val => {
+const getfontSourceRule = val => {
     /* eslint-disable-next-line security/detect-unsafe-regex */
     const urlPat = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
@@ -48,9 +48,9 @@ const getFontSrcRule = val => {
         // svg: 'svg' // svg
     };
     try {
-        const fontSrc = JSON.parse(Buffer.from(val, 'base64').toString('ascii'));
-        // const fontSrc = JSON.parse(atob(val));
-        const ruleVal = (fontSrc?.constructor === Array ? fontSrc : [fontSrc])
+        const fontSource = JSON.parse(Buffer.from(val, 'base64').toString('ascii'));
+        // const fontSource = JSON.parse(atob(val));
+        const ruleVal = (fontSource?.constructor === Array ? fontSource : [fontSource])
             .slice(0, 10)
             .filter(e => typeof e === 'string')
             .map(url => {
@@ -70,7 +70,27 @@ const getFontSrcRule = val => {
         return '';
     }
 };
-
+const getFontFamilyRule = val => {
+    const genericFamilies = {
+        serif: 'serif',
+        'sans-serif': 'sans-serif',
+        monospace: 'monospace',
+        cursive: 'cursive',
+        fantasy: 'fantasy',
+        'system-ui': 'system-ui',
+        'ui-serif': 'ui-serif',
+        'ui-sans-serif': 'ui-sans-serif',
+        'ui-monospace': 'ui-monospace',
+        math: 'math',
+        emoji: 'emoji',
+        fangsong: 'fangsong'
+    };
+    const fontFamily = typeof val === 'string' ? genericFamilies[val] ?? `'${val}'` : '';
+    if (fontFamily) {
+        return `font-family: ${fontFamily}, PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `;
+    }
+    return '';
+};
 export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
@@ -99,27 +119,22 @@ export default ({ options, markup, locale }) => {
     const customFontStyleRules = [];
     const miscStyleRules = [];
     const textSize = layout === 'flex' ? undefined : style.text?.size;
-    const fontSrc = style.text?.fontSrc;
-    const fontFamily = fontSrc ? 'MerchantCustomFont' : style.text?.fontFamily;
+    const fontSource = style.text?.fontSource;
+    const fontFamily = fontSource ? 'MerchantCustomFont' : style.text?.fontFamily;
     const fontSelector = `
 .message__messaging, 
 .message__messaging .message__headline span, 
 .message__messaging .message__disclaimer span`;
     const textSizeRule = textSize ? `font-size: ${textSize}px; ` : '';
-    const fontFamilyRule = fontFamily
-        ? `font-family: '${fontFamily}', PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `
-        : '';
-    const fontSrcRule = getFontSrcRule(fontSrc);
+
+    const fontFamilyRule = getFontFamilyRule(fontFamily);
+    const fontSourceRule = getfontSourceRule(fontSource);
 
     if (layout === 'text' && textSize) {
         miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
     }
-    if (fontSrc) {
-        customFontStyleRules.push(`
-            @font-face {
-                font-family: '${fontFamily}'; 
-                ${fontSrcRule}
-            }`);
+    if (fontSource) {
+        customFontStyleRules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
     }
     if (fontFamilyRule || textSizeRule) {
         customFontStyleRules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);

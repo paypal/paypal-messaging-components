@@ -14,6 +14,7 @@ const logInvalidOption = (addLog, location, options, val) =>
             /^[a-z0-9]+$/i.test(val) ? val : 'REDACTED'
         }".`
     );
+
 function getValidVal(addLog, typeArr, val, location) {
     const [type, validVals = []] = typeArr;
 

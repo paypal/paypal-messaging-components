@@ -103,20 +103,16 @@ export default {
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
     style: ({ props: { style } }) => {
-        const fontSrc = style?.text?.fontSrc;
+        const styleOptions = { ...style };
+        const fontSource = styleOptions?.text?.fontSource ? btoa(JSON.stringify(style.text.fontSource)) : undefined;
 
-        if (fontSrc) {
-            // style.text.fontSrc = Buffer.from(JSON.stringify(fontSrc)).toString('base64');
-            /* eslint-disable-next-line no-param-reassign */
-            style.text.fontSrc = btoa(JSON.stringify(fontSrc));
-        }
         if (validateType(Types.OBJECT, style)) {
             if (validateType(Types.STRING, style.layout)) {
-                return style;
+                return { fontSource, ...style };
             }
 
             if (validateType(Types.STRING, style.preset)) {
-                return { layout: 'text', ...style };
+                return { fontSource, layout: 'text', ...style };
             }
         }
 
