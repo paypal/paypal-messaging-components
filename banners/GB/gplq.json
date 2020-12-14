@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "GB",
-        "offerType": "PL",
+        "offerType": "GPLQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
@@ -15,7 +15,10 @@
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
-        ["Pay in 3 interest-free payments on eligible purchases.", ["medium", "large", "xlarge"]]
+        [
+            ["Pay in 3 interest-free payments of {formattedPeriodicPayment}", [".", "weak"]],
+            ["medium", "large", "xlarge"]
+        ]
     ],
 
     "subHeadline": [],

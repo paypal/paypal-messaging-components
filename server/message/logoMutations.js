@@ -1,9 +1,4 @@
-import Logo from '../../../message/logos';
-
-/**
- * Assigns appropriate logo based on message config options.
- * Used in mutations files where config settings are the same across many accounts.
- */
+import Logo from './logos';
 
 export const textLogoMutations = [
     ['text.color:white && logo.type:primary', { logo: Logo.PP_PAYPAL.WHITE }],
@@ -17,4 +12,11 @@ export const textLogoMutations = [
     ['text.color:white && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.WHITE }],
     ['text.color:grayscale && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.GRAYSCALE }],
     ['text.color:monochrome && logo.type:inline', { logo: Logo.NO_PP_MONOGRAM.MONOCHROME }]
+];
+
+export const flexLogoMutations = [
+    ['color:gray', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:white', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:monochrome', { logo: Logo.PP_PAYPAL.MONOCHROME }],
+    ['color:grayscale', { logo: Logo.PP_PAYPAL.GRAYSCALE }]
 ];

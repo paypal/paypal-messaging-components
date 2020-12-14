@@ -7,7 +7,7 @@ import {
     altNoWrap,
     setLogoTop
 } from '../../../message/mediaQueries';
-import { textLogoMutations, flexLogoMutations } from './common';
+import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
     'layout:text': [

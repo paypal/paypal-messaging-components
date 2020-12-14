@@ -29,8 +29,8 @@ const devAccountMap = {
     DEV000000PQAG: ['DE', ['inst'], 'palaq_any_gtz'],
     DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
-    DEV000000GBPL: ['GB', ['gpl'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
+    DEV000000GBPL: ['GB', ['gpl'], 'gpl'],
+    DEV00000GBPLQ: ['GB', ['gpl'], 'gplq'],
 
     DEV000000FRPL: ['FR', ['gpl'], 'gpl'],
     DEV00000FRPLQ: ['FR', ['gpl'], 'gplq']

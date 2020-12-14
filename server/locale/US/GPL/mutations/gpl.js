@@ -1,6 +1,6 @@
 import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
-import { flexLogoMutations, textLogoMutations } from './common';
+import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const flex = [
     [
@@ -69,6 +69,7 @@ const flex = [
             ]
         }
     ],
+    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ...flexLogoMutations
 ];
 
