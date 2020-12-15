@@ -5,6 +5,8 @@ import { render } from '@testing-library/preact';
 import Message from 'server/message';
 import { getMutations, getLocaleStyles } from 'server/locale';
 
+const mockLogger = jest.fn();
+
 jest.mock('@paypal/sdk-logos/src', () => {
     const mock = () => ({
         render: () => 'src="data:image&#x2F;svg+xml;base64,svg"'
@@ -104,7 +106,7 @@ describe('SSR message', () => {
         );
 
         const { getByText, getByAltText, container } = render(
-            <Message locale="US" options={options} markup={defaultMarkup()} />
+            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
         );
 
         expect(getByText(headline)).toBeInTheDocument();
@@ -157,7 +159,9 @@ describe('SSR message', () => {
             [xsmallSubHeadline, ['xsmall']]
         ];
 
-        const { getByText, queryByText } = render(<Message locale="US" options={options} markup={markup} />);
+        const { getByText, queryByText } = render(
+            <Message locale="US" addLog={mockLogger} options={options} markup={markup} />
+        );
 
         expect(queryByText(headline)).toBeNull();
         expect(queryByText(subHeadline)).toBeNull();
@@ -178,7 +182,9 @@ describe('SSR message', () => {
             ]
         ]);
 
-        const { container } = render(<Message locale="US" options={options} markup={defaultMarkup()} />);
+        const { container } = render(
+            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
+        );
 
         const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
 
@@ -192,7 +198,9 @@ describe('SSR message', () => {
             })
         );
 
-        const { container } = render(<Message locale="US" options={options} markup={defaultMarkup()} />);
+        const { container } = render(
+            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
+        );
 
         const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
 
@@ -205,7 +213,9 @@ describe('SSR message', () => {
             ['logo.type:primary', style2]
         ]);
 
-        const { container } = render(<Message locale="US" options={options} markup={defaultMarkup()} />);
+        const { container } = render(
+            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
+        );
 
         const localeStyles = Array.from(container.querySelectorAll('style')).find(
             el => el.className === 'styles__locale'
@@ -222,7 +232,9 @@ describe('SSR message', () => {
             })
         );
 
-        const { container } = render(<Message locale="US" options={options} markup={defaultMarkup()} />);
+        const { container } = render(
+            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
+        );
 
         const mutationStyles = Array.from(container.querySelectorAll('style')).find(
             el => el.className === 'styles__mutations'

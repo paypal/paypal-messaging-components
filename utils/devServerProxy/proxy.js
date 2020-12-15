@@ -134,7 +134,11 @@ export default (app, server, compiler) => {
                     }
                 }
 
-                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
+                const markup = render(
+                    warnings.push.bind(warnings),
+                    { style: validatedStyle, amount, customMarkup },
+                    populatedBanner
+                );
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {

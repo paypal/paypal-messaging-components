@@ -9,6 +9,10 @@ import MutatedText from './parts/MutatedText';
 import Styles from './parts/Styles';
 import CustomMessage from './parts/CustomMessage';
 
+const logMessage = val => (val !== 'string' ? JSON.stringify(val) : val);
+const logInfo = (addLog, val) => addLog(`INFO: ${logMessage(val)}`);
+const logError = (addLog, val) => addLog(`ERROR: ${logMessage(val)}`);
+
 /**
  * Get all applicable rules based on user flattened options
  * and available rules to cascade
@@ -36,41 +40,57 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-const getfontSourceRule = val => {
+const getfontSourceRule = (addLog, val) => {
     /* eslint-disable-next-line security/detect-unsafe-regex */
-    const urlPat = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
+    const urlPattern = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
         woff: 'woff', // woff
-        // woff2: 'woff2', // woff2
+        woff2: 'woff2', // woff2
         ttf: 'ttf', // truetype
         otf: 'otf' // opentype
         // eot: 'eot', // embedded opentype
         // svg: 'svg' // svg
     };
+    const payload = {
+        fontSource: val,
+        validValues: [],
+        error: null
+    };
     try {
-        const fontSource = JSON.parse(Buffer.from(val, 'base64').toString('ascii'));
+        const fontSourceStr = Buffer.from(val, 'base64').toString('ascii');
+        payload.fontSource = fontSourceStr; // may want to change to limit how large the payload can be
+        const fontSource = JSON.parse(fontSourceStr);
         // const fontSource = JSON.parse(atob(val));
         const ruleVal = (fontSource?.constructor === Array ? fontSource : [fontSource])
             .slice(0, 10)
             .filter(e => typeof e === 'string')
             .map(url => {
-                const match = urlPat.exec(url);
-                const ext = match ? match[2] : null;
-                const fmt = fontFormats[ext];
-                if (url && fmt) {
-                    return `url('${url}') format('${fmt}')`;
+                const match = urlPattern.exec(url);
+                const extension = match ? match[2] : null;
+                const format = fontFormats[extension];
+                if (url && format) {
+                    payload.validValues.push(url);
+                    return `url('${url}') format('${format}')`;
                 }
                 return '';
             })
             .filter(e => e)
             .join(', ');
+        logInfo(addLog, payload);
         return ruleVal ? `src: ${ruleVal};` : '';
     } catch (err) {
-        // TODO: report on failed parameter?
+        payload.error = JSON.stringify(err);
+        logError(addLog, payload);
         return '';
     }
 };
-const getFontFamilyRule = val => {
+const getFontFamilyRule = (addLog, val) => {
+    const payload = {
+        fontFamily: val,
+        validValue: null
+    };
+    /* eslint-disable-next-line security/detect-unsafe-regex */
+    const fontPattern = RegExp(/^(?<font>([a-zA-Z0-9._-]\s*)+?)$/);
     const genericFamilies = {
         serif: 'serif',
         'sans-serif': 'sans-serif',
@@ -86,12 +106,17 @@ const getFontFamilyRule = val => {
         fangsong: 'fangsong'
     };
     const fontFamily = typeof val === 'string' ? genericFamilies[val] ?? `'${val}'` : '';
-    if (fontFamily) {
+    const match = fontPattern.exec(val);
+    if (match && fontFamily) {
+        payload.validValue = fontFamily;
+        logInfo(addLog, payload);
         return `font-family: ${fontFamily}, PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `;
     }
+    payload.validValue = '';
+    logInfo(addLog, payload);
     return '';
 };
-export default ({ options, markup, locale }) => {
+export default ({ addLog, options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
         options.style.layout === 'text' && options.style.preset === 'smallest'
@@ -126,9 +151,8 @@ export default ({ options, markup, locale }) => {
 .message__messaging .message__headline span, 
 .message__messaging .message__disclaimer span`;
     const textSizeRule = textSize ? `font-size: ${textSize}px; ` : '';
-
-    const fontFamilyRule = getFontFamilyRule(fontFamily);
-    const fontSourceRule = getfontSourceRule(fontSource);
+    const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
+    const fontSourceRule = getfontSourceRule(addLog, fontSource);
 
     if (layout === 'text' && textSize) {
         miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
