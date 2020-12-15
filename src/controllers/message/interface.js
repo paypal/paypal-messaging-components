@@ -81,7 +81,6 @@ export default (options = {}) => ({
                 // Explicitly select props to pass in to avoid unintentionally sending
                 // in props meant for only either the message or modal (e.g. onClick)
                 const commonProps = {
-                    index,
                     account,
                     merchantId,
                     currency,
@@ -94,6 +93,7 @@ export default (options = {}) => ({
                 };
                 const messageProps = {
                     ...commonProps,
+                    index,
                     placement,
                     style,
                     offer,

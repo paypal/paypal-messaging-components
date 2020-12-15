@@ -9,3 +9,9 @@ export const awaitWindowLoad = new ZalgoPromise(resolve =>
         ? window.addEventListener('load', resolve)
         : resolve()
 );
+
+export const awaitDOMContentLoaded = new ZalgoPromise(resolve =>
+    typeof document !== 'undefined' && document.readyState === 'loading'
+        ? window.addEventListener('DOMContentLoaded', resolve)
+        : resolve()
+);

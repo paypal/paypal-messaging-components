@@ -33,6 +33,9 @@ describe('<Container />', () => {
     });
 
     const wrapper = zoidComponentWrapper({
+        meta: {
+            modalRequestId: '12345'
+        },
         products: [
             {
                 meta: {
@@ -54,6 +57,7 @@ describe('<Container />', () => {
         expect(queryByText('modal')).not.toBeNull();
         expect(window.xprops.onReady).toHaveBeenCalledWith(
             expect.objectContaining({
+                meta: { modalRequestId: '12345' },
                 products: [product]
             })
         );

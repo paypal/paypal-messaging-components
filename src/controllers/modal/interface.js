@@ -1,14 +1,19 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
-import { logger, memoizeOnProps, getCurrentTime, viewportHijack, awaitWindowLoad } from '../../utils';
+import {
+    memoizeOnProps,
+    getCurrentTime,
+    awaitWindowLoad,
+    getInlineOptions,
+    isElement,
+    globalState,
+    objectMerge
+} from '../../utils';
 import { Modal } from '../../zoid/modal';
 
-export default memoizeOnProps(
-    ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose, index }) => {
-        const [hijackViewport] = viewportHijack();
-
+const memoizedModal = memoizeOnProps(
+    ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
         const { render, hide, updateProps, state } = Modal({
-            index,
             account,
             merchantId,
             currency,
@@ -39,20 +44,16 @@ export default memoizeOnProps(
             return renderProm;
         };
 
-        const showModal = (newOptions = {}) => {
+        const showModal = (options = {}) => {
+            const newOptions = isElement(options) ? getInlineOptions(options) : options;
+
             state.renderStart = getCurrentTime();
+
             if (!renderProm) {
                 renderProm = renderModal('body');
             }
+
             return renderProm.then(() => {
-                hijackViewport();
-
-                logger.track({
-                    index: newOptions.index,
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'modal-open'
-                });
-
                 return updateProps({
                     visible: true,
                     ...newOptions
@@ -64,8 +65,14 @@ export default memoizeOnProps(
             if (!renderProm) {
                 renderProm = renderModal('body');
             }
+
             return renderProm.then(() => updateProps({ visible: false }));
         };
+
+        // Expose these functions through the computed onReady callback
+        // for merchant integrations
+        state.show = showModal;
+        state.hide = hideModal;
 
         // Follow existing zoid interface
         return {
@@ -77,3 +84,5 @@ export default memoizeOnProps(
     },
     ['account', 'merchantId']
 );
+
+export default options => memoizedModal(objectMerge(globalState.config, options));

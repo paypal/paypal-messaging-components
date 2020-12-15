@@ -10,7 +10,8 @@ import {
     getCurrentTime,
     getLibraryVersion,
     viewportHijack,
-    logger
+    logger,
+    nextIndex
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -52,11 +53,6 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.amount
             },
-            refId: {
-                type: 'string',
-                queryParam: false,
-                required: false
-            },
             buyerCountry: {
                 type: 'string',
                 queryParam: 'buyer_country',
@@ -64,6 +60,16 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: validate.buyerCountry
             },
             offer: {
+                type: 'string',
+                queryParam: false,
+                required: false
+            },
+            refId: {
+                type: 'string',
+                queryParam: false,
+                required: false
+            },
+            refIndex: {
                 type: 'string',
                 queryParam: false,
                 required: false
@@ -77,8 +83,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const { onClick, onApply } = props;
 
                     return ({ linkName }) => {
+                        const { index, refIndex } = props;
+
                         logger.track({
-                            index: props.index,
+                            index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName
@@ -101,8 +110,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const { onCalculate } = props;
 
                     return ({ value }) => {
+                        const { index, refIndex } = props;
+
                         logger.track({
-                            index: props.index,
+                            index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
@@ -115,6 +127,31 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     };
                 }
             },
+            onShow: {
+                type: 'function',
+                queryParam: false,
+                value: ({ props }) => {
+                    const { onShow } = props;
+                    const [hijackViewport] = viewportHijack();
+
+                    return () => {
+                        const { index, refIndex } = props;
+
+                        hijackViewport();
+
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'modal-open'
+                        });
+
+                        if (typeof onShow === 'function') {
+                            onShow();
+                        }
+                    };
+                }
+            },
             onClose: {
                 type: 'function',
                 queryParam: false,
@@ -123,10 +160,13 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
+                        const { index, refIndex } = props;
+
                         replaceViewport();
 
                         logger.track({
-                            index: props.index,
+                            index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'modal-close',
                             link: linkName
@@ -144,28 +184,49 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: ({ props, state }) => {
                     const { onReady } = props;
 
-                    return ({ products }) => {
-                        const { index, offer } = props;
+                    return ({ products, meta }) => {
+                        const { index, offer, merchantId, account, refIndex } = props;
+                        const { renderStart, show, hide } = state;
+                        const { modalRequestId, trackingDetails, displayedMessage } = meta;
+
+                        logger.addMetaBuilder(() => {
+                            return {
+                                [index]: {
+                                    type: 'modal',
+                                    requestId: modalRequestId,
+                                    account: merchantId || account,
+                                    displayedMessage,
+                                    ...trackingDetails
+                                }
+                            };
+                        });
 
                         logger.info('modal_render', {
                             index,
-                            duration: getCurrentTime() - state.renderStart
+                            refIndex,
+                            duration: getCurrentTime() - renderStart
                         });
                         logger.track({
                             index,
+                            refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
+                            modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
                         });
 
                         if (typeof onReady === 'function') {
-                            onReady({ products });
+                            onReady({ products, show, hide });
                         }
                     };
                 }
             },
 
             // Computed Props
+            index: {
+                type: 'string',
+                queryParam: false,
+                default: () => nextIndex().toString()
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',

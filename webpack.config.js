@@ -7,8 +7,6 @@ module.exports = (env = {}) => {
     const MESSAGES_CONFIG = getWebpackConfig({
         entry: './src/index.js',
         filename: 'messaging.js',
-        modulename: ['paypal', 'Messages'],
-        libraryTarget: env.demo ? 'umd' : 'window',
         web: true,
         minify: true,
         debug: false,
@@ -19,7 +17,6 @@ module.exports = (env = {}) => {
             TARGET: 'standalone'
         })
     });
-    MESSAGES_CONFIG.output.libraryExport = 'Messages';
 
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({

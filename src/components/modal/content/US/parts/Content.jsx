@@ -26,9 +26,10 @@ const Content = ({ headerRef }) => {
     const [sticky, setSticky] = useState(false);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
+    // Offer may be undefined when modal is rendered via standalone modal integration
     const product = getProductForOffer(offer);
 
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product);
+    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
     // In case the product shown in the message, for some reason, does not come back with the modal
     // Ideally, this should never happen
     const [selectedProduct, setSelectedProduct] = useState(initialProduct ? product : products[0].meta.product);

@@ -28,16 +28,28 @@ export const getContent = memoizeOnProps(
 );
 
 export function getProductForOffer(offer) {
+    if (typeof offer === 'undefined') {
+        return 'NONE';
+    }
+
     if (
         arrayIncludes(
-            ['EZP:ANY:EQZ', 'EZP:ANY:GTZ', 'PALA:MULTI:EQZ', 'PALA:MULTI:GTZ', 'PALA:SINGLE:EQZ', 'PALA:SINGLE:GTZ'],
+            [
+                'EZP:ANY:EQZ',
+                'EZP:ANY:GTZ',
+                'PALA:MULTI:EQZ',
+                'PALA:MULTI:GTZ',
+                'PALA:SINGLE:EQZ',
+                'PALA:SINGLE:GTZ',
+                'EZP'
+            ],
             offer.toUpperCase()
         )
     ) {
         return 'EZP';
     }
 
-    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ'], offer.toUpperCase())) {
+    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ', 'GPL'], offer.toUpperCase())) {
         return 'GPL';
     }
 

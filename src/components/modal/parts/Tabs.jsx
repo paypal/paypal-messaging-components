@@ -7,7 +7,10 @@ import { useTransitionState, useXProps, useScroll, getProductForOffer } from '..
 
 // Determine pre-selected tab based on the offer type of the banner.
 const getInitialTabIndex = (offer, tabs) =>
-    arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)) || 0;
+    Math.max(
+        arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)),
+        0
+    );
 
 const Tabs = ({ tabs, onSelect }) => {
     // offer type of banner used to determine which tab to pre-select
