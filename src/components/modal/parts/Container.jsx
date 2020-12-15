@@ -11,7 +11,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         type,
         products,
         setServerData,
-        trackingDetails: { payload: trackingPayload }
+        meta: {
+            trackingDetails: { payload: trackingPayload }
+        }
     } = useServerData();
     const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
     const [transitionState] = useTransitionState();

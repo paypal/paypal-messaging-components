@@ -40,7 +40,9 @@ describe('<Container />', () => {
                 }
             }
         ],
-        trackingDetails: {}
+        meta: {
+            trackingDetails: {}
+        }
     });
 
     const content = (
