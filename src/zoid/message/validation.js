@@ -166,5 +166,16 @@ export default {
         }
 
         return undefined;
+    },
+    ignoreCache: ({ props: { ignoreCache } }) => {
+        if (typeof ignoreCache !== 'undefined') {
+            if (!validateType(Types.BOOLEAN, ignoreCache)) {
+                logInvalidType('ignoreCache', Types.BOOLEAN, ignoreCache);
+            } else {
+                return ignoreCache;
+            }
+        }
+
+        return undefined;
     }
 };

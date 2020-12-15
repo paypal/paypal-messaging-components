@@ -83,6 +83,12 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.buyerCountry
             },
+            ignoreCache: {
+                type: 'boolean',
+                queryParam: 'ignore_cache',
+                required: false,
+                value: validate.ignoreCache
+            },
 
             // Callbacks
             onClick: {
