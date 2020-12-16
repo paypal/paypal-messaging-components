@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery, zeroAprMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, textWrap, zeroAprMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
@@ -115,7 +115,8 @@ export default {
                         .tag--small > span:first-child:after { content: '.' }
                     }
                     `,
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 33, textSize, 'US')
                 ],
                 messageWidth: [textSize * 15, 1000],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
@@ -137,8 +138,15 @@ export default {
                         .tag--small > span:first-child:after { content: '.' }
                     }
                     `,
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 33, textSize, 'US')
                 ]
+            })
+        ],
+        [
+            'logo.type:alternative && logo.position:top',
+            ({ textSize }) => ({
+                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [
@@ -178,6 +186,7 @@ export default {
                     }
                     `,
                     `.message__logo-container { width: ${textSize * 5}px }`
+                    textWrap(textSize * 33, textSize, 'US')
                 ]
             })
         ],

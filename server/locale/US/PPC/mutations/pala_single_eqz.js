@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery, zeroAprMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, textWrap, zeroAprMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export default {
@@ -91,7 +91,11 @@ export default {
         [
             'logo.type:alternative',
             ({ textSize }) => ({
-                styles: [zeroAprMediaQuery(textSize * 16), `.message__logo-container { width: ${textSize * 5}px }`],
+                styles: [
+                    zeroAprMediaQuery(textSize * 16),
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 33, textSize, 'US')
+                ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 messageWidth: [textSize * 10, 1000]
             })
@@ -108,7 +112,8 @@ export default {
                 styles: [
                     zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 34.3),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 33, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
