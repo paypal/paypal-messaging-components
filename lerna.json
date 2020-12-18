@@ -1,6 +1,6 @@
 {
     "packages": ["packages/*"],
-    "version": "independent",
+    "version": "1.15.2",
     "command": {
         "version": {
             "allowBranch": ["release", "monorepo"],
