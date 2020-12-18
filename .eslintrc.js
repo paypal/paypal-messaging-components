@@ -29,6 +29,7 @@ module.exports = {
         ],
         'flowtype/require-valid-file-annotation': 'off',
         'flowtype/require-return-type': 'off',
+        'unicorn/prefer-spread': 'off',
         'react/jsx-indent': 0,
         'react/jsx-indent-props': 0,
         'react/prop-types': 0,

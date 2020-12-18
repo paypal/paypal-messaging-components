@@ -10,7 +10,7 @@ node_js:
 
 env:
     global:
-        - DIRTY_SNAPSHOTS=0
+        - DIRTY_SNAPSHOTS=1
     jobs:
         - TEST_PATH_PATTERN=none
 
@@ -83,12 +83,22 @@ jobs:
 
         - stage: deploy
           env: TEST_PATH_PATTERN=none
-          # Override script so deploy doesn't run snapshot tests
+          # Overrides so deploy doesn't run these steps
+          before_script:
+              - true
           script:
+              - true
+          after_script:
+              - true
           deploy:
               provider: script
               skip_cleanup: true
+              # Unclear if these are redundant or not
+              before_script:
+                  - true
               script: npx semantic-release@15
+              after_script:
+                  - true
               on:
                   branch: release
 

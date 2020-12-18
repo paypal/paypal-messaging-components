@@ -16,7 +16,7 @@ function splitText(text, breakWord) {
 
 const BreakText = ({ textParts, options }) => {
     const availableBreaks = [...options.br];
-    return textParts.map(([text, className], idx) => {
+    return textParts.map(([text, className = ''], idx) => {
         // Last portion of text should not have a space after it
         const spaced = idx < textParts.length - 1;
         const containedBreaks = [];

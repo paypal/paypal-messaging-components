@@ -1,11 +1,11 @@
 @mixin desktop {
-    @media (min-width: 750px) and (min-height: 540px) {
+    @media (min-width: 640px) and (min-height: 540px) {
         @content;
     }
 }
 
 @mixin mobile {
-    @media (max-width: 749px), (max-height: 539px) {
+    @media (max-width: 639px), (max-height: 539px) {
         @content;
     }
 }
@@ -15,3 +15,5 @@
         @content;
     }
 }
+
+$header-background: #0070ba;

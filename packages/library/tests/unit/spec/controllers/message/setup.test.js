@@ -19,7 +19,7 @@ describe('message setup', () => {
         Messages().render.mockClear();
     });
 
-    it('Supports pilot window.Message', () => {
+    test('Supports pilot window.Message', () => {
         const removeMockScript = insertMockScript({ account: 'DEV00000000NI' });
 
         setup();
@@ -40,7 +40,7 @@ describe('message setup', () => {
         removeMockScript();
     });
 
-    it('Does not render if account missing', () => {
+    test('Does not render if account missing', () => {
         const removeMockScript = insertMockScript();
 
         setup();
@@ -50,7 +50,7 @@ describe('message setup', () => {
         removeMockScript();
     });
 
-    it('Renames the global namespace', () => {
+    test('Renames the global namespace', () => {
         const removeMockScript = insertMockScript({ account: 'DEV00000000NI', namespace: 'paypal2' });
 
         expect(window.paypal).toEqual(expect.any(Object));

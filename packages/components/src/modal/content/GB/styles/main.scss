@@ -1,49 +1,71 @@
 .content-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    margin: auto;
+    border-radius: 10px;
+    height: 100%;
     // Important: This forces the wrapper to be the entire width of the screen
     // which is needed in Windows due to the scroll bar offset hack used
     // on the topmost parent container
     width: 100vw;
-    height: 100%;
-    overflow-y: scroll;
 }
 
 .content {
-    padding-top: 84px;
+    padding-top: 0;
     position: relative;
     z-index: 50;
-    overflow: hidden;
+    background: white;
 }
 
 .content-background {
     min-height: 100%;
-    max-width: 612px;
+    position: relative;
     width: 100%;
     margin: auto;
+    border-radius: 10px;
+    max-width: 640px;
+}
+
+main {
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-container.loading {
+    .content-wrapper {
+        overflow: hidden;
+    }
+
+    main > * {
+        filter: blur(3px);
+        opacity: 0.6;
+    }
+}
+
+.top-overlay {
+    position: fixed;
+    height: 84px;
+    left: 0;
+    right: 0;
 }
 
 @include desktop {
     .content-background {
-        max-width: 750px;
         min-height: auto;
-        position: relative;
-        background-color: #0070ba;
-        overflow: hidden;
         margin: auto;
         width: 100%;
+        height: 100%;
         box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+    }
 
-        &::after {
-            content: '';
-            width: 45%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: white;
-        }
+    .content {
+        flex: 1 1 100%;
     }
 
     .content-wrapper {
@@ -63,37 +85,28 @@
         transform: translateY(0%);
         transition: transform 350ms ease, opacity 250ms ease;
     }
-
-    .icon--thumbs-up {
-        position: absolute;
-        transform: translate(0px, -25px);
-    }
-
-    .icon--checkmark {
-        margin-top: 30px;
-    }
-
-    .icon--pp-button {
-        margin-top: 30px;
-    }
-
-    .icon--icecream {
-        display: none;
-    }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .content-wrapper {
         justify-content: flex-start;
     }
-
-    .icon--thumbs-up {
-        z-index: 1;
-        transform: translate(0px, -120px);
-    }
 }
 
 @include mobile {
+    .content-wrapper {
+        margin-top: 84px;
+        height: calc(100% - 84px);
+
+        // Hide scrollbar at mobile sizes
+        // TODO: Find a better way to fix scrollbar appearance issues
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
     .content {
         min-height: calc(100vh - 84px);
     }
@@ -108,34 +121,7 @@
         width: calc((100% - 612px) / 2) !important;
     }
 
-    .overlay-side.top {
-        display: none;
-    }
-
     .overlay-side.bottom {
         display: none;
-    }
-
-    .icon--thumbs-up {
-        display: none;
-    }
-
-    .icon--checkmark {
-        margin-top: 35px;
-    }
-
-    .icon--pp-button {
-        margin-top: 35px;
-    }
-
-    .icon--icecream {
-        margin-top: 32px;
-    }
-}
-
-/* Small mobile device media query */
-@include smallMobile {
-    .icon--icecream {
-        margin-top: 40px;
     }
 }

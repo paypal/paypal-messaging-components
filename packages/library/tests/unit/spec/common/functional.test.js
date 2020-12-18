@@ -2,7 +2,7 @@ import { memoize, memoizeOnProps, partial, curry, pipe, passThrough, pluck, assi
 
 describe('utils/functional', () => {
     describe('memoize', () => {
-        it('Returns the previously computed value given the same arguments', () => {
+        test('Returns the previously computed value given the same arguments', () => {
             let value = 0;
             const fn = x => {
                 value += x;
@@ -21,7 +21,7 @@ describe('utils/functional', () => {
     });
 
     describe('memoizeOnProps', () => {
-        it('Returns the previously computed value given an object with the same specified properties', () => {
+        test('Returns the previously computed value given an object with the same specified properties', () => {
             const fn = ({ x, y }) => {
                 return x + y;
             };
@@ -36,7 +36,7 @@ describe('utils/functional', () => {
     });
 
     describe('partial', () => {
-        it('Stores the first set of arguments to be called with the second set of arguments', () => {
+        test('Stores the first set of arguments to be called with the second set of arguments', () => {
             const fn = (x, y, z) => x + y + z;
             const partialFn = partial(fn, 2);
 
@@ -50,7 +50,7 @@ describe('utils/functional', () => {
     });
 
     describe('curry', () => {
-        it('Returns a function until all parameters have been filled', () => {
+        test('Returns a function until all parameters have been filled', () => {
             const fn = (x, y, z) => x + y + z;
             const curryFn = curry(fn);
             const add3 = curryFn(1, 2);
@@ -62,7 +62,7 @@ describe('utils/functional', () => {
             expect(curryFn(1, 2, 3)).toBe(6);
         });
 
-        it('Does not require default paramter to be called', () => {
+        test('Does not require default paramter to be called', () => {
             const fn = (x, y, z = 3) => x + y + z;
             const curryFn = curry(fn);
             const maybeAdd4 = curryFn(1);
@@ -79,7 +79,7 @@ describe('utils/functional', () => {
     });
 
     describe('pipe', () => {
-        it('Composes functions together as a single function', () => {
+        test('Composes functions together as a single function', () => {
             const add2 = x => x + 2;
             const multiply3 = x => x * 3;
             const pipeFn = pipe(add2, multiply3);
@@ -91,7 +91,7 @@ describe('utils/functional', () => {
     });
 
     describe('passThrough', () => {
-        it('Passes arguments into function, but returns original arguments', () => {
+        test('Passes arguments into function, but returns original arguments', () => {
             const fn = jest.fn(() => 5);
             const passThroughFn = passThrough(fn);
 
@@ -103,7 +103,7 @@ describe('utils/functional', () => {
     });
 
     describe('pluck', () => {
-        it('Returns the property value from the object', () => {
+        test('Returns the property value from the object', () => {
             const obj = { a: 1, b: 2, c: 3 };
             const pluckA = pluck('a');
             const pluckB = pluck('b');
@@ -117,7 +117,7 @@ describe('utils/functional', () => {
     });
 
     describe('assignToProp', () => {
-        it('Creates an object from a property name and a value', () => {
+        test('Creates an object from a property name and a value', () => {
             const assignToA = assignToProp('a');
             const assignToB = assignToProp('b');
 

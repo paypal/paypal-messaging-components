@@ -26,11 +26,8 @@ const getMarkup = textData => {
 };
 
 const CustomMessage = ({ children, data, meta, template }) => {
-    const newTemplate = template;
-
-    // Invalid sign will return empty string template
     if (template === '') {
-        return newTemplate;
+        return '';
     }
 
     const populatedMarkup = template.replace(/{{\s*?([^\s]+?)\s*?}}/g, (_, templateVariable) => {

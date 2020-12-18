@@ -73,6 +73,7 @@ export default (options = {}) => ({
                     style,
                     offer,
                     buyerCountry,
+                    ignoreCache,
                     onClick,
                     onRender,
                     onApply
@@ -98,6 +99,7 @@ export default (options = {}) => ({
                     style,
                     offer,
                     onClick,
+                    ignoreCache,
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
                             onRender(...args);

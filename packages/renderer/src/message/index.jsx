@@ -2,7 +2,7 @@
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
 import { objectMerge, objectFlattenToArray, curry } from '@library/common/server';
-import { getMutations, getLocaleStyles, getLocaleClass, getLocalProductName, getMinimumWidthOptions } from '../locale';
+import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
 import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
@@ -85,7 +85,7 @@ export default ({ options, markup, locale }) => {
     const logoType = style.logo?.type;
     const logoEl = <Logo mutations={mutationRules.logo} />;
 
-    const [withText, productName] = getLocalProductName(locale, offerType);
+    const [withText, productName] = getLocaleProductName(locale, offerType);
 
     const productNameEl = (
         <span>
