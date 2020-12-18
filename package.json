@@ -24,7 +24,7 @@
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
         "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml",
-        "version": "node ./scripts/lerna/version.js"
+        "version2": "node ./scripts/lerna/version.js"
     },
     "dependencies": {
         "@paypal/sdk-constants": "^1.0.75",

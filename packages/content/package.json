@@ -1,0 +1,10 @@
+{
+    "name": "messaging-content",
+    "version": "1.15.1",
+    "description": "Messaging content",
+    "homepage": "https://github.com/paypal/paypal-messaging-components",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/paypal/paypal-messaging-components.git"
+    }
+}
