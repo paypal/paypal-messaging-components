@@ -50,9 +50,9 @@ const getfontSourceRule = (addLog, val) => {
         woff: 'woff', // woff
         woff2: 'woff2', // woff2
         ttf: 'ttf', // truetype
-        otf: 'otf' // opentype
-        // eot: 'eot', // embedded opentype
-        // svg: 'svg' // svg
+        otf: 'otf', // opentype
+        eot: 'eot', // embedded opentype
+        svg: 'svg' // svg
     };
     const payload = {
         fontSource: val,
