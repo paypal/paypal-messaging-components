@@ -44,8 +44,6 @@ const getfontSourceRule = (addLog, val) => {
     if (!val) {
         return '';
     }
-    /* eslint-disable-next-line security/detect-unsafe-regex */
-    const urlPattern = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
         woff: 'woff', // woff
         woff2: 'woff2', // woff2
@@ -54,6 +52,7 @@ const getfontSourceRule = (addLog, val) => {
         eot: 'eot', // embedded opentype
         svg: 'svg' // svg
     };
+    const urlPattern = RegExp(`^(?<url>https?://.+?.(?<ext>${[...Object.values(fontFormats)].join('|')}))$`);
     const payload = {
         fontSource: val,
         validValues: [],
