@@ -35,13 +35,13 @@ export function getProductForOffer(offer) {
     if (
         arrayIncludes(
             [
+                'EZP', // Generic value for standlone modal support
                 'EZP:ANY:EQZ',
                 'EZP:ANY:GTZ',
                 'PALA:MULTI:EQZ',
                 'PALA:MULTI:GTZ',
                 'PALA:SINGLE:EQZ',
-                'PALA:SINGLE:GTZ',
-                'EZP'
+                'PALA:SINGLE:GTZ'
             ],
             offer.toUpperCase()
         )
@@ -49,7 +49,7 @@ export function getProductForOffer(offer) {
         return 'EZP';
     }
 
-    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ', 'GPL'], offer.toUpperCase())) {
+    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ'], offer.toUpperCase())) {
         return 'GPL';
     }
 
