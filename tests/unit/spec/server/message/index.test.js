@@ -115,9 +115,9 @@ describe('SSR message', () => {
 
         expect(getByAltText('PayPal Credit logo')).toHaveAttribute('src', logoSrc);
 
-        const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
+        const customFontStylesContent = container.querySelector('.styles__customFont')?.textContent;
 
-        expect(miscStyles.textContent).toBe('.message__messaging { font-size: 12px; }');
+        expect(customFontStylesContent).toMatch(/\.message__messaging[^{]+\{[^}]+font-size: 12px;[^}]+\}/);
     });
 
     test('applies cascade mutations', () => {

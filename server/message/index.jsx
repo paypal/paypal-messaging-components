@@ -10,8 +10,8 @@ import Styles from './parts/Styles';
 import CustomMessage from './parts/CustomMessage';
 
 const logMessage = val => (val !== 'string' ? JSON.stringify(val) : val);
-const logInfo = (addLog, val) => addLog(`INFO: ${logMessage(val)}`);
-const logError = (addLog, val) => addLog(`ERROR: ${logMessage(val)}`);
+const logInfo = (addLog, val) => addLog('info', 'render_markup', `${logMessage(val)}`);
+const logError = (addLog, val) => addLog('error', 'render_markup', `${logMessage(val)}`);
 
 /**
  * Get all applicable rules based on user flattened options
@@ -41,6 +41,9 @@ const applyCascade = curry((style, flattened, type, rules) =>
     )
 );
 const getfontSourceRule = (addLog, val) => {
+    if (!val) {
+        return '';
+    }
     /* eslint-disable-next-line security/detect-unsafe-regex */
     const urlPattern = RegExp(/^(?<url>https?:\/\/.+?\.(?<ext>woff|woff2|otf|tff))$/);
     const fontFormats = {
@@ -57,10 +60,8 @@ const getfontSourceRule = (addLog, val) => {
         error: null
     };
     try {
-        const fontSourceStr = Buffer.from(val, 'base64').toString('ascii');
-        payload.fontSource = fontSourceStr; // may want to change to limit how large the payload can be
-        const fontSource = JSON.parse(fontSourceStr);
-        // const fontSource = JSON.parse(atob(val));
+        const fontSource = val;
+        payload.fontSource = fontSource;
         const ruleVal = (fontSource?.constructor === Array ? fontSource : [fontSource])
             .slice(0, 10)
             .filter(e => typeof e === 'string')
@@ -79,12 +80,15 @@ const getfontSourceRule = (addLog, val) => {
         logInfo(addLog, payload);
         return ruleVal ? `src: ${ruleVal};` : '';
     } catch (err) {
-        payload.error = JSON.stringify(err);
+        payload.error = err.stack;
         logError(addLog, payload);
         return '';
     }
 };
 const getFontFamilyRule = (addLog, val) => {
+    if (!val) {
+        return '';
+    }
     const payload = {
         fontFamily: val,
         validValue: null
@@ -154,21 +158,15 @@ export default ({ addLog, options, markup, locale }) => {
     const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
     const fontSourceRule = getfontSourceRule(addLog, fontSource);
 
-    if (layout === 'text' && textSize) {
-        miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
-    }
+    // if (layout === 'text' && textSize) {
+    //     miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
+    // }
     if (fontSource) {
         customFontStyleRules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
     }
     if (fontFamilyRule || textSizeRule) {
         customFontStyleRules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
     }
-    // const textSize = style.text?.size;
-    // if (layout === 'text' && textSize) {
-    //     // miscStyleRules.push(`.message__headline { font-size: ${textSize}px; }`);
-    //     // miscStyleRules.push(`.message__disclaimer { font-size: ${textSize}px; }`);
-    //     miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
-    // }
 
     // Set boundaries on the width of the message text to ensure proper line counts
     if (mutationRules.messageWidth) {
