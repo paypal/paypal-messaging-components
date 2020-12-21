@@ -2,6 +2,9 @@
     "packages": ["packages/*"],
     "version": "1.15.2",
     "command": {
+        "bootstrap": {
+            "npmClientArgs": ["--no-package-lock"]
+        },
         "version": {
             "allowBranch": ["release", "monorepo"],
             "conventionalCommits": true,
