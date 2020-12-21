@@ -153,8 +153,9 @@ export default ({ addLog, options, markup, locale }) => {
     const fontSelector = `
 .message__messaging, 
 .message__messaging .message__headline span, 
+.message__messaging .message__sub-headline span, 
 .message__messaging .message__disclaimer span`;
-    const textSizeRule = textSize ? `font-size: ${textSize}px; ` : '';
+    const textSizeRule = Number.isNaN(textSize) ? '' : `font-size: ${textSize}px; `;
     const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
     const fontSourceRule = getfontSourceRule(addLog, fontSource);
 
