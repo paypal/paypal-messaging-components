@@ -37,15 +37,31 @@ export function isElement(el) {
 export function getInlineOptions(container) {
     // Allows for data attributes dependent on camel casing to function properly.
     const attributeNameOverride = {
-        'data-pp-buyercountry': 'data-pp-buyerCountry'
+        'data-pp-buyercountry': 'data-pp-buyerCountry',
+        'data-pp-style-text-fontfamily': 'data-pp-style-text-fontFamily',
+        'data-pp-style-text-fontsource': 'data-pp-style-text-fontSource'
     };
-
+    const getOptionValue = (name, value) => {
+        if (name === 'style-text-fontSource' && value?.indexOf('[') >= 0) {
+            try {
+                return flattenedToObject(name, JSON.parse(value));
+            } catch (err) {
+                console.error(err.stack);
+            }
+            try {
+                return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
+            } catch (err) {
+                console.error(err.stack);
+            }
+        }
+        return flattenedToObject(name, value);
+    };
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 if (attributeNameOverride[nodeName]) nodeName = attributeNameOverride[nodeName]; // eslint-disable-line no-param-reassign
-                return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
+                return objectMerge(accumulator, getOptionValue(nodeName.replace('data-pp-', ''), nodeValue));
             }
 
             return accumulator;

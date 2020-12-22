@@ -119,6 +119,31 @@ const getFontFamilyRule = (addLog, val) => {
     logInfo(addLog, payload);
     return '';
 };
+const getFontRules = (addLog, style) => {
+    const rules = [];
+    const textSize = style.layout === 'flex' ? undefined : style?.text?.size;
+    const fontSource = style?.text?.fontSource;
+    const fontFamily = fontSource ? 'MerchantCustomFont' : style?.text?.fontFamily;
+
+    const fontSelector = [
+        '.message__messaging', // text layout
+        '.message__messaging .message__headline span', // flex layout
+        '.message__messaging .message__sub-headline span',
+        '.message__messaging .message__disclaimer span'
+    ].join(',\n');
+
+    const textSizeRule = Number.isNaN(textSize) ? '' : `font-size: ${textSize}px; `;
+    const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
+    const fontSourceRule = getfontSourceRule(addLog, fontSource);
+
+    if (fontSource) {
+        rules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
+    }
+    if (fontFamilyRule || textSizeRule) {
+        rules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
+    }
+    return rules;
+};
 export default ({ addLog, options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const style =
@@ -144,29 +169,12 @@ export default ({ addLog, options, markup, locale }) => {
         rule.replace(/\.message/g, `.${localeClass} .message`)
     );
     const mutationStyleRules = mutationRules.styles ?? [];
-    const customFontStyleRules = [];
+    const customFontStyleRules = getFontRules(addLog, style);
     const miscStyleRules = [];
-    const textSize = layout === 'flex' ? undefined : style.text?.size;
-    const fontSource = style.text?.fontSource;
-    const fontFamily = fontSource ? 'MerchantCustomFont' : style.text?.fontFamily;
-    const fontSelector = `
-.message__messaging, 
-.message__messaging .message__headline span, 
-.message__messaging .message__sub-headline span, 
-.message__messaging .message__disclaimer span`;
-    const textSizeRule = Number.isNaN(textSize) ? '' : `font-size: ${textSize}px; `;
-    const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
-    const fontSourceRule = getfontSourceRule(addLog, fontSource);
 
     // if (layout === 'text' && textSize) {
     //     miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
     // }
-    if (fontSource) {
-        customFontStyleRules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
-    }
-    if (fontFamilyRule || textSizeRule) {
-        customFontStyleRules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
-    }
 
     // Set boundaries on the width of the message text to ensure proper line counts
     if (mutationRules.messageWidth) {
