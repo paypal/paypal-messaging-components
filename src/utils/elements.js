@@ -42,16 +42,11 @@ export function getInlineOptions(container) {
         'data-pp-style-text-fontsource': 'data-pp-style-text-fontSource'
     };
     const getOptionValue = (name, value) => {
-        if (name === 'style-text-fontSource' && value?.indexOf('[') >= 0) {
-            try {
-                return flattenedToObject(name, JSON.parse(value));
-            } catch (err) {
-                console.error(err.stack);
-            }
+        if (name === 'style-text-fontSource' && stringStartsWith(value, '[')) {
             try {
                 return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
             } catch (err) {
-                console.error(err.stack);
+                console.error(err.stack); // eslint-disable-line no-console
             }
         }
         return flattenedToObject(name, value);

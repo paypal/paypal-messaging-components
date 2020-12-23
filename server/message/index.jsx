@@ -40,8 +40,8 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-const getfontSourceRule = (addLog, val) => {
-    if (!val) {
+const getfontSourceRule = (addLog, fontSource) => {
+    if (!fontSource) {
         return '';
     }
     const fontFormats = {
@@ -54,27 +54,21 @@ const getfontSourceRule = (addLog, val) => {
     };
     const urlPattern = RegExp(`^(?<url>https?://.+?.(?<ext>${[...Object.values(fontFormats)].join('|')}))$`);
     const payload = {
-        fontSource: val,
-        validValues: [],
-        error: null
+        fontSource,
+        validValues: []
     };
     try {
-        const fontSource = val;
-        payload.fontSource = fontSource;
-        const ruleVal = (fontSource?.constructor === Array ? fontSource : [fontSource])
-            .slice(0, 10)
-            .filter(e => typeof e === 'string')
+        const ruleVal = (Array.isArray(fontSource) ? fontSource : [fontSource])
             .map(url => {
-                const match = urlPattern.exec(url);
-                const extension = match ? match[2] : null;
+                const extension = urlPattern.exec(url)?.[2];
                 const format = fontFormats[extension];
-                if (url && format) {
+                if (format) {
                     payload.validValues.push(url);
                     return `url('${url}') format('${format}')`;
                 }
                 return '';
             })
-            .filter(e => e)
+            .filter(Boolean)
             .join(', ');
         logInfo(addLog, payload);
         return ruleVal ? `src: ${ruleVal};` : '';
@@ -92,8 +86,6 @@ const getFontFamilyRule = (addLog, val) => {
         fontFamily: val,
         validValue: null
     };
-    /* eslint-disable-next-line security/detect-unsafe-regex */
-    const fontPattern = RegExp(/^(?<font>([a-zA-Z0-9._-]\s*)+?)$/);
     const genericFamilies = {
         serif: 'serif',
         'sans-serif': 'sans-serif',
@@ -103,14 +95,10 @@ const getFontFamilyRule = (addLog, val) => {
         'system-ui': 'system-ui',
         'ui-serif': 'ui-serif',
         'ui-sans-serif': 'ui-sans-serif',
-        'ui-monospace': 'ui-monospace',
-        math: 'math',
-        emoji: 'emoji',
-        fangsong: 'fangsong'
+        'ui-monospace': 'ui-monospace'
     };
-    const fontFamily = typeof val === 'string' ? genericFamilies[val] ?? `'${val}'` : '';
-    const match = fontPattern.exec(val);
-    if (match && fontFamily) {
+    const fontFamily = genericFamilies[val] ?? `'${val}'`;
+    if (fontFamily) {
         payload.validValue = fontFamily;
         logInfo(addLog, payload);
         return `font-family: ${fontFamily}, PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `;

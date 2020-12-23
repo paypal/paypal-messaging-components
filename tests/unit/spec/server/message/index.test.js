@@ -149,7 +149,7 @@ describe('SSR message', () => {
                             .replace(/ +/g, '[^,\\{]') + matchCssValue || ''
                     )
                 )
-                .filter(e => e);
+                .filter(Boolean);
             return matchCssRules;
         };
         const getRenderStyles = (logger, opts, markup, layout, prop, value) => {
