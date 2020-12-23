@@ -1,6 +1,6 @@
 import Logo from '../../../message/logos';
-import { textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../message/mediaQueries';
-import { textLogoMutations } from '../../../message/logoMutations';
+import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
     'layout:text': [
@@ -76,5 +76,46 @@ export default {
             })
         ],
         ...textLogoMutations
+    ],
+    'layout:flex': [
+        [
+            'default',
+            {
+                logo: Logo.PP_PAYPAL.WHITE,
+                headline: [
+                    {
+                        tag: 'xsmall'
+                    },
+                    {
+                        tag: 'medium'
+                    }
+                ],
+                subHeadline: [{ tag: 'small', br: ['paiement en 4X.'] }],
+                disclaimer: ['default']
+            }
+        ],
+        [
+            'ratio:1x1',
+            {
+                subHeadline: [{ tag: 'small', br: ['achats'] }],
+                styles: [
+                    `@media (min-width: 140px) {.message__headline {font-size: 9.5vw;} .message__sub-headline {font-size: 6vw;}`
+                ]
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
+                style: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                styles: [logo20x1()]
+            }
+        ],
+        ...flexLogoMutations
     ]
 };

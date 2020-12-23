@@ -1,6 +1,6 @@
 import Logo from '../../../message/logos';
-import { textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../message/mediaQueries';
-import { textLogoMutations } from '../../../message/logoMutations';
+import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
     'layout:text': [
@@ -86,5 +86,48 @@ export default {
             })
         ],
         ...textLogoMutations
+    ],
+    'layout:flex': [
+        [
+            'default',
+            {
+                logo: Logo.PP_PAYPAL.WHITE,
+                headline: [
+                    {
+                        tag: 'xsmall'
+                    },
+                    {
+                        tag: 'medium'
+                    }
+                ],
+                disclaimer: ['default']
+            }
+        ],
+        [
+            'ratio:1x1',
+            {
+                subHeadline: [{ tag: 'small', br: ['achats'] }]
+            }
+        ],
+        [
+            'ratio:1x4',
+            {
+                subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }]
+            }
+        ],
+        [
+            'ratio:6x1',
+            {
+                subHeadline: [{ tag: 'small', br: ['achats'] }]
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [{ tag: 'xsmall', br: ['achats'] }],
+                styles: [logo20x1()]
+            }
+        ],
+        ...flexLogoMutations
     ]
 };
