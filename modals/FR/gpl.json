@@ -9,20 +9,25 @@
     },
     "content": {
         "headline": {
-            "singleProduct": ""
+            "singleProduct": "Payez en 4X"
         },
         "subHeadline": {
-            "pay": {
-                "start": "",
-                "amount": "",
-                "end": ""
-            },
-            "available": "",
-            "apply": ""
+            "unqualified": "4 échéances, pour les achats de ${CREDIT_OFFERS_DS.formattedMinAmount} à ${CREDIT_OFFERS_DS.formattedMaxAmount}. Inclut des frais de 2,1% dans la limite de 20 €. ",
+            "qualified": "${CREDIT_OFFERS_DS.formattedTransactionAmount} divisé en 4 échéances de ${CREDIT_OFFERS_DS.formattedPeriodicPayment}. Inclut des frais de 2,1% dans la limite de 20 €."
         },
-        "terms": ["", "", ""],
+
         "instructions": {
-            "title": [""]
-        }
+            "title": ["Payez avec", "PayPal", "et choisissez le", "Paiement en 4X."],
+            "items": [
+                "Uniquement pour les particuliers résidant en France",
+                "Compte PayPal français obligatoire",
+                "Le Paiement en 4X est disponible sous réserve d'acceptation, pour les achats de ${CREDIT_OFFERS_DS.formattedMinAmount} à ${CREDIT_OFFERS_DS.formattedMaxAmount}"
+            ]
+        },
+        "terms": [
+            "Un crédit est un engagement contraignant et doit être remboursé, vérifiez votre capacité de remboursement.",
+            ["Voir les", "Conditions générales", "du Paiement en 4X."],
+            "Crédit proposé par PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, qui est dûment licencié en tant qu'établissement de crédit du Luxembourg et est sous le contrôle prudentiel de l'autorité de surveillance du Luxembourg, la Commission de Surveillance du Secteur Financier. Cette information est fournie par PayPal."
+        ]
     }
 }

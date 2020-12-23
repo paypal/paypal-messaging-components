@@ -3,6 +3,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import { logger, memoize } from '../../utils';
+import { localeOptions, currencyOptions } from '../../../locales';
 
 export const Types = {
     ANY: 'ANY',
@@ -124,12 +125,10 @@ export default {
     },
     currency: ({ props: { currency } }) => {
         if (typeof currency !== 'undefined') {
-            const options = ['USD', 'EUR', 'GBP'];
-
             if (!validateType(Types.STRING, currency)) {
                 logInvalidType('currency', Types.STRING, currency);
-            } else if (!arrayIncludes(options, currency)) {
-                logInvalidOption('currency', options, currency);
+            } else if (!arrayIncludes(currencyOptions, currency)) {
+                logInvalidOption('currency', currencyOptions, currency);
             } else {
                 return currency;
             }
@@ -154,12 +153,10 @@ export default {
     },
     buyerCountry: ({ props: { buyerCountry } }) => {
         if (typeof buyerCountry !== 'undefined') {
-            const options = ['US', 'DE', 'GB'];
-
             if (!validateType(Types.STRING, buyerCountry)) {
                 logInvalidType('buyerCountry', Types.STRING, buyerCountry);
-            } else if (!arrayIncludes(options, buyerCountry)) {
-                logInvalidOption('buyerCountry', options, buyerCountry);
+            } else if (!arrayIncludes(localeOptions, buyerCountry)) {
+                logInvalidOption('buyerCountry', localeOptions, buyerCountry);
             } else {
                 return buyerCountry;
             }
