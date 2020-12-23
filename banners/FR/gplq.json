@@ -1,7 +1,7 @@
 {
     "meta": {
-        "offerCountry": "GB",
-        "offerType": "PLQ",
+        "offerCountry": "FR",
+        "offerType": "GPLQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
@@ -12,16 +12,9 @@
         }
     },
 
-    "headline": [
-        [["Buy now, pay later."], ["default", "xsmall"]],
-        ["Buy now and pay later.", ["xsmall.2"]],
-        [
-            ["Pay in 3 interest-free payments of {formattedPeriodicPayment}", [".", "weak"]],
-            ["medium", "large", "xlarge"]
-        ]
-    ],
+    "headline": [[["Payez en 4X."], ["default", "small"]]],
 
-    "subHeadline": [],
+    "subHeadline": [[["Payez avec PayPal et choisissez le paiement en 4X."], ["default", "small"]]],
 
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["En savoir plus", ["default"]]]
 }

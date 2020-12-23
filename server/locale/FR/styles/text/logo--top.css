@@ -1,0 +1,15 @@
+.message__content {
+    display: inline-block;
+}
+
+.message__logo-container {
+    margin-bottom: 0px;
+}
+
+.message__logo:first-child {
+    margin-right: 5px;
+}
+
+.message__logo:last-child {
+    margin-top: 2px;
+}
