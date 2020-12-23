@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { basicMediaQuery, altContentMediaQuery, primaryContentMediaQuery } from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, primaryContentMediaQuery, textWrap } from './mediaQueries';
 import { flex } from './ni_non-us';
 import { textLogoMutations } from './common';
 
@@ -94,7 +94,9 @@ export default {
                         display:none;
                     }`,
                     basicMediaQuery(textSize * 18),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 34, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: [
@@ -133,8 +135,10 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     basicMediaQuery(textSize * 20),
-                    altContentMediaQuery(textSize * 35),
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    altContentMediaQuery(textSize * 42),
+                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    textWrap(textSize * 34, textSize, 'US'),
+                    `.message__headline span:only-child { white-space: normal; }`
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
             })
