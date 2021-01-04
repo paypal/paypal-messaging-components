@@ -91,7 +91,6 @@ jobs:
                   branch: release
 
 stages:
-    - name: basics
     - name: update_snapshots_non_US
       if: env(DIRTY_SNAPSHOTS) = 1
     - name: update_snapshots_US_banner_and_custom
