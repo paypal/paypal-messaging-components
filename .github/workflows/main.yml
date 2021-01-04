@@ -27,6 +27,9 @@ jobs:
         with:
           useLockFile: false
 
+      - name: Set domain
+        run: sudo echo "127.0.0.1 localhost.paypal.com" >> /etc/hosts
+
       - name: Run server
         run: |
           npm run dev:standalone &
