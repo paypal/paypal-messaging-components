@@ -72,15 +72,14 @@ jobs:
         # Stage is propagated through each job below it.
         # Jobs are ordered by time taken (which roughly corresponds to number of tests) in order to take advantage of parallelization
         - stage: functional
-          env: TEST_PATH_PATTERN=spec/US/modal/calc
+          env: TEST_PATH_PATTERN=spec/US/banner/text
+        - env: TEST_PATH_PATTERN=spec/US/banner/flex
+        - env: TEST_PATH_PATTERN=spec/GB
+        - env: TEST_PATH_PATTERN=spec/US/modal/calc
         - env: TEST_PATH_PATTERN=spec/DE/modal/calc
         - env: TEST_PATH_PATTERN=spec/US/modal/base
         - env: TEST_PATH_PATTERN=spec/DE/modal/base
-        - env: TEST_PATH_PATTERN=spec/US/banner/text
-        - env: TEST_PATH_PATTERN=spec/US/banner/flex
         - env: TEST_PATH_PATTERN=spec/DE/banner
-        - env: TEST_PATH_PATTERN=spec/GB/banner
-        - env: TEST_PATH_PATTERN=spec/GB/modal
         - env: TEST_PATH_PATTERN=spec/US/custom
 
         - stage: deploy
