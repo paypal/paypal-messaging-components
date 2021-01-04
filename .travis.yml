@@ -40,14 +40,6 @@ after_script:
 
 jobs:
     include:
-        - stage: basics
-          name: 'Lint, Unit and Functional Non-Snapshot Tests'
-          env: TEST_PATH_PATTERN=none
-          script:
-              - npm run lint
-              - npm run test
-              - npm run test:func:nosnaps
-
         # Update snapshots are split into non-US, US modal, and US banner/custom so the CI doesn't time out
         - stage: update_snapshots_non_US
           env: TEST_PATH_PATTERN=spec/[^U][^S]/
