@@ -1,7 +1,17 @@
+# Message Offer Types
+
+## Abbreviations by Locale
+
 The following are abbreviations used in reference to various messages and files
+
+### US (United States)
 
 | Abbreviation | PStudio Name | File Name       | Message                                                                             |
 | ------------ | ------------ | --------------- | ----------------------------------------------------------------------------------- |
+| GPL          | ps           | gpl             | Pay Later                                                                           |
+| GPLQ         | ps           | gplq            | Pay Later, Qualifying Purchase                                                      |
+| GPLNQ        | ps           | gplnq           | Pay Later, Non-Qualifying Purchase                                                  |
+| NIGPL        | ps           | gpl             | Multi Product Modal with Pay Later and No Interest                                  |
 | NI           | NI           | ni              | No Interest                                                                         |
 | NIQ          | NIQ          | niq             | No Interest, Qualifying Purchase                                                    |
 | NINONUS      | NI NON-US    | ni_non-us       | No Interest, Non-US Merchants with a majority US customer base                      |
@@ -12,6 +22,22 @@ The following are abbreviations used in reference to various messages and files
 | PSG          | SGZP         | pala_single_gtz | Pay As Low As, APR greater than zero                                                |
 | PMZ          | MEZP         | pala_multi_eqz  | Pay As Low As, APR equal to zero                                                    |
 | PMG          | MGZP         | pala_multi_gtz  | Pay As Low As, APR greater than zero                                                |
+
+### DE (Germany)
+
+| Abbreviation | PStudio Name | File Name     | Message                              |
+| ------------ | ------------ | ------------- | ------------------------------------ |
+| IAZ          | AEZ          | inst_any_eqz  | Installments, APR equal to zero      |
+| IAG          | AGZ          | inst_any_gtz  | Installments, APR greater than zero  |
+| PQAG         | AGZP         | palaq_any_gtz | Pay As Low As, APR greater than zero |
+| PQAZ         | AEZP         | palaq_any_eqz | Pay As Low As, APR equal to zero     |
+
+### GB (or UK)
+
+| Abbreviation | PStudio Name | File Name | Message                        |
+| ------------ | ------------ | --------- | ------------------------------ |
+| GBPL         | Flex         | pl        | Pay Later                      |
+| GBPLQ        | Flex Q       | plq       | Pay Later, Qualifying Purchase |
 
 ## Explanation
 
@@ -32,6 +58,11 @@ The following are abbreviations used in reference to various messages and files
     -   A is for Any
     -   Z is for equal to Zero
     -   G is for Greater than zero
+-   AEZ, AGZ, AEZP, AGZP
+    -   A is for Any
+    -   EZ is for equal to Zero
+    -   GZ is for Greater than zero
+    -   P is for PALA
 
 ### PStudio Name Column
 
@@ -39,3 +70,4 @@ For PStudio Names, the above explanations apply except that
 
 -   Z is now EZ for Equal to Zero
 -   G is now GZ for Greater than Zero
+-   Flex was a previously used name for UK/GB's version of Pay Later
