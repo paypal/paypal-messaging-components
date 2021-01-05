@@ -132,7 +132,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: { br: ['payments', 'mo'] }
+                headline: { br: ['payments', 'mo.'] }
             }
         ],
         [
