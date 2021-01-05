@@ -7,7 +7,14 @@ import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpd
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
-    const { type, products, setServerData } = useServerData();
+    const {
+        type,
+        products,
+        setServerData,
+        meta: {
+            trackingDetails: { payload: trackingPayload }
+        }
+    } = useServerData();
     const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -23,7 +30,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     useEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ type, products: products.map(({ meta }) => meta.product) });
+            onReady({ type, products: products.map(({ meta }) => meta.product), trackingPayload });
         }
     }, []);
 
