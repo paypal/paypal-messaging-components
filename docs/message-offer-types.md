@@ -4,6 +4,8 @@
 
 The following are abbreviations used in reference to various messages and files
 
+Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is the same as the file name, but it is uppercased and uses a colon in place of the underscore. As an example, the file name `ezp_any_eqz` becomes the offer type `EZP:ANY:EQZ`.
+
 ### US (United States)
 
 | Abbreviation | PStudio Name | File Name       | Message                                                                             |
