@@ -8,10 +8,10 @@ The following are abbreviations used in reference to various messages and files
 
 | Abbreviation | PStudio Name | File Name       | Message                                                                             |
 | ------------ | ------------ | --------------- | ----------------------------------------------------------------------------------- |
-| GPL          | ps           | gpl             | Pay Later                                                                           |
-| GPLQ         | ps           | gplq            | Pay Later, Qualifying Purchase                                                      |
-| GPLNQ        | ps           | gplnq           | Pay Later, Non-Qualifying Purchase                                                  |
-| NIGPL        | ps           | gpl             | Multi Product Modal with Pay Later and No Interest                                  |
+| GPL          | GPL          | gpl             | Pay Later                                                                           |
+| GPLQ         | GPLQ         | gplq            | Pay Later, Qualifying Purchase                                                      |
+| GPLNQ        | GPLNQ        | gplnq           | Pay Later, Non-Qualifying Purchase                                                  |
+| NIGPL        | \*           | gpl             | Multi Product Modal with Pay Later and No Interest                                  |
 | NI           | NI           | ni              | No Interest                                                                         |
 | NIQ          | NIQ          | niq             | No Interest, Qualifying Purchase                                                    |
 | NINONUS      | NI NON-US    | ni_non-us       | No Interest, Non-US Merchants with a majority US customer base                      |
@@ -22,6 +22,8 @@ The following are abbreviations used in reference to various messages and files
 | PSG          | SGZP         | pala_single_gtz | Pay As Low As, APR greater than zero                                                |
 | PMZ          | MEZP         | pala_multi_eqz  | Pay As Low As, APR equal to zero                                                    |
 | PMG          | MGZP         | pala_multi_gtz  | Pay As Low As, APR greater than zero                                                |
+
+\* NIGPL is for local mocking only and has no PStudio message
 
 ### DE (Germany)
 
@@ -60,8 +62,8 @@ The following are abbreviations used in reference to various messages and files
     -   G is for Greater than zero
 -   AEZ, AGZ, AEZP, AGZP
     -   A is for Any
-    -   EZ is for equal to Zero
-    -   GZ is for Greater than zero
+    -   EZ is for Equal to Zero
+    -   GZ is for Greater than Zero
     -   P is for PALA
 
 ### PStudio Name Column
