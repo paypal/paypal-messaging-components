@@ -228,9 +228,6 @@ export default (app, server, compiler) => {
 
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {
-                csrf: 'csrf'
-            },
             aprEntry: {
                 apr: 25.49,
                 formattedDate: '9/01/2020'
@@ -239,8 +236,10 @@ export default (app, server, compiler) => {
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account,
-            trackingDetails: {
-                payload: {}
+            meta: {
+                trackingDetails: {
+                    payload: {}
+                }
             }
         };
 
