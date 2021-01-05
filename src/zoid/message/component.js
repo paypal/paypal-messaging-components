@@ -174,7 +174,8 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                                 [index]: {
                                     messageRequestId,
                                     account: merchantId || account,
-                                    displayedMessage,
+                                    // displayedMessage encoded on server to prevent XSS reflection.
+                                    displayedMessage: atob(displayedMessage),
                                     ...trackingDetails
                                 }
                             };

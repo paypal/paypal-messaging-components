@@ -97,6 +97,19 @@ export default (app, server, compiler) => {
         return statusCode === 200 ? JSON.parse(body) : null;
     };
 
+    const objectFlattenToArray = (options, prefix = '', delimiter = ':') =>
+        Object.entries(options).reduce((accumulator, [key, val]) => {
+            switch (typeof val) {
+                case 'object': {
+                    return [...accumulator, ...objectFlattenToArray(val, `${prefix}${key}.`)];
+                }
+                case 'string':
+                default: {
+                    return [...accumulator, `${prefix}${key}${delimiter}${val}`];
+                }
+            }
+        }, []);
+
     const getRenderedMessage = async req => {
         try {
             const populatedBanner = getMockBanner(req) ?? (await passthroughMessageReq(req));
@@ -144,6 +157,13 @@ export default (app, server, compiler) => {
                     meta: {
                         ...populatedBanner.meta,
                         uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                        displayedMessage: Buffer.from(
+                            `country:${populatedBanner.meta.offerCountry}::offer:${
+                                populatedBanner.meta.offerType
+                            }::term:${populatedBanner.meta.offerTerm}::${objectFlattenToArray(validatedStyle).join(
+                                '::'
+                            )}`
+                        ).toString('base64'),
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
