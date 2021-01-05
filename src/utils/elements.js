@@ -42,7 +42,7 @@ export function getInlineOptions(container) {
         'data-pp-style-text-fontsource': 'data-pp-style-text-fontSource'
     };
     const getOptionValue = (name, value) => {
-        if (name === 'style-text-fontSource' && stringStartsWith(value, '[')) {
+        if (stringStartsWith(value, '[')) {
             try {
                 return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
             } catch (err) {

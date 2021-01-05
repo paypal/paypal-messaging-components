@@ -52,7 +52,7 @@ const getfontSourceRule = (addLog, fontSource) => {
         eot: 'eot', // embedded opentype
         svg: 'svg' // svg
     };
-    const urlPattern = RegExp(`^(?<url>https?://.+?.(?<ext>${[...Object.values(fontFormats)].join('|')}))$`);
+    const urlPattern = RegExp(`^(https?://.+?.(${[...Object.values(fontFormats)].join('|')}))$`);
     const payload = {
         fontSource,
         validValues: []
@@ -87,6 +87,7 @@ const getFontFamilyRule = (addLog, val) => {
         validValue: null
     };
     const genericFamilies = {
+        // using a generic family requires the value not be quoted
         serif: 'serif',
         'sans-serif': 'sans-serif',
         monospace: 'monospace',
@@ -159,10 +160,6 @@ export default ({ addLog, options, markup, locale }) => {
     const mutationStyleRules = mutationRules.styles ?? [];
     const customFontStyleRules = getFontRules(addLog, style);
     const miscStyleRules = [];
-
-    // if (layout === 'text' && textSize) {
-    //     miscStyleRules.push(`.message__messaging { font-size: ${textSize}px; }`);
-    // }
 
     // Set boundaries on the width of the message text to ensure proper line counts
     if (mutationRules.messageWidth) {
