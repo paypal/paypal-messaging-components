@@ -11,7 +11,7 @@ The following are abbreviations used in reference to various messages and files
 | GPL          | GPL          | gpl             | Pay Later                                                                           |
 | GPLQ         | GPLQ         | gplq            | Pay Later, Qualifying Purchase                                                      |
 | GPLNQ        | GPLNQ        | gplnq           | Pay Later, Non-Qualifying Purchase                                                  |
-| NIGPL        | \*           | gpl             | Multi Product Modal with Pay Later and No Interest                                  |
+| NIGPL        | \*           | \*              | Multi Product Modal with Pay Later and No Interest                                  |
 | NI           | NI           | ni              | No Interest                                                                         |
 | NIQ          | NIQ          | niq             | No Interest, Qualifying Purchase                                                    |
 | NINONUS      | NI NON-US    | ni_non-us       | No Interest, Non-US Merchants with a majority US customer base                      |
@@ -20,10 +20,10 @@ The following are abbreviations used in reference to various messages and files
 | EAG          | AGZ          | ezp_any_gqz     | Easy Pay, APR greater than zero                                                     |
 | PSZ          | SEZP         | pala_single_eqz | Pay As Low As, APR equal to zero                                                    |
 | PSG          | SGZP         | pala_single_gtz | Pay As Low As, APR greater than zero                                                |
-| PMZ          | MEZP         | pala_multi_eqz  | Pay As Low As, APR equal to zero                                                    |
-| PMG          | MGZP         | pala_multi_gtz  | Pay As Low As, APR greater than zero                                                |
+| PMZ          | MEZP         | pala_multi_eqz  | Pay As Low As, Multiple Offers Available, APR equal to zero                         |
+| PMG          | MGZP         | pala_multi_gtz  | Pay As Low As, Multiple Offers Available, APR greater than zero                     |
 
-\* NIGPL is for local mocking only and has no PStudio message
+\* NIGPL is for local mocking only and has no PStudio message, nor file.
 
 ### DE (Germany)
 

@@ -185,7 +185,7 @@ export default {
                         .tag--small > span:first-child:after { content: '.' }
                     }
                     `,
-                    `.message__logo-container { width: ${textSize * 5}px }`
+                    `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
             })
