@@ -1,5 +1,5 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import logScreenshot from './logScreenshot';
+import { logScreenshot } from './logging';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',

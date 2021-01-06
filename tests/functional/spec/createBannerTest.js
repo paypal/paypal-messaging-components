@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
-import logScreenshot from './utils/logScreenshot';
-import logTestName from './utils/logTestName';
+import { logScreenshot, logTestName } from './utils/logging';
 import selectors from './utils/selectors';
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
