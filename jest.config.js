@@ -25,6 +25,7 @@ module.exports = {
         '@paypal/sdk-client/src': '@paypal/sdk-client',
         'belter/src': 'belter'
     },
+    collectCoverageFrom: ['./src/**'],
     transform: {
         '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',
