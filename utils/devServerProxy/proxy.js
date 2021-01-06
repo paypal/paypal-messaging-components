@@ -147,7 +147,8 @@ export default (app, server, compiler) => {
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
-                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            payload: {}
                         }
                     }
                 };
@@ -227,9 +228,6 @@ export default (app, server, compiler) => {
 
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {
-                csrf: 'csrf'
-            },
             aprEntry: {
                 apr: 25.49,
                 formattedDate: '9/01/2020'
@@ -237,7 +235,12 @@ export default (app, server, compiler) => {
             country,
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
-            payerId: account
+            payerId: account,
+            meta: {
+                trackingDetails: {
+                    payload: {}
+                }
+            }
         };
 
         return { props, productNames };
