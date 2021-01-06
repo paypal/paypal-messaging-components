@@ -16,15 +16,7 @@ describe.each([
     [viewports[1], bannerStyles[0], amounts[2]],
     [viewports[1], bannerStyles[0], amounts[3]],
     // desktop, flex
-    [viewports[0], bannerStyles[1], amounts[0]],
-    [viewports[0], bannerStyles[1], amounts[1]],
-    [viewports[0], bannerStyles[1], amounts[2]],
-    [viewports[0], bannerStyles[1], amounts[3]],
-    // mobile, flex
-    [viewports[1], bannerStyles[1], amounts[0]],
-    [viewports[1], bannerStyles[1], amounts[1]],
-    [viewports[1], bannerStyles[1], amounts[2]],
-    [viewports[1], bannerStyles[1], amounts[3]]
+    [viewports[0], bannerStyles[1], amounts[0]]
 ])('DE Modal Calculator Tests %o', (viewport, bannerStyle, amount) => {
     beforeEach(async () => {
         await openModal(viewport, {

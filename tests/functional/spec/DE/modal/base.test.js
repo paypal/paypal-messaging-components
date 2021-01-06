@@ -1,14 +1,14 @@
 import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn, niContentTest } from './us_modalTestDefs';
 
-const account = 'DEV00000000NI';
+const account = 'DEV0000000IAZ';
 
 describe.each([
+    [viewports[0], bannerStyles[0]],
     [viewports[0], bannerStyles[1]],
     [viewports[1], bannerStyles[1]]
-])('US EZP and NI basic modal functionality tests %o', (viewport, bannerStyle) => {
+])('DE Modal Functionality Tests %o', (viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,
@@ -29,18 +29,5 @@ describe.each([
     test(
         `${groupString} after modal close, modal can reopen and close again`,
         closeReopenModal({ account, viewport, groupString })
-    );
-
-    test(
-        `${groupString} click here inside modal takes user to see terms page`,
-        clickHereSeeTerms({ account, viewport, groupString })
-    );
-    test(
-        `${groupString} apply now button opens browser to credit application login`,
-        applyNowBtn({ account, viewport, groupString })
-    );
-    test(
-        `${groupString} NI content is loaded when NI message is clicked`,
-        niContentTest({ account, viewport, groupString })
     );
 });
