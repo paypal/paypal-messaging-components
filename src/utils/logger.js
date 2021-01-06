@@ -16,7 +16,7 @@ export const logger = Logger({
     // Override transport so we can use withCredentials
     transport: ({ url, method, json, headers }) => {
         // Because there is no way to remove payload builders from beaver-logger
-        // Filter the meta object to remove inactive banner meta
+        // Filter the meta object to remove inactive banner meta commonly caused by SPAs
         const activeIndexes = json.events
             .map(({ payload: { index } }) => index)
             .concat(json.tracking.map(({ index }) => index));
