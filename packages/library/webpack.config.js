@@ -16,7 +16,7 @@ module.exports = (env = {}) => {
         web: true,
         minify: true,
         debug: false,
-        analyze: env.analyze,
+        analyze: env.ANALYZE,
         env: env.NODE_ENV,
         vars: globals({
             ...env,

@@ -96,7 +96,7 @@ jobs:
               # Unclear if these are redundant or not
               before_script:
                   - true
-              script: npx semantic-release@15
+              script: lerna version
               after_script:
                   - true
               on:

@@ -8,8 +8,8 @@
         "url": "https://github.com/paypal/paypal-messaging-components.git"
     },
     "scripts": {
-        "build": "lerna run build --parallel",
-        "build:analyze": "npm run build -- --env.analyze",
+        "build": "./scripts/lerna/build.sh",
+        "build:analyze": "npm run build -- --env.ANALYZE",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local",
         "dev:stage": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=stage",
@@ -18,13 +18,14 @@
         "lint": "eslint . --ext .js,.jsx",
         "preinstall": "rm -rf node_modules",
         "postinstall": "lerna bootstrap --hoist",
+        "version": "./scripts/lerna/version.sh",
+        "postversion": "./scripts/lerna/postversion.sh",
         "start": "npm run dev",
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
-        "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml",
-        "version2": "node ./scripts/lerna/version.js"
+        "test:func:update": "sed -i '' -e 's/DIRTY_SNAPSHOTS=0/DIRTY_SNAPSHOTS=1/g' .travis.yml"
     },
     "dependencies": {
         "@paypal/sdk-constants": "^1.0.75",
@@ -36,9 +37,6 @@
     "devDependencies": {
         "@babel/register": "^7.10.4",
         "@paypal/sdk-client": "^4.0.80",
-        "@semantic-release/changelog": "^3.0.4",
-        "@semantic-release/exec": "^3.3.6",
-        "@semantic-release/git": "^7.0.16",
         "@testing-library/dom": "^6.2.0",
         "@testing-library/jest-dom": "^4.1.0",
         "@testing-library/preact": "^2.0.0",
