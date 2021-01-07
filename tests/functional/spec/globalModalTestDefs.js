@@ -1,5 +1,5 @@
 import selectors from './utils/selectors';
-import logTestName from './utils/logTestName';
+import { logTestName } from './utils/logging';
 import modalSnapshot from './utils/modalSnapshot';
 
 /**

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.15.3](https://github.com/paypal/paypal-messaging-components/compare/v1.15.2...v1.15.3) (2021-01-06)
+
+
+### Bug Fixes
+
+* buyer country content effect hook dependency ([#391](https://github.com/paypal/paypal-messaging-components/issues/391)) ([0bc31cf](https://github.com/paypal/paypal-messaging-components/commit/0bc31cf5b46a469ff3642b7af4cf97e47abe5712))
+* GB modal overlay size ([#389](https://github.com/paypal/paypal-messaging-components/issues/389)) ([d091d39](https://github.com/paypal/paypal-messaging-components/commit/d091d39748ebe54f629c7b3ec5222f6cbb837edd))
+* include buyer country with message rerender ([#390](https://github.com/paypal/paypal-messaging-components/issues/390)) ([f9939d8](https://github.com/paypal/paypal-messaging-components/commit/f9939d893ce03a9194cfa8fbfe295ef38838e8aa))
+* swap US GPL qualifying modal bullet logic ([#383](https://github.com/paypal/paypal-messaging-components/issues/383)) ([86003ed](https://github.com/paypal/paypal-messaging-components/commit/86003ed3915df309066d6144556e0d523759a867))
+* track tab-alternative click ([#388](https://github.com/paypal/paypal-messaging-components/issues/388)) ([4b3d09b](https://github.com/paypal/paypal-messaging-components/commit/4b3d09b3d58c2829dd98622b0bc0859be8d0972f))
+
 ## [1.15.1](https://github.com/paypal/paypal-messaging-components/compare/v1.15.0...v1.15.1) (2020-10-28)
 
 
