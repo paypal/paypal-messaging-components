@@ -3,5 +3,10 @@
  * Used in files that take in a locale or currency array (i.e. webpack config and validation files).
  */
 
-export const localeOptions = ['US', 'DE', 'GB', 'FR'];
-export const currencyOptions = ['USD', 'GBP', 'EUR'];
+const localeOptions = ['US', 'DE', 'GB', 'FR'];
+const currencyOptions = ['USD', 'GBP', 'EUR'];
+
+module.exports = {
+    localeOptions,
+    currencyOptions
+};

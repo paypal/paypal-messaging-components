@@ -4,7 +4,7 @@ import { h, Fragment } from 'preact';
 import Icon from '../../../parts/Icon';
 import { useContent, useProductMeta } from '../../../lib';
 
-const replaceZeros = string => string.replace(/,00/g, '');
+const frCurrencyFormat = string => string.replace(/,00/g, '').replace(/(EUR)/g, '€');
 
 export default () => {
     const { headline, subHeadline, instructions, terms } = useContent('GPL');
@@ -18,7 +18,7 @@ export default () => {
                 <h3>
                     {qualifying.toLowerCase() === 'true'
                         ? subHeadline.qualified
-                        : replaceZeros(subHeadline.unqualified)}
+                        : frCurrencyFormat(subHeadline.unqualified)}
                 </h3>
 
                 <div className="call-to-action">
@@ -42,7 +42,7 @@ export default () => {
                 <h3>À propos du Paiement en 4X</h3>
                 <ul>
                     {instructions.items.map(inst => (
-                        <li>{replaceZeros(inst)}</li>
+                        <li>{frCurrencyFormat(inst)}</li>
                     ))}
                 </ul>
                 <div className="terms">
