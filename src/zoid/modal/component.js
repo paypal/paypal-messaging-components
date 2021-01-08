@@ -74,11 +74,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClick, onApply } = props;
+                    const { onClick, onApply, index } = props;
 
                     return ({ linkName }) => {
                         logger.track({
-                            index: props.index,
+                            index,
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName
@@ -98,11 +98,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onCalculate } = props;
+                    const { onCalculate, index } = props;
 
                     return ({ value }) => {
                         logger.track({
-                            index: props.index,
+                            index,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
@@ -119,14 +119,14 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClose } = props;
+                    const { onClose, index } = props;
                     const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
                         replaceViewport();
 
                         logger.track({
-                            index: props.index,
+                            index,
                             et: 'CLICK',
                             event_type: 'modal-close',
                             link: linkName
@@ -144,8 +144,22 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 value: ({ props, state }) => {
                     const { onReady } = props;
 
-                    return ({ products }) => {
+                    return ({ products, trackingPayload }) => {
                         const { index, offer } = props;
+
+                        logger.addMetaBuilder(existingMeta => {
+                            const key = `modal-${index}`;
+
+                            // Remove potential existing meta info
+                            // Necessary because beaver-logger will not override an existing meta key if these values change
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta[key];
+                            return {
+                                [key]: {
+                                    trackingPayload
+                                }
+                            };
+                        });
 
                         logger.info('modal_render', {
                             index,
