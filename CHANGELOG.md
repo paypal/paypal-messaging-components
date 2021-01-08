@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.4](https://github.com/paypal/paypal-messaging-components/compare/v1.15.3...v1.15.4) (2021-01-08)
+
+
+### Bug Fixes
+
+* maintain modal logging payload ([#411](https://github.com/paypal/paypal-messaging-components/issues/411)) ([b35a7a3](https://github.com/paypal/paypal-messaging-components/commit/b35a7a314dc70d1b444b23c139c790b30b9024b0))
+
 ## [1.15.3](https://github.com/paypal/paypal-messaging-components/compare/v1.15.2...v1.15.3) (2021-01-06)
 
 
