@@ -8,6 +8,7 @@ const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
 describe.each([
     [accounts[0], viewports[0], bannerStyles[0]],
     [accounts[0], viewports[1], bannerStyles[0]],
+    [accounts[0], viewports[1], bannerStyles[1]],
     [accounts[1], viewports[0], bannerStyles[0]],
     [accounts[1], viewports[1], bannerStyles[0]]
 ])('US EZP and NI basic modal functionality tests %o', (account, viewport, bannerStyle) => {

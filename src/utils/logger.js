@@ -22,7 +22,7 @@ export const logger = Logger({
             .concat(json.tracking.map(({ index }) => index));
 
         const trimmedMeta = objectKeys(json.meta)
-            .filter(index => activeIndexes.includes(index))
+            .filter(index => activeIndexes.includes(index.includes('modal') ? index.replace('modal-', '') : index))
             .reduce(
                 (accumulator, index) => ({
                     ...accumulator,
