@@ -15,7 +15,7 @@
 
     "headline": [
         [
-            [["Make {total_payments} payments of", "weak"], "{formattedMonthlyPayment}/mo. at 0% APR."],
+            [["Make {total_payments} payments of", "weak"], "{formattedMonthlyPayment}/mo.", ["at 0% APR.", "weakest"]],
             ["default", "small"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]],
