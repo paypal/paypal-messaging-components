@@ -1,42 +1,42 @@
 name: build
 on:
-  # run on push but only for the develop and release branches
-  push:
-    branches:
-      - develop
-      - release
-  # run for every pull request
-  pull_request: {}
+    # run on push but only for the develop and release branches
+    push:
+        branches:
+            - develop
+            - release
+    # run for every pull request
+    pull_request: {}
 jobs:
-  main:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [10.13]
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+    main:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
 
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
 
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
 
-      - name: Set domain
-        run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
+            - name: Set domain
+              run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
 
-      - name: Run server
-        run: |
-          npm run dev:standalone &
-          sleep 40
+            - name: Run server
+              run: |
+                  npm run dev:standalone &
+                  sleep 40
 
-      - name: Run Lint, Unit, and Functional Non-Snapshot Tests
-        run: |
-          npm run lint
-          npm run test
-          npm run test:func:nosnaps
+            - name: Run Lint, Unit, and Functional Non-Snapshot Tests
+              run: |
+                  npm run lint
+                  npm run test
+                  npm run test:func:nosnaps
