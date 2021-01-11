@@ -51,8 +51,8 @@ export function getInlineOptions(container) {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
                 const value = inlineEventHandlers.includes(attributeName)
-                    ? // eslint-disable-next-line no-eval, security/detect-eval-with-expression
-                      () => eval(nodeValue)
+                    ? // eslint-disable-next-line no-new-func
+                      new Function(nodeValue)
                     : nodeValue;
                 return objectMerge(
                     accumulator,
