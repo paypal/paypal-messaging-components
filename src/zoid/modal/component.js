@@ -189,14 +189,19 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                         const { renderStart, show, hide } = state;
                         const { modalRequestId, trackingDetails, displayedMessage } = meta;
 
-                        logger.addMetaBuilder(() => {
+                        logger.addMetaBuilder(existingMeta => {
+                            // Remove potential existing meta info
+                            // Necessary because beaver-logger will not override an existing meta key if these values change
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta[index];
+
                             return {
                                 [index]: {
                                     type: 'modal',
                                     requestId: modalRequestId,
                                     account: merchantId || account,
                                     displayedMessage,
-                                    ...trackingDetails
+                                    trackingDetails
                                 }
                             };
                         });

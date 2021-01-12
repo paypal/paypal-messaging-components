@@ -147,7 +147,8 @@ export default (app, server, compiler) => {
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
-                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            payload: {}
                         }
                     }
                 };
@@ -227,15 +228,6 @@ export default (app, server, compiler) => {
 
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {
-                csrf: 'csrf',
-                displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
-                modalRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
-                trackingDetails: {
-                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
-                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
-                }
-            },
             aprEntry: {
                 apr: 25.49,
                 formattedDate: '9/01/2020'
@@ -243,7 +235,16 @@ export default (app, server, compiler) => {
             country,
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
-            payerId: account
+            payerId: account,
+            meta: {
+                displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
+                modalRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
+                trackingDetails: {
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    payload: {}
+                }
+            }
         };
 
         return { props, productNames };
