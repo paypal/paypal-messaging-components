@@ -60,13 +60,13 @@ jest.mock('server/locale/DE/mutations/palaq_any_eqz', () => ({
 }));
 
 jest.mock('server/locale/GB/mutations/gpl', () => ({
-    'layout:text': ['text', 'GB', 'GPL'],
-    'layout:flex': ['flex', 'GB', 'GPL']
+    'layout:text': ['text', 'GB', 'PL'],
+    'layout:flex': ['flex', 'GB', 'PL']
 }));
 
 jest.mock('server/locale/GB/mutations/gplq', () => ({
-    'layout:text': ['text', 'GB', 'GPLQ'],
-    'layout:flex': ['flex', 'GB', 'GPLQ']
+    'layout:text': ['text', 'GB', 'PLQ'],
+    'layout:flex': ['flex', 'GB', 'PLQ']
 }));
 
 describe('locale methods', () => {
@@ -92,8 +92,8 @@ describe('locale methods', () => {
             ['US', 'GPLQ'],
             ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
-            ['GB', 'GPL'],
-            ['GB', 'GPLQ']
+            ['GB', 'PL'],
+            ['GB', 'PLQ']
         ])('returns correct mutations %s %s', (locale, offerType) => {
             const textMutations = getMutations(locale, offerType, 'layout:text', {});
             expect(textMutations).toEqual(['text', locale, offerType]);
