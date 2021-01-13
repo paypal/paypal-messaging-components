@@ -47,7 +47,7 @@ export default {
                     `.message__logo-container { width: ${textSize * 11}px }`
                 ],
                 logo: Logo.ALTERNATIVE.COLOR,
-                messageWidth: [textSize * 19, 1000],
+                messageWidth: [textSize * 18, 1000],
                 headline: {
                     tag: 'default',
                     replace: [['Raten', 'Raten.']]
