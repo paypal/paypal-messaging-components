@@ -8,6 +8,8 @@ import logoInline from './logo--inline.css';
 import logoNone from './logo--none.css';
 import logoTop from './logo--top.css';
 import logoRight from './logo--right.css';
+import textCenter from './text--center.css';
+import textRight from './text--right.css';
 
 export default [
     ['default', base],
@@ -22,5 +24,8 @@ export default [
 
     ['text.color:monochrome', textMonochrome],
     ['text.color:grayscale', textGrayscale],
-    ['text.color:white', textWhite]
+    ['text.color:white', textWhite],
+
+    ['text.alignment:right', textRight],
+    ['text.alignment:center', textCenter]
 ];

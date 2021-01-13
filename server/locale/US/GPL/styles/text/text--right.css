@@ -1,0 +1,8 @@
+button {
+    text-align: right;
+    margin-left: auto;
+}
+
+.message__logo-container {
+    justify-content: flex-end;
+}

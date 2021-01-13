@@ -9,7 +9,8 @@ export default {
         text: {
             color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
-            fontFamily: [Types.STRING]
+            fontFamily: [Types.STRING],
+            alignment: [Types.STRING, ['left', 'right', 'center']]
         },
         preset: [Types.STRING, [undefined, 'smallest']]
     },
