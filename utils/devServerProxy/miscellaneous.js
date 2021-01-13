@@ -6,7 +6,7 @@ export const populateTemplate = (morsVars, template) =>
                     // eslint-disable-next-line security/detect-non-literal-regexp
                     new RegExp(`(\\\${CREDIT_OFFERS_DS\\.|{)${morsVar}}`, 'g'),
                     // Prevent string.replace from recognizing a $ as a substitution variable
-                    typeof val === 'string' ? val.replace(/\$/g, '$$$$') : null
+                    typeof val === 'string' ? val.replace(/\$/g, '$$$$') : val
                 ),
             template
         )
