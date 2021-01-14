@@ -13,7 +13,7 @@ const ContentWrapper = () => {
 
     const cornerRef = useRef();
     const [sticky, setSticky] = useState(false);
-    const [, handleClose, transitionState] = useTransitionState();
+    const [transitionState, handleClose] = useTransitionState();
 
     useScroll(
         ({ target: { scrollTop } }) => {
