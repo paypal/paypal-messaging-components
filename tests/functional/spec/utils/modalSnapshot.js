@@ -33,6 +33,8 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         locale = 'DE';
     } else if (account.includes('GBPL')) {
         locale = 'GB';
+    } else if (account.includes('FRPL')) {
+        locale = 'FR';
     }
 
     expect(image).toMatchImageSnapshot({

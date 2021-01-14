@@ -1,4 +1,4 @@
-import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos';
+import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos/';
 import { html } from 'jsx-pragmatic';
 
 function getSrc(component) {
@@ -20,7 +20,7 @@ function getPPMonogramBase64(logoColor) {
 }
 
 export default {
-    PRIMARY: {
+    PP_PAYPAL: {
         COLOR: [
             {
                 src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
@@ -62,33 +62,7 @@ export default {
             }
         ]
     },
-    ALT_PP: {
-        COLOR: [
-            {
-                src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
-                dimensions: [24, 32]
-            }
-        ],
-        WHITE: [
-            {
-                src: getPPMonogramBase64(LOGO_COLOR.WHITE),
-                dimensions: [24, 32]
-            }
-        ],
-        GRAYSCALE: [
-            {
-                src: getPPMonogramBase64(LOGO_COLOR.BLACK),
-                dimensions: [24, 32]
-            }
-        ],
-        MONOCHROME: [
-            {
-                src: getPPMonogramBase64(LOGO_COLOR.MONOCHROME),
-                dimensions: [24, 32]
-            }
-        ]
-    },
-    INLINE: {
+    NO_PP_MONOGRAM: {
         COLOR: {
             src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
             dimensions: [100, 32]

@@ -10,7 +10,7 @@ node_js:
 
 env:
     global:
-        - DIRTY_SNAPSHOTS=0
+        - DIRTY_SNAPSHOTS=1
     jobs:
         - TEST_PATH_PATTERN=none
 
