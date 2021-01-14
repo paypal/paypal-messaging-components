@@ -14,8 +14,8 @@ export default [
     ['logo.type:inline', logoInline],
     ['logo.position:top', logoTop],
 
-    ['text.alignment:right', textRight],
-    ['text.alignment:center && logo.position:right && logo.type:primary', textCenterLogoRight],
-    ['text.alignment:center && logo.position:top', textCenterLogoRight],
-    ['text.alignment:center', textCenter]
+    ['text.align:right', textRight],
+    ['text.align:center && logo.position:right && logo.type:primary', textCenterLogoRight],
+    ['text.align:center && logo.position:top', textCenterLogoRight],
+    ['text.align:center', textCenter]
 ];

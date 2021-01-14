@@ -26,6 +26,6 @@ export default [
     ['text.color:grayscale', textGrayscale],
     ['text.color:white', textWhite],
 
-    ['text.alignment:right', textRight],
-    ['text.alignment:center', textCenter]
+    ['text.align:right', textRight],
+    ['text.align:center', textCenter]
 ];
