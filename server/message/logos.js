@@ -79,5 +79,17 @@ export default {
             src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
             dimensions: [100, 32]
         }
+    },
+    PRIMARY: {
+        COLOR: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
+                dimensions: [100, 32]
+            }
+        ]
     }
 };
