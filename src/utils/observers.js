@@ -8,6 +8,31 @@ import { logger } from './logger';
 import { getNamespace } from './sdk';
 import { getRoot, elementContains } from './elements';
 
+export const insertionObserver = getGlobalVariable(
+    '__insertion_observer__',
+    () =>
+        new MutationObserver(mutationList => {
+            const newMessageContainers = [];
+
+            mutationList.forEach(mutation => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
+                    newMessageContainers.push(mutation.target);
+                } else {
+                    mutation.addedNodes.forEach(node => {
+                        if (node instanceof Element && node.hasAttribute('data-pp-message')) {
+                            newMessageContainers.push(node);
+                        }
+                    });
+                }
+            });
+
+            newMessageContainers.forEach(container =>
+                // Use old API render method to allow passing the _auto flag
+                window[getNamespace()]?.Messages.render({ _auto: true }, container)
+            );
+        })
+);
+
 export const attributeObserver = getGlobalVariable(
     '__attribute_observer__',
     () =>
