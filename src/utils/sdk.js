@@ -1,4 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
+import { SDK_QUERY_KEYS } from '@paypal/sdk-constants/src';
+
 import {
     getClientID,
     getMerchantID,
@@ -9,6 +11,7 @@ import {
     getSDKQueryParam,
     getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
+
 import 'core-js-pure/stable/object/entries';
 
 // SDK helper functions with standalone build polyfills
@@ -53,7 +56,7 @@ export function getScript() {
 export function getCurrency() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         // Returns 'currency' query param without default to USD
-        return getSDKQueryParam('currency');
+        return getSDKQueryParam(SDK_QUERY_KEYS.CURRENCY);
     } else {
         return undefined;
     }
