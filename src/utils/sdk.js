@@ -4,15 +4,14 @@ import {
     getMerchantID,
     getSDKScript,
     getEnv as getSDKEnv,
-    getCurrency as getSDKCurrency,
     getSDKMeta,
     getSDKAttributes,
+    getSDKQueryParam,
     getNamespace as getSDKNamespace
 } from '@paypal/sdk-client/src';
 import 'core-js-pure/stable/object/entries';
 
 // SDK helper functions with standalone build polyfills
-
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKEnv();
@@ -53,7 +52,8 @@ export function getScript() {
 
 export function getCurrency() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKCurrency();
+        // Returns 'currency' query param without default to USD
+        return getSDKQueryParam('currency');
     } else {
         return undefined;
     }

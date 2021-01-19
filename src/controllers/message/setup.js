@@ -1,6 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, globalState, getScript, getAccount, getPartnerAccount } from '../../utils';
+import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
 import Messages from './adapter';
 
 export default function setup() {
@@ -13,6 +13,7 @@ export default function setup() {
         Messages.setGlobalConfig({
             account: partnerAccount || getAccount(),
             merchantId: (partnerAccount && getAccount()) || merchantid,
+            currency: getCurrency(),
             ...inlineScriptOptions
         });
 
