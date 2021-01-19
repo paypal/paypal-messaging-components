@@ -15,6 +15,7 @@ export const insertionObserver = getGlobalVariable(
             const newMessageContainers = [];
 
             mutationList.forEach(mutation => {
+                // Handle an existing element with data-pp-message added, or a brand new element with data-pp-message on it
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
                     newMessageContainers.push(mutation.target);
                 } else {
