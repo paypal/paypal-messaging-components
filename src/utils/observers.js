@@ -29,7 +29,7 @@ export const insertionObserver = getGlobalVariable(
 
             newMessageContainers.forEach(container =>
                 // Use old API render method to allow passing the _auto flag
-                window[getNamespace()]?.Messages.render({ _auto: true }, container)
+                window[getNamespace()]?.Messages({ _auto: true }).render(container)
             );
         })
 );
