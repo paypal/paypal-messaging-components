@@ -110,7 +110,10 @@ export default {
             }
 
             if (validateType(Types.STRING, style.preset)) {
-                return { layout: 'text', ...style };
+                return {
+                    layout: 'text',
+                    ...style
+                };
             }
         }
 
