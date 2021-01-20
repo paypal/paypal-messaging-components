@@ -45,9 +45,7 @@ export function getInlineOptions(container) {
         if (stringStartsWith(value, '[')) {
             try {
                 return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
-            } catch (err) {
-                console.error(err.stack); // eslint-disable-line no-console
-            }
+            } catch (err) {} // eslint-disable-line no-empty
         }
         return flattenedToObject(name, value);
     };
