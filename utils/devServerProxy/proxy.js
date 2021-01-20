@@ -138,9 +138,9 @@ export default (app, server, compiler) => {
                 }
 
                 const markup = render(
-                    warnings.push.bind(warnings),
                     { style: validatedStyle, amount, customMarkup },
-                    populatedBanner
+                    populatedBanner,
+                    warnings.push.bind(warnings)
                 );
                 const parentStyles = getParentStyles(validatedStyle);
 
