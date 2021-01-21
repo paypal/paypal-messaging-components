@@ -1,7 +1,8 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot } from './logging';
+import selectors from './selectors';
 
-const toMatchImageSnapshot = configureToMatchImageSnapshot({
+const toMatchLargeSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
     failureThreshold: 0.002,
     customDiffConfig: {
@@ -9,21 +10,31 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
     }
 });
 
-expect.extend({ toMatchImageSnapshot });
+const toMatchSmallSnapshot = configureToMatchImageSnapshot({
+    failureThresholdType: 'percent',
+    failureThreshold: 0.003,
+    customDiffConfig: {
+        threshold: 0.05
+    }
+});
+
+expect.extend({ toMatchLargeSnapshot, toMatchSmallSnapshot });
 
 const modalSnapshot = async (testNameParts, viewport, account) => {
-    logScreenshot({ name: testNameParts, viewport });
+    const elementModal = await page.$(selectors.modal.iframe);
+    const modalFrame = await elementModal.contentFrame();
+    const modalDimensions = await modalFrame.$eval(selectors.modal.contentBackground, element => ({
+        x: element.offsetLeft,
+        y: element.offsetTop,
+        width: element.clientWidth,
+        height: element.clientHeight
+    }));
 
-    const image = await page.screenshot(
-        {
-            clip: {
-                ...viewport,
-                x: 0,
-                y: 0
-            }
-        },
-        3
-    );
+    const snapshotDimensions = modalDimensions.height > 0 ? modalDimensions : { ...viewport, x: 0, y: 0 };
+
+    logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
+
+    const image = await page.screenshot({ clip: snapshotDimensions }, 3);
 
     // replace double colons with underscores, and replace spaces and colons with dashes
     const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
@@ -37,7 +48,8 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         locale = 'FR';
     }
 
-    expect(image).toMatchImageSnapshot({
+    const matchFunction = viewport.width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
+    expect(image)[matchFunction]({
         customSnapshotsDir: `./tests/functional/snapshots/${locale}/${account}/modal`,
         customSnapshotIdentifier
     });
