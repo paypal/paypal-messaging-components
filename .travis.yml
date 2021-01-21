@@ -6,11 +6,11 @@ dist: xenial
 language: node_js
 
 node_js:
-    - '10'
+    - '12'
 
 env:
     global:
-        - DIRTY_SNAPSHOTS=0
+        - DIRTY_SNAPSHOTS=1
     jobs:
         - TEST_PATH_PATTERN=none
 

@@ -1,6 +1,6 @@
 // mutations import here.
-import pl from './pl';
-import plq from './plq';
+import pl from './gpl';
+import plq from './gplq';
 
 export default function getMutations(id, type) {
     switch (id) {

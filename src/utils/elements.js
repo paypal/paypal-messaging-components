@@ -40,10 +40,21 @@ export function getInlineOptions(container) {
         buyercountry: 'buyerCountry',
         onclick: 'onClick',
         onapply: 'onApply',
-        onrender: 'onRender'
+        onrender: 'onRender',
+        'style-text-fontfamily': 'style-text-fontFamily',
+        'style-text-fontsource': 'style-text-fontSource'
     };
 
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
+
+    const getOptionValue = (name, value) => {
+        if (stringStartsWith(value, '[')) {
+            try {
+                return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
+            } catch (err) {} // eslint-disable-line no-empty
+        }
+        return flattenedToObject(name, value);
+    };
 
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
@@ -54,9 +65,10 @@ export function getInlineOptions(container) {
                     ? // eslint-disable-next-line no-new-func
                       new Function(nodeValue)
                     : nodeValue;
+
                 return objectMerge(
                     accumulator,
-                    flattenedToObject(attributeNameOverride[attributeName] ?? attributeName, value)
+                    getOptionValue(attributeNameOverride[attributeName] ?? attributeName, value)
                 );
             }
 

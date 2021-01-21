@@ -1,0 +1,33 @@
+.message__messaging {
+    display: inline-block;
+    white-space: normal;
+    flex: 0 0 auto;
+}
+
+.message__logo-container {
+    display: inline;
+    margin-right: 0px;
+    order: 0;
+}
+
+.message__logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.message__logo:first-child {
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.message__logo > img {
+    top: 1px;
+}
+
+.message__content {
+    display: inline-flex;
+}
+
+.message__messaging span.br {
+    white-space: nowrap;
+}

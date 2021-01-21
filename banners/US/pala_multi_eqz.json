@@ -15,7 +15,7 @@
 
     "headline": [
         [
-            [["As low as", "weak"], "{formattedMonthlyPayment}/mo. at 0% APR."],
+            [["As low as", "weak"], "{formattedMonthlyPayment}/mo.", ["at 0% APR.", "weakest"]],
             ["default", "small"]
         ],
         [

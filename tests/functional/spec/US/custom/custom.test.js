@@ -25,4 +25,13 @@ describe('US > custom', () => {
             markup: 'https://www.paypalobjects.com/upstream/assets/custom/S3STW9PF9H6MW-1.html'
         }
     });
+
+    // BBB banner
+    runBannerTest(viewport, {
+        account: 'LZ25HUZDSKSPN',
+        style: {
+            layout: 'custom',
+            markup: 'https://www.paypalobjects.com/upstream/assets/custom/LZ25HUZDSKSPN-2.html'
+        }
+    });
 });
