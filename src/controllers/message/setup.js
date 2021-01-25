@@ -54,7 +54,7 @@ export default function setup() {
         } else {
             // TODO: Remove setTimeout after ramp. Needed for ramp because the async top level inclusion/exclusion
             // list fetch causes the order of manual render calls and the auto render call to mix up
-            setTimeout(() => handleContentLoaded, 0);
+            setTimeout(handleContentLoaded, 0);
         }
     }
 }

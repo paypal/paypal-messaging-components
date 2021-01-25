@@ -25,7 +25,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         if (typeof onReady === 'function') {
             onReady({ type, products: products.map(({ meta: productMeta }) => productMeta.product), meta });
         }
-    }, [meta.modalRequestId]);
+    }, [meta.messageRequestId]);
 
     useDidUpdateEffect(() => {
         setLoading(true);

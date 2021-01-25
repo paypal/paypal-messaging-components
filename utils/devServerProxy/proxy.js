@@ -238,7 +238,7 @@ export default (app, server, compiler) => {
             payerId: account,
             meta: {
                 displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
-                modalRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
+                messageRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
                 trackingDetails: {
                     clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
                     impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
