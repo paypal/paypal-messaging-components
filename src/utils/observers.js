@@ -6,7 +6,7 @@ import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace } from './sdk';
-import { getRoot, elementContains } from './elements';
+import { getRoot, elementContains, isElement } from './elements';
 
 export const insertionObserver = getGlobalVariable(
     '__insertion_observer__',
@@ -20,7 +20,7 @@ export const insertionObserver = getGlobalVariable(
                     newMessageContainers.push(mutation.target);
                 } else {
                     mutation.addedNodes.forEach(node => {
-                        if (node instanceof Element && node.hasAttribute('data-pp-message')) {
+                        if (isElement(node) && node.hasAttribute('data-pp-message')) {
                             newMessageContainers.push(node);
                         }
                     });
@@ -28,7 +28,6 @@ export const insertionObserver = getGlobalVariable(
             });
 
             newMessageContainers.forEach(container =>
-                // Use old API render method to allow passing the _auto flag
                 window[getNamespace()]?.Messages({ _auto: true }).render(container)
             );
         })

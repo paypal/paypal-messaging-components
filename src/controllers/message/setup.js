@@ -55,7 +55,14 @@ export default function setup() {
                 Messages.render({ _auto: true });
             }
 
-            insertionObserver.observe(document.body, { attributes: true, childList: true, subtree: true });
+            // Using a "global" observer to watch for and automatically render
+            // any message containers that are dynamically added after auto render
+            insertionObserver.observe(document.body, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                attributeFilter: ['data-pp-message']
+            });
         };
 
         if (document.readyState === 'loading') {
