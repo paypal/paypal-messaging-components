@@ -1,4 +1,4 @@
-import packageConfig from '../../../../package.json';
+import packageConfig from '@library/../package.json';
 import { bannerStyles } from '../utils/testStylesConfig';
 import selectors from '../utils/selectors';
 
