@@ -35,7 +35,11 @@ const tests = [].concat(
             []
         ),
     // Small viewport
-    [['Small viewport', { logo: { type: 'primary' }, text: { position: 'left' } }, { width: 200, height: 100 }]]
+    textAlign.map(align => [
+        'Small viewport',
+        { logo: { type: 'primary' }, text: { position: 'left', align } },
+        { width: 200, height: 100 }
+    ])
 );
 
 // +1 is for GPL unqualified
