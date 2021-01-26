@@ -20,7 +20,7 @@ do
 done
 
 if [[ ! -z "$version" && ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9]+(\.[0-9]+)?)?$ ]]; then
-    printf "\nInvalid version provided ($version). Please chack the format (ex: 1.0.0-beta.0)\n\n"
+    printf "\nInvalid version provided ($version). Please check the format (ex: 1.0.0-beta.0)\n\n"
     exit 1
 fi
 
