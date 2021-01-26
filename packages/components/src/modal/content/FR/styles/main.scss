@@ -1,0 +1,127 @@
+.content-wrapper {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    margin: auto;
+    border-radius: 10px;
+    height: 100%;
+    // Important: This forces the wrapper to be the entire width of the screen
+    // which is needed in Windows due to the scroll bar offset hack used
+    // on the topmost parent container
+    width: 100vw;
+}
+
+.content {
+    padding-top: 0;
+    position: relative;
+    z-index: 50;
+    background: white;
+}
+
+.content-background {
+    min-height: 100%;
+    position: relative;
+    width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    max-width: 640px;
+}
+
+main {
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-container.loading {
+    .content-wrapper {
+        overflow: hidden;
+    }
+
+    main > * {
+        filter: blur(3px);
+        opacity: 0.6;
+    }
+}
+
+.top-overlay {
+    position: fixed;
+    height: 84px;
+    left: 0;
+    right: 0;
+}
+
+@include desktop {
+    .content-background {
+        min-height: auto;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1 1 100%;
+    }
+
+    .content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper {
+        opacity: 0;
+        transform: translateY(5%);
+        transition: transform 350ms ease, opacity 250ms ease;
+    }
+
+    &.show .wrapper {
+        opacity: 1;
+        transform: translateY(0%);
+        transition: transform 350ms ease, opacity 250ms ease;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .content-wrapper {
+        justify-content: flex-start;
+    }
+}
+
+@include mobile {
+    .content-wrapper {
+        margin-top: 84px;
+        height: calc(100% - 84px);
+
+        // Hide scrollbar at mobile sizes
+        // TODO: Find a better way to fix scrollbar appearance issues
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .content {
+        min-height: calc(100vh - 84px);
+    }
+
+    .content-background {
+        box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
+        background: white;
+    }
+
+    .overlay-side.left,
+    .overlay-side.right {
+        width: calc((100% - 612px) / 2) !important;
+    }
+
+    .overlay-side.bottom {
+        display: none;
+    }
+}

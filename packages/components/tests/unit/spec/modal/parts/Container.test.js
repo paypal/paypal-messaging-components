@@ -39,7 +39,10 @@ describe('<Container />', () => {
                     product
                 }
             }
-        ]
+        ],
+        meta: {
+            trackingDetails: {}
+        }
     });
 
     const content = (

@@ -1,8 +1,7 @@
 /* istanbul ignore file */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
+import { logScreenshot, logTestName } from './utils/logging';
 import selectors from './utils/selectors';
-
-const isComparingSnapshots = process.env.DIRTY_SNAPSHOTS == 0; // eslint-disable-line eqeqeq
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -98,17 +97,14 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                     console.log(text);
                 }
             });
+            page.removeAllListeners('pageerror');
             page.on('pageerror', error => {
                 // TODO: find a way to re-launch the browser on error so tests can continue
                 // eslint-disable-next-line no-console
                 console.log(`banner page error for [${testName}]`, error);
             });
 
-            // Outputs current test so CI does not stall
-            if (isComparingSnapshots) {
-                // eslint-disable-next-line no-console
-                console.info(`Running test [${testName}], with viewport ${JSON.stringify(viewport)}`);
-            }
+            logTestName({ testName, viewport });
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
@@ -126,9 +122,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             };
             const snapshotDimensions = config?.style?.layout === 'text' ? paddedDimensions : bannerDimensions;
 
-            // eslint-disable-next-line no-console
-            console.log(`Taking screenshot of [${testName}] with dimensions ${JSON.stringify(snapshotDimensions)}`);
-
+            logScreenshot({ name: testName, viewport: snapshotDimensions });
             const image = await page.screenshot(
                 {
                     clip: {

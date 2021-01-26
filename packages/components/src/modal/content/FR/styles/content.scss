@@ -1,0 +1,144 @@
+.content {
+    position: relative;
+    background: transparent;
+    box-sizing: border-box;
+    padding-top: 20rem;
+
+    .corner {
+        position: absolute;
+        top: 13rem;
+        left: 0;
+        width: 100px;
+        height: 2rem;
+        overflow: hidden;
+        background-color: white;
+        z-index: 51;
+        top: 18rem;
+        max-width: 640px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            background-color: $header-background;
+            border-bottom-left-radius: 100px 30px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .content-body {
+        padding: 0 1rem 1rem;
+        margin: 3rem auto 0;
+        max-width: 500px;
+    }
+
+    h2 {
+        text-align: left;
+        font-weight: bold;
+        font-size: 19px;
+    }
+
+    .divider {
+        border: none;
+        border-bottom: 1px dashed #aaa;
+    }
+
+    p,
+    li,
+    .terms h3 {
+        color: #687173;
+    }
+
+    .call-to-action {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 3rem;
+
+        svg {
+            margin: 0;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        button {
+            margin-left: 1rem;
+            flex: 0 1 35%;
+        }
+
+        .dark-text {
+            color: #2c2e2f;
+        }
+    }
+
+    .d-inline-block {
+        display: inline-block;
+    }
+
+    main {
+        background: white;
+        padding-top: 0;
+    }
+
+    .terms {
+        .terms {
+            > p {
+                p:first-child {
+                    font-weight: 600;
+                }
+            }
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    @include desktop {
+        padding-top: 12rem;
+
+        .corner {
+            top: 13rem;
+            position: fixed;
+            // iOS has an issue with position: fixed; elements within scrollable containers
+            transform: translate3d(0, 0, 0);
+            left: auto;
+            width: 100%;
+        }
+    }
+
+    @include mobile {
+        &.sticky {
+            .corner {
+                width: 100%;
+                position: fixed;
+                // see desktop .corner for why this transform is needed
+                transform: translate3d(0, 0, 0);
+                top: calc(10rem + 89px);
+                left: auto;
+            }
+        }
+
+        .content-body {
+            max-width: 400px;
+        }
+    }
+
+    @include smallMobile {
+            &.sticky {
+                .corner {
+                    width: 100%;
+                    position: fixed;
+                    transform: translate3d(0, 0, 0);
+                    top: calc(10rem + 77px);
+                    left: auto;
+                }
+            }
+    }
+}

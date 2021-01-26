@@ -14,7 +14,10 @@
     },
 
     "headline": [
-        ["Pay over {total_payments} months at 0% APR", ["default", "small"]],
+        [
+            ["Pay over {total_payments} months", ["at 0% APR", "weakest"]],
+            ["default", "small"]
+        ],
         ["Enjoy {total_payments} Easy Payments with No Interest.", ["legacy-small"]]
     ],
 

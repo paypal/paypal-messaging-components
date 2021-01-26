@@ -59,12 +59,12 @@ jest.mock('@renderer/locale/DE/mutations/palaq_any_eqz', () => ({
     'layout:flex': ['flex', 'DE', 'PALAQ:ANY:EQZ']
 }));
 
-jest.mock('@renderer/locale/GB/mutations/pl', () => ({
+jest.mock('@renderer/locale/GB/mutations/gpl', () => ({
     'layout:text': ['text', 'GB', 'PL'],
     'layout:flex': ['flex', 'GB', 'PL']
 }));
 
-jest.mock('@renderer/locale/GB/mutations/plq', () => ({
+jest.mock('@renderer/locale/GB/mutations/gplq', () => ({
     'layout:text': ['text', 'GB', 'PLQ'],
     'layout:flex': ['flex', 'GB', 'PLQ']
 }));

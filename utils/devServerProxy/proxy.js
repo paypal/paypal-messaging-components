@@ -30,7 +30,10 @@ const devAccountMap = {
     DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['gpl'], 'plq']
+    DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
+
+    DEV000000FRPL: ['FR', ['gpl'], 'gpl'],
+    DEV00000FRPLQ: ['FR', ['gpl'], 'gplq']
 };
 
 export default (app, server, compiler) => {
@@ -134,7 +137,11 @@ export default (app, server, compiler) => {
                     }
                 }
 
-                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
+                const markup = render(
+                    { style: validatedStyle, amount, customMarkup },
+                    populatedBanner,
+                    warnings.push.bind(warnings)
+                );
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
@@ -147,7 +154,8 @@ export default (app, server, compiler) => {
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
-                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`
+                            impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                            payload: {}
                         }
                     }
                 };
@@ -227,9 +235,6 @@ export default (app, server, compiler) => {
 
         const props = {
             terms: getTerms(country, Number(amount)),
-            meta: {
-                csrf: 'csrf'
-            },
             aprEntry: {
                 apr: 25.49,
                 formattedDate: '9/01/2020'
@@ -237,7 +242,12 @@ export default (app, server, compiler) => {
             country,
             products,
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
-            payerId: account
+            payerId: account,
+            meta: {
+                trackingDetails: {
+                    payload: {}
+                }
+            }
         };
 
         return { props, productNames };

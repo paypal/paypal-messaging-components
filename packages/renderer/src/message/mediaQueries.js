@@ -42,7 +42,7 @@ export function xSmallFallback(breakpoint) {
 }
 
 /**
- * Used in US and GB GPL text messages.
+ * Used in GPL text messages.
  * Wraps text under logo for default/primary left and alternative config types.
  */
 export function textWrap(breakpoint, textSize, locale) {
