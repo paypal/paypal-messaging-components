@@ -10,4 +10,5 @@ button {
 
 .message__messaging {
     min-width: auto;
+    padding-right: 0px;
 }
