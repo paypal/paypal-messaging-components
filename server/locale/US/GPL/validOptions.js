@@ -10,7 +10,8 @@ export default {
             color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             align: [Types.STRING, ['left', 'right', 'center']],
-            fontFamily: [Types.STRING]
+            fontFamily: [Types.STRING],
+            fontSource: [Types.ANY]
         },
         preset: [Types.STRING, [undefined, 'smallest']]
     },
@@ -20,7 +21,11 @@ export default {
             ['blue', 'black', 'white', 'white-no-border', 'gray|grey', 'monochrome', 'grayscale|greyscale']
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
-        preset: [Types.STRING, [undefined, 'smallest']]
+        preset: [Types.STRING, [undefined, 'smallest']],
+        text: {
+            fontFamily: [Types.STRING],
+            fontSource: [Types.ANY]
+        }
     },
     custom: {
         markup: [Types.STRING],

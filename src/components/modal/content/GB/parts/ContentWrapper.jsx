@@ -13,7 +13,7 @@ const ContentWrapper = () => {
 
     const cornerRef = useRef();
     const [sticky, setSticky] = useState(false);
-    const [transitionState] = useTransitionState();
+    const [transitionState, handleClose] = useTransitionState();
 
     useScroll(
         ({ target: { scrollTop } }) => {
@@ -45,6 +45,8 @@ const ContentWrapper = () => {
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={640}>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div className="top-overlay" onClick={() => handleClose('Modal Overlay')} />
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
                     <Header wrapperRef={headerRef}>

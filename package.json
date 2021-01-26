@@ -7,6 +7,10 @@
         "type": "git",
         "url": "https://github.com/paypal/paypal-messaging-components.git"
     },
+    "engines": {
+        "node": "12",
+        "npm": "6"
+    },
     "main": "dist/messaging.js",
     "module": "src/index.js",
     "files": [
