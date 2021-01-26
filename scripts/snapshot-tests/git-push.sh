@@ -12,7 +12,7 @@ if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]];
     staged_file_count=$(git diff --cached --numstat | wc -l)
     if [ "$staged_file_count" -ne "0" ]; then
         echo -e "COMMIT STAGED FILES (COUNT: $staged_file_count)\n"
-        git commit --quiet -m "chore(snapshots): update $COMMIT_DETAIL snapshots [skip ci]"
+        git commit --quiet -m "chore(snapshots): update $COMMIT_DETAIL [skip ci]"
         echo -e "PUSH COMMIT"
         git push -v
     else
