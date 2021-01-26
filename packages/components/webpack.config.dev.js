@@ -1,6 +1,7 @@
 const path = require('path');
 const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 
+const { localeOptions } = require('../library/locales');
 const globals = require('../library/globals');
 
 module.exports = (env = {}) => {
@@ -19,7 +20,7 @@ module.exports = (env = {}) => {
         })
     });
 
-    COMPONENTS_DEV_CONFIG.entry = ['US', 'US-EZP', 'DE', 'GB'].reduce(
+    COMPONENTS_DEV_CONFIG.entry = [...localeOptions, 'US-EZP'].reduce(
         (accumulator, locale) => ({
             ...accumulator,
             [`smart-credit-modal-${locale}`]: path.resolve(__dirname, `src/modal/content/${locale}/index.js`)
