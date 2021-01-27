@@ -1,16 +1,16 @@
 import validateStyle from '../../../../server/validateStyle';
 import { getValidOptions } from '../../../../server/locale';
 
-jest.mock('../../../../server/locale/GB/logos.js', () => ({
+jest.mock('../../../../server/message/logos.js', () => ({
     __esModule: true,
     default: {
-        PRIMARY: {
+        PP_PAYPAL: {
             COLOR: {},
             WHITE: {},
             GRAYSCALE: {},
             MONOCHROME: {}
         },
-        ALT_NO_PP: {
+        NO_PP_MONOGRAM: {
             COLOR: {},
             WHITE: {},
             GRAYSCALE: {},

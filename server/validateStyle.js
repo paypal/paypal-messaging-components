@@ -42,7 +42,6 @@ function getValidVal(addLog, typeArr, val, location) {
 
             return validVal.split('|')[0];
         }
-
         return val;
     }
 
