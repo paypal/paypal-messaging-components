@@ -54,8 +54,8 @@ export default (app, server, compiler) => {
                 formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
-                formattedMinAmount: toLocaleCurrency(terms.minAmount),
-                formattedMaxAmount: toLocaleCurrency(terms.maxAmount),
+                formattedMinAmount: toLocaleCurrency(terms.minAmount, 0),
+                formattedMaxAmount: toLocaleCurrency(terms.maxAmount, 0),
                 total_payments: bestOffer.term
             };
 
