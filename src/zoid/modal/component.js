@@ -1,5 +1,6 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
 
 import {
@@ -9,6 +10,7 @@ import {
     getGlobalVariable,
     getCurrentTime,
     getLibraryVersion,
+    getScriptAttributes,
     viewportHijack,
     logger,
     nextIndex
@@ -216,7 +218,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
+                            modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
+                            // For standalone modal the stats event does not run, so we duplicate some data here
+                            integration_type: __MESSAGES__.__TARGET__,
+                            messaging_version: getLibraryVersion(),
+                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
                         });
 
                         if (typeof onReady === 'function') {
