@@ -7,10 +7,7 @@
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
-            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
-            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
-            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
-            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}"
         }
     },
 
@@ -18,11 +15,7 @@
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
         [
-            [
-                ["Pay in 4 interest-free payments on purchases of"],
-                ["{formattedMinAmount}-{formattedMaxAmount}"],
-                [".", "weak"]
-            ],
+            [["Pay in 4 interest-free payments on purchases of"], ["$30-$600"], [".", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],
