@@ -7,7 +7,7 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        const { ...inlineScriptOptions } = getInlineOptions(script);
+        const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
         Messages.setGlobalConfig({
