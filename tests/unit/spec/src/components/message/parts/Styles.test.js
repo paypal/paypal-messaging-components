@@ -15,6 +15,7 @@ describe('<Styles />', () => {
         const localeStyleRules = ['localeStyleRules'];
         const mutationStyleRules = ['mutationStyleRules'];
         const miscStyleRules = ['miscStyleRules'];
+        const customFontStyleRules = ['customFontStyleRules'];
 
         const { container } = render(
             <Styles
@@ -22,6 +23,7 @@ describe('<Styles />', () => {
                 localeStyleRules={localeStyleRules}
                 mutationStyleRules={mutationStyleRules}
                 miscStyleRules={miscStyleRules}
+                customFontStyleRules={customFontStyleRules}
             />
         );
 
@@ -30,7 +32,8 @@ describe('<Styles />', () => {
             styles__global: globalStyleRules[0],
             styles__locale: localeStyleRules[0],
             styles__mutations: mutationStyleRules[0],
-            styles__misc: miscStyleRules[0]
+            styles__misc: miscStyleRules[0],
+            styles__customFont: customFontStyleRules[0]
         };
 
         const styleTags = container.children;

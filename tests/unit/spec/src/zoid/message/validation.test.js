@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import validate from 'src/zoid/message/validation';
+import { localeOptions, currencyOptions } from '../../../../../../locales';
 
 console.warn = jest.fn();
 
@@ -179,7 +180,7 @@ describe('validate', () => {
     });
 
     test('validates currency', () => {
-        ['USD', 'EUR', 'GBP'].forEach(supportedCurrency => {
+        currencyOptions.forEach(supportedCurrency => {
             const currency = validate.currency({ props: { currency: supportedCurrency } });
 
             expect(currency).toEqual(supportedCurrency);
@@ -233,7 +234,7 @@ describe('validate', () => {
     });
 
     test('validates buyerCountry', () => {
-        ['US', 'DE', 'GB'].forEach(supportedBuyerCountry => {
+        localeOptions.forEach(supportedBuyerCountry => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: supportedBuyerCountry } });
 
             expect(buyerCountry).toEqual(supportedBuyerCountry);

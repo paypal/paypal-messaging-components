@@ -1,0 +1,120 @@
+.header-wrapper {
+    background: white;
+    pointer-events: none;
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: fixed;
+    width: 100%;
+    max-width: 640px;
+    z-index: 51;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
+}
+
+.header-container {
+    background-color: $header-background;
+    position: relative;
+    overflow: hidden;
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: bold;
+        line-height: 40px;
+        color: white;
+    }
+
+    .header {
+        max-width: 500px;
+        margin: auto;
+        z-index: 999;
+        display: block;
+        height: auto;
+        padding-top: 40px;
+    }
+
+    .logo {
+        display: inline-block;
+
+        & img {
+            height: 45px;
+            margin-right: 9px;
+        }
+    }
+
+    .close {
+        top: 5px;
+        right: 5px;
+        pointer-events: all;
+
+        svg {
+            height: 40px;
+            width: 40px;
+
+            path {
+                stroke: white !important;
+            }
+        }
+    }
+
+    @include mobile {
+        text-align: center;
+
+        h1 {
+            margin: 0 auto;
+            font-size: 26px;
+            line-height: 30px;
+            padding-bottom: 20px;
+            }
+        }
+
+        @include smallMobile {
+            h1 {
+                font-size: 20px;
+                line-height: 22px;
+                }
+            }
+    
+
+        .logo {
+            & img {
+                height: 45px;
+                margin-right: 9px;
+            }
+        }
+
+        .close {
+            svg {
+                height: 35px;
+                width: 35px;
+            }
+        }
+    }
+
+.hero-image {
+    background-color: $header-background;
+    position: fixed;
+    // see content.scss .sticky-apply-now for why this transform is needed
+    transform: translate3d(0, 0, 0);
+    width: 100%;
+    padding: 60px 0;
+    top: 12rem;
+    max-width: 640px;
+
+    @include desktop {
+        background-color: transparent;
+        height: 12rem;
+        top: 0;
+        overflow: hidden;
+        padding: 0;
+        z-index: 51;
+        pointer-events: none;
+        transform: translate(0px, 48px);
+
+        .icon {
+            position: absolute;
+            right: 3rem;
+            bottom: -8px;
+        }
+    }
+}

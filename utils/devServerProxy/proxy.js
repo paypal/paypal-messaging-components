@@ -30,7 +30,10 @@ const devAccountMap = {
     DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['gpl'], 'plq']
+    DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
+
+    DEV000000FRPL: ['FR', ['gpl'], 'gpl'],
+    DEV00000FRPLQ: ['FR', ['gpl'], 'gplq']
 };
 
 export default (app, server, compiler) => {
@@ -134,7 +137,11 @@ export default (app, server, compiler) => {
                     }
                 }
 
-                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
+                const markup = render(
+                    { style: validatedStyle, amount, customMarkup },
+                    populatedBanner,
+                    warnings.push.bind(warnings)
+                );
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {

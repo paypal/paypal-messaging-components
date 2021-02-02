@@ -1,0 +1,14 @@
+.message__logo-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin-right: 0.4rem;
+}
+
+.message__logo:first-child {
+    margin-right: 5px;
+}
+
+.message__logo:last-child {
+    margin-top: 2px;
+}

@@ -6,7 +6,7 @@ export const populateTemplate = (morsVars, template) =>
                     // eslint-disable-next-line security/detect-non-literal-regexp
                     new RegExp(`(\\\${CREDIT_OFFERS_DS\\.|{)${morsVar}}`, 'g'),
                     // Prevent string.replace from recognizing a $ as a substitution variable
-                    typeof val === 'string' ? val.replace(/\$/g, '$$$$') : null
+                    typeof val === 'string' ? val.replace(/\$/g, '$$$$') : val
                 ),
             template
         )
@@ -24,6 +24,7 @@ export const localizeNumber = country => (amount, fractionDigits = 2) => {
 
     switch (country) {
         case 'DE':
+        case 'FR':
             return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
         case 'GB':
             return baseFormat;
@@ -42,6 +43,8 @@ export const localizeCurrency = country => (amount, fractionDigits = 2) => {
             return `${localizedAmount}€`;
         case 'GB':
             return `£${localizedAmount}`;
+        case 'FR':
+            return `${localizedAmount} €`;
         case 'US':
         default:
             return `$${localizedAmount}`;

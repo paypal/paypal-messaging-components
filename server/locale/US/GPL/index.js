@@ -1,6 +1,6 @@
 import validOptions from './validOptions';
 import getMutations from './mutations';
-import logos from './logos';
+import logos from '../../../message/logos';
 import styles from './styles';
 
 export default {

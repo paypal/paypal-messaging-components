@@ -38,19 +38,26 @@ export function getInlineOptions(container) {
     // Allows for data attributes dependent on camel casing to function properly.
     const attributeNameOverride = {
         buyercountry: 'buyerCountry',
-        merchantid: 'merchantId'
+        merchantid: 'merchantId',
+        fontfamily: 'fontFamily',
+        fontsource: 'fontSource'
     };
-
+    const getOptionValue = (name, value) => {
+        if (stringStartsWith(value, '[')) {
+            try {
+                return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
+            } catch (err) {} // eslint-disable-line no-empty
+        }
+        return flattenedToObject(name, value);
+    };
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const propName = nodeName.replace('data-pp-', '');
+                const properPropName = attributeNameOverride[propName] ?? propName;
 
-                return objectMerge(
-                    accumulator,
-                    flattenedToObject(attributeNameOverride[propName] ?? propName, nodeValue)
-                );
+                return objectMerge(accumulator, getOptionValue(properPropName, nodeValue));
             }
 
             return accumulator;
