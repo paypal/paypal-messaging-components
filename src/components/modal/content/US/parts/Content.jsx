@@ -66,6 +66,7 @@ const Content = ({ headerRef }) => {
     const switchTab = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
+        setSticky(false);
     };
 
     useDidUpdateEffect(() => {
@@ -109,7 +110,13 @@ const Content = ({ headerRef }) => {
 
     const tabsContent =
         tabs.length > 1 ? (
-            <Tabs tabs={tabs} onSelect={index => selectProduct(tabs[index].product)} />
+            <Tabs
+                tabs={tabs}
+                onSelect={index => {
+                    selectProduct(tabs[index].product);
+                    setSticky(false);
+                }}
+            />
         ) : (
             <div className="tab-transition-item selected">{tabs[0].body}</div>
         );
