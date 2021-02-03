@@ -1,5 +1,4 @@
-import { Messages, setup } from './interface/messages';
-import { MessagesModal } from './interface';
+import { Messages, MessagesModal, setup } from './interface/experiment';
 
 // Manual window assignments as opposed to using the built in
 // webpack library export due to the webpack not being able
