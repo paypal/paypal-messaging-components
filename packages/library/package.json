@@ -19,7 +19,8 @@
         "server/",
         "dist/",
         "__sdk__.js",
-        "globals.js"
+        "globals.js",
+        "locales.js"
     ],
     "scripts": {
         "build": "webpack --env.NODE_ENV=production",
