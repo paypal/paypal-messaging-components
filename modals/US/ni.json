@@ -13,9 +13,7 @@
             "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
             "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
-            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
-            "apr": "${CREDIT_OFFERS_DS.apr}",
-            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
     "content": {

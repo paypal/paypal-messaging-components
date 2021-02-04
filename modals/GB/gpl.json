@@ -25,10 +25,10 @@
         "subHeadline": {
             "pay": {
                 "start": "Make one interest-free payment",
-                "amount": "of ${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+                "amount": "of ${formattedPeriodicPayment}",
                 "end": "today, then pay the rest monthly."
             },
-            "available": "Available on purchases from ${CREDIT_OFFERS_DS.formattedMinAmount} to ${CREDIT_OFFERS_DS.formattedMaxAmount}.",
+            "available": "Available on purchases from ${formattedMinAmount} to ${formattedMaxAmount}.",
             "apply": "Apply easily and get an instant decision."
         },
         "terms": [
