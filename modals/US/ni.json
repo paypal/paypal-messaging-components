@@ -13,7 +13,10 @@
             "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
             "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
-            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}"
         }
     },
     "content": {
