@@ -1,11 +1,20 @@
 {
     "meta": {
         "product": "NI",
-        "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
-        "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
-        "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
-        "amount": "${eval(transaction_amount ? transaction_amount : '-')}",
-        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}"
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
     },
     "content": {
         "headline": {
