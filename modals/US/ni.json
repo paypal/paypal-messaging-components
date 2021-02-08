@@ -10,7 +10,7 @@
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
-            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
             "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
