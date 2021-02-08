@@ -15,6 +15,7 @@
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
             "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "apr": "${CREDIT_OFFERS_DS.apr}",
