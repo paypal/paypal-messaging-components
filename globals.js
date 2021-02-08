@@ -47,7 +47,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __MESSAGE_A__: '/credit-presentment/messages',
             __MESSAGE_B__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER_A__: '/ppcredit/messagingLogger',
+            __LOGGER_A__: '/credit-presentment/messagingLogger',
             __LOGGER_B__: '/credit-presentment/log'
         }
     }
