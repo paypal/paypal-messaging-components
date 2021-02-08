@@ -41,7 +41,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __MESSAGE__: '/credit-presentment/messages',
             __MESSAGE_LEGACY__: '/credit-presentment/messages/legacy',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER__: '/ppcredit/messagingLogger'
+            __LOGGER__: '/credit-presentment/messagingLogger'
         }
     }
 });
