@@ -24,6 +24,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
+    // scrollY stores the modal scroll position.
     const scrollY = useRef(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
@@ -50,6 +51,10 @@ const Content = ({ headerRef, contentWrapper }) => {
                     setSticky(false);
                 }
             }
+            /**
+             * As you scroll, scrollY.current ref will be set to the value of scrollTop.
+             * The scrollTop value is the distance between the top of the contentWrapper element and the top of the scrollable space within the modal.
+             */
             scrollY.current = scrollTop;
         },
         [sticky]
@@ -68,6 +73,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const switchTab = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
+        /**
+         * For multiproduct modal with links at the bottom:
+         * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
+         * Modal content will start at the top upon switching tabs.
+         */
         if (sticky) {
             contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
         }
@@ -118,11 +128,17 @@ const Content = ({ headerRef, contentWrapper }) => {
                 tabs={tabs}
                 onSelect={index => {
                     selectProduct(tabs[index].product);
+                    /**
+                     * For multiproduct pill tab modal:
+                     * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
+                     * Modal content will start at the top upon switching tabs.
+                     */
                     if (sticky) {
                         contentWrapper.current.scrollTo(
                             0,
                             headerRef.current.clientHeight + cornerRef.current.clientHeight
                         );
+                        // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
                     } else {
                         contentWrapper.current.scrollTo(0, scrollY.current);
                     }
