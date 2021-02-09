@@ -17,13 +17,14 @@ import {
 } from '../../../lib';
 import Button from '../../../parts/Button';
 
-const Content = ({ headerRef }) => {
+const Content = ({ headerRef, contentWrapper }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
     const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
+    const [scrollY, setScrollY] = useState(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
     const product = getProductForOffer(offer);
@@ -49,6 +50,7 @@ const Content = ({ headerRef }) => {
                     setSticky(false);
                 }
             }
+            setScrollY(scrollTop);
         },
         [sticky]
     );
@@ -66,7 +68,9 @@ const Content = ({ headerRef }) => {
     const switchTab = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
-        setSticky(false);
+        if (sticky) {
+            contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
+        }
     };
 
     useDidUpdateEffect(() => {
@@ -114,7 +118,12 @@ const Content = ({ headerRef }) => {
                 tabs={tabs}
                 onSelect={index => {
                     selectProduct(tabs[index].product);
-                    setSticky(false);
+                    if (sticky) {
+                        contentWrapper.current.scrollTo(
+                            0,
+                            headerRef.current.clientHeight + cornerRef.current.clientHeight
+                        );
+                    } else contentWrapper.current.scrollTo(0, scrollY);
                 }}
             />
         ) : (
