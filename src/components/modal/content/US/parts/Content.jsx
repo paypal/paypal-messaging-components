@@ -24,7 +24,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
+    const scrollY = useRef(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
     const product = getProductForOffer(offer);
@@ -50,7 +50,7 @@ const Content = ({ headerRef, contentWrapper }) => {
                     setSticky(false);
                 }
             }
-            setScrollY(scrollTop);
+            scrollY.current = scrollTop;
         },
         [sticky]
     );
@@ -123,7 +123,9 @@ const Content = ({ headerRef, contentWrapper }) => {
                             0,
                             headerRef.current.clientHeight + cornerRef.current.clientHeight
                         );
-                    } else contentWrapper.current.scrollTo(0, scrollY);
+                    } else {
+                        contentWrapper.current.scrollTo(0, scrollY.current);
+                    }
                 }}
             />
         ) : (
