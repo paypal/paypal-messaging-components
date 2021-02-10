@@ -130,8 +130,7 @@ const Content = ({ headerRef, contentWrapper }) => {
             <Tabs
                 tabs={tabs}
                 onSelect={index => {
-                    selectProduct(tabs[index].product);
-                    switchTab();
+                    switchTab(tabs[index].product);
                 }}
             />
         ) : (
