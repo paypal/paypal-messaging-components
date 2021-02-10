@@ -74,12 +74,15 @@ const Content = ({ headerRef, contentWrapper }) => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
         /**
-         * For multiproduct modal with links at the bottom:
+         * For multiproduct modal:
          * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
          * Modal content will start at the top upon switching tabs.
          */
         if (sticky) {
             contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
+            // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
+        } else {
+            contentWrapper.current.scrollTo(0, scrollY.current);
         }
     };
 
@@ -128,20 +131,7 @@ const Content = ({ headerRef, contentWrapper }) => {
                 tabs={tabs}
                 onSelect={index => {
                     selectProduct(tabs[index].product);
-                    /**
-                     * For multiproduct pill tab modal:
-                     * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
-                     * Modal content will start at the top upon switching tabs.
-                     */
-                    if (sticky) {
-                        contentWrapper.current.scrollTo(
-                            0,
-                            headerRef.current.clientHeight + cornerRef.current.clientHeight
-                        );
-                        // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
-                    } else {
-                        contentWrapper.current.scrollTo(0, scrollY.current);
-                    }
+                    switchTab();
                 }}
             />
         ) : (
