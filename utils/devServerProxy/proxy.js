@@ -202,6 +202,7 @@ export default (app, server, compiler) => {
             minAmount: terms.minAmount,
             maxAmount: terms.maxAmount,
             formattedTransactionAmount: terms.amount ? toLocaleCurrency(terms.amount) : '-',
+            formattedTotalCost: terms.amount ? toLocaleCurrency(terms.amount) : '-',
             qualifying_offer: terms.amount ? 'true' : 'false',
             total_payments: bestOffer.term,
             formattedMinAmount: toLocaleCurrency(terms.minAmount),
