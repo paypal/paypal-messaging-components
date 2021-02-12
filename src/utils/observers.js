@@ -111,11 +111,6 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                     index,
                                     duration
                                 });
-                                logger.track({
-                                    index,
-                                    et: 'CLIENT_IMPRESSION',
-                                    event_type: 'message_fallback'
-                                });
                             }
 
                             iframe.style.setProperty('opacity', '0', 'important');
