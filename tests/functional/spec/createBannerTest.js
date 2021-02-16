@@ -3,15 +3,23 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot, logTestName } from './utils/logging';
 import selectors from './utils/selectors';
 
-const toMatchImageSnapshot = configureToMatchImageSnapshot({
+const toMatchTextSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
-    failureThreshold: 0.002,
+    failureThreshold: 0.004,
     customDiffConfig: {
         threshold: 0.05
     }
 });
 
-expect.extend({ toMatchImageSnapshot });
+const toMatchFlexSnapshot = configureToMatchImageSnapshot({
+    failureThresholdType: 'percent',
+    failureThreshold: 0.005,
+    customDiffConfig: {
+        threshold: 0.05
+    }
+});
+
+expect.extend({ toMatchTextSnapshot, toMatchFlexSnapshot });
 
 const getConfigStrParts = (obj, keyPrefix = '') => {
     return Object.entries(obj).reduce((accumulator, [key, val]) => {
@@ -142,8 +150,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 3
             );
 
+            const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
             const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
-            expect(image).toMatchImageSnapshot({
+            expect(image)[matchFunction]({
                 diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
                 customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
                 customSnapshotIdentifier

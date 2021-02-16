@@ -1,19 +1,34 @@
 {
     "meta": {
         "product": "GPL",
-        "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
-        "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
-        "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
-        "amount": "${eval(transaction_amount ? transaction_amount : '-')}",
-        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}"
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
     },
     "content": {
         "headline": {
             "singleProduct": "Payez en 4X"
         },
         "subHeadline": {
-            "unqualified": "4 échéances, pour les achats de ${CREDIT_OFFERS_DS.formattedMinAmount} à ${CREDIT_OFFERS_DS.formattedMaxAmount}. Inclut des frais de 2,1% dans la limite de 20 €. ",
-            "qualified": "${CREDIT_OFFERS_DS.formattedTransactionAmount} divisé en 4 échéances de ${CREDIT_OFFERS_DS.formattedPeriodicPayment}. Inclut des frais de 2,1% dans la limite de 20 €."
+            "unqualified": "4 échéances, pour les achats de {formattedMinAmount} à {formattedMaxAmount}. Inclut des frais de 2,1% dans la limite de 20 €. ",
+            "qualified": "{formattedTransactionAmount} divisé en 4 échéances de {formattedPeriodicPayment}. Inclut des frais de 2,1% dans la limite de 20 €."
         },
 
         "instructions": {
@@ -21,7 +36,7 @@
             "items": [
                 "Uniquement pour les particuliers résidant en France",
                 "Compte PayPal français obligatoire",
-                "Le Paiement en 4X est disponible sous réserve d'acceptation, pour les achats de ${CREDIT_OFFERS_DS.formattedMinAmount} à ${CREDIT_OFFERS_DS.formattedMaxAmount}"
+                "Le Paiement en 4X est disponible sous réserve d'acceptation, pour les achats de {formattedMinAmount} à {formattedMaxAmount}"
             ]
         },
         "terms": [

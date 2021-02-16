@@ -1,15 +1,11 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.16.0",
+    "version": "1.17.1",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
         "type": "git",
         "url": "https://github.com/paypal/paypal-messaging-components.git"
-    },
-    "engines": {
-        "node": "12",
-        "npm": "6"
     },
     "main": "dist/messaging.js",
     "module": "src/index.js",
@@ -19,7 +15,8 @@
         "server/",
         "dist/",
         "__sdk__.js",
-        "globals.js"
+        "globals.js",
+        "locales.js"
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
