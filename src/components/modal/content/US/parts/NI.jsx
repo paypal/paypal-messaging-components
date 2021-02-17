@@ -40,7 +40,7 @@ export default ({ showApplyNow, switchTab }) => {
     return (
         <section className="content-body">
             <div className="description">
-                <h2>{products.length > 1 ? headline.multiProduct : headline.singleProduct}</h2>
+                <h2>{products.length > 1 && !switchTab ? headline.multiProduct : headline.singleProduct}</h2>
 
                 <h3>{subHeadline}</h3>
 
