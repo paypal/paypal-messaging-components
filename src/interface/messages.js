@@ -66,6 +66,8 @@ export function setup() {
                 oldSetup();
             }
         });
+    } else {
+        newSetup();
     }
 }
 

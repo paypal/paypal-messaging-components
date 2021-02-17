@@ -77,7 +77,8 @@ export default {
                     textWrap(textSize * 32, textSize, 'US'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 16)
+                    setLogoTop(textSize * 16),
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -95,7 +96,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize *
-                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
+                    .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     xSmallFallback(textSize * 10.75),
                     setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
@@ -107,7 +109,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize *
-                        14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
+                    .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     xSmallFallback(textSize * 10.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
