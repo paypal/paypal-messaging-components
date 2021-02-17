@@ -1,0 +1,14 @@
+button {
+    text-align: right;
+    margin-left: auto;
+}
+
+.message__logo-container {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.message__messaging {
+    min-width: auto;
+    padding-right: 0px;
+}

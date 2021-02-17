@@ -109,7 +109,7 @@ const Message = () => {
                 padding: 0,
                 border: 'none',
                 outline: 'none',
-                textAlign: 'left',
+                textAlign: style?.text?.align || 'left',
                 fontFamily: 'inherit',
                 fontSize: 'inherit'
             }}
