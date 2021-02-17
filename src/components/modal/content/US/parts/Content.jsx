@@ -17,13 +17,15 @@ import {
 } from '../../../lib';
 import Button from '../../../parts/Button';
 
-const Content = ({ headerRef }) => {
+const Content = ({ headerRef, contentWrapper }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
     const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
+    // scrollY stores the modal scroll position.
+    const scrollY = useRef(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
     const product = getProductForOffer(offer);
@@ -49,6 +51,11 @@ const Content = ({ headerRef }) => {
                     setSticky(false);
                 }
             }
+            /**
+             * As you scroll, scrollY.current ref will be set to the value of scrollTop.
+             * The scrollTop value is the distance between the top of the contentWrapper element and the top of the scrollable space within the modal.
+             */
+            scrollY.current = scrollTop;
         },
         [sticky]
     );
@@ -66,6 +73,17 @@ const Content = ({ headerRef }) => {
     const switchTab = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
+        /**
+         * For multiproduct modal:
+         * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
+         * Modal content will start at the top upon switching tabs.
+         */
+        if (sticky) {
+            contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
+            // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
+        } else {
+            contentWrapper.current.scrollTo(0, scrollY.current);
+        }
     };
 
     useDidUpdateEffect(() => {
@@ -109,7 +127,12 @@ const Content = ({ headerRef }) => {
 
     const tabsContent =
         tabs.length > 1 ? (
-            <Tabs tabs={tabs} onSelect={index => selectProduct(tabs[index].product)} />
+            <Tabs
+                tabs={tabs}
+                onSelect={index => {
+                    switchTab(tabs[index].product);
+                }}
+            />
         ) : (
             <div className="tab-transition-item selected">{tabs[0].body}</div>
         );
