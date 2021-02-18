@@ -19,7 +19,7 @@ const Disclaimer = ({ terms: { error, formattedMinAmount, formattedMaxAmount, of
                     rel="noopener noreferrer"
                     href="https://www.paypal.com/de/webapps/mpp/paypal-instalments"
                 >
-                    Ratenrechner
+                    Mehr erfahren
                 </a>
             </p>
         );
