@@ -60,7 +60,7 @@ export default {
         [
             'logo.type:primary',
             ({ textSize }) => ({
-                messageWidth: [textSize * 13, textSize * 33],
+                messageWidth: [textSize * 13, textSize * 34],
                 styles: [
                     basicMediaQuery(textSize * 17),
                     `
