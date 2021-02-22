@@ -31,3 +31,7 @@
 .message__messaging span.br {
     white-space: nowrap;
 }
+
+.message__headline > .tag--medium > span {
+    white-space: nowrap;
+}

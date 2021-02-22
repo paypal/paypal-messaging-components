@@ -1,4 +1,4 @@
-import { attributeObserver, destroyGlobalState, globalState } from '../../utils';
+import { attributeObserver, destroyGlobalState, globalState, insertionObserver } from '../../utils';
 
 export default function destroy() {
     const { messagesMap } = globalState;
@@ -12,5 +12,6 @@ export default function destroy() {
     });
 
     attributeObserver.disconnect();
+    insertionObserver.disconnect();
     destroyGlobalState();
 }

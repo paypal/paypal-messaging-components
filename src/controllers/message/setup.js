@@ -1,6 +1,14 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
+import {
+    getInlineOptions,
+    globalState,
+    getScript,
+    getAccount,
+    getCurrency,
+    getPartnerAccount,
+    insertionObserver
+} from '../../utils';
 import Messages from './adapter';
 
 export default function setup() {
@@ -40,22 +48,29 @@ export default function setup() {
     // Requires a merchant account to render a message
     // Prevent auto render from firing inside zoid iframe
     if (!stringStartsWith(window.name, '__zoid__')) {
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', () => {
-                // If merchant includes multiple SDK scripts, the 1st script will destroy itself
-                // and its globalState before this runs causing the account to be undefined
-                if (globalState.config.account) {
-                    Messages.render({ _auto: true });
-                }
+        const autoRender = () => {
+            // If merchant includes multiple SDK scripts, the 1st script will destroy itself
+            // and its globalState before this runs causing the account to be undefined
+            if (globalState.config.account) {
+                Messages.render({ _auto: true });
+            }
+
+            // Using a "global" observer to watch for and automatically render
+            // any message containers that are dynamically added after auto render
+            insertionObserver.observe(document.body, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                attributeFilter: ['data-pp-message']
             });
+        };
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', autoRender);
         } else {
             // TODO: Remove setTimeout after ramp. Needed for ramp because the async top level inclusion/exclusion
             // list fetch causes the order of manual render calls and the auto render call to mix up
-            setTimeout(() => {
-                if (globalState.config.account) {
-                    Messages.render({ _auto: true });
-                }
-            }, 0);
+            setTimeout(autoRender, 0);
         }
     }
 }

@@ -129,7 +129,7 @@ export default {
                     }
                     `,
                     basicMediaQuery(textSize * 18.5),
-                    altContentMediaQuery(textSize * 30),
+                    altContentMediaQuery(textSize * 34),
                     `.message__logo-container { width: ${textSize * 9}px }`
                 ]
             })
