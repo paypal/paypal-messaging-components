@@ -54,3 +54,10 @@ logger.addPayloadBuilder(payload => {
 
     return {};
 });
+
+logger.addTrackingBuilder(() => {
+    // Send a timestamp with every tracking event so they can be correctly ordered
+    return {
+        timestamp: new Date().getTime()
+    };
+});

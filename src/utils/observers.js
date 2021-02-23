@@ -121,6 +121,11 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                     index,
                                     duration
                                 });
+                                logger.track({
+                                    index,
+                                    et: 'CLIENT_IMPRESSION',
+                                    event_type: 'message_hidden'
+                                });
                                 state.renderComplete = true;
                                 delete state.renderStart;
                             } else {
