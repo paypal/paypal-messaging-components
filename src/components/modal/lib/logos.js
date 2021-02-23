@@ -1,5 +1,5 @@
 import { PayPalLogo, PPLogo, LOGO_COLOR } from '@paypal/sdk-logos/src';
-import { dom } from 'jsx-pragmatic';
+import { dom } from 'jsx-pragmatic/src';
 
 function getPPLogoBase64(logoColor) {
     return PayPalLogo({ logoColor })

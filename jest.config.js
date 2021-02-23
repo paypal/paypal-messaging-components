@@ -24,7 +24,9 @@ module.exports = {
         'jsx-pragmatic/src': 'jsx-pragmatic',
         '@paypal/sdk-client/src': '@paypal/sdk-client',
         '@paypal/sdk-constants/src': '@paypal/sdk-constants',
-        'belter/src': 'belter'
+        '@paypal/sdk-logos/src': '@paypal/sdk-logos',
+        'belter/src': 'belter',
+        'beaver-logger/src': 'beaver-logger'
     },
     collectCoverageFrom: ['./src/**'],
     transform: {

@@ -1,5 +1,5 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
-import { Logger, LOG_LEVEL } from 'beaver-logger';
+import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
