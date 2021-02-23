@@ -10,7 +10,6 @@ const defaultXProps = {
     onClick: jest.fn()
 };
 
-jest.mock('src/utils/sdk');
 jest.mock('src/components/lib/providers/xprops');
 
 jest.mock('preact/hooks', () => ({

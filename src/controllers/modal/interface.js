@@ -1,4 +1,4 @@
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { logger, memoizeOnProps, getCurrentTime, viewportHijack, awaitWindowLoad } from '../../utils';
 import { Modal } from '../../zoid/modal';
