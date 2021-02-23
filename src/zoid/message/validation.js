@@ -108,11 +108,14 @@ export default {
     },
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
-    style: ({ props: { style } }) => {
-        if (validateType(Types.OBJECT, style)) {
+    style: ({ props: { style: styleInput } }) => {
+        if (validateType(Types.OBJECT, styleInput)) {
+            const style = styleInput?.layout ? styleInput : { ...styleInput, layout: 'text' };
+
             if (validateType(Types.STRING, style.layout)) {
                 return style;
             }
+            logInvalidType('style.layout', Types.STRING, style.layout);
 
             if (validateType(Types.STRING, style.preset)) {
                 return {
@@ -120,9 +123,8 @@ export default {
                     ...style
                 };
             }
-            logInvalidType('style.layout', Types.STRING, style.layout);
-        } else if (typeof style !== 'undefined') {
-            logInvalidType('style', Types.OBJECT, style);
+        } else if (typeof styleInput !== 'undefined') {
+            logInvalidType('style', Types.OBJECT, styleInput);
         }
 
         // Get the default settings for a text banner
