@@ -20,6 +20,7 @@ const devAccountMap = {
     DEV0000000GPL: ['US', ['gpl'], 'gpl'],
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
+    DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
@@ -30,7 +31,10 @@ const devAccountMap = {
     DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
-    DEV00000GBPLQ: ['GB', ['gpl'], 'plq']
+    DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
+
+    DEV000000FRPL: ['FR', ['gpl'], 'gpl'],
+    DEV00000FRPLQ: ['FR', ['gpl'], 'gplq']
 };
 
 export default (app, server, compiler) => {
@@ -50,6 +54,8 @@ export default (app, server, compiler) => {
                 formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                formattedMinAmount: toLocaleCurrency(terms.minAmount, 0),
+                formattedMaxAmount: toLocaleCurrency(terms.maxAmount, 0),
                 total_payments: bestOffer.term
             };
 
@@ -134,7 +140,11 @@ export default (app, server, compiler) => {
                     }
                 }
 
-                const markup = render({ style: validatedStyle, amount, customMarkup }, populatedBanner);
+                const markup = render(
+                    { style: validatedStyle, amount, customMarkup },
+                    populatedBanner,
+                    warnings.push.bind(warnings)
+                );
                 const parentStyles = getParentStyles(validatedStyle);
 
                 return {
@@ -195,6 +205,7 @@ export default (app, server, compiler) => {
             minAmount: terms.minAmount,
             maxAmount: terms.maxAmount,
             formattedTransactionAmount: terms.amount ? toLocaleCurrency(terms.amount) : '-',
+            formattedTotalCost: terms.amount ? toLocaleCurrency(terms.amount) : '-',
             qualifying_offer: terms.amount ? 'true' : 'false',
             total_payments: bestOffer.term,
             formattedMinAmount: toLocaleCurrency(terms.minAmount),

@@ -18,7 +18,7 @@ const VALID_OPTIONS = {
     onApply: [Types.FUNCTION],
     currency: [Types.STRING, ['USD', 'EUR', 'GBP']],
     placement: [Types.STRING, ['', 'home', 'category', 'product', 'cart', 'payment']],
-    buyerCountry: [Types.STRING, [undefined, 'US', 'DE', 'GB']]
+    buyerCountry: [Types.STRING, [undefined, 'US', 'DE', 'GB', 'FR']]
 };
 
 // Formalized validation logger helper functions

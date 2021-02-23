@@ -37,15 +37,39 @@ export function isElement(el) {
 export function getInlineOptions(container) {
     // Allows for data attributes dependent on camel casing to function properly.
     const attributeNameOverride = {
-        'data-pp-buyercountry': 'data-pp-buyerCountry'
+        buyercountry: 'buyerCountry',
+        onclick: 'onClick',
+        onapply: 'onApply',
+        onrender: 'onRender',
+        'style-text-fontfamily': 'style-text-fontFamily',
+        'style-text-fontsource': 'style-text-fontSource'
+    };
+
+    const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
+
+    const getOptionValue = (name, value) => {
+        if (stringStartsWith(value, '[')) {
+            try {
+                return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
+            } catch (err) {} // eslint-disable-line no-empty
+        }
+        return flattenedToObject(name, value);
     };
 
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
-                if (attributeNameOverride[nodeName]) nodeName = attributeNameOverride[nodeName]; // eslint-disable-line no-param-reassign
-                return objectMerge(accumulator, flattenedToObject(nodeName.replace('data-pp-', ''), nodeValue));
+                const attributeName = nodeName.replace('data-pp-', '');
+                const value = inlineEventHandlers.includes(attributeName)
+                    ? // eslint-disable-next-line no-new-func
+                      new Function(nodeValue)
+                    : nodeValue;
+
+                return objectMerge(
+                    accumulator,
+                    getOptionValue(attributeNameOverride[attributeName] ?? attributeName, value)
+                );
             }
 
             return accumulator;

@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery, textWrap } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, textWrap, zeroAprMediaQuery } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
@@ -43,18 +43,33 @@ export default {
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 16),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
-                    })
+                    }),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
             })
         ],
         [
@@ -64,9 +79,15 @@ export default {
                 styles: [
                     ...defaultTextStyles,
                     `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
+                    `
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
+                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8)
                 ]
             })
@@ -75,7 +96,11 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
-                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
+                styles: [
+                    ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `.message__logo { width: ${textSize * 7}px }`
+                ]
             })
         ],
         ['logo.type:none', { logo: false }],
@@ -84,6 +109,12 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ],
@@ -100,7 +131,13 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
+                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
@@ -115,7 +152,26 @@ export default {
         [
             'text.color:white',
             ({ textSize }) => ({
-                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
+            })
+        ],
+        [
+            'logo.type:primary && text.color:white',
+            ({ textSize }) => ({
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
+                    `.message__logo-container { width: ${textSize * 9}px }`
+                ]
             })
         ],
         [
@@ -123,6 +179,12 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
@@ -131,7 +193,11 @@ export default {
         [
             'logo.type:inline && text.color:white',
             ({ textSize }) => ({
-                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
+                styles: [
+                    ...whiteStyles,
+                    zeroAprMediaQuery(textSize * 16),
+                    `.message__logo { width: ${textSize * 7}px }`
+                ]
             })
         ],
         [
@@ -144,20 +210,26 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
-                    ...whiteStyles
+                    zeroAprMediaQuery(textSize * 16),
+                    ...whiteStyles,
+                    `
+                    @media (max-width: ${textSize * 16 - 1}px) {
+                        .tag--small > span:first-child:after { content: '.' }
+                    }
+                    `
                 ]
             })
         ],
         [
             'logo.type:none && text.color:monochrome',
-            () => ({
-                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: black; }`]
             })
         ],
         [
             'logo.type:none && text.color:grayscale',
-            () => ({
-                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
+            ({ textSize }) => ({
+                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: #2c2e2f; }`]
             })
         ],
         ...textLogoMutations

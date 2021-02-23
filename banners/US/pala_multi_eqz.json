@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "US",
         "offerType": "PALA:MULTI:EQZ",
-        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -15,7 +15,7 @@
 
     "headline": [
         [
-            [["As low as", "weak"], "{formattedMonthlyPayment}/mo. at 0% APR."],
+            [["As low as", "weak"], "{formattedMonthlyPayment}/mo.", ["at 0% APR.", "weakest"]],
             ["default", "small"]
         ],
         [

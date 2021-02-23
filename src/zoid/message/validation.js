@@ -3,6 +3,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import { logger, memoize } from '../../utils';
+import { localeOptions, currencyOptions } from '../../../locales';
 
 export const Types = {
     ANY: 'ANY',
@@ -10,6 +11,7 @@ export const Types = {
     BOOLEAN: 'BOOLEAN',
     NUMBER: 'NUMBER',
     FUNCTION: 'FUNCTION',
+    ARRAY: 'ARRAY',
     OBJECT: 'OBJECT'
 };
 
@@ -23,8 +25,10 @@ export function validateType(expectedType, val) {
             return typeof val === 'number' && !numberIsNaN(val);
         case Types.FUNCTION:
             return typeof val === 'function';
+        case Types.ARRAY:
+            return Array.isArray(val);
         case Types.OBJECT:
-            return typeof val === 'object' && val !== null;
+            return !Array.isArray(val) && typeof val === 'object' && val !== null;
         case Types.ANY:
             return true;
         default:
@@ -39,11 +43,13 @@ const logInvalid = memoize((location, message) =>
         location
     })
 );
-const logInvalidType = (location, expectedType, val) =>
+const logInvalidType = (location, expectedType, val) => {
+    const valType = Array.isArray(val) ? 'array' : typeof val;
     logInvalid(
         location,
-        `Expected type "${expectedType.toLowerCase()}" but instead received "${typeof val}" (${val}).`
+        `Expected type "${expectedType.toLowerCase()}" but instead received "${valType}" (${JSON.stringify(val)}).`
     );
+};
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
@@ -112,7 +118,10 @@ export default {
             logInvalidType('style.layout', Types.STRING, style.layout);
 
             if (validateType(Types.STRING, style.preset)) {
-                return { layout: 'text', ...style };
+                return {
+                    layout: 'text',
+                    ...style
+                };
             }
         } else if (typeof styleInput !== 'undefined') {
             logInvalidType('style', Types.OBJECT, styleInput);
@@ -123,12 +132,10 @@ export default {
     },
     currency: ({ props: { currency } }) => {
         if (typeof currency !== 'undefined') {
-            const options = ['USD', 'EUR', 'GBP'];
-
             if (!validateType(Types.STRING, currency)) {
                 logInvalidType('currency', Types.STRING, currency);
-            } else if (!arrayIncludes(options, currency)) {
-                logInvalidOption('currency', options, currency);
+            } else if (!arrayIncludes(currencyOptions, currency)) {
+                logInvalidOption('currency', currencyOptions, currency);
             } else {
                 return currency;
             }
@@ -153,12 +160,10 @@ export default {
     },
     buyerCountry: ({ props: { buyerCountry } }) => {
         if (typeof buyerCountry !== 'undefined') {
-            const options = ['US', 'DE', 'GB'];
-
             if (!validateType(Types.STRING, buyerCountry)) {
                 logInvalidType('buyerCountry', Types.STRING, buyerCountry);
-            } else if (!arrayIncludes(options, buyerCountry)) {
-                logInvalidOption('buyerCountry', options, buyerCountry);
+            } else if (!arrayIncludes(localeOptions, buyerCountry)) {
+                logInvalidOption('buyerCountry', localeOptions, buyerCountry);
             } else {
                 return buyerCountry;
             }

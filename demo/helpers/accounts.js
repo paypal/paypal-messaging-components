@@ -14,6 +14,7 @@ const accounts = [
     'DEV0000000GPL',
     'DEV00000GPLNQ',
     'DEV000000GPLQ',
+    'DEVGPLNQRANGE'
 
     // DE
     // 'DEV0000000IAZ',
@@ -24,4 +25,8 @@ const accounts = [
     // GB
     // 'DEV000000GBPL',
     // 'DEV00000GBPLQ',
+
+    // FR
+    // 'DEV000000FRPL',
+    // 'DEV00000FRPLQ'
 ];

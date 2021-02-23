@@ -1,0 +1,20 @@
+{
+    "meta": {
+        "offerCountry": "FR",
+        "offerType": "GPL",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+        }
+    },
+
+    "headline": [[["Payez en 4X pour les achats éligibles."], ["default", "small"]]],
+
+    "subHeadline": [[["Payez avec PayPal et choisissez le paiement en 4X."], ["default", "small"]]],
+
+    "disclaimer": [["En savoir plus", ["default"]]]
+}
