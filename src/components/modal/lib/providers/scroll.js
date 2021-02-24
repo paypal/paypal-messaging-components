@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h, createContext } from 'preact';
 import { useEffect, useState, useContext, useCallback } from 'preact/hooks';
+import { getEventListenerPassiveOptionIfSupported } from '../../../../utils';
 
 const ScrollContext = createContext({
     addScrollCallback: () => {},
@@ -35,12 +36,14 @@ export const ScrollProvider = ({ children, containerRef }) => {
     useEffect(() => {
         const handleScroll = event => callbacks.forEach(callback => callback(event));
 
-        containerRef.current.addEventListener('scroll', handleScroll);
-        containerRef.current.addEventListener('touchmove', handleScroll);
+        const passiveOption = getEventListenerPassiveOptionIfSupported();
+
+        containerRef.current.addEventListener('scroll', handleScroll, passiveOption);
+        containerRef.current.addEventListener('touchmove', handleScroll, passiveOption);
 
         return () => {
-            containerRef.current.removeEventListener('scroll', handleScroll);
-            containerRef.current.removeEventListener('touchmove', handleScroll);
+            containerRef.current.removeEventListener('scroll', handleScroll, passiveOption);
+            containerRef.current.removeEventListener('touchmove', handleScroll, passiveOption);
         };
     }, [callbacks]);
 

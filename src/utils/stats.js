@@ -1,21 +1,25 @@
-import { SDK_SETTINGS } from '@paypal/sdk-constants';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
+
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getLibraryVersion, getScriptAttributes } from './sdk';
+import { getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
 const onScroll = (elem, handler) => {
+    const passiveOption = getEventListenerPassiveOptionIfSupported();
+
     if (scrollHandlers.size === 0) {
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, passiveOption);
     }
     scrollHandlers.set(elem, handler);
 
     return () => {
         scrollHandlers.delete(elem);
         if (scrollHandlers.size === 0) {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll, passiveOption);
         }
     };
 };
