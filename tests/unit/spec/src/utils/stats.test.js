@@ -139,8 +139,8 @@ describe('stats', () => {
 
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledWith(payload);
-        expect(window.addEventListener).toHaveBeenCalledTimes(1);
-        expect(window.addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function));
+        expect(window.addEventListener).toHaveBeenCalledTimes(2);
+        expect(window.addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
 
         container.getBoundingClientRect = () => ({
             left: 100,
@@ -159,6 +159,6 @@ describe('stats', () => {
             visible: 'true'
         });
         expect(window.removeEventListener).toHaveBeenCalledTimes(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function));
+        expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
     });
 });

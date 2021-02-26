@@ -1,5 +1,5 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
-import { Logger, LOG_LEVEL } from 'beaver-logger';
+import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
@@ -53,4 +53,11 @@ logger.addPayloadBuilder(payload => {
     delete payload.selector; // eslint-disable-line no-param-reassign
 
     return {};
+});
+
+logger.addTrackingBuilder(() => {
+    // Send a timestamp with every tracking event so they can be correctly ordered
+    return {
+        timestamp: new Date().getTime()
+    };
 });

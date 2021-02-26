@@ -1,5 +1,5 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { globalState, getGlobalVariable } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
@@ -120,6 +120,11 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                     container,
                                     index,
                                     duration
+                                });
+                                logger.track({
+                                    index,
+                                    et: 'CLIENT_IMPRESSION',
+                                    event_type: 'message_hidden'
                                 });
                                 state.renderComplete = true;
                                 delete state.renderStart;
