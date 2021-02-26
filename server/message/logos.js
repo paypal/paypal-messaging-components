@@ -19,76 +19,65 @@ function getPPMonogramBase64(logoColor) {
     return getSrc(PPLogo({ logoColor }));
 }
 
-const PP_PAYPAL = {
-    COLOR: [
-        {
-            src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
-            dimensions: [24, 32]
-        },
-        {
+export default {
+    PP_PAYPAL: {
+        COLOR: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.DEFAULT),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
+                dimensions: [100, 32]
+            }
+        ],
+        WHITE: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.WHITE),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.WHITE),
+                dimensions: [100, 32]
+            }
+        ],
+        GRAYSCALE: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.BLACK),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.BLACK),
+                dimensions: [100, 32]
+            }
+        ],
+        MONOCHROME: [
+            {
+                src: getPPMonogramBase64(LOGO_COLOR.MONOCHROME),
+                dimensions: [24, 32]
+            },
+            {
+                src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
+                dimensions: [100, 32]
+            }
+        ]
+    },
+    NO_PP_MONOGRAM: {
+        COLOR: {
             src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
             dimensions: [100, 32]
-        }
-    ],
-    WHITE: [
-        {
-            src: getPPMonogramBase64(LOGO_COLOR.WHITE),
-            dimensions: [24, 32]
         },
-        {
+        WHITE: {
             src: getPPLogoBase64(LOGO_COLOR.WHITE),
             dimensions: [100, 32]
-        }
-    ],
-    GRAYSCALE: [
-        {
-            src: getPPMonogramBase64(LOGO_COLOR.BLACK),
-            dimensions: [24, 32]
         },
-        {
+        GRAYSCALE: {
             src: getPPLogoBase64(LOGO_COLOR.BLACK),
             dimensions: [100, 32]
-        }
-    ],
-    MONOCHROME: [
-        {
-            src: getPPMonogramBase64(LOGO_COLOR.MONOCHROME),
-            dimensions: [24, 32]
         },
-        {
+        MONOCHROME: {
             src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
             dimensions: [100, 32]
         }
-    ]
-};
-const NO_PP_MONOGRAM = {
-    COLOR: {
-        src: getPPLogoBase64(LOGO_COLOR.DEFAULT),
-        dimensions: [100, 32]
-    },
-    WHITE: {
-        src: getPPLogoBase64(LOGO_COLOR.WHITE),
-        dimensions: [100, 32]
-    },
-    GRAYSCALE: {
-        src: getPPLogoBase64(LOGO_COLOR.BLACK),
-        dimensions: [100, 32]
-    },
-    MONOCHROME: {
-        src: getPPLogoBase64(LOGO_COLOR.MONOCHROME),
-        dimensions: [100, 32]
-    }
-};
-
-export default {
-    PP_PAYPAL,
-    NO_PP_MONOGRAM,
-    PRIMARY: PP_PAYPAL,
-    // ALTERNATIVE: PP_PAYPAL
-    ALTERNATIVE: {
-        COLOR: PP_PAYPAL.COLOR[0],
-        WHITE: PP_PAYPAL.COLOR[0],
-        GRAYSCALE: PP_PAYPAL.COLOR[0],
-        MONOCHROME: PP_PAYPAL.COLOR[0]
     }
 };
