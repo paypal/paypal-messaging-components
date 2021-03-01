@@ -37,7 +37,7 @@ export default {
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 32 + 10),
+                    setLogoTop(textSize * 26 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })

@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 36 + 10),
+                    setLogoTop(textSize * 32 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
