@@ -1,12 +1,37 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { globalState, getGlobalVariable } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace } from './sdk';
-import { getRoot, elementContains } from './elements';
+import { getRoot, elementContains, isElement } from './elements';
+
+export const insertionObserver = getGlobalVariable(
+    '__insertion_observer__',
+    () =>
+        new MutationObserver(mutationList => {
+            const newMessageContainers = [];
+
+            mutationList.forEach(mutation => {
+                // Handle an existing element with data-pp-message added, or a brand new element with data-pp-message on it
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
+                    newMessageContainers.push(mutation.target);
+                } else {
+                    mutation.addedNodes.forEach(node => {
+                        if (isElement(node) && node.hasAttribute('data-pp-message')) {
+                            newMessageContainers.push(node);
+                        }
+                    });
+                }
+            });
+
+            newMessageContainers.forEach(container =>
+                window[getNamespace()]?.Messages({ _auto: true }).render(container)
+            );
+        })
+);
 
 export const attributeObserver = getGlobalVariable(
     '__attribute_observer__',
@@ -95,6 +120,11 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
                                     container,
                                     index,
                                     duration
+                                });
+                                logger.track({
+                                    index,
+                                    et: 'CLIENT_IMPRESSION',
+                                    event_type: 'message_hidden'
                                 });
                                 state.renderComplete = true;
                                 delete state.renderStart;

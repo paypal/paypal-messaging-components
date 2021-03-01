@@ -2,11 +2,26 @@
     "meta": {
         "offerCountry": "US",
         "product": "GPL",
-        "periodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
-        "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
-        "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
-        "amount": "${eval(transaction_amount ? transaction_amount : '-')}",
-        "qualifying": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}"
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
     },
     "content": {
         "headline": {
@@ -14,13 +29,13 @@
             "multiProduct": "Simple, short-term installments"
         },
         "subHeadline": {
-            "unqualified": "4 interest-free payments every 2 weeks, starting today, with no impact to your credit score. Available on purchases from ${CREDIT_OFFERS_DS.formattedMinAmount}-${CREDIT_OFFERS_DS.formattedMaxAmount}.",
-            "qualified": "${CREDIT_OFFERS_DS.formattedTransactionAmount} divided into 4 interest-free payments of ${CREDIT_OFFERS_DS.formattedPeriodicPayment} every 2 weeks, with no impact to your credit score. Down payment due today."
+            "unqualified": "4 interest-free payments every 2 weeks, starting today, with no impact to your credit score. Available on purchases from {formattedMinAmount}-{formattedMaxAmount}.",
+            "qualified": "{formattedTransactionAmount} divided into 4 interest-free payments of {formattedPeriodicPayment} every 2 weeks, with no impact to your credit score. Down payment due today."
         },
 
         "instructions": {
             "title": ["Check out securely with", "PayPal", "and choose", "Pay Later"],
-            "purchaseAmount": "Pay in 4 is available upon approval for purchases of ${CREDIT_OFFERS_DS.formattedMinAmount}-${CREDIT_OFFERS_DS.formattedMaxAmount}.",
+            "purchaseAmount": "Pay in 4 is available upon approval for purchases of {formattedMinAmount}-{formattedMaxAmount}.",
             "items": [
                 "Pay in 4 is not currently available to residents of New Mexico, North Dakota, Missouri, South Dakota, Wisconsin, or any U.S. Territories. Offer availability also depends on the merchant.",
                 "Late fees may apply for missed payments depending on your state of residency.",

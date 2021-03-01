@@ -154,17 +154,6 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        [{ color: 'blue' }].forEach((invalidStyle, index) => {
-            const style = validate.style({ props: { style: invalidStyle } });
-
-            expect(style).toEqual(fallback);
-            expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(
-                expect.stringContaining('invalid_option_value'),
-                expect.objectContaining({ location: 'style.layout' })
-            );
-        });
-
         console.warn.mockClear();
 
         ['abc', null, 12345].forEach((invalidStyle, index) => {

@@ -2,7 +2,7 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
@@ -40,8 +40,16 @@ export function getInlineOptions(container) {
         buyercountry: 'buyerCountry',
         merchantid: 'merchantId',
         fontfamily: 'fontFamily',
-        fontsource: 'fontSource'
+        fontsource: 'fontSource',
+        onclick: 'onClick',
+        onapply: 'onApply',
+        onrender: 'onRender',
+        'style-text-fontfamily': 'style-text-fontFamily',
+        'style-text-fontsource': 'style-text-fontSource'
     };
+
+    const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
+
     const getOptionValue = (name, value) => {
         if (stringStartsWith(value, '[')) {
             try {
@@ -50,14 +58,21 @@ export function getInlineOptions(container) {
         }
         return flattenedToObject(name, value);
     };
+
     const dataOptions = arrayFrom(container.attributes)
         .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
-                const propName = nodeName.replace('data-pp-', '');
-                const properPropName = attributeNameOverride[propName] ?? propName;
+                const attributeName = nodeName.replace('data-pp-', '');
+                const value = inlineEventHandlers.includes(attributeName)
+                    ? // eslint-disable-next-line no-new-func
+                      new Function(nodeValue)
+                    : nodeValue;
 
-                return objectMerge(accumulator, getOptionValue(properPropName, nodeValue));
+                return objectMerge(
+                    accumulator,
+                    getOptionValue(attributeNameOverride[attributeName] ?? attributeName, value)
+                );
             }
 
             return accumulator;

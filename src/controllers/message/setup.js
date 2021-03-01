@@ -1,6 +1,14 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
+import {
+    getInlineOptions,
+    globalState,
+    getScript,
+    getAccount,
+    getCurrency,
+    getPartnerAccount,
+    insertionObserver
+} from '../../utils';
 import Messages from './adapter';
 
 export default function setup() {
@@ -48,6 +56,14 @@ export default function setup() {
             if (globalState.config.account) {
                 Messages.render({ _auto: true });
             }
+            // Using a "global" observer to watch for and automatically render
+            // any message containers that are dynamically added after auto render
+            insertionObserver.observe(document.body, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                attributeFilter: ['data-pp-message']
+            });
         };
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', handleContentLoaded);
