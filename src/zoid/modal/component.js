@@ -183,9 +183,9 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props, state }) => {
+                value: ({ props, state, event }) => {
                     const { onReady } = props;
-
+                    // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
@@ -225,9 +225,19 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
                         });
 
-                        if (typeof onReady === 'function') {
+                        if (
+                            typeof onReady === 'function' &&
+                            // No need to fire the merchant's onReady if the modal products haven't changed
+                            // which could cause multiple click event handlers to be added
+                            (!state.products || JSON.stringify(products) !== JSON.stringify(state.products))
+                        ) {
                             onReady({ products, show, hide });
                         }
+                        // Consumed in modal controller when validating the offer type passed in
+                        // to determine if a modal is able to be displayed or not.
+                        // Primary use-case is a standalone modal
+                        state.products = products; // eslint-disable-line no-param-reassign
+                        event.trigger('ready');
                     };
                 }
             },

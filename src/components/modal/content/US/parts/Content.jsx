@@ -86,7 +86,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     };
 
     useDidUpdateEffect(() => {
-        setSelectedProduct(product);
+        // For standalone modal the product determined by the offer changing may be invalid
+        // so we need to search against the actual offers and provide a default
+        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+
+        setSelectedProduct(fullProduct.meta.product);
     }, [product]);
 
     const setShowApplyNow = show => {

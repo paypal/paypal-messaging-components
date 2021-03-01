@@ -12,7 +12,10 @@ jest.mock('src/zoid/modal', () => {
             render: mockRender,
             updateProps: mockUpdateProps,
             hide: mockHide,
-            state: {}
+            state: {},
+            event: {
+                once: (_, resolve) => resolve()
+            }
         }))
     };
 });
