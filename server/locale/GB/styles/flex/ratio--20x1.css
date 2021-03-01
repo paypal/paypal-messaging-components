@@ -119,3 +119,9 @@
         font-size: 10px;
     }
 }
+
+@media (max-aspect-ratio: 61 / 10) and (min-width: 375px) {
+    .message__disclaimer > span:first-child {
+        display: inline;
+    }
+}
