@@ -200,30 +200,29 @@ export function getProductForOffer(offer) {
         return 'NONE';
     }
 
-    if (
-        arrayIncludes(
-            [
-                'EZP', // Generic value for standlone modal support
-                'EZP:ANY:EQZ',
-                'EZP:ANY:GTZ',
-                'PALA:MULTI:EQZ',
-                'PALA:MULTI:GTZ',
-                'PALA:SINGLE:EQZ',
-                'PALA:SINGLE:GTZ'
-            ],
-            offer.toUpperCase()
-        )
-    ) {
-        return 'EZP';
+    switch (offer.toUpperCase()) {
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
+            return 'GPL';
+        case 'EZP':
+        case 'EZP:ANY:EQZ':
+        case 'EZP:ANY:GTZ':
+        case 'PALA:MULTI:EQZ':
+        case 'PALA:MULTI:GTZ':
+        case 'PALA:SINGLE:EQZ':
+        case 'PALA:SINGLE:GTZ':
+            return 'EZP';
+        case 'INST':
+        case 'INST:ANY:EQZ':
+        case 'INST:ANY:GTZ':
+        case 'PALAQ:ANY:EQZ':
+        case 'PALAQ:ANY:GTZ':
+            return 'INST';
+        default:
+            return 'NI';
     }
-
-    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ', 'GPLNQ_RANGE', 'PL', 'PLQ'], offer.toUpperCase())) {
-        return 'GPL';
-    }
-
-    if (offer.toUpperCase() === 'INST') {
-        return 'INST';
-    }
-
-    return 'NI';
 }
