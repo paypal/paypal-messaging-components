@@ -194,3 +194,36 @@ export const getEventListenerPassiveOptionIfSupported = () => {
 
     return passiveIfSupported;
 };
+
+export function getProductForOffer(offer) {
+    if (typeof offer === 'undefined') {
+        return 'NONE';
+    }
+
+    if (
+        arrayIncludes(
+            [
+                'EZP', // Generic value for standlone modal support
+                'EZP:ANY:EQZ',
+                'EZP:ANY:GTZ',
+                'PALA:MULTI:EQZ',
+                'PALA:MULTI:GTZ',
+                'PALA:SINGLE:EQZ',
+                'PALA:SINGLE:GTZ'
+            ],
+            offer.toUpperCase()
+        )
+    ) {
+        return 'EZP';
+    }
+
+    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ', 'GPLNQ_RANGE', 'PL', 'PLQ'], offer.toUpperCase())) {
+        return 'GPL';
+    }
+
+    if (offer.toUpperCase() === 'INST') {
+        return 'INST';
+    }
+
+    return 'NI';
+}

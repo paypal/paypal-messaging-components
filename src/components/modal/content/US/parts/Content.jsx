@@ -6,15 +6,8 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
-import {
-    useServerData,
-    useScroll,
-    useApplyNow,
-    useXProps,
-    useDidUpdateEffect,
-    getProductForOffer,
-    useTransitionState
-} from '../../../lib';
+import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
+import { getProductForOffer } from '../../../../../utils';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {

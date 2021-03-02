@@ -1,4 +1,3 @@
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, memoizeOnProps } from '../../../utils';
 
@@ -26,32 +25,3 @@ export const getContent = memoizeOnProps(
     },
     ['currency', 'amount', 'country', 'clientId', 'payerId', 'merchantId', 'buyerCountry']
 );
-
-export function getProductForOffer(offer) {
-    if (typeof offer === 'undefined') {
-        return 'NONE';
-    }
-
-    if (
-        arrayIncludes(
-            [
-                'EZP', // Generic value for standlone modal support
-                'EZP:ANY:EQZ',
-                'EZP:ANY:GTZ',
-                'PALA:MULTI:EQZ',
-                'PALA:MULTI:GTZ',
-                'PALA:SINGLE:EQZ',
-                'PALA:SINGLE:GTZ'
-            ],
-            offer.toUpperCase()
-        )
-    ) {
-        return 'EZP';
-    }
-
-    if (arrayIncludes(['GPL', 'GPLQ', 'GPLNQ', 'GPLNQ_RANGE'], offer.toUpperCase())) {
-        return 'GPL';
-    }
-
-    return 'NI';
-}

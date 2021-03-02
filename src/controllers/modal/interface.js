@@ -1,5 +1,4 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import stringIncludes from 'core-js-pure/stable/string/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
@@ -10,7 +9,8 @@ import {
     getInlineOptions,
     isElement,
     globalState,
-    objectMerge
+    objectMerge,
+    getProductForOffer
 } from '../../utils';
 import { Modal } from '../../zoid/modal';
 
@@ -55,10 +55,12 @@ const memoizedModal = memoizeOnProps(
                 renderProm = renderModal('body');
             }
 
+            const requestedProduct = getProductForOffer(options.offer);
+
             if (
                 typeof options.offer !== 'undefined' &&
                 Array.isArray(state.products) &&
-                !arrayFind(state.products, product => stringIncludes(options.offer, product))
+                !arrayFind(state.products, supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {
                     location: 'offer',
