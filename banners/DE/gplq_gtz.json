@@ -1,0 +1,30 @@
+{
+    "meta": {
+        "offerCountry": "DE",
+        "offerType": "GPLQ:GTZ",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
+        [["Buy now and pay later."], ["xsmall.2"]],
+        [
+            ["Bezahlen Sie in 3-24 monatlichen Raten", [".", "weak"]],
+            ["medium", "large", "xlarge"]
+        ]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Mehr erfahren", ["default"]]]
+}

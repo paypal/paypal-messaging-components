@@ -21,6 +21,10 @@ const accounts = [
     // 'DEV0000000IAG',
     // 'DEV000000PQAG',
     // 'DEV000000PQAZ',
+    // 'DEV000DEPLEQZ',
+    // 'DEV000DEPLGTZ',
+    // 'DEV00DEPLQEQZ',
+    // 'DEV00DEPLQGTZ',
 
     // GB
     // 'DEV000000GBPL',
