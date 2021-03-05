@@ -17,6 +17,22 @@ const flex = [
             ],
             disclaimer: ['default']
         }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [
+                `
+                @media (min-aspect-ratio: 200/11) and (min-width: 523px) and (max-width: 850px) {
+                    ${['medium', 'large', 'xlarge', 'default']
+                        .map(tag => `.message__headline .tag--${tag}`)
+                        .join(', ')}{
+                        font-size: 1.8vw;
+                    }
+                }
+                `
+            ]
+        }
     ]
     // [
     //     'ratio:20x1',
