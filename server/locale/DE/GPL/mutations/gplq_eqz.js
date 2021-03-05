@@ -17,6 +17,22 @@ const flex = [
             ],
             disclaimer: ['default']
         }
+    ],
+    [
+        'ratio:8x1',
+        {
+            styles: [
+                `
+                @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+                    ${['medium', 'large', 'xlarge', 'default']
+                        .map(tag => `.message__headline .tag--${tag}`)
+                        .join(', ')}{
+                        font-size: 3.4vw;
+                    }
+                }
+                `
+            ]
+        }
     ]
     // [
     //     'ratio:20x1',
