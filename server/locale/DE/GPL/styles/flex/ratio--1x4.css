@@ -1,49 +1,38 @@
-.message__logo-container {
-    width: 100%;
-    margin-top: 3%;
-    margin-bottom: 0;
-}
-
-.message__messaging {
-    height: 100%;
-    transform: translateY(-80px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.message__headline {
-    font-size: 1.4rem;
-    line-height: 1.8rem;
-    margin-bottom: 10%;
-}
-
-.message__sub-headline {
-    display: none;
-}
-
-.message__disclaimer {
-    font-size: 1rem;
-    line-height: 1.375rem;
-}
-
-.message__disclaimer span.multi:nth-of-type(1) {
-    display: inline;
-}
-
-.message__headline .tag--xsmall {
-    display: none;
-}
-
-/*@media (min-height: 500px) {
-    .message__headline {
-        font-size: 4.66vw;
+@media (min-aspect-ratio: 10/41) {
+    .message__logo-container {
+        width: 100%;
+        margin-top: 3%;
+        margin-bottom: 0;
     }
-}
 
-@media (aspect-ratio: 1/2) {
     .message__messaging {
-        transform: translateY(-40px);
+        height: 100%;
+        transform: translateY(-80px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .message__headline {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        margin-bottom: 10%;
+    }
+
+    .message__sub-headline {
+        display: none;
+    }
+
+    .message__disclaimer {
+        font-family: 'PayPal-Sans-Big';
+        font-size: 1.2rem;
+    }
+
+    .message__headline .tag--xsmall {
+        display: none;
+    }
+
+    .message__headline span:nth-of-type(1) {
+        margin-right: -6px;
     }
 }
-*/

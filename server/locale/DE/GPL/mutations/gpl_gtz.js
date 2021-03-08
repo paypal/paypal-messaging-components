@@ -17,60 +17,8 @@ const flex = [
             ],
             disclaimer: ['default']
         }
-    ]
-    // [
-    //     'ratio:20x1',
-    //     {
-    //         styles: [
-    //             `
-    //             @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
-    //                 .message__logo-container {
-    //                     max-width: 12%;
-    //                 }
-    //             }
-
-    //             @media (min-aspect-ratio: 200/11) and (min-width: 300px) {
-    //                 .message__logo:nth-of-type(1) {
-    //                     width: 18%;
-    //                 }
-    //                 .message__logo:nth-of-type(2) {
-    //                     width: 60%;
-    //                 }
-    //             }
-
-    //             @media (min-aspect-ratio: 60/11) and (min-width: 324px) {
-    //                 .message__headline .tag--medium .br:first-child {
-    //                     display: inline;
-    //                 }
-    //             }
-    //             `
-    //         ]
-    //     }
-    // ],
-    // [
-    //     'ratio:8x1',
-    //     {
-    //         headline: [
-    //             {
-    //                 tag: 'xsmall'
-    //             },
-    //             {
-    //                 tag: 'medium',
-    //                 br: ['on']
-    //             }
-    //         ],
-    //         styles: [
-    //             `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
-    //                 .message__headline .tag--medium .br:first-child {
-    //                     display: inline;
-    //                 }
-    //             }
-    //             `
-    //         ]
-    //     }
-    // ],
-    // ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
-    // ...flexLogoMutations
+    ],
+    ...flexLogoMutations
 ];
 
 export default {

@@ -11,6 +11,11 @@
 
 .message__disclaimer {
     position: static;
+    font-family: 'PayPal-Sans-Big';
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .message__disclaimer > span {
