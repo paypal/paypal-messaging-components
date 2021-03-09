@@ -60,11 +60,7 @@ const Content = ({ headerRef, contentWrapper }) => {
         }
 
         setSelectedProduct(newProduct);
-    };
 
-    const switchTab = newProduct => {
-        onClick({ linkName: newProduct });
-        selectProduct(newProduct);
         /**
          * For multiproduct modal:
          * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
@@ -76,6 +72,13 @@ const Content = ({ headerRef, contentWrapper }) => {
         } else {
             contentWrapper.current.scrollTo(0, scrollY.current);
         }
+    };
+
+    // Tabs component will track tab switches by default
+    // for "fake" tabs that show as links, we must track it manually
+    const tabLinkClick = newProduct => {
+        onClick({ linkName: newProduct });
+        selectProduct(newProduct);
     };
 
     useDidUpdateEffect(() => {
@@ -117,16 +120,18 @@ const Content = ({ headerRef, contentWrapper }) => {
 
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => switchTab('NI') : null} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => tabLinkClick('NI') : null} />;
 
-    tabsMap.NI.body = <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => switchTab('GPL') : null} />;
+    tabsMap.NI.body = (
+        <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => tabLinkClick('GPL') : null} />
+    );
 
     const tabsContent =
         tabs.length > 1 ? (
             <Tabs
                 tabs={tabs}
                 onSelect={index => {
-                    switchTab(tabs[index].product);
+                    selectProduct(tabs[index].product);
                 }}
             />
         ) : (

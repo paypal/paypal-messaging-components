@@ -40,8 +40,8 @@ const Tabs = ({ tabs, onSelect }) => {
 
     const hasHeader = tabs.some(tab => Boolean(tab.header));
 
-    const tabSelected = (tab, index) => {
-        onClick({ linkName: tab.product });
+    const tabClick = index => {
+        onClick({ linkName: tabs[index].product });
         selectTab(index);
     };
 
@@ -62,7 +62,7 @@ const Tabs = ({ tabs, onSelect }) => {
                     <button
                         className={`tab ${currentTab === index ? 'selected' : ''}`}
                         type="button"
-                        onClick={() => tabSelected(tab, index)}
+                        onClick={() => tabClick(index)}
                         role="tab"
                         ariaSelected={currentTab === index}
                         id={index}
