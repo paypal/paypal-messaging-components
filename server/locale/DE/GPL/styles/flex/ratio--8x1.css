@@ -2,6 +2,9 @@
     .message__headline {
         font-size: 3.5vw;
         display: inline;
+        /*        display: block;
+        line-height: 2rem;
+*/
         padding: 0;
         padding-right: 8px;
     }

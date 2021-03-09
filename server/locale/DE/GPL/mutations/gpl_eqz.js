@@ -27,7 +27,12 @@ const flex = [
                     ${['medium', 'large', 'xlarge', 'default']
                         .map(tag => `.message__headline .tag--${tag}`)
                         .join(', ')}{
-                        font-size: 1.8vw;
+                        font-size: 1.7vw;
+                    }
+                }
+                @media (min-aspect-ratio: 60/11) and (min-width: 375px) and (max-width: 501px) {
+                    .message__headline{
+                        font-size: 3.5vw;
                     }
                 }
                 `

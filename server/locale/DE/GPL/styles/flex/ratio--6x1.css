@@ -1,13 +1,13 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
-@media (max-aspect-ratio: 61/10) {
+@media (min-aspect-ratio: 60/11) and (max-width: 501px) {
     .message__headline {
-        font-size: 5vw;
-        line-height: 1.3em;
+        font-size: 4vw;
+        line-height: 1.2em;
         display: inline;
+        margin-right: 8px;
     }
-
     .message__disclaimer {
-        font-size: 1rem;
+        font-size: 2.5vw;
     }
     .message__messaging {
         flex: 1 1 100%;
@@ -16,25 +16,53 @@
         display: flex;
         align-items: center;
         flex: 0 0 12%;
+        margin-left: 8px;
+        margin-bottom: -6px;
     }
-}
-@media (max-aspect-ratio: 61/10) and (min-width: 251px) {
+    .message__logo:nth-of-type(1) {
+        display: inline;
+    }
+    .message__logo:nth-of-type(2) {
+        display: none;
+    }
+    .message__headline span.tag--xsmall {
+        display: none;
+    }
+    .message__headline span.tag--medium {
+        display: inline;
+    }
+    .message__headline span.weak {
+        margin-left: -4px;
+    }
+    .message__logo:nth-of-type(1) {
+        display: inline;
+    }
     .message__logo:nth-of-type(2) {
         display: none;
     }
 }
-
-@media (max-aspect-ratio: 61/10) and (max-width: 250px) {
-    .message__logo:nth-of-type(1) {
-        margin: 0 4px;
-        width: 30%;
+@media (min-aspect-ratio: 60/11) and (max-width: 374px) {
+    .message__headline {
+        font-size: 4.5vw;
+        margin-right: 4px;
     }
-    .message__logo:nth-of-type(2) {
+    .message__disclaimer {
+        font-size: 3vw;
+    }
+    .message__headline span.tag--xsmall {
         display: inline;
     }
+    .message__headline span.tag--medium {
+        display: none;
+    }
+    .message__logo:nth-of-type(1) {
+        margin: 0;
+        /*width: 30%;*/
+    }
     .message__logo-container {
-        flex: 0 0 33%;
-        margin-right: 14px;
+        flex: 0 0 15%;
+        margin-left: 0;
+        margin-right: 0;
         margin-bottom: -6px;
     }
     .message__content {
@@ -44,10 +72,22 @@
         flex: 1 1 100%;
         display: block;
     }
-    .message__headline {
-        font-size: 0.65rem;
+}
+@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
+    .message__logo:nth-of-type(1) {
+        display: inline;
     }
-    .message__disclaimer {
-        font-size: 0.65rem;
+    .message__logo:nth-of-type(2) {
+        display: inline;
+        width: 64px;
+    }
+    .message__logo:nth-of-type(1) {
+        margin: 0 4px;
+        width: 30%;
+    }
+    .message__logo-container {
+        flex: 0 0 15%;
+        margin-right: 14px;
+        margin-bottom: -6px;
     }
 }

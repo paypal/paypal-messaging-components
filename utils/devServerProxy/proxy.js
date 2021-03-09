@@ -32,7 +32,7 @@ const devAccountMap = {
     DEV000DEPLEQZ: ['DE', ['gpl'], 'gpl_eqz'],
     DEV000DEPLGTZ: ['DE', ['gpl'], 'gpl_gtz'],
     DEV00DEPLQEQZ: ['DE', ['gpl'], 'gplq_eqz'],
-    DEV00DEPLQGTZ: ['DE', ['gpl'], 'gpl_eqz'],
+    DEV00DEPLQGTZ: ['DE', ['gpl'], 'gplq_gtz'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
     DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
@@ -195,9 +195,59 @@ export default (app, server, compiler) => {
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
-        const productsJSON = productNames.map(product =>
-            fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString()
-        );
+        const productsJSON = productNames.map(product => {
+            const jsonFile = `modals/${country}/${product}.json`;
+            if (fs.existsSync(jsonFile)) {
+                return fs.readFileSync(jsonFile, 'utf-8').toString();
+            }
+            console.warn(`${jsonFile} does not exist`);
+            return `{
+                    "meta": {
+                        "product": "GPL",
+                        "periodicPayment": "{formattedPeriodicPayment}",
+                        "minAmount": "{minAmount}",
+                        "maxAmount": "{maxAmount}",
+                        "qualifying": "{qualifying_offer}",
+                        "amount": "{transaction_amount}",
+                        "variables": {
+                            "transaction_amount": "\${eval(transaction_amount ? transaction_amount : '-')}",
+                            "qualifying_offer": "\${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+                            "financing_code": "\${CREDIT_OFFERS_DS.financing_code}",
+                            "formattedPeriodicPayment": "\${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+                            "total_payments": "\${CREDIT_OFFERS_DS.total_payments}",
+                            "formattedMinAmount": "\${CREDIT_OFFERS_DS.formattedMinAmount}",
+                            "formattedMaxAmount": "\${CREDIT_OFFERS_DS.formattedMaxAmount}",
+                            "formattedTotalCost": "\${CREDIT_OFFERS_DS.formattedTotalCost}",
+                            "minAmount": "\${CREDIT_OFFERS_DS.minAmount}",
+                            "maxAmount": "\${CREDIT_OFFERS_DS.maxAmount}",
+                            "apr": "\${CREDIT_OFFERS_DS.apr}",
+                            "nominal_rate": "\${CREDIT_OFFERS_DS.nominal_rate}"
+                        }
+                    },
+                    "content": {
+                        "headline": {
+                            "singleProduct": "Pay in X"
+                        },
+                        "subHeadline": {
+                            "pay": {
+                                "start": "Make one interest-free payment",
+                                "amount": "of {formattedPeriodicPayment}",
+                                "end": "today, then pay the rest monthly."
+                            },
+                            "available": "Available on purchases from {formattedMinAmount} to {formattedMaxAmount}.",
+                            "apply": "Apply lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus, enim?."
+                        },
+                        "terms": [
+                            "TERMS AND CONDITIONS.",
+                            "PayPal Pay in X Lorem ipsum dolor sit, amet consectetur adipisicing, elit.",
+                            "Facilis adipisci quidem obcaecati, accusantium voluptatum repudiandae magni dicta officiis est eum!"
+                        ],
+                        "instructions": {
+                            "title": ["Check out securely with", "PayPal", "and choose", "Pay in X"]
+                        }
+                    }
+                }`;
+        });
 
         const terms = getTerms(country, Number(amount));
         const [bestOffer] = terms.offers || [{}];

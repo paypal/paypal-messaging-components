@@ -4,8 +4,8 @@
 }
 
 .message__headline {
+    font-family: 'PayPal-Sans-Big';
     font-size: 8.4vw;
-    font-weight: 500;
     line-height: 1.6em;
 }
 

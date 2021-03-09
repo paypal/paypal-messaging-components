@@ -41,10 +41,23 @@
         display: inline-block;
         max-width: 60%;
     }
-    .message__headline span:nth-of-type(1) {
-        margin-right: -6px;
+    .message__headline span.weak {
+        margin-left: -4px;
     }
 }
+@media (min-aspect-ratio: 200/11) and (max-width: 650px) {
+    .message__headline span.tag--xsmall {
+        display: inline;
+        font-size: 2.5vw;
+    }
+    .message__disclaimer {
+        font-size: 2vw;
+    }
+    .message__headline span.tag--medium {
+        display: none;
+    }
+}
+/*
 @media (min-aspect-ratio: 200/11) and (max-width: 850px) {
     .message__headline {
         font-size: 2vw;
@@ -64,14 +77,4 @@
         max-width: 18%;
     }
 }
-@media (min-aspect-ratio: 200/11) and (max-width: 350px) {
-    .message__logo:nth-of-type(2) {
-        display: inline-block;
-    }
-    .message__logo-container {
-        max-width: 18%;
-    }
-    .message__promo-container {
-        margin-right: 8px;
-    }
-}
+*/

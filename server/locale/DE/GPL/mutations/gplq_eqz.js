@@ -19,6 +19,34 @@ const flex = [
         }
     ],
     [
+        'ratio:20x1',
+        {
+            styles: [
+                `
+                @media (min-aspect-ratio: 60/11) and (min-width: 375px) and (max-width: 501px) {
+                    .message__headline{
+                        font-size: 4.5vw;
+                    }
+                }
+                `
+            ]
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [
+                `
+                @media (max-aspect-ratio: 11/10) and (max-width: 500px) {
+                    .message__headline {
+                        font-size: 10vw;
+                    }
+                }
+                `
+            ]
+        }
+    ],
+    [
         'ratio:8x1',
         {
             styles: [
@@ -28,6 +56,11 @@ const flex = [
                         .map(tag => `.message__headline .tag--${tag}`)
                         .join(', ')}{
                         font-size: 3.4vw;
+                    }
+                }
+                @media (min-aspect-ratio: 60/11) and (min-width: 375px) and (max-width: 501px) {
+                    .message__headline{
+                        font-size: 4.5vw;
                     }
                 }
                 `
