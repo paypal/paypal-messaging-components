@@ -3,11 +3,15 @@ import arrayFindIndex from 'core-js-pure/stable/array/find-index';
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useTransitionState, useXProps, useScroll, getProductForOffer } from '../lib';
+import { useTransitionState, useXProps, useScroll } from '../lib';
+import { getProductForOffer } from '../../../utils';
 
 // Determine pre-selected tab based on the offer type of the banner.
 const getInitialTabIndex = (offer, tabs) =>
-    arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)) || 0;
+    Math.max(
+        arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)),
+        0
+    );
 
 const Tabs = ({ tabs, onSelect }) => {
     // offer type of banner used to determine which tab to pre-select

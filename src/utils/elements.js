@@ -38,6 +38,9 @@ export function getInlineOptions(container) {
     // Allows for data attributes dependent on camel casing to function properly.
     const attributeNameOverride = {
         buyercountry: 'buyerCountry',
+        merchantid: 'merchantId',
+        fontfamily: 'fontFamily',
+        fontsource: 'fontSource',
         onclick: 'onClick',
         onapply: 'onApply',
         onrender: 'onRender',

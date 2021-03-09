@@ -153,7 +153,7 @@ export default (app, server, compiler) => {
                     parentStyles,
                     meta: {
                         ...populatedBanner.meta,
-                        uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                        displayedMessage: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
@@ -248,7 +248,11 @@ export default (app, server, compiler) => {
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account,
             meta: {
+                displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
+                messageRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
                 trackingDetails: {
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
                     payload: {}
                 }
             }

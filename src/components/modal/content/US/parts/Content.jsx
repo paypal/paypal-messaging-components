@@ -6,15 +6,8 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
-import {
-    useServerData,
-    useScroll,
-    useApplyNow,
-    useXProps,
-    useDidUpdateEffect,
-    getProductForOffer,
-    useTransitionState
-} from '../../../lib';
+import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
+import { getProductForOffer } from '../../../../../utils';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {
@@ -28,12 +21,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const scrollY = useRef(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
+    // Offer may be undefined when modal is rendered via standalone modal integration
     const product = getProductForOffer(offer);
-
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product);
-    // In case the product shown in the message, for some reason, does not come back with the modal
-    // Ideally, this should never happen
-    const [selectedProduct, setSelectedProduct] = useState(initialProduct ? product : products[0].meta.product);
+    // Product can be NONE when standalone modal so default to first product
+    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+    const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
 
     useScroll(
         ({ target: { scrollTop } }) => {
@@ -90,7 +82,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     };
 
     useDidUpdateEffect(() => {
-        setSelectedProduct(product);
+        // For standalone modal the product determined by the offer changing may be invalid
+        // so we need to search against the actual offers and provide a default
+        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+
+        setSelectedProduct(fullProduct.meta.product);
     }, [product]);
 
     const setShowApplyNow = show => {
