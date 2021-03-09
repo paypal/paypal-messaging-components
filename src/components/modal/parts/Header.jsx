@@ -10,7 +10,8 @@ const LOCALE = {
         GB: 'logo',
         FR: 'logo',
         US: 'logo',
-        'US-EZP': 'logo-ezp'
+        'US-EZP': 'logo-ezp',
+        'DE-GPL': 'logo'
     }
 };
 

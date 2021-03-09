@@ -1,0 +1,27 @@
+/** @jsx h */
+import { h } from 'preact';
+
+import { useContent, useProductMeta } from '../../../lib';
+import Icon from '../../../parts/Icon';
+import Calculator from './Calculator';
+
+export default () => {
+    const { instructions, disclosure } = useContent('GPL');
+    const { apr } = useProductMeta('GPL');
+
+    return (
+        <section className="content-body">
+            <Calculator />
+
+            <div className="content-column">
+                <div className="instructions">
+                    {instructions.map(instruction =>
+                        instruction === 'PayPal' ? <Icon name="logo-text" /> : <span>{instruction} </span>
+                    )}
+                </div>
+
+                <div className="disclosure">{apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR}</div>
+            </div>
+        </section>
+    );
+};

@@ -86,7 +86,9 @@ export default function useCalculator() {
     };
 
     const submit = event => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
         const delocalizedValue = delocalize(country, state.inputValue);
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {

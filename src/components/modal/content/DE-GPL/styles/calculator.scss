@@ -1,0 +1,40 @@
+.calculator {
+    text-align: center;
+
+    h3 {
+        margin-top: 0;
+        color: white;
+    }
+
+    &__input {
+        position: relative;
+        display: inline-block;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 0.5rem 0.75rem;
+        border-radius: 3px;
+        font-size: 0.9rem;
+        margin-bottom: 3rem;
+        text-align: left;
+
+        &:after {
+            content: '€';
+            position: absolute;
+            right: 0.5rem;
+            bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        input {
+            border: none;
+            color: #2c2e2f;
+            font-size: 1rem;
+            margin-top: 0.25rem;
+            width: 100%;
+        }
+    }
+
+    &__header {
+        background: $header-background;
+    }
+}

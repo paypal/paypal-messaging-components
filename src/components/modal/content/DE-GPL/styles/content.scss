@@ -1,0 +1,38 @@
+.content {
+    position: relative;
+    background: transparent;
+    box-sizing: border-box;
+    padding-top: 0;
+    background: #f7f5f0;
+    padding-bottom: 1rem;
+
+    p,
+    li,
+    .terms h3 {
+        color: #687173;
+    }
+
+    .d-inline-block {
+        display: inline-block;
+    }
+
+    main {
+        color: #687173;
+        padding-top: 0;
+    }
+
+    .disclosure {
+        font-size: 0.75rem;
+    }
+
+    .instructions {
+        text-align: center;
+        margin: 2rem;
+
+        img {
+            vertical-align: bottom;
+            height: 1.1rem;
+            padding-right: 2px;
+        }
+    }
+}
