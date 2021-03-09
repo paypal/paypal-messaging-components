@@ -20,9 +20,9 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
     const h3 = await modalFrame.$eval(selectors.modal.contentDescriptionTitle, element => element.innerHTML);
 
     if (account.includes('GBPLQ')) {
-        expect(h3).toContain('Make one interest-free payment of £41.67 today');
+        expect(h3).toContain('Make one payment of £41.67 today');
     } else {
-        expect(h3).toContain('Make one interest-free payment today, then pay the rest monthly.');
+        expect(h3).toContain('Make one payment today, then pay the rest in two interest-free monthly payments.');
     }
     await page.waitFor(500);
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
