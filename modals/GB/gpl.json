@@ -27,9 +27,9 @@
         },
         "subHeadline": {
             "pay": {
-                "start": "Make one interest-free payment",
+                "start": "Make one payment",
                 "amount": "of {formattedPeriodicPayment}",
-                "end": "today, then pay the rest monthly."
+                "end": "today, then pay the rest in two interest-free monthly payments."
             },
             "available": "Available on purchases from {formattedMinAmount} to {formattedMaxAmount}.",
             "apply": "Apply easily and get an instant decision."
