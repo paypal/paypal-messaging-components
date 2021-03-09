@@ -32,8 +32,13 @@
         "calculator": {
             "title": "Was kostet Ihr Einkauf?",
             "inputLabel": "Warenwert",
-            "invalidAmount": "Geben Sie einen Betrag zwischen 99€ und 5.000€ ein.",
-            "disclaimer": "These are a sample payments and may differ from the actual final amount."
+            "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}"
+        },
+
+        "terms": {
+            "genericError": "",
+            "invalidAmount": "Geben Sie einen Betrag zwischen {formattedMinAmount} und {formattedMaxAmount} ein.",
+            "disclaimer": "Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen."
         },
 
         "instructions": ["Wählen Sie einfach", "PayPal", "an der Kasse und zahlen Sie später mit Ratenzahlung."],

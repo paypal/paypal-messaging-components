@@ -1,7 +1,7 @@
 .calculator {
     text-align: center;
 
-    h3 {
+    h2 {
         margin-top: 0;
         color: white;
     }
@@ -14,8 +14,8 @@
         padding: 0.5rem 0.75rem;
         border-radius: 3px;
         font-size: 0.9rem;
-        margin-bottom: 3rem;
         text-align: left;
+        margin-bottom: 0.25rem;
 
         &:after {
             content: '€';
@@ -36,5 +36,11 @@
 
     &__header {
         background: $header-background;
+        padding-bottom: 2rem;
+    }
+
+    &__range {
+        color: white;
+        font-size: 0.8rem;
     }
 }

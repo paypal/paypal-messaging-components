@@ -23,7 +23,7 @@ const Calculator = () => {
     );
 
     const {
-        calculator: { title, inputLabel, invalidAmount }
+        calculator: { title, inputLabel, amountRange }
     } = useContent('GPL');
 
     const onInput = evt => {
@@ -35,11 +35,12 @@ const Calculator = () => {
     return (
         <div className="calculator">
             <div className="calculator__header">
-                <h3 className="title">{title}</h3>
+                <h2 className="title">{title}</h2>
                 <div className="calculator__input">
                     <div>{inputLabel}</div>
                     <input className="input" value={value} onInput={onInput} />
                 </div>
+                <div className="calculator__range">{amountRange.replace(/,00/g, '')}</div>
             </div>
             <div className="content-column">
                 <TermsTable terms={terms} isLoading={isLoading} />
