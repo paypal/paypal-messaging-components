@@ -8,7 +8,7 @@ import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
     const { type, products, meta, setServerData } = useServerData();
-    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry } = useXProps();
+    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry, version, env } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             payerId,
             clientId,
             merchantId,
-            buyerCountry
+            buyerCountry,
+            version,
+            env
         }).then(data => {
             setServerData(data);
             setLoading(false);

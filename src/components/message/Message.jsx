@@ -16,6 +16,8 @@ const Message = () => {
         payerId,
         clientId,
         merchantId,
+        version,
+        env,
         onClick,
         onReady,
         onHover,
@@ -74,7 +76,9 @@ const Message = () => {
             credit_type: offer,
             payer_id: payerId,
             client_id: clientId,
-            merchant_id: merchantId
+            merchant_id: merchantId,
+            version,
+            env
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
