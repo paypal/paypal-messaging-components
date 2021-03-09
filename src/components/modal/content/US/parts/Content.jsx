@@ -83,8 +83,8 @@ const Content = ({ headerRef, contentWrapper }) => {
     };
 
     // Tabs component will track tab switches by default
-    // for "fake" tabs, we must track it manually
-    const fakeTabClick = newProduct => {
+    // for "fake" tabs that show as links, we must track it manually
+    const tabLinkClick = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
     };
@@ -124,10 +124,10 @@ const Content = ({ headerRef, contentWrapper }) => {
 
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => fakeTabClick('NI') : null} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => tabLinkClick('NI') : null} />;
 
     tabsMap.NI.body = (
-        <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => fakeTabClick('GPL') : null} />
+        <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => tabLinkClick('GPL') : null} />
     );
 
     const tabsContent =
