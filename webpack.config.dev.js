@@ -17,8 +17,6 @@ module.exports = (env = {}) => {
                       messaging: './src/index.js'
                   },
                   filename: '[name].js',
-                  modulename: ['paypal', 'Messages'],
-                  libraryTarget: 'window',
                   debug: true,
                   minify: false,
                   sourcemaps: true,
@@ -46,7 +44,6 @@ module.exports = (env = {}) => {
                   }
               });
 
-    LIBRARY_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
     LIBRARY_DEV_CONFIG.devServer = {
         contentBase: './demo',
         publicPath: '/',

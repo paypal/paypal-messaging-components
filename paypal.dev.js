@@ -1,6 +1,6 @@
 import { setupSDK } from '@paypal/sdk-client/src';
 
-import * as Messages from './src/interface/messages';
+import * as Messages from './src/interface/experiment';
 
 setupSDK([
     {

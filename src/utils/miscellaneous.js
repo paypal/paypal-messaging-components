@@ -194,3 +194,35 @@ export const getEventListenerPassiveOptionIfSupported = () => {
 
     return passiveIfSupported;
 };
+
+export function getProductForOffer(offer) {
+    if (typeof offer === 'undefined') {
+        return 'NONE';
+    }
+
+    switch (offer.toUpperCase()) {
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
+            return 'GPL';
+        case 'EZP':
+        case 'EZP:ANY:EQZ':
+        case 'EZP:ANY:GTZ':
+        case 'PALA:MULTI:EQZ':
+        case 'PALA:MULTI:GTZ':
+        case 'PALA:SINGLE:EQZ':
+        case 'PALA:SINGLE:GTZ':
+            return 'EZP';
+        case 'INST':
+        case 'INST:ANY:EQZ':
+        case 'INST:ANY:GTZ':
+        case 'PALAQ:ANY:EQZ':
+        case 'PALAQ:ANY:GTZ':
+            return 'INST';
+        default:
+            return 'NI';
+    }
+}

@@ -6,7 +6,12 @@ import {
     getAccount,
     getPartnerAccount
 } from '../utils';
-import { setup as newSetup, destroy as newDestroy, Messages as NewMessages } from '.';
+import {
+    setup as newSetup,
+    destroy as newDestroy,
+    Messages as NewMessages,
+    MessagesModal as NewMessagesModal
+} from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
 
 function getAccounts(config = {}) {
@@ -48,6 +53,21 @@ export const Messages = config => ({
 Messages.render = (config, selector) => Messages(config).render(selector);
 // Old and New are the same
 Messages.setGlobalConfig = NewMessages.setGlobalConfig;
+
+export const MessagesModal = config => {
+    const { normalizedAccount, merchantId } = getAccounts(config);
+    const runIfTestTreatment = fn =>
+        getExperimentTreatment([normalizedAccount, merchantId]).then(treatment => treatment === Treatment.TEST && fn());
+
+    // Ensure that standalone modals invoked via the JS SDK wait for the experiment request to finish
+    // so that the setup functions can run before the component rendering code
+    return {
+        render: selector => runIfTestTreatment(() => NewMessagesModal(config).render(selector)),
+        show: selector => runIfTestTreatment(() => NewMessagesModal(config).show(selector)),
+        hide: () => runIfTestTreatment(() => NewMessagesModal(config).hide()),
+        updateProps: props => runIfTestTreatment(() => NewMessagesModal(config).updateProps(props))
+    };
+};
 
 export function setup() {
     // This must run synchronously so that it's available immediately for the merchant to use

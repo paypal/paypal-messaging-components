@@ -17,12 +17,13 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     textWrap(textSize * 32, textSize, 'GB'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
-                        tag: 'medium',
+                        tag: 'medium.text',
                         br: ['payments']
                     },
                     { tag: 'xsmall' }
@@ -37,8 +38,9 @@ export default {
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 32 + 10),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    setLogoTop(textSize * 26 + 10),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
                 ]
             })
         ],
@@ -49,7 +51,8 @@ export default {
                     `@media screen and (max-width: ${textSize *
                         14.15}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 10.75),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
                 ]
             })
         ],
@@ -61,7 +64,8 @@ export default {
                     textWrap(textSize * 32, textSize, 'GB'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -69,11 +73,11 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18)],
+                styles: [xSmallFallback(textSize * 14)],
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium',
+                        tag: 'medium.text',
                         br: ['on'],
                         replace: [['purchases.', 'purchases']]
                     },
@@ -87,11 +91,11 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 14), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium',
+                        tag: 'medium.text',
                         br: ['on'],
                         replace: [['purchases.', 'purchases']]
                     },
@@ -118,7 +122,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default'],
+                disclaimer: ['default.fees', 'default'],
                 styles: [
                     '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                     '.message__headline .tag--medium .weak { display: none; }'

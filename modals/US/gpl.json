@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "US",
         "product": "GPL",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",

@@ -20,13 +20,14 @@ const TransitionContext = createContext({
 
 export const TransitionStateProvider = ({ children }) => {
     const [state, setState] = useState(STATUS.CLOSED);
-    const { show, onProps } = useXProps();
+    const { show, onProps, onShow } = useXProps();
 
     useEffect(
         () =>
             onProps(newProps => {
                 if (newProps.visible && state === STATUS.CLOSED) {
                     show().then(() => {
+                        onShow();
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
                                 setState(STATUS.OPENING);
