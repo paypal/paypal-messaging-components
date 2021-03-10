@@ -1,38 +1,51 @@
 @media (min-aspect-ratio: 10/41) {
+    .message__content {
+        display: grid;
+        grid-template-columns: 1fr;
+        /*grid-template-rows: 1fr 4fr;*/
+        /*grid-template-rows: 36px 1fr;*/
+        grid-template-rows: 36px 3fr 1fr 36px;
+        align-items: center;
+    }
     .message__logo-container {
+        align-self: start;
         width: 100%;
         margin-top: 3%;
         margin-bottom: 0;
     }
-
     .message__messaging {
-        height: 100%;
-        transform: translateY(-80px);
-        display: flex;
         flex-direction: column;
         justify-content: center;
     }
-
     .message__headline {
-        font-size: 1.4rem;
+        /*font-size: 1.4rem;*/
+        font-size: 3.5vh;
         line-height: 1.8rem;
         margin-bottom: 10%;
     }
-
     .message__sub-headline {
         display: none;
     }
-
     .message__disclaimer {
-        font-family: 'PayPal-Sans-Big';
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
-
     .message__headline .tag--xsmall {
         display: none;
     }
-
     .message__headline span:nth-of-type(1) {
         margin-right: -6px;
+    }
+}
+@media (min-aspect-ratio: 10/41) and (max-height: 320px) {
+    .message__content {
+        /*grid-template-rows: 1fr 4fr;*/
+        grid-template-rows: 36px 1fr;
+        /*grid-template-rows: 36px 3fr 1fr 36px;*/
+    }
+    .message__headline {
+        font-size: 1.4rem;
+    }
+    .message__disclaimer {
+        font-size: 0.9rem;
     }
 }

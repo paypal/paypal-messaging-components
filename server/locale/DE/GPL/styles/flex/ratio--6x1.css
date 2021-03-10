@@ -4,7 +4,7 @@
         font-size: 4vw;
         line-height: 1.2em;
         display: inline;
-        margin-right: 8px;
+        /*margin-right: 8px;*/
     }
     .message__disclaimer {
         font-size: 2.5vw;
@@ -15,7 +15,8 @@
     .message__logo-container {
         display: flex;
         align-items: center;
-        flex: 0 0 12%;
+        max-width: 18%;
+        /*flex: 0 0 12%;*/
         margin-left: 8px;
         margin-bottom: -6px;
     }

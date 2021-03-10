@@ -33,20 +33,6 @@ const flex = [
         }
     ],
     [
-        'ratio:1x1',
-        {
-            styles: [
-                `
-                @media (max-aspect-ratio: 11/10) and (max-width: 500px) {
-                    .message__headline {
-                        font-size: 10vw;
-                    }
-                }
-                `
-            ]
-        }
-    ],
-    [
         'ratio:8x1',
         {
             styles: [

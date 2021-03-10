@@ -23,8 +23,8 @@
         margin: 0 4px;
     }
     .message__logo-container {
-        max-width: 12%;
         margin-right: 1.5vw;
+        max-width: 18%;
     }
     .message__messaging {
         flex: unset;
@@ -43,6 +43,11 @@
     }
     .message__headline span.weak {
         margin-left: -4px;
+    }
+}
+@media (min-aspect-ratio: 200/11) and (min-width: 800px) {
+    .message__logo-container {
+        max-width: 12%;
     }
 }
 @media (min-aspect-ratio: 200/11) and (max-width: 650px) {
