@@ -1,5 +1,6 @@
 {
     "meta": {
+        "id": "955ebdc6-b69c-40b6-9049-52d1f3320029",
         "offerCountry": "DE",
         "offerType": "INST:ANY:EQZ",
         "offerTerm": "{total_payments}",
@@ -12,15 +13,12 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
-
     "headline": [
         ["Bezahlen Sie in {total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
         ["{total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["xsmall"]],
         ["{total_payments} monatlichen Raten", ["xsmall.2"]]
     ],
-
     "subHeadline": [],
-
     "disclaimer": [
         [
             ["Ab 99€ - 5.000€.", ["Ratenrechner", "em"]],

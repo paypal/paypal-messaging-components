@@ -1,5 +1,6 @@
 {
     "meta": {
+        "id": "a3d5cece-20df-46d5-9df5-3f51d278639b",
         "offerCountry": "DE",
         "offerType": "PALAQ:ANY:GTZ",
         "offerTerm": "{total_payments}",
@@ -12,10 +13,7 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
-
     "headline": [["Bezahlen Sie in {total_payments} monatlichen Raten", ["default", "small"]]],
-
     "subHeadline": [],
-
     "disclaimer": [["Ratenrechner", ["default", "xsmall"]]]
 }
