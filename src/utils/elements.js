@@ -2,7 +2,7 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
@@ -38,6 +38,9 @@ export function getInlineOptions(container) {
     // Allows for data attributes dependent on camel casing to function properly.
     const attributeNameOverride = {
         buyercountry: 'buyerCountry',
+        merchantid: 'merchantId',
+        fontfamily: 'fontFamily',
+        fontsource: 'fontSource',
         onclick: 'onClick',
         onapply: 'onApply',
         onrender: 'onRender',

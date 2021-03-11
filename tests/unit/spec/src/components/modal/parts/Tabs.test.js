@@ -11,9 +11,6 @@ import { useTransitionState } from 'src/components/modal/lib/providers/transitio
 
 const mockTransitionContext = createContext([]);
 jest.mock('src/components/modal/lib/logos', () => ({}));
-jest.mock('src/components/modal/lib/utils', () => ({
-    getProductForOffer: jest.fn().mockReturnValue('2')
-}));
 
 jest.mock('src/components/modal/lib/providers/transition', () => ({
     useTransitionState: jest.fn()
@@ -26,20 +23,21 @@ jest.mock('src/components/modal/lib/providers/scroll', () => ({
 describe('<Tabs />', () => {
     const onClick = jest.fn();
     xPropsMock({
-        onClick
+        onClick,
+        offer: 'EZP'
     });
 
     useTransitionState.mockImplementation(() => useContext(mockTransitionContext));
 
     const tabContent = [
         {
-            product: '1',
+            product: 'NI',
             title: 'tab 1',
             header: 'header 1',
             body: 'body 1'
         },
         {
-            product: '2',
+            product: 'EZP',
             title: 'tab 2',
             header: 'header 2',
             body: 'body 2'

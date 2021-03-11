@@ -1,5 +1,31 @@
 # Changelog
 
+# [1.20.0](https://github.com/paypal/paypal-messaging-components/compare/v1.19.0...v1.20.0) (2021-03-10)
+
+
+### Bug Fixes
+
+* add offer class and GB custom for custom messages ([#452](https://github.com/paypal/paypal-messaging-components/issues/452)) ([60fc2c0](https://github.com/paypal/paypal-messaging-components/commit/60fc2c0a1322931037e3b3cdf04145fe347816e6))
+* remove incorrect modal tab click events ([#453](https://github.com/paypal/paypal-messaging-components/issues/453)) ([d58058b](https://github.com/paypal/paypal-messaging-components/commit/d58058b60fa92ccd5344c5e3956f927a2257d2c0))
+
+
+### Features
+
+* standalone modal support ([#402](https://github.com/paypal/paypal-messaging-components/issues/402)) ([17c7715](https://github.com/paypal/paypal-messaging-components/commit/17c7715db56c981686c86a1b0fcccfa244f7bea8))
+
+# [1.19.0](https://github.com/paypal/paypal-messaging-components/compare/v1.18.0...v1.19.0) (2021-02-24)
+
+
+### Bug Fixes
+
+* passback warnings ([#423](https://github.com/paypal/paypal-messaging-components/issues/423)) ([e1751e8](https://github.com/paypal/paypal-messaging-components/commit/e1751e8b7ab7d3435379a5c31330dbd13c9ed234))
+* use € instead of EUR in qualifying French modal ([#441](https://github.com/paypal/paypal-messaging-components/issues/441)) ([c95de98](https://github.com/paypal/paypal-messaging-components/commit/c95de98ec24b546c2f7b3a92ebad5b1ea5552d2d))
+
+
+### Features
+
+* set text as explicit default ([#410](https://github.com/paypal/paypal-messaging-components/issues/410)) ([65fbfa7](https://github.com/paypal/paypal-messaging-components/commit/65fbfa74b3e5416a944670e72a233860d700d710))
+
 # [1.18.0](https://github.com/paypal/paypal-messaging-components/compare/v1.17.1...v1.18.0) (2021-02-17)
 
 

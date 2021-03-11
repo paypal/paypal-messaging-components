@@ -1,5 +1,6 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
 
 import {
@@ -9,8 +10,10 @@ import {
     getGlobalVariable,
     getCurrentTime,
     getLibraryVersion,
+    getScriptAttributes,
     viewportHijack,
-    logger
+    logger,
+    nextIndex
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -52,11 +55,6 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.amount
             },
-            refId: {
-                type: 'string',
-                queryParam: false,
-                required: false
-            },
             buyerCountry: {
                 type: 'string',
                 queryParam: 'buyer_country',
@@ -68,17 +66,30 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            refId: {
+                type: 'string',
+                queryParam: false,
+                required: false
+            },
+            refIndex: {
+                type: 'string',
+                queryParam: false,
+                required: false
+            },
 
             // Callbacks
             onClick: {
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClick, onApply, index } = props;
+                    const { onClick, onApply } = props;
 
                     return ({ linkName }) => {
+                        const { index, refIndex } = props;
+
                         logger.track({
                             index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName
@@ -98,11 +109,14 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onCalculate, index } = props;
+                    const { onCalculate } = props;
 
                     return ({ value }) => {
+                        const { index, refIndex } = props;
+
                         logger.track({
                             index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
@@ -115,18 +129,46 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                     };
                 }
             },
+            onShow: {
+                type: 'function',
+                queryParam: false,
+                value: ({ props }) => {
+                    const { onShow } = props;
+                    const [hijackViewport] = viewportHijack();
+
+                    return () => {
+                        const { index, refIndex } = props;
+
+                        hijackViewport();
+
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'modal-open'
+                        });
+
+                        if (typeof onShow === 'function') {
+                            onShow();
+                        }
+                    };
+                }
+            },
             onClose: {
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClose, index } = props;
+                    const { onClose } = props;
                     const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
+                        const { index, refIndex } = props;
+
                         replaceViewport();
 
                         logger.track({
                             index,
+                            refIndex,
                             et: 'CLICK',
                             event_type: 'modal-close',
                             link: linkName
@@ -141,45 +183,71 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props, state }) => {
+                value: ({ props, state, event }) => {
                     const { onReady } = props;
-
-                    return ({ products, trackingPayload }) => {
-                        const { index, offer } = props;
+                    // Fired anytime we fetch new content (e.g. amount change)
+                    return ({ products, meta }) => {
+                        const { index, offer, merchantId, account, refIndex } = props;
+                        const { renderStart, show, hide } = state;
+                        const { messageRequestId, trackingDetails, displayedMessage } = meta;
 
                         logger.addMetaBuilder(existingMeta => {
-                            const key = `modal-${index}`;
-
                             // Remove potential existing meta info
                             // Necessary because beaver-logger will not override an existing meta key if these values change
                             // eslint-disable-next-line no-param-reassign
-                            delete existingMeta[key];
+                            delete existingMeta[index];
+
                             return {
-                                [key]: {
-                                    trackingPayload
+                                [index]: {
+                                    type: 'modal',
+                                    messageRequestId,
+                                    account: merchantId || account,
+                                    displayedMessage,
+                                    trackingDetails
                                 }
                             };
                         });
 
                         logger.info('modal_render', {
                             index,
-                            duration: getCurrentTime() - state.renderStart
+                            refIndex,
+                            duration: getCurrentTime() - renderStart
                         });
                         logger.track({
                             index,
+                            refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer.toLowerCase()}`
+                            modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
+                            // For standalone modal the stats event does not run, so we duplicate some data here
+                            integration_type: __MESSAGES__.__TARGET__,
+                            messaging_version: getLibraryVersion(),
+                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
                         });
 
-                        if (typeof onReady === 'function') {
-                            onReady({ products });
+                        if (
+                            typeof onReady === 'function' &&
+                            // No need to fire the merchant's onReady if the modal products haven't changed
+                            // which could cause multiple click event handlers to be added
+                            (!state.products || JSON.stringify(products) !== JSON.stringify(state.products))
+                        ) {
+                            onReady({ products, show, hide });
                         }
+                        // Consumed in modal controller when validating the offer type passed in
+                        // to determine if a modal is able to be displayed or not.
+                        // Primary use-case is a standalone modal
+                        state.products = products; // eslint-disable-line no-param-reassign
+                        event.trigger('ready');
                     };
                 }
             },
 
             // Computed Props
+            index: {
+                type: 'string',
+                queryParam: false,
+                default: () => nextIndex().toString()
+            },
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',

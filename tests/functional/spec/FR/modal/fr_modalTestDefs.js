@@ -21,7 +21,7 @@ export const gbModalContent = ({ account, viewport, groupString }) => async () =
 
     if (account.includes('FRPLQ')) {
         expect(h3).toContain(
-            '500,00 € divisé en 4 échéances de 41,67 €. Inclut des frais de 2,1% dans la limite de 20 €.'
+            '500 € divisé en 4 échéances de 41,67 €. Inclut des frais de 2,1% dans la limite de 20 €.'
         );
     } else {
         expect(h3).toContain(
