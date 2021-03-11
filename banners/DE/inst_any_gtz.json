@@ -3,7 +3,7 @@
         "id": "a01da4a0-b762-431a-bab0-5a76f97cfd13",
         "offerCountry": "DE",
         "offerType": "INST:ANY:GTZ",
-        "offerTerm": "{total_payments}",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -13,8 +13,11 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
+
     "headline": [["Bezahlen Sie in {total_payments} monatlichen Raten", ["default", "small"]]],
+
     "subHeadline": [],
+
     "disclaimer": [
         [
             ["Ab 99€ - 5.000€.", ["Ratenrechner", "em"]],

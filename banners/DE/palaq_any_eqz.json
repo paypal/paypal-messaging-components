@@ -3,7 +3,7 @@
         "id": "5e4c2c5e-8e9e-473b-ba53-9837243cd24b",
         "offerCountry": "DE",
         "offerType": "PALAQ:ANY:EQZ",
-        "offerTerm": "{total_payments}",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/de/webapps/mpp/paypal-instalments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -13,12 +13,15 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
+
     "headline": [
         ["{total_payments} monatl. Raten, 0% eff. Jahreszins", ["default", "large"]],
         ["{total_payments} monatlichen Raten bei 0% effektivem Jahreszins", ["default", "small"]],
         ["{total_payments} monatlichen Raten", ["xsmall"]]
     ],
+
     "subHeadline": [],
+
     "disclaimer": [
         ["Ratenrechner", ["default", "xsmall"]],
         ["Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A.", ["extra"]]
