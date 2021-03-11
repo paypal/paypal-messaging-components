@@ -34,9 +34,9 @@ const Calculator = () => {
 
     return (
         <div className="calculator">
-            <div className="calculator__header">
+            <div className="form">
                 <h2 className="title">{title}</h2>
-                <div className="calculator__input">
+                <div className="input-wrapper">
                     <div>{inputLabel}</div>
                     <input className="input" value={value} onInput={onInput} />
                 </div>

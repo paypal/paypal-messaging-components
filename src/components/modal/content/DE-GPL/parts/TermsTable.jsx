@@ -58,7 +58,7 @@ const TableContent = ({ terms: { formattedAmount, offers }, hasError }) => {
         <button
             className={`offer ${offer === expandedOffer ? 'expanded' : ''}`}
             type="button"
-            onClick={() => setExpandedOffer(offer)}
+            onClick={hasError ? null : () => setExpandedOffer(offer)}
         >
             <div className="offer__header">
                 <div className="offer__periodic">
