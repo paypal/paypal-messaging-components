@@ -18,7 +18,6 @@
         justify-content: center;
     }
     .message__headline {
-        /*font-size: 1.4rem;*/
         font-size: 3.5vh;
         line-height: 1.8rem;
         margin-bottom: 10%;

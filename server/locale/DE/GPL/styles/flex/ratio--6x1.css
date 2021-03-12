@@ -2,9 +2,8 @@
 @media (min-aspect-ratio: 60/11) and (max-width: 501px) {
     .message__headline {
         font-size: 4vw;
-        line-height: 1.2em;
+        line-height: 1.1em;
         display: inline;
-        /*margin-right: 8px;*/
     }
     .message__disclaimer {
         font-size: 2.5vw;
@@ -15,16 +14,7 @@
     .message__logo-container {
         display: flex;
         align-items: center;
-        max-width: 18%;
-        /*flex: 0 0 12%;*/
-        margin-left: 8px;
-        margin-bottom: -6px;
-    }
-    .message__logo:nth-of-type(1) {
-        display: inline;
-    }
-    .message__logo:nth-of-type(2) {
-        display: none;
+        flex: 1 0 16%;
     }
     .message__headline span.tag--xsmall {
         display: none;
@@ -45,7 +35,6 @@
 @media (min-aspect-ratio: 60/11) and (max-width: 374px) {
     .message__headline {
         font-size: 4.5vw;
-        margin-right: 4px;
     }
     .message__disclaimer {
         font-size: 3vw;
@@ -58,13 +47,11 @@
     }
     .message__logo:nth-of-type(1) {
         margin: 0;
-        /*width: 30%;*/
     }
     .message__logo-container {
         flex: 0 0 15%;
         margin-left: 0;
         margin-right: 0;
-        margin-bottom: -6px;
     }
     .message__content {
         padding: 0.5rem;
@@ -77,18 +64,17 @@
 @media (min-aspect-ratio: 60/11) and (max-width: 323px) {
     .message__logo:nth-of-type(1) {
         display: inline;
+        margin: 0 4px;
     }
     .message__logo:nth-of-type(2) {
         display: inline;
-        width: 64px;
     }
-    .message__logo:nth-of-type(1) {
-        margin: 0 4px;
-        width: 30%;
-    }
+
     .message__logo-container {
-        flex: 0 0 15%;
+        width: 30%;
+        max-width: unset;
+        min-width: unset;
+        flex: 0 0 20%;
         margin-right: 14px;
-        margin-bottom: -6px;
     }
 }

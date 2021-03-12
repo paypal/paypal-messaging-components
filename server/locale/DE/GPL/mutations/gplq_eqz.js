@@ -2,6 +2,26 @@ import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
+const headlineBreaks = [
+    {
+        sizes: ['xsmall'],
+        breaks: ['Ratenzahlung']
+    },
+    {
+        sizes: ['medium'],
+        breaks: ['Jahreszins: ab']
+    }
+].reduce((acc, item) => {
+    const { sizes, breaks } = item;
+    sizes.forEach(size => {
+        acc.push({
+            tag: size,
+            br: breaks
+        });
+    });
+    return acc;
+}, []);
+
 const flex = [
     [
         'default',
@@ -23,13 +43,12 @@ const flex = [
         {
             styles: [
                 `
-                @media (min-aspect-ratio: 60/11) and (min-width: 375px) and (max-width: 501px) {
-                    .message__headline{
-                        font-size: 4.5vw;
-                    }
+                .message__messaging  {
+                    padding-right: 12%;
                 }
                 `
-            ]
+            ],
+            headline: [...headlineBreaks]
         }
     ],
     [
@@ -37,20 +56,12 @@ const flex = [
         {
             styles: [
                 `
-                @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
-                    ${['medium', 'large', 'xlarge', 'default']
-                        .map(tag => `.message__headline .tag--${tag}`)
-                        .join(', ')}{
-                        font-size: 3.4vw;
-                    }
-                }
-                @media (min-aspect-ratio: 60/11) and (min-width: 375px) and (max-width: 501px) {
-                    .message__headline{
-                        font-size: 4.5vw;
-                    }
+                .message__messaging  {
+                    padding-right: 12%;
                 }
                 `
-            ]
+            ],
+            headline: [...headlineBreaks]
         }
     ],
     ...flexLogoMutations
