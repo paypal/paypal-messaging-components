@@ -7,6 +7,7 @@
     font-family: 'PayPal-Sans-Big';
     font-size: 8.4vw;
     line-height: 1.6em;
+    padding: 0px;
 }
 
 .message__disclaimer {
@@ -36,7 +37,7 @@
 .message__logo:nth-of-type(1) {
     width: 27px;
     display: inline-block;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
 }
 
 .message__logo:nth-of-type(2) {
@@ -63,4 +64,8 @@
     .message__disclaimer {
         font-size: 0.9rem;
     }
+}
+
+.message__promo-container {
+    padding-right: 4px;
 }

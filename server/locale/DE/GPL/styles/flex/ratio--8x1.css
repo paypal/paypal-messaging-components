@@ -2,24 +2,16 @@
     .message__headline {
         font-size: 3.5vw;
         display: inline;
-        /*        display: block;
-        line-height: 2rem;
-*/
-        padding: 0;
-        padding-right: 8px;
+        line-height: 1.2em;
     }
     .message__logo:nth-of-type(2) {
         display: inline-block;
         width: 55%;
     }
 
-    .message__headline .weak {
-        margin-right: 7px;
-    }
     .message__disclaimer {
         font-size: 2vw;
     }
-
     .message__headline span:nth-of-type(1) {
         margin-right: -6px;
     }
@@ -49,12 +41,17 @@
     }
     .message__messaging {
         font-size: 0.6rem;
+        padding: 2px 0;
+        height: 200%;
     }
     .message__headline {
-        font-size: unset;
+        font-size: 4.5vw;
+    }
+    .message__headline .br:not(:last-child) {
+        padding-right: 40%;
     }
     .message__disclaimer {
-        font-size: unset;
+        font-size: 3vw;
     }
     .message__promo-container {
         margin-right: 6px;
