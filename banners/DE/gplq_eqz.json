@@ -17,10 +17,7 @@
 
     "headline": [
         ["0% Ratenzahlung verfügbar.", ["default", "xsmall"]],
-        [
-            ["0% effektiver Jahreszins: ab {formattedPeriodicPayment} pro Monat", [".", "weak"]],
-            ["medium", "large", "xlarge"]
-        ]
+        [["0% eff. Jahreszins: ab {formattedPeriodicPayment} pro Monat."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],

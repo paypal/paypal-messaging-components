@@ -8,8 +8,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'US'),
-                    xSmallFallback(textSize * 21),
+                    textWrap(textSize * 38, textSize, 'DE'),
+                    xSmallFallback(textSize * 8 + 5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
@@ -17,9 +17,9 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['ab']
                     },
-                    { tag: 'xsmall' }
+                    { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
                 disclaimer: ['default']
             })
@@ -28,8 +28,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 38),
+                    xSmallFallback(textSize * 9 + 8),
+                    setLogoTop(textSize * 35),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -37,16 +37,18 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xSmallFallback(textSize * 9 + 8),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'US'),
-                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 32, textSize, 'DE'),
+                    xSmallFallback(textSize * 10.6),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -56,21 +58,21 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    `.message__headline > .tag--xsmall > span { white-space: normal;}`
+                ],
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
+                        tag: 'medium',
+                        br: ['pro'],
+                        replace: [['Monat.', 'Monat']]
                     },
                     {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'xsmall',
+                        br: ['Ratenzahlung'],
+                        replace: [['verfügbar.', 'verfügbar']]
                     }
                 ]
             })
@@ -78,21 +80,24 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 10),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo-container::after {
+                        content: '.';
+                    }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
+                        tag: 'medium',
+                        br: ['pro'],
+                        replace: [['Monat.', 'Monat']]
                     },
                     {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'xsmall',
+                        br: ['Ratenzahlung'],
+                        replace: [['verfügbar.', 'verfügbar']]
                     }
                 ]
             })

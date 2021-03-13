@@ -17,10 +17,7 @@
 
     "headline": [
         ["Später bezahlen mit Ratenzahlung.", ["default", "xsmall"]],
-        [
-            ["Bezahlen Sie in 3-24 monatlichen Raten", [".", "weak"]],
-            ["medium", "large", "xlarge"]
-        ]
+        [["Bezahlen Sie in 3-24 monatlichen Raten."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],
