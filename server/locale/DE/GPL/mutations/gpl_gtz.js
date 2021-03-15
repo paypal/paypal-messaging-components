@@ -1,5 +1,11 @@
 import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import {
+    addPeriod,
+    logoNoneAddRatenzahlungAfterPayPal,
+    logoInlineAddRatenzahlungAfterPayPal,
+    middleAndSmallestFallback
+} from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const headlineBreaks = [
@@ -60,18 +66,23 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'US'),
-                    xSmallFallback(textSize * 21),
+                    textWrap(textSize * 55, textSize, 'DE'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    addPeriod(),
+                    middleAndSmallestFallback(textSize * 17, textSize * 11.6)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['Einkäufen']
                     },
-                    { tag: 'xsmall' }
+                    {
+                        tag: 'medium.2',
+                        br: ['Einkäufen']
+                    },
+                    { tag: 'xsmall', br: ['mit'] }
                 ],
                 disclaimer: ['default']
             })
@@ -80,27 +91,37 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 38),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    middleAndSmallestFallback(textSize * 14.75, textSize * 11.6),
+                    setLogoTop(textSize * 48),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    addPeriod()
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    addPeriod(),
+                    middleAndSmallestFallback(textSize * 17, textSize * 11.6)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'US'),
-                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    addPeriod(),
+                    middleAndSmallestFallback(textSize * 17, textSize * 11.6),
+                    `@media screen and (max-width: ${textSize *
+                        14.6}px) {.message__headline .tag--xsmall > span {white-space: normal;
+                        }
+                    }
+                    `
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -108,21 +129,24 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+                styles: [
+                    middleAndSmallestFallback(textSize * 19, textSize * 15.5),
+                    logoNoneAddRatenzahlungAfterPayPal(textSize * 15.5, 4)
+                ],
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
+                        tag: 'medium',
+                        br: ['Einkäufen']
                     },
                     {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'medium.2',
+                        br: ['Einkäufen']
+                    },
+                    {
+                        tag: 'xsmall',
+                        br: ['monatlichen'],
+                        replace: [['mit Ratenzahlung.', '']]
                     }
                 ]
             })
@@ -130,21 +154,32 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 18),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    logoInlineAddRatenzahlungAfterPayPal(textSize * 18),
+                    `@media screen and (min-width: ${textSize * 14.3}px) {
+                        .message__logo-container::after {
+                            content: '.';
+                        }
+                    }`,
+                    middleAndSmallestFallback(textSize * 19, textSize * 14.25)
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
+                        tag: 'medium',
+                        br: ['monatlichen'],
+                        replace: [['Raten.', 'Raten']]
                     },
                     {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'medium.2',
+                        br: ['monatlichen']
+                    },
+                    {
+                        tag: 'xsmall',
+                        br: ['monatlichen'],
+                        replace: [['mit Ratenzahlung.', '']]
                     }
                 ]
             })

@@ -1,5 +1,6 @@
 import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import { addPeriod, xSmallWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const headlineBreaks = [
@@ -78,18 +79,19 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'US'),
-                    xSmallFallback(textSize * 21),
+                    textWrap(textSize * 55, textSize, 'DE'),
+                    xSmallFallback(textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    addPeriod()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['Einkäufen']
                     },
-                    { tag: 'xsmall' }
+                    { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
                 disclaimer: ['default']
             })
@@ -98,27 +100,35 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 38),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                    xSmallFallback(textSize * 15),
+                    setLogoTop(textSize * 53),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    addPeriod()
+                ],
+                headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xSmallFallback(textSize * 14.8),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    addPeriod()
+                ],
+                headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'US'),
-                    xSmallFallback(textSize * 16),
-                    altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    textWrap(textSize * 55, textSize, 'DE'),
+                    xSmallFallback(textSize * 10.5),
+                    altNoWrap(textSize * 14.5),
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    addPeriod(),
+                    xSmallWrap(textSize * 14.6)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -129,18 +139,10 @@ export default {
                 styles: [xSmallFallback(textSize * 16)],
                 logo: false,
                 headline: [
+                    { tag: 'medium' },
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
-                    },
-                    {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'xsmall',
+                        replace: [['verfügbar.', 'verfügbar']]
                     }
                 ]
             })
@@ -148,21 +150,20 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    addPeriod(),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo-container::after {
+                    content: '.';
+                }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
+                    { tag: 'medium' },
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
-                    },
-                    {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'xsmall',
+                        replace: [['verfügbar.', 'verfügbar']]
                     }
                 ]
             })
