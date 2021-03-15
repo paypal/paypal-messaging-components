@@ -48,15 +48,6 @@ const flex = [
     [
         'ratio:8x1',
         {
-            styles: [
-                `
-                @media (min-width: 350px) {
-                    .message__messaging  {
-                        padding-right: 12%;
-                    }
-                }
-                `
-            ],
             headline: [...headlineBreaks]
         }
     ],

@@ -47,12 +47,28 @@ const flex = [
     [
         'ratio:20x1',
         {
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:8x1',
         {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x4',
+        {
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],

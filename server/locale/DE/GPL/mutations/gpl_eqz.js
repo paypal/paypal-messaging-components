@@ -43,13 +43,9 @@ const flex = [
         'ratio:20x1',
         {
             styles: [
-                `
-                @media (max-width: 350px) {
-                    .message__messaging  {
-                        padding-right: 12%;
-                    }
-                }
-                `
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                    content: '.'
+                }`
             ],
             headline: [...headlineBreaks]
         }
@@ -58,13 +54,31 @@ const flex = [
         'ratio:8x1',
         {
             styles: [
-                `
-                @media (max-width: 350px) {
-                    .message__messaging  {
-                        padding-right: 12%;
-                    }
-                }
-                `
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                    content: '.'
+                }`
+            ],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                content: '.'
+            }`
+            ],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x4',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                content: '.'
+            }`
             ],
             headline: [...headlineBreaks]
         }

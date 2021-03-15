@@ -37,7 +37,7 @@
 .message__logo:nth-of-type(1) {
     width: 27px;
     display: inline-block;
-    /*margin-right: 10px;*/
+    margin-right: 10px;
 }
 
 .message__logo:nth-of-type(2) {

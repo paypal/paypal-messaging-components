@@ -41,26 +41,12 @@ const flex = [
     [
         'ratio:20x1',
         {
-            styles: [
-                `
-                .message__messaging  {
-                    padding-right: 12%;
-                }
-                `
-            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:8x1',
         {
-            styles: [
-                `
-                .message__messaging  {
-                    padding-right: 12%;
-                }
-                `
-            ],
             headline: [...headlineBreaks]
         }
     ],
