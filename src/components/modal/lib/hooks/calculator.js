@@ -1,4 +1,5 @@
-import { useReducer, useEffect } from 'preact/hooks';
+import { useReducer, useEffect, useMemo, useRef } from 'preact/hooks';
+import { debounce } from 'belter/src';
 
 import { useXProps, useServerData } from '../../../lib';
 import { getContent } from '../utils';
@@ -47,6 +48,7 @@ const localize = (country, amount) => {
 };
 
 export default function useCalculator() {
+    const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
     const { currency, payerId, clientId, merchantId, onCalculate, amount, buyerCountry } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
@@ -92,15 +94,35 @@ export default function useCalculator() {
         });
     };
 
-    const submit = event => {
-        if (event) {
-            event.preventDefault();
-        }
+    // Because we use state in this function, which changes every dispatch,
+    // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
+    calculateRef.current = () => {
         const delocalizedValue = delocalize(country, state.inputValue);
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             onCalculate({ value: delocalizedValue });
             fetchTerms(delocalizedValue);
+        }
+    };
+
+    // useMemo allows the debounce method to always be the same reference so the debounce can be maintained
+    const debouncedCalculate = useMemo(
+        () =>
+            debounce(() => {
+                calculateRef.current();
+            }, 1000),
+        []
+    );
+
+    const submit = (event, { debounce: shouldDebounce } = {}) => {
+        if (event) {
+            event.preventDefault();
+        }
+
+        if (shouldDebounce) {
+            debouncedCalculate();
+        } else {
+            calculateRef.current();
         }
     };
 

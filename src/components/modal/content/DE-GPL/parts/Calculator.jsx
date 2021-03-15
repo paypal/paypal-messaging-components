@@ -1,27 +1,12 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useMemo, useRef } from 'preact/hooks';
-import { debounce } from 'belter/src';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
 import TermsTable from './TermsTable';
 
 const Calculator = () => {
-    const submitRef = useRef(null);
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
     const { amount } = useXProps();
-
-    // Keep a ref for the function so debounce can access the most recent one
-    submitRef.current = submit;
-
-    // useMemo allows the debounce method to always be the same reference so the debounce can be maintained
-    const debouncedSubmit = useMemo(
-        () =>
-            debounce(() => {
-                submitRef.current();
-            }, 1000),
-        []
-    );
 
     const {
         calculator: { title, inputLabel, amountRange }
@@ -30,7 +15,7 @@ const Calculator = () => {
     const onInput = evt => {
         changeInput(evt, { autoSubmit: true });
 
-        debouncedSubmit();
+        submit(null, { debounce: true });
     };
 
     const hasInitialAmount = typeof amount !== 'undefined';

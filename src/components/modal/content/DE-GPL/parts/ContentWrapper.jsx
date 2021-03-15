@@ -7,7 +7,6 @@ import Header from '../../../parts/Header';
 import Container from '../../../parts/Container';
 
 const ContentWrapper = () => {
-    const headerRef = useRef();
     const contentWrapper = useRef();
     const [, handleClose] = useTransitionState();
     const { headline } = useContent('GPL');
@@ -18,7 +17,7 @@ const ContentWrapper = () => {
             <div className="top-overlay" onClick={() => handleClose('Modal Overlay')} />
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
-                    <Header wrapperRef={headerRef} logo="DE-GPL">
+                    <Header logo="DE-GPL">
                         <h1>{headline}</h1>
                     </Header>
                     <div className="content">
