@@ -8,7 +8,8 @@ const reducer = (state, action) => {
         case 'input':
             return {
                 ...state,
-                inputValue: action.data
+                isLoading: action.data.autoSubmit ? true : state.isLoading,
+                inputValue: action.data.value
             };
         case 'fetch':
             return {
@@ -81,8 +82,14 @@ export default function useCalculator() {
     }, [payerId, clientId, merchantId, country, amount]);
 
     // TODO: Stronger input validation
-    const changeInput = evt => {
-        dispatch({ type: 'input', data: evt.target.value.replace(/[^\d.,]/g, '') });
+    const changeInput = (evt, { autoSubmit = false } = {}) => {
+        dispatch({
+            type: 'input',
+            data: {
+                value: evt.target.value.replace(/[^\d.,]/g, ''),
+                autoSubmit
+            }
+        });
     };
 
     const submit = event => {

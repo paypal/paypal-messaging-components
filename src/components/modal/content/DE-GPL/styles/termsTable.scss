@@ -90,14 +90,14 @@
 
     .loading-bar {
         background: #eee;
-        height: 10px;
+        height: 14px;
         animation: shimmer 2s linear infinite;
         background: linear-gradient(to bottom right, #eff1f3 21%, #e2e2e2 25%, #eff1f3 29%);
         background-size: 3000px 1000px;
 
         &:last-child {
             width: 80%;
-            margin-top: 5px;
+            margin-top: 8px;
         }
     }
 

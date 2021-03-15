@@ -1,9 +1,10 @@
 .calculator {
     text-align: center;
 
-    h2 {
+    .title {
         margin-top: 0;
         color: white;
+        font-weight: 500;
     }
 
     .input-wrapper {
@@ -36,6 +37,12 @@
     .form {
         background: $header-background;
         padding-bottom: 2rem;
+        padding-top: 0.5rem;
+        transition: padding-top 0.2s ease-out;
+
+        &.no-amount {
+            padding-top: 2rem;
+        }
     }
 
     &__range {
