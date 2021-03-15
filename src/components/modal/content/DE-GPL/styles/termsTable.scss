@@ -33,6 +33,10 @@
             display: flex;
             align-items: flex-end;
 
+            .blue {
+                color: #003087;
+            }
+
             > :first-child {
                 flex: 1 1 auto;
             }
@@ -53,7 +57,7 @@
         &__description {
             color: #687173;
             font-size: 0.8rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
         }
 
         &__body {
@@ -66,13 +70,15 @@
             cursor: default;
 
             .offer__body {
-                height: 115px;
+                height: 125px;
             }
         }
     }
 
     &__disclaimer {
         font-size: 0.8rem;
+        text-align: left;
+        padding-left: 1rem;
     }
 
     .small {

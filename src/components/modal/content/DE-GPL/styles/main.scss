@@ -37,6 +37,7 @@ main {
     width: 500px;
     max-width: calc(100% - 48px);
     margin: auto;
+    box-sizing: border-box;
 }
 
 .modal-container.loading {
@@ -99,7 +100,8 @@ main {
 
 @include mobile {
     .content-column {
-        width: 400px;
+        max-width: 400px;
+        width: 100%;
     }
 
     .content-wrapper {
@@ -113,10 +115,6 @@ main {
         &::-webkit-scrollbar {
             display: none;
         }
-    }
-
-    .content {
-        min-height: calc(100vh - 42px);
     }
 
     .content-background {

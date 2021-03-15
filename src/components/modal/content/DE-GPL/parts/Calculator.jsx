@@ -44,7 +44,12 @@ const Calculator = () => {
                 <div className="input-wrapper">
                     <div>{inputLabel}</div>
                     {/* Not setting value from useCalculator to avoid re-formatting while user is typing */}
-                    <input className="input" defaultValue={hasInitialAmount ? value : ''} onInput={onInput} />
+                    <input
+                        className="input"
+                        type="tel"
+                        defaultValue={hasInitialAmount ? value : ''}
+                        onInput={onInput}
+                    />
                 </div>
                 <div className="calculator__range">{amountRange.replace(/,00/g, '')}</div>
             </form>

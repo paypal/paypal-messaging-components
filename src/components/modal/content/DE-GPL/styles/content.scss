@@ -22,17 +22,27 @@
     }
 
     .disclosure {
-        font-size: 0.75rem;
+        border-top: 1px dashed #9da3a6;
+        font-size: 0.8rem;
+        line-height: 1.8;
+        padding: 1rem 0 3rem;
     }
 
     .instructions {
         text-align: center;
-        margin: 2rem;
+        padding: 2rem;
+        flex: 1 1 100%;
 
         img {
             vertical-align: bottom;
             height: 1.1rem;
             padding-right: 2px;
         }
+    }
+
+    .content-body {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
     }
 }

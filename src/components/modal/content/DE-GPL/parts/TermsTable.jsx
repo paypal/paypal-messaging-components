@@ -71,7 +71,7 @@ const TableContent = ({ terms: { formattedAmount, offers }, hasError }) => {
                     Eff. Jahreszins {offer.apr}%, Fester Sollzinssatz {offer.nominalRate}%
                 </div>
                 <div className="offer__field">
-                    <div>Transaktionsbetrag E-Geld Service</div>
+                    <div className="blue">Transaktionsbetrag E-Geld Service</div>
                     <div>{formattedAmount} €</div>
                 </div>
                 <div className="offer__field">
