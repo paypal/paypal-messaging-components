@@ -10,13 +10,22 @@ export function addPeriod() {
 }
 
 /**
- * Allow for additional wrapping of the xsmall tag.
+ * Stop wrapping past a certain point on xsmall tag.
  */
-export function xSmallWrap(breakpoint) {
-    return `@media screen and (max-width: ${breakpoint}px) {.message__headline .tag--xsmall > span {white-space: normal;
+export function xSmallNoWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {.locale--DE .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
+}
+
+/**
+ * Media query used in GPL GTZ and GPLQ GTZ for wrapping of a logo primary left position message.
+ */
+export function primaryWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) { 
+        .locale--DE .message__headline .tag--xsmall > span:first-child {
+            white-space: normal;
         }
-    }
-    `;
+        .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
+    }`;
 }
 
 /**
