@@ -60,11 +60,23 @@ jest.mock('server/locale/DE/Ratenzahlung/mutations/palaq_any_eqz', () => ({
 }));
 
 jest.mock('server/locale/DE/GPL/mutations/gpl_eqz', () => ({
-    'layout:text': ['text', 'DE', 'GPL:EQZ']
+    'layout:text': ['text', 'DE', 'GPL:EQZ'],
+    'layout:flex': ['flex', 'DE', 'GPL:EQZ']
 }));
 
 jest.mock('server/locale/DE/GPL/mutations/gpl_gtz', () => ({
-    'layout:text': ['text', 'DE', 'GPL:GTZ']
+    'layout:text': ['text', 'DE', 'GPL:GTZ'],
+    'layout:flex': ['flex', 'DE', 'GPL:GTZ']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gplq_eqz', () => ({
+    'layout:text': ['text', 'DE', 'GPLQ:EQZ'],
+    'layout:flex': ['flex', 'DE', 'GPLQ:EQZ']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gplq_gtz', () => ({
+    'layout:text': ['text', 'DE', 'GPLQ:GTZ'],
+    'layout:flex': ['flex', 'DE', 'GPLQ:GTZ']
 }));
 
 jest.mock('server/locale/GB/mutations/gpl', () => ({
@@ -98,6 +110,10 @@ describe('locale methods', () => {
             ['US', 'EZP:ANY:EQZ'],
             ['US', 'PALA:SINGLE:EQZ'],
             ['US', 'GPLQ'],
+            ['DE', 'GPL:EQZ'],
+            ['DE', 'GPL:GTZ'],
+            ['DE', 'GPLQ:EQZ'],
+            ['DE', 'GPLQ:GTZ'],
             ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
             ['GB', 'PL'],
