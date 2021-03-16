@@ -20,6 +20,7 @@
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
+        "build:develop": "webpack --env.NODE_ENV=stage",
         "build:stage": "webpack --env.NODE_ENV=stage",
         "build:sandbox": "webpack --env.NODE_ENV=sandbox",
         "build:production": "webpack --env.NODE_ENV=production",
