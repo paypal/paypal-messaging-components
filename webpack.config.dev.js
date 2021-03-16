@@ -17,6 +17,7 @@ module.exports = (env = {}) => {
                       messaging: './src/index.js'
                   },
                   filename: '[name].js',
+                  libraryTarget: false,
                   debug: true,
                   minify: false,
                   sourcemaps: true,
