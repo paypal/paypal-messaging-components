@@ -4,7 +4,9 @@ import {
     addPeriod,
     logoNoneAddRatenzahlungAfterPayPal,
     logoInlineAddRatenzahlungAfterPayPal,
-    middleAndSmallestFallback
+    middleAndSmallestFallback,
+    xSmallNoWrap,
+    primaryWrap
 } from './mediaQueries';
 import { textLogoMutations } from '../../../../message/logoMutations';
 
@@ -18,7 +20,9 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    middleAndSmallestFallback(textSize * 17, textSize * 11.6)
+                    middleAndSmallestFallback(textSize * 25, textSize * 16.5),
+                    xSmallNoWrap(textSize * 16.5),
+                    primaryWrap(textSize * 15.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -39,7 +43,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    middleAndSmallestFallback(textSize * 14.75, textSize * 11.6),
+                    middleAndSmallestFallback(textSize * 25, textSize * 20),
                     setLogoTop(textSize * 48),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
@@ -52,7 +56,7 @@ export default {
                 styles: [
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    middleAndSmallestFallback(textSize * 17, textSize * 11.6)
+                    middleAndSmallestFallback(textSize * 25, textSize * 20)
                 ]
             })
         ],
@@ -60,16 +64,18 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    `@media screen and (max-width: ${textSize * 17.8}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    middleAndSmallestFallback(textSize * 17, textSize * 11.6),
-                    `@media screen and (max-width: ${textSize *
-                        14.6}px) {.message__headline .tag--xsmall > span {white-space: normal;
-                        }
-                    }
-                    `
+                    middleAndSmallestFallback(textSize * 25, textSize * 17.8),
+                    xSmallNoWrap(textSize * 17.8)
+                ],
+                headline: [
+                    { tag: 'medium', br: ['Einkäufen'] },
+                    { tag: 'medium.2', br: ['Einkäufen'] },
+                    { tag: 'xsmall' }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -78,19 +84,15 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    middleAndSmallestFallback(textSize * 19, textSize * 15.5),
-                    logoNoneAddRatenzahlungAfterPayPal(textSize * 15.5, 4)
+                    middleAndSmallestFallback(textSize * 19, textSize * 14.25),
+                    logoNoneAddRatenzahlungAfterPayPal(textSize * 14.25, 4),
+                    `@media screen and (max-width: ${textSize *
+                        14}px) {.message__headline > span:last-child {white-space: nowrap; }}`
                 ],
                 logo: false,
                 headline: [
-                    {
-                        tag: 'medium',
-                        br: ['Einkäufen']
-                    },
-                    {
-                        tag: 'medium.2',
-                        br: ['Einkäufen']
-                    },
+                    { tag: 'medium' },
+                    { tag: 'medium.2' },
                     {
                         tag: 'xsmall',
                         br: ['monatlichen'],

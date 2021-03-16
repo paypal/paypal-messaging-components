@@ -1,6 +1,11 @@
 import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
-import { logoNoneAddRatenzahlungAfterPayPal, logoInlineAddRatenzahlungAfterPayPal } from './mediaQueries';
+import {
+    logoNoneAddRatenzahlungAfterPayPal,
+    logoInlineAddRatenzahlungAfterPayPal,
+    xSmallNoWrap,
+    primaryWrap
+} from './mediaQueries';
 import { textLogoMutations } from '../../../../message/logoMutations';
 
 export default {
@@ -10,9 +15,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 38, textSize, 'DE'),
-                    xSmallFallback(textSize * 10.8),
+                    xSmallFallback(textSize * 15.4),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    xSmallNoWrap(textSize * 12.5),
+                    primaryWrap(textSize * 15.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -29,7 +36,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 10),
+                    xSmallFallback(textSize * 10.25),
                     setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
@@ -38,25 +45,36 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 10), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xSmallFallback(textSize * 10.25),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    `@media screen and (max-width: ${textSize * 17.8}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize, 'DE'),
-                    xSmallFallback(textSize * 11),
+                    xSmallFallback(textSize * 17.8),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    xSmallNoWrap(textSize * 17.8)
                 ],
+                headline: [{ tag: 'medium', br: ['monatlichen'] }, { tag: 'xsmall' }],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), logoNoneAddRatenzahlungAfterPayPal(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    logoNoneAddRatenzahlungAfterPayPal(textSize * 16),
+                    `@media screen and (max-width: ${textSize *
+                        16}px) {.message__headline > span:last-child {white-space: nowrap; }}`
+                ],
                 logo: false,
                 headline: [
                     {
