@@ -55,25 +55,41 @@ export const clickOutsideClosesModal = ({ account, viewport, groupString }) => a
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const closeReopenModal = ({ account, viewport, groupString }) => async () => {
+export const closeReopenModal = ({ account, viewport, groupString, standalone = false }) => async () => {
     const testNameParts = 'reopen and close modal';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementModal = await page.$(selectors.modal.iframe);
-    const elementHandle = await page.$(selectors.banner.iframeByAttribute);
-    const frame = await elementHandle.contentFrame();
-    const modalFrame = await elementModal.contentFrame();
-    await modalFrame.waitForSelector(selectors.button.closeBtn);
-    await page.waitFor(1000);
-    await modalFrame.click(selectors.button.closeBtn);
-    await page.waitFor(1000);
-    await frame.waitForSelector(selectors.banner.messageMessaging);
-    await frame.click(selectors.banner.messageMessaging);
-    await page.waitFor(1000);
-    await modalFrame.waitForSelector('body');
-    await page.waitFor(1000);
-    await modalFrame.click(selectors.button.closeBtn);
-    await page.waitFor(1000);
+    if (!standalone) {
+        const elementModal = await page.$(selectors.modal.iframe);
+        const elementHandle = await page.$(selectors.banner.iframeByAttribute);
+        const frame = await elementHandle.contentFrame();
+        const modalFrame = await elementModal.contentFrame();
+        await modalFrame.waitForSelector(selectors.button.closeBtn);
+        await page.waitFor(1000);
+        await modalFrame.click(selectors.button.closeBtn);
+        await page.waitFor(1000);
+        await frame.waitForSelector(selectors.banner.messageMessaging);
+        await frame.click(selectors.banner.messageMessaging);
+        await page.waitFor(1000);
+        await modalFrame.waitForSelector('body');
+        await page.waitFor(1000);
+        await modalFrame.click(selectors.button.closeBtn);
+        await page.waitFor(1000);
+    } else {
+        const elementBanner = await page.$(selectors.banner.wrapper);
+        const elementModal = await page.$(selectors.modal.iframe);
+        const modalFrame = await elementModal.contentFrame();
+        await modalFrame.waitForSelector(selectors.button.closeBtn);
+        await page.waitFor(1000);
+        await modalFrame.click(selectors.button.closeBtn);
+        await page.waitFor(1000);
+        await elementBanner.click();
+        await page.waitFor(1000);
+        await modalFrame.waitForSelector('body');
+        await page.waitFor(1000);
+        await modalFrame.click(selectors.button.closeBtn);
+        await page.waitFor(1000);
+    }
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };

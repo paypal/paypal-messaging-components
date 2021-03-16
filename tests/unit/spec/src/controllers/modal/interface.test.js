@@ -12,7 +12,10 @@ jest.mock('src/zoid/modal', () => {
             render: mockRender,
             updateProps: mockUpdateProps,
             hide: mockHide,
-            state: {}
+            state: {},
+            event: {
+                once: (_, resolve) => resolve()
+            }
         }))
     };
 });
@@ -80,14 +83,6 @@ describe('modal interface', () => {
     test('Opens modal', async () => {
         await Modal({ account: '5' }).show({ index: '1' });
 
-        const modalViewport = document.head.querySelector('meta[name="viewport"]');
-
-        // Adds viewport
-        expect(modalViewport).not.toBeNull();
-        expect(modalViewport.getAttribute('content')).toBe(
-            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
-        );
-
         expect(zoidModal).toHaveBeenCalledTimes(1);
         expect(zoidModal().render).toHaveBeenCalledTimes(1);
         expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
@@ -98,15 +93,6 @@ describe('modal interface', () => {
             })
         );
         expect(zoidModal().hide).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        // Tracks modal open event
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open'
-            })
-        );
     });
 
     test('Closes modal', async () => {

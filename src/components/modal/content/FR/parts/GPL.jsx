@@ -17,7 +17,7 @@ export default () => {
 
                 <h3>
                     {qualifying.toLowerCase() === 'true'
-                        ? subHeadline.qualified
+                        ? frCurrencyFormat(subHeadline.qualified)
                         : frCurrencyFormat(subHeadline.unqualified)}
                 </h3>
 
