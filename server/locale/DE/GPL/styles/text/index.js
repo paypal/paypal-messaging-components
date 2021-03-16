@@ -12,8 +12,8 @@ import logoRight from './logo--right.css';
 export default [
     ['default', base],
     ['logo.type:primary', logoPrimary],
-    ['logo.position:top', logoTop],
-    ['logo.position:right', logoRight],
+    ['logo.type:primary && logo.position:top', logoTop],
+    ['logo.type:primary && logo.position:right', logoRight],
 
     ['logo.type:alternative', logoAlternative],
 

@@ -64,17 +64,17 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 17.8}px) { .message__content { white-space: nowrap; }}`,
+                    `@media screen and (max-width: ${textSize *
+                        11.3}px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    middleAndSmallestFallback(textSize * 25, textSize * 17.8),
-                    xSmallNoWrap(textSize * 17.8)
+                    middleAndSmallestFallback(textSize * 25, textSize * 11.3)
                 ],
                 headline: [
                     { tag: 'medium', br: ['Einkäufen'] },
-                    { tag: 'medium.2', br: ['Einkäufen'] },
+                    { tag: 'medium.2', br: ['i.H.v.'] },
                     { tag: 'xsmall' }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]

@@ -55,14 +55,17 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 17.8}px) { .message__content { white-space: nowrap; }}`,
+                    `@media screen and (max-width: ${textSize *
+                        11.6}px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 32, textSize, 'DE'),
-                    xSmallFallback(textSize * 17.8),
+                    xSmallFallback(textSize * 11.6),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    xSmallNoWrap(textSize * 17.8)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                headline: [{ tag: 'medium', br: ['monatlichen'] }, { tag: 'xsmall' }],
+                headline: [
+                    { tag: 'medium', br: ['monatlichen'] },
+                    { tag: 'xsmall', br: ['mit'] }
+                ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
