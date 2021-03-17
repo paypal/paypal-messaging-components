@@ -8,6 +8,7 @@ import {
     getAllBySelector,
     attributeObserver,
     nextIndex,
+    getComponentTitle,
     logger,
     getCurrentTime,
     globalEvent
@@ -125,7 +126,13 @@ export default (options = {}) => ({
 
                     attributeObserver.observe(container, { attributes: true });
 
-                    return render(container).then(() => globalEvent.trigger('render'));
+                    return render(container)
+                        .then(() => {
+                            container
+                                .querySelector('iframe[name*=zoid]')
+                                ?.setAttribute('title', getComponentTitle('paypal_credit_message_'));
+                        })
+                        .then(() => globalEvent.trigger('render'));
                 }
 
                 const { updateProps, state } = messagesMap.get(container);

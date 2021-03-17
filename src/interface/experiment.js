@@ -51,7 +51,6 @@ export const Messages = config => ({
 });
 
 Messages.__VERSION__ = __MESSAGES__.__VERSION__;
-Messages.__DOMAIN__ = __MESSAGES__.__DOMAIN__;
 Messages.render = (config, selector) => Messages(config).render(selector);
 // Old and New are the same
 Messages.setGlobalConfig = NewMessages.setGlobalConfig;
