@@ -128,9 +128,11 @@ export default (options = {}) => ({
 
                     return render(container)
                         .then(() => {
-                            container
-                                .querySelector('iframe[name*=zoid]')
-                                ?.setAttribute('title', getComponentTitle('paypal_credit_message_'));
+                            const iframe = container.querySelector('iframe[name*=zoid]');
+                            if (iframe) {
+                                const title = getComponentTitle('paypal_message_');
+                                iframe.setAttribute('title', title);
+                            }
                         })
                         .then(() => globalEvent.trigger('render'));
                 }
