@@ -1,6 +1,7 @@
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
+import { getComponentTitle } from '../../utils';
 
 export default ({ uid, frame, prerenderFrame, doc, event }) => {
     event.on(EVENT.RENDERED, () => {
@@ -9,6 +10,9 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
 
     const fullScreen = position =>
         `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
+
+    // eslint-disable-next-line no-param-reassign
+    frame.title = getComponentTitle('paypal_modal_');
 
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
