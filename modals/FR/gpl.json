@@ -27,8 +27,8 @@
             "singleProduct": "Payez en 4X"
         },
         "subHeadline": {
-            "unqualified": "4 échéances, pour les achats de {formattedMinAmount} à {formattedMaxAmount}. Inclut des frais de 2,1% dans la limite de 20 €. ",
-            "qualified": "{formattedTransactionAmount} divisé en 4 échéances de {formattedPeriodicPayment}. Inclut des frais de 2,1% dans la limite de 20 €."
+            "unqualified": "4 échéances, sans frais pour les achats de {formattedMinAmount} à {formattedMaxAmount}. ",
+            "qualified": "{formattedTransactionAmount} divisé en 4 échéances sans frais de {formattedPeriodicPayment}. "
         },
 
         "instructions": {
