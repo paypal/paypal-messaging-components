@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
 import TermsTable from './TermsTable';
@@ -30,9 +31,41 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     return null;
 };
 
+const getDisplayValue = value => {
+    const delocalizedValue = value
+        // Remove any non-currency character
+        .replace(/[^\d.,]/g, '')
+        // Replace thousands marker
+        .replace(/\./, '')
+        // Replace decimal marker
+        .replace(/,/, '.');
+
+    const truncatedValue = /\d+\./.test(delocalizedValue)
+        ? delocalizedValue.match(/^\d+\.\d{0,2}/)[0]
+        : delocalizedValue;
+
+    const [whole, fraction = ''] = truncatedValue.split('.');
+    const formattedValue = Number(whole).toLocaleString('de-DE', {
+        currency: 'EUR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+
+    // Allow display value to end with a dangling comma to allow typing a "cent" value
+    const parts = [formattedValue, fraction !== '' || value[value.length - 1] === ',' ? ',' : '', fraction];
+
+    return delocalizedValue === '' || formattedValue === 'NaN' ? '' : parts.join('');
+};
+
 const Calculator = () => {
-    const { terms, value, isLoading, submit, changeInput } = useCalculator();
+    const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
+
+    const hasInitialAmount = typeof amount !== 'undefined';
+    const hasEnteredAmount = value !== '0,00' && value !== '';
+    const emptyState = !hasInitialAmount && !hasEnteredAmount;
+
+    const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
     const error = getError(terms, isLoading);
 
     const {
@@ -40,14 +73,11 @@ const Calculator = () => {
     } = useContent('GPL');
 
     const onInput = evt => {
-        changeInput(evt, { autoSubmit: true });
+        setDisplayValue(getDisplayValue(evt.target.value));
+        changeInput(evt);
 
-        submit(null, { debounce: true });
+        submit();
     };
-
-    const hasInitialAmount = typeof amount !== 'undefined';
-    const hasEnteredAmount = value !== '0,00';
-    const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     return (
         <div className="calculator">
@@ -56,12 +86,7 @@ const Calculator = () => {
                 <div className="input__wrapper">
                     <div className="input__label">{inputLabel}</div>
                     {/* Not setting value from useCalculator to avoid re-formatting while user is typing */}
-                    <input
-                        className="input"
-                        type="tel"
-                        defaultValue={hasInitialAmount ? value : ''}
-                        onInput={onInput}
-                    />
+                    <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
                 {error || emptyState || isLoading ? (
                     <div className="calculator__error">
@@ -71,9 +96,11 @@ const Calculator = () => {
                 ) : null}
             </form>
             <div className="content-column">
-                {(hasInitialAmount || hasEnteredAmount) && !error ? (
-                    <TermsTable terms={terms} isLoading={isLoading} />
-                ) : null}
+                <TermsTable
+                    terms={terms}
+                    isLoading={isLoading}
+                    hasError={(!hasInitialAmount && !hasEnteredAmount) || !!error}
+                />
             </div>
         </div>
     );

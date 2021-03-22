@@ -18,13 +18,17 @@ const reducer = (state, action) => {
                 isLoading: true,
                 prevValue: state.inputValue
             };
-        case 'terms':
+        case 'terms': {
+            const newInputValue = action.data.autoSubmit ? state.inputValue : action.data.formattedAmount;
+
             return {
                 isLoading: false,
                 terms: action.data,
-                inputValue: action.data.formattedAmount,
-                prevValue: action.data.formattedAmount
+                inputValue: newInputValue,
+                prevValue: newInputValue
             };
+        }
+
         default:
             throw new Error('Invalid action type');
     }
@@ -47,7 +51,7 @@ const localize = (country, amount) => {
     });
 };
 
-export default function useCalculator() {
+export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
     const { currency, payerId, clientId, merchantId, onCalculate, amount, buyerCountry } = useXProps();
@@ -72,7 +76,13 @@ export default function useCalculator() {
             setServerData(data);
 
             // TODO: do not store terms in reducer since serverData will be kept up-to-date
-            dispatch({ type: 'terms', data: data.terms });
+            dispatch({
+                type: 'terms',
+                data: {
+                    ...data.terms,
+                    autoSubmit
+                }
+            });
         });
     };
 
@@ -84,7 +94,7 @@ export default function useCalculator() {
     }, [payerId, clientId, merchantId, country, amount]);
 
     // TODO: Stronger input validation
-    const changeInput = (evt, { autoSubmit = false } = {}) => {
+    const changeInput = evt => {
         dispatch({
             type: 'input',
             data: {
@@ -114,12 +124,12 @@ export default function useCalculator() {
         []
     );
 
-    const submit = (event, { debounce: shouldDebounce } = {}) => {
+    const submit = event => {
         if (event) {
             event.preventDefault();
         }
 
-        if (shouldDebounce) {
+        if (autoSubmit) {
             debouncedCalculate();
         } else {
             calculateRef.current();

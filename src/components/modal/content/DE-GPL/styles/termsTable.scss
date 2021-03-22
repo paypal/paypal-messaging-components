@@ -1,10 +1,17 @@
 .finance-terms {
     margin-top: -1.5rem;
-    transition: margin-top 0.2s ease-out;
+    transition: margin-top 0.2s ease-out, max-height 0.15s ease-in;
     color: #2c2e2f;
+    max-height: 1000px;
+    overflow: hidden;
+
+    &.loading {
+        max-height: 400px;
+    }
 
     &.has-error {
         margin-top: 1rem;
+        max-height: 0;
     }
 
     .offer {
@@ -45,10 +52,6 @@
             }
         }
 
-        &__header {
-            margin-bottom: 0.5rem;
-        }
-
         &__field {
             font-size: 0.8rem;
 
@@ -64,7 +67,8 @@
         }
 
         &__body {
-            transition: height 0.2s linear;
+            margin-top: 0;
+            transition: height 0.2s linear, margin 0.2s linear;
             height: 0;
             overflow: hidden;
         }
@@ -74,6 +78,7 @@
 
             .offer__body {
                 height: 130px;
+                margin-top: 0.5rem;
             }
         }
     }
@@ -98,15 +103,23 @@
     }
 
     .loading-bar {
+        position: relative;
         background: #eee;
-        height: 14px;
+        height: 20px;
+        margin: 4px 0;
         animation: shimmer 2s linear infinite;
         background: linear-gradient(to bottom right, #eff1f3 21%, #e2e2e2 25%, #eff1f3 29%);
         background-size: 3000px 1000px;
 
-        &:last-child {
-            width: 80%;
-            margin-top: 8px;
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 60%;
+            top: 0;
+            background: white;
+            height: 100%;
+            width: 15%;
         }
     }
 

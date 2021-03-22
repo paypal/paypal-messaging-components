@@ -2,7 +2,6 @@
 import { h } from 'preact';
 
 import { useContent, useProductMeta } from '../../../lib';
-import Icon from '../../../parts/Icon';
 import Calculator from './Calculator';
 
 export default () => {
@@ -16,9 +15,7 @@ export default () => {
             <div className="content-column instructions">
                 {instructions.map(instruction =>
                     instruction === 'PayPal' ? (
-                        <span className="pp-button-wrapper">
-                            <Icon name="logo-text" />
-                        </span>
+                        <span className="pp-button-wrapper">PayPal</span>
                     ) : (
                         <span>{instruction} </span>
                     )
@@ -26,7 +23,7 @@ export default () => {
             </div>
 
             <div className="content-column disclosure">
-                {apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR}
+                {(apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/,00/g, '')}
             </div>
         </section>
     );

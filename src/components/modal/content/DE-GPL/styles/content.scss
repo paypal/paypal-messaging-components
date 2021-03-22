@@ -50,14 +50,13 @@
     }
 
     .pp-button-wrapper {
-        padding: 0.1rem 0.5rem;
+        padding: 0.1rem 0.9rem 0.2rem 0.65rem;
         border-radius: 1rem;
         background: #ffc439;
-        margin-right: 2px;
-
-        img {
-            vertical-align: bottom;
-            height: 1rem;
-        }
+        margin-right: 4px;
+        color: #0070ba;
+        font-size: 0.9rem;
+        font-weight: bold;
+        font-style: italic;
     }
 }

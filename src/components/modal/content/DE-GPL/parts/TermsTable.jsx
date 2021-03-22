@@ -45,18 +45,17 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
     );
 };
 
-const TermsTable = ({ isLoading, terms: { offers, formattedAmount } }) => {
+const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError }) => {
     const {
         terms: { disclaimer }
     } = useContent('GPL');
 
-    if (isLoading) {
+    if (isLoading || hasError) {
         return (
-            <div className="finance-terms">
+            <div className={`finance-terms loading ${hasError ? 'has-error' : ''}`}>
                 {[0, 1, 2, 3].map(() => (
                     <button className="offer" type="button">
                         <div className="loading-bar" />
-                        <div className="loading-bar " />
                     </button>
                 ))}
             </div>
