@@ -52,9 +52,9 @@ const getDisplayValue = value => {
     });
 
     // Allow display value to end with a dangling comma to allow typing a "cent" value
-    const parts = [formattedValue, fraction !== '' || value[value.length - 1] === ',' ? ',' : '', fraction];
-
-    return delocalizedValue === '' || formattedValue === 'NaN' ? '' : parts.join('');
+    return delocalizedValue === '' || formattedValue === 'NaN'
+        ? ''
+        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction}` : ''}`;
 };
 
 const Calculator = () => {
