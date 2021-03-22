@@ -1,13 +1,14 @@
-import validOptions from './validOptions';
-import getMutations from './mutations';
-import logos from './logos';
-import styles from './styles';
+import gpl from './GPL/index';
+import ratenzahlung from './Ratenzahlung/index';
 
-export default {
-    localeClass: 'locale--DE',
-    productName: ['mit', 'PayPal Ratenzahlung.'],
-    validOptions,
-    getMutations,
-    logos,
-    styles
+export default offerType => {
+    switch (offerType) {
+        case 'GPL:EQZ':
+        case 'GPL:GTZ':
+        case 'GPLQ:EQZ':
+        case 'GPLQ:GTZ':
+            return gpl;
+        default:
+            return ratenzahlung;
+    }
 };

@@ -49,14 +49,22 @@ jest.mock('server/locale/US/GPL/mutations/gplq', () => ({
     'layout:flex': ['flex', 'US', 'GPLQ']
 }));
 
-jest.mock('server/locale/DE/mutations/inst_any_eqz', () => ({
+jest.mock('server/locale/DE/Ratenzahlung/mutations/inst_any_eqz', () => ({
     'layout:text': ['text', 'DE', 'INST:ANY:EQZ'],
     'layout:flex': ['flex', 'DE', 'INST:ANY:EQZ']
 }));
 
-jest.mock('server/locale/DE/mutations/palaq_any_eqz', () => ({
+jest.mock('server/locale/DE/Ratenzahlung/mutations/palaq_any_eqz', () => ({
     'layout:text': ['text', 'DE', 'PALAQ:ANY:EQZ'],
     'layout:flex': ['flex', 'DE', 'PALAQ:ANY:EQZ']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gpl_eqz', () => ({
+    'layout:text': ['text', 'DE', 'GPL:EQZ']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gpl_gtz', () => ({
+    'layout:text': ['text', 'DE', 'GPL:GTZ']
 }));
 
 jest.mock('server/locale/GB/mutations/gpl', () => ({
