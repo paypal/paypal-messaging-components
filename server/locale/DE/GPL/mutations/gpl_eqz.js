@@ -1,6 +1,6 @@
 import Logo from '../../../../message/logos';
 import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
-import { addPeriod, xSmallNoWrap } from './mediaQueries';
+import { xSmallNoWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const headlineBreaks = [
@@ -97,14 +97,19 @@ export default {
                     xSmallFallback(textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 14.2)
+                    xSmallNoWrap(textSize * 14.2),
+                    `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
+                    `@media screen and 
+                    (min-width: ${textSize * 23.8}px),
+                    (max-width: ${textSize * 21.8}px) {
+                        .message__headline > .tag--medium > span > span.br:last-child {white-space: normal;}
+                    }`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Einkäufen']
+                        br: ['Sie']
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
@@ -118,10 +123,16 @@ export default {
                     xSmallFallback(textSize * 15),
                     setLogoTop(textSize * 53),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 13.8)
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    xSmallNoWrap(textSize * 13.8),
+                    `@media screen and 
+                    (max-width: ${textSize * 18.67}px) {
+                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
+                    }`
                 ],
-                headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['Sie', 'Raten'] }, { tag: 'xsmall' }]
             })
         ],
         [
@@ -130,10 +141,16 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 14.8),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 13.8)
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    xSmallNoWrap(textSize * 13.8),
+                    `@media screen and 
+                    (max-width: ${textSize * 18.67}px) {
+                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
+                    }`
                 ],
-                headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['Sie', 'Raten'] }, { tag: 'xsmall' }]
             })
         ],
         [
@@ -145,20 +162,34 @@ export default {
                     xSmallFallback(textSize * 15.5),
                     altNoWrap(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 15.5)
+                    `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
+                    `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
+                    xSmallNoWrap(textSize * 15.5),
+                    `@media screen and (max-width: ${textSize *
+                        12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
-                headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }],
+                headline: [
+                    { tag: 'medium', br: ['Sie', 'Raten'] },
+                    { tag: 'xsmall', br: ['Ratenzahlung'] }
+                ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), xSmallNoWrap(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    xSmallNoWrap(textSize * 16),
+                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
+                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                ],
                 logo: false,
                 headline: [
-                    { tag: 'medium' },
+                    {
+                        tag: 'medium',
+                        br: ['Sie', 'Raten']
+                    },
                     {
                         tag: 'xsmall',
                         replace: [['verfügbar.', 'verfügbar']]
@@ -171,16 +202,18 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    addPeriod(),
                     xSmallNoWrap(textSize * 13.8),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo-container::after {
-                    content: '.';
-                }`
+                    `.message__logo-container::after { content: '.'; }`,
+                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
+                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
-                    { tag: 'medium' },
+                    {
+                        tag: 'medium',
+                        br: ['Sie', 'Raten']
+                    },
                     {
                         tag: 'xsmall',
                         replace: [['verfügbar.', 'verfügbar']]

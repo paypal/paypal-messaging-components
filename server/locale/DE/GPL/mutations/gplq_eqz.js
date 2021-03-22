@@ -105,10 +105,15 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize, 'DE'),
-                    xSmallFallback(textSize * 15.5),
+                    xSmallFallback(textSize * 12.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    xSmallNoWrap(textSize * 15.5)
+                    `@media screen and (max-width: ${textSize *
+                        12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                ],
+                headline: [
+                    { tag: 'medium', br: ['ab'] },
+                    { tag: 'xsmall', br: ['Ratenzahlung'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })

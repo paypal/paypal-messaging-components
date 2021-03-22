@@ -1,3 +1,7 @@
+.message__disclaimer > span:first-child {
+    display: none;
+}
+
 @media (min-aspect-ratio: 80/11) {
     .message__headline {
         display: inline;
@@ -21,10 +25,6 @@
         width: 50%;
         margin-left: 10px;
         margin-right: 0;
-    }
-
-    .message__disclaimer {
-        margin-left: 1%;
     }
 }
 
@@ -52,6 +52,14 @@
     .message__headline > span:nth-of-type(3) {
         display: inline;
     }
+
+    .message__disclaimer {
+        margin-left: 1%;
+    }
+
+    .message__disclaimer > span:first-child {
+        display: inline;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
@@ -69,5 +77,11 @@
 @media (min-aspect-ratio: 80/11) and (min-width: 360px) {
     .message__messaging {
         line-height: 1.3rem;
+    }
+}
+
+@media (max-aspect-ratio: 61 / 10) and (min-width: 375px) {
+    .message__disclaimer > span:first-child {
+        display: inline;
     }
 }

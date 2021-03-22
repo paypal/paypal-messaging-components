@@ -46,11 +46,19 @@ const CustomMessage = ({ children, data, meta, template }) => {
             ''
         );
     });
+
+    const offerTypeClass = meta.offerType ? `offer--${meta.offerType.replace(/:/g, '-').toLowerCase()}` : '';
     return (
         <>
             {children}
-            {/* eslint-disable-next-line react/no-danger, jsx-a11y/control-has-associated-label */}
-            <div role="button" className="message" tabIndex="0" dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
+            {/* eslint-disable react/no-danger, jsx-a11y/control-has-associated-label */}
+            <div
+                role="button"
+                className={`message ${offerTypeClass}`}
+                tabIndex="0"
+                dangerouslySetInnerHTML={{ __html: populatedMarkup }}
+            />
+            {/* eslint-enable react/no-danger, jsx-a11y/control-has-associated-label */}
         </>
     );
 };
