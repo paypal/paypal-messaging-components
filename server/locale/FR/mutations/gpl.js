@@ -118,13 +118,13 @@ export default {
         [
             'ratio:6x1',
             {
-                subHeadline: [{ tag: 'small', br: ['achats'] }]
+                subHeadline: [{ tag: 'small', br: ['les'] }]
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [{ tag: 'xsmall', br: ['achats'] }],
+                headline: [{ tag: 'xsmall', br: ['les'] }],
                 styles: [logo20x1()]
             }
         ],
