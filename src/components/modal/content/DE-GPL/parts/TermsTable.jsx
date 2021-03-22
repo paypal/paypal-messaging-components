@@ -3,25 +3,21 @@ import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useContent } from '../../../lib';
 
-const TableContent = ({ terms: { formattedAmount, offers } }) => {
-    const sortedOffers = offers.slice().sort((a, b) => b.term - a.term);
-    const [expandedOffer, setExpandedOffer] = useState(null);
+const OfferCard = ({ offer, formattedAmount, index }) => {
+    const [expanded, setExpanded] = useState(null);
 
     useEffect(() => {
-        if (offers) {
-            // Animate the first offer expanding
+        if (index === 0) {
             requestAnimationFrame(() => {
-                setExpandedOffer(sortedOffers[0]);
+                setExpanded(true);
             });
+        } else {
+            setExpanded(false);
         }
-    }, [offers]);
+    }, [offer]);
 
-    return sortedOffers.map(offer => (
-        <button
-            className={`offer ${offer === expandedOffer ? 'expanded' : ''}`}
-            type="button"
-            onClick={() => setExpandedOffer(offer)}
-        >
+    return (
+        <button className={`offer ${expanded ? 'expanded' : ''}`} type="button" onClick={() => setExpanded(!expanded)}>
             <div className="offer__header">
                 <div className="offer__periodic">
                     {offer.periodic} € <span className="small">/Monat</span>
@@ -46,10 +42,10 @@ const TableContent = ({ terms: { formattedAmount, offers } }) => {
                 </div>
             </div>
         </button>
-    ));
+    );
 };
 
-const TermsTable = ({ isLoading, terms }) => {
+const TermsTable = ({ isLoading, terms: { offers, formattedAmount } }) => {
     const {
         terms: { disclaimer }
     } = useContent('GPL');
@@ -67,10 +63,14 @@ const TermsTable = ({ isLoading, terms }) => {
         );
     }
 
+    const sortedOffers = offers.slice().sort((a, b) => b.term - a.term);
+
     return (
         <div className="finance-terms">
             <Fragment>
-                <TableContent terms={terms} />
+                {sortedOffers.map((offer, idx) => (
+                    <OfferCard offer={offer} formattedAmount={formattedAmount} index={idx} />
+                ))}
                 <div className="finance-terms__disclaimer">{disclaimer}</div>
             </Fragment>
         </div>
