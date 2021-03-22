@@ -85,7 +85,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['achats'],
+                        br: ['pour'],
                         replace: [['éligibles.', 'éligibles']]
                     }
                 ]

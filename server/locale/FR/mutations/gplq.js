@@ -70,7 +70,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['achats'],
-                        replace: [['4X.', '4X']]
+                        replace: [['frais.', 'frais']]
                     }
                 ]
             })
