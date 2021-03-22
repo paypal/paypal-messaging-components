@@ -7,13 +7,9 @@
         font-weight: 500;
     }
 
-    .input-wrapper {
+    .input__wrapper {
         position: relative;
         display: inline-block;
-        background: white;
-        border: 1px solid #ccc;
-        padding: 0.25rem 0.5rem;
-        border-radius: 3px;
         font-size: 0.9rem;
         text-align: left;
         margin-bottom: 0.25rem;
@@ -26,11 +22,19 @@
             font-size: 1rem;
         }
 
+        .input__label {
+            position: absolute;
+            left: 0.5rem;
+            top: 0.25rem;
+        }
+
         .input {
-            border: none;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
             color: #2c2e2f;
             font-size: 1rem;
-            margin-top: 0.25rem;
+            padding: 1.75rem 0.5rem 0.25rem;
         }
     }
 
@@ -47,8 +51,14 @@
         }
     }
 
-    &__range {
+    &__error {
         color: white;
         font-size: 0.8rem;
+
+        svg {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.1rem;
+        }
     }
 }

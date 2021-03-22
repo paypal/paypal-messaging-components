@@ -26,23 +26,38 @@
         font-size: 0.8rem;
         line-height: 1.8;
         padding: 1rem 0 3rem;
+
+        @include mobile {
+            margin: 0 1rem;
+        }
     }
 
     .instructions {
         text-align: center;
-        padding: 2rem;
+        padding: 2rem 1rem;
         flex: 1 1 100%;
-
-        img {
-            vertical-align: bottom;
-            height: 1.1rem;
-            padding-right: 2px;
-        }
     }
 
     .content-body {
         flex: 1 1 100%;
         display: flex;
         flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    .calculator {
+        margin: 0 -1rem;
+    }
+
+    .pp-button-wrapper {
+        padding: 0.1rem 0.5rem;
+        border-radius: 1rem;
+        background: #ffc439;
+        margin-right: 2px;
+
+        img {
+            vertical-align: bottom;
+            height: 1rem;
+        }
     }
 }

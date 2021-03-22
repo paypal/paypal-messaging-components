@@ -1,56 +1,18 @@
 /** @jsx h */
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useContent } from '../../../lib';
-import Icon from '../../../parts/Icon';
 
-const getTableError = ({ amount, minAmount, maxAmount, error, offers }) => {
-    const {
-        terms: { genericError, invalidAmount }
-    } = useContent('GPL');
-
-    if (error || !maxAmount) {
-        return genericError;
-    }
-
-    if (+amount < minAmount || +amount > maxAmount) {
-        return invalidAmount.replace(/,00/g, '');
-    }
-
-    const [offer] = offers.length ? offers : [];
-    if (!offer || !offer.qualified) {
-        return genericError;
-    }
-
-    return null;
-};
-
-const blankOffers = [
-    {
-        periodic: '--,--',
-        term: 24
-    },
-    {
-        periodic: '--,--',
-        term: 12
-    },
-    {
-        periodic: '--,--',
-        term: 6
-    },
-    {
-        periodic: '--,--',
-        term: 3
-    }
-];
-
-const TableContent = ({ terms: { formattedAmount, offers }, hasError }) => {
-    const sortedOffers = hasError ? blankOffers : offers.slice().sort((a, b) => b.term - a.term);
-    const [expandedOffer, setExpandedOffer] = useState(hasError ? null : sortedOffers[0]);
+const TableContent = ({ terms: { formattedAmount, offers } }) => {
+    const sortedOffers = offers.slice().sort((a, b) => b.term - a.term);
+    const [expandedOffer, setExpandedOffer] = useState(null);
 
     useEffect(() => {
-        if (offers && !hasError) {
-            setExpandedOffer(sortedOffers[0]);
+        if (offers) {
+            // Animate the first offer expanding
+            requestAnimationFrame(() => {
+                setExpandedOffer(sortedOffers[0]);
+            });
         }
     }, [offers]);
 
@@ -58,7 +20,7 @@ const TableContent = ({ terms: { formattedAmount, offers }, hasError }) => {
         <button
             className={`offer ${offer === expandedOffer ? 'expanded' : ''}`}
             type="button"
-            onClick={hasError ? null : () => setExpandedOffer(offer)}
+            onClick={() => setExpandedOffer(offer)}
         >
             <div className="offer__header">
                 <div className="offer__periodic">
@@ -105,18 +67,12 @@ const TermsTable = ({ isLoading, terms }) => {
         );
     }
 
-    const error = getTableError(terms);
-
     return (
-        <div className={`finance-terms ${error ? 'has-error' : ''}`}>
-            {error ? (
-                <h3 className="error">
-                    <Icon name="error" />
-                    {error}
-                </h3>
-            ) : null}
-            <TableContent terms={terms} hasError={!!error} />
-            <div className="finance-terms__disclaimer">{disclaimer}</div>
+        <div className="finance-terms">
+            <Fragment>
+                <TableContent terms={terms} />
+                <div className="finance-terms__disclaimer">{disclaimer}</div>
+            </Fragment>
         </div>
     );
 };

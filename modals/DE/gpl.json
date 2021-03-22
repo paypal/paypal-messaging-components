@@ -32,12 +32,11 @@
         "calculator": {
             "title": "Was kostet Ihr Einkauf?",
             "inputLabel": "Warenwert",
+            "genericError": "Etwas ist schiefgelaufen. Versuchen Sie es in Kürze erneut.",
             "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}"
         },
 
         "terms": {
-            "genericError": "",
-            "invalidAmount": "Geben Sie einen Betrag zwischen {formattedMinAmount} und {formattedMaxAmount} ein.",
             "disclaimer": "Dies ist eine Beispielrechnung und kann vom tatsächlichen endgültigen Betrag abweichen."
         },
 

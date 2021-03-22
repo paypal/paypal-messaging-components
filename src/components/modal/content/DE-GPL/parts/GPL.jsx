@@ -15,7 +15,13 @@ export default () => {
 
             <div className="content-column instructions">
                 {instructions.map(instruction =>
-                    instruction === 'PayPal' ? <Icon name="logo-text" /> : <span>{instruction} </span>
+                    instruction === 'PayPal' ? (
+                        <span className="pp-button-wrapper">
+                            <Icon name="logo-text" />
+                        </span>
+                    ) : (
+                        <span>{instruction} </span>
+                    )
                 )}
             </div>
 
