@@ -45,6 +45,15 @@ const PL = () => {
                             <br />
                         </Fragment>
                     ))}
+                    Click{' '}
+                    <a
+                        href="https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >
+                        here
+                    </a>{' '}
+                    to learn more about Pay in 3.
                 </p>
             </div>
         </section>

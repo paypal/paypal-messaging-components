@@ -16,12 +16,8 @@
     },
 
     "headline": [
-        ["Buy now, pay later.", ["default", "xsmall"]],
-        [["Buy now and pay later."], ["xsmall.2"]],
-        [
-            ["0% effektiver Jahreszins: ab {formattedPeriodicPayment} pro Monat. Mehr erfahren", [".", "weak"]],
-            ["medium", "large", "xlarge"]
-        ]
+        ["0% Ratenzahlung verfügbar.", ["default", "xsmall"]],
+        [["0% eff. Jahreszins: ab {formattedPeriodicPayment} pro Monat."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],
