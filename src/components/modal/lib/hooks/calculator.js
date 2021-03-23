@@ -28,6 +28,12 @@ const reducer = (state, action) => {
                 prevValue: newInputValue
             };
         }
+        case 'loaded': {
+            return {
+                ...state,
+                isLoading: false
+            };
+        }
 
         default:
             throw new Error('Invalid action type');
@@ -95,10 +101,15 @@ export default function useCalculator({ autoSubmit = false } = {}) {
 
     // TODO: Stronger input validation
     const changeInput = evt => {
+        const { value } = evt.target;
+
         dispatch({
             type: 'input',
             data: {
-                value: evt.target.value.replace(/[^\d.,]/g, ''),
+                value:
+                    localize(country, value).length > 9 || value.length > 9
+                        ? state.inputValue
+                        : value.replace(/[^\d.,]/g, ''),
                 autoSubmit
             }
         });
@@ -112,6 +123,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             onCalculate({ value: delocalizedValue });
             fetchTerms(delocalizedValue);
+        } else {
+            // The input value may have changed, but the actual amount value did not
+            // ex: $10.9 === $10.90
+            // In this case, just reset the loading state
+            dispatch({
+                type: 'loaded'
+            });
         }
     };
 

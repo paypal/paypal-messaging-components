@@ -31,15 +31,17 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     return null;
 };
 
-const getDisplayValue = value => {
-    const delocalizedValue = value
+const delocalize = value =>
+    value
         // Remove any non-currency character
         .replace(/[^\d.,]/g, '')
         // Replace thousands marker
-        .replace(/\./, '')
+        .replace(/\./g, '')
         // Replace decimal marker
         .replace(/,/, '.');
 
+const getDisplayValue = value => {
+    const delocalizedValue = delocalize(value);
     const truncatedValue = /\d+\./.test(delocalizedValue)
         ? delocalizedValue.match(/^\d+\.\d{0,2}/)[0]
         : delocalizedValue;
@@ -73,10 +75,25 @@ const Calculator = () => {
     } = useContent('GPL');
 
     const onInput = evt => {
-        setDisplayValue(getDisplayValue(evt.target.value));
+        const { selectionStart, selectionEnd, value: targetValue } = evt.target;
+
+        const delocalizedValue = delocalize(targetValue);
+        const newDisplayValue = getDisplayValue(targetValue);
+
+        const finalValue =
+            targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 10 ? newDisplayValue : displayValue;
+
+        const selectionOffset = finalValue.length - targetValue.length;
+
+        setDisplayValue(finalValue);
         changeInput(evt);
 
         submit();
+
+        const ref = evt.target;
+        requestAnimationFrame(() => {
+            ref.setSelectionRange(selectionStart + selectionOffset, selectionEnd + selectionOffset);
+        });
     };
 
     return (
