@@ -69,7 +69,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     });
     // eslint-disable-next-line no-param-reassign
-    frame.title = getComponentTitle('paypal_message_');
+    frame.title = getComponentTitle('Paypal Message ');
     return (
         <span id={uid}>
             <style>{baseStyles}</style>

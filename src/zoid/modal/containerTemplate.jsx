@@ -10,10 +10,11 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
 
     const fullScreen = position =>
         `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
-
+    const modalTitle = getComponentTitle('PayPal Modal ');
     // eslint-disable-next-line no-param-reassign
-    frame.title = getComponentTitle('paypal_modal_');
-
+    frame.title = modalTitle;
+    // eslint-disable-next-line no-param-reassign
+    prerenderFrame.title = `Prerender ${modalTitle}`;
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
     // helps to protect our desired styles.
