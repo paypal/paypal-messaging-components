@@ -1,6 +1,7 @@
 import selectors from './selectors';
 
 export default async function setTestPage({ config, testPage }) {
+    console.log(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
     await page.waitForSelector(selectors.banner.iframeByAttribute, { visible: true });
     await page.waitForSelector(selectors.modal.iframe);
