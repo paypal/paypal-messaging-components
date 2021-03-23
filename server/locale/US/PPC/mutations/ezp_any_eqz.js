@@ -1,5 +1,5 @@
 import Logo from '../logos';
-import { altContentMediaQuery, primaryContentMediaQuery, textWrap, zeroAprMediaQuery } from './mediaQueries';
+import { altContentMediaQuery, primaryContentMediaQuery, textWrap } from './mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 const defaultTextStyles = [
@@ -16,15 +16,16 @@ export default {
     'layout:text': [
         [
             'default',
-            {
+            ({ textSize }) => ({
                 styles: defaultTextStyles,
                 logo: Logo.SINGLE_LINE.COLOR,
+                messageWidth: [textSize * 12, 1000],
                 headline: {
                     tag: 'small',
                     br: ['APR']
                 },
                 disclaimer: 'xsmall.2'
-            }
+            })
         ],
         [
             'logo.type:primary',
@@ -39,55 +40,32 @@ export default {
         [
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
-                messageWidth: textSize * 16,
                 logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 16),
                     primaryContentMediaQuery({
                         logoContainerBP: textSize * 21,
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
-                    }),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `
+                    })
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
-                    `.message__logo-container { width: ${textSize * 9}px }`
-                ]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                messageWidth: [textSize * 10, 1000],
                 styles: [
                     ...defaultTextStyles,
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
                     `
                     .message__logo-container { width: ${textSize * 9}px }
                     .message__content { display: inline-block; }
                     `,
-                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8)
                 ]
             })
@@ -96,11 +74,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 logo: Logo.SINGLE_LINE_NO_PP.COLOR,
-                styles: [
-                    ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `.message__logo { width: ${textSize * 7}px }`
-                ]
+                styles: [...defaultTextStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         ['logo.type:none', { logo: false }],
@@ -109,16 +83,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ],
-                messageWidth: [textSize * 15, 1000],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR,
                 headline: {
                     replace: [['APR', 'APR.']],
@@ -131,13 +98,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-                    zeroAprMediaQuery(textSize * 16),
                     altContentMediaQuery(textSize * 35.8),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
@@ -146,32 +107,19 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [
             'text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `.message__logo-container { width: ${textSize * 9}px }`
-                ]
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
             'logo.type:primary && text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
-                    `.message__logo-container { width: ${textSize * 9}px }`
-                ]
+                styles: [...whiteStyles, `.message__logo-container { width: ${textSize * 9}px }`]
             })
         ],
         [
@@ -179,12 +127,6 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `,
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
@@ -193,11 +135,7 @@ export default {
         [
             'logo.type:inline && text.color:white',
             ({ textSize }) => ({
-                styles: [
-                    ...whiteStyles,
-                    zeroAprMediaQuery(textSize * 16),
-                    `.message__logo { width: ${textSize * 7}px }`
-                ]
+                styles: [...whiteStyles, `.message__logo { width: ${textSize * 7}px }`]
             })
         ],
         [
@@ -210,27 +148,21 @@ export default {
                         width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
                         whiteSpaceBP: textSize * 27
                     }),
-                    zeroAprMediaQuery(textSize * 16),
-                    ...whiteStyles,
-                    `
-                    @media (max-width: ${textSize * 16 - 1}px) {
-                        .tag--small > span:first-child:after { content: '.' }
-                    }
-                    `
+                    ...whiteStyles
                 ]
             })
         ],
         [
             'logo.type:none && text.color:monochrome',
-            ({ textSize }) => ({
-                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: black; }`]
-            })
+            {
+                styles: [...defaultTextStyles, `.tag--small { color: black; }`]
+            }
         ],
         [
             'logo.type:none && text.color:grayscale',
-            ({ textSize }) => ({
-                styles: [...defaultTextStyles, zeroAprMediaQuery(textSize * 16), `.tag--small { color: #2c2e2f; }`]
-            })
+            {
+                styles: [...defaultTextStyles, `.tag--small { color: #2c2e2f; }`]
+            }
         ],
         ...textLogoMutations
     ],
