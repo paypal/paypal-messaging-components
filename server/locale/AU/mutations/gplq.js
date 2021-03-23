@@ -5,11 +5,62 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallFallback,
-    addPeriod
+    addPeriod,
+    logo20x1
 } from '../../../message/mediaQueries';
-import { textLogoMutations } from '../../../message/logoMutations';
+import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PP_PAYPAL.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default'],
+            styles: [
+                '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                '.message__headline .tag--medium .weak { display: none; }'
+            ]
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [logo20x1(), '.message__headline .tag--medium > span:first-child:after { content: "."; }']
+        }
+    ],
+    [
+        'ratio:8x1',
+        {
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium',
+                    br: ['payments']
+                }
+            ],
+            styles: [
+                '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
+                '.message__headline .tag--medium .weak { display: none; }',
+                '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
+            ]
+        }
+    ],
+    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',

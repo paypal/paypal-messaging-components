@@ -14,5 +14,17 @@ export default {
             fontSource: [Types.ANY]
         },
         preset: [Types.STRING, [undefined, 'smallest']]
+    },
+    flex: {
+        color: [
+            Types.STRING,
+            ['blue', 'black', 'white', 'white-no-border', 'gray|grey', 'monochrome', 'grayscale|greyscale']
+        ],
+        ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
+        preset: [Types.STRING, [undefined, 'smallest']],
+        text: {
+            fontFamily: [Types.STRING],
+            fontSource: [Types.ANY]
+        }
     }
 };
