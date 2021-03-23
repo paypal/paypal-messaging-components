@@ -1,6 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
     getMeta,
@@ -104,15 +104,15 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
-                            index,
                             account,
                             merchantId,
                             currency,
                             amount,
                             buyerCountry,
                             onApply,
-                            refId: messageRequestId,
                             offer: offerType,
+                            refId: messageRequestId,
+                            refIndex: index,
                             onClose: () => focus()
                         });
 
@@ -177,6 +177,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                             return {
                                 [index]: {
+                                    type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
                                     displayedMessage,
@@ -190,10 +191,9 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
-                        modal.updateProps({ index, offer: offerType, visible: false });
+                        modal.updateProps({ refIndex: index, offer: offerType, visible: false });
                         modal.render('body');
 
                         logger.track({

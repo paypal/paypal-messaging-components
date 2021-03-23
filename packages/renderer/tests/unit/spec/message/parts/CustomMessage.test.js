@@ -27,7 +27,7 @@ describe('<CustomMessage />', () => {
         };
         const template = '<div>{{headline.small}} {{logo.primary.color}}</div>';
         const { getByText, getByAltText, queryByText } = render(
-            <CustomMessage data={data} template={template} meta={{}} />
+            <CustomMessage data={data} template={template} meta={{ offerType: 'NI' }} />
         );
         expect(getByText(data.headline[0][0])).toBeInTheDocument();
         expect(queryByText(data.headline[1][0][0])).toBeNull();

@@ -11,6 +11,7 @@ export const Types = {
     BOOLEAN: 'BOOLEAN',
     NUMBER: 'NUMBER',
     FUNCTION: 'FUNCTION',
+    ARRAY: 'ARRAY',
     OBJECT: 'OBJECT'
 };
 
@@ -24,8 +25,10 @@ export function validateType(expectedType, val) {
             return typeof val === 'number' && !numberIsNaN(val);
         case Types.FUNCTION:
             return typeof val === 'function';
+        case Types.ARRAY:
+            return Array.isArray(val);
         case Types.OBJECT:
-            return typeof val === 'object' && val !== null;
+            return !Array.isArray(val) && typeof val === 'object' && val !== null;
         case Types.ANY:
             return true;
         default:
@@ -40,11 +43,13 @@ const logInvalid = memoize((location, message) =>
         location
     })
 );
-const logInvalidType = (location, expectedType, val) =>
+const logInvalidType = (location, expectedType, val) => {
+    const valType = Array.isArray(val) ? 'array' : typeof val;
     logInvalid(
         location,
-        `Expected type "${expectedType.toLowerCase()}" but instead received "${typeof val}" (${val}).`
+        `Expected type "${expectedType.toLowerCase()}" but instead received "${valType}" (${JSON.stringify(val)}).`
     );
+};
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
@@ -103,11 +108,14 @@ export default {
     },
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
-    style: ({ props: { style } }) => {
-        if (validateType(Types.OBJECT, style)) {
+    style: ({ props: { style: styleInput } }) => {
+        if (validateType(Types.OBJECT, styleInput)) {
+            const style = styleInput?.layout ? styleInput : { ...styleInput, layout: 'text' };
+
             if (validateType(Types.STRING, style.layout)) {
                 return style;
             }
+            logInvalidType('style.layout', Types.STRING, style.layout);
 
             if (validateType(Types.STRING, style.preset)) {
                 return {
@@ -115,12 +123,8 @@ export default {
                     ...style
                 };
             }
-        }
-
-        if (validateType(Types.OBJECT, style)) {
-            logInvalidType('style.layout', Types.STRING, style.layout);
-        } else if (typeof style !== 'undefined') {
-            logInvalidType('style', Types.OBJECT, style);
+        } else if (typeof styleInput !== 'undefined') {
+            logInvalidType('style', Types.OBJECT, styleInput);
         }
 
         // Get the default settings for a text banner

@@ -24,7 +24,7 @@ const ContentWrapper = () => {
                     <div className="hero-image">
                         <Icon name="phone-arm" />
                     </div>
-                    <Content headerRef={headerRef} />
+                    <Content headerRef={headerRef} contentWrapper={contentWrapper} />
                 </div>
             </div>
         </Container>

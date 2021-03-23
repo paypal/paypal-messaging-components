@@ -1,6 +1,7 @@
 import packageConfig from '@library/../package.json';
 import { bannerStyles } from '../utils/testStylesConfig';
 import selectors from '../utils/selectors';
+import setupTestPage from '../utils/setupTestPage';
 
 const EVENT_TYPES = ['MORS', 'click', 'hover', 'modal-close', 'modal-render', 'modal-open', 'stats', 'scroll'];
 
@@ -22,22 +23,6 @@ const createSpy = async () => {
     return spy;
 };
 
-const setupPage = async ({ config, testPage }) => {
-    await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
-    await page.waitForSelector(selectors.banner.iframeByAttribute, { visible: true });
-    await page.waitForSelector(selectors.modal.iframe);
-
-    const bannerElement = await page.$(selectors.banner.iframeByAttribute);
-    const modalElement = await page.$(selectors.modal.iframe);
-    const bannerFrame = await bannerElement.contentFrame();
-    const modalFrame = await modalElement.contentFrame();
-
-    await modalFrame.waitForSelector(selectors.modal.contentBody);
-    await bannerFrame.waitForSelector(selectors.banner.messageMessaging, { visible: true });
-
-    return { bannerFrame, modalFrame };
-};
-
 const clickBanner = async bannerFrame => {
     await bannerFrame.click(selectors.banner.messageMessaging);
     await page.waitForSelector(selectors.modal.iframe, { visible: true });
@@ -53,7 +38,7 @@ const runTest = async ({ testName, testPage = 'banner.html', statName, config, c
     });
 
     const payloadSpy = await createSpy();
-    const { bannerFrame, modalFrame } = await setupPage({ config, testPage });
+    const { bannerFrame, modalFrame } = await setupTestPage({ config, testPage });
 
     await page.waitFor(5 * 1000);
     if (callback) await callback({ bannerFrame, modalFrame });

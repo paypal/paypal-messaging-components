@@ -15,8 +15,7 @@ module.exports = (env = {}) => {
                   entry: path.resolve(__dirname, 'src/index.js'),
                   path: path.resolve(__dirname, '../../dist'),
                   filename: 'messaging.js',
-                  modulename: ['paypal', 'Messages'],
-                  libraryTarget: 'window',
+                  libraryTarget: false,
                   debug: true,
                   minify: false,
                   sourcemaps: true,
@@ -44,8 +43,6 @@ module.exports = (env = {}) => {
                       __COMPONENTS__: ['messages']
                   }
               });
-
-    LIBRARY_DEV_CONFIG.output.libraryExport = env.TARGET !== 'sdk' ? 'Messages' : '';
 
     // TODO: Remove this after the ramp
     const MODAL_DEV_CONFIG = getWebpackConfig({

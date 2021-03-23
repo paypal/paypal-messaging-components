@@ -8,7 +8,7 @@ A messaging component allowing easy integration of PayPal Credit Messages onto y
 
 ## Dev Docs
 
-See [**developer.paypal.com/docs/limited-release/sdk-credit-messaging**](https://developer.paypal.com/docs/limited-release/sdk-credit-messaging/)
+See **[developer.paypal.com/docs/business/pay-later/integrate/](https://developer.paypal.com/docs/business/pay-later/integrate/)**
 
 ---
 
@@ -40,7 +40,7 @@ npm start
 
 ### Functional
 
-To run functional tests, first run `npm run dev:snapshot` in one command line instance and `npm run test:func` in a second command line instance. The `dev:snapshot` command creates static pages that the functional tests are run on.
+To run functional tests, first run `npm run dev:standalone` in one command line instance and `npm run test:func` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on.
 
 ## Releasing
 

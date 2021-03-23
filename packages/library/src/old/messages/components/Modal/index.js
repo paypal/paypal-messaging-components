@@ -1,5 +1,5 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoizeOnProps } from '@library/common';
 import Modal from './component';

@@ -11,8 +11,9 @@ module.exports = (env = {}) => {
         entry: path.resolve(__dirname, 'src/index.js'),
         path: path.resolve(__dirname, '../../dist/bizcomponents'),
         filename: 'messaging.js',
-        modulename: ['paypal', 'Messages'],
-        libraryTarget: env.demo ? 'umd' : 'window',
+        // Need to explicitly disable this feature. The library has it's own
+        // window bootstrap mechanism to attach multiple "exports" onto window.paypal
+        libraryTarget: false,
         web: true,
         minify: true,
         debug: false,
@@ -23,7 +24,6 @@ module.exports = (env = {}) => {
             TARGET: 'standalone'
         })
     });
-    MESSAGES_CONFIG.output.libraryExport = 'Messages';
     MESSAGES_CONFIG.plugins.push(
         new CopyOutputWebpackPlugin({
             version: env.VERSION || version,

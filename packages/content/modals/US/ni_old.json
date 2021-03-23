@@ -1,7 +1,9 @@
 {
     "meta": {
+        "offerCountry": "US",
         "product": "NI",
-        "legacy": true
+        "legacy": true,
+        "variables": {}
     },
     "content": {
         "title": "Buy now and pay over time with PayPal Credit",

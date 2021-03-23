@@ -1,6 +1,6 @@
 import isArray from 'core-js-pure/stable/array/is-array';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoize } from './functional';
 import { getGlobalUrl } from './global';

@@ -20,6 +20,7 @@ const devAccountMap = {
     DEV0000000GPL: ['US', ['gpl'], 'gpl'],
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
+    DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
@@ -53,6 +54,8 @@ export default (app, server, compiler) => {
                 formattedPeriodicPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedMonthlyPayment: toLocaleCurrency(bestOffer.monthly),
                 formattedTotalCost: toLocaleCurrency(terms.formattedAmount),
+                formattedMinAmount: toLocaleCurrency(terms.minAmount, 0),
+                formattedMaxAmount: toLocaleCurrency(terms.maxAmount, 0),
                 total_payments: bestOffer.term
             };
 
@@ -150,7 +153,7 @@ export default (app, server, compiler) => {
                     parentStyles,
                     meta: {
                         ...populatedBanner.meta,
-                        uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                        displayedMessage: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
@@ -202,6 +205,7 @@ export default (app, server, compiler) => {
             minAmount: terms.minAmount,
             maxAmount: terms.maxAmount,
             formattedTransactionAmount: terms.amount ? toLocaleCurrency(terms.amount) : '-',
+            formattedTotalCost: terms.amount ? toLocaleCurrency(terms.amount) : '-',
             qualifying_offer: terms.amount ? 'true' : 'false',
             total_payments: bestOffer.term,
             formattedMinAmount: toLocaleCurrency(terms.minAmount),
@@ -244,7 +248,11 @@ export default (app, server, compiler) => {
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account,
             meta: {
+                displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
+                messageRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
                 trackingDetails: {
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
                     payload: {}
                 }
             }

@@ -5,7 +5,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { partial, memoize } from './functional';
 
@@ -172,3 +172,57 @@ export const viewportHijack = memoize(() => {
         }
     ];
 });
+
+// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners
+export const getEventListenerPassiveOptionIfSupported = () => {
+    let passiveIfSupported = false;
+
+    try {
+        // Create dummy event listener so that if supported, the object will be crawled
+        // for the passive flag telling us that the option is supported in this browser
+        window.addEventListener(
+            '__test__',
+            null,
+            Object.defineProperty({}, 'passive', {
+                // eslint-disable-next-line getter-return
+                get() {
+                    passiveIfSupported = { passive: true };
+                }
+            })
+        );
+    } catch (err) {} // eslint-disable-line no-empty
+
+    return passiveIfSupported;
+};
+
+export function getProductForOffer(offer) {
+    if (typeof offer === 'undefined') {
+        return 'NONE';
+    }
+
+    switch (offer.toUpperCase()) {
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
+            return 'GPL';
+        case 'EZP':
+        case 'EZP:ANY:EQZ':
+        case 'EZP:ANY:GTZ':
+        case 'PALA:MULTI:EQZ':
+        case 'PALA:MULTI:GTZ':
+        case 'PALA:SINGLE:EQZ':
+        case 'PALA:SINGLE:GTZ':
+            return 'EZP';
+        case 'INST':
+        case 'INST:ANY:EQZ':
+        case 'INST:ANY:GTZ':
+        case 'PALAQ:ANY:EQZ':
+        case 'PALAQ:ANY:GTZ':
+            return 'INST';
+        default:
+            return 'NI';
+    }
+}

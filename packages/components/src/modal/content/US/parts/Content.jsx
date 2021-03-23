@@ -3,35 +3,36 @@ import { h } from 'preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
 
-import NI from './NI';
-import GPL from './GPL';
-import Tabs from '../../../parts/Tabs';
+import { getProductForOffer } from '@library/common';
 import {
     useServerData,
     useScroll,
     useApplyNow,
     useXProps,
     useDidUpdateEffect,
-    getProductForOffer,
     useTransitionState
-} from '../../../lib';
-import Button from '../../../parts/Button';
+} from '@components/modal/lib';
+import Tabs from '@components/modal/parts/Tabs';
+import Button from '@components/modal/parts/Button';
+import NI from './NI';
+import GPL from './GPL';
 
-const Content = ({ headerRef }) => {
+const Content = ({ headerRef, contentWrapper }) => {
     const cornerRef = useRef();
     const { products } = useServerData();
     const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
+    // scrollY stores the modal scroll position.
+    const scrollY = useRef(0);
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
+    // Offer may be undefined when modal is rendered via standalone modal integration
     const product = getProductForOffer(offer);
-
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product);
-    // In case the product shown in the message, for some reason, does not come back with the modal
-    // Ideally, this should never happen
-    const [selectedProduct, setSelectedProduct] = useState(initialProduct ? product : products[0].meta.product);
+    // Product can be NONE when standalone modal so default to first product
+    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+    const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
 
     useScroll(
         ({ target: { scrollTop } }) => {
@@ -49,6 +50,11 @@ const Content = ({ headerRef }) => {
                     setSticky(false);
                 }
             }
+            /**
+             * As you scroll, scrollY.current ref will be set to the value of scrollTop.
+             * The scrollTop value is the distance between the top of the contentWrapper element and the top of the scrollable space within the modal.
+             */
+            scrollY.current = scrollTop;
         },
         [sticky]
     );
@@ -61,15 +67,33 @@ const Content = ({ headerRef }) => {
         }
 
         setSelectedProduct(newProduct);
+
+        /**
+         * For multiproduct modal:
+         * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
+         * Modal content will start at the top upon switching tabs.
+         */
+        if (sticky) {
+            contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
+            // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
+        } else {
+            contentWrapper.current.scrollTo(0, scrollY.current);
+        }
     };
 
-    const switchTab = newProduct => {
+    // Tabs component will track tab switches by default
+    // for "fake" tabs that show as links, we must track it manually
+    const tabLinkClick = newProduct => {
         onClick({ linkName: newProduct });
         selectProduct(newProduct);
     };
 
     useDidUpdateEffect(() => {
-        setSelectedProduct(product);
+        // For standalone modal the product determined by the offer changing may be invalid
+        // so we need to search against the actual offers and provide a default
+        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+
+        setSelectedProduct(fullProduct.meta.product);
     }, [product]);
 
     const setShowApplyNow = show => {
@@ -103,13 +127,20 @@ const Content = ({ headerRef }) => {
 
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => switchTab('NI') : null} />;
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => tabLinkClick('NI') : null} />;
 
-    tabsMap.NI.body = <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => switchTab('GPL') : null} />;
+    tabsMap.NI.body = (
+        <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => tabLinkClick('GPL') : null} />
+    );
 
     const tabsContent =
         tabs.length > 1 ? (
-            <Tabs tabs={tabs} onSelect={index => selectProduct(tabs[index].product)} />
+            <Tabs
+                tabs={tabs}
+                onSelect={index => {
+                    selectProduct(tabs[index].product);
+                }}
+            />
         ) : (
             <div className="tab-transition-item selected">{tabs[0].body}</div>
         );
