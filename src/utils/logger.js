@@ -4,6 +4,8 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
+import { getSessionID, getStorageID } from './sdk';
+
 export const logger = Logger({
     // Url to send logs to
     url: getGlobalUrl('LOGGER_B'),
@@ -39,7 +41,9 @@ export const logger = Logger({
             data: {
                 meta: trimmedMeta,
                 events: json.events,
-                tracking: json.tracking
+                tracking: json.tracking,
+                deviceID: getStorageID(),
+                sessionID: getSessionID()
             },
             withCredentials: true
         });
