@@ -8,7 +8,7 @@ import Icon from '../../../parts/Icon';
 
 const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) => {
     const {
-        calculator: { genericError, amountRange }
+        calculator: { genericError, rangeError }
     } = useContent('GPL');
 
     if (typeof amount === 'undefined' || isLoading) {
@@ -20,7 +20,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
-        return amountRange.replace(/,00/g, '');
+        return rangeError.replace(/,00/g, '');
     }
 
     const [offer] = offers.length ? offers : [];
@@ -105,12 +105,14 @@ const Calculator = () => {
                     {/* Not setting value from useCalculator to avoid re-formatting while user is typing */}
                     <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
-                {error || emptyState || isLoading ? (
-                    <div className="calculator__error">
-                        {error ? <Icon name="warning" /> : null}
-                        {error ?? amountRange.replace(/,00/g, '')}
-                    </div>
-                ) : null}
+                <div className="content-column">
+                    {error || emptyState || isLoading ? (
+                        <div className="calculator__error">
+                            {error ? <Icon name="warning" /> : null}
+                            {error ?? amountRange.replace(/,00/g, '')}
+                        </div>
+                    ) : null}
+                </div>
             </form>
             <div className="content-column">
                 <TermsTable

@@ -24,16 +24,13 @@
     },
     "content": {
         "headline": "Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten",
-        "subHeadline": {
-            "unqualified": "4 échéances, pour les achats de {formattedMinAmount} à {formattedMaxAmount}. Inclut des frais de 2,1% dans la limite de 20 €. ",
-            "qualified": "{formattedTransactionAmount} divisé en 4 échéances de {formattedPeriodicPayment}. Inclut des frais de 2,1% dans la limite de 20 €."
-        },
 
         "calculator": {
             "title": "Was kostet Ihr Einkauf?",
             "inputLabel": "Warenwert",
             "genericError": "Etwas ist schiefgelaufen. Versuchen Sie es in Kürze erneut.",
-            "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}"
+            "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}",
+            "rangeError": "Geben Sie einen Betrag zwischen {formattedMinAmount} und {formattedMaxAmount} ein."
         },
 
         "terms": {
