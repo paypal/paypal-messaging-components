@@ -81,7 +81,7 @@ const Calculator = () => {
         const newDisplayValue = getDisplayValue(targetValue);
 
         const finalValue =
-            targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 10 ? newDisplayValue : displayValue;
+            targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 9 ? newDisplayValue : displayValue;
 
         const selectionOffset = finalValue.length - targetValue.length;
 
