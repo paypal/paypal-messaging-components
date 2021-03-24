@@ -4,7 +4,8 @@ import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getLibraryVersion, getScriptAttributes } from './sdk';
-import { getEventListenerPassiveOptionIfSupported } from './miscellaneous';
+import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
+import { globalState } from './global';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -25,6 +26,9 @@ const onScroll = (elem, handler) => {
 };
 
 export function runStats({ container, activeTags, index }) {
+    const { messagesMap, firstRenderDelay, scriptLoadDelay, domLoadDelay } = globalState;
+    const { state } = messagesMap.get(container);
+
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -47,7 +51,11 @@ export function runStats({ container, activeTags, index }) {
         browser_height: (topWindow?.innerHeight).toString(),
         visible: isInViewport(container).toString(),
         // Visible message sections
-        active_tags: activeTags
+        active_tags: activeTags,
+        render_duration: Math.round(getCurrentTime() - state.renderStart).toString(),
+        first_render_delay: Math.round(firstRenderDelay).toString(),
+        script_load_delay: Math.round(scriptLoadDelay).toString(),
+        dom_load_delay: Math.round(domLoadDelay).toString()
     };
 
     // No need for scroll event if banner is above the fold

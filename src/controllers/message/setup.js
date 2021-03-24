@@ -3,11 +3,13 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import {
     getInlineOptions,
     globalState,
+    setGlobalState,
     getScript,
     getAccount,
     getCurrency,
     getPartnerAccount,
-    insertionObserver
+    insertionObserver,
+    getCurrentTime
 } from '../../utils';
 import Messages from './adapter';
 
@@ -51,11 +53,33 @@ export default function setup() {
     // Prevent auto render from firing inside zoid iframe
     if (!stringStartsWith(window.name, '__zoid__')) {
         const handleContentLoaded = () => {
+            // domLoadDelay is the time between the SDK setup() and DOMContentLoaded event
+            const domLoadDelay = getCurrentTime() - globalState.scriptLoadTime;
+            setGlobalState({
+                domLoadDelay
+            });
+
+            if (window.performance?.getEntriesByType) {
+                // Navigation Timing API version 2 does not give access to "absolute" load times
+                // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
+                // So we calculate an approximation based on the data that's available
+                const [navigationTiming] = window.performance.getEntriesByType('navigation');
+
+                // scriptLoadDelay represents the difference between when the browser started counting and when we did
+                // giving us an estimate of how long it took for the SDK to begin execution
+                const scriptLoadDelay = navigationTiming.domContentLoadedEventStart - domLoadDelay;
+
+                setGlobalState({
+                    scriptLoadDelay
+                });
+            }
+
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
             if (globalState.config.account) {
                 Messages.render({ _auto: true });
             }
+
             // Using a "global" observer to watch for and automatically render
             // any message containers that are dynamically added after auto render
             insertionObserver.observe(document.body, {
