@@ -27,6 +27,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
         containerTemplate,
         attributes: {
             iframe: {
+                title: 'PayPal Modal',
                 scrolling: 'no'
             }
         },
