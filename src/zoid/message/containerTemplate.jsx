@@ -71,7 +71,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     });
     titleCounter += 1;
-    const messageTitle = `PayPal Message ${titleCounter}`;
+    const messageTitle = `${frame.title} ${titleCounter}`;
     return (
         <span id={uid}>
             <style>{baseStyles}</style>

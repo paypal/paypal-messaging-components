@@ -11,7 +11,7 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
     const fullScreen = position =>
         `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
     titleCounter += 1;
-    const modalTitle = `PayPal Modal ${titleCounter}`;
+    const modalTitle = `${frame.title} ${titleCounter}`;
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
     // helps to protect our desired styles.
