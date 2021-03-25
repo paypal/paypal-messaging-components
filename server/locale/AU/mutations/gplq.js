@@ -55,7 +55,6 @@ const flex = [
             ]
         }
     ],
-    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ...flexLogoMutations
 ];
 

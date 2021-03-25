@@ -33,7 +33,6 @@ const flex = [
             styles: [logo20x1(), '.message__headline .tag--medium > span:first-child:after { content: "."; }']
         }
     ],
-    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ...flexLogoMutations
 ];
 

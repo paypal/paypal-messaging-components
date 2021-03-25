@@ -61,7 +61,7 @@
 
 @media (max-width: 374px) {
     .message__headline {
-        font-size: 5vw;
+        font-size: 4.8vw;
     }
 
     .message__logo:nth-of-type(1) {

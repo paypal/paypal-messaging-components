@@ -12,6 +12,10 @@
     justify-content: center;
 }
 
+.message__content {
+    padding: 7%;
+}
+
 .message__headline {
     font-size: 1.1rem;
     margin-bottom: 10%;
@@ -35,7 +39,7 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
     }
 }
 
