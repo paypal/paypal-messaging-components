@@ -10,7 +10,8 @@ import {
     isElement,
     globalState,
     objectMerge,
-    getProductForOffer
+    getProductForOffer,
+    globalEvent
 } from '../../utils';
 import { Modal } from '../../zoid/modal';
 
@@ -39,7 +40,8 @@ const memoizedModal = memoizeOnProps(
                 renderProm = awaitWindowLoad
                     // Give priority to other merchant scripts waiting for the load event
                     .then(() => ZalgoPromise.delay(0))
-                    .then(() => ZalgoPromise.all([render(selector), modalReady]));
+                    .then(() => ZalgoPromise.all([render(selector), modalReady]))
+                    .then(() => globalEvent.trigger('modal-render'));
                 hide();
             }
 

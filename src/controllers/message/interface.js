@@ -10,8 +10,7 @@ import {
     nextIndex,
     logger,
     getCurrentTime,
-    globalEvent,
-    setGlobalState
+    globalEvent
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -20,13 +19,7 @@ import { Modal } from '../modal';
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
         const renderStart = getCurrentTime();
-        const { messagesMap, firstRenderDelay, scriptLoadTime } = globalState;
-
-        if (!firstRenderDelay) {
-            setGlobalState({
-                firstRenderDelay: getCurrentTime() - scriptLoadTime
-            });
-        }
+        const { messagesMap } = globalState;
 
         const containers = getAllBySelector(selector);
 

@@ -13,7 +13,8 @@ import {
     getScriptAttributes,
     viewportHijack,
     logger,
-    nextIndex
+    nextIndex,
+    getPerformanceMeasure
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -222,7 +223,8 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             integration_type: __MESSAGES__.__TARGET__,
                             messaging_version: getLibraryVersion(),
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
+                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+                            first_render_delay: getPerformanceMeasure('firstModalRenderDelay')
                         });
 
                         if (

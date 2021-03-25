@@ -4,7 +4,9 @@ import {
     getInlineOptions,
     getScript,
     getAccount,
-    getPartnerAccount
+    getPartnerAccount,
+    trackPerformance,
+    clearPerformance
 } from '../utils';
 import {
     setup as newSetup,
@@ -70,6 +72,9 @@ export const MessagesModal = config => {
 };
 
 export function setup() {
+    // TODO: move to "new" setup method when experiment is removed
+    trackPerformance('scriptLoadDelay');
+
     // This must run synchronously so that it's available immediately for the merchant to use
     if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
         // Alias for pilot merchant support
@@ -92,6 +97,7 @@ export function setup() {
 }
 
 export function destroy() {
+    clearPerformance();
     newDestroy();
     oldDestroy();
 }
