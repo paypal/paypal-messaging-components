@@ -109,7 +109,7 @@ const Calculator = () => {
                     {error || emptyState || isLoading ? (
                         <div className="calculator__error">
                             {error ? <Icon name="warning" /> : null}
-                            {error ?? amountRange.replace(/,00/g, '')}
+                            <span>{error ?? amountRange.replace(/,00/g, '')}</span>
                         </div>
                     ) : null}
                 </div>

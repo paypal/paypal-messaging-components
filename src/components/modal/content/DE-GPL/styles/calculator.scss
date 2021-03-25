@@ -54,11 +54,14 @@
     &__error {
         color: white;
         font-size: 0.8rem;
+        display: inline-flex;
+        text-align: left;
+        align-items: flex-start;
+        max-width: 300px;
+        margin: auto;
 
         svg {
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 0.1rem;
+            margin: 0 0.25rem 0 0;
         }
     }
 }
