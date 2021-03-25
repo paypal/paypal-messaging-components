@@ -35,14 +35,6 @@ export const nextIndex = () => {
     return globalState.index - 1;
 };
 
-export const getComponentTitle = componentName => {
-    const state = {};
-    const componentKey = `${componentName}_count`;
-    state[componentKey] = typeof globalState[componentKey] !== 'undefined' ? globalState[componentKey] + 1 : 1;
-    setGlobalState({ ...state });
-    return `${componentName}${state[componentKey]}`;
-};
-
 const DOMAINS = __MESSAGES__.__DOMAIN__;
 const URI = __MESSAGES__.__URI__;
 

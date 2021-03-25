@@ -2,7 +2,9 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { getComponentTitle, overflowObserver } from '../../utils';
+import { overflowObserver } from '../../utils';
+
+let titleCounter = 0;
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     event.on(EVENT.RENDERED, () => {
@@ -68,13 +70,13 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             `;
         }
     });
-    // eslint-disable-next-line no-param-reassign
-    frame.title = getComponentTitle('Paypal Message ');
+    titleCounter += 1;
+    const messageTitle = `PayPal Message ${titleCounter}`;
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
-            <node el={frame} onRender={setupAutoResize} />
-            <node el={prerenderFrame} />
+            <node el={frame} title={messageTitle} onRender={setupAutoResize} />
+            <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>
     ).render(dom({ doc }));
 };
