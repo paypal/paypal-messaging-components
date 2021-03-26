@@ -54,11 +54,25 @@
     &__error {
         color: white;
         font-size: 0.8rem;
-        display: inline-flex;
-        text-align: left;
-        align-items: flex-start;
-        max-width: 300px;
-        margin: auto;
+        margin-top: 0;
+        transition: margin-top 0.2s ease-out;
+
+        & > div {
+            display: inline-flex;
+            text-align: left;
+            align-items: flex-start;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        &.hide {
+            margin-top: -20px;
+
+            & > div {
+                height: 0;
+                overflow: hidden;
+            }
+        }
 
         svg {
             margin: 0 0.25rem 0 0;

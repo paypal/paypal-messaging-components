@@ -105,13 +105,13 @@ const Calculator = () => {
                     {/* Not setting value from useCalculator to avoid re-formatting while user is typing */}
                     <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
-                <div className="content-column">
-                    {error || emptyState || isLoading ? (
-                        <div className="calculator__error">
-                            {error ? <Icon name="warning" /> : null}
-                            <span>{error ?? amountRange.replace(/,00/g, '')}</span>
-                        </div>
-                    ) : null}
+                <div
+                    className={`content-column calculator__error ${!(error || emptyState || isLoading) ? 'hide' : ''}`}
+                >
+                    <div>
+                        {error ? <Icon name="warning" /> : null}
+                        <span>{error ?? amountRange.replace(/,00/g, '')}</span>
+                    </div>
                 </div>
             </form>
             <div className="content-column">
