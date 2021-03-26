@@ -10,7 +10,8 @@ import {
     nextIndex,
     logger,
     getCurrentTime,
-    globalEvent
+    globalEvent,
+    trackPerformance
 } from '../../utils';
 
 import { Message } from '../../zoid/message';
@@ -18,6 +19,8 @@ import { Modal } from '../modal';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
+        trackPerformance('firstRenderDelay', { once: true });
+
         const renderStart = getCurrentTime();
         const { messagesMap } = globalState;
 

@@ -11,12 +11,14 @@ import {
     globalState,
     objectMerge,
     getProductForOffer,
-    globalEvent
+    trackPerformance
 } from '../../utils';
 import { Modal } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
+        trackPerformance('firstModalRenderDelay', { once: true });
+
         const { render, hide, updateProps, state, event } = Modal({
             account,
             merchantId,
@@ -40,8 +42,8 @@ const memoizedModal = memoizeOnProps(
                 renderProm = awaitWindowLoad
                     // Give priority to other merchant scripts waiting for the load event
                     .then(() => ZalgoPromise.delay(0))
-                    .then(() => ZalgoPromise.all([render(selector), modalReady]))
-                    .then(() => globalEvent.trigger('modal-render'));
+                    .then(() => ZalgoPromise.all([render(selector), modalReady]));
+
                 hide();
             }
 

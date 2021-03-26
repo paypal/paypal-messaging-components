@@ -7,7 +7,7 @@ import { logger } from './logger';
 import { getLibraryVersion, getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { globalState } from './global';
-import { awaitDOMContentLoaded, awaitFirstModalRender, awaitFirstRender, awaitWindowLoad } from './events';
+import { awaitDOMContentLoaded, awaitWindowLoad } from './events';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -44,8 +44,20 @@ export function clearPerformance() {
     }
 }
 
-export function trackPerformance(name, startMark, endMark) {
+export function trackPerformance(name, { startMark, endMark, once } = {}) {
     if (performance) {
+        const existing = getPerformanceMeasure(name);
+
+        // Do not track additional values for existing marks
+        if (existing !== -1) {
+            if (once) {
+                return;
+            }
+
+            performance.clearMeasures(namespaced(name));
+            performance.clearMarks(namespaced(name));
+        }
+
         performance.measure(
             namespaced(name),
             startMark ? namespaced(startMark) : undefined,
@@ -57,19 +69,11 @@ export function trackPerformance(name, startMark, endMark) {
 }
 
 awaitDOMContentLoaded.then(() => {
-    trackPerformance('domLoadDelay');
+    trackPerformance('domLoadDelay', { once: true });
 });
 
 awaitWindowLoad.then(() => {
-    trackPerformance('loadDelay');
-});
-
-awaitFirstRender.then(() => {
-    trackPerformance('firstRenderDelay', 'scriptLoadDelay');
-});
-
-awaitFirstModalRender.then(() => {
-    trackPerformance('firstModalRenderDelay', 'scriptLoadDelay');
+    trackPerformance('loadDelay', { once: true });
 });
 
 export function runStats({ container, activeTags, index }) {
@@ -87,7 +91,6 @@ export function runStats({ container, activeTags, index }) {
     const domLoadDelay = getPerformanceMeasure('domLoadDelay');
     const loadDelay = getPerformanceMeasure('loadDelay');
 
-    console.log(firstRenderDelay, scriptLoadDelay, domLoadDelay, loadDelay);
     // Create initial payload
     const payload = {
         index,
@@ -107,12 +110,12 @@ export function runStats({ container, activeTags, index }) {
         active_tags: activeTags,
         // Performance measurements
         render_duration: Math.round(getCurrentTime() - state.renderStart).toString(),
-        first_render_delay: Math.round(firstRenderDelay.duration).toString(),
-        script_load_delay: Math.round(scriptLoadDelay.duration).toString(),
-        dom_load_delay: Math.round(domLoadDelay.duration).toString(),
+        first_render_delay: Math.round(firstRenderDelay).toString(),
+        script_load_delay: Math.round(scriptLoadDelay).toString(),
+        dom_load_delay: Math.round(domLoadDelay).toString(),
         // first stats event will happen before the load event
-        // subsequent stats events
-        page_load_delay: Math.round(loadDelay?.duration).toString()
+        // subsequent stats events will include this value
+        page_load_delay: Math.round(loadDelay).toString()
     };
 
     // No need for scroll event if banner is above the fold
