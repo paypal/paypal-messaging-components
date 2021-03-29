@@ -60,7 +60,7 @@ const uploadToImgur = async subDir => {
         const album = await imgur.createAlbum();
 
         const snapshotsArray = snapshots.map(fileName => `${folder}/${fileName}`);
-        const result = await imgur.uploadImages(snapshotsArray, 'File', album.data.deletehash);
+        const result = await imgur.uploadImages(snapshotsArray, 'File', album.deletehash);
 
         const albumUrl = `https://imgur.com/a/${album.data.id}`;
         // eslint-disable-next-line no-console
