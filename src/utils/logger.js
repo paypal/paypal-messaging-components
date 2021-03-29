@@ -3,6 +3,7 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+import { getLibraryVersion } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -56,8 +57,10 @@ logger.addPayloadBuilder(payload => {
 });
 
 logger.addTrackingBuilder(() => {
-    // Send a timestamp with every tracking event so they can be correctly ordered
     return {
+        integration_type: __MESSAGES__.__TARGET__,
+        messaging_version: getLibraryVersion(),
+        // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
 });

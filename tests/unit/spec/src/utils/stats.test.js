@@ -6,6 +6,7 @@ import createContainer from 'utils/createContainer';
 import { runStats } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 import { globalState } from 'src/utils/global';
+import { globalEvent } from '../../../../../src/utils';
 
 jest.mock('src/utils/logger', () => ({
     logger: {
@@ -27,7 +28,7 @@ jest.mock('belter/src', () => {
                     __paypal_messaging_performance__scriptLoadDelay: 1,
                     __paypal_messaging_performance__domLoadDelay: 2,
                     __paypal_messaging_performance__firstRenderDelay: 3,
-                    __paypal_messaging_performance__loadDelay: 4
+                    __paypal_messaging_performance__pageLoadDelay: 4
                 }[name];
 
                 return [{ duration }];
@@ -58,8 +59,6 @@ describe('stats', () => {
         index,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        integration_type: 'STANDALONE',
-        messaging_version: expect.any(String),
         pos_x: '100',
         pos_y: '30',
         browser_width: '1024',
@@ -68,10 +67,6 @@ describe('stats', () => {
         blocked: 'true',
         visible: 'true',
         active_tags: expect.any(String),
-        script_load_delay: '1',
-        dom_load_delay: '2',
-        first_render_delay: '3',
-        page_load_delay: '4',
         render_duration: expect.any(String)
     };
 
@@ -120,7 +115,6 @@ describe('stats', () => {
 
         const payload = {
             ...defaultProps,
-            integration_type: 'SDK',
             bn_code: 'some-partner-id'
         };
 
@@ -179,5 +173,21 @@ describe('stats', () => {
         });
         expect(window.removeEventListener).toHaveBeenCalledTimes(1);
         expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
+    });
+
+    test('Fires page_loaded event after first render', async () => {
+        globalEvent.trigger('render');
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledWith({
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'page_loaded',
+            scriptLoadDelay: '1',
+            domLoadDelay: '2',
+            firstRenderDelay: '3',
+            pageLoadDelay: '4'
+        });
     });
 });

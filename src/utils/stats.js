@@ -1,13 +1,14 @@
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { getPerformance } from 'belter/src';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
-import { getLibraryVersion, getScriptAttributes } from './sdk';
+import { getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { globalState } from './global';
-import { awaitDOMContentLoaded, awaitWindowLoad } from './events';
+import { awaitDOMContentLoaded, awaitFirstRender, awaitWindowLoad } from './events';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -73,7 +74,25 @@ awaitDOMContentLoaded.then(() => {
 });
 
 awaitWindowLoad.then(() => {
-    trackPerformance('loadDelay', { once: true });
+    trackPerformance('pageLoadDelay', { once: true });
+});
+
+ZalgoPromise.all([awaitWindowLoad, awaitFirstRender]).then(() => {
+    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+    const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
+    const domLoadDelay = getPerformanceMeasure('domLoadDelay');
+    const pageLoadDelay = getPerformanceMeasure('pageLoadDelay');
+
+    const payload = {
+        et: 'CLIENT_IMPRESSION',
+        event_type: 'page_loaded',
+        firstRenderDelay: Math.round(firstRenderDelay).toString(),
+        scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
+        domLoadDelay: Math.round(domLoadDelay).toString(),
+        pageLoadDelay: Math.round(pageLoadDelay).toString()
+    };
+
+    logger.track(payload);
 });
 
 export function runStats({ container, activeTags, index }) {
@@ -86,18 +105,11 @@ export function runStats({ container, activeTags, index }) {
 
     const sdkMetaAttributes = getScriptAttributes();
 
-    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
-    const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
-    const domLoadDelay = getPerformanceMeasure('domLoadDelay');
-    const loadDelay = getPerformanceMeasure('loadDelay');
-
     // Create initial payload
     const payload = {
         index,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        integration_type: __MESSAGES__.__TARGET__,
-        messaging_version: getLibraryVersion(),
         bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
@@ -109,13 +121,7 @@ export function runStats({ container, activeTags, index }) {
         // Visible message sections
         active_tags: activeTags,
         // Performance measurements
-        render_duration: Math.round(getCurrentTime() - state.renderStart).toString(),
-        first_render_delay: Math.round(firstRenderDelay).toString(),
-        script_load_delay: Math.round(scriptLoadDelay).toString(),
-        dom_load_delay: Math.round(domLoadDelay).toString(),
-        // first stats event will happen before the load event
-        // subsequent stats events will include this value
-        page_load_delay: Math.round(loadDelay).toString()
+        render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
     };
 
     // No need for scroll event if banner is above the fold
