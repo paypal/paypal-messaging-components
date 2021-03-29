@@ -2,9 +2,9 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { overflowObserver } from '../../utils';
+import { overflowObserver, createTitleGenerator } from '../../utils';
 
-let titleCounter = 0;
+const getTitle = createTitleGenerator();
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     event.on(EVENT.RENDERED, () => {
@@ -70,8 +70,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             `;
         }
     });
-    titleCounter += 1;
-    const messageTitle = `${frame.title} ${titleCounter}`;
+    const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
