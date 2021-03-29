@@ -1,6 +1,7 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
@@ -64,7 +65,7 @@ export function getInlineOptions(container) {
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
-                const value = inlineEventHandlers.includes(attributeName)
+                const value = arrayIncludes(inlineEventHandlers, attributeName)
                     ? // eslint-disable-next-line no-new-func
                       new Function(nodeValue)
                     : nodeValue;
