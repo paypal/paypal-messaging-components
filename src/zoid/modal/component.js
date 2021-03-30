@@ -2,6 +2,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
+import { getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
@@ -278,6 +279,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID
             }
         }
     })

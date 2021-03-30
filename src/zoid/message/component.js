@@ -1,6 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
@@ -297,6 +298,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID
             }
         }
     })
