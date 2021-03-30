@@ -13,7 +13,9 @@ import {
     getScriptAttributes,
     viewportHijack,
     logger,
-    nextIndex
+    nextIndex,
+    getSessionID,
+    getStorageID
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -278,6 +280,16 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getStorageID
+            },
+            sessionID: {
+                type: 'string',
+                queryParam: true,
+                value: getSessionID
             }
         }
     })
