@@ -30,6 +30,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
         },
         attributes: {
             iframe: {
+                title: 'PayPal Message',
                 scrolling: 'no'
             }
         },

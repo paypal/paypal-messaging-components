@@ -6,7 +6,8 @@ import {
     getAccount,
     getPartnerAccount,
     trackPerformance,
-    clearPerformance
+    clearPerformance,
+    getLibraryVersion
 } from '../utils';
 import {
     setup as newSetup,
@@ -52,6 +53,7 @@ export const Messages = config => ({
     }
 });
 
+Messages.version = getLibraryVersion();
 Messages.render = (config, selector) => Messages(config).render(selector);
 // Old and New are the same
 Messages.setGlobalConfig = NewMessages.setGlobalConfig;
