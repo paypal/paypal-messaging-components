@@ -10,18 +10,30 @@ SUPPORTED_PACKAGES_MAP=(
 environments="production,sandbox,stage"
 packages="library,components,renderer"
 
-while getopts ":v:e:m:" flag
+while getopts ":v:e:m:t:" flag
 do
     case "$flag" in
         v) version=$OPTARG;;
         e) environments=$OPTARG;;
         m) packages=$OPTARG;;
+        t) tag=$OPTARG;;
     esac
 done
 
 if [[ ! -z "$version" && ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9]+(\.[0-9]+)?)?$ ]]; then
-    printf "\nInvalid version provided ($version). Please check the format (ex: 1.0.0-beta.0)\n\n"
+    printf "Invalid version provided ($version). Please check the format (ex: 1.0.0-beta.0)\n\n"
     exit 1
+fi
+
+if [ ! -z "$tag" ]; then
+    if [ $environments != "stage" ]; then
+        printf "Only \"stage\" environment is supported with tag input\n\n"
+        exit 1
+    fi
+    if [[ ! $tag =~ ^[a-zA-Z0-9_]+$ ]]; then
+        printf "Stage tag must only contain alpha-numeric and underscore characters\n\n"
+        exit 1
+    fi
 fi
 
 rm -rf ./dist
@@ -36,7 +48,7 @@ for env in "${envarr[@]}"
 do
     if printf '%s\n' "${SUPPORTED_ENVIRONMENTS[@]}" | grep -q -e "^$env$"; then
         printf "\n  - $env"
-        filteredEnvironments+=",$env"
+        filteredEnvironments+=("$env")
     fi
 done
 printf "\n"
@@ -53,9 +65,33 @@ do
     fi
 done
 printf "\n\n"
-# Intentionally leave the leading comma in $scope so that lerna interprets the value
-# as brace expansion when there is only one package provided
-lerna run build --parallel --scope "{$scope}" -- -- --env.ENVIRONMENTS="${filteredEnvironments:1}" --env.VERSION="$version"
+
+[[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
+[[ ! -z "$version" ]] && optionalArgs+=("--env.VERSION=$version")
+
+for env in "${filteredEnvironments[@]}"
+do
+    # Intentionally leave the leading comma in $scope so that lerna interprets the value
+    # as brace expansion when there is only one package provided
+    lerna run build --parallel --scope "{$scope}" -- -- --env.NODE_ENV="$env" ${optionalArgs[@]}
+done
 
 # Remove the license file from the asset bundle
-rm ./dist/*.LICENSE.txt &> /dev/null
+find ./dist -name '*.LICENSE.txt' -delete
+
+if [ ! -z "$tag" ]; then
+    if [ ! command -v web &> /dev/null ]; then
+        printf "\nPlease install the 'web' cli tool using 'npm i -g @paypalcorp/web' to deploy the stage tag version\n\n"
+        exit 1
+    fi
+
+    # Pack the library module similar to publishing the module to npm
+    (cd ./packages/library; npm pack)
+    mv ./packages/library/*.tgz ./dist/bizcomponents/stage/package.tgz
+
+    printf "\nweb stage --tag $tag\n"
+    web stage --tag "$tag"
+    echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream"
+
+    rm ./dist/bizcomponents/stage/package.tgz
+fi

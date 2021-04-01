@@ -6,9 +6,10 @@ const globals = require('../library/globals');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => {
+    const envDirectory = env.NODE_ENV === 'production' ? 'js' : env.NODE_ENV;
     const RENDERER_CONFIG = getWebpackConfig({
         entry: path.resolve(__dirname, 'src/index.js'),
-        path: path.resolve(__dirname, '../../dist/bizcomponents'),
+        path: path.resolve(__dirname, `../../dist/bizcomponents/${envDirectory}`),
         filename: 'renderMessage.js',
         libraryTarget: 'commonjs',
         modulename: 'renderMessage',
@@ -23,8 +24,8 @@ module.exports = (env = {}) => {
 
     RENDERER_CONFIG.plugins.push(
         new CopyOutputWebpackPlugin({
-            version: env.VERSION || version,
-            environments: env.ENVIRONMENTS ? env.ENVIRONMENTS.split(',') : ['production', 'sandbox', 'stage']
+            env: env.NODE_ENV,
+            version: env.VERSION || version
         })
     );
 

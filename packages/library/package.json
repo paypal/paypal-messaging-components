@@ -20,7 +20,7 @@
         "locales.js"
     ],
     "scripts": {
-        "build": "webpack --env.NODE_ENV=production",
+        "build": "webpack",
         "prepack": "node ./scripts/prepack.js",
         "postpack": "node ./scripts/postpack.js"
     },

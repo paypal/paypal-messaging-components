@@ -393,4 +393,11 @@ export default (app, server, compiler) => {
 
     app.get('/ptrk', (req, res) => res.send(''));
     app.post('/ppcredit/messagingLogger', (req, res) => res.send(''));
+    // Support versioned URLs
+    app.get('/versioned/:component', (req, res) => {
+        const { component } = req.params;
+        const [, componentName] = component.match(/([\w-]+?)@/);
+
+        return res.redirect(`/${componentName}.js`);
+    });
 };

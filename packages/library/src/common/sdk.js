@@ -89,3 +89,15 @@ export function getNamespace() {
 export function getLibraryVersion() {
     return __MESSAGES__.__VERSION__;
 }
+
+export function getStageTag() {
+    if (__MESSAGES__.__STAGE_TAG__) {
+        if (__MESSAGES__.__STAGE_TAG__ === 'local') {
+            return window.location.origin;
+        } else {
+            return __MESSAGES__.__STAGE_TAG__;
+        }
+    } else {
+        return undefined;
+    }
+}

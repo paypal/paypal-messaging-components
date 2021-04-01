@@ -7,8 +7,9 @@ const globals = require('../library/globals');
 const { version } = require('./package.json');
 
 module.exports = (env = {}) => {
+    const envDirectory = env.NODE_ENV === 'production' ? 'js' : env.NODE_ENV;
     const COMPONENTS_CONFIG = getWebpackConfig({
-        path: path.resolve(__dirname, '../../dist/bizcomponents'),
+        path: path.resolve(__dirname, `../../dist/bizcomponents/${envDirectory}`),
         filename: '[name].js',
         libraryTarget: 'window',
         modulename: 'crc',
@@ -40,8 +41,8 @@ module.exports = (env = {}) => {
 
     COMPONENTS_CONFIG.plugins.push(
         new CopyOutputWebpackPlugin({
-            version: env.VERSION || version,
-            environments: env.ENVIRONMENTS ? env.ENVIRONMENTS.split(',') : ['production', 'sandbox', 'stage']
+            env: env.NODE_ENV,
+            version: env.VERSION || version
         })
     );
 

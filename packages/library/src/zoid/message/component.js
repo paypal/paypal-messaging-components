@@ -5,6 +5,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import {
     getMeta,
     getEnv,
+    getStageTag,
     getGlobalUrl,
     getGlobalVariable,
     getLibraryVersion,
@@ -297,6 +298,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                value: getStageTag
             }
         }
     })

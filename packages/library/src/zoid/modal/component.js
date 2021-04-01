@@ -6,6 +6,7 @@ import { create } from 'zoid/src';
 import {
     getMeta,
     getEnv,
+    getStageTag,
     getGlobalUrl,
     getGlobalVariable,
     getCurrentTime,
@@ -278,6 +279,11 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                value: getStageTag
             }
         }
     })

@@ -1,6 +1,6 @@
 {
     "name": "messaging-components",
-    "version": "1.15.2",
+    "version": "1.20.0",
     "description": "Messaging library Zoid iframe components",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -14,7 +14,7 @@
         "dist/"
     ],
     "scripts": {
-        "build": "webpack --env.NODE_ENV=production"
+        "build": "webpack"
     },
     "dependencies": {
         "@paypal/sdk-logos": "^1.0.26",
