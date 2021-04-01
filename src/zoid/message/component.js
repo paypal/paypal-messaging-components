@@ -12,7 +12,8 @@ import {
     runStats,
     logger,
     globalState,
-    getCurrentTime
+    getCurrentTime,
+    morsTracking
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -101,7 +102,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ meta }) => {
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
-                        const { offerType, messageRequestId } = meta;
+                        const {
+                            offerType,
+                            messageRequestId,
+                            trackingDetails: { clickUrl }
+                        } = meta;
 
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
@@ -118,11 +123,8 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             onClose: () => focus()
                         });
 
-                        logger.track({
-                            index,
-                            et: 'CLICK',
-                            event_type: 'MORS'
-                        });
+                        morsTracking(clickUrl, index);
+
                         logger.track({
                             index,
                             et: 'CLICK',
@@ -197,11 +199,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         modal.updateProps({ refIndex: index, offer: offerType, visible: false });
                         modal.render('body');
 
-                        logger.track({
-                            index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS'
-                        });
+                        morsTracking(trackingDetails.impressionUrl, index);
 
                         if (typeof onReady === 'function') {
                             onReady({ meta });

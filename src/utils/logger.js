@@ -6,6 +6,12 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
+export const morsTracking = (url, index) => {
+    const beacon = new window.Image();
+
+    beacon.src = `${url}&idx=${index}`;
+};
+
 export const logger = Logger({
     // Url to send logs to
     url: getGlobalUrl('LOGGER_B'),
