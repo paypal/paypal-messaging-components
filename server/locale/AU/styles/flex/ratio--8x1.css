@@ -24,6 +24,26 @@
     }
 }
 
+@media (min-aspect-ratio: 80/11) and (min-width: 240px) {
+    .message__headline span.multi:nth-of-type(1) {
+        display: inline;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: none;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 401px) {
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+}
+
 @media (min-aspect-ratio: 80/11) and (min-width: 501px) {
     .message__logo-container {
         flex-basis: 22%;
