@@ -1,6 +1,6 @@
 {
     "name": "messaging-components",
-    "version": "1.20.0",
+    "version": "1.21.0",
     "description": "Messaging library Zoid iframe components",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {

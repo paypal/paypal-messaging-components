@@ -4,7 +4,8 @@ import {
     getInlineOptions,
     getScript,
     getAccount,
-    getPartnerAccount
+    getPartnerAccount,
+    getLibraryVersion
 } from '@library/common';
 import {
     setup as newSetup,
@@ -50,6 +51,7 @@ export const Messages = config => ({
     }
 });
 
+Messages.version = getLibraryVersion();
 Messages.render = (config, selector) => Messages(config).render(selector);
 // Old and New are the same
 Messages.setGlobalConfig = NewMessages.setGlobalConfig;

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/paypal/paypal-messaging-components/compare/v1.20.1...v1.21.0) (2021-03-31)
+
+
+### Bug Fixes
+
+* add ponyfills for IE11 support ([#475](https://github.com/paypal/paypal-messaging-components/issues/475)) ([b212ca5](https://github.com/paypal/paypal-messaging-components/commit/b212ca52f95002945ab18403255f49258b0f941b))
+* send script UID to server ([#476](https://github.com/paypal/paypal-messaging-components/issues/476)) ([b20027c](https://github.com/paypal/paypal-messaging-components/commit/b20027c10ffa36451db394ce0a197da67bc56fc3))
+* update imgur script ([#474](https://github.com/paypal/paypal-messaging-components/issues/474)) ([44bb0c2](https://github.com/paypal/paypal-messaging-components/commit/44bb0c2253ef1dc842777dbe1375b24ac16a9430))
+
+
+### Features
+
+* unique iframe titles ([#461](https://github.com/paypal/paypal-messaging-components/issues/461)) ([ce70609](https://github.com/paypal/paypal-messaging-components/commit/ce70609cbd790499d4694ab51b043a8548488554))
+
 # [1.20.0](https://github.com/paypal/paypal-messaging-components/compare/v1.19.0...v1.20.0) (2021-03-10)
 
 

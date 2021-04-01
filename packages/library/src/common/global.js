@@ -35,6 +35,14 @@ export const nextIndex = () => {
     return globalState.index - 1;
 };
 
+export const createTitleGenerator = () => {
+    let count = 0;
+    return title => {
+        count += 1;
+        return `${title} ${count}`;
+    };
+};
+
 const DOMAINS = __MESSAGES__.__DOMAIN__;
 const URI = __MESSAGES__.__URI__;
 

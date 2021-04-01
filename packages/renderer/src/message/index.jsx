@@ -1,6 +1,8 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
+import arrayIncludes from 'core-js-pure/stable/array/includes';
+
 import { objectMerge, objectFlattenToArray, curry } from '@library/common/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName, getMinimumWidthOptions } from '../locale';
 import allStyles from './styles';
@@ -25,7 +27,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
     rules.reduce(
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
-            if (key === 'default' || split.every(k => flattened.includes(k))) {
+            if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
                 const calculatedVal =
                     typeof val === 'function'
                         ? val({

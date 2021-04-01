@@ -1,6 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { create } from 'zoid/src';
+import { getCurrentScriptUID } from 'belter/src';
 
 import { getEnv, getTargetMeta, getGlobalUrl } from '@library/common';
 import containerTemplate from './containerTemplate';
@@ -125,6 +126,11 @@ export default getGlobalComponent('__paypal_credit_modal_old__', () =>
                 queryParam: true,
                 sendToChild: false,
                 value: getTargetMeta
+            },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID
             }
         }
     })

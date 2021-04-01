@@ -2,7 +2,9 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { overflowObserver } from '@library/common';
+import { overflowObserver, createTitleGenerator } from '@library/common';
+
+const getTitle = createTitleGenerator();
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     event.on(EVENT.RENDERED, () => {
@@ -68,12 +70,12 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             `;
         }
     });
-
+    const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
-            <node el={frame} onRender={setupAutoResize} />
-            <node el={prerenderFrame} />
+            <node el={frame} title={messageTitle} onRender={setupAutoResize} />
+            <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>
     ).render(dom({ doc }));
 };
