@@ -290,6 +290,7 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
             stageTag: {
                 type: 'string',
                 queryParam: true,
+                required: false,
                 value: getStageTag
             }
         }
