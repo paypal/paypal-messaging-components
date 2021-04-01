@@ -171,7 +171,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, trackingDetails, offerType } = meta;
+                        const {
+                            messageRequestId,
+                            trackingDetails: { payload, impressionUrl },
+                            offerType
+                        } = meta;
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -184,7 +188,9 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    trackingDetails
+                                    trackingDetails: {
+                                        payload
+                                    }
                                 }
                             };
                         });
@@ -199,7 +205,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         modal.updateProps({ refIndex: index, offer: offerType, visible: false });
                         modal.render('body');
 
-                        morsTracking(trackingDetails.impressionUrl, index);
+                        morsTracking(impressionUrl, index);
 
                         if (typeof onReady === 'function') {
                             onReady({ meta });
