@@ -1,6 +1,5 @@
 /** @jsx h */
 import { h } from 'preact';
-import Icon from '../../../parts/Icon';
 import { useContent, useProductMeta } from '../../../lib';
 
 const PL = () => {
@@ -26,7 +25,6 @@ const PL = () => {
                             </span>
                         </p>
                     </div>
-                    <Icon name="secure" />
                 </div>
             </div>
 

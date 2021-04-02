@@ -32,7 +32,7 @@
             "qualified": "Split your {formattedTransactionAmount} purchase into 4 interest-free payments of {formattedPeriodicPayment}. First one due at checkout, then pay every 2 weeks."
         },
         "instructions": {
-            "title": ["Check ou with", "PayPal", "and choose", "Pay in 4"]
+            "title": ["Check out with", "PayPal", "and choose", "Pay in 4"]
         },
         "terms": [
             "Pay in 4 is available for purchases of {formattedMinAmount}-{formattedMaxAmount}.",
