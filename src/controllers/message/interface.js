@@ -4,22 +4,22 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import {
     objectMerge,
     getInlineOptions,
-    globalState,
+    getGlobalState,
     getAllBySelector,
-    attributeObserver,
+    getAttributeObserver,
     nextIndex,
     logger,
     getCurrentTime,
     globalEvent
 } from '../../utils';
 
-import { Message } from '../../zoid/message';
+import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
         const renderStart = getCurrentTime();
-        const { messagesMap } = globalState;
+        const { messagesMap } = getGlobalState();
         const containers = getAllBySelector(selector);
 
         if (containers.length === 0) {
@@ -55,7 +55,7 @@ export default (options = {}) => ({
         return ZalgoPromise.all(
             validContainers.map(container => {
                 const merchantOptions = objectMerge(
-                    globalState.config,
+                    getGlobalState().config,
                     objectMerge(options, getInlineOptions(container))
                 );
 
@@ -116,14 +116,14 @@ export default (options = {}) => ({
                 }
 
                 if (!messagesMap.has(container)) {
-                    const { render, state, updateProps, clone } = Message(messageProps);
+                    const { render, state, updateProps, clone } = getMessageComponent()(messageProps);
 
                     state.renderStart = renderStart;
                     state.style = messageProps.style;
 
                     messagesMap.set(container, { render, updateProps, state, clone });
 
-                    attributeObserver.observe(container, { attributes: true });
+                    getAttributeObserver().observe(container, { attributes: true });
 
                     return render(container).then(() => globalEvent.trigger('render'));
                 }

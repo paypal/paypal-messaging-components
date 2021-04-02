@@ -15,24 +15,37 @@ const createDefaultState = () => ({
     messagesMap: new Map()
 });
 
-export const [globalState, setGlobalState] = createState(window[NAMESPACE] || createDefaultState());
-export const destroyGlobalState = () => {
-    objectKeys(globalState).forEach(key => delete globalState[key]);
-    objectAssign(globalState, createDefaultState());
+export const createGlobalState = () => {
+    const [globalState, setGlobalState] = createState(window[NAMESPACE] || createDefaultState());
 
-    delete window[NAMESPACE];
+    globalState.setGlobalState = setGlobalState;
+
+    Object.defineProperty(window, NAMESPACE, {
+        value: globalState,
+        enumerable: false,
+        configurable: true,
+        writable: false
+    });
+
+    return window[NAMESPACE];
 };
+export const destroyGlobalState = () => {
+    if (window[NAMESPACE]) {
+        objectKeys(window[NAMESPACE]).forEach(key => delete window[NAMESPACE][key]);
+        objectAssign(window[NAMESPACE], createDefaultState());
 
-Object.defineProperty(window, NAMESPACE, {
-    value: globalState,
-    enumerable: false,
-    configurable: true,
-    writable: false
-});
+        delete window[NAMESPACE];
+    }
+};
+export const getGlobalState = () => window[NAMESPACE] ?? createGlobalState();
+export const setGlobalState = newState => getGlobalState().setGlobalState(newState);
 
 export const nextIndex = () => {
-    setGlobalState({ index: globalState.index + 1 });
-    return globalState.index - 1;
+    const currentIndex = getGlobalState().index;
+
+    setGlobalState({ index: currentIndex + 1 });
+
+    return currentIndex;
 };
 
 export const createTitleGenerator = () => {
@@ -59,12 +72,14 @@ export function getGlobalUrl(type) {
     return `${domain}${URI[typeField]}`;
 }
 
-export function getGlobalVariable(variable, fn) {
-    if (!window[NAMESPACE][variable]) {
-        window[NAMESPACE][variable] = fn();
+export const createGlobalVariableGetter = (variable, fn) => () => {
+    if (!getGlobalState()[variable]) {
+        setGlobalState({
+            [variable]: fn()
+        });
     }
 
-    return window[NAMESPACE][variable];
-}
+    return getGlobalState()[variable];
+};
 
 export const globalEvent = eventEmitter();

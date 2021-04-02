@@ -1,1 +1,1 @@
-export { default as Message } from './component';
+export { default as getMessageComponent } from './component';

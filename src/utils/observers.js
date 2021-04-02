@@ -1,14 +1,14 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
-import { globalState, getGlobalVariable } from './global';
+import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace } from './sdk';
 import { getRoot, elementContains, isElement } from './elements';
 
-export const insertionObserver = getGlobalVariable(
+export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
     () =>
         new MutationObserver(mutationList => {
@@ -37,11 +37,11 @@ export const insertionObserver = getGlobalVariable(
         })
 );
 
-export const attributeObserver = getGlobalVariable(
+export const getAttributeObserver = createGlobalVariableGetter(
     '__attribute_observer__',
     () =>
         new MutationObserver(mutationList => {
-            const { messagesMap } = globalState;
+            const { messagesMap } = getGlobalState();
             const containersToUpdate = mutationList.reduce((accumulator, mutation) => {
                 if (!messagesMap.has(mutation.target) || !stringStartsWith(mutation.attributeName, 'data-pp-')) {
                     return accumulator;
@@ -57,7 +57,7 @@ export const attributeObserver = getGlobalVariable(
         })
 );
 
-export const overflowObserver = getGlobalVariable('__intersection_observer__', () =>
+export const getOverflowObserver = createGlobalVariableGetter('__intersection_observer__', () =>
     ZalgoPromise.resolve(
         // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'
@@ -75,14 +75,16 @@ export const overflowObserver = getGlobalVariable('__intersection_observer__', (
             ])
         )
         .then(() => {
-            const firstContainer = globalState.messagesMap.keys().next().value;
+            const firstContainer = getGlobalState()
+                .messagesMap.keys()
+                .next().value;
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
             const root = getRoot(firstContainer);
             // eslint-disable-next-line compat/compat
             return new IntersectionObserver(
                 (entries, observer) => {
-                    const { messagesMap } = globalState;
+                    const { messagesMap } = getGlobalState();
 
                     entries.forEach(entry => {
                         const iframe = entry.target;

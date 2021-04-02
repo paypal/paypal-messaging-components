@@ -8,7 +8,7 @@ import {
     getMeta,
     getEnv,
     getGlobalUrl,
-    getGlobalVariable,
+    createGlobalVariableGetter,
     getCurrentTime,
     getLibraryVersion,
     getScriptAttributes,
@@ -19,7 +19,7 @@ import {
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalVariable('__paypal_credit_modal__', () =>
+export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
         url: getGlobalUrl('MODAL'),
