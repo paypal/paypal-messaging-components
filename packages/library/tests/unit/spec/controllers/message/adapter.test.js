@@ -1,5 +1,5 @@
 import Messages from '@library/controllers/message/adapter';
-import { globalState } from '@library/common';
+import { getGlobalState } from '@library/common';
 
 describe('message adapter', () => {
     test('Exports the correct interface', () => {
@@ -10,7 +10,7 @@ describe('message adapter', () => {
     });
 
     test('Updates global config state', () => {
-        expect(globalState).toEqual(
+        expect(getGlobalState()).toEqual(
             expect.objectContaining({
                 config: {}
             })
@@ -18,7 +18,7 @@ describe('message adapter', () => {
 
         Messages.setGlobalConfig({ account: 'DEV00000000NI' });
 
-        expect(globalState).toEqual(
+        expect(getGlobalState()).toEqual(
             expect.objectContaining({
                 config: {
                     account: 'DEV00000000NI'

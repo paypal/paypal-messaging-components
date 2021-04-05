@@ -1,6 +1,6 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 
-import { globalState, setGlobalState } from '@library/common';
+import { getGlobalState, setGlobalState } from '@library/common';
 import Messages from './interface';
 
 objectAssign(Messages, {
@@ -10,7 +10,7 @@ objectAssign(Messages, {
     setGlobalConfig: (config = {}) =>
         setGlobalState({
             config: {
-                ...globalState.config,
+                ...getGlobalState().config,
                 ...config
             }
         })

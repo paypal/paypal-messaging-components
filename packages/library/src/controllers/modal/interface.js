@@ -8,15 +8,15 @@ import {
     awaitWindowLoad,
     getInlineOptions,
     isElement,
-    globalState,
+    getGlobalState,
     objectMerge,
     getProductForOffer
 } from '@library/common';
-import { Modal } from '../../zoid/modal';
+import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
-        const { render, hide, updateProps, state, event } = Modal({
+        const { render, hide, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
             currency,
@@ -101,4 +101,4 @@ const memoizedModal = memoizeOnProps(
     ['account', 'merchantId']
 );
 
-export default options => memoizedModal(objectMerge(globalState.config, options));
+export default options => memoizedModal(objectMerge(getGlobalState().config, options));

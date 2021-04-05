@@ -1,8 +1,9 @@
 {
     "meta": {
+        "id": "dd36a466-2b98-4504-820c-958cbb6bd2c9",
         "offerCountry": "US",
         "offerType": "GPLNQ",
-        "offerTerm": "{total_payments}",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
@@ -11,14 +12,11 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
         }
     },
-
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
         ["Pay in 4 interest-free payments on qualifying purchases.", ["medium", "large", "xlarge"]]
     ],
-
     "subHeadline": [],
-
     "disclaimer": [["Learn more", ["default"]]]
 }

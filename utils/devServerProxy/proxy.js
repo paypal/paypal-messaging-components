@@ -70,7 +70,7 @@ export default (app, server, compiler) => {
         return null;
     };
 
-    const createMockZoidMarkup = (component, initializer) => `
+    const createMockZoidMarkup = (component, initializer, scriptUID) => `
         <!DOCTYPE html>
         <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -78,9 +78,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
-                    || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
-
+                var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
                 document.write(interface);
             </script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
@@ -175,12 +173,19 @@ export default (app, server, compiler) => {
     app.post('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/credit-presentment/smart/message', async (req, res) => {
+        const { scriptUID } = req.query;
         const props = await getRenderedMessage(req);
 
         if (props) {
             res.set('Cache-Control', 'public, max-age=10');
 
-            res.send(createMockZoidMarkup('message', `<script>crc.setupMessage(${JSON.stringify(props)})</script>`));
+            res.send(
+                createMockZoidMarkup(
+                    'message',
+                    `<script>crc.setupMessage(${JSON.stringify(props)})</script>`,
+                    scriptUID
+                )
+            );
         } else {
             res.status(400).send('');
         }
@@ -262,13 +267,14 @@ export default (app, server, compiler) => {
     };
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { targetMeta } = req.query;
+        const { targetMeta, scriptUID } = req.query;
         const { props, productNames } = getModalData(req);
 
         res.send(
             createMockZoidMarkup(
                 targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : props.country}`,
-                `<script>crc.setupModal(${JSON.stringify(props)})</script>`
+                `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
+                scriptUID
             )
         );
     });

@@ -1,7 +1,7 @@
-import { attributeObserver, destroyGlobalState, globalState, insertionObserver } from '@library/common';
+import { getAttributeObserver, destroyGlobalState, getGlobalState, getInsertionObserver } from '@library/common';
 
 export default function destroy() {
-    const { messagesMap } = globalState;
+    const { messagesMap } = getGlobalState();
 
     messagesMap.forEach((_, container) => {
         container.removeAttribute('data-pp-id');
@@ -11,7 +11,7 @@ export default function destroy() {
         }
     });
 
-    attributeObserver.disconnect();
-    insertionObserver.disconnect();
+    getAttributeObserver().disconnect();
+    getInsertionObserver().disconnect();
     destroyGlobalState();
 }

@@ -2,7 +2,7 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { overflowObserver, createTitleGenerator } from '@library/common';
+import { getOverflowObserver, createTitleGenerator } from '@library/common';
 
 const getTitle = createTitleGenerator();
 
@@ -34,14 +34,14 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
                 if (el.__hasResizedBefore__) {
                     // The styles event will fire first before the resize event for the initial render
                     event.once('styles', () => {
-                        overflowObserver.then(observer => {
+                        getOverflowObserver().then(observer => {
                             observer.observe(el); // The observer will immediately check the element once, then unsubscribe
                         });
                     });
                 } else {
                     // eslint-disable-next-line no-param-reassign
                     el.__hasResizedBefore__ = true;
-                    overflowObserver.then(observer => {
+                    getOverflowObserver().then(observer => {
                         observer.observe(el); // The observer will immediately check the element once, then unsubscribe
                     });
                 }
