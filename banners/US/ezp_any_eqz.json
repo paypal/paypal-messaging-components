@@ -1,8 +1,9 @@
 {
     "meta": {
+        "id": "0e26560f-7c8c-44e6-85fa-7f577aad8690",
         "offerCountry": "US",
         "offerType": "EZP:ANY:EQZ",
-        "offerTerm": "{total_payments}",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -12,7 +13,6 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
-
     "headline": [
         [
             ["Pay over {total_payments} months", ["at 0% APR", "weakest"]],
@@ -20,11 +20,9 @@
         ],
         ["Enjoy {total_payments} Easy Payments with No Interest.", ["legacy-small"]]
     ],
-
     "subHeadline": [
         ["Choose PayPal Credit and select {total_payments} Easy Payments to pay over time", ["legacy-medium"]]
     ],
-
     "disclaimer": [
         ["Learn more", ["default", "xsmall"]],
         ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],

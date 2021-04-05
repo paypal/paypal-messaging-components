@@ -1,5 +1,6 @@
 {
     "meta": {
+        "id": "35db897e-ba13-40d4-bf72-50b1ed06cb3f",
         "offerCountry": "US",
         "offerType": "GPLNQ_RANGE",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
@@ -10,7 +11,6 @@
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}"
         }
     },
-
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
@@ -19,8 +19,6 @@
             ["medium", "large", "xlarge"]
         ]
     ],
-
     "subHeadline": [],
-
     "disclaimer": [["Learn more", ["default"]]]
 }
