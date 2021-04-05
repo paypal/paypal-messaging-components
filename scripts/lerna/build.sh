@@ -85,9 +85,13 @@ if [ ! -z "$tag" ]; then
         exit 1
     fi
 
+    # Manually replace the globals.js variable so that it applies to the SDK bundler
+    sed -i '' "s/env.STAGE_TAG/'$tag'/" ./packages/library/globals.js
     # Pack the library module similar to publishing the module to npm
     (cd ./packages/library; npm pack)
     mv ./packages/library/*.tgz ./dist/bizcomponents/stage/package.tgz
+    # Reset the manual stage tag
+    sed -i '' "s/'$tag'/env.STAGE_TAG/" ./packages/library/globals.js
 
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"
