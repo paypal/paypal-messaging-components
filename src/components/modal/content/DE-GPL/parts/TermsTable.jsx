@@ -17,13 +17,13 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
     }, [offer]);
 
     return (
-        <button className={`offer ${expanded ? 'expanded' : ''}`} type="button" onClick={() => setExpanded(!expanded)}>
-            <div className="offer__header">
+        <div className={`offer ${expanded ? 'expanded' : ''}`}>
+            <button className="offer__header" type="button" onClick={() => setExpanded(!expanded)}>
                 <div className="offer__periodic">
                     {offer.periodic} € <span className="small">/Monat</span>
                 </div>
                 <div className="offer__term">{offer.term} Raten</div>
-            </div>
+            </button>
             <div className="offer__body">
                 <div className="offer__description">
                     Eff. Jahreszins {offer.apr}%, Fester Sollzinssatz {offer.nominalRate}%
@@ -41,7 +41,7 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
                     <div>{offer.total} €</div>
                 </div>
             </div>
-        </button>
+        </div>
     );
 };
 
@@ -54,9 +54,9 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError })
         return (
             <div className={`finance-terms loading ${hasError ? 'has-error' : ''}`}>
                 {[0, 1, 2, 3].map(() => (
-                    <button className="offer" type="button">
+                    <div className="offer loading">
                         <div className="loading-bar" />
-                    </button>
+                    </div>
                 ))}
             </div>
         );
