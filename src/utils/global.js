@@ -72,6 +72,8 @@ export function getGlobalUrl(type) {
     return `${domain}${URI[typeField]}`;
 }
 
+// Return a getter function as opposed to the value itself so that it can be lazy loaded within
+// the SDK lifecycle to guard against unintentionally using state from previous SDK instances
 export const createGlobalVariableGetter = (variable, fn) => () => {
     if (!getGlobalState()[variable]) {
         setGlobalState({
