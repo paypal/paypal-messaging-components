@@ -1,5 +1,5 @@
 import Messages from 'src/controllers/message/interface';
-import { Message } from 'src/zoid/message';
+import { getMessageComponent } from 'src/zoid/message';
 import { Modal } from 'src/controllers/modal';
 import { destroyGlobalState, setGlobalState, logger } from 'src/utils';
 import destroy from 'src/controllers/message/destroy';
@@ -7,13 +7,14 @@ import destroy from 'src/controllers/message/destroy';
 jest.mock('src/zoid/message', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
+    const mockCreateMessage = jest.fn(() => ({
+        render: mockRender,
+        updateProps: mockUpdateProps,
+        state: {}
+    }));
 
     return {
-        Message: jest.fn(() => ({
-            render: mockRender,
-            updateProps: mockUpdateProps,
-            state: {}
-        }))
+        getMessageComponent: () => mockCreateMessage
     };
 });
 
@@ -46,9 +47,9 @@ const clearMocks = () => {
     logger.warn.mockClear();
     logger.track.mockClear();
 
-    Message().render.mockClear();
-    Message().updateProps.mockClear();
-    Message.mockClear();
+    getMessageComponent()().render.mockClear();
+    getMessageComponent()().updateProps.mockClear();
+    getMessageComponent().mockClear();
 
     Modal().render.mockClear();
     Modal().updateProps.mockClear();
@@ -71,16 +72,16 @@ describe('message interface', () => {
 
         await Messages({}).render(container);
 
-        expect(Message().render).toHaveBeenCalledTimes(1);
-        expect(Message().updateProps).not.toHaveBeenCalled();
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().updateProps).not.toHaveBeenCalled();
 
         container.setAttribute('data-pp-amount', 100);
 
         // // Wait for mutation event to fire
         await new Promise(resolve => process.nextTick(resolve));
 
-        expect(Message().render).toHaveBeenCalledTimes(1);
-        expect(Message().updateProps).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().updateProps).toHaveBeenCalledTimes(1);
     });
 
     test('Requires valid DOM selector', async () => {
@@ -124,14 +125,14 @@ describe('message interface', () => {
             return container;
         });
 
-        expect(Message).toHaveBeenCalledTimes(0);
+        expect(getMessageComponent()).toHaveBeenCalledTimes(0);
 
         await Messages({ account: 'DEV00000000NI' }).render('.pp-message');
 
         expect(logger.warn).not.toHaveBeenCalled();
-        expect(Message).toHaveBeenCalledTimes(2);
-        expect(Message().render).toHaveBeenCalledTimes(2);
-        expect(Message().updateProps).not.toHaveBeenCalled();
+        expect(getMessageComponent()).toHaveBeenCalledTimes(2);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(2);
+        expect(getMessageComponent()().updateProps).not.toHaveBeenCalled();
         expect(Modal).toHaveBeenCalledTimes(2);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
@@ -142,9 +143,9 @@ describe('message interface', () => {
         await Messages({ account: 'DEV00000000NI' }).render(containers[0]);
 
         expect(logger.warn).not.toHaveBeenCalled();
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message().render).toHaveBeenCalledTimes(1);
-        expect(Message().updateProps).not.toHaveBeenCalled();
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().updateProps).not.toHaveBeenCalled();
         expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
@@ -155,9 +156,9 @@ describe('message interface', () => {
         await Messages({ account: 'DEV00000000NI' }).render(containers);
 
         expect(logger.warn).not.toHaveBeenCalled();
-        expect(Message).toHaveBeenCalledTimes(2);
-        expect(Message().render).toHaveBeenCalledTimes(2);
-        expect(Message().updateProps).not.toHaveBeenCalled();
+        expect(getMessageComponent()).toHaveBeenCalledTimes(2);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(2);
+        expect(getMessageComponent()().updateProps).not.toHaveBeenCalled();
         expect(Modal).toHaveBeenCalledTimes(2);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
@@ -177,8 +178,8 @@ describe('message interface', () => {
         // JavaScript
         await Messages({ currency: 'USD', amount: 200 }).render(container);
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message).toHaveBeenLastCalledWith(
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 account: 'DEV00000000NI',
                 amount: '100',
@@ -188,7 +189,7 @@ describe('message interface', () => {
                 }
             })
         );
-        expect(Message().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
         expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal).toHaveBeenLastCalledWith(
             expect.objectContaining({
@@ -206,9 +207,9 @@ describe('message interface', () => {
 
         await Messages({ account: 'DEV00000000NI' }).render(container);
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message().render).toHaveBeenCalledTimes(1);
-        expect(Message().updateProps).not.toHaveBeenCalled();
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().updateProps).not.toHaveBeenCalled();
         expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
@@ -217,9 +218,9 @@ describe('message interface', () => {
 
         await Messages({ account: 'DEV00000000NI' }).render(container);
 
-        expect(Message).not.toHaveBeenCalled();
-        expect(Message().render).not.toHaveBeenCalled();
-        expect(Message().updateProps).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).not.toHaveBeenCalled();
+        expect(getMessageComponent()().render).not.toHaveBeenCalled();
+        expect(getMessageComponent()().updateProps).toHaveBeenCalledTimes(1);
         expect(Modal).toHaveBeenCalledTimes(1);
         expect(Modal().render).not.toHaveBeenCalled();
         expect(Modal().updateProps).not.toHaveBeenCalled();
@@ -232,9 +233,9 @@ describe('message interface', () => {
 
         await Messages({}).render();
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message().render).toHaveBeenCalledTimes(1);
-        expect(Message().render).toHaveBeenLastCalledWith(container);
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()().render).toHaveBeenLastCalledWith(container);
     });
 
     test('Passes onRender handler', async () => {
@@ -244,15 +245,15 @@ describe('message interface', () => {
 
         await Messages({ onRender }).render(container);
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message).toHaveBeenLastCalledWith(
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onReady: expect.any(Function)
             })
         );
         expect(onRender).not.toHaveBeenCalled();
 
-        const [[{ onReady: onReadyHandler }]] = Message.mock.calls;
+        const [[{ onReady: onReadyHandler }]] = getMessageComponent().mock.calls;
 
         onReadyHandler({ meta: { messageRequestId: '12345', trackingDetails: {} } });
 
@@ -267,15 +268,15 @@ describe('message interface', () => {
 
         await Messages({ onClick }).render(container);
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message).toHaveBeenLastCalledWith(
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onClick: expect.any(Function)
             })
         );
         expect(onClick).not.toHaveBeenCalled();
 
-        const [[{ onClick: onClickHandler }]] = Message.mock.calls;
+        const [[{ onClick: onClickHandler }]] = getMessageComponent().mock.calls;
 
         onClickHandler({ meta: { messageRequestId: '12345' } });
 
@@ -290,14 +291,14 @@ describe('message interface', () => {
 
         await Messages({ onHover }).render(container);
 
-        expect(Message).toHaveBeenCalledTimes(1);
-        expect(Message).toHaveBeenLastCalledWith(
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onHover: expect.any(Function)
             })
         );
 
-        const [[{ onHover: onHoverHandler }]] = Message.mock.calls;
+        const [[{ onHover: onHoverHandler }]] = getMessageComponent().mock.calls;
 
         onHoverHandler({ meta: { messageRequestId: '12345' } });
 
