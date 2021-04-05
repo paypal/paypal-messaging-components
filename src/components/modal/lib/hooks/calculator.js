@@ -78,18 +78,27 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             clientId,
             merchantId,
             buyerCountry
-        }).then(data => {
-            setServerData(data);
+        })
+            .then(data => {
+                setServerData(data);
 
-            // TODO: do not store terms in reducer since serverData will be kept up-to-date
-            dispatch({
-                type: 'terms',
-                data: {
-                    ...data.terms,
-                    autoSubmit
-                }
+                // TODO: do not store terms in reducer since serverData will be kept up-to-date
+                dispatch({
+                    type: 'terms',
+                    data: {
+                        ...data.terms,
+                        autoSubmit
+                    }
+                });
+            })
+            .catch(() => {
+                dispatch({
+                    type: 'terms',
+                    data: {
+                        error: true
+                    }
+                });
             });
-        });
     };
 
     // Automatically fetch terms when props change

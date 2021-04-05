@@ -11,12 +11,12 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
         calculator: { genericError, rangeError }
     } = useContent('GPL');
 
-    if (typeof amount === 'undefined' || isLoading) {
-        return null;
-    }
-
     if (error || !maxAmount) {
         return genericError;
+    }
+
+    if (typeof amount === 'undefined' || isLoading) {
+        return null;
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
