@@ -37,7 +37,7 @@ module.exports = (env = {}) => {
                       __SDK_HOST__: `${HOSTNAME}:${PORT}`,
                       __STAGE_HOST__: 'msmaster.qa.paypal.com',
                       __PORT__: PORT,
-                      __PATH__: `/${FILE_NAME}.js`,
+                      __PATH__: `/${FILE_NAME}/js`,
                       __NAMESPACE__: 'paypal',
                       __VERSION__: '1.0.55',
                       __COMPONENTS__: ['messages']

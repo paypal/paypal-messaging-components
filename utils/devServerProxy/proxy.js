@@ -406,4 +406,9 @@ export default (app, server, compiler) => {
 
         return res.redirect(`/${componentName}.js`);
     });
+    // Mimic sdk path by rewriting /sdk/js to the webpack output file /sdk.js
+    app.use((req, res, next) => {
+        req.url = req.url.replace(/\/sdk\/js/, '/sdk.js');
+        next();
+    });
 };
