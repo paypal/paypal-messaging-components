@@ -12,7 +12,7 @@ export function getPerformanceMeasure(name) {
 
 export function clearPerformance() {
     if (performance) {
-        ['scriptLoadDelay', 'domLoadDelay', 'loadDelay', 'firstRenderDelay'].forEach(name => {
+        ['scriptLoadDelay', 'domLoadDelay', 'pageLoadDelay', 'firstRenderDelay'].forEach(name => {
             performance.clearMarks(namespaced(name));
             performance.clearMeasures(namespaced(name));
         });

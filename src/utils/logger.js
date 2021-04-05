@@ -5,6 +5,7 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+import { getLibraryVersion } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -57,6 +58,15 @@ logger.addPayloadBuilder(payload => {
     delete payload.selector; // eslint-disable-line no-param-reassign
 
     return {};
+});
+
+logger.addMetaBuilder(() => {
+    return {
+        global: {
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: getLibraryVersion()
+        }
+    };
 });
 
 logger.addTrackingBuilder(() => {

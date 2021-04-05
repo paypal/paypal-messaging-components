@@ -203,8 +203,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             return {
                                 [index]: {
                                     type: 'modal',
-                                    integration_type: __MESSAGES__.__TARGET__,
-                                    messaging_version: getLibraryVersion(),
                                     messageRequestId,
                                     account: merchantId || account,
                                     displayedMessage,
