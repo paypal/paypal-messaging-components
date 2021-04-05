@@ -106,7 +106,6 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     ...defaultTextStyles,
-
                     altContentMediaQuery(textSize * 30.6),
                     `.message__logo-container { width: ${textSize * 5}px }`,
                     textWrap(textSize * 28, textSize, 'US')
@@ -116,7 +115,7 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [`.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [...defaultTextStyles, `.message__logo-container { width: ${textSize * 5}px }`]
             })
         ],
         [

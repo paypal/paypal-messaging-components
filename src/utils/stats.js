@@ -6,7 +6,7 @@ import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
-import { globalState } from './global';
+import { getGlobalState } from './global';
 import { awaitFirstRender, awaitWindowLoad } from './events';
 import { getPerformanceMeasure } from './performance';
 
@@ -47,7 +47,7 @@ ZalgoPromise.all([awaitWindowLoad, awaitFirstRender]).then(() => {
 });
 
 export function runStats({ container, activeTags, index }) {
-    const { messagesMap } = globalState;
+    const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
     // Get outer most container's page location coordinates

@@ -5,7 +5,7 @@ import { getSDKAttributes } from '@paypal/sdk-client/src';
 import createContainer from 'utils/createContainer';
 import { runStats } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
-import { globalState } from 'src/utils/global';
+import { getGlobalState } from 'src/utils/global';
 import { globalEvent } from '../../../../../src/utils';
 
 jest.mock('src/utils/logger', () => ({
@@ -13,6 +13,14 @@ jest.mock('src/utils/logger', () => ({
         track: jest.fn()
     }
 }));
+
+jest.mock('src/utils/global', () => {
+    const globalUtils = jest.requireActual('src/utils/global');
+    return {
+        ...globalUtils,
+        getGlobalState: jest.fn()
+    };
+});
 
 jest.mock('@paypal/sdk-client/src', () => ({
     getSDKAttributes: jest.fn().mockReturnValue({ 'data-partner-attribution-id': 'some-partner-id' })
@@ -70,8 +78,10 @@ describe('stats', () => {
         render_duration: expect.any(String)
     };
 
+    const messagesMap = new Map();
+
     beforeAll(() => {
-        globalState.messagesMap = new Map();
+        getGlobalState.mockReturnValue({ messagesMap });
     });
 
     beforeEach(() => {
@@ -91,7 +101,7 @@ describe('stats', () => {
             top: 30,
             bottom: 25
         });
-        globalState.messagesMap.set(container, { state: { renderStart: start } });
+        messagesMap.set(container, { state: { renderStart: start } });
 
         runStats({ container, activeTags: '', index });
 
@@ -111,7 +121,7 @@ describe('stats', () => {
             top: 30,
             bottom: 25
         });
-        globalState.messagesMap.set(container, { state: { renderStart: start } });
+        messagesMap.set(container, { state: { renderStart: start } });
 
         const payload = {
             ...defaultProps,
@@ -138,7 +148,7 @@ describe('stats', () => {
             top: 30,
             bottom: 25
         });
-        globalState.messagesMap.set(container, { state: { renderStart: start } });
+        messagesMap.set(container, { state: { renderStart: start } });
 
         const payload = {
             ...defaultProps,

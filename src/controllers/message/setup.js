@@ -2,12 +2,12 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import {
     getInlineOptions,
-    globalState,
+    getGlobalState,
     getScript,
     getAccount,
     getCurrency,
     getPartnerAccount,
-    insertionObserver
+    getInsertionObserver
 } from '../../utils';
 import Messages from './adapter';
 
@@ -26,7 +26,7 @@ export default function setup() {
         });
     }
 
-    const { namespace } = globalState.config;
+    const { namespace } = getGlobalState().config;
 
     // Allow specified global namespace override
     if (namespace) {
@@ -53,13 +53,13 @@ export default function setup() {
         const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
-            if (globalState.config.account) {
+            if (getGlobalState().config.account) {
                 Messages.render({ _auto: true });
             }
 
             // Using a "global" observer to watch for and automatically render
             // any message containers that are dynamically added after auto render
-            insertionObserver.observe(document.body, {
+            getInsertionObserver().observe(document.body, {
                 attributes: true,
                 childList: true,
                 subtree: true,
