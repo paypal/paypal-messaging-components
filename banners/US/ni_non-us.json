@@ -1,8 +1,9 @@
 {
     "meta": {
+        "id": "dd819621-1aa5-44b4-94a4-3b1b38b3e0a3",
         "offerCountry": "US",
         "offerType": "NI:NON-US",
-        "offerTerm": "{total_payments}",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
@@ -12,7 +13,6 @@
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
-
     "headline": [
         ["Buy now. Pay over time.", ["default", "xsmall", "small"]],
         [
@@ -20,9 +20,7 @@
             ["medium", "large", "xlarge"]
         ]
     ],
-
     "subHeadline": [["Check out with PayPal and choose PayPal Credit.", ["default", "small"]]],
-
     "disclaimer": [
         ["Learn more", ["default", "xsmall"]],
         [
