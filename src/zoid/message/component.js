@@ -179,6 +179,8 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             return {
                                 [index]: {
                                     type: 'message',
+                                    integration_type: __MESSAGES__.__TARGET__,
+                                    messaging_version: getLibraryVersion(),
                                     messageRequestId,
                                     account: merchantId || account,
                                     displayedMessage,
