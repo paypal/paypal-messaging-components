@@ -26,6 +26,11 @@
             }, {});
 
             const config = JSON.parse(mappedParams.config);
+            const padding = parseInt(mappedParams.padding ?? 0);
+
+            if (padding) {
+                document.querySelector('.container').style.margin = `${padding}px`;
+            }
 
             if (config?.style?.text?.color === 'white') {
                 document.body.style = 'background: #000';

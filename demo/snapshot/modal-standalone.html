@@ -31,9 +31,14 @@
                 .MessagesModal({
                     ...config,
                     onReady: ({ show }) => {
-                        manualMessage.addEventListener('click', () => {
+                        if (typeof mappedParams.click !== 'undefined') {
                             show(manualMessage);
-                        });
+                            document.querySelector('.container').textContent = '';
+                        } else {
+                            manualMessage.addEventListener('click', () => {
+                                show(manualMessage);
+                            });
+                        }
                     }
                 })
                 .render();
