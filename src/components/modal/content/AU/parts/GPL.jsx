@@ -2,7 +2,9 @@
 import { h } from 'preact';
 import { useContent, useProductMeta } from '../../../lib';
 
-const PL = () => {
+const auCurrencyFormat = string => string.replace(/\.00/g, '');
+
+const GPL = () => {
     const { headline, subHeadline, terms, instructions } = useContent('GPL');
     const { qualifying: qualifyingString } = useProductMeta('GPL');
     const qualifying = qualifyingString?.toLowerCase() === 'true';
@@ -12,7 +14,7 @@ const PL = () => {
             <div className="description">
                 <h2>{headline.singleProduct}</h2>
 
-                <h3>{qualifying ? subHeadline.qualified : subHeadline.unqualified}</h3>
+                <h3>{qualifying ? subHeadline.qualified : auCurrencyFormat(subHeadline.unqualified)}</h3>
 
                 <div className="call-to-action">
                     <div>
@@ -33,7 +35,7 @@ const PL = () => {
             <div className="terms">
                 <ul>
                     {terms.map(term => (
-                        <li>{term}</li>
+                        <li>{auCurrencyFormat(term)}</li>
                     ))}
                 </ul>
             </div>
@@ -41,4 +43,4 @@ const PL = () => {
     );
 };
 
-export default PL;
+export default GPL;

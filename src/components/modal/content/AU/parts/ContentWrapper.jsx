@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef, useEffect, useState } from 'preact/hooks';
-import PL from './PL';
+import GPL from './GPL';
 import { useScroll, useTransitionState } from '../../../lib';
 import Header from '../../../parts/Header';
 import Container from '../../../parts/Container';
@@ -58,7 +58,7 @@ const ContentWrapper = () => {
                     <div className={classNames.join(' ')}>
                         <span className="corner" ref={cornerRef} />
                         <main className="main">
-                            <PL />
+                            <GPL />
                         </main>
                     </div>
                 </div>
