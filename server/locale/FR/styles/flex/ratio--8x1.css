@@ -10,10 +10,6 @@
         display: inline;
     }
 
-    .message__sub-headline {
-        margin-left: 5px;
-    }
-
     .message__logo-container {
         flex-basis: 12%;
         margin-bottom: -6px;
