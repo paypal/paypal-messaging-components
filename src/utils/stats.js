@@ -8,7 +8,7 @@ import { getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitFirstRender, awaitWindowLoad } from './events';
-import { getPerformanceMeasure } from './performance';
+import { getNavigationTiming, getPerformanceMeasure } from './performance';
 
 const scrollHandlers = new Map();
 const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
@@ -31,8 +31,9 @@ const onScroll = (elem, handler) => {
 ZalgoPromise.all([awaitWindowLoad, awaitFirstRender]).then(() => {
     const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
     const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
-    const domLoadDelay = getPerformanceMeasure('domLoadDelay');
-    const pageLoadDelay = getPerformanceMeasure('pageLoadDelay');
+
+    const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
+    const pageLoadDelay = getNavigationTiming('loadEventStart');
 
     const payload = {
         et: 'CLIENT_IMPRESSION',

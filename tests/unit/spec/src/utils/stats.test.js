@@ -34,13 +34,17 @@ jest.mock('belter/src', () => {
             getEntriesByName: name => {
                 const duration = {
                     __paypal_messaging_performance__scriptLoadDelay: 1,
-                    __paypal_messaging_performance__domLoadDelay: 2,
-                    __paypal_messaging_performance__firstRenderDelay: 3,
-                    __paypal_messaging_performance__pageLoadDelay: 4
+                    __paypal_messaging_performance__firstRenderDelay: 3
                 }[name];
 
                 return [{ duration }];
             },
+            getEntriesByType: () => [
+                {
+                    domContentLoadedEventStart: 2,
+                    loadEventStart: 4
+                }
+            ],
             measure: () => {},
             mark: () => {},
             clearMeasures: () => {},

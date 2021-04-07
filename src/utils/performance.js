@@ -1,7 +1,5 @@
 import { getPerformance } from 'belter/src';
 
-import { awaitDOMContentLoaded, awaitWindowLoad } from './events';
-
 const namespaced = name => `__paypal_messaging_performance__${name}`;
 
 const performance = getPerformance();
@@ -10,9 +8,15 @@ export function getPerformanceMeasure(name) {
     return performance?.getEntriesByName(namespaced(name))[0]?.duration ?? -1;
 }
 
+export function getNavigationTiming(name) {
+    const entry = performance?.getEntriesByType('navigation')[0];
+
+    return entry?.[name] ?? -1;
+}
+
 export function clearPerformance() {
     if (performance) {
-        ['scriptLoadDelay', 'domLoadDelay', 'pageLoadDelay', 'firstRenderDelay'].forEach(name => {
+        ['scriptLoadDelay', 'firstRenderDelay'].forEach(name => {
             performance.clearMarks(namespaced(name));
             performance.clearMeasures(namespaced(name));
         });
@@ -42,11 +46,3 @@ export function trackPerformance(name, { startMark, endMark, once } = {}) {
         performance.mark(namespaced(name));
     }
 }
-
-awaitDOMContentLoaded.then(() => {
-    trackPerformance('domLoadDelay', { once: true });
-});
-
-awaitWindowLoad.then(() => {
-    trackPerformance('pageLoadDelay', { once: true });
-});
