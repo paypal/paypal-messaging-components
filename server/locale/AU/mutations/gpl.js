@@ -3,13 +3,41 @@ import {
     xSmallFallback,
     textWrap,
     messageLogoWidth,
+    logo20x1,
     altNoWrap,
     setLogoTop,
     addPeriod
 } from '../../../message/mediaQueries';
-import { textLogoMutations } from '../../../message/logoMutations';
+import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PP_PAYPAL.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default'],
+            styles: ['.message__headline .tag--medium > span:first-child:after { content: "."; }']
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [logo20x1(), '.message__headline .tag--medium > span:first-child:after { content: "."; }']
+        }
+    ],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',
