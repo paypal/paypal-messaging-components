@@ -34,6 +34,10 @@
         <div class="container banner-6" data-pp-account="DEV000000FRPL"></div>
         <br />
         <div class="container banner-7" data-pp-account="DEV00000FRPLQ"></div>
+        <br />
+        <div class="container banner-8" data-pp-account="DEV000000AUPL"></div>
+        <br />
+        <div class="container banner-9" data-pp-account="DEV00000AUPLQ"></div>
         <script>
             const query = window.location.search.substring(1);
             const mappedParams = query.split('&').reduce((accumulator, param) => {
@@ -64,6 +68,10 @@
                     paypal.Message.render(config, '.banner-7');
                 } else if (config.account === 'DEV00000FRPLQ') {
                     paypal.Message.render(config, '.banner-6');
+                } else if (config.account === 'DEV000000AUPL') {
+                    paypal.Message.render(config, '.banner-9');
+                } else if (config.account === 'DEV00000AUPLQ') {
+                    paypal.Message.render(config, '.banner-8');
                 } else {
                     paypal.Message.render(config, '.banner-2');
                 }
