@@ -1,7 +1,7 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { destroy as zoidDestroy } from 'zoid/src';
 import { destroy as bannerDestroy } from '../messages/controllers/render';
-import { getInlineOptions, globalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
+import { getInlineOptions, getGlobalState, getScript, getAccount, getCurrency, getPartnerAccount } from '../../utils';
 import Messages from '../messages';
 
 export function setup() {
@@ -42,7 +42,7 @@ export function setup() {
     }
 
     // Requires a merchant account to render a message
-    if (globalState.config.account) {
+    if (getGlobalState().config.account) {
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', () => Messages.render({ _auto: true }));
         } else {

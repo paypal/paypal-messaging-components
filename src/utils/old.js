@@ -7,7 +7,7 @@ import { base64encode } from 'belter/src';
 
 import fonts from '../old/messages/models/Template/styles/fonts.css';
 import { prependStyle } from './elements';
-import { globalState, setGlobalState } from './global';
+import { getGlobalState, setGlobalState } from './global';
 import { getEnv, getScript } from './sdk';
 
 const loadedFonts = new Map();
@@ -77,8 +77,8 @@ export function createCallbackError(message, cb) {
 }
 
 export const nextId = () => {
-    setGlobalState({ nextId: (globalState.nextId ?? 1) + 1 });
-    return globalState.nextId - 1;
+    setGlobalState({ nextId: (getGlobalState().nextId ?? 1) + 1 });
+    return getGlobalState().nextId - 1;
 };
 
 export function getTargetMeta() {

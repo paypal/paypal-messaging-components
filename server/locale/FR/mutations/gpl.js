@@ -25,11 +25,11 @@ export default {
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                styles: [setLogoTop(textSize * 30), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
+                styles: [setLogoTop(textSize * 34.75), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
                 headline: [
                     {
                         tag: 'default',
-                        br: ['les']
+                        br: ['frais']
                     }
                 ]
             })
@@ -41,7 +41,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['les']
+                        br: ['frais']
                     }
                 ]
             })
@@ -59,13 +59,19 @@ export default {
         ],
         [
             'logo.type:none',
-            () => ({
-                styles: [],
+            ({ textSize }) => ({
+                styles: [
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                        .message__messaging span.br {
+                            white-space: normal;
+                        }
+                    }`
+                ],
                 logo: false,
                 headline: [
                     {
                         tag: 'default',
-                        br: ['achats'],
+                        br: ['frais', 'achats'],
                         replace: [['éligibles.', 'éligibles']]
                     }
                 ]
@@ -79,7 +85,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['achats'],
+                        br: ['pour'],
                         replace: [['éligibles.', 'éligibles']]
                     }
                 ]
@@ -118,13 +124,13 @@ export default {
         [
             'ratio:6x1',
             {
-                subHeadline: [{ tag: 'small', br: ['achats'] }]
+                subHeadline: [{ tag: 'small', br: ['les'] }]
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [{ tag: 'xsmall', br: ['achats'] }],
+                headline: [{ tag: 'xsmall', br: ['les'] }],
                 styles: [logo20x1()]
             }
         ],

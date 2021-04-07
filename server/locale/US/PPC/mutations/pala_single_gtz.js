@@ -8,7 +8,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 logo: Logo.SINGLE_LINE.COLOR,
-                messageWidth: [textSize * 13, textSize * 18],
+                messageWidth: [textSize * 12, textSize * 18],
                 headline: { tag: 'small', br: ['/mo.'] },
                 disclaimer: 'xsmall'
             })

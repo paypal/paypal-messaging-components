@@ -1,24 +1,25 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
     getEnv,
     getGlobalUrl,
-    getGlobalVariable,
+    createGlobalVariableGetter,
     getLibraryVersion,
     runStats,
     logger,
-    globalState,
-    getCurrentTime,
     getStorageID,
-    getSessionID
+    getSessionID,
+    getGlobalState,
+    getCurrentTime
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalVariable('__paypal_credit_message__', () =>
+export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
         url: getGlobalUrl('MESSAGE_B'),
@@ -32,6 +33,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
         },
         attributes: {
             iframe: {
+                title: 'PayPal Message',
                 scrolling: 'no'
             }
         },
@@ -245,7 +247,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     // Handle moving the iframe around the DOM
                     return () => {
                         const { getContainer } = props;
-                        const { messagesMap } = globalState;
+                        const { messagesMap } = getGlobalState();
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
@@ -309,6 +311,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getSessionID
+            },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID
             }
         }
     })

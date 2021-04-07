@@ -2,7 +2,7 @@ import setup from 'src/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
 import Messages from 'src/controllers/message/interface';
-import { globalState } from 'src/utils';
+import { getGlobalState } from 'src/utils';
 
 // TODO: Re-enable skipped tests after ramp
 
@@ -74,7 +74,7 @@ describe('message setup', () => {
         setup();
 
         expect(Messages().render).toHaveBeenCalledTimes(1);
-        expect(globalState.config).toEqual(
+        expect(getGlobalState().config).toEqual(
             expect.objectContaining({
                 account: 'DEV00000000NI',
                 currency: 'USD',
