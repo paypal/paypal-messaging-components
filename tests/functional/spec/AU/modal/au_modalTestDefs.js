@@ -3,7 +3,7 @@ import { logTestName } from '../../utils/logging';
 import modalSnapshot from '../../utils/modalSnapshot';
 
 /**
- * Runs inside modalText.test.js for the GB locale.
+ * Runs inside modalText.test.js for the AU locale.
  */
 
 export const auModalContent = ({ account, viewport, groupString }) => async () => {
