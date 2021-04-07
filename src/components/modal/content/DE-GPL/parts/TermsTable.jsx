@@ -26,7 +26,7 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
             </button>
             <div className="offer__body">
                 <div className="offer__description">
-                    Eff. Jahreszins {offer.apr}%, Fester Sollzinssatz {offer.nominalRate}%
+                    Eff. Jahreszins {offer.apr}%&nbsp;p.a., Fester Sollzinssatz {offer.nominalRate}%&nbsp;p.a.
                 </div>
                 <div className="offer__field">
                     <div className="blue">Transaktionsbetrag E-Geld Service</div>

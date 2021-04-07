@@ -66,11 +66,7 @@
         &__description {
             color: #687173;
             font-size: 0.8rem;
-            margin-bottom: 1.8rem;
-
-            @include smallMobile {
-                font-size: 0.75rem;
-            }
+            height: 2.8rem;
         }
 
         &__body {
