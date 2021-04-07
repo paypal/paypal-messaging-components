@@ -6,7 +6,7 @@
 
     .corner {
         position: absolute;
-        top: -2rem;
+        top: 13rem;
         left: 0;
         width: 100px;
         height: 2rem;
@@ -95,7 +95,7 @@
         padding-top: 10rem;
 
         .corner {
-            top: 8.6rem;
+            top: 10rem;
             position: fixed;
             // iOS has an issue with position: fixed; elements within scrollable containers
             transform: translate3d(0, 0, 0);
@@ -111,7 +111,7 @@
                 position: fixed;
                 // see desktop .corner for why this transform is needed
                 transform: translate3d(0, 0, 0);
-                top: calc(8rem + 84px);
+                top: calc(10rem + 89px);
                 left: auto;
             }
         }
@@ -119,5 +119,17 @@
         .content-body {
             max-width: 400px;
         }
+    }
+    
+     @include smallMobile {
+            &.sticky {
+                .corner {
+                    width: 100%;
+                    position: fixed;
+                    transform: translate3d(0, 0, 0);
+                    top: calc(10rem + 80px);
+                    left: auto;
+                }
+            }
     }
 }
