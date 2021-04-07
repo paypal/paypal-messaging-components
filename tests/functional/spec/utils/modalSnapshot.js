@@ -46,6 +46,8 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         locale = 'GB';
     } else if (account.includes('FRPL')) {
         locale = 'FR';
+    } else if (account.includes('AUPL')) {
+        locale = 'AU';
     }
 
     const matchFunction = viewport.width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
