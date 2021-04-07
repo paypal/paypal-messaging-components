@@ -58,3 +58,39 @@ export function logoInlineAddRatenzahlungAfterPayPal(breakpoint) {
         }
     }`;
 }
+
+// The media queries below are related to DE GPL cross-border (XB) text messages.
+
+/**
+ * This function combines 3 commonly used media queries across all XB DE messages for logos primary and alternative.
+ * crossBorderDisclaimerWrap controls the points in which the "Mehr erfahren" drops to a new line independently from "Nur mit dt. PayPal Konto."
+ * and when it shoudl rejoin it on the same line.
+ */
+export function crossBorderDisclaimerWrap(breakpointOne, breakpointTwo, breakpointThree, breakpointFour) {
+    return `
+    @media screen and (min-width: ${breakpointOne}px) and (max-width: ${breakpointTwo}px) { 
+        .message__messaging > .message__disclaimer > .tag--default::before { 
+            content: ''; display: block; 
+        }
+    }
+    @media screen and (max-width: ${breakpointThree}px) { 
+        .message__messaging > .message__disclaimer > .tag--default::before { 
+            content: ''; display: block; 
+        }
+    }
+    @media screen and (max-width: ${breakpointFour}px) { 
+        .locale--DE .message__messaging { 
+            display: inline-block; 
+        } 
+    }`;
+}
+
+// Controls logo type none wrapping for the XB DE message headlines.
+export function crossBorderLogoNoneWrap(breakpoint) {
+    return `
+    @media screen and (max-width: ${breakpoint}px) {
+        .message__headline > span:last-child {
+            white-space: nowrap; 
+        }
+    }`;
+}
