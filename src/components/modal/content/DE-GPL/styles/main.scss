@@ -131,7 +131,8 @@ main {
 }
 
 // CSS hack to target only IE11
-// TODO: Remove when IE goes back to hell
+// Necessary to cope with improper handling of sizing nested flexboxes in IE11
+// TODO: Remove when IE is no longer supported
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .content-wrapper,
     .content-background,
