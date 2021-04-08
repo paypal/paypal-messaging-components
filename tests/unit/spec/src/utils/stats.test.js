@@ -6,7 +6,6 @@ import createContainer from 'utils/createContainer';
 import { runStats } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 import { getGlobalState } from 'src/utils/global';
-import { globalEvent } from '../../../../../src/utils';
 
 jest.mock('src/utils/logger', () => ({
     logger: {
@@ -25,33 +24,6 @@ jest.mock('src/utils/global', () => {
 jest.mock('@paypal/sdk-client/src', () => ({
     getSDKAttributes: jest.fn().mockReturnValue({ 'data-partner-attribution-id': 'some-partner-id' })
 }));
-
-jest.mock('belter/src', () => {
-    const original = jest.requireActual('belter/src');
-    return {
-        ...original,
-        getPerformance: () => ({
-            getEntriesByName: name => {
-                const duration = {
-                    __paypal_messaging_performance__scriptLoadDelay: 1,
-                    __paypal_messaging_performance__firstRenderDelay: 3
-                }[name];
-
-                return [{ duration }];
-            },
-            getEntriesByType: () => [
-                {
-                    domContentLoadedEventStart: 2,
-                    loadEventStart: 4
-                }
-            ],
-            measure: () => {},
-            mark: () => {},
-            clearMeasures: () => {},
-            clearMarks: () => {}
-        })
-    };
-});
 
 window.getComputedStyle = () => ({
     getPropertyValue: () => 'auto'
@@ -187,21 +159,5 @@ describe('stats', () => {
         });
         expect(window.removeEventListener).toHaveBeenCalledTimes(1);
         expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
-    });
-
-    test('Fires page_loaded event after first render', async () => {
-        globalEvent.trigger('render');
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith({
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'page_loaded',
-            scriptLoadDelay: '1',
-            domLoadDelay: '2',
-            firstRenderDelay: '3',
-            pageLoadDelay: '4'
-        });
     });
 });

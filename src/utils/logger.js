@@ -1,5 +1,4 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
-import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
@@ -25,9 +24,7 @@ export const logger = Logger({
             .concat(json.tracking.map(({ index }) => index));
 
         const trimmedMeta = objectKeys(json.meta)
-            .filter(index =>
-                arrayIncludes(activeIndexes, stringIncludes(index, 'modal') ? index.replace('modal-', '') : index)
-            )
+            .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')
             .reduce(
                 (accumulator, index) => ({
                     ...accumulator,
