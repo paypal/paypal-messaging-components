@@ -1,6 +1,6 @@
 {
     "name": "messaging-renderer",
-    "version": "1.21.0",
+    "version": "1.21.2",
     "description": "Messaging markup renderer",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
