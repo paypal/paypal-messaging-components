@@ -1,19 +1,23 @@
 import Modal from 'src/controllers/modal/interface';
-import { Modal as zoidModal } from 'src/zoid/modal';
+import { getModalComponent } from 'src/zoid/modal';
 import { logger } from 'src/utils';
 
 jest.mock('src/zoid/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockHide = jest.fn(() => Promise.resolve());
+    const mockCreateModal = jest.fn(() => ({
+        render: mockRender,
+        updateProps: mockUpdateProps,
+        hide: mockHide,
+        state: {},
+        event: {
+            once: (_, resolve) => resolve()
+        }
+    }));
 
     return {
-        Modal: jest.fn(() => ({
-            render: mockRender,
-            updateProps: mockUpdateProps,
-            hide: mockHide,
-            state: {}
-        }))
+        getModalComponent: () => mockCreateModal
     };
 });
 
@@ -28,10 +32,10 @@ jest.mock('src/utils/logger', () => ({
 const clearMocks = () => {
     logger.track.mockClear();
 
-    zoidModal().render.mockClear();
-    zoidModal().updateProps.mockClear();
-    zoidModal().hide.mockClear();
-    zoidModal.mockClear();
+    getModalComponent()().render.mockClear();
+    getModalComponent()().updateProps.mockClear();
+    getModalComponent()().hide.mockClear();
+    getModalComponent().mockClear();
 };
 
 describe('modal interface', () => {
@@ -43,70 +47,53 @@ describe('modal interface', () => {
     test('Default renders to body', async () => {
         await Modal({ account: '1' }).render();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
     });
 
     test('Renders a hidden modal', async () => {
         await Modal({ account: '2' }).render();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(0);
-        expect(zoidModal().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(0);
+        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Default renders to body when attempting to show', async () => {
         await Modal({ account: '3' }).show();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Default renders to body when attempting to hide', async () => {
         await Modal({ account: '4' }).hide();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenLastCalledWith('body');
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Opens modal', async () => {
         await Modal({ account: '5' }).show({ index: '1' });
 
-        const modalViewport = document.head.querySelector('meta[name="viewport"]');
-
-        // Adds viewport
-        expect(modalViewport).not.toBeNull();
-        expect(modalViewport.getAttribute('content')).toBe(
-            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
-        );
-
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
         // Sends open event to zoid iframe
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(getModalComponent()().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 visible: true
             })
         );
-        expect(zoidModal().hide).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        // Tracks modal open event
-        expect(logger.track).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                index: '1',
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open'
-            })
-        );
+        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Closes modal', async () => {
@@ -114,15 +101,15 @@ describe('modal interface', () => {
 
         await modal.show();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal().render).toHaveBeenCalledTimes(1);
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(1);
-        expect(zoidModal().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
 
         await modal.hide();
 
-        expect(zoidModal().updateProps).toHaveBeenCalledTimes(2);
-        expect(zoidModal().updateProps).toHaveBeenLastCalledWith(
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(2);
+        expect(getModalComponent()().updateProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 visible: false
             })
@@ -140,15 +127,15 @@ describe('modal interface', () => {
         const onReady = jest.fn();
         await Modal({ account: '9', index: '1', onReady }).render();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onReady: expect.any(Function)
             })
         );
         expect(onReady).not.toHaveBeenCalled();
 
-        const [[{ onReady: onReadyHandler }]] = zoidModal.mock.calls;
+        const [[{ onReady: onReadyHandler }]] = getModalComponent().mock.calls;
 
         onReadyHandler({ products: ['NI'] });
 
@@ -160,15 +147,15 @@ describe('modal interface', () => {
         const onCalculate = jest.fn();
         await Modal({ account: '10', index: '1', onCalculate }).render();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onCalculate: expect.any(Function)
             })
         );
         expect(onCalculate).not.toHaveBeenCalled();
 
-        const [[{ onCalculate: onCalculateHandler }]] = zoidModal.mock.calls;
+        const [[{ onCalculate: onCalculateHandler }]] = getModalComponent().mock.calls;
 
         onCalculateHandler({ value: 100 });
 
@@ -180,15 +167,15 @@ describe('modal interface', () => {
         const onApply = jest.fn();
         await Modal({ account: '11', index: '1', onApply }).render();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onApply: expect.any(Function)
             })
         );
         expect(onApply).not.toHaveBeenCalled();
 
-        const [[{ onApply: onApplyHandler }]] = zoidModal.mock.calls;
+        const [[{ onApply: onApplyHandler }]] = getModalComponent().mock.calls;
 
         onApplyHandler();
 
@@ -202,15 +189,15 @@ describe('modal interface', () => {
         await modal.render();
         await modal.show();
 
-        expect(zoidModal).toHaveBeenCalledTimes(1);
-        expect(zoidModal).toHaveBeenLastCalledWith(
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 onClose: expect.any(Function)
             })
         );
         expect(onClose).not.toHaveBeenCalled();
 
-        const [[{ onClose: onCloseHandler }]] = zoidModal.mock.calls;
+        const [[{ onClose: onCloseHandler }]] = getModalComponent().mock.calls;
 
         onCloseHandler({ linkName: 'Close Button' });
 

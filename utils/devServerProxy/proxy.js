@@ -74,7 +74,7 @@ export default (app, server, compiler) => {
         return null;
     };
 
-    const createMockZoidMarkup = (component, initializer) => `
+    const createMockZoidMarkup = (component, initializer, scriptUID) => `
         <!DOCTYPE html>
         <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -82,9 +82,7 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = (window.top.document.querySelector('script[src*="components"][src*="messages"]')
-                    || window.top.document.querySelector('script[src*="messaging.js"]')).outerHTML;
-
+                var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
                 document.write(interface);
             </script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
@@ -157,7 +155,7 @@ export default (app, server, compiler) => {
                     parentStyles,
                     meta: {
                         ...populatedBanner.meta,
-                        uuid: '928ad66d-81de-440e-8c47-69bb3c3a5623',
+                        displayedMessage: '928ad66d-81de-440e-8c47-69bb3c3a5623',
                         messageRequestId: 'acb0956c-d0a6-4b57-9bc5-c1daaa93d313',
                         trackingDetails: {
                             clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
@@ -179,12 +177,19 @@ export default (app, server, compiler) => {
     app.post('/credit-presentment/log', (req, res) => res.send(''));
 
     app.get('/credit-presentment/smart/message', async (req, res) => {
+        const { scriptUID } = req.query;
         const props = await getRenderedMessage(req);
 
         if (props) {
             res.set('Cache-Control', 'public, max-age=10');
 
-            res.send(createMockZoidMarkup('message', `<script>crc.setupMessage(${JSON.stringify(props)})</script>`));
+            res.send(
+                createMockZoidMarkup(
+                    'message',
+                    `<script>crc.setupMessage(${JSON.stringify(props)})</script>`,
+                    scriptUID
+                )
+            );
         } else {
             res.status(400).send('');
         }
@@ -302,7 +307,11 @@ export default (app, server, compiler) => {
             type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account,
             meta: {
+                displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
+                messageRequestId: '9ad74722-d142-4c5a-9b0b-59cd7b079235',
                 trackingDetails: {
+                    clickUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
+                    impressionUrl: `//localhost.paypal.com:${PORT}/ptrk/?fdata=null`,
                     payload: {}
                 }
             }
@@ -312,13 +321,14 @@ export default (app, server, compiler) => {
     };
 
     app.get('/credit-presentment/smart/modal', (req, res) => {
-        const { targetMeta } = req.query;
+        const { targetMeta, scriptUID } = req.query;
         const { props, productNames } = getModalData(req);
 
         res.send(
             createMockZoidMarkup(
                 targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : props.country}`,
-                `<script>crc.setupModal(${JSON.stringify(props)})</script>`
+                `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
+                scriptUID
             )
         );
     });

@@ -2,12 +2,12 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import {
     getInlineOptions,
-    globalState,
+    getGlobalState,
     getScript,
     getAccount,
     getCurrency,
     getPartnerAccount,
-    insertionObserver
+    getInsertionObserver
 } from '../../utils';
 import Messages from './adapter';
 
@@ -15,27 +15,29 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        const { merchantid, ...inlineScriptOptions } = getInlineOptions(script);
+        const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
         Messages.setGlobalConfig({
             account: partnerAccount || getAccount(),
-            merchantId: (partnerAccount && getAccount()) || merchantid,
+            merchantId: partnerAccount && getAccount(),
             currency: getCurrency(),
             ...inlineScriptOptions
         });
+    }
 
-        // Allow specified global namespace override
-        if (inlineScriptOptions.namespace) {
-            window[inlineScriptOptions.namespace] = {
-                ...(window[inlineScriptOptions.namespace] || {}),
-                Messages
-            };
+    const { namespace } = getGlobalState().config;
 
-            // Don't clear window.paypal if SDK loaded first
-            if (window.paypal && !window.paypal.version) {
-                delete window.paypal;
-            }
+    // Allow specified global namespace override
+    if (namespace) {
+        window[namespace] = {
+            ...(window[namespace] || {}),
+            Messages
+        };
+
+        // Don't clear window.paypal if SDK loaded first
+        if (window.paypal && !window.paypal.version) {
+            delete window.paypal;
         }
     }
 
@@ -48,29 +50,27 @@ export default function setup() {
     // Requires a merchant account to render a message
     // Prevent auto render from firing inside zoid iframe
     if (!stringStartsWith(window.name, '__zoid__')) {
-        const autoRender = () => {
+        const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
-            if (globalState.config.account) {
+            if (getGlobalState().config.account) {
                 Messages.render({ _auto: true });
             }
-
             // Using a "global" observer to watch for and automatically render
             // any message containers that are dynamically added after auto render
-            insertionObserver.observe(document.body, {
+            getInsertionObserver().observe(document.body, {
                 attributes: true,
                 childList: true,
                 subtree: true,
                 attributeFilter: ['data-pp-message']
             });
         };
-
         if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', autoRender);
+            window.addEventListener('DOMContentLoaded', handleContentLoaded);
         } else {
             // TODO: Remove setTimeout after ramp. Needed for ramp because the async top level inclusion/exclusion
             // list fetch causes the order of manual render calls and the auto render call to mix up
-            setTimeout(autoRender, 0);
+            setTimeout(handleContentLoaded, 0);
         }
     }
 }
