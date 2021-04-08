@@ -14,6 +14,10 @@
     position: relative;
     z-index: 50;
     background: white;
+    flex: 1 1 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .content-background {
@@ -29,8 +33,7 @@ main {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    flex: 1 1 100%;
 }
 
 .content-column {
@@ -60,23 +63,18 @@ main {
 
 @include desktop {
     .content-background {
-        min-height: auto;
         margin: auto;
         width: 100%;
-        height: 100%;
         box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;
-    }
-
-    .content {
-        flex: 1 1 auto;
+        border-radius: 10px;
+        flex: 1 1 100%;
     }
 
     .content-wrapper {
         display: flex;
         justify-content: center;
-        align-items: center;
     }
 
     .wrapper {
@@ -129,5 +127,20 @@ main {
 
     .overlay-side.bottom {
         display: none;
+    }
+}
+
+// CSS hack to target only IE11
+// TODO: Remove when IE goes back to hell
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .content-wrapper,
+    .content-background,
+    .content,
+    .main {
+        display: block;
+    }
+
+    .content {
+        min-height: 100vh;
     }
 }
