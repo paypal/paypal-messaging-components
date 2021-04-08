@@ -16,20 +16,20 @@ export function getNavigationTiming(name) {
 
 export function clearPerformance() {
     if (performance) {
-        ['scriptLoadDelay', 'firstRenderDelay'].forEach(name => {
+        ['scriptLoadDelay', 'firstRenderDelay', 'firstModalRenderDelay'].forEach(name => {
             performance.clearMarks(namespaced(name));
             performance.clearMeasures(namespaced(name));
         });
     }
 }
 
-export function trackPerformance(name, { startMark, endMark, once } = {}) {
+export function addPerformanceMeasure(name, { startMark, endMark, repeat } = {}) {
     if (performance) {
         const existing = getPerformanceMeasure(name);
 
         // Do not track additional values for existing marks
         if (existing !== -1) {
-            if (once) {
+            if (!repeat) {
                 return;
             }
 

@@ -11,13 +11,13 @@ import {
     getGlobalState,
     objectMerge,
     getProductForOffer,
-    trackPerformance
+    addPerformanceMeasure
 } from '../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
-        trackPerformance('firstModalRenderDelay', { once: true });
+        addPerformanceMeasure('firstModalRenderDelay');
 
         const { render, hide, updateProps, state, event } = getModalComponent()({
             account,

@@ -5,7 +5,7 @@ import {
     getScript,
     getAccount,
     getPartnerAccount,
-    trackPerformance,
+    addPerformanceMeasure,
     clearPerformance,
     getLibraryVersion
 } from '../utils';
@@ -75,7 +75,7 @@ export const MessagesModal = config => {
 
 export function setup() {
     // TODO: move to "new" setup method when experiment is removed
-    trackPerformance('scriptLoadDelay');
+    addPerformanceMeasure('scriptLoadDelay');
 
     // This must run synchronously so that it's available immediately for the merchant to use
     if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
