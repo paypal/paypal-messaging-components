@@ -25,7 +25,7 @@ export default {
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                styles: [setLogoTop(textSize * 20), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [setLogoTop(textSize * 24), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -56,7 +56,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['achats'],
-                        replace: [['4X.', '4X']]
+                        replace: [['frais.', 'frais']]
                     }
                 ]
             })
@@ -70,7 +70,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['achats'],
-                        replace: [['4X.', '4X']]
+                        replace: [['frais.', 'frais']]
                     }
                 ]
             })
@@ -108,6 +108,16 @@ export default {
             {
                 subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                styles: [
+                    `@media (min-aspect-ratio: 80/11) and (min-width: 501px) {.message__disclaimer > span > span {
+                    margin-left: 4px;
+                }}`
+                ]
             }
         ],
         [

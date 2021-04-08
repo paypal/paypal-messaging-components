@@ -1,5 +1,5 @@
 import destroy from 'src/controllers/message/destroy';
-import { setGlobalState, globalState } from 'src/utils';
+import { setGlobalState, getGlobalState } from 'src/utils';
 
 describe('message destroy', () => {
     it('Cleans up messaging', () => {
@@ -24,7 +24,7 @@ describe('message destroy', () => {
             expect(mockContainer.children.length).toBe(1);
         });
 
-        expect(globalState.test).toBe(true);
+        expect(getGlobalState().test).toBe(true);
 
         destroy();
 
@@ -33,6 +33,6 @@ describe('message destroy', () => {
             expect(mockContainer.children.length).toBe(0);
         });
 
-        expect(globalState.test).toBeUndefined();
+        expect(getGlobalState().test).toBeUndefined();
     });
 });

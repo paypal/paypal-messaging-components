@@ -8,8 +8,9 @@ module.exports = (env = {}) => {
     const MESSAGES_CONFIG = getWebpackConfig({
         entry: './src/index.js',
         filename: 'messaging.js',
-        modulename: ['paypal', 'Messages'],
-        libraryTarget: env.demo ? 'umd' : 'window',
+        // Need to explicitly disable this feature. The library has it's own
+        // window bootstrap mechanism to attach multiple "exports" onto window.paypal
+        libraryTarget: false,
         web: true,
         minify: true,
         debug: false,
@@ -20,7 +21,6 @@ module.exports = (env = {}) => {
             TARGET: 'standalone'
         })
     });
-    MESSAGES_CONFIG.output.libraryExport = 'Messages';
 
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({

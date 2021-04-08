@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "DE",
         "product": "INST",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",

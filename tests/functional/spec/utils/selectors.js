@@ -1,6 +1,7 @@
 // Selectors used in modal tests
 const selectors = {
     banner: {
+        wrapper: '.banner-1',
         iframe: '.banner-1 iframe',
         iframeByAttribute: '[data-pp-id] iframe',
         container: '.message__container',
@@ -8,7 +9,7 @@ const selectors = {
         legacyContainer: 'div[role="button"].message'
     },
     modal: {
-        iframe: 'iframe[title*="paypal_credit_modal"]',
+        iframe: 'iframe[title^="PayPal Modal"]',
         container: '.modal-container',
         wrapper: '.wrapper',
         overlay: '.overlay',

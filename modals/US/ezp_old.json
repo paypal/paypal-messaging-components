@@ -1,5 +1,6 @@
 {
     "meta": {
+        "offerCountry": "US",
         "product": "EZP",
         "legacy": true,
         "variables": {}

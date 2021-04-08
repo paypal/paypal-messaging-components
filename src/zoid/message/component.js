@@ -1,22 +1,23 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
     getEnv,
     getGlobalUrl,
-    getGlobalVariable,
+    createGlobalVariableGetter,
     getLibraryVersion,
     runStats,
     logger,
-    globalState,
+    getGlobalState,
     getCurrentTime
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalVariable('__paypal_credit_message__', () =>
+export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
         url: getGlobalUrl('MESSAGE_B'),
@@ -30,6 +31,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
         },
         attributes: {
             iframe: {
+                title: 'PayPal Message',
                 scrolling: 'no'
             }
         },
@@ -104,15 +106,15 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
-                            index,
                             account,
                             merchantId,
                             currency,
                             amount,
                             buyerCountry,
                             onApply,
-                            refId: messageRequestId,
                             offer: offerType,
+                            refId: messageRequestId,
+                            refIndex: index,
                             onClose: () => focus()
                         });
 
@@ -177,6 +179,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                             return {
                                 [index]: {
+                                    type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
                                     displayedMessage,
@@ -190,10 +193,9 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
-                        modal.updateProps({ index, offer: offerType, visible: false });
+                        modal.updateProps({ refIndex: index, offer: offerType, visible: false });
                         modal.render('body');
 
                         logger.track({
@@ -243,7 +245,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                     // Handle moving the iframe around the DOM
                     return () => {
                         const { getContainer } = props;
-                        const { messagesMap } = globalState;
+                        const { messagesMap } = getGlobalState();
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
@@ -297,6 +299,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID
             }
         }
     })

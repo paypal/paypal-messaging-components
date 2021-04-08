@@ -59,3 +59,8 @@
         display: inline;
     }
 }
+@media (max-width: 270px) {
+    .message__sub-headline {
+        display: none;
+    }
+}
