@@ -126,6 +126,14 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     };
 
+    const submit = event => {
+        if (event) {
+            event.preventDefault();
+        }
+
+        calculateRef.current();
+    };
+
     // useMemo allows the debounce method to always be the same reference so the debounce can be maintained
     const debouncedCalculate = useMemo(
         () =>
@@ -134,18 +142,6 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             }, 1000),
         []
     );
-
-    const submit = event => {
-        if (event) {
-            event.preventDefault();
-        }
-
-        if (autoSubmit) {
-            debouncedCalculate();
-        } else {
-            calculateRef.current();
-        }
-    };
 
     // TODO: Stronger input validation
     const changeInput = evt => {
