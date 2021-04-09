@@ -45,13 +45,20 @@ export const logger = Logger({
             data: {
                 meta: trimmedMeta,
                 events: json.events,
-                tracking: json.tracking,
-                deviceID: getStorageID(),
-                sessionID: getSessionID()
+                tracking: json.tracking
             },
             withCredentials: true
         });
     }
+});
+
+logger.addMetaBuilder(() => {
+    return {
+        global: {
+            deviceID: getStorageID(),
+            sessionID: getSessionID()
+        }
+    };
 });
 
 logger.addPayloadBuilder(payload => {
