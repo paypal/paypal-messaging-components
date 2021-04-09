@@ -87,7 +87,7 @@ const Calculator = () => {
         // If we set the selection range in the event handler, the cursor will get reset to the end of the field
         const ref = evt.target;
         requestAnimationFrame(() => {
-            // Update the position of the cursor to account for newly added characters from
+            // Update the position of the cursor to account for newly added characters from formatting
             ref.setSelectionRange(selectionStart + selectionOffset, selectionEnd + selectionOffset);
         });
     };
