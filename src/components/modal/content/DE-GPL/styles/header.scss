@@ -1,6 +1,12 @@
-.header-container {
-    background-color: $header-background;
-    position: relative;
+.header-wrapper {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    flex: 0 0 auto;
+
+    .header-container {
+        background-color: $header-background;
+    }
 
     h1 {
         font-size: 1.5rem;
@@ -33,6 +39,8 @@
         top: 5px;
         right: 5px;
         pointer-events: all;
+        transition: box-shadow 0.3s linear;
+        border-radius: 50%;
 
         svg {
             height: 40px;
@@ -44,8 +52,16 @@
         }
     }
 
+    &.sticky .close {
+        z-index: 1;
+        position: fixed;
+        box-shadow: 0px 6px 14px -1px rgba(0, 0, 0, 0.6);
+    }
+
     @include mobile {
-        text-align: center;
+        .header-container {
+            text-align: center;
+        }
 
         h1 {
             margin: 0 auto;
@@ -68,11 +84,4 @@
             width: 35px;
         }
     }
-}
-
-.header-wrapper {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    overflow: hidden;
-    flex: 0 0 auto;
 }
