@@ -108,22 +108,6 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     }, [payerId, clientId, merchantId, country, amount]);
 
-    // TODO: Stronger input validation
-    const changeInput = evt => {
-        const { value } = evt.target;
-
-        dispatch({
-            type: 'input',
-            data: {
-                value:
-                    localize(country, value).length > 9 || value.length > 9
-                        ? state.inputValue
-                        : value.replace(/[^\d.,]/g, ''),
-                autoSubmit
-            }
-        });
-    };
-
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
     calculateRef.current = () => {
@@ -160,6 +144,26 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             debouncedCalculate();
         } else {
             calculateRef.current();
+        }
+    };
+
+    // TODO: Stronger input validation
+    const changeInput = evt => {
+        const { value } = evt.target;
+
+        dispatch({
+            type: 'input',
+            data: {
+                value:
+                    localize(country, value).length > 9 || value.length > 9
+                        ? state.inputValue
+                        : value.replace(/[^\d.,]/g, ''),
+                autoSubmit
+            }
+        });
+
+        if (autoSubmit) {
+            debouncedCalculate();
         }
     };
 

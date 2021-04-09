@@ -90,12 +90,6 @@ main {
     }
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .content-wrapper {
-        justify-content: flex-start;
-    }
-}
-
 @include mobile {
     .content-column {
         max-width: 400px;
@@ -130,10 +124,9 @@ main {
     }
 }
 
-// CSS hack to target only IE11
 // Necessary to cope with improper handling of sizing nested flexboxes in IE11
 // TODO: Remove when IE is no longer supported
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@include ie11 {
     .content-wrapper,
     .content-background,
     .content,

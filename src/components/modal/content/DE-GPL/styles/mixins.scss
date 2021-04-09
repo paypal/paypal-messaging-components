@@ -16,4 +16,11 @@
     }
 }
 
+// CSS hack to target only IE11
+@mixin ie11 {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        @content;
+    }
+}
+
 $header-background: #003087;

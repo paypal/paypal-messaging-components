@@ -23,8 +23,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
         return rangeError.replace(/,00/g, '');
     }
 
-    const [offer] = offers.length ? offers : [];
-    if (!offer || !offer.qualified) {
+    if (!offers?.[0]?.qualified) {
         return genericError;
     }
 
@@ -34,19 +33,16 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
 const delocalize = value =>
     value
         // Remove any non-currency character
-        .replace(/[^\d.,]/g, '')
-        // Replace thousands marker
-        .replace(/\./g, '')
+        .replace(/[^\d,]/g, '')
         // Replace decimal marker
         .replace(/,/, '.');
 
 const getDisplayValue = value => {
     const delocalizedValue = delocalize(value);
-    const truncatedValue = /\d+\./.test(delocalizedValue)
-        ? delocalizedValue.match(/^\d+\.\d{0,2}/)[0]
-        : delocalizedValue;
 
-    const [whole, fraction = ''] = truncatedValue.split('.');
+    // match all digits before the decimal and 1-2 digits after
+    // eslint-disable-next-line security/detect-unsafe-regex
+    const [, whole, fraction = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
     const formattedValue = Number(whole).toLocaleString('de-DE', {
         currency: 'EUR',
         minimumFractionDigits: 0,
@@ -88,10 +84,10 @@ const Calculator = () => {
         setDisplayValue(finalValue);
         changeInput(evt);
 
-        submit();
-
+        // If we set the selection range in the event handler, the cursor will get reset to the end of the field
         const ref = evt.target;
         requestAnimationFrame(() => {
+            // Update the position of the cursor to account for newly added characters from
             ref.setSelectionRange(selectionStart + selectionOffset, selectionEnd + selectionOffset);
         });
     };
@@ -102,7 +98,6 @@ const Calculator = () => {
                 {emptyState ? <h3 className="title">{title}</h3> : null}
                 <div className="input__wrapper">
                     <div className="input__label">{inputLabel}</div>
-                    {/* Not setting value from useCalculator to avoid re-formatting while user is typing */}
                     <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
                 <div

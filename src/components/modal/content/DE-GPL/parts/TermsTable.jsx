@@ -8,6 +8,7 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
 
     useEffect(() => {
         if (index === 0) {
+            // Allow the card to be rendered in the DOM before expanding to make animation visible
             requestAnimationFrame(() => {
                 setExpanded(true);
             });
