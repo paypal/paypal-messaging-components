@@ -7,7 +7,7 @@ import { logger } from './logger';
 import { getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { getGlobalState } from './global';
-import { awaitFirstRender, awaitWindowLoad } from './events';
+import { awaitFirstModalRender, awaitFirstRender, awaitWindowLoad } from './events';
 import { getNavigationTiming, getPerformanceMeasure } from './performance';
 
 const scrollHandlers = new Map();
@@ -28,9 +28,10 @@ const onScroll = (elem, handler) => {
     };
 };
 
-ZalgoPromise.all([awaitWindowLoad, awaitFirstRender]).then(() => {
+ZalgoPromise.all([awaitWindowLoad, awaitFirstRender, awaitFirstModalRender]).then(() => {
     const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
     const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
+    const firstModalRenderDelay = getPerformanceMeasure('firstModalRenderDelay');
 
     const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
     const pageLoadDelay = getNavigationTiming('loadEventStart');
@@ -39,6 +40,7 @@ ZalgoPromise.all([awaitWindowLoad, awaitFirstRender]).then(() => {
         et: 'CLIENT_IMPRESSION',
         event_type: 'page_loaded',
         firstRenderDelay: Math.round(firstRenderDelay).toString(),
+        firstModalRenderDelay: Math.round(firstModalRenderDelay).toString(),
         scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
         domLoadDelay: Math.round(domLoadDelay).toString(),
         pageLoadDelay: Math.round(pageLoadDelay).toString()

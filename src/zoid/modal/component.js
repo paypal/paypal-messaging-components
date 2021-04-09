@@ -14,8 +14,7 @@ import {
     getScriptAttributes,
     viewportHijack,
     logger,
-    nextIndex,
-    getPerformanceMeasure
+    nextIndex
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -224,7 +223,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
-                            first_render_delay: getPerformanceMeasure('firstModalRenderDelay')
+                            render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
 
                         if (
