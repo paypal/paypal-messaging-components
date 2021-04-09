@@ -53,6 +53,11 @@
             width: 100%;
             background: none;
             padding: 1rem;
+
+            // Safari applies active button text color which overrides inherited one
+            &:active {
+                color: #2c2e2f;
+            }
         }
 
         &__field {

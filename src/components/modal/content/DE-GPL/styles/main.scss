@@ -15,7 +15,8 @@
     z-index: 50;
     background: white;
     flex: 1 1 100%;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     display: flex;
     flex-direction: column;
 }
