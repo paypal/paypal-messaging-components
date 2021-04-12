@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_QUERY_KEYS } from '@paypal/sdk-constants/src';
 
 import {
@@ -88,4 +89,8 @@ export function getNamespace() {
 
 export function getLibraryVersion() {
     return __MESSAGES__.__VERSION__;
+}
+
+export function isZoidComponent() {
+    return stringStartsWith(window.name, '__zoid__');
 }

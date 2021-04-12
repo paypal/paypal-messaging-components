@@ -3,7 +3,7 @@ import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
-import { getScriptAttributes } from './sdk';
+import { getScriptAttributes, isZoidComponent } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
@@ -27,22 +27,24 @@ const onScroll = (elem, handler) => {
     };
 };
 
-awaitWindowLoad.then(() => {
-    const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
+if (!isZoidComponent()) {
+    awaitWindowLoad.then(() => {
+        const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
 
-    const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
-    const pageLoadDelay = getNavigationTiming('loadEventStart');
+        const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
+        const pageLoadDelay = getNavigationTiming('loadEventStart');
 
-    const payload = {
-        et: 'CLIENT_IMPRESSION',
-        event_type: 'page_loaded',
-        scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
-        domLoadDelay: Math.round(domLoadDelay).toString(),
-        pageLoadDelay: Math.round(pageLoadDelay).toString()
-    };
+        const payload = {
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'page_loaded',
+            scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
+            domLoadDelay: Math.round(domLoadDelay).toString(),
+            pageLoadDelay: Math.round(pageLoadDelay).toString()
+        };
 
-    logger.track(payload);
-});
+        logger.track(payload);
+    });
+}
 
 export function runStats({ container, activeTags, index }) {
     const { messagesMap } = getGlobalState();
