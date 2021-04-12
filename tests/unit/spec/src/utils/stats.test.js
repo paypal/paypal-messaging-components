@@ -51,7 +51,8 @@ describe('stats', () => {
         blocked: 'true',
         visible: 'true',
         active_tags: expect.any(String),
-        render_duration: expect.any(String)
+        render_duration: expect.stringNumber(),
+        firstRenderDelay: expect.stringNumber()
     };
 
     const messagesMap = new Map();
@@ -83,7 +84,7 @@ describe('stats', () => {
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
-        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledTimes(2);
         expect(logger.track).toHaveBeenCalledWith(defaultProps);
         expect(window.addEventListener).not.toHaveBeenCalled();
     });

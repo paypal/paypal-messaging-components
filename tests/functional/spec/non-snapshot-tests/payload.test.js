@@ -125,18 +125,19 @@ describe('payload testing', () => {
                     active_tags: expect.any(String),
                     adblock: 'false',
                     blocked: 'false',
+                    firstRenderDelay: expect.stringNumber(),
                     timestamp: expect.any(Number)
                 },
                 {
                     index: expect.any(String),
                     event_type: 'modal-render',
                     modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
+                    firstModalRenderDelay: expect.stringNumber(),
                     timestamp: expect.any(Number)
                 },
                 {
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'page_loaded',
-                    firstRenderDelay: expect.stringNumber(),
                     scriptLoadDelay: expect.stringNumber(),
                     domLoadDelay: expect.stringNumber(),
                     pageLoadDelay: expect.stringNumber(),

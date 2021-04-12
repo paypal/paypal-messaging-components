@@ -10,7 +10,6 @@ jest.mock('src/utils/logger', () => ({
 describe('performance', () => {
     test('Fires page_loaded event after first render', async () => {
         globalEvent.trigger('render');
-        globalEvent.trigger('modal-render');
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -20,8 +19,6 @@ describe('performance', () => {
             event_type: 'page_loaded',
             scriptLoadDelay: expect.stringNumber(),
             domLoadDelay: expect.stringNumber(),
-            firstModalRenderDelay: expect.stringNumber(),
-            firstRenderDelay: expect.stringNumber(),
             pageLoadDelay: expect.stringNumber()
         });
     });

@@ -1,5 +1,4 @@
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
@@ -7,7 +6,7 @@ import { logger } from './logger';
 import { getScriptAttributes } from './sdk';
 import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 import { getGlobalState } from './global';
-import { awaitFirstModalRender, awaitFirstRender, awaitWindowLoad } from './events';
+import { awaitWindowLoad } from './events';
 import { getNavigationTiming, getPerformanceMeasure } from './performance';
 
 const scrollHandlers = new Map();
@@ -28,10 +27,8 @@ const onScroll = (elem, handler) => {
     };
 };
 
-ZalgoPromise.all([awaitWindowLoad, awaitFirstRender, awaitFirstModalRender]).then(() => {
-    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+awaitWindowLoad.then(() => {
     const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
-    const firstModalRenderDelay = getPerformanceMeasure('firstModalRenderDelay');
 
     const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
     const pageLoadDelay = getNavigationTiming('loadEventStart');
@@ -39,8 +36,6 @@ ZalgoPromise.all([awaitWindowLoad, awaitFirstRender, awaitFirstModalRender]).the
     const payload = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'page_loaded',
-        firstRenderDelay: Math.round(firstRenderDelay).toString(),
-        firstModalRenderDelay: Math.round(firstModalRenderDelay).toString(),
         scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
         domLoadDelay: Math.round(domLoadDelay).toString(),
         pageLoadDelay: Math.round(pageLoadDelay).toString()
@@ -59,6 +54,8 @@ export function runStats({ container, activeTags, index }) {
 
     const sdkMetaAttributes = getScriptAttributes();
 
+    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+
     // Create initial payload
     const payload = {
         index,
@@ -75,6 +72,7 @@ export function runStats({ container, activeTags, index }) {
         // Visible message sections
         active_tags: activeTags,
         // Performance measurements
+        firstRenderDelay: Math.round(firstRenderDelay).toString(),
         render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
     };
 
