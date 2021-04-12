@@ -12,8 +12,7 @@ import {
     runStats,
     logger,
     globalState,
-    getCurrentTime,
-    morsTracking
+    getCurrentTime
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -102,11 +101,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
 
                     return ({ meta }) => {
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
-                        const {
-                            offerType,
-                            messageRequestId,
-                            trackingDetails: { clickUrl }
-                        } = meta;
+                        const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
@@ -123,7 +118,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                             onClose: () => focus()
                         });
 
-                        morsTracking(clickUrl, index);
+                        logger.track({
+                            index,
+                            et: 'CLICK',
+                            event_type: 'MORS'
+                        });
 
                         logger.track({
                             index,
@@ -173,7 +172,7 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         const { account, merchantId, index, modal, getContainer } = props;
                         const {
                             messageRequestId,
-                            trackingDetails: { payload, impressionUrl },
+                            trackingDetails: { payload },
                             offerType
                         } = meta;
 
@@ -205,7 +204,11 @@ export default getGlobalVariable('__paypal_credit_message__', () =>
                         modal.updateProps({ refIndex: index, offer: offerType, visible: false });
                         modal.render('body');
 
-                        morsTracking(impressionUrl, index);
+                        logger.track({
+                            index,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'MORS'
+                        });
 
                         if (typeof onReady === 'function') {
                             onReady({ meta });
