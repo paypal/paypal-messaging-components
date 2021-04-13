@@ -8,18 +8,20 @@ import {
     getMeta,
     getEnv,
     getGlobalUrl,
-    getGlobalVariable,
+    createGlobalVariableGetter,
     getCurrentTime,
     getLibraryVersion,
     getScriptAttributes,
     viewportHijack,
     logger,
-    nextIndex
+    nextIndex,
+    getSessionID,
+    getStorageID
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 
-export default getGlobalVariable('__paypal_credit_modal__', () =>
+export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
         tag: 'paypal-credit-modal',
         url: getGlobalUrl('MODAL'),
@@ -285,6 +287,16 @@ export default getGlobalVariable('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getStorageID
+            },
+            sessionID: {
+                type: 'string',
+                queryParam: true,
+                value: getSessionID
             },
             scriptUID: {
                 type: 'string',

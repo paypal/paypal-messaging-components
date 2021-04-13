@@ -287,11 +287,22 @@ export function getAllBySelector(selector) {
 }
 
 export const elementContains = (parentEl, childEl) => {
-    if (parentEl?.nodeType !== Node.ELEMENT_NODE || childEl?.nodeType !== Node.ELEMENT_NODE) {
+    if (
+        (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
+        childEl?.nodeType !== Node.ELEMENT_NODE
+    ) {
         return false;
     }
 
-    const parentBounds = parentEl.getBoundingClientRect();
+    const parentBounds =
+        parentEl instanceof Window
+            ? {
+                  top: 0,
+                  left: 0,
+                  bottom: parentEl.innerHeight,
+                  right: parentEl.innerWidth
+              }
+            : parentEl.getBoundingClientRect();
     const childBounds = childEl.getBoundingClientRect();
 
     return (
@@ -303,7 +314,7 @@ export const elementContains = (parentEl, childEl) => {
 };
 
 export const getRoot = baseElement => {
-    const { innerHeight } = getWindowFromElement(baseElement);
+    const elementWindow = getWindowFromElement(baseElement);
 
     const domPath = [];
     {
@@ -326,7 +337,7 @@ export const getRoot = baseElement => {
             // window.innerHeight has a variable value on mobile based on the URL bar so
             // we are looking for the element that is larger than the window
             // TODO: This could potentially provide a false positive if a merchant is using height 100vh
-            height > innerHeight ||
+            height > elementWindow.innerHeight ||
             // Ensure that the selected root is the larger of the parent
             // and contains the child otherwise there may not be a proper page wrapper
             // e.g. https://www.acwholesalers.com
@@ -334,5 +345,8 @@ export const getRoot = baseElement => {
         );
     });
 
-    return root;
+    // If the root element is entirely within the viewport then return undefined
+    // so that the viewport is used as the root. This helps with position fixed
+    // containers that may have content outside of the root element.
+    return elementContains(elementWindow, root) ? undefined : root;
 };

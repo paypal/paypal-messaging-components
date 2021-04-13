@@ -1,11 +1,11 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
 
 import render from './controllers/render';
-import { globalState, setGlobalState } from '../../utils';
+import { getGlobalState, setGlobalState } from '../../utils';
 
 // Setup global library state
 const Messages = (config = {}) => ({
-    render: (selector = '[data-pp-message]') => render({ ...globalState.config, ...config }, selector)
+    render: (selector = '[data-pp-message]') => render({ ...getGlobalState().config, ...config }, selector)
 });
 
 objectAssign(Messages, {
@@ -13,7 +13,7 @@ objectAssign(Messages, {
     setGlobalConfig: (config = {}) =>
         setGlobalState({
             config: {
-                ...globalState.config,
+                ...getGlobalState().config,
                 ...config
             }
         })
