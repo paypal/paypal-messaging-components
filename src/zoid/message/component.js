@@ -11,6 +11,8 @@ import {
     getLibraryVersion,
     runStats,
     logger,
+    getStorageID,
+    getSessionID,
     getGlobalState,
     getCurrentTime
 } from '../../utils';
@@ -299,6 +301,16 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion
+            },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getStorageID
+            },
+            sessionID: {
+                type: 'string',
+                queryParam: true,
+                value: getSessionID
             },
             scriptUID: {
                 type: 'string',

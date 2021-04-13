@@ -4,7 +4,7 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
-import { getLibraryVersion } from './sdk';
+import { getLibraryVersion, getStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -48,6 +48,17 @@ export const logger = Logger({
     }
 });
 
+logger.addMetaBuilder(() => {
+    return {
+        global: {
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: getLibraryVersion(),
+            deviceID: getStorageID(),
+            sessionID: getSessionID()
+        }
+    };
+});
+
 logger.addPayloadBuilder(payload => {
     // Remove properties holding DOM element references that are
     // only useful in the context of the browser console window
@@ -55,15 +66,6 @@ logger.addPayloadBuilder(payload => {
     delete payload.selector; // eslint-disable-line no-param-reassign
 
     return {};
-});
-
-logger.addMetaBuilder(() => {
-    return {
-        global: {
-            integration_type: __MESSAGES__.__TARGET__,
-            messaging_version: getLibraryVersion()
-        }
-    };
 });
 
 logger.addTrackingBuilder(() => {

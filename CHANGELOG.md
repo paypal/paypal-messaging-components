@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.21.2](https://github.com/paypal/paypal-messaging-components/compare/v1.21.1...v1.21.2) (2021-04-07)
+
+## [1.21.1](https://github.com/paypal/paypal-messaging-components/compare/v1.21.0...v1.21.1) (2021-04-06)
+
+
+### Bug Fixes
+
+* allow EZP messages to fit in smaller spaces ([#469](https://github.com/paypal/paypal-messaging-components/issues/469)) ([a6f3077](https://github.com/paypal/paypal-messaging-components/commit/a6f3077a8019ea894350811bffc8baf5559161d3))
+* improve overflow detection for pages with smaller heights ([#485](https://github.com/paypal/paypal-messaging-components/issues/485)) ([623a309](https://github.com/paypal/paypal-messaging-components/commit/623a3094ec6da58f1904eee2c636177abb91fcb3))
+* lazy load globals to account for SDK lifecycle ([#483](https://github.com/paypal/paypal-messaging-components/issues/483)) ([a56e6b0](https://github.com/paypal/paypal-messaging-components/commit/a56e6b079e96dcecd237ee7378345061d2975ba8))
+
 # [1.21.0](https://github.com/paypal/paypal-messaging-components/compare/v1.20.1...v1.21.0) (2021-03-31)
 
 
