@@ -8,7 +8,7 @@ import Icon from '../../../parts/Icon';
 
 const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) => {
     const {
-        calculator: { genericError, rangeError }
+        calculator: { genericError, amountRange }
     } = useContent('GPL');
 
     if (error || !maxAmount) {
@@ -20,7 +20,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
-        return rangeError.replace(/,00/g, '');
+        return amountRange.replace(/,00/g, '');
     }
 
     if (!offers?.[0]?.qualified) {

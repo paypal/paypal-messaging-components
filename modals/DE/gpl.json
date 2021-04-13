@@ -29,8 +29,7 @@
             "title": "Was kostet Ihr Einkauf?",
             "inputLabel": "Warenwert",
             "genericError": "Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.",
-            "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}",
-            "rangeError": "Geben Sie einen Betrag zwischen {formattedMinAmount} und {formattedMaxAmount} ein."
+            "amountRange": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}"
         },
 
         "terms": {
@@ -39,8 +38,8 @@
 
         "instructions": ["Wählen Sie einfach", "PayPal", "an der Kasse und zahlen Sie später mit Ratenzahlung."],
         "disclosure": {
-            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung.  Repräsentatives Beispiel gem. § 6a (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.052,54 €, 12 monatliche Raten à 87,71 €, fester Sollzinssatz {nominal_rate} p.a., eff. Jahreszins {apr} p.a., Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg. Mehr erfahren",
-            "zeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung und nur für Transaktionen in Euro. Ab einem Bestellwert von {formattedMinAmount} bis {formattedMaxAmount} mit einem eff. Jahreszins von {apr}% p.a. und einem festen Sollzinssatz von {nominal_rate}% p.a. für Darlehensverträge, die im Angebotszeitraum abgeschlossen werden. Laufzeit 3, 6, 12 oder 24 Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle verfügen. Mehr erfahren."
+            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung.  Repräsentatives Beispiel gem. § 6a (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.052,54 €, 12 monatliche Raten à 87,71 €, fester Sollzinssatz {nominal_rate}% p.a., eff. Jahreszins {apr}% p.a., Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg.",
+            "zeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung und nur für Transaktionen in Euro. Ab einem Bestellwert von {formattedMinAmount} bis {formattedMaxAmount} mit einem eff. Jahreszins von {apr}% p.a. und einem festen Sollzinssatz von {nominal_rate}% p.a. für Darlehensverträge, die im Angebotszeitraum abgeschlossen werden. Laufzeit 3, 6, 12 oder 24 Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle verfügen."
         }
     }
 }
