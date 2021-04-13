@@ -193,10 +193,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     return ({ products, meta }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
-                        const {
-                            messageRequestId,
-                            trackingDetails: { payload }
-                        } = meta;
+                        const { messageRequestId, trackingDetails } = meta;
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -209,9 +206,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     type: 'modal',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    trackingDetails: {
-                                        payload
-                                    }
+                                    trackingDetails
                                 }
                             };
                         });
