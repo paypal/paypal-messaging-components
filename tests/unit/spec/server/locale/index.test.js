@@ -79,6 +79,26 @@ jest.mock('server/locale/DE/GPL/mutations/gplq_gtz', () => ({
     'layout:flex': ['flex', 'DE', 'GPLQ:GTZ']
 }));
 
+jest.mock('server/locale/DE/GPL/mutations/gpl_eqz-non-de', () => ({
+    'layout:text': ['text', 'DE', 'GPL:EQZ:NON-DE'],
+    'layout:flex': ['flex', 'DE', 'GPL:EQZ:NON-DE']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gpl_gtz-non-de', () => ({
+    'layout:text': ['text', 'DE', 'GPL:GTZ:NON-DE'],
+    'layout:flex': ['flex', 'DE', 'GPL:GTZ:NON-DE']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gplq_eqz-non-de', () => ({
+    'layout:text': ['text', 'DE', 'GPLQ:EQZ:NON-DE'],
+    'layout:flex': ['flex', 'DE', 'GPLQ:EQZ:NON-DE']
+}));
+
+jest.mock('server/locale/DE/GPL/mutations/gplq_gtz-non-de', () => ({
+    'layout:text': ['text', 'DE', 'GPLQ:GTZ:NON-DE'],
+    'layout:flex': ['flex', 'DE', 'GPLQ:GTZ:NON-DE']
+}));
+
 jest.mock('server/locale/GB/mutations/gpl', () => ({
     'layout:text': ['text', 'GB', 'PL'],
     'layout:flex': ['flex', 'GB', 'PL']
@@ -114,6 +134,10 @@ describe('locale methods', () => {
             ['DE', 'GPL:GTZ'],
             ['DE', 'GPLQ:EQZ'],
             ['DE', 'GPLQ:GTZ'],
+            ['DE', 'GPL:EQZ:NON-DE'],
+            ['DE', 'GPL:GTZ:NON-DE'],
+            ['DE', 'GPLQ:EQZ:NON-DE'],
+            ['DE', 'GPLQ:GTZ:NON-DE'],
             ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
             ['GB', 'PL'],

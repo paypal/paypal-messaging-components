@@ -21,6 +21,7 @@
     }
     .message__logo-container {
         max-width: 12%;
+        margin-bottom: -4px;
     }
     .message__messaging {
         flex: unset;
@@ -42,6 +43,10 @@
     }
 }
 @media (min-aspect-ratio: 200/11) and (max-width: 650px) {
+    .message__logo-container {
+        max-width: 12%;
+        margin-bottom: 0px;
+    }
     .message__headline span.tag--xsmall {
         display: inline;
         font-size: 2.5vw;
@@ -61,6 +66,5 @@
     }
     .message__disclaimer {
         font-size: 1.8vw;
-        line-height: 1rem;
     }
 }
