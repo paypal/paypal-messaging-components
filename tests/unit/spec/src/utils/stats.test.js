@@ -52,7 +52,7 @@ describe('stats', () => {
         visible: 'true',
         active_tags: expect.any(String),
         render_duration: expect.stringNumber(),
-        first_render_duration: expect.stringNumber()
+        first_render_delay: expect.stringNumber()
     };
 
     const messagesMap = new Map();

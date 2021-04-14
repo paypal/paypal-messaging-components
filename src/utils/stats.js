@@ -74,7 +74,7 @@ export function runStats({ container, activeTags, index }) {
         // Visible message sections
         active_tags: activeTags,
         // Performance measurements
-        first_render_duration: Math.round(firstRenderDelay).toString(),
+        first_render_delay: Math.round(firstRenderDelay).toString(),
         render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
     };
 
