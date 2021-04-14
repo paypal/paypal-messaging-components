@@ -17,9 +17,9 @@ describe('performance', () => {
         expect(logger.track).toHaveBeenCalledWith({
             et: 'CLIENT_IMPRESSION',
             event_type: 'page_loaded',
-            scriptLoadDelay: expect.stringNumber(),
-            domLoadDelay: expect.stringNumber(),
-            pageLoadDelay: expect.stringNumber()
+            script_load_delay: expect.stringNumber(),
+            dom_load_delay: expect.stringNumber(),
+            page_load_delay: expect.stringNumber()
         });
     });
 });

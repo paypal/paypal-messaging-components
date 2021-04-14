@@ -37,9 +37,9 @@ if (!isZoidComponent()) {
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'page_loaded',
-            scriptLoadDelay: Math.round(scriptLoadDelay).toString(),
-            domLoadDelay: Math.round(domLoadDelay).toString(),
-            pageLoadDelay: Math.round(pageLoadDelay).toString()
+            script_load_delay: Math.round(scriptLoadDelay).toString(),
+            dom_load_delay: Math.round(domLoadDelay).toString(),
+            page_load_delay: Math.round(pageLoadDelay).toString()
         };
 
         logger.track(payload);
@@ -74,7 +74,7 @@ export function runStats({ container, activeTags, index }) {
         // Visible message sections
         active_tags: activeTags,
         // Performance measurements
-        firstRenderDelay: Math.round(firstRenderDelay).toString(),
+        first_render_duration: Math.round(firstRenderDelay).toString(),
         render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
     };
 
