@@ -45,6 +45,7 @@
             window.VIEW = {
                 showAccounts: true,
                 showLabels: true,
+                filterLabels: false,
                 labelPatterns: [
                     // 'layout',
                     // 'logo.position',
@@ -121,19 +122,24 @@
 
                     const label = objectFlattenToArray(conf.style)
                         .filter(prop => {
-                            const [propPath, propValue] = prop.split(':');
-                            const propVariants = objectGet(window.CONFIG, `style.${propPath}`);
-                            // don't show a prop if we're only showing one variation of it
-                            if (propVariants.length <= 1) {
-                                return false;
-                            }
-                            // show a prop if we are not looking to only show specific ones
-                            if (window.VIEW.labelPatterns.length == 0) {
+                            if (!window.VIEW.filterLabels) {
                                 return true;
                             }
-                            return window.VIEW.labelPatterns.reduce((result, pattern) => {
-                                return result || RegExp(pattern).test(propPath);
-                            }, false);
+                            const [propPath, propValue] = prop.split(':');
+                            const propVariants = objectGet(window.CONFIG, `style.${propPath}`);
+
+                            // don't show a prop if we're only showing one variation of it
+                            const isSingular = !Array.isArray(propVariants) || propVariants.length <= 1;
+
+                            const match = window.VIEW.labelPatterns.reduce(
+                                // determine if we explicitly want to show the label
+                                (result, pattern) => {
+                                    return result || RegExp(pattern).test(propPath);
+                                },
+                                // if we are not looking for specific props, show this prop
+                                window.VIEW.labelPatterns.length == 0
+                            );
+                            return !isSingular || match;
                         })
                         .join(' | ');
 
