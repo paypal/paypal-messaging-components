@@ -40,7 +40,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
     const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
     let locale = 'US';
 
-    if (account.includes('IAZ')) {
+    if (account.includes('IAZ') || account.includes('DEPL')) {
         locale = 'DE';
     } else if (account.includes('GBPL')) {
         locale = 'GB';

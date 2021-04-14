@@ -324,9 +324,21 @@ export default (app, server, compiler) => {
         const { targetMeta, scriptUID } = req.query;
         const { props, productNames } = getModalData(req);
 
+        const component = () => {
+            if (props.country === 'US' && productNames.includes('ezp_old')) {
+                return 'US-EZP';
+            }
+
+            if (props.country === 'DE' && productNames.includes('gpl')) {
+                return 'DE-GPL';
+            }
+
+            return props.country;
+        };
+
         res.send(
             createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${productNames.includes('ezp_old') ? 'US-EZP' : props.country}`,
+                targetMeta ? 'modal' : `modal-${component()}`,
                 `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
                 scriptUID
             )
