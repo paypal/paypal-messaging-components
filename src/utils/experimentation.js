@@ -20,10 +20,10 @@ const fallback = {
 const getExperiment = memoize(() => {
     switch (getEnv()) {
         case 'local':
-            return ZalgoPromise.resolve(fallback);
+            return ZalgoPromise.delay(0).then(() => fallback);
         case 'sandbox':
             // Enable test for all of sandbox
-            return ZalgoPromise.resolve({ type: 'exclusion', list: [] });
+            return ZalgoPromise.delay(0).then(() => ({ type: 'exclusion', list: [] }));
         default:
             return request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
                 .then(res => res?.data ?? fallback)
