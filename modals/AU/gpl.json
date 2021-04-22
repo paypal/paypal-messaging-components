@@ -28,17 +28,17 @@
             "singleProduct": "Pay in 4"
         },
         "subHeadline": {
-            "unqualified": "Split your purchase into 4 interest-free payments. First one due at checkout, then pay every 2 weeks. Available for purchases of {formattedMinAmount}-{formattedMaxAmount}.",
+            "unqualified": "Split your purchase into 4 interest-free payments. First one due at checkout, then pay every 2 weeks. Available for eligible purchases of {formattedMinAmount}-{formattedMaxAmount}.",
             "qualified": "Split your {formattedTransactionAmount} purchase into 4 interest-free payments of {formattedPeriodicPayment}. First one due at checkout, then pay every 2 weeks."
         },
         "instructions": {
             "title": ["Check out with", "PayPal", "and choose", "Pay in 4"]
         },
         "terms": [
-            "Pay in 4 is available for purchases of {formattedMinAmount}-{formattedMaxAmount}.",
+            "PayPal Pay in 4 is available for eligible purchases of {formattedMinAmount}-{formattedMaxAmount}.",
             "Offer availability may depend on the merchant.",
             "When you apply, we may run a credit check to determine your eligibility.",
-            "Late fees may apply for missed payments, and your payment history could affect your credit score.",
+            "We don’t charge late fees, but late or missed payments could affect your PayPal account and credit score.",
             "You must live in Australia, have an Australian PayPal account, and be of legal age in Australia to use Pay in 4."
         ]
     }
