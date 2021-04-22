@@ -9,7 +9,7 @@ import { getStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalUrl('LOGGER_B'),
+    url: getGlobalUrl('LOGGER'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console

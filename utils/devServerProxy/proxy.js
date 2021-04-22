@@ -250,7 +250,6 @@ export default (app, server, compiler) => {
             },
             country,
             products,
-            type: products.slice(-1)[0].meta.product, // TODO: Can be removed after the ramp
             payerId: account,
             meta: {
                 displayedMessage: 'b0ffd6cc-6887-4855-a5c8-4b17a5efb201',
