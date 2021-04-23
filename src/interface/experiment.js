@@ -1,3 +1,5 @@
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+
 import {
     Treatment,
     getExperimentTreatment,
@@ -14,6 +16,15 @@ import {
     MessagesModal as NewMessagesModal
 } from '.';
 import { setup as oldSetup, destroy as oldDestroy, Messages as OldMessages } from '../old/interface/messages';
+import { getMessageComponent } from '../zoid/message';
+import { getModalComponent } from '../zoid/modal';
+
+// Required since the SSR ramp file request is async and delays these calls in newSetup()
+// Should be safe to remove after the pre-SSR logic is all removed
+if (stringStartsWith(window.name, '__zoid__')) {
+    getMessageComponent();
+    getModalComponent();
+}
 
 function getAccounts(config = {}) {
     if (config.account) {
