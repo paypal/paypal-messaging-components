@@ -34,7 +34,7 @@ const GPL = () => {
 
             <div className="terms">
                 <ul>
-                    {terms.map(term => (
+                    {(qualifying ? terms : terms.slice(1)).map(term => (
                         <li>{auCurrencyFormat(term)}</li>
                     ))}
                 </ul>
