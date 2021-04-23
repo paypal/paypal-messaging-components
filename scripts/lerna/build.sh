@@ -103,7 +103,7 @@ if [ ! -z "$tag" ]; then
 
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"
-    echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream"
+    echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list"
 
     rm ./dist/bizcomponents/stage/package.tgz
 fi
