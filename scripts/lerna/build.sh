@@ -10,13 +10,14 @@ SUPPORTED_PACKAGES_MAP=(
 environments="production,sandbox,stage"
 packages="library,components,renderer"
 
-while getopts ":v:e:m:t:" flag
+while getopts ":v:e:m:t:a:" flag
 do
     case "$flag" in
         v) version=$OPTARG;;
         e) environments=$OPTARG;;
         m) packages=$OPTARG;;
         t) tag=$OPTARG;;
+        s) testEnv=$OPTARG;;
     esac
 done
 
@@ -34,6 +35,11 @@ if [ ! -z "$tag" ]; then
         printf "Stage tag must only contain alpha-numeric and underscore characters\n\n"
         exit 1
     fi
+fi
+
+if [[ ! -z "$testEnv" ]]; then
+    # Ensure proper prefix
+    testEnv="https://www.$(echo $testEnv | sed -E 's/(https?:\/\/)?(www.)?(.+)/\3/')"
 fi
 
 rm -rf ./dist
@@ -66,8 +72,10 @@ do
 done
 printf "\n\n"
 
+# Optional webpack args
 [[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
 [[ ! -z "$version" ]] && optionalArgs+=("--env.VERSION=$version")
+[[ ! -z "$testEnv" ]] && optionalArgs+=("--env.TEST_ENV=$testEnv")
 
 for env in "${filteredEnvironments[@]}"
 do

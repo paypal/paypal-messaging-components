@@ -11,7 +11,8 @@ import {
     getSDKQueryParam,
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
-    getStorageID as getSDKStorageID
+    getStorageID as getSDKStorageID,
+    getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
 import { getStorage } from 'belter/src';
@@ -109,6 +110,16 @@ export function getStorageID() {
         return getSDKStorageID();
     } else {
         return getStorage({ name: getNamespace() }).getID();
+    }
+}
+
+export function getPayPalDomain() {
+    if (__MESSAGES__.__TEST_ENV__) {
+        return __MESSAGES__.__TEST_ENV__;
+    } else if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKPayPalDomain();
+    } else {
+        return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
     }
 }
 

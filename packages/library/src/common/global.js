@@ -3,7 +3,7 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from 'belter/src';
 
-import { getEnv, getLibraryVersion } from './sdk';
+import { getLibraryVersion, getPayPalDomain } from './sdk';
 import { createState } from './miscellaneous';
 
 // Following the global naming convention of zoid and prevent collision with merchant.js
@@ -56,20 +56,13 @@ export const createTitleGenerator = () => {
     };
 };
 
-const DOMAINS = __MESSAGES__.__DOMAIN__;
-const URI = __MESSAGES__.__URI__;
-
 /**
  * Create a URL of the requested type from Webpack global variables
  * @param {String} type URL type
  * @returns {String} URL of requested type
  */
 export function getGlobalUrl(type) {
-    const envField = `__${getEnv().toUpperCase()}__`;
-    const typeField = `__${type.toUpperCase()}__`;
-    const domain = (DOMAINS[typeField] && DOMAINS[typeField][envField]) || DOMAINS[envField];
-
-    return `${domain}${URI[typeField]}`;
+    return `${getPayPalDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
 }
 
 // Return a getter function as opposed to the value itself so that it can be lazy loaded within
