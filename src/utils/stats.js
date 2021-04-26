@@ -65,6 +65,20 @@ export function runStats({ container, activeTags, index }) {
         });
     }
 
+    /**
+     * Used in cart slider use-case.
+     * If the message is not visible and is not in the viewport,
+     * send stats event that will register as "message_rendered".
+     */
+    if (payload.visible === 'false' && !isInViewport(container)) {
+        logger.track({
+            index,
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'stats',
+            visible: 'false'
+        });
+    }
+
     checkAdblock().then(detected => {
         payload.adblock = detected.toString();
         payload.blocked = isHidden(container).toString();
