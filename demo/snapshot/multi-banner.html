@@ -30,7 +30,8 @@
                     large: [13, 14, 15, 16]
                 };
                 sizes.all = [...sizes.small, ...sizes.default, ...sizes.large];
-                const bannerSizes = sizes[bannerGroup] ?? sizes.all;
+                sizes.medium = [...sizes.default];
+                const bannerSizes = sizes[bannerGroup.replace(/[^a-z]/g, '')] ?? sizes.all;
                 const configs = bannerSizes.map(size => {
                     const textBanner = JSON.parse(JSON.stringify(config));
                     textBanner.style.text.size = size;

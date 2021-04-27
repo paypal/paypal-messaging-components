@@ -103,31 +103,33 @@
                 configs.forEach(conf => {
                     const h4 = document.createElement('h4');
 
-                    const label = objectFlattenToArray(conf.style)
-                        .filter(prop => {
-                            if (!window.VIEW.filterLabels) {
-                                return true;
-                            }
-                            const [propPath, propValue] = prop.split(':');
-                            const propVariants = objectGet(window.CONFIG, `style.${propPath}`);
+                    if (window.VIEW.showLabels === true) {
+                        const label = objectFlattenToArray(conf.style)
+                            .filter(prop => {
+                                if (!window.VIEW.filterLabels) {
+                                    return true;
+                                }
+                                const [propPath, propValue] = prop.split(':');
+                                const propVariants = objectGet(window.CONFIG, `style.${propPath}`);
 
-                            // don't show a prop if we're only showing one variation of it
-                            const isSingular = !Array.isArray(propVariants) || propVariants.length <= 1;
+                                // don't show a prop if we're only showing one variation of it
+                                const isSingular = !Array.isArray(propVariants) || propVariants.length <= 1;
 
-                            const match = window.VIEW.labelPatterns.reduce(
-                                // determine if we explicitly want to show the label
-                                (result, pattern) => {
-                                    return result || RegExp(pattern).test(propPath);
-                                },
-                                // if we are not looking for specific props, show this prop
-                                window.VIEW.labelPatterns.length == 0
-                            );
-                            return !isSingular || match;
-                        })
-                        .join(' | ');
+                                const match = window.VIEW.labelPatterns.reduce(
+                                    // determine if we explicitly want to show the label
+                                    (result, pattern) => {
+                                        return result || RegExp(pattern).test(propPath);
+                                    },
+                                    // if we are not looking for specific props, show this prop
+                                    window.VIEW.labelPatterns.length == 0
+                                );
+                                return !isSingular || match;
+                            })
+                            .join(' | ');
 
-                    h4.textContent = `${label}`;
-                    container.appendChild(h4);
+                        h4.textContent = `${label}`;
+                        container.appendChild(h4);
+                    }
 
                     const wrapper = document.createElement('div');
                     wrapper.className = 'flex';
