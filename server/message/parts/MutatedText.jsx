@@ -17,6 +17,33 @@ const MutatedText = ({ tagData, options }) => {
         uniformOptions = options;
     }
 
+    /**
+     * 1. (\$|£)?
+     * Either $ or £ or... neither
+     * 2. \d+
+     * Whatever number before the decimal
+     * 3. (\.|,)
+     * Either a comma or period decimal
+     * 4. 00
+     * The 00 after the decimal
+     * 5. €?
+     * An optional €
+     * 6. -
+     * A dash
+     * 7. For the rest of the pattern refer to 1-5.
+     */
+    const currencyFormat = string => {
+        let formattedStr = string;
+        const match = formattedStr.match(/(\$|£)?\d+(\.|,)00€?-(\$|£)?\d+(\.|,)00€?/g);
+        if (match !== null) {
+            match.forEach(foundString => {
+                const filteredString = foundString.replace(/(\.|,)00/g, '');
+                formattedStr = formattedStr.replace(foundString, filteredString);
+            });
+        }
+        return formattedStr;
+    };
+
     return uniformOptions.map((op, optionIdx) => {
         const { tag, ...otherOptions } = typeof op === 'string' ? { tag: op } : op;
         const textData = getDataByTag(tagData, tag);
@@ -27,9 +54,11 @@ const MutatedText = ({ tagData, options }) => {
                 otherOptions.replace
                     ? otherOptions.replace.reduce(
                           (accumulator, [substr, replacement]) => accumulator.replace(substr, replacement),
-                          text
+                          //   text
+                          currencyFormat(text)
                       )
-                    : text,
+                    : // : text,
+                      currencyFormat(text),
                 className
             ]);
 
