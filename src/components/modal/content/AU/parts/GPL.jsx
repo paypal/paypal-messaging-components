@@ -33,6 +33,7 @@ const GPL = () => {
             <hr className="divider" />
 
             <div className="terms">
+                <h3>About Pay in 4</h3>
                 <ul>
                     {(qualifying ? terms : terms.slice(1)).map(term => (
                         <li>{auCurrencyFormat(term)}</li>
