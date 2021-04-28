@@ -9,8 +9,12 @@ import {
     getSDKMeta,
     getSDKAttributes,
     getSDKQueryParam,
-    getNamespace as getSDKNamespace
+    getNamespace as getSDKNamespace,
+    getSessionID as getSDKSessionID,
+    getStorageID as getSDKStorageID
 } from '@paypal/sdk-client/src';
+
+import { getStorage } from 'belter/src';
 
 import 'core-js-pure/stable/object/entries';
 
@@ -88,4 +92,22 @@ export function getNamespace() {
 
 export function getLibraryVersion() {
     return __MESSAGES__.__VERSION__;
+}
+
+// Use SDK methods when available, otherwise manually fetch storage via belter
+// see: https://github.com/paypal/paypal-sdk-client/blob/master/src/session.js
+export function getSessionID() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKSessionID();
+    } else {
+        return getStorage({ name: getNamespace() }).getSessionID();
+    }
+}
+
+export function getStorageID() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKStorageID();
+    } else {
+        return getStorage({ name: getNamespace() }).getID();
+    }
 }

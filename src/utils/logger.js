@@ -1,10 +1,11 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
-import stringIncludes from 'core-js-pure/stable/string/includes';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
+
+import { getStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -24,9 +25,7 @@ export const logger = Logger({
             .concat(json.tracking.map(({ index }) => index));
 
         const trimmedMeta = objectKeys(json.meta)
-            .filter(index =>
-                arrayIncludes(activeIndexes, stringIncludes(index, 'modal') ? index.replace('modal-', '') : index)
-            )
+            .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')
             .reduce(
                 (accumulator, index) => ({
                     ...accumulator,
@@ -48,6 +47,15 @@ export const logger = Logger({
             withCredentials: true
         });
     }
+});
+
+logger.addMetaBuilder(() => {
+    return {
+        global: {
+            deviceID: getStorageID(),
+            sessionID: getSessionID()
+        }
+    };
 });
 
 logger.addPayloadBuilder(payload => {
