@@ -1,10 +1,10 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, globalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../utils';
+import { getInlineOptions, getGlobalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../utils';
 import Modal from './interface';
 
 export default function setup() {
-    const { namespace } = globalState.config;
+    const { namespace } = getGlobalState().config;
 
     // Allow specified global namespace override
     if (namespace) {
@@ -24,11 +24,11 @@ export default function setup() {
         const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
-            if (globalState.config.account) {
+            if (getGlobalState().config.account) {
                 const attachEls = getAllBySelector('[data-pp-messagesmodal]');
 
                 if (attachEls.length > 0) {
-                    const options = objectMerge(globalState.config, getInlineOptions(attachEls[0]));
+                    const options = objectMerge(getGlobalState().config, getInlineOptions(attachEls[0]));
 
                     // Automatically hook up click events
                     options.onReady = ({ show }) => {

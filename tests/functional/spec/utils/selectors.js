@@ -9,7 +9,7 @@ const selectors = {
         legacyContainer: 'div[role="button"].message'
     },
     modal: {
-        iframe: 'iframe[title*="paypal_credit_modal"]',
+        iframe: 'iframe[title^="PayPal Modal"]',
         container: '.modal-container',
         wrapper: '.wrapper',
         overlay: '.overlay',
