@@ -89,7 +89,7 @@
         "preact-render-to-string": "^5.1.9",
         "prettier": "^1.14.3",
         "prettier-eslint": "^9.0.1",
-        "puppeteer": "^3.0.0",
+        "puppeteer": "^2.0.0",
         "qs": "^6.9.3",
         "webpack": "^4.32.0",
         "webpack-dev-server": "^3.4.1"

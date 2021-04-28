@@ -54,11 +54,9 @@ const MutatedText = ({ tagData, options }) => {
                 otherOptions.replace
                     ? otherOptions.replace.reduce(
                           (accumulator, [substr, replacement]) => accumulator.replace(substr, replacement),
-                          //   text
                           currencyFormat(text)
                       )
-                    : // : text,
-                      currencyFormat(text),
+                    : currencyFormat(text),
                 className
             ]);
 
