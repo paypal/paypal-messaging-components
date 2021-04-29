@@ -211,6 +211,10 @@ export function getProductForOffer(offer) {
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
         case 'GPLQ:GTZ':
+        case 'GPL:EQZ:NON-DE':
+        case 'GPL:GTZ:NON-DE':
+        case 'GPLQ:EQZ:NON-DE':
+        case 'GPLQ:GTZ:NON-DE':
             return 'GPL';
         case 'EZP':
         case 'EZP:ANY:EQZ':
