@@ -209,6 +209,7 @@ export default (app, server, compiler) => {
             if (fs.existsSync(jsonFile)) {
                 return fs.readFileSync(jsonFile, 'utf-8').toString();
             }
+            // eslint-disable-next-line no-console
             console.warn(`${jsonFile} does not exist`);
             return `{
                     "meta": {
