@@ -10,7 +10,7 @@
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
-            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}"
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
 
