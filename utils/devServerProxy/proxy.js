@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { PORT, VARIANT } from '../../server/constants';
+import { PORT, VARIANT } from '../../packages/renderer/src/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
@@ -61,8 +61,8 @@ export default (app, server, compiler) => {
 
             const banner =
                 preferredCreditType !== 'NI'
-                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+                    ? fs.readFileSync(`content/messages/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`content/messages/US/ni.json`, 'utf-8');
 
             return JSON.parse(populateTemplate(morsVars, banner));
         }
@@ -197,7 +197,7 @@ export default (app, server, compiler) => {
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
         const productsJSON = productNames.map(product =>
-            fs.readFileSync(`modals/${country}/${product}.json`, 'utf-8').toString()
+            fs.readFileSync(`content/modals/${country}/${product}.json`, 'utf-8').toString()
         );
 
         const terms = getTerms(country, Number(amount));
@@ -399,4 +399,16 @@ export default (app, server, compiler) => {
 
     app.get('/ptrk', (req, res) => res.send(''));
     app.post('/ppcredit/messagingLogger', (req, res) => res.send(''));
+    // Support versioned URLs
+    app.get('/versioned/:component', (req, res) => {
+        const { component } = req.params;
+        const [, componentName] = component.match(/([\w-]+?)@/);
+
+        return res.redirect(`/${componentName}.js`);
+    });
+    // Mimic sdk path by rewriting /sdk/js to the webpack output file /sdk.js
+    app.use((req, res, next) => {
+        req.url = req.url.replace(/\/sdk\/js/, '/sdk.js');
+        next();
+    });
 };

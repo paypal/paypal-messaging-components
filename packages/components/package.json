@@ -1,0 +1,34 @@
+{
+    "name": "messaging-components",
+    "version": "1.21.3",
+    "description": "Messaging library Zoid iframe components",
+    "homepage": "https://github.com/paypal/paypal-messaging-components",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/paypal/paypal-messaging-components.git"
+    },
+    "main": "dist/messaging.js",
+    "module": "src/index.js",
+    "files": [
+        "src/",
+        "dist/"
+    ],
+    "scripts": {
+        "build": "webpack"
+    },
+    "dependencies": {
+        "@paypal/sdk-logos": "^1.0.26",
+        "core-js-pure": "^3.0.1",
+        "jsx-pragmatic": "^2.0.7",
+        "preact": "^10.1.1",
+        "zalgo-promise": "^1.0.38"
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^6.2.0",
+        "@testing-library/jest-dom": "^4.1.0",
+        "@testing-library/preact": "^2.0.0",
+        "@testing-library/preact-hooks": "^1.0.6",
+        "grumbler-scripts": "^3.0.46"
+    },
+    "sideEffects": false
+}

@@ -14,11 +14,12 @@ module.exports = {
         ]
     ],
     testEnvironment: 'jest-environment-jsdom-sixteen',
-    testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
+    testMatch: ['<rootDir>/**/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
-        '^src/(.*)': '<rootDir>/src/$1',
-        '^server/(.*)': '<rootDir>/server/$1',
-        '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
+        '^@components/(.*)': '<rootDir>/packages/components/src/$1',
+        '^@library/(.*)': '<rootDir>/packages/library/src/$1',
+        '^@renderer/(.*)': '<rootDir>/packages/renderer/src/$1',
+        '^@tests/utils/(.*)': '<rootDir>/tests/unit/utils/$1',
         'zalgo-promise/src': 'zalgo-promise',
         'zoid/src': 'zoid',
         'jsx-pragmatic/src': 'jsx-pragmatic',
@@ -28,7 +29,7 @@ module.exports = {
         'belter/src': 'belter',
         'beaver-logger/src': 'beaver-logger'
     },
-    collectCoverageFrom: ['./src/**'],
+    collectCoverageFrom: ['./packages/**'],
     transform: {
         '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',

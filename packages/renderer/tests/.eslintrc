@@ -1,0 +1,10 @@
+{
+    "env": {
+        "jest": true,
+        "browser": true
+    },
+    "rules": {
+        "compat/compat": 0,
+        "promise/no-native": 0
+    }
+}

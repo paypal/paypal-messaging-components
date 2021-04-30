@@ -1,0 +1,52 @@
+{
+    "name": "@paypal/messaging-components",
+    "version": "1.21.3",
+    "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
+    "homepage": "https://github.com/paypal/paypal-messaging-components",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/paypal/paypal-messaging-components.git"
+    },
+    "engines": {
+        "node": "12",
+        "npm": "6"
+    },
+    "main": "dist/messaging.js",
+    "module": "src/index.js",
+    "files": [
+        "src/",
+        "__sdk__.js",
+        "globals.js",
+        "locales.js"
+    ],
+    "scripts": {
+        "build": "webpack",
+        "prepack": "node ./scripts/prepack.js",
+        "postpack": "node ./scripts/postpack.js"
+    },
+    "localDependencies": {
+        "messaging-components": "^1.0.0",
+        "messaging-renderer": "^1.0.0"
+    },
+    "dependencies": {
+        "@paypal/sdk-client": "^4.0.80",
+        "@paypal/sdk-constants": "^1.0.75",
+        "@paypal/sdk-logos": "^1.0.26",
+        "beaver-logger": "^4.0.14",
+        "belter": "^1.0.112",
+        "core-js-pure": "^3.0.1",
+        "jsx-pragmatic": "^2.0.7",
+        "post-robot": "^10.0.29",
+        "zalgo-promise": "^1.0.38",
+        "zoid": "^9.0.46"
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^6.2.0",
+        "fs-extra": "^9.0.1",
+        "globby": "^11.0.1",
+        "grumbler-scripts": "^3.0.46",
+        "preact": "^10.1.1",
+        "tar": "^6.0.5"
+    },
+    "sideEffects": false
+}
