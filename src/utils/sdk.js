@@ -11,7 +11,8 @@ import {
     getSDKQueryParam,
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
-    getStorageID as getSDKStorageID
+    getStorageID as getSDKStorageID,
+    getHost as getSDKHost
 } from '@paypal/sdk-client/src';
 
 import { getStorage } from 'belter/src';
@@ -45,14 +46,15 @@ export function getPartnerAccount() {
     }
 }
 
+const { currentScript } = document;
 export function getScript() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKScript();
     } else {
         return (
+            currentScript ||
             document.querySelector('script[src$="messaging.js"]') ||
-            document.querySelector('script[src$="merchant.js"]') ||
-            document.currentScript
+            document.querySelector('script[src$="merchant.js"]')
         );
     }
 }
@@ -109,5 +111,13 @@ export function getStorageID() {
         return getSDKStorageID();
     } else {
         return getStorage({ name: getNamespace() }).getID();
+    }
+}
+
+export function getHost() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKHost();
+    } else {
+        return 'paypal.com';
     }
 }

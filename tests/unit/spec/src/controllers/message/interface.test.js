@@ -40,6 +40,11 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
+jest.mock('src/utils/miscellaneous', () => ({
+    ...jest.requireActual('src/utils/miscellaneous'),
+    isScriptBeingDestroyed: () => false
+}));
+
 // Needed for attribute observer re-render test
 window.paypal = { Messages };
 
