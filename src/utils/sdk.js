@@ -46,7 +46,7 @@ export function getPartnerAccount() {
     }
 }
 
-const { currentScript } = document;
+const { currentScript } = typeof document !== 'undefined' ? document : {};
 export function getScript() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKScript();
