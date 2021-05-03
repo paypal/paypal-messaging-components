@@ -40,8 +40,8 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
-jest.mock('src/utils/miscellaneous', () => ({
-    ...jest.requireActual('src/utils/miscellaneous'),
+jest.mock('src/utils/sdk', () => ({
+    ...jest.requireActual('src/utils/sdk'),
     isScriptBeingDestroyed: () => false
 }));
 

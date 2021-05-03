@@ -1,6 +1,5 @@
 /** @jsx node */
 import arrayFind from 'core-js-pure/stable/array/find';
-import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
@@ -9,7 +8,6 @@ import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { partial, memoize } from './functional';
-import { getHost, getScript } from './sdk';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -228,21 +226,3 @@ export function getProductForOffer(offer) {
             return 'NI';
     }
 }
-
-// Check if the current script is in the process of being destroyed since
-// the MutationObservers can fire before the SDK destroy lifecycle hook
-export const isScriptBeingDestroyed = () => {
-    const currentSdkScript = getScript();
-    const host = getHost();
-
-    return (
-        // If the script is not in the DOM then this script is in the porcess of being removed by another SDK script
-        !(document.head.contains(currentSdkScript) || document.body.contains(currentSdkScript)) ||
-        // Ensure that there are currently no other SDK scripts that might be in the process of destroying this script
-        arrayFrom(document.querySelectorAll(`script[src*="${host}/sdk/js"]`)).some(
-            script =>
-                script !== currentSdkScript &&
-                script.getAttribute('data-namespace') === currentSdkScript.getAttribute('data-namespace')
-        )
-    );
-};

@@ -2,10 +2,10 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';
-import { dynamicImport, getCurrentTime, isScriptBeingDestroyed } from './miscellaneous';
+import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
-import { getNamespace } from './sdk';
+import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement } from './elements';
 
 export const getInsertionObserver = createGlobalVariableGetter(

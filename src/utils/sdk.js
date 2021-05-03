@@ -1,5 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import { SDK_QUERY_KEYS } from '@paypal/sdk-constants/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
+import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 import {
     getClientID,
@@ -121,3 +122,21 @@ export function getHost() {
         return 'paypal.com';
     }
 }
+
+// Check if the current script is in the process of being destroyed since
+// the MutationObservers can fire before the SDK destroy lifecycle hook
+export const isScriptBeingDestroyed = () => {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        const currentSdkScript = getScript();
+        const host = getHost();
+
+        // Ensure that there are currently no other SDK scripts that might be in the process of destroying this script
+        return arrayFrom(document.querySelectorAll(`script[src*="${host}/sdk/js"]`)).some(
+            script =>
+                script !== currentSdkScript &&
+                script.getAttribute(SDK_SETTINGS.NAMESPACE) === currentSdkScript.getAttribute(SDK_SETTINGS.NAMESPACE)
+        );
+    } else {
+        return false;
+    }
+};
