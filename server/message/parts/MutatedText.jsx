@@ -20,24 +20,30 @@ const MutatedText = ({ tagData, options }) => {
     /**
      * 1. (\$|£)?
      * Either $ or £ or... neither
-     * 2. \d+
-     * Whatever number before the decimal
+     * 2. \d{1,3}
+     * Between 1-3 digits
      * 3. (\.|,)
      * Either a comma or period decimal
-     * 4. 00
+     * 4. {1,3}
+     * Between 1-3 occurances of steps 2 and 3.
+     * 5. 00
      * The 00 after the decimal
-     * 5. €?
+     * 6. €?
      * An optional €
-     * 6. -
+     * 7. -
      * A dash
-     * 7. For the rest of the pattern refer to 1-5.
+     * 8. For the rest of the pattern refer to 1-6.
      */
     const currencyFormat = string => {
         let formattedStr = string;
-        const match = formattedStr.match(/(\$|£)?\d+(\.|,)00€?-(\$|£)?\d+(\.|,)00€?/g);
+        // eslint-disable-next-line security/detect-unsafe-regex
+        const match = formattedStr.match(/(\$|£)?(\d{1,3}(\.|,)){1,3}00€?-(\$|£)?(\d{1,3}(\.|,)){1,3}00€?/g);
         if (match !== null) {
             match.forEach(foundString => {
-                const filteredString = foundString.replace(/(\.|,)00/g, '');
+                const filteredString = foundString
+                    .replace(/(\.|,)00-/g, '-')
+                    .replace(/(\.|,)00$/g, '')
+                    .replace(/(\.|,)00€/g, '€');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }
