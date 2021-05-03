@@ -24,9 +24,8 @@ export const getInsertionObserver = createGlobalVariableGetter(
                      * Use Array.prototype.slice.call() to turn nodeList into a regular array before using forEach().
                      */
                     Array.prototype.slice.call(mutation.addedNodes).forEach(node => {
-                        if (!isElement(node)) {
-                            // return;
-                        } else if (node.hasAttribute('data-pp-message')) {
+                        if (isElement(node)) {
+                            if (node.hasAttribute('data-pp-message')) {
                             newMessageContainers.push(node);
                         } else {
                             const targetedChildNodes = node.querySelectorAll('[data-pp-message]');
