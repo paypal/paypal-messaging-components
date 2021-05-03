@@ -26,9 +26,9 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await page.waitFor(4 * 1000);
 
     const instructions = await modalFrame.$eval(selectors.modal.instructions, element => element.innerHTML);
-    expect(instructions).toContain('Wählen Sie einfach');
-    expect(instructions).toContain('<img alt="PayPal Logo" src="');
-    expect(instructions).toContain('an der Kasse und zahlen Sie später mit Ratenzahlung.');
+    expect(instructions).toContain('Wählen Sie');
+    expect(instructions).toContain('PayPal');
+    expect(instructions).toContain('als Bezahlmethode aus und zahlen Sie mit der PayPal Ratenzahlung.');
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
