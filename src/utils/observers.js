@@ -28,12 +28,9 @@ export const getInsertionObserver = createGlobalVariableGetter(
                             if (node.hasAttribute('data-pp-message')) {
                             newMessageContainers.push(node);
                         } else {
-                            const targetedChildNodes = node.querySelectorAll('[data-pp-message]');
-                            if (targetedChildNodes.length > 0) {
-                                Array.prototype.slice.call(targetedChildNodes).forEach(targetedChildNode => {
-                                    newMessageContainers.push(targetedChildNode);
-                                });
-                            }
+                           import arrayFrom from 'core-js-pure/stable/array/from'
+
+                           arrayFrom(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode => newMessageContainers.push(targetedChildNode));
                         }
                     });
                 }
