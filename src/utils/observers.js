@@ -20,10 +20,6 @@ export const getInsertionObserver = createGlobalVariableGetter(
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
                     newMessageContainers.push(mutation.target);
                 } else {
-                    /**
-                     * IE11 does not support nodeList.prototype.forEach().
-                     * Use Array.prototype.slice.call() to turn nodeList into a regular array before using forEach().
-                     */
                     arrayFrom(mutation.addedNodes).forEach(node => {
                         if (isElement(node)) {
                             if (node.hasAttribute('data-pp-message')) {
