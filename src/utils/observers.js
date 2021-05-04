@@ -1,5 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
@@ -23,17 +24,14 @@ export const getInsertionObserver = createGlobalVariableGetter(
                      * IE11 does not support nodeList.prototype.forEach().
                      * Use Array.prototype.slice.call() to turn nodeList into a regular array before using forEach().
                      */
-                    Array.prototype.slice.call(mutation.addedNodes).forEach(node => {
-                        if (!isElement(node)) {
-                            // return;
-                        } else if (node.hasAttribute('data-pp-message')) {
-                            newMessageContainers.push(node);
-                        } else {
-                            const targetedChildNodes = node.querySelectorAll('[data-pp-message]');
-                            if (targetedChildNodes.length > 0) {
-                                Array.prototype.slice.call(targetedChildNodes).forEach(targetedChildNode => {
-                                    newMessageContainers.push(targetedChildNode);
-                                });
+                    arrayFrom(mutation.addedNodes).forEach(node => {
+                        if (isElement(node)) {
+                            if (node.hasAttribute('data-pp-message')) {
+                                newMessageContainers.push(node);
+                            } else {
+                                arrayFrom(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
+                                    newMessageContainers.push(targetedChildNode)
+                                );
                             }
                         }
                     });
