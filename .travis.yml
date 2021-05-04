@@ -91,13 +91,13 @@ jobs:
 
 stages:
     - name: update_snapshots_non_US
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ \[snapshots\]
     - name: update_snapshots_US_banner_and_custom
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ \[snapshots\]
     - name: update_snapshots_US_modal
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ \[snapshots\]
     - name: functional
-      if: env(TRAVIS_COMMIT_MESSAGE) !~ /\[snapshots\]/
+      if: commit_message !~ \[snapshots\]
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
