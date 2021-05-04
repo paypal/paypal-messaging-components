@@ -101,7 +101,7 @@ stages:
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
-
+#
 # Restricts push builds to develop and release, thus preventing duplicate builds on PRs
 branches:
     only:
