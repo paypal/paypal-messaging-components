@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.22.0](https://github.com/paypal/paypal-messaging-components/compare/v1.21.3...v1.22.0) (2021-05-04)
+
+
+### Bug Fixes
+
+* account for ongoing SDK destroy in MutationObservers ([#509](https://github.com/paypal/paypal-messaging-components/issues/509)) ([e16f730](https://github.com/paypal/paypal-messaging-components/commit/e16f7305804fe79ca212e6df92915b5df40cde90))
+
+
+### Features
+
+* GPL Australia [snapshots] ([#492](https://github.com/paypal/paypal-messaging-components/issues/492)) ([3354c90](https://github.com/paypal/paypal-messaging-components/commit/3354c90055e9be354186f66f688481855b0959de))
+
 ## [1.21.3](https://github.com/paypal/paypal-messaging-components/compare/v1.21.2...v1.21.3) (2021-04-21)
 
 
