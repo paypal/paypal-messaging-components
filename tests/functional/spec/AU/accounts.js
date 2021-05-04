@@ -1,0 +1,1 @@
+export default ['DEV000000AUPL', 'DEV00000AUPLQ'];

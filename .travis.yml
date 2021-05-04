@@ -64,6 +64,8 @@ jobs:
           env: TEST_PATH_PATTERN=spec/US/banner/text
         - env: TEST_PATH_PATTERN=spec/US/banner/flex
         - env: TEST_PATH_PATTERN=spec/GB
+        - env: TEST_PATH_PATTERN=spec/FR
+        - env: TEST_PATH_PATTERN=spec/AU
         - env: TEST_PATH_PATTERN=spec/US/modal/calc
         - env: TEST_PATH_PATTERN=spec/DE/modal/calc
         - env: TEST_PATH_PATTERN=spec/US/modal/base

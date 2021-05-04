@@ -1,0 +1,8 @@
+.message__messaging .message__headline > span:first-of-type {
+    color: #2c2e2f;
+}
+
+.message__disclaimer > .tag--default > span {
+    color: #2c2e2f;
+    text-decoration: underline;
+}
