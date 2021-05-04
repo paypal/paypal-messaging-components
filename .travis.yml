@@ -91,13 +91,13 @@ jobs:
 
 stages:
     - name: update_snapshots_non_US
-      if: commit_message =~ \[snapshots\]
+      if: commit_message =~ [\[]snapshots[\]]
     - name: update_snapshots_US_banner_and_custom
-      if: commit_message =~ \[snapshots\]
+      if: commit_message =~ [\[]snapshots[\]]
     - name: update_snapshots_US_modal
-      if: commit_message =~ \[snapshots\]
+      if: commit_message =~ [\[]snapshots[\]]
     - name: functional
-      if: commit_message !~ \[snapshots\]
+      if: commit_message !~ [\[]snapshots[\]]
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
