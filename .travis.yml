@@ -9,8 +9,6 @@ node_js:
     - '10'
 
 env:
-    global:
-        - DIRTY_SNAPSHOTS=0
     jobs:
         - TEST_PATH_PATTERN=none
 
@@ -59,16 +57,6 @@ jobs:
           script:
               - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
               - COMMIT_DETAIL="US modal snapshots" ./scripts/snapshot-tests/git-push.sh
-        - stage: clean_snapshots_flag
-          before_install:
-              - true
-          before_script:
-              - true
-          script:
-              - sed -i -e 's/DIRTY_SNAPSHOTS=1$/DIRTY_SNAPSHOTS=0/g' .travis.yml
-              - COMMIT_DETAIL="DIRTY_SNAPSHOTS flag" ./scripts/snapshot-tests/git-push.sh
-          after_script:
-              - true
 
         # Stage is propagated through each job below it.
         # Jobs are ordered by time taken (which roughly corresponds to number of tests) in order to take advantage of parallelization
@@ -76,6 +64,8 @@ jobs:
           env: TEST_PATH_PATTERN=spec/US/banner/text
         - env: TEST_PATH_PATTERN=spec/US/banner/flex
         - env: TEST_PATH_PATTERN=spec/GB
+        - env: TEST_PATH_PATTERN=spec/FR
+        - env: TEST_PATH_PATTERN=spec/AU
         - env: TEST_PATH_PATTERN=spec/US/modal/calc
         - env: TEST_PATH_PATTERN=spec/DE/modal/calc
         - env: TEST_PATH_PATTERN=spec/US/modal/base
@@ -101,15 +91,13 @@ jobs:
 
 stages:
     - name: update_snapshots_non_US
-      if: env(DIRTY_SNAPSHOTS) = 1
+      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
     - name: update_snapshots_US_banner_and_custom
-      if: env(DIRTY_SNAPSHOTS) = 1
+      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
     - name: update_snapshots_US_modal
-      if: env(DIRTY_SNAPSHOTS) = 1
-    - name: clean_snapshots_flag
-      if: env(DIRTY_SNAPSHOTS) = 1
+      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
     - name: functional
-      if: env(DIRTY_SNAPSHOTS) = 0
+      if: env(TRAVIS_COMMIT_MESSAGE) !~ /\[snapshots\]/
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
