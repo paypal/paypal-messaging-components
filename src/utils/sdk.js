@@ -111,3 +111,7 @@ export function getStorageID() {
         return getStorage({ name: getNamespace() }).getID();
     }
 }
+
+export function isStorageFresh() {
+    return getStorage({ name: getNamespace() }).isStateFresh();
+}

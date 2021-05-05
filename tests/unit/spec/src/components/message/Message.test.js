@@ -3,12 +3,14 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { request } from 'src/utils';
+import { request, getStorageID, isStorageFresh } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
+    getStorageID: jest.fn(),
+    isStorageFresh: jest.fn(() => true),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -29,6 +31,8 @@ describe('<Message />', () => {
         currency: 'USD',
         style: { layout: 'text' },
         payerId: 'DEV00000000NI',
+        deviceID: '26a2522628_mtc6mjk6nti',
+        sessionID: 'fda0b4618b_mtg6ndy6mjc',
         onClick: jest.fn(),
         onReady: jest.fn(),
         onHover: jest.fn(),
@@ -50,6 +54,10 @@ describe('<Message />', () => {
         window.xprops.onReady.mockClear();
         window.xprops.onClick.mockClear();
         window.xprops.onMarkup.mockClear();
+
+        getStorageID.mockClear();
+        isStorageFresh.mockClear();
+
         request.mockClear();
     });
 
@@ -142,5 +150,44 @@ describe('<Message />', () => {
             styles: 'body { color: blue; }',
             warnings: []
         });
+    });
+
+    test('Uses existing deviceID if not stale', () => {
+        render(<Message />, { wrapper });
+
+        expect(isStorageFresh).toHaveBeenCalled();
+        expect(getStorageID).not.toHaveBeenCalled();
+    });
+
+    test('Creates new deviceID if missing', () => {
+        xPropsMock({
+            deviceID: null,
+            onClick: jest.fn(),
+            onReady: jest.fn(),
+            onHover: jest.fn(),
+            onMarkup: jest.fn(),
+            resize: jest.fn()
+        });
+
+        render(<Message />, { wrapper });
+
+        expect(getStorageID).toHaveBeenCalled();
+        expect(isStorageFresh).not.toHaveBeenCalled();
+    });
+
+    test('Creates new deviceID if stale', () => {
+        xPropsMock({
+            deviceID: '26a2522628_mtc6mjk6nti',
+            onClick: jest.fn(),
+            onReady: jest.fn(),
+            onHover: jest.fn(),
+            onMarkup: jest.fn(),
+            resize: jest.fn()
+        });
+
+        render(<Message />, { wrapper });
+
+        expect(isStorageFresh).toHaveBeenCalled();
+        expect(getStorageID).toHaveBeenCalled();
     });
 });

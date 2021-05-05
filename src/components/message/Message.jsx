@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags } from '../../utils';
+import { request, getActiveTags, getStorageID, isStorageFresh } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -22,11 +22,17 @@ const Message = () => {
         onReady,
         onHover,
         onMarkup,
+        deviceID,
         resize
     } = useXProps();
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
     const dimensionsRef = useRef({ width: 0, height: 0 });
     const buttonRef = useRef();
+
+    // If deviceID from parent invalid or stale, generate new and save to storage.
+    if (!deviceID || !isStorageFresh()) {
+        getStorageID();
+    }
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
