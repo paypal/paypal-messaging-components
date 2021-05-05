@@ -1,5 +1,3 @@
-import { fireEvent } from '@testing-library/dom';
-
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
@@ -20,6 +18,12 @@ jest.mock('@paypal/sdk-client/src', () => ({
 window.getComputedStyle = () => ({
     getPropertyValue: () => 'auto'
 });
+
+const intersectionObserverMock = () => ({
+    observe: () => null
+});
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 const addEventListener = window.addEventListener.bind(window);
 const removeEventListener = window.removeEventListener.bind(window);
@@ -107,63 +111,7 @@ describe('stats', () => {
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
-    test('Fires scroll event when loads below fold and scrolls into view', async () => {
-        window.innerHeight = 10;
-
-        const { container } = createContainer('iframe');
-        container.getBoundingClientRect = () => ({
-            left: 100,
-            right: 20,
-            top: 30,
-            bottom: 25
-        });
-        const index = '1';
-        const payload = {
-            index,
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'stats',
-            messaging_version: expect.any(String),
-            integration_type: 'STANDALONE',
-            pos_x: '100',
-            pos_y: '30',
-            browser_width: '1024',
-            browser_height: '10',
-            visible: 'false',
-            adblock: 'true',
-            blocked: 'true',
-            active_tags: expect.any(String)
-        };
-
-        runStats({ container, activeTags: '', index });
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-
-        expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenCalledWith(payload);
-        expect(window.addEventListener).toHaveBeenCalledTimes(2);
-        expect(window.addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
-
-        container.getBoundingClientRect = () => ({
-            left: 100,
-            right: 20,
-            top: 0,
-            bottom: 5
-        });
-
-        fireEvent.scroll(window);
-
-        expect(logger.track).toHaveBeenCalledTimes(3);
-        expect(logger.track).toHaveBeenLastCalledWith({
-            index,
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'scroll',
-            visible: 'true'
-        });
-        expect(window.removeEventListener).toHaveBeenCalledTimes(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
-    });
-
-    test('Fires stats event when message renders outside of the viewport', async () => {
+    test('Fires scroll event when loads outside of the viewport fold and scrolls into view', async () => {
         window.innerHeight = 747;
 
         const { container } = createContainer('iframe');
@@ -194,15 +142,15 @@ describe('stats', () => {
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
-        expect(logger.track).toHaveBeenCalledTimes(2);
+        expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledWith(payload);
         expect(payload.visible && isInViewport(container)).toBe(false);
-        if (payload.visible === 'false' && !isInViewport(container)) {
+        if (payload.visible === 'true') {
             expect(logger.track).toHaveBeenCalledWith({
                 index,
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'stats',
-                visible: 'false'
+                event_type: 'scroll',
+                visible: 'true'
             });
         }
     });

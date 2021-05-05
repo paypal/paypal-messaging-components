@@ -4,24 +4,23 @@ import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getLibraryVersion, getScriptAttributes } from './sdk';
-import { getEventListenerPassiveOptionIfSupported } from './miscellaneous';
 
-const scrollHandlers = new Map();
-const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
-const onScroll = (elem, handler) => {
-    const passiveOption = getEventListenerPassiveOptionIfSupported();
-
-    if (scrollHandlers.size === 0) {
-        window.addEventListener('scroll', handleScroll, passiveOption);
-    }
-    scrollHandlers.set(elem, handler);
-
-    return () => {
-        scrollHandlers.delete(elem);
-        if (scrollHandlers.size === 0) {
-            window.removeEventListener('scroll', handleScroll, passiveOption);
-        }
-    };
+const onScroll = (elem, index) => {
+    // eslint-disable-next-line compat/compat
+    const intersectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > 0) {
+                logger.track({
+                    index,
+                    et: 'CLIENT_IMPRESSION',
+                    event_type: 'scroll',
+                    visible: 'true'
+                });
+                observer.unobserve(elem);
+            }
+        });
+    });
+    intersectionObserver.observe(elem);
 };
 
 export function runStats({ container, activeTags, index }) {
@@ -52,31 +51,7 @@ export function runStats({ container, activeTags, index }) {
 
     // No need for scroll event if banner is above the fold
     if (payload.visible === 'false') {
-        const clearScroll = onScroll(container, () => {
-            if (isInViewport(container)) {
-                clearScroll();
-                logger.track({
-                    index,
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'scroll',
-                    visible: 'true'
-                });
-            }
-        });
-    }
-
-    /**
-     * Used in cart slider use-case.
-     * If the message is not visible and is not in the viewport,
-     * send stats event that will register as "message_rendered".
-     */
-    if (payload.visible === 'false' && !isInViewport(container)) {
-        logger.track({
-            index,
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'stats',
-            visible: 'false'
-        });
+        onScroll(container, index);
     }
 
     checkAdblock().then(detected => {

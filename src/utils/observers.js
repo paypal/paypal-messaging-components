@@ -111,7 +111,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                         // If this is the case we run our own calculations as a fallback.
                         // e.g. https://www.auto-protect-shop.de/nanolex-ultra-glasversiegelung-set/a-528
                         if (entry.rootBounds?.width === 0 && entry.rootBounds.height === 0) {
-                            isIntersectingFallback = elementContains(root, entry.target);
+                            isIntersectingFallback = elementContains(root, iframe);
                         }
 
                         /**
@@ -134,17 +134,18 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                         };
 
                         /**
-                         * if the message's coordinates are entirely offscreen AND the message is a legitimate size,
-                         * set an attribute on the message of 'data-pp-position' with the value set to 'offscreen'.
+                         * If the message is intersecting/partially obscured AND the message isn't offscreen,
+                         * or the message is too small, run overflow detection to hide the message.
+                         *
+                         * Else, ensure the message is visible.
                          */
-                        if (isOffScreen() && Math.ceil(entry.boundingClientRect.width) >= minWidth) {
-                            container.setAttribute('data-pp-position', 'offscreen');
-                        }
-
-                        /**
-                         * This function will try to fallback and failing that, hide the message.
-                         */
-                        const overflowDetection = () => {
+                        if (
+                            ((entry.intersectionRatio < 0.9 && isOffScreen() === false) ||
+                                // Round up for decimal values
+                                Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
+                            !isIntersectingFallback
+                        ) {
+                            // Attempt to fallback and failing that, hide the message.
                             if (container.getAttribute('data-pp-style-preset') === 'smallest') {
                                 logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
                                     description: `PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
@@ -173,22 +174,6 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             iframe.style.setProperty('pointer-events', 'none', 'important');
 
                             observer.unobserve(iframe);
-                        };
-
-                        /**
-                         * If the message is intersecting/partially obscured AND the message isn't offscreen,
-                         * or the message is too small, run the overflowDetection function to hide the message.
-                         *
-                         * Else, ensure the message is visible.
-                         */
-                        if (
-                            ((entry.intersectionRatio < 0.9 &&
-                                container.getAttribute('data-pp-position') !== 'offscreen') ||
-                                // Round up for decimal values
-                                Math.ceil(entry.boundingClientRect.width) < minWidth) &&
-                            !isIntersectingFallback
-                        ) {
-                            overflowDetection();
                         } else {
                             // Reset if previously hidden
                             iframe.style.setProperty('opacity', 1);
@@ -200,80 +185,10 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             });
 
                             state.renderComplete = true;
+                            delete state.renderStart;
 
-                            /**
-                             * This function when run, will track the message for attribute changes.
-                             * If the mutation type is for an attribute change, and the attribute is 'onscreen',
-                             * add a new IntersectionObserver so we can see if the message is on screen and not
-                             * intersecting with anything. If so, fire the slider-visible tracking event, if not
-                             * then check to see if it's intersection with something and run the overflowDetection function
-                             * to hide the message.
-                             *
-                             * Then unobserve the message to prevent IntersectionObserver from running every time we open/close
-                             * a slider, so we prevent multiple logs.
-                             */
-                            const mutationTracking = () => {
-                                const mut = new MutationObserver(mutations => {
-                                    mutations.forEach(mutation => {
-                                        if (
-                                            mutation.type === 'attributes' &&
-                                            mutation.target.getAttribute('data-pp-position') === 'onscreen'
-                                        ) {
-                                            new IntersectionObserver((affectedEntries, affectedObserver) => {
-                                                affectedEntries.forEach(affectedEntry => {
-                                                    if (affectedEntry.intersectionRatio === 1) {
-                                                        /**
-                                                         * Fire slider-visible event once slider with message inside comes into viewport.
-                                                         * The slider-visible event corresponds to the "message_viewed" event name.
-                                                         */
-                                                        logger.track({
-                                                            index,
-                                                            et: 'CLIENT_IMPRESSION',
-                                                            event_type: 'slider-visible',
-                                                            visible: 'true'
-                                                        });
-                                                    } else if (
-                                                        affectedEntry.intersectionRatio < 0.9 &&
-                                                        affectedEntry.intersectionRatio > 0
-                                                    ) {
-                                                        overflowDetection();
-                                                    }
-                                                    affectedObserver.unobserve(affectedEntry.target);
-                                                });
-                                            }).observe(mutation.target);
-                                        }
-                                    });
-                                });
-
-                                mut.observe(container, { attributes: true });
-                            };
-
-                            /**
-                             * If the coordinates of a message are within the viewport (i.e. a normal on-screen message, or a slider
-                             * bringing one into view), add a timeout (to account for potential slider animation times) and check to see
-                             * if the message contains the previously set attribute of "offscreen". This would be the case in messages
-                             * that are contained within a slider. Because the message within a slider would have this "offscreen" property,
-                             * we update the attribute value to "onscreen" as the message is now in the viewport.
-                             *
-                             * A normal message not within a slider would not have this attribute, so instead we skip the above attribute update
-                             * and delete the state.renderStart and detach the IntersectionObserver.
-                             */
-                            if (!isOffScreen()) {
-                                setTimeout(() => {
-                                    if (container.getAttribute('data-pp-position') === 'offscreen') {
-                                        mutationTracking();
-                                        container.setAttribute('data-pp-position', 'onscreen');
-                                    }
-                                }, 550);
-                                delete state.renderStart;
-
-                                observer.unobserve(iframe);
-                            }
+                            observer.unobserve(iframe);
                         }
-                        /**
-                         * If the message is offscreen (i.e. in a slider), we attach the IntersectionObserver to the message.
-                         */
-                        if (container.getAttribute('data-pp-position') === 'offscreen') observer.observe(iframe);
                     });
                 },
                 {
