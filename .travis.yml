@@ -89,15 +89,17 @@ jobs:
               on:
                   branch: release
 
+# Due to a parsing issue with Travis, this inverse character selection regex must be used
+# It looks snapshots surrounded by anything that is not alphanumeric, a space, a dash, or an underscore
 stages:
     - name: update_snapshots_non_US
-      if: commit_message =~ [\[]snapshots[\]]
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_US_banner_and_custom
-      if: commit_message =~ [\[]snapshots[\]]
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_US_modal
-      if: commit_message =~ [\[]snapshots[\]]
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: functional
-      if: commit_message !~ [\[]snapshots[\]]
+      if: commit_message !~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
