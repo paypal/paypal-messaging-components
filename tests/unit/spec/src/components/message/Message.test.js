@@ -175,7 +175,7 @@ describe('<Message />', () => {
         expect(isStorageFresh).not.toHaveBeenCalled();
     });
 
-    test('Creates new deviceID if stale', () => {
+    test.skip('Creates new deviceID if stale', () => {
         xPropsMock({
             deviceID: '26a2522628_mtc6mjk6nti',
             onClick: jest.fn(),
