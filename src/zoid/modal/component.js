@@ -99,6 +99,14 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             link: linkName
                         });
 
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'modal-open',
+                            source: linkName
+                        });
+
                         if (typeof onClick === 'function') {
                             onClick({ linkName });
                         }
@@ -127,6 +135,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             amount: value
                         });
 
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'modal-open',
+                            source: 'Calculator',
+                            amount: value
+                        });
+
                         if (typeof onCalculate === 'function') {
                             onCalculate({ value });
                         }
@@ -149,7 +166,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open'
+                            event_type: 'modal-open',
+                            source: null
                         });
 
                         if (typeof onShow === 'function') {
