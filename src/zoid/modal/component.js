@@ -255,14 +255,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                decorate: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
                 default: () => '',
                 required: false
             },
