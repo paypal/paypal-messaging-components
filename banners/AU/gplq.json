@@ -1,0 +1,24 @@
+{
+    "meta": {
+        "offerCountry": "AU",
+        "offerType": "GPLQ",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+        }
+    },
+
+    "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
+        [["Buy now and pay later."], ["xsmall.2"]],
+        [["Pay in 4 interest-free payments of {formattedPeriodicPayment}"], ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Learn more", ["default"]]]
+}
