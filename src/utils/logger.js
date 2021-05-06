@@ -5,7 +5,7 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getStorageID, getSessionID } from './sdk';
+import { getOrCreateStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -52,7 +52,8 @@ export const logger = Logger({
 logger.addMetaBuilder(() => {
     return {
         global: {
-            deviceID: getStorageID(),
+            // deviceID from inside iframe if available, otherwise from parent context
+            deviceID: getOrCreateStorageID(),
             sessionID: getSessionID()
         }
     };

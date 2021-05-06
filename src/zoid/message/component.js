@@ -11,10 +11,10 @@ import {
     getLibraryVersion,
     runStats,
     logger,
-    getStorageID,
     getSessionID,
     getGlobalState,
-    getCurrentTime
+    getCurrentTime,
+    getOrCreateStorageID
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -305,7 +305,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',

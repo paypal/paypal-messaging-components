@@ -3,14 +3,16 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { request, getStorageID, isStorageFresh } from 'src/utils';
+import { request, readStorageID, writeStorageID, isStorageFresh } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
-    getStorageID: jest.fn(),
-    isStorageFresh: jest.fn(() => true),
+    readStorageID: jest.fn(),
+    writeStorageID: jest.fn(),
+    isStorageFresh: jest.fn(),
+    getOrCreateStorageID: jest.fn(),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -55,10 +57,10 @@ describe('<Message />', () => {
         window.xprops.onClick.mockClear();
         window.xprops.onMarkup.mockClear();
 
-        getStorageID.mockClear();
-        isStorageFresh.mockClear();
-
         request.mockClear();
+        readStorageID.mockClear();
+        writeStorageID.mockClear();
+        isStorageFresh.mockClear();
     });
 
     test('Renders the server markup', () => {
@@ -152,42 +154,39 @@ describe('<Message />', () => {
         });
     });
 
-    test('Uses existing deviceID if not stale', () => {
+    test('Does not write parent storage ID when present and fresh', () => {
+        readStorageID.mockReturnValue('1111111111_11111111111');
+        isStorageFresh.mockReturnValue(true);
+
         render(<Message />, { wrapper });
 
+        expect(readStorageID).toHaveBeenCalled();
         expect(isStorageFresh).toHaveBeenCalled();
-        expect(getStorageID).not.toHaveBeenCalled();
+
+        expect(writeStorageID).not.toHaveBeenCalled();
     });
 
-    test('Creates new deviceID if missing', () => {
-        xPropsMock({
-            deviceID: null,
-            onClick: jest.fn(),
-            onReady: jest.fn(),
-            onHover: jest.fn(),
-            onMarkup: jest.fn(),
-            resize: jest.fn()
-        });
+    test('Writes parent storage ID when present, but stale', () => {
+        readStorageID.mockReturnValue('1111111111_11111111111');
+        isStorageFresh.mockReturnValue(false);
 
         render(<Message />, { wrapper });
 
-        expect(getStorageID).toHaveBeenCalled();
+        expect(readStorageID).toHaveBeenCalled();
+        expect(isStorageFresh).toHaveBeenCalled();
+
+        expect(writeStorageID).toHaveBeenCalledWith('26a2522628_mtc6mjk6nti');
+    });
+
+    test('Writes parent storage ID when not present', () => {
+        readStorageID.mockReturnValue(null);
+        isStorageFresh.mockReturnValue(true);
+
+        render(<Message />, { wrapper });
+
+        expect(readStorageID).toHaveBeenCalled();
         expect(isStorageFresh).not.toHaveBeenCalled();
-    });
 
-    test.skip('Creates new deviceID if stale', () => {
-        xPropsMock({
-            deviceID: '26a2522628_mtc6mjk6nti',
-            onClick: jest.fn(),
-            onReady: jest.fn(),
-            onHover: jest.fn(),
-            onMarkup: jest.fn(),
-            resize: jest.fn()
-        });
-
-        render(<Message />, { wrapper });
-
-        expect(isStorageFresh).toHaveBeenCalled();
-        expect(getStorageID).toHaveBeenCalled();
+        expect(writeStorageID).toHaveBeenCalledWith('26a2522628_mtc6mjk6nti');
     });
 });

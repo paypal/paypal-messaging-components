@@ -16,7 +16,7 @@ import {
     getHost as getSDKHost
 } from '@paypal/sdk-client/src';
 
-import { getStorage } from 'belter/src';
+import { isLocalStorageEnabled, getStorage } from 'belter/src';
 
 import 'core-js-pure/stable/object/entries';
 
@@ -107,7 +107,8 @@ export function getSessionID() {
     }
 }
 
-export function getStorageID() {
+// Retrieves storageID. NOTE: Creates new ID if not already in local storage.
+export function getOrCreateStorageID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
@@ -117,6 +118,35 @@ export function getStorageID() {
 
 export function isStorageFresh() {
     return getStorage({ name: getNamespace() }).isStateFresh();
+}
+
+// Retrieve namespaced localStorage directly
+function getRawStorage() {
+    return isLocalStorageEnabled()
+        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
+        : {};
+}
+
+// Separate utility for checking storageID without populating if nonexistant.
+export function readStorageID() {
+    return getRawStorage().id;
+}
+
+// Allows usage of parent page deviceID if none available within iframe
+export function writeStorageID(storageID) {
+    if (isLocalStorageEnabled()) {
+        try {
+            // Needed in order to satisfy no-unused-expressions
+            const setItem = window.localStorage?.setItem;
+
+            setItem(`__${getNamespace()}_storage__`, {
+                ...getRawStorage(),
+                ...{ id: storageID }
+            });
+        } catch (e) {
+            // Handle Errors
+        }
+    }
 }
 
 export function getHost() {

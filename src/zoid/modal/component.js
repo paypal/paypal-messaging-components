@@ -16,7 +16,7 @@ import {
     logger,
     nextIndex,
     getSessionID,
-    getStorageID
+    getOrCreateStorageID
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -286,7 +286,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',

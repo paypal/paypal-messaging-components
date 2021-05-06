@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags, getStorageID, isStorageFresh } from '../../utils';
+import { request, getActiveTags, readStorageID, writeStorageID, isStorageFresh } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -29,9 +29,9 @@ const Message = () => {
     const dimensionsRef = useRef({ width: 0, height: 0 });
     const buttonRef = useRef();
 
-    // If deviceID from parent invalid or stale, generate new and save to storage.
-    if (!deviceID || !isStorageFresh()) {
-        getStorageID();
+    // If deviceID fresh use value from inside iframe, otherwise use deviceID from parent page.
+    if (!readStorageID() || !isStorageFresh()) {
+        writeStorageID(deviceID);
     }
 
     const handleClick = () => {
