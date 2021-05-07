@@ -1,0 +1,19 @@
+.message__logo-container {
+    display: inline;
+}
+
+.message__logo-container::after {
+    content: '.';
+}
+
+.message__logo:last-child {
+    margin-top: -1px;
+}
+
+.weak {
+    display: none;
+}
+
+.message__headline {
+    white-space: normal;
+}
