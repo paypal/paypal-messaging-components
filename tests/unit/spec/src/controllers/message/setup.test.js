@@ -2,7 +2,7 @@ import setup from 'src/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
 import Messages from 'src/controllers/message/interface';
-import { getGlobalState } from 'src/utils';
+import { getGlobalState, destroyGlobalState } from 'src/utils';
 
 // TODO: Re-enable skipped tests after ramp
 
@@ -18,6 +18,8 @@ describe('message setup', () => {
     afterEach(() => {
         Messages.mockClear();
         Messages().render.mockClear();
+        destroyGlobalState();
+        document.getElementsByTagName('html')[0].innerHTML = '';
     });
 
     test('Supports pilot window.Message', () => {
@@ -87,7 +89,7 @@ describe('message setup', () => {
     });
 
     describe('dynamic insertion', () => {
-        test.skip('Renders message on dynamic insertion', async () => {
+        test('Renders message on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
             const mockRender = jest.fn();
@@ -99,9 +101,10 @@ describe('message setup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
+            const body1 = document.querySelector('body');
             const newMessage = document.createElement('div');
             newMessage.setAttribute('data-pp-message', '');
-            document.body.appendChild(newMessage);
+            body1.appendChild(newMessage);
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -111,7 +114,7 @@ describe('message setup', () => {
             removeMockScript();
         });
 
-        test.skip('Renders message on dynamic insertion when attribute is on a child element', async () => {
+        test('Renders message on dynamic insertion when attribute is on a child element', async () => {
             const removeMockScript = insertMockScript();
 
             const mockRender = jest.fn();
@@ -123,38 +126,38 @@ describe('message setup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const parentDiv = document.createElement('div');
-            const messageDiv = document.createElement('div');
-            messageDiv.setAttribute('data-pp-message', '');
-            parentDiv.appendChild(messageDiv);
-            document.body.appendChild(parentDiv);
-
-            await new Promise(resolve => setTimeout(resolve, 0));
-            expect(window.paypal.Messages).toHaveBeenCalledTimes(1);
-            expect(window.paypal.Messages().render).toHaveBeenCalledTimes(1);
-
-            removeMockScript();
-        });
-
-        // *fix: window.paypal.messages runs 2x
-        test.skip('Renders multiple messages on dynamic insertion', async () => {
-            const removeMockScript = insertMockScript();
-
-            const mockRender = jest.fn();
-            window.paypal.Messages = jest.fn(() => ({
-                render: mockRender
-            }));
-
-            setup();
-
-            await new Promise(resolve => setTimeout(resolve, 0));
-
-            const messageDiv1 = document.createElement('div');
-            messageDiv1.setAttribute('data-pp-message', '');
-            document.body.appendChild(messageDiv1);
+            const parentDiv2 = document.createElement('div');
             const messageDiv2 = document.createElement('div');
             messageDiv2.setAttribute('data-pp-message', '');
-            document.body.appendChild(messageDiv2);
+            parentDiv2.appendChild(messageDiv2);
+            document.body.appendChild(parentDiv2);
+
+            await new Promise(resolve => setTimeout(resolve, 0));
+            console.log(window.paypal.Messages.mock.calls);
+            expect(window.paypal.Messages).toHaveBeenCalledTimes(1);
+            expect(window.paypal.Messages().render).toHaveBeenCalledTimes(1);
+
+            removeMockScript();
+        });
+
+        test('Renders multiple messages on dynamic insertion', async () => {
+            const removeMockScript = insertMockScript();
+
+            const mockRender = jest.fn();
+            window.paypal.Messages = jest.fn(() => ({
+                render: mockRender
+            }));
+
+            setup();
+
+            await new Promise(resolve => setTimeout(resolve, 0));
+
+            const messageDivA = document.createElement('div');
+            messageDivA.setAttribute('data-pp-message', '');
+            document.body.appendChild(messageDivA);
+            const messageDivB = document.createElement('div');
+            messageDivB.setAttribute('data-pp-message', '');
+            document.body.appendChild(messageDivB);
 
             await new Promise(resolve => setTimeout(resolve, 0));
             expect(window.paypal.Messages).toHaveBeenCalledTimes(2);
@@ -163,7 +166,7 @@ describe('message setup', () => {
             removeMockScript();
         });
 
-        test.skip('Does not render message with misspelled attribute on dynamic insertion', async () => {
+        test('Does not render message with misspelled attribute on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
             const mockRender = jest.fn();
