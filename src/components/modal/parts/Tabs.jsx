@@ -41,8 +41,7 @@ const Tabs = ({ tabs, onSelect }) => {
     const hasHeader = tabs.some(tab => Boolean(tab.header));
 
     const tabClick = index => {
-        const source = `tab_click:${tabs[index].product}`;
-        onClick({ linkName: tabs[index].product, source });
+        onClick({ linkName: tabs[index].product, src: 'tab_click' });
         selectTab(index);
     };
 

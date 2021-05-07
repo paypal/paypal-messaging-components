@@ -117,6 +117,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offer: offerType,
                             refId: messageRequestId,
                             refIndex: index,
+                            src: 'message_click',
                             onClose: () => focus()
                         });
 
@@ -130,13 +131,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Banner Wrapper'
-                        });
-
-                        logger.track({
-                            index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open',
-                            source: 'message_click'
                         });
 
                         if (typeof onClick === 'function') {
