@@ -3,7 +3,6 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { memoize } from './functional';
-import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 import { getEnv } from './sdk';
 
@@ -25,7 +24,10 @@ const getExperiment = memoize(() => {
             // Enable test for all of sandbox
             return ZalgoPromise.delay(0).then(() => ({ type: 'exclusion', list: [] }));
         default:
-            return request('GET', getGlobalUrl('RAMP_EXPERIMENT'))
+            return request(
+                'GET',
+                'https://www.paypalobjects.com/upstream/assets/messaging/modal/ramp-experiment-ssr.json'
+            )
                 .then(res => res?.data ?? fallback)
                 .catch(() => fallback);
     }
