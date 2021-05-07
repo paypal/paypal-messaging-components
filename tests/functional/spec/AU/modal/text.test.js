@@ -5,7 +5,7 @@ import { auModalContent } from './au_modalTestDefs';
 
 const accounts = ['DEV000000AUPL', 'DEV00000AUPLQ'];
 
-describe.skip.each([
+describe.each([
     [accounts[0], viewports[0], bannerStyles[0]],
     [accounts[0], viewports[1], bannerStyles[0]],
     [accounts[1], viewports[0], bannerStyles[0], amounts[3]],

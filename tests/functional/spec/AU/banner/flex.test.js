@@ -19,7 +19,7 @@ const tests = [].concat(
     colors.slice(1).map(color => [`Ratio:1x1. Color:${color}`, { ratio: '1x1', color }])
 );
 
-describe.skip(`AU > flex (Test Count: ${tests.length * accounts.length})`, () => {
+describe(`AU > flex (Test Count: ${tests.length * accounts.length})`, () => {
     const runBannerTest = createBannerTest('AU');
 
     describe.each(accounts)(`> %s (Test Count: ${tests.length})`, account => {
