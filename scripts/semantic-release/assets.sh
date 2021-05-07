@@ -40,7 +40,7 @@ if [[ ! -z "$tag" || ! -z "$testEnv" ]]; then
     environment="stage"
 fi
 
-if [[ ! -z "$version" && ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_-]+(\.[0-9]+)?)?$ ]]; then
+if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_-]+(\.[0-9]+)?)?$ ]]; then
     printf "\nInvalid version provided ($version). Please chack the format (ex: 1.0.0-beta.0)\n\n"
     exit 1
 fi
@@ -78,13 +78,12 @@ filteredModule="${filteredModule:1}"
 
 # Optional webpack args
 [[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
-[[ ! -z "$version" ]] && optionalArgs+=("--env.VERSION=$version")
 [[ ! -z "$testEnv" ]] && optionalArgs+=("--env.TEST_ENV=https://www.$testEnv")
 
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
 do
-    npm run --silent build:"$env" -- --env.MODULE="$filteredModule" ${optionalArgs[@]} --bail --display none &> /dev/null
+    npm run --silent build:"$env" -- --env.VERSION="$version" --env.MODULE="$filteredModule" ${optionalArgs[@]} --bail --display none &> /dev/null
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
