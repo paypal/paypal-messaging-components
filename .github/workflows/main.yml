@@ -30,13 +30,26 @@ jobs:
             - name: Set domain
               run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
 
-            - name: Run server
-              run: |
-                  npm run dev:standalone &
-                  sleep 40
-
-            - name: Run Lint, Unit, and Functional Non-Snapshot Tests
+            - name: Lint
               run: |
                   npm run lint
+
+            - name: Unit Tests
+              run: |
                   npm run test
+
+            - name: Run server
+              run: |
+                  ((npm run dev:standalone 2>&1 & echo $! > pid.log) | tee server.log) &
+                  sleep 40
+                  error_count=$(grep -i error server.log | wc -l)
+                  echo "Errors Found: $error_count"
+                  if [[ $error_count -gt 0 ]]; then
+                    echo "Exiting server"
+                    kill $(<pid.log)
+                    exit 1
+                  fi
+
+            - name: Functional Non-Snapshot Tests
+              run: |
                   npm run test:func:nosnaps

@@ -27,7 +27,7 @@ export const localizeNumber = country => (amount, fractionDigits = 2) => {
         case 'FR':
             return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
         case 'GB':
-            return baseFormat;
+        case 'AU':
         case 'US':
         default:
             return baseFormat;
@@ -45,6 +45,7 @@ export const localizeCurrency = country => (amount, fractionDigits = 2) => {
             return `£${localizedAmount}`;
         case 'FR':
             return `${localizedAmount} €`;
+        case 'AU':
         case 'US':
         default:
             return `$${localizedAmount}`;
