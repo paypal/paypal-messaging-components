@@ -40,12 +40,15 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
     const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
     let locale = 'US';
 
-    if (account.includes('IAZ')) {
+    if (account.includes('PL')) {
+        const regexLocale = account.match(/(..)PL/);
+        // 0G is what appears before PL on US accounts
+        // as long as it's not 0G (US), set locale to be what the regex found
+        if (regexLocale !== '0G') {
+            [, locale] = regexLocale;
+        }
+    } else if (account.includes('IAZ')) {
         locale = 'DE';
-    } else if (account.includes('GBPL')) {
-        locale = 'GB';
-    } else if (account.includes('FRPL')) {
-        locale = 'FR';
     }
 
     const matchFunction = viewport.width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';

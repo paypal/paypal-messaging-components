@@ -44,6 +44,20 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 | GBPL         | Flex         | pl        | Pay Later                      |
 | GBPLQ        | Flex Q       | plq       | Pay Later, Qualifying Purchase |
 
+### FR (France)
+
+| Abbreviation | PStudio Name | File Name | Message                        |
+| ------------ | ------------ | --------- | ------------------------------ |
+| FRPL         | GPL          | gpl       | Pay Later                      |
+| FRPLQ        | GPLQ         | gplq      | Pay Later, Qualifying Purchase |
+
+### AU (Australia)
+
+| Abbreviation | PStudio Name | File Name | Message                        |
+| ------------ | ------------ | --------- | ------------------------------ |
+| AUPL         | AU GPL       | gpl       | Pay Later                      |
+| AUPLQ        | AU GPLQ      | gplq      | Pay Later, Qualifying Purchase |
+
 ## Explanation
 
 ### Abbreviation Column

@@ -5,7 +5,7 @@ import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
-import { getNamespace } from './sdk';
+import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement } from './elements';
 
 export const getInsertionObserver = createGlobalVariableGetter(
@@ -31,9 +31,11 @@ export const getInsertionObserver = createGlobalVariableGetter(
                 }
             });
 
-            newMessageContainers.forEach(container =>
-                window[getNamespace()]?.Messages({ _auto: true }).render(container)
-            );
+            if (newMessageContainers.length > 0 && !isScriptBeingDestroyed()) {
+                newMessageContainers.forEach(container =>
+                    window[getNamespace()]?.Messages({ _auto: true }).render(container)
+                );
+            }
         })
 );
 
@@ -52,8 +54,10 @@ export const getAttributeObserver = createGlobalVariableGetter(
                 return accumulator;
             }, []);
 
-            // Re-render each container without options because the render will scan for all inline attributes
-            containersToUpdate.forEach(container => window[getNamespace()]?.Messages().render(container));
+            if (containersToUpdate.length > 0 && !isScriptBeingDestroyed()) {
+                // Re-render each container without options because the render will scan for all inline attributes
+                containersToUpdate.forEach(container => window[getNamespace()]?.Messages().render(container));
+            }
         })
 );
 
