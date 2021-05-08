@@ -3,25 +3,8 @@ import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
+import { getViewportIntersectionObserver } from './observers';
 import { getLibraryVersion, getScriptAttributes } from './sdk';
-
-const onScroll = (elem, index) => {
-    // eslint-disable-next-line compat/compat
-    const intersectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.intersectionRatio > 0) {
-                logger.track({
-                    index,
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'scroll',
-                    visible: 'true'
-                });
-                observer.unobserve(elem);
-            }
-        });
-    });
-    intersectionObserver.observe(elem);
-};
 
 export function runStats({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
@@ -51,7 +34,7 @@ export function runStats({ container, activeTags, index }) {
 
     // No need for scroll event if banner is above the fold
     if (payload.visible === 'false') {
-        onScroll(container, index);
+        getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
     checkAdblock().then(detected => {

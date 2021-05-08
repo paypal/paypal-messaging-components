@@ -1,7 +1,6 @@
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
-import { isInViewport } from 'src/utils/elements';
 import { runStats } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 
@@ -144,7 +143,7 @@ describe('stats', () => {
 
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledWith(payload);
-        expect(payload.visible && isInViewport(container)).toBe(false);
+        expect(payload.visible).toBe('false');
         if (payload.visible === 'true') {
             expect(logger.track).toHaveBeenCalledWith({
                 index,
