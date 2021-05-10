@@ -7,6 +7,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
+import { ppDebug } from '../controllers/message/debug';
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
@@ -348,5 +349,6 @@ export const getRoot = baseElement => {
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
+    ppDebug('Root:', root || 'undefined');
     return elementContains(elementWindow, root) ? undefined : root;
 };

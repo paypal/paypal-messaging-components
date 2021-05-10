@@ -7,6 +7,7 @@ import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement } from './elements';
+import { ppDebug } from '../controllers/message/debug';
 
 export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
@@ -93,6 +94,8 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                     entries.forEach(entry => {
                         const iframe = entry.target;
                         const container = iframe.parentNode.parentNode;
+                        ppDebug('Message Container:', container);
+                        ppDebug('Messages Container Parent:', container.parentNode);
                         // If the library has been cleaned up by an SDK destroy, the container
                         // may not exist in the current SDK script messageMap. In this scenario
                         // we will short circuit on the state.render check
@@ -136,6 +139,9 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                     et: 'CLIENT_IMPRESSION',
                                     event_type: 'message_hidden'
                                 });
+                                ppDebug(
+                                    `Message Hidden: ${container.getAttribute('data-pp-style-preset') === 'smallest'} `
+                                );
                                 state.renderComplete = true;
                                 delete state.renderStart;
                             } else {

@@ -10,11 +10,13 @@ import {
     getInsertionObserver
 } from '../../utils';
 import Messages from './adapter';
+import { ppDebug } from './debug';
 
 export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
+        ppDebug('Script:', script);
         const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
@@ -64,6 +66,8 @@ export default function setup() {
                 subtree: true,
                 attributeFilter: ['data-pp-message']
             });
+
+            ppDebug(`DOMContentLoaded at ${new Date().getTime()}`);
         };
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', handleContentLoaded);

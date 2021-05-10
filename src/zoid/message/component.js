@@ -18,6 +18,7 @@ import {
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
+import { ppDebug } from '../../controllers/message/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -291,32 +292,49 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 sendToChild: false,
                 required: false,
-                value: getMeta
+                value: getMeta,
+                debug: ppDebug(`SDK Meta: ${getMeta()}`)
             },
             env: {
                 type: 'string',
                 queryParam: true,
-                value: getEnv
+                value: getEnv,
+                debug: ppDebug(`Environment: ${getEnv()}`)
             },
             version: {
                 type: 'string',
                 queryParam: true,
-                value: getLibraryVersion
+                value: getLibraryVersion,
+                debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getStorageID,
+                debug: ppDebug(`Device Id: ${getStorageID()}`)
             },
             sessionID: {
                 type: 'string',
                 queryParam: true,
-                value: getSessionID
+                value: getSessionID,
+                debug: ppDebug(`Session Id: ${getSessionID()}`)
             },
             scriptUID: {
                 type: 'string',
                 queryParam: true,
-                value: getCurrentScriptUID
+                value: getCurrentScriptUID,
+                debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
+            },
+            debug: {
+                type: 'boolean',
+                queryParam: true,
+                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+            },
+            messageLocation: {
+                type: 'string',
+                queryParam: false,
+                value: () => window.location.href,
+                debug: ppDebug(`Message Location: ${window.location.href}`)
             }
         }
     })
