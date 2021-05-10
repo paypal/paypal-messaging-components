@@ -60,6 +60,7 @@ jobs:
 
         # Stage is propagated through each job below it.
         # Jobs are ordered by time taken (which roughly corresponds to number of tests) in order to take advantage of parallelization
+        # To skip a test suite for a locale, comment out the line(s) below
         - stage: functional
           env: TEST_PATH_PATTERN=spec/US/banner/text
         - env: TEST_PATH_PATTERN=spec/US/banner/flex
@@ -89,15 +90,17 @@ jobs:
               on:
                   branch: release
 
+# Due to a parsing issue with Travis, this inverse character selection regex must be used
+# It looks for snapshots surrounded by anything that is not alphanumeric, a space, a dash, or an underscore
 stages:
     - name: update_snapshots_non_US
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_US_banner_and_custom
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_US_modal
-      if: env(TRAVIS_COMMIT_MESSAGE) =~ /\[snapshots\]/
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: functional
-      if: env(TRAVIS_COMMIT_MESSAGE) !~ /\[snapshots\]/
+      if: commit_message !~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: deploy
       # Prevent deploy stage from being listed in UI except on release branch
       if: branch = release
