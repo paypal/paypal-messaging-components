@@ -136,10 +136,8 @@ export function readStorageID() {
 export function writeStorageID(storageID) {
     if (isLocalStorageEnabled()) {
         try {
-            // Needed in order to satisfy no-unused-expressions
-            const setItem = window.localStorage?.setItem;
-
-            setItem(`__${getNamespace()}_storage__`, {
+            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
+            window.localStorage?.setItem(`__${getNamespace()}_storage__`, {
                 ...getRawStorage(),
                 ...{ id: storageID }
             });

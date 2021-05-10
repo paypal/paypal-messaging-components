@@ -1,7 +1,7 @@
 /** @jsx h */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
-import { useLayoutEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useEffect, useRef } from 'preact/hooks';
 
 import { request, getActiveTags, readStorageID, writeStorageID, isStorageFresh } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
@@ -29,10 +29,12 @@ const Message = () => {
     const dimensionsRef = useRef({ width: 0, height: 0 });
     const buttonRef = useRef();
 
-    // If deviceID fresh use value from inside iframe, otherwise use deviceID from parent page.
-    if (!readStorageID() || !isStorageFresh()) {
-        writeStorageID(deviceID);
-    }
+    useEffect(() => {
+        // If deviceID fresh use value from inside iframe, otherwise use deviceID from parent page.
+        if (!readStorageID() || !isStorageFresh()) {
+            writeStorageID(deviceID);
+        }
+    }, [deviceID]);
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
