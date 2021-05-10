@@ -101,10 +101,9 @@ describe('message setup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const body1 = document.querySelector('body');
             const newMessage = document.createElement('div');
             newMessage.setAttribute('data-pp-message', '');
-            body1.appendChild(newMessage);
+            document.body.appendChild(newMessage);
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -126,14 +125,13 @@ describe('message setup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const parentDiv2 = document.createElement('div');
-            const messageDiv2 = document.createElement('div');
-            messageDiv2.setAttribute('data-pp-message', '');
-            parentDiv2.appendChild(messageDiv2);
-            document.body.appendChild(parentDiv2);
+            const parentDiv = document.createElement('div');
+            const newMessage = document.createElement('div');
+            newMessage.setAttribute('data-pp-message', '');
+            parentDiv.appendChild(newMessage);
+            document.body.appendChild(parentDiv);
 
             await new Promise(resolve => setTimeout(resolve, 0));
-            console.log(window.paypal.Messages.mock.calls);
             expect(window.paypal.Messages).toHaveBeenCalledTimes(1);
             expect(window.paypal.Messages().render).toHaveBeenCalledTimes(1);
 
@@ -152,12 +150,12 @@ describe('message setup', () => {
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
-            const messageDivA = document.createElement('div');
-            messageDivA.setAttribute('data-pp-message', '');
-            document.body.appendChild(messageDivA);
-            const messageDivB = document.createElement('div');
-            messageDivB.setAttribute('data-pp-message', '');
-            document.body.appendChild(messageDivB);
+            const messageDiv1 = document.createElement('div');
+            messageDiv1.setAttribute('data-pp-message', '');
+            document.body.appendChild(messageDiv1);
+            const messageDiv2 = document.createElement('div');
+            messageDiv2.setAttribute('data-pp-message', '');
+            document.body.appendChild(messageDiv2);
 
             await new Promise(resolve => setTimeout(resolve, 0));
             expect(window.paypal.Messages).toHaveBeenCalledTimes(2);
