@@ -170,7 +170,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta, activeTags }) => {
+                    return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
@@ -181,6 +181,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             delete existingMeta[index];
 
                             return {
+                                global: {
+                                    // deviceID from internal iframe storage
+                                    deviceID,
+                                    // Session ID from parent local storage
+                                    sessionID: getSessionID()
+                                },
                                 [index]: {
                                     type: 'message',
                                     messageRequestId,

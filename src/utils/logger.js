@@ -52,7 +52,7 @@ export const logger = Logger({
 logger.addMetaBuilder(() => {
     return {
         global: {
-            // deviceID from inside iframe if available, otherwise from parent context
+            // deviceID from parent context
             deviceID: getOrCreateStorageID(),
             sessionID: getSessionID()
         }

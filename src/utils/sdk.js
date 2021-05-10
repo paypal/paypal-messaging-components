@@ -138,10 +138,13 @@ export function writeStorageID(storageID) {
     if (isLocalStorageEnabled()) {
         try {
             /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
-            window.localStorage?.setItem(`__${getNamespace()}_storage__`, {
-                ...getRawStorage(),
-                ...{ id: storageID }
-            });
+            window.localStorage?.setItem(
+                `__${getNamespace()}_storage__`,
+                JSON.stringify({
+                    ...getRawStorage(),
+                    ...{ id: storageID }
+                })
+            );
         } catch (e) {
             // Handle Errors
         }

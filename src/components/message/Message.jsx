@@ -3,7 +3,14 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags, readStorageID, writeStorageID, isStorageFresh } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    readStorageID,
+    writeStorageID,
+    isStorageFresh,
+    getOrCreateStorageID
+} from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -56,7 +63,7 @@ const Message = () => {
 
     useLayoutEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ meta, activeTags: getActiveTags(buttonRef.current) });
+            onReady({ meta, activeTags: getActiveTags(buttonRef.current), deviceID: getOrCreateStorageID() });
         }
     }, [meta.messageRequestId]);
 

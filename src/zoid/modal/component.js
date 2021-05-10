@@ -191,7 +191,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta }) => {
+                    return ({ products, meta, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
                         const { messageRequestId, trackingDetails, displayedMessage } = meta;
@@ -203,6 +203,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             delete existingMeta[index];
 
                             return {
+                                global: {
+                                    // Device ID should be correctly set during message render
+                                    deviceID,
+                                    sessionID: getSessionID
+                                },
                                 [index]: {
                                     type: 'modal',
                                     messageRequestId,
