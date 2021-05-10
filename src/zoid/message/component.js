@@ -14,7 +14,8 @@ import {
     getStorageID,
     getSessionID,
     getGlobalState,
-    getCurrentTime
+    getCurrentTime,
+    getStageTag
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -335,6 +336,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: () => window.location.href,
                 debug: ppDebug(`Message Location: ${window.location.href}`)
+                value: getCurrentScriptUID
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getStageTag
             }
         }
     })
