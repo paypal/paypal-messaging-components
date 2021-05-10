@@ -49,13 +49,10 @@ const memoizedModal = memoizeOnProps(
         const showModal = (options = {}) => {
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
-            const newOptions = isElement(options) ? getInlineOptions(options) : options;
             if (isElement(options)) {
                 newOptions.src =
                     options.id ||
-                    Array.from(options.classList)
-                        .map(e => `.${e}`)
-                        .join('') ||
+                    [...options.classList].map(e => `.${e}`).join('') ||
                     options.constructor?.name ||
                     'element';
             }

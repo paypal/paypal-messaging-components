@@ -143,7 +143,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const [hijackViewport] = viewportHijack();
 
                     return () => {
-                        const { index, refIndex } = props;
                         const { index, refIndex, src = 'show' } = props;
 
                         hijackViewport();
