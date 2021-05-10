@@ -13,7 +13,8 @@ import {
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getHost as getSDKHost
+    getHost as getSDKHost,
+    getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
 import { isLocalStorageEnabled, getStorage } from 'belter/src';
@@ -172,3 +173,25 @@ export const isScriptBeingDestroyed = () => {
         return false;
     }
 };
+
+export function getPayPalDomain() {
+    if (__MESSAGES__.__TEST_ENV__) {
+        return __MESSAGES__.__TEST_ENV__;
+    } else if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKPayPalDomain();
+    } else {
+        return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+    }
+}
+
+export function getStageTag() {
+    if (__MESSAGES__.__STAGE_TAG__) {
+        if (__MESSAGES__.__STAGE_TAG__ === 'local') {
+            return window.location.origin;
+        } else {
+            return __MESSAGES__.__STAGE_TAG__;
+        }
+    } else {
+        return undefined;
+    }
+}

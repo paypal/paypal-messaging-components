@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.1](https://github.com/paypal/paypal-messaging-components/compare/v1.22.0...v1.22.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* handle empty account zoid props ([#514](https://github.com/paypal/paypal-messaging-components/issues/514)) ([d6222e9](https://github.com/paypal/paypal-messaging-components/commit/d6222e9bf943dd9d59f4216686463b0403602029))
+
 # [1.22.0](https://github.com/paypal/paypal-messaging-components/compare/v1.21.3...v1.22.0) (2021-05-04)
 
 
