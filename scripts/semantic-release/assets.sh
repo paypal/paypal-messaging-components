@@ -118,7 +118,7 @@ done
 
 # Deploy to stage CDN
 if [ ! -z "$tag" ]; then
-    if [ ! command -v web &> /dev/null ]; then
+    if ! command -v web &> /dev/null; then
         printf "\nPlease install the 'web' cli tool using 'npm i -g @paypalcorp/web' to deploy the stage tag version\n\n"
         exit 1
     fi
