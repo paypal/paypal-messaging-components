@@ -336,7 +336,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: () => window.location.href,
                 debug: ppDebug(`Message Location: ${window.location.href}`)
-                value: getCurrentScriptUID
             },
             stageTag: {
                 type: 'string',
