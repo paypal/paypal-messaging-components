@@ -10,12 +10,13 @@ import {
     nextIndex,
     logger,
     getCurrentTime,
-    globalEvent
+    globalEvent,
+    formattedDate
 } from '../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
-import { ppDebug } from './debug';
+import { ppDebug } from '../../utils/debug';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
@@ -140,8 +141,8 @@ export default (options = {}) => ({
                     buyerCountry: ${buyerCountry},
                     placement: ${placement},
             
-                    renderStart: ${renderStart},
-                    renderMessageTime: ${new Date().getTime()}
+                    renderStart: ${formattedDate(renderStart)},
+                    renderMessageTime: ${formattedDate(new Date())}
                     }`
                     );
 

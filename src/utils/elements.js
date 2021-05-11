@@ -7,7 +7,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
-import { ppDebug } from '../controllers/message/debug';
+import { ppDebug } from './debug';
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 

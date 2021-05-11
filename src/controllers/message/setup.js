@@ -7,10 +7,11 @@ import {
     getAccount,
     getCurrency,
     getPartnerAccount,
-    getInsertionObserver
+    getInsertionObserver,
+    formattedDate
 } from '../../utils';
 import Messages from './adapter';
-import { ppDebug } from './debug';
+import { ppDebug } from '../../utils/debug';
 
 export default function setup() {
     // Populate global config options
@@ -67,7 +68,7 @@ export default function setup() {
                 attributeFilter: ['data-pp-message']
             });
 
-            ppDebug(`DOMContentLoaded at ${new Date().getTime()}`);
+            ppDebug(`DOMContentLoaded at ${formattedDate(new Date().getTime())}`);
         };
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', handleContentLoaded);

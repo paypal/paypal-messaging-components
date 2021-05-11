@@ -7,7 +7,7 @@ import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement } from './elements';
-import { ppDebug } from '../controllers/message/debug';
+import { ppDebug } from './debug';
 
 export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
