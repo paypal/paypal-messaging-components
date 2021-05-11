@@ -79,7 +79,7 @@ const getIntersectionObserverPolyfill = () => {
     );
 };
 
-export const getViewportIntersectionObserver = createGlobalVariableGetter('__viewport_intersection_observer', () =>
+export const getViewportIntersectionObserver = createGlobalVariableGetter('__viewport_intersection_observer__', () =>
     getIntersectionObserverPolyfill().then(() => {
         // eslint-disable-next-line compat/compat
         return new IntersectionObserver((entries, observer) => {
