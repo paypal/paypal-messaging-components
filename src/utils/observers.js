@@ -82,20 +82,25 @@ const getIntersectionObserverPolyfill = () => {
 export const getViewportIntersectionObserver = createGlobalVariableGetter('__viewport_intersection_observer__', () =>
     getIntersectionObserverPolyfill().then(() => {
         // eslint-disable-next-line compat/compat
-        return new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                const index = entry.target.getAttribute('data-pp-id');
-                if (entry.intersectionRatio > 0 && entry.target.getAttribute('data-pp-style-preset') !== 'smallest') {
-                    logger.track({
-                        index,
-                        et: 'CLIENT_IMPRESSION',
-                        event_type: 'scroll',
-                        visible: 'true'
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
+        return new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach(entry => {
+                    const index = entry.target.getAttribute('data-pp-id');
+                    if (entry.isIntersecting && entry.target.getAttribute('data-pp-style-preset') !== 'smallest') {
+                        logger.track({
+                            index,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'scroll',
+                            visible: 'true'
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.5
+            }
+        );
     })
 );
 
