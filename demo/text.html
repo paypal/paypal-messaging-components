@@ -42,6 +42,19 @@
         <div class="container"></div>
         <script src="./helpers/accounts.js"></script>
         <script>
+            window.VIEW = {
+                showAccounts: true,
+                showLabels: true,
+                filterLabels: false,
+                labelPatterns: [
+                    // 'layout',
+                    // 'logo.position',
+                    // 'logo.type',
+                    // 'text.color',
+                    // 'text.size',
+                    // 'text.align'
+                ]
+            };
             window.CONFIG = {
                 // prettier-ignore
                 account: accounts,
@@ -50,14 +63,16 @@
                     logo: {
                         // prettier-ignore
                         type: [
-                            // 'primary',
-                            'alternative',
+                            // undefined, 
+                            'primary',
+                            // 'alternative',
                             // 'inline',
                             // 'none'
                         ],
                         // prettier-ignore
                         position: [
-                            'left',
+                            undefined, 
+                            // 'left',
                             // 'right',
                             // 'top'
                         ]
@@ -65,25 +80,28 @@
                     text: {
                         // prettier-ignore
                         color: [
-                            'black',
+                            undefined, 
+                            // 'black',
                             // 'white',
                             // 'monochrome',
                             // 'grayscale'
                         ],
                         // prettier-ignore
                         size: [
+                            undefined, 
                             // 10,
                             // 11,
-                            12,
+                            // 12,
                             // 13,
                             // 14,
                             // 15,
                             // 16
                         ],
                         align: [
-                            'left'
-                            // 'right',
-                            // 'center'
+                            undefined
+                            // 'left',
+                            // 'center',
+                            // 'right'
                         ]
                     }
                 }
@@ -101,8 +119,34 @@
 
                 configs.forEach(conf => {
                     const h4 = document.createElement('h4');
-                    h4.textContent = `${objectFlattenToArray(conf.style).join(' | ')}`;
-                    container.appendChild(h4);
+
+                    if (window.VIEW.showLabels === true) {
+                        const label = objectFlattenToArray(conf.style)
+                            .filter(prop => {
+                                if (!window.VIEW.filterLabels) {
+                                    return true;
+                                }
+                                const [propPath, propValue] = prop.split(':');
+                                const propVariants = objectGet(window.CONFIG, `style.${propPath}`);
+
+                                // don't show a prop if we're only showing one variation of it
+                                const isSingular = !Array.isArray(propVariants) || propVariants.length <= 1;
+
+                                const match = window.VIEW.labelPatterns.reduce(
+                                    // determine if we explicitly want to show the label
+                                    (result, pattern) => {
+                                        return result || RegExp(pattern).test(propPath);
+                                    },
+                                    // if we are not looking for specific props, show this prop
+                                    window.VIEW.labelPatterns.length == 0
+                                );
+                                return !isSingular || match;
+                            })
+                            .join(' | ');
+
+                        h4.textContent = `${label}`;
+                        container.appendChild(h4);
+                    }
 
                     const wrapper = document.createElement('div');
                     if (conf.style.text.color === 'white') {
