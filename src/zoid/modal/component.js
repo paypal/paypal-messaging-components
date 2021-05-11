@@ -206,7 +206,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                 global: {
                                     // Device ID should be correctly set during message render
                                     deviceID,
-                                    sessionID: getSessionID
+                                    sessionID: getSessionID()
                                 },
                                 [index]: {
                                     type: 'modal',

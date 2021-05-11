@@ -3,15 +3,13 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { request, readStorageID, writeStorageID, isStorageFresh } from 'src/utils';
+import { request, readStorageID, getOrCreateStorageID } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
     readStorageID: jest.fn(),
-    writeStorageID: jest.fn(),
-    isStorageFresh: jest.fn(),
     getOrCreateStorageID: jest.fn(),
     request: jest.fn(() =>
         Promise.resolve({
@@ -59,8 +57,7 @@ describe('<Message />', () => {
 
         request.mockClear();
         readStorageID.mockClear();
-        writeStorageID.mockClear();
-        isStorageFresh.mockClear();
+        getOrCreateStorageID.mockClear();
     });
 
     test('Renders the server markup', () => {
@@ -76,7 +73,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '12345'
-            }
+            },
+            deviceID: '26a2522628_mtc6mjk6nti'
         });
     });
 
@@ -117,7 +115,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '12345'
-            }
+            },
+            deviceID: '26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
@@ -143,7 +142,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '23456'
-            }
+            },
+            deviceID: '26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
@@ -154,39 +154,31 @@ describe('<Message />', () => {
         });
     });
 
-    test('Does not write parent storage ID when present and fresh', () => {
+    test('Passed deviceID from iframe storage to callback', () => {
         readStorageID.mockReturnValue('1111111111_11111111111');
-        isStorageFresh.mockReturnValue(true);
 
         render(<Message />, { wrapper });
 
-        expect(readStorageID).toHaveBeenCalled();
-        expect(isStorageFresh).toHaveBeenCalled();
-
-        expect(writeStorageID).not.toHaveBeenCalled();
+        expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(window.xprops.onReady).toBeCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: '1111111111_11111111111'
+        });
     });
 
-    test('Writes parent storage ID when present, but stale', () => {
-        readStorageID.mockReturnValue('1111111111_11111111111');
-        isStorageFresh.mockReturnValue(false);
-
-        render(<Message />, { wrapper });
-
-        expect(readStorageID).toHaveBeenCalled();
-        expect(isStorageFresh).toHaveBeenCalled();
-
-        expect(writeStorageID).toHaveBeenCalledWith('26a2522628_mtc6mjk6nti');
-    });
-
-    test('Writes parent storage ID when not present', () => {
+    test('Uses parent deviceID when not present inside iframe', () => {
         readStorageID.mockReturnValue(null);
-        isStorageFresh.mockReturnValue(true);
 
         render(<Message />, { wrapper });
 
-        expect(readStorageID).toHaveBeenCalled();
-        expect(isStorageFresh).not.toHaveBeenCalled();
-
-        expect(writeStorageID).toHaveBeenCalledWith('26a2522628_mtc6mjk6nti');
+        expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(window.xprops.onReady).toBeCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: '26a2522628_mtc6mjk6nti'
+        });
     });
 });

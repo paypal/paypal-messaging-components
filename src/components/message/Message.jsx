@@ -3,14 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useEffect, useRef } from 'preact/hooks';
 
-import {
-    request,
-    getActiveTags,
-    readStorageID,
-    writeStorageID,
-    isStorageFresh,
-    getOrCreateStorageID
-} from '../../utils';
+import { request, getActiveTags, readStorageID, getOrCreateStorageID } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -37,10 +30,8 @@ const Message = () => {
     const buttonRef = useRef();
 
     useEffect(() => {
-        // If deviceID fresh use value from inside iframe, otherwise use deviceID from parent page.
-        if (!readStorageID() || !isStorageFresh()) {
-            writeStorageID(deviceID);
-        }
+        // Create iframe deviceID if it doesn't exist.
+        getOrCreateStorageID();
     }, [deviceID]);
 
     const handleClick = () => {
@@ -63,7 +54,13 @@ const Message = () => {
 
     useLayoutEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ meta, activeTags: getActiveTags(buttonRef.current), deviceID: getOrCreateStorageID() });
+            onReady({
+                meta,
+                activeTags: getActiveTags(buttonRef.current),
+                // Use iframe deviceID unless unavailable, falling back to merchant domain deviceID
+                // NOTE: deviceID should be present in iframe localStorage under normal circumstances
+                deviceID: readStorageID() ?? deviceID
+            });
         }
     }, [meta.messageRequestId]);
 

@@ -133,24 +133,6 @@ export function readStorageID() {
     return getRawStorage().id;
 }
 
-// Allows usage of parent page deviceID if none available within iframe
-export function writeStorageID(storageID) {
-    if (isLocalStorageEnabled()) {
-        try {
-            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
-            window.localStorage?.setItem(
-                `__${getNamespace()}_storage__`,
-                JSON.stringify({
-                    ...getRawStorage(),
-                    ...{ id: storageID }
-                })
-            );
-        } catch (e) {
-            // Handle Errors
-        }
-    }
-}
-
 export function getHost() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKHost();
