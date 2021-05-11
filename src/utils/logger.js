@@ -5,8 +5,6 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getOrCreateStorageID, getSessionID } from './sdk';
-
 export const logger = Logger({
     // Url to send logs to
     url: getGlobalUrl('LOGGER_B'),
@@ -47,16 +45,6 @@ export const logger = Logger({
             withCredentials: true
         });
     }
-});
-
-logger.addMetaBuilder(() => {
-    return {
-        global: {
-            // deviceID from parent context
-            deviceID: getOrCreateStorageID(),
-            sessionID: getSessionID()
-        }
-    };
 });
 
 logger.addPayloadBuilder(payload => {
