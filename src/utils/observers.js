@@ -86,7 +86,7 @@ export const getViewportIntersectionObserver = createGlobalVariableGetter('__vie
             (entries, observer) => {
                 entries.forEach(entry => {
                     const index = entry.target.getAttribute('data-pp-id');
-                    if (entry.isIntersecting && entry.target.getAttribute('data-pp-style-preset') !== 'smallest') {
+                    if (entry.isIntersecting) {
                         logger.track({
                             index,
                             et: 'CLIENT_IMPRESSION',
