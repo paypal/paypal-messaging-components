@@ -2,7 +2,8 @@ import setup from 'src/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
 import Messages from 'src/controllers/message/interface';
-import { getGlobalState, destroyGlobalState } from 'src/utils';
+import { getGlobalState } from 'src/utils';
+import destroy from 'src/controllers/message/destroy';
 
 // TODO: Re-enable skipped tests after ramp
 
@@ -18,8 +19,7 @@ describe('message setup', () => {
     afterEach(() => {
         Messages.mockClear();
         Messages().render.mockClear();
-        destroyGlobalState();
-        document.getElementsByTagName('html')[0].innerHTML = '';
+        destroy();
     });
 
     test('Supports pilot window.Message', () => {
