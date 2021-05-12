@@ -105,6 +105,15 @@ export function messageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
     return [messageLogoContainer, messageLogo, messageLogoFirstChild].join('');
 }
 
+/**
+ * Add period after formatted min amount and formatted max amount.
+ */
+export function addPeriod() {
+    return `.message__headline > .tag--medium > span > span:nth-child(2)::after {
+        content: '.'
+    }`;
+}
+
 // Sets logo position for GPL 20x1 ratio
 export function logo20x1() {
     return `

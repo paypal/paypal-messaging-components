@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messaging.js Banner Test Page</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <style>
+            html,
+            body,
+            .multi-container,
+            .container {
+                margin: 0;
+            }
+            html,
+            body,
+            .multi-container {
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="multi-container"></div>
+        <script>
+            const generateConfigs = ({ bannerGroup, config }) => {
+                const sizes = {
+                    small: [10, 11],
+                    default: [12],
+                    large: [13, 14, 15, 16]
+                };
+                sizes.all = [...sizes.small, ...sizes.default, ...sizes.large];
+                sizes.medium = [...sizes.default];
+                const bannerSizes = sizes[bannerGroup.replace(/[^a-z]/g, '')] ?? sizes.all;
+                const configs = bannerSizes.map(size => {
+                    const textBanner = JSON.parse(JSON.stringify(config));
+                    textBanner.style.text.size = size;
+                    return textBanner;
+                });
+                return configs;
+            };
+            const body = document.querySelector('body');
+            const multiContainer = document.querySelector('.multi-container');
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const account = mappedParams.account;
+            const config = JSON.parse(mappedParams.config ?? `{ "layout": "text" }`);
+            const padding = parseInt(mappedParams.padding ?? 0);
+            const bannerGroup = mappedParams.bannerGroup ?? 'all';
+
+            config.account = account ?? config.account;
+            config.style = config.style ?? {};
+            config.style.text = config.style.text ?? {};
+            config.style.layout = 'text';
+
+            if (typeof config.account !== 'string') {
+                console.warn(`You must specify an account`);
+            } else {
+                if (config?.style?.text?.color === 'white') {
+                    // document.body.style.background = '#000000';
+                    // document.body.style.background = '#262723';
+                    document.body.style.background = '#444444';
+                }
+
+                const bannerConfigs = generateConfigs({ bannerGroup, config });
+                bannerConfigs.forEach((cfg, i) => {
+                    const containerName = `text-container-${i}`;
+
+                    const textContainer = document.createElement('div');
+                    textContainer.classList.add(`container`);
+                    textContainer.classList.add(containerName);
+                    multiContainer.append(textContainer);
+
+                    if (padding) {
+                        container.style.margin = `${padding}px`;
+                    }
+                    // console.log(JSON.stringify({
+                    //     cfg,
+                    // },null,'    '));
+
+                    paypal.Message.render(cfg, `.${containerName}`);
+                });
+            }
+        </script>
+    </body>
+</html>

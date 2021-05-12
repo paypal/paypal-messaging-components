@@ -17,7 +17,8 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getStorageID
+    getStorageID,
+    getStageTag
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -258,14 +259,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                decorate: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
                 default: () => '',
                 required: false
             },
@@ -300,6 +302,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getStageTag
             }
         }
     })
