@@ -8,10 +8,10 @@ import {
     getCurrency,
     getPartnerAccount,
     getInsertionObserver,
-    formattedDate
+    formattedDate,
+    ppDebug
 } from '../../utils';
 import Messages from './adapter';
-import { ppDebug } from '../../utils/debug';
 
 export default function setup() {
     // Populate global config options
