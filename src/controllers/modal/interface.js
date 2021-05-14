@@ -51,9 +51,11 @@ const memoizedModal = memoizeOnProps(
 
             if (isElement(options)) {
                 newOptions.src =
-                    options.id ||
-                    [...options.classList].map(e => `.${e}`).join('') ||
-                    options.constructor?.name ||
+                    options.id ??
+                    [...options.classList]
+                        .filter(Boolean)
+                        .reduce((acc, className) => `${acc ?? ''}.${className}`, null) ??
+                    options.constructor?.name ??
                     'element';
             }
             state.renderStart = getCurrentTime();
