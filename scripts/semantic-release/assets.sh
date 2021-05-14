@@ -26,8 +26,8 @@ if [ ! -z "$tag" ]; then
         printf "Stage tag must only contain alpha-numeric and underscore characters\n\n"
         exit 1
     fi
-
-    version=$version-$tag
+    # Underscores not valid semver
+    version=$version-$(echo $tag | sed "s/_/-/g" | sed -E "s/-([0-9]+)$/.\1/")
 fi
 
 if [[ ! -z "$testEnv" ]]; then
@@ -118,18 +118,22 @@ done
 
 # Deploy to stage CDN
 if [ ! -z "$tag" ]; then
-    if [ ! command -v web &> /dev/null ]; then
+    if ! command -v web &> /dev/null; then
         printf "\nPlease install the 'web' cli tool using 'npm i -g @paypalcorp/web' to deploy the stage tag version\n\n"
         exit 1
     fi
 
-    # Manually replace the globals.js variable so that it applies to the SDK bundler
+    # Manually replace the globals.js variables so that it applies to the SDK bundler
     sed -i '' "s/env.STAGE_TAG/'$tag'/" ./globals.js
+    sed -i '' "s/env.VERSION/'$version'/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i '' "s/env.TEST_ENV/'$testEnv'/" ./globals.js
     # Pack the library module similar to publishing the module to npm
     npm pack
     mv ./*.tgz ./dist/bizcomponents/stage/package.tgz
-    # Reset the manual stage tag
+    # Reset the manual variables
     sed -i '' "s/'$tag'/env.STAGE_TAG/" ./globals.js
+    sed -i '' "s/'$version'/env.VERSION/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i '' "s/'$testEnv'/env.TEST_ENV/" ./globals.js
 
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"

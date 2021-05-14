@@ -10,6 +10,9 @@
             body,
             .container {
                 margin: 0;
+            }
+            html,
+            body {
                 width: 100%;
             }
         </style>
@@ -31,9 +34,14 @@
                 .MessagesModal({
                     ...config,
                     onReady: ({ show }) => {
-                        manualMessage.addEventListener('click', () => {
+                        if (typeof mappedParams.click !== 'undefined') {
                             show(manualMessage);
-                        });
+                            document.querySelector('.container').textContent = '';
+                        } else {
+                            manualMessage.addEventListener('click', () => {
+                                show(manualMessage);
+                            });
+                        }
                     }
                 })
                 .render();
