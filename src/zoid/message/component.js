@@ -14,6 +14,7 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
+    writeStorageID,
     getOrCreateStorageID,
     getStageTag
 } from '../../utils';
@@ -174,11 +175,16 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
 
+                        // Write deviceID from iframe localStorage to merchant domain localStorage
+                        writeStorageID(deviceID);
+
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
                             // Necessary because beaver-logger will not override an existing meta key if these values change
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta.global;
 
                             return {
                                 global: {
