@@ -29,14 +29,16 @@ describe('LocalStorage', () => {
     describe('writeStorageID', () => {
         test('Writes provided deviceID to storage when enabled', () => {
             isLocalStorageEnabled.mockReturnValue(true);
-            readSpy.mockReturnValue(JSON.stringify({ id: 'xxxxxxxxxxxx_xxxxxxxxxxx' }));
+            readSpy.mockReturnValue(
+                JSON.stringify({ id: 'xxxxxxxxxxxx_xxxxxxxxxxx', attr1: 'value1', attr2: 'value2' })
+            );
 
             writeStorageID('1111111111_11111111111');
 
             expect(writeSpy).toHaveBeenCalledWith(
                 '__paypal_storage__',
                 JSON.stringify({
-                    ...{ id: 'xxxxxxxxxxxx_xxxxxxxxxxx' },
+                    ...{ id: 'xxxxxxxxxxxx_xxxxxxxxxxx', attr1: 'value1', attr2: 'value2' },
                     ...{ id: '1111111111_11111111111' }
                 })
             );
