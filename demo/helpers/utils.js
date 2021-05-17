@@ -49,3 +49,26 @@ function objectFlattenToArray(options, prefix = '', delimiter = ': ') {
         }
     }, []);
 }
+
+function objectGet(object, propString) {
+    const props = propString.split('.');
+    return props.reduce(
+        (accumulator, prop) =>
+            typeof accumulator === 'object' || typeof accumulator === 'function' ? accumulator[prop] : undefined,
+        object
+    );
+}
+
+function objectSet(object, propString, value) {
+    const props = propString.split('.');
+    const lastProp = props.pop();
+
+    const targetObj = props.reduce((accumulator, prop) => {
+        accumulator[prop] = accumulator[prop] || {};
+        return accumulator[prop];
+    }, object);
+
+    targetObj[lastProp] = value;
+
+    return object;
+}

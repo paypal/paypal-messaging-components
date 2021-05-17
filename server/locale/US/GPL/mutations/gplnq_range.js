@@ -94,7 +94,10 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    `@media screen and (max-width: ${textSize *
+                        28.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
+                    .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
+                    xSmallFallback(textSize * 15.5),
                     setLogoTop(textSize * 40),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
@@ -104,7 +107,10 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 14.75 + 10),
+                    `@media screen and (max-width: ${textSize *
+                        28.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
+                    .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
+                    xSmallFallback(textSize * 15.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })

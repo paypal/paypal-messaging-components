@@ -8,6 +8,18 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
 
+/**
+ * Check to see if the message is entirely offscreen by the top/right/bottom/left, and return if any are true.
+ * @param {HTMLElement} el Element to check.
+ * @returns boolean
+ */
+export const elementIsOffscreen = el => {
+    // Get the current coordinates of the message.
+    const { bottom, left, right, top } = el.getBoundingClientRect();
+
+    return !!(left >= window.innerWidth || right <= 0 || bottom <= 0 || top >= window.innerHeight);
+};
+
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
 export const getTopWindow = () => {
