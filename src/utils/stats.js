@@ -4,28 +4,11 @@ import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
 import { getScriptAttributes, isZoidComponent } from './sdk';
-import { getCurrentTime, getEventListenerPassiveOptionIfSupported } from './miscellaneous';
+import { getCurrentTime } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
 import { getNavigationTiming, getPerformanceMeasure } from './performance';
-
-const scrollHandlers = new Map();
-const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
-const onScroll = (elem, handler) => {
-    const passiveOption = getEventListenerPassiveOptionIfSupported();
-
-    if (scrollHandlers.size === 0) {
-        window.addEventListener('scroll', handleScroll, passiveOption);
-    }
-    scrollHandlers.set(elem, handler);
-
-    return () => {
-        scrollHandlers.delete(elem);
-        if (scrollHandlers.size === 0) {
-            window.removeEventListener('scroll', handleScroll, passiveOption);
-        }
-    };
-};
+import { getViewportIntersectionObserver } from './observers';
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
@@ -80,17 +63,7 @@ export function runStats({ container, activeTags, index }) {
 
     // No need for scroll event if banner is above the fold
     if (payload.visible === 'false') {
-        const clearScroll = onScroll(container, () => {
-            if (isInViewport(container)) {
-                clearScroll();
-                logger.track({
-                    index,
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'scroll',
-                    visible: 'true'
-                });
-            }
-        });
+        getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
     checkAdblock().then(detected => {

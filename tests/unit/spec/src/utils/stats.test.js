@@ -1,5 +1,3 @@
-import { fireEvent } from '@testing-library/dom';
-
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
@@ -28,6 +26,12 @@ jest.mock('@paypal/sdk-client/src', () => ({
 window.getComputedStyle = () => ({
     getPropertyValue: () => 'auto'
 });
+
+const intersectionObserverMock = () => ({
+    observe: () => null
+});
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock);
 
 const addEventListener = window.addEventListener.bind(window);
 const removeEventListener = window.removeEventListener.bind(window);
@@ -115,22 +119,25 @@ describe('stats', () => {
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
-    test('Fires scroll event when loads below fold and scrolls into view', async () => {
-        window.innerHeight = 10;
+    test('Fires scroll event when loads outside of the viewport fold and scrolls into view', async () => {
+        window.innerHeight = 747;
 
         const { container } = createContainer('iframe');
         container.getBoundingClientRect = () => ({
-            left: 100,
-            right: 20,
-            top: 30,
-            bottom: 25
+            left: 968,
+            right: 1348,
+            top: 28,
+            bottom: 49
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
         const payload = {
             ...defaultProps,
-            visible: 'false',
-            browser_height: '10'
+            pos_x: '968',
+            pos_y: '28',
+            browser_width: '1024',
+            browser_height: '747',
+            visible: 'false'
         };
 
         runStats({ container, activeTags: '', index });
@@ -139,26 +146,14 @@ describe('stats', () => {
 
         expect(logger.track).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledWith(payload);
-        expect(window.addEventListener).toHaveBeenCalledTimes(2);
-        expect(window.addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
-
-        container.getBoundingClientRect = () => ({
-            left: 100,
-            right: 20,
-            top: 0,
-            bottom: 5
-        });
-
-        fireEvent.scroll(window);
-
-        expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenLastCalledWith({
-            index,
-            et: 'CLIENT_IMPRESSION',
-            event_type: 'scroll',
-            visible: 'true'
-        });
-        expect(window.removeEventListener).toHaveBeenCalledTimes(1);
-        expect(window.removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
+        expect(payload.visible).toBe('false');
+        if (payload.visible === 'true') {
+            expect(logger.track).toHaveBeenCalledWith({
+                index,
+                et: 'CLIENT_IMPRESSION',
+                event_type: 'scroll',
+                visible: 'true'
+            });
+        }
     });
 });

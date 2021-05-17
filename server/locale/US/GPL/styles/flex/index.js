@@ -1,8 +1,5 @@
 import base from './base.css';
-import colorBlack from './color--black.css';
 import colorGray from './color--gray.css';
-import colorWhite from './color--white.css';
-import colorWhiteNoBorder from './color--white-no-border.css';
 import colorMonochrome from './color--monochrome.css';
 import colorGrayscale from './color--grayscale.css';
 import ratio1x1 from './ratio--1x1.css';
@@ -17,10 +14,7 @@ export default [
     ['ratio:1x4', ratio1x4],
     ['ratio:8x1', [ratio6x1, ratio8x1].join('\n')],
     ['ratio:20x1', [ratio6x1, ratio20x1].join('\n')],
-    ['color:black', colorBlack],
     ['color:gray', colorGray],
-    ['color:white', colorWhite],
-    ['color:white-no-border', colorWhiteNoBorder],
     ['color:monochrome', colorMonochrome],
     ['color:grayscale', colorGrayscale]
 ];
