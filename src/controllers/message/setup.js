@@ -1,5 +1,3 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-
 import {
     getInlineOptions,
     getGlobalState,
@@ -8,6 +6,7 @@ import {
     getCurrency,
     getPartnerAccount,
     getInsertionObserver,
+    isZoidComponent,
     formattedDate,
     ppDebug
 } from '../../utils';
@@ -52,13 +51,14 @@ export default function setup() {
 
     // Requires a merchant account to render a message
     // Prevent auto render from firing inside zoid iframe
-    if (!stringStartsWith(window.name, '__zoid__')) {
+    if (!isZoidComponent()) {
         const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
             if (getGlobalState().config.account) {
                 Messages.render({ _auto: true });
             }
+
             // Using a "global" observer to watch for and automatically render
             // any message containers that are dynamically added after auto render
             getInsertionObserver().observe(document.body, {
@@ -70,6 +70,7 @@ export default function setup() {
 
             ppDebug(`DOMContentLoaded at ${formattedDate(new Date().getTime())}`);
         };
+
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', handleContentLoaded);
         } else {

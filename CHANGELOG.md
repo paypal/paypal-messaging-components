@@ -1,5 +1,19 @@
 # Changelog
 
+# [1.23.0](https://github.com/paypal/paypal-messaging-components/compare/v1.22.1...v1.23.0) (2021-05-18)
+
+
+### Bug Fixes
+
+* improve automatic message rendering ([#508](https://github.com/paypal/paypal-messaging-components/issues/508)) ([7b807cd](https://github.com/paypal/paypal-messaging-components/commit/7b807cd319db1c7a02c60af66079a625a97a4b8f))
+
+
+### Features
+
+* add text align to FR ([#481](https://github.com/paypal/paypal-messaging-components/issues/481)) ([160624b](https://github.com/paypal/paypal-messaging-components/commit/160624b4820880157620c37710eefe4fc44d3f08))
+* add text align to GB [snapshots] ([#480](https://github.com/paypal/paypal-messaging-components/issues/480)) ([ae104c8](https://github.com/paypal/paypal-messaging-components/commit/ae104c8832f152835f57c6edc067f149f04fb025))
+* allow messages to render while offscreen ([#501](https://github.com/paypal/paypal-messaging-components/issues/501)) ([f62d78d](https://github.com/paypal/paypal-messaging-components/commit/f62d78d96f2b7a79b25fb57fa87089c6a49beafa))
+
 ## [1.22.1](https://github.com/paypal/paypal-messaging-components/compare/v1.22.0...v1.22.1) (2021-05-06)
 
 
