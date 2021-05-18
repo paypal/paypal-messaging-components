@@ -1,9 +1,9 @@
 /** @jsx h */
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
-import { useLayoutEffect, useEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags, readStorageID, getOrCreateStorageID } from '../../utils';
+import { request, getActiveTags, getOrCreateStorageID } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -22,17 +22,11 @@ const Message = () => {
         onReady,
         onHover,
         onMarkup,
-        deviceID,
         resize
     } = useXProps();
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
     const dimensionsRef = useRef({ width: 0, height: 0 });
     const buttonRef = useRef();
-
-    useEffect(() => {
-        // Create iframe deviceID if it doesn't exist.
-        getOrCreateStorageID();
-    }, [deviceID]);
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
@@ -57,9 +51,8 @@ const Message = () => {
             onReady({
                 meta,
                 activeTags: getActiveTags(buttonRef.current),
-                // Use iframe deviceID unless unavailable, falling back to merchant domain deviceID
-                // NOTE: deviceID should be present in iframe localStorage under normal circumstances
-                deviceID: readStorageID() ?? deviceID
+                // Utility will create iframe deviceID if it doesn't exist.
+                deviceID: getOrCreateStorageID()
             });
         }
     }, [meta.messageRequestId]);

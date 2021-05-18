@@ -128,11 +128,6 @@ function getRawStorage() {
         : {};
 }
 
-// Separate utility for checking storageID without populating if nonexistant.
-export function readStorageID() {
-    return getRawStorage().id;
-}
-
 export function writeStorageID(storageID) {
     if (isLocalStorageEnabled()) {
         try {

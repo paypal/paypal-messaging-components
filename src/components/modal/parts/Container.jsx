@@ -2,25 +2,14 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { readStorageID } from '../../../utils';
+import { getOrCreateStorageID } from '../../../utils';
 
 import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
     const { type, products, meta, setServerData } = useServerData();
-    const {
-        onReady,
-        currency,
-        amount,
-        payerId,
-        clientId,
-        merchantId,
-        buyerCountry,
-        version,
-        deviceID,
-        env
-    } = useXProps();
+    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry, version, env } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
 
@@ -39,7 +28,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
                 type,
                 products: products.map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: readStorageID() ?? deviceID
+                deviceID: getOrCreateStorageID()
             });
         }
     }, [meta.messageRequestId]);

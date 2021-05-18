@@ -1,6 +1,6 @@
 import { isLocalStorageEnabled } from 'belter/src';
 
-import { writeStorageID, readStorageID } from 'src/utils/sdk';
+import { writeStorageID } from 'src/utils/sdk';
 
 const readSpy = jest.spyOn(Storage.prototype, 'getItem');
 const writeSpy = jest.spyOn(Storage.prototype, 'setItem');
@@ -15,15 +15,6 @@ describe('LocalStorage', () => {
         readSpy.mockClear();
         writeSpy.mockClear();
         isLocalStorageEnabled.mockClear();
-    });
-
-    describe('readStorageID', () => {
-        test('Returns id attribute of storage (storageID)', () => {
-            isLocalStorageEnabled.mockReturnValue(true);
-            readSpy.mockReturnValue(JSON.stringify({ id: '1111111111_11111111111' }));
-
-            expect(readStorageID()).toBe('1111111111_11111111111');
-        });
     });
 
     describe('writeStorageID', () => {

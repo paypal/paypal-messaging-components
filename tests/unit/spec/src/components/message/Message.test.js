@@ -3,14 +3,13 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { request, readStorageID, getOrCreateStorageID } from 'src/utils';
+import { request, getOrCreateStorageID } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
-    readStorageID: jest.fn(),
-    getOrCreateStorageID: jest.fn(),
+    getOrCreateStorageID: jest.fn(() => '26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -56,7 +55,6 @@ describe('<Message />', () => {
         window.xprops.onMarkup.mockClear();
 
         request.mockClear();
-        readStorageID.mockClear();
         getOrCreateStorageID.mockClear();
     });
 
@@ -155,30 +153,16 @@ describe('<Message />', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        readStorageID.mockReturnValue('1111111111_11111111111');
+        getOrCreateStorageID.mockReturnValue('1111111111_11111111111');
 
         render(<Message />, { wrapper });
 
-        expect(getOrCreateStorageID).toHaveBeenCalled();
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {
                 messageRequestId: '12345'
             },
             deviceID: '1111111111_11111111111'
         });
-    });
-
-    test('Uses parent deviceID when not present inside iframe', () => {
-        readStorageID.mockReturnValue(null);
-
-        render(<Message />, { wrapper });
-
         expect(getOrCreateStorageID).toHaveBeenCalled();
-        expect(window.xprops.onReady).toBeCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            deviceID: '26a2522628_mtc6mjk6nti'
-        });
     });
 });
