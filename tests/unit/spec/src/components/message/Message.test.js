@@ -9,7 +9,7 @@ import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
-    getOrCreateStorageID: jest.fn(() => '26a2522628_mtc6mjk6nti'),
+    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -30,8 +30,8 @@ describe('<Message />', () => {
         currency: 'USD',
         style: { layout: 'text' },
         payerId: 'DEV00000000NI',
-        deviceID: '26a2522628_mtc6mjk6nti',
-        sessionID: 'fda0b4618b_mtg6ndy6mjc',
+        deviceID: 'uid_26a2522628_mtc6mjk6nti',
+        sessionID: 'uid_fda0b4618b_mtg6ndy6mjc',
         onClick: jest.fn(),
         onReady: jest.fn(),
         onHover: jest.fn(),
@@ -72,7 +72,7 @@ describe('<Message />', () => {
             meta: {
                 messageRequestId: '12345'
             },
-            deviceID: '26a2522628_mtc6mjk6nti'
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
     });
 
@@ -114,7 +114,7 @@ describe('<Message />', () => {
             meta: {
                 messageRequestId: '12345'
             },
-            deviceID: '26a2522628_mtc6mjk6nti'
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
@@ -141,7 +141,7 @@ describe('<Message />', () => {
             meta: {
                 messageRequestId: '23456'
             },
-            deviceID: '26a2522628_mtc6mjk6nti'
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
@@ -153,7 +153,7 @@ describe('<Message />', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getOrCreateStorageID.mockReturnValue('1111111111_11111111111');
+        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
         render(<Message />, { wrapper });
 
@@ -161,7 +161,7 @@ describe('<Message />', () => {
             meta: {
                 messageRequestId: '12345'
             },
-            deviceID: '1111111111_11111111111'
+            deviceID: 'uid_1111111111_11111111111'
         });
         expect(getOrCreateStorageID).toHaveBeenCalled();
     });
