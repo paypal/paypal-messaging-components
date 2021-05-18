@@ -5,6 +5,8 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
+import { getLibraryVersion } from './sdk';
+
 export const logger = Logger({
     // Url to send logs to
     url: getGlobalUrl('LOGGER_B'),
@@ -47,6 +49,15 @@ export const logger = Logger({
     }
 });
 
+logger.addMetaBuilder(() => {
+    return {
+        global: {
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: getLibraryVersion()
+        }
+    };
+});
+
 logger.addPayloadBuilder(payload => {
     // Remove properties holding DOM element references that are
     // only useful in the context of the browser console window
@@ -57,8 +68,8 @@ logger.addPayloadBuilder(payload => {
 });
 
 logger.addTrackingBuilder(() => {
-    // Send a timestamp with every tracking event so they can be correctly ordered
     return {
+        // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
 });

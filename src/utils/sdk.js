@@ -1,5 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
+
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 import {
@@ -96,6 +98,10 @@ export function getNamespace() {
 
 export function getLibraryVersion() {
     return __MESSAGES__.__VERSION__;
+}
+
+export function isZoidComponent() {
+    return stringStartsWith(window.name, '__zoid__');
 }
 
 // Use SDK methods when available, otherwise manually fetch storage via belter
