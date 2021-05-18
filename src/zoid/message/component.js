@@ -15,11 +15,11 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    getStageTag
+    getStageTag,
+    ppDebug
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
-import { ppDebug } from '../../controllers/message/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -173,7 +173,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
+                        const { messageRequestId, displayedMessage, trackingDetails, offerType, ppDebugId } = meta;
+                        ppDebug(`Message Correlation Id: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -328,7 +329,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             },
             debug: {
                 type: 'boolean',
-                queryParam: false,
+                queryParam: 'pp_debug',
                 value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
             },
             messageLocation: {

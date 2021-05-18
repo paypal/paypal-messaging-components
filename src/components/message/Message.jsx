@@ -2,7 +2,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
-import { ppDebug } from '../../controllers/message/debug';
 
 import { request, getActiveTags } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
@@ -99,8 +98,6 @@ const Message = () => {
             });
         });
     }, [amount, currency, buyerCountry, JSON.stringify(style), offer, payerId, clientId, merchantId]);
-
-    ppDebug(`Correlation Id: ${meta.ppDebugId}`);
 
     return (
         <button
