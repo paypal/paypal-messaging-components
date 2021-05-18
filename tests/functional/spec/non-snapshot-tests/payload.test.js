@@ -102,17 +102,13 @@ describe('payload testing', () => {
                     type: 'message',
                     messageRequestId: expect.any(String),
                     account: config.account,
-                    displayedMessage: expect.any(String),
-                    deviceID: expect.any(String),
-                    sessionID: expect.any(String)
+                    displayedMessage: expect.any(String)
                 },
                 {
                     type: 'modal',
                     messageRequestId: expect.any(String),
                     account: config.account,
-                    displayedMessage: expect.any(String),
-                    deviceID: expect.any(String),
-                    sessionID: expect.any(String)
+                    displayedMessage: expect.any(String)
                 },
                 { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
             ],
