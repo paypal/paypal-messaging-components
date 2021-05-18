@@ -142,7 +142,7 @@ export function writeStorageID(storageID) {
                 `__${getNamespace()}_storage__`,
                 JSON.stringify({
                     ...getRawStorage(),
-                    ...{ id: storageID }
+                    id: storageID
                 })
             );
         } catch (e) {
