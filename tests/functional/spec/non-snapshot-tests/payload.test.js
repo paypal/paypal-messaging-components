@@ -103,16 +103,16 @@ describe('payload testing', () => {
                     messageRequestId: expect.any(String),
                     account: config.account,
                     displayedMessage: expect.any(String),
-                    deviceID: 'uid_3677cd2562_mtk6mza6mtg',
-                    sessionID: 'uid_3d1836c698_mtk6mza6mtg'
+                    deviceID: expect.any(String),
+                    sessionID: expect.any(String)
                 },
                 {
                     type: 'modal',
                     messageRequestId: expect.any(String),
                     account: config.account,
                     displayedMessage: expect.any(String),
-                    deviceID: 'uid_3677cd2562_mtk6mza6mtg',
-                    sessionID: 'uid_3d1836c698_mtk6mza6mtg'
+                    deviceID: expect.any(String),
+                    sessionID: expect.any(String)
                 },
                 { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
             ],
