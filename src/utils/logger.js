@@ -4,8 +4,7 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
-
-import { getStorageID, getSessionID } from './sdk';
+import { getLibraryVersion, getStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -52,6 +51,8 @@ export const logger = Logger({
 logger.addMetaBuilder(() => {
     return {
         global: {
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: getLibraryVersion(),
             deviceID: getStorageID(),
             sessionID: getSessionID()
         }
@@ -68,8 +69,8 @@ logger.addPayloadBuilder(payload => {
 });
 
 logger.addTrackingBuilder(() => {
-    // Send a timestamp with every tracking event so they can be correctly ordered
     return {
+        // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
 });

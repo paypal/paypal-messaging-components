@@ -27,7 +27,7 @@ const tests = [].concat(
     [['Small viewport', { logo: { type: 'primary' }, text: { position: 'left' } }, { width: 200, height: 100 }]]
 );
 
-describe.skip(`AU > text (Test Count: ${tests.length * accounts.length})`, () => {
+describe(`AU > text (Test Count: ${tests.length * accounts.length})`, () => {
     const runBannerTest = createBannerTest('AU');
 
     describe.each(accounts)(`> %s (Test Count: ${tests.length})`, account => {

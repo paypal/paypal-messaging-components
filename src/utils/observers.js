@@ -1,12 +1,13 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
-import { getRoot, elementContains, isElement } from './elements';
+import { getRoot, elementContains, isElement, elementIsOffscreen } from './elements';
 
 export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
@@ -19,13 +20,15 @@ export const getInsertionObserver = createGlobalVariableGetter(
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
                     newMessageContainers.push(mutation.target);
                 } else {
-                    /**
-                     * IE11 does not support nodeList.prototype.forEach().
-                     * Use Array.prototype.slice.call() to turn nodeList into a regular array before using forEach().
-                     */
-                    Array.prototype.slice.call(mutation.addedNodes).forEach(node => {
-                        if (isElement(node) && node.hasAttribute('data-pp-message')) {
-                            newMessageContainers.push(node);
+                    arrayFrom(mutation.addedNodes).forEach(node => {
+                        if (isElement(node)) {
+                            if (node.hasAttribute('data-pp-message')) {
+                                newMessageContainers.push(node);
+                            } else {
+                                arrayFrom(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
+                                    newMessageContainers.push(targetedChildNode)
+                                );
+                            }
                         }
                     });
                 }
@@ -61,13 +64,42 @@ export const getAttributeObserver = createGlobalVariableGetter(
         })
 );
 
-export const getOverflowObserver = createGlobalVariableGetter('__intersection_observer__', () =>
-    ZalgoPromise.resolve(
+const getIntersectionObserverPolyfill = () => {
+    return ZalgoPromise.resolve(
         // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'
             ? dynamicImport('https://polyfill.io/v3/polyfill.js?features=IntersectionObserver')
             : undefined
-    )
+    );
+};
+
+export const getViewportIntersectionObserver = createGlobalVariableGetter('__viewport_intersection_observer__', () =>
+    getIntersectionObserverPolyfill().then(() => {
+        // eslint-disable-next-line compat/compat
+        return new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach(entry => {
+                    const index = entry.target.getAttribute('data-pp-id');
+                    if (entry.isIntersecting) {
+                        logger.track({
+                            index,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'scroll',
+                            visible: 'true'
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.5
+            }
+        );
+    })
+);
+
+export const getOverflowObserver = createGlobalVariableGetter('__intersection_observer__', () =>
+    getIntersectionObserverPolyfill()
         .then(() =>
             ZalgoPromise.all([
                 // Ensure window has loaded otherwise root can be miscalculated and default to null (viewport)
@@ -115,15 +147,22 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                         // If this is the case we run our own calculations as a fallback.
                         // e.g. https://www.auto-protect-shop.de/nanolex-ultra-glasversiegelung-set/a-528
                         if (entry.rootBounds?.width === 0 && entry.rootBounds.height === 0) {
-                            isIntersectingFallback = elementContains(root, entry.target);
+                            isIntersectingFallback = elementContains(root, iframe);
                         }
 
+                        /**
+                         * If the message is intersecting/partially obscured AND the message isn't offscreen,
+                         * or the message is too small, run overflow detection to hide the message.
+                         *
+                         * Else, ensure the message is visible.
+                         */
                         if (
-                            (entry.intersectionRatio < 0.9 ||
+                            ((entry.intersectionRatio < 0.9 && elementIsOffscreen(iframe) === false) ||
                                 // Round up for decimal values
-                                Math.ceil(entry.boundingClientRect.width) < minWidth) &&
+                                Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
                             !isIntersectingFallback
                         ) {
+                            // Attempt to fallback and failing that, hide the message.
                             if (container.getAttribute('data-pp-style-preset') === 'smallest') {
                                 logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
                                     description: `PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
