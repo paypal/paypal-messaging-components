@@ -16,7 +16,7 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        ppDebug('Script:', script);
+        ppDebug('Script:', { debugObj: script });
         const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
