@@ -132,8 +132,8 @@ export default (options = {}) => ({
 
                     ppDebug(
                         `{
-                    clientId: ${account},
-                    merchantId: ${merchantId},
+                    clientID: ${account},
+                    merchantID: ${merchantId},
                     offer: ${offer},
                     currency: ${currency},
                     ignoreCache: ${ignoreCache},

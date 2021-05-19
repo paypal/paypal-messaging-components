@@ -361,6 +361,6 @@ export const getRoot = baseElement => {
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
-    ppDebug('Root:', root || 'undefined');
+    ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
     return elementContains(elementWindow, root) ? undefined : root;
 };

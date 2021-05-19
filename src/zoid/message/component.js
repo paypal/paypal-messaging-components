@@ -174,7 +174,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType, ppDebugId } = meta;
-                        ppDebug(`Message Correlation Id: ${ppDebugId}`);
+                        ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -313,13 +313,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getStorageID,
-                debug: ppDebug(`Device Id: ${getStorageID()}`)
+                debug: ppDebug(`Device ID: ${getStorageID()}`)
             },
             sessionID: {
                 type: 'string',
                 queryParam: true,
                 value: getSessionID,
-                debug: ppDebug(`Session Id: ${getSessionID()}`)
+                debug: ppDebug(`Session ID: ${getSessionID()}`)
             },
             scriptUID: {
                 type: 'string',
