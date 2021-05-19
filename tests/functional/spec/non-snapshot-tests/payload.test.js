@@ -110,10 +110,7 @@ describe('payload testing', () => {
                     account: config.account,
                     displayedMessage: expect.any(String)
                 },
-                {
-                    integration_type: 'STANDALONE',
-                    messaging_version: packageConfig.version
-                }
+                { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
             ],
             matchObjects: [
                 {
