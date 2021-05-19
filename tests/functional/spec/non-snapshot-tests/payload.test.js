@@ -112,9 +112,7 @@ describe('payload testing', () => {
                 },
                 {
                     integration_type: 'STANDALONE',
-                    messaging_version: packageConfig.version,
-                    deviceID: expect.any(String),
-                    sessionID: expect.any(String)
+                    messaging_version: packageConfig.version
                 }
             ],
             matchObjects: [

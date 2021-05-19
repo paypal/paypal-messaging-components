@@ -183,15 +183,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             // Necessary because beaver-logger will not override an existing meta key if these values change
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
+
+                            // Need to capture existing attributes under global before destroying
+                            const { global: existingGlobal = {} } = existingMeta;
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta.global;
 
                             return {
+                                // Need to merge global attribute here due to preserve performance attributes
                                 global: {
-                                    // deviceID from internal iframe storage
-                                    deviceID,
-                                    // Session ID from parent local storage
-                                    sessionID: getSessionID()
+                                    ...existingGlobal,
+                                    deviceID, // deviceID from internal iframe storage
+                                    sessionID: getSessionID() // Session ID from parent local storage
                                 },
                                 [index]: {
                                     type: 'message',
