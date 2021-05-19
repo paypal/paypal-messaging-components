@@ -34,7 +34,7 @@ module.exports = {
         '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
-    setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js'],
+    setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js', '<rootDir>/tests/customMatchers.js'],
     // grumbler-scripts includes babel-plugin-istanbul
     coveragePathIgnorePatterns: ['<rootDir>'],
     globals: {
