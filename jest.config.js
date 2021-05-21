@@ -45,7 +45,6 @@ module.exports = {
                 __TEST__: 'http://localhost.paypal.com:8080'
             },
             __URI__: {
-                __MESSAGE_LEGACY__: '/credit-presentment/messages/legacy',
                 __MESSAGE__: '/credit-presentment/smart/message',
                 __MODAL__: '/credit-presentment/smart/modal',
                 __LOGGER__: '/credit-presentment/log'
