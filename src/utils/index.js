@@ -7,11 +7,7 @@ export * from './sdk';
 export * from './adblock';
 export * from './logger';
 export * from './stats';
-export * from './experimentation';
 export * from './observers';
 export * from './activeTags';
 export * from './events';
 export * from './performance';
-
-// TODO: Remove this after the ramp
-export * from './old';

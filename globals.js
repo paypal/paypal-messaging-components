@@ -33,11 +33,9 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __PRODUCTION__: 'https://www.paypal.com'
         },
         __URI__: {
-            __MESSAGE_A__: '/credit-presentment/messages',
-            __MESSAGE_B__: '/credit-presentment/smart/message',
+            __MESSAGE__: '/credit-presentment/smart/message',
             __MODAL__: '/credit-presentment/smart/modal',
-            __LOGGER_A__: '/ppcredit/messagingLogger',
-            __LOGGER_B__: '/credit-presentment/log'
+            __LOGGER__: '/credit-presentment/log'
         }
     }
 });

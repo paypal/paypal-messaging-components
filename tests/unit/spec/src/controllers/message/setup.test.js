@@ -5,8 +5,6 @@ import Messages from 'src/controllers/message/interface';
 import { getGlobalState } from 'src/utils';
 import destroy from 'src/controllers/message/destroy';
 
-// TODO: Re-enable skipped tests after ramp
-
 jest.mock('src/controllers/message/interface', () => {
     const mockRender = jest.fn();
 
@@ -32,7 +30,7 @@ describe('message setup', () => {
         removeMockScript();
     });
 
-    it.skip('Renders messages on load', () => {
+    test('Renders messages on load', () => {
         const removeMockScript = insertMockScript({ account: 'DEV00000000NI' });
 
         setup();
@@ -65,7 +63,7 @@ describe('message setup', () => {
         removeMockScript();
     });
 
-    it.skip('Renders message with script attribute options', () => {
+    test('Renders message with script attribute options', () => {
         const removeMockScript = insertMockScript({
             account: 'DEV00000000NI',
             currency: 'USD',

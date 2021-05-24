@@ -112,18 +112,5 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
-    // TODO: Remove this after the ramp
-    const MODAL_DEV_CONFIG = getWebpackConfig({
-        entry: './src/old/modal/index.js',
-        libraryTarget: 'window',
-        modulename: 'crc',
-        debug: true,
-        minify: false,
-        sourcemaps: true,
-        filename: 'smart-credit-modal.js',
-        env: env.NODE_ENV,
-        vars: globals(env)
-    });
-
-    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG, MODAL_DEV_CONFIG];
+    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];
 };
