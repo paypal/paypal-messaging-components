@@ -17,6 +17,7 @@ const Message = () => {
         clientId,
         merchantId,
         version,
+        stageTag,
         env,
         onClick,
         onReady,
@@ -78,6 +79,7 @@ const Message = () => {
             client_id: clientId,
             merchant_id: merchantId,
             version,
+            stageTag,
             env
         })
             .filter(([, val]) => Boolean(val))
@@ -98,7 +100,6 @@ const Message = () => {
                 parentStyles: data.parentStyles ?? parentStyles,
                 warnings: data.warnings ?? warnings
             });
-            ppDebug(`renderMessage Correlation ID: ${data.meta?.ppDebugId}`, { inZoid: true });
         });
     }, [amount, currency, buyerCountry, JSON.stringify(style), offer, payerId, clientId, merchantId]);
 
