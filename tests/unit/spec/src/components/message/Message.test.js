@@ -20,7 +20,9 @@ jest.mock('src/utils', () => ({
                 warnings: []
             }
         })
-    )
+    ),
+    // eslint-disable-next-line no-console
+    ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
 
 describe('<Message />', () => {
