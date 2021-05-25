@@ -11,8 +11,7 @@ import {
     logger,
     getCurrentTime,
     addPerformanceMeasure,
-    globalEvent,
-    formattedDate
+    globalEvent
 } from '../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
@@ -144,8 +143,8 @@ export default (options = {}) => ({
                     buyerCountry: ${buyerCountry},
                     placement: ${placement},
             
-                    renderStart: ${formattedDate(renderStart)},
-                    renderMessageTime: ${formattedDate(new Date())}
+                    renderStart: ${new Date(renderStart).toLocaleString()},
+                    renderMessageTime: ${new Date().toLocaleString()}
                     }`
                     );
 

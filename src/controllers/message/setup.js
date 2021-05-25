@@ -7,7 +7,6 @@ import {
     getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
-    formattedDate,
     ppDebug
 } from '../../utils';
 import Messages from './adapter';
@@ -68,7 +67,7 @@ export default function setup() {
                 attributeFilter: ['data-pp-message']
             });
 
-            ppDebug(`DOMContentLoaded at ${formattedDate(new Date().getTime())}`);
+            ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
         };
 
         if (document.readyState === 'loading') {

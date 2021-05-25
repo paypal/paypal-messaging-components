@@ -129,11 +129,6 @@ export const dynamicImport = memoize(url => {
 // // Date.now() altered on some sites: https://www.hydropool.com
 export const getCurrentTime = () => new Date().getTime();
 
-// Formatted dates used in debug log.
-export const formattedDate = milliseconds => {
-    return new Date(milliseconds).toLocaleString();
-};
-
 // Memoized so that the 2 return functions can be called from different modules
 export const viewportHijack = memoize(() => {
     const viewport =
