@@ -131,9 +131,7 @@ export const getCurrentTime = () => new Date().getTime();
 
 // Formatted dates used in debug log.
 export const formattedDate = milliseconds => {
-    const dateObj = new Date(milliseconds);
-    return `${dateObj.getFullYear()}-${dateObj.getMonth() +
-        1}-${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}:${dateObj.getSeconds()}:${dateObj.getMilliseconds()}`;
+    return new Date(milliseconds).toLocaleString();
 };
 
 // Memoized so that the 2 return functions can be called from different modules
