@@ -45,10 +45,6 @@ module.exports = {
                 __TEST__: 'http://localhost.paypal.com:8080'
             },
             __URI__: {
-                __RAMP_EXCLUSION_LIST__: '/upstream/assets/messaging/modal/ramp-exclusion.json',
-                __MESSAGE_A__: '/imadserver/upstream',
-                __MESSAGE_B__: '/credit-presentment/messages',
-                __MESSAGE_B_LEGACY__: '/credit-presentment/messages/legacy',
                 __MESSAGE__: '/credit-presentment/smart/message',
                 __MODAL__: '/credit-presentment/smart/modal',
                 __LOGGER__: '/credit-presentment/log'
