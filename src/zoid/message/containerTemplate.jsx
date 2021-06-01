@@ -73,8 +73,6 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
 };
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    const removePrerender = getRemovePrerender(prerenderFrame);
-
     prerenderFrame.srcdoc = prerenderTemplate({ doc, props });
 
     event.on(EVENT.RENDERED, () => {
