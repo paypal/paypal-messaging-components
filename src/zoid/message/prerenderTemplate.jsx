@@ -7,7 +7,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container, jsxD
     html {
         width: 100%;
         height: 100%;
-        color: #000;
+        color: #0000;
     }
     `;
     const createEl = ({ doc }) =>
