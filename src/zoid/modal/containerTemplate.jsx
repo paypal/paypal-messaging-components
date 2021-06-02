@@ -17,7 +17,7 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
     frame.classList.add(CLASS.INVISIBLE);
     event.on(EVENT.RENDERED, () => {
         prerenderFrame.classList.remove(CLASS.VISIBLE);
-        // prerenderFrame.classList.add(CLASS.INVISIBLE);
+        prerenderFrame.classList.add(CLASS.INVISIBLE);
 
         frame.classList.remove(CLASS.INVISIBLE);
         frame.classList.add(CLASS.VISIBLE);
