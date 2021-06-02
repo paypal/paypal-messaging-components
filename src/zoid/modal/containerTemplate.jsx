@@ -1,14 +1,29 @@
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
+import { destroyElement } from 'belter/src';
 import { EVENT } from 'zoid/src';
 
 import { createTitleGenerator } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
+const CLASS = {
+    VISIBLE: 'visible',
+    INVISIBLE: 'invisible'
+};
+
 export default ({ uid, frame, prerenderFrame, doc, event }) => {
+    prerenderFrame.classList.add(CLASS.VISIBLE);
+    frame.classList.add(CLASS.INVISIBLE);
     event.on(EVENT.RENDERED, () => {
-        prerenderFrame.style.setProperty('display', 'none');
+        prerenderFrame.classList.remove(CLASS.VISIBLE);
+        // prerenderFrame.classList.add(CLASS.INVISIBLE);
+
+        frame.classList.remove(CLASS.INVISIBLE);
+        frame.classList.add(CLASS.VISIBLE);
+        setTimeout(() => {
+            destroyElement(prerenderFrame);
+        }, 1);
     });
 
     const fullScreen = position =>
@@ -23,6 +38,12 @@ export default ({ uid, frame, prerenderFrame, doc, event }) => {
                 {`
                     #${uid} > div { ${fullScreen('fixed')} }
                     #${uid} > div > iframe { ${fullScreen('absolute')} }
+                    #${uid} > div > iframe.${CLASS.INVISIBLE} {
+                        opacity: 0;
+                    }
+                    #${uid} > div > iframe.${CLASS.VISIBLE} {
+                        opacity: 1;
+                    }
                 `}
             </style>
             <div style={fullScreen('fixed')}>

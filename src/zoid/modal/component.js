@@ -22,6 +22,7 @@ import {
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
+import prerenderTemplate from './prerenderTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
@@ -30,6 +31,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
+        prerenderTemplate,
         attributes: {
             iframe: {
                 title: 'PayPal Modal',

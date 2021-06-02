@@ -58,7 +58,6 @@ describe('modal interface', () => {
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(0);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Default renders to body when attempting to show', async () => {
@@ -68,7 +67,6 @@ describe('modal interface', () => {
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Default renders to body when attempting to hide', async () => {
@@ -78,7 +76,6 @@ describe('modal interface', () => {
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Opens modal', async () => {
@@ -93,7 +90,6 @@ describe('modal interface', () => {
                 visible: true
             })
         );
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
     });
 
     test('Closes modal', async () => {
@@ -104,7 +100,6 @@ describe('modal interface', () => {
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
 
         await modal.hide();
 

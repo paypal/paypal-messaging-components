@@ -19,8 +19,9 @@ import { getModalComponent } from '../../zoid/modal';
 const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
         addPerformanceMeasure('firstModalRenderDelay');
-
-        const { render, hide, updateProps, state, event } = getModalComponent()({
+        // need to remove hide from here in order for prerender frame to show until modal network request resolves
+        // const { render, hide, updateProps, state, event } ...
+        const { render, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
             currency,
@@ -46,7 +47,8 @@ const memoizedModal = memoizeOnProps(
                     .then(() => ZalgoPromise.all([render(selector), modalReady]))
                     .then(() => globalEvent.trigger('modal-render'));
 
-                hide();
+                // need to remove this in order for prerender frame to show until modal network request resolves
+                // hide();
             }
 
             return renderProm;
