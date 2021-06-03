@@ -8,7 +8,6 @@ on:
 jobs:
     deploy:
         name: Deploy
-        if: ${{ !env.ACT }} # skip during local actions testing
         runs-on: ubuntu-latest
         strategy:
             matrix:
