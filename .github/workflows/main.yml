@@ -38,11 +38,6 @@ jobs:
             - name: Unit Tests
               run: npm run test
 
-    functionalNonSnapshot:
-        name: Functional Non-Snapshot Tests
-        runs-on: ubuntu-latest
-        needs: lintAndUnit
-        steps:
             - name: Run server
               run: |
                   ((npm run dev:standalone 2>&1 & echo $! > pid.log) | tee server.log) &

@@ -12,8 +12,8 @@ on:
             - tests/functional/spec/utils/**
             - utils/**
             # ignores all locales and content
-            - !server/locale/**
-            - !src/components/modal/content/**
+            - '!server/locale/**'
+            - '!src/components/modal/content/**'
             # US Specific
             - banners/US/**
             - modals/US/**
@@ -30,8 +30,8 @@ on:
             - tests/functional/spec/utils/**
             - utils/**
             # ignores all locales and content
-            - !server/locale/**
-            - !src/components/modal/content/**
+            - '!server/locale/**'
+            - '!src/components/modal/content/**'
             # US Specific
             - banners/US/**
             - modals/US/**
@@ -46,6 +46,7 @@ jobs:
         strategy:
             matrix:
                 node: [12]
+                testPathPattern: [banner/text, banner/flex, modal/calc, modal/base, custom]
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2
@@ -75,39 +76,18 @@ jobs:
                       exit 1
                   fi
 
-    functionalTests:
-        name: Functional Snapshot Tests - US
-        runs-on: ubuntu-latest
-        needs: serverSetup
-        strategy:
-            matrix:
-                testPathPattern: [banner/text, banner/flex, modal/calc, modal/base, custom]
-        steps:
             - name: US Snapshots - ${{ matrix.testPathPattern }}
               run: |
                   npm run test:func -- --testPathPattern spec/${{ matrix.testPathPattern }}
                   ./scripts/snapshot-tests/collect-diffs.sh
 
-    updateSnapshots:
-        name: Update Snapshots - US
-        if: contains(github.event.head_commit.message, '[snapshots]')
-        runs-on: ubuntu-latest
-        needs: serverSetup
-        strategy:
-            matrix:
-                testPathPattern: [banner/text, banner/flex, modal/calc, modal/base, custom]
-        steps:
             - name: Update Snapshots - US
+              if: contains(github.event.head_commit.message, '[snapshots]')
               run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.testPathPattern }}
 
-    commitSnapshots:
-        name: Commit Updated Snapshots - US
-        if: contains(github.event.head_commit.message, '[snapshots]')
-        runs-on: ubuntu-latest
-        needs: updateSnapshots
-        steps:
             - name: Commit Updated Snapshots - US Banner and Custom
               uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
               with:
                   commit_message: 'chore(snapshots): update US banner and custom snapshots [skip ci]'
                   commit_options: '--no-verify --quiet'
@@ -117,6 +97,7 @@ jobs:
 
             - name: Commit Updated Snapshots - US Modal
               uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
               with:
                   commit_message: 'chore(snapshots): update US modal snapshots [skip ci]'
                   commit_options: '--no-verify --quiet'
