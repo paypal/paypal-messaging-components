@@ -15,7 +15,8 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    getStageTag
+    getStageTag,
+    isScriptBeingDestroyed
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -252,7 +253,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
-                            if (container && container.ownerDocument.body.contains(container)) {
+                            if (
+                                container &&
+                                container.ownerDocument.body.contains(container) &&
+                                !isScriptBeingDestroyed()
+                            ) {
                                 // Will re-render with the full config options stored in the zoid props
                                 const { render, state, updateProps, clone } = messagesMap.get(container).clone();
 
