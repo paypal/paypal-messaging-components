@@ -6,6 +6,8 @@ on:
             - release
         paths:
             # Generic
+            - banners/**
+            - modals/**
             - server/**
             - src/**
             - tests/functional/spec/*
@@ -20,6 +22,8 @@ on:
     pull_request:
         paths:
             # Generic
+            - banners/**
+            - modals/**
             - server/**
             - src/**
             - tests/functional/spec/*
