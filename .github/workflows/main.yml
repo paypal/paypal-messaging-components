@@ -38,6 +38,29 @@ jobs:
             - name: Unit Tests
               run: npm run test
 
+    functionalNonSnapshot:
+        name: Functional Non-Snapshot Tests
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Set domain
+              run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
+
             - name: Run server
               run: |
                   ((npm run dev:standalone 2>&1 & echo $! > pid.log) | tee server.log) &
