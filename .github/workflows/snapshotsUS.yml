@@ -40,13 +40,13 @@ on:
             - src/components/modal/content/US*/**
             - tests/functional/spec/US/**
 jobs:
-    serverSetup:
-        name: Server Setup - US
+    snapshots:
+        name: US Snapshots
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node: [12]
                 testPathPattern: [banner/text, banner/flex, modal/calc, modal/base, custom]
+                node: [12]
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2
@@ -78,12 +78,12 @@ jobs:
 
             - name: US Snapshots - ${{ matrix.testPathPattern }}
               run: |
-                  npm run test:func -- --testPathPattern spec/${{ matrix.testPathPattern }}
+                  npm run test:func -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
                   ./scripts/snapshot-tests/collect-diffs.sh
 
             - name: Update Snapshots - US
               if: contains(github.event.head_commit.message, '[snapshots]')
-              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.testPathPattern }}
+              run: npm run test:func:ciupdate -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
 
             - name: Commit Updated Snapshots - US Banner and Custom
               uses: stefanzweifel/git-auto-commit-action@v4
