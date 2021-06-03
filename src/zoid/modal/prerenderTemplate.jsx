@@ -24,7 +24,6 @@ export default ({ doc, props }) => {
         max-width: 640px;
         height: 100%;
         border-radius: 10px;
-        box-shadow: 0px 10px 14px 1px rgb(0 0 0 / 60%);
       }
       .spinner{
           position: relative !important;
@@ -32,6 +31,10 @@ export default ({ doc, props }) => {
       }
         
     `;
+    const handlePrerenderClose = () => {
+        // this doesn't seem to work in prerender frame
+        props.onClose({ linkName: 'prerender' });
+    };
     return (
         <html lang="en">
             <head>
@@ -42,6 +45,11 @@ export default ({ doc, props }) => {
             <body>
                 <div class="modal">
                     <div class="modal-content">
+                        <div class="close-button">
+                            <button onClick={handlePrerenderClose} type="button">
+                                Close
+                            </button>
+                        </div>
                         <Spinner nonce={props.nonce} />
                     </div>
                 </div>
