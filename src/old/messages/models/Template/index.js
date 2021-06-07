@@ -52,7 +52,7 @@ function createCustomFontFamily(account, fontFamily) {
         font-family: ${fontFamily};
         font-style: normal;
         font-weight: 400;
-
+        font-display: swap;
         src: url('${baseUrl}.eot');
         src: url('${baseUrl}.woff2')
                 format('woff2'),
