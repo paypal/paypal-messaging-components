@@ -1,14 +1,15 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-unknown-property */
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 
-export default ({ doc, props }) => {
+export default ({ uid, doc, props, state }) => {
     const styles = `
-    .modal {
+      .overlay{
         position: fixed;
-        z-index: 1; 
         left: 0;
         top: 0;
         width: 100%; 
@@ -16,14 +17,15 @@ export default ({ doc, props }) => {
         background-color: rgb(0,0,0);
         background-color: rgba(108, 115, 120, 0.85);
       }
-      
       .modal-content {
+        position: relative;
         background-color: #fefefe;
         margin: auto;
         border: 1px solid #888;
         max-width: 640px;
         height: 100%;
         border-radius: 10px;
+        z-index: 1
       }
       .spinner{
           position: relative !important;
@@ -32,8 +34,9 @@ export default ({ doc, props }) => {
         
     `;
     const handlePrerenderClose = () => {
-        // this doesn't seem to work in prerender frame
-        props.onClose({ linkName: 'prerender' });
+        state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
+        state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
+        document.querySelector(`#${uid}`).style.display = 'none';
     };
     return (
         <html lang="en">
@@ -44,6 +47,7 @@ export default ({ doc, props }) => {
             <style>{styles}</style>
             <body>
                 <div class="modal">
+                    <div class="overlay" onClick={handlePrerenderClose} />
                     <div class="modal-content">
                         <div class="close-button">
                             <button onClick={handlePrerenderClose} type="button">

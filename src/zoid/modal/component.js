@@ -45,6 +45,10 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: true,
                 value: validate.account
             },
+            getPrerenderDetails: {
+                type: 'function',
+                value: ({ state }) => () => state.prerenderDetails
+            },
             merchantId: {
                 type: 'string',
                 queryParam: 'merchant_id',
@@ -234,7 +238,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
-
                         if (
                             typeof onReady === 'function' &&
                             // No need to fire the merchant's onReady if the modal products haven't changed

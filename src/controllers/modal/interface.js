@@ -97,12 +97,17 @@ const memoizedModal = memoizeOnProps(
         // for merchant integrations
         state.show = showModal;
         state.hide = hideModal;
-
+        state.prerenderDetails = {
+            prerenderElement: null,
+            frameElement: null,
+            uid: null
+        };
         // Follow existing zoid interface
         return {
             render: renderModal,
             show: showModal,
             hide: hideModal,
+            prerenderDetails: state.prerenderDetails,
             updateProps
         };
     },

@@ -105,9 +105,23 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta }) => {
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
-
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
+
+                        // this checks to see if display none is on the parent iframe div id.
+                        // if the modal content never loads (eg. api request error), we need to have click functionality to show the prerender window
+                        // if there is an error and the modal never shows we have control here to show the spinner or not
+                        // possibly even render some type of message in the modal to show an error occured?
+                        if (document.querySelector(`#${modal.prerenderDetails.uid}`)) {
+                            document.querySelector(`#${modal.prerenderDetails.uid}`).style.display = 'block';
+                            modal.prerenderDetails.prerenderElement.classList.remove(
+                                `${modal.prerenderDetails.uid}-invisible`
+                            );
+                            modal.prerenderDetails.prerenderElement.classList.add(
+                                `${modal.prerenderDetails.uid}-visible`
+                            );
+                        }
+
                         modal.show({
                             account,
                             merchantId,
@@ -173,7 +187,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
-
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
                             // Necessary because beaver-logger will not override an existing meta key if these values change
@@ -199,7 +212,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
                         modal.updateProps({ refIndex: index, offer: offerType, visible: false });
-                        // modal.render('body');
 
                         logger.track({
                             index,
