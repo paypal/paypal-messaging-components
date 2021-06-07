@@ -19,6 +19,7 @@ import {
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
+import prerenderTemplate from './prerenderTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -27,6 +28,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
+        prerenderTemplate,
         autoResize: {
             width: true,
             height: true,

@@ -3,11 +3,8 @@ import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
 import { getOverflowObserver, createTitleGenerator } from '../../utils';
-import prerenderTemplate from './prerenderTemplate';
 
 const getTitle = createTitleGenerator();
-
-import getParentStyles from '../../../server/getParentStyles.js';
 
 const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
     let cssStyles = ``;
@@ -103,8 +100,6 @@ showLoadedMessage.RENDERED = false;
 showLoadedMessage.LOADED = false;
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    prerenderFrame.srcdoc = prerenderTemplate({ doc, props });
-
     frame.addEventListener('load', event => {
         showLoadedMessage({ uid, container, event: 'LOADED' });
     });
