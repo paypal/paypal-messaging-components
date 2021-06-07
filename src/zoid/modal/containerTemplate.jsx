@@ -23,11 +23,12 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     event.on(EVENT.RENDERED, () => {
         frame.classList.add(CLASS.VISIBLE);
         prerenderFrame.classList.add(CLASS.INVISIBLE);
-        frame.classList.remove(CLASS.INVISIBLE);
-        prerenderFrame.classList.remove(CLASS.VISIBLE);
         setTimeout(() => {
-            destroyElement(prerenderFrame);
-        }, 1);
+            prerenderFrame.classList.remove(CLASS.VISIBLE);
+            setTimeout(() => {
+                destroyElement(prerenderFrame);
+            }, 1);
+        }, 1000);
     });
 
     const fullScreen = position =>
@@ -43,10 +44,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     #${uid} > div { ${fullScreen('fixed')} }
                     #${uid} > div > iframe { ${fullScreen('absolute')} }
                     #${uid} > div > iframe.${CLASS.INVISIBLE} {
-                        display: none;
+                        opacity: 0;
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
-                        display: block;
+                        opacity: 1;
                     }
                 `}
             </style>

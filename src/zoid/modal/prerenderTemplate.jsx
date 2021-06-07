@@ -22,7 +22,7 @@ export default ({ uid, doc, props, state }) => {
         background-color: #fefefe;
         margin: auto;
         border: 1px solid #888;
-        max-width: 640px;
+        max-width: 660px;
         height: 100%;
         border-radius: 10px;
         z-index: 1
