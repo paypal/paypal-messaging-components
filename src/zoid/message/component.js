@@ -11,8 +11,12 @@ import {
     getLibraryVersion,
     runStats,
     logger,
+    getStorageID,
+    getSessionID,
     getGlobalState,
-    getCurrentTime
+    getCurrentTime,
+    getStageTag,
+    isScriptBeingDestroyed
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -20,7 +24,7 @@ import containerTemplate from './containerTemplate';
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
-        url: getGlobalUrl('MESSAGE_B'),
+        url: getGlobalUrl('MESSAGE'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
@@ -249,7 +253,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
-                            if (container && container.ownerDocument.body.contains(container)) {
+                            if (
+                                container &&
+                                container.ownerDocument.body.contains(container) &&
+                                !isScriptBeingDestroyed()
+                            ) {
                                 // Will re-render with the full config options stored in the zoid props
                                 const { render, state, updateProps, clone } = messagesMap.get(container).clone();
 
@@ -272,14 +280,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                decorate: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
                 default: () => '',
                 required: false
             },
@@ -300,10 +309,26 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 value: getLibraryVersion
             },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getStorageID
+            },
+            sessionID: {
+                type: 'string',
+                queryParam: true,
+                value: getSessionID
+            },
             scriptUID: {
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getStageTag
             }
         }
     })

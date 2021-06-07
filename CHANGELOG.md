@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.23.2](https://github.com/paypal/paypal-messaging-components/compare/v1.23.1...v1.23.2) (2021-05-25)
+
+
+### Bug Fixes
+
+* include refIndex meta in logger payload ([#530](https://github.com/paypal/paypal-messaging-components/issues/530)) ([52b1126](https://github.com/paypal/paypal-messaging-components/commit/52b112667c1c0239c8be44d89d757eb79c3569bb))
+
+## [1.23.1](https://github.com/paypal/paypal-messaging-components/compare/v1.23.0...v1.23.1) (2021-05-24)
+
+# [1.23.0](https://github.com/paypal/paypal-messaging-components/compare/v1.22.1...v1.23.0) (2021-05-18)
+
+
+### Bug Fixes
+
+* improve automatic message rendering ([#508](https://github.com/paypal/paypal-messaging-components/issues/508)) ([7b807cd](https://github.com/paypal/paypal-messaging-components/commit/7b807cd319db1c7a02c60af66079a625a97a4b8f))
+
+
+### Features
+
+* add text align to FR ([#481](https://github.com/paypal/paypal-messaging-components/issues/481)) ([160624b](https://github.com/paypal/paypal-messaging-components/commit/160624b4820880157620c37710eefe4fc44d3f08))
+* add text align to GB [snapshots] ([#480](https://github.com/paypal/paypal-messaging-components/issues/480)) ([ae104c8](https://github.com/paypal/paypal-messaging-components/commit/ae104c8832f152835f57c6edc067f149f04fb025))
+* allow messages to render while offscreen ([#501](https://github.com/paypal/paypal-messaging-components/issues/501)) ([f62d78d](https://github.com/paypal/paypal-messaging-components/commit/f62d78d96f2b7a79b25fb57fa87089c6a49beafa))
+
+## [1.22.1](https://github.com/paypal/paypal-messaging-components/compare/v1.22.0...v1.22.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* handle empty account zoid props ([#514](https://github.com/paypal/paypal-messaging-components/issues/514)) ([d6222e9](https://github.com/paypal/paypal-messaging-components/commit/d6222e9bf943dd9d59f4216686463b0403602029))
+
+# [1.22.0](https://github.com/paypal/paypal-messaging-components/compare/v1.21.3...v1.22.0) (2021-05-04)
+
+
+### Bug Fixes
+
+* account for ongoing SDK destroy in MutationObservers ([#509](https://github.com/paypal/paypal-messaging-components/issues/509)) ([e16f730](https://github.com/paypal/paypal-messaging-components/commit/e16f7305804fe79ca212e6df92915b5df40cde90))
+
+
+### Features
+
+* GPL Australia [snapshots] ([#492](https://github.com/paypal/paypal-messaging-components/issues/492)) ([3354c90](https://github.com/paypal/paypal-messaging-components/commit/3354c90055e9be354186f66f688481855b0959de))
+
+## [1.21.3](https://github.com/paypal/paypal-messaging-components/compare/v1.21.2...v1.21.3) (2021-04-21)
+
+
+### Bug Fixes
+
+* properly bootstrap zoid inside iframe ([#496](https://github.com/paypal/paypal-messaging-components/issues/496)) ([84aa81c](https://github.com/paypal/paypal-messaging-components/commit/84aa81c90ed720a30ebcd7a0e47966788c6e54e6))
+
 ## [1.21.2](https://github.com/paypal/paypal-messaging-components/compare/v1.21.1...v1.21.2) (2021-04-07)
 
 ## [1.21.1](https://github.com/paypal/paypal-messaging-components/compare/v1.21.0...v1.21.1) (2021-04-06)

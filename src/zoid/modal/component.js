@@ -14,7 +14,11 @@ import {
     getScriptAttributes,
     viewportHijack,
     logger,
-    nextIndex
+    nextIndex,
+    getPerformanceMeasure,
+    getSessionID,
+    getStorageID,
+    getStageTag
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -210,6 +214,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             };
                         });
 
+                        const firstModalRenderDelay = getPerformanceMeasure('firstModalRenderDelay');
+
                         logger.info('modal_render', {
                             index,
                             refIndex,
@@ -222,9 +228,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'modal-render',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
-                            integration_type: __MESSAGES__.__TARGET__,
-                            messaging_version: getLibraryVersion(),
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
+                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+                            first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
+                            render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
 
                         if (
@@ -253,14 +259,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                decorate: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
                 default: () => '',
                 required: false
             },
@@ -281,10 +288,26 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 value: getLibraryVersion
             },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getStorageID
+            },
+            sessionID: {
+                type: 'string',
+                queryParam: true,
+                value: getSessionID
+            },
             scriptUID: {
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getStageTag
             }
         }
     })
