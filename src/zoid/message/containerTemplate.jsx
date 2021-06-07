@@ -75,11 +75,12 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
         }
     `;
 };
+
 const showBanner = ({ uid, prerenderFrame, container }) => {
     // prerenderFrame.parentNode.removeChild(prerenderFrame);
     const style = container.querySelector(`#${uid} style`);
     style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(2\)\s*\{(\n|.+?))opacity:\s*0;/g, `$1`);
-    // style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{)/g, `$1\n\topacity: 0;`);
+    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{)/g, `$1\n\topacity: 0;`);
 };
 const showLoadedMessage = ({ uid, prerenderFrame, container, event }) => {
     const timestamp = new Date();
