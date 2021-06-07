@@ -64,11 +64,11 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             width: 100%;
             height: 100%;
         }
-        #${uid} > iframe.prerender{
+        #${uid} > iframe:nth-of-type(1){
             z-index: 98;
             ${cssStyles}
         }
-        #${uid} > iframe.render{
+        #${uid} > iframe:nth-of-type(2){
             z-index: 99;
             min-height: 10px;
             opacity: 0;
@@ -161,8 +161,8 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
-            <node class={`prerender`} el={prerenderFrame} title={`Prerender ${messageTitle}`} />
-            <node class={`render`} el={frame} title={messageTitle} onRender={setupAutoResize} />
+            <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
+            <node el={frame} title={messageTitle} onRender={setupAutoResize} />
         </span>
     ).render(dom({ doc }));
 };
