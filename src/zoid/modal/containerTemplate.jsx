@@ -22,17 +22,13 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     prerenderFrame.classList.add(CLASS.VISIBLE);
     event.on(EVENT.RENDERED, () => {
         frame.classList.add(CLASS.VISIBLE);
-        prerenderFrame.classList.add(CLASS.INVISIBLE);
         setTimeout(() => {
-            prerenderFrame.classList.remove(CLASS.VISIBLE);
-            setTimeout(() => {
-                destroyElement(prerenderFrame);
-            }, 1);
-        }, 1000);
+            destroyElement(prerenderFrame);
+        }, 300);
     });
 
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
@@ -44,9 +40,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     #${uid} > div { ${fullScreen('fixed')} }
                     #${uid} > div > iframe { ${fullScreen('absolute')} }
                     #${uid} > div > iframe.${CLASS.INVISIBLE} {
-                        opacity: 0;
+                        opacity: 0.5;
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
+                        z-index: 1;
                         opacity: 1;
                     }
                 `}

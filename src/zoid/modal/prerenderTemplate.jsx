@@ -14,7 +14,8 @@ export default ({ uid, doc, props, state }) => {
         top: 0;
         width: 100%; 
         height: 100%;
-        background-color: rgb(0,0,0);
+      }
+      .background-overlay {
         background-color: rgba(108, 115, 120, 0.85);
       }
       .modal-content {
@@ -22,10 +23,10 @@ export default ({ uid, doc, props, state }) => {
         background-color: #fefefe;
         margin: auto;
         border: 1px solid #888;
-        max-width: 660px;
+        max-width: 637px;
         height: 100%;
         border-radius: 10px;
-        z-index: 1
+        right: 9px;
       }
       .spinner{
           position: relative !important;
@@ -33,6 +34,7 @@ export default ({ uid, doc, props, state }) => {
       }
         
     `;
+
     const handlePrerenderClose = () => {
         state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
         state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
@@ -47,7 +49,7 @@ export default ({ uid, doc, props, state }) => {
             <style>{styles}</style>
             <body>
                 <div class="modal">
-                    <div class="overlay" onClick={handlePrerenderClose} />
+                    <div class="overlay background-overlay" onClick={handlePrerenderClose} />
                     <div class="modal-content">
                         <div class="close-button">
                             <button onClick={handlePrerenderClose} type="button">
