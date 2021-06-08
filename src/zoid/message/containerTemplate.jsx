@@ -76,17 +76,16 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
     `;
 };
 
-const showBanner = ({ uid, prerenderFrame, container }) => {
-    // prerenderFrame.parentNode.removeChild(prerenderFrame);
+const showBanner = ({ uid, container }) => {
     const style = container.querySelector(`#${uid} style`);
     style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(2\)\s*\{(\n|.+?))opacity:\s*0;/g, `$1`);
     style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{)/g, `$1\n\topacity: 0;`);
 };
-const showLoadedMessage = ({ uid, prerenderFrame, container, event }) => {
+const showLoadedMessage = ({ uid, container, eventName }) => {
     const timestamp = new Date();
-    if (event === 'RENDERED') {
+    if (eventName === 'RENDERED') {
         showLoadedMessage.RENDERED = timestamp.getTime();
-    } else if (event === 'LOADED') {
+    } else if (eventName === 'LOADED') {
         showLoadedMessage.LOADED = timestamp.getTime();
     }
     if (
@@ -94,19 +93,19 @@ const showLoadedMessage = ({ uid, prerenderFrame, container, event }) => {
         typeof showLoadedMessage.LOADED === 'number' &&
         showLoadedMessage.LOADED > showLoadedMessage.RENDERED
     ) {
-        showBanner({ uid, prerenderFrame, container });
+        showBanner({ uid, container });
     }
 };
 showLoadedMessage.RENDERED = false;
 showLoadedMessage.LOADED = false;
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    frame.addEventListener('load', event => {
-        showLoadedMessage({ uid, container, event: 'LOADED' });
+    frame.addEventListener('load', () => {
+        showLoadedMessage({ uid, container, eventName: 'LOADED' });
     });
 
     event.on(EVENT.RENDERED, () => {
-        showLoadedMessage({ uid, container, event: 'RENDERED' });
+        showLoadedMessage({ uid, container, eventName: 'RENDERED' });
     });
 
     const setupAutoResize = el => {
@@ -145,8 +144,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         });
     };
     const baseStyles = getBaseStyles({ ...props, uid });
-
-    console.log('baseStyles', props?.style?.layout ?? 'text', baseStyles);
 
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
