@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags, ppDebug } from '../../utils';
+import { request, getActiveTags, ppDebug, getOrCreateStorageID } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -49,7 +49,12 @@ const Message = () => {
 
     useLayoutEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ meta, activeTags: getActiveTags(buttonRef.current) });
+            onReady({
+                meta,
+                activeTags: getActiveTags(buttonRef.current),
+                // Utility will create iframe deviceID if it doesn't exist.
+                deviceID: getOrCreateStorageID()
+            });
         }
     }, [meta.messageRequestId]);
 

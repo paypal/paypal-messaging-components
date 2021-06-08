@@ -11,10 +11,11 @@ import {
     getLibraryVersion,
     runStats,
     logger,
-    getStorageID,
     getSessionID,
     getGlobalState,
     getCurrentTime,
+    writeStorageID,
+    getOrCreateStorageID,
     getStageTag,
     ppDebug,
     isScriptBeingDestroyed
@@ -172,10 +173,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta, activeTags }) => {
+                    return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, displayedMessage, trackingDetails, offerType, ppDebugId } = meta;
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
+
+                        // Write deviceID from iframe localStorage to merchant domain localStorage
+                        writeStorageID(deviceID);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -183,7 +187,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
 
+                            // Need to capture existing attributes under global before destroying
+                            const { global: existingGlobal = {} } = existingMeta;
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta.global;
+
                             return {
+                                // Need to merge global attribute here due to preserve performance attributes
+                                global: {
+                                    ...existingGlobal,
+                                    deviceID, // deviceID from internal iframe storage
+                                    sessionID: getSessionID() // Session ID from parent local storage
+                                },
                                 [index]: {
                                     type: 'message',
                                     messageRequestId,
@@ -317,8 +332,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID,
-                debug: ppDebug(`Device ID: ${getStorageID()}`)
+                value: getOrCreateStorageID,
+                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
             },
             sessionID: {
                 type: 'string',

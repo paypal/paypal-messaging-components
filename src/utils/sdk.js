@@ -19,7 +19,7 @@ import {
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
-import { getStorage } from 'belter/src';
+import { isLocalStorageEnabled, getStorage } from 'belter/src';
 
 import 'core-js-pure/stable/object/entries';
 
@@ -114,11 +114,40 @@ export function getSessionID() {
     }
 }
 
-export function getStorageID() {
+// Retrieves storageID. NOTE: Creates new ID if not already in local storage.
+export function getOrCreateStorageID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
         return getStorage({ name: getNamespace() }).getID();
+    }
+}
+
+export function isStorageFresh() {
+    return getStorage({ name: getNamespace() }).isStateFresh();
+}
+
+// Retrieve namespaced localStorage directly
+function getRawStorage() {
+    return isLocalStorageEnabled()
+        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
+        : {};
+}
+
+export function writeStorageID(storageID) {
+    if (isLocalStorageEnabled()) {
+        try {
+            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
+            window.localStorage?.setItem(
+                `__${getNamespace()}_storage__`,
+                JSON.stringify({
+                    ...getRawStorage(),
+                    id: storageID
+                })
+            );
+        } catch (e) {
+            // Handle Errors
+        }
     }
 }
 

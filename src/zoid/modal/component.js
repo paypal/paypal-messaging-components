@@ -17,7 +17,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getStorageID,
+    getOrCreateStorageID,
     getStageTag,
     ppDebug
 } from '../../utils';
@@ -193,7 +193,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta }) => {
+                    return ({ products, meta, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
                         const { messageRequestId, trackingDetails, displayedMessage, ppDebugId } = meta;
@@ -205,7 +205,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
 
+                            // Need to capture existing attributes under global before destroying
+                            const { global: existingGlobal = {} } = existingMeta;
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta.global;
+
                             return {
+                                global: {
+                                    ...existingGlobal,
+                                    // Device ID should be correctly set during message render
+                                    deviceID,
+                                    sessionID: getSessionID()
+                                },
                                 [index]: {
                                     type: 'modal',
                                     messageRequestId,
@@ -293,7 +304,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',
