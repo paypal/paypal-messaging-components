@@ -10,12 +10,13 @@ import {
     nextIndex,
     logger,
     getCurrentTime,
-    globalEvent,
-    addPerformanceMeasure
+    addPerformanceMeasure,
+    globalEvent
 } from '../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
+import { ppDebug } from '../../utils/debug';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
@@ -127,6 +128,25 @@ export default (options = {}) => ({
                     messagesMap.set(container, { render, updateProps, state, clone });
 
                     getAttributeObserver().observe(container, { attributes: true });
+
+                    ppDebug(
+                        `{
+                    clientID: ${account},
+                    merchantID: ${merchantId},
+                    offer: ${offer},
+                    currency: ${currency},
+                    ignoreCache: ${ignoreCache},
+            
+                    index: data-pp-id="${index}"
+                    style: ${JSON.stringify(style)},
+                    amount: ${amount},
+                    buyerCountry: ${buyerCountry},
+                    placement: ${placement},
+            
+                    renderStart: ${new Date(renderStart).toLocaleString()},
+                    renderMessageTime: ${new Date().toLocaleString()}
+                    }`
+                    );
 
                     return render(container).then(() => globalEvent.trigger('render'));
                 }

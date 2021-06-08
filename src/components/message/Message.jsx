@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags } from '../../utils';
+import { request, getActiveTags, ppDebug } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -17,6 +17,7 @@ const Message = () => {
         clientId,
         merchantId,
         version,
+        stageTag,
         env,
         onClick,
         onReady,
@@ -78,6 +79,7 @@ const Message = () => {
             client_id: clientId,
             merchant_id: merchantId,
             version,
+            stageTag,
             env
         })
             .filter(([, val]) => Boolean(val))
@@ -87,6 +89,8 @@ const Message = () => {
                 ''
             )
             .slice(1);
+
+        ppDebug('Updating message with new props...', { inZoid: true });
 
         request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
             setServerData({

@@ -6,7 +6,8 @@ import {
     getCurrency,
     getPartnerAccount,
     getInsertionObserver,
-    isZoidComponent
+    isZoidComponent,
+    ppDebug
 } from '../../utils';
 import Messages from './adapter';
 
@@ -14,6 +15,7 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
+        ppDebug('Script:', { debugObj: script });
         const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
@@ -64,6 +66,8 @@ export default function setup() {
                 subtree: true,
                 attributeFilter: ['data-pp-message']
             });
+
+            ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
         };
 
         if (document.readyState === 'loading') {
