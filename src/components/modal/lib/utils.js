@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, memoize } from '../../../utils';
+import { request, memoize, ppDebug } from '../../../utils';
 
 export const getContent = memoize(({ currency, amount, payerId, clientId, merchantId, buyerCountry, version, env }) => {
     const query = objectEntries({
@@ -19,6 +19,8 @@ export const getContent = memoize(({ currency, amount, payerId, clientId, mercha
             ''
         )
         .slice(1);
+
+    ppDebug('Updating modal with new props...', { inZoid: true });
 
     return request('GET', `${window.location.origin}/credit-presentment/modalContent?${query}`).then(
         ({ data }) => data

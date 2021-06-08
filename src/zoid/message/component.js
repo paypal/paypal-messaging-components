@@ -16,7 +16,9 @@ import {
     getCurrentTime,
     writeStorageID,
     getOrCreateStorageID,
-    getStageTag
+    getStageTag,
+    ppDebug,
+    isScriptBeingDestroyed
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -173,7 +175,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, displayedMessage, trackingDetails, offerType } = meta;
+                        const { messageRequestId, displayedMessage, trackingDetails, offerType, ppDebugId } = meta;
+                        ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
                         writeStorageID(deviceID);
@@ -267,7 +270,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
-                            if (container && container.ownerDocument.body.contains(container)) {
+                            if (
+                                container &&
+                                container.ownerDocument.body.contains(container) &&
+                                !isScriptBeingDestroyed()
+                            ) {
                                 // Will re-render with the full config options stored in the zoid props
                                 const { render, state, updateProps, clone } = messagesMap.get(container).clone();
 
@@ -307,32 +314,49 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 sendToChild: false,
                 required: false,
-                value: getMeta
+                value: getMeta,
+                debug: ppDebug(`SDK Meta: ${getMeta()}`)
             },
             env: {
                 type: 'string',
                 queryParam: true,
-                value: getEnv
+                value: getEnv,
+                debug: ppDebug(`Environment: ${getEnv()}`)
             },
             version: {
                 type: 'string',
                 queryParam: true,
-                value: getLibraryVersion
+                value: getLibraryVersion,
+                debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID
+                value: getOrCreateStorageID,
+                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
             },
             sessionID: {
                 type: 'string',
                 queryParam: true,
-                value: getSessionID
+                value: getSessionID,
+                debug: ppDebug(`Session ID: ${getSessionID()}`)
             },
             scriptUID: {
                 type: 'string',
                 queryParam: true,
-                value: getCurrentScriptUID
+                value: getCurrentScriptUID,
+                debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
+            },
+            debug: {
+                type: 'boolean',
+                queryParam: 'pp_debug',
+                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+            },
+            messageLocation: {
+                type: 'string',
+                queryParam: false,
+                value: () => window.location.href,
+                debug: ppDebug(`Message Location: ${window.location.href}`)
             },
             stageTag: {
                 type: 'string',
