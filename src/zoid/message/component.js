@@ -121,6 +121,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offer: offerType,
                             refId: messageRequestId,
                             refIndex: index,
+                            src: 'message_click',
                             onClose: () => focus()
                         });
 

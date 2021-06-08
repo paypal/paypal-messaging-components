@@ -91,7 +91,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props }) => {
                     const { onClick, onApply } = props;
 
-                    return ({ linkName }) => {
+                    return ({ linkName, src }) => {
                         const { index, refIndex } = props;
 
                         logger.track({
@@ -99,7 +99,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'click',
-                            link: linkName
+                            link: linkName,
+                            src: src ?? linkName
                         });
 
                         if (typeof onClick === 'function') {
@@ -127,6 +128,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
+                            src: 'Calculator',
                             amount: value
                         });
 
@@ -144,7 +146,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const [hijackViewport] = viewportHijack();
 
                     return () => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, src = 'show' } = props;
 
                         hijackViewport();
 
@@ -152,7 +154,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open'
+                            event_type: 'modal-open',
+                            src
                         });
 
                         if (typeof onShow === 'function') {
