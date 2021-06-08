@@ -16,7 +16,8 @@ import {
     getGlobalState,
     getCurrentTime,
     getStageTag,
-    ppDebug
+    ppDebug,
+    isScriptBeingDestroyed
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -24,7 +25,7 @@ import containerTemplate from './containerTemplate';
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
         tag: 'paypal-message',
-        url: getGlobalUrl('MESSAGE_B'),
+        url: getGlobalUrl('MESSAGE'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
@@ -254,7 +255,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(0).then(() => {
-                            if (container && container.ownerDocument.body.contains(container)) {
+                            if (
+                                container &&
+                                container.ownerDocument.body.contains(container) &&
+                                !isScriptBeingDestroyed()
+                            ) {
                                 // Will re-render with the full config options stored in the zoid props
                                 const { render, state, updateProps, clone } = messagesMap.get(container).clone();
 

@@ -126,14 +126,14 @@ if [ ! -z "$tag" ]; then
     # Manually replace the globals.js variables so that it applies to the SDK bundler
     sed -i '' "s/env.STAGE_TAG/'$tag'/" ./globals.js
     sed -i '' "s/env.VERSION/'$version'/" ./globals.js
-    [[ ! -z "$testEnv" ]] && sed -i '' "s/env.TEST_ENV/'$testEnv'/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i '' "s/env.TEST_ENV/'https:\/\/www.$testEnv'/" ./globals.js
     # Pack the library module similar to publishing the module to npm
     npm pack
     mv ./*.tgz ./dist/bizcomponents/stage/package.tgz
     # Reset the manual variables
     sed -i '' "s/'$tag'/env.STAGE_TAG/" ./globals.js
     sed -i '' "s/'$version'/env.VERSION/" ./globals.js
-    [[ ! -z "$testEnv" ]] && sed -i '' "s/'$testEnv'/env.TEST_ENV/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i '' "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
 
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"

@@ -8,7 +8,7 @@ import { getLibraryVersion, getStorageID, getSessionID } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalUrl('LOGGER_B'),
+    url: getGlobalUrl('LOGGER'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console
@@ -19,9 +19,17 @@ export const logger = Logger({
     transport: ({ url, method, json, headers }) => {
         // Because there is no way to remove payload builders from beaver-logger
         // Filter the meta object to remove inactive banner meta commonly caused by SPAs
-        const activeIndexes = json.events
-            .map(({ payload: { index } }) => index)
-            .concat(json.tracking.map(({ index }) => index));
+        const eventsIndexes = json.events.reduce(
+            (accumulator, { payload: { index, refIndex } }) => [...accumulator, index, refIndex],
+            []
+        );
+
+        const trackingIndexes = json.tracking.reduce(
+            (accumulator, { index, refIndex }) => [...accumulator, index, refIndex],
+            []
+        );
+
+        const activeIndexes = eventsIndexes.concat(trackingIndexes);
 
         const trimmedMeta = objectKeys(json.meta)
             .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.23.2](https://github.com/paypal/paypal-messaging-components/compare/v1.23.1...v1.23.2) (2021-05-25)
+
+
+### Bug Fixes
+
+* include refIndex meta in logger payload ([#530](https://github.com/paypal/paypal-messaging-components/issues/530)) ([52b1126](https://github.com/paypal/paypal-messaging-components/commit/52b112667c1c0239c8be44d89d757eb79c3569bb))
+
+## [1.23.1](https://github.com/paypal/paypal-messaging-components/compare/v1.23.0...v1.23.1) (2021-05-24)
+
 # [1.23.0](https://github.com/paypal/paypal-messaging-components/compare/v1.22.1...v1.23.0) (2021-05-18)
 
 
