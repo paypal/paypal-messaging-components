@@ -69,6 +69,14 @@ jest.mock('server/locale/GB/mutations/gplq', () => ({
     'layout:flex': ['flex', 'GB', 'PLQ']
 }));
 
+jest.mock('server/locale/AU/mutations/gpl', () => ({
+    'layout:text': ['text', 'AU', 'GPL']
+}));
+
+jest.mock('server/locale/AU/mutations/gplq', () => ({
+    'layout:text': ['text', 'AU', 'GPLQ']
+}));
+
 describe('locale methods', () => {
     describe('getMutations', () => {
         test('returns empty value for custom message', () => {

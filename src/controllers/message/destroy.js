@@ -1,4 +1,10 @@
-import { getAttributeObserver, destroyGlobalState, getGlobalState, getInsertionObserver } from '../../utils';
+import {
+    getAttributeObserver,
+    destroyGlobalState,
+    getGlobalState,
+    getInsertionObserver,
+    getViewportIntersectionObserver
+} from '../../utils';
 
 export default function destroy() {
     const { messagesMap } = getGlobalState();
@@ -13,5 +19,6 @@ export default function destroy() {
 
     getAttributeObserver().disconnect();
     getInsertionObserver().disconnect();
+    getViewportIntersectionObserver().then(observer => observer.disconnect());
     destroyGlobalState();
 }

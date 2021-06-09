@@ -5,11 +5,11 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getStorageID, getSessionID } from './sdk';
+import { getLibraryVersion } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalUrl('LOGGER_B'),
+    url: getGlobalUrl('LOGGER'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console
@@ -20,9 +20,17 @@ export const logger = Logger({
     transport: ({ url, method, json, headers }) => {
         // Because there is no way to remove payload builders from beaver-logger
         // Filter the meta object to remove inactive banner meta commonly caused by SPAs
-        const activeIndexes = json.events
-            .map(({ payload: { index } }) => index)
-            .concat(json.tracking.map(({ index }) => index));
+        const eventsIndexes = json.events.reduce(
+            (accumulator, { payload: { index, refIndex } }) => [...accumulator, index, refIndex],
+            []
+        );
+
+        const trackingIndexes = json.tracking.reduce(
+            (accumulator, { index, refIndex }) => [...accumulator, index, refIndex],
+            []
+        );
+
+        const activeIndexes = eventsIndexes.concat(trackingIndexes);
 
         const trimmedMeta = objectKeys(json.meta)
             .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')
@@ -52,8 +60,8 @@ export const logger = Logger({
 logger.addMetaBuilder(() => {
     return {
         global: {
-            deviceID: getStorageID(),
-            sessionID: getSessionID()
+            integration_type: __MESSAGES__.__TARGET__,
+            messaging_version: getLibraryVersion()
         }
     };
 });
@@ -68,8 +76,8 @@ logger.addPayloadBuilder(payload => {
 });
 
 logger.addTrackingBuilder(() => {
-    // Send a timestamp with every tracking event so they can be correctly ordered
     return {
+        // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
 });

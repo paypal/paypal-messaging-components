@@ -1,5 +1,3 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-
 import {
     getInlineOptions,
     getGlobalState,
@@ -7,7 +5,9 @@ import {
     getAccount,
     getCurrency,
     getPartnerAccount,
-    getInsertionObserver
+    getInsertionObserver,
+    isZoidComponent,
+    ppDebug
 } from '../../utils';
 import Messages from './adapter';
 
@@ -15,6 +15,7 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
+        ppDebug('Script:', { debugObj: script });
         const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
@@ -49,13 +50,14 @@ export default function setup() {
 
     // Requires a merchant account to render a message
     // Prevent auto render from firing inside zoid iframe
-    if (!stringStartsWith(window.name, '__zoid__')) {
+    if (!isZoidComponent()) {
         const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
             if (getGlobalState().config.account) {
                 Messages.render({ _auto: true });
             }
+
             // Using a "global" observer to watch for and automatically render
             // any message containers that are dynamically added after auto render
             getInsertionObserver().observe(document.body, {
@@ -64,13 +66,14 @@ export default function setup() {
                 subtree: true,
                 attributeFilter: ['data-pp-message']
             });
+
+            ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
         };
+
         if (document.readyState === 'loading') {
             window.addEventListener('DOMContentLoaded', handleContentLoaded);
         } else {
-            // TODO: Remove setTimeout after ramp. Needed for ramp because the async top level inclusion/exclusion
-            // list fetch causes the order of manual render calls and the auto render call to mix up
-            setTimeout(handleContentLoaded, 0);
+            handleContentLoaded();
         }
     }
 }

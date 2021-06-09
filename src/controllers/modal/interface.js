@@ -10,12 +10,16 @@ import {
     isElement,
     getGlobalState,
     objectMerge,
-    getProductForOffer
+    getProductForOffer,
+    addPerformanceMeasure,
+    globalEvent
 } from '../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
+        addPerformanceMeasure('firstModalRenderDelay');
+
         const { render, hide, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
@@ -39,7 +43,9 @@ const memoizedModal = memoizeOnProps(
                 renderProm = awaitWindowLoad
                     // Give priority to other merchant scripts waiting for the load event
                     .then(() => ZalgoPromise.delay(0))
-                    .then(() => ZalgoPromise.all([render(selector), modalReady]));
+                    .then(() => ZalgoPromise.all([render(selector), modalReady]))
+                    .then(() => globalEvent.trigger('modal-render'));
+
                 hide();
             }
 
@@ -49,6 +55,15 @@ const memoizedModal = memoizeOnProps(
         const showModal = (options = {}) => {
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
+            if (isElement(options)) {
+                newOptions.src =
+                    options.id ??
+                    [...options.classList]
+                        .filter(Boolean)
+                        .reduce((acc, className) => `${acc ?? ''}.${className}`, null) ??
+                    options.constructor?.name ??
+                    'element';
+            }
             state.renderStart = getCurrentTime();
 
             if (!renderProm) {

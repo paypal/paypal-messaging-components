@@ -3,41 +3,49 @@ import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { checkAdblock } from './adblock';
 import { isHidden, isInViewport, getTopWindow } from './elements';
 import { logger } from './logger';
-import { getLibraryVersion, getScriptAttributes } from './sdk';
-import { getEventListenerPassiveOptionIfSupported } from './miscellaneous';
+import { getScriptAttributes, isZoidComponent } from './sdk';
+import { getCurrentTime } from './miscellaneous';
+import { getGlobalState } from './global';
+import { awaitWindowLoad } from './events';
+import { getNavigationTiming, getPerformanceMeasure } from './performance';
+import { getViewportIntersectionObserver } from './observers';
 
-const scrollHandlers = new Map();
-const handleScroll = event => scrollHandlers.forEach(handler => handler(event));
-const onScroll = (elem, handler) => {
-    const passiveOption = getEventListenerPassiveOptionIfSupported();
+if (!isZoidComponent()) {
+    awaitWindowLoad.then(() => {
+        const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
 
-    if (scrollHandlers.size === 0) {
-        window.addEventListener('scroll', handleScroll, passiveOption);
-    }
-    scrollHandlers.set(elem, handler);
+        const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
+        const pageLoadDelay = getNavigationTiming('loadEventStart');
 
-    return () => {
-        scrollHandlers.delete(elem);
-        if (scrollHandlers.size === 0) {
-            window.removeEventListener('scroll', handleScroll, passiveOption);
-        }
-    };
-};
+        const payload = {
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'page_loaded',
+            script_load_delay: Math.round(scriptLoadDelay).toString(),
+            dom_load_delay: Math.round(domLoadDelay).toString(),
+            page_load_delay: Math.round(pageLoadDelay).toString()
+        };
+
+        logger.track(payload);
+    });
+}
 
 export function runStats({ container, activeTags, index }) {
+    const { messagesMap } = getGlobalState();
+    const { state } = messagesMap.get(container);
+
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
 
     const sdkMetaAttributes = getScriptAttributes();
 
+    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+
     // Create initial payload
     const payload = {
         index,
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        integration_type: __MESSAGES__.__TARGET__,
-        messaging_version: getLibraryVersion(),
         bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
@@ -47,22 +55,15 @@ export function runStats({ container, activeTags, index }) {
         browser_height: (topWindow?.innerHeight).toString(),
         visible: isInViewport(container).toString(),
         // Visible message sections
-        active_tags: activeTags
+        active_tags: activeTags,
+        // Performance measurements
+        first_render_delay: Math.round(firstRenderDelay).toString(),
+        render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
     };
 
     // No need for scroll event if banner is above the fold
     if (payload.visible === 'false') {
-        const clearScroll = onScroll(container, () => {
-            if (isInViewport(container)) {
-                clearScroll();
-                logger.track({
-                    index,
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'scroll',
-                    visible: 'true'
-                });
-            }
-        });
+        getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
     checkAdblock().then(detected => {

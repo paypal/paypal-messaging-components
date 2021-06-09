@@ -15,8 +15,11 @@ import {
     viewportHijack,
     logger,
     nextIndex,
+    getPerformanceMeasure,
     getSessionID,
-    getStorageID
+    getOrCreateStorageID,
+    getStageTag,
+    ppDebug
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -88,7 +91,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props }) => {
                     const { onClick, onApply } = props;
 
-                    return ({ linkName }) => {
+                    return ({ linkName, src }) => {
                         const { index, refIndex } = props;
 
                         logger.track({
@@ -96,7 +99,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'click',
-                            link: linkName
+                            link: linkName,
+                            src: src ?? linkName
                         });
 
                         if (typeof onClick === 'function') {
@@ -124,6 +128,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
+                            src: 'Calculator',
                             amount: value
                         });
 
@@ -141,7 +146,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const [hijackViewport] = viewportHijack();
 
                     return () => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, src = 'show' } = props;
 
                         hijackViewport();
 
@@ -149,7 +154,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open'
+                            event_type: 'modal-open',
+                            src
                         });
 
                         if (typeof onShow === 'function') {
@@ -190,10 +196,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta }) => {
+                    return ({ products, meta, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
-                        const { messageRequestId, trackingDetails } = meta;
+                        const { messageRequestId, trackingDetails, ppDebugId } = meta;
+                        ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -201,7 +208,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
 
+                            // Need to capture existing attributes under global before destroying
+                            const { global: existingGlobal = {} } = existingMeta;
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta.global;
+
                             return {
+                                global: {
+                                    ...existingGlobal,
+                                    // Device ID should be correctly set during message render
+                                    deviceID,
+                                    sessionID: getSessionID()
+                                },
                                 [index]: {
                                     type: 'modal',
                                     messageRequestId,
@@ -210,6 +228,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                 }
                             };
                         });
+
+                        const firstModalRenderDelay = getPerformanceMeasure('firstModalRenderDelay');
 
                         logger.info('modal_render', {
                             index,
@@ -224,9 +244,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'modal-render',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
-                            integration_type: __MESSAGES__.__TARGET__,
-                            messaging_version: getLibraryVersion(),
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
+                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+                            first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
+                            render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
 
                         if (
@@ -255,14 +275,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : ''),
+                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) => (stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : ''),
+                decorate: ({ props }) =>
+                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
                 default: () => '',
                 required: false
             },
@@ -286,7 +307,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',
@@ -297,6 +318,17 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            debug: {
+                type: 'boolean',
+                queryParam: 'pp_debug',
+                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+            },
+            stageTag: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getStageTag
             }
         }
     })
