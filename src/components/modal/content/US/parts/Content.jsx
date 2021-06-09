@@ -77,7 +77,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     // Tabs component will track tab switches by default
     // for "fake" tabs that show as links, we must track it manually
     const tabLinkClick = newProduct => {
-        onClick({ linkName: newProduct });
+        onClick({ linkName: newProduct, src: 'link_click' });
         selectProduct(newProduct);
     };
 

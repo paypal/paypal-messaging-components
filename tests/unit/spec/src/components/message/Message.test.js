@@ -3,12 +3,13 @@ import { h } from 'preact';
 import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 
 import Message from 'src/components/message/Message';
-import { request } from 'src/utils';
+import { request, getOrCreateStorageID } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
+    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -20,7 +21,9 @@ jest.mock('src/utils', () => ({
                 warnings: []
             }
         })
-    )
+    ),
+    // eslint-disable-next-line no-console
+    ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
 
 describe('<Message />', () => {
@@ -29,6 +32,8 @@ describe('<Message />', () => {
         currency: 'USD',
         style: { layout: 'text' },
         payerId: 'DEV00000000NI',
+        deviceID: 'uid_26a2522628_mtc6mjk6nti',
+        sessionID: 'uid_fda0b4618b_mtg6ndy6mjc',
         onClick: jest.fn(),
         onReady: jest.fn(),
         onHover: jest.fn(),
@@ -50,7 +55,9 @@ describe('<Message />', () => {
         window.xprops.onReady.mockClear();
         window.xprops.onClick.mockClear();
         window.xprops.onMarkup.mockClear();
+
         request.mockClear();
+        getOrCreateStorageID.mockClear();
     });
 
     test('Renders the server markup', () => {
@@ -66,7 +73,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '12345'
-            }
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
     });
 
@@ -107,7 +115,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '12345'
-            }
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
@@ -133,7 +142,8 @@ describe('<Message />', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {
                 messageRequestId: '23456'
-            }
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
@@ -142,5 +152,19 @@ describe('<Message />', () => {
             styles: 'body { color: blue; }',
             warnings: []
         });
+    });
+
+    test('Passed deviceID from iframe storage to callback', () => {
+        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+
+        render(<Message />, { wrapper });
+
+        expect(window.xprops.onReady).toBeCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: 'uid_1111111111_11111111111'
+        });
+        expect(getOrCreateStorageID).toHaveBeenCalled();
     });
 });
