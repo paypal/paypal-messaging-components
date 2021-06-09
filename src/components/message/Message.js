@@ -149,10 +149,11 @@ const Message = function(markup, meta, parentStyles, warnings, frame) {
                             }
 
                             if (window.xprops.style.layout === 'text') {
-                                resize({ width: 0, height: 18 });
+                                resize({ width: button.offsetWidth, height: button.offsetHeight });
                             } else {
                                 resize(button);
                             }
+
                             onMarkup({
                                 meta: data.meta ?? meta,
                                 styles: data.parentStyles ?? parentStyles,
