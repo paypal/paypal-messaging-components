@@ -27,19 +27,27 @@ export default ({ uid, doc, props, state }) => {
         height: 100%;
         border-radius: 10px;
         right: 9px;
+        transition: transform 250ms;
+        transform: translateY(100%);
+      }
+      .show{
+        transform: translateY(0);
       }
       .spinner{
           position: relative !important;
-
       }
         
     `;
-
     const handlePrerenderClose = () => {
         state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
         state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
         document.querySelector(`#${uid}`).style.display = 'none';
     };
+    // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist
+    setTimeout(() => {
+        const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
+        wrapper.getElementsByClassName('modal-content')[0].classList.add('show');
+    }, 100);
     return (
         <html lang="en">
             <head>
