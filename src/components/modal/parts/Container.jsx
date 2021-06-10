@@ -2,6 +2,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import { getOrCreateStorageID } from '../../../utils';
 
 import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
 import Overlay from './Overlay';
@@ -23,7 +24,12 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     useEffect(() => {
         if (typeof onReady === 'function') {
-            onReady({ type, products: products.map(({ meta: productMeta }) => productMeta.product), meta });
+            onReady({
+                type,
+                products: products.map(({ meta: productMeta }) => productMeta.product),
+                meta,
+                deviceID: getOrCreateStorageID()
+            });
         }
     }, [meta.messageRequestId]);
 

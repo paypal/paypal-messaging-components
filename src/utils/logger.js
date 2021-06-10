@@ -4,7 +4,8 @@ import { Logger, LOG_LEVEL } from 'beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
-import { getLibraryVersion, getStorageID, getSessionID } from './sdk';
+
+import { getLibraryVersion } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -60,9 +61,7 @@ logger.addMetaBuilder(() => {
     return {
         global: {
             integration_type: __MESSAGES__.__TARGET__,
-            messaging_version: getLibraryVersion(),
-            deviceID: getStorageID(),
-            sessionID: getSessionID()
+            messaging_version: getLibraryVersion()
         }
     };
 });

@@ -17,8 +17,9 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getStorageID,
-    getStageTag
+    getOrCreateStorageID,
+    getStageTag,
+    ppDebug
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -96,7 +97,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props }) => {
                     const { onClick, onApply } = props;
 
-                    return ({ linkName }) => {
+                    return ({ linkName, src }) => {
                         const { index, refIndex } = props;
 
                         logger.track({
@@ -104,7 +105,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'click',
-                            link: linkName
+                            link: linkName,
+                            src: src ?? linkName
                         });
 
                         if (typeof onClick === 'function') {
@@ -132,6 +134,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: 'Calculator',
+                            src: 'Calculator',
                             amount: value
                         });
 
@@ -149,7 +152,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const [hijackViewport] = viewportHijack();
 
                     return () => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, src = 'show' } = props;
 
                         hijackViewport();
 
@@ -157,7 +160,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open'
+                            event_type: 'modal-open',
+                            src
                         });
 
                         if (typeof onShow === 'function') {
@@ -198,10 +202,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta }) => {
+                    return ({ products, meta, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
-                        const { messageRequestId, trackingDetails, displayedMessage } = meta;
+                        const { messageRequestId, trackingDetails, ppDebugId } = meta;
+                        ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -209,12 +214,22 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta[index];
 
+                            // Need to capture existing attributes under global before destroying
+                            const { global: existingGlobal = {} } = existingMeta;
+                            // eslint-disable-next-line no-param-reassign
+                            delete existingMeta.global;
+
                             return {
+                                global: {
+                                    ...existingGlobal,
+                                    // Device ID should be correctly set during message render
+                                    deviceID,
+                                    sessionID: getSessionID()
+                                },
                                 [index]: {
                                     type: 'modal',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    displayedMessage,
                                     trackingDetails
                                 }
                             };
@@ -227,6 +242,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             duration: getCurrentTime() - renderStart
                         });
+
                         logger.track({
                             index,
                             refIndex,
@@ -296,7 +312,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getStorageID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',
@@ -307,6 +323,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            debug: {
+                type: 'boolean',
+                queryParam: 'pp_debug',
+                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
             },
             stageTag: {
                 type: 'string',
