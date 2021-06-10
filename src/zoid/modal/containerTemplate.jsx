@@ -21,14 +21,21 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
     event.on(EVENT.RENDERED, () => {
+        // first wait 500ms to show proper transitions
         setTimeout(() => {
-            frame.classList.add(CLASS.VISIBLE);
-            destroyElement(prerenderFrame);
+            prerenderFrame.classList.add(CLASS.INVISIBLE);
+            frame.classList.remove(CLASS.INVISIBLE);
+            prerenderFrame.classList.remove(CLASS.VISIBLE);
+            // destroyElement(prerenderFrame);
         }, 500);
+        // next 500ms remove the prerender frame
+        setTimeout(() => {
+            destroyElement(prerenderFrame);
+        }, 1000);
     });
 
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important;`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85);`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
@@ -37,20 +44,29 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         <div id={uid}>
             <style>
                 {`
-                    #${uid} > div { ${fullScreen('fixed')} }
-                    #${uid} > div > iframe { ${fullScreen('absolute')} }
-                    #${uid} > div > iframe.${CLASS.INVISIBLE} {
-                        opacity: 0;
+                    #${uid} > div > iframe {
+                        position: absolute !important; 
+                        top: 0 !important; 
+                        left: 0 !important; 
+                        width: 100% !important;
+                        height: 100%;
+                        border: none !important;
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
-                        z-index: 1;
                         opacity: 1;
+                        height: 100%;
+                        transition: opacity 350ms;
+                    }
+                    #${uid} > div > iframe.${CLASS.INVISIBLE} {
+                        transition: opacity 350ms;
+                        transform: translateY(0);
+                        opacity: 0;
                     }
                 `}
             </style>
             <div style={fullScreen('fixed')}>
-                <node el={frame} title={modalTitle} style={fullScreen('absolute')} />
-                <node el={prerenderFrame} title={`Prerender ${modalTitle}`} style={fullScreen('absolute')} />
+                <node el={frame} title={modalTitle} />
+                <node el={prerenderFrame} title="Prerender Modal" />
             </div>
         </div>
     ).render(dom({ doc }));

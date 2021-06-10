@@ -15,9 +15,6 @@ export default ({ uid, doc, props, state }) => {
         width: 100%; 
         height: 100%;
       }
-      .background-overlay {
-        background-color: rgba(108, 115, 120, 0.85);
-      }
       .modal-content {
         position: relative;
         background-color: #fefefe;
@@ -38,15 +35,25 @@ export default ({ uid, doc, props, state }) => {
       }
         
     `;
+    const toggleShow = boolean => {
+        const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
+        if (boolean) {
+            wrapper.getElementsByClassName('modal-content')[0].classList.add('show');
+            wrapper.getElementsByClassName('overlay')[0].style.opacity = 1;
+            return;
+        }
+        wrapper.getElementsByClassName('modal-content')[0].classList.remove('show');
+        wrapper.getElementsByClassName('overlay')[0].style.opacity = 0;
+    };
     const handlePrerenderClose = () => {
         state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
         state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
         document.querySelector(`#${uid}`).style.display = 'none';
+        toggleShow(false);
     };
-    // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist
+    // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist. This timeout only happens on first render
     setTimeout(() => {
-        const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
-        wrapper.getElementsByClassName('modal-content')[0].classList.add('show');
+        toggleShow(true);
     }, 100);
     return (
         <html lang="en">
@@ -57,7 +64,7 @@ export default ({ uid, doc, props, state }) => {
             <style>{styles}</style>
             <body>
                 <div class="modal">
-                    <div class="overlay background-overlay" onClick={handlePrerenderClose} />
+                    <div class="overlay" onClick={handlePrerenderClose} />
                     <div class="modal-content">
                         <div class="close-button">
                             <button onClick={handlePrerenderClose} type="button">
