@@ -58,8 +58,8 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
     }
 
     frame.appendChild(button);
-    const buttonWidth = button.offsetWidth;
-    const buttonHeight = button.offsetHeight;
+    let buttonWidth = button.offsetWidth;
+    let buttonHeight = button.offsetHeight;
     // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
     // in the overflow observer will not fire. This forces the resize event to fire for every render
     // so that the render complete logs will always fire
@@ -119,20 +119,16 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 button = addToDom(button, data.markup ?? markup);
                 frame.appendChild(button);
 
-                // const buttonWidth = button.offsetWidth;
-                // const buttonHeight = button.offsetHeight;
+                buttonWidth = button.offsetWidth;
+                buttonHeight = button.offsetHeight;
                 // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
                 // in the overflow observer will not fire. This forces the resize event to fire for every render
                 // so that the render complete logs will always fire
-                // console.error(dimensionsRef.current.width , buttonWidth , dimensionsRef.current.height , buttonHeight)
-                // console.error(buttonHeight)
-                // if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
-                //     resize({ width: buttonWidth, height: buttonHeight });
-                // } else {
-                //     dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
-                // }
-
-                resize({ width: button.offsetWidth, height: button.offsetHeight });
+                if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
+                    resize({ width: buttonWidth, height: buttonHeight });
+                } else {
+                    dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
+                }
 
                 onMarkup({
                     meta: data.meta ?? meta,
