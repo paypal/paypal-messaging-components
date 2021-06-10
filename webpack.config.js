@@ -1,5 +1,7 @@
 const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 
+const { IgnorePlugin } = require('webpack');
+
 const globals = require('./globals');
 const { localeOptions } = require('./locales');
 
@@ -19,7 +21,12 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'standalone'
-        })
+        }),
+        plugins: [
+            new IgnorePlugin({
+                contextRegExp: /preact/
+            })
+        ]
     });
 
     // zoid components
