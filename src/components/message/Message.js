@@ -13,8 +13,7 @@ const addToDom = (button, markup) => {
 };
 
 const Message = function(markup, meta, parentStyles, warnings, frame = null) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
-
+    const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const handleClick = () => {
@@ -29,35 +28,32 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
         }
     };
 
-    const createButton = () => {
-        const { style } = window.xprops;
-        const button = document.createElement('button');
+    const buttonElement = document.createElement('button');
 
-        button.setAttribute('type', 'button');
-        button.setAttribute('aria-label', 'PayPal Credit Message');
+    buttonElement.setAttribute('type', 'button');
+    buttonElement.setAttribute('aria-label', 'PayPal Credit Message');
 
-        button.addEventListener('click', handleClick);
-        button.addEventListener('mouseover', handleHover);
-        button.addEventListener('focus', handleHover);
+    buttonElement.addEventListener('click', handleClick);
+    buttonElement.addEventListener('mouseover', handleHover);
+    buttonElement.addEventListener('focus', handleHover);
 
-        button.style.display = 'block';
-        button.style.background = 'transparent';
-        button.style.padding = 0;
-        button.style.border = 'none';
-        button.style.outline = 'none';
-        button.style.textAlign = style?.text?.align || 'left';
-        button.style.fontFamily = 'inherit';
-        button.style.fontSize = 'inherit';
+    buttonElement.style.display = 'block';
+    buttonElement.style.background = 'transparent';
+    buttonElement.style.padding = 0;
+    buttonElement.style.border = 'none';
+    buttonElement.style.outline = 'none';
+    buttonElement.style.textAlign = style?.text?.align || 'left';
+    buttonElement.style.fontFamily = 'inherit';
+    buttonElement.style.fontSize = 'inherit';
 
-        return button;
-    };
-
-    let button = addToDom(createButton(), markup);
+    let button = addToDom(buttonElement, markup);
+    // test doesn't have a document body. Need to return just the the button for the test
     if (!frame) {
         return button;
     }
 
     frame.appendChild(button);
+
     let buttonWidth = button.offsetWidth;
     let buttonHeight = button.offsetHeight;
     // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
@@ -85,7 +81,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 amount,
                 currency,
                 buyerCountry,
-                style,
+                // style, linting doesn't like since its on like 16
                 offer,
                 payerId,
                 clientId,
@@ -99,7 +95,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 amount,
                 currency,
                 buyer_country: buyerCountry,
-                style,
+                style: window.xprops.style,
                 credit_type: offer,
                 payer_id: payerId,
                 client_id: clientId,
@@ -125,11 +121,13 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 // in the overflow observer will not fire. This forces the resize event to fire for every render
                 // so that the render complete logs will always fire
                 if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
+                    // resizes the iframe
                     resize({ width: buttonWidth, height: buttonHeight });
                 } else {
                     dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
                 }
 
+                // resizes the parent message div
                 onMarkup({
                     meta: data.meta ?? meta,
                     styles: data.parentStyles ?? parentStyles,
