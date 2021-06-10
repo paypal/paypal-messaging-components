@@ -2,9 +2,14 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, getActiveTags } from '../../utils';
 
 const addToDom = (button, markup) => {
+    const buttonElement = button;
+    // turn string into html elements
     const documentBody = new DOMParser().parseFromString(markup, 'text/html');
-    button.appendChild(documentBody.firstChild.querySelector('div'));
-    return button;
+    // remove any existing child elements
+    buttonElement.innerHTML = null;
+    // add child elements
+    buttonElement.appendChild(documentBody.firstChild.querySelector('div'));
+    return buttonElement;
 };
 
 const Message = function(markup, meta, parentStyles, warnings, frame = null) {
@@ -111,11 +116,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 .slice(1);
 
             request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
-                while (frame.firstChild) {
-                    frame.removeChild(frame.firstChild);
-                }
-
-                button = addToDom(createButton(), data.markup ?? markup);
+                button = addToDom(button, data.markup ?? markup);
                 frame.appendChild(button);
 
                 // const buttonWidth = button.offsetWidth;
@@ -132,12 +133,6 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 // }
 
                 resize({ width: button.offsetWidth, height: button.offsetHeight });
-
-                // if (window.xprops.style.layout === 'text') {
-                //     resize({ width: button.offsetWidth, height: button.offsetHeight });
-                // } else {
-                //     resize(button);
-                // }
 
                 onMarkup({
                     meta: data.meta ?? meta,

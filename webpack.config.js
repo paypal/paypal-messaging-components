@@ -21,12 +21,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'standalone'
-        }),
-        plugins: [
-            new IgnorePlugin({
-                contextRegExp: /preact/
-            })
-        ]
+        })
     });
 
     // zoid components
@@ -42,7 +37,12 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'components'
-        })
+        }),
+        plugins: [
+            new IgnorePlugin({
+                contextRegExp: /preact/
+            })
+        ]
     });
 
     COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP'].reduce(
