@@ -79,12 +79,6 @@ describe('Message', () => {
         getOrCreateStorageID.mockClear();
     });
 
-    test('Renders the button', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        const button = Message(markup, meta, parentStyles, warnings);
-        expect(button instanceof HTMLButtonElement).toBe(true);
-    });
-
     test('Renders the button with styles', () => {
         const { markup, meta, parentStyles, warnings } = serverData;
         const button = Message(markup, meta, parentStyles, warnings);
@@ -95,6 +89,7 @@ describe('Message', () => {
             }
         });
 
+        expect(button instanceof HTMLButtonElement).toBe(true);
         expect(JSON.stringify(styles)).toBe(
             JSON.stringify(['display', 'background', 'padding', 'outline', 'text-align', 'font-family'])
         );
@@ -105,21 +100,23 @@ describe('Message', () => {
         expect(getByText(Message(markup, meta, parentStyles, warnings), /test/i).innerHTML).toBe('test');
     });
 
+    test('Fires onReady xProp after render', () => {
+        // render(<Message />, { wrapper });
+        const { markup, meta, parentStyles, warnings } = serverData;
+        Message(markup, meta, parentStyles, warnings);
+
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
+    });
+
     // test('return true for commit', () => {
     //     expect(1).toBe(1);
     // });
-
-    //     test('Fires onReady xProp after render', () => {
-    //         render(<Message />, { wrapper });
-
-    //         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             },
-    //             deviceID: 'uid_26a2522628_mtc6mjk6nti'
-    //         });
-    //     });
 
     //     test('Fires onClick xProp when clicked', () => {
     //         const { container } = render(<Message />, { wrapper });

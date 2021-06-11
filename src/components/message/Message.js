@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags } from '../../utils';
+import { request, getActiveTags, ppDebug, getOrCreateStorageID } from '../../utils';
 
 const addToDom = (button, markup) => {
     const documentBody = new DOMParser().parseFromString(markup, 'text/html'); // turn string into html elements
@@ -48,13 +48,6 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
 
     let button = addToDom(buttonElement, markup);
 
-    // test doesn't have a document body. Need to return just the the button for the test
-    if (!frame) {
-        return button;
-    }
-
-    frame.appendChild(button);
-
     let buttonWidth = button.offsetWidth;
     let buttonHeight = button.offsetHeight;
     // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
@@ -67,7 +60,12 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
     }
 
     if (typeof onReady === 'function') {
-        onReady({ meta, activeTags: getActiveTags(button) });
+        onReady({
+            meta,
+            activeTags: getActiveTags(button),
+            // Utility will create iframe deviceID if it doesn't exist.
+            deviceID: getOrCreateStorageID()
+        });
     }
 
     if (typeof onMarkup === 'function') {
@@ -110,6 +108,8 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 )
                 .slice(1);
 
+            ppDebug('Updating message with new props...', { inZoid: true });
+
             request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
                 button = addToDom(button, data.markup ?? markup);
                 frame.appendChild(button);
@@ -133,11 +133,20 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                     warnings: data.warnings ?? warnings
                 });
 
+                if (!frame) {
+                    return button;
+                }
                 return frame;
             });
         });
     }
 
+    // test doesn't have a document body. Need to return just the the button for the test
+    if (!frame) {
+        return button;
+    }
+
+    frame.appendChild(button);
     return frame;
 };
 
