@@ -2,13 +2,13 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, getActiveTags } from '../../utils';
 
 const addToDom = (button, markup) => {
+    const documentBody = new DOMParser().parseFromString(markup, 'text/html'); // turn string into html elements
+
     const buttonElement = button;
-    // turn string into html elements
-    const documentBody = new DOMParser().parseFromString(markup, 'text/html');
-    // remove any existing child elements
-    buttonElement.innerHTML = null;
-    // add child elements
-    buttonElement.appendChild(documentBody.firstChild.querySelector('div'));
+    buttonElement.innerHTML = null; // remove any existing child elements
+
+    buttonElement.appendChild(documentBody.firstChild.querySelector('div')); // add child elements
+
     return buttonElement;
 };
 
@@ -47,6 +47,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
     buttonElement.style.fontSize = 'inherit';
 
     let button = addToDom(buttonElement, markup);
+
     // test doesn't have a document body. Need to return just the the button for the test
     if (!frame) {
         return button;
@@ -65,12 +66,10 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
         dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
     }
 
-    // needs to fire on event
     if (typeof onReady === 'function') {
         onReady({ meta, activeTags: getActiveTags(button) });
     }
 
-    // needs to fire on event
     if (typeof onMarkup === 'function') {
         onMarkup({ meta, styles: parentStyles, warnings });
     }
