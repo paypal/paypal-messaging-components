@@ -33,8 +33,16 @@
                 .MessagesModal({
                     ...config,
                     onReady: ({ show }) => {
-                        // removed manual click handler
-                        show(manualMessage);
+                        // console.log(props);
+                        if (typeof mappedParams.click !== 'undefined') {
+                            show(manualMessage);
+                        } else {
+                            show(manualMessage);
+                            manualMessage.addEventListener('click', () => {
+                                console.log('clicked');
+                                show(manualMessage);
+                            });
+                        }
                     }
                 })
                 .render();

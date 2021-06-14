@@ -16,6 +16,8 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
     if (!isStandalone) await page.waitForSelector(selectors.banner.iframe, { visible: true });
+    await page.click(selectors.banner.iframe);
+    await page.waitFor(10 * 1000);
     await page.waitForSelector(selectors.modal.iframe);
 
     if (!isStandalone) {
