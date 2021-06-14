@@ -26,7 +26,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
             prerenderFrame.classList.add(CLASS.INVISIBLE);
             frame.classList.remove(CLASS.INVISIBLE);
             prerenderFrame.classList.remove(CLASS.VISIBLE);
-            frame.classList.remove(CLASS.visible);
+            frame.classList.add(CLASS.VISIBLE);
         }, 500);
         // next 500ms remove the prerender frame
         setTimeout(() => {
@@ -54,8 +54,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
                         opacity: 1;
-                        z-index: 1;
-                        height: 100%;
                         transition: opacity 350ms;
                     }
                     #${uid} > div > iframe.${CLASS.INVISIBLE} {
