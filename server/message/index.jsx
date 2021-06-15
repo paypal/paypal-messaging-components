@@ -3,8 +3,7 @@
 import { h, Fragment } from 'preact';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
-import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName, getMinimumWidthOptions } from '../locale';
-import allStyles from './styles';
+import { getMutations, getLocaleProductName, getMinimumWidthOptions } from '../locale';
 import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
 import Styles from './parts/Styles';
@@ -150,14 +149,6 @@ export default ({ addLog, options, markup, locale }) => {
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
             : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`));
 
-    const layoutProp = `layout:${layout}`;
-    const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
-
-    const localeClass = getLocaleClass(locale, offerType);
-    // Scope all locale-specific styles to the selected locale
-    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(locale, layoutProp, offerType)).map(rule =>
-        rule.replace(/\.message/g, `.${localeClass} .message`)
-    );
     const mutationStyleRules = mutationRules.styles ?? [];
     const customFontStyleRules = getFontRules(addLog, style);
     const miscStyleRules = [];
@@ -190,8 +181,6 @@ export default ({ addLog, options, markup, locale }) => {
         return (
             <CustomMessage data={markup} meta={markup.meta} template={options.customMarkup}>
                 <Styles
-                    globalStyleRules={globalStyleRules}
-                    localeStyleRules={localeStyleRules}
                     mutationStyleRules={mutationStyleRules}
                     miscStyleRules={miscStyleRules}
                     customFontStyleRules={customFontStyleRules}
@@ -201,43 +190,31 @@ export default ({ addLog, options, markup, locale }) => {
     }
 
     return (
-        <div role="button" className="message" tabIndex="0">
+        <>
             <Styles
-                globalStyleRules={globalStyleRules}
-                localeStyleRules={localeStyleRules}
                 mutationStyleRules={mutationStyleRules}
                 miscStyleRules={miscStyleRules}
                 customFontStyleRules={customFontStyleRules}
             />
-            <div className={`message__container ${localeClass}`}>
-                {/* foreground layer */}
-                <div className="message__foreground" />
+            {/* PP Credit Logo */}
+            {logoType !== 'none' && logoType !== 'inline' ? logoEl : null}
 
-                {/* content layer */}
-                <div className="message__content">
-                    {/* PP Credit Logo */}
-                    {logoType !== 'none' && logoType !== 'inline' ? logoEl : null}
-
-                    {/* Promotional Messaging */}
-                    <div className="message__messaging">
-                        <div className="message__promo-container">
-                            <h5 className="message__headline">
-                                <MutatedText tagData={markup.headline} options={mutationRules.headline} />
-                                {logoType === 'none' ? productNameEl : null}
-                                {logoType === 'inline' ? <> {logoEl}</> : null}
-                            </h5>{' '}
-                            <h6 className="message__sub-headline">
-                                <MutatedText tagData={markup.subHeadline} options={mutationRules.subHeadline} />
-                            </h6>
-                        </div>{' '}
-                        <p className="message__disclaimer">
-                            <MutatedText tagData={markup.disclaimer} options={mutationRules.disclaimer} />
-                        </p>
-                    </div>
-                </div>
-                {/* background layer */}
-                <div className="message__background" />
+            {/* Promotional Messaging */}
+            <div className="message__messaging">
+                <div className="message__promo-container">
+                    <h5 className="message__headline">
+                        <MutatedText tagData={markup.headline} options={mutationRules.headline} />
+                        {logoType === 'none' ? productNameEl : null}
+                        {logoType === 'inline' ? <> {logoEl}</> : null}
+                    </h5>{' '}
+                    <h6 className="message__sub-headline">
+                        <MutatedText tagData={markup.subHeadline} options={mutationRules.subHeadline} />
+                    </h6>
+                </div>{' '}
+                <p className="message__disclaimer">
+                    <MutatedText tagData={markup.disclaimer} options={mutationRules.disclaimer} />
+                </p>
             </div>
-        </div>
+        </>
     );
 };

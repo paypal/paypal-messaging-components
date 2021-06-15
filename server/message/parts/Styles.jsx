@@ -10,19 +10,32 @@ const Styles = ({ globalStyleRules, localeStyleRules, mutationStyleRules, miscSt
         <>
             {/* eslint-disable-next-line react/no-danger */}
             <style className="styles__fonts" dangerouslySetInnerHTML={{ __html: fonts }} />
-            {/* eslint-disable-next-line react/no-danger */}
-            <style className="styles__global" dangerouslySetInnerHTML={{ __html: globalStyleRules.join('\n') }} />
-            {/* eslint-disable-next-line react/no-danger */}
-            <style className="styles__locale" dangerouslySetInnerHTML={{ __html: localeStyleRules.join('\n') }} />
-            {/* eslint-disable-next-line react/no-danger */}
-            <style className="styles__mutations" dangerouslySetInnerHTML={{ __html: mutationStyleRules.join('\n') }} />
-            {/* eslint-disable-next-line react/no-danger */}
-            <style className="styles__misc" dangerouslySetInnerHTML={{ __html: miscStyleRules.join('\n') }} />
-            <style
-                className="styles__customFont"
+            {globalStyleRules && (
                 /* eslint-disable-next-line react/no-danger */
-                dangerouslySetInnerHTML={{ __html: customFontStyleRules.join('\n') }}
-            />
+                <style className="styles__global" dangerouslySetInnerHTML={{ __html: globalStyleRules.join('\n') }} />
+            )}
+            {localeStyleRules && (
+                /* eslint-disable-next-line react/no-danger */
+                <style className="styles__locale" dangerouslySetInnerHTML={{ __html: localeStyleRules.join('\n') }} />
+            )}
+            {mutationStyleRules && (
+                <style
+                    className="styles__mutations"
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{ __html: mutationStyleRules.join('\n') }}
+                />
+            )}
+            {miscStyleRules && (
+                /* eslint-disable-next-line react/no-danger */
+                <style className="styles__misc" dangerouslySetInnerHTML={{ __html: miscStyleRules.join('\n') }} />
+            )}
+            {customFontStyleRules && (
+                <style
+                    className="styles__customFont"
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{ __html: customFontStyleRules.join('\n') }}
+                />
+            )}
         </>
     );
 };

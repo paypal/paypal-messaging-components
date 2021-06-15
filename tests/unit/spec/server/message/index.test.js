@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { render } from '@testing-library/preact';
 
 import Message from 'server/message';
+import Wrapper from 'server/message/Wrapper';
 import { getMutations, getLocaleStyles } from 'server/locale';
 import { objectSet } from 'src/utils';
 
@@ -360,9 +361,7 @@ describe('SSR message', () => {
             ['logo.type:primary', style2]
         ]);
 
-        const { container } = render(
-            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
-        );
+        const { container } = render(<Wrapper locale="US" options={options} markup={defaultMarkup()} />);
 
         const localeStyles = Array.from(container.querySelectorAll('style')).find(
             el => el.className === 'styles__locale'
