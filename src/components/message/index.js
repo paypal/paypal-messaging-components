@@ -1,6 +1,6 @@
 /** @jsx h */
-import TestMessage from './Message';
+import Message from './Message';
 
 export function setupMessage({ markup, meta, parentStyles, warnings }) {
-    TestMessage(markup, meta, parentStyles, warnings, document.body);
+    Message(markup, meta, parentStyles, warnings, document.body);
 }

@@ -1,20 +1,16 @@
 /** @jsx h */
-// import { h } from 'preact';
 // import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 import {
-    // getByLabelText,
-    getByText
-    // getByTestId,
-    // queryByTestId,
-    // Tip: all queries are also exposed on an object
-    // called "queries" which you could import here as well
+    getByText,
+    fireEvent
+    // queryByText,
+    // act,
     // waitFor
 } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
 import { request, getOrCreateStorageID } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
-// import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
@@ -36,7 +32,7 @@ jest.mock('src/utils', () => ({
 }));
 
 describe('Message', () => {
-    // const updateProps = // commit doesn't like the variable is not being changed
+    // const updateProps =
     xPropsMock({
         amount: 100,
         currency: 'USD',
@@ -50,15 +46,6 @@ describe('Message', () => {
         onMarkup: jest.fn(),
         resize: jest.fn()
     });
-
-    // const wrapper = zoidComponentWrapper({
-    //     markup: '<div>test</div>',
-    //     meta: {
-    //         messageRequestId: '12345'
-    //     },
-    //     parentStyles: 'body { color: black; }',
-    //     warnings: []
-    // });
 
     const serverData = {
         markup: '<div>test</div>',
@@ -97,13 +84,12 @@ describe('Message', () => {
 
     test('Renders the server markup', () => {
         const { markup, meta, parentStyles, warnings } = serverData;
-        expect(getByText(Message(markup, meta, parentStyles, warnings), /test/i).innerHTML).toBe('test');
+        expect(getByText(Message(markup, meta, parentStyles, warnings, document.body), /test/i)).toBeInTheDocument();
     });
 
     test('Fires onReady xProp after render', () => {
-        // render(<Message />, { wrapper });
         const { markup, meta, parentStyles, warnings } = serverData;
-        Message(markup, meta, parentStyles, warnings);
+        Message(markup, meta, parentStyles, warnings, document.body);
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
@@ -114,85 +100,85 @@ describe('Message', () => {
         });
     });
 
-    // test('return true for commit', () => {
-    //     expect(1).toBe(1);
-    // });
+    test('Fires onClick xProp when clicked', () => {
+        const { markup, meta, parentStyles, warnings } = serverData;
+        const button = Message(markup, meta, parentStyles, warnings, null);
 
-    //     test('Fires onClick xProp when clicked', () => {
-    //         const { container } = render(<Message />, { wrapper });
-    //         const button = container.firstChild;
+        fireEvent.click(button);
+        expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onClick).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            }
+        });
+    });
 
-    //         fireEvent.click(button);
+    test('Fires onHover xProp when hovered', () => {
+        const { markup, meta, parentStyles, warnings } = serverData;
+        const button = Message(markup, meta, parentStyles, warnings, null);
 
-    //         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onClick).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             }
-    //         });
-    //     });
+        fireEvent.mouseOver(button);
 
-    //     test('Fires onHover xProp when hovered', () => {
-    //         const { container } = render(<Message />, { wrapper });
-    //         const button = container.firstChild;
+        expect(window.xprops.onHover).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onHover).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            }
+        });
+    });
 
-    //         fireEvent.mouseOver(button);
+    test('Fires onMarkup and onReady on complete re-render', async () => {
+        const { markup, meta, parentStyles, warnings } = serverData;
+        const messageDocument = Message(markup, meta, parentStyles, warnings, document.body);
 
-    //         expect(window.xprops.onHover).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onHover).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             }
-    //         });
-    //     });
+        expect(request).not.toHaveBeenCalled();
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
 
-    //     test('Fires onMarkup and onReady on complete re-render', async () => {
-    //         const { getByText, queryByText } = render(<Message />, { wrapper });
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
 
-    //         expect(request).not.toHaveBeenCalled();
-    //         expect(getByText(/test/i)).toBeInTheDocument();
-    //         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             },
-    //             deviceID: 'uid_26a2522628_mtc6mjk6nti'
-    //         });
-    //         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             },
-    //             styles: 'body { color: black; }',
-    //             warnings: []
-    //         });
+        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            styles: 'body { color: black; }',
+            warnings: []
+        });
 
-    //         act(() => {
-    //             updateProps({ amount: 200 });
-    //         });
+        // stepping throught 1 at a time
 
-    //         await waitFor(() => {
-    //             expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
-    //             expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
-    //         });
+        // act(() => {
+        //     updateProps({ amount: 200 });
+        // });
 
-    //         expect(queryByText(/test/i)).toBeNull();
-    //         expect(getByText(/mock/i)).toBeInTheDocument();
-    //         expect(request).toHaveBeenCalledTimes(1);
-    //         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '23456'
-    //             },
-    //             deviceID: 'uid_26a2522628_mtc6mjk6nti'
-    //         });
-    //         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-    //             meta: {
-    //                 messageRequestId: '23456'
-    //             },
-    //             styles: 'body { color: blue; }',
-    //             warnings: []
-    //         });
-    //     });
+        // await waitFor(() => {
+        //     expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
+        //     expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
+        // });
+
+        // expect(queryByText(/test/i)).toBeNull();
+        // expect(getByText(/mock/i)).toBeInTheDocument();
+        // expect(request).toHaveBeenCalledTimes(1);
+        // expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+        //     meta: {
+        //         messageRequestId: '23456'
+        //     },
+        //     deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        // });
+        // expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+        //     meta: {
+        //         messageRequestId: '23456'
+        //     },
+        //     styles: 'body { color: blue; }',
+        //     warnings: []
+        // });
+    });
 
     //     test('Passed deviceID from iframe storage to callback', () => {
     //         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');

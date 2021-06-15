@@ -28,7 +28,9 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
         }
     };
 
-    const buttonElement = document.createElement('button');
+    // if there is a button reuse that instead of making a new one
+    const buttonElement =
+        frame && frame.querySelector('button') ? frame.querySelector('button') : document.createElement('button');
 
     buttonElement.setAttribute('type', 'button');
     buttonElement.setAttribute('aria-label', 'PayPal Credit Message');
@@ -141,7 +143,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
         });
     }
 
-    // test doesn't have a document body. Need to return just the the button for the test
+    // return just the the button for onclick test
     if (!frame) {
         return button;
     }
