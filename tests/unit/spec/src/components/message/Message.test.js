@@ -1,5 +1,3 @@
-/** @jsx h */
-// import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 import {
     getByText,
     fireEvent,
