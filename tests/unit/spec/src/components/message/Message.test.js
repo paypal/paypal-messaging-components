@@ -164,9 +164,7 @@ describe('Message', () => {
             warnings: []
         });
 
-        // setTimeout( () => {
         updateProps({ amount: 200 });
-        // }, 0)
 
         // has to wait for the button to re-render
         await wait(
