@@ -20,10 +20,10 @@ export default ({ uid, doc, props, state }) => {
         background-color: #fefefe;
         margin: auto;
         border: 1px solid #888;
-        max-width: 637px;
+        max-width: 638px;
         height: 100%;
         border-radius: 10px;
-        right: 9px;
+        right: 10px;
         transition: transform 250ms;
         transform: translateY(100%);
       }

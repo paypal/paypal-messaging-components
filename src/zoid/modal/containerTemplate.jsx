@@ -23,10 +23,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     event.on(EVENT.RENDERED, () => {
         // first wait 500ms to show proper transitions
         setTimeout(() => {
-            prerenderFrame.classList.add(CLASS.INVISIBLE);
             frame.classList.remove(CLASS.INVISIBLE);
-            prerenderFrame.classList.remove(CLASS.VISIBLE);
             frame.classList.add(CLASS.VISIBLE);
+            prerenderFrame.classList.remove(CLASS.VISIBLE);
+            prerenderFrame.classList.add(CLASS.INVISIBLE);
         }, 500);
         // next 500ms remove the prerender frame
         setTimeout(() => {
@@ -55,6 +55,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
                         opacity: 1;
                         transition: opacity 350ms;
+                        z-index: 1;
                     }
                     #${uid} > div > iframe.${CLASS.INVISIBLE} {
                         transition: opacity 350ms;
