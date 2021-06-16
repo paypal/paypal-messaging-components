@@ -80,7 +80,7 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                 amount,
                 currency,
                 buyerCountry,
-                // style, linting doesn't like since its on like 16
+                // style, linting doesn't like since its on line 16
                 offer,
                 payerId,
                 clientId,
@@ -114,7 +114,10 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
 
             request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
                 button = addToDom(button, data.markup ?? markup);
-                frame.appendChild(button);
+                // don't attempt append if there is no document body provided
+                if (frame) {
+                    frame.appendChild(button);
+                }
 
                 buttonWidth = button.offsetWidth;
                 buttonHeight = button.offsetHeight;
@@ -128,12 +131,23 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                     dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
                 }
 
-                // resizes the parent message div
-                onMarkup({
-                    meta: data.meta ?? meta,
-                    styles: data.parentStyles ?? parentStyles,
-                    warnings: data.warnings ?? warnings
-                });
+                if (typeof onReady === 'function') {
+                    onReady({
+                        meta: data.meta ?? meta,
+                        activeTags: getActiveTags(button),
+                        // Utility will create iframe deviceID if it doesn't exist.
+                        deviceID: getOrCreateStorageID()
+                    });
+                }
+
+                if (typeof onMarkup === 'function') {
+                    // resizes the parent message div
+                    onMarkup({
+                        meta: data.meta ?? meta,
+                        styles: data.parentStyles ?? parentStyles,
+                        warnings: data.warnings ?? warnings
+                    });
+                }
 
                 if (!frame) {
                     return button;

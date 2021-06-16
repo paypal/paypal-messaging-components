@@ -2,10 +2,11 @@
 // import { render, fireEvent, waitFor, act } from '@testing-library/preact';
 import {
     getByText,
-    fireEvent
-    // queryByText,
+    fireEvent,
+    queryByText,
     // act,
-    // waitFor
+    wait // package is outdated. this is deprecated in newer version
+    // waitFor, // package is outdated. this doesn't exist in older version
 } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
@@ -32,8 +33,7 @@ jest.mock('src/utils', () => ({
 }));
 
 describe('Message', () => {
-    // const updateProps =
-    xPropsMock({
+    let updateProps = xPropsMock({
         amount: 100,
         currency: 'USD',
         style: { layout: 'text' },
@@ -64,6 +64,19 @@ describe('Message', () => {
 
         request.mockClear();
         getOrCreateStorageID.mockClear();
+        updateProps = xPropsMock({
+            amount: 100,
+            currency: 'USD',
+            style: { layout: 'text' },
+            payerId: 'DEV00000000NI',
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            sessionID: 'uid_fda0b4618b_mtg6ndy6mjc',
+            onClick: jest.fn(),
+            onReady: jest.fn(),
+            onHover: jest.fn(),
+            onMarkup: jest.fn(),
+            resize: jest.fn()
+        });
     });
 
     test('Renders the button with styles', () => {
@@ -151,46 +164,50 @@ describe('Message', () => {
             warnings: []
         });
 
-        // stepping throught 1 at a time
+        // setTimeout( () => {
+        updateProps({ amount: 200 });
+        // }, 0)
 
-        // act(() => {
-        //     updateProps({ amount: 200 });
-        // });
+        // has to wait for the button to re-render
+        await wait(
+            () => {
+                expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
+                expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
+            },
+            { container: document.body }
+        );
 
-        // await waitFor(() => {
-        //     expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
-        //     expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
-        // });
+        expect(queryByText(messageDocument, /test/i)).toBeNull();
+        expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
+        expect(request).toHaveBeenCalledTimes(1);
 
-        // expect(queryByText(/test/i)).toBeNull();
-        // expect(getByText(/mock/i)).toBeInTheDocument();
-        // expect(request).toHaveBeenCalledTimes(1);
-        // expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-        //     meta: {
-        //         messageRequestId: '23456'
-        //     },
-        //     deviceID: 'uid_26a2522628_mtc6mjk6nti'
-        // });
-        // expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-        //     meta: {
-        //         messageRequestId: '23456'
-        //     },
-        //     styles: 'body { color: blue; }',
-        //     warnings: []
-        // });
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '23456'
+            },
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '23456'
+            },
+            styles: 'body { color: blue; }',
+            warnings: []
+        });
     });
 
-    //     test('Passed deviceID from iframe storage to callback', () => {
-    //         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+    test('Passed deviceID from iframe storage to callback', () => {
+        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
-    //         render(<Message />, { wrapper });
+        const { markup, meta, parentStyles, warnings } = serverData;
+        Message(markup, meta, parentStyles, warnings, document.body);
 
-    //         expect(window.xprops.onReady).toBeCalledWith({
-    //             meta: {
-    //                 messageRequestId: '12345'
-    //             },
-    //             deviceID: 'uid_1111111111_11111111111'
-    //         });
-    //         expect(getOrCreateStorageID).toHaveBeenCalled();
-    //     });
+        expect(window.xprops.onReady).toBeCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            deviceID: 'uid_1111111111_11111111111'
+        });
+        expect(getOrCreateStorageID).toHaveBeenCalled();
+    });
 });
