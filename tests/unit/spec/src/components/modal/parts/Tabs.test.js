@@ -85,7 +85,8 @@ describe('<Tabs />', () => {
 
         expect(scrollTo).toHaveBeenCalledWith(0);
         expect(onClick).toHaveBeenCalledWith({
-            linkName: tabContent[0].product
+            linkName: tabContent[0].product,
+            src: 'tab_click'
         });
     });
 

@@ -55,6 +55,15 @@ const memoizedModal = memoizeOnProps(
         const showModal = (options = {}) => {
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
+            if (isElement(options)) {
+                newOptions.src =
+                    options.id ??
+                    [...options.classList]
+                        .filter(Boolean)
+                        .reduce((acc, className) => `${acc ?? ''}.${className}`, null) ??
+                    options.constructor?.name ??
+                    'element';
+            }
             state.renderStart = getCurrentTime();
 
             if (!renderProm) {

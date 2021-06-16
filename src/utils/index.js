@@ -10,4 +10,5 @@ export * from './stats';
 export * from './observers';
 export * from './activeTags';
 export * from './events';
+export * from './debug';
 export * from './performance';

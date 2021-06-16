@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.24.0](https://github.com/paypal/paypal-messaging-components/compare/v1.23.2...v1.24.0) (2021-06-09)
+
+
+### Bug Fixes
+
+* ensure SDK script is not being destroyed before rerendering a destroyed message ([#535](https://github.com/paypal/paypal-messaging-components/issues/535)) ([8d308e9](https://github.com/paypal/paypal-messaging-components/commit/8d308e98258f67bb205798e205fe65c983d5a8ca))
+
+
+### Features
+
+* debug mode ([#521](https://github.com/paypal/paypal-messaging-components/issues/521)) ([7c589e1](https://github.com/paypal/paypal-messaging-components/commit/7c589e1dfb2f78923219926190d9e60642540a4a))
+
 ## [1.23.2](https://github.com/paypal/paypal-messaging-components/compare/v1.23.1...v1.23.2) (2021-05-25)
 
 
