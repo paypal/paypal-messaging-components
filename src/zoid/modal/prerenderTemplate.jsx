@@ -24,10 +24,10 @@ export default ({ uid, doc, props, state }) => {
         height: 100%;
         border-radius: 10px;
         right: 10px;
-        transition: transform 250ms;
+        transition: transform 150ms;
         transform: translateY(100%);
       }
-      .show{
+      .show-modal{
         transform: translateY(0);
       }
       .spinner{
@@ -38,11 +38,11 @@ export default ({ uid, doc, props, state }) => {
     const toggleShow = boolean => {
         const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
         if (boolean) {
-            wrapper.getElementsByClassName('modal-content')[0].classList.add('show');
+            wrapper.getElementsByClassName('modal-content')[0].classList.add('show-modal');
             wrapper.getElementsByClassName('overlay')[0].style.opacity = 1;
             return;
         }
-        wrapper.getElementsByClassName('modal-content')[0].classList.remove('show');
+        wrapper.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
         wrapper.getElementsByClassName('overlay')[0].style.opacity = 0;
     };
     const handlePrerenderClose = () => {

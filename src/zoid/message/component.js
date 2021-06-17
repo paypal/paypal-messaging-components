@@ -123,16 +123,16 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             modal.prerenderDetails.prerenderElement.classList.add(
                                 `${modal.prerenderDetails.uid}-visible`
                             );
-                            // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist.
                             if (modal.prerenderDetails.prerenderElement.contentDocument) {
-                                setTimeout(() => {
+                                // wait for prerenderer to exist
+                                ZalgoPromise.delay(0).then(() => {
                                     modal.prerenderDetails.prerenderElement.contentDocument
                                         .getElementsByClassName('modal-content')[0]
-                                        .classList.add('show');
+                                        .classList.add('show-modal');
                                     modal.prerenderDetails.prerenderElement.contentDocument.getElementsByClassName(
                                         'overlay'
                                     )[0].style.opacity = 1;
-                                }, 100);
+                                });
                             }
                         }
 
