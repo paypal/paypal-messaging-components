@@ -1,8 +1,8 @@
 import { Types } from '../../../types';
 
 export default {
-    usePayPalFonts: [Types.BOOLEAN],
     text: {
+        usePayPalFonts: [Types.BOOLEAN],
         logo: {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
             position: [Types.STRING, ['left', 'right', 'top']]
@@ -17,6 +17,7 @@ export default {
         preset: [Types.STRING, [undefined, 'smallest']]
     },
     flex: {
+        usePayPalFonts: [Types.BOOLEAN],
         color: [
             Types.STRING,
             ['blue', 'black', 'white', 'white-no-border', 'gray|grey', 'monochrome', 'grayscale|greyscale']
