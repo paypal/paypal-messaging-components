@@ -78,8 +78,7 @@ describe('Message', () => {
     });
 
     test('Renders the button with styles', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        const button = Message(markup, meta, parentStyles, warnings);
+        const button = Message(serverData);
         const styles = [];
         Object.keys(button.style).forEach(row => {
             if (!Number.isNaN(Number(row)) && button.style[row] !== undefined) {
@@ -94,13 +93,12 @@ describe('Message', () => {
     });
 
     test('Renders the server markup', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        expect(getByText(Message(markup, meta, parentStyles, warnings, document.body), /test/i)).toBeInTheDocument();
+        const messageDocument = document.body.appendChild(Message(serverData));
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
     });
 
     test('Fires onReady xProp after render', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        Message(markup, meta, parentStyles, warnings, document.body);
+        Message(serverData);
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
@@ -112,8 +110,7 @@ describe('Message', () => {
     });
 
     test('Fires onClick xProp when clicked', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        const button = Message(markup, meta, parentStyles, warnings, null);
+        const button = Message(serverData);
 
         fireEvent.click(button);
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
@@ -125,8 +122,7 @@ describe('Message', () => {
     });
 
     test('Fires onHover xProp when hovered', () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        const button = Message(markup, meta, parentStyles, warnings, null);
+        const button = Message(serverData);
 
         fireEvent.mouseOver(button);
 
@@ -139,8 +135,7 @@ describe('Message', () => {
     });
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
-        const { markup, meta, parentStyles, warnings } = serverData;
-        const messageDocument = Message(markup, meta, parentStyles, warnings, document.body);
+        const messageDocument = document.body.appendChild(Message(serverData));
 
         expect(request).not.toHaveBeenCalled();
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
@@ -195,8 +190,7 @@ describe('Message', () => {
     test('Passed deviceID from iframe storage to callback', () => {
         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
-        const { markup, meta, parentStyles, warnings } = serverData;
-        Message(markup, meta, parentStyles, warnings, document.body);
+        Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {

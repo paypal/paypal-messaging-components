@@ -1,18 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, getActiveTags, ppDebug, getOrCreateStorageID } from '../../utils';
 
-const addToDom = (button, markup) => {
-    const documentBody = new DOMParser().parseFromString(markup, 'text/html'); // turn string into html elements
-
-    const buttonElement = button;
-    buttonElement.innerHTML = null; // remove any existing child elements
-
-    buttonElement.appendChild(documentBody.firstChild.querySelector('div')); // add child elements
-
-    return buttonElement;
-};
-
-const Message = function(markup, meta, parentStyles, warnings, frame = null) {
+const Message = function({ markup, meta, parentStyles, warnings }) {
     const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
@@ -29,37 +18,24 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
     };
 
     // if there is a button reuse that instead of making a new one
-    const buttonElement =
-        frame && frame.querySelector('button') ? frame.querySelector('button') : document.createElement('button');
+    const button = document.createElement('button');
 
-    buttonElement.setAttribute('type', 'button');
-    buttonElement.setAttribute('aria-label', 'PayPal Credit Message');
+    button.setAttribute('type', 'button');
+    button.setAttribute('aria-label', 'PayPal Pay Later Message');
 
-    buttonElement.addEventListener('click', handleClick);
-    buttonElement.addEventListener('mouseover', handleHover);
-    buttonElement.addEventListener('focus', handleHover);
+    button.addEventListener('click', handleClick);
+    button.addEventListener('mouseover', handleHover);
+    button.addEventListener('focus', handleHover);
 
-    buttonElement.style.display = 'block';
-    buttonElement.style.background = 'transparent';
-    buttonElement.style.padding = 0;
-    buttonElement.style.border = 'none';
-    buttonElement.style.outline = 'none';
-    buttonElement.style.textAlign = style?.text?.align || 'left';
-    buttonElement.style.fontFamily = 'inherit';
-    buttonElement.style.fontSize = 'inherit';
-
-    let button = addToDom(buttonElement, markup);
-
-    let buttonWidth = button.offsetWidth;
-    let buttonHeight = button.offsetHeight;
-    // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
-    // in the overflow observer will not fire. This forces the resize event to fire for every render
-    // so that the render complete logs will always fire
-    if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
-        resize({ width: buttonWidth, height: buttonHeight });
-    } else {
-        dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
-    }
+    button.style.display = 'block';
+    button.style.background = 'transparent';
+    button.style.padding = 0;
+    button.style.border = 'none';
+    button.style.outline = 'none';
+    button.style.textAlign = style?.text?.align || 'left';
+    button.style.fontFamily = 'inherit';
+    button.style.fontSize = 'inherit';
+    button.innerHTML = markup;
 
     if (typeof onReady === 'function') {
         onReady({
@@ -113,14 +89,11 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
             ppDebug('Updating message with new props...', { inZoid: true });
 
             request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
-                button = addToDom(button, data.markup ?? markup);
-                // don't attempt append if there is no document body provided
-                if (frame) {
-                    frame.appendChild(button);
-                }
+                // button = addToDom(button, data.markup ?? markup);
+                button.innerHTML = data.markup ?? markup;
 
-                buttonWidth = button.offsetWidth;
-                buttonHeight = button.offsetHeight;
+                const buttonWidth = button.offsetWidth;
+                const buttonHeight = button.offsetHeight;
                 // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
                 // in the overflow observer will not fire. This forces the resize event to fire for every render
                 // so that the render complete logs will always fire
@@ -148,22 +121,11 @@ const Message = function(markup, meta, parentStyles, warnings, frame = null) {
                         warnings: data.warnings ?? warnings
                     });
                 }
-
-                if (!frame) {
-                    return button;
-                }
-                return frame;
             });
         });
     }
 
-    // return just the the button for onclick test
-    if (!frame) {
-        return button;
-    }
-
-    frame.appendChild(button);
-    return frame;
+    return button;
 };
 
 export default Message;

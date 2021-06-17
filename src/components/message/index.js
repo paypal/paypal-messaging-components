@@ -1,6 +1,7 @@
 /** @jsx h */
-import Message from './Message';
+import createMessage from './Message';
 
 export function setupMessage({ markup, meta, parentStyles, warnings }) {
-    Message(markup, meta, parentStyles, warnings, document.body);
+    const message = createMessage({ markup, meta, parentStyles, warnings });
+    document.body.appendChild(message);
 }
