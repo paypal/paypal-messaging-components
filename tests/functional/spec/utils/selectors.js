@@ -3,7 +3,7 @@ const selectors = {
     banner: {
         wrapper: '.banner-1',
         iframe: '.banner-1 iframe',
-        iframeByAttribute: '[data-pp-id] iframe',
+        iframeByAttribute: 'iframe[title^="PayPal Message"]',
         container: '.message__container',
         messageMessaging: '.message__messaging',
         legacyContainer: 'div[role="button"].message'

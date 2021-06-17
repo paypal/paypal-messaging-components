@@ -64,11 +64,11 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             width: 100%;
             height: 100%;
         }
-        #${uid} > iframe:nth-of-type(1){
+        #${uid} > iframe:nth-of-type(2){
             z-index: 98;
             ${cssStyles}
         }
-        #${uid} > iframe:nth-of-type(2){
+        #${uid} > iframe:nth-of-type(1){
             z-index: 99;
             min-height: 10px;
             opacity: 0;
@@ -78,8 +78,8 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
 
 const showBanner = ({ uid, container }) => {
     const style = container.querySelector(`#${uid} style`);
-    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(2\)\s*\{(\n|.+?))opacity:\s*0;/g, `$1`);
-    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{)/g, `$1\n\topacity: 0;`);
+    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{(\n|.+?))opacity:\s*0;/g, `$1`);
+    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(2\)\s*\{)/g, `$1\n\topacity: 0;`);
 };
 const showLoadedMessage = ({ uid, container, eventName }) => {
     const timestamp = new Date();
@@ -159,8 +159,8 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
-            <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
+            <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>
     ).render(dom({ doc }));
 };
