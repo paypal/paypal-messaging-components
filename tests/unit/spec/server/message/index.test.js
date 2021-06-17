@@ -55,6 +55,7 @@ describe('SSR message', () => {
 
     const options = {
         style: {
+            usePayPalFonts: true,
             layout: 'text',
             logo: {
                 type: 'primary',

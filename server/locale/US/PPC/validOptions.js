@@ -1,6 +1,7 @@
 import { Types } from '../../../types';
 
 export default {
+    usePayPalFonts: [Types.BOOLEAN],
     text: {
         logo: {
             type: [Types.STRING, ['primary', 'alternative', 'inline', 'none']],
