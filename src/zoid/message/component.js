@@ -125,7 +125,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             );
                             if (modal.prerenderDetails.prerenderElement.contentDocument) {
                                 // wait for prerenderer to exist
-                                ZalgoPromise.delay(0).then(() => {
+                                ZalgoPromise.delay(100).then(() => {
                                     modal.prerenderDetails.prerenderElement.contentDocument
                                         .getElementsByClassName('modal-content')[0]
                                         .classList.add('show-modal');
