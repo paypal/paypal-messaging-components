@@ -24,7 +24,8 @@ export default ({ uid, doc, props, state }) => {
         height: 100%;
         border-radius: 10px;
         right: 10px;
-        transition: transform 150ms;
+        box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
+        transition: transform 350ms ease, box-shadow 350ms ease;
         transform: translateY(100%);
       }
       .show-modal{
@@ -32,6 +33,15 @@ export default ({ uid, doc, props, state }) => {
       }
       .spinner{
           position: relative !important;
+      }
+      .close-button > button {
+          border: none;
+          cursor: pointer;
+          background: none;
+          right: 9px;
+          top: 12px;
+          position: absolute;
+          z-index: 50;
       }
         
     `;
