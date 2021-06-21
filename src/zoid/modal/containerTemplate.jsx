@@ -21,12 +21,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
     event.on(EVENT.RENDERED, () => {
-        // immediatly show the content modal with the prerenderer behind it.
-        // then hide it after 500ms
-        // then destory it after 1sec
-        frame.classList.remove(CLASS.INVISIBLE);
-        frame.classList.add(CLASS.VISIBLE);
+        // once modal is ready hide prerender and show the content modal after 500ms
+        // kill the prerender after 1sec
         setTimeout(() => {
+            frame.classList.remove(CLASS.INVISIBLE);
+            frame.classList.add(CLASS.VISIBLE);
             prerenderFrame.classList.remove(CLASS.VISIBLE);
             prerenderFrame.classList.add(CLASS.INVISIBLE);
         }, 500);
