@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-unknown-property */
@@ -35,13 +36,17 @@ export default ({ uid, doc, props, state }) => {
           position: relative !important;
       }
       .close-button > button {
-          border: none;
-          cursor: pointer;
-          background: none;
-          right: 9px;
-          top: 12px;
-          position: absolute;
-          z-index: 50;
+          background-image: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
+          width: 38px;
+        height: 38px;
+        display: block;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 12px;
+        right: 8px;
+        z-index: 50;
       }
         
     `;
@@ -77,9 +82,7 @@ export default ({ uid, doc, props, state }) => {
                     <div class="overlay" onClick={handlePrerenderClose} />
                     <div class="modal-content">
                         <div class="close-button">
-                            <button onClick={handlePrerenderClose} type="button">
-                                Close
-                            </button>
+                            <button onClick={handlePrerenderClose} type="button" />
                         </div>
                         <Spinner nonce={props.nonce} />
                     </div>
