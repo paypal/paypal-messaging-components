@@ -5,6 +5,28 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
+    const propVars = {
+        current: {
+            amount: window.xprops.amount,
+            currency: window.xprops.currency,
+            buyerCountry: window.xprops.buyerCountry,
+            style: JSON.stringify(style),
+            offer: window.xprops.offer,
+            payerId: window.xprops.payerId,
+            clientId: window.xprops.clientId,
+            merchantId: window.xprops.merchantId
+        }
+    };
+
+    const paramVars = {
+        current: {
+            metaMessageRequestId: null,
+            parentStyles: null,
+            warnings: null,
+            markup: null
+        }
+    };
+
     const handleClick = () => {
         if (typeof onClick === 'function') {
             onClick({ meta });
@@ -38,90 +60,137 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.innerHTML = markup;
 
     if (typeof onReady === 'function') {
-        onReady({
-            meta,
-            activeTags: getActiveTags(button),
-            // Utility will create iframe deviceID if it doesn't exist.
-            deviceID: getOrCreateStorageID()
-        });
+        if (paramVars.current.metaMessageRequestId !== meta.messageRequestId) {
+            onReady({
+                meta,
+                activeTags: getActiveTags(button),
+                // Utility will create iframe deviceID if it doesn't exist.
+                deviceID: getOrCreateStorageID()
+            });
+            paramVars.current.metaMessageRequestId = meta.messageRequestId;
+        }
     }
 
     if (typeof onMarkup === 'function') {
-        onMarkup({ meta, styles: parentStyles, warnings });
+        if (
+            paramVars.current.parentStyles !== parentStyles ||
+            paramVars.current.warnings !== warnings ||
+            paramVars.current.markup !== markup
+        ) {
+            onMarkup({ meta, styles: parentStyles, warnings });
+            paramVars.current.parentStyles = parentStyles;
+            paramVars.current.warnings = warnings;
+            paramVars.current.markup = markup;
+        }
     }
 
     if (typeof onProps === 'function') {
         onProps(() => {
-            const {
-                amount,
-                currency,
-                buyerCountry,
-                // style, linting doesn't like since its on line 16
-                offer,
-                payerId,
-                clientId,
-                merchantId,
-                version,
-                env
-            } = window.xprops;
-
-            const query = objectEntries({
-                message_request_id: meta.messageRequestId,
-                amount,
-                currency,
-                buyer_country: buyerCountry,
-                style: window.xprops.style,
-                credit_type: offer,
-                payer_id: payerId,
-                client_id: clientId,
-                merchant_id: merchantId,
-                version,
-                env
-            })
-                .filter(([, val]) => Boolean(val))
-                .reduce(
-                    (acc, [key, val]) =>
-                        `${acc}&${key}=${encodeURIComponent(typeof val === 'object' ? JSON.stringify(val) : val)}`,
-                    ''
-                )
-                .slice(1);
-
-            ppDebug('Updating message with new props...', { inZoid: true });
-
-            request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
-                // button = addToDom(button, data.markup ?? markup);
-                button.innerHTML = data.markup ?? markup;
-
-                const buttonWidth = button.offsetWidth;
-                const buttonHeight = button.offsetHeight;
-                // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
-                // in the overflow observer will not fire. This forces the resize event to fire for every render
-                // so that the render complete logs will always fire
-                if (dimensionsRef.current.width === buttonWidth && dimensionsRef.current.height === buttonHeight) {
-                    // resizes the iframe
-                    resize({ width: buttonWidth, height: buttonHeight });
-                } else {
-                    dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
+            const { amount, currency, buyerCountry, offer, payerId, clientId, merchantId } = window.xprops;
+            if (
+                propVars.current !==
+                {
+                    amount,
+                    currency,
+                    buyerCountry,
+                    style: JSON.stringify(window.xprops.style),
+                    offer,
+                    payerId,
+                    clientId,
+                    merchantId
                 }
+            ) {
+                const { version, env } = window.xprops;
 
-                if (typeof onReady === 'function') {
-                    onReady({
-                        meta: data.meta ?? meta,
-                        activeTags: getActiveTags(button),
-                        // Utility will create iframe deviceID if it doesn't exist.
-                        deviceID: getOrCreateStorageID()
-                    });
-                }
+                const query = objectEntries({
+                    message_request_id: meta.messageRequestId,
+                    amount,
+                    currency,
+                    buyer_country: buyerCountry,
+                    style: window.xprops.style,
+                    credit_type: offer,
+                    payer_id: payerId,
+                    client_id: clientId,
+                    merchant_id: merchantId,
+                    version,
+                    env
+                })
+                    .filter(([, val]) => Boolean(val))
+                    .reduce(
+                        (acc, [key, val]) =>
+                            `${acc}&${key}=${encodeURIComponent(typeof val === 'object' ? JSON.stringify(val) : val)}`,
+                        ''
+                    )
+                    .slice(1);
 
-                if (typeof onMarkup === 'function') {
-                    // resizes the parent message div
-                    onMarkup({
-                        meta: data.meta ?? meta,
-                        styles: data.parentStyles ?? parentStyles,
-                        warnings: data.warnings ?? warnings
-                    });
-                }
-            });
+                ppDebug('Updating message with new props...', { inZoid: true });
+
+                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
+                    ({ data }) => {
+                        button.innerHTML = data.markup ?? markup;
+
+                        const buttonWidth = button.offsetWidth;
+                        const buttonHeight = button.offsetHeight;
+                        // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
+                        // in the overflow observer will not fire. This forces the resize event to fire for every render
+                        // so that the render complete logs will always fire
+                        if (
+                            dimensionsRef.current.width === buttonWidth &&
+                            dimensionsRef.current.height === buttonHeight
+                        ) {
+                            // resizes the iframe
+                            resize({ width: buttonWidth, height: buttonHeight });
+                        } else {
+                            dimensionsRef.current = { width: buttonWidth, height: buttonHeight };
+                        }
+
+                        if (typeof onReady === 'function') {
+                            if (
+                                paramVars.current.metaMessageRequestId !==
+                                (data.meta.messageRequestId ?? meta.messageRequestId)
+                            ) {
+                                onReady({
+                                    meta: data.meta ?? meta,
+                                    activeTags: getActiveTags(button),
+                                    // Utility will create iframe deviceID if it doesn't exist.
+                                    deviceID: getOrCreateStorageID()
+                                });
+
+                                paramVars.current.metaMessageRequestId =
+                                    data.meta.messageRequestId ?? meta.messageRequestId;
+                            }
+                        }
+
+                        if (typeof onMarkup === 'function') {
+                            if (
+                                paramVars.current.parentStyles !== (data.parentStyles ?? parentStyles) ||
+                                paramVars.current.warnings !== (data.warnings ?? warnings) ||
+                                paramVars.current.markup !== (data.markup ?? markup)
+                            ) {
+                                // resizes the parent message div
+                                onMarkup({
+                                    meta: data.meta ?? meta,
+                                    styles: data.parentStyles ?? parentStyles,
+                                    warnings: data.warnings ?? warnings
+                                });
+                                paramVars.current.parentStyles = data.parentStyles ?? parentStyles;
+                                paramVars.current.warnings = data.warnings ?? warnings;
+                                paramVars.current.markup = data.markup ?? markup;
+                            }
+                        }
+                    }
+                );
+                propVars.current = {
+                    amount,
+                    currency,
+                    buyerCountry,
+                    style: JSON.stringify(window.xprops.style),
+                    offer,
+                    payerId,
+                    clientId,
+                    merchantId
+                };
+            }
         });
     }
 
