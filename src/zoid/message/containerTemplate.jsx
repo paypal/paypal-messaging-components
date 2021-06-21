@@ -71,43 +71,11 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
         #${uid} > iframe:nth-of-type(1){
             z-index: 99;
             min-height: 10px;
-            opacity: 0;
         }
-    `;
+    `.replace(/[\s\n]/g, ' ');
 };
-
-const showBanner = ({ uid, container }) => {
-    const style = container.querySelector(`#${uid} style`);
-    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(1\)\s*\{(\n|.+?))opacity:\s*0;/g, `$1`);
-    style.textContent = style.textContent.replace(/(#.+?>\s*iframe:nth-of-type\(2\)\s*\{)/g, `$1\n\topacity: 0;`);
-};
-const showLoadedMessage = ({ uid, container, eventName }) => {
-    const timestamp = new Date();
-    if (eventName === 'RENDERED') {
-        showLoadedMessage.RENDERED = timestamp.getTime();
-    } else if (eventName === 'LOADED') {
-        showLoadedMessage.LOADED = timestamp.getTime();
-    }
-    if (
-        typeof showLoadedMessage.RENDERED === 'number' &&
-        typeof showLoadedMessage.LOADED === 'number' &&
-        showLoadedMessage.LOADED > showLoadedMessage.RENDERED
-    ) {
-        showBanner({ uid, container });
-    }
-};
-showLoadedMessage.RENDERED = false;
-showLoadedMessage.LOADED = false;
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    frame.addEventListener('load', () => {
-        showLoadedMessage({ uid, container, eventName: 'LOADED' });
-    });
-
-    event.on(EVENT.RENDERED, () => {
-        showLoadedMessage({ uid, container, eventName: 'RENDERED' });
-    });
-
     const setupAutoResize = el => {
         event.on(EVENT.RESIZE, ({ width, height }) => {
             if (width !== 0 || height !== 0) {
