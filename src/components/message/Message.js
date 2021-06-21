@@ -59,30 +59,34 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.fontSize = 'inherit';
     button.innerHTML = markup;
 
-    if (typeof onReady === 'function') {
-        if (paramVars.current.metaMessageRequestId !== meta.messageRequestId) {
-            onReady({
-                meta,
-                activeTags: getActiveTags(button),
-                // Utility will create iframe deviceID if it doesn't exist.
-                deviceID: getOrCreateStorageID()
-            });
-            paramVars.current.metaMessageRequestId = meta.messageRequestId;
+    function iframeRendered() {
+        if (typeof onReady === 'function') {
+            if (paramVars.current.metaMessageRequestId !== meta.messageRequestId) {
+                onReady({
+                    meta,
+                    activeTags: getActiveTags(button),
+                    // Utility will create iframe deviceID if it doesn't exist.
+                    deviceID: getOrCreateStorageID()
+                });
+                paramVars.current.metaMessageRequestId = meta.messageRequestId;
+            }
+        }
+
+        if (typeof onMarkup === 'function') {
+            if (
+                paramVars.current.parentStyles !== parentStyles ||
+                paramVars.current.warnings !== warnings ||
+                paramVars.current.markup !== markup
+            ) {
+                onMarkup({ meta, styles: parentStyles, warnings });
+                paramVars.current.parentStyles = parentStyles;
+                paramVars.current.warnings = warnings;
+                paramVars.current.markup = markup;
+            }
         }
     }
 
-    if (typeof onMarkup === 'function') {
-        if (
-            paramVars.current.parentStyles !== parentStyles ||
-            paramVars.current.warnings !== warnings ||
-            paramVars.current.markup !== markup
-        ) {
-            onMarkup({ meta, styles: parentStyles, warnings });
-            paramVars.current.parentStyles = parentStyles;
-            paramVars.current.warnings = warnings;
-            paramVars.current.markup = markup;
-        }
-    }
+    window.requestAnimationFrame(iframeRendered);
 
     if (typeof onProps === 'function') {
         onProps(() => {

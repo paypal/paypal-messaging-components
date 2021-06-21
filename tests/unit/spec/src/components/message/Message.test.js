@@ -97,16 +97,21 @@ describe('Message', () => {
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
     });
 
-    test('Fires onReady xProp after render', () => {
+    test('Fires onReady xProp after render', async () => {
         Message(serverData);
 
-        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
-        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
+        await wait(
+            () => {
+                expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+                    meta: {
+                        messageRequestId: '12345'
+                    },
+                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
+                });
             },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
-        });
+            { container: document.body }
+        );
     });
 
     test('Fires onClick xProp when clicked', () => {
@@ -136,26 +141,31 @@ describe('Message', () => {
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
         const messageDocument = document.body.appendChild(Message(serverData));
+        // needs to wait for iframe to be ready.
+        await wait(
+            () => {
+                expect(request).not.toHaveBeenCalled();
+                expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
+                expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
 
-        expect(request).not.toHaveBeenCalled();
-        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
-        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+                    meta: {
+                        messageRequestId: '12345'
+                    },
+                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
+                });
 
-        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
+                expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
+                expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+                    meta: {
+                        messageRequestId: '12345'
+                    },
+                    styles: 'body { color: black; }',
+                    warnings: []
+                });
             },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
-        });
-
-        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
-        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            styles: 'body { color: black; }',
-            warnings: []
-        });
+            { container: document.body }
+        );
 
         updateProps({ amount: 200 });
 
@@ -164,40 +174,44 @@ describe('Message', () => {
             () => {
                 expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
                 expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
+                expect(queryByText(messageDocument, /test/i)).toBeNull();
+                expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
+                expect(request).toHaveBeenCalledTimes(1);
+
+                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+                    meta: {
+                        messageRequestId: '23456'
+                    },
+                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
+                });
+                expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+                    meta: {
+                        messageRequestId: '23456'
+                    },
+                    styles: 'body { color: blue; }',
+                    warnings: []
+                });
             },
             { container: document.body }
         );
-
-        expect(queryByText(messageDocument, /test/i)).toBeNull();
-        expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
-        expect(request).toHaveBeenCalledTimes(1);
-
-        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '23456'
-            },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
-        });
-        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '23456'
-            },
-            styles: 'body { color: blue; }',
-            warnings: []
-        });
     });
 
-    test('Passed deviceID from iframe storage to callback', () => {
+    test('Passed deviceID from iframe storage to callback', async () => {
         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
 
-        expect(window.xprops.onReady).toBeCalledWith({
-            meta: {
-                messageRequestId: '12345'
+        await wait(
+            () => {
+                expect(window.xprops.onReady).toBeCalledWith({
+                    meta: {
+                        messageRequestId: '12345'
+                    },
+                    deviceID: 'uid_1111111111_11111111111'
+                });
+                expect(getOrCreateStorageID).toHaveBeenCalled();
             },
-            deviceID: 'uid_1111111111_11111111111'
-        });
-        expect(getOrCreateStorageID).toHaveBeenCalled();
+            { container: document.body }
+        );
     });
 });
