@@ -8,7 +8,6 @@ const getTitle = createTitleGenerator();
 
 const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
     let cssStyles = ``;
-    let prerenderHeight = ``;
     const ratioMap = {
         '1x1': `
             max-height: 300px;
@@ -38,25 +37,32 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
     if (layout === 'text') {
         const { size: textSize = 12 } = textOptions ?? {};
         cssStyles = `
-        min-height: ${textSize * 4}px;
-        max-height: ${textSize * 6}px;
+        height: ${textSize * 4}px;
         min-width: 100px;
         `;
-        prerenderHeight = `${textSize * 4}px`;
     } else {
         cssStyles = ratioMap[ratioOption];
-        prerenderHeight = `100%`;
     }
 
     return `
         #${uid} {
             display: block;
             width: 100%;
+            position: relative;
+            box-sizing: border-box;
+        }
+        #${uid} > iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         #${uid} > iframe:nth-of-type(1){
-            width: 100%;
-            height: ${prerenderHeight};
             ${cssStyles}
+        }
+        #${uid} > iframe:nth-of-type(2){
+            min-height: 10px;
         }
     `.replace(/[\s\n]/g, ' ');
 };
@@ -98,6 +104,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         });
     };
     const baseStyles = getBaseStyles({ ...props, uid });
+
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
             const style = container.querySelector(`#${uid} style`);
