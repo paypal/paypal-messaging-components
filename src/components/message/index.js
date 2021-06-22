@@ -1,4 +1,3 @@
-/** @jsx h */
 import createMessage from './Message';
 
 export function setupMessage({ markup, meta, parentStyles, warnings }) {

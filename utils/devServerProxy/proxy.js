@@ -84,7 +84,6 @@ export default (app, server, compiler) => {
                 var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
                 document.write(interface);
             </script>
-            <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
             ${initializer}
         </body>
