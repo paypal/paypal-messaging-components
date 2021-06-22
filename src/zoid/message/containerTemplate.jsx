@@ -53,13 +53,8 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             display: block;
             width: 100%;
             height: ${parentHeight};
-            position: relative;
-            box-sizing: border-box;
         }
         #${uid} > iframe:nth-of-type(1){
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             ${cssStyles}
