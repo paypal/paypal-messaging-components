@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.1](https://github.com/paypal/paypal-messaging-components/compare/v1.24.0...v1.24.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* determine SDK host from script src ([#542](https://github.com/paypal/paypal-messaging-components/issues/542)) ([658ecca](https://github.com/paypal/paypal-messaging-components/commit/658eccacb1dd6bf36dbbb462cad37d6fec32f998))
+
 # [1.24.0](https://github.com/paypal/paypal-messaging-components/compare/v1.23.2...v1.24.0) (2021-06-09)
 
 
