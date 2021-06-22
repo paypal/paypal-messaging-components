@@ -8,6 +8,7 @@ const getTitle = createTitleGenerator();
 
 const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
     let cssStyles = ``;
+    let prerenderHeight = ``;
     const ratioMap = {
         '1x1': `
             max-height: 300px;
@@ -37,23 +38,24 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
     if (layout === 'text') {
         const { size: textSize = 12 } = textOptions ?? {};
         cssStyles = `
-        min-height: ${textSize * 3}px;
+        min-height: ${textSize * 4}px;
         max-height: ${textSize * 6}px;
         min-width: 100px;
         `;
+        prerenderHeight = `${textSize * 4}px`;
     } else {
         cssStyles = ratioMap[ratioOption];
+        prerenderHeight = `100%`;
     }
 
     return `
         #${uid} {
             display: block;
             width: 100%;
-            height: 100%;
         }
         #${uid} > iframe:nth-of-type(1){
             width: 100%;
-            height: 100%;
+            height: ${prerenderHeight};
             ${cssStyles}
         }
     `.replace(/[\s\n]/g, ' ');
