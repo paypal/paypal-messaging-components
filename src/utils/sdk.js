@@ -15,7 +15,6 @@ import {
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getHost as getSDKHost,
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
@@ -151,23 +150,17 @@ export function writeStorageID(storageID) {
     }
 }
 
-export function getHost() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKHost();
-    } else {
-        return 'paypal.com';
-    }
-}
-
 // Check if the current script is in the process of being destroyed since
 // the MutationObservers can fire before the SDK destroy lifecycle hook
 export const isScriptBeingDestroyed = () => {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         const currentSdkScript = getScript();
-        const host = getHost();
+        // URL API not supported in IE11, but anchor tags have parsed href properties
+        const location = document.createElement('a');
+        location.href = currentSdkScript.src;
 
         // Ensure that there are currently no other SDK scripts that might be in the process of destroying this script
-        return arrayFrom(document.querySelectorAll(`script[src*="${host}/sdk/js"]`)).some(
+        return arrayFrom(document.querySelectorAll(`script[src*="${location.host}/sdk/js"]`)).some(
             script =>
                 script !== currentSdkScript &&
                 script.getAttribute(SDK_SETTINGS.NAMESPACE) === currentSdkScript.getAttribute(SDK_SETTINGS.NAMESPACE)
