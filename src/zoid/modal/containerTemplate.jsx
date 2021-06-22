@@ -20,6 +20,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
 
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
+
     event.on(EVENT.RENDERED, () => {
         // once modal is ready hide prerender and show the content modal after 500ms
         // kill the prerender after 1sec
@@ -34,8 +35,13 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         }, 1000);
     });
 
+    event.on(EVENT.DISPLAY, () => {
+        // on display set opactiy to 1 so we can see the transition happen
+        document.getElementById(`${uid}-top`).style.opacity = 1;
+    });
+
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85);`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85); opacity: 0; transition: opacity .2s ease-in-out;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
@@ -64,7 +70,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     }
                 `}
             </style>
-            <div style={fullScreen('fixed')}>
+            <div style={fullScreen('fixed')} id={`${uid}-top`}>
                 <node el={frame} title={modalTitle} />
                 <node el={prerenderFrame} title="Prerender Modal" />
             </div>

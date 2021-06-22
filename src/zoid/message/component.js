@@ -117,6 +117,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // possibly even render some type of message in the modal to show an error occured?
                         if (document.querySelector(`#${modal.prerenderDetails.uid}`)) {
                             document.querySelector(`#${modal.prerenderDetails.uid}`).style.display = 'block';
+
+                            // make sure to set the opacity to 1 so we can see the transition when iframe is opening
+                            document.querySelector(`#${modal.prerenderDetails.uid}-top`).style.opacity = 1;
                             modal.prerenderDetails.prerenderElement.classList.remove(
                                 `${modal.prerenderDetails.uid}-invisible`
                             );

@@ -173,7 +173,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             onClose: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props }) => {
+                value: ({ props, state }) => {
                     const { onClose } = props;
                     const [, replaceViewport] = viewportHijack();
 
@@ -191,6 +191,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         });
 
                         if (typeof onClose === 'function') {
+                            // make sure to reset the opacity when the modal closes so we can see the smooth transition again
+                            document.getElementById(`${state.prerenderDetails.uid}-top`).style.opacity = 0;
                             onClose({ linkName });
                         }
                     };
