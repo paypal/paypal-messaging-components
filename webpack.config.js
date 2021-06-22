@@ -88,6 +88,6 @@ module.exports = (env = {}) => {
 
     return Array.prototype.concat.apply(
         [],
-        (env.MODULE || 'library,components,render,messagingComponent').split(',').map(module => modules[module])
+        (env.MODULE || 'library,components,messagingComponent,render').split(',').map(module => modules[module])
     );
 };

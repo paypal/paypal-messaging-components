@@ -1,9 +1,9 @@
 #!/bin/bash
 SUPPORTED_ENVIRONMENTS=("production" "sandbox" "stage")
-SUPPORTED_MODULES=("library" "components" "render")
+SUPPORTED_MODULES=("library" "components" "messagingComponent" "render")
 # default value if none supplied
 environment="production,sandbox,stage"
-module="library,components,render"
+module="library,components,messagingComponent,render"
 
 while getopts ":v:e:m:t:s:" flag
 do
