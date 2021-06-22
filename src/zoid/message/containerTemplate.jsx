@@ -55,20 +55,14 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             height: ${parentHeight};
             position: relative;
             box-sizing: border-box;
-            
         }
-        #${uid} > iframe {
+        #${uid} > iframe:nth-of-type(1){
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-        }
-        #${uid} > iframe:nth-of-type(1){
             ${cssStyles}
-        }
-        #${uid} > iframe:nth-of-type(2){
-            min-height: 10px;
         }
     `.replace(/[\s\n]/g, ' ');
 };
@@ -110,7 +104,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         });
     };
     const baseStyles = getBaseStyles({ ...props, uid });
-
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
             const style = container.querySelector(`#${uid} style`);
@@ -120,6 +113,9 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
                 ${styles.replace(/\.pp-flex[^\s:,.#]*/g, `#${uid}`)}
             `;
         }
+    });
+    event.on(EVENT.RENDERED, () => {
+        prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
     const messageTitle = getTitle(frame.title);
     return (
