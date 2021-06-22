@@ -1,7 +1,5 @@
 const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
 
-const { IgnorePlugin } = require('webpack');
-
 const globals = require('./globals');
 const { localeOptions } = require('./locales');
 
@@ -37,12 +35,7 @@ module.exports = (env = {}) => {
         vars: globals({
             ...env,
             TARGET: 'components'
-        }),
-        plugins: [
-            new IgnorePlugin({
-                contextRegExp: /preact/
-            })
-        ]
+        })
     });
 
     COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP'].reduce(
@@ -50,14 +43,26 @@ module.exports = (env = {}) => {
             ...accumulator,
             [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
         }),
-        {
-            'smart-credit-message': './src/components/message/index.js'
-        }
+        {}
     );
 
-    COMPONENTS_CONFIG.optimization.splitChunks = {
-        chunks: 'all',
-        name: 'smart-credit-common'
+    const MESSAGING_COMPONENTS_CONFIG = getWebpackConfig({
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        analyze: env.analyzeComponents,
+        filename: '[name].js',
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'messagingComponent'
+        })
+    });
+
+    MESSAGING_COMPONENTS_CONFIG.entry = {
+        'smart-credit-message': './src/components/message/index.js'
     };
 
     const RENDERING_CONFIG = getWebpackConfig({
@@ -77,11 +82,12 @@ module.exports = (env = {}) => {
     const modules = {
         library: [MESSAGES_CONFIG],
         components: [COMPONENTS_CONFIG],
-        render: [RENDERING_CONFIG]
+        render: [RENDERING_CONFIG],
+        messagingComponent: [MESSAGING_COMPONENTS_CONFIG]
     };
 
     return Array.prototype.concat.apply(
         [],
-        (env.MODULE || 'library,components,render').split(',').map(module => modules[module])
+        (env.MODULE || 'library,components,render,messagingComponent').split(',').map(module => modules[module])
     );
 };
