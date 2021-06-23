@@ -13,6 +13,62 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 export default ({ uid, doc, props, state }) => {
     const styles = `
+        @font-face {
+            font-family: 'PayPalSansBig';
+            font-weight: 600;
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot);
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot?#iefix)
+                    format('embedded-opentype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.woff)
+                    format('woff'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg) format('svg');
+        }
+        
+        @font-face {
+            font-family: 'PayPalSansBig';
+            font-weight: 200;
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot);
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot?#iefix)
+                    format('embedded-opentype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.woff)
+                    format('woff'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg) format('svg');
+        }
+        
+        @font-face {
+            font-family: 'PayPalSansSmall';
+            font-weight: 400;
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot);
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot?#iefix)
+                    format('embedded-opentype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.woff)
+                    format('woff'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
+                    format('svg');
+        }
+        
+        @font-face {
+            font-family: 'PayPalSansSmall';
+            font-weight: 600;
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot);
+            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot?#iefix)
+                    format('embedded-opentype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.woff)
+                    format('woff'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
+                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.svg)
+                    format('svg');
+        }
+        html {
+            color: #2d2d2d;
+            font-family: PayPal-Sans, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            overflow: hidden;
+        }
         .overlay{
             position: fixed;
             left: 0;
@@ -57,8 +113,7 @@ export default ({ uid, doc, props, state }) => {
         .error{
             position: absolute;
             top: 60%;
-            left: 35%;
-            font-size: 25px;
+            left: 40%;
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -67,7 +122,11 @@ export default ({ uid, doc, props, state }) => {
                 height: calc(100% - 84px);
                 scrollbar-width: none;
                 right: 1px;
-            }       
+            }
+            .error{
+                top: 70%;
+                margin-top: 1rem;
+            }
         }
         
     `;
