@@ -1,31 +1,27 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID } from '../../utils';
+import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
     const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
-    const propVars = {
-        current: {
-            amount: window.xprops.amount,
-            currency: window.xprops.currency,
-            buyerCountry: window.xprops.buyerCountry,
-            style: JSON.stringify(style),
-            offer: window.xprops.offer,
-            payerId: window.xprops.payerId,
-            clientId: window.xprops.clientId,
-            merchantId: window.xprops.merchantId
-        }
-    };
+    const [propVars, updatePropVars] = createState({
+        amount: window.xprops.amount ?? null,
+        currency: window.xprops.currency ?? null,
+        buyerCountry: window.xprops.buyerCountry ?? null,
+        style: JSON.stringify(style),
+        offer: window.xprops.offer ?? null,
+        payerId: window.xprops.payerId ?? null,
+        clientId: window.xprops.clientId ?? null,
+        merchantId: window.xprops.merchantId ?? null
+    });
 
-    const paramVars = {
-        current: {
-            metaMessageRequestId: null,
-            parentStyles: null,
-            warnings: null,
-            markup: null
-        }
-    };
+    const [paramVars, updateParamVars] = createState({
+        metaMessageRequestId: meta.messageRequestId ?? null,
+        parentStyles: null,
+        warnings: null,
+        markup: null
+    });
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
@@ -60,30 +56,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.innerHTML = markup;
 
     function iframeRendered() {
-        if (typeof onReady === 'function') {
-            if (paramVars.current.metaMessageRequestId !== meta.messageRequestId) {
-                onReady({
-                    meta,
-                    activeTags: getActiveTags(button),
-                    // Utility will create iframe deviceID if it doesn't exist.
-                    deviceID: getOrCreateStorageID()
-                });
-                paramVars.current.metaMessageRequestId = meta.messageRequestId;
-            }
-        }
+        onReady({
+            meta,
+            activeTags: getActiveTags(button),
+            // Utility will create iframe deviceID if it doesn't exist.
+            deviceID: getOrCreateStorageID()
+        });
 
-        if (typeof onMarkup === 'function') {
-            if (
-                paramVars.current.parentStyles !== parentStyles ||
-                paramVars.current.warnings !== warnings ||
-                paramVars.current.markup !== markup
-            ) {
-                onMarkup({ meta, styles: parentStyles, warnings });
-                paramVars.current.parentStyles = parentStyles;
-                paramVars.current.warnings = warnings;
-                paramVars.current.markup = markup;
-            }
-        }
+        onMarkup({ meta, styles: parentStyles, warnings });
+        updateParamVars({ ...paramVars, parentStyles, warnings, markup });
     }
 
     window.requestAnimationFrame(iframeRendered);
@@ -92,17 +73,17 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         onProps(() => {
             const { amount, currency, buyerCountry, offer, payerId, clientId, merchantId } = window.xprops;
             if (
-                propVars.current !==
-                {
-                    amount,
-                    currency,
-                    buyerCountry,
-                    style: JSON.stringify(window.xprops.style),
-                    offer,
-                    payerId,
-                    clientId,
-                    merchantId
-                }
+                JSON.stringify(propVars) !==
+                JSON.stringify({
+                    amount: amount ?? null,
+                    currency: currency ?? null,
+                    buyerCountry: buyerCountry ?? null,
+                    style: JSON.stringify(window.xprops.style) ?? null,
+                    offer: offer ?? null,
+                    payerId: payerId ?? null,
+                    clientId: clientId ?? null,
+                    merchantId: merchantId ?? null
+                })
             ) {
                 const { version, env } = window.xprops;
 
@@ -150,8 +131,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                         if (typeof onReady === 'function') {
                             if (
-                                paramVars.current.metaMessageRequestId !==
-                                (data.meta.messageRequestId ?? meta.messageRequestId)
+                                paramVars.metaMessageRequestId !== (data.meta.messageRequestId ?? meta.messageRequestId)
                             ) {
                                 onReady({
                                     meta: data.meta ?? meta,
@@ -160,16 +140,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                     deviceID: getOrCreateStorageID()
                                 });
 
-                                paramVars.current.metaMessageRequestId =
-                                    data.meta.messageRequestId ?? meta.messageRequestId;
+                                paramVars.metaMessageRequestId = data.meta.messageRequestId ?? meta.messageRequestId;
                             }
                         }
 
                         if (typeof onMarkup === 'function') {
                             if (
-                                paramVars.current.parentStyles !== (data.parentStyles ?? parentStyles) ||
-                                paramVars.current.warnings !== (data.warnings ?? warnings) ||
-                                paramVars.current.markup !== (data.markup ?? markup)
+                                paramVars.parentStyles !== (data.parentStyles ?? parentStyles) ||
+                                paramVars.warnings !== (data.warnings ?? warnings) ||
+                                paramVars.markup !== (data.markup ?? markup)
                             ) {
                                 // resizes the parent message div
                                 onMarkup({
@@ -177,14 +156,18 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                     styles: data.parentStyles ?? parentStyles,
                                     warnings: data.warnings ?? warnings
                                 });
-                                paramVars.current.parentStyles = data.parentStyles ?? parentStyles;
-                                paramVars.current.warnings = data.warnings ?? warnings;
-                                paramVars.current.markup = data.markup ?? markup;
+                                updateParamVars({
+                                    ...paramVars,
+                                    parentStyles: data.parentStyles ?? parentStyles,
+                                    warnings: data.warnings ?? warnings,
+                                    markup: data.markup ?? markup
+                                });
                             }
                         }
                     }
                 );
-                propVars.current = {
+                updatePropVars({
+                    ...propVars,
                     amount,
                     currency,
                     buyerCountry,
@@ -193,7 +176,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     payerId,
                     clientId,
                     merchantId
-                };
+                });
             }
         });
     }

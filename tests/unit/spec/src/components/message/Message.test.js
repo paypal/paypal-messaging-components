@@ -8,10 +8,11 @@ import {
 } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID } from 'src/utils';
+import { request, getOrCreateStorageID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 jest.mock('src/utils', () => ({
+    createState: jest.fn(() => [{}, jest.fn()]),
     getActiveTags: jest.fn(),
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
@@ -60,6 +61,7 @@ describe('Message', () => {
         window.xprops.onClick.mockClear();
         window.xprops.onMarkup.mockClear();
 
+        createState.mockClear();
         request.mockClear();
         getOrCreateStorageID.mockClear();
         updateProps = xPropsMock({
