@@ -89,7 +89,7 @@ export default ({ uid, doc, props, state }) => {
         toggleShow(false);
     };
     const checkForErrors = () => {
-        ZalgoPromise.delay(10000).then(() => {
+        ZalgoPromise.delay(15000).then(() => {
             // get parent iframe with modal content
             const parentFrame = state.prerenderDetails.frameElement.contentDocument;
             // check to see if modal content class exists
