@@ -85,7 +85,6 @@ export default ({ uid, doc, props, state }) => {
             height: 100%;
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
-            right: 9px;
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
             transition: transform 350ms ease, box-shadow 350ms ease;
             transform: translateY(100%);
