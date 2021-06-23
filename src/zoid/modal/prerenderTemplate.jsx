@@ -111,9 +111,12 @@ export default ({ uid, doc, props, state }) => {
         }
 
         .error{
+            width: 200px;
+            height: 100px;
             position: absolute;
-            top: 60%;
-            left: 40%;
+            top: 67%;
+            left: 50%;
+            margin-left: -60px;
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -122,10 +125,6 @@ export default ({ uid, doc, props, state }) => {
                 height: calc(100% - 84px);
                 scrollbar-width: none;
                 right: 1px;
-            }
-            .error{
-                top: 70%;
-                margin-top: 1rem;
             }
         }
         
