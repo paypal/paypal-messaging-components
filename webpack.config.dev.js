@@ -41,7 +41,9 @@ module.exports = (env = {}) => {
                       __PATH__: `/${FILE_NAME}.js`,
                       __NAMESPACE__: 'paypal',
                       __VERSION__: '1.0.55',
-                      __COMPONENTS__: ['messages']
+                      __COMPONENTS__: ['messages'],
+                      __PAYPAL_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`,
+                      __PAYPAL_API_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`
                   }
               });
 
