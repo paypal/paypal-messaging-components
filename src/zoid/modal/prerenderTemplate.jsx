@@ -88,7 +88,6 @@ export default ({ uid, doc, props, state }) => {
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
             transition: transform 350ms ease, box-shadow 350ms ease;
             transform: translateY(100%);
-            right: 9px;
         }
         .show-modal{
             transform: translateY(0);
@@ -124,7 +123,6 @@ export default ({ uid, doc, props, state }) => {
                 margin-top: 84px;
                 height: calc(100% - 84px);
                 scrollbar-width: none;
-                right: 1px;
             }
         }
         
