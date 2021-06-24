@@ -99,17 +99,14 @@ module.exports = (env = {}) => {
         debug: true,
         minify: false,
         analyze: env.analyzeComponents,
-        filename: '[name].js',
+        entry: './src/components/message/index.js',
+        filename: 'smart-credit-message.js',
         env: env.NODE_ENV,
         vars: globals({
             ...env,
             TARGET: 'messagingComponent'
         })
     });
-
-    MESSAGING_DEV_COMPONENTS_CONFIG.entry = {
-        'smart-credit-message': './src/components/message/index.js'
-    };
 
     const RENDERING_DEV_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
