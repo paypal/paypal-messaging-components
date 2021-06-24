@@ -130,6 +130,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             et: 'CLICK',
                             event_type: 'MORS'
                         });
+
                         logger.track({
                             index,
                             et: 'CLICK',
@@ -176,7 +177,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, displayedMessage, trackingDetails, offerType, ppDebugId } = meta;
+                        const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
@@ -204,7 +205,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    displayedMessage,
                                     trackingDetails
                                 }
                             };
