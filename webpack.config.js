@@ -81,13 +81,12 @@ module.exports = (env = {}) => {
 
     const modules = {
         library: [MESSAGES_CONFIG],
-        components: [COMPONENTS_CONFIG],
-        render: [RENDERING_CONFIG],
-        messagingComponent: [MESSAGING_COMPONENTS_CONFIG]
+        components: [COMPONENTS_CONFIG, MESSAGING_COMPONENTS_CONFIG],
+        render: [RENDERING_CONFIG]
     };
 
     return Array.prototype.concat.apply(
         [],
-        (env.MODULE || 'library,components,messagingComponent,render').split(',').map(module => modules[module])
+        (env.MODULE || 'library,components,render').split(',').map(module => modules[module])
     );
 };
