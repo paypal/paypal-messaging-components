@@ -86,9 +86,6 @@ const Message = () => {
             version,
             stageTag,
             env
-            // deviceID: "ad0cd58676_mtk6mjg6mti",
-            // sessionID: "90b84c010a_mdi6ndi6mja",
-            // scriptUID: "6951639ad3_mdi6ndi6mja"
         })
             .filter(([, val]) => Boolean(val))
             .reduce(

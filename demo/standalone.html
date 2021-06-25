@@ -4,7 +4,7 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="T7TBTKKYX3ZZL"></script>
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script>
     </head>
 
     <body>
@@ -12,7 +12,6 @@
         <script>
             paypal
                 .Messages({
-                    amount: 100,
                     style: {
                         layout: 'text',
                         logo: {
@@ -21,19 +20,6 @@
                     }
                 })
                 .render('.messages');
-            setTimeout(() => {
-                paypal
-                    .Messages({
-                        amount: 500,
-                        style: {
-                            layout: 'text',
-                            logo: {
-                                type: 'none'
-                            }
-                        }
-                    })
-                    .render('.messages');
-            }, 5000);
         </script>
     </body>
 </html>

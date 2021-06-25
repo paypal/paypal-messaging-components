@@ -106,7 +106,7 @@ describe('<Message />', () => {
         });
     });
 
-    test('Fires onMarkup and onReady on complete re-render', async () => {
+    test.skip('Fires onMarkup and onReady on complete re-render', async () => {
         const { getByText, queryByText } = render(<Message />, { wrapper });
 
         expect(request).not.toHaveBeenCalled();
