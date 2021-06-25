@@ -40,9 +40,10 @@ const memoizedModal = memoizeOnProps(
             state.renderStart = getCurrentTime();
 
             if (!renderProm) {
+                const SCRIPT_DELAY = 0;
                 renderProm = awaitWindowLoad
                     // Give priority to other merchant scripts waiting for the load event
-                    .then(() => ZalgoPromise.delay(0))
+                    .then(() => ZalgoPromise.delay(SCRIPT_DELAY))
                     .then(() => ZalgoPromise.all([render(selector), modalReady]))
                     .then(() => globalEvent.trigger('modal-render'));
             }

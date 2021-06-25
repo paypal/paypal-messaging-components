@@ -12,6 +12,7 @@ import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 export default ({ uid, doc, props, state }) => {
+    const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
             font-family: 'PayPalSansBig';
@@ -88,6 +89,7 @@ export default ({ uid, doc, props, state }) => {
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
             transition: transform 350ms ease, box-shadow 350ms ease;
             transform: translateY(100%);
+            right: 9px;
         }
         .show-modal{
             transform: translateY(0);
@@ -123,6 +125,7 @@ export default ({ uid, doc, props, state }) => {
                 margin-top: 84px;
                 height: calc(100% - 84px);
                 scrollbar-width: none;
+                right: 1px;
             }
         }
         
@@ -145,7 +148,7 @@ export default ({ uid, doc, props, state }) => {
         toggleShow(false);
     };
     const checkForErrors = () => {
-        ZalgoPromise.delay(15000).then(() => {
+        ZalgoPromise.delay(ERROR_DELAY).then(() => {
             // get parent iframe with modal content
             const parentFrame = state.prerenderDetails.frameElement.contentDocument;
             // check to see if modal content class exists

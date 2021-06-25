@@ -106,6 +106,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
+                        const PRERENDER_DELAY = 100;
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
                         // Avoid spreading message props because both message and modal
@@ -128,7 +129,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             );
                             if (modal.prerenderDetails.prerenderElement.contentDocument) {
                                 // wait for prerenderer to exist
-                                ZalgoPromise.delay(100).then(() => {
+                                ZalgoPromise.delay(PRERENDER_DELAY).then(() => {
                                     modal.prerenderDetails.prerenderElement.contentDocument
                                         .getElementsByClassName('modal-content')[0]
                                         .classList.add('show-modal');
@@ -293,11 +294,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     // Handle moving the iframe around the DOM
                     return () => {
+                        const CLEAN_UP_DELAY = 0;
                         const { getContainer } = props;
                         const { messagesMap } = getGlobalState();
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
-                        ZalgoPromise.delay(0).then(() => {
+                        ZalgoPromise.delay(CLEAN_UP_DELAY).then(() => {
                             if (
                                 container &&
                                 container.ownerDocument.body.contains(container) &&
