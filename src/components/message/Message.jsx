@@ -86,6 +86,9 @@ const Message = () => {
             version,
             stageTag,
             env
+            // deviceID: "ad0cd58676_mtk6mjg6mti",
+            // sessionID: "90b84c010a_mdi6ndi6mja",
+            // scriptUID: "6951639ad3_mdi6ndi6mja"
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
@@ -97,13 +100,14 @@ const Message = () => {
 
         ppDebug('Updating message with new props...', { inZoid: true });
 
-        request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
+        request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(({ data }) => {
+            const dataObject = JSON.parse(data.slice(data.indexOf('<!-- ') + 5, data.indexOf(' -->')));
             setServerData({
-                markup: data.markup ?? markup,
-                meta: data.meta ?? meta,
+                markup: dataObject.markup ?? markup,
+                meta: dataObject.meta ?? meta,
                 // Respect empty string value in order to remove styles when switch from flex to text layout
-                parentStyles: data.parentStyles ?? parentStyles,
-                warnings: data.warnings ?? warnings
+                parentStyles: dataObject.parentStyles ?? parentStyles,
+                warnings: dataObject.warnings ?? warnings
             });
         });
     }, [amount, currency, buyerCountry, JSON.stringify(style), offer, payerId, clientId, merchantId]);
