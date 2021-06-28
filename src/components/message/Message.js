@@ -71,21 +71,39 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
     if (typeof onProps === 'function') {
         onProps(() => {
-            const { amount, currency, buyerCountry, offer, payerId, clientId, merchantId } = window.xprops;
-            if (
-                JSON.stringify(propVars) !==
-                JSON.stringify({
-                    amount: amount ?? null,
-                    currency: currency ?? null,
-                    buyerCountry: buyerCountry ?? null,
-                    style: JSON.stringify(window.xprops.style) ?? null,
-                    offer: offer ?? null,
-                    payerId: payerId ?? null,
-                    clientId: clientId ?? null,
-                    merchantId: merchantId ?? null
-                })
-            ) {
-                const { version, env } = window.xprops;
+            const propObject = {};
+            Object.keys(propVars).forEach(row => {
+                if (row === 'style') {
+                    propObject[row] = JSON.stringify(window.xprops[row]) ?? null;
+                } else {
+                    propObject[row] = window.xprops[row] ?? null;
+                }
+            });
+
+            if (JSON.stringify(propVars) !== JSON.stringify(propObject)) {
+                const {
+                    amount,
+                    currency,
+                    buyerCountry,
+                    offer,
+                    payerId,
+                    clientId,
+                    merchantId,
+                    version,
+                    env
+                } = window.xprops;
+
+                updatePropVars({
+                    ...propVars,
+                    amount,
+                    currency,
+                    buyerCountry,
+                    style: JSON.stringify(window.xprops.style),
+                    offer,
+                    payerId,
+                    clientId,
+                    merchantId
+                });
 
                 const query = objectEntries({
                     message_request_id: meta.messageRequestId,
@@ -112,8 +130,12 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
                     ({ data }) => {
-                        button.innerHTML = data.markup ?? markup;
+                        updateParamVars({
+                            ...paramVars,
+                            metaMessageRequestId: data.meta.messageRequestId ?? meta.messageRequestId
+                        });
 
+                        button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
                         // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event
@@ -130,18 +152,12 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         if (typeof onReady === 'function') {
-                            if (
-                                paramVars.metaMessageRequestId !== (data.meta.messageRequestId ?? meta.messageRequestId)
-                            ) {
-                                onReady({
-                                    meta: data.meta ?? meta,
-                                    activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
-                                });
-
-                                paramVars.metaMessageRequestId = data.meta.messageRequestId ?? meta.messageRequestId;
-                            }
+                            onReady({
+                                meta: data.meta ?? meta,
+                                activeTags: getActiveTags(button),
+                                // Utility will create iframe deviceID if it doesn't exist.
+                                deviceID: getOrCreateStorageID()
+                            });
                         }
 
                         if (typeof onMarkup === 'function') {
@@ -166,17 +182,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
                     }
                 );
-                updatePropVars({
-                    ...propVars,
-                    amount,
-                    currency,
-                    buyerCountry,
-                    style: JSON.stringify(window.xprops.style),
-                    offer,
-                    payerId,
-                    clientId,
-                    merchantId
-                });
             }
         });
     }

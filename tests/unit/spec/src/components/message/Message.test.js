@@ -2,7 +2,6 @@ import {
     getByText,
     fireEvent,
     queryByText,
-    // act,
     wait // package is outdated. this is deprecated in newer version
     // waitFor, // package is outdated. this doesn't exist in older version
 } from '@testing-library/dom';
@@ -12,7 +11,7 @@ import { request, getOrCreateStorageID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 jest.mock('src/utils', () => ({
-    createState: jest.fn(() => [{}, jest.fn()]),
+    createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
