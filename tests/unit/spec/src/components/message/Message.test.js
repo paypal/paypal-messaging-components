@@ -12,19 +12,32 @@ jest.mock('src/utils', () => ({
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
-            data: {
+            data: `<!-- {
                 markup: '<div>mock</div>',
                 meta: {
                     messageRequestId: '23456'
                 },
                 parentStyles: 'body { color: blue; }',
                 warnings: []
-            }
+            } -->
+            `
         })
     ),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
+
+JSON.parse = jest.fn().mockImplementationOnce(() => {
+    const dataObject = {
+        markup: '<div>mock</div>',
+        meta: {
+            messageRequestId: '23456'
+        },
+        parentStyles: 'body { color: blue; }',
+        warnings: []
+    };
+    return dataObject;
+});
 
 describe('<Message />', () => {
     const updateProps = xPropsMock({
@@ -106,7 +119,7 @@ describe('<Message />', () => {
         });
     });
 
-    test.skip('Fires onMarkup and onReady on complete re-render', async () => {
+    test('Fires onMarkup and onReady on complete re-render', async () => {
         const { getByText, queryByText } = render(<Message />, { wrapper });
 
         expect(request).not.toHaveBeenCalled();
