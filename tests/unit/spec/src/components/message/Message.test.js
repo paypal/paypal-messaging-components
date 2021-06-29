@@ -11,19 +11,32 @@ jest.mock('src/utils', () => ({
     isStorageFresh: jest.fn().mockReturnValue(false),
     request: jest.fn(() =>
         Promise.resolve({
-            data: {
+            data: `<!-- {
                 markup: '<div>mock</div>',
                 meta: {
                     messageRequestId: '23456'
                 },
                 parentStyles: 'body { color: blue; }',
                 warnings: []
-            }
+            } -->
+            `
         })
     ),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
+
+JSON.parse = jest.fn().mockImplementationOnce(() => {
+    const dataObject = {
+        markup: '<div>mock</div>',
+        meta: {
+            messageRequestId: '23456'
+        },
+        parentStyles: 'body { color: blue; }',
+        warnings: []
+    };
+    return dataObject;
+});
 
 describe('Message', () => {
     const updateProps = xPropsMock({
