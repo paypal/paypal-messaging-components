@@ -29,7 +29,7 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
         `,
         '20x1': `
             max-height: 59px;
-            min-height: 42px;
+            min-height: 18px;
             max-width: 1169px;
             min-width: 350px;
         `
@@ -52,16 +52,15 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             box-sizing: border-box;
         }
         #${uid} > iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
         }
         #${uid} > iframe:nth-of-type(1){
+            opacity: 1;
             ${cssStyles}
         }
         #${uid} > iframe:nth-of-type(2){
+            opacity: 0;
             min-height: 10px;
         }
     `.replace(/[\s\n]/g, ' ');
@@ -116,6 +115,9 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     });
     event.on(EVENT.RENDERED, () => {
+        const style = container.querySelector(`#${uid} style`);
+        style.textContent = style.textContent.replace(/(#.+?iframe:nth-of-type\(2\)\{ *)opacity: 1;/g, `$1`);
+
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
     const messageTitle = getTitle(frame.title);
