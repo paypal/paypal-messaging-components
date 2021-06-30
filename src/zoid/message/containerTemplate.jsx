@@ -56,11 +56,10 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             height: 100%;
         }
         #${uid} > iframe:nth-of-type(1){
-            opacity: 1;
             ${cssStyles}
         }
         #${uid} > iframe:nth-of-type(2){
-            opacity: 0;
+            display: none;
             min-height: 10px;
         }
     `.replace(/[\s\n]/g, ' ');
@@ -116,7 +115,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     });
     event.on(EVENT.RENDERED, () => {
         const style = container.querySelector(`#${uid} style`);
-        style.textContent = style.textContent.replace(/(#.+?iframe:nth-of-type\(2\)\{ *)opacity: 1;/g, `$1`);
+        style.textContent = style.textContent.replace(/(#.+?iframe:nth-of-type\(2\)\{ *)display: none;/g, `$1`);
 
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
