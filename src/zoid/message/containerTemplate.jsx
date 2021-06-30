@@ -54,6 +54,7 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
         #${uid} > iframe {
             width: 100%;
             height: 100%;
+            border: 0;
         }
         #${uid} > iframe:nth-of-type(1){
             ${cssStyles}
