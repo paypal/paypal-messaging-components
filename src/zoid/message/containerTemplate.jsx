@@ -13,25 +13,25 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             max-height: 300px;
             min-height: 120px;
             max-width: 300px;
-            min-width: 120px;
+            min-width: 100px;
         `,
         '1x4': `
             max-height: 640px;
             min-height: 320px;
             max-width: 160px;
-            min-width: 160px;
+            min-width: 100px;
         `,
         '8x1': `
             max-height: 96px;
             min-height: 42px;
             max-width: 768px;
-            min-width: 250px;
+            min-width: 100px;
         `,
         '20x1': `
-            max-height: 59px;
+            max-height: 70px;
             min-height: 18px;
             max-width: 1169px;
-            min-width: 350px;
+            min-width: 100px;
         `
     };
     if (layout === 'text') {
