@@ -68,7 +68,9 @@ export default ({ uid, doc, props, state }) => {
             font-family: PayPal-Sans, Helvetica, Arial, sans-serif;
             font-size: 14px;
             font-weight: 400;
-            overflow: hidden;
+        }
+        .modal{
+            overflow-y: scroll;
         }
         .overlay{
             position: fixed;
@@ -89,7 +91,6 @@ export default ({ uid, doc, props, state }) => {
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
             transition: transform 350ms ease, box-shadow 350ms ease;
             transform: translateY(100%);
-            right: 9px;
         }
         .show-modal{
             transform: translateY(0);
@@ -107,8 +108,8 @@ export default ({ uid, doc, props, state }) => {
             cursor: pointer;
             position: absolute;
             top: 12px;
-            right: 8px;
             z-index: 50;
+            right: 10px;
         }
 
         .error{
@@ -121,11 +122,13 @@ export default ({ uid, doc, props, state }) => {
         }
 
         @media (max-width: 639px), (max-height: 539px){
+            .modal{
+                overflow-y: hidden;
+            }
             .modal-content {
                 margin-top: 84px;
                 height: calc(100% - 84px);
-                scrollbar-width: none;
-                right: 1px;
+                
             }
         }
         
@@ -139,11 +142,16 @@ export default ({ uid, doc, props, state }) => {
         }
         wrapper.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
         wrapper.getElementsByClassName('overlay')[0].style.opacity = 0;
+        if (!document.getElementsByClassName('modal-content').length) {
+            // adding slight delay to show the transition for the slide down of prerender
+            ZalgoPromise.delay(150).then(() => {
+                document.querySelector(`#${uid}`).style.display = 'none';
+            });
+        }
     };
     const handlePrerenderClose = () => {
         state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
         state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
-        document.querySelector(`#${uid}`).style.display = 'none';
         document.getElementById(`${uid}-top`).style.opacity = 0;
         toggleShow(false);
     };
