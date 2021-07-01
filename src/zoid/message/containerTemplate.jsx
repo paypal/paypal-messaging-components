@@ -40,8 +40,10 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
         height: ${textSize * 4}px;
         min-width: 100px;
         `;
-    } else {
+    } else if (layout === 'flex') {
         cssStyles = ratioMap[ratioOption];
+    } else {
+        cssStyles = ``;
     }
 
     return `
