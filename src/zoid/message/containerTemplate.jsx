@@ -6,7 +6,7 @@ import { getOverflowObserver, createTitleGenerator } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
-const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
+const getStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
     let cssStyles = ``;
     const ratioMap = {
         '1x1': `
@@ -45,8 +45,7 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
     } else {
         cssStyles = ``;
     }
-
-    return `
+    const baseStyle = `
         #${uid} {
             display: block;
             width: 100%;
@@ -58,6 +57,9 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             height: 100%;
             border: 0;
         }
+    `;
+    // when we remote the prerender iframe, we'll remove this css as well
+    const prerenderStyle = `
         #${uid} > iframe:nth-of-type(1){
             ${cssStyles}
         }
@@ -65,7 +67,8 @@ const getBaseStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOp
             display: none;
             min-height: 10px;
         }
-    `.replace(/[\s\n]/g, ' ');
+    `.replace(/[\s\n]+/g, ' ');
+    return [baseStyle, prerenderStyle];
 };
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
@@ -104,7 +107,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             }
         });
     };
-    const baseStyles = getBaseStyles({ ...props, uid });
+    const baseStyles = getStyles({ ...props, uid });
 
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
@@ -117,15 +120,18 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     });
     event.on(EVENT.RENDERED, () => {
-        const style = container.querySelector(`#${uid} style`);
-        style.textContent = style.textContent.replace(/(#.+?iframe:nth-of-type\(2\)\{ *)display: none;/g, `$1`);
-
+        // remove the css setting the prerender and hiding the banner
+        const style = container.querySelector(`#${uid} style:nth-of-type(2)`);
+        style.parentNode.removeChild(style);
+        // remove the prerender element
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
     const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
-            <style>{baseStyles}</style>
+            {baseStyles.map(css => (
+                <style>{css}</style>
+            ))}
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
         </span>
