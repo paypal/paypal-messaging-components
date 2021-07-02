@@ -5,7 +5,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
-    const [propVars, updatePropVars] = createState({
+    const [props, setProps] = createState({
         amount: window.xprops.amount ?? null,
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
@@ -16,11 +16,11 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         merchantId: window.xprops.merchantId ?? null
     });
 
-    const [paramVars, updateParamVars] = createState({
+    const [serverData, setServerData] = createState({
         metaMessageRequestId: meta.messageRequestId ?? null,
-        parentStyles: null,
-        warnings: null,
-        markup: null
+        parentStyles,
+        warnings,
+        markup
     });
 
     const handleClick = () => {
@@ -64,41 +64,26 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         });
 
         onMarkup({ meta, styles: parentStyles, warnings });
-        updateParamVars({ ...paramVars, parentStyles, warnings, markup });
     }
 
     window.requestAnimationFrame(iframeRendered);
 
     if (typeof onProps === 'function') {
-        onProps(() => {
-            const propObject = {};
-            Object.keys(propVars).forEach(row => {
-                if (row === 'style') {
-                    propObject[row] = JSON.stringify(window.xprops[row]) ?? null;
-                } else {
-                    propObject[row] = window.xprops[row] ?? null;
-                }
-            });
+        onProps(xprops => {
+            const shouldRerender = Object.keys(props).some(key =>
+                typeof props[key] !== 'object'
+                    ? props[key] !== xprops[key]
+                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
+            );
 
-            if (JSON.stringify(propVars) !== JSON.stringify(propObject)) {
-                const {
+            if (shouldRerender) {
+                const { amount, currency, buyerCountry, offer, payerId, clientId, merchantId, version, env } = xprops;
+
+                setProps({
                     amount,
                     currency,
                     buyerCountry,
-                    offer,
-                    payerId,
-                    clientId,
-                    merchantId,
-                    version,
-                    env
-                } = window.xprops;
-
-                updatePropVars({
-                    ...propVars,
-                    amount,
-                    currency,
-                    buyerCountry,
-                    style: JSON.stringify(window.xprops.style),
+                    style: JSON.stringify(xprops.style),
                     offer,
                     payerId,
                     clientId,
@@ -110,7 +95,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyer_country: buyerCountry,
-                    style: window.xprops.style,
+                    style: xprops.style,
                     credit_type: offer,
                     payer_id: payerId,
                     client_id: clientId,
@@ -130,11 +115,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
                     ({ data }) => {
-                        updateParamVars({
-                            ...paramVars,
-                            metaMessageRequestId: data.meta.messageRequestId ?? meta.messageRequestId
-                        });
-
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
@@ -152,19 +132,24 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         if (typeof onReady === 'function') {
-                            onReady({
-                                meta: data.meta ?? meta,
-                                activeTags: getActiveTags(button),
-                                // Utility will create iframe deviceID if it doesn't exist.
-                                deviceID: getOrCreateStorageID()
-                            });
+                            if (
+                                serverData.metaMessageRequestId !==
+                                (data.meta.messageRequestId ?? meta.messageRequestId)
+                            ) {
+                                onReady({
+                                    meta: data.meta ?? meta,
+                                    activeTags: getActiveTags(button),
+                                    // Utility will create iframe deviceID if it doesn't exist.
+                                    deviceID: getOrCreateStorageID()
+                                });
+                            }
                         }
 
                         if (typeof onMarkup === 'function') {
                             if (
-                                paramVars.parentStyles !== (data.parentStyles ?? parentStyles) ||
-                                paramVars.warnings !== (data.warnings ?? warnings) ||
-                                paramVars.markup !== (data.markup ?? markup)
+                                serverData.parentStyles !== (data.parentStyles ?? parentStyles) ||
+                                serverData.warnings !== (data.warnings ?? warnings) ||
+                                serverData.markup !== (data.markup ?? markup)
                             ) {
                                 // resizes the parent message div
                                 onMarkup({
@@ -172,14 +157,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                     styles: data.parentStyles ?? parentStyles,
                                     warnings: data.warnings ?? warnings
                                 });
-                                updateParamVars({
-                                    ...paramVars,
-                                    parentStyles: data.parentStyles ?? parentStyles,
-                                    warnings: data.warnings ?? warnings,
-                                    markup: data.markup ?? markup
-                                });
                             }
                         }
+
+                        setServerData({
+                            metaMessageRequestId: data.meta.messageRequestId ?? meta.messageRequestId,
+                            parentStyles: data.parentStyles ?? parentStyles,
+                            warnings: data.warnings ?? warnings,
+                            markup: data.markup ?? markup
+                        });
                     }
                 );
             }
