@@ -11,6 +11,7 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
             "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
