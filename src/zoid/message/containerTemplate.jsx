@@ -6,7 +6,7 @@ import { getOverflowObserver, createTitleGenerator } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
-const getStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption = '1x4' } }) => {
+const getStyles = ({ uid, style: { layout, logo: logoOptions, text: textOptions, ratio: ratioOption = '1x4' } }) => {
     let cssStyles = ``;
     const ratioMap = {
         '1x1': `
@@ -36,8 +36,15 @@ const getStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption
     };
     if (layout === 'text') {
         const { size: textSize = 12 } = textOptions ?? {};
+        const { position: logoPosition = 'left' } = logoOptions ?? {};
+        let height = Math.floor(textSize * 2.3);
+
+        if (logoPosition === 'top') {
+            height += 10;
+        }
+
         cssStyles = `
-        height: ${textSize * 4}px;
+        height: ${height}px;
         min-width: 100px;
         `;
     } else if (layout === 'flex') {
@@ -58,7 +65,7 @@ const getStyles = ({ uid, style: { layout, text: textOptions, ratio: ratioOption
             border: 0;
         }
     `;
-    // when we remote the prerender iframe, we'll remove this css as well
+    // when we remove the prerender iframe, we'll remove this css as well
     const prerenderStyle = `
         #${uid} > iframe:nth-of-type(1){
             ${cssStyles}
