@@ -106,7 +106,7 @@ const getFontFamilyRule = (addLog, val) => {
     if (fontFamily) {
         payload.validValue = fontFamily;
         logInfo(addLog, payload);
-        return `font-family: ${fontFamily}, PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `;
+        return `font-family: ${fontFamily}, Helvetica, Arial, sans-serif; `;
     }
     payload.validValue = '';
     logInfo(addLog, payload);

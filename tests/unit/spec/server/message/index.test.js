@@ -174,7 +174,7 @@ describe('SSR message', () => {
         const fontFaceSelector = '@font-face';
         const fontFamilyData = {
             'default value': [undefined, null],
-            'valid value': ['Impact', "{ font-family: 'Impact', PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; }"],
+            'valid value': ['Impact', "{ font-family: 'Impact', Helvetica, Arial, sans-serif; }"],
             'invalid value': [' ', null],
             'malicious value': ["</script><script>alert('XSS Message!')</script>", null]
         };
