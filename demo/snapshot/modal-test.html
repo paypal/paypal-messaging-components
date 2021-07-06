@@ -4,7 +4,10 @@
         <title>Messaging.js Modal Test Page</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <meta
+            name="description"
+            content="Provide a standardized means of displaying modals for capturing screenshots for functional tests."
+        />
         <style>
             html,
             body,
@@ -41,6 +44,7 @@
         <div class="container banner-8" data-pp-account="DEV000000AUPL"></div>
         <br />
         <div class="container banner-9" data-pp-account="DEV00000AUPLQ"></div>
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
         <script>
             const query = window.location.search.substring(1);
             const mappedParams = query.split('&').reduce((accumulator, param) => {
