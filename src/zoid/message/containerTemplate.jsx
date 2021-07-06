@@ -52,7 +52,7 @@ const getStyles = ({ uid, style: { layout, logo: logoOptions, text: textOptions,
     } else {
         cssStyles = ``;
     }
-    const baseStyle = `
+    return `
         #${uid} {
             display: block;
             width: 100%;
@@ -64,18 +64,14 @@ const getStyles = ({ uid, style: { layout, logo: logoOptions, text: textOptions,
             height: 100%;
             border: 0;
         }
-    `;
-    // when we remove the prerender iframe, we'll remove this css as well
-    const prerenderStyle = `
-        #${uid} > iframe:nth-of-type(1){
+        #${uid} > iframe:nth-of-type(1):not(:last-of-type){
             ${cssStyles}
         }
         #${uid} > iframe:nth-of-type(2){
             display: none;
             min-height: 10px;
         }
-    `.replace(/[\s\n]+/g, ' ');
-    return [baseStyle, prerenderStyle];
+    `;
 };
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
@@ -127,18 +123,13 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     });
     event.on(EVENT.RENDERED, () => {
-        // remove the css setting the prerender and hiding the banner
-        const style = container.querySelector(`#${uid} style:nth-of-type(2)`);
-        style.parentNode.removeChild(style);
         // remove the prerender element
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
     const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
-            {baseStyles.map(css => (
-                <style>{css}</style>
-            ))}
+            <style>{baseStyles}</style>
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
         </span>
