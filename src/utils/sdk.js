@@ -15,11 +15,10 @@ import {
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getHost as getSDKHost,
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
-import { getStorage } from 'belter/src';
+import { isLocalStorageEnabled, getStorage } from 'belter/src';
 
 import 'core-js-pure/stable/object/entries';
 
@@ -114,7 +113,8 @@ export function getSessionID() {
     }
 }
 
-export function getStorageID() {
+// Retrieves storageID. NOTE: Creates new ID if not already in local storage.
+export function getOrCreateStorageID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
@@ -122,11 +122,31 @@ export function getStorageID() {
     }
 }
 
-export function getHost() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKHost();
-    } else {
-        return 'paypal.com';
+export function isStorageFresh() {
+    return getStorage({ name: getNamespace() }).isStateFresh();
+}
+
+// Retrieve namespaced localStorage directly
+function getRawStorage() {
+    return isLocalStorageEnabled()
+        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
+        : {};
+}
+
+export function writeStorageID(storageID) {
+    if (isLocalStorageEnabled()) {
+        try {
+            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
+            window.localStorage?.setItem(
+                `__${getNamespace()}_storage__`,
+                JSON.stringify({
+                    ...getRawStorage(),
+                    id: storageID
+                })
+            );
+        } catch (e) {
+            // Handle Errors
+        }
     }
 }
 
@@ -135,10 +155,12 @@ export function getHost() {
 export const isScriptBeingDestroyed = () => {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         const currentSdkScript = getScript();
-        const host = getHost();
+        // URL API not supported in IE11, but anchor tags have parsed href properties
+        const location = document.createElement('a');
+        location.href = currentSdkScript.src;
 
         // Ensure that there are currently no other SDK scripts that might be in the process of destroying this script
-        return arrayFrom(document.querySelectorAll(`script[src*="${host}/sdk/js"]`)).some(
+        return arrayFrom(document.querySelectorAll(`script[src*="${location.host}/sdk/js"]`)).some(
             script =>
                 script !== currentSdkScript &&
                 script.getAttribute(SDK_SETTINGS.NAMESPACE) === currentSdkScript.getAttribute(SDK_SETTINGS.NAMESPACE)
