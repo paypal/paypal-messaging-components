@@ -34,11 +34,6 @@ jest.mock('server/locale', () => ({
     getLogos: () => ({})
 }));
 
-jest.mock('server/message/styles/fonts.css', () => ({
-    default: 'fonts',
-    __esModule: true
-}));
-
 jest.mock('server/message/styles', () => ({
     default: {
         'layout:text': [['default', '']],
@@ -55,7 +50,6 @@ describe('SSR message', () => {
 
     const options = {
         style: {
-            usePayPalFonts: true,
             layout: 'text',
             logo: {
                 type: 'primary',
@@ -336,7 +330,7 @@ describe('SSR message', () => {
 
         const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
 
-        expect(miscStyles.textContent).toContain('.message__messaging { width: 12px }');
+        expect(miscStyles.textContent).toContain('.message__messaging { width: 11.796px }');
     });
 
     test('handles message width range', () => {
