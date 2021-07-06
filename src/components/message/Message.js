@@ -77,7 +77,18 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
             );
 
             if (shouldRerender) {
-                const { amount, currency, buyerCountry, offer, payerId, clientId, merchantId, version, env } = xprops;
+                const {
+                    amount,
+                    currency,
+                    buyerCountry,
+                    offer,
+                    payerId,
+                    clientId,
+                    merchantId,
+                    version,
+                    env,
+                    features
+                } = xprops;
 
                 setProps({
                     amount,
@@ -100,6 +111,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     payer_id: payerId,
                     client_id: clientId,
                     merchant_id: merchantId,
+                    features,
                     version,
                     env
                 })
