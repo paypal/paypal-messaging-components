@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from 'preact/hooks';
 import { useXProps } from '../../../lib';
 
 const TRANSITION_TIME = 350;
+const CLOSE_TRANSITION_TIME = 450;
 
 export const STATUS = {
     OPEN: 'OPENED',
@@ -20,26 +21,34 @@ const TransitionContext = createContext({
 
 export const TransitionStateProvider = ({ children }) => {
     const [state, setState] = useState(STATUS.CLOSED);
-    const { show, onProps, onShow } = useXProps();
+    const [props, setProps] = useState({});
+    const { onProps } = useXProps();
 
     useEffect(
         () =>
             onProps(newProps => {
+                // create a new state value to capture props so we can re-render when visible prop changes
+                setProps(newProps);
+                if (!newProps.visible) {
+                    // close
+                    setState(STATUS.CLOSING);
+                    setTimeout(() => {
+                        setState(STATUS.CLOSED);
+                    }, CLOSE_TRANSITION_TIME);
+                }
                 if (newProps.visible && state === STATUS.CLOSED) {
-                    show().then(() => {
-                        onShow();
+                    // open
+                    requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                setState(STATUS.OPENING);
-                                setTimeout(() => {
-                                    setState(STATUS.OPEN);
-                                }, TRANSITION_TIME);
-                            });
+                            setState(STATUS.OPENING);
+                            setTimeout(() => {
+                                setState(STATUS.OPEN);
+                            }, TRANSITION_TIME);
                         });
                     });
                 }
             }),
-        []
+        [props.visible]
     );
 
     return (

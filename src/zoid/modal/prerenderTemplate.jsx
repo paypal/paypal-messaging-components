@@ -153,6 +153,8 @@ export default ({ uid, doc, props, state }) => {
         state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
         state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
         document.getElementById(`${uid}-top`).style.opacity = 0;
+        // set visible prop to false with state.hide() when prerender is closed
+        state.hide();
         toggleShow(false);
     };
     const checkForErrors = () => {
