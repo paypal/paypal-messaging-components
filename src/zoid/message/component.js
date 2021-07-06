@@ -10,6 +10,8 @@ import {
     createGlobalVariableGetter,
     getLibraryVersion,
     runStats,
+    formatStatsMeta,
+    buildStatsMeta,
     logger,
     getSessionID,
     getGlobalState,
@@ -106,8 +108,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props, focus }) => {
                     const { onClick } = props;
 
-                    return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
+                    return ({ meta, activeTags }) => {
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            onApply,
+                            getContainer
+                        } = props;
                         const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -139,6 +151,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             link: 'Banner Wrapper'
                         });
 
+                        // Attach stats attributes to meta payload
+                        buildStatsMeta('click', { container: getContainer(), activeTags, index }).then(
+                            formatStatsMeta(meta)
+                        );
+
                         if (typeof onClick === 'function') {
                             onClick({ meta });
                         }
@@ -149,19 +166,22 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onHover } = props;
+                    const { index, onHover, getContainer } = props;
                     let hasHovered = false;
 
-                    return ({ meta }) => {
-                        const { index } = props;
-
+                    return ({ meta, activeTags }) => {
                         if (!hasHovered) {
                             hasHovered = true;
+
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
                                 event_type: 'hover'
                             });
+
+                            buildStatsMeta('hover', { container: getContainer(), activeTags, index }).then(
+                                formatStatsMeta(meta)
+                            );
                         }
 
                         if (typeof onHover === 'function') {
