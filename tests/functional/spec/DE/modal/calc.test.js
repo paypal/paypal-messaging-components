@@ -80,6 +80,7 @@ describe.each([
     );
     test(
         `${groupString} passing amount to DE installment message loads correct finance terms in table`,
-        deModalContentAndCalc({ account, viewport, groupString })
+        // Modal content changes based on initial amount
+        deModalContentAndCalc({ account, viewport, groupString, amount })
     );
 });

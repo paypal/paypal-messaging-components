@@ -61,7 +61,7 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const deModalContentAndCalc = ({ account, viewport, groupString }) => async () => {
+export const deModalContentAndCalc = ({ account, viewport, groupString, amount }) => async () => {
     const testNameParts = 'DE message content';
     logTestName({ account, viewport, groupString, testNameParts });
 
@@ -72,9 +72,12 @@ export const deModalContentAndCalc = ({ account, viewport, groupString }) => asy
     const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
     expect(calc).toBeTruthy();
 
-    const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
-    expect(calcTitle).toContain('Was kostet Ihr Einkauf?');
-    await page.waitFor(800);
+    // Modal only shows this title if no initial amount is passed
+    if (!amount) {
+        const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
+        expect(calcTitle).toContain('Was kostet Ihr Einkauf?');
+        await page.waitFor(800);
+    }
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
