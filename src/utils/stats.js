@@ -30,7 +30,7 @@ if (!isZoidComponent()) {
 }
 
 // Provide stats payload to event meta
-export function formatStatsMeta({ messageRequestId, trackingDetails }) {
+export function formatStatsMeta(account, { messageRequestId, trackingDetails }) {
     return function formatPayload({ index, ...stats }) {
         logger.addMetaBuilder(existingMeta => {
             // eslint-disable-next-line no-param-reassign
@@ -39,6 +39,7 @@ export function formatStatsMeta({ messageRequestId, trackingDetails }) {
             return {
                 [index]: {
                     type: 'message',
+                    account,
                     stats,
                     messageRequestId,
                     trackingDetails
@@ -50,7 +51,7 @@ export function formatStatsMeta({ messageRequestId, trackingDetails }) {
 
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
-export function buildStatsMeta(eventType, { container, activeTags, index }) {
+export function buildStatsPayload(eventType, { container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -81,42 +82,21 @@ export function runStats({ container, activeTags, index }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
-    // Get outer most container's page location coordinates
-    const containerRect = container.getBoundingClientRect();
-    const topWindow = getTopWindow();
-
-    const sdkMetaAttributes = getScriptAttributes();
-
     const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+    const renderDuration = Math.round(getCurrentTime() - state.renderStart).toString();
 
-    // Create initial payload
-    const payload = {
-        index,
-        et: 'CLIENT_IMPRESSION',
-        event_type: 'stats',
-        bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
-        // Beaver logger filters payload props based on Boolean conversion value
-        // so everything must be converted to a string to prevent unintended filtering
-        pos_x: Math.round(containerRect.left).toString(),
-        pos_y: Math.round(containerRect.top).toString(),
-        browser_width: (topWindow?.innerWidth).toString(),
-        browser_height: (topWindow?.innerHeight).toString(),
-        visible: isInViewport(container).toString(),
-        // Visible message sections
-        active_tags: activeTags,
-        // Performance measurements
-        first_render_delay: Math.round(firstRenderDelay).toString(),
-        render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
-    };
+    buildStatsPayload('stats', { container, activeTags, index }).then(statsPayload => {
+        // No need for scroll event if banner is above the fold
+        if (statsPayload.visible === 'false') {
+            getViewportIntersectionObserver().then(observer => observer.observe(container));
+        }
 
-    // No need for scroll event if banner is above the fold
-    if (payload.visible === 'false') {
-        getViewportIntersectionObserver().then(observer => observer.observe(container));
-    }
+        // eslint-disable-next-line no-param-reassign
+        statsPayload.first_render_delay = Math.round(firstRenderDelay).toString();
 
-    checkAdblock().then(detected => {
-        payload.adblock = detected.toString();
-        payload.blocked = isHidden(container).toString();
-        logger.track(payload); // TODO: , container.getAttribute('data-pp-message-hidden') === 'true');
+        // eslint-disable-next-line no-param-reassign
+        statsPayload.render_duration = renderDuration;
+
+        logger.track(statsPayload);
     });
 }

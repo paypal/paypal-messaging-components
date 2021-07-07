@@ -11,7 +11,7 @@ import {
     getLibraryVersion,
     runStats,
     formatStatsMeta,
-    buildStatsMeta,
+    buildStatsPayload,
     logger,
     getSessionID,
     getGlobalState,
@@ -152,9 +152,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         });
 
                         // Attach stats attributes to meta payload
-                        buildStatsMeta('click', { container: getContainer(), activeTags, index }).then(
-                            formatStatsMeta(meta)
-                        );
+                        buildStatsPayload('click', {
+                            container: getContainer(),
+                            activeTags,
+                            index
+                        }).then(formatStatsMeta(merchantId || account, meta));
 
                         if (typeof onClick === 'function') {
                             onClick({ meta });
@@ -166,7 +168,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { index, onHover, getContainer } = props;
+                    const { index, account, merchantId, onHover, getContainer } = props;
                     let hasHovered = false;
 
                     return ({ meta, activeTags }) => {
@@ -179,9 +181,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 event_type: 'hover'
                             });
 
-                            buildStatsMeta('hover', { container: getContainer(), activeTags, index }).then(
-                                formatStatsMeta(meta)
-                            );
+                            buildStatsPayload('hover', {
+                                container: getContainer(),
+                                activeTags,
+                                index
+                            }).then(formatStatsMeta(merchantId || account, meta));
                         }
 
                         if (typeof onHover === 'function') {
