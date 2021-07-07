@@ -7,7 +7,6 @@ const EVENT_TYPES = ['MORS', 'click', 'hover', 'modal-close', 'modal-render', 'm
 
 const createSpy = async () => {
     const spy = { matchingStats: [], meta: {} };
-    page.removeAllListeners('request');
     page.on('request', request => {
         const url = request.url();
         const postDataString = request.postData();
