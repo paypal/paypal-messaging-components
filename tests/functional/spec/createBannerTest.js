@@ -105,6 +105,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
+            page.removeAllListeners('console');
             page.on('console', message => {
                 const text = message.text();
 
