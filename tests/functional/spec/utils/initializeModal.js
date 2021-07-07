@@ -4,7 +4,6 @@ import selectors from './selectors';
  * The purpose of this function is to click on the message and open the modal. openModal runs beforeEach US & DE modal test.
  */
 const openModal = async (viewport, config, testPage = 'modal-test.html') => {
-    page.removeAllListeners('pageerror');
     page.on('pageerror', error => {
         // TODO: find a way to re-launch the browser on error so tests can continue
         // eslint-disable-next-line no-console

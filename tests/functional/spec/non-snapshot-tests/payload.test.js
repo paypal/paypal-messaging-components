@@ -42,7 +42,6 @@ const runTest = async ({
 }) => {
     // eslint-disable-next-line no-console
     console.log(`Running test [${testName}]`);
-    page.removeAllListeners('pageerror');
     page.on('pageerror', error => {
         // eslint-disable-next-line no-console
         console.log(`payload.test page error for [${testName}]`, error);

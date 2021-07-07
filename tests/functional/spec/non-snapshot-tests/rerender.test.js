@@ -4,7 +4,6 @@ import setupTestPage from '../utils/setupTestPage';
 const runTest = async ({ testName, testPage = 'banner.html', config, callback }) => {
     // eslint-disable-next-line no-console
     console.log(`Running test [${testName}]`);
-    page.removeAllListeners('pageerror');
     page.on('pageerror', error => {
         // eslint-disable-next-line no-console
         console.log(`rerender.test page error for [${testName}]`, error);
