@@ -113,7 +113,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                     console.log(text);
                 }
             });
+            console.log('removing listeners');
             page.removeAllListeners('pageerror');
+            console.log('adding listeners');
             page.on('pageerror', error => {
                 // TODO: find a way to re-launch the browser on error so tests can continue
                 // eslint-disable-next-line no-console
