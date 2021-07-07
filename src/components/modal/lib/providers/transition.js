@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'preact/hooks';
 import { useXProps } from '../../../lib';
 
 const TRANSITION_TIME = 350;
-const CLOSE_TRANSITION_TIME = 450;
+const CLOSE_TRANSITION_TIME = 150;
 
 export const STATUS = {
     OPEN: 'OPENED',
@@ -21,22 +21,26 @@ const TransitionContext = createContext({
 
 export const TransitionStateProvider = ({ children }) => {
     const [state, setState] = useState(STATUS.CLOSED);
-    const [props, setProps] = useState({});
+    // added new visible prop so we can re-render anytime visibilty of content modal changes
+    const [visible, setVisible] = useState(false);
     const { onProps } = useXProps();
 
     useEffect(
         () =>
             onProps(newProps => {
                 // create a new state value to capture props so we can re-render when visible prop changes
-                setProps(newProps);
                 if (!newProps.visible) {
+                    setVisible(newProps.visible);
                     // close
-                    setState(STATUS.CLOSING);
-                    setTimeout(() => {
-                        setState(STATUS.CLOSED);
-                    }, CLOSE_TRANSITION_TIME);
+                    if (state === STATUS.OPEN || state === STATUS.OPENING) {
+                        setState(STATUS.CLOSING);
+                        setTimeout(() => {
+                            setState(STATUS.CLOSED);
+                        }, CLOSE_TRANSITION_TIME);
+                    }
                 }
                 if (newProps.visible && state === STATUS.CLOSED) {
+                    setVisible(newProps.visible);
                     // open
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
@@ -48,7 +52,8 @@ export const TransitionStateProvider = ({ children }) => {
                     });
                 }
             }),
-        [props.visible]
+        // anytime visibility or content modal status changes (ie OPEN, CLOSED etc) re-render
+        [visible, state]
     );
 
     return (

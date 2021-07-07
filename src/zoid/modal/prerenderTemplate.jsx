@@ -142,7 +142,8 @@ export default ({ uid, doc, props, state }) => {
         }
         wrapper.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
         wrapper.getElementsByClassName('overlay')[0].style.opacity = 0;
-        if (!document.getElementsByClassName('modal-content').length) {
+        // if this value is === null we know the pre-render modal is closed
+        if (document.querySelector('.modal-content') === null) {
             // adding slight delay to show the transition for the slide down of prerender
             ZalgoPromise.delay(150).then(() => {
                 document.querySelector(`#${uid}`).style.display = 'none';
@@ -160,9 +161,9 @@ export default ({ uid, doc, props, state }) => {
     const checkForErrors = () => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             // get parent iframe with modal content
-            const parentFrame = state.prerenderDetails.frameElement.contentDocument;
+            const prerenderFrame = state.prerenderDetails.prerenderElement.contentDocument;
             // check to see if modal content class exists
-            if (!parentFrame.getElementsByClassName('modal-wrapper').length) {
+            if (prerenderFrame !== null) {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
                 state.error = 'Error loading Modal';

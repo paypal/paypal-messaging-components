@@ -25,10 +25,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         // once modal is ready hide prerender and show the content modal after 500ms
         // kill the prerender after 1sec
         setTimeout(() => {
-            frame.classList.remove(CLASS.INVISIBLE);
-            frame.classList.add(CLASS.VISIBLE);
             prerenderFrame.classList.remove(CLASS.VISIBLE);
             prerenderFrame.classList.add(CLASS.INVISIBLE);
+            frame.classList.remove(CLASS.INVISIBLE);
+            frame.classList.add(CLASS.VISIBLE);
         }, 500);
         setTimeout(() => {
             destroyElement(prerenderFrame);
