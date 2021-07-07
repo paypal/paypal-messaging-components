@@ -40,7 +40,7 @@ describe.each([
     );
     test(
         `${groupString} passing amount to DE installment message loads correct finance terms in table`,
-        deModalContentAndCalcInst({ account: instAccount, viewport, groupString })
+        deModalContentAndCalcInst({ account: instAccount, viewport, groupString, amount })
     );
 });
 
