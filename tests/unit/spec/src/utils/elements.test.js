@@ -1,5 +1,6 @@
 import { measureBrowser, getInlineOptions } from 'src/utils/elements';
 
+// Spy on window in order to manipulate attributes
 const windowSpy = jest.spyOn(window, 'window', 'get');
 
 describe('elements utils', () => {
