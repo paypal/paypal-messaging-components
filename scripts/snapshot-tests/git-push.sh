@@ -6,14 +6,26 @@ ERROR_COLOR="$( printf -- '%s' '\u001b[31m' )"
 SUCCESS_COLOR="$( printf -- '%s' '\u001b[32m' )"
 RESET_COLOR="$( printf -- '%s' '\u001b[0m' )"
 
+function success_msg(){
+    local format="${1}"
+    shift
+    printf "${SUCCESS_COLOR}${format}\n${RESET_TERM}" $@
+}
+
+function error_msg(){
+    local format="${1}"
+    shift
+    printf "${ERROR_COLOR}ERROR: ${format}\n${RESET_TERM}" $@
+}
+
 function set_remote(){
     # set the remote so the CI will be able to make changes to the repository
-    echo "git remote set-url origin \"[https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git\"]"
+    echo "git remote set-url origin \"[REDACTED_URL]\""
     git remote set-url origin "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
     return_code=$(( return_code + $? ))
 
     if [[ "${return_code}" -gt 0 ]]; then
-        printf "${ERROR_COLOR}ERROR: Failed to set remote origin${RESET_COLOR}\n"
+        error_msg "Failed to set remote origin"
     fi
     return "${return_code}"
 }
@@ -32,7 +44,7 @@ function checkout_develop(){
     return_code=$(( return_code + $? ))
     
     if [[ "${return_code}" -gt 0 ]]; then
-        printf "${ERROR_COLOR}ERROR: Failed to checkout develop branch${RESET_COLOR}\n"
+        error_msg "Failed to checkout develop branch"
         return "${return_code}"
     fi
 
@@ -41,9 +53,10 @@ function checkout_develop(){
         git stash pop
         return_code=$(( return_code + $? ))    
         if [[ "${return_code}" -gt 0 ]]; then
-            printf "${ERROR_COLOR}ERROR: Failed to pop the latest stash${RESET_COLOR}\n"
+            error_msg "Failed to pop the latest stash"
         fi
     fi
+    return "${return_code}"
 }
 
 function commit_files(){
@@ -53,7 +66,7 @@ function commit_files(){
     git add .
     return_code=$(( return_code + $? ))    
     if [[ "${return_code}" -gt 0 ]]; then
-        printf "${ERROR_COLOR}ERROR: Add the latest files${RESET_COLOR}\n"
+        error_msg "Failed to add the latest files"
         return "${return_code}"
     fi
 
@@ -65,20 +78,18 @@ function commit_files(){
     )"
     return_code=$(( return_code + $? ))    
     if [[ "${return_code}" -gt 0 ]]; then
-        printf "${ERROR_COLOR}ERROR: Failed to count staged files${RESET_COLOR}\n"
+        error_msg "Failed to count staged files"
         return "${return_code}"
     fi
 
-
-
-    if [[ "${staged_file_count}" -gt "0" ]]; then
-        printf "${SUCCESS_COLOR}COUNT STAGED FILES: %s${RESET_COLOR}\n" "${staged_file_count}"
+    if [[ "${staged_file_count}" -gt 0 ]]; then
+        success_msg "COUNT STAGED FILES: ${staged_file_count}"
 
         echo -e "COMMIT STAGED FILES\n"
         git commit --quiet -m "chore(snapshots): update $COMMIT_DETAIL [skip ci]"
         return_code=$(( return_code + $? ))    
         if [[ "${return_code}" -gt 0 ]]; then
-            printf "${ERROR_COLOR}ERROR: Failed to commit new files${RESET_COLOR}\n"
+            error_msg "Failed to commit new files"
             return "${return_code}"
         fi
 
@@ -86,7 +97,7 @@ function commit_files(){
         git push -v
         return_code=$(( return_code + $? ))    
         if [[ "${return_code}" -gt 0 ]]; then
-            printf "${ERROR_COLOR}ERROR: Failed to push new commit${RESET_COLOR}\n"
+            error_msg "Failed to push new commit"
             return "${return_code}"
         fi
     else
@@ -98,7 +109,7 @@ function commit_files(){
 
 
 if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
-    echo "ATTEMPTING TO UPDATE SNAPSHOTS\n"
+    echo -e "ATTEMPTING TO UPDATE SNAPSHOTS\n"
     
     set_remote
     return_code=$(( return_code + $? ))
