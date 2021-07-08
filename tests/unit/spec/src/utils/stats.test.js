@@ -1,13 +1,15 @@
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
-import { runStats } from 'src/utils/stats';
+import { runStats, formatStatsMeta, buildStatsPayload } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 import { getGlobalState } from 'src/utils/global';
+import { checkAdblock } from 'src/utils/adblock';
 
 jest.mock('src/utils/logger', () => ({
     logger: {
-        track: jest.fn()
+        track: jest.fn(),
+        addMetaBuilder: jest.fn()
     }
 }));
 
@@ -18,6 +20,10 @@ jest.mock('src/utils/global', () => {
         getGlobalState: jest.fn()
     };
 });
+
+jest.mock('src/utils/adblock', () => ({
+    checkAdblock: jest.fn().mockResolvedValue('true')
+}));
 
 jest.mock('@paypal/sdk-client/src', () => ({
     getSDKAttributes: jest.fn().mockReturnValue({ 'data-partner-attribution-id': 'some-partner-id' })
@@ -71,7 +77,11 @@ describe('stats', () => {
 
     afterEach(() => {
         document.body.innerHTML = '';
+
         logger.track.mockReset();
+        logger.addMetaBuilder.mockReset();
+
+        checkAdblock.mockClear();
     });
 
     test('Fires standard payload and attaches events', async () => {
@@ -155,5 +165,49 @@ describe('stats', () => {
                 visible: 'true'
             });
         }
+    });
+
+    describe('formatStatsMeta', () => {
+        const format = formatStatsMeta('ABCDEFGHIJ123', {
+            messageRequestId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+            trackingDetails: 'abcdefgh'
+        });
+
+        it('Attaches stats attributes to the logger meta', () => {
+            format({
+                index: '1',
+                stats: defaultProps
+            });
+
+            expect(logger.addMetaBuilder).toHaveBeenCalled();
+        });
+    });
+
+    describe('buildStatsPayload', () => {
+        it('Builds the expected payload', async () => {
+            window.innerHeight = defaultProps.browser_height;
+
+            const { container } = createContainer('iframe');
+
+            // Pull out attributes from defaultProps that are not returned by the base buildStatsPayload
+            const { first_render_delay: frd, render_duration: rd, ...expectedPayload } = defaultProps;
+
+            container.getBoundingClientRect = () => ({
+                left: 100,
+                right: 20,
+                top: 30,
+                bottom: 25
+            });
+
+            messagesMap.set(container, { state: { renderStart: start } });
+
+            const statsPayload = await buildStatsPayload('stats', {
+                container,
+                activeTags: 'headline:MEDIUM::subheadline:NONE::disclaimer:NONE',
+                index: '1'
+            });
+
+            expect(statsPayload).toMatchObject(expectedPayload);
+        });
     });
 });
