@@ -6,11 +6,11 @@ if [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]];
 
 
     echo -e "STASH CHANGES\n"
-    git stash 
+    git stash --quiet
     echo -e "CHECKOUT GIT REPO\n"
     git checkout --quiet develop
     echo -e "POP STASH\n"
-    git stash pop
+    git stash pop --quiet
     echo -e "ADD FILES\n"
     git add .
     echo -e "COUNT STAGED FILES\n"
