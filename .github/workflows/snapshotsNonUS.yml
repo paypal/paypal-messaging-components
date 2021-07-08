@@ -1,0 +1,113 @@
+name: Snapshot Tests - Non-US
+on:
+    push:
+        branches:
+            - develop
+            - release
+        paths:
+            # Generic
+            - banners/**
+            - modals/**
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # Exclude US Files
+            - '!banners/US/**'
+            - '!modals/US/**'
+            - '!server/locale/US/**'
+            - '!src/components/modal/content/US*/**'
+            - '!tests/functional/spec/US/**'
+    pull_request:
+        paths:
+            # Generic
+            - banners/**
+            - modals/**
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # Exclude US Files
+            - '!banners/US/**'
+            - '!modals/US/**'
+            - '!server/locale/US/**'
+            - '!src/components/modal/content/US*/**'
+            - '!tests/functional/spec/US/**'
+jobs:
+    changedFiles:
+        name: Get Changed Locales
+        runs-on: ubuntu-latest
+        outputs:
+            locales: ${{ steps.filter.outputs.changes }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Filter locale paths
+              uses: dorny/paths-filter@v2
+              id: filter
+              with:
+                  # DE is first since it takes the longest
+                  filters: |
+                      DE: '**/DE/**'
+                      AU: '**/AU/**'
+                      FR: '**/FR/**'
+                      GB: '**/GB/**'
+
+    snapshots:
+        name: Non-US Snapshots
+        runs-on: ubuntu-latest
+        needs: changedFiles
+        strategy:
+            matrix:
+                locale: ${{ fromJSON(needs.changedFiles.outputs.locales) }}
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Set domain
+              run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
+
+            - name: Run server
+              run: |
+                  ((npm run dev:standalone 2>&1 & echo $! > pid.log) | tee server.log) &
+                  sleep 40
+                  error_count=$(grep -i error server.log | wc -l)
+                  echo "Errors Found: $error_count"
+                  if [[ $error_count -gt 0 ]]; then
+                      echo "Exiting server"
+                      kill $(<pid.log)
+                      exit 1
+                  fi
+
+            - name: Non-US Snapshot Tests - ${{ matrix.locale }}
+              run: |
+                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}
+                  ./scripts/snapshot-tests/collect-diffs.sh
+
+            - name: Update Snapshots - ${{ matrix.locale }}
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}
+
+            - name: Commit Updated Snapshots
+              uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              with:
+                  commit_message: 'chore(snapshots): update non-US snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  commit_user_name: Snapshot Actions Bot
+                  file_pattern: tests/functional/snapshots/
+                  push_options: '-v'

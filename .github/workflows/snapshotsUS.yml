@@ -1,0 +1,106 @@
+name: Snapshot Tests - US
+on:
+    push:
+        branches:
+            - develop
+            - release
+        paths:
+            # Generic
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # ignores all locales and content
+            - '!server/locale/**'
+            - '!src/components/modal/content/**'
+            # US Specific
+            - banners/US/**
+            - modals/US/**
+            # re-includes US locales and US content
+            - server/locale/US/**
+            - src/components/modal/content/US*/**
+            - tests/functional/spec/US/**
+    pull_request:
+        paths:
+            # Generic
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # ignores all locales and content
+            - '!server/locale/**'
+            - '!src/components/modal/content/**'
+            # US Specific
+            - banners/US/**
+            - modals/US/**
+            # re-includes US locales and US content
+            - server/locale/US/**
+            - src/components/modal/content/US*/**
+            - tests/functional/spec/US/**
+jobs:
+    snapshots:
+        name: US Snapshots
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                testPathPattern: [banner/text, banner/flex, modal/calc, modal/base, custom]
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Set domain
+              run: echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts
+
+            - name: Run server
+              run: |
+                  ((npm run dev:standalone 2>&1 & echo $! > pid.log) | tee server.log) &
+                  sleep 40
+                  error_count=$(grep -i error server.log | wc -l)
+                  echo "Errors Found: $error_count"
+                  if [[ $error_count -gt 0 ]]; then
+                      echo "Exiting server"
+                      kill $(<pid.log)
+                      exit 1
+                  fi
+
+            - name: US Snapshots - ${{ matrix.testPathPattern }}
+              run: |
+                  npm run test:func -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
+                  ./scripts/snapshot-tests/collect-diffs.sh
+
+            - name: Update Snapshots - US
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              run: npm run test:func:ciupdate -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
+
+            - name: Commit Updated Snapshots - US Banner and Custom
+              uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              with:
+                  commit_message: 'chore(snapshots): update US banner and custom snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  commit_user_name: Snapshot Actions Bot
+                  file_pattern: tests/functional/snapshots/US/*/(flex|text|custom)
+                  push_options: '-v'
+
+            - name: Commit Updated Snapshots - US Modal
+              uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              with:
+                  commit_message: 'chore(snapshots): update US modal snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  commit_user_name: Snapshot Actions Bot
+                  file_pattern: tests/functional/snapshots/US/*/modal
+                  push_options: '-v'
