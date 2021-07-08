@@ -400,7 +400,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             },
             partnerAttributionId: {
                 type: 'string',
-                required: false,
+                queryParam: true,
                 value: () => getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
                 debug: ppDebug(`Partner Attribution ID: ${getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`)
             },
