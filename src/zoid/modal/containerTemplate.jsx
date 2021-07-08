@@ -25,10 +25,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         // once modal is ready hide prerender and show the content modal after 500ms
         // kill the prerender after 1sec
         setTimeout(() => {
-            prerenderFrame.classList.remove(CLASS.VISIBLE);
-            prerenderFrame.classList.add(CLASS.INVISIBLE);
             frame.classList.remove(CLASS.INVISIBLE);
             frame.classList.add(CLASS.VISIBLE);
+            prerenderFrame.classList.remove(CLASS.VISIBLE);
+            prerenderFrame.classList.add(CLASS.INVISIBLE);
         }, 500);
         setTimeout(() => {
             destroyElement(prerenderFrame);
@@ -41,7 +41,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     });
 
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85); opacity: 0; transition: opacity .2s ease-in-out;`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85); opacity: 0; transition: opacity 350ms ease-in-out;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
