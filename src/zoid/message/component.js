@@ -23,6 +23,7 @@ import {
     ppDebug,
     isScriptBeingDestroyed
 } from '../../utils';
+
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -100,7 +101,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -352,6 +352,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 value: getLibraryVersion,
                 debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
+            },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__TARGET__,
+                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
             },
             deviceID: {
                 type: 'string',
