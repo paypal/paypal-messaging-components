@@ -38,7 +38,7 @@ after_script:
 
 jobs:
     include:
-        # Update snapshots are split into non-US countries, US modal, and US banner/custom so the CI doesn't time out
+        # Update snapshots are split into non-US countries, US modal, and US banner/custom so the CI does not time out
         - stage: update_snapshots_AU
           env: TEST_PATH_PATTERN=spec/AU/
           if: branch = develop AND type != pull_request
