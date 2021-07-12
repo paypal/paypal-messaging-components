@@ -202,7 +202,7 @@ export default (app, server, compiler) => {
         }
     });
 
-    const getModalData = req => {
+    const getModalData = async req => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
@@ -327,9 +327,11 @@ export default (app, server, compiler) => {
         return { props, productNames };
     };
 
-    app.get('/credit-presentment/smart/modal', (req, res) => {
+    // create the initial modal with content
+    app.get('/credit-presentment/smart/modal', async (req, res) => {
         const { targetMeta, scriptUID } = req.query;
-        const { props, productNames } = getModalData(req);
+
+        const { props, productNames } = await getModalData(req);
 
         const component = () => {
             if (props.country === 'US' && productNames.includes('ezp_old')) {
@@ -342,20 +344,25 @@ export default (app, server, compiler) => {
 
             return props.country;
         };
-
-        res.send(
-            createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${component()}`,
-                `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
-                scriptUID
-            )
-        );
+        setTimeout(() => {
+            res.send(
+                createMockZoidMarkup(
+                    targetMeta ? 'modal' : `modal-${component()}`,
+                    `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
+                    scriptUID
+                )
+            );
+            // change this value to test loading behavior for when modal content is first loaded
+        }, 50);
     });
-    app.get('/credit-presentment/modalContent', (req, res) => {
-        const { props: data } = getModalData(req);
+
+    // updates the modal content
+    app.get('/credit-presentment/modalContent', async (req, res) => {
+        const { props: data } = await getModalData(req);
         setTimeout(() => {
             res.send(data);
-        }, 1000);
+            // change this value to test loading behavior for when modal content is updated
+        }, 200);
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
