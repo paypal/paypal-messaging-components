@@ -23,7 +23,7 @@ export const TransitionStateProvider = ({ children }) => {
     const [state, setState] = useState(STATUS.CLOSED);
     // added new visible prop so we can re-render anytime visibilty of content modal changes
     const [visible, setVisible] = useState(false);
-    const { onProps } = useXProps();
+    const { onProps, hide, onClose, show, onShow } = useXProps();
 
     useEffect(
         () =>
@@ -35,19 +35,25 @@ export const TransitionStateProvider = ({ children }) => {
                     if (state === STATUS.OPEN || state === STATUS.OPENING) {
                         setState(STATUS.CLOSING);
                         setTimeout(() => {
-                            setState(STATUS.CLOSED);
+                            onClose({ linkName: 'Hide Modal' });
+                            hide().then(() => {
+                                setState(STATUS.CLOSED);
+                            });
                         }, CLOSE_TRANSITION_TIME);
                     }
                 }
                 if (newProps.visible && state === STATUS.CLOSED) {
                     setVisible(newProps.visible);
                     // open
-                    requestAnimationFrame(() => {
+                    show().then(() => {
+                        onShow();
                         requestAnimationFrame(() => {
-                            setState(STATUS.OPENING);
-                            setTimeout(() => {
-                                setState(STATUS.OPEN);
-                            }, TRANSITION_TIME);
+                            requestAnimationFrame(() => {
+                                setState(STATUS.OPENING);
+                                setTimeout(() => {
+                                    setState(STATUS.OPEN);
+                                }, TRANSITION_TIME);
+                            });
                         });
                     });
                 }
