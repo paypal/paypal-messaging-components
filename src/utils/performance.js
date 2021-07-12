@@ -37,11 +37,17 @@ export function addPerformanceMeasure(name, { startMark, endMark, repeat } = {})
             performance.clearMarks(namespaced(name));
         }
 
-        performance.measure(
-            namespaced(name),
-            startMark ? namespaced(startMark) : undefined,
-            endMark ? namespaced(endMark) : undefined
-        );
+        const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+        if (!isIE11 || (!!startMark && !!endMark)) {
+            performance.measure(
+                namespaced(name),
+                startMark ? namespaced(startMark) : undefined,
+                endMark ? namespaced(endMark) : undefined
+            );
+        } else {
+            // undefined breaks ie11
+            performance.measure(namespaced(name));
+        }
 
         performance.mark(namespaced(name));
     }
