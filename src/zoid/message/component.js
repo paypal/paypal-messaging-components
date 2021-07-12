@@ -401,8 +401,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             partnerAttributionId: {
                 type: 'string',
                 queryParam: true,
-                value: () => getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
-                debug: ppDebug(`Partner Attribution ID: ${getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`)
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
             },
             browserWidth: {
                 type: 'number',
