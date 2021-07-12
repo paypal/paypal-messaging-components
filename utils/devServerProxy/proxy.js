@@ -205,7 +205,7 @@ export default (app, server, compiler) => {
         }
     });
 
-    const getModalData = async req => {
+    const getModalData = req => {
         const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
         const account = clientId || payerId || merchantId;
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
@@ -334,7 +334,7 @@ export default (app, server, compiler) => {
     app.get('/credit-presentment/smart/modal', async (req, res) => {
         const { targetMeta, scriptUID } = req.query;
 
-        const { props, productNames } = await getModalData(req);
+        const { props, productNames } = getModalData(req);
 
         const component = () => {
             if (props.country === 'US' && productNames.includes('ezp_old')) {
@@ -361,7 +361,7 @@ export default (app, server, compiler) => {
 
     // updates the modal content
     app.get('/credit-presentment/modalContent', async (req, res) => {
-        const { props: data } = await getModalData(req);
+        const { props: data } = getModalData(req);
         setTimeout(() => {
             res.send(data);
             // change this value to test loading behavior for when modal content is updated
