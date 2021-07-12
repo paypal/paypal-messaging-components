@@ -49,7 +49,7 @@ main {
         overflow: hidden;
     }
 
-    main > * {
+    .content-background > * {
         filter: blur(3px);
         opacity: 0.6;
     }
