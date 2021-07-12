@@ -96,12 +96,14 @@ const Calculator = () => {
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 {emptyState ? <h3 className="title">{title}</h3> : null}
-                <div className="input__wrapper">
+                <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
                     <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
                 <div
-                    className={`content-column calculator__error ${!(error || emptyState || isLoading) ? 'hide' : ''}`}
+                    className={`content-column transitional calculator__error ${
+                        !(error || emptyState || isLoading) ? 'hide' : ''
+                    }`}
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
