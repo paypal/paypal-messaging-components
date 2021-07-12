@@ -119,13 +119,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         if (document.querySelector(`#${modal.prerenderDetails.uid}`)) {
                             document.querySelector(`#${modal.prerenderDetails.uid}`).style.display = 'block';
 
-                            // make sure to set the opacity to 1 so we can see the transition when iframe is opening
-                            document.querySelector(`#${modal.prerenderDetails.uid}-top`).style.opacity = 1;
+                            // make sure to set the transition when iframe is opening
+                            document
+                                .getElementById(`${modal.prerenderDetails.uid}-top`)
+                                .classList.remove(modal.prerenderDetails.classes.BG_TRANSITION_OFF);
+                            document
+                                .getElementById(`${modal.prerenderDetails.uid}-top`)
+                                .classList.add(modal.prerenderDetails.classes.BG_TRANSITION_ON);
                             modal.prerenderDetails.prerenderElement.classList.remove(
-                                `${modal.prerenderDetails.uid}-invisible`
+                                modal.prerenderDetails.classes.INVISIBLE
                             );
                             modal.prerenderDetails.prerenderElement.classList.add(
-                                `${modal.prerenderDetails.uid}-visible`
+                                modal.prerenderDetails.classes.VISIBLE
                             );
                             if (modal.prerenderDetails.prerenderElement.contentDocument) {
                                 // wait for prerenderer to exist

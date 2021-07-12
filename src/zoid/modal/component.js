@@ -192,7 +192,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                         if (typeof onClose === 'function') {
                             // make sure to reset the opacity when the modal closes so we can see the smooth transition again
-                            document.getElementById(`${state.prerenderDetails.uid}-top`).style.opacity = 0;
+                            document
+                                .getElementById(`${state.prerenderDetails.uid}-top`)
+                                .classList.remove(state.prerenderDetails.classes.BG_TRANSITION_ON);
+                            document
+                                .getElementById(`${state.prerenderDetails.uid}-top`)
+                                .classList.add(state.prerenderDetails.classes.BG_TRANSITION_OFF);
                             onClose({ linkName });
                         }
                     };

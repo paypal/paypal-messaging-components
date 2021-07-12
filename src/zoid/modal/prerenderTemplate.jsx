@@ -150,9 +150,10 @@ export default ({ uid, doc, props, state }) => {
         }
     };
     const handlePrerenderClose = () => {
-        state.prerenderDetails.prerenderElement.classList.add(`${uid}-invisible`);
-        state.prerenderDetails.prerenderElement.classList.remove(`${uid}-visible`);
-        document.getElementById(`${uid}-top`).style.opacity = 0;
+        state.prerenderDetails.prerenderElement.classList.add(state.prerenderDetails.classes.INVISIBLE);
+        state.prerenderDetails.prerenderElement.classList.remove(state.prerenderDetails.classes.INVISIBLE);
+        document.getElementById(`${uid}-top`).classList.remove(state.prerenderDetails.classes.BG_TRANSITION_ON);
+        document.getElementById(`${uid}-top`).classList.add(state.prerenderDetails.classes.BG_TRANSITION_OFF);
         // set visible prop to false with state.hide() when prerender is closed
         state.hide();
         toggleShow(false);

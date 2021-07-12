@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /** @jsx node */
 import { destroyElement } from 'belter/src';
@@ -12,11 +13,14 @@ const getTitle = createTitleGenerator();
 export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     const CLASS = {
         VISIBLE: `${uid}-visible`,
-        INVISIBLE: `${uid}-invisible`
+        INVISIBLE: `${uid}-invisible`,
+        BG_TRANSITION_ON: `${uid}-bg-transition-on`,
+        BG_TRANSITION_OFF: `${uid}-bg-transition-off`
     };
     state.prerenderDetails.uid = uid;
     state.prerenderDetails.frameElement = frame;
     state.prerenderDetails.prerenderElement = prerenderFrame;
+    state.prerenderDetails.classes = CLASS;
 
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
@@ -37,11 +41,12 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
 
     event.on(EVENT.DISPLAY, () => {
         // on display set opactiy to 1 so we can see the transition happen
-        document.getElementById(`${uid}-top`).style.opacity = 1;
+        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
+        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
     });
 
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important; background: rgba(108, 115, 120, 0.85); opacity: 0; transition: opacity 350ms ease-in-out;`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
@@ -51,12 +56,20 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
             <style>
                 {`
                     #${uid} > div > iframe {
-                        position: absolute !important; 
-                        top: 0 !important; 
-                        left: 0 !important; 
+                        position: absolute !important;
+                        top: 0 !important;
+                        left: 0 !important;
                         width: 100% !important;
-                        height: 100%;
+                        height: 100% !important;
                         border: none !important;
+                    }
+                    .${CLASS.BG_TRANSITION_ON}{
+                        background: rgba(108, 115, 120, 0.85);
+                        transition: background 350ms linear;
+                    }
+                    .${CLASS.BG_TRANSITION_OFF}{
+                        background: none;
+                        transition: background 350ms linear;
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
                         opacity: 1;
@@ -70,7 +83,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     }
                 `}
             </style>
-            <div style={fullScreen('fixed')} id={`${uid}-top`}>
+            <div style={fullScreen('fixed')} id={`${uid}-top`} class={`${CLASS.BG_TRANSITION_OFF}`}>
                 <node el={frame} title={modalTitle} />
                 <node el={prerenderFrame} title="Prerender Modal" />
             </div>

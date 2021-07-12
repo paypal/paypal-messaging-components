@@ -106,6 +106,7 @@ const memoizedModal = memoizeOnProps(
         state.prerenderDetails = {
             prerenderElement: null,
             frameElement: null,
+            classes: null,
             uid: null
         };
         // Follow existing zoid interface
