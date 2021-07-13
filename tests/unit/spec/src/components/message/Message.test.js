@@ -11,15 +11,17 @@ jest.mock('src/utils', () => ({
     isStorageFresh: jest.fn().mockReturnValue(false),
     request: jest.fn(() =>
         Promise.resolve({
-            data: `<!-- {
-                markup: '<div>mock</div>',
-                meta: {
-                    messageRequestId: '23456'
-                },
-                parentStyles: 'body { color: blue; }',
-                warnings: []
-            } -->
-            `
+            // Variable "data" below is the btoa encoding of this JSON object:
+            // {
+            //     "markup": "<div>mock</div>",
+            //     "meta": {
+            //         "messageRequestId": "23456"
+            //     },
+            //     "parentStyles": "body { color: blue; }",
+            //     "warnings": []
+            // }
+            data:
+                '<!-- ewogICAgIm1hcmt1cCI6ICI8ZGl2Pm1vY2s8L2Rpdj4iLAogICAgIm1ldGEiOiB7CiAgICAgICAgIm1lc3NhZ2VSZXF1ZXN0SWQiOiAiMjM0NTYiCiAgICB9LAogICAgInBhcmVudFN0eWxlcyI6ICJib2R5IHsgY29sb3I6IGJsdWU7IH0iLAogICAgIndhcm5pbmdzIjogW10KfQ== -->'
         })
     ),
     // eslint-disable-next-line no-console
