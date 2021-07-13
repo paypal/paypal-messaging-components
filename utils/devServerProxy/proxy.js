@@ -355,16 +355,13 @@ export default (app, server, compiler) => {
                     scriptUID
                 )
             );
-            // change this value to test loading behavior for when modal content is first loaded
         }, requestDelay);
     });
 
-    // updates the modal content
     app.get('/credit-presentment/modalContent', async (req, res) => {
         const { props: data } = getModalData(req);
         setTimeout(() => {
             res.send(data);
-            // change this value to test loading behavior for when modal content is updated
         }, requestDelay);
     });
 

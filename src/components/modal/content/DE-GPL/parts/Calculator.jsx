@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
 import TermsTable from './TermsTable';
@@ -69,6 +69,10 @@ const Calculator = () => {
     const {
         calculator: { title, inputLabel, amountRange }
     } = useContent('GPL');
+
+    useEffect(() => {
+        setDisplayValue(terms.formattedAmount);
+    }, [terms]);
 
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
