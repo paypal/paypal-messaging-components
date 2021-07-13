@@ -12,32 +12,22 @@ jest.mock('src/utils', () => ({
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
-            data: `<!-- {
-                markup: '<div>mock</div>',
-                meta: {
-                    messageRequestId: '23456'
-                },
-                parentStyles: 'body { color: blue; }',
-                warnings: []
-            } -->
-            `
+            // Variable "data" below is the btoa encoding of this JSON object:
+            // {
+            //     "markup": "<div>mock</div>",
+            //     "meta": {
+            //         "messageRequestId": "23456"
+            //     },
+            //     "parentStyles": "body { color: blue; }",
+            //     "warnings": []
+            // }
+            data:
+                '<!-- ewogICAgIm1hcmt1cCI6ICI8ZGl2Pm1vY2s8L2Rpdj4iLAogICAgIm1ldGEiOiB7CiAgICAgICAgIm1lc3NhZ2VSZXF1ZXN0SWQiOiAiMjM0NTYiCiAgICB9LAogICAgInBhcmVudFN0eWxlcyI6ICJib2R5IHsgY29sb3I6IGJsdWU7IH0iLAogICAgIndhcm5pbmdzIjogW10KfQ== -->'
         })
     ),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
-
-JSON.parse = jest.fn().mockImplementationOnce(() => {
-    const dataObject = {
-        markup: '<div>mock</div>',
-        meta: {
-            messageRequestId: '23456'
-        },
-        parentStyles: 'body { color: blue; }',
-        warnings: []
-    };
-    return dataObject;
-});
 
 describe('<Message />', () => {
     const updateProps = xPropsMock({
@@ -119,7 +109,7 @@ describe('<Message />', () => {
         });
     });
 
-    test.skip('Fires onMarkup and onReady on complete re-render', async () => {
+    test('Fires onMarkup and onReady on complete re-render', async () => {
         const { getByText, queryByText } = render(<Message />, { wrapper });
 
         expect(request).not.toHaveBeenCalled();
