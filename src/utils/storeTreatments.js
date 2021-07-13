@@ -8,7 +8,13 @@
 export const storeTreatments = () => {
     window.addEventListener('message', event => {
         if (event?.data.toString().indexOf('treatmentsHash') > -1) {
-            const treatmentsHash = Object.values(JSON.parse(event?.data))[0][0]?.data?.args[0]?.meta?.treatmentsHash;
+            // Using Object.keys with a .map instead of Object.values for IE11 support
+            const parsedEventData = JSON.parse(event?.data);
+            const dataValues = Object.keys(parsedEventData).map(key => {
+                return parsedEventData[key];
+            });
+
+            const treatmentsHash = dataValues[0][0]?.data?.args[0]?.meta?.treatmentsHash;
             if (!localStorage.getItem('treatmentsHash') || treatmentsHash !== localStorage.getItem('treatmentsHash')) {
                 localStorage.setItem('treatmentsHash', treatmentsHash);
             }
