@@ -17,10 +17,22 @@ import {
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
-    ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
+    ({
+        account,
+        merchantId,
+        currency,
+        amount,
+        buyerCountry,
+        offer,
+        onReady,
+        prefetch,
+        onCalculate,
+        onApply,
+        onClose
+    }) => {
         addPerformanceMeasure('firstModalRenderDelay');
 
-        const { render, updateProps, state, event } = getModalComponent()({
+        const { render, updateProps, state, hide, event } = getModalComponent()({
             account,
             merchantId,
             currency,
@@ -30,6 +42,7 @@ const memoizedModal = memoizeOnProps(
             onReady,
             onCalculate,
             onApply,
+            prefetch,
             onClose
         });
         // Fired from inside the default onReady callback
@@ -46,6 +59,8 @@ const memoizedModal = memoizeOnProps(
                     .then(() => ZalgoPromise.delay(SCRIPT_DELAY))
                     .then(() => ZalgoPromise.all([render(selector), modalReady]))
                     .then(() => globalEvent.trigger('modal-render'));
+                // hide it immediatly then show it on click event again for standalone modal to work correctly
+                hide();
             }
 
             return renderProm;
