@@ -104,6 +104,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     // Automatically fetch terms when props change
     useEffect(() => {
         if (localize(country, amount) !== state.inputValue) {
+            // when parent props change (i.e. the merchant updates the amount for the banner),
+            // override autoSubmit to false to force formatted amount to be displayed
             fetchTerms(amount, false);
         }
     }, [payerId, clientId, merchantId, country, amount]);
