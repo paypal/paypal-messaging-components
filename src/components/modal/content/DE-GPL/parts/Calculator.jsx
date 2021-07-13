@@ -71,8 +71,8 @@ const Calculator = () => {
     } = useContent('GPL');
 
     useEffect(() => {
-        setDisplayValue(terms.formattedAmount);
-    }, [terms]);
+        setDisplayValue(value);
+    }, [value]);
 
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
