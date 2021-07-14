@@ -1,7 +1,7 @@
-import { useReducer, useEffect, useMemo, useRef } from 'preact/hooks';
+import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from 'belter/src';
 
-import { useXProps, useServerData } from '../../../lib';
+import { useXProps, useServerData, useDidUpdateEffect } from '../../../lib';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
@@ -60,7 +60,7 @@ const localize = (country, amount) => {
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
-    const { currency, payerId, clientId, merchantId, onCalculate, amount, buyerCountry } = useXProps();
+    const { currency, payerId, clientId, merchantId, onCalculate, buyerCountry } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
         prevValue: localize(country, initialTerms.amount),
@@ -68,7 +68,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         isLoading: false
     });
 
-    const fetchTerms = (inputAmount, auto = autoSubmit) => {
+    const fetchTerms = inputAmount => {
         dispatch({ type: 'fetch' });
 
         getContent({
@@ -87,7 +87,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                     type: 'terms',
                     data: {
                         ...data.terms,
-                        autoSubmit: auto
+                        autoSubmit
                     }
                 });
             })
@@ -101,14 +101,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             });
     };
 
-    // Automatically fetch terms when props change
-    useEffect(() => {
-        if (localize(country, amount) !== state.inputValue) {
-            // when parent props change (i.e. the merchant updates the amount for the banner),
-            // override autoSubmit to false to force formatted amount to be displayed
-            fetchTerms(amount, false);
-        }
-    }, [payerId, clientId, merchantId, country, amount]);
+    // Update the terms in the reducer based on outside changes to serverData
+    useDidUpdateEffect(() => {
+        dispatch({
+            type: 'terms',
+            data: initialTerms
+        });
+    }, [initialTerms]);
 
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
