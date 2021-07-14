@@ -106,11 +106,45 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
+                        const PRERENDER_DELAY = 100;
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
-
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
+
+                        // this checks to see if display none is on the parent iframe div id.
+                        // if the modal content never loads (eg. api request error), we need to have click functionality to show the prerender window
+                        // if there is an error and the modal never shows we have control here to show the spinner or not
+                        // possibly even render some type of message in the modal to show an error occured?
+                        if (document.querySelector(`#${modal.prerenderDetails.uid}`)) {
+                            document.querySelector(`#${modal.prerenderDetails.uid}`).style.display = 'block';
+
+                            // make sure to set the transition when iframe is opening
+                            document
+                                .getElementById(`${modal.prerenderDetails.uid}-top`)
+                                .classList.remove(modal.prerenderDetails.classes.BG_TRANSITION_OFF);
+                            document
+                                .getElementById(`${modal.prerenderDetails.uid}-top`)
+                                .classList.add(modal.prerenderDetails.classes.BG_TRANSITION_ON);
+                            modal.prerenderDetails.prerenderElement.classList.remove(
+                                modal.prerenderDetails.classes.INVISIBLE
+                            );
+                            modal.prerenderDetails.prerenderElement.classList.add(
+                                modal.prerenderDetails.classes.VISIBLE
+                            );
+                            if (modal.prerenderDetails.prerenderElement.contentDocument) {
+                                // wait for prerenderer to exist
+                                ZalgoPromise.delay(PRERENDER_DELAY).then(() => {
+                                    modal.prerenderDetails.prerenderElement.contentDocument
+                                        .getElementsByClassName('modal-content')[0]
+                                        .classList.add('show-modal');
+                                    modal.prerenderDetails.prerenderElement.contentDocument.getElementsByClassName(
+                                        'overlay'
+                                    )[0].style.opacity = 1;
+                                });
+                            }
+                        }
+
                         modal.show({
                             account,
                             merchantId,
@@ -218,7 +252,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // Set visible to false to prevent this update from popping open the modal
                         // when the user has previously opened the modal
                         modal.updateProps({ refIndex: index, offer: offerType, visible: false });
-                        modal.render('body');
 
                         logger.track({
                             index,
@@ -266,11 +299,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     // Handle moving the iframe around the DOM
                     return () => {
+                        const CLEAN_UP_DELAY = 0;
                         const { getContainer } = props;
                         const { messagesMap } = getGlobalState();
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
-                        ZalgoPromise.delay(0).then(() => {
+                        ZalgoPromise.delay(CLEAN_UP_DELAY).then(() => {
                             if (
                                 container &&
                                 container.ownerDocument.body.contains(container) &&

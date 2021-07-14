@@ -17,10 +17,22 @@ import {
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
-    ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
+    ({
+        account,
+        merchantId,
+        currency,
+        amount,
+        buyerCountry,
+        offer,
+        onReady,
+        prefetch,
+        onCalculate,
+        onApply,
+        onClose
+    }) => {
         addPerformanceMeasure('firstModalRenderDelay');
 
-        const { render, hide, updateProps, state, event } = getModalComponent()({
+        const { render, updateProps, state, hide, event } = getModalComponent()({
             account,
             merchantId,
             currency,
@@ -30,6 +42,7 @@ const memoizedModal = memoizeOnProps(
             onReady,
             onCalculate,
             onApply,
+            prefetch,
             onClose
         });
         // Fired from inside the default onReady callback
@@ -40,12 +53,13 @@ const memoizedModal = memoizeOnProps(
             state.renderStart = getCurrentTime();
 
             if (!renderProm) {
+                const SCRIPT_DELAY = 0;
                 renderProm = awaitWindowLoad
                     // Give priority to other merchant scripts waiting for the load event
-                    .then(() => ZalgoPromise.delay(0))
+                    .then(() => ZalgoPromise.delay(SCRIPT_DELAY))
                     .then(() => ZalgoPromise.all([render(selector), modalReady]))
                     .then(() => globalEvent.trigger('modal-render'));
-
+                // hide it immediatly then show it on click event again for standalone modal to work correctly
                 hide();
             }
 
@@ -104,12 +118,18 @@ const memoizedModal = memoizeOnProps(
         // for merchant integrations
         state.show = showModal;
         state.hide = hideModal;
-
+        state.prerenderDetails = {
+            prerenderElement: null,
+            frameElement: null,
+            classes: null,
+            uid: null
+        };
         // Follow existing zoid interface
         return {
             render: renderModal,
             show: showModal,
             hide: hideModal,
+            prerenderDetails: state.prerenderDetails,
             updateProps
         };
     },

@@ -23,6 +23,7 @@ import {
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
+import prerenderTemplate from './prerenderTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
@@ -31,6 +32,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
+        prerenderTemplate,
         attributes: {
             iframe: {
                 title: 'PayPal Modal',
@@ -43,6 +45,10 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: true,
                 value: validate.account
+            },
+            getPrerenderDetails: {
+                type: 'function',
+                value: ({ state }) => () => state.prerenderDetails
             },
             merchantId: {
                 type: 'string',
@@ -167,7 +173,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             onClose: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props }) => {
+                value: ({ props, state }) => {
                     const { onClose } = props;
                     const [, replaceViewport] = viewportHijack();
 
@@ -185,6 +191,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         });
 
                         if (typeof onClose === 'function') {
+                            // make sure to reset the opacity when the modal closes so we can see the smooth transition again
+                            document
+                                .getElementById(`${state.prerenderDetails.uid}-top`)
+                                .classList.remove(state.prerenderDetails.classes.BG_TRANSITION_ON);
+                            document
+                                .getElementById(`${state.prerenderDetails.uid}-top`)
+                                .classList.add(state.prerenderDetails.classes.BG_TRANSITION_OFF);
                             onClose({ linkName });
                         }
                     };
@@ -248,7 +261,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
-
                         if (
                             typeof onReady === 'function' &&
                             // No need to fire the merchant's onReady if the modal products haven't changed
@@ -323,6 +335,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'boolean',
                 queryParam: 'pp_debug',
                 value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+            },
+            prefetch: {
+                type: 'boolean',
+                queryParam: 'prefetch',
+                required: false,
+                value: validate.prefetch
             },
             stageTag: {
                 type: 'string',

@@ -29,16 +29,16 @@
             }, {});
             const config = JSON.parse(mappedParams.config);
             const manualMessage = document.querySelector('.banner-1');
-
             paypal
                 .MessagesModal({
                     ...config,
                     onReady: ({ show }) => {
                         if (typeof mappedParams.click !== 'undefined') {
                             show(manualMessage);
-                            document.querySelector('.container').textContent = '';
                         } else {
+                            show(manualMessage);
                             manualMessage.addEventListener('click', () => {
+                                console.log('clicked');
                                 show(manualMessage);
                             });
                         }

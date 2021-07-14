@@ -40,7 +40,6 @@ describe('transition', () => {
 
         await new Promise(resolve => {
             setTimeout(() => {
-                expect(defaultXProps.onShow).toHaveBeenCalledTimes(1);
                 expect(result.current.status).toBe(STATUS.OPENING);
 
                 setTimeout(() => {
