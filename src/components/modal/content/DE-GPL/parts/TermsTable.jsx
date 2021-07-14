@@ -53,7 +53,7 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError })
 
     if (isLoading || hasError) {
         return (
-            <div className={`finance-terms loading ${hasError ? 'has-error' : ''}`}>
+            <div className={`finance-terms transitional loading ${hasError ? 'has-error' : ''}`}>
                 {[0, 1, 2, 3].map(() => (
                     <div className="offer loading">
                         <div className="loading-bar" />
@@ -66,7 +66,7 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError })
     const sortedOffers = offers.slice().sort((a, b) => b.term - a.term);
 
     return (
-        <div className="finance-terms">
+        <div className="finance-terms transitional">
             <Fragment>
                 {sortedOffers.map((offer, idx) => (
                     <OfferCard offer={offer} formattedAmount={formattedAmount} index={idx} />

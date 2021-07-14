@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
 import TermsTable from './TermsTable';
@@ -70,6 +70,10 @@ const Calculator = () => {
         calculator: { title, inputLabel, amountRange }
     } = useContent('GPL');
 
+    useEffect(() => {
+        setDisplayValue(value);
+    }, [value]);
+
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
 
@@ -96,12 +100,14 @@ const Calculator = () => {
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 {emptyState ? <h3 className="title">{title}</h3> : null}
-                <div className="input__wrapper">
+                <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
                     <input className="input" type="tel" value={displayValue} onInput={onInput} />
                 </div>
                 <div
-                    className={`content-column calculator__error ${!(error || emptyState || isLoading) ? 'hide' : ''}`}
+                    className={`content-column transitional calculator__error ${
+                        !(error || emptyState || isLoading) ? 'hide' : ''
+                    }`}
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
