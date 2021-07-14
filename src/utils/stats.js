@@ -85,12 +85,12 @@ export function runStats({ container, activeTags, index }) {
     const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
     const renderDuration = Math.round(getCurrentTime() - state.renderStart).toString();
 
-    buildStatsPayload('stats', { container, activeTags, index }).then(statsPayload => {
-        // No need for scroll event if banner is above the fold
-        if (statsPayload.visible === 'false') {
-            getViewportIntersectionObserver().then(observer => observer.observe(container));
-        }
+    // No need for scroll event if banner is above the fold
+    if (!isInViewport(container)) {
+        getViewportIntersectionObserver().then(observer => observer.observe(container));
+    }
 
+    buildStatsPayload('stats', { container, activeTags, index }).then(statsPayload => {
         // eslint-disable-next-line no-param-reassign
         statsPayload.first_render_delay = Math.round(firstRenderDelay).toString();
 
