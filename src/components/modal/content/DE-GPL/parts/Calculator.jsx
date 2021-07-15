@@ -52,7 +52,7 @@ const getDisplayValue = value => {
     // Allow display value to end with a dangling comma to allow typing a "cent" value
     return delocalizedValue === '' || formattedValue === 'NaN'
         ? ''
-        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction}` : ''}`;
+        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''}`;
 };
 
 const Calculator = () => {
@@ -70,9 +70,17 @@ const Calculator = () => {
         calculator: { title, inputLabel, amountRange }
     } = useContent('GPL');
 
+    // Update display value based on changes from useCalculator
     useEffect(() => {
-        setDisplayValue(value);
+        setDisplayValue(getDisplayValue(value));
     }, [value]);
+
+    const onKeyDown = evt => {
+        // Only allow special keys or appropriate number/formatting keys
+        if (evt.key.length === 1 && !/[\d.,]/.test(evt.key)) {
+            evt.preventDefault();
+        }
+    };
 
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
@@ -102,7 +110,7 @@ const Calculator = () => {
                 {emptyState ? <h3 className="title">{title}</h3> : null}
                 <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
-                    <input className="input" type="tel" value={displayValue} onInput={onInput} />
+                    <input className="input" type="tel" value={displayValue} onInput={onInput} onKeyDown={onKeyDown} />
                 </div>
                 <div
                     className={`content-column transitional calculator__error ${
