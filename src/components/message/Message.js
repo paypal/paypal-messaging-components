@@ -87,7 +87,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     merchantId,
                     version,
                     env,
-                    features
+                    features,
+                    stageTag
                 } = xprops;
 
                 setProps({
@@ -113,7 +114,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     merchant_id: merchantId,
                     features,
                     version,
-                    env
+                    env,
+                    stageTag
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
