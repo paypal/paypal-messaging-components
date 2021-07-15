@@ -60,7 +60,7 @@ const localize = (country, amount) => {
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
-    const { currency, payerId, clientId, merchantId, onCalculate, buyerCountry } = useXProps();
+    const { currency, payerId, clientId, merchantId, onCalculate, buyerCountry, amount } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
         prevValue: localize(country, initialTerms.amount),
@@ -103,11 +103,20 @@ export default function useCalculator({ autoSubmit = false } = {}) {
 
     // Update the terms in the reducer based on outside changes to serverData
     useDidUpdateEffect(() => {
-        dispatch({
-            type: 'terms',
-            data: initialTerms
-        });
-    }, [initialTerms]);
+        // When amount xprop changes, Container.jsx will fetch new serverData (including terms)
+        // If we see new terms, which match the amount prop, but the value in the input does not match
+        // This means the amount changed outside the modal, so we update the terms
+        // we want to update the inputValue, so force autoSubmit: false
+        if (initialTerms.amount === amount && delocalize(country, state.inputValue) !== amount) {
+            dispatch({
+                type: 'terms',
+                data: {
+                    ...initialTerms,
+                    autoSubmit: false
+                }
+            });
+        }
+    }, [initialTerms, amount]);
 
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
