@@ -48,7 +48,6 @@ const getDisplayValue = value => {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     });
-    console.log(whole, fraction);
 
     // Allow display value to end with a dangling comma to allow typing a "cent" value
     return delocalizedValue === '' || formattedValue === 'NaN'
