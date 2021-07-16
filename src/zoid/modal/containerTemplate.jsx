@@ -6,7 +6,7 @@ import { destroyElement } from 'belter/src';
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { createTitleGenerator } from '../../utils';
+import { createTitleGenerator, globalEvent } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
@@ -25,24 +25,39 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
 
+    globalEvent.on('show-modal', () => {
+        frame.classList.remove(CLASS.INVISIBLE);
+        frame.classList.add(CLASS.VISIBLE);
+        globalEvent.trigger('show-modal-transition');
+    });
+
+    globalEvent.on('hide-modal', () => {
+        frame.classList.add(CLASS.VISIBLE);
+        frame.classList.remove(CLASS.INVISIBLE);
+        globalEvent.trigger('hide-modal-transition');
+    });
+
+    globalEvent.on('show-modal-transition', () => {
+        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
+        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
+    });
+
+    globalEvent.on('hide-modal-transition', () => {
+        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
+        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
+    });
+
     event.on(EVENT.RENDERED, () => {
         // once modal is ready hide prerender and show the content modal after 500ms
         // kill the prerender after 1sec
         setTimeout(() => {
-            frame.classList.remove(CLASS.INVISIBLE);
-            frame.classList.add(CLASS.VISIBLE);
+            globalEvent.trigger('show-modal');
             prerenderFrame.classList.remove(CLASS.VISIBLE);
             prerenderFrame.classList.add(CLASS.INVISIBLE);
         }, 500);
         setTimeout(() => {
             destroyElement(prerenderFrame);
         }, 1000);
-    });
-
-    event.on(EVENT.DISPLAY, () => {
-        // on display set opactiy to 1 so we can see the transition happen
-        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
-        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
     });
 
     const fullScreen = position =>

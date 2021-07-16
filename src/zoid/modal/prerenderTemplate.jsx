@@ -3,15 +3,16 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/style-prop-object */
-/* eslint-disable no-param-reassign */
 /* eslint-disable react/no-unknown-property */
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { globalEvent } from '../../utils';
 
-export default ({ uid, doc, props, state }) => {
+export default ({ doc, props, state }) => {
     const ERROR_DELAY = 15000;
+    const prerenderFrameWrapper = state.prerenderDetails.prerenderElement;
     const styles = `
         @font-face {
             font-family: 'PayPalSansBig';
@@ -133,46 +134,38 @@ export default ({ uid, doc, props, state }) => {
         
     `;
 
+    globalEvent.on('show-prerender-modal', () => {
+        prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
+        prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);
+        prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.add('show-modal');
+        prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 1;
+        globalEvent.trigger('show-modal-transition');
+    });
+
+    globalEvent.on('hide-prerender-modal', () => {
+        prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.VISIBLE);
+        prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.INVISIBLE);
+        prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
+        prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 0;
+        globalEvent.trigger('hide-modal-transition');
+        state.hide();
+    });
     const toggleShow = boolean => {
-        const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
         if (boolean) {
-            wrapper.getElementsByClassName('modal-content')[0].classList.add('show-modal');
-            wrapper.getElementsByClassName('overlay')[0].style.opacity = 1;
+            globalEvent.trigger('show-prerender-modal');
             return;
         }
-        wrapper.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
-        wrapper.getElementsByClassName('overlay')[0].style.opacity = 0;
-        // if this value is === null we know the pre-render modal is closed
-        if (document.querySelector('.modal-content') === null) {
-            // adding slight delay to show the transition for the slide down of prerender
-            ZalgoPromise.delay(150).then(() => {
-                document.querySelector(`#${uid}`).style.display = 'none';
-            });
-        }
-    };
-    const handlePrerenderClose = () => {
-        state.prerenderDetails.prerenderElement.classList.add(state.prerenderDetails.classes.INVISIBLE);
-        state.prerenderDetails.prerenderElement.classList.remove(state.prerenderDetails.classes.INVISIBLE);
-        document.getElementById(`${uid}-top`).classList.remove(state.prerenderDetails.classes.BG_TRANSITION_ON);
-        document.getElementById(`${uid}-top`).classList.add(state.prerenderDetails.classes.BG_TRANSITION_OFF);
-        // set visible prop to false with state.hide() when prerender is closed
-        state.hide();
-        toggleShow(false);
+        globalEvent.trigger('hide-prerender-modal');
     };
     const checkForErrors = () => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
-            // get parent iframe with modal content
-            const prerenderFrame = state.prerenderDetails.prerenderElement.contentDocument;
             // check to see if modal content class exists
-            if (prerenderFrame !== null) {
+            if (prerenderFrameWrapper !== null) {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
-                state.error = 'Error loading Modal';
-                state.prerenderDetails.prerenderElement.contentDocument.getElementsByClassName(
-                    'error'
-                )[0].style.display = 'block';
-                state.prerenderDetails.prerenderElement.contentDocument.getElementsByClassName('error')[0].textContent =
-                    state.error;
+                prerenderFrameWrapper.contentDocument.getElementsByClassName('error')[0].style.display = 'block';
+                prerenderFrameWrapper.contentDocument.getElementsByClassName('error')[0].textContent =
+                    'Error loading Modal';
             }
         });
     };
@@ -194,11 +187,11 @@ export default ({ uid, doc, props, state }) => {
             <style>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
-                    <div class="overlay" onClick={handlePrerenderClose} onKeyDown={handleEscapeKeyPress} />
+                    <div class="overlay" onClick={() => toggleShow(false)} onKeyDown={handleEscapeKeyPress} />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">
-                            <button onClick={handlePrerenderClose} type="button" />
+                            <button onClick={() => toggleShow(false)} type="button" />
                         </div>
                         <div class="error" style="display: none"></div>
                         <Spinner nonce={props.nonce} />

@@ -18,7 +18,8 @@ import {
     getOrCreateStorageID,
     getStageTag,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    globalEvent
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -116,35 +117,17 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // if the modal content never loads (eg. api request error), we need to have click functionality to show the prerender window
                         // if there is an error and the modal never shows we have control here to show the spinner or not
                         // possibly even render some type of message in the modal to show an error occured?
-                        if (document.querySelector(`#${modal.prerenderDetails.uid}`)) {
-                            document.querySelector(`#${modal.prerenderDetails.uid}`).style.display = 'block';
-
-                            // make sure to set the transition when iframe is opening
-                            document
-                                .getElementById(`${modal.prerenderDetails.uid}-top`)
-                                .classList.remove(modal.prerenderDetails.classes.BG_TRANSITION_OFF);
-                            document
-                                .getElementById(`${modal.prerenderDetails.uid}-top`)
-                                .classList.add(modal.prerenderDetails.classes.BG_TRANSITION_ON);
-                            modal.prerenderDetails.prerenderElement.classList.remove(
-                                modal.prerenderDetails.classes.INVISIBLE
-                            );
-                            modal.prerenderDetails.prerenderElement.classList.add(
-                                modal.prerenderDetails.classes.VISIBLE
-                            );
-                            if (modal.prerenderDetails.prerenderElement.contentDocument) {
-                                // wait for prerenderer to exist
-                                ZalgoPromise.delay(PRERENDER_DELAY).then(() => {
-                                    modal.prerenderDetails.prerenderElement.contentDocument
-                                        .getElementsByClassName('modal-content')[0]
-                                        .classList.add('show-modal');
-                                    modal.prerenderDetails.prerenderElement.contentDocument.getElementsByClassName(
-                                        'overlay'
-                                    )[0].style.opacity = 1;
-                                });
-                            }
+                        if (
+                            document.querySelector(`#${modal.prerenderDetails.uid}`) &&
+                            modal.prerenderDetails.prerenderElement.contentDocument
+                        ) {
+                            // wait for prerenderer to exist
+                            ZalgoPromise.delay(PRERENDER_DELAY).then(() => {
+                                globalEvent.trigger('show-prerender-modal');
+                            });
                         }
 
+                        globalEvent.trigger('show-modal-transition');
                         modal.show({
                             account,
                             merchantId,
