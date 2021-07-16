@@ -22,6 +22,7 @@ jest.mock('src/utils', () => ({
             }
         })
     ),
+    getStoredTreatments: jest.fn(),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));

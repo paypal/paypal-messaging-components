@@ -329,6 +329,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            treatments: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => localStorage.getItem('treatmentsHash'),
+                debug: ppDebug(`Elmo treatmentsHash: ${localStorage.getItem('treatmentsHash')}`)
             }
         }
     })

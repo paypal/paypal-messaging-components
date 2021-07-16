@@ -3,7 +3,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 
-import { request, getActiveTags, ppDebug, getOrCreateStorageID } from '../../utils';
+import { request, getActiveTags, ppDebug, getOrCreateStorageID, getStoredTreatments } from '../../utils';
 import { useXProps, useServerData, useDidUpdateEffect, useDidUpdateLayoutEffect } from './lib';
 
 const Message = () => {
@@ -28,6 +28,8 @@ const Message = () => {
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
     const dimensionsRef = useRef({ width: 0, height: 0 });
     const buttonRef = useRef();
+
+    getStoredTreatments();
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
