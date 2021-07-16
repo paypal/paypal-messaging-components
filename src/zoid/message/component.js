@@ -9,6 +9,7 @@ import {
     getGlobalState,
     getGlobalUrl,
     getLibraryVersion,
+    getMerchantConfig,
     getMeta,
     getOrCreateStorageID,
     getSessionID,
@@ -96,11 +97,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-            // merchantConfig: {
-            //     type: 'string',
-            //     queryParam: 'merchant_config',
-            //     value: () => validate.merchantConfig
-            // },
             // Callbacks
             onClick: {
                 type: 'function',
@@ -311,11 +307,17 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'client_id',
                 decorate: ({ props }) => {
-                    console.log(`props available to message, ${JSON.stringify(props)}`);
                     return stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null;
                 },
                 default: () => '',
                 required: false
+            },
+            merchantConfigHash: {
+                type: 'string',
+                queryParam: 'merchant_config',
+                required: false,
+                value: getMerchantConfig,
+                debug: ppDebug(`Merchant Config Hash: ${getMerchantConfig()}`)
             },
             sdkMeta: {
                 type: 'string',
