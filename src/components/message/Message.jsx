@@ -97,13 +97,15 @@ const Message = () => {
 
         ppDebug('Updating message with new props...', { inZoid: true });
 
-        request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(({ data }) => {
+        request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(({ data }) => {
+            const encodedData = data.slice(data.indexOf('<!-- ') + 5, data.indexOf(' -->'));
+            const parsedData = JSON.parse(atob(encodedData));
             setServerData({
-                markup: data.markup ?? markup,
-                meta: data.meta ?? meta,
+                markup: parsedData.markup ?? markup,
+                meta: parsedData.meta ?? meta,
                 // Respect empty string value in order to remove styles when switch from flex to text layout
-                parentStyles: data.parentStyles ?? parentStyles,
-                warnings: data.warnings ?? warnings
+                parentStyles: parsedData.parentStyles ?? parentStyles,
+                warnings: parsedData.warnings ?? warnings
             });
         });
     }, [amount, currency, buyerCountry, JSON.stringify(style), offer, payerId, clientId, merchantId]);
