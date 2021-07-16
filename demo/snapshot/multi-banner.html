@@ -4,7 +4,10 @@
         <title>Messaging.js Banner Test Page</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <meta
+            name="description"
+            content="Provide a standardized means of capturing screenshots comparing text sizes."
+        />
         <style>
             html,
             body,
@@ -22,6 +25,7 @@
 
     <body>
         <div class="multi-container"></div>
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
         <script>
             const generateConfigs = ({ bannerGroup, config }) => {
                 const sizes = {

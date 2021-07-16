@@ -6,11 +6,75 @@ import { getOverflowObserver, createTitleGenerator } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    event.on(EVENT.RENDERED, () => {
-        prerenderFrame.parentNode.removeChild(prerenderFrame);
-    });
+const getStyles = ({ uid, style: { layout, logo: logoOptions, text: textOptions, ratio: ratioOption = '1x4' } }) => {
+    let cssStyles = ``;
+    const ratioMap = {
+        '1x1': `
+            max-height: 300px;
+            min-height: 120px;
+            max-width: 300px;
+            min-width: 100px;
+        `,
+        '1x4': `
+            max-height: 640px;
+            min-height: 320px;
+            max-width: 160px;
+            min-width: 100px;
+        `,
+        '8x1': `
+            max-height: 96px;
+            min-height: 42px;
+            max-width: 768px;
+            min-width: 100px;
+        `,
+        '20x1': `
+            max-height: 70px;
+            min-height: 18px;
+            max-width: 1169px;
+            min-width: 100px;
+        `
+    };
+    if (layout === 'text') {
+        const { size: textSize = 12 } = textOptions ?? {};
+        const { position: logoPosition = 'left' } = logoOptions ?? {};
+        let height = Math.floor(textSize * 2.3);
 
+        if (logoPosition === 'top') {
+            height += 10;
+        }
+
+        cssStyles = `
+        height: ${height}px;
+        min-width: 100px;
+        `;
+    } else if (layout === 'flex') {
+        cssStyles = ratioMap[ratioOption];
+    } else {
+        cssStyles = ``;
+    }
+    return `
+        #${uid} {
+            display: block;
+            width: 100%;
+            position: relative;
+            box-sizing: border-box;
+        }
+        #${uid} > iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        #${uid} > iframe:nth-of-type(1):not(:last-of-type){
+            ${cssStyles}
+        }
+        #${uid} > iframe:nth-of-type(2){
+            display: none;
+            min-height: 10px;
+        }
+    `;
+};
+
+export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
     const setupAutoResize = el => {
         event.on(EVENT.RESIZE, ({ width, height }) => {
             if (width !== 0 || height !== 0) {
@@ -24,13 +88,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
                     // Attributes used by the overflow observer
                     el.setAttribute('data-width', width);
                     el.setAttribute('data-height', height);
-
                     if (typeof height === 'number') {
                         // Auto resize height for non-layout flex messages
                         el.style.setProperty('height', `${height}px`);
                     }
                 }
-
                 if (el.__hasResizedBefore__) {
                     // The styles event will fire first before the resize event for the initial render
                     event.once('styles', () => {
@@ -48,17 +110,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             }
         });
     };
-
-    const baseStyles = `
-        #${uid} > iframe {
-            width: 100%;
-            height: 0;
-        }
-
-        #${uid} > iframe:nth-of-type(2) {
-            display: none;
-        }
-    `;
+    const baseStyles = getStyles({ ...props, uid });
 
     event.on('styles', ({ styles }) => {
         if (typeof styles === 'string') {
@@ -70,12 +122,16 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             `;
         }
     });
+    event.on(EVENT.RENDERED, () => {
+        // remove the prerender element
+        prerenderFrame.parentNode.removeChild(prerenderFrame);
+    });
     const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
             <style>{baseStyles}</style>
-            <node el={frame} title={messageTitle} onRender={setupAutoResize} />
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
+            <node el={frame} title={messageTitle} onRender={setupAutoResize} />
         </span>
     ).render(dom({ doc }));
 };

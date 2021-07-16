@@ -127,7 +127,7 @@ const getFontRules = (addLog, style) => {
     const fontSourceRule = getfontSourceRule(addLog, fontSource);
 
     if (fontSource) {
-        rules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
+        rules.push(`@font-face {font-family: '${fontFamily}'; font-display: swap; ${fontSourceRule}}`);
     }
     if (fontFamilyRule || textSizeRule) {
         rules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
