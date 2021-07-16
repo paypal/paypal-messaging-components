@@ -1,9 +1,8 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
-
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { currencyOptions, localeOptions } from '../../../locales';
 import { logger, memoize } from '../../utils';
-import { localeOptions, currencyOptions } from '../../../locales';
 
 export const Types = {
     ANY: 'ANY',
@@ -177,6 +176,17 @@ export default {
                 logInvalidType('ignoreCache', Types.BOOLEAN, ignoreCache);
             } else {
                 return ignoreCache;
+            }
+        }
+
+        return undefined;
+    },
+    merchantConfig: ({ props: { merchantConfig } }) => {
+        if (typeof merchantConfig !== 'undefined') {
+            if (!validateType(Types.STRING, merchantConfig)) {
+                logInvalidType('merchantConfig', Types.STRING, merchantConfig);
+            } else {
+                return merchantConfig;
             }
         }
 

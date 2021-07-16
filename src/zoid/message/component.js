@@ -1,27 +1,26 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { create } from 'zoid/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
 import { getCurrentScriptUID } from 'belter/src';
-
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise/src';
+import { create } from 'zoid/src';
 import {
-    getMeta,
-    getEnv,
-    getGlobalUrl,
     createGlobalVariableGetter,
-    getLibraryVersion,
-    runStats,
-    logger,
-    getSessionID,
-    getGlobalState,
     getCurrentTime,
-    writeStorageID,
+    getEnv,
+    getGlobalState,
+    getGlobalUrl,
+    getLibraryVersion,
+    getMeta,
     getOrCreateStorageID,
+    getSessionID,
     getStageTag,
+    isScriptBeingDestroyed,
+    logger,
     ppDebug,
-    isScriptBeingDestroyed
+    runStats,
+    writeStorageID
 } from '../../utils';
-import validate from './validation';
 import containerTemplate from './containerTemplate';
+import validate from './validation';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -97,7 +96,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
+            // merchantConfig: {
+            //     type: 'string',
+            //     queryParam: 'merchant_config',
+            //     value: () => validate.merchantConfig
+            // },
             // Callbacks
             onClick: {
                 type: 'function',
@@ -106,6 +109,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
+                        console.log(`props ${JSON.stringify(props)}`);
+                        console.log(`meta ${JSON.stringify(meta)}`);
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
@@ -305,8 +310,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
+                decorate: ({ props }) => {
+                    console.log(`props available to message, ${JSON.stringify(props)}`);
+                    return stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null;
+                },
                 default: () => '',
                 required: false
             },
