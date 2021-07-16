@@ -1,0 +1,30 @@
+{
+    "meta": {
+        "offerCountry": "DE",
+        "offerType": "GPLQ:GTZ:NON-DE",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [
+        ["Später bezahlen mit Ratenzahlung.", ["default", "xsmall"]],
+        [["Bezahlen Sie in 3-24 monatlichen Raten."], ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit dt. PayPal Konto.", ["extra"]]
+    ]
+}

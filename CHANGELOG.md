@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.25.1](https://github.com/paypal/paypal-messaging-components/compare/v1.25.0...v1.25.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* de gpl modal calc ([#558](https://github.com/paypal/paypal-messaging-components/issues/558)) ([92912f4](https://github.com/paypal/paypal-messaging-components/commit/92912f40b9d251a81800e445ab3874e9f123c362))
+
+# [1.25.0](https://github.com/paypal/paypal-messaging-components/compare/v1.24.1...v1.25.0) (2021-07-09)
+
+
+### Bug Fixes
+
+* split up non-US travis snapshot job ([1175942](https://github.com/paypal/paypal-messaging-components/commit/1175942277a10950a764c6869a51028fa37c0c8f))
+
+
+### Features
+
+* DE GPL [snapshots] ([#493](https://github.com/paypal/paypal-messaging-components/issues/493)) ([5d9a5a6](https://github.com/paypal/paypal-messaging-components/commit/5d9a5a6fdfa270dc3fb1f38f3b96c8c0dbeaf82d))
+
 ## [1.24.1](https://github.com/paypal/paypal-messaging-components/compare/v1.24.0...v1.24.1) (2021-06-22)
 
 
