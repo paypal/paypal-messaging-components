@@ -181,17 +181,5 @@ export default {
         }
 
         return undefined;
-    },
-
-    prefetch: ({ props: { prefetch } }) => {
-        if (typeof prefetch !== 'undefined') {
-            if (!validateType(Types.BOOLEAN, prefetch)) {
-                logInvalidType('prefetch', Types.BOOLEAN, prefetch);
-            } else {
-                return prefetch;
-            }
-        }
-
-        return undefined;
     }
 };

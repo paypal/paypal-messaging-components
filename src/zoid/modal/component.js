@@ -336,12 +336,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'pp_debug',
                 value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
             },
-            prefetch: {
-                type: 'boolean',
-                queryParam: 'prefetch',
-                required: false,
-                value: validate.prefetch
-            },
             stageTag: {
                 type: 'string',
                 queryParam: true,

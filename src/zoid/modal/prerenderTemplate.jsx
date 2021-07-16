@@ -132,6 +132,7 @@ export default ({ uid, doc, props, state }) => {
         }
         
     `;
+
     const toggleShow = boolean => {
         const wrapper = state.prerenderDetails.prerenderElement.contentDocument;
         if (boolean) {
@@ -183,12 +184,11 @@ export default ({ uid, doc, props, state }) => {
     // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist. This timeout only happens on first render
     setTimeout(() => {
         toggleShow(true);
-    }, 100);
+    }, 300);
     return (
         <html lang="en">
             <head>
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                <meta content="width=device-width, initial-scale=1" name="viewport" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <style>{styles}</style>
