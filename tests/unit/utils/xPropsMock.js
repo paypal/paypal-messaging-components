@@ -6,6 +6,10 @@ export default function xPropsMock(initialProps) {
         onProps: fn => onPropsListeners.push(fn)
     };
 
+    xPropsMock.clear = () => {
+        onPropsListeners.length = 0;
+    };
+
     return newProps => {
         window.xprops = {
             ...window.xprops,

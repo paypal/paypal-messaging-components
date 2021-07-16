@@ -43,15 +43,24 @@ module.exports = (env = {}) => {
             ...accumulator,
             [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
         }),
-        {
-            'smart-credit-message': './src/components/message/index.js'
-        }
+        {}
     );
 
-    COMPONENTS_CONFIG.optimization.splitChunks = {
-        chunks: 'all',
-        name: 'smart-credit-common'
-    };
+    const MESSAGING_COMPONENTS_CONFIG = getWebpackConfig({
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        analyze: env.analyzeComponents,
+        entry: './src/components/message/index.js',
+        filename: 'smart-credit-message.js',
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'messagingComponent'
+        })
+    });
 
     const RENDERING_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
@@ -69,7 +78,7 @@ module.exports = (env = {}) => {
 
     const modules = {
         library: [MESSAGES_CONFIG],
-        components: [COMPONENTS_CONFIG],
+        components: [COMPONENTS_CONFIG, MESSAGING_COMPONENTS_CONFIG],
         render: [RENDERING_CONFIG]
     };
 
