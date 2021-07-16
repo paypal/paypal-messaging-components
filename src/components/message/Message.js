@@ -55,18 +55,14 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.fontSize = 'inherit';
     button.innerHTML = markup;
 
-    function iframeRendered() {
-        onReady({
-            meta,
-            activeTags: getActiveTags(button),
-            // Utility will create iframe deviceID if it doesn't exist.
-            deviceID: getOrCreateStorageID()
-        });
+    onReady({
+        meta,
+        activeTags: getActiveTags(button),
+        // Utility will create iframe deviceID if it doesn't exist.
+        deviceID: getOrCreateStorageID()
+    });
 
-        onMarkup({ meta, styles: parentStyles, warnings });
-    }
-
-    window.requestAnimationFrame(iframeRendered);
+    onMarkup({ meta, styles: parentStyles, warnings });
 
     if (typeof onProps === 'function') {
         onProps(xprops => {

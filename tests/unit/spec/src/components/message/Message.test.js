@@ -31,7 +31,7 @@ jest.mock('src/utils', () => ({
 }));
 
 describe('Message', () => {
-    let updateProps = xPropsMock({
+    const updateProps = xPropsMock({
         amount: 100,
         currency: 'USD',
         style: { layout: 'text' },
@@ -63,19 +63,7 @@ describe('Message', () => {
         createState.mockClear();
         request.mockClear();
         getOrCreateStorageID.mockClear();
-        updateProps = xPropsMock({
-            amount: 100,
-            currency: 'USD',
-            style: { layout: 'text' },
-            payerId: 'DEV00000000NI',
-            deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            sessionID: 'uid_fda0b4618b_mtg6ndy6mjc',
-            onClick: jest.fn(),
-            onReady: jest.fn(),
-            onHover: jest.fn(),
-            onMarkup: jest.fn(),
-            resize: jest.fn()
-        });
+        xPropsMock.clear();
     });
 
     test('Renders the button with styles', () => {
@@ -143,30 +131,25 @@ describe('Message', () => {
     test('Fires onMarkup and onReady on complete re-render', async () => {
         const messageDocument = document.body.appendChild(Message(serverData));
         // needs to wait for iframe to be ready.
-        await wait(
-            () => {
-                expect(request).not.toHaveBeenCalled();
-                expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
-                expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+        expect(request).not.toHaveBeenCalled();
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
 
-                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-                    meta: {
-                        messageRequestId: '12345'
-                    },
-                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
-                });
-
-                expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
-                expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-                    meta: {
-                        messageRequestId: '12345'
-                    },
-                    styles: 'body { color: black; }',
-                    warnings: []
-                });
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
             },
-            { container: document.body }
-        );
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
+
+        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
+            },
+            styles: 'body { color: black; }',
+            warnings: []
+        });
 
         updateProps({ amount: 200 });
 
