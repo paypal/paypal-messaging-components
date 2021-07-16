@@ -107,7 +107,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         // If we see new terms, which match the amount prop, but the value in the input does not match
         // This means the amount changed outside the modal, so we update the terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (initialTerms.amount === amount && delocalize(country, state.inputValue) !== amount) {
+        if (Number(initialTerms.amount) === amount && delocalize(country, state.inputValue) !== amount) {
             dispatch({
                 type: 'terms',
                 data: {
