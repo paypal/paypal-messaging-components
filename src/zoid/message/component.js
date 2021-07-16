@@ -2,6 +2,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { getCurrentScriptUID } from 'belter/src';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 import {
     getMeta,
@@ -10,6 +11,8 @@ import {
     createGlobalVariableGetter,
     getLibraryVersion,
     runStats,
+    formatStatsMeta,
+    buildStatsPayload,
     logger,
     getSessionID,
     getGlobalState,
@@ -18,8 +21,11 @@ import {
     getOrCreateStorageID,
     getStageTag,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    getScriptAttributes,
+    measureBrowser
 } from '../../utils';
+
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -97,7 +103,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -105,8 +110,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props, focus }) => {
                     const { onClick } = props;
 
-                    return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
+                    return ({ meta, activeTags }) => {
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            onApply,
+                            getContainer
+                        } = props;
                         const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -138,6 +153,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             link: 'Banner Wrapper'
                         });
 
+                        // Attach stats attributes to meta payload
+                        buildStatsPayload('click', {
+                            container: getContainer(),
+                            activeTags,
+                            index
+                        }).then(formatStatsMeta(merchantId || account, meta));
+
                         if (typeof onClick === 'function') {
                             onClick({ meta });
                         }
@@ -148,19 +170,24 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onHover } = props;
+                    const { index, account, merchantId, onHover, getContainer } = props;
                     let hasHovered = false;
 
-                    return ({ meta }) => {
-                        const { index } = props;
-
+                    return ({ meta, activeTags }) => {
                         if (!hasHovered) {
                             hasHovered = true;
+
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
                                 event_type: 'hover'
                             });
+
+                            buildStatsPayload('hover', {
+                                container: getContainer(),
+                                activeTags,
+                                index
+                            }).then(formatStatsMeta(merchantId || account, meta));
                         }
 
                         if (typeof onHover === 'function') {
@@ -330,6 +357,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: getLibraryVersion,
                 debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__TARGET__,
+                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
+            },
             deviceID: {
                 type: 'string',
                 queryParam: true,
@@ -364,6 +397,27 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            partnerAttributionId: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
+            },
+            browserWidth: {
+                type: 'number',
+                queryParam: true,
+                value: () => measureBrowser()?.browserWidth,
+                debug: ppDebug(`Browser Width ${measureBrowser()?.browserWidth}`)
+            },
+            browserHeight: {
+                type: 'number',
+                queryParam: true,
+                value: () => measureBrowser()?.browserHeight,
+                debug: ppDebug(`Browser Height ${measureBrowser()?.browserHeight}`)
             }
         }
     })
