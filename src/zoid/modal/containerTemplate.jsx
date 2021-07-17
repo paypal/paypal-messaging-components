@@ -5,12 +5,14 @@
 import { destroyElement } from 'belter/src';
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
+import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { createTitleGenerator, globalEvent } from '../../utils';
 
 const getTitle = createTitleGenerator();
 
 export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
+    const TRANSITION_DELAY = 150;
     const CLASS = {
         VISIBLE: `${uid}-visible`,
         INVISIBLE: `${uid}-invisible`,
@@ -28,23 +30,25 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     globalEvent.on('show-modal', () => {
         frame.classList.remove(CLASS.INVISIBLE);
         frame.classList.add(CLASS.VISIBLE);
-        globalEvent.trigger('show-modal-transition');
     });
 
     globalEvent.on('hide-modal', () => {
-        frame.classList.add(CLASS.VISIBLE);
-        frame.classList.remove(CLASS.INVISIBLE);
-        globalEvent.trigger('hide-modal-transition');
+        frame.classList.remove(CLASS.VISIBLE);
+        frame.classList.add(CLASS.INVISIBLE);
     });
 
     globalEvent.on('show-modal-transition', () => {
-        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
-        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
+        ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
+            document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
+            document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
+        });
     });
 
     globalEvent.on('hide-modal-transition', () => {
-        document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
-        document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
+        ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
+            document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
+            document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
+        });
     });
 
     event.on(EVENT.RENDERED, () => {
@@ -80,11 +84,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     }
                     .${CLASS.BG_TRANSITION_ON}{
                         background: rgba(108, 115, 120, 0.85);
-                        transition: background 350ms linear;
+                        transition: background 150ms linear;
                     }
                     .${CLASS.BG_TRANSITION_OFF}{
                         background: none;
-                        transition: background 350ms linear;
+                        transition: background 150ms linear;
                     }
                     #${uid} > div > iframe.${CLASS.VISIBLE} {
                         opacity: 1;

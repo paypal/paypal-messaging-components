@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -135,19 +136,19 @@ export default ({ doc, props, state }) => {
     `;
 
     globalEvent.on('show-prerender-modal', () => {
+        globalEvent.trigger('show-modal-transition');
         prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
         prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);
         prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.add('show-modal');
         prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 1;
-        globalEvent.trigger('show-modal-transition');
     });
 
     globalEvent.on('hide-prerender-modal', () => {
+        globalEvent.trigger('hide-modal-transition');
         prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.VISIBLE);
         prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.INVISIBLE);
         prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
         prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 0;
-        globalEvent.trigger('hide-modal-transition');
         state.hide();
     });
     const toggleShow = boolean => {
@@ -157,15 +158,14 @@ export default ({ doc, props, state }) => {
         }
         globalEvent.trigger('hide-prerender-modal');
     };
-    const checkForErrors = () => {
+    const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             // check to see if modal content class exists
-            if (prerenderFrameWrapper !== null) {
+            if (element.querySelector('.error')) {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
-                prerenderFrameWrapper.contentDocument.getElementsByClassName('error')[0].style.display = 'block';
-                prerenderFrameWrapper.contentDocument.getElementsByClassName('error')[0].textContent =
-                    'Error loading Modal';
+                element.querySelector('.error').style.display = 'block';
+                element.querySelector('.error').textContent = 'Error loading Modal';
             }
         });
     };
@@ -177,7 +177,7 @@ export default ({ doc, props, state }) => {
     // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist. This timeout only happens on first render
     setTimeout(() => {
         toggleShow(true);
-    }, 300);
+    }, 250);
     return (
         <html lang="en">
             <head>

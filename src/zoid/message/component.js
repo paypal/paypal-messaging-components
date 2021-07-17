@@ -107,9 +107,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const PRERENDER_DELAY = 100;
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
+                        globalEvent.trigger('show-modal-transition');
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
 
@@ -122,12 +122,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             modal.prerenderDetails.prerenderElement.contentDocument
                         ) {
                             // wait for prerenderer to exist
-                            ZalgoPromise.delay(PRERENDER_DELAY).then(() => {
-                                globalEvent.trigger('show-prerender-modal');
-                            });
+                            globalEvent.trigger('show-prerender-modal');
                         }
 
-                        globalEvent.trigger('show-modal-transition');
                         modal.show({
                             account,
                             merchantId,

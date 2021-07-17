@@ -19,7 +19,8 @@ import {
     getSessionID,
     getOrCreateStorageID,
     getStageTag,
-    ppDebug
+    ppDebug,
+    globalEvent
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -173,7 +174,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             onClose: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props, state }) => {
+                value: ({ props }) => {
                     const { onClose } = props;
                     const [, replaceViewport] = viewportHijack();
 
@@ -192,12 +193,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                         if (typeof onClose === 'function') {
                             // make sure to reset the opacity when the modal closes so we can see the smooth transition again
-                            document
-                                .getElementById(`${state.prerenderDetails.uid}-top`)
-                                .classList.remove(state.prerenderDetails.classes.BG_TRANSITION_ON);
-                            document
-                                .getElementById(`${state.prerenderDetails.uid}-top`)
-                                .classList.add(state.prerenderDetails.classes.BG_TRANSITION_OFF);
+                            globalEvent.trigger('hide-modal-transition');
                             onClose({ linkName });
                         }
                     };
