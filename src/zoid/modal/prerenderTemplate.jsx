@@ -1,6 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/self-closing-comp */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/style-prop-object */
@@ -170,10 +171,6 @@ export default ({ doc, props, state }) => {
         });
     };
 
-    const handleEscapeKeyPress = evt => {
-        console.log(evt);
-    };
-
     // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist. This timeout only happens on first render
     setTimeout(() => {
         toggleShow(true);
@@ -187,7 +184,7 @@ export default ({ doc, props, state }) => {
             <style>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
-                    <div class="overlay" onClick={() => toggleShow(false)} onKeyDown={handleEscapeKeyPress} />
+                    <div class="overlay" onClick={() => toggleShow(false)} />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">

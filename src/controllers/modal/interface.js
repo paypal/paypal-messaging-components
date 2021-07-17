@@ -54,7 +54,6 @@ const memoizedModal = memoizeOnProps(
         };
 
         const showModal = (options = {}) => {
-            // globalEvent.trigger('show-modal-transition');
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
             if (isElement(options)) {
