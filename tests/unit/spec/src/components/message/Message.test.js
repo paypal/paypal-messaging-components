@@ -80,7 +80,7 @@ describe('Message', () => {
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
     });
 
-    test('Fires onReady xProp after render', async () => {
+    test('Fires onReady xProp after render', () => {
         Message(serverData);
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
@@ -166,7 +166,7 @@ describe('Message', () => {
         });
     });
 
-    test('Passed deviceID from iframe storage to callback', async () => {
+    test('Passed deviceID from iframe storage to callback', () => {
         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
