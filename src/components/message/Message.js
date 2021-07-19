@@ -2,14 +2,14 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize, style } = window.xprops;
+    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
         amount: window.xprops.amount ?? null,
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
-        style: JSON.stringify(style),
+        style: JSON.stringify(window.xprops.style),
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
@@ -50,7 +50,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.padding = 0;
     button.style.border = 'none';
     button.style.outline = 'none';
-    button.style.textAlign = style?.text?.align || 'left';
+    button.style.textAlign = window.xprops.style?.text?.align || 'left';
     button.style.fontFamily = 'inherit';
     button.style.fontSize = 'inherit';
     button.innerHTML = markup;
@@ -84,14 +84,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     version,
                     env,
                     features,
-                    stageTag
+                    stageTag,
+                    style
                 } = xprops;
 
                 setProps({
                     amount,
                     currency,
                     buyerCountry,
-                    style: JSON.stringify(xprops.style),
+                    style: JSON.stringify(style),
                     offer,
                     payerId,
                     clientId,
@@ -103,7 +104,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyer_country: buyerCountry,
-                    style: xprops.style,
+                    style,
                     credit_type: offer,
                     payer_id: payerId,
                     client_id: clientId,
