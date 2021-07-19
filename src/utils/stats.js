@@ -51,8 +51,8 @@ export function runStats({ container, activeTags, index }) {
         // so everything must be converted to a string to prevent unintended filtering
         pos_x: Math.round(containerRect.left).toString(),
         pos_y: Math.round(containerRect.top).toString(),
-        browser_width: (topWindow?.innerWidth).toString(),
-        browser_height: (topWindow?.innerHeight).toString(),
+        browser_width: topWindow && topWindow.innerWidth.toString(),
+        browser_height: topWindow && topWindow.innerHeight.toString(),
         visible: isInViewport(container).toString(),
         // Visible message sections
         active_tags: activeTags,

@@ -18,7 +18,8 @@ import {
     getOrCreateStorageID,
     getStageTag,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    getTopWindow
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -109,27 +110,33 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
-                        // Avoid spreading message props because both message and modal
-                        // zoid components have an onClick prop that functions differently
-                        modal.show({
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            offer: offerType,
-                            refId: messageRequestId,
-                            refIndex: index,
-                            src: 'message_click',
-                            onClose: () => focus()
-                        });
+                        // Check if we're inside another iframe
+                        // TODO: Ensure this encompases the modal prerender changes
+                        if (typeof getTopWindow() !== 'undefined') {
+                            // Avoid spreading message props because both message and modal
+                            // zoid components have an onClick prop that functions differently
+                            modal.show({
+                                account,
+                                merchantId,
+                                currency,
+                                amount,
+                                buyerCountry,
+                                onApply,
+                                offer: offerType,
+                                refId: messageRequestId,
+                                refIndex: index,
+                                src: 'message_click',
+                                onClose: () => focus()
+                            });
 
-                        logger.track({
-                            index,
-                            et: 'CLICK',
-                            event_type: 'MORS'
-                        });
+                            logger.track({
+                                index,
+                                et: 'CLICK',
+                                event_type: 'MORS'
+                            });
+                        } else {
+                            window.open(meta.click_url);
+                        }
 
                         logger.track({
                             index,
