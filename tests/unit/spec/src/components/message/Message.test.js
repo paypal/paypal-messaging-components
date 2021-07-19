@@ -1,10 +1,4 @@
-import {
-    getByText,
-    fireEvent,
-    queryByText,
-    wait // package is outdated. this is deprecated in newer version
-    // waitFor, // package is outdated. this doesn't exist in older version
-} from '@testing-library/dom';
+import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
 import { request, getOrCreateStorageID, createState } from 'src/utils';
@@ -125,7 +119,7 @@ describe('Message', () => {
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
         const messageDocument = document.body.appendChild(Message(serverData));
-        // needs to wait for iframe to be ready.
+
         expect(request).not.toHaveBeenCalled();
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
@@ -149,30 +143,27 @@ describe('Message', () => {
         updateProps({ amount: 200 });
 
         // has to wait for the button to re-render
-        await wait(
-            () => {
-                expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
-                expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
-                expect(queryByText(messageDocument, /test/i)).toBeNull();
-                expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
-                expect(request).toHaveBeenCalledTimes(1);
+        await new Promise(resolve => setTimeout(resolve, 0));
 
-                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-                    meta: {
-                        messageRequestId: '23456'
-                    },
-                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
-                });
-                expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-                    meta: {
-                        messageRequestId: '23456'
-                    },
-                    styles: 'body { color: blue; }',
-                    warnings: []
-                });
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
+        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
+        expect(queryByText(messageDocument, /test/i)).toBeNull();
+        expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
+        expect(request).toHaveBeenCalledTimes(1);
+
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '23456'
             },
-            { container: document.body }
-        );
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
+        expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '23456'
+            },
+            styles: 'body { color: blue; }',
+            warnings: []
+        });
     });
 
     test('Passed deviceID from iframe storage to callback', async () => {
