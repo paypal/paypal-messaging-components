@@ -1,26 +1,22 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import arrayFrom from 'core-js-pure/stable/array/from';
-
-import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
-
 import {
     getClientID,
-    getMerchantID,
-    getSDKScript,
     getEnv as getSDKEnv,
-    getSDKMeta,
-    getSDKAttributes,
-    getSDKQueryParam,
+    getMerchantID,
     getNamespace as getSDKNamespace,
+    getPayPalDomain as getSDKPayPalDomain,
+    getSDKAttributes,
+    getSDKMeta,
+    getSDKQueryParam,
+    getSDKScript,
     getSessionID as getSDKSessionID,
-    getStorageID as getSDKStorageID,
-    getPayPalDomain as getSDKPayPalDomain
+    getStorageID as getSDKStorageID
 } from '@paypal/sdk-client/src';
-
-import { isLocalStorageEnabled, getStorage } from 'belter/src';
-
+import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
+import { getStorage, isLocalStorageEnabled } from 'belter/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
 import 'core-js-pure/stable/object/entries';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -28,6 +24,16 @@ export function getEnv() {
         return getSDKEnv();
     } else {
         return __ENV__;
+    }
+}
+
+export function getMerchantConfig() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        // const fundingEligibility = getFundingEligibility();
+        // return fundingEligibility.merchantConfigHash;
+        return 'MERCHANT_CONFIG_HASH_123';
+    } else {
+        return undefined;
     }
 }
 

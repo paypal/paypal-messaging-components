@@ -105,8 +105,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        console.log(`props ${JSON.stringify(props)}`);
-                        console.log(`meta ${JSON.stringify(meta)}`);
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
