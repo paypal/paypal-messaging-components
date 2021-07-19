@@ -4,7 +4,6 @@
 /** @jsx node */
 import { destroyElement } from 'belter/src';
 import { node, dom } from 'jsx-pragmatic/src';
-import { EVENT } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { createTitleGenerator, globalEvent } from '../../utils';
@@ -23,21 +22,29 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     state.prerenderDetails.frameElement = frame;
     state.prerenderDetails.prerenderElement = prerenderFrame;
     state.prerenderDetails.classes = CLASS;
-
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
 
-    event.on('show-modal', () => {
-        frame.classList.remove(CLASS.INVISIBLE);
-        frame.classList.add(CLASS.VISIBLE);
+    globalEvent.on('show-modal', () => {
+        event.trigger('show-prerender-modal');
+        setTimeout(() => {
+            frame.classList.remove(CLASS.INVISIBLE);
+            frame.classList.add(CLASS.VISIBLE);
+            prerenderFrame.classList.remove(CLASS.VISIBLE);
+            prerenderFrame.classList.add(CLASS.INVISIBLE);
+        }, 500);
+        setTimeout(() => {
+            destroyElement(prerenderFrame);
+        }, 1000);
     });
 
     event.on('hide-modal', () => {
+        event.trigger('hide-modal-transition');
         frame.classList.remove(CLASS.VISIBLE);
         frame.classList.add(CLASS.INVISIBLE);
     });
 
-    globalEvent.on('show-modal-transition', () => {
+    event.on('show-modal-transition', () => {
         ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
             document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
             document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
@@ -49,19 +56,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
             document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
             document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
         });
-    });
-
-    event.on(EVENT.RENDERED, () => {
-        // once modal is ready hide prerender and show the content modal after 500ms
-        // kill the prerender after 1sec
-        setTimeout(() => {
-            event.trigger('show-modal');
-            prerenderFrame.classList.remove(CLASS.VISIBLE);
-            prerenderFrame.classList.add(CLASS.INVISIBLE);
-        }, 500);
-        setTimeout(() => {
-            destroyElement(prerenderFrame);
-        }, 1000);
     });
 
     const fullScreen = position =>

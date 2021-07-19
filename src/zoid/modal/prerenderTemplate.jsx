@@ -136,10 +136,10 @@ export default ({ doc, props, state, event }) => {
         
     `;
 
-    globalEvent.on('show-prerender-modal', () => {
+    event.on('show-prerender-modal', () => {
         ZalgoPromise.delay(50)
             // quick delay to show transition, once resolves then show prerender
-            .then(() => globalEvent.trigger('show-modal-transition'))
+            .then(() => event.trigger('show-modal-transition'))
             .then(() => {
                 prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
                 prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);

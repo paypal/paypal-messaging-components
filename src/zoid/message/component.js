@@ -18,8 +18,7 @@ import {
     getOrCreateStorageID,
     getStageTag,
     ppDebug,
-    isScriptBeingDestroyed,
-    globalEvent
+    isScriptBeingDestroyed
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -109,17 +108,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta }) => {
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
-                        globalEvent.trigger('show-modal-transition');
-
-                        // this checks to see if display none is on the parent iframe div id.
-                        // if the modal content never loads (eg. api request error), we need to have click functionality to show the prerender window
-                        // if there is an error and the modal never shows we have control here to show the prerender
-                        if (
-                            document.querySelector(`#${modal.prerenderDetails.uid}`) &&
-                            modal.prerenderDetails.prerenderElement.contentDocument
-                        ) {
-                            globalEvent.trigger('show-prerender-modal');
-                        }
 
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
