@@ -89,18 +89,13 @@ describe('Message', () => {
     test('Fires onReady xProp after render', async () => {
         Message(serverData);
 
-        await wait(
-            () => {
-                expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
-                expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-                    meta: {
-                        messageRequestId: '12345'
-                    },
-                    deviceID: 'uid_26a2522628_mtc6mjk6nti'
-                });
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+        expect(window.xprops.onReady).toHaveBeenLastCalledWith({
+            meta: {
+                messageRequestId: '12345'
             },
-            { container: document.body }
-        );
+            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+        });
     });
 
     test('Fires onClick xProp when clicked', () => {
@@ -185,17 +180,12 @@ describe('Message', () => {
 
         Message(serverData);
 
-        await wait(
-            () => {
-                expect(window.xprops.onReady).toBeCalledWith({
-                    meta: {
-                        messageRequestId: '12345'
-                    },
-                    deviceID: 'uid_1111111111_11111111111'
-                });
-                expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(window.xprops.onReady).toBeCalledWith({
+            meta: {
+                messageRequestId: '12345'
             },
-            { container: document.body }
-        );
+            deviceID: 'uid_1111111111_11111111111'
+        });
+        expect(getOrCreateStorageID).toHaveBeenCalled();
     });
 });
