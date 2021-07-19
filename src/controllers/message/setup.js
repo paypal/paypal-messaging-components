@@ -7,8 +7,7 @@ import {
     getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
-    ppDebug,
-    storeTreatments
+    ppDebug
 } from '../../utils';
 import Messages from './adapter';
 
@@ -68,8 +67,6 @@ export default function setup() {
                 attributeFilter: ['data-pp-message']
             });
 
-            // Store experiment treatments value to parent window localStorage.
-            storeTreatments();
             ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
         };
 

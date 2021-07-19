@@ -12,4 +12,3 @@ export * from './activeTags';
 export * from './events';
 export * from './debug';
 export * from './performance';
-export * from './storeTreatments';

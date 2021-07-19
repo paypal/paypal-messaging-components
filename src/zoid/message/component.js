@@ -177,11 +177,22 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
+                        const { messageRequestId, trackingDetails, offerType, ppDebugId, treatmentsHash } = meta;
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
                         writeStorageID(deviceID);
+
+                        /**
+                         * If localStorage doesn't exist in localStorage or the treatmentsHash coming back from
+                         * the server doesn't match what's currently in localStorage, set treatmentsHash to the incoming value.
+                         */
+                        if (
+                            !localStorage.getItem('treatmentsHash') ||
+                            treatmentsHash !== localStorage.getItem('treatmentsHash')
+                        ) {
+                            localStorage.setItem('treatmentsHash', treatmentsHash);
+                        }
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
