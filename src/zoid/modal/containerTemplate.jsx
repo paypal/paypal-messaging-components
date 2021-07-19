@@ -27,12 +27,12 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     frame.classList.add(CLASS.INVISIBLE);
     prerenderFrame.classList.add(CLASS.VISIBLE);
 
-    globalEvent.on('show-modal', () => {
+    event.on('show-modal', () => {
         frame.classList.remove(CLASS.INVISIBLE);
         frame.classList.add(CLASS.VISIBLE);
     });
 
-    globalEvent.on('hide-modal', () => {
+    event.on('hide-modal', () => {
         frame.classList.remove(CLASS.VISIBLE);
         frame.classList.add(CLASS.INVISIBLE);
     });
@@ -44,7 +44,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         });
     });
 
-    globalEvent.on('hide-modal-transition', () => {
+    event.on('hide-modal-transition', () => {
         ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
             document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
             document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
@@ -55,7 +55,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
         // once modal is ready hide prerender and show the content modal after 500ms
         // kill the prerender after 1sec
         setTimeout(() => {
-            globalEvent.trigger('show-modal');
+            event.trigger('show-modal');
             prerenderFrame.classList.remove(CLASS.VISIBLE);
             prerenderFrame.classList.add(CLASS.INVISIBLE);
         }, 500);

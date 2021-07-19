@@ -20,7 +20,7 @@ const memoizedModal = memoizeOnProps(
     ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
         addPerformanceMeasure('firstModalRenderDelay');
 
-        const { render, updateProps, state, hide, event } = getModalComponent()({
+        const { render, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
             currency,
@@ -47,7 +47,6 @@ const memoizedModal = memoizeOnProps(
                     .then(() => ZalgoPromise.all([render(selector), modalReady]))
                     .then(() => globalEvent.trigger('modal-render'));
                 // hide it immediatly then show it on click event again for standalone modal to work correctly
-                hide();
             }
 
             return renderProm;
@@ -106,9 +105,7 @@ const memoizedModal = memoizeOnProps(
         state.hide = hideModal;
         state.prerenderDetails = {
             prerenderElement: null,
-            frameElement: null,
-            classes: null,
-            uid: null
+            classes: null
         };
         // Follow existing zoid interface
         return {

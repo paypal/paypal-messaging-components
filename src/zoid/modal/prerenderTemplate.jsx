@@ -12,7 +12,7 @@ import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { globalEvent } from '../../utils';
 
-export default ({ doc, props, state }) => {
+export default ({ doc, props, state, event }) => {
     const ERROR_DELAY = 15000;
     const prerenderFrameWrapper = state.prerenderDetails.prerenderElement;
     const styles = `
@@ -137,15 +137,21 @@ export default ({ doc, props, state }) => {
     `;
 
     globalEvent.on('show-prerender-modal', () => {
-        globalEvent.trigger('show-modal-transition');
-        prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
-        prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);
-        prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.add('show-modal');
-        prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 1;
+        ZalgoPromise.delay(50)
+            // quick delay to show transition, once resolves then show prerender
+            .then(() => globalEvent.trigger('show-modal-transition'))
+            .then(() => {
+                prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
+                prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);
+                prerenderFrameWrapper.contentDocument
+                    .getElementsByClassName('modal-content')[0]
+                    .classList.add('show-modal');
+                prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 1;
+            });
     });
 
-    globalEvent.on('hide-prerender-modal', () => {
-        globalEvent.trigger('hide-modal-transition');
+    event.on('hide-prerender-modal', () => {
+        event.trigger('hide-modal-transition');
         prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.VISIBLE);
         prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.INVISIBLE);
         prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
@@ -157,7 +163,7 @@ export default ({ doc, props, state }) => {
             globalEvent.trigger('show-prerender-modal');
             return;
         }
-        globalEvent.trigger('hide-prerender-modal');
+        event.trigger('hide-prerender-modal');
     };
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
