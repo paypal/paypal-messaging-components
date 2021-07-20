@@ -112,7 +112,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                         // Check if we're inside another iframe
                         // TODO: Ensure this encompases the modal prerender changes
-                        if (typeof getTopWindow() !== 'undefined') {
+                        if (getTopWindow() === window) {
                             // Avoid spreading message props because both message and modal
                             // zoid components have an onClick prop that functions differently
                             modal.show({
@@ -135,7 +135,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 event_type: 'MORS'
                             });
                         } else {
-                            window.open(meta.click_url);
+                            window.open(meta.trackingDetails.clickUrl);
                         }
 
                         logger.track({
