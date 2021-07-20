@@ -184,7 +184,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         writeStorageID(deviceID);
 
                         /**
-                         * If localStorage doesn't exist in localStorage or the treatmentsHash coming back from
+                         * If treatmentsHash doesn't exist in localStorage or if the treatmentsHash coming back from
                          * the server doesn't match what's currently in localStorage, set treatmentsHash to the incoming value.
                          */
                         if (
