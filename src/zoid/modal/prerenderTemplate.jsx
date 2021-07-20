@@ -10,11 +10,9 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from 'zalgo-promise/src';
-import { globalEvent } from '../../utils';
 
-export default ({ doc, props, state, event }) => {
+export default ({ doc, props, event }) => {
     const ERROR_DELAY = 15000;
-    const prerenderFrameWrapper = state.prerenderDetails.prerenderElement;
     const styles = `
         @font-face {
             font-family: 'PayPalSansBig';
@@ -91,11 +89,6 @@ export default ({ doc, props, state, event }) => {
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
-            transition: transform 350ms ease, box-shadow 350ms ease;
-            transform: translateY(100%);
-        }
-        .show-modal{
-            transform: translateY(0);
         }
         .spinner{
             position: relative !important;
@@ -136,35 +129,7 @@ export default ({ doc, props, state, event }) => {
         
     `;
 
-    event.on('show-prerender-modal', () => {
-        ZalgoPromise.delay(50)
-            // quick delay to show transition, once resolves then show prerender
-            .then(() => event.trigger('show-modal-transition'))
-            .then(() => {
-                prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.INVISIBLE);
-                prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.VISIBLE);
-                prerenderFrameWrapper.contentDocument
-                    .getElementsByClassName('modal-content')[0]
-                    .classList.add('show-modal');
-                prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 1;
-            });
-    });
-
-    event.on('hide-prerender-modal', () => {
-        event.trigger('hide-modal-transition');
-        prerenderFrameWrapper.classList.remove(state.prerenderDetails.classes.VISIBLE);
-        prerenderFrameWrapper.classList.add(state.prerenderDetails.classes.INVISIBLE);
-        prerenderFrameWrapper.contentDocument.getElementsByClassName('modal-content')[0].classList.remove('show-modal');
-        prerenderFrameWrapper.contentDocument.getElementsByClassName('overlay')[0].style.opacity = 0;
-        state.hide();
-    });
-    const toggleShow = boolean => {
-        if (boolean) {
-            globalEvent.trigger('show-prerender-modal');
-            return;
-        }
-        event.trigger('hide-prerender-modal');
-    };
+    const closeModal = () => event.trigger('modal-hide');
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             // check to see if modal content class exists
@@ -177,10 +142,6 @@ export default ({ doc, props, state, event }) => {
         });
     };
 
-    // no way to check if prerenderer is fully loaded so wait 100ms before attempting to see if the elements exist. This timeout only happens on first render
-    setTimeout(() => {
-        toggleShow(true);
-    }, 250);
     return (
         <html lang="en">
             <head>
@@ -190,11 +151,11 @@ export default ({ doc, props, state, event }) => {
             <style>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
-                    <div class="overlay" onClick={() => toggleShow(false)} />
+                    <div class="overlay" onClick={closeModal} />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">
-                            <button onClick={() => toggleShow(false)} type="button" />
+                            <button onClick={closeModal} type="button" />
                         </div>
                         <div class="error" style="display: none"></div>
                         <Spinner nonce={props.nonce} />

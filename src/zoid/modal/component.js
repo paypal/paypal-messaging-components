@@ -12,7 +12,6 @@ import {
     getCurrentTime,
     getLibraryVersion,
     getScriptAttributes,
-    viewportHijack,
     logger,
     nextIndex,
     getPerformanceMeasure,
@@ -45,10 +44,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: true,
                 value: validate.account
-            },
-            getPrerenderDetails: {
-                type: 'function',
-                value: ({ state }) => () => state.prerenderDetails
             },
             merchantId: {
                 type: 'string',
@@ -149,12 +144,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onShow } = props;
-                    const [hijackViewport] = viewportHijack();
 
                     return () => {
                         const { index, refIndex, src = 'show' } = props;
-
-                        hijackViewport();
 
                         logger.track({
                             index,
@@ -175,12 +167,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 value: ({ props, event }) => {
                     const { onClose } = props;
-                    const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
                         const { index, refIndex } = props;
 
-                        replaceViewport();
+                        event.trigger('modal-hide');
 
                         logger.track({
                             index,
@@ -191,8 +182,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         });
 
                         if (typeof onClose === 'function') {
-                            // make sure to reset the opacity when the modal closes so we can see the smooth transition again
-                            event.trigger('hide-modal-transition');
                             onClose({ linkName });
                         }
                     };
