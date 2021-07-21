@@ -3,64 +3,40 @@ import { h, createContext } from 'preact';
 import { useState, useEffect, useContext } from 'preact/hooks';
 
 import { useXProps } from '../../../lib';
-
-const TRANSITION_TIME = 350;
-const CLOSE_TRANSITION_TIME = 150;
+import { getIntersectionObserverPolyfill } from '../../../../utils';
 
 export const STATUS = {
-    OPEN: 'OPENED',
-    OPENING: 'OPENING',
-    CLOSED: 'CLOSED',
-    CLOSING: 'CLOSING'
+    OPEN: 'OPEN',
+    CLOSED: 'CLOSED'
 };
 
 const TransitionContext = createContext({
-    status: STATUS.CLOSED,
+    status: STATUS.OPEN,
     setStatus: () => {}
 });
 
 export const TransitionStateProvider = ({ children }) => {
-    const [state, setState] = useState(STATUS.CLOSED);
-    // added new visible prop so we can re-render anytime visibilty of content modal changes
-    const [visible, setVisible] = useState(false);
-    const { onProps, hide, onClose, show, onShow } = useXProps();
+    const { onShow } = useXProps();
+    const [state, setState] = useState(STATUS.OPEN);
 
-    useEffect(
-        () =>
-            onProps(newProps => {
-                // create a new state value to capture props so we can re-render when visible prop changes
-                if (!newProps.visible) {
-                    setVisible(newProps.visible);
-                    // close
-                    if (state === STATUS.OPEN || state === STATUS.OPENING) {
-                        setState(STATUS.CLOSING);
-                        setTimeout(() => {
-                            onClose({ linkName: 'Hide Modal' });
-                            hide().then(() => {
-                                setState(STATUS.CLOSED);
-                            });
-                        }, CLOSE_TRANSITION_TIME);
-                    }
-                }
-                if (newProps.visible && state === STATUS.CLOSED) {
-                    setVisible(newProps.visible);
-                    // open
-                    show().then(() => {
+    useEffect(() => {
+        getIntersectionObserverPolyfill().then(() => {
+            // eslint-disable-next-line compat/compat
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setState(STATUS.OPEN);
                         onShow();
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                setState(STATUS.OPENING);
-                                setTimeout(() => {
-                                    setState(STATUS.OPEN);
-                                }, TRANSITION_TIME);
-                            });
-                        });
-                    });
-                }
-            }),
-        // anytime visibility or content modal status changes (ie OPEN, CLOSED etc) re-render
-        [visible, state]
-    );
+                    } else {
+                        setState(STATUS.CLOSED);
+                    }
+                },
+                { threshold: 0.05 }
+            );
+
+            observer.observe(document.body);
+        });
+    }, []);
 
     return (
         <TransitionContext.Provider value={{ status: state, setStatus: setState }}>
@@ -70,21 +46,8 @@ export const TransitionStateProvider = ({ children }) => {
 };
 
 export const useTransitionState = () => {
-    const { status, setStatus } = useContext(TransitionContext);
-    const { hide, onClose } = useXProps();
+    const { status } = useContext(TransitionContext);
+    const { onClose } = useXProps();
 
-    return [
-        status,
-        linkName => {
-            if (status === STATUS.OPEN || status === STATUS.OPENING) {
-                setStatus(STATUS.CLOSING);
-                if (onClose) {
-                    onClose({ linkName });
-                }
-                setTimeout(() => {
-                    hide().then(() => setStatus(STATUS.CLOSED));
-                }, TRANSITION_TIME);
-            }
-        }
-    ];
+    return [status, linkName => onClose({ linkName })];
 };

@@ -5,58 +5,69 @@
 import { destroyElement } from 'belter/src';
 import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { EVENT } from 'zoid/src';
 
-import { createTitleGenerator, globalEvent } from '../../utils';
+import { createTitleGenerator, viewportHijack } from '../../utils';
 
+const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
 export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
-    const TRANSITION_DELAY = 150;
+    const [hijackViewport, replaceViewport] = viewportHijack();
+
     const CLASS = {
-        VISIBLE: `${uid}-visible`,
-        INVISIBLE: `${uid}-invisible`,
-        BG_TRANSITION_ON: `${uid}-bg-transition-on`,
-        BG_TRANSITION_OFF: `${uid}-bg-transition-off`
+        VISUALLY_HIDDEN: `${uid}-hide`,
+        MODAL_SHOW: `${uid}-show`,
+        TRANSITION: `${uid}-transition`
     };
-    state.prerenderDetails.uid = uid;
-    state.prerenderDetails.frameElement = frame;
-    state.prerenderDetails.prerenderElement = prerenderFrame;
-    state.prerenderDetails.classes = CLASS;
-    frame.classList.add(CLASS.INVISIBLE);
-    prerenderFrame.classList.add(CLASS.VISIBLE);
 
-    globalEvent.on('show-modal', () => {
-        event.trigger('show-prerender-modal');
-        setTimeout(() => {
-            frame.classList.remove(CLASS.INVISIBLE);
-            frame.classList.add(CLASS.VISIBLE);
-            prerenderFrame.classList.remove(CLASS.VISIBLE);
-            prerenderFrame.classList.add(CLASS.INVISIBLE);
-        }, 500);
-        setTimeout(() => {
-            destroyElement(prerenderFrame);
-        }, 1000);
-    });
+    const handleRender = wrapper => {
+        const overlay = wrapper.querySelector('div');
 
-    event.on('hide-modal', () => {
-        event.trigger('hide-modal-transition');
-        frame.classList.remove(CLASS.VISIBLE);
-        frame.classList.add(CLASS.INVISIBLE);
-    });
+        const handleShow = () => {
+            state.open = true;
+            wrapper.classList.remove(CLASS.VISUALLY_HIDDEN);
+            hijackViewport();
+            // Browser needs to repaint otherwise the transition happens immediately
+            // Firefox requires 2 RAFs due to where they are called in the event loop
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    overlay.classList.add(CLASS.MODAL_SHOW);
+                });
+            });
+        };
 
-    event.on('show-modal-transition', () => {
-        ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
-            document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_OFF}`);
-            document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_ON}`);
-        });
-    });
+        const handleHide = () => {
+            state.open = false;
+            overlay.classList.remove(CLASS.MODAL_SHOW);
+            replaceViewport();
+            setTimeout(() => {
+                wrapper.classList.add(CLASS.VISUALLY_HIDDEN);
+            }, TRANSITION_DELAY);
+        };
 
-    event.on('hide-modal-transition', () => {
-        ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
-            document.getElementById(`${uid}-top`).classList.remove(`${CLASS.BG_TRANSITION_ON}`);
-            document.getElementById(`${uid}-top`).classList.add(`${CLASS.BG_TRANSITION_OFF}`);
-        });
-    });
+        const handleEscape = evt => {
+            if (state.open && (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27)) {
+                handleHide();
+            }
+        };
+
+        const handleTransition = () => {
+            ZalgoPromise.delay(TRANSITION_DELAY)
+                .then(() => overlay.classList.add(CLASS.TRANSITION))
+                .then(() => ZalgoPromise.delay(TRANSITION_DELAY))
+                .then(() => destroyElement(prerenderFrame));
+        };
+        // When the show function was called before zoid had a chance to render
+        if (state.open) {
+            handleShow();
+        }
+
+        event.on('modal-show', handleShow);
+        event.on('modal-hide', handleHide);
+        event.on(EVENT.RENDERED, handleTransition);
+        window.addEventListener('keyup', handleEscape);
+    };
 
     const fullScreen = position =>
         `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important;`;
@@ -65,9 +76,19 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     // style values unintentionally with greedy JavaScript and the style tag with !important
     // helps to protect our desired styles.
     return (
-        <div id={uid}>
+        <div id={uid} class={CLASS.VISUALLY_HIDDEN} onRender={handleRender}>
             <style>
                 {`
+                    #${uid}.${CLASS.VISUALLY_HIDDEN} {
+                        clip: rect(0 0 0 0); 
+                        clip-path: inset(50%);
+                        height: 1px;
+                        overflow: hidden;
+                        position: absolute;
+                        white-space: nowrap; 
+                        width: 1px;
+                    }
+
                     #${uid} > div > iframe {
                         position: absolute !important;
                         top: 0 !important;
@@ -76,27 +97,42 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                         height: 100% !important;
                         border: none !important;
                     }
-                    .${CLASS.BG_TRANSITION_ON}{
+
+                    #${uid} > div {
+                        background: rgba(108, 115, 120, 0);
+                        transition: background ${TRANSITION_DELAY}ms linear;
+                    }
+
+                    #${uid} > div.${CLASS.MODAL_SHOW} {
                         background: rgba(108, 115, 120, 0.85);
-                        transition: background 150ms linear;
                     }
-                    .${CLASS.BG_TRANSITION_OFF}{
-                        background: none;
-                        transition: background 150ms linear;
+
+                    #${uid} > div > iframe {
+                        transition: all ${TRANSITION_DELAY}ms;
+                        transform: translateY(100%);
+                        opacity: 0;
                     }
-                    #${uid} > div > iframe.${CLASS.VISIBLE} {
-                        opacity: 1;
-                        transition: opacity 350ms;
-                        z-index: 1;
-                    }
-                    #${uid} > div > iframe.${CLASS.INVISIBLE} {
-                        transition: opacity 350ms;
+
+                    #${uid} > div.${CLASS.MODAL_SHOW} > iframe {
                         transform: translateY(0);
+                        opacity: 1;
+                    }
+
+                    #${uid} > div > iframe:first-of-type {
+                        opacity: 0;
+                    }
+
+                    #${uid} > div.${CLASS.MODAL_SHOW}.${CLASS.TRANSITION} > iframe:first-of-type {
+                        opacity: 1;
+                        z-index: 2;
+                    }
+
+                    #${uid} > div.${CLASS.TRANSITION} > iframe:last-of-type {
                         opacity: 0;
                     }
                 `}
             </style>
-            <div style={fullScreen('fixed')} id={`${uid}-top`} class={`${CLASS.BG_TRANSITION_OFF}`}>
+            <div style={fullScreen('fixed')}>
                 <node el={frame} title={modalTitle} />
                 <node el={prerenderFrame} title="Prerender Modal" />
             </div>

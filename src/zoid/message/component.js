@@ -215,9 +215,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-                        // Set visible to false to prevent this update from popping open the modal
-                        // when the user has previously opened the modal
-                        modal.updateProps({ refIndex: index, offer: offerType, visible: false });
+                        modal.updateProps({ refIndex: index, offer: offerType });
 
                         logger.track({
                             index,
