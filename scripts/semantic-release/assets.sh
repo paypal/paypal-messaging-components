@@ -38,10 +38,10 @@ function eval_path() {
 this_dir="${0%/*}"
 root_dir="$(eval_path "${this_dir}/../.." )"
 
-
+PACKAGE_JSON="$(eval_path "${0%/*}/../../package.json" )"
 PACKAGE_VERSION="$( 
     # only print the line containing the version, and only use its value (between the double quotes)
-    sed -nE '/"version"/p' "${0%/*}/../../package.json" | \
+    sed -nE '/"version"/p' "${PACKAGE_JSON}" | \
     cut -d '"' -f4 
 )"
 
@@ -49,6 +49,15 @@ VERSION="${1}"
 
 if [[ ${#VERSION} -eq 0 || "${VERSION}" =~ "x\.x\.x" ]]; then
     echo "Please provide the next version number (ie: 'npm run build -- x.x.x'). The current version is ${PACKAGE_VERSION}"
+    exit 1
+fi
+
+# update the package version
+sed -i ".bak" -E "s,(\"version\": )\"${PACKAGE_VERSION}\",\1\"${VERSION}\"," "${PACKAGE_JSON}" && \
+rm "${PACKAGE_JSON}.bak"
+
+if [[ $? -gt 0 ]]; then
+    echo "FAILED TO UPDATE THE PACKAGE VERSION"
     exit 1
 fi
 
@@ -174,7 +183,7 @@ $(
                 }
             ' 
         )" && \
-    git -C "${root_dir}" add ${all_files}
+    git -C "${root_dir}" add ${all_files} "${PACKAGE_JSON}" 
 
     if [[ $? -gt 0 ]]; then
         echo "FAILED add changes to git"
