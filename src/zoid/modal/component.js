@@ -334,8 +334,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 required: false,
-                value: () => localStorage.getItem('treatmentsHash'),
-                debug: ppDebug(`Elmo treatmentsHash: ${localStorage.getItem('treatmentsHash')}`)
+                value: () => localStorage.getItem('__paypal_messages_treatmentsHash__')
             }
         }
     })

@@ -184,14 +184,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         writeStorageID(deviceID);
 
                         /**
-                         * If treatmentsHash doesn't exist in localStorage or if the treatmentsHash coming back from
-                         * the server doesn't match what's currently in localStorage, set treatmentsHash to the incoming value.
+                         * If the treatmentsHash coming back from the server doesn't match what's currently in localStorage,
+                         * set __paypal_messages_treatmentsHash__ to the incoming value.
                          */
-                        if (
-                            !localStorage.getItem('treatmentsHash') ||
-                            treatmentsHash !== localStorage.getItem('treatmentsHash')
-                        ) {
-                            localStorage.setItem('treatmentsHash', treatmentsHash);
+                        if (treatmentsHash !== localStorage.getItem('__paypal_messages_treatmentsHash__')) {
+                            localStorage.setItem('__paypal_messages_treatmentsHash__', treatmentsHash);
                         }
 
                         logger.addMetaBuilder(existingMeta => {
@@ -380,8 +377,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 required: false,
-                value: () => localStorage.getItem('treatmentsHash'),
-                debug: ppDebug(`Elmo treatmentsHash: ${localStorage.getItem('treatmentsHash')}`)
+                value: () => localStorage.getItem('__paypal_messages_treatmentsHash__'),
+                debug: ppDebug(`Elmo treatmentsHash: ${localStorage.getItem('__paypal_messages_treatmentsHash__')}`)
             }
         }
     })
