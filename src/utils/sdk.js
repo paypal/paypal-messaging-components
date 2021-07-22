@@ -92,7 +92,7 @@ export function getTargetMeta() {
             url:
                 script && (stringStartsWith(script.src, 'https') || getEnv() === 'local')
                     ? script.src
-                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/messaging.js'
+                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/merchant.js'
         });
     }
 
