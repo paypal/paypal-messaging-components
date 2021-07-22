@@ -73,16 +73,12 @@ if [[ $? -gt 0 ]]; then
     exit 1
 fi
 
-echo "Building standalone..." && \
-npm run --silent build:standalone -- --bail --display none &> /dev/null 
-if [[ $? -gt 0 ]]; then
-    echo "FAILED TO BUILD STANDALONE"
-fi
-
 echo "Building legacy..." && \
-npm run --silent build:legacy -- --bail --display none &> /dev/null 
+npm_output="$(npm run build:legacy -- --bail 2>&1)"
 if [[ $? -gt 0 ]]; then
     echo "FAILED TO BUILD LEGACY"
+    echo -e "${npm_output}"
+    exit 1
 fi
 
 rm ./dist/*.LICENSE.txt 2>/dev/null && \
@@ -110,20 +106,12 @@ else
 
         filepath_js_versioned="./versioned/${file_js_versioned}"
         filepath_js_map_versioned="./versioned/${file_js_map_versioned}"
-
         echo "Processing '${filename}' files..."
         
         old_files+=( 
             $( git diff --name-only | egrep "dist" | egrep "${filename}" | tr '\n' ' ') 
         )
         
-        new_files+=( 
-            "${filepath_js}"
-            "${filepath_js_map}"
-            "${filepath_js_versioned}"
-            "${filepath_js_map_versioned}"
-        )
-
         echo "    Removing LICENSE.txt from '${filepath_js}'..." && \
         sed '/LICENSE.txt/d' "${filepath_js}" > "${TMP_FILE}" && \
         cat "${TMP_FILE}" > "${filepath_js}" && \
@@ -133,7 +121,7 @@ else
             rm -rf "${TMP_DIR}" 
             exit 1
         fi
-
+        
         # Copy filepath_js to filepath_js_versioned while making the following changes:
         echo "    Copy '${filepath_js}' to '${filepath_js_versioned}' and add sourceMappingURL" && \
         sed "
@@ -154,42 +142,68 @@ else
             rm -rf "${TMP_DIR}" 
             exit 1
         fi 
+
+        if [[ "${filename}" == "smart-credit-modal" ]]; then
+            rm "${filepath_js}" "${filepath_js_map}"
+            new_files+=( 
+                "${filepath_js_versioned}"
+                "${filepath_js_map_versioned}"
+            )
+        else
+            new_files+=( 
+                "${filepath_js}"
+                "${filepath_js_map}"
+                "${filepath_js_versioned}"
+                "${filepath_js_map_versioned}"
+            )
+        fi
+    done
+    # we should now have files similar to the following: 
+    #     dist/bizcomponents/js/merchant.js
+    #     dist/bizcomponents/js/merchant.js.map
+    #     dist/bizcomponents/js/versioned/merchant@VERSION.js
+    #     dist/bizcomponents/js/versioned/merchant@VERSION.js.map
+    #     dist/bizcomponents/js/versioned/smart-credit-modal@VERSION.js
+    #     dist/bizcomponents/js/versioned/smart-credit-modal@VERSION.js.map
+
+    all_files=( "${PACKAGE_JSON}" )
+
+    printf "Adding files:\n" 
+    printf '    package.json\n'
+    for file in ${new_files[@]}; do 
+        filepath="$(echo "${file}" | sed -E 's,^\./,dist/bizcomponents/js/,g')"
+        all_files+=( "${filepath}" )
+        printf '    %s\n' "${filepath}"
     done
 
-    all_files="$(
-        for file in ${new_files[@]}; do 
-            printf '%s ' "${file}" | sed -E 's,^\./,dist/bizcomponents/js/,g'
-        done
-        for file in ${old_files[@]}; do 
-            printf '%s ' "${file}" | sed -E 's,^\./,dist/bizcomponents/js/,g'
-        done
-    )"
+    printf "Removing files:\n" 
+    for file in ${old_files[@]}; do 
+        filepath="$(echo "${file}" | sed -E 's,^\./,dist/bizcomponents/js/,g')"
+        # if the file has been changed (already addeded when processing "new_files")
+        if [[ "$( printf '%s\n' ${all_files[@]} | egrep "${filepath}" | wc -m )" -eq 0 ]]; then
+            all_files+=( "${filepath}" )
+            printf '    %s\n' "${filepath}"
+        fi
+    done
+
+
+    all_files=(
+        $(
+            # ensure there are no duplicates and sort 
+            printf '%s\n' ${all_files[@]} | \
+            sort -u 
+        )
+    )
+
     # if we succesfully setup the dist files, add them to the git repo
-    echo "git -C \"${root_dir}\" add \\
-$(
-            echo ${all_files} | \
-            tr ' ' '\n' | \
-            sed -E '
-
-                # indent the files names within the git command 
-                s,^,    ,g; 
-
-                # add a backslash to the end of each file
-                s,$, \\,g;
-
-                # remove the backslash from the last file
-                ${
-                    s,\\$,,g;
-                }
-            ' 
-        )" && \
-    git -C "${root_dir}" add ${all_files} "${PACKAGE_JSON}" 
+    git -C "${root_dir}" add ${all_files[@]}  
 
     if [[ $? -gt 0 ]]; then
         echo "FAILED add changes to git"
         rm -rf "${TMP_DIR}" 
         exit 1
-    fi 
+    fi
+    echo "Review the changes and commit"
 fi
 
 rm -rf "${TMP_DIR}" 
