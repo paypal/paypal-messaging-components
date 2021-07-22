@@ -36,7 +36,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         setLoading(true);
         getContent({
             currency,
-            amount: amount === '' ? undefined : amount,
+            amount,
             payerId,
             clientId,
             merchantId,

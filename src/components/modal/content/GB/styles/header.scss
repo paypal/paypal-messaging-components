@@ -63,6 +63,13 @@
             margin: 0 auto;
         }
 
+        .logo {
+            & img {
+                height: 45px;
+                margin-right: 9px;
+            }
+        }
+
         .close {
             svg {
                 height: 35px;

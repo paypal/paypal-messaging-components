@@ -1,18 +1,13 @@
-import gpl from './GPL/index';
-import ratenzahlung from './Ratenzahlung/index';
+import validOptions from './validOptions';
+import getMutations from './mutations';
+import logos from './logos';
+import styles from './styles';
 
-export default offerType => {
-    switch (offerType) {
-        case 'GPL:EQZ':
-        case 'GPL:GTZ':
-        case 'GPLQ:EQZ':
-        case 'GPLQ:GTZ':
-        case 'GPL:EQZ:NON-DE':
-        case 'GPL:GTZ:NON-DE':
-        case 'GPLQ:EQZ:NON-DE':
-        case 'GPLQ:GTZ:NON-DE':
-            return gpl;
-        default:
-            return ratenzahlung;
-    }
+export default {
+    localeClass: 'locale--DE',
+    productName: ['mit', 'PayPal Ratenzahlung.'],
+    validOptions,
+    getMutations,
+    logos,
+    styles
 };

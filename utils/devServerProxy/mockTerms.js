@@ -13,8 +13,7 @@ export const getTerms = (country, amount) => {
         maxAmount: terms.maxAmount,
         minAmount: terms.minAmount,
         // If no amount passed in, set amount to undefined to match production
-        // Format as string to match production
-        amount: amount ? amount.toString() : undefined,
+        amount: amount || undefined,
         formattedAmount: toLocaleString(amount),
         offers: terms.offers.map(({ term, apr, nominalRate }) => {
             const total = amount + amount * (apr * 0.01) * (term / 12);

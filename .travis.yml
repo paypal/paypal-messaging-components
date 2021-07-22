@@ -38,31 +38,13 @@ after_script:
 
 jobs:
     include:
-        # Update snapshots are split into non-US countries, US modal, and US banner/custom so the CI does not time out
-        - stage: update_snapshots_AU
-          env: TEST_PATH_PATTERN=spec/AU/
+        # Update snapshots are split into non-US, US modal, and US banner/custom so the CI doesn't time out
+        - stage: update_snapshots_non_US
+          env: TEST_PATH_PATTERN=spec/[^U][^S]/
           if: branch = develop AND type != pull_request
           script:
               - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
-              - COMMIT_DETAIL="AU snapshots" ./scripts/snapshot-tests/git-push.sh
-        - stage: update_snapshots_DE
-          env: TEST_PATH_PATTERN=spec/DE/
-          if: branch = develop AND type != pull_request
-          script:
-              - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
-              - COMMIT_DETAIL="DE snapshots" ./scripts/snapshot-tests/git-push.sh
-        - stage: update_snapshots_FR
-          env: TEST_PATH_PATTERN=spec/FR/
-          if: branch = develop AND type != pull_request
-          script:
-              - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
-              - COMMIT_DETAIL="FR snapshots" ./scripts/snapshot-tests/git-push.sh
-        - stage: update_snapshots_GB
-          env: TEST_PATH_PATTERN=spec/GB/
-          if: branch = develop AND type != pull_request
-          script:
-              - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
-              - COMMIT_DETAIL="GB snapshots" ./scripts/snapshot-tests/git-push.sh
+              - COMMIT_DETAIL="non-US snapshots" ./scripts/snapshot-tests/git-push.sh
         - stage: update_snapshots_US_banner_and_custom
           env: TEST_PATH_PATTERN=spec/US/[bc]
           if: branch = develop AND type != pull_request
@@ -111,13 +93,7 @@ jobs:
 # Due to a parsing issue with Travis, this inverse character selection regex must be used
 # It looks for snapshots surrounded by anything that is not alphanumeric, a space, a dash, or an underscore
 stages:
-    - name: update_snapshots_AU
-      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
-    - name: update_snapshots_DE
-      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
-    - name: update_snapshots_FR
-      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
-    - name: update_snapshots_GB
+    - name: update_snapshots_non_US
       if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_US_banner_and_custom
       if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/

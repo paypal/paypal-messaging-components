@@ -41,9 +41,7 @@ module.exports = (env = {}) => {
                       __PATH__: `/${FILE_NAME}.js`,
                       __NAMESPACE__: 'paypal',
                       __VERSION__: '1.0.55',
-                      __COMPONENTS__: ['messages'],
-                      __PAYPAL_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`,
-                      __PAYPAL_API_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`
+                      __COMPONENTS__: ['messages']
                   }
               });
 
@@ -87,7 +85,7 @@ module.exports = (env = {}) => {
         })
     });
 
-    COMPONENTS_DEV_CONFIG.entry = [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
+    COMPONENTS_DEV_CONFIG.entry = [...localeOptions, 'US-EZP'].reduce(
         (accumulator, locale) => ({
             ...accumulator,
             [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`

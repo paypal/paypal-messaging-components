@@ -38,7 +38,7 @@ module.exports = (env = {}) => {
         })
     });
 
-    COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
+    COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP'].reduce(
         (accumulator, locale) => ({
             ...accumulator,
             [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`

@@ -20,15 +20,15 @@ export const nonQualErrorMsg = ({ account, viewport, groupString }) => async () 
     await page.waitFor(1000);
 
     await modalFrame.type(selectors.calculator.calcInput, '2');
-    // Wait for recalculate to fire automatically
-    await page.waitFor(2000);
-    await modalFrame.waitForSelector(selectors.modal.instructions);
+    await modalFrame.click(selectors.button.btnMd);
+    await modalFrame.waitForSelector(selectors.calculator.calcInstructions);
     await page.waitFor(4 * 1000);
 
-    const instructions = await modalFrame.$eval(selectors.modal.instructions, element => element.innerHTML);
-    expect(instructions).toContain('Wählen Sie');
-    expect(instructions).toContain('PayPal');
-    expect(instructions).toContain('als Bezahlmethode aus und zahlen Sie mit der PayPal Ratenzahlung.');
+    const calcInstructions = await modalFrame.$eval(
+        selectors.calculator.calcInstructions,
+        element => element.innerHTML
+    );
+    expect(calcInstructions).toContain('Geben Sie einen Betrag zwischen 199€ und 5.000€ ein.');
     await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
@@ -54,14 +54,13 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
     await modalFrame.type(selectors.calculator.calcInput, '650');
-    // Wait for recalculate to fire automatically
-    await page.waitFor(2000);
+    await modalFrame.click(selectors.button.btnMd);
     await page.waitFor(4 * 1000);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };
 
-export const deModalContentAndCalc = ({ account, viewport, groupString, amount }) => async () => {
+export const deModalContentAndCalc = ({ account, viewport, groupString }) => async () => {
     const testNameParts = 'DE message content';
     logTestName({ account, viewport, groupString, testNameParts });
 
@@ -72,12 +71,9 @@ export const deModalContentAndCalc = ({ account, viewport, groupString, amount }
     const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
     expect(calc).toBeTruthy();
 
-    // Modal only shows this title if no initial amount is passed
-    if (!amount) {
-        const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
-        expect(calcTitle).toContain('Was kostet Ihr Einkauf?');
-        await page.waitFor(800);
-    }
+    const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
+    expect(calcTitle).toContain('Monatliche Raten berechnen');
+    await page.waitFor(800);
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
 };

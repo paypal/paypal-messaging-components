@@ -7,7 +7,7 @@ import AU from './AU';
 const getLocaleSettings = (offerCountry, offerType) => {
     switch (offerCountry) {
         case 'DE':
-            return DE(offerType);
+            return DE;
         case 'GB':
             return GB;
         case 'FR':
