@@ -1,5 +1,4 @@
 import objectAssign from 'core-js-pure/stable/object/assign';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
@@ -64,7 +63,7 @@ export function getCurrency() {
 export function getTargetMeta() {
     const metaObject = {
         target: __MESSAGES__.__TARGET__,
-        componentUrl: arrayIncludes(['production', 'sandbox'], getEnv())
+        componentUrl: arrayIncludes(['sandbox'], getEnv())
             ? `https://www.paypalobjects.com/upstream/bizcomponents/js/versioned/smart-credit-modal@${__MESSAGES__.__VERSION__}.js`
             : `${window.location.origin}/smart-credit-modal.js`
     };
@@ -86,13 +85,8 @@ export function getTargetMeta() {
             )
         );
     } else {
-        const script = getScript();
-
         objectAssign(metaObject, {
-            url:
-                script && (stringStartsWith(script.src, 'https') || getEnv() === 'local')
-                    ? script.src
-                    : 'https://www.paypalobjects.com/upstream/bizcomponents/js/merchant.js'
+            url: 'https://www.paypalobjects.com/upstream/bizcomponents/js/merchant.js'
         });
     }
 
