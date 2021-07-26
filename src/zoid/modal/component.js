@@ -329,6 +329,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            cdn_cache: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () =>
+                    String(localStorage.getItem('__paypal_messages_treatments__').includes('CDN_Cache_ramp_mechanism'))
             }
         }
     })

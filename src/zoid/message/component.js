@@ -177,11 +177,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
+                        const { messageRequestId, trackingDetails, offerType, ppDebugId, treatments } = meta;
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
                         writeStorageID(deviceID);
+
+                        if (treatments !== localStorage.getItem('__paypal_messages_treatments__')) {
+                            localStorage.setItem('__paypal_messages_treatments__', treatments);
+                        }
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -364,6 +368,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            cdn_cache: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () =>
+                    String(localStorage.getItem('__paypal_messages_treatments__').includes('CDN_Cache_ramp_mechanism')),
+                debug: ppDebug(`Elmo treatments: ${localStorage.getItem('__paypal_messages_treatments__')}`)
             }
         }
     })
