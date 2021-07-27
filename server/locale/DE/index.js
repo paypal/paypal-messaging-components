@@ -1,4 +1,5 @@
 import gpl from './GPL/index';
+import pi30 from './Pi30/index';
 import ratenzahlung from './Ratenzahlung/index';
 
 export default offerType => {
@@ -12,6 +13,9 @@ export default offerType => {
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
             return gpl;
+        case 'PI30':
+        case 'PI30Q':
+            return pi30;
         default:
             return ratenzahlung;
     }

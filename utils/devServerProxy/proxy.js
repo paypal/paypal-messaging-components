@@ -41,6 +41,9 @@ const devAccountMap = {
     DEVXBDEPLQEQZ: ['DE', ['gpl'], 'gplq_eqz-non-de'],
     DEVXBDEPLQGTZ: ['DE', ['gpl'], 'gplq_gtz-non-de'],
 
+    DEV000000PI30: ['DE', ['gpl'], 'pi30'],
+    DEV00000PI30Q: ['DE', ['gpl'], 'pi30q'],
+
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
     DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
 
