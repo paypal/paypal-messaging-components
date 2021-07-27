@@ -19,7 +19,8 @@ import {
     getStageTag,
     ppDebug,
     isScriptBeingDestroyed,
-    getTopWindow
+    getTopWindow,
+    getDevTouchpoint
 } from '../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -371,6 +372,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            devTouchpoint: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDevTouchpoint
             }
         }
     })

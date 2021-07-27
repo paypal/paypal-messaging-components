@@ -191,3 +191,11 @@ export function getStageTag() {
         return undefined;
     }
 }
+
+export function getDevTouchpoint() {
+    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        return true;
+    } else {
+        return undefined; // Prevent the zoid query param
+    }
+}

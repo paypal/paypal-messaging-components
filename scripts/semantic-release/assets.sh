@@ -4,8 +4,9 @@ SUPPORTED_MODULES=("library" "components" "render")
 # default value if none supplied
 environment="production,sandbox,stage"
 module="library,components,render"
+devTouchpoint=false
 
-while getopts ":v:e:m:t:s:" flag
+while getopts ":v:e:m:t:s:d" flag
 do
     case "$flag" in
         v) version=$OPTARG;;
@@ -13,6 +14,7 @@ do
         m) module=$OPTARG;;
         t) tag=$OPTARG;;
         s) testEnv=$OPTARG;;
+        d) devTouchpoint=true;;
     esac
 done
 
@@ -79,6 +81,7 @@ filteredModule="${filteredModule:1}"
 # Optional webpack args
 [[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
 [[ ! -z "$testEnv" ]] && optionalArgs+=("--env.TEST_ENV=https://www.$testEnv")
+[[ $devTouchpoint = true ]] && optionalArgs+=("--env.DEV_TOUCHPOINT")
 
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
