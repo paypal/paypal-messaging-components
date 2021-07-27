@@ -3,7 +3,7 @@
 import { h, Fragment } from 'preact';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
-import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName, getMinimumWidthOptions } from '../locale';
+import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName } from '../locale';
 import allStyles from './styles';
 import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
@@ -136,10 +136,7 @@ const getFontRules = (addLog, style) => {
 };
 export default ({ addLog, options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
-    const style =
-        options.style.layout === 'text' && options.style.preset === 'smallest'
-            ? objectMerge(options.style, getMinimumWidthOptions(locale, offerType))
-            : options.style;
+    const { style } = options;
 
     const { layout } = style;
 

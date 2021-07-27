@@ -62,7 +62,3 @@ export function getLogos(locale, offerType) {
 export function getLocaleStyles(locale, layout, offerType) {
     return (getLocaleSettings(locale, offerType).styles && getLocaleSettings(locale, offerType).styles[layout]) ?? [];
 }
-
-export function getMinimumWidthOptions(locale, offerType) {
-    return getLocaleSettings(locale, offerType).minimumSizeOptions ?? {};
-}
