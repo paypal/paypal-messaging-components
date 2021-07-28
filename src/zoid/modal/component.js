@@ -2,7 +2,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
-import { getCurrentScriptUID } from 'belter/src';
+import { uniqueID, getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
@@ -199,7 +199,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     return ({ products, meta, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex } = props;
                         const { renderStart, show, hide } = state;
-                        const { messageRequestId, trackingDetails, ppDebugId } = meta;
+                        const { messageRequestId: serverMessageRequestId, trackingDetails, ppDebugId } = meta;
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
@@ -222,7 +222,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                 },
                                 [index]: {
                                     type: 'modal',
-                                    messageRequestId,
+                                    messageRequestId: uniqueID(),
+                                    serverMessageRequestId,
                                     account: merchantId || account,
                                     trackingDetails
                                 }
