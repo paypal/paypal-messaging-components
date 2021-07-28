@@ -10,6 +10,7 @@ const selectors = {
     },
     modal: {
         iframe: 'iframe[title^="PayPal Modal"]',
+        modalWrapper: '.modal-wrapper',
         container: '.modal-container',
         wrapper: '.wrapper',
         overlay: '.overlay',
