@@ -166,7 +166,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             !isIntersectingFallback
                         ) {
                             logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
-                                description: `PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
+                                description: `PayPal Message has been hidden. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
                                 container,
                                 index,
                                 duration
