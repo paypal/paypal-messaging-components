@@ -354,7 +354,7 @@ export const getRoot = baseElement => {
             // Ensure that the selected root is the larger of the parent
             // and contains the child otherwise there may not be a proper page wrapper
             // e.g. https://www.acwholesalers.com
-            (child && child.offsetHeight < height && elementContains(el.parentNode, el))
+            (child && child.offsetHeight !== 0 && child.offsetHeight < height && elementContains(el.parentNode, el))
         );
     });
 
