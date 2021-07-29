@@ -377,7 +377,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     String(
                         localStorage
                             .getItem('__paypal_messages_treatments__')
-                            ?.includes('Trmt_CDN_Cache_ramp_mechanism')
+                            ?.includes('Trmt_CDN_Cache_ramp_mechanism') ?? false
                     ),
                 debug: ppDebug(`Elmo treatments: ${localStorage.getItem('__paypal_messages_treatments__')}`)
             }

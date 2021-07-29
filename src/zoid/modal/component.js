@@ -338,7 +338,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     String(
                         localStorage
                             .getItem('__paypal_messages_treatments__')
-                            ?.includes('Trmt_CDN_Cache_ramp_mechanism')
+                            ?.includes('Trmt_CDN_Cache_ramp_mechanism') ?? false
                     )
             }
         }
