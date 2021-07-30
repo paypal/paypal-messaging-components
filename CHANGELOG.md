@@ -1,5 +1,51 @@
 # Changelog
 
+## [1.25.2](https://github.com/paypal/paypal-messaging-components/compare/v1.25.1...v1.25.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* fix amount comparison ([#562](https://github.com/paypal/paypal-messaging-components/issues/562)) ([72bfb66](https://github.com/paypal/paypal-messaging-components/commit/72bfb6615df62c04b49bfee9cf591ed5aeee0bbb))
+* use new server data to update calculator directly ([#560](https://github.com/paypal/paypal-messaging-components/issues/560)) ([0dcb7ff](https://github.com/paypal/paypal-messaging-components/commit/0dcb7ff3260eb238fb9a0554b3f9a1728430aaa3))
+
+## [1.25.1](https://github.com/paypal/paypal-messaging-components/compare/v1.25.0...v1.25.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* de gpl modal calc ([#558](https://github.com/paypal/paypal-messaging-components/issues/558)) ([92912f4](https://github.com/paypal/paypal-messaging-components/commit/92912f40b9d251a81800e445ab3874e9f123c362))
+
+# [1.25.0](https://github.com/paypal/paypal-messaging-components/compare/v1.24.1...v1.25.0) (2021-07-09)
+
+
+### Bug Fixes
+
+* split up non-US travis snapshot job ([1175942](https://github.com/paypal/paypal-messaging-components/commit/1175942277a10950a764c6869a51028fa37c0c8f))
+
+
+### Features
+
+* DE GPL [snapshots] ([#493](https://github.com/paypal/paypal-messaging-components/issues/493)) ([5d9a5a6](https://github.com/paypal/paypal-messaging-components/commit/5d9a5a6fdfa270dc3fb1f38f3b96c8c0dbeaf82d))
+
+## [1.24.1](https://github.com/paypal/paypal-messaging-components/compare/v1.24.0...v1.24.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* determine SDK host from script src ([#542](https://github.com/paypal/paypal-messaging-components/issues/542)) ([658ecca](https://github.com/paypal/paypal-messaging-components/commit/658eccacb1dd6bf36dbbb462cad37d6fec32f998))
+
+# [1.24.0](https://github.com/paypal/paypal-messaging-components/compare/v1.23.2...v1.24.0) (2021-06-09)
+
+
+### Bug Fixes
+
+* ensure SDK script is not being destroyed before rerendering a destroyed message ([#535](https://github.com/paypal/paypal-messaging-components/issues/535)) ([8d308e9](https://github.com/paypal/paypal-messaging-components/commit/8d308e98258f67bb205798e205fe65c983d5a8ca))
+
+
+### Features
+
+* debug mode ([#521](https://github.com/paypal/paypal-messaging-components/issues/521)) ([7c589e1](https://github.com/paypal/paypal-messaging-components/commit/7c589e1dfb2f78923219926190d9e60642540a4a))
+
 ## [1.23.2](https://github.com/paypal/paypal-messaging-components/compare/v1.23.1...v1.23.2) (2021-05-25)
 
 

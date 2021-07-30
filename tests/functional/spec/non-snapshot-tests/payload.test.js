@@ -101,14 +101,12 @@ describe('payload testing', () => {
                 {
                     type: 'message',
                     messageRequestId: expect.any(String),
-                    account: config.account,
-                    displayedMessage: expect.any(String)
+                    account: config.account
                 },
                 {
                     type: 'modal',
                     messageRequestId: expect.any(String),
-                    account: config.account,
-                    displayedMessage: expect.any(String)
+                    account: config.account
                 },
                 { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
             ],

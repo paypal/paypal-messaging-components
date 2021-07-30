@@ -65,22 +65,13 @@
             font-size: 26px;
             line-height: 30px;
             padding-bottom: 20px;
-            }
         }
+    }
 
-        @include smallMobile {
-            h1 {
-                font-size: 20px;
-                line-height: 22px;
-                }
-            }
-    
-
-        .logo {
-            & img {
-                height: 45px;
-                margin-right: 9px;
-            }
+    @include smallMobile {
+        h1 {
+            font-size: 20px;
+            line-height: 22px;
         }
 
         .close {
@@ -90,6 +81,7 @@
             }
         }
     }
+}
 
 .hero-image {
     background-color: $header-background;

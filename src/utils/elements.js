@@ -7,6 +7,7 @@ import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
+import { ppDebug } from './debug';
 
 /**
  * Check to see if the message is entirely offscreen by the top/right/bottom/left, and return if any are true.
@@ -360,5 +361,6 @@ export const getRoot = baseElement => {
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
+    ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
     return elementContains(elementWindow, root) ? undefined : root;
 };

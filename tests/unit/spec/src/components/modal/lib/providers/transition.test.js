@@ -41,7 +41,10 @@ describe('transition', () => {
         await new Promise(resolve => {
             setTimeout(() => {
                 expect(defaultXProps.onShow).toHaveBeenCalledTimes(1);
-                expect(result.current.status).toBe(STATUS.OPENING);
+
+                requestAnimationFrame(() => {
+                    expect(result.current.status).toBe(STATUS.OPENING);
+                });
 
                 setTimeout(() => {
                     expect(result.current.status).toBe(STATUS.OPEN);
