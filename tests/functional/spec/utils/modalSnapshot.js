@@ -24,7 +24,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.wrapper, { visible: true });
-    const modalDimensions = await modalFrame.$eval(selectors.modal.modalWrapper, element => ({
+    const modalDimensions = await modalFrame.$eval(selectors.modal.contentBackground, element => ({
         x: element.offsetLeft,
         y: element.offsetTop,
         width: element.clientWidth,
