@@ -12,7 +12,7 @@
         }
     },
     "headline": [
-        ["Buy now, pay later.", ["default", "xsmall"]],
+        ["Bezahlung nach 30 Tagen", ["default", "xsmall"]],
         [["Bezahlung nach 30 Tagen"], ["medium", "large", "xlarge"]]
     ],
     "subHeadline": [],

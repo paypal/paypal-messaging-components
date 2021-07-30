@@ -99,6 +99,16 @@ jest.mock('server/locale/DE/GPL/mutations/gplq_gtz-non-de', () => ({
     'layout:flex': ['flex', 'DE', 'GPLQ:GTZ:NON-DE']
 }));
 
+jest.mock('server/locale/DE/Pi30/mutations/pi30', () => ({
+    'layout:text': ['text', 'DE', 'PI30'],
+    'layout:flex': ['flex', 'DE', 'PI30']
+}));
+
+jest.mock('server/locale/DE/Pi30/mutations/pi30q', () => ({
+    'layout:text': ['text', 'DE', 'PI30Q'],
+    'layout:flex': ['flex', 'DE', 'PI30Q']
+}));
+
 jest.mock('server/locale/GB/mutations/gpl', () => ({
     'layout:text': ['text', 'GB', 'PL'],
     'layout:flex': ['flex', 'GB', 'PL']
@@ -148,6 +158,8 @@ describe('locale methods', () => {
             ['DE', 'GPLQ:GTZ:NON-DE'],
             ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
+            ['DE', 'PI30'],
+            ['DE', 'PI30Q'],
             ['GB', 'PL'],
             ['GB', 'PLQ']
         ])('returns correct mutations %s %s', (locale, offerType) => {
