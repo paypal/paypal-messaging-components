@@ -36,6 +36,8 @@ on:
             - '!src/components/modal/content/US*/**'
             - '!tests/functional/spec/US/**'
 jobs:
+    # TODO: use this to run files for any generic change that affects all locales
+    #       currently it will only run tests for locale-specific changes
     # changedFiles:
     #     name: Get Changed Locales
     #     runs-on: ubuntu-latest
