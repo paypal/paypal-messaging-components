@@ -14,12 +14,6 @@ import { ppDebug } from './debug';
  * @param {HTMLElement} el Element to check.
  * @returns boolean
  */
-export const elementIsOffscreen = el => {
-    // Get the current coordinates of the message.
-    const { bottom, left, right, top } = el.getBoundingClientRect();
-
-    return !!(left >= window.innerWidth || right <= 0 || bottom <= 0 || top >= window.innerHeight);
-};
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
@@ -326,6 +320,33 @@ export const elementContains = (parentEl, childEl) => {
     );
 };
 
+export const elementOutside = (parentEl, childEl) => {
+    if (
+        (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
+        childEl?.nodeType !== Node.ELEMENT_NODE
+    ) {
+        return false;
+    }
+
+    const parentBounds =
+        parentEl instanceof Window
+            ? {
+                  top: 0,
+                  left: 0,
+                  bottom: parentEl.innerHeight,
+                  right: parentEl.innerWidth
+              }
+            : parentEl.getBoundingClientRect();
+    const childBounds = childEl.getBoundingClientRect();
+
+    return (
+        childBounds.left >= parentBounds.right ||
+        childBounds.right <= parentBounds.left ||
+        childBounds.bottom <= parentBounds.top ||
+        childBounds.top >= parentBounds.bottom
+    );
+};
+
 export const getRoot = baseElement => {
     const elementWindow = getWindowFromElement(baseElement);
 
@@ -334,33 +355,48 @@ export const getRoot = baseElement => {
         let el = baseElement;
         // Loop up the DOM tree to the root html node
         while (el?.parentNode.nodeType === Node.ELEMENT_NODE) {
-            domPath.push(el.parentNode);
+            // Skip elements that are collapsed due to various CSS rules
+            // which causes an issue with determining the root element
+            if (el.parentNode.offsetHeight !== 0) {
+                domPath.push(el.parentNode);
+            }
             el = el.parentNode;
         }
     }
 
-    const root = arrayFind(domPath.reverse(), (el, index, elements) => {
+    const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
         const height = el.offsetHeight;
+
+        // window.innerHeight has a variable value on mobile based on the URL bar so
+        // we are looking for the element that is larger than the window
+        // TODO: This could potentially provide a false positive if a merchant is using height 100vh
+        if (height > elementWindow.innerHeight) {
+            return true;
+        }
+
+        // First element should be <html> and will have a parent of document
+        const parent = elements[index - 1] ?? el.parentNode;
         const child = elements[index + 1];
 
-        return (
-            // window.innerHeight has a variable value on mobile based on the URL bar so
-            // we are looking for the element that is larger than the window
-            // TODO: This could potentially provide a false positive if a merchant is using height 100vh
-            height > elementWindow.innerHeight ||
-            // Ensure that the selected root is the larger of the parent
-            // and contains the child otherwise there may not be a proper page wrapper
-            // e.g. https://www.acwholesalers.com
-            (child && child.offsetHeight < height && elementContains(el.parentNode, el))
-        );
+        // Ensure that the selected root is the larger of the parent
+        // and contains the child otherwise there may not be a proper page wrapper
+        // e.g. https://www.acwholesalers.com
+        if (child && child.offsetHeight < height && elementContains(parent, el)) {
+            return true;
+        }
+
+        return false;
     });
 
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
+    const root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
+
     ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
-    return elementContains(elementWindow, root) ? undefined : root;
+
+    return root;
 };
