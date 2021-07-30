@@ -293,6 +293,7 @@ export function getAllBySelector(selector) {
     return [];
 }
 
+// Check if an element is completely within the bounds of another element
 export const elementContains = (parentEl, childEl) => {
     if (
         (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
@@ -320,6 +321,7 @@ export const elementContains = (parentEl, childEl) => {
     );
 };
 
+// Check if an element is completely outside the bounds of another element
 export const elementOutside = (parentEl, childEl) => {
     if (
         (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
