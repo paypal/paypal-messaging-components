@@ -143,4 +143,8 @@ if [ ! -z "$tag" ]; then
     echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list"
 
     rm ./dist/bizcomponents/stage/package.tgz
+    # Reset modified dist files
+    git checkout -- dist
+    # Remove new dist files
+    git clean -fd dist
 fi
