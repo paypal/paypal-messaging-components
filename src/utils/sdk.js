@@ -2,6 +2,7 @@
 import {
     getClientID,
     getEnv as getSDKEnv,
+    getFundingEligibility,
     getMerchantID,
     getNamespace as getSDKNamespace,
     getPayPalDomain as getSDKPayPalDomain,
@@ -29,9 +30,8 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        // const fundingEligibility = getFundingEligibility();
-        // return fundingEligibility.merchantConfigHash;
-        return 'MERCHANT_CONFIG_HASH_123';
+        const fundingEligibility = getFundingEligibility();
+        return fundingEligibility?.paylater?.merchantConfigHash;
     } else {
         return undefined;
     }
