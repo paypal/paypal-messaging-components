@@ -9,7 +9,6 @@ import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
 import { getNavigationTiming, getPerformanceMeasure } from './performance';
 import { getViewportIntersectionObserver } from './observers';
-import { curry } from './functional';
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
@@ -30,27 +29,9 @@ if (!isZoidComponent()) {
     });
 }
 
-// Provide stats payload to event meta
-export const formatStatsMeta = curry((account, { messageRequestId, trackingDetails }, { index, ...stats }) => {
-    logger.addMetaBuilder(existingMeta => {
-        // eslint-disable-next-line no-param-reassign
-        delete existingMeta[index];
-
-        return {
-            [index]: {
-                type: 'message',
-                account,
-                stats,
-                messageRequestId,
-                trackingDetails
-            }
-        };
-    });
-});
-
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
-export function buildStatsPayload(eventType, { container, activeTags, index }) {
+export function buildStatsPayload({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -62,8 +43,6 @@ export function buildStatsPayload(eventType, { container, activeTags, index }) {
             index,
             adblock: detected.toString(),
             blocked: isHidden(container).toString(),
-            et: 'CLIENT_IMPRESSION',
-            event_type: eventType,
             bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
             // Beaver logger filters payload props based on Boolean conversion value
             // so everything must be converted to a string to prevent unintended filtering
@@ -89,13 +68,35 @@ export function runStats({ container, activeTags, index }) {
         getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
-    buildStatsPayload('stats', { container, activeTags, index }).then(statsPayload => {
+    buildStatsPayload({ container, activeTags, index }).then(statsPayload => {
         // eslint-disable-next-line no-param-reassign
         statsPayload.first_render_delay = Math.round(firstRenderDelay).toString();
 
         // eslint-disable-next-line no-param-reassign
         statsPayload.render_duration = renderDuration;
 
-        logger.track(statsPayload);
+        logger.addMetaBuilder(existingMeta => {
+            const { account, messageRequestId, trackingDetails } = existingMeta[index];
+
+            // eslint-disable-next-line no-param-reassign
+            delete existingMeta[index];
+
+            return {
+                existingMeta,
+                [index]: {
+                    type: 'message',
+                    account,
+                    messageRequestId,
+                    trackingDetails,
+                    ...statsPayload
+                }
+            };
+        });
+
+        logger.track({
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'stats',
+            ...statsPayload
+        });
     });
 }

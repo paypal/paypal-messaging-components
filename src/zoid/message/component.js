@@ -10,8 +10,6 @@ import {
     createGlobalVariableGetter,
     getLibraryVersion,
     runStats,
-    formatStatsMeta,
-    buildStatsPayload,
     logger,
     getSessionID,
     getGlobalState,
@@ -108,18 +106,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props, focus }) => {
                     const { onClick } = props;
 
-                    return ({ meta, activeTags }) => {
-                        const {
-                            modal,
-                            index,
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            getContainer
-                        } = props;
+                    return ({ meta }) => {
+                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -151,13 +139,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             link: 'Banner Wrapper'
                         });
 
-                        // Attach stats attributes to meta payload
-                        buildStatsPayload('click', {
-                            container: getContainer(),
-                            activeTags,
-                            index
-                        }).then(formatStatsMeta(merchantId || account, meta));
-
                         if (typeof onClick === 'function') {
                             onClick({ meta });
                         }
@@ -168,10 +149,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { index, account, merchantId, onHover, getContainer } = props;
+                    const { index, onHover } = props;
                     let hasHovered = false;
 
-                    return ({ meta, activeTags }) => {
+                    return ({ meta }) => {
                         if (!hasHovered) {
                             hasHovered = true;
 
@@ -180,12 +161,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 et: 'CLIENT_IMPRESSION',
                                 event_type: 'hover'
                             });
-
-                            buildStatsPayload('hover', {
-                                container: getContainer(),
-                                activeTags,
-                                index
-                            }).then(formatStatsMeta(merchantId || account, meta));
                         }
 
                         if (typeof onHover === 'function') {
