@@ -9,6 +9,7 @@ import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
 import { getNavigationTiming, getPerformanceMeasure } from './performance';
 import { getViewportIntersectionObserver } from './observers';
+import { curry } from './functional';
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
@@ -30,24 +31,22 @@ if (!isZoidComponent()) {
 }
 
 // Provide stats payload to event meta
-export function formatStatsMeta(account, { messageRequestId, trackingDetails }) {
-    return function formatPayload({ index, ...stats }) {
-        logger.addMetaBuilder(existingMeta => {
-            // eslint-disable-next-line no-param-reassign
-            delete existingMeta[index];
+export const formatStatsMeta = curry((account, { messageRequestId, trackingDetails }, { index, ...stats }) => {
+    logger.addMetaBuilder(existingMeta => {
+        // eslint-disable-next-line no-param-reassign
+        delete existingMeta[index];
 
-            return {
-                [index]: {
-                    type: 'message',
-                    account,
-                    stats,
-                    messageRequestId,
-                    trackingDetails
-                }
-            };
-        });
-    };
-}
+        return {
+            [index]: {
+                type: 'message',
+                account,
+                stats,
+                messageRequestId,
+                trackingDetails
+            }
+        };
+    });
+});
 
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
