@@ -23,7 +23,8 @@ const Message = () => {
         onReady,
         onHover,
         onMarkup,
-        resize
+        resize,
+        messageRequestId
     } = useXProps();
     const { markup, meta, parentStyles, warnings, setServerData } = useServerData();
     const dimensionsRef = useRef({ width: 0, height: 0 });
@@ -51,12 +52,14 @@ const Message = () => {
         if (typeof onReady === 'function') {
             onReady({
                 meta,
+                messageRequestId,
                 activeTags: getActiveTags(buttonRef.current),
                 // Utility will create iframe deviceID if it doesn't exist.
                 deviceID: getOrCreateStorageID()
             });
         }
-    }, [meta.messageRequestId]);
+        // TODO: Decide on best path forward for handling re-renders.
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     useDidUpdateLayoutEffect(() => {
         const buttonWidth = buttonRef.current.offsetWidth;
@@ -74,7 +77,7 @@ const Message = () => {
 
     useDidUpdateEffect(() => {
         const query = objectEntries({
-            message_request_id: meta.messageRequestId,
+            message_request_id: messageRequestId,
             amount,
             currency,
             buyer_country: buyerCountry,

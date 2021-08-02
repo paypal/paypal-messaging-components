@@ -14,9 +14,7 @@ jest.mock('src/utils', () => ({
         Promise.resolve({
             data: {
                 markup: '<div>mock</div>',
-                meta: {
-                    messageRequestId: '23456'
-                },
+                meta: {},
                 parentStyles: 'body { color: blue; }',
                 warnings: []
             }
@@ -38,14 +36,13 @@ describe('<Message />', () => {
         onReady: jest.fn(),
         onHover: jest.fn(),
         onMarkup: jest.fn(),
-        resize: jest.fn()
+        resize: jest.fn(),
+        messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx'
     });
 
     const wrapper = zoidComponentWrapper({
         markup: '<div>test</div>',
-        meta: {
-            messageRequestId: '12345'
-        },
+        meta: {},
         parentStyles: 'body { color: black; }',
         warnings: []
     });
@@ -71,9 +68,8 @@ describe('<Message />', () => {
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
+            meta: {},
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
     });
@@ -86,9 +82,7 @@ describe('<Message />', () => {
 
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
         expect(window.xprops.onClick).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            }
+            meta: {}
         });
     });
 
@@ -100,9 +94,7 @@ describe('<Message />', () => {
 
         expect(window.xprops.onHover).toHaveBeenCalledTimes(1);
         expect(window.xprops.onHover).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            }
+            meta: {}
         });
     });
 
@@ -113,16 +105,13 @@ describe('<Message />', () => {
         expect(getByText(/test/i)).toBeInTheDocument();
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
+            meta: {},
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
+            meta: {},
             styles: 'body { color: black; }',
             warnings: []
         });
@@ -140,15 +129,12 @@ describe('<Message />', () => {
         expect(getByText(/mock/i)).toBeInTheDocument();
         expect(request).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '23456'
-            },
+            meta: {},
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '23456'
-            },
+            meta: {},
             styles: 'body { color: blue; }',
             warnings: []
         });
@@ -160,10 +146,9 @@ describe('<Message />', () => {
         render(<Message />, { wrapper });
 
         expect(window.xprops.onReady).toBeCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            deviceID: 'uid_1111111111_11111111111'
+            meta: {},
+            deviceID: 'uid_1111111111_11111111111',
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx'
         });
         expect(getOrCreateStorageID).toHaveBeenCalled();
     });

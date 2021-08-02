@@ -9,7 +9,18 @@ import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
     const { type, products, meta, setServerData } = useServerData();
-    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry, version, env } = useXProps();
+    const {
+        onReady,
+        currency,
+        amount,
+        payerId,
+        clientId,
+        merchantId,
+        buyerCountry,
+        version,
+        env,
+        messageRequestId
+    } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
 
@@ -27,11 +38,12 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             onReady({
                 type,
                 products: products.map(({ meta: productMeta }) => productMeta.product),
+                messageRequestId,
                 meta,
                 deviceID: getOrCreateStorageID()
             });
         }
-    }, [meta.messageRequestId]);
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     useDidUpdateEffect(() => {
         setLoading(true);
