@@ -5,7 +5,7 @@ import { memoize } from './functional';
  * Check whether or not the current user is running an ad blocker
  * @returns {Promise<Boolean>} Whether adblock is running or not
  */
-export const checkAdblock = memoize(function() {
+export const checkAdblock = memoize(function check() {
     const loops = 5;
     const checkTime = 50;
 

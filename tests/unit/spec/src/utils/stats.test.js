@@ -1,7 +1,7 @@
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
-import { runStats, formatStatsMeta, buildStatsPayload } from 'src/utils/stats';
+import { runStats, buildStatsPayload } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 import { getGlobalState } from 'src/utils/global';
 import { checkAdblock } from 'src/utils/adblock';
@@ -167,22 +167,6 @@ describe('stats', () => {
         }
     });
 
-    describe('formatStatsMeta', () => {
-        const format = formatStatsMeta('ABCDEFGHIJ123', {
-            messageRequestId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-            trackingDetails: 'abcdefgh'
-        });
-
-        it('Attaches stats attributes to the logger meta', () => {
-            format({
-                index: '1',
-                stats: defaultProps
-            });
-
-            expect(logger.addMetaBuilder).toHaveBeenCalled();
-        });
-    });
-
     describe('buildStatsPayload', () => {
         it('Builds the expected payload', async () => {
             window.innerHeight = defaultProps.browser_height;
@@ -190,7 +174,13 @@ describe('stats', () => {
             const { container } = createContainer('iframe');
 
             // Pull out attributes from defaultProps that are not returned by the base buildStatsPayload
-            const { first_render_delay: frd, render_duration: rd, ...expectedPayload } = defaultProps;
+            const {
+                et,
+                event_type: evntType,
+                first_render_delay: frd,
+                render_duration: rd,
+                ...expectedPayload
+            } = defaultProps;
 
             container.getBoundingClientRect = () => ({
                 left: 100,
@@ -201,7 +191,7 @@ describe('stats', () => {
 
             messagesMap.set(container, { state: { renderStart: start } });
 
-            const statsPayload = await buildStatsPayload('stats', {
+            const statsPayload = await buildStatsPayload({
                 container,
                 activeTags: 'headline:MEDIUM::subheadline:NONE::disclaimer:NONE',
                 index: '1'
