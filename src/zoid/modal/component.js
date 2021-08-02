@@ -322,8 +322,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             },
             messageRequestId: {
                 type: 'string',
-                queryParam: true,
-                value: uniqueID
+                queryParam: false,
+                value: uniqueID,
+                decorate: ({ props }) => {
+                    ppDebug(`Modal Message Request ID: ${props.messageRequestId}`);
+                    return props.messageRequestId;
+                }
             },
             debug: {
                 type: 'boolean',
