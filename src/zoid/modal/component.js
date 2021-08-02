@@ -201,7 +201,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
-                        ppDebug(`Modal Message Request ID: ${messageRequestId}`);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info

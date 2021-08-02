@@ -181,7 +181,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
-                        ppDebug(`Message Request Id: ${messageRequestId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
                         writeStorageID(deviceID);
