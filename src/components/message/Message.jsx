@@ -31,13 +31,13 @@ const Message = () => {
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
-            onClick({ meta, activeTags: getActiveTags(buttonRef.current) });
+            onClick({ meta });
         }
     };
 
     const handleHover = () => {
         if (typeof onHover === 'function') {
-            onHover({ meta, activeTags: getActiveTags(buttonRef.current) });
+            onHover({ meta });
         }
     };
 
