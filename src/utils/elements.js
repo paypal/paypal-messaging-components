@@ -379,8 +379,9 @@ export const getRoot = baseElement => {
             return true;
         }
 
-        // First element should be <html> and will have a parent of document
-        const parent = elements[index - 1] ?? el.parentNode;
+        // Use array index instead of parentNode be default because collapsed
+        // elements may have been filtered out and should not be used for calculations
+        const parent = elements[index - 1] ?? el.parentNode; // First element should be <html> and will have a parent of document
         const child = elements[index + 1];
 
         // Ensure that the selected root is the larger of the parent
