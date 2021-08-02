@@ -9,12 +9,6 @@ import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
 import { ppDebug } from './debug';
 
-/**
- * Check to see if the message is entirely offscreen by the top/right/bottom/left, and return if any are true.
- * @param {HTMLElement} el Element to check.
- * @returns boolean
- */
-
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
 export const getTopWindow = () => {
@@ -293,7 +287,12 @@ export function getAllBySelector(selector) {
     return [];
 }
 
-// Check if an element is completely within the bounds of another element
+/**
+ * Check if an element is completely within the bounds of another element
+ * @param {HTMLElement} parentEl Parent element.
+ * @param {HTMLElement} childEl Element to check if inside of parent.
+ * @returns {boolean}
+ */
 export const elementContains = (parentEl, childEl) => {
     if (
         (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
@@ -321,7 +320,13 @@ export const elementContains = (parentEl, childEl) => {
     );
 };
 
-// Check if an element is completely outside the bounds of another element
+/**
+ * Check if an element is completely outside the bounds of another element
+ * @param {HTMLElement} parentEl Parent element.
+ * @param {HTMLElement} childEl Element to check if outside of parent.
+ * @returns {boolean}
+ */
+
 export const elementOutside = (parentEl, childEl) => {
     if (
         (parentEl?.nodeType !== Node.ELEMENT_NODE && !(parentEl instanceof Window)) ||
@@ -349,6 +354,12 @@ export const elementOutside = (parentEl, childEl) => {
     );
 };
 
+/**
+ * Get the computed page root element that serves as the best wrapping element
+ * that encompasses the entire content on the page without overflowing content
+ * @param {HTMLElement} baseElement Element from which to create a path to determine the root
+ * @returns {HTMLElement}
+ */
 export const getRoot = baseElement => {
     const elementWindow = getWindowFromElement(baseElement);
 
