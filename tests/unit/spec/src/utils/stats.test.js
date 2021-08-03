@@ -49,10 +49,16 @@ const start = Date.now();
 describe('stats', () => {
     const index = '1';
 
-    const defaultProps = {
-        index,
+    // Attributes required to be attached to stats event
+    const statsEvent = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
+        render_duration: expect.stringNumber(),
+        first_render_delay: expect.stringNumber()
+    };
+
+    const defaultProps = {
+        index,
         pos_x: '100',
         pos_y: '30',
         browser_width: '1024',
@@ -99,7 +105,16 @@ describe('stats', () => {
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenCalledWith(defaultProps);
+        // Page load
+        expect(logger.track).toHaveBeenCalledWith({
+            dom_load_delay: '-1',
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'page_loaded',
+            page_load_delay: '-1',
+            script_load_delay: '-1'
+        });
+
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
@@ -114,18 +129,13 @@ describe('stats', () => {
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
-        const payload = {
-            ...defaultProps,
-            bn_code: 'some-partner-id'
-        };
-
         runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(getSDKAttributes).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(payload);
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
@@ -155,7 +165,7 @@ describe('stats', () => {
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(payload);
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(payload.visible).toBe('false');
         if (payload.visible === 'true') {
             expect(logger.track).toHaveBeenCalledWith({

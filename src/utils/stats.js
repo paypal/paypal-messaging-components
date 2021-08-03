@@ -88,15 +88,18 @@ export function runStats({ container, activeTags, index }) {
                     account,
                     messageRequestId,
                     trackingDetails,
-                    ...statsPayload
+                    stats: statsPayload
                 }
             };
         });
 
+        // Attributes temporarily required to exist as part of the stats event
+        // {statsPayload} - (({statsPayload} ∩ {meta}) ∪ {attributes exclusive to other tracking events})
         logger.track({
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
-            ...statsPayload
+            first_render_delay: statsPayload.first_render_delay,
+            render_duration: statsPayload.render_duration
         });
     });
 }
