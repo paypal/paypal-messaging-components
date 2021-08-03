@@ -1,13 +1,11 @@
-/** @jsx h */
-import { h } from 'preact';
-import { render, fireEvent, waitFor, act } from '@testing-library/preact';
+import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID } from 'src/utils';
+import { request, getOrCreateStorageID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
-import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 jest.mock('src/utils', () => ({
+    createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
@@ -24,7 +22,7 @@ jest.mock('src/utils', () => ({
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
 
-describe('<Message />', () => {
+describe('Message', () => {
     const updateProps = xPropsMock({
         amount: 100,
         currency: 'USD',
@@ -40,12 +38,12 @@ describe('<Message />', () => {
         messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx'
     });
 
-    const wrapper = zoidComponentWrapper({
+    const serverData = {
         markup: '<div>test</div>',
         meta: {},
         parentStyles: 'body { color: black; }',
         warnings: []
-    });
+    };
 
     afterEach(() => {
         window.xprops.onClick.mockClear();
@@ -53,18 +51,34 @@ describe('<Message />', () => {
         window.xprops.onClick.mockClear();
         window.xprops.onMarkup.mockClear();
 
+        createState.mockClear();
         request.mockClear();
         getOrCreateStorageID.mockClear();
+        xPropsMock.clear();
+    });
+
+    test('Renders the button with styles', () => {
+        const button = Message(serverData);
+        const styles = [];
+        Object.keys(button.style).forEach(row => {
+            if (!Number.isNaN(Number(row)) && button.style[row] !== undefined) {
+                styles.push(button.style[row]);
+            }
+        });
+
+        expect(button instanceof HTMLButtonElement).toBe(true);
+        expect(JSON.stringify(styles)).toBe(
+            JSON.stringify(['display', 'background', 'padding', 'outline', 'text-align', 'font-family'])
+        );
     });
 
     test('Renders the server markup', () => {
-        const { getByText } = render(<Message />, { wrapper });
-
-        expect(getByText(/test/i)).toBeInTheDocument();
+        const messageDocument = document.body.appendChild(Message(serverData));
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
     });
 
     test('Fires onReady xProp after render', () => {
-        render(<Message />, { wrapper });
+        Message(serverData);
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
@@ -75,11 +89,9 @@ describe('<Message />', () => {
     });
 
     test('Fires onClick xProp when clicked', () => {
-        const { container } = render(<Message />, { wrapper });
-        const button = container.firstChild;
+        const button = Message(serverData);
 
         fireEvent.click(button);
-
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
         expect(window.xprops.onClick).toHaveBeenLastCalledWith({
             meta: {}
@@ -87,8 +99,7 @@ describe('<Message />', () => {
     });
 
     test('Fires onHover xProp when hovered', () => {
-        const { container } = render(<Message />, { wrapper });
-        const button = container.firstChild;
+        const button = Message(serverData);
 
         fireEvent.mouseOver(button);
 
@@ -99,16 +110,18 @@ describe('<Message />', () => {
     });
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
-        const { getByText, queryByText } = render(<Message />, { wrapper });
+        const messageDocument = document.body.appendChild(Message(serverData));
 
         expect(request).not.toHaveBeenCalled();
-        expect(getByText(/test/i)).toBeInTheDocument();
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
+
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {},
@@ -116,18 +129,17 @@ describe('<Message />', () => {
             warnings: []
         });
 
-        act(() => {
-            updateProps({ amount: 200 });
-        });
+        updateProps({ amount: 200 });
 
-        await waitFor(() => {
-            expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
-            expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
-        });
+        // has to wait for the button to re-render
+        await new Promise(resolve => setTimeout(resolve, 0));
 
-        expect(queryByText(/test/i)).toBeNull();
-        expect(getByText(/mock/i)).toBeInTheDocument();
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(2);
+        expect(window.xprops.onMarkup).toHaveBeenCalledTimes(2);
+        expect(queryByText(messageDocument, /test/i)).toBeNull();
+        expect(getByText(messageDocument, /mock/i)).toBeInTheDocument();
         expect(request).toHaveBeenCalledTimes(1);
+
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
@@ -143,7 +155,7 @@ describe('<Message />', () => {
     test('Passed deviceID from iframe storage to callback', () => {
         getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
 
-        render(<Message />, { wrapper });
+        Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {},
