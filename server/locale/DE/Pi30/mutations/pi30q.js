@@ -20,7 +20,7 @@ export default {
                     xSmallFallback(textSize * 13),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
-                    xSmallNoWrap(textSize * 14.2),
+                    xSmallNoWrap(textSize * 7.7),
                     addPeriod(),
                     `@media screen and 
                     (min-width: ${textSize * 23.8}px),
@@ -34,7 +34,7 @@ export default {
                         tag: 'medium',
                         br: ['nach']
                     },
-                    { tag: 'xsmall', br: ['verfügbar.'] }
+                    { tag: 'xsmall', br: ['später'] }
                 ],
                 disclaimer: ['default']
             })
@@ -43,33 +43,35 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 55, textSize, 'DE'),
                     xSmallFallback(textSize * 12.5),
                     setLogoTop(textSize * 26),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallNoWrap(textSize * 13.8),
+                    xSmallNoWrap(textSize * 8.3),
                     `@media screen and 
                     (max-width: ${textSize * 18.67}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
                 ],
-                headline: [{ tag: 'medium', br: ['nach', 'Raten'] }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 55, textSize, 'DE'),
                     xSmallFallback(textSize * 12.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallNoWrap(textSize * 13.8),
+                    xSmallNoWrap(textSize * 9),
                     `@media screen and 
                     (max-width: ${textSize * 18.67}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
                 ],
-                headline: [{ tag: 'medium', br: ['nach', 'Raten'] }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
             })
         ],
         [
@@ -83,13 +85,13 @@ export default {
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
-                    xSmallNoWrap(textSize * 15.5),
+                    xSmallNoWrap(textSize * 8),
                     `@media screen and (max-width: ${textSize *
                         12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
-                    { tag: 'medium', br: ['nach', 'Raten'] },
-                    { tag: 'xsmall', br: ['Ratenzahlung'] }
+                    { tag: 'medium', br: ['bie'] },
+                    { tag: 'xsmall', br: ['später'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -98,20 +100,21 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 55, textSize, 'DE'),
                     xSmallFallback(textSize * 13),
-                    xSmallNoWrap(textSize * 13),
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    xSmallNoWrap(textSize * 8),
+                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`
+                    // `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
                 ],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['nach', 'Raten']
+                        br: ['bei']
                     },
                     {
                         tag: 'xsmall',
-                        replace: [['verfügbar.', 'verfügbar']]
+                        replace: [['bezahlen.', 'bezahlen']]
                     }
                 ]
             })
@@ -131,11 +134,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['nach', 'Raten']
+                        br: ['bei']
                     },
                     {
                         tag: 'xsmall',
-                        replace: [['verfügbar.', 'verfügbar']]
+                        replace: [['bezahlen.', 'bezahlen']]
                     }
                 ]
             })

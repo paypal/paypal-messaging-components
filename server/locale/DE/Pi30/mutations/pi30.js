@@ -20,7 +20,7 @@ export default {
                     xSmallFallback(textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
-                    xSmallNoWrap(textSize * 14.2),
+                    xSmallNoWrap(textSize * 7.7),
                     addPeriod(),
                     `@media screen and 
                     (min-width: ${textSize * 23.8}px),
@@ -34,7 +34,7 @@ export default {
                         tag: 'medium',
                         br: ['bei']
                     },
-                    { tag: 'xsmall', br: ['verfügbar.'] }
+                    { tag: 'xsmall', br: ['später'] }
                 ],
                 disclaimer: ['default']
             })
@@ -43,11 +43,12 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 55, textSize, 'DE'),
                     xSmallFallback(textSize * 15),
                     setLogoTop(textSize * 42),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallNoWrap(textSize * 13.8),
+                    xSmallNoWrap(textSize * 8.3),
                     `@media screen and 
                     (max-width: ${textSize * 18.67}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -60,10 +61,11 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 55, textSize, 'DE'),
                     xSmallFallback(textSize * 14.8),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallNoWrap(textSize * 13.8),
+                    xSmallNoWrap(textSize * 9),
                     `@media screen and 
                     (max-width: ${textSize * 18.67}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -83,13 +85,13 @@ export default {
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
-                    xSmallNoWrap(textSize * 15.5),
+                    xSmallNoWrap(textSize * 8),
                     `@media screen and (max-width: ${textSize *
                         12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['bei'] },
-                    { tag: 'xsmall', br: ['Ratenzahlung'] }
+                    { tag: 'xsmall', br: ['später'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -98,10 +100,11 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15),
-                    xSmallNoWrap(textSize * 15),
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    textWrap(textSize * 55, textSize, 'DE'),
+                    xSmallFallback(textSize * 13),
+                    xSmallNoWrap(textSize * 8),
+                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`
+                    // `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
                 ],
                 logo: false,
                 headline: [
@@ -111,7 +114,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        replace: [['verfügbar.', 'verfügbar']]
+                        replace: [['bezahlen.', 'bezahlen']]
                     }
                 ]
             })
@@ -121,7 +124,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    xSmallNoWrap(textSize * 13.8),
+                    xSmallNoWrap(textSize * 8),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo-container::after { content: '.'; }`,
                     `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
@@ -135,7 +138,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        replace: [['verfügbar.', 'verfügbar']]
+                        replace: [['bezahlen.', 'bezahlen']]
                     }
                 ]
             })
