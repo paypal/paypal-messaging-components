@@ -1,0 +1,55 @@
+<!-- This is a test -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script>
+
+        <style>
+            html {
+                height: 100%;
+            }
+
+            body {
+                height: 100%;
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--
+            @name: html and body have height 100%
+            @viewport: 400x300
+        -->
+        <!-- Collapsed elements should be skipped when search for the root page element -->
+        <div style="height: 0">
+            <div class="page">
+                <div>
+                    <div style="height: 500px"></div>
+                    <!-- Standard message -->
+                    <div class="message" data-test-visible="true"></div>
+
+                    <!-- Message is partially offscreen -->
+                    <div style="position: relative; width: 400px; left: 50%;">
+                        <div class="message" data-test-visible="false"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config ?? '{}');
+
+            paypal.Message.render(config, '.message');
+        </script>
+    </body>
+</html>

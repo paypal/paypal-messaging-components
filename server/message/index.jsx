@@ -27,10 +27,13 @@ const applyCascade = curry((style, flattened, type, rules) =>
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
             if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
+                // after numerous tests, Helvetica and Arial are 98.2% smaller than PayPal Sans font
+                // but 0.983 is used here to provide a slight buffer
+                const BASIC_FONT_FACTOR = 0.983;
                 const calculatedVal =
                     typeof val === 'function'
                         ? val({
-                              textSize: style.text?.size
+                              textSize: style.text?.size * BASIC_FONT_FACTOR
                           })
                         : val;
                 return type === Array ? [...accumulator, calculatedVal] : objectMerge(accumulator, calculatedVal);
@@ -103,7 +106,7 @@ const getFontFamilyRule = (addLog, val) => {
     if (fontFamily) {
         payload.validValue = fontFamily;
         logInfo(addLog, payload);
-        return `font-family: ${fontFamily}, PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; `;
+        return `font-family: ${fontFamily}, Helvetica, Arial, sans-serif; `;
     }
     payload.validValue = '';
     logInfo(addLog, payload);
@@ -144,6 +147,7 @@ export default ({ addLog, options, markup, locale }) => {
     const { layout } = style;
 
     const styleSelectors = objectFlattenToArray(style);
+
     const applyCascadeRules = applyCascade(style, styleSelectors);
     const mutationRules =
         options.style.layout === 'custom'
@@ -151,6 +155,7 @@ export default ({ addLog, options, markup, locale }) => {
             : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`));
 
     const layoutProp = `layout:${layout}`;
+
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
 
     const localeClass = getLocaleClass(locale, offerType);

@@ -18,6 +18,7 @@ import {
     writeStorageID,
     getOrCreateStorageID,
     getStageTag,
+    getFeatures,
     ppDebug,
     isScriptBeingDestroyed,
     getScriptAttributes,
@@ -393,6 +394,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 value: () => measureBrowser()?.browserHeight,
                 debug: ppDebug(`Browser Height ${measureBrowser()?.browserHeight}`)
+            },
+            features: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getFeatures
             }
         }
     })

@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.25.2](https://github.com/paypal/paypal-messaging-components/compare/v1.25.1...v1.25.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* fix amount comparison ([#562](https://github.com/paypal/paypal-messaging-components/issues/562)) ([72bfb66](https://github.com/paypal/paypal-messaging-components/commit/72bfb6615df62c04b49bfee9cf591ed5aeee0bbb))
+* use new server data to update calculator directly ([#560](https://github.com/paypal/paypal-messaging-components/issues/560)) ([0dcb7ff](https://github.com/paypal/paypal-messaging-components/commit/0dcb7ff3260eb238fb9a0554b3f9a1728430aaa3))
+
+## [1.25.1](https://github.com/paypal/paypal-messaging-components/compare/v1.25.0...v1.25.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* de gpl modal calc ([#558](https://github.com/paypal/paypal-messaging-components/issues/558)) ([92912f4](https://github.com/paypal/paypal-messaging-components/commit/92912f40b9d251a81800e445ab3874e9f123c362))
+
 # [1.25.0](https://github.com/paypal/paypal-messaging-components/compare/v1.24.1...v1.25.0) (2021-07-09)
 
 

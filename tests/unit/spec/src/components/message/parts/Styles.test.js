@@ -4,11 +4,6 @@ import { render } from '@testing-library/preact';
 
 import Styles from 'server/message/parts/Styles';
 
-jest.mock('server/message/styles/fonts.css', () => ({
-    default: 'fonts',
-    __esModule: true
-}));
-
 describe('<Styles />', () => {
     test('renders all styles', () => {
         const globalStyleRules = ['globalStyleRules'];
@@ -28,7 +23,6 @@ describe('<Styles />', () => {
         );
 
         const contentMap = {
-            styles__fonts: 'fonts',
             styles__global: globalStyleRules[0],
             styles__locale: localeStyleRules[0],
             styles__mutations: mutationStyleRules[0],
