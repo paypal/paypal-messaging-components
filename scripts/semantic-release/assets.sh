@@ -130,21 +130,22 @@ if [ ! -z "$tag" ]; then
     sed -i '' "s/env.STAGE_TAG/'$tag'/" ./globals.js
     sed -i '' "s/env.VERSION/'$version'/" ./globals.js
     [[ ! -z "$testEnv" ]] && sed -i '' "s/env.TEST_ENV/'https:\/\/www.$testEnv'/" ./globals.js
+    [[ $devTouchpoint = true ]] && sed -i '' "s/env.DEV_TOUCHPOINT/true/" ./globals.js
     # Pack the library module similar to publishing the module to npm
-    npm pack
+    npm pack --quiet > /dev/null
     mv ./*.tgz ./dist/bizcomponents/stage/package.tgz
     # Reset the manual variables
     sed -i '' "s/'$tag'/env.STAGE_TAG/" ./globals.js
     sed -i '' "s/'$version'/env.VERSION/" ./globals.js
     [[ ! -z "$testEnv" ]] && sed -i '' "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
+    [[ $devTouchpoint = true ]] && sed -i '' "s/__DEV_TOUCHPOINT__: true/__DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT/" ./globals.js
 
-    printf "\nweb stage --tag $tag\n"
-    web stage --tag "$tag"
-    echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list"
+    echo "web stage --tag $tag"
+    # web stage --tag "$tag"
+    printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 
-    rm ./dist/bizcomponents/stage/package.tgz
     # Reset modified dist files
     git checkout -- dist
     # Remove new dist files
-    git clean -fd dist
+    git clean -fd dist > /dev/null
 fi
