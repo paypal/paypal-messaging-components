@@ -168,7 +168,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         setServerData({
-                            metaMessageRequestId: data.meta.messageRequestId ?? messageRequestId,
                             parentStyles: data.parentStyles ?? parentStyles,
                             warnings: data.warnings ?? warnings,
                             markup: data.markup ?? markup
