@@ -113,7 +113,6 @@ describe('payload testing', () => {
             ],
             matchObjects: [
                 {
-                    index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'stats',
                     first_render_delay: expect.stringNumber(),
