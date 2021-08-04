@@ -95,14 +95,23 @@ jobs:
                       exit 1
                   fi
 
-            - name: Non-US Snapshot Tests - ${{ matrix.locale }}
+            - name: Non-US Banner Snapshot Tests - ${{ matrix.locale }}
               run: |
-                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}
+                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/banner
                   ./scripts/snapshot-tests/collect-diffs.sh
 
-            - name: Update Snapshots - ${{ matrix.locale }}
+            - name: Non-US Modal Snapshot Tests - ${{ matrix.locale }}
+              run: |
+                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/modal
+                  ./scripts/snapshot-tests/collect-diffs.sh
+
+            - name: Update Banner Snapshots - ${{ matrix.locale }}
               if: contains(github.event.head_commit.message, '[snapshots]')
-              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}
+              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/banner
+
+            - name: Update Modal Snapshots - ${{ matrix.locale }}
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/modal
 
             - name: Commit Updated Snapshots
               uses: stefanzweifel/git-auto-commit-action@v4
