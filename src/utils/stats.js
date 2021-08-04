@@ -69,12 +69,6 @@ export function runStats({ container, activeTags, index }) {
     }
 
     buildStatsPayload({ container, activeTags, index }).then(statsPayload => {
-        // eslint-disable-next-line no-param-reassign
-        statsPayload.first_render_delay = Math.round(firstRenderDelay).toString();
-
-        // eslint-disable-next-line no-param-reassign
-        statsPayload.render_duration = renderDuration;
-
         logger.addMetaBuilder(existingMeta => {
             const { account, messageRequestId, trackingDetails } = existingMeta[index];
 
@@ -98,8 +92,8 @@ export function runStats({ container, activeTags, index }) {
         logger.track({
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
-            first_render_delay: statsPayload.first_render_delay,
-            render_duration: statsPayload.render_duration
+            first_render_delay: Math.round(firstRenderDelay).toString(),
+            render_duration: renderDuration
         });
     });
 }
