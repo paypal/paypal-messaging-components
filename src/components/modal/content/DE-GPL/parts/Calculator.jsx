@@ -119,7 +119,7 @@ const Calculator = () => {
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error ?? amountRange.replace(/,00/g, '')}</span>
+                        <span>{error ?? amountRange.replace(/(\.|,)00(\s|\S)EUR/g, '€')}</span>
                     </div>
                 </div>
             </form>
