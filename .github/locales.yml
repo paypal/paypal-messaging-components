@@ -1,0 +1,5 @@
+# DE is first since it takes the longest
+DE: '**/DE/**'
+AU: '**/AU/**'
+FR: '**/FR/**'
+GB: '**/GB/**'
