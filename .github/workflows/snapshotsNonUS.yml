@@ -4,37 +4,37 @@ on:
         branches:
             - develop
             - release
-        paths:
-            # # Generic
-            # - banners/**
-            # - modals/**
-            # - server/**
-            # - src/**
-            # - tests/functional/spec/*
-            # - tests/functional/spec/utils/**
-            # - utils/**
-            # # Exclude US Files
-            # - '!banners/US/**'
-            # - '!modals/US/**'
-            # - '!server/locale/US/**'
-            # - '!src/components/modal/content/US*/**'
-            # - '!tests/functional/spec/US/**'
+        # paths:
+        #     # Generic
+        #     - banners/**
+        #     - modals/**
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # Exclude US Files
+        #     - '!banners/US/**'
+        #     - '!modals/US/**'
+        #     - '!server/locale/US/**'
+        #     - '!src/components/modal/content/US*/**'
+        #     - '!tests/functional/spec/US/**'
     pull_request:
-        paths:
-            # # Generic
-            # - banners/**
-            # - modals/**
-            # - server/**
-            # - src/**
-            # - tests/functional/spec/*
-            # - tests/functional/spec/utils/**
-            # - utils/**
-            # # Exclude US Files
-            # - '!banners/US/**'
-            # - '!modals/US/**'
-            # - '!server/locale/US/**'
-            # - '!src/components/modal/content/US*/**'
-            # - '!tests/functional/spec/US/**'
+        # paths:
+        #     # Generic
+        #     - banners/**
+        #     - modals/**
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # Exclude US Files
+        #     - '!banners/US/**'
+        #     - '!modals/US/**'
+        #     - '!server/locale/US/**'
+        #     - '!src/components/modal/content/US*/**'
+        #     - '!tests/functional/spec/US/**'
 jobs:
     # TODO: use this to run files for any generic change that affects all locales
     #       currently it will only run tests for locale-specific changes
