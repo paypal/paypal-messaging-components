@@ -4,7 +4,6 @@
 }
 
 .message__headline {
-    font-family: 'PayPal-Sans-Big';
     font-size: 8.4vw;
     line-height: 1.6em;
     padding: 0px;
@@ -12,7 +11,6 @@
 
 .message__disclaimer {
     position: static;
-    font-family: 'PayPal-Sans-Big';
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0em;
