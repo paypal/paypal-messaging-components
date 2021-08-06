@@ -96,11 +96,13 @@ jobs:
                   fi
 
             - name: Non-US Banner Snapshot Tests - ${{ matrix.locale }}
+              if: "!contains(github.event.head_commit.message, '[snapshots]')"
               run: |
                   npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/banner
                   ./scripts/snapshot-tests/collect-diffs.sh
 
             - name: Non-US Modal Snapshot Tests - ${{ matrix.locale }}
+              if: "!contains(github.event.head_commit.message, '[snapshots]')"
               run: |
                   npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/modal
                   ./scripts/snapshot-tests/collect-diffs.sh
