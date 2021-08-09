@@ -193,8 +193,13 @@ export function getStageTag() {
 }
 
 export function getFeatures() {
-    if (__MESSAGES__.__FEATURES__) {
-        return __MESSAGES__.__FEATURES__;
+    const rampFeatures =
+        localStorage.getItem('__paypal_messages_treatments__')?.indexOf('Trmt_CDN_Cache_ramp_mechanism') > -1
+            ? 'cdn-cache'
+            : '';
+
+    if (__MESSAGES__.__FEATURES__ || rampFeatures) {
+        return [__MESSAGES__.__FEATURES__, rampFeatures].filter(Boolean).join(',');
     } else {
         return undefined;
     }
