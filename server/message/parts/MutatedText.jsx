@@ -33,12 +33,13 @@ const MutatedText = ({ tagData, options }) => {
      * 7. -
      * A dash
      * 8. For the rest of the pattern refer to 1-6.
+     * 9. Or check for a comma or period decimal followed by two digits and a potential space, then EUR.
      */
     const currencyFormat = string => {
         let formattedStr = string;
         const match = formattedStr.match(
             // eslint-disable-next-line security/detect-unsafe-regex
-            /(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?/g
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?|((,|.)\d\d)(\s|\S)EUR)/g
         );
         if (match !== null) {
             match.forEach(foundString => {
@@ -46,7 +47,8 @@ const MutatedText = ({ tagData, options }) => {
                     .replace(/(\.|,)00-/g, '-')
                     .replace(/(\.|,)00$/g, '')
                     .replace(/(\.|,)00€/g, '€')
-                    .replace(/(\.|,)00(\s|\S)EUR/g, '€');
+                    .replace(/(\.|,)00(\s|\S)EUR/g, '€')
+                    .replace(/(\sEUR)/g, '€');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }

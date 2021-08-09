@@ -20,7 +20,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
-        return amountRange.replace(/,00/g, '');
+        return amountRange.replace(/(\.|,)00(\s|\S)EUR/g, '€');
     }
 
     if (!offers?.[0]?.qualified) {
