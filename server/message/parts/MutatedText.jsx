@@ -28,7 +28,7 @@ const MutatedText = ({ tagData, options }) => {
      * Between 1-3 occurances of steps 2 and 3.
      * 5. 00
      * The 00 after the decimal
-     * 6. (€|(\s|\S)EUR)?
+     * 6. (€|(.|\s*)EUR)?
      * An optional € or EUR
      * 7. -
      * A dash
@@ -39,7 +39,7 @@ const MutatedText = ({ tagData, options }) => {
         let formattedStr = string;
         const match = formattedStr.match(
             // eslint-disable-next-line security/detect-unsafe-regex
-            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(\s|\S)EUR)?|((,|.)\d\d)(\s|\S)EUR)/g
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?|((,|\.)\d\d)(.|\s*)EUR)/g
         );
         if (match !== null) {
             match.forEach(foundString => {
@@ -47,8 +47,8 @@ const MutatedText = ({ tagData, options }) => {
                     .replace(/(\.|,)00-/g, '-')
                     .replace(/(\.|,)00$/g, '')
                     .replace(/(\.|,)00€/g, '€')
-                    .replace(/(\.|,)00(\s|\S)EUR/g, '€')
-                    .replace(/(\sEUR)/g, '€');
+                    .replace(/(\.|,)00(.|\s*)EUR/g, '€')
+                    .replace(/(\s*EUR)/g, '€');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }
