@@ -1,6 +1,6 @@
 // Permutations used in modal tests
 const viewports = [
-    { width: 1080, height: 1080 },
+    { width: 1920, height: 1080 },
     { width: 411, height: 731 }
 ];
 

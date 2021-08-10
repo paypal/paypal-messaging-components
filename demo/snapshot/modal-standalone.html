@@ -36,9 +36,7 @@
                         if (typeof mappedParams.click !== 'undefined') {
                             show(manualMessage);
                         } else {
-                            show(manualMessage);
                             manualMessage.addEventListener('click', () => {
-                                console.log('clicked');
                                 show(manualMessage);
                             });
                         }
