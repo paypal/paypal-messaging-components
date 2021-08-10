@@ -7,7 +7,7 @@ import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
 import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
-import { getRoot, elementContains, isElement, elementIsOffscreen } from './elements';
+import { getRoot, elementContains, isElement, elementOutside } from './elements';
 import { ppDebug } from './debug';
 
 export const getInsertionObserver = createGlobalVariableGetter(
@@ -154,13 +154,13 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                         }
 
                         /**
-                         * If the message is intersecting/partially obscured AND the message isn't offscreen,
+                         * If the message is intersecting/partially obscured AND the message isn't off the page,
                          * or the message is too small, run overflow detection to hide the message.
                          *
                          * Else, ensure the message is visible.
                          */
                         if (
-                            ((entry.intersectionRatio < 0.9 && elementIsOffscreen(iframe) === false) ||
+                            ((entry.intersectionRatio < 0.9 && !elementOutside(root ?? window, iframe)) ||
                                 // Round up for decimal values
                                 Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
                             !isIntersectingFallback

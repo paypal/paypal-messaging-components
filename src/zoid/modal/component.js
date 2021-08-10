@@ -18,6 +18,7 @@ import {
     getSessionID,
     getOrCreateStorageID,
     getStageTag,
+    getFeatures,
     ppDebug
 } from '../../utils';
 import validate from '../message/validation';
@@ -325,6 +326,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            features: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getFeatures
             }
         }
     })

@@ -17,6 +17,7 @@ import {
     writeStorageID,
     getOrCreateStorageID,
     getStageTag,
+    getFeatures,
     ppDebug,
     isScriptBeingDestroyed
 } from '../../utils';
@@ -362,6 +363,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            features: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getFeatures
             }
         }
     })

@@ -53,7 +53,7 @@ export const updateFinanceTerms = ({ account, viewport, groupString }) => async 
 
     await modalFrame.waitForSelector(selectors.calculator.calc, { visible: true });
     await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
-    await modalFrame.type(selectors.calculator.calcInput, '650');
+    await modalFrame.type(selectors.calculator.calcInput, '650', { delay: 100 });
     // Wait for recalculate to fire automatically
     await page.waitFor(2000);
     await page.waitFor(4 * 1000);
