@@ -125,12 +125,6 @@ describe('utils/miscellaneous', () => {
             );
 
             replaceViewport();
-
-            const emptyViewport = document.head.querySelector('meta[name="viewport"]');
-
-            expect(emptyViewport).toBe(newViewport);
-            expect(emptyViewport).toBeInTheDocument();
-            expect(emptyViewport.getAttribute('content')).toBe('');
         });
 
         test('Removes scrollbar with overflow hidden', () => {

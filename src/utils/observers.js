@@ -65,7 +65,7 @@ export const getAttributeObserver = createGlobalVariableGetter(
         })
 );
 
-const getIntersectionObserverPolyfill = () => {
+export const getIntersectionObserverPolyfill = () => {
     return ZalgoPromise.resolve(
         // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'

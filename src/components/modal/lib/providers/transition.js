@@ -3,44 +3,40 @@ import { h, createContext } from 'preact';
 import { useState, useEffect, useContext } from 'preact/hooks';
 
 import { useXProps } from '../../../lib';
-
-const TRANSITION_TIME = 350;
+import { getIntersectionObserverPolyfill } from '../../../../utils';
 
 export const STATUS = {
-    OPEN: 'OPENED',
-    OPENING: 'OPENING',
-    CLOSED: 'CLOSED',
-    CLOSING: 'CLOSING'
+    OPEN: 'OPEN',
+    CLOSED: 'CLOSED'
 };
 
 const TransitionContext = createContext({
-    status: STATUS.CLOSED,
+    status: STATUS.OPEN,
     setStatus: () => {}
 });
 
 export const TransitionStateProvider = ({ children }) => {
-    const [state, setState] = useState(STATUS.CLOSED);
-    const { show, onProps, onShow } = useXProps();
+    const { onShow } = useXProps();
+    const [state, setState] = useState(STATUS.OPEN);
 
-    useEffect(
-        () =>
-            onProps(newProps => {
-                if (newProps.visible && state === STATUS.CLOSED) {
-                    show().then(() => {
+    useEffect(() => {
+        getIntersectionObserverPolyfill().then(() => {
+            // eslint-disable-next-line compat/compat
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setState(STATUS.OPEN);
                         onShow();
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                setState(STATUS.OPENING);
-                                setTimeout(() => {
-                                    setState(STATUS.OPEN);
-                                }, TRANSITION_TIME);
-                            });
-                        });
-                    });
-                }
-            }),
-        []
-    );
+                    } else {
+                        setState(STATUS.CLOSED);
+                    }
+                },
+                { threshold: 0.05 }
+            );
+
+            observer.observe(document.body);
+        });
+    }, []);
 
     return (
         <TransitionContext.Provider value={{ status: state, setStatus: setState }}>
@@ -50,21 +46,8 @@ export const TransitionStateProvider = ({ children }) => {
 };
 
 export const useTransitionState = () => {
-    const { status, setStatus } = useContext(TransitionContext);
-    const { hide, onClose } = useXProps();
+    const { status } = useContext(TransitionContext);
+    const { onClose } = useXProps();
 
-    return [
-        status,
-        linkName => {
-            if (status === STATUS.OPEN || status === STATUS.OPENING) {
-                setStatus(STATUS.CLOSING);
-                setTimeout(() => {
-                    if (onClose) {
-                        onClose({ linkName });
-                    }
-                    hide().then(() => setStatus(STATUS.CLOSED));
-                }, TRANSITION_TIME);
-            }
-        }
-    ];
+    return [status, linkName => onClose({ linkName })];
 };

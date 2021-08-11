@@ -12,7 +12,6 @@ import {
     getCurrentTime,
     getLibraryVersion,
     getScriptAttributes,
-    viewportHijack,
     logger,
     nextIndex,
     getPerformanceMeasure,
@@ -24,6 +23,7 @@ import {
 } from '../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
+import prerenderTemplate from './prerenderTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
@@ -32,6 +32,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
+        prerenderTemplate,
         attributes: {
             iframe: {
                 title: 'PayPal Modal',
@@ -144,12 +145,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onShow } = props;
-                    const [hijackViewport] = viewportHijack();
 
                     return () => {
                         const { index, refIndex, src = 'show' } = props;
-
-                        hijackViewport();
 
                         logger.track({
                             index,
@@ -168,14 +166,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             onClose: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props }) => {
+                value: ({ props, event }) => {
                     const { onClose } = props;
-                    const [, replaceViewport] = viewportHijack();
 
                     return ({ linkName }) => {
                         const { index, refIndex } = props;
 
-                        replaceViewport();
+                        event.trigger('modal-hide');
 
                         logger.track({
                             index,
@@ -249,7 +246,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
-
                         if (
                             typeof onReady === 'function' &&
                             // No need to fire the merchant's onReady if the modal products haven't changed
