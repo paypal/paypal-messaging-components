@@ -70,7 +70,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     };
 
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border: none !important;`;
+        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
@@ -134,7 +134,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
             </style>
             <div style={fullScreen('fixed')}>
                 <node el={frame} title={modalTitle} />
-                <node el={prerenderFrame} title="Prerender Modal" />
+                <node el={prerenderFrame} title={`Prerender ${modalTitle}`} />
             </div>
         </div>
     ).render(dom({ doc }));
