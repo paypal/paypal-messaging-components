@@ -1,4 +1,4 @@
-import { getPerformance } from 'belter/src';
+import { getPerformance, isIE } from 'belter/src';
 
 const namespaced = name => `__paypal_messaging_performance__${name}`;
 
@@ -37,12 +37,15 @@ export function addPerformanceMeasure(name, { startMark, endMark, repeat } = {})
             performance.clearMarks(namespaced(name));
         }
 
-        performance.measure(
-            namespaced(name),
-            startMark ? namespaced(startMark) : undefined,
-            endMark ? namespaced(endMark) : undefined
-        );
-
+        /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
+        isIE()
+            ? performance.measure(namespaced(name))
+            : performance.measure(
+                  namespaced(name),
+                  startMark ? namespaced(startMark) : undefined,
+                  endMark ? namespaced(endMark) : undefined
+              );
+        /* eslint-enable no-unused-expressions, flowtype/no-unused-expressions */
         performance.mark(namespaced(name));
     }
 }

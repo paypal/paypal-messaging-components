@@ -8,7 +8,6 @@
         display: inline-block;
         width: 55%;
     }
-
 }
 
 @media (min-aspect-ratio: 80 / 11) and (min-width: 500px) {
