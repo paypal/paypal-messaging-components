@@ -162,10 +162,6 @@ export const viewportHijack = memoize(() => {
             document.body.style.setProperty('-ms-overflow-style', 'scrollbar');
         },
         () => {
-            // it may occur when prerender is up __pp_prev_content__ does not exist. set __pp_prev_content__ if it does not exist
-            if (!viewport.__pp_prev_content__) {
-                viewport.__pp_prev_content__ = viewport.getAttribute('content') ?? '';
-            }
             viewport.setAttribute('content', viewport.__pp_prev_content__);
             delete viewport.__pp_prev_content__;
 
