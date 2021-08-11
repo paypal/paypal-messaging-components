@@ -8,9 +8,89 @@ import {
     xSmallNoWrap,
     addPeriod
 } from '../../../../message/mediaQueries';
-import { textLogoMutations } from '../../../../message/logoMutations';
+import { textLogoMutations, flexLogoMutations } from '../../../../message/logoMutations';
+
+// const headlineBreaks = [
+//     {
+//         sizes: ['xsmall'],
+//         breaks: ['Ratenzahlung']
+//     },
+//     {
+//         sizes: ['medium'],
+//         breaks: ['Sie in', 'Einkäufen']
+//     }
+// ].reduce((acc, item) => {
+//     const { sizes, breaks } = item;
+//     sizes.forEach(size => {
+//         acc.push({
+//             tag: size,
+//             br: breaks
+//         });
+//     });
+//     return acc;
+// }, []);
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PP_PAYPAL.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default']
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                    content: '.'
+                }`
+            ]
+        }
+    ],
+    [
+        'ratio:8x1',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                    content: '.'
+                }`
+            ]
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                content: '.'
+            }`
+            ]
+        }
+    ],
+    [
+        'ratio:1x4',
+        {
+            styles: [
+                `.message__headline > .tag--medium > span > span:last-child::after {
+                content: '.'
+            }`
+            ]
+        }
+    ],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',
