@@ -20,7 +20,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
-        return amountRange.replace(/(\.|,)00(\s|\S)EUR/g, '€');
+        return amountRange.replace(/(\.|,)00(.|\s*)EUR/g, '€');
     }
 
     if (!offers?.[0]?.qualified) {
@@ -119,7 +119,7 @@ const Calculator = () => {
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error ?? amountRange.replace(/(\.|,)00(\s|\S)EUR/g, '€')}</span>
+                        <span>{error ?? amountRange.replace(/(\.|,)00(.|\s*)EUR/g, '€')}</span>
                     </div>
                 </div>
             </form>
