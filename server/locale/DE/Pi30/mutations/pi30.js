@@ -13,11 +13,11 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['xsmall'],
-        breaks: ['mit']
+        breaks: ['bezahlen.']
     },
     {
         sizes: ['medium'],
-        breaks: ['monatlichen']
+        breaks: ['i.H.v.']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -47,13 +47,19 @@ const flex = [
         }
     ],
     [
-        'ratio:20x1',
+        'ratio:8x1',
         {
             headline: [...headlineBreaks]
         }
     ],
     [
-        'ratio:8x1',
+        'ratio:1x1',
+        {
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x4',
         {
             headline: [...headlineBreaks]
         }
