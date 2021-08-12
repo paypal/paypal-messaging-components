@@ -13,11 +13,11 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['xsmall'],
-        breaks: ['bezahlen.']
+        breaks: ['kaufen,']
     },
     {
         sizes: ['medium'],
-        breaks: ['i.H.v.']
+        breaks: ['30']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
