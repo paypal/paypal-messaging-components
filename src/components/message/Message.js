@@ -59,7 +59,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         meta,
         activeTags: getActiveTags(button),
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: isStorageFresh() ? null : getDeviceID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
