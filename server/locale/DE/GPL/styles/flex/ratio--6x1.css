@@ -1,7 +1,7 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
 @media (min-aspect-ratio: 60/11) and (max-width: 501px) {
     .message__headline {
-        font-size: 4vw;
+        font-size: 3.5vw;
         line-height: 1.1em;
         display: inline;
     }
