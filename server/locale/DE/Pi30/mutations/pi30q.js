@@ -8,27 +8,27 @@ import {
     xSmallNoWrap,
     addPeriod
 } from '../../../../message/mediaQueries';
-import { textLogoMutations, flexLogoMutations } from '../../../../message/logoMutations';
+import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
-// const headlineBreaks = [
-//     {
-//         sizes: ['xsmall'],
-//         breaks: ['Ratenzahlung']
-//     },
-//     {
-//         sizes: ['medium'],
-//         breaks: ['Sie in', 'Einkäufen']
-//     }
-// ].reduce((acc, item) => {
-//     const { sizes, breaks } = item;
-//     sizes.forEach(size => {
-//         acc.push({
-//             tag: size,
-//             br: breaks
-//         });
-//     });
-//     return acc;
-// }, []);
+const headlineBreaks = [
+    {
+        sizes: ['xsmall'],
+        breaks: ['mit']
+    },
+    {
+        sizes: ['medium'],
+        breaks: ['monatlichen']
+    }
+].reduce((acc, item) => {
+    const { sizes, breaks } = item;
+    sizes.forEach(size => {
+        acc.push({
+            tag: size,
+            br: breaks
+        });
+    });
+    return acc;
+}, []);
 
 const flex = [
     [
@@ -49,41 +49,13 @@ const flex = [
     [
         'ratio:20x1',
         {
-            styles: [
-                `.message__headline > .tag--medium > span > span:last-child::after {
-                    content: '.'
-                }`
-            ]
+            headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:8x1',
         {
-            styles: [
-                `.message__headline > .tag--medium > span > span:last-child::after {
-                    content: '.'
-                }`
-            ]
-        }
-    ],
-    [
-        'ratio:1x1',
-        {
-            styles: [
-                `.message__headline > .tag--medium > span > span:last-child::after {
-                content: '.'
-            }`
-            ]
-        }
-    ],
-    [
-        'ratio:1x4',
-        {
-            styles: [
-                `.message__headline > .tag--medium > span > span:last-child::after {
-                content: '.'
-            }`
-            ]
+            headline: [...headlineBreaks]
         }
     ],
     ...flexLogoMutations
