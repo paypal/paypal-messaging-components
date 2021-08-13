@@ -4,37 +4,37 @@ on:
         branches:
             - develop
             - release
-        paths:
-            # Generic
-            - banners/**
-            - modals/**
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # Exclude US Files
-            - '!banners/US/**'
-            - '!modals/US/**'
-            - '!server/locale/US/**'
-            - '!src/components/modal/content/US*/**'
-            - '!tests/functional/spec/US/**'
+        # paths:
+        #     # Generic
+        #     - banners/**
+        #     - modals/**
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # Exclude US Files
+        #     - '!banners/US/**'
+        #     - '!modals/US/**'
+        #     - '!server/locale/US/**'
+        #     - '!src/components/modal/content/US*/**'
+        #     - '!tests/functional/spec/US/**'
     pull_request:
-        paths:
-            # Generic
-            - banners/**
-            - modals/**
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # Exclude US Files
-            - '!banners/US/**'
-            - '!modals/US/**'
-            - '!server/locale/US/**'
-            - '!src/components/modal/content/US*/**'
-            - '!tests/functional/spec/US/**'
+        # paths:
+        #     # Generic
+        #     - banners/**
+        #     - modals/**
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # Exclude US Files
+        #     - '!banners/US/**'
+        #     - '!modals/US/**'
+        #     - '!server/locale/US/**'
+        #     - '!src/components/modal/content/US*/**'
+        #     - '!tests/functional/spec/US/**'
 jobs:
     # TODO: use this to run files for any generic change that affects all locales
     #       currently it will only run tests for locale-specific changes
@@ -97,23 +97,34 @@ jobs:
 
             - name: Non-US Banner Snapshot Tests - ${{ matrix.locale }}
               if: "!contains(github.event.head_commit.message, '[snapshots]')"
+              continue-on-error: true
               run: |
                   npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/banner
                   ./scripts/snapshot-tests/collect-diffs.sh
 
             - name: Non-US Modal Snapshot Tests - ${{ matrix.locale }}
               if: "!contains(github.event.head_commit.message, '[snapshots]')"
+              continue-on-error: true
               run: |
                   npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/modal
+
+            # TODO: split collect diffs by banner / modal
+            # pass in an argument to script?
+            - name: Collect Diffs
+              run: |
                   ./scripts/snapshot-tests/collect-diffs.sh
 
             - name: Update Banner Snapshots - ${{ matrix.locale }}
               if: contains(github.event.head_commit.message, '[snapshots]')
-              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/banner
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/banner
+                  git status
 
             - name: Update Modal Snapshots - ${{ matrix.locale }}
               if: contains(github.event.head_commit.message, '[snapshots]')
-              run: npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/modal
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern spec/${{ matrix.locale }}/modal
+                  git status
 
             - name: Commit Updated Snapshots
               uses: stefanzweifel/git-auto-commit-action@v4

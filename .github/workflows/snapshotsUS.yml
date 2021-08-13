@@ -4,41 +4,41 @@ on:
         branches:
             - develop
             - release
-        paths:
-            # Generic
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # ignores all locales and content
-            - '!server/locale/**'
-            - '!src/components/modal/content/**'
-            # US Specific
-            - banners/US/**
-            - modals/US/**
-            # re-includes US locales and US content
-            - server/locale/US/**
-            - src/components/modal/content/US*/**
-            - tests/functional/spec/US/**
+        # paths:
+        #     # Generic
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # ignores all locales and content
+        #     - '!server/locale/**'
+        #     - '!src/components/modal/content/**'
+        #     # US Specific
+        #     - banners/US/**
+        #     - modals/US/**
+        #     # re-includes US locales and US content
+        #     - server/locale/US/**
+        #     - src/components/modal/content/US*/**
+        #     - tests/functional/spec/US/**
     pull_request:
-        paths:
-            # Generic
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # ignores all locales and content
-            - '!server/locale/**'
-            - '!src/components/modal/content/**'
-            # US Specific
-            - banners/US/**
-            - modals/US/**
-            # re-includes US locales and US content
-            - server/locale/US/**
-            - src/components/modal/content/US*/**
-            - tests/functional/spec/US/**
+        # paths:
+        #     # Generic
+        #     - server/**
+        #     - src/**
+        #     - tests/functional/spec/*
+        #     - tests/functional/spec/utils/**
+        #     - utils/**
+        #     # ignores all locales and content
+        #     - '!server/locale/**'
+        #     - '!src/components/modal/content/**'
+        #     # US Specific
+        #     - banners/US/**
+        #     - modals/US/**
+        #     # re-includes US locales and US content
+        #     - server/locale/US/**
+        #     - src/components/modal/content/US*/**
+        #     - tests/functional/spec/US/**
 jobs:
     snapshots:
         name: US Snapshots
@@ -80,21 +80,16 @@ jobs:
               if: "!contains(github.event.head_commit.message, '[snapshots]')"
               run: |
                   npm run test:func -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
+
+            - name: Collect Diffs
+              run: |
                   ./scripts/snapshot-tests/collect-diffs.sh
 
             - name: Update Snapshots - US
               if: contains(github.event.head_commit.message, '[snapshots]')
-              run: npm run test:func:ciupdate -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
-
-            - name: Commit Updated Snapshots - US Banner and Custom
-              uses: stefanzweifel/git-auto-commit-action@v4
-              if: contains(github.event.head_commit.message, '[snapshots]')
-              with:
-                  commit_message: 'chore(snapshots): update US banner and custom snapshots [skip ci]'
-                  commit_options: '--no-verify --quiet'
-                  commit_user_name: Snapshot Actions Bot
-                  file_pattern: tests/functional/snapshots/US/*/(flex|text|custom)
-                  push_options: '-v'
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
+                  git status
 
             - name: Commit Updated Snapshots - US Modal
               uses: stefanzweifel/git-auto-commit-action@v4
@@ -104,4 +99,15 @@ jobs:
                   commit_options: '--no-verify --quiet'
                   commit_user_name: Snapshot Actions Bot
                   file_pattern: tests/functional/snapshots/US/*/modal
+                  push_options: '-v'
+
+            - name: Commit Updated Snapshots - US Banner and Custom
+              uses: stefanzweifel/git-auto-commit-action@v4
+              if: contains(github.event.head_commit.message, '[snapshots]')
+              with:
+                  commit_message: 'chore(snapshots): update US banner and custom snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  commit_user_name: Snapshot Actions Bot
+                  # no need to specify flex, text, or custom since modal files were already committed
+                  file_pattern: tests/functional/snapshots/US/
                   push_options: '-v'
