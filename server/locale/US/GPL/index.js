@@ -7,13 +7,6 @@ export default {
     localeClass: 'locale--US',
     productName: ['with', 'PayPal.'],
     validOptions,
-    minimumSizeOptions: {
-        layout: 'text',
-        logo: {
-            position: 'top',
-            type: 'primary'
-        }
-    },
     getMutations,
     logos,
     styles

@@ -29,16 +29,12 @@ export default function setup() {
 
                 if (attachEls.length > 0) {
                     const options = objectMerge(getGlobalState().config, getInlineOptions(attachEls[0]));
+                    const modal = Modal(options);
 
-                    // Automatically hook up click events
-                    options.onReady = ({ show }) => {
-                        attachEls.forEach(el => {
-                            el.setAttribute('tabindex', 0);
-                            el.addEventListener('click', () => show(el));
-                        });
-                    };
-
-                    Modal(options).render('body');
+                    attachEls.forEach(el => {
+                        el.setAttribute('tabindex', 0);
+                        el.addEventListener('click', () => modal.show(el));
+                    });
                 }
             }
         };

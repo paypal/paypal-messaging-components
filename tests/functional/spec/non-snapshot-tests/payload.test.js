@@ -47,7 +47,8 @@ const runTest = async ({
     });
 
     const payloadSpy = await createSpy();
-    const { bannerFrame, modalFrame } = await setupTestPage({ config, testPage });
+    const { bannerFrame, openModal } = await setupTestPage({ config, testPage });
+    const { modalFrame } = await openModal();
 
     await page.waitFor(5 * 1000);
     if (callback) await callback({ bannerFrame, modalFrame });

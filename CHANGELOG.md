@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.1](https://github.com/paypal/paypal-messaging-components/compare/v1.26.0...v1.26.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* DE GPL style bugs [snapshots] ([#577](https://github.com/paypal/paypal-messaging-components/issues/577)) ([62aa182](https://github.com/paypal/paypal-messaging-components/commit/62aa1820a4432f581722d370ce8ec38914aabf2a))
+
 # [1.26.0](https://github.com/paypal/paypal-messaging-components/compare/v1.25.2...v1.26.0) (2021-08-04)
 
 

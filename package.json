@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.26.0",
+    "version": "1.26.1",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -39,6 +39,7 @@
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot"
     },
     "dependencies": {
+        "@paypal/common-components": "^1.0.18",
         "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",
         "@paypal/sdk-logos": "^1.0.26",

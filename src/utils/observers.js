@@ -65,7 +65,7 @@ export const getAttributeObserver = createGlobalVariableGetter(
         })
 );
 
-const getIntersectionObserverPolyfill = () => {
+export const getIntersectionObserverPolyfill = () => {
     return ZalgoPromise.resolve(
         // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'
@@ -165,33 +165,20 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                 Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
                             !isIntersectingFallback
                         ) {
-                            // Attempt to fallback and failing that, hide the message.
-                            if (container.getAttribute('data-pp-style-preset') === 'smallest') {
-                                logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
-                                    description: `PayPal Message has been hidden. Fallback message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
-                                    container,
-                                    index,
-                                    duration
-                                });
-                                logger.track({
-                                    index,
-                                    et: 'CLIENT_IMPRESSION',
-                                    event_type: 'message_hidden'
-                                });
-                                ppDebug(
-                                    `Message Hidden: ${container.getAttribute('data-pp-style-preset') === 'smallest'}`
-                                );
-                                state.renderComplete = true;
-                                delete state.renderStart;
-                            } else {
-                                container.setAttribute('data-pp-style-preset', 'smallest');
-                                logger.warn(state.renderComplete ? 'update_overflow' : 'overflow', {
-                                    description: `PayPal Message attempting fallback. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
-                                    container,
-                                    index,
-                                    duration
-                                });
-                            }
+                            logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
+                                description: `PayPal Message has been hidden. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
+                                container,
+                                index,
+                                duration
+                            });
+                            logger.track({
+                                index,
+                                et: 'CLIENT_IMPRESSION',
+                                event_type: 'message_hidden'
+                            });
+                            ppDebug(`Message Hidden: true`);
+                            state.renderComplete = true;
+                            delete state.renderStart;
 
                             iframe.style.setProperty('opacity', '0', 'important');
                             iframe.style.setProperty('pointer-events', 'none', 'important');
