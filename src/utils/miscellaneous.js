@@ -218,8 +218,8 @@ export function getProductForOffer(offer) {
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
             return 'GPL';
-        case 'PAY_IN_1':
-            return 'PAY_IN_1';
+        case 'PAY_LATER_PAY_IN_1':
+            return 'PAY_LATER_PAY_IN_1';
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
