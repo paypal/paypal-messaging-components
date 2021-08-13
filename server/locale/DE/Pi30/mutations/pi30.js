@@ -17,7 +17,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['30']
+        breaks: ['nach']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -49,18 +49,28 @@ const flex = [
     [
         'ratio:8x1',
         {
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x1',
         {
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x4',
         {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
