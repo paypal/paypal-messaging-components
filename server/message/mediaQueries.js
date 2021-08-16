@@ -142,3 +142,15 @@ export function logo20x1() {
 export function xSmallNoWrap(breakpoint) {
     return `@media screen and (max-width: ${breakpoint}px) {.locale--DE .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
 }
+
+/**
+ * Media query used in GPL GTZ and GPLQ GTZ for wrapping of a logo primary left position message.
+ */
+export function primaryWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) { 
+        .locale--DE .message__headline .tag--xsmall > span:first-child {
+            white-space: normal;
+        }
+        .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
+    }`;
+}

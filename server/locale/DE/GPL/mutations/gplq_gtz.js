@@ -1,11 +1,13 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
 import {
-    logoNoneAddRatenzahlungAfterPayPal,
-    logoInlineAddRatenzahlungAfterPayPal,
-    xSmallNoWrap,
+    xSmallFallback,
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
     primaryWrap
-} from './mediaQueries';
+} from '../../../../message/mediaQueries';
+import { logoNoneAddRatenzahlungAfterPayPal, logoInlineAddRatenzahlungAfterPayPal, xSmallNoWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const headlineBreaks = [

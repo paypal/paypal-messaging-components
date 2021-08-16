@@ -1,11 +1,17 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import {
+    xSmallFallback,
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    primaryWrap
+} from '../../../../message/mediaQueries';
 import {
     addPeriod,
     logoNoneAddRatenzahlungAfterPayPal,
     logoInlineAddRatenzahlungAfterPayPal,
-    xSmallNoWrap,
-    primaryWrap
+    xSmallNoWrap
 } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
