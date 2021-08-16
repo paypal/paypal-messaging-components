@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.26.1](https://github.com/paypal/paypal-messaging-components/compare/v1.26.0...v1.26.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* DE GPL style bugs [snapshots] ([#577](https://github.com/paypal/paypal-messaging-components/issues/577)) ([62aa182](https://github.com/paypal/paypal-messaging-components/commit/62aa1820a4432f581722d370ce8ec38914aabf2a))
+
+# [1.26.0](https://github.com/paypal/paypal-messaging-components/compare/v1.25.2...v1.26.0) (2021-08-04)
+
+
+### Bug Fixes
+
+* ie11 loading issue ([#554](https://github.com/paypal/paypal-messaging-components/issues/554)) ([b971c20](https://github.com/paypal/paypal-messaging-components/commit/b971c20521d0c4026578a02673d5e909944fec4d))
+* remove collapsed elements from overflow calculation ([#573](https://github.com/paypal/paypal-messaging-components/issues/573)) ([ef20588](https://github.com/paypal/paypal-messaging-components/commit/ef20588b2a0073c091327802e9f9e60a020e46bb))
+
+
+### Features
+
+* default PayPal fonts to off [snapshots] ([#540](https://github.com/paypal/paypal-messaging-components/issues/540)) ([3b8c13c](https://github.com/paypal/paypal-messaging-components/commit/3b8c13c163992030d7512cada46f85d3d3215acf))
+
+## [1.25.2](https://github.com/paypal/paypal-messaging-components/compare/v1.25.1...v1.25.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* fix amount comparison ([#562](https://github.com/paypal/paypal-messaging-components/issues/562)) ([72bfb66](https://github.com/paypal/paypal-messaging-components/commit/72bfb6615df62c04b49bfee9cf591ed5aeee0bbb))
+* use new server data to update calculator directly ([#560](https://github.com/paypal/paypal-messaging-components/issues/560)) ([0dcb7ff](https://github.com/paypal/paypal-messaging-components/commit/0dcb7ff3260eb238fb9a0554b3f9a1728430aaa3))
+
+## [1.25.1](https://github.com/paypal/paypal-messaging-components/compare/v1.25.0...v1.25.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* de gpl modal calc ([#558](https://github.com/paypal/paypal-messaging-components/issues/558)) ([92912f4](https://github.com/paypal/paypal-messaging-components/commit/92912f40b9d251a81800e445ab3874e9f123c362))
+
 # [1.25.0](https://github.com/paypal/paypal-messaging-components/compare/v1.24.1...v1.25.0) (2021-07-09)
 
 

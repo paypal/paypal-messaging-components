@@ -34,11 +34,6 @@ jest.mock('server/locale', () => ({
     getLogos: () => ({})
 }));
 
-jest.mock('server/message/styles/fonts.css', () => ({
-    default: 'fonts',
-    __esModule: true
-}));
-
 jest.mock('server/message/styles', () => ({
     default: {
         'layout:text': [['default', '']],
@@ -179,7 +174,7 @@ describe('SSR message', () => {
         const fontFaceSelector = '@font-face';
         const fontFamilyData = {
             'default value': [undefined, null],
-            'valid value': ['Impact', "{ font-family: 'Impact', PayPal-Sans-Big, PayPal-Sans, Arial, sans-serif; }"],
+            'valid value': ['Impact', "{ font-family: 'Impact', Helvetica, Arial, sans-serif; }"],
             'invalid value': [' ', null],
             'malicious value': ["</script><script>alert('XSS Message!')</script>", null]
         };
@@ -335,7 +330,7 @@ describe('SSR message', () => {
 
         const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
 
-        expect(miscStyles.textContent).toContain('.message__messaging { width: 12px }');
+        expect(miscStyles.textContent).toContain('.message__messaging { width: 11.796px }');
     });
 
     test('handles message width range', () => {

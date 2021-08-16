@@ -14,7 +14,7 @@ button {
 }
 
 .message .em {
-    font-family: PayPal-Sans-Big, PayPal-Sans;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -33,16 +33,16 @@ button {
 .message__headline,
 .message__sub-headline,
 .message__disclaimer {
-    font-family: PayPal-Sans;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
 
 .message__headline {
-    font-family: PayPal-Sans-Big, PayPal-Sans;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 400;
 }
 .message__headline .weak {
-    font-family: PayPal-Sans;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
 

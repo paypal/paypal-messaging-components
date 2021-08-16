@@ -6,12 +6,14 @@ jest.mock('src/zoid/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockHide = jest.fn(() => Promise.resolve());
+    const mockTrigger = jest.fn();
     const mockCreateModal = jest.fn(() => ({
         render: mockRender,
         updateProps: mockUpdateProps,
         hide: mockHide,
         state: {},
         event: {
+            trigger: mockTrigger,
             once: (_, resolve) => resolve()
         }
     }));
@@ -35,6 +37,7 @@ const clearMocks = () => {
     getModalComponent()().render.mockClear();
     getModalComponent()().updateProps.mockClear();
     getModalComponent()().hide.mockClear();
+    getModalComponent()().event.trigger.mockClear();
     getModalComponent().mockClear();
 };
 
@@ -58,7 +61,7 @@ describe('modal interface', () => {
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(0);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(0);
     });
 
     test('Default renders to body when attempting to show', async () => {
@@ -68,7 +71,8 @@ describe('modal interface', () => {
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenLastCalledWith('modal-show');
     });
 
     test('Default renders to body when attempting to hide', async () => {
@@ -77,8 +81,7 @@ describe('modal interface', () => {
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
-        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(0);
     });
 
     test('Opens modal', async () => {
@@ -88,12 +91,11 @@ describe('modal interface', () => {
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
         // Sends open event to zoid iframe
-        expect(getModalComponent()().updateProps).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                visible: true
-            })
-        );
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().updateProps).toHaveBeenLastCalledWith({
+            index: '1'
+        });
+        expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenLastCalledWith('modal-show');
     });
 
     test('Closes modal', async () => {
@@ -104,16 +106,14 @@ describe('modal interface', () => {
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().hide).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenLastCalledWith('modal-show');
 
         await modal.hide();
 
-        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(2);
-        expect(getModalComponent()().updateProps).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                visible: false
-            })
-        );
+        expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(2);
+        expect(getModalComponent()().event.trigger).toHaveBeenLastCalledWith('modal-hide');
     });
 
     test('Shares a common modal instance', async () => {

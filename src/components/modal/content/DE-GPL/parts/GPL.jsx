@@ -12,13 +12,13 @@ export default () => {
         <section className="content-body">
             <Calculator />
 
-            <div className="content-column instructions">
+            <div className="content-column instructions transitional">
                 {instructions.map(instruction =>
                     instruction === 'PayPal' ? <b>PayPal </b> : <span>{instruction} </span>
                 )}
             </div>
 
-            <div className="content-column disclosure">
+            <div className="content-column disclosure transitional">
                 {(apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/,00/g, '')}
             </div>
         </section>

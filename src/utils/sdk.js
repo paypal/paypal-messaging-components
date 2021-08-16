@@ -199,3 +199,11 @@ export function getDevTouchpoint() {
         return undefined; // Prevent the zoid query param
     }
 }
+
+export function getFeatures() {
+    if (__MESSAGES__.__FEATURES__) {
+        return __MESSAGES__.__FEATURES__;
+    } else {
+        return undefined;
+    }
+}

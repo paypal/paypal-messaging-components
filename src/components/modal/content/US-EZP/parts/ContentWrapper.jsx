@@ -14,12 +14,7 @@ const ContentWrapper = () => {
     const [transitionState] = useTransitionState();
 
     useEffect(() => {
-        if (
-            transitionState === 'CLOSED' ||
-            // Needed for FF on Windows where state is not updated when
-            // fired after the iframe has been hidden
-            transitionState === 'OPENING'
-        ) {
+        if (transitionState === 'CLOSED') {
             setApplyNow(false);
         }
     }, [transitionState]);

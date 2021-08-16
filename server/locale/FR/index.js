@@ -6,13 +6,6 @@ import validOptions from './validOptions';
 export default {
     localeClass: 'locale--FR',
     productName: ['avec', 'PayPal.'],
-    minimumSizeOptions: {
-        layout: 'text',
-        logo: {
-            position: 'top',
-            type: 'primary'
-        }
-    },
     validOptions,
     getMutations,
     logos,

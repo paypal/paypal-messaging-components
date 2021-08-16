@@ -6,6 +6,9 @@ import { PORT, VARIANT } from '../../server/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
+// set this environment variable to simulate the time for the request to be answered
+const requestDelay = process.env.REQUEST_DELAY ?? 500;
+
 const devAccountMap = {
     DEV00000000NI: ['US', ['ni'], 'ni'],
     DEV0000000NIQ: ['US', ['ni'], 'niq'],
@@ -92,7 +95,6 @@ export default (app, server, compiler) => {
                 var interface = window.parent.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
                 document.write(interface);
             </script>
-            <script src="//localhost.paypal.com:${PORT}/smart-credit-common.js"></script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
             ${initializer}
         </body>
@@ -327,8 +329,10 @@ export default (app, server, compiler) => {
         return { props, productNames };
     };
 
-    app.get('/credit-presentment/smart/modal', (req, res) => {
+    // create the initial modal with content
+    app.get('/credit-presentment/smart/modal', async (req, res) => {
         const { targetMeta, scriptUID } = req.query;
+
         const { props, productNames } = getModalData(req);
 
         const component = () => {
@@ -342,20 +346,22 @@ export default (app, server, compiler) => {
 
             return props.country;
         };
-
-        res.send(
-            createMockZoidMarkup(
-                targetMeta ? 'modal' : `modal-${component()}`,
-                `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
-                scriptUID
-            )
-        );
+        setTimeout(() => {
+            res.send(
+                createMockZoidMarkup(
+                    targetMeta ? 'modal' : `modal-${component()}`,
+                    `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
+                    scriptUID
+                )
+            );
+        }, requestDelay);
     });
-    app.get('/credit-presentment/modalContent', (req, res) => {
+
+    app.get('/credit-presentment/modalContent', async (req, res) => {
         const { props: data } = getModalData(req);
         setTimeout(() => {
             res.send(data);
-        }, 1000);
+        }, requestDelay);
     });
 
     app.get('/credit-presentment/renderMessage', async (req, res) => {
@@ -374,14 +380,14 @@ export default (app, server, compiler) => {
 
         setTimeout(() => {
             res.send(getTerms(country, Number(amount)));
-        }, 1000);
+        }, requestDelay);
     });
     app.get('/credit-presentment/calculateTerms', (req, res) => {
         const { country, amount } = req.query;
 
         setTimeout(() => {
             res.send(getTerms(country, Number(amount)));
-        }, 1000);
+        }, requestDelay);
     });
 
     app.get('/credit-presentment/messages', (req, res) => {
