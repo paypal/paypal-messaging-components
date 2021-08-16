@@ -320,7 +320,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'boolean',
                 queryParam: 'pp_debug',
                 required: false,
-                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : null)
+                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : undefined)
             },
             stageTag: {
                 type: 'string',
