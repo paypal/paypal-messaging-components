@@ -349,9 +349,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             },
             debug: {
                 type: 'boolean',
-                queryParam: ({ value }) => (value ? 'pp_debug' : ''),
+                queryParam: 'pp_debug',
                 required: false,
-                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : null)
             },
             messageLocation: {
                 type: 'string',
