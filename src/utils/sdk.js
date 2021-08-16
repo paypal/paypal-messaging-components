@@ -12,7 +12,6 @@ import {
     getSDKMeta,
     getSDKAttributes,
     getSDKQueryParam,
-    getSDKStorage,
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getPayPalDomain as getSDKPayPalDomain
@@ -104,11 +103,7 @@ export function isZoidComponent() {
 }
 
 export function getStorage() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKStorage();
-    } else {
-        return getBelterStorage({ name: getNamespace() });
-    }
+    return getBelterStorage({ name: getNamespace() });
 }
 
 // Use SDK methods when available, otherwise manually fetch storage via belter
