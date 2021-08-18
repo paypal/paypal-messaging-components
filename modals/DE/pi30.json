@@ -1,0 +1,40 @@
+{
+    "meta": {
+        "product": "PI30",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "apr": "{apr}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Kaufen Sie was Sie wollen. Bezahlung nach 30 Tagen.",
+
+        "subHeadline": "Erhältlich für den Einkäufen i.H.v. 1€ - 1,000€.",
+
+        "stepsList": [
+            "Wählen Sie PayPal, um Bezahlung nach 30 Tagen zu nutzen.",
+            "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
+            "Wir buchen die Zahlung automatisch nach 30 Tagen von Ihrem Bankkonto ab."
+        ],
+
+        "optionText": ["Für andere Später Bezahlen Optionen wählen Sie ", "PayPal Ratenzahlung."],
+
+        "legalTerms": "REPLACE ME WITH LEGAL TERMS"
+    }
+}
