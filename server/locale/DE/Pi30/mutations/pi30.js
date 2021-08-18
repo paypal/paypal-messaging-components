@@ -55,6 +55,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
+                    xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and 
