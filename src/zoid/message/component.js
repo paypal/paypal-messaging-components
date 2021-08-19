@@ -17,6 +17,7 @@ import {
     writeStorageID,
     getOrCreateStorageID,
     getStageTag,
+    getFeatures,
     ppDebug,
     isScriptBeingDestroyed
 } from '../../utils';
@@ -215,10 +216,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-                        // Set visible to false to prevent this update from popping open the modal
-                        // when the user has previously opened the modal
-                        modal.updateProps({ refIndex: index, offer: offerType, visible: false });
-                        modal.render('body');
+                        modal.updateProps({ refIndex: index, offer: offerType });
 
                         logger.track({
                             index,
@@ -266,11 +264,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     // Handle moving the iframe around the DOM
                     return () => {
+                        const CLEAN_UP_DELAY = 0;
                         const { getContainer } = props;
                         const { messagesMap } = getGlobalState();
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
-                        ZalgoPromise.delay(0).then(() => {
+                        ZalgoPromise.delay(CLEAN_UP_DELAY).then(() => {
                             if (
                                 container &&
                                 container.ownerDocument.body.contains(container) &&
@@ -364,6 +363,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            features: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getFeatures
             }
         }
     })
