@@ -204,10 +204,18 @@
             transform: translate3d(0, 0, 0);
             top: 12rem;
             max-width: 640px;
+            button.tab:focus span{
+                text-decoration: underline; 
+            }
         }
 
         .sticky-apply-now {
             top: 12rem;
+            button.tab{
+                :focus span{
+                    text-decoration: underline; 
+                }
+            }
         }
     }
 
