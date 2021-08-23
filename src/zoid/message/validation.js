@@ -184,10 +184,10 @@ export default {
     merchantConfig: ({ props: { merchantConfig } }) => {
         if (typeof merchantConfig !== 'undefined') {
             if (!validateType(Types.STRING, merchantConfig)) {
-                logInvalidType('merchantConfig', Types.STRING, merchantConfig);
-            } else {
-                return merchantConfig;
+                // fail silently since value is supplied by sdk
+                return undefined;
             }
+            return merchantConfig;
         }
 
         return undefined;
