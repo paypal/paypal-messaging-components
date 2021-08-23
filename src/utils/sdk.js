@@ -30,8 +30,7 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        const fundingEligibility = getFundingEligibility();
-        return fundingEligibility?.paylater?.merchantConfigHash;
+        return getFundingEligibility()?.paylater?.merchantConfigHash;
     } else {
         return undefined;
     }
