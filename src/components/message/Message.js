@@ -53,7 +53,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.textAlign = window.xprops.style?.text?.align || 'left';
     button.style.fontFamily = 'inherit';
     button.style.fontSize = 'inherit';
-    button.innerHTML = markup;
+    button.innerHTML = markup ?? '';
 
     onReady({
         meta,
