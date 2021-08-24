@@ -141,7 +141,7 @@ if [ ! -z "$tag" ]; then
     [[ $devTouchpoint = true ]] && sed -i '' "s/__DEV_TOUCHPOINT__: true/__DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT/" ./globals.js
 
     echo "web stage --tag $tag"
-    # web stage --tag "$tag"
+    web stage --tag "$tag"
     printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 
     # Reset modified dist files
