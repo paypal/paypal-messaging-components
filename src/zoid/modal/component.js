@@ -85,6 +85,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            ignoreCache: {
+                type: 'boolean',
+                queryParam: 'ignore_cache',
+                required: false,
+                value: validate.ignoreCache
+            },
 
             // Callbacks
             onClick: {
