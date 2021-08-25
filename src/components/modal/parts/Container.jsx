@@ -16,9 +16,11 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         clientId,
         merchantId,
         buyerCountry,
+        ignoreCache,
         version,
         env,
-        deviceID: parentDeviceID
+        deviceID: parentDeviceID,
+        stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -53,8 +55,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             clientId,
             merchantId,
             buyerCountry,
+            ignoreCache,
             version,
-            env
+            env,
+            stageTag
         }).then(data => {
             setServerData(data);
             setLoading(false);

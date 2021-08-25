@@ -17,7 +17,19 @@ import {
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(
-    ({ account, merchantId, currency, amount, buyerCountry, offer, onReady, onCalculate, onApply, onClose }) => {
+    ({
+        account,
+        merchantId,
+        currency,
+        amount,
+        buyerCountry,
+        ignoreCache,
+        offer,
+        onReady,
+        onCalculate,
+        onApply,
+        onClose
+    }) => {
         addPerformanceMeasure('firstModalRenderDelay');
 
         const { render, updateProps, state, event } = getModalComponent()({
@@ -26,6 +38,7 @@ const memoizedModal = memoizeOnProps(
             currency,
             amount,
             buyerCountry,
+            ignoreCache,
             offer,
             onReady,
             onCalculate,

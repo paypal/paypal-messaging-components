@@ -77,15 +77,21 @@ const flex = [
         {
             styles: [
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                .message__headline {
-                    font-size: 5vw;
-                }
-            }`,
+                    .message__headline {
+                        font-size: 4vw;
+                    }
+                }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                .message__headline {
-                    font-size: 3.5vw;
-                }
-            }`
+                    .locale--DE .message__logo:nth-of-type(1) {
+                        width: 40%;
+                    }
+                    .locale--DE .message__logo:nth-of-type(2) {
+                        display: none;
+                    }
+                    .message__headline {
+                        font-size: 3.5vw;
+                    }
+                }`
             ],
             headline: [...headlineBreaks]
         }
