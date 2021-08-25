@@ -15,8 +15,7 @@
         "server/",
         "dist/",
         "__sdk__.js",
-        "globals.js",
-        "locales.js"
+        "globals.js"
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
@@ -64,6 +63,7 @@
         "babel-eslint": "^10.0.1",
         "babel-jest": "^25.1.0",
         "babel-plugin-module-resolver": "^4.0.0",
+        "conventional-changelog-conventionalcommits": "^4.6.0",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-config-airbnb-base": "^14.0.0",

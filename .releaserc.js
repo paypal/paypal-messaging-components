@@ -4,12 +4,38 @@ module.exports = {
         [
             '@semantic-release/commit-analyzer',
             {
-                preset: 'angular',
+                preset: 'conventionalcommits',
                 // Defaults: https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-rules.js
-                releaseRules: [{ type: 'refactor', release: 'patch' }]
+                releaseRules: [
+                    { type: 'refactor', release: 'patch' },
+                    { type: 'perf', release: 'patch' },
+                    { type: 'style', release: 'patch' },
+                    { type: 'revert', release: 'patch' }
+                ]
             }
         ],
-        '@semantic-release/release-notes-generator',
+        [
+            '@semantic-release/release-notes-generator',
+            {
+                preset: 'conventionalcommits',
+                presetConfig: {
+                    types: [
+                        // What commit types show up in the changelog file
+                        { type: 'feat', section: 'Features' },
+                        { type: 'fix', section: 'Bug Fixes' },
+                        { type: 'perf', section: 'Performance Improvements' },
+                        { type: 'revert', section: 'Reverts' },
+                        { type: 'docs', section: 'Documentation' },
+                        { type: 'style', section: 'Styles' },
+                        { type: 'chore', section: 'Miscellaneous Chores', hidden: true },
+                        { type: 'refactor', section: 'Code Refactoring' },
+                        { type: 'test', section: 'Tests' },
+                        { type: 'build', section: 'Build System' },
+                        { type: 'ci', section: 'Continuous Integration' }
+                    ]
+                }
+            }
+        ],
         [
             '@semantic-release/changelog',
             {

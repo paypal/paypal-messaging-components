@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import validate from 'src/zoid/message/validation';
-import { localeOptions, currencyOptions } from '../../../../../../locales';
 
 console.warn = jest.fn();
 
@@ -169,7 +168,7 @@ describe('validate', () => {
     });
 
     test('validates currency', () => {
-        currencyOptions.forEach(supportedCurrency => {
+        ['USD', 'EUR', 'GBP', 'AUD'].forEach(supportedCurrency => {
             const currency = validate.currency({ props: { currency: supportedCurrency } });
 
             expect(currency).toEqual(supportedCurrency);
@@ -183,7 +182,7 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        [12345, null, 'MXN'].forEach((invalidCurrency, index) => {
+        [12345, null].forEach((invalidCurrency, index) => {
             const currency = validate.currency({ props: { currency: invalidCurrency } });
 
             expect(currency).toBeUndefined();
@@ -223,7 +222,7 @@ describe('validate', () => {
     });
 
     test('validates buyerCountry', () => {
-        localeOptions.forEach(supportedBuyerCountry => {
+        ['US', 'DE', 'FR', 'GB', 'AU'].forEach(supportedBuyerCountry => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: supportedBuyerCountry } });
 
             expect(buyerCountry).toEqual(supportedBuyerCountry);
@@ -237,7 +236,7 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        [12345, 'abc', null].forEach((invalidBuyerCountry, index) => {
+        [12345, null].forEach((invalidBuyerCountry, index) => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: invalidBuyerCountry } });
 
             expect(buyerCountry).toBeUndefined();
