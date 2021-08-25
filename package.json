@@ -15,8 +15,7 @@
         "server/",
         "dist/",
         "__sdk__.js",
-        "globals.js",
-        "locales.js"
+        "globals.js"
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
