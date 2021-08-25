@@ -56,6 +56,16 @@ const flex = [
             styles: [
                 `.message__headline > .tag--medium > span > span:last-child::after {
                     content: '.'
+                }`,
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                    .message__headline {
+                        font-size: 4.5vw;
+                    }
+                }`,
+                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
+                    .message__headline {
+                        font-size: 4.5vw;
+                    }
                 }`
             ],
             headline: [...headlineBreaks]

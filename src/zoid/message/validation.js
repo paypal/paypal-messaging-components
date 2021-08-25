@@ -133,8 +133,6 @@ export default {
         if (typeof currency !== 'undefined') {
             if (!validateType(Types.STRING, currency)) {
                 logInvalidType('currency', Types.STRING, currency);
-            } else if (!arrayIncludes(currencyOptions, currency)) {
-                logInvalidOption('currency', currencyOptions, currency);
             } else {
                 return currency;
             }
@@ -161,8 +159,6 @@ export default {
         if (typeof buyerCountry !== 'undefined') {
             if (!validateType(Types.STRING, buyerCountry)) {
                 logInvalidType('buyerCountry', Types.STRING, buyerCountry);
-            } else if (!arrayIncludes(localeOptions, buyerCountry)) {
-                logInvalidOption('buyerCountry', localeOptions, buyerCountry);
             } else {
                 return buyerCountry;
             }

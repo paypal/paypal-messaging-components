@@ -1,18 +1,16 @@
 .message__logo-container {
+    margin-right: 10px;
     display: flex;
     align-items: center;
 }
 
 .message__headline {
-    font-family: 'PayPal-Sans-Big';
-    font-size: 8.4vw;
-    line-height: 1.6em;
+    font-size: 3.5vw;
     padding: 0px;
 }
 
 .message__disclaimer {
     position: static;
-    font-family: 'PayPal-Sans-Big';
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0em;
@@ -38,6 +36,7 @@
     width: 27px;
     display: inline-block;
     margin-right: 10px;
+    margin-left: 5px;
 }
 
 .message__logo:nth-of-type(2) {
@@ -65,12 +64,6 @@
     line-height: 1.5;
 }
 
-@media (min-width: 220px) {
-    .message__disclaimer {
-        font-size: 0.9rem;
-    }
-}
-
 .message__promo-container {
-    padding-right: 4px;
+    padding-right: 3px;
 }
