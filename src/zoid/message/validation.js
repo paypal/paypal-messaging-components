@@ -1,7 +1,6 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { currencyOptions, localeOptions } from '../../../locales';
 import { logger, memoize } from '../../utils';
 
 export const Types = {
