@@ -50,7 +50,7 @@ const flex = [
                 }`,
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4.4vw;
+                        font-size: 4vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
@@ -69,9 +69,14 @@ const flex = [
         'ratio:8x1',
         {
             styles: [
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                    .message__headline {
+                        font-size: 4vw;
+                    }
+                }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                 .message__headline {
-                    font-size: 4.4vw;
+                    font-size: 4vw;
                 }
             }`
             ],

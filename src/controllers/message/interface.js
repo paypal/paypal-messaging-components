@@ -90,7 +90,8 @@ export default (options = {}) => ({
                     merchantId,
                     currency,
                     amount,
-                    buyerCountry
+                    buyerCountry,
+                    ignoreCache
                 };
                 const modalProps = {
                     ...commonProps,
@@ -103,7 +104,6 @@ export default (options = {}) => ({
                     style,
                     offer,
                     onClick,
-                    ignoreCache,
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
                             onRender(...args);
