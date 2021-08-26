@@ -29,6 +29,19 @@ if (!isZoidComponent()) {
     });
 }
 
+export function addLoggerMetaMutator(index, metaMutation) {
+    logger.addMetaBuilder(existingMeta => {
+        // Remove potential existing meta info
+        // Necessary because beaver-logger will not override an existing meta key if these values change
+        const newMetaForIndex = { ...existingMeta[index], ...metaMutation };
+
+        // eslint-disable-next-line no-param-reassign
+        delete existingMeta[index];
+
+        return { [index]: newMetaForIndex };
+    });
+}
+
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
 export function buildStatsPayload({ container, activeTags, index }) {
@@ -69,23 +82,7 @@ export function runStats({ container, activeTags, index }) {
     }
 
     buildStatsPayload({ container, activeTags, index }).then(statsPayload => {
-        logger.addMetaBuilder(existingMeta => {
-            const { account, messageRequestId, trackingDetails } = existingMeta[index];
-
-            // eslint-disable-next-line no-param-reassign
-            delete existingMeta[index];
-
-            return {
-                existingMeta,
-                [index]: {
-                    type: 'message',
-                    account,
-                    messageRequestId,
-                    trackingDetails,
-                    stats: statsPayload
-                }
-            };
-        });
+        addLoggerMetaMutator(index, { type: 'message', stats: statsPayload });
 
         // Attributes temporarily required to exist as part of the stats event
         // {statsPayload} - (({statsPayload} ∩ {meta}) ∪ {attributes exclusive to other tracking events})
