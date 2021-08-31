@@ -60,7 +60,17 @@ const localize = (country, amount) => {
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
-    const { currency, payerId, clientId, merchantId, onCalculate, buyerCountry, amount } = useXProps();
+    const {
+        currency,
+        payerId,
+        clientId,
+        merchantId,
+        onCalculate,
+        buyerCountry,
+        ignoreCache,
+        amount,
+        stageTag
+    } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
         prevValue: localize(country, initialTerms.amount),
@@ -77,7 +87,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             payerId,
             clientId,
             merchantId,
-            buyerCountry
+            buyerCountry,
+            ignoreCache,
+            stageTag
         })
             .then(data => {
                 setServerData(data);
