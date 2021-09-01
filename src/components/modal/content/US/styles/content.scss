@@ -50,6 +50,12 @@
         color: #687173;
     }
 
+    &.sticky{
+        .call-to-action .button.apply-now{
+            visibility: hidden;
+        }
+    }
+
     .call-to-action {
         display: flex;
         width: 100%;
