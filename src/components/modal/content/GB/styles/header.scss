@@ -45,6 +45,12 @@
         top: 5px;
         right: 5px;
         pointer-events: all;
+        
+        &:focus{
+            border: 1px solid white;
+            border-radius: 5px;
+            transform: translate(1px, -1px);
+        }
 
         svg {
             height: 44px;

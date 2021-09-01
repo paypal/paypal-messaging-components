@@ -47,6 +47,13 @@
     }
 
     .close {
+        
+        &:focus{
+            border: 1px solid white;
+            border-radius: 5px;
+            transform: translate(1px, -1px);
+        }
+
         svg {
             height: 48px;
             width: 48px;
