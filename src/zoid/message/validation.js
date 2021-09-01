@@ -3,7 +3,6 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
 import { logger, memoize } from '../../utils';
-import { localeOptions, currencyOptions } from '../../../locales';
 
 export const Types = {
     ANY: 'ANY',
@@ -134,8 +133,6 @@ export default {
         if (typeof currency !== 'undefined') {
             if (!validateType(Types.STRING, currency)) {
                 logInvalidType('currency', Types.STRING, currency);
-            } else if (!arrayIncludes(currencyOptions, currency)) {
-                logInvalidOption('currency', currencyOptions, currency);
             } else {
                 return currency;
             }
@@ -162,8 +159,6 @@ export default {
         if (typeof buyerCountry !== 'undefined') {
             if (!validateType(Types.STRING, buyerCountry)) {
                 logInvalidType('buyerCountry', Types.STRING, buyerCountry);
-            } else if (!arrayIncludes(localeOptions, buyerCountry)) {
-                logInvalidOption('buyerCountry', localeOptions, buyerCountry);
             } else {
                 return buyerCountry;
             }
