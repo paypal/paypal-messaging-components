@@ -49,12 +49,6 @@
     li {
         color: #687173;
     }
-    
-    &.sticky{
-        .call-to-action .button.apply-now{
-            visibility: hidden;
-        }
-    }
 
     .call-to-action {
         display: flex;
@@ -107,6 +101,12 @@
             transform: translate3d(0, 0, 0);
             left: auto;
             width: 100%;
+        }
+
+        &.sticky{
+            .call-to-action .button.apply-now{
+                visibility: hidden;
+            }
         }
     }
 
