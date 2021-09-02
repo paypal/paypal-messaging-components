@@ -16,7 +16,7 @@
     "headline": [
         ["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]],
         [
-            ["Bezahlung nach 30 Tagen bei Einkäufen i.H.v. {formattedMinAmount} - {formattedMaxAmount}"],
+            ["Bezahlen Sie bei Einkäufen bis zu {formattedMinAmount} - {formattedMaxAmount} erst nach 30 Tagen"],
             ["medium", "large", "xlarge"]
         ]
     ],

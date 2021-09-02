@@ -13,7 +13,8 @@
     },
     "headline": [
         ["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]],
-        [["Bezahlung nach 30 Tagen"], ["medium", "large", "xlarge"]]
+        ["Bezahlen Sie 30 Tage später", ["medium.text"]],
+        [["Bezahlen Sie nach 30 Tagen"], ["medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [["Mehr erfahren", ["default"]]]
