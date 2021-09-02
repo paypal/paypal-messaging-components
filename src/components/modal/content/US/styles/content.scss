@@ -142,7 +142,7 @@
             opacity: 1;
             // show content. hiddened by default for screen readers
             display: initial;
-            visibility: initial;
+            visibility: visible;
 
             button {
                 transform: scaleX(1) translateX(0);
