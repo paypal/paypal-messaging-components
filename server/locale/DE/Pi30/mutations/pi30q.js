@@ -125,7 +125,7 @@ export default {
                     xSmallFallback(textSize * 9.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
-                ],
+                ]
             })
         ],
         [
