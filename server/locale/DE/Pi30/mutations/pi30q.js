@@ -115,7 +115,7 @@ export default {
                     setLogoTop(textSize * 26.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
-                ],
+                ]
             })
         ],
         [
@@ -125,7 +125,6 @@ export default {
                     xSmallFallback(textSize * 9.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
-                    }`
                 ],
             })
         ],
@@ -154,9 +153,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [
-                     styles: [xSmallFallback(textSize * 14)],
-                ],
+                styles: [xSmallFallback(textSize * 14)],
                 logo: false,
                 headline: [
                     {
