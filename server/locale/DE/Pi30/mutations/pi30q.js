@@ -122,17 +122,11 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 12.5),
+                    xSmallFallback(textSize * 9.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 9),
-                    `@media screen and 
-                    (max-width: ${textSize * 18.67}px) {
-                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
+                    addPeriod()
                     }`
                 ],
-                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
             })
         ],
         [
@@ -151,7 +145,7 @@ export default {
                         12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
-                    { tag: 'medium', br: ['bie'] },
+                    { tag: 'medium', br: ['nach'] },
                     { tag: 'xsmall', br: ['später'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
@@ -161,11 +155,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 13),
-                    xSmallNoWrap(textSize * 8),
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`
-                    // `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                     styles: [xSmallFallback(textSize * 14)],
                 ],
                 logo: false,
                 headline: [
@@ -186,11 +176,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 14),
-                    xSmallNoWrap(textSize * 13.8),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo-container::after { content: '.'; }`,
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    `.message__logo-container::after { content: '.'; }`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [

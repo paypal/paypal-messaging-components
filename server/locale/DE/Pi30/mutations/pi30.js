@@ -18,7 +18,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 13.75),
+                    xSmallFallback(textSize * 14),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
@@ -29,7 +29,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Einkäufen']
+                        br: ['erst']
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
