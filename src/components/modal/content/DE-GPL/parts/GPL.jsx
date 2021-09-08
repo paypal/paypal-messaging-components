@@ -1,36 +1,48 @@
 /** @jsx h */
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 
 import { useServerData, useContent, useProductMeta } from '../../../lib';
+import Header from '../../../parts/Header';
 import Calculator from './Calculator';
 
-export default () => {
+export default ({ selectProduct, cornerRef }) => {
     const { products } = useServerData();
-    const { instructions, disclosure } = useContent('GPL');
+    const { headline, instructions, switchingText, disclosure } = useContent('GPL');
     const { apr } = useProductMeta('GPL');
-    // Offer may be undefined when modal is rendered via standalone modal integration
-    // const product = getProductForOffer(offer);
-    // Product can be NONE when standalone modal so default to first product
-    // const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-    // const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
 
-    const altProduct = products.length > 1 && <p>For another option, see Pay in 30 days.</p>;
+    const switchText = (
+        <div className="content-column switching-text">
+            <p>
+                {switchingText[0]}
+                <button type="button" className="switching-link" onClick={() => selectProduct('PI30')}>
+                    {switchingText[1]}
+                </button>
+            </p>
+        </div>
+    );
+
+    const disclosureText = (apr === '0.00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/[.,]00/g, '');
 
     return (
-        <section className="content-body">
-            <Calculator />
-
-            <div className="content-column instructions transitional">
-                {instructions.map(instruction =>
-                    instruction === 'PayPal' ? <b>PayPal </b> : <span>{instruction} </span>
-                )}
-            </div>
-
-            <div>{altProduct}</div>
-
-            <div className="content-column disclosure transitional">
-                {(apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/,00/g, '')}
-            </div>
-        </section>
+        <Fragment>
+            <Header logo="DE-GPL">
+                <h1>{headline}</h1>
+            </Header>
+            <span className="corner" ref={cornerRef} />
+            <section className="content-body gpl">
+                <div className="description">
+                    <Calculator />
+                    <div className="content-column instructions transitional">
+                        {instructions.map(instruction =>
+                            instruction === 'PayPal' ? <b>PayPal </b> : <span>{instruction} </span>
+                        )}
+                    </div>
+                </div>
+                <div className="content-footer">
+                    {products.length > 1 && switchText}
+                    <div className="content-column disclosure dashed-border transitional">{disclosureText}</div>
+                </div>
+            </section>
+        </Fragment>
     );
 };

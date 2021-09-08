@@ -1,95 +1,53 @@
 /** @jsx h */
-import { h } from 'preact';
-import { useRef } from 'preact/hooks';
+import { h, Fragment } from 'preact';
 
-import { createEvent } from '../../../../../utils';
-import { useXProps, useScroll, useApplyNow, useContent } from '../../../lib';
-import Icon from '../../../parts/Icon';
-import Button from '../../../parts/Button';
+import { useServerData, useContent } from '../../../lib';
+import Header from '../../../parts/Header';
 
-export const Header = () => {
-    const buttonRef = useRef();
-    const handleApplyNowClick = useApplyNow('Apply Now');
-    const { title, subtitle } = useContent('PI30');
+const PI30 = ({ selectProduct, cornerRef }) => {
+    const { products } = useServerData();
 
-    useScroll(({ target: { scrollTop } }) => {
-        const { offsetTop, clientHeight } = buttonRef.current;
+    const { headline, subHeadline, stepsList, switchingText, legalTerms } = useContent('PI30');
 
-        // Ensure first that the button is being displayed
-        // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
-        // Checking the value here prevents erratic behavior wrt the logo and apply now button
-        if (scrollTop && offsetTop) {
-            if (scrollTop - offsetTop < clientHeight + 30) {
-                window.dispatchEvent(createEvent('apply-now-hidden'));
-            } else {
-                window.dispatchEvent(createEvent('apply-now-visible'));
-            }
-        }
-    }, []);
-
-    return (
-        <div className="content-header">
-            <div className="image-wrapper">
-                <Icon name="rocket" />
+    const list = [];
+    for (let i = 1; i <= stepsList.length; i++) {
+        list.push(
+            <div className="row">
+                <div className="list-number">
+                    <div />
+                    <span>{i}</span>
+                </div>
+                <p>{stepsList[i - 1]}</p>
+                <br />
             </div>
-            <h1 className="title">{title}</h1>
-            <p className="tag">{subtitle}</p>
-            <Button ref={buttonRef} onClick={handleApplyNowClick}>
-                Apply Now
-            </Button>
+        );
+    }
+
+    const switchText = (
+        <div className="content-column">
+            <p className="switching-text">
+                {switchingText[0]}
+                <button type="button" className="switching-link" onClick={() => selectProduct('GPL')}>
+                    {switchingText[1]}
+                </button>
+            </p>
         </div>
     );
-};
-
-export const Content = () => {
-    const { onClick } = useXProps();
-
-    const { terms, instructions, disclaimer, copyright } = useContent('NI');
-    const { headline, subHeadline, stepsList, switchingText } = useContent('Pi30');
 
     return (
-        <section className="content-body">
-            <h2 className="title">{terms.title}</h2>
-            <ul className="terms-list">
-                {terms.items.map(term => (
-                    <li className="terms-item">{term}</li>
-                ))}
-            </ul>
-
-            <hr className="divider" />
-
-            <h2 className="title">{instructions.title}</h2>
-            <ul className="instructions-list">
-                {instructions.items.map(([icon, instruction]) => (
-                    <li className="instructions-item">
-                        <div>
-                            <Icon name={icon} />
-                        </div>
-                        <p>{instruction}</p>
-                    </li>
-                ))}
-                <div className="content-column instructions transitional">
-                    {stepsList.map(listItem => (listItem === 'PayPal' ? <b>PayPal </b> : <span>{listItem} </span>))}
-                </div>
-            </ul>
-
-            <hr className="divider" />
-
-            <div className="terms">
-                <p>
-                    <a
-                        onClick={() => onClick({ linkName: 'Legal Terms' })}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.paypal.com/us/webapps/mpp/ppcterms"
-                    >
-                        Click here
-                    </a>{' '}
-                    to view the PayPal Credit Terms and Conditions.
-                </p>
-                <p>{disclaimer}</p>
-                <p>{copyright}</p>
-            </div>
-        </section>
+        <Fragment>
+            <Header logo="DE-GPL">
+                <h1 className="pi30-headline">{headline}</h1>
+                <h3 className="pi30-subheadline">{subHeadline}</h3>
+            </Header>
+            <span className="corner" ref={cornerRef} />
+            <section className="content-body pi30">
+                <div className="content-column instructions transitional">{list}</div>
+                {products.length > 1 && switchText}
+                <div className="content-column disclosure transitional">{legalTerms}</div>
+            </section>
+        </Fragment>
     );
 };
+
+export default PI30;

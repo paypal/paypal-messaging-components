@@ -1,54 +1,114 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
+import { useState, useRef, useEffect } from 'preact/hooks';
+import arrayFind from 'core-js-pure/stable/array/find';
 
-import * as Pi30 from './Pi30';
-import * as GPL from './GPL';
-import { useServerData, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
+import PI30 from './Pi30';
+import GPL from './GPL';
+import ProductList from './ProductList';
+import { useServerData, useScroll, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
 import { getProductForOffer } from '../../../../../utils';
-import Button from '../../../parts/Button';
-import Icon from '../../../parts/Icon';
 
-const buttonsMap = {
-    Pi30: {
-        title: 'Bezahlung nach 30 Tagen',
-        subtitle: 'Get more time to pay for your purchase',
-        icon: <Icon name="pi30-hourglass" />,
-        product: 'Pi30'
-    },
-    GPL: {
-        title: '0% Ratenzahlung verfügbar',
-        subtitle: 'Split your purchases into equal monthly payments',
-        icon: <Icon name="ratenzahlung-calendar" />,
-        product: 'GPL'
-    }
-};
-
-// GPL modal will always have Pi30 + GPL
-const Content = ({ view, changeView }) => {
+const Content = ({ headerRef, contentWrapper }) => {
+    const cornerRef = useRef();
     const { products } = useServerData();
-    switch (view) {
-        case 'buttons':
-            return (
-                <Fragment>
-                    <Button onClick={changeView}>
-                        <h1></h1>
-                    </Button>
-                    <Button>0% Ratenzahlung verfügbar</Button>
-                </Fragment>
-            );
-            break;
-        case 'Pi30':
-            <Pi30 />;
-            break;
-        case 'GPL':
-        default:
-            <GPL />;
+    const { offer } = useXProps();
+    const [transitionState] = useTransitionState();
+    const { scrollTo } = useScroll();
+    const [sticky, setSticky] = useState(false);
+    // scrollY stores the modal scroll position.
+    const scrollY = useRef(0);
+    // Offer may be undefined when modal is rendered via standalone modal integration
+    const product = getProductForOffer(offer);
+    // Product can be NONE when standalone modal so default to first product
+    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+    const [selectedProduct, setSelectedProduct] = useState('');
+
+    useScroll(
+        ({ target: { scrollTop } }) => {
+            const { clientHeight: headerHeight } = headerRef.current;
+            const { clientHeight: cornerHeight } = cornerRef.current;
+
+            // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
+            // Checking the value here prevents erratic behavior wrt
+            if (scrollTop !== 0) {
+                if (scrollTop >= headerHeight + cornerHeight) {
+                    if (!sticky) {
+                        setSticky(true);
+                    }
+                } else if (sticky) {
+                    setSticky(false);
+                }
+            }
+            /**
+             * As you scroll, scrollY.current ref will be set to the value of scrollTop.
+             * The scrollTop value is the distance between the top of the contentWrapper element and the top of the scrollable space within the modal.
+             */
+            scrollY.current = scrollTop;
+        },
+        [sticky]
+    );
+
+    const selectProduct = newProduct => {
+        scrollTo(0);
+
+        setSelectedProduct(newProduct);
+        /**
+         * For multiproduct modal:
+         * If the sticky header is set, when you click to switch tabs, go to the uppermost sticky position.
+         * Modal content will start at the top upon switching tabs.
+         */
+        if (sticky) {
+            contentWrapper.current.scrollTo(0, headerRef.current.clientHeight + cornerRef.current.clientHeight);
+            // Otherwise, when you switch tabs, the modal will stay scrolled to the position you were at when you clicked the tab button.
+        } else {
+            contentWrapper.current.scrollTo(0, scrollY.current);
+        }
+    };
+
+    // Tabs component will track tab switches by default
+    // for "fake" tabs that show as links, we must track it manually
+    // const tabLinkClick = newProduct => {
+    //     onClick({ linkName: newProduct, src: 'link_click' });
+    //     selectProduct(newProduct);
+    // };
+
+    useDidUpdateEffect(() => {
+        // For standalone modal the product determined by the offer changing may be invalid
+        // so we need to search against the actual offers and provide a default
+        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+
+        setSelectedProduct(fullProduct.meta.product);
+    }, [product]);
+
+    useEffect(() => {
+        if (transitionState === 'CLOSED') {
+            setSticky(false);
+            setSelectedProduct('');
+        }
+    }, [transitionState]);
+
+    const classNames = ['content', sticky ? 'sticky' : ''];
+
+    function modalContent() {
+        if (products.length === 1) setSelectedProduct(initialProduct.meta.product);
+
+        switch (selectedProduct) {
+            case 'GPL':
+                return <GPL selectProduct={selectProduct} cornerRef={cornerRef} />;
+            case 'PI30':
+                return <PI30 selectProduct={selectProduct} cornerRef={cornerRef} />;
+            case '':
+            default:
+                return <ProductList selectProduct={selectProduct} cornerRef={cornerRef} />;
+        }
     }
 
     return (
         <Fragment>
-            <Button onClick={changeView}>Bezahlung nach 30 Tagen</Button>
-            <Button>0% Ratenzahlung verfügbar</Button>
+            <div className={classNames.join(' ')}>
+                <main className="main">{modalContent()}</main>
+            </div>
         </Fragment>
     );
 };

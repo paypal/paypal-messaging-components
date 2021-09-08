@@ -13,7 +13,6 @@
     padding-top: 0;
     position: relative;
     z-index: 50;
-    background: white;
     flex: 1 1 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -27,6 +26,7 @@
     width: 100%;
     margin: auto;
     max-width: 640px;
+    background-color:white;
 }
 
 main {
@@ -40,7 +40,7 @@ main {
 .content-column {
     width: 500px;
     max-width: calc(100% - 72px);
-    margin: auto;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 

@@ -23,6 +23,12 @@
         }
     },
     "content": {
+        "productButton": {
+            "title": "0% Ratenzahlung verfügbar",
+            "subtitle": "Zahlen Sie Ihren Einkauf in monatlichen Raten.",
+            "icon": "ratenzahlung-calendar"
+        },
+
         "headline": "Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten",
 
         "calculator": {
@@ -37,6 +43,8 @@
         },
 
         "instructions": ["Wählen Sie", "PayPal", "als Bezahlmethode aus und zahlen Sie mit der PayPal Ratenzahlung."],
+
+        "switchingText": ["Für andere Später Bezahlen Optionen ", "wählen Sie Bezahlung nach 30 Tagen."],
 
         "disclosure": {
             "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung.  Repräsentatives Beispiel gem. § 6a (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.052,54 €, 12 monatliche Raten à 87,71 €, fester Sollzinssatz {nominal_rate}% p.a., eff. Jahreszins {apr}% p.a., Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg.",

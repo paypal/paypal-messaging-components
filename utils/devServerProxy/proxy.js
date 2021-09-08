@@ -39,7 +39,7 @@ const devAccountMap = {
     DEV0XBDEPLEQZ: ['DE', ['gpl'], 'gpl_eqz-non-de'],
     DEV0XBDEPLGTZ: ['DE', ['gpl'], 'gpl_gtz-non-de'],
     DEVXBDEPLQEQZ: ['DE', ['gpl'], 'gplq_eqz-non-de'],
-    DEVXBDEPLQGTZ: ['DE', ['gpl', 'pi30'], 'gplq_gtz-non-de'],
+    DEVXBDEPLQGTZ: ['DE', ['gpl'], 'gplq_gtz-non-de'],
     DEV0000DEPI30: ['DE', ['pi30'], 'pi30'],
     DEV000DEPI30Q: ['DE', ['pi30'], 'pi30q'],
 
@@ -346,7 +346,7 @@ export default (app, server, compiler) => {
                 return 'US-EZP';
             }
 
-            if (props.country === 'DE' && productNames.includes('gpl')) {
+            if ((props.country === 'DE' && productNames.includes('gpl')) || productNames.includes('pi30')) {
                 return 'DE-GPL';
             }
 
