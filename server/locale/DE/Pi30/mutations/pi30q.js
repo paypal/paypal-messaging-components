@@ -170,7 +170,9 @@ export default {
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.text'
+                        tag: 'medium',
+                        br: ['nach'],
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',
@@ -193,7 +195,9 @@ export default {
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium.text'
+                        tag: 'medium',
+                        br: ['nach'],
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',
