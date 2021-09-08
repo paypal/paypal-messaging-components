@@ -52,7 +52,7 @@ module.exports = (env = {}) => {
         web: true,
         minify: true,
         debug: false,
-        analyze: env.analyzeComponents,
+        analyze: env.analyzeMessageComponents,
         entry: './src/components/message/index.js',
         filename: 'smart-credit-message.js',
         env: env.NODE_ENV,
