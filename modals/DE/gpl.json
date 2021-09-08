@@ -23,6 +23,12 @@
         }
     },
     "content": {
+        "productButton": {
+            "title": "0% Ratenzahlung verfügbar",
+            "subtitle": "Zahlen Sie Ihren Einkauf in monatlichen Raten.",
+            "icon": "ratenzahlung-calendar"
+        },
+
         "headline": "Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten",
 
         "calculator": {
@@ -37,6 +43,8 @@
         },
 
         "instructions": ["Wählen Sie", "PayPal", "als Bezahlmethode aus und zahlen Sie mit der PayPal Ratenzahlung."],
+
+        "switchingText": ["Für andere Später Bezahlen Optionen ", "wählen Sie Bezahlung nach 30 Tagen."],
 
         "disclosure": {
             "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab 99 € und bis zu 5.000 € Bestellwert mit einem effektiven Jahreszins von 9,99% p.a. und einem festen Sollzinssatz von 9,47% p.a. bei 3 Monaten, von 9,48% p.a. bei 6 Monaten, von 9,50% p.a. bei 12 Monaten und von 9,51% p.a. bei 24 Monaten Laufzeit. Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.101,98 €, 12 monatliche Raten à 87,67 €, fester Sollzinssatz 9.50% p.a., eff. Jahreszins 9.99% p.a.",

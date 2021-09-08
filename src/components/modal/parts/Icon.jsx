@@ -658,7 +658,7 @@ const Icon = ({ name, color }) => {
             );
         case 'ratenzahlung-calendar':
             return (
-                <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="64" height="64" viewBox="10 10 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect
                         x="52.3303"
                         y="18.4798"

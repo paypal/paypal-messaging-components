@@ -23,18 +23,24 @@
         }
     },
     "content": {
-        "headline": "Kaufen Sie was Sie wollen. Bezahlung nach 30 Tagen.",
+        "productButton": {
+            "title": "Bezahlung nach 30 Tagen",
+            "subtitle": "Erhalten Sie mehr Zeit, um Ihren Einkauf zu bezahlen.",
+            "icon": "pi30-hourglass"
+        },
 
-        "subHeadline": "Erhältlich für den Einkäufen i.H.v. 1€ - 1,000€.",
+        "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
+
+        "subHeadline": "Erhältlich für Einkäufe i.H.v. 1€ - 1,000€.",
 
         "stepsList": [
-            "Wählen Sie PayPal, um Bezahlung nach 30 Tagen zu nutzen.",
+            "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option, 30 Tage später zu bezahlen.",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
             "Wir buchen die Zahlung automatisch nach 30 Tagen von Ihrem Bankkonto ab."
         ],
 
-        "optionText": ["Für andere Später Bezahlen Optionen wählen Sie ", "PayPal Ratenzahlung."],
+        "switchingText": ["Für andere Später Bezahlen Optionen ", "wählen Sie PayPal Ratenzahlung."],
 
-        "legalTerms": "REPLACE ME WITH LEGAL TERMS"
+        "legalTerms": "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option, 30 Tage später zu bezahlen."
     }
 }
