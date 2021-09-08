@@ -41,7 +41,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 42),
+                    setLogoTop(textSize * 45),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and 
@@ -77,7 +77,7 @@ export default {
                     addPeriod()
                 ],
                 headline: [
-                    { tag: 'medium', br: ['bei'] },
+                    { tag: 'medium', br: ['nach'] },
                     { tag: 'xsmall', br: ['später'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
@@ -86,12 +86,12 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 14.5)],
+                styles: [xSmallFallback(textSize * 14)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['bei']
+                        br: ['erst']
                     },
                     {
                         tag: 'xsmall',
@@ -112,7 +112,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['bei']
+                        br: ['erst']
                     },
                     {
                         tag: 'xsmall',

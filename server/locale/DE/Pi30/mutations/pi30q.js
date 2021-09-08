@@ -85,9 +85,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 13),
+                    xSmallFallback(textSize * 8.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20),
+                    setLogoTop(textSize * 15),
                     xSmallNoWrap(textSize * 7.7),
                     addPeriod(),
                     `@media screen and 
@@ -102,7 +102,7 @@ export default {
                         tag: 'medium',
                         br: ['nach']
                     },
-                    { tag: 'xsmall', br: ['später'] }
+                    { tag: 'xsmall', br: [','] }
                 ],
                 disclaimer: ['default']
             })
@@ -111,18 +111,11 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 12.5),
-                    setLogoTop(textSize * 26),
+                    xSmallFallback(textSize * 10),
+                    setLogoTop(textSize * 26.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 8.3),
-                    `@media screen and 
-                    (max-width: ${textSize * 18.67}px) {
-                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
-                    }`
+                    addPeriod()
                 ],
-                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
             })
         ],
         [
