@@ -11,6 +11,10 @@
     white-space: normal;
 }
 
+.message__messaging span.br {
+    white-space: normal;
+}
+
 .message__logo-container::before {
     content: 'mit ';
 }
