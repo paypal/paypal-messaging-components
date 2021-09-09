@@ -1,12 +1,11 @@
 .message__logo-container {
+    margin-right: 5px;
     display: flex;
     align-items: center;
 }
 
 .message__headline {
-    font-size: 8.4vw;
-    line-height: 1.6em;
-    padding: 0px;
+    font-size: 3.5vw;
 }
 
 .message__disclaimer {
@@ -70,5 +69,5 @@
 }
 
 .message__promo-container {
-    padding-right: 4px;
+    padding-right: 3px;
 }
