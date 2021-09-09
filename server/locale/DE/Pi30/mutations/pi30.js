@@ -9,9 +9,76 @@ import {
     addPeriod,
     primaryWrap
 } from '../../../../message/mediaQueries';
-import { textLogoMutations } from '../../../../message/logoMutations';
+import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
+const headlineBreaks = [
+    {
+        sizes: ['xsmall'],
+        breaks: ['kaufen,']
+    },
+    {
+        sizes: ['medium'],
+        breaks: ['Einkäufen']
+    }
+].reduce((acc, item) => {
+    const { sizes, breaks } = item;
+    sizes.forEach(size => {
+        acc.push({
+            tag: size,
+            br: breaks
+        });
+    });
+    return acc;
+}, []);
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PP_PAYPAL.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default']
+        }
+    ],
+    [
+        'ratio:8x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x4',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    ...flexLogoMutations
+];
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',
