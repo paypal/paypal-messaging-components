@@ -204,13 +204,13 @@
             transform: translate3d(0, 0, 0);
             top: 12rem;
             max-width: 640px;
-            button.tab:focus span{
+            button.tab:focus span {
                 text-decoration: underline; 
             }
         }
 
-        &.sticky{
-            .call-to-action .button.apply-now{
+        &.sticky {
+            .call-to-action .button.apply-now {
                 visibility: hidden;
             }
         }
