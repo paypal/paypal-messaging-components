@@ -10,9 +10,8 @@
     "main": "dist/messaging.js",
     "module": "src/index.js",
     "files": [
-        "banners/",
-        "src/",
-        "server/",
+        "src/library",
+        "src/utils",
         "dist/",
         "__sdk__.js",
         "globals.js"

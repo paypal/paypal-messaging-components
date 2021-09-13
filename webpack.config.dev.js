@@ -14,7 +14,7 @@ module.exports = (env = {}) => {
         env.TARGET !== 'sdk'
             ? getWebpackConfig({
                   entry: {
-                      messaging: './src/index.js'
+                      messaging: './src/library/index.js'
                   },
                   filename: '[name].js',
                   libraryTarget: false,
@@ -111,7 +111,7 @@ module.exports = (env = {}) => {
     });
 
     const RENDERING_DEV_CONFIG = getWebpackConfig({
-        entry: ['./server/index.js'],
+        entry: ['./src/server/index.js'],
         libraryTarget: 'commonjs',
         modulename: 'renderMessage',
         debug: true,

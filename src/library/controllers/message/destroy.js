@@ -4,7 +4,7 @@ import {
     getGlobalState,
     getInsertionObserver,
     getViewportIntersectionObserver
-} from '../../utils';
+} from '../../../utils';
 
 export default function destroy() {
     const { messagesMap } = getGlobalState();

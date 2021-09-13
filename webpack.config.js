@@ -6,7 +6,7 @@ const { localeOptions } = require('./locales');
 module.exports = (env = {}) => {
     // messaging.js
     const MESSAGES_CONFIG = getWebpackConfig({
-        entry: './src/index.js',
+        entry: './src/library/index.js',
         filename: 'messaging.js',
         // Need to explicitly disable this feature. The library has it's own
         // window bootstrap mechanism to attach multiple "exports" onto window.paypal
@@ -41,7 +41,7 @@ module.exports = (env = {}) => {
     COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
         (accumulator, locale) => ({
             ...accumulator,
-            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
+            [`smart-credit-modal-${locale}`]: `././src/components/modal/content/${locale}/index.js`
         }),
         {}
     );
@@ -63,7 +63,7 @@ module.exports = (env = {}) => {
     });
 
     const RENDERING_CONFIG = getWebpackConfig({
-        entry: ['./server/index.js'],
+        entry: ['./src/server/index.js'],
         libraryTarget: 'commonjs',
         modulename: 'renderMessage',
         minify: true,

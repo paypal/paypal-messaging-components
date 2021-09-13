@@ -3,7 +3,7 @@
 import { h, Fragment } from 'preact';
 import render from 'preact-render-to-string';
 import { getLogos } from '../../locale';
-import { getDataByTag } from '../../../src/utils/server';
+import { getDataByTag } from '../../../utils/server';
 import Text from './Text';
 
 const getMarkup = textData => {

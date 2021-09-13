@@ -11,12 +11,12 @@ import {
     logger,
     getCurrentTime,
     addPerformanceMeasure,
-    globalEvent
-} from '../../utils';
+    globalEvent,
+    ppDebug
+} from '../../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
-import { ppDebug } from '../../utils/debug';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {

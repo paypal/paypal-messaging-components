@@ -20,7 +20,7 @@ import {
     getFeatures,
     ppDebug,
     isScriptBeingDestroyed
-} from '../../utils';
+} from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 

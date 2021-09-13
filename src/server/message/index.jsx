@@ -2,7 +2,7 @@
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
-import { objectMerge, objectFlattenToArray, curry } from '../../src/utils/server';
+import { objectMerge, objectFlattenToArray, curry } from '../../utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName } from '../locale';
 import allStyles from './styles';
 import Logo from './parts/Logo';

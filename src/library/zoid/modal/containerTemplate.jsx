@@ -7,7 +7,7 @@ import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { EVENT } from 'zoid/src';
 
-import { createTitleGenerator, viewportHijack } from '../../utils';
+import { createTitleGenerator, viewportHijack } from '../../../utils';
 
 const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
