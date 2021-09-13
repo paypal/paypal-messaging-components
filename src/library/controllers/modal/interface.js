@@ -13,7 +13,7 @@ import {
     getProductForOffer,
     addPerformanceMeasure,
     globalEvent
-} from '../../utils';
+} from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
 const memoizedModal = memoizeOnProps(

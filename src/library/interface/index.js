@@ -5,7 +5,7 @@ import { setup as setupMessages, destroy as destroyMessages } from '../controlle
 import { setup as setupModal } from '../controllers/modal';
 import { getMessageComponent } from '../zoid/message';
 import { getModalComponent } from '../zoid/modal';
-import { getOverflowObserver, addPerformanceMeasure } from '../utils';
+import { getOverflowObserver, addPerformanceMeasure } from '../../utils';
 
 export { Messages } from '../controllers/message';
 export { Modal as MessagesModal } from '../controllers/modal';

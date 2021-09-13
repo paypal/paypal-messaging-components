@@ -20,7 +20,7 @@ import {
     getStageTag,
     getFeatures,
     ppDebug
-} from '../../utils';
+} from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
 import prerenderTemplate from './prerenderTemplate';

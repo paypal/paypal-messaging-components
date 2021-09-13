@@ -2,7 +2,7 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { EVENT } from 'zoid/src';
 
-import { getOverflowObserver, createTitleGenerator } from '../../utils';
+import { getOverflowObserver, createTitleGenerator } from '../../../utils';
 
 const getTitle = createTitleGenerator();
 

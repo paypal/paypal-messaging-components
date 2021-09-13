@@ -1,6 +1,6 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
-import { getInlineOptions, getGlobalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../utils';
+import { getInlineOptions, getGlobalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../../utils';
 import Modal from './interface';
 
 export default function setup() {

@@ -8,7 +8,7 @@ import {
     getInsertionObserver,
     isZoidComponent,
     ppDebug
-} from '../../utils';
+} from '../../../utils';
 import Messages from './adapter';
 
 export default function setup() {
