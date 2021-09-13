@@ -2,7 +2,7 @@
 import { h, createContext } from 'preact';
 import { useState, useEffect, useContext } from 'preact/hooks';
 
-import { useXProps } from '../../../lib';
+import { useXProps } from './xprops';
 import { getIntersectionObserverPolyfill } from '../../../../utils';
 
 export const STATUS = {

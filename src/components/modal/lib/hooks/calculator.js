@@ -1,7 +1,8 @@
 import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from 'belter/src';
 
-import { useXProps, useServerData, useDidUpdateEffect } from '../../../lib';
+import { useXProps, useServerData } from '../providers';
+import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
