@@ -9,10 +9,11 @@ import ProductList from './ProductList';
 import { useServerData, useScroll, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
 import { getProductForOffer } from '../../../../../utils';
 
-const Content = ({ headerRef, contentWrapper }) => {
+const Content = ({ contentWrapper }) => {
     const cornerRef = useRef();
+    const headerRef = useRef();
     const { products } = useServerData();
-    const { offer } = useXProps();
+    const { offer, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
@@ -66,12 +67,16 @@ const Content = ({ headerRef, contentWrapper }) => {
         }
     };
 
-    // Tabs component will track tab switches by default
-    // for "fake" tabs that show as links, we must track it manually
-    // const tabLinkClick = newProduct => {
-    //     onClick({ linkName: newProduct, src: 'link_click' });
-    //     selectProduct(newProduct);
-    // };
+    // Tracking for Product List clicks (button clicks) and for buttons that appear as links
+    const buttonClick = theProduct => {
+        onClick({ linkName: theProduct, src: 'button_click' });
+        selectProduct(theProduct);
+    };
+
+    const linkClick = theProduct => {
+        onClick({ linkName: theProduct, src: 'link_click' });
+        selectProduct(theProduct);
+    };
 
     useDidUpdateEffect(() => {
         // For standalone modal the product determined by the offer changing may be invalid
@@ -95,12 +100,12 @@ const Content = ({ headerRef, contentWrapper }) => {
 
         switch (selectedProduct) {
             case 'GPL':
-                return <GPL selectProduct={selectProduct} cornerRef={cornerRef} />;
+                return <GPL linkClick={linkClick} cornerRef={cornerRef} />;
             case 'PI30':
-                return <PI30 selectProduct={selectProduct} cornerRef={cornerRef} />;
+                return <PI30 linkClick={linkClick} cornerRef={cornerRef} />;
             case '':
             default:
-                return <ProductList selectProduct={selectProduct} cornerRef={cornerRef} />;
+                return <ProductList buttonClick={buttonClick} cornerRef={cornerRef} />;
         }
     }
 
