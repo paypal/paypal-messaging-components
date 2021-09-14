@@ -1,5 +1,4 @@
 /** @jsx h */
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getOrCreateStorageID } from '../../../utils';
@@ -9,16 +8,28 @@ import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
     const { type, products, meta, setServerData } = useServerData();
-    const { onReady, currency, amount, payerId, clientId, merchantId, buyerCountry, version, env } = useXProps();
+    const {
+        onReady,
+        currency,
+        amount,
+        payerId,
+        clientId,
+        merchantId,
+        buyerCountry,
+        ignoreCache,
+        version,
+        env,
+        stageTag
+    } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (transitionState === 'OPENING') {
-            window.focus();
-
+        if (transitionState === 'CLOSED') {
             // eslint-disable-next-line no-param-reassign
             contentWrapper.current.scrollTop = 0;
+        } else if (transitionState === 'OPEN') {
+            window.focus();
         }
     }, [transitionState]);
 
@@ -37,13 +48,15 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         setLoading(true);
         getContent({
             currency,
-            amount,
+            amount: amount === '' ? undefined : amount,
             payerId,
             clientId,
             merchantId,
             buyerCountry,
+            ignoreCache,
             version,
-            env
+            env,
+            stageTag
         }).then(data => {
             setServerData(data);
             setLoading(false);
@@ -53,11 +66,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
     return (
         <ScrollProvider containerRef={contentWrapper}>
             <div className="modal-wrapper">
-                <section
-                    className={`modal-container ${stringStartsWith(transitionState, 'OPEN') ? 'show' : ''} ${
-                        loading ? 'loading' : ''
-                    }`}
-                >
+                <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                     <div className="wrapper">{children}</div>
                     <Overlay contentMaxWidth={contentMaxWidth} contentMaxHeight={contentMaxHeight} />

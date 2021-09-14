@@ -1,11 +1,17 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import {
+    xSmallFallback,
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    primaryWrap
+} from '../../../../message/mediaQueries';
 import {
     addPeriod,
     logoNoneAddRatenzahlungAfterPayPal,
     logoInlineAddRatenzahlungAfterPayPal,
     xSmallNoWrap,
-    primaryWrap,
     crossBorderDisclaimerWrap,
     crossBorderLogoNoneWrap
 } from './mediaQueries';
@@ -54,7 +60,7 @@ const flex = [
                 addPeriod(),
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4.4vw;
+                        font-size: 4vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
@@ -81,7 +87,7 @@ const flex = [
                 addPeriod(),
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                 .message__headline {
-                    font-size: 5vw;
+                    font-size: 4vw;
                 }
             }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {

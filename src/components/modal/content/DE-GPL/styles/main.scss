@@ -49,9 +49,8 @@ main {
         overflow: hidden;
     }
 
-    main > * {
+    .transitional {
         filter: blur(3px);
-        opacity: 0.6;
     }
 }
 

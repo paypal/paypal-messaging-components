@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
 import TermsTable from './TermsTable';
@@ -20,7 +20,7 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) =>
     }
 
     if (+amount < minAmount || +amount > maxAmount) {
-        return amountRange.replace(/,00/g, '');
+        return amountRange.replace(/(\.|,)00(.|\s*)EUR/g, '€');
     }
 
     if (!offers?.[0]?.qualified) {
@@ -52,7 +52,7 @@ const getDisplayValue = value => {
     // Allow display value to end with a dangling comma to allow typing a "cent" value
     return delocalizedValue === '' || formattedValue === 'NaN'
         ? ''
-        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction}` : ''}`;
+        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''}`;
 };
 
 const Calculator = () => {
@@ -69,6 +69,18 @@ const Calculator = () => {
     const {
         calculator: { title, inputLabel, amountRange }
     } = useContent('GPL');
+
+    // Update display value based on changes from useCalculator
+    useEffect(() => {
+        setDisplayValue(getDisplayValue(value));
+    }, [value]);
+
+    const onKeyDown = evt => {
+        // Only allow special keys or appropriate number/formatting keys
+        if (evt.key.length === 1 && !/[\d.,]/.test(evt.key)) {
+            evt.preventDefault();
+        }
+    };
 
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
@@ -96,16 +108,18 @@ const Calculator = () => {
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 {emptyState ? <h3 className="title">{title}</h3> : null}
-                <div className="input__wrapper">
+                <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
-                    <input className="input" type="tel" value={displayValue} onInput={onInput} />
+                    <input className="input" type="tel" value={displayValue} onInput={onInput} onKeyDown={onKeyDown} />
                 </div>
                 <div
-                    className={`content-column calculator__error ${!(error || emptyState || isLoading) ? 'hide' : ''}`}
+                    className={`content-column transitional calculator__error ${
+                        !(error || emptyState || isLoading) ? 'hide' : ''
+                    }`}
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error ?? amountRange.replace(/,00/g, '')}</span>
+                        <span>{error ?? amountRange.replace(/(\.|,)00(.|\s*)EUR/g, '€')}</span>
                     </div>
                 </div>
             </form>

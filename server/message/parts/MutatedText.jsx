@@ -20,30 +20,35 @@ const MutatedText = ({ tagData, options }) => {
     /**
      * 1. (\$|£)?
      * Either $ or £ or... neither
-     * 2. \d{1,3}
-     * Between 1-3 digits
+     * 2. \d{1,5}
+     * Between 1-5 digits
      * 3. (\.|,)
      * Either a comma or period decimal
      * 4. {1,3}
      * Between 1-3 occurances of steps 2 and 3.
      * 5. 00
      * The 00 after the decimal
-     * 6. €?
-     * An optional €
+     * 6. (€|(.|\s*)EUR)?
+     * An optional € or EUR
      * 7. -
      * A dash
      * 8. For the rest of the pattern refer to 1-6.
+     * 9. Or check for a comma or period decimal followed by two digits and a potential space, then EUR.
      */
     const currencyFormat = string => {
         let formattedStr = string;
-        // eslint-disable-next-line security/detect-unsafe-regex
-        const match = formattedStr.match(/(\$|£)?(\d{1,3}(\.|,)){1,3}00€?-(\$|£)?(\d{1,3}(\.|,)){1,3}00€?/g);
+        const match = formattedStr.match(
+            // eslint-disable-next-line security/detect-unsafe-regex
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?|((,|\.)\d\d)(.|\s*)EUR)/g
+        );
         if (match !== null) {
             match.forEach(foundString => {
                 const filteredString = foundString
                     .replace(/(\.|,)00-/g, '-')
                     .replace(/(\.|,)00$/g, '')
-                    .replace(/(\.|,)00€/g, '€');
+                    .replace(/(\.|,)00€/g, '€')
+                    .replace(/(\.|,)00(.|\s*)EUR/g, '€')
+                    .replace(/(\s*EUR)/g, '€');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }

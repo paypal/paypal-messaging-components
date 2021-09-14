@@ -45,8 +45,14 @@ jobs:
           script:
               - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
               - COMMIT_DETAIL="AU snapshots" ./scripts/snapshot-tests/git-push.sh
-        - stage: update_snapshots_DE
-          env: TEST_PATH_PATTERN=spec/DE/
+        - stage: update_snapshots_DE_banner
+          env: TEST_PATH_PATTERN=spec/DE/banner
+          if: branch = develop AND type != pull_request
+          script:
+              - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
+              - COMMIT_DETAIL="DE snapshots" ./scripts/snapshot-tests/git-push.sh
+        - stage: update_snapshots_DE_modal
+          env: TEST_PATH_PATTERN=spec/DE/modal
           if: branch = develop AND type != pull_request
           script:
               - travis_wait 50 npm run test:func:ciupdate -- --testPathPattern $TEST_PATH_PATTERN
@@ -113,7 +119,9 @@ jobs:
 stages:
     - name: update_snapshots_AU
       if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
-    - name: update_snapshots_DE
+    - name: update_snapshots_DE_banner
+      if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
+    - name: update_snapshots_DE_modal
       if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/
     - name: update_snapshots_FR
       if: commit_message =~ /[^-_a-zA-Z0-9 ]snapshots[^-_a-zA-Z0-9 ]/

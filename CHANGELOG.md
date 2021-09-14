@@ -1,5 +1,59 @@
 # Changelog
 
+### [1.26.2](https://github.com/paypal/paypal-messaging-components/compare/v1.26.1...v1.26.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* DE GPL flex banner styles [snapshots] ([#594](https://github.com/paypal/paypal-messaging-components/issues/594)) ([d5e613f](https://github.com/paypal/paypal-messaging-components/commit/d5e613f93cfc199cb619fd2a7e3b5a75fab77ae3))
+* remove currency and buyerCountry strictness ([#598](https://github.com/paypal/paypal-messaging-components/issues/598)) ([53232c8](https://github.com/paypal/paypal-messaging-components/commit/53232c8fc14c8c6ca8b4e8c26e082f75317864b4))
+
+
+### Code Refactoring
+
+* add ignoreCache option to modal ([#583](https://github.com/paypal/paypal-messaging-components/issues/583)) ([4b06335](https://github.com/paypal/paypal-messaging-components/commit/4b06335d131aa28a1f7b983f1fa46dde6496d40b))
+* omit pp_debug when missing ([#591](https://github.com/paypal/paypal-messaging-components/issues/591)) ([1be88b1](https://github.com/paypal/paypal-messaging-components/commit/1be88b1e85bba2e16c28d5305f11fc002d92389c))
+
+
+### Continuous Integration
+
+* improve generated release notes ([#586](https://github.com/paypal/paypal-messaging-components/issues/586)) ([93190ea](https://github.com/paypal/paypal-messaging-components/commit/93190eab11dd147a913e408cb25f405e7e926604))
+
+## [1.26.1](https://github.com/paypal/paypal-messaging-components/compare/v1.26.0...v1.26.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* DE GPL style bugs [snapshots] ([#577](https://github.com/paypal/paypal-messaging-components/issues/577)) ([62aa182](https://github.com/paypal/paypal-messaging-components/commit/62aa1820a4432f581722d370ce8ec38914aabf2a))
+
+# [1.26.0](https://github.com/paypal/paypal-messaging-components/compare/v1.25.2...v1.26.0) (2021-08-04)
+
+
+### Bug Fixes
+
+* ie11 loading issue ([#554](https://github.com/paypal/paypal-messaging-components/issues/554)) ([b971c20](https://github.com/paypal/paypal-messaging-components/commit/b971c20521d0c4026578a02673d5e909944fec4d))
+* remove collapsed elements from overflow calculation ([#573](https://github.com/paypal/paypal-messaging-components/issues/573)) ([ef20588](https://github.com/paypal/paypal-messaging-components/commit/ef20588b2a0073c091327802e9f9e60a020e46bb))
+
+
+### Features
+
+* default PayPal fonts to off [snapshots] ([#540](https://github.com/paypal/paypal-messaging-components/issues/540)) ([3b8c13c](https://github.com/paypal/paypal-messaging-components/commit/3b8c13c163992030d7512cada46f85d3d3215acf))
+
+## [1.25.2](https://github.com/paypal/paypal-messaging-components/compare/v1.25.1...v1.25.2) (2021-07-16)
+
+
+### Bug Fixes
+
+* fix amount comparison ([#562](https://github.com/paypal/paypal-messaging-components/issues/562)) ([72bfb66](https://github.com/paypal/paypal-messaging-components/commit/72bfb6615df62c04b49bfee9cf591ed5aeee0bbb))
+* use new server data to update calculator directly ([#560](https://github.com/paypal/paypal-messaging-components/issues/560)) ([0dcb7ff](https://github.com/paypal/paypal-messaging-components/commit/0dcb7ff3260eb238fb9a0554b3f9a1728430aaa3))
+
+## [1.25.1](https://github.com/paypal/paypal-messaging-components/compare/v1.25.0...v1.25.1) (2021-07-14)
+
+
+### Bug Fixes
+
+* de gpl modal calc ([#558](https://github.com/paypal/paypal-messaging-components/issues/558)) ([92912f4](https://github.com/paypal/paypal-messaging-components/commit/92912f40b9d251a81800e445ab3874e9f123c362))
+
 # [1.25.0](https://github.com/paypal/paypal-messaging-components/compare/v1.24.1...v1.25.0) (2021-07-09)
 
 
