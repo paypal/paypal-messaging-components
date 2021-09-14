@@ -5,7 +5,7 @@ import { useContent } from '../../../lib';
 const isZeroAPR = val => Number(val.replace(/[,.]/g, '')) === 0;
 
 const Disclaimer = ({ terms: { error, formattedMinAmount, formattedMaxAmount, offers } }) => {
-    const { disclosure, disclosureZeroAPR, disclaimer } = useContent('INST');
+    const { disclosure, disclosureZeroAPR, disclaimer } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
 
     if (!error && formattedMinAmount && formattedMaxAmount && offers && offers.length > 0) {
         const [offer] = offers;

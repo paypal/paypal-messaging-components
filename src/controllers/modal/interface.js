@@ -1,8 +1,6 @@
-import arrayFind from 'core-js-pure/stable/array/find';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import {
-    logger,
     memoizeOnProps,
     getCurrentTime,
     awaitWindowLoad,
@@ -10,7 +8,6 @@ import {
     isElement,
     getGlobalState,
     objectMerge,
-    getProductForOffer,
     addPerformanceMeasure,
     globalEvent
 } from '../../utils';
@@ -67,20 +64,6 @@ const memoizedModal = memoizeOnProps(
 
             if (!renderProm) {
                 renderProm = renderModal('body');
-            }
-
-            const requestedProduct = getProductForOffer(options.offer);
-
-            if (
-                typeof options.offer !== 'undefined' &&
-                Array.isArray(state.products) &&
-                !arrayFind(state.products, supportedProduct => supportedProduct === requestedProduct)
-            ) {
-                logger.warn('invalid_option_value', {
-                    location: 'offer',
-                    description: `Expected one of ["${state.products.join('", "')}"] but received "${options.offer}".`
-                });
-                return ZalgoPromise.resolve();
             }
 
             // Tells containerTemplate to show the prerender modal as soon as possible if zoid has not

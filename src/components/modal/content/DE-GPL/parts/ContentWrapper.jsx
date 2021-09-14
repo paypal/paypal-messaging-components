@@ -9,7 +9,7 @@ import Container from '../../../parts/Container';
 const ContentWrapper = () => {
     const contentWrapper = useRef();
     const [, handleClose] = useTransitionState();
-    const { headline } = useContent('GPL');
+    const { headline } = useContent('PAY_LATER_SHORT_TERM');
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={640}>

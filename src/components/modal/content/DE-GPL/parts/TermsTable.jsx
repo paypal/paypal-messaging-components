@@ -49,7 +49,7 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
 const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError }) => {
     const {
         terms: { disclaimer }
-    } = useContent('GPL');
+    } = useContent('PAY_LATER_SHORT_TERM');
 
     if (isLoading || hasError) {
         return (

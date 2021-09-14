@@ -12,9 +12,9 @@ const tabsMap = {
         header: <EZP.Header />,
         body: <EZP.Content />
     },
-    NI: {
+    PAYPAL_CREDIT_NO_INTEREST: {
         title: '6 Months Special Financing',
-        product: 'NI',
+        product: 'PAYPAL_CREDIT_NO_INTEREST',
         header: <NI.Header />,
         body: <NI.Content />
     }
@@ -22,7 +22,7 @@ const tabsMap = {
 
 // EZP modal will always have EZP + NI
 const Content = () => {
-    return <Tabs tabs={[tabsMap.EZP, tabsMap.NI]} />;
+    return <Tabs tabs={[tabsMap.EZP, tabsMap.PAYPAL_CREDIT_NO_INTEREST]} />;
 };
 
 export default Content;

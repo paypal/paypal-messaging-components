@@ -9,7 +9,7 @@ import Icon from '../../../parts/Icon';
 const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) => {
     const {
         calculator: { genericError, amountRange }
-    } = useContent('GPL');
+    } = useContent('PAY_LATER_SHORT_TERM');
 
     if (error || !maxAmount) {
         return genericError;
@@ -68,7 +68,7 @@ const Calculator = () => {
 
     const {
         calculator: { title, inputLabel, amountRange }
-    } = useContent('GPL');
+    } = useContent('PAY_LATER_SHORT_TERM');
 
     // Update display value based on changes from useCalculator
     useEffect(() => {

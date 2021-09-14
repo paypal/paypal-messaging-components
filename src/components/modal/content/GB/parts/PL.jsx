@@ -6,8 +6,8 @@ import { useContent, useProductMeta } from '../../../lib';
 const replaceZeros = string => string.replace(/\.00/g, '');
 
 const PL = () => {
-    const { headline, subHeadline, terms, instructions } = useContent('GPL');
-    const { qualifying: qualifyingString } = useProductMeta('GPL');
+    const { headline, subHeadline, terms, instructions } = useContent('PAY_LATER_SHORT_TERM');
+    const { qualifying: qualifyingString } = useProductMeta('PAY_LATER_SHORT_TERM');
     const qualifying = qualifyingString?.toLowerCase() === 'true';
 
     return (

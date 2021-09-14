@@ -6,8 +6,8 @@ import { useContent, useServerData, useProductMeta } from '../../../lib';
 
 export default ({ switchTab }) => {
     const { products } = useServerData();
-    const { headline, subHeadline, instructions } = useContent('GPL');
-    const { qualifying } = useProductMeta('GPL');
+    const { headline, subHeadline, instructions } = useContent('PAY_LATER_SHORT_TERM');
+    const { qualifying } = useProductMeta('PAY_LATER_SHORT_TERM');
 
     return (
         <section className="content-body">

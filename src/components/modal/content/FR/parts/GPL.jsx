@@ -7,8 +7,8 @@ import { useContent, useProductMeta } from '../../../lib';
 const frCurrencyFormat = string => string.replace(/,00/g, '').replace(/(EUR)/g, '€');
 
 export default () => {
-    const { headline, subHeadline, instructions, terms } = useContent('GPL');
-    const { qualifying } = useProductMeta('GPL');
+    const { headline, subHeadline, instructions, terms } = useContent('PAY_LATER_SHORT_TERM');
+    const { qualifying } = useProductMeta('PAY_LATER_SHORT_TERM');
 
     return (
         <section className="content-body">

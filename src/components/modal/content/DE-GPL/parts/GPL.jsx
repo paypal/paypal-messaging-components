@@ -5,8 +5,8 @@ import { useContent, useProductMeta } from '../../../lib';
 import Calculator from './Calculator';
 
 export default () => {
-    const { instructions, disclosure } = useContent('GPL');
-    const { apr } = useProductMeta('GPL');
+    const { instructions, disclosure } = useContent('PAY_LATER_SHORT_TERM');
+    const { apr } = useProductMeta('PAY_LATER_SHORT_TERM');
 
     return (
         <section className="content-body">

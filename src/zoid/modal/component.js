@@ -1,3 +1,4 @@
+import arrayFind from 'core-js-pure/stable/array/find';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
@@ -14,6 +15,7 @@ import {
     getScriptAttributes,
     logger,
     nextIndex,
+    getProductForOffer,
     getPerformanceMeasure,
     getSessionID,
     getOrCreateStorageID,
@@ -246,6 +248,22 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
+
+                        const requestedProduct = getProductForOffer(props.offer);
+
+                        if (
+                            typeof props.offer !== 'undefined' &&
+                            Array.isArray(products) &&
+                            !arrayFind(products, supportedProduct => supportedProduct === requestedProduct)
+                        ) {
+                            logger.warn('invalid_option_value', {
+                                location: 'offer',
+                                description: `Expected one of ["${products.join('", "')}"] but received "${
+                                    props.offer
+                                }".`
+                            });
+                        }
+
                         if (
                             typeof onReady === 'function' &&
                             // No need to fire the merchant's onReady if the modal products haven't changed

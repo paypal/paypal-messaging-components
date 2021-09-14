@@ -201,8 +201,9 @@ export function getProductForOffer(offer) {
     }
 
     switch (offer.toUpperCase()) {
-        case 'PAY_LATER_SHORT_TERM':
         case 'PAY_LATER_LONG_TERM':
+            return 'PAY_LATER_LONG_TERM';
+        case 'PAY_LATER_SHORT_TERM':
         case 'GPL':
         case 'GPLQ':
         case 'GPLNQ':
@@ -217,7 +218,7 @@ export function getProductForOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
-            return 'GPL';
+            return 'PAY_LATER_SHORT_TERM';
         case 'PAY_LATER_PAY_IN_1':
             return 'PAY_LATER_PAY_IN_1';
         case 'EZP':
@@ -234,9 +235,10 @@ export function getProductForOffer(offer) {
         case 'INST:ANY:GTZ':
         case 'PALAQ:ANY:EQZ':
         case 'PALAQ:ANY:GTZ':
-            return 'INST';
+            return 'PAYPAL_CREDIT_INSTALLMENTS';
         case 'PAYPAL_CREDIT_NO_INTEREST':
+        case 'NI':
         default:
-            return 'NI';
+            return 'PAYPAL_CREDIT_NO_INTEREST';
     }
 }
