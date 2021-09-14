@@ -5,20 +5,20 @@ import { useServerData, useContent, useProductMeta } from '../../../lib';
 import Header from '../../../parts/Header';
 import Calculator from './Calculator';
 
-export default ({ selectProduct, cornerRef }) => {
+export default ({ linkClick, cornerRef }) => {
     const { products } = useServerData();
     const { headline, instructions, switchingText, disclosure } = useContent('GPL');
     const { apr } = useProductMeta('GPL');
 
     const switchText = (
-        <div className="content-column switching-text">
-            <p>
-                {switchingText[0]}
-                <button type="button" className="switching-link" onClick={() => selectProduct('PI30')}>
-                    {switchingText[1]}
-                </button>
-            </p>
-        </div>
+        // <div className="switching-text">
+        <p className="switching-text">
+            {switchingText[0]}
+            <button type="button" className="switching-link" onClick={() => linkClick('PI30')}>
+                {switchingText[1]}
+            </button>
+        </p>
+        // </div>
     );
 
     const disclosureText = (apr === '0.00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/[.,]00/g, '');
@@ -32,7 +32,7 @@ export default ({ selectProduct, cornerRef }) => {
             <section className="content-body gpl">
                 <div className="description">
                     <Calculator />
-                    <div className="content-column instructions transitional">
+                    <div className="instructions transitional">
                         {instructions.map(instruction =>
                             instruction === 'PayPal' ? <b>PayPal </b> : <span>{instruction} </span>
                         )}
@@ -40,7 +40,7 @@ export default ({ selectProduct, cornerRef }) => {
                 </div>
                 <div className="content-footer">
                     {products.length > 1 && switchText}
-                    <div className="content-column disclosure dashed-border transitional">{disclosureText}</div>
+                    <div className="disclosure dashed-border transitional">{disclosureText}</div>
                 </div>
             </section>
         </Fragment>

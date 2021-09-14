@@ -5,11 +5,11 @@ import { useContent, useServerData } from '../../../lib';
 import Header from '../../../parts/Header';
 import Icon from '../../../parts/Icon';
 
-const ProductButton = ({ product, selectProduct }) => {
+const ProductButton = ({ product, buttonClick }) => {
     const { productButton } = useContent(product);
     const { title, subtitle, icon } = productButton;
     return (
-        <button type="button" className="product-button" onClick={() => selectProduct(product)}>
+        <button type="button" className="product-button" onClick={() => buttonClick(product)}>
             <div>
                 <h1>{title}</h1>
                 <p>{subtitle}</p>
@@ -19,11 +19,11 @@ const ProductButton = ({ product, selectProduct }) => {
     );
 };
 
-const ProductList = ({ selectProduct, cornerRef }) => {
-    const { products: productObjects } = useServerData();
-    const products = productObjects.map(object => object.meta.product);
-
-    const productButtons = products.map(product => <ProductButton selectProduct={selectProduct} product={product} />);
+const ProductList = ({ buttonClick, cornerRef }) => {
+    const { products } = useServerData();
+    const productButtons = products.map(product => (
+        <ProductButton buttonClick={buttonClick} product={product.meta.product} />
+    ));
 
     return (
         <Fragment>
@@ -35,8 +35,18 @@ const ProductList = ({ selectProduct, cornerRef }) => {
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body product-list">
-                <div className="content-column product-buttons"> {productButtons}</div>
-                <div className="content-column legal disclosure">Legal Content</div>
+                <div className="product-buttons"> {productButtons}</div>
+                <div className="legal disclosure">
+                    Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen
+                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen
+                    Optionen.
+                </div>
+                {/* <div className="content-column product-buttons"> {productButtons}</div>
+                <div className="content-column legal disclosure">
+                    Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen
+                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen
+                    Optionen.
+                </div> */}
             </section>
         </Fragment>
     );

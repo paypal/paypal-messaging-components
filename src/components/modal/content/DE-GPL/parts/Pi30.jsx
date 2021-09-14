@@ -4,7 +4,7 @@ import { h, Fragment } from 'preact';
 import { useServerData, useContent } from '../../../lib';
 import Header from '../../../parts/Header';
 
-const PI30 = ({ selectProduct, cornerRef }) => {
+const PI30 = ({ linkClick, cornerRef }) => {
     const { products } = useServerData();
 
     const { headline, subHeadline, stepsList, switchingText, legalTerms } = useContent('PI30');
@@ -24,14 +24,14 @@ const PI30 = ({ selectProduct, cornerRef }) => {
     }
 
     const switchText = (
-        <div className="content-column">
-            <p className="switching-text">
-                {switchingText[0]}
-                <button type="button" className="switching-link" onClick={() => selectProduct('GPL')}>
-                    {switchingText[1]}
-                </button>
-            </p>
-        </div>
+        // <div className="content-column">
+        <p className="switching-text">
+            {switchingText[0]}
+            <button type="button" className="switching-link" onClick={() => linkClick('GPL')}>
+                {switchingText[1]}
+            </button>
+        </p>
+        // </div>
     );
 
     return (
@@ -42,9 +42,12 @@ const PI30 = ({ selectProduct, cornerRef }) => {
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body pi30">
-                <div className="content-column instructions transitional">{list}</div>
+                <div className="instructions transitional">{list}</div>
                 {products.length > 1 && switchText}
-                <div className="content-column disclosure transitional">{legalTerms}</div>
+                <div className="disclosure transitional">{legalTerms}</div>
+                {/* <div className="content-column instructions transitional">{list}</div>
+                {products.length > 1 && switchText}
+                <div className="content-column disclosure transitional">{legalTerms}</div> */}
             </section>
         </Fragment>
     );

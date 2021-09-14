@@ -41,6 +41,6 @@
 
         "switchingText": ["Für andere Später Bezahlen Optionen ", "wählen Sie PayPal Ratenzahlung."],
 
-        "legalTerms": "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option, 30 Tage später zu bezahlen."
+        "legalTerms": "Erhältlich für Einkäufe in Höhe von {formattedMinAmount} - {formattedMaxAmount}. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
     }
 }

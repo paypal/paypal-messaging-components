@@ -8,7 +8,6 @@ import Container from '../../../parts/Container';
 const ContentWrapper = () => {
     const contentWrapper = useRef();
     const [, handleClose] = useTransitionState();
-    const headerRef = useRef();
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={640}>
@@ -16,7 +15,7 @@ const ContentWrapper = () => {
             <div className="top-overlay" onClick={() => handleClose('Modal Overlay')} />
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
-                    <Content headerRef={headerRef} contentWrapper={contentWrapper} />
+                    <Content contentWrapper={contentWrapper} />
                 </div>
             </div>
         </Container>
