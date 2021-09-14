@@ -21,7 +21,6 @@ import {
     ppDebug,
     isScriptBeingDestroyed,
     getScriptAttributes,
-    measureBrowser,
     getDeviceID
 } from '../../utils';
 
@@ -381,18 +380,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 debug: ppDebug(
                     `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
                 )
-            },
-            browserWidth: {
-                type: 'number',
-                queryParam: true,
-                value: () => measureBrowser()?.browserWidth,
-                debug: ppDebug(`Browser Width ${measureBrowser()?.browserWidth}`)
-            },
-            browserHeight: {
-                type: 'number',
-                queryParam: true,
-                value: () => measureBrowser()?.browserHeight,
-                debug: ppDebug(`Browser Height ${measureBrowser()?.browserHeight}`)
             },
             features: {
                 type: 'string',
