@@ -20,13 +20,6 @@ export const getTopWindow = () => {
     }
 };
 
-// Return { width, height } of browser
-// Includes fallback for when top window not available (i.e. component.js)
-export const measureBrowser = () => ({
-    browserWidth: getTopWindow()?.innerWidth ?? document.documentElement.clientWidth,
-    browserHeight: getTopWindow()?.innerHeight ?? document.documentElement.clientHeight
-});
-
 /**
  * Check if object is an HTMLElement instance
  * @param {HTMLElement} el Element to check

@@ -1,4 +1,4 @@
-import { measureBrowser, getInlineOptions } from 'src/utils/elements';
+import { getInlineOptions } from 'src/utils/elements';
 
 // Spy on window in order to manipulate attributes
 const windowSpy = jest.spyOn(window, 'window', 'get');
@@ -58,24 +58,6 @@ describe('elements utils', () => {
             expect(options.onClick.toString()).toContain('console.log("onClick")');
             expect(options.onRender.toString()).toContain('console.log("onRender")');
             expect(options.onApply.toString()).toContain('console.log("onApply")');
-        });
-    });
-
-    describe('measureBrowser', () => {
-        test('Returns an object containing the width and height of the browser', () => {
-            expect(measureBrowser()).toMatchObject({
-                browserWidth: expect.any(Number),
-                browserHeight: expect.any(Number)
-            });
-        });
-
-        test('Falls back to accessing document directly if window.top returns null', () => {
-            delete window.top;
-
-            expect(measureBrowser()).toMatchObject({
-                browserWidth: expect.any(Number),
-                browserHeight: expect.any(Number)
-            });
         });
     });
 });

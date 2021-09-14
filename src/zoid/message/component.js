@@ -2,6 +2,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { getCurrentScriptUID } from 'belter/src';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 import {
     getMeta,
@@ -19,7 +20,8 @@ import {
     getStageTag,
     getFeatures,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    getScriptAttributes
 } from '../../utils';
 
 import validate from './validation';
@@ -369,6 +371,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            partnerAttributionId: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
             },
             features: {
                 type: 'string',
