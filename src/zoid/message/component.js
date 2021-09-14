@@ -16,13 +16,13 @@ import {
     getGlobalState,
     getCurrentTime,
     writeStorageID,
-    getOrCreateStorageID,
     getStageTag,
     getFeatures,
     ppDebug,
     isScriptBeingDestroyed,
     getScriptAttributes,
-    measureBrowser
+    measureBrowser,
+    getDeviceID
 } from '../../utils';
 
 import validate from './validation';
@@ -340,8 +340,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                value: getDeviceID,
+                debug: ppDebug(`Device ID: ${getDeviceID()}`)
             },
             sessionID: {
                 type: 'string',
