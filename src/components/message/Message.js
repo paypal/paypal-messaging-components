@@ -127,9 +127,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     .slice(1);
 
                 ppDebug('Updating message with new props...', { inZoid: true });
-
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: rawData }) => {
+                        const encodedData = rawData.slice(rawData.indexOf('<!-- ') + 5, rawData.indexOf(' -->'));
+                        const data = JSON.parse(atob(encodedData));
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
