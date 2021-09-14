@@ -2,8 +2,12 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 import { getInlineOptions, getGlobalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../../utils';
 import Modal from './interface';
+import { getModalComponent } from '../../zoid/modal';
 
 export default function setup() {
+    // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
+    getModalComponent();
+
     const { namespace } = getGlobalState().config;
 
     // Allow specified global namespace override

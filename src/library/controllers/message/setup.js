@@ -7,11 +7,18 @@ import {
     getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
-    ppDebug
+    ppDebug,
+    getOverflowObserver
 } from '../../../utils';
 import Messages from './adapter';
+import { getMessageComponent } from '../../zoid/message';
 
 export default function setup() {
+    // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
+    getMessageComponent();
+    // Preload the overflow observer so that IE11 polyfills can be downloaded if needed
+    getOverflowObserver();
+
     // Populate global config options
     const script = getScript();
     if (script) {
