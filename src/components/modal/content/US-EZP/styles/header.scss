@@ -22,6 +22,7 @@
         background: white;
         transition: 150ms;
         height: 100%;
+        border-radius: 10px;
 
         &::after {
             content: '';
