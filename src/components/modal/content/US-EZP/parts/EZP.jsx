@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
 import { createEvent } from '../../../../../utils';
+import { OFFER } from '../../../../../utils/constants';
 import { useXProps, useScroll, useApplyNow, useContent } from '../../../lib';
 import Icon from '../../../parts/Icon';
 import Calculator from './Calculator';
@@ -11,7 +12,7 @@ import Button from '../../../parts/Button';
 export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-    const { title, subtitle } = useContent('EZP');
+    const { title, subtitle } = useContent(OFFER.EZP);
 
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
@@ -46,7 +47,7 @@ export const Header = () => {
 export const Content = () => {
     const { onClick } = useXProps();
 
-    const { instructions, about, disclaimer, copyright } = useContent('EZP');
+    const { instructions, about, disclaimer, copyright } = useContent(OFFER.EZP);
 
     return (
         <section className="content-body">

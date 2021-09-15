@@ -3,13 +3,14 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useContent, useXProps } from '../../../lib';
+import { OFFER } from '../../../../../utils/constants';
 import TermsTable from './TermsTable';
 import Icon from '../../../parts/Icon';
 
 const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading) => {
     const {
         calculator: { genericError, amountRange }
-    } = useContent('PAY_LATER_SHORT_TERM');
+    } = useContent(OFFER.PAY_LATER_SHORT_TERM);
 
     if (error || !maxAmount) {
         return genericError;
@@ -68,7 +69,7 @@ const Calculator = () => {
 
     const {
         calculator: { title, inputLabel, amountRange }
-    } = useContent('PAY_LATER_SHORT_TERM');
+    } = useContent(OFFER.PAY_LATER_SHORT_TERM);
 
     // Update display value based on changes from useCalculator
     useEffect(() => {

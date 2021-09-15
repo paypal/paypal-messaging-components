@@ -8,6 +8,7 @@ import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
 import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
 import { getProductForOffer } from '../../../../../utils';
+import { OFFER } from '../../../../../utils/constants';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {
@@ -103,13 +104,13 @@ const Content = ({ headerRef, contentWrapper }) => {
     }, [transitionState]);
 
     const tabsMap = {
-        PAY_LATER_SHORT_TERM: {
+        [OFFER.PAY_LATER_SHORT_TERM]: {
             title: 'Pay in 4',
-            product: 'PAY_LATER_SHORT_TERM'
+            product: OFFER.PAY_LATER_SHORT_TERM
         },
-        PAYPAL_CREDIT_NO_INTEREST: {
+        [OFFER.PAYPAL_CREDIT_NO_INTEREST]: {
             title: 'PayPal Credit',
-            product: 'PAYPAL_CREDIT_NO_INTEREST'
+            product: OFFER.PAYPAL_CREDIT_NO_INTEREST
         }
     };
 
@@ -121,13 +122,13 @@ const Content = ({ headerRef, contentWrapper }) => {
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
     tabsMap.PAY_LATER_SHORT_TERM.body = (
-        <GPL switchTab={showTabSwitch ? () => tabLinkClick('PAYPAL_CREDIT_NO_INTEREST') : null} />
+        <GPL switchTab={showTabSwitch ? () => tabLinkClick(OFFER.PAYPAL_CREDIT_NO_INTEREST) : null} />
     );
 
     tabsMap.PAYPAL_CREDIT_NO_INTEREST.body = (
         <NI
             showApplyNow={setShowApplyNow}
-            switchTab={showTabSwitch ? () => tabLinkClick('PAY_LATER_SHORT_TERM') : null}
+            switchTab={showTabSwitch ? () => tabLinkClick(OFFER.PAY_LATER_SHORT_TERM) : null}
         />
     );
 

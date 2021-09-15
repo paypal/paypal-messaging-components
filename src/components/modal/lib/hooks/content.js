@@ -7,6 +7,7 @@ export function useProduct(product) {
 
     return (
         arrayFind(products, ({ meta }) => {
+            // temporary, remove once offers are updated in PStudio
             const metaProduct = getProductForOffer(meta.product);
             return metaProduct === product;
         }) ?? { content: {} }

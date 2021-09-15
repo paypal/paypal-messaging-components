@@ -3,12 +3,13 @@ import { h, Fragment } from 'preact';
 
 import Icon from '../../../parts/Icon';
 import { useContent, useProductMeta } from '../../../lib';
+import { OFFER } from '../../../../../utils/constants';
 
 const frCurrencyFormat = string => string.replace(/,00/g, '').replace(/(EUR)/g, '€');
 
 export default () => {
-    const { headline, subHeadline, instructions, terms } = useContent('PAY_LATER_SHORT_TERM');
-    const { qualifying } = useProductMeta('PAY_LATER_SHORT_TERM');
+    const { headline, subHeadline, instructions, terms } = useContent(OFFER.PAY_LATER_SHORT_TERM);
+    const { qualifying } = useProductMeta(OFFER.PAY_LATER_SHORT_TERM);
 
     return (
         <section className="content-body">

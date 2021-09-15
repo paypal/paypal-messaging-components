@@ -1,12 +1,13 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useContent, useProductMeta } from '../../../lib';
+import { OFFER } from '../../../../../utils/constants';
 
 const auCurrencyFormat = string => string.replace(/\.00/g, '');
 
 const GPL = () => {
-    const { headline, subHeadline, terms, instructions } = useContent('PAY_LATER_SHORT_TERM');
-    const { qualifying: qualifyingString } = useProductMeta('PAY_LATER_SHORT_TERM');
+    const { headline, subHeadline, terms, instructions } = useContent(OFFER.PAY_LATER_SHORT_TERM);
+    const { qualifying: qualifyingString } = useProductMeta(OFFER.PAY_LATER_SHORT_TERM);
     const qualifying = qualifyingString?.toLowerCase() === 'true';
 
     return (
