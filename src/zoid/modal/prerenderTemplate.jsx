@@ -105,6 +105,7 @@ export default ({ doc, props, event }) => {
             top: 12px;
             z-index: 50;
             right: 10px;
+            background-color: #0000;
         }
 
         .error{
