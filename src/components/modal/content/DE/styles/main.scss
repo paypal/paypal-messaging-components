@@ -50,13 +50,13 @@
 
 .content-background {
     width: 100%;
-    max-width: 612px;
+    max-width: 640px;
     margin: auto;
     background: white;
     min-height: 100%;
 }
 
-@media only screen and (max-width: 612px) {
+@media only screen and (max-width: 640px) {
     .calculator-container {
         padding: 0 18px;
     }
