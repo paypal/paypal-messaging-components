@@ -103,7 +103,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                 });
 
                 const query = objectEntries({
-                    message_request_id: meta.messageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
