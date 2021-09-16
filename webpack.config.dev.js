@@ -42,7 +42,7 @@ module.exports = (env = {}) => {
         switch (env.TARGET) {
             case 'standalone':
             case 'standalone-modal': {
-                const name = env.TARGET === 'modal' ? 'modal' : 'messaging';
+                const name = env.TARGET === 'standalone-modal' ? 'modal' : 'messaging';
 
                 return getWebpackConfig({
                     entry: {
