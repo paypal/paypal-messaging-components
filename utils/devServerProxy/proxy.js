@@ -97,6 +97,19 @@ export default (app, server, compiler) => {
                 document.write(interface);
             </script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
+            <script>
+                function parseObjFromEncoding(encodedStr) {
+                    // as in Message.js, JSON.parse(fromBinary(atob(encodedStr)))
+                    const binary = atob(encodedStr);
+                    const bytes = new Uint8Array(binary.length);
+                    for (let i = 0; i < bytes.length; i++) {
+                        bytes[i] = binary.charCodeAt(i);
+                    }
+                    // need to use .apply instead of spread operator so IE can understand
+                    const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+                    return JSON.parse(decodedStr);
+                }
+            </script>
             ${initializer}
         </body>
     `;
@@ -210,20 +223,9 @@ export default (app, server, compiler) => {
         if (data) {
             const encodedData = encodeObj(data);
 
-            const initializer = `
-            <script>
-            function fromBinary(binary) {
-                const bytes = new Uint8Array(binary.length);
-                for (let i = 0; i < bytes.length; i++) {
-                    bytes[i] = binary.charCodeAt(i);
-                }
-                // need to use .apply instead of spread operator so IE can understand
-                return String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
-            }
-            var parsedData = JSON.parse(fromBinary(atob(document.firstChild.nodeValue)));
-            crc.setupMessage(parsedData);
-            </script>
-            `;
+            const initializer = `<script>
+                crc.setupMessage(parseObjFromEncoding(document.firstChild.nodeValue));
+            </script>`;
 
             res.set('Cache-Control', 'public, max-age=10');
 

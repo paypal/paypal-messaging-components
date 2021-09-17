@@ -1,5 +1,13 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
     const { onClick, onReady, onHover, onMarkup, onProps, resize, deviceID: parentDeviceID } = window.xprops;
@@ -129,16 +137,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {
-                        function fromBinary(binary) {
-                            const bytes = new Uint8Array(binary.length);
-                            for (let i = 0; i < bytes.length; i++) {
-                                bytes[i] = binary.charCodeAt(i);
-                            }
-                            // need to use .apply instead of spread operator so IE can understand
-                            return String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
-                        }
                         const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
-                        const data = JSON.parse(fromBinary(atob(encodedData)));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
