@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react/no-unknown-property */
@@ -10,6 +9,26 @@
 import { node, dom } from 'jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from 'zalgo-promise/src';
+
+const CloseIcon = ({ size = 36, strokeWidth = 1, color = '#000000' }) => {
+    const dimension = /^\d+$/.test(`${size}`) ? `${size}` : '36';
+    const oneThird = dimension / 3;
+    const twoThird = (dimension / 3) * 2;
+    const styles = `path{stroke: ${color};stroke-width: ${strokeWidth};stroke-linecap: round;transition: all 0.3s;}`;
+    return (
+        <svg
+            width={dimension}
+            height={dimension}
+            viewBox={`0 0 ${dimension} ${dimension}`}
+            fill="transparent"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <style>{styles}</style>
+            <path d={`M${twoThird} ${oneThird}L${oneThird} ${twoThird}`} />
+            <path d={`M${oneThird} ${oneThird}L${twoThird} ${twoThird}`} />
+        </svg>
+    );
+};
 
 export default ({ doc, props, event }) => {
     const ERROR_DELAY = 15000;
@@ -93,20 +112,7 @@ export default ({ doc, props, event }) => {
         .spinner{
             position: relative !important;
         }
-        .close-button > button {
-            background-image: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
-            width: 38px;
-            height: 38px;
-            display: block;
-            padding: 0;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            top: 12px;
-            z-index: 50;
-            right: 10px;
-            background-color: #0000;
-        }
+
 
         .error{
             width: 200px;
@@ -128,9 +134,28 @@ export default ({ doc, props, event }) => {
             }
         }
         
+        .close svg{
+            height: 40px;
+            width: 40px;
+            margin: 0;
+            text-align: center;
+        }
+
+
+        button.close {
+            height: 40px;
+            width: 40px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            top: 5px;
+            right: 5px;
+            position: absolute;
+        }
     `;
 
     const closeModal = () => event.trigger('modal-hide');
+
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             // check to see if modal content class exists
@@ -138,7 +163,7 @@ export default ({ doc, props, event }) => {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
                 element.querySelector('.error').style.display = 'block';
-                element.querySelector('.error').textContent = 'Error loading Modal';
+                element.querySelector('.error').textContent = 'Something went wrong. Please try again later.';
             }
         });
     };
@@ -155,9 +180,9 @@ export default ({ doc, props, event }) => {
                     <div class="overlay" onClick={closeModal} />
                     <div class="top-overlay" />
                     <div class="modal-content">
-                        <div class="close-button">
-                            <button onClick={closeModal} type="button" />
-                        </div>
+                        <button class="close" aria-label="Close" type="button" id="close-btn" onClick={closeModal}>
+                            <CloseIcon color="#000000" size="36" />
+                        </button>
                         <div class="error" style="display: none"></div>
                         <Spinner nonce={props.nonce} />
                     </div>
