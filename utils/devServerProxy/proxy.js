@@ -97,7 +97,6 @@ export default (app, server, compiler) => {
                 document.write(interface);
             </script>
             <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
-            
             ${initializer}
         </body>
     `;

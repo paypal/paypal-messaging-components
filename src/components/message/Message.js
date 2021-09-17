@@ -129,8 +129,16 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {
-                        const encodedData = resData.slice(resData.indexOf('<!-- ') + 5, resData.indexOf(' -->'));
-                        const data = JSON.parse(atob(encodedData));
+                        function fromBinary(binary) {
+                            const bytes = new Uint8Array(binary.length);
+                            for (let i = 0; i < bytes.length; i++) {
+                                bytes[i] = binary.charCodeAt(i);
+                            }
+                            // need to use .apply instead of spread operator so IE can understand
+                            return String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+                        }
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = JSON.parse(fromBinary(atob(encodedData)));
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;

@@ -21,24 +21,12 @@ jest.mock('src/utils', () => ({
             //     "warnings": []
             // }
             data:
-                '<!-- ewogICAgIm1hcmt1cCI6ICI8ZGl2Pm1vY2s8L2Rpdj4iLAogICAgIm1ldGEiOiB7CiAgICAgICAgIm1lc3NhZ2VSZXF1ZXN0SWQiOiAiMjM0NTYiCiAgICB9LAogICAgInBhcmVudFN0eWxlcyI6ICJib2R5IHsgY29sb3I6IGJsdWU7IH0iLAogICAgIndhcm5pbmdzIjogW10KfQ== -->'
+                '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
         })
     ),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
-
-JSON.parse = jest.fn().mockImplementationOnce(() => {
-    const dataObject = {
-        markup: '<div>mock</div>',
-        meta: {
-            messageRequestId: '23456'
-        },
-        parentStyles: 'body { color: blue; }',
-        warnings: []
-    };
-    return dataObject;
-});
 
 describe('Message', () => {
     const updateProps = xPropsMock({
