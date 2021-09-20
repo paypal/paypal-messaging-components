@@ -30,14 +30,7 @@
     }
 
     .close {
-        top: 5px;
-        right: 5px;
-        pointer-events: all;
-
         svg {
-            height: 40px;
-            width: 40px;
-
             path {
                 stroke: white !important;
             }

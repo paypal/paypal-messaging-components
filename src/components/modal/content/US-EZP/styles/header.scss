@@ -47,18 +47,6 @@
         transition: all 0.3s;
     }
 
-    .close {
-        svg {
-            height: 40px;
-            width: 40px;
-        }
-
-        path {
-            stroke-width: 1px;
-            transition: all 0.3s;
-        }
-    }
-
     .logo-wrapper {
         transition: all 0.3s;
         transform: translateX(0) scale(1);

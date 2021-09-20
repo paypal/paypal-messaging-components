@@ -44,7 +44,7 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg) format('svg');
         }
-        
+
         @font-face {
             font-family: 'PayPalSansBig';
             font-weight: 200;
@@ -56,7 +56,7 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg) format('svg');
         }
-        
+
         @font-face {
             font-family: 'PayPalSansSmall';
             font-weight: 400;
@@ -69,7 +69,7 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
                     format('svg');
         }
-        
+
         @font-face {
             font-family: 'PayPalSansSmall';
             font-weight: 600;
@@ -88,14 +88,14 @@ export default ({ doc, props, event }) => {
             font-size: 14px;
             font-weight: 400;
         }
-        .modal{
+        .modal {
             overflow-y: scroll;
         }
-        .overlay{
+        .overlay {
             position: fixed;
             left: 0;
             top: 0;
-            width: 100%; 
+            width: 100%;
             height: 100%;
         }
         .modal-content {
@@ -109,12 +109,11 @@ export default ({ doc, props, event }) => {
             border-top-left-radius: 10px;
             box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
         }
-        .spinner{
+        .spinner {
             position: relative !important;
         }
 
-
-        .error{
+        .error {
             width: 200px;
             height: 100px;
             position: absolute;
@@ -123,37 +122,34 @@ export default ({ doc, props, event }) => {
             margin-left: -60px;
         }
 
-        @media (max-width: 639px), (max-height: 539px){
-            .modal{
+        @media (max-width: 639px), (max-height: 539px) {
+            .modal {
                 overflow-y: hidden;
             }
             .modal-content {
                 margin-top: 84px;
                 height: calc(100% - 84px);
-                
             }
         }
-        
-        .close svg{
-            height: 40px;
-            width: 40px;
-            margin: 0;
-            text-align: center;
-        }
 
-
-        button.close {
-            height: 40px;
-            width: 40px;
+        .close {
+            display: block;
             padding: 0;
             border: none;
             background: transparent;
+            cursor: pointer;
+            position: absolute;
             top: 5px;
             right: 5px;
-            position: absolute;
+            pointer-events: all;
+            margin: 0;
+        }
+
+        .close svg {
+            height: 40px;
+            width: 40px;
         }
     `;
-
     const closeModal = () => event.trigger('modal-hide');
 
     const checkForErrors = element => {

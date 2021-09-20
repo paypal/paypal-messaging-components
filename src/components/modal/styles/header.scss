@@ -6,12 +6,14 @@
         background: transparent;
         cursor: pointer;
         position: absolute;
-        top: 12px;
-        right: 8px;
+        top: 5px;
+        right: 5px;
+        pointer-events: all;
+        margin: 0;
 
         svg {
-            height: 48px;
-            width: 48px;
+            height: 40px;
+            width: 40px;
         }
 
         path {
