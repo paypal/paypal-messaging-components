@@ -1,25 +1,29 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID, createState } from 'src/utils';
+import { request, getDeviceID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
-    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    getDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    isStorageFresh: jest.fn().mockReturnValue(false),
     request: jest.fn(() =>
         Promise.resolve({
-            data: {
-                markup: '<div>mock</div>',
-                meta: {
-                    messageRequestId: '23456'
-                },
-                parentStyles: 'body { color: blue; }',
-                warnings: []
-            }
+            // data here is the string encoding of the JSON in parseObjFromEncoding:
+            data:
+                '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
         })
     ),
+    parseObjFromEncoding: jest.fn(() => ({
+        markup: '<div>mock</div>',
+        meta: {
+            messageRequestId: '23456'
+        },
+        parentStyles: 'body { color: blue; }',
+        warnings: []
+    })),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
@@ -56,7 +60,7 @@ describe('Message', () => {
 
         createState.mockClear();
         request.mockClear();
-        getOrCreateStorageID.mockClear();
+        getDeviceID.mockClear();
         xPropsMock.clear();
     });
 
@@ -167,7 +171,7 @@ describe('Message', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+        getDeviceID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
 
@@ -177,6 +181,6 @@ describe('Message', () => {
             },
             deviceID: 'uid_1111111111_11111111111'
         });
-        expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(getDeviceID).toHaveBeenCalled();
     });
 });

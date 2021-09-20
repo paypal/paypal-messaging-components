@@ -19,7 +19,7 @@ export default () => {
             </div>
 
             <div className="content-column disclosure transitional">
-                {(apr === '0,00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/,00/g, '')}
+                {(apr === '0.00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/,00/g, '')}
             </div>
         </section>
     );

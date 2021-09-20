@@ -36,6 +36,7 @@
     width: 27px;
     display: inline-block;
     margin-right: 10px;
+    margin-left: 5px;
 }
 
 .message__logo:nth-of-type(2) {
@@ -61,12 +62,6 @@
 .message__disclaimer > .tag--extra > span:only-child {
     text-decoration: none;
     line-height: 1.5;
-}
-
-@media (min-width: 220px) {
-    .message__disclaimer {
-        font-size: 0.9rem;
-    }
 }
 
 .message__promo-container {

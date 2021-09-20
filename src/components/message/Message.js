@@ -1,14 +1,23 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
+    const { onClick, onReady, onHover, onMarkup, onProps, resize, deviceID: parentDeviceID } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
         amount: window.xprops.amount ?? null,
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
+        ignoreCache: window.xprops.ignoreCache ?? null,
         style: JSON.stringify(window.xprops.style),
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
@@ -53,13 +62,13 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.textAlign = window.xprops.style?.text?.align || 'left';
     button.style.fontFamily = 'inherit';
     button.style.fontSize = 'inherit';
-    button.innerHTML = markup;
+    button.innerHTML = markup ?? '';
 
     onReady({
         meta,
         activeTags: getActiveTags(button),
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
@@ -77,6 +86,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyerCountry,
+                    ignoreCache,
                     offer,
                     payerId,
                     clientId,
@@ -92,6 +102,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyerCountry,
+                    ignoreCache,
                     style: JSON.stringify(style),
                     offer,
                     payerId,
@@ -100,10 +111,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                 });
 
                 const query = objectEntries({
-                    message_request_id: meta.messageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
+                    ignore_cache: ignoreCache,
                     style,
                     credit_type: offer,
                     payer_id: payerId,
@@ -124,8 +135,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
@@ -150,8 +163,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 onReady({
                                     meta: data.meta ?? meta,
                                     activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
+                                    // If storage state is brand new, use the parent deviceID, otherwise use child
+                                    deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
                                 });
                             }
                         }

@@ -16,7 +16,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getOrCreateStorageID,
+    getDeviceID,
     getStageTag,
     getFeatures,
     ppDebug
@@ -84,6 +84,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: false,
                 required: false
+            },
+            ignoreCache: {
+                type: 'boolean',
+                queryParam: 'ignore_cache',
+                required: false,
+                value: validate.ignoreCache
             },
 
             // Callbacks
@@ -304,7 +310,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID
+                value: getDeviceID
             },
             sessionID: {
                 type: 'string',
@@ -319,7 +325,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             debug: {
                 type: 'boolean',
                 queryParam: 'pp_debug',
-                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+                required: false,
+                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : undefined)
             },
             stageTag: {
                 type: 'string',
