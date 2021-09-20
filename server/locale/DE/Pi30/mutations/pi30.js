@@ -1,12 +1,10 @@
 import Logo from '../../../../message/logos';
 import {
-    xSmallFallback,
     textWrap,
     messageLogoWidth,
     altNoWrap,
     setLogoTop,
     xSmallNoWrap,
-    addPeriod,
     primaryWrap
 } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -14,10 +12,6 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['xsmall'],
-        breaks: ['kaufen,']
-    },
-    {
-        sizes: ['medium'],
         breaks: ['kaufen,']
     }
 ].reduce((acc, item) => {
@@ -39,9 +33,6 @@ const flex = [
             headline: [
                 {
                     tag: 'xsmall'
-                },
-                {
-                    tag: 'medium'
                 }
             ],
             disclaimer: ['default']
@@ -70,7 +61,8 @@ const flex = [
     [
         'ratio:20x1',
         {
-            headline: [...headlineBreaks]
+            headline: [...headlineBreaks],
+            styles: [`@media (min-aspect-ratio: 60/11) {.message__headline span.tag--xsmall {display: inline}};`]
         }
     ],
     ...flexLogoMutations
@@ -83,11 +75,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 14),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
-                    addPeriod(),
                     primaryWrap(textSize * 12.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
