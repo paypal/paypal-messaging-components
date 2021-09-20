@@ -1,13 +1,15 @@
 import { getSDKAttributes } from '@paypal/sdk-client/src';
 
 import createContainer from 'utils/createContainer';
-import { runStats } from 'src/utils/stats';
+import { runStats, buildStatsPayload } from 'src/utils/stats';
 import { logger } from 'src/utils/logger';
 import { getGlobalState } from 'src/utils/global';
+import { checkAdblock } from 'src/utils/adblock';
 
 jest.mock('src/utils/logger', () => ({
     logger: {
-        track: jest.fn()
+        track: jest.fn(),
+        addMetaBuilder: jest.fn()
     }
 }));
 
@@ -18,6 +20,10 @@ jest.mock('src/utils/global', () => {
         getGlobalState: jest.fn()
     };
 });
+
+jest.mock('src/utils/adblock', () => ({
+    checkAdblock: jest.fn().mockResolvedValue('true')
+}));
 
 jest.mock('@paypal/sdk-client/src', () => ({
     getSDKAttributes: jest.fn().mockReturnValue({ 'data-partner-attribution-id': 'some-partner-id' })
@@ -43,10 +49,16 @@ const start = Date.now();
 describe('stats', () => {
     const index = '1';
 
-    const defaultProps = {
-        index,
+    // Attributes required to be attached to stats event
+    const statsEvent = {
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
+        render_duration: expect.stringNumber(),
+        first_render_delay: expect.stringNumber()
+    };
+
+    const defaultProps = {
+        index,
         pos_x: '100',
         pos_y: '30',
         browser_width: '1024',
@@ -71,7 +83,11 @@ describe('stats', () => {
 
     afterEach(() => {
         document.body.innerHTML = '';
+
         logger.track.mockReset();
+        logger.addMetaBuilder.mockReset();
+
+        checkAdblock.mockClear();
     });
 
     test('Fires standard payload and attaches events', async () => {
@@ -89,7 +105,16 @@ describe('stats', () => {
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(logger.track).toHaveBeenCalledTimes(2);
-        expect(logger.track).toHaveBeenCalledWith(defaultProps);
+        // Page load
+        expect(logger.track).toHaveBeenCalledWith({
+            dom_load_delay: '-1',
+            et: 'CLIENT_IMPRESSION',
+            event_type: 'page_loaded',
+            page_load_delay: '-1',
+            script_load_delay: '-1'
+        });
+
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
@@ -104,18 +129,13 @@ describe('stats', () => {
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
-        const payload = {
-            ...defaultProps,
-            bn_code: 'some-partner-id'
-        };
-
         runStats({ container, activeTags: '', index });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(getSDKAttributes).toHaveBeenCalledTimes(1);
         expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(payload);
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(window.addEventListener).not.toHaveBeenCalled();
     });
 
@@ -145,7 +165,7 @@ describe('stats', () => {
         await new Promise(resolve => setTimeout(resolve, 100));
 
         expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(payload);
+        expect(logger.track).toHaveBeenCalledWith(statsEvent);
         expect(payload.visible).toBe('false');
         if (payload.visible === 'true') {
             expect(logger.track).toHaveBeenCalledWith({
@@ -155,5 +175,39 @@ describe('stats', () => {
                 visible: 'true'
             });
         }
+    });
+
+    describe('buildStatsPayload', () => {
+        it('Builds the expected payload', async () => {
+            window.innerHeight = defaultProps.browser_height;
+
+            const { container } = createContainer('iframe');
+
+            // Pull out attributes from defaultProps that are not returned by the base buildStatsPayload
+            const {
+                et,
+                event_type: evntType,
+                first_render_delay: frd,
+                render_duration: rd,
+                ...expectedPayload
+            } = defaultProps;
+
+            container.getBoundingClientRect = () => ({
+                left: 100,
+                right: 20,
+                top: 30,
+                bottom: 25
+            });
+
+            messagesMap.set(container, { state: { renderStart: start } });
+
+            const statsPayload = await buildStatsPayload({
+                container,
+                activeTags: 'headline:MEDIUM::subheadline:NONE::disclaimer:NONE',
+                index: '1'
+            });
+
+            expect(statsPayload).toMatchObject(expectedPayload);
+        });
     });
 });

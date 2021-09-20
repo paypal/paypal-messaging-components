@@ -1,8 +1,16 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
+    const { onClick, onReady, onHover, onMarkup, onProps, resize, deviceID: parentDeviceID } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
@@ -60,7 +68,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         meta,
         activeTags: getActiveTags(button),
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
@@ -103,7 +111,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                 });
 
                 const query = objectEntries({
-                    message_request_id: meta.messageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
@@ -128,8 +135,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
@@ -154,8 +163,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 onReady({
                                     meta: data.meta ?? meta,
                                     activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
+                                    // If storage state is brand new, use the parent deviceID, otherwise use child
+                                    deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
                                 });
                             }
                         }

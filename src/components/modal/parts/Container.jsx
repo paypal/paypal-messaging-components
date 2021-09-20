@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { getOrCreateStorageID } from '../../../utils';
+import { getDeviceID, isStorageFresh } from '../../../utils';
 
 import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
 import Overlay from './Overlay';
@@ -19,6 +19,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         ignoreCache,
         version,
         env,
+        deviceID: parentDeviceID,
         stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
@@ -39,7 +40,8 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
                 type,
                 products: products.map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: getOrCreateStorageID()
+                // If storage state is brand new, use the parent deviceID, otherwise use child
+                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
             });
         }
     }, [meta.messageRequestId]);
