@@ -1,5 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-comments/no-unused-disable */
 /** @jsx h */
 import { h } from 'preact';
 import render from 'preact-render-to-string';
