@@ -50,7 +50,8 @@ const flex = [
     [
         'ratio:8x1',
         {
-            headline: [...headlineBreaks]
+            headline: [...headlineBreaks],
+            styles: [`@media (min-aspect-ratio: 60/11) {.message__headline span.tag--xsmall {display: inline}};`]
         }
     ],
     [
@@ -62,7 +63,8 @@ const flex = [
     [
         'ratio:1x4',
         {
-            headline: [...headlineBreaks]
+            headline: [...headlineBreaks],
+            styles: [`.message__headline .tag--xsmall { display: inline;}`]
         }
     ],
     [

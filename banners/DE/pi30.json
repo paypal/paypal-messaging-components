@@ -13,7 +13,7 @@
         }
     },
 
-    "headline": [["Jetzt kaufen, später bezahlen.", ["default", "small"]]],
+    "headline": [["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]]],
 
     "subHeadline": [],
 
