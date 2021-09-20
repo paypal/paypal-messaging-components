@@ -29,24 +29,20 @@ const ProductList = ({ buttonClick, cornerRef }) => {
         <Fragment>
             <Header logo="DE-GPL">
                 <h1>Jetzt kaufen, später bezahlen</h1>
-                <h2>
+                <h3>
                     Wählen Sie <b>PayPal</b>, um <b>´Später Bezahlen´</b> zu nutzen.
-                </h2>
+                </h3>
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body product-list">
-                <div className="product-buttons"> {productButtons}</div>
-                <div className="legal disclosure">
+                {/* <div className="content-column"> */}
+                <div className="product-buttons content-column"> {productButtons}</div>
+                <div className="legal disclosure content-column">
                     Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen
-                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen
-                    Optionen.
+                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen der
+                    obigen Optionen.
                 </div>
-                {/* <div className="content-column product-buttons"> {productButtons}</div>
-                <div className="content-column legal disclosure">
-                    Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen
-                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen
-                    Optionen.
-                </div> */}
+                {/* </div> */}
             </section>
         </Fragment>
     );

@@ -32,13 +32,13 @@ export default ({ linkClick, cornerRef }) => {
             <section className="content-body gpl">
                 <div className="description">
                     <Calculator />
-                    <div className="instructions transitional">
+                    <div className="instructions transitional content-column">
                         {instructions.map(instruction =>
                             instruction === 'PayPal' ? <b>PayPal </b> : <span>{instruction} </span>
                         )}
                     </div>
                 </div>
-                <div className="content-footer">
+                <div className="content-footer content-column">
                     {products.length > 1 && switchText}
                     <div className="disclosure dashed-border transitional">{disclosureText}</div>
                 </div>

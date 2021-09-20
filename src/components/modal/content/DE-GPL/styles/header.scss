@@ -3,23 +3,23 @@
     position: relative;
 
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         line-height: 35px;
         color: white;
-        font-weight: bold;
         margin: 0.5rem auto;
     }
 
     h2 {
-        font-size: 1.3rem;
-        line-height: 35px;
+        font-size: 1.1rem;
+        line-height: 28px;
         color: white;
         margin: auto;
     }
 
     h3 {
-        font-size: 1rem;
-        line-height: 35px;
+        font-size: 0.8rem;
+        font-weight:normal;
+        line-height: 0.8rem;
         color: white;
         margin: auto;
     }
@@ -66,6 +66,10 @@
             font-size: 26px;
             line-height: 30px;
             padding-bottom: 20px;
+            max-width: 320px;
+        }
+        h2 {
+            max-width: 320px;
         }
     }
 
@@ -73,6 +77,10 @@
         h1 {
             font-size: 20px;
             line-height: 22px;
+            max-width: 320px;
+        }
+        h2 {
+            max-width: 320px;
         }
     }
 

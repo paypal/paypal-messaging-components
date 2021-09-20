@@ -25,7 +25,7 @@ const PI30 = ({ linkClick, cornerRef }) => {
 
     const switchText = (
         // <div className="content-column">
-        <p className="switching-text">
+        <p className="switching-text content-column">
             {switchingText[0]}
             <button type="button" className="switching-link" onClick={() => linkClick('GPL')}>
                 {switchingText[1]}
@@ -42,12 +42,11 @@ const PI30 = ({ linkClick, cornerRef }) => {
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body pi30">
-                <div className="instructions transitional">{list}</div>
+                {/* <div className="content-column"> */}
+                <div className="instructions transitional content-column">{list}</div>
                 {products.length > 1 && switchText}
-                <div className="disclosure transitional">{legalTerms}</div>
-                {/* <div className="content-column instructions transitional">{list}</div>
-                {products.length > 1 && switchText}
-                <div className="content-column disclosure transitional">{legalTerms}</div> */}
+                <div className="disclosure transitional content-column">{legalTerms}</div>
+                {/* </div> */}
             </section>
         </Fragment>
     );

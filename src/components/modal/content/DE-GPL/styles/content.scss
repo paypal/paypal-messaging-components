@@ -25,7 +25,8 @@
     .disclosure {
         font-size: 0.8rem;
         line-height: 1.8;
-        padding: 1rem 0 3rem;
+        padding-top: 1rem;
+        padding-bottom:3rem;
 
         @include mobile {
             margin-top: 1rem;
@@ -38,7 +39,7 @@
 
     .instructions {
         text-align: center;
-        padding: 2rem 1rem;
+        // padding: 2rem 1rem;
         flex: 1 1 auto;
     }
 
@@ -53,6 +54,7 @@
 
     .switching-text {
         color:#515354;
+        margin-top:3rem;
     }
 
     .switching-link {
@@ -74,7 +76,11 @@
 
     .product-list {
         height:100%;
-        background-color: #f1efea;
+        background-color: #f7f5f0;
+        display:flex;
+        flex-direction:column;
+        justify-content: space-between;
+        align-content: space-between;
     
         .product-buttons {
             display:flex;
@@ -83,6 +89,7 @@
     
         .product-button {
             width:100%;
+            height:fit-content;
             box-sizing: border-box;
             border:0;
             border-radius: 12px;
@@ -97,16 +104,26 @@
             h1 {
                 font-size:1.2em;
                 font-weight:bold;
-                margin:0;
+                margin:0 0 0.7rem;
+                line-height:1.2rem;
             }
             p {
                 font-size:1em;
                 color:black;
                 margin:0;
+                line-height:1.2rem;
+            }
+            div {
+                height:100%;
+                display:flex;
+                flex-direction:column;
+                justify-content: space-between;
             }
             svg {
+                min-height:100%;
                 margin:0 0 0 auto;
-                height:100%;
+                padding:0 0 0 1rem;
+                max-height:75px;
             }
         }
     }
@@ -115,51 +132,55 @@
         display: flex;
         flex-direction: row;
         align-content: flex-start;
-        margin-top:1.5em;
-    }
-
-    .pi30-subheadline {
-        font-weight:normal
+        margin-top:1rem;
     }
 
     .pi30 {
+        display:flex;
+        flex-direction:column;
+        justify-content: space-between;
+        align-content: space-between;
+
+        .pi30-subheadline {
+            font-weight:400 !important
+        }
 
         .instructions {
-            padding:0;
 
             p {
                 width:100%;
-                padding-left:2.5em;
-                font-size:1.2em;
+                padding-left:1.5rem;
+                font-size:1.2rem;
                 text-align:left;
                 color:black;
-                margin-top:0.4em;
+                margin:0.2rem 0 1rem;
+                line-height:1.3rem;
             }
         }
 
         .list-number {
             position:relative;
-            height:2em;
-            width:2em;
-            color:black;
+            height:1.7rem;
+            width:1.7rem;
         
             div {
                 position:relative;
-                height:2em;
-                width:2em;
+                height:1.7rem;
+                width:1.7rem;
                 border-radius:50%;
                 background-color: #DBD8D0;
             }
             span {
-                width:2em;
+                width:1.7rem;
                 margin:auto;
                 text-align:center;
                 position: absolute;
                 top:50%;
                 left:50%;
                 transform: translate(-50%, -50%);
-                font-size:1.2em;
+                font-size:1rem;
                 line-height:100%;
+                color:#0C0C0D;
             }
         }
 
@@ -176,6 +197,5 @@
             width:100%;
             text-align: center;
         }
-
     }
 }
