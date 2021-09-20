@@ -1,6 +1,13 @@
 import { getInlineOptions } from 'src/utils/elements';
 
+// Spy on window in order to manipulate attributes
+const windowSpy = jest.spyOn(window, 'window', 'get');
+
 describe('elements utils', () => {
+    afterEach(() => {
+        windowSpy.mockClear();
+    });
+
     describe('getInlineOptions', () => {
         test('Handles top-level and nested properties', () => {
             const div = document.createElement('div');
