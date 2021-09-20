@@ -92,13 +92,7 @@ export default {
                     primaryWrap(textSize * 12.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
-                headline: [
-                    {
-                        tag: 'medium',
-                        br: ['erst']
-                    },
-                    { tag: 'xsmall', br: [','] }
-                ],
+                headline: [{ tag: 'xsmall', br: [','] }],
                 disclaimer: ['default']
             })
         ],
@@ -106,10 +100,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 45),
+                    setLogoTop(textSize * 28),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -121,9 +113,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -136,29 +126,20 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
-                    altNoWrap(textSize * 15.5),
-                    addPeriod()
+                    altNoWrap(textSize * 15.5)
                 ],
-                headline: [
-                    { tag: 'medium', br: ['nach'] },
-                    { tag: 'xsmall', br: ['später'] }
-                ],
+                headline: [{ tag: 'xsmall', br: ['später'] }],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
         [
             'logo.type:none',
-            ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 14)],
+            () => ({
+                styles: [`margin-top: 0px;`],
                 logo: false,
                 headline: [
-                    {
-                        tag: 'medium',
-                        br: ['erst']
-                    },
                     {
                         tag: 'xsmall',
                         replace: [['bezahlen.', 'bezahlen']]
@@ -170,16 +151,11 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo-container::after { content: '.'; }`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
-                    {
-                        tag: 'medium',
-                        br: ['erst']
-                    },
                     {
                         tag: 'xsmall',
                         replace: [['bezahlen.', 'bezahlen']]
