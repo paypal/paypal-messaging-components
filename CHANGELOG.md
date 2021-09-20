@@ -1,5 +1,20 @@
 # Changelog
 
+### [1.26.4](https://github.com/paypal/paypal-messaging-components/compare/v1.26.3...v1.26.4) (2021-09-20)
+
+
+### Bug Fixes
+
+* use unformated APR for DE GPL disclosure check [snapshots] ([#600](https://github.com/paypal/paypal-messaging-components/issues/600)) ([d16289b](https://github.com/paypal/paypal-messaging-components/commit/d16289b8bee6a19bc545064e0687bce7661d69e1))
+
+
+### Code Refactoring
+
+* added 'interest-free' back into Pi3 ([#604](https://github.com/paypal/paypal-messaging-components/issues/604)) [snapshots] ([59756a8](https://github.com/paypal/paypal-messaging-components/commit/59756a85e94e87fbc12133ac6bd472b2dec30037))
+* amplitude parity ([#605](https://github.com/paypal/paypal-messaging-components/issues/605)) ([1307191](https://github.com/paypal/paypal-messaging-components/commit/13071918f22b8a0c71ae1b6a81d8f7661c90e5ed))
+* modify message update call to use smart/message ([#607](https://github.com/paypal/paypal-messaging-components/issues/607)) (DTCRCGEMI-32) ([e9acfe6](https://github.com/paypal/paypal-messaging-components/commit/e9acfe60b9533b3e51e81f837d44dd618c07afba))
+* use separate storage key for device ID ([#588](https://github.com/paypal/paypal-messaging-components/issues/588)) ([900e666](https://github.com/paypal/paypal-messaging-components/commit/900e666e212fca7ec4b797359fdddc624624512c))
+
 ### [1.26.2](https://github.com/paypal/paypal-messaging-components/compare/v1.26.1...v1.26.2) (2021-08-25)
 
 
