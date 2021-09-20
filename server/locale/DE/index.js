@@ -15,6 +15,7 @@ export default offerType => {
             return gpl;
         case 'PI30':
         case 'PI30Q':
+        case 'PI30NQ':
             return pi30;
         default:
             return ratenzahlung;
