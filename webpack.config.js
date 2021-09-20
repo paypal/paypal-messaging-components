@@ -22,6 +22,12 @@ module.exports = (env = {}) => {
         })
     });
 
+    MESSAGES_CONFIG.plugins.forEach((plugin, index) => {
+        if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+            MESSAGES_CONFIG.plugins[index].opts.analyzerMode = 'json';
+        }
+    });
+
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
         libraryTarget: 'window',

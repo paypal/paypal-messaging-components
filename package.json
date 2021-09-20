@@ -35,7 +35,8 @@
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
-        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot"
+        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
+        "benchmark": "DEV_BROWSER=false BENCHMARK=true npm run dev:standalone & npm run build:analyze && node tools/performance/metrics.js"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",
