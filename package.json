@@ -23,6 +23,7 @@
         "build:sandbox": "webpack --env.NODE_ENV=sandbox",
         "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
+        "build:analyzeComponents": "BENCHMARK=true webpack --env.analyzeComponents",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
@@ -36,7 +37,7 @@
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
-        "benchmark": "DEV_BROWSER=false BENCHMARK=true npm run dev:standalone & npm run build:analyze && node tools/performance/metrics.js"
+        "benchmark": "DEV_BROWSER=false BENCHMARK=true npm run dev:standalone & BENCHMARK=true webpack --env.analyze && node tools/performance/metrics.js && BENCHMARK=true webpack --env.analyzeComponents && BENCHMARK=true webpack --env.analyzeMessageComponents"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",

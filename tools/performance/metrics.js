@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 (async () => {
     const networkRequests = [];
@@ -107,7 +108,10 @@ const puppeteer = require('puppeteer');
 
         stats.networkRequests = networkRequests;
 
-        // console.log(stats);
+        // stats has speed metric and network request data
+        fs.writeFile('dist/metrics.json', JSON.stringify(stats), err => {
+            console.log(err);
+        });
     });
 
     await browser.close();

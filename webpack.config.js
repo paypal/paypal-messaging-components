@@ -22,12 +22,6 @@ module.exports = (env = {}) => {
         })
     });
 
-    MESSAGES_CONFIG.plugins.forEach((plugin, index) => {
-        if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
-            MESSAGES_CONFIG.plugins[index].opts.analyzerMode = 'json';
-        }
-    });
-
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
         libraryTarget: 'window',
@@ -67,6 +61,29 @@ module.exports = (env = {}) => {
             TARGET: 'messagingComponent'
         })
     });
+
+    if (process.env.BENCHMARK === 'true') {
+        COMPONENTS_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                COMPONENTS_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                COMPONENTS_CONFIG.plugins[index].opts.reportFilename = 'componentsReport.json';
+            }
+        });
+
+        MESSAGES_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                MESSAGES_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                MESSAGES_CONFIG.plugins[index].opts.reportFilename = 'messagesReport.json';
+            }
+        });
+
+        MESSAGING_COMPONENTS_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                MESSAGING_COMPONENTS_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                MESSAGING_COMPONENTS_CONFIG.plugins[index].opts.reportFilename = 'messagingCompReport.json';
+            }
+        });
+    }
 
     const RENDERING_CONFIG = getWebpackConfig({
         entry: ['./server/index.js'],
