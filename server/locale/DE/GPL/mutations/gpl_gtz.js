@@ -1,11 +1,17 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import {
+    xSmallFallback,
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    primaryWrap
+} from '../../../../message/mediaQueries';
 import {
     addPeriod,
     logoNoneAddRatenzahlungAfterPayPal,
     logoInlineAddRatenzahlungAfterPayPal,
-    xSmallNoWrap,
-    primaryWrap
+    xSmallNoWrap
 } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
@@ -55,7 +61,19 @@ const flex = [
     [
         'ratio:8x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                addPeriod(),
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                .message__headline {
+                    font-size: 4.5vw;
+                }
+            }`,
+                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
+                .message__headline {
+                    font-size: 4.5vw;
+                }
+            }`
+            ],
             headline: [...headlineBreaks]
         }
     ],

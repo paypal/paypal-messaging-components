@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.25.2",
+    "version": "1.26.2",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -15,8 +15,7 @@
         "server/",
         "dist/",
         "__sdk__.js",
-        "globals.js",
-        "locales.js"
+        "globals.js"
     ],
     "scripts": {
         "build": "./scripts/semantic-release/assets.sh",
@@ -39,6 +38,7 @@
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot"
     },
     "dependencies": {
+        "@paypal/common-components": "^1.0.18",
         "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",
         "@paypal/sdk-logos": "^1.0.26",
@@ -63,6 +63,7 @@
         "babel-eslint": "^10.0.1",
         "babel-jest": "^25.1.0",
         "babel-plugin-module-resolver": "^4.0.0",
+        "conventional-changelog-conventionalcommits": "^4.6.0",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-config-airbnb-base": "^14.0.0",

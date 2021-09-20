@@ -8,18 +8,86 @@ import {
     xSmallNoWrap,
     addPeriod
 } from '../../../../message/mediaQueries';
-import { textLogoMutations } from '../../../../message/logoMutations';
+import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
+
+const headlineBreaks = [
+    {
+        sizes: ['xsmall'],
+        breaks: ['kaufen,']
+    },
+    {
+        sizes: ['medium'],
+        breaks: ['nach']
+    }
+].reduce((acc, item) => {
+    const { sizes, breaks } = item;
+    sizes.forEach(size => {
+        acc.push({
+            tag: size,
+            br: breaks
+        });
+    });
+    return acc;
+}, []);
+
+const flex = [
+    [
+        'default',
+        {
+            logo: Logo.PP_PAYPAL.WHITE,
+            headline: [
+                {
+                    tag: 'xsmall'
+                },
+                {
+                    tag: 'medium'
+                }
+            ],
+            disclaimer: ['default']
+        }
+    ],
+    [
+        'ratio:1x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:1x4',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:8x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [addPeriod()],
+            headline: [...headlineBreaks]
+        }
+    ],
+    ...flexLogoMutations
+];
 
 export default {
+    'layout:flex': flex,
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 13),
+                    xSmallFallback(textSize * 8.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20),
+                    setLogoTop(textSize * 15),
                     xSmallNoWrap(textSize * 7.7),
                     addPeriod(),
                     `@media screen and 
@@ -34,7 +102,7 @@ export default {
                         tag: 'medium',
                         br: ['nach']
                     },
-                    { tag: 'xsmall', br: ['später'] }
+                    { tag: 'xsmall', br: [','] }
                 ],
                 disclaimer: ['default']
             })
@@ -43,35 +111,21 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 12.5),
-                    setLogoTop(textSize * 26),
+                    xSmallFallback(textSize * 10),
+                    setLogoTop(textSize * 26.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 8.3),
-                    `@media screen and 
-                    (max-width: ${textSize * 18.67}px) {
-                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
-                    }`
-                ],
-                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
+                    addPeriod()
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 12.5),
+                    xSmallFallback(textSize * 9.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallNoWrap(textSize * 9),
-                    `@media screen and 
-                    (max-width: ${textSize * 18.67}px) {
-                        .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
-                    }`
-                ],
-                headline: [{ tag: 'medium', br: ['bei'] }, { tag: 'xsmall' }]
+                    addPeriod()
+                ]
             })
         ],
         [
@@ -90,7 +144,7 @@ export default {
                         12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
-                    { tag: 'medium', br: ['bie'] },
+                    { tag: 'medium', br: ['nach'] },
                     { tag: 'xsmall', br: ['später'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
@@ -99,18 +153,13 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
-                    xSmallFallback(textSize * 13),
-                    xSmallNoWrap(textSize * 8),
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`
-                    // `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
-                ],
+                styles: [xSmallFallback(textSize * 14)],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['bei']
+                        br: ['nach'],
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',
@@ -124,17 +173,15 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 14),
-                    xSmallNoWrap(textSize * 13.8),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `.message__logo-container::after { content: '.'; }`,
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    `.message__logo-container::after { content: '.'; }`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['bei']
+                        br: ['nach'],
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',
