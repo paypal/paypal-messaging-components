@@ -70,7 +70,6 @@ const flex = [
     [
         'ratio:20x1',
         {
-            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
