@@ -38,14 +38,14 @@ const PI30 = ({ linkClick, cornerRef }) => {
         <Fragment>
             <Header logo="DE-GPL">
                 <h1 className="pi30-headline">{headline}</h1>
-                <h3 className="pi30-subheadline">{subHeadline}</h3>
+                <h3 className="pi30-subheadline">{subHeadline.replace(/[,]00/g, '')}</h3>
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body pi30">
                 {/* <div className="content-column"> */}
                 <div className="instructions transitional content-column">{list}</div>
                 {products.length > 1 && switchText}
-                <div className="disclosure transitional content-column">{legalTerms}</div>
+                <div className="disclosure transitional content-column">{legalTerms.replace(/[,]00/g, '')}</div>
                 {/* </div> */}
             </section>
         </Fragment>

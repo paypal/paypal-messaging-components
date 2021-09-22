@@ -10,6 +10,7 @@
     p,
     li,
     .terms h3 {
+        font-family:$PayPal-Big;
         color: #687173;
     }
 
@@ -53,6 +54,7 @@
     }
 
     .switching-text {
+        text-align:center;
         color:#515354;
         margin-top:3rem;
     }
@@ -108,6 +110,7 @@
                 line-height:1.2rem;
             }
             p {
+                font-family:$PayPal-Big;
                 font-size:1em;
                 color:black;
                 margin:0;

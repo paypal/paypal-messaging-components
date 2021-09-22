@@ -105,7 +105,6 @@ const Content = ({ contentWrapper }) => {
                 return <GPL linkClick={linkClick} cornerRef={cornerRef} />;
             case 'PI30':
                 return <PI30 linkClick={linkClick} cornerRef={cornerRef} />;
-            case 'none':
             default:
                 return <ProductList buttonClick={buttonClick} cornerRef={cornerRef} />;
         }

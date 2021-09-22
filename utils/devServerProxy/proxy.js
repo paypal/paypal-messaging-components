@@ -344,7 +344,7 @@ export default (app, server, compiler) => {
                 return 'US-EZP';
             }
 
-            if ((props.country === 'DE' && productNames.includes('gpl')) || productNames.includes('pi30')) {
+            if (props.country === 'DE' && (productNames.includes('gpl') || productNames.includes('pi30'))) {
                 return 'DE-GPL';
             }
 

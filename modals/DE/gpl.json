@@ -24,7 +24,7 @@
     },
     "content": {
         "productButton": {
-            "title": "0% Ratenzahlung verfügbar",
+            "title": "PayPal Ratenzahlung",
             "subtitle": "Zahlen Sie Ihren Einkauf in monatlichen Raten.",
             "icon": "ratenzahlung-calendar"
         },
