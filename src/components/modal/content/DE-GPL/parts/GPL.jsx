@@ -11,17 +11,15 @@ export default ({ linkClick, cornerRef }) => {
     const { apr } = useProductMeta('GPL');
 
     const switchText = (
-        // <div className="switching-text">
         <p className="switching-text">
             {switchingText[0]}
             <button type="button" className="switching-link" onClick={() => linkClick('PI30')}>
                 {switchingText[1]}
             </button>
         </p>
-        // </div>
     );
 
-    const disclosureText = (apr === '0.00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/[.,]00/g, '');
+    const disclosureText = (apr === '0.00' ? disclosure.zeroAPR : disclosure.nonZeroAPR).replace(/[,]00/g, '');
 
     return (
         <Fragment>

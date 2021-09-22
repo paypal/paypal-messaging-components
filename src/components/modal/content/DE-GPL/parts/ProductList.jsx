@@ -22,7 +22,7 @@ const ProductButton = ({ product, buttonClick }) => {
 const ProductList = ({ buttonClick, cornerRef }) => {
     const { products } = useServerData();
     const productButtons = products
-        // As of DE Pi30 release, GPL and INST should not be able to coexist
+        // This filter is for when GPL and INST sometimes coexist in stage, despite that they should not in prod.
         .filter(product => product.meta.product !== 'INST')
         .map(product => <ProductButton buttonClick={buttonClick} product={product.meta.product} />);
 
@@ -31,19 +31,16 @@ const ProductList = ({ buttonClick, cornerRef }) => {
             <Header logo="DE-GPL">
                 <h1>Jetzt kaufen, später bezahlen</h1>
                 <h3>
-                    Wählen Sie <b>PayPal</b>, um <b>´Später Bezahlen´</b> zu nutzen.
+                    Wählen Sie <b>PayPal</b>, um `<b>Später Bezahlen</b>` zu nutzen.
                 </h3>
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body product-list">
-                {/* <div className="content-column"> */}
                 <div className="product-buttons content-column"> {productButtons}</div>
                 <div className="legal disclosure content-column">
                     Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen
-                    zur <b>Bezahlung nach 30 Tagen</b> oder <b>PayPal Ratenzahlung</b> wählen Sie eine der obigen der
-                    obigen Optionen.
+                    zur Bezahlung nach 30 Tagen oder PayPal Ratenzahlung wählen Sie eine der obigen Optionen.
                 </div>
-                {/* </div> */}
             </section>
         </Fragment>
     );
