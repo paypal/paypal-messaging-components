@@ -21,4 +21,13 @@
             transition: all 0.3s;
         }
     }
+
+    @media (max-width: 639px), (max-height: 539px) {
+        .close {
+            svg {
+                height: 35px;
+                width: 35px;
+            }
+        }
+    }
 }

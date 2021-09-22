@@ -98,6 +98,12 @@ export default ({ doc, props, event }) => {
             width: 100%;
             height: 100%;
         }
+        .top-overlay {
+            position: fixed;
+            height: 84px;
+            left: 0;
+            right: 0;
+        }
         .modal-content {
             position: relative;
             background-color: #fefefe;
@@ -148,6 +154,13 @@ export default ({ doc, props, event }) => {
         .close svg {
             height: 40px;
             width: 40px;
+        }
+
+        @media (max-width: 639px), (max-height: 539px) {
+            .close svg {
+                height: 35px;
+                width: 35px;
+            }
         }
     `;
     const closeModal = () => event.trigger('modal-hide');
