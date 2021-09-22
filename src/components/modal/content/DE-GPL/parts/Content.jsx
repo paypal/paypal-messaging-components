@@ -23,8 +23,7 @@ const Content = ({ contentWrapper }) => {
     const product = getProductForOffer(offer);
     // Product can be NONE when standalone modal so default to first product
     const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-    const [selectedProduct, setSelectedProduct] = useState('');
-
+    const [selectedProduct, setSelectedProduct] = useState('none');
     useScroll(
         ({ target: { scrollTop } }) => {
             const { clientHeight: headerHeight } = headerRef.current;
@@ -89,21 +88,24 @@ const Content = ({ contentWrapper }) => {
     useEffect(() => {
         if (transitionState === 'CLOSED') {
             setSticky(false);
-            setSelectedProduct('');
+            setSelectedProduct('none');
         }
     }, [transitionState]);
 
     const classNames = ['content', sticky ? 'sticky' : ''];
 
     function modalContent() {
-        if (products.length === 1) setSelectedProduct(initialProduct.meta.product);
+        const productNames = products.map(theProduct => theProduct.meta.product);
+        if (!(productNames.includes('GPL') && productNames.includes('PI30'))) {
+            setSelectedProduct(initialProduct.meta.product);
+        }
 
         switch (selectedProduct) {
             case 'GPL':
                 return <GPL linkClick={linkClick} cornerRef={cornerRef} />;
             case 'PI30':
                 return <PI30 linkClick={linkClick} cornerRef={cornerRef} />;
-            case '':
+            case 'none':
             default:
                 return <ProductList buttonClick={buttonClick} cornerRef={cornerRef} />;
         }
