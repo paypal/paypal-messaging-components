@@ -42,6 +42,7 @@ const devAccountMap = {
     DEVXBDEPLQGTZ: ['DE', ['gpl'], 'gplq_gtz-non-de'],
     DEV0000DEPI30: ['DE', ['pi30'], 'pi30'],
     DEV000DEPI30Q: ['DE', ['pi30'], 'pi30q'],
+    DEV00DEPI30NQ: ['DE', ['gpl'], 'pi30nq'],
 
     // Multi product modal
     DEV0DEPI30GPL: ['DE', ['pi30', 'gpl'], 'pi30'],
