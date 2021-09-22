@@ -94,7 +94,6 @@
     .sticky-apply-now {
         position: fixed;
         // prevent screen readers from reading second content
-        display: none;
         visibility: hidden;
         // iOS has an issue with position: fixed; elements within scrollable containers
         transform: translate3d(0, 0, 0);
@@ -141,7 +140,6 @@
         &.show {
             opacity: 1;
             // show content. hiddened by default for screen readers
-            display: initial;
             visibility: visible;
 
             button {
@@ -153,6 +151,10 @@
                 transform: translateX(0);
             }
         }
+    }
+
+    .sticky-apply-now.show + main .description {
+        visibility: hidden;
     }
 
     .terms {
