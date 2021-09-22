@@ -21,9 +21,10 @@ const ProductButton = ({ product, buttonClick }) => {
 
 const ProductList = ({ buttonClick, cornerRef }) => {
     const { products } = useServerData();
-    const productButtons = products.map(product => (
-        <ProductButton buttonClick={buttonClick} product={product.meta.product} />
-    ));
+    const productButtons = products
+        // As of DE Pi30 release, GPL and INST should not be able to coexist
+        .filter(product => product.meta.product !== 'INST')
+        .map(product => <ProductButton buttonClick={buttonClick} product={product.meta.product} />);
 
     return (
         <Fragment>

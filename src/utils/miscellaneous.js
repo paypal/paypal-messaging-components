@@ -218,6 +218,7 @@ export function getProductForOffer(offer) {
             return 'GPL';
         case 'PI30':
         case 'PI30Q':
+        case 'PI30NQ':
             return 'PI30';
         case 'EZP':
         case 'EZP:ANY:EQZ':
