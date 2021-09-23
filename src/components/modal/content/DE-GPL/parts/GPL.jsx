@@ -7,6 +7,7 @@ import Calculator from './Calculator';
 
 export default ({ linkClick, cornerRef }) => {
     const { products } = useServerData();
+    const productNames = products.map(theProduct => theProduct.meta.product);
     const { headline, instructions, switchingText, disclosure } = useContent('GPL');
     const { apr } = useProductMeta('GPL');
 
@@ -37,7 +38,7 @@ export default ({ linkClick, cornerRef }) => {
                     </div>
                 </div>
                 <div className="content-footer content-column">
-                    {products.length > 1 && switchText}
+                    {productNames.includes('PI30') && switchText}
                     <div className="disclosure dashed-border transitional">{disclosureText}</div>
                 </div>
             </section>

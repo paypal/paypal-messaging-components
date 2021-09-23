@@ -13,7 +13,7 @@ const Content = ({ contentWrapper }) => {
     const cornerRef = useRef();
     const headerRef = useRef();
     const { products } = useServerData();
-    const { offer, onClick } = useXProps();
+    const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const { scrollTo } = useScroll();
     const [sticky, setSticky] = useState(false);
@@ -21,9 +21,8 @@ const Content = ({ contentWrapper }) => {
     const scrollY = useRef(0);
     // Offer may be undefined when modal is rendered via standalone modal integration
     const product = getProductForOffer(offer);
-    // Product can be NONE when standalone modal so default to first product
     const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-    const [selectedProduct, setSelectedProduct] = useState('none');
+    const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
     useScroll(
         ({ target: { scrollTop } }) => {
             const { clientHeight: headerHeight } = headerRef.current;
@@ -51,7 +50,6 @@ const Content = ({ contentWrapper }) => {
 
     const selectProduct = newProduct => {
         scrollTo(0);
-
         setSelectedProduct(newProduct);
         /**
          * For multiproduct modal:
@@ -86,20 +84,24 @@ const Content = ({ contentWrapper }) => {
     }, [product]);
 
     useEffect(() => {
+        // Product List should be displayed when no amount and GPL + PI30 are available.
+        const productNames = products.map(theProduct => theProduct.meta.product);
+        if (productNames.includes('GPL') && productNames.includes('PI30')) {
+            if (typeof amount === 'undefined' || amount === 0) {
+                selectProduct('none');
+            } else if (amount > 5000) {
+                selectProduct('GPL');
+            }
+        }
         if (transitionState === 'CLOSED') {
             setSticky(false);
-            setSelectedProduct('none');
+            setSelectedProduct(initialProduct.meta.product);
         }
     }, [transitionState]);
 
     const classNames = ['content', sticky ? 'sticky' : ''];
 
     function modalContent() {
-        const productNames = products.map(theProduct => theProduct.meta.product);
-        if (!(productNames.includes('GPL') && productNames.includes('PI30'))) {
-            setSelectedProduct(initialProduct.meta.product);
-        }
-
         switch (selectedProduct) {
             case 'GPL':
                 return <GPL linkClick={linkClick} cornerRef={cornerRef} />;
