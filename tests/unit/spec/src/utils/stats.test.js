@@ -51,6 +51,7 @@ describe('stats', () => {
 
     // Attributes required to be attached to stats event
     const statsEvent = {
+        index: expect.stringNumber(),
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
         render_duration: expect.stringNumber(),
