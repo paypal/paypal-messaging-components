@@ -48,7 +48,7 @@
         "jsx-pragmatic": "^2.0.7",
         "post-robot": "^10.0.29",
         "zalgo-promise": "^1.0.38",
-        "zoid": "^9.0.78"
+        "zoid": "^9.0.46"
     },
     "devDependencies": {
         "@babel/register": "^7.10.4",
