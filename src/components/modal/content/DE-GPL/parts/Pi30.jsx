@@ -6,6 +6,7 @@ import Header from '../../../parts/Header';
 
 const PI30 = ({ linkClick, cornerRef }) => {
     const { products } = useServerData();
+    const productNames = products.map(theProduct => theProduct.meta.product);
 
     const { headline, subHeadline, stepsList, switchingText, legalTerms } = useContent('PI30');
 
@@ -24,14 +25,12 @@ const PI30 = ({ linkClick, cornerRef }) => {
     }
 
     const switchText = (
-        // <div className="content-column">
         <p className="switching-text content-column">
             {switchingText[0]}
             <button type="button" className="switching-link" onClick={() => linkClick('GPL')}>
                 {switchingText[1]}
             </button>
         </p>
-        // </div>
     );
 
     return (
@@ -42,11 +41,9 @@ const PI30 = ({ linkClick, cornerRef }) => {
             </Header>
             <span className="corner" ref={cornerRef} />
             <section className="content-body pi30">
-                {/* <div className="content-column"> */}
                 <div className="instructions transitional content-column">{list}</div>
-                {products.length > 1 && switchText}
+                {productNames.includes('GPL') && switchText}
                 <div className="disclosure transitional content-column">{legalTerms.replace(/[,]00/g, '')}</div>
-                {/* </div> */}
             </section>
         </Fragment>
     );
