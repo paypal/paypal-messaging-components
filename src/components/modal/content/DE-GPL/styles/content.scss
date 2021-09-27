@@ -182,7 +182,7 @@
                 left:50%;
                 transform: translate(-50%, -50%);
                 font-size:1rem;
-                line-height:100%;
+                padding-bottom:0.2rem;
                 color:#0C0C0D;
             }
         }
@@ -201,4 +201,29 @@
             text-align: center;
         }
     }
+
+    @include desktop {
+        .product-list {
+            padding:3rem 0 1rem;
+
+            .product-button {
+                padding:1.5rem;
+                margin-bottom:1.5rem;
+
+                h1 {
+                    font-size:1.3rem;
+                }
+                p {
+                    font-size:1.1rem;
+                    line-height:1.3rem;
+                }
+                svg {
+                    width:80px;
+                }
+            }
+        }
+        .disclosure {
+            padding-bottom:1rem;
+        }
+    }    
 }

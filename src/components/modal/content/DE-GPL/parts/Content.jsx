@@ -27,7 +27,6 @@ const Content = ({ contentWrapper }) => {
         ({ target: { scrollTop } }) => {
             const { clientHeight: headerHeight } = headerRef.current;
             const { clientHeight: cornerHeight } = cornerRef.current;
-
             // event.target.scrollTop resets itself to 0 under certain circumstances as the user scrolls on mobile
             // Checking the value here prevents erratic behavior wrt
             if (scrollTop !== 0) {
@@ -89,8 +88,6 @@ const Content = ({ contentWrapper }) => {
         if (productNames.includes('GPL') && productNames.includes('PI30')) {
             if (typeof amount === 'undefined' || amount === 0) {
                 selectProduct('none');
-            } else if (amount > 5000) {
-                selectProduct('GPL');
             }
         }
         if (transitionState === 'CLOSED') {
