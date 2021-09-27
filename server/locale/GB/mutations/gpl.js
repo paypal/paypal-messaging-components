@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 32 + 10),
+                    setLogoTop(textSize * 36 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -84,7 +84,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
