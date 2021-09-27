@@ -48,6 +48,7 @@ main {
     max-width: calc(100% - 72px);
     margin: 0 auto;
     box-sizing: border-box;
+    padding: 0 12px;
 }
 
 .modal-container.loading {
@@ -98,7 +99,6 @@ main {
     .content-column {
         max-width: 400px;
         width: auto;
-        padding: 0 12px;
     }
 
     .content-wrapper {
