@@ -4,7 +4,7 @@ import { h, Fragment } from 'preact';
 import { useServerData, useContent } from '../../../lib';
 import Header from '../../../parts/Header';
 
-const PI30 = ({ linkClick, cornerRef }) => {
+const PI30 = ({ linkClick }) => {
     const { products } = useServerData();
     const productNames = products.map(theProduct => theProduct.meta.product);
 
@@ -39,11 +39,12 @@ const PI30 = ({ linkClick, cornerRef }) => {
                 <h1 className="pi30-headline">{headline}</h1>
                 <h3 className="pi30-subheadline">{subHeadline.replace(/[,]00/g, '')}</h3>
             </Header>
-            <span className="corner" ref={cornerRef} />
             <section className="content-body pi30">
                 <div className="instructions transitional content-column">{list}</div>
                 {productNames.includes('GPL') && switchText}
-                <div className="disclosure transitional content-column">{legalTerms.replace(/[,]00/g, '')}</div>
+                <div className="disclosure dashed-border transitional content-column">
+                    {legalTerms.replace(/[,]00/g, '')}
+                </div>
             </section>
         </Fragment>
     );

@@ -15,7 +15,7 @@ const ContentWrapper = () => {
             <div className="top-overlay" onClick={() => handleClose('Modal Overlay')} />
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
-                    <Content contentWrapper={contentWrapper} />
+                    <Content />
                 </div>
             </div>
         </Container>

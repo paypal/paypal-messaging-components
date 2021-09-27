@@ -19,7 +19,7 @@ const ProductButton = ({ product, buttonClick }) => {
     );
 };
 
-const ProductList = ({ buttonClick, cornerRef }) => {
+const ProductList = ({ buttonClick }) => {
     const { products } = useServerData();
     const productButtons = products
         // This filter is for when GPL and INST sometimes coexist in stage, despite that they should not in prod.
@@ -34,7 +34,6 @@ const ProductList = ({ buttonClick, cornerRef }) => {
                     Wählen Sie <b>PayPal</b>, um `<b>Später Bezahlen</b>` zu nutzen.
                 </h3>
             </Header>
-            <span className="corner" ref={cornerRef} />
             <section className="content-body product-list">
                 <div className="product-buttons content-column"> {productButtons}</div>
                 <div className="legal disclosure content-column">
