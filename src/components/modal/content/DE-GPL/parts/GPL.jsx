@@ -6,7 +6,7 @@ import { useServerData, useContent, useProductMeta } from '../../../lib';
 import Header from '../../../parts/Header';
 import Calculator from './Calculator';
 
-export default ({ linkClick, cornerRef }) => {
+export default ({ linkClick }) => {
     const { products } = useServerData();
     const productNames = products.map(theProduct => theProduct.meta.product);
     const { headline, instructions, switchingText, disclosure } = useContent('GPL');
@@ -38,7 +38,6 @@ export default ({ linkClick, cornerRef }) => {
             <Header logo="DE-GPL">
                 <h1>{headline}</h1>
             </Header>
-            <span className="corner" ref={cornerRef} />
             <section className="content-body gpl">
                 <div className="description">
                     <Calculator />
