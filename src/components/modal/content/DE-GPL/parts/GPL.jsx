@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 import { useServerData, useContent, useProductMeta } from '../../../lib';
 import Header from '../../../parts/Header';
@@ -10,6 +11,16 @@ export default ({ linkClick, cornerRef }) => {
     const productNames = products.map(theProduct => theProduct.meta.product);
     const { headline, instructions, switchingText, disclosure } = useContent('GPL');
     const { apr } = useProductMeta('GPL');
+
+    // GPL-specific style changes because calculator continues header
+    function stylizeHeaderForGPL() {
+        document.querySelector('.header').style.paddingBottom = 0;
+        document.querySelector('.header>h1').style.paddingBottom = 0;
+    }
+
+    useEffect(() => {
+        stylizeHeaderForGPL();
+    }, []);
 
     const switchText = (
         <p className="switching-text">
