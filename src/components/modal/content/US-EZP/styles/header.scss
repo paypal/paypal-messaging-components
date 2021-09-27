@@ -84,3 +84,10 @@
         }
     }
 }
+
+@media (max-width: 639px), (max-height: 539px) {
+    .header-wrapper {
+        margin-top: 84px;
+        height: calc(100% - 84px);
+    }
+}

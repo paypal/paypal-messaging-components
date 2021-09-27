@@ -2,6 +2,7 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     margin: auto;
+    border-radius: 10px;
     height: 100%;
     // Important: This forces the wrapper to be the entire width of the screen
     // which is needed in Windows due to the scroll bar offset hack used
@@ -98,8 +99,9 @@ main {
     }
 
     .content-wrapper {
-        height: calc(100% - 42px);
-        padding-top: 42px;
+        margin-top: 84px;
+        height: calc(100% - 84px);
+        // padding-top: 42px;
 
         // Hide scrollbar at mobile sizes
         // TODO: Find a better way to fix scrollbar appearance issues
