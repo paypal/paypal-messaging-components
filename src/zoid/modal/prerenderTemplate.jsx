@@ -124,8 +124,9 @@ export default ({ doc, props, event }) => {
             height: 100px;
             position: absolute;
             top: 67%;
-            left: 50%;
+            left: calc(50% - 40px);
             margin-left: -60px;
+            text-align: center;
         }
 
         @media (max-width: 639px), (max-height: 539px) {
@@ -172,7 +173,7 @@ export default ({ doc, props, event }) => {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
                 element.querySelector('.error').style.display = 'block';
-                element.querySelector('.error').textContent = 'Something went wrong. Please try again later.';
+                element.querySelector('.error').innerHTML = 'Something went wrong. <br> Please try again later.';
             }
         });
     };
