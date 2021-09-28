@@ -14,7 +14,14 @@ const CloseIcon = ({ size = 36, strokeWidth = 1, color = '#000000' }) => {
     const dimension = /^\d+$/.test(`${size}`) ? `${size}` : '36';
     const oneThird = dimension / 3;
     const twoThird = (dimension / 3) * 2;
-    const styles = `path{stroke: ${color};stroke-width: ${strokeWidth};stroke-linecap: round;transition: all 0.3s;}`;
+    const styles = `
+        path {
+            stroke: ${color};
+            stroke-width: ${strokeWidth};
+            stroke-linecap: round;
+            transition: all 0.3s;
+        }
+        `;
     return (
         <svg
             width={dimension}
@@ -44,7 +51,6 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg) format('svg');
         }
-
         @font-face {
             font-family: 'PayPalSansBig';
             font-weight: 200;
@@ -56,7 +62,6 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/headlinedark/festivo1.ttf) format('truetype'),
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg) format('svg');
         }
-
         @font-face {
             font-family: 'PayPalSansSmall';
             font-weight: 400;
@@ -69,7 +74,6 @@ export default ({ doc, props, event }) => {
                 url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
                     format('svg');
         }
-
         @font-face {
             font-family: 'PayPalSansSmall';
             font-weight: 600;
@@ -118,7 +122,6 @@ export default ({ doc, props, event }) => {
         .spinner {
             position: relative !important;
         }
-
         .error {
             width: 200px;
             height: 100px;
@@ -128,17 +131,6 @@ export default ({ doc, props, event }) => {
             margin-left: -60px;
             text-align: center;
         }
-
-        @media (max-width: 639px), (max-height: 539px) {
-            .modal {
-                overflow-y: hidden;
-            }
-            .modal-content {
-                margin-top: 84px;
-                height: calc(100% - 84px);
-            }
-        }
-
         .close {
             display: block;
             padding: 0;
@@ -151,13 +143,18 @@ export default ({ doc, props, event }) => {
             pointer-events: all;
             margin: 0;
         }
-
         .close svg {
             height: 40px;
             width: 40px;
         }
-
         @media (max-width: 639px), (max-height: 539px) {
+            .modal {
+                overflow-y: hidden;
+            }
+            .modal-content {
+                margin-top: 84px;
+                height: calc(100% - 84px);
+            }
             .close svg {
                 height: 35px;
                 width: 35px;
