@@ -1,10 +1,10 @@
-import Messages from 'src/controllers/message/interface';
-import { getMessageComponent } from 'src/zoid/message';
-import { Modal } from 'src/controllers/modal';
+import Messages from 'src/library/controllers/message/interface';
+import { getMessageComponent } from 'src/library/zoid/message';
+import { Modal } from 'src/library/controllers/modal';
 import { destroyGlobalState, setGlobalState, logger } from 'src/utils';
-import destroy from 'src/controllers/message/destroy';
+import destroy from 'src/library/controllers/message/destroy';
 
-jest.mock('src/zoid/message', () => {
+jest.mock('src/library/zoid/message', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockCreateMessage = jest.fn(() => ({
@@ -18,7 +18,7 @@ jest.mock('src/zoid/message', () => {
     };
 });
 
-jest.mock('src/controllers/modal', () => {
+jest.mock('src/library/controllers/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockShow = jest.fn(() => Promise.resolve());

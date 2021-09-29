@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import got from 'got';
 
-import { PORT, VARIANT } from '../../server/constants';
+import { PORT, VARIANT } from '../../src/server/constants';
 import { populateTemplate, localizeCurrency } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
@@ -75,8 +75,8 @@ export default (app, server, compiler) => {
 
             const banner =
                 preferredCreditType !== 'NI'
-                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+                    ? fs.readFileSync(`content/messages/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`content/messages/US/ni.json`, 'utf-8');
 
             return JSON.parse(populateTemplate(morsVars, banner));
         }
@@ -210,7 +210,7 @@ export default (app, server, compiler) => {
         const [country, productNames] = devAccountMap[account] ?? ['US', ['ni']];
 
         const productsJSON = productNames.map(product => {
-            const jsonFile = `modals/${country}/${product}.json`;
+            const jsonFile = `content/modals/${country}/${product}.json`;
             if (fs.existsSync(jsonFile)) {
                 return fs.readFileSync(jsonFile, 'utf-8').toString();
             }
@@ -440,8 +440,8 @@ export default (app, server, compiler) => {
 
             const banner =
                 dimensions !== 'x199x99'
-                    ? fs.readFileSync(`banners/${country}/${offer}.json`, 'utf-8')
-                    : fs.readFileSync(`banners/US/ni.json`, 'utf-8');
+                    ? fs.readFileSync(`content/messages/${country}/${offer}.json`, 'utf-8')
+                    : fs.readFileSync(`content/messages/US/ni.json`, 'utf-8');
 
             const populatedBanner = Object.entries(JSON.parse(banner)).reduce((accumulator, [key, value]) => {
                 return {
