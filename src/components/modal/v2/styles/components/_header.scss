@@ -1,0 +1,199 @@
+.header {
+    &__wrapper {
+        overflow: hidden;
+        flex: 0 0 auto;
+
+        @include tablet {
+            border-radius: 10px;
+        }
+        @include mobile {
+            border-radius: 0px;
+        }
+    }
+
+    &__container {
+        background-color: $header-background;
+        position: relative;
+
+        @include desktop {
+            padding-bottom: 30px;
+        }
+        @include tablet {
+            padding-bottom: 40px;
+        }
+        @include mobile {
+            padding-bottom: 40px;
+        }
+        @include smallMobile {
+            padding-bottom: 40px;
+        }
+    }
+
+    &__icons {
+        justify-content: space-between;
+        margin: auto;
+        z-index: 999;
+        display: flex;
+        height: auto;
+        text-align: center;
+
+        @include desktop {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        @include tablet {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .logo {
+            display: inline-block;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+
+            &__wrapper {
+                padding: 15px 25px 0px;
+
+                @include desktop {
+                    padding: 0px 25px 0px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                @include tablet {
+                    padding: 25px 25px 0px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .pp-logo {
+                    & img {
+                        height: 30px;
+
+                        @include desktop {
+                            height: 44px;
+                        }
+
+                        @include tablet {
+                            height: 35px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .close {
+            top: 5px;
+            right: 5px;
+            pointer-events: all;
+            background: #142c8e;
+            border: none;
+
+            @include desktop {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            @include tablet {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            svg {
+                height: 44px;
+                width: 44px;
+
+                @include desktop {
+                    margin: 0px;
+                }
+
+                @include tablet {
+                    margin: 0px;
+                }
+
+                path {
+                    stroke: #f589d0 !important;
+                    stroke-width: 2.2;
+                }
+            }
+        }
+    }
+
+    &__content {
+        @include desktop {
+            padding-bottom: 40px;
+        }
+        @include tablet {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            line-height: 36px;
+            text-align: left;
+            color: white;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            line-height: 24px;
+            text-align: left;
+            color: white;
+            margin: 0px;
+        }
+
+        @include desktop {
+            h1 {
+                text-align: center;
+            }
+            h2 {
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
+
+        @include tablet {
+            h1 {
+                font-size: 2rem;
+                max-width: 315px;
+                text-align: center;
+            }
+            h2 {
+                font-size: 1rem;
+                max-width: 315px;
+                margin: 1rem auto 0;
+                text-align: center;
+            }
+        }
+
+        @include mobile {
+            h1 {
+                font-size: 2rem;
+                line-height: 36px;
+                padding: 10px 25px 0px;
+            }
+
+            h2 {
+                padding: 10px 25px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+
+        @include smallMobile {
+            h1 {
+                font-size: 1.7rem;
+                line-height: 36px;
+                padding: 10px 25px 0px;
+            }
+
+            h2 {
+                padding: 10px 25px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+    }
+}

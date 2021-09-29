@@ -24,6 +24,8 @@ const devAccountMap = {
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
+    // temp dev account for pay later long term universal modal view development
+    DEV000000USLT: ['US', ['long_term'], 'long_term'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
@@ -84,7 +86,8 @@ export default (app, server, compiler) => {
         return null;
     };
 
-    const createMockZoidMarkup = (component, initializer, scriptUID) => `
+    const createMockZoidMarkup = (component, initializer, scriptUID) =>
+        `
         <!DOCTYPE html>
         <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -92,10 +95,16 @@ export default (app, server, compiler) => {
         </head>
         <body>
             <script>
-                var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
+                var interface = window.top.document.querySelector('script[src*="components"][src*=${
+                    component === 'modal' ? 'modal' : 'messages'
+                }][data-uid-auto="${scriptUID}"],script[src*="${
+            component === 'modal' ? 'modal' : 'messaging'
+        }.js"][data-uid-auto="${scriptUID}"]').outerHTML;
                 document.write(interface);
             </script>
-            <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
+            <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}${
+            component === 'modal' ? '-v2' : ''
+        }.js"></script>
             ${initializer}
         </body>
     `;
@@ -331,28 +340,39 @@ export default (app, server, compiler) => {
 
     // create the initial modal with content
     app.get('/credit-presentment/smart/modal', async (req, res) => {
-        const { targetMeta, scriptUID } = req.query;
+        // messaging.js
+        // const { targetMeta, scriptUID } = req.query;
 
-        const { props, productNames } = getModalData(req);
+        // const { props, productNames } = getModalData(req);
 
-        const component = () => {
-            if (props.country === 'US' && productNames.includes('ezp_old')) {
-                return 'US-EZP';
-            }
+        // const component = () => {
+        //     if (props.country === 'US' && productNames.includes('ezp_old')) {
+        //         return 'US-EZP';
+        //     }
 
-            if (props.country === 'DE' && productNames.includes('gpl')) {
-                return 'DE-GPL';
-            }
+        //     if (props.country === 'DE' && productNames.includes('gpl')) {
+        //         return 'DE-GPL';
+        //     }
 
-            return props.country;
-        };
+        //     return props.country;
+        // };
+        // setTimeout(() => {
+        //     res.send(
+        //         createMockZoidMarkup(
+        //             targetMeta ? 'modal' : `modal-${component()}`,
+        //             `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
+        //             scriptUID
+        //         )
+        //     );
+        // }, requestDelay);
+
+        // modal.js
+        const { scriptUID } = req.query;
+        const { props } = getModalData(req);
+
         setTimeout(() => {
             res.send(
-                createMockZoidMarkup(
-                    targetMeta ? 'modal' : `modal-${component()}`,
-                    `<script>crc.setupModal(${JSON.stringify(props)})</script>`,
-                    scriptUID
-                )
+                createMockZoidMarkup('modal', `<script>crc.setupModal(${JSON.stringify(props)})</script>`, scriptUID)
             );
         }, requestDelay);
     });
