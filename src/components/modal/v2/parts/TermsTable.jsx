@@ -23,7 +23,6 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, termsLabel,
                     <OfferCard termsLabel={termsLabel} offer={offer} formattedAmount={formattedAmount} index={idx} />
                 ))}
             </div>
-            {/* TODO: Revisit this */}
             <div className="finance-terms__disclaimer">{disclaimer}</div>
         </Fragment>
     );
