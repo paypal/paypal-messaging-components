@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Modal.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/modal.js"></script>
+    </head>
+
+    <body>
+        <button id="modal">Click me</button>
+        <script>
+            window.credit
+                .Modal({
+                    account: 'DEV000000USLT',
+                    onReady: ({ show }) => {
+                        document.querySelector('#modal').addEventListener('click', () => {
+                            show();
+                        });
+                    }
+                })
+                .render('#modal');
+        </script>
+    </body>
+</html>
