@@ -26,6 +26,7 @@ const devAccountMap = {
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
     // temp dev account for pay later long term universal modal view development
     DEV000000USLT: ['US', ['long_term'], 'long_term'],
+    DEV000000USP4: ['US', ['pay_in_four'], 'pay_in_four'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
