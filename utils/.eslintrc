@@ -3,6 +3,8 @@
     "rules": {
         "flowtype/require-valid-file-annotation": "off",
         "flowtype/require-return-type": "off",
+        "compat/compat": "off",
+        "promise/no-native": "off",
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": true, "optionalDependencies": false, "peerDependencies": false }

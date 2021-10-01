@@ -1,37 +1,46 @@
-import fs from 'fs';
-import path from 'path';
-
 import { localizeNumber } from './miscellaneous';
 
 // This function does not represent how PayPal calculates the true rates
-export const getTerms = (country, amount) => {
-    const terms = JSON.parse(fs.readFileSync(path.resolve(__dirname, './terms.json'), 'utf-8'));
+export const getTerms = (country, offers, amount) => {
     const toLocaleString = localizeNumber(country);
+
+    const { totalMinAmount, totalMaxAmount } = offers.reduce((acc, { minAmount, maxAmount }) => {
+        if (minAmount < (acc.totalMinAmount ?? Infinity)) {
+            acc.totalMinAmount = minAmount;
+        }
+
+        if (maxAmount > (acc.totalMaxAmount ?? 0)) {
+            acc.totalMaxAmount = maxAmount;
+        }
+
+        return acc;
+    }, {});
 
     return {
         type: amount ? 'pala' : 'generic',
-        maxAmount: terms.maxAmount,
-        minAmount: terms.minAmount,
+        minAmount: totalMinAmount,
+        maxAmount: totalMaxAmount,
         // If no amount passed in, set amount to undefined to match production
         // Format as string to match production
         amount: amount ? amount.toString() : undefined,
         formattedAmount: toLocaleString(amount),
-        offers: terms.offers.map(({ term, apr, nominalRate }) => {
+        offers: offers.map(({ term, apr, nominalRate, minAmount, maxAmount }) => {
             const total = amount + amount * (apr * 0.01) * (term / 12);
             return {
                 term,
                 type: 'INST',
                 apr: toLocaleString(apr),
                 nominalRate: toLocaleString(nominalRate),
-                minValue: toLocaleString(terms.minAmount),
-                qualified: amount > terms.minAmount && amount < terms.maxAmount,
+                minValue: toLocaleString(minAmount),
+                maxValue: toLocaleString(maxAmount),
+                qualified: amount > minAmount && amount < maxAmount,
                 monthly: toLocaleString(total / term),
                 total: toLocaleString(total),
                 totalInterest: toLocaleString(total - amount),
                 periodic: toLocaleString(total / term)
             };
         }),
-        formattedMinAmount: toLocaleString(terms.minAmount),
-        formattedMaxAmount: toLocaleString(terms.maxAmount)
+        formattedMinAmount: totalMinAmount && toLocaleString(totalMinAmount),
+        formattedMaxAmount: totalMaxAmount && toLocaleString(totalMaxAmount)
     };
 };
