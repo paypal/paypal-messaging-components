@@ -41,9 +41,11 @@ const reducer = (state, action) => {
     }
 };
 
-const delocalize = (country, amount) =>
-    Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
-const localize = (country, amount) => {
+export const delocalize = (country, amount) => {
+    return Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
+};
+
+export const localize = (country, amount) => {
     const number = Number(amount) || Number(0);
     if (country === 'DE') {
         return number.toLocaleString('de-DE', {
@@ -186,10 +188,16 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     };
 
+    let { isLoading } = state;
+
+    if (state.inputValue === '0') {
+        isLoading = false;
+    }
+
     return {
         terms: state.terms,
         value: state.inputValue,
-        isLoading: state.isLoading,
+        isLoading,
         changeInput,
         submit
     };
