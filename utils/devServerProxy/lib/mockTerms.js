@@ -33,7 +33,7 @@ export const getTerms = (country, offers, amount) => {
                 nominalRate: toLocaleString(nominalRate),
                 minValue: toLocaleString(minAmount),
                 maxValue: toLocaleString(maxAmount),
-                qualified: amount > minAmount && amount < maxAmount,
+                qualified: amount >= minAmount && amount <= maxAmount,
                 monthly: toLocaleString(total / totalPayments),
                 total: toLocaleString(total),
                 totalInterest: toLocaleString(total - amount),
