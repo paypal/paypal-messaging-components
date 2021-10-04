@@ -2,7 +2,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
-import { logger, memoize } from '../../../utils';
+import { logger, memoize, getEnv } from '../../../utils';
 
 export const Types = {
     ANY: 'ANY',
@@ -56,6 +56,8 @@ export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
             logInvalidType('account', Types.STRING, account);
+        } else if (getEnv() === 'local' && stringStartsWith(account, 'DEV_')) {
+            return account;
         } else if (account.length !== 13 && account.length !== 10 && !stringStartsWith(account, 'client-id:')) {
             logInvalid('account', 'Ensure the correct Merchant Account ID has been entered.');
         } else {

@@ -7,7 +7,7 @@ const getModalData = req => {
     const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
     const account = merchantId || clientId || payerId;
 
-    const { country, terms, modals } = getDevAccountDetails(account, amount);
+    const { country, terms, modalViews } = getDevAccountDetails({ account, amount });
 
     const otherVars = {
         'aprEntry.apr': 25.49,
@@ -15,13 +15,19 @@ const getModalData = req => {
         fullYear: 2020
     };
 
-    const views = modals.map(({ template, morsVars }) => {
-        return JSON.parse(
+    const views = modalViews.map(({ template, morsVars, offers }) => {
+        const viewData = JSON.parse(
             populateTemplate(template, {
                 ...morsVars,
                 ...otherVars
             })
         );
+
+        if (offers) {
+            viewData.offers = offers.map(offer => JSON.parse(populateTemplate(offer.template, offer.morsVars)));
+        }
+
+        return viewData;
     });
 
     return {

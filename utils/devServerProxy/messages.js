@@ -24,22 +24,21 @@ const passthroughMessageReq = async req => {
 };
 
 const getMessageData = async (req, compiler) => {
-    const { amount, client_id: clientId, payer_id: payerId, merchant_id: merchantId, style } = req.query;
+    const { amount, client_id: clientId, payer_id: payerId, merchant_id: merchantId, style, buyerCountry } = req.query;
     const account = merchantId || clientId || payerId;
 
-    const { message } = getDevAccountDetails(account, amount);
+    const { message } = getDevAccountDetails({ account, amount, buyerCountry });
 
     const populatedBanner = message
         ? JSON.parse(populateTemplate(message.template, message.morsVars))
         : await passthroughMessageReq(req);
 
-    if (populatedBanner) {
+    const memoryFS = compiler.compilers[2].outputFileSystem;
+    const renderPath = path.resolve(__dirname, '../../dist/renderMessage.js');
+
+    if (populatedBanner && memoryFS.existsSync(renderPath)) {
         // eslint-disable-next-line no-eval, security/detect-eval-with-expression
-        const { render, validateStyle, getParentStyles } = eval(
-            compiler.compilers[2].outputFileSystem
-                .readFileSync(path.resolve(__dirname, '../../dist/renderMessage.js'))
-                .toString()
-        );
+        const { render, validateStyle, getParentStyles } = eval(memoryFS.readFileSync(renderPath, 'utf8'));
 
         const warnings = [];
 

@@ -1,35 +1,49 @@
 export default {
     DEV_US_LT: {
         country: 'US',
-        // productName
-        modalViews: ['long_term'],
+        modalViews: [
+            {
+                template: 'long_term.json',
+                offersTemplate: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
         messageThresholds: [
-            // minAmount, messageTemplate, productName
-            [0, 'long_term', 'long_term']
+            {
+                amount: 0,
+                template: 'gplnq.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
         ],
         offers: {
-            // productName
-            long_term: [
+            PAY_LATER_LONG_TERM: [
                 {
-                    term: 6,
-                    apr: 15,
+                    totalPayments: 6,
+                    apr: 0,
                     nominalRate: 0,
                     minAmount: 199,
-                    maxAmount: 5000
+                    maxAmount: 2999.99
                 },
                 {
-                    term: 12,
-                    apr: 20,
+                    totalPayments: 12,
+                    apr: 0,
                     nominalRate: 0,
                     minAmount: 199,
-                    maxAmount: 5000
+                    maxAmount: 20000
                 },
                 {
-                    term: 24,
-                    apr: 25,
+                    totalPayments: 24,
+                    apr: 0,
                     nominalRate: 0,
-                    minAmount: 199,
-                    maxAmount: 5000
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
                 }
             ]
         }

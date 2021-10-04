@@ -24,20 +24,20 @@ export const getTerms = (country, offers, amount) => {
         // Format as string to match production
         amount: amount ? amount.toString() : undefined,
         formattedAmount: toLocaleString(amount),
-        offers: offers.map(({ term, apr, nominalRate, minAmount, maxAmount }) => {
-            const total = amount + amount * (apr * 0.01) * (term / 12);
+        offers: offers.map(({ totalPayments, apr, nominalRate, minAmount, maxAmount }) => {
+            const total = amount + amount * (apr * 0.01) * (totalPayments / 12);
             return {
-                term,
+                term: totalPayments,
                 type: 'INST',
                 apr: toLocaleString(apr),
                 nominalRate: toLocaleString(nominalRate),
                 minValue: toLocaleString(minAmount),
                 maxValue: toLocaleString(maxAmount),
                 qualified: amount > minAmount && amount < maxAmount,
-                monthly: toLocaleString(total / term),
+                monthly: toLocaleString(total / totalPayments),
                 total: toLocaleString(total),
                 totalInterest: toLocaleString(total - amount),
-                periodic: toLocaleString(total / term)
+                periodic: toLocaleString(total / totalPayments)
             };
         }),
         formattedMinAmount: totalMinAmount && toLocaleString(totalMinAmount),
