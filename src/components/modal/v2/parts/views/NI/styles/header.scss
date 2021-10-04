@@ -1,0 +1,45 @@
+@import '../../../../styles/globals/mixins';
+@import './mixins';
+.header__wrapper {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    .header__container {
+        padding: 0px !important;
+        @include mobile {
+        }
+        .header__icons {
+            // position: absolute;
+            // left: 11.22%;
+            // right: 18.49%;
+            // top: 4.17%;
+            // bottom: 14.37%;
+            flex-direction: row !important;
+            .logo__wrapper {
+                padding: 0px !important;
+                justify-content: start !important;
+                .pp-logo {
+                    padding: $content-padding $content-padding 0;
+                    img {
+                        height: unset !important;
+                        width: 25.6px !important;
+                        // background-color: red;
+                    }
+                }
+            }
+        }
+        .header__content {
+            h1,
+            h2 {
+                text-align: left !important;
+                margin: $content-padding !important;
+                padding: 0px !important;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+        }
+    }
+}

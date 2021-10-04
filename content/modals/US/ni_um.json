@@ -22,8 +22,7 @@
     },
     "content": {
         "headline": "Pay over time with PayPal Credit",
-
-        "subHeadline": "Shop online with a reusable credit line.",
+        "subheadline": "Shop online with a reusable credit line.",
         "instructions": [
             "Apply now and get a decision in seconds.",
             "Check out with PayPal and choose PayPal Credit.",
@@ -43,7 +42,7 @@
 
         "footer": [
             [
-                "View the PayPal Credit",
+                "View the PayPal Credit ",
                 ["Terms and Conditions.", "https://www.paypalobjects.com/marketing/web/us/en/ppcterms/ppcterms.html"]
             ],
             [
