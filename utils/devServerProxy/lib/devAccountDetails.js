@@ -63,7 +63,7 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                 morsVars: getMorsVars(country, selectBestOffer(offers, amount), amount)
             })),
             message: {
-                template: fs.readFileSync(`content/messages/${country}/${messageName}.json`, 'utf8'),
+                template: fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${messageName}.json`, 'utf8'),
                 morsVars: getMorsVars(country, selectBestOffer(offers, amount), amount)
             }
         };
