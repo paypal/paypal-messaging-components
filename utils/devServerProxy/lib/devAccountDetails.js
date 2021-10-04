@@ -71,7 +71,9 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
-        const selectedMessage = messageThresholds.find(({ amount: minAmount }) => minAmount < amount) ?? {};
+        const selectedMessage =
+            messageThresholds.find(({ amount: minAmount }) => minAmount < amount) ??
+            messageThresholds[messageThresholds.length - 1];
 
         const messageTemplate =
             buyerCountry && buyerCountry !== country && selectedMessage.templateXB
