@@ -1,5 +1,7 @@
+// Note that these values are solely mock structures for development purposes
+// that are not guaranteed to be reflective of what is in production
 export default {
-    DEV_US_LT: {
+    DEV_US_MULTI: {
         country: 'US',
         modalViews: [
             {
@@ -12,10 +14,27 @@ export default {
             {
                 amount: 0,
                 template: 'gplnq.json',
-                product: 'PAY_LATER_LONG_TERM'
+                product: 'PAY_LATER_SHORT_TERM'
             }
         ],
         offers: {
+            PAYPAL_CREDIT_NO_INTEREST: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99
+                }
+            ],
+            PAY_LATER_SHORT_TERM: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
             PAY_LATER_LONG_TERM: [
                 {
                     totalPayments: 6,
