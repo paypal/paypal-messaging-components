@@ -6,6 +6,8 @@ import devAccountMapV2 from '../config/devAccountsV2.config';
 import { getTerms } from './mockTerms';
 import { localizeCurrency, localizeNumber } from './miscellaneous';
 
+const CONTENT_PATH = path.resolve(__dirname, '../../../content');
+
 const selectBestOffer = (offers = [], amount) =>
     offers.reduce(
         (acc, offer) =>
@@ -57,7 +59,7 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
             country,
             terms,
             modalViews: productNames.map(modalName => ({
-                template: fs.readFileSync(`content/modals/${country}/${modalName}.json`, 'utf8'),
+                template: fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${modalName}.json`, 'utf8'),
                 morsVars: getMorsVars(country, selectBestOffer(offers, amount), amount)
             })),
             message: {
@@ -73,15 +75,15 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
 
         const messageTemplate =
             buyerCountry && buyerCountry !== country && selectedMessage.templateXB
-                ? fs.readFileSync(`content/messages/${country}/${selectedMessage.templateXB}`, 'utf8')
-                : fs.readFileSync(`content/messages/${country}/${selectedMessage.template}`, 'utf8');
+                ? fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.templateXB}`, 'utf8')
+                : fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.template}`, 'utf8');
 
         return {
             country,
             modalViews: modalViews.map(({ template, offersTemplate, product }) => {
-                const viewTemplate = fs.readFileSync(`content/modals/${country}/${template}`, 'utf8');
+                const viewTemplate = fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${template}`, 'utf8');
                 const viewOffersTemplate =
-                    offersTemplate && fs.readFileSync(`content/offers/${country}/${offersTemplate}`, 'utf8');
+                    offersTemplate && fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8');
                 const viewOffers = offers[product];
 
                 return {
