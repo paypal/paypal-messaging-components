@@ -1,13 +1,13 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 
-const LoadingShimmer = ({ hasError }) => {
+const LoadingShimmer = () => {
     return (
         <Fragment>
             {/* TODO: revist map over offers */}
             {[0, 1, 2].map(() => {
                 return (
-                    <div className={`offer__container shimmer ${hasError ? 'has-error' : ''}`}>
+                    <div className="offer__container shimmer">
                         <div className="offer__row">
                             <div className="offer__field-loading" />
                         </div>
