@@ -15,7 +15,7 @@ module.exports = (env = {}) => {
         publicPath: '/',
         // set and export DEV_BROWSER in Terminal config to open that specific browser
         // otherwise opens default browser if not set
-        open: process.env.DEV_BROWSER || true,
+        open: process.env.DEV_BROWSER || false,
         openPage: (() => {
             switch (env.TARGET) {
                 case 'standalone':
