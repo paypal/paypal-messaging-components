@@ -1,0 +1,66 @@
+@import '../../../styles/globals/mixins';
+
+.header {
+
+    &__content {
+
+        @include mobile {
+            h1 {
+                font-size: 2rem;
+                line-height: 36px;
+                padding: 10px 20px 0px;
+            }
+
+            h2 {
+                padding: 10px 20px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+
+        @include smallMobile {
+            h1 {
+                font-size: 1.7rem;
+                line-height: 36px;
+                padding: 10px 25px 0px;
+            }
+
+            h2 {
+                padding: 10px 25px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+    }
+
+    &__icons {
+
+        .close {
+
+            svg {
+
+                path {
+                    stroke: #fff !important;
+                    stroke-width: 2.2;
+                }
+            }
+        }
+    }
+}
+
+.content__container {
+    background-color: #003087;
+    margin-top: -2rem;
+    padding-top: 2rem;
+
+    .content__body{
+        z-index: 0;
+        position: relative;
+        background-color: #E5E5E5;
+
+    
+        @include tablet {
+            margin-top: 0px;
+        }
+    }
+}

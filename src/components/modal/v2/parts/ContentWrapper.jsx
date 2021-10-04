@@ -18,7 +18,7 @@ const ContentWrapper = () => {
     }
 
     const { headline, subheadline } = useContent(product);
-    console.error(product);
+
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} />,

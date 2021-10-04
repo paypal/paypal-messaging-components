@@ -1,0 +1,28 @@
+.content__container{
+    .content__row.donuts {
+        display: flex;
+        justify-content: space-between;
+        background-color: #FFFFFF;
+        border-top-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        min-height: 10em;
+        z-index: 1;
+        position: relative;
+        /* padding: 1rem 0 0rem; */
+        width: 100%;
+        /* max-width: 315px; */
+
+        @include mobile {
+
+        }
+
+        @include tablet {
+            // margin: 0 auto;
+
+        }
+
+        @include desktop {
+
+        }
+    }
+}
