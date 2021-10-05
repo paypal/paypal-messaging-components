@@ -1,11 +1,25 @@
-.content__row {
-    &.productLink{
-        margin: 1rem 0 3rem;
+@import '../../../styles/globals/mixins';
 
-        a{
-            color: #1072eb;
-            font-size: 0.8rem;
-            line-height: 1.4;
+.content__container .content__body {
+    .content__row {
+        &.productLink{
+            margin: 1rem auto 3rem;
+    
+            @include tablet {
+                max-width: 315px;
+                width: 100%;
+                margin: 1rem auto 3rem;
+            }
+
+            @include desktop {
+                padding-left: 60px;
+            }
+    
+            a {
+                color: #1072eb;
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
         }
     }
 }

@@ -52,15 +52,32 @@
     background-color: #003087;
     margin-top: -2rem;
     padding-top: 2rem;
+    padding-bottom: 0;
 
-    .content__body{
+    .content__body {
         z-index: 0;
         position: relative;
         background-color: #E5E5E5;
+        margin-top: -40px;
+        padding-top: 40px;
 
-    
-        @include tablet {
-            margin-top: 0px;
+        .content__row {
+            max-width: 315px;
+            width: 100%;
+            margin: 0 auto;
+
+            &.instructions {
+                @include desktop {
+                    padding-left: 60px;
+                }
+
+                ol.collapsed {
+                    @include desktop {
+                        width: 100%;
+                    }
+                }
+            }
+
         }
     }
 }
