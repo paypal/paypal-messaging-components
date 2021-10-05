@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useTransitionState } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, className = '', logo, wrapperRef }) => {
+const Header = ({ headline, subheadline, qualifying, qualifyingSubheadline, className = '', logo, wrapperRef }) => {
     const [, handleClose] = useTransitionState();
 
     return (
@@ -27,7 +27,7 @@ const Header = ({ headline, subheadline, className = '', logo, wrapperRef }) => 
                 </div>
                 <div className="header__content">
                     <h1>{headline}</h1>
-                    <h2>{subheadline}</h2>
+                    {qualifying === true ? <h2>{qualifyingSubheadline ?? subheadline}</h2> : <h2>{subheadline}</h2>}
                 </div>
             </div>
         </div>

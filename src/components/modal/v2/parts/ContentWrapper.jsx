@@ -12,12 +12,18 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
 
     let product;
+    const qualifying = {
+        isQualifying: null,
+        periodicPayment: null
+    };
 
     if (useServerData()?.products?.length > 0) {
         product = useServerData().products[0].meta.product;
+        qualifying.isQualifying = useServerData().products[0].meta.qualifying;
+        qualifying.periodicPayment = useServerData().products[0].meta.periodicPayment;
     }
 
-    const { headline, subheadline } = useContent(product);
+    const { headline, subheadline, qualifyingSubheadline } = useContent(product);
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
@@ -30,7 +36,13 @@ const ContentWrapper = () => {
             <Overlay />
             <div className="content__wrapper" ref={contentWrapper}>
                 <div className="content__background">
-                    <Header logo="logo" headline={headline} subheadline={subheadline} />
+                    <Header
+                        logo="logo"
+                        headline={headline}
+                        subheadline={subheadline}
+                        qualifying={qualifying}
+                        qualifyingSubheadline={qualifyingSubheadline}
+                    />
                     {productView[product]}
                 </div>
             </div>
