@@ -1,14 +1,12 @@
 @media (min-aspect-ratio: 80/11) {
     .message__headline {
-        font-size: 3.5vw;
+        font-size: 3vw;
         display: inline;
         line-height: 1.2em;
     }
     .message__logo:nth-of-type(2) {
-        display: inline-block;
-        width: 55%;
+        display: none;
     }
-
 }
 
 @media (min-aspect-ratio: 80 / 11) and (min-width: 500px) {

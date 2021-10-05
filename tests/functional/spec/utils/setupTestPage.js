@@ -1,17 +1,24 @@
 import selectors from './selectors';
 
-export default async function setTestPage({ config, testPage }) {
+export default async function setupTestPage({ config, testPage }) {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
-    await page.waitForSelector(selectors.banner.iframeByAttribute, { visible: true });
-    await page.waitForSelector(selectors.modal.iframe);
 
-    const bannerElement = await page.$(selectors.banner.iframeByAttribute);
-    const modalElement = await page.$(selectors.modal.iframe);
+    const bannerElement = await page.waitForSelector(selectors.banner.iframeByAttribute, { visible: true });
     const bannerFrame = await bannerElement.contentFrame();
-    const modalFrame = await modalElement.contentFrame();
 
-    await modalFrame.waitForSelector(selectors.modal.contentBody);
     await bannerFrame.waitForSelector(selectors.banner.messageMessaging, { visible: true });
 
-    return { bannerFrame, modalFrame };
+    const openModal = async () => {
+        // Modal is no longer preloaded so must click on the banner to render it
+        await bannerElement.click();
+
+        const modalElement = await page.waitForSelector(selectors.modal.iframe, { visible: true });
+        const modalFrame = await modalElement.contentFrame();
+
+        await modalFrame.waitForSelector(selectors.modal.contentBody);
+
+        return { modalFrame };
+    };
+
+    return { bannerFrame, openModal };
 }

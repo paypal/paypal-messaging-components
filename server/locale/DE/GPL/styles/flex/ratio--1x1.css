@@ -1,34 +1,35 @@
-    .message__headline span.multi:nth-of-type(1) {
-        display: none;
-    }
-    .message__headline span.multi:nth-of-type(2) {
-        display: inline;
-    }
-    .message__headline {
-        font-size: 8vw;
-        line-height: 1.33em;
-    }
-    .message__disclaimer {
-        font-size: 0.9rem;
-        line-height: 6.66vw;
-        margin: 6% 0;
-    }
-    .message__headline span:nth-of-type(1) {
-        margin-right: -4px;
-    }
-    .message__logo-container {
-        width: 100%;
-    }
-    .message__logo:nth-of-type(1) {
-        width: 29px;
-        max-width: 15%;
-        margin-right: 0px;
-    }
-    .message__logo:nth-of-type(2) {
-        width: 91px;
-        max-width: 45%;
-        margin-left: 3%;
-    }
+.message__headline span.multi:nth-of-type(1) {
+    display: none;
+}
+.message__headline span.multi:nth-of-type(2) {
+    display: inline;
+}
+.message__headline {
+    font-size: 8vw;
+    line-height: 1.33em;
+}
+.message__disclaimer {
+    font-size: 0.9rem;
+    line-height: 6.66vw;
+    margin: 6% 0;
+}
+.message__headline span:nth-of-type(1) {
+    margin-right: -4px;
+}
+.message__logo-container {
+    width: 100%;
+    margin-left: -5px;
+}
+.message__logo:nth-of-type(1) {
+    width: 29px;
+    max-width: 15%;
+    margin-right: 0px;
+}
+.message__logo:nth-of-type(2) {
+    width: 91px;
+    max-width: 45%;
+    margin-left: 3%;
+}
 @media (max-aspect-ratio: 11/10) and (max-width: 220px) {
     .message__headline {
         font-size: 10vw;

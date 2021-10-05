@@ -1,7 +1,7 @@
 /* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
 @media (min-aspect-ratio: 60/11) and (max-width: 501px) {
     .message__headline {
-        font-size: 4vw;
+        font-size: 3.5vw;
         line-height: 1.1em;
         display: inline;
     }
@@ -12,6 +12,8 @@
         flex: 1 1 100%;
     }
     .message__logo-container {
+        width: 25%;
+        margin-left: 5px;
         display: flex;
         align-items: center;
         flex: 1 0 16%;
@@ -27,7 +29,6 @@
     }
     .message__logo:nth-of-type(1) {
         display: inline;
-        width: 45%;
     }
     .message__logo:nth-of-type(2) {
         display: none;
@@ -46,14 +47,6 @@
     .message__headline span.tag--medium {
         display: none;
     }
-    .message__logo:nth-of-type(1) {
-        margin: 0;
-    }
-    .message__logo-container {
-        flex: 0 0 15%;
-        margin-left: 0;
-        margin-right: 0;
-    }
     .message__content {
         padding: 0.5rem;
     }
@@ -71,12 +64,9 @@
     .message__logo:nth-of-type(2) {
         display: inline;
     }
-
     .message__logo-container {
         width: 35%;
         max-width: unset;
         min-width: unset;
-        flex: 0 0 20%;
-        margin-right: 14px;
     }
 }
