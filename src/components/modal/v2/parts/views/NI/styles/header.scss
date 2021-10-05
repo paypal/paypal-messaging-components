@@ -1,44 +1,61 @@
 @import '../../../../styles/globals/mixins';
 @import './mixins';
-.header__wrapper {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    .header__container {
-        padding: 0px !important;
-        @include mobile {
-        }
-        .header__icons {
-            // position: absolute;
-            // left: 11.22%;
-            // right: 18.49%;
-            // top: 4.17%;
-            // bottom: 14.37%;
-            flex-direction: row !important;
-            .logo__wrapper {
-                padding: 0px !important;
-                justify-content: start !important;
-                .pp-logo {
-                    padding: $content-padding $content-padding 0;
-                    img {
-                        height: unset !important;
-                        width: 25.6px !important;
-                        // background-color: red;
+.ni {
+    &.header__wrapper {
+        border-radius: 0px;
+        // border-bottom-left-radius: 0px;
+        // border-bottom-right-radius: 0px;
+        .header__container {
+            padding: 0px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='376' height='233.812' viewBox='0 0 99.483331 61.862759' version='1.1' %3E%3Cpath id='path1037' style='fill:%23003ba4;fill-opacity:1;stroke-width:4.23333' d='M 99.483325,61.862811 0,61.862759 V 0 h 99.483322 z'/%3E%3Cpath id='path1035' style='fill:%2300318b;fill-opacity:1;stroke-width:4.23333' d='M 99.483323,14.632997 0,9.4128142 v 4.6129528 l 99.483323,6.335645 z'/%3E%3Cpath id='rect1024' style='fill:%23003698;fill-opacity:1;stroke-width:4.23333' d='m 0,14.025767 45.290411,2.884342 -22.159757,44.95265 H 0 Z'/%3E%3Cpath id='path1029' style='fill:%23004cbb;fill-opacity:1;stroke-width:4.23333' d='m 86.048221,0 h 13.435101 v 61.862812 l -43.674314,-5.3e-5 z'/%3E%3Cpath id='path1033' style='fill:%230053b8;fill-opacity:1;stroke-width:4.23333' d='m 79.410308,13.579707 20.073014,1.05329 v 5.728415 L 76.801426,18.916904 Z'/%3E%3C/svg%3E%0A");
+            background-repeat: no-repeat;
+            background-size: cover;
+            // position: fixed;
+            // z-index: 10;
+            .header__icons {
+                flex-direction: row;
+                .close {
+                    background-color: transparent;
+                    svg {
+                        path {
+                            stroke: #ffffff;
+                        }
+                    }
+                }
+                .logo__wrapper {
+                    padding: 0px;
+                    justify-content: start;
+                    .pp-logo {
+                        padding: 15px 0 0 $content-padding;
+                        img {
+                            height: unset;
+                            width: 25.6px;
+                        }
                     }
                 }
             }
-        }
-        .header__content {
-            h1,
-            h2 {
-                text-align: left !important;
-                margin: $content-padding !important;
-                padding: 0px !important;
-            }
-            h1 {
-                font-size: 28px;
-            }
-            h2 {
-                font-size: 18px;
+            .header__content {
+                h1,
+                h2 {
+                    text-align: left;
+                    margin: $line-height $content-padding;
+                    padding: 0px;
+                }
+                h1 {
+                    font-size: 28px;
+                }
+                h2 {
+                    font-size: 18px;
+                }
+                @include mobile {
+                    padding-bottom: 20px;
+                }
+                @include smallMobile {
+                    h1,
+                    h2 {
+                        display: none;
+                    }
+                }
             }
         }
     }

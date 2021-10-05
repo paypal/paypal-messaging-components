@@ -30,7 +30,12 @@ const ContentWrapper = () => {
             <Overlay />
             <div className="content__wrapper" ref={contentWrapper}>
                 <div className="content__background">
-                    <Header logo="logo" headline={headline} subheadline={subheadline} />
+                    <Header
+                        logo="logo"
+                        className={product.toLowerCase()}
+                        headline={headline}
+                        subheadline={subheadline}
+                    />
                     {productView[product]}
                 </div>
             </div>

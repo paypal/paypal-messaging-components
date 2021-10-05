@@ -10,19 +10,22 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__container">
+            <div className="ni content__container">
                 <main className="main">
                     <div className="content__body">
                         <Instructions instructions={instructions} expandedState={expandedState} />
                         <ul className="content__row terms">
                             {terms.map(item => (
-                                <li className="terms-item">{item}</li>
+                                <li className="terms-item">
+                                    <span className="terms-bullet" />
+                                    <span className="terms-content">{item}</span>
+                                </li>
                             ))}
                         </ul>
                         <Button className="content__row">{buttonText}</Button>
                         <div className="content__row disclaimer">{disclaimer}</div>
                     </div>
-                    <ul className=" footer">
+                    <ul className="footer">
                         {footer.map(content => {
                             const line = content.map(item => {
                                 if (Array.isArray(item)) {
