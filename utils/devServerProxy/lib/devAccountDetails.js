@@ -19,9 +19,6 @@ const selectBestOffer = (offers = [], amount) =>
         undefined
     );
 
-const filterNonqualifiedOffers = (offers = [], amount) =>
-    offers.filter(offer => amount <= (offer.min ?? Infinity) && amount >= (offer.max ?? 0));
-
 const getMorsVars = (country, offer, amount) => {
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
@@ -100,7 +97,7 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                     morsVars: getMorsVars(country, selectBestOffer(viewOffers, amount), amount),
                     offers:
                         viewOffersTemplate &&
-                        filterNonqualifiedOffers(viewOffers, amount).map(offer => ({
+                        viewOffers.map(offer => ({
                             template: JSON.stringify(viewOffersTemplate),
                             morsVars: getMorsVars(country, offer, amount)
                         }))
