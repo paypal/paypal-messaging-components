@@ -1,84 +1,79 @@
 @import '../../../../styles/globals/mixins';
 @import './mixins';
-.ni {
-    &.content__container {
-        background: #ffffff;
-        padding-bottom: 0px;
-        border-radius: 0px;
-        // border-top-left-radius: 0px;
-        // border-top-right-radius: 0px;
-        .main {
-            .content__body {
-                margin-top: unset;
-                padding: $content-padding;
-                .instructions {
-                    ol {
-                        max-width: unset;
-                        width: unset;
-                        padding-inline: 0px;
-                        padding: 0px;
-                        margin-bottom: 0px;
-                    }
-                    li {
-                        font-size: 18px;
-                        padding-bottom: $line-height;
-                    }
+.content__container {
+    background: $secondary-background;
+    color: $secondary-foreground;
+    padding-bottom: 0px;
+    border-radius: 0px;
+    .main {
+        .content__body {
+            margin-top: unset;
+            padding: $content-padding;
+            .instructions {
+                ol {
+                    max-width: unset;
+                    width: unset;
+                    padding-inline: 0px;
+                    padding: 0px;
+                    margin-bottom: 0px;
                 }
-                .terms {
-                    .terms-item {
-                        color: #6b6e76;
-                        list-style: none;
-                        margin-bottom: $line-height;
-                        font-size: 14px;
-                        display: flex;
-                        margin-left: unset;
-                        .terms-bullet::before {
-                            /* pseudo class necessary for setting bullet color separate from font */
-                            content: '\2022';
-                            color: #c4c4c4;
-                            display: inline-block;
-                            /* the whitespace is the same size as the instructions bullet */
-                            padding: 0 12.5px;
-                            font-weight: bold;
-                            font-size: large;
-                        }
-                    }
-                }
-
-                .button {
-                    background: #142c8e;
-                    border-radius: 100px;
-
-                    position: static;
-                    top: 28.75%;
-                    left: calc(50% - 343px / 2);
-                    bottom: 28.75%;
-
-                    order: 0;
-                }
-                .button,
-                .disclaimer {
-                    display: flex;
-                    align-self: stretch;
-                    flex-direction: column;
-                    align-items: center;
-                    flex-grow: 0;
-                    flex: none;
+                li {
+                    font-size: 18px;
+                    padding-bottom: $line-height;
                 }
             }
-            .footer {
-                background: #f5f7fb;
-                padding: $content-padding;
-                display: flex;
-                margin: 0;
-                flex-direction: column;
-                // gap: 20px;
-                .footer-item {
+            .terms {
+                .terms-item {
+                    color: $tertiary-foreground;
                     list-style: none;
+                    margin-bottom: $line-height;
                     font-size: 14px;
-                    margin: 0 0 $line-height 0;
-                    color: #6b6e76;
+                    display: flex;
+                    margin-left: unset;
+                    .terms-bullet::before {
+                        /* pseudo class necessary for setting bullet color separate from font */
+                        content: '\2022';
+                        color: $secondary-bullet-color;
+                        display: inline-block;
+                        /* the whitespace is the same size as the instructions bullet */
+                        padding: 0 12.5px;
+                        font-weight: bold;
+                        font-size: large;
+                    }
                 }
+            }
+            .button {
+                background: $primary-button-color;
+                border-radius: 100px;
+
+                position: static;
+                top: 28.75%;
+                left: calc(50% - 343px / 2);
+                bottom: 28.75%;
+
+                order: 0;
+            }
+            .button,
+            .content__disclaimer {
+                display: flex;
+                align-self: stretch;
+                flex-direction: column;
+                align-items: center;
+                flex-grow: 0;
+                flex: none;
+            }
+        }
+        .content__footer {
+            background: $tertiary-background;
+            padding: $content-padding;
+            display: flex;
+            margin: 0;
+            flex-direction: column;
+            .content__footer-item {
+                list-style: none;
+                font-size: 14px;
+                margin: 0 0 $line-height 0;
+                color: $tertiary-foreground;
             }
         }
     }

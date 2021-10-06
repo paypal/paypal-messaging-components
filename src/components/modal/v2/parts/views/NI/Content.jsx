@@ -23,9 +23,9 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
                             ))}
                         </ul>
                         <Button className="content__row">{buttonText}</Button>
-                        <div className="content__row disclaimer">{disclaimer}</div>
+                        <div className="content__row content__disclaimer">{disclaimer}</div>
                     </div>
-                    <ul className="footer">
+                    <ul className="content__footer">
                         {footer.map(content => {
                             const line = content.map(item => {
                                 if (Array.isArray(item)) {
@@ -34,7 +34,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
                                 }
                                 return <span>{item}</span>;
                             });
-                            return <li className="footer-item">{line}</li>;
+                            return <li className="content__footer-item">{line}</li>;
                         })}
                     </ul>
                 </main>
