@@ -35,10 +35,10 @@ const getMorsVars = (country, offer, amount) => {
         qualifying_offer: (amount > minAmount ?? 0) && (amount < maxAmount ?? Infinity) ? 'true' : 'false',
         apr,
         nominal_rate: nominalRate,
-        minAmount,
-        maxAmount,
+        minAmount: minAmount.toString(),
+        maxAmount: maxAmount.toString(),
         total_payments: totalPayments,
-        transaction_amount: amount,
+        transaction_amount: amount.toString(),
         formattedAPR: toLocaleNumber(apr),
         formattedMinAmount: toLocaleCurrency(minAmount),
         formattedMaxAmount: toLocaleCurrency(maxAmount),
@@ -83,18 +83,25 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
         return {
             country,
             modalViews: modalViews.map(({ template, offersTemplate, product }) => {
-                const viewTemplate = fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${template}`, 'utf8');
+                const viewTemplate = JSON.parse(
+                    fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${template}`, 'utf8')
+                );
+                delete viewTemplate.meta.variables; // Not part of the final response
+
                 const viewOffersTemplate =
-                    offersTemplate && fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8');
+                    offersTemplate &&
+                    JSON.parse(fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8'));
+                delete viewOffersTemplate.meta.variables; // Not part of the final response
+
                 const viewOffers = offers[product];
 
                 return {
-                    template: viewTemplate,
+                    template: JSON.stringify(viewTemplate),
                     morsVars: getMorsVars(country, selectBestOffer(viewOffers, amount), amount),
                     offers:
                         viewOffersTemplate &&
                         filterNonqualifiedOffers(viewOffers, amount).map(offer => ({
-                            template: viewOffersTemplate,
+                            template: JSON.stringify(viewOffersTemplate),
                             morsVars: getMorsVars(country, offer, amount)
                         }))
                 };

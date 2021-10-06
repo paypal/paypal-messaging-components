@@ -6,6 +6,8 @@
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
+        "formattedMinAmount": "{formattedMinAmount}",
+        "formattedMaxAmount": "{formattedMaxAmount}",
         "apr": "{apr}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",

@@ -3,6 +3,39 @@ import getDevAccountDetails from './lib/devAccountDetails';
 
 const REQUEST_DELAY = process.env.REQUEST_DELAY ?? 500;
 
+const getComputedVariables = viewData =>
+    viewData.offers.reduce(
+        (acc, { meta }) => {
+            if (meta.minAmount) {
+                acc.minAmount = acc.minAmount
+                    ? Math.min(acc.minAmount, Number(meta.minAmount))
+                    : Number(meta.minAmount);
+
+                if (acc.minAmount === Number(meta.minAmount)) {
+                    acc.formattedMinAmount = meta.formattedMinAmount;
+                }
+            }
+
+            if (meta.maxAmount) {
+                acc.maxAmount = acc.maxAmount
+                    ? Math.max(acc.maxAmount, Number(meta.maxAmount))
+                    : Number(meta.maxAmount);
+
+                if (acc.maxAmount === Number(meta.maxAmount)) {
+                    acc.formattedMaxAmount = meta.formattedMaxAmount;
+                }
+            }
+
+            return acc;
+        },
+        {
+            minAmount: viewData.minAmount && Number(viewData.minAmount),
+            maxAmount: viewData.maxAmount && Number(viewData.maxAmount),
+            formattedMinAmount: viewData.formattedMinAmount,
+            formattedMaxAmount: viewData.formattedMaxAmount
+        }
+    );
+
 const getModalData = req => {
     const { client_id: clientId, payer_id: payerId, merchant_id: merchantId, amount } = req.query;
     const account = merchantId || clientId || payerId;
@@ -25,6 +58,8 @@ const getModalData = req => {
 
         if (offers) {
             viewData.offers = offers.map(offer => JSON.parse(populateTemplate(offer.template, offer.morsVars)));
+            // viewData.offers is required
+            viewData.meta.computed = getComputedVariables(viewData);
         }
 
         return viewData;
