@@ -9,7 +9,7 @@ const ProductButton = ({ product, buttonClick }) => {
     const { productButton } = useContent(product);
     const { title, subtitle, icon } = productButton;
     return (
-        <button type="button" className="product-button" onClick={() => buttonClick(product)}>
+        <button type="button" className="product-button" id={`${product}-button`} onClick={() => buttonClick(product)}>
             <div>
                 <h1>{title}</h1>
                 <p>{subtitle}</p>

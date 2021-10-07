@@ -14,6 +14,7 @@ const selectors = {
         wrapper: '.wrapper',
         overlay: '.overlay',
         overlaySide: '.overlay-side',
+        headerHeadline: 'header>h1',
         contentWrapper: '.content-wrapper',
         contentBackground: '.content-background',
         modalContent: '.content',
@@ -44,7 +45,11 @@ const selectors = {
         closeBtn: '#close-btn',
         btnSecondary: '.button.secondary',
         // Used in DE modal instead of .btnSecondary
-        btnMd: '.button.md'
+        btnMd: '.button.md',
+        // Used in DE Multiproduct modal
+        pi30Button: '#PI30-button',
+        gplButton: '#GPL-button',
+        switchingLink: '.switching-link'
     }
 };
 
