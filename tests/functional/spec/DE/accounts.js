@@ -13,5 +13,6 @@ export default [
     'DEVXBDEPLQGTZ',
     'DEV0000DEPI30',
     'DEV000DEPI30Q',
-    'DEV000DEPI30NQ'
+    'DEV00DEPI30NQ',
+    'DEV0DEPI30GPL'
 ];

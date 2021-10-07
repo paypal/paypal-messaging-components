@@ -48,7 +48,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
         if (regexLocale !== '0G') {
             [, locale] = regexLocale;
         }
-    } else if (account.includes('IAZ')) {
+    } else if (account.includes('IAZ') || account.includes('PI30')) {
         locale = 'DE';
     }
 
