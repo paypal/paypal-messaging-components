@@ -24,6 +24,7 @@ const getMorsVars = (country, offer, amount) => {
     const toLocaleCurrency = localizeCurrency(country);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
     const total = amount + amount * (apr * 0.01) * (totalPayments / 12);
+    const totalInterest = total - amount;
 
     return {
         financing_code: Math.random()
@@ -42,7 +43,8 @@ const getMorsVars = (country, offer, amount) => {
         formattedTransactionAmount: amount ? toLocaleCurrency(amount) : '-',
         formattedTotalCost: amount ? toLocaleCurrency(total) : '-',
         formattedPeriodicPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
-        formattedMonthlyPayment: amount ? toLocaleCurrency(total / totalPayments) : '-'
+        formattedMonthlyPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
+        formattedTotalInterest: amount ? toLocaleCurrency(totalInterest) : '-'
     };
 };
 
