@@ -23,8 +23,8 @@ const getMorsVars = (country, offer, amount) => {
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
-    const total = amount + amount * (apr * 0.01) * (totalPayments / 12);
-    const totalInterest = total - amount;
+    const total = Number(amount) + Number(amount) * (apr * 0.01) * (totalPayments / 12);
+    const totalInterest = total - Number(amount);
 
     return {
         financing_code: Math.random()
