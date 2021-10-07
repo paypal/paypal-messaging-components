@@ -29,7 +29,7 @@ const getMorsVars = (country, offer, amount) => {
         financing_code: Math.random()
             .toString(36)
             .slice(2),
-        qualifying_offer: (amount > minAmount ?? 0) && (amount < maxAmount ?? Infinity) ? 'true' : 'false',
+        qualifying_offer: (amount >= minAmount ?? 0) && (amount <= maxAmount ?? Infinity) ? 'true' : 'false',
         apr,
         nominal_rate: nominalRate,
         minAmount: minAmount.toString(),
