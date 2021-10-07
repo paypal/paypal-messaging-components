@@ -1,28 +1,51 @@
 .content__container{
     .content__row.donuts {
         display: flex;
-        justify-content: space-between;
+
+        align-items: center;
         background-color: #FFFFFF;
         border-top-left-radius: 40px;
         border-bottom-right-radius: 40px;
         min-height: 10em;
         z-index: 1;
         position: relative;
-        /* padding: 1rem 0 0rem; */
-        width: 100%;
-        /* max-width: 315px; */
+        width: 100vw;
+        top: -25px;
 
         @include mobile {
 
         }
 
         @include tablet {
-            // margin: 0 auto;
-
+            width: 100%;
         }
 
         @include desktop {
-
+            background-color: transparent;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 0;
+            padding: 0 40px;
+            align-items: self-end;
         }
+
+        .donuts__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            padding: 0 25px;
+            max-width: 400px;
+            margin: 0 auto;
+
+            @include desktop {
+                padding: auto;
+            }
+
+            div {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
     }
 }

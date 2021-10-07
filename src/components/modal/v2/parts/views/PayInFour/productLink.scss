@@ -3,22 +3,30 @@
 .content__container .content__body {
     .content__row {
         &.productLink{
-            margin: 1rem auto 3rem;
-    
+            margin: 1rem 0 2rem;
+
             @include tablet {
-                max-width: 315px;
-                width: 100%;
-                margin: 1rem auto 3rem;
+                margin: 1rem 0 3rem;
             }
 
-            @include desktop {
-                padding-left: 60px;
-            }
+            .productLink__container{
+                max-width: 315px;
+                margin: 0 auto;
+
+                @include desktop {
+                    max-width: initial;
+                }
+
+                a {
+                    color: #1072eb;
+                    font-size: 0.75rem;
+                    line-height: 1.4;
+                    margin: 1rem auto 3rem;
     
-            a {
-                color: #1072eb;
-                font-size: 0.75rem;
-                line-height: 1.4;
+                    @include desktop {
+                        padding-left: 60px;
+                    }
+                }
             }
         }
     }

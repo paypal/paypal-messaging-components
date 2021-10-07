@@ -5,7 +5,6 @@ import Icon from './Icon';
 
 const Header = ({ headline, subheadline, qualifying, qualifyingSubheadline, className = '', logo, wrapperRef }) => {
     const [, handleClose] = useTransitionState();
-
     return (
         <div className={`header__wrapper ${className}`} ref={wrapperRef}>
             <div className="header__container">
@@ -27,7 +26,11 @@ const Header = ({ headline, subheadline, qualifying, qualifyingSubheadline, clas
                 </div>
                 <div className="header__content">
                     <h1>{headline}</h1>
-                    {qualifying === true ? <h2>{qualifyingSubheadline ?? subheadline}</h2> : <h2>{subheadline}</h2>}
+                    {qualifying.isQualifying === 'true' ? (
+                        <h2>{qualifyingSubheadline ?? subheadline}</h2>
+                    ) : (
+                        <h2>{subheadline}</h2>
+                    )}
                 </div>
             </div>
         </div>
