@@ -1,11 +1,14 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useRef } from 'preact/hooks';
 import Button from '../../Button';
 import Instructions from '../../Instructions';
 import styles from './styles/index.scss';
+import { useApplyNow } from '../../../lib';
 
 export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
+    const buttonRef = useRef();
+    const handleApplyNowClick = useApplyNow('Apply Now');
     const [expandedState] = useState(false);
     return (
         <Fragment>
@@ -22,7 +25,9 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
                                 </li>
                             ))}
                         </ul>
-                        <Button className="content__row">{buttonText}</Button>
+                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                            {buttonText}
+                        </Button>
                         <div className="content__row content__disclaimer">{disclaimer}</div>
                     </div>
                     <ul className="content__footer">
