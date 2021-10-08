@@ -53,16 +53,16 @@
         @include tablet {
             text-align: center;
         }
-        @include smallMobile {
-            // padding-bottom: 25px;
-        }
     }
 
     &__error {
         color: black;
         font-size: 0.8rem;
         margin-top: 0;
-        transition: margin-top 0.2s ease-out;
+
+        @include tablet {
+            margin-left: 25px;
+        }
 
         & > div {
             display: inline-flex;
@@ -83,6 +83,35 @@
 
         svg {
             margin: 0 0.5rem 0 0;
+        }
+    }
+
+    .finance-terms__disclaimer {
+        font-size: 0.8rem;
+        @include tablet {
+            font-size: 0.75rem;
+        }
+        @include mobile {
+            font-size: 0.8rem;
+            margin-top: 0px;
+        }
+        @include smallMobile {
+            font-size: 0.7rem;
+            margin-top: 0px;
+        }
+
+        &.no-amount {
+            @include desktop {
+                margin-left: 26px;
+            }
+
+            @include tablet {
+                margin-left: 52px;
+            }
+
+            @include mobile {
+                margin-left: 26px;
+            }
         }
     }
 }

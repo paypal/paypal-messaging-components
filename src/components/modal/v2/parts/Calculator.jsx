@@ -6,9 +6,59 @@ import { useCalculator, useServerData, useXProps } from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
-const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading, calculator) => {
+/**
+ *
+ * @param {*} offers Offers returned from the server.
+ * @returns Computed minAmount, maxAmount, belowThreshold, and aboveThreshold values.
+ *
+ * This function takes in the offers returned from the server and loops over each offer
+ * in order to find the absolute min and max amounts from the offers.
+ * From the offer with the lowest min amount, the belowThreshold error content is retrieved.
+ * Similarly with the offer with the highest max amount, the aboveThreshold error content is retrieved.
+ */
+const getComputedVariables = offers =>
+    offers.reduce(
+        (acc, { meta, content }) => {
+            if (meta.minAmount) {
+                acc.minAmount = acc.minAmount
+                    ? Math.min(acc.minAmount, Number(meta.minAmount))
+                    : Number(meta.minAmount);
+
+                if (acc.minAmount === Number(meta.minAmount)) {
+                    acc.content.calculator.belowThreshold = content.calculator.belowThreshold;
+                }
+            }
+
+            if (meta.maxAmount) {
+                acc.maxAmount = acc.maxAmount
+                    ? Math.max(acc.maxAmount, Number(meta.maxAmount))
+                    : Number(meta.maxAmount);
+
+                if (acc.maxAmount === Number(meta.maxAmount)) {
+                    acc.content.calculator.aboveThreshold = content.calculator.aboveThreshold;
+                }
+            }
+
+            return acc;
+        },
+        {
+            content: {
+                calculator: {}
+            }
+        }
+    );
+
+const getError = ({ meta: { error }, offers }, isLoading, calculator, amount) => {
+    const {
+        minAmount,
+        maxAmount,
+        content: {
+            calculator: { belowThreshold, aboveThreshold }
+        }
+    } = getComputedVariables(offers);
+
     // Grabs the various calculator errors from offer json
-    const { genericError, belowThreshold, aboveThreshold } = calculator;
+    const { genericError } = calculator;
 
     /**
      * If there is an error with the request or we don't get a max amount back give back a generic error.
@@ -25,19 +75,19 @@ const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading, ca
 
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
-        return belowThreshold;
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, ' ');
     }
 
     // Checks amount against qualifying min and max ranges to determine which error message to show.
     if (amount < minAmount) {
-        return belowThreshold;
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, ' ');
     }
     if (amount > maxAmount) {
-        return aboveThreshold;
+        return aboveThreshold.replace(/(\.[0-9]*?)00/g, '');
     }
 
     // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
-    if (!offers?.[0]?.qualified) {
+    if (!offers?.[0]?.meta?.qualifying === 'true') {
         return genericError;
     }
 
@@ -90,7 +140,7 @@ const getDisplayValue = (value, country) => {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 2
             });
-            displayStr = `${formattedValue}${
+            displayStr = `$${formattedValue}${
                 fraction !== '' || value[value.length - 1] === '.' ? `.${fraction.slice(0, 2)}` : ''
             }`;
             break;
@@ -100,37 +150,41 @@ const getDisplayValue = (value, country) => {
     return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
 };
 
-const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
 
     // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
-    // If the person entered an amount in the calc and it's not 0,00, 0.00, 0, and also not an empty string.
-    const hasEnteredAmount = value !== '0,00' && value !== '' && value !== '0.00' && value !== '0';
+    // If the person entered an amount in the calc and it's not 0,00, 0.00, or 0.
+
+    const hasEnteredAmount = value !== '0,00' && value !== '0.00' && value !== '0';
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
     // Pass terms, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(terms, isLoading, calculator);
+    const error = getError(terms, isLoading, calculator, delocalize(displayValue ?? '0'));
 
     const { title, inputLabel, inputPlaceholder } = calculator;
 
     // Update display value based on changes from useCalculator
     useEffect(() => {
-        setDisplayValue(getDisplayValue(value, country));
+        if (!hasInitialAmount && !hasEnteredAmount) {
+            setDisplayValue('');
+        } else setDisplayValue(getDisplayValue(value, country));
     }, [value]);
 
     /**
-     * expandedState determines if the desktop view of the Pay Monthly modal is expanded (i.e. has terms or has loading shimmer)
-     * or not (due to error or empty input field). If expandedState is false, a class of "collapsed" gets added to affected elements
-     * for styling purposes.
+     * expandedState determines if the desktop view of the Pay Monthly modal is expanded (i.e. has terms or has loading shimmer).
+     * If expandedState is false, a class of "collapsed" gets added to affected elements for styling purposes.
      */
-    if (value !== '' && !!(terms || isLoading) && !(error || emptyState)) {
-        setExpandedState(true);
-    } else setExpandedState(false);
+    if (hasInitialAmount || hasEnteredAmount) {
+        if (terms || isLoading) {
+            setExpandedState(true);
+        } else setExpandedState(false);
+    }
 
     const onKeyDown = evt => {
         // Only allow special keys or appropriate number/formatting keys
@@ -138,8 +192,22 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
             evt.preventDefault();
         }
 
-        // temp testing ctrl (or cmd) + a select all on input field
-        if ((evt.keyCode === 65 && evt.ctrlKey) || (evt.metaKey && evt.keyCode === 65)) {
+        let keyComboCheck;
+
+        /**
+         * Ctrl (or Cmd) + a select all on input field.
+         * Checks if browser is IE11 or not and uses appropriate key selection method.
+         * event.keyCode is depricated and not recommended for newer browsers, however, it
+         * is supported for IE11. Newer browsers should use the event.key and event.code methods.
+         * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+         */
+        if (!!window.MSInputMethodContext && !!document.documentMode) {
+            keyComboCheck = evt.ctrlKey && evt.keyCode === 65;
+        } else {
+            keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
+        }
+
+        if (keyComboCheck) {
             evt.target.select();
         }
     };
@@ -194,7 +262,7 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
                         className={`input ${value === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
                         type="tel"
-                        value={displayValue === '0' ? '' : displayValue}
+                        value={parseFloat(delocalize(displayValue ?? '0')) === 0 ? '' : displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
                     />
@@ -203,17 +271,12 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
             </form>
             {hasEnteredAmount ? (
                 <div className="content-column">
-                    <TermsTable
-                        terms={terms}
-                        termsLabel={termsLabel}
-                        disclaimer={disclaimer}
-                        isLoading={isLoading}
-                        hasError={error}
-                    />
+                    <TermsTable terms={terms} isLoading={isLoading} hasError={error} />
                 </div>
             ) : (
                 <Fragment />
             )}
+            <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{disclaimer}</div>
         </div>
     );
 };

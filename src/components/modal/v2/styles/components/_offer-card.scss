@@ -57,8 +57,9 @@
         }
     }
     &__field-header {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: black;
+        font-weight: 800;
         margin-top: 16px;
         @include mobile {
             font-size: 1.2rem;
@@ -66,7 +67,7 @@
             margin-top: 16px;
         }
         @include smallMobile {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: black;
             margin-top: 16px;
         }
@@ -77,12 +78,9 @@
     }
 
     &__field-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: $terms-details;
         margin: 0px;
-        @include mobile {
-            font-size: 1rem;
-        }
         @include smallMobile {
             font-size: 0.9rem;
         }
@@ -93,7 +91,7 @@
         color: $terms-details;
         margin: 0px;
         @include mobile {
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         @include smallMobile {
             font-size: 0.9rem;

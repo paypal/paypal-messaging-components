@@ -9,10 +9,6 @@
 
 .offer {
     &__container {
-        &.has-error {
-            display: none;
-        }
-
         &.shimmer {
             &:not(:last-child)::after {
                 content: '';
