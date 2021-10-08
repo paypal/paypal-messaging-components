@@ -123,19 +123,6 @@
                     width: 34%;
                 }
             }
-
-            .cta {
-                @include desktop {
-                    font-size: 1rem;
-                    margin-top: 30px;
-                    margin-bottom: 50px;
-                }
-                @include tablet {
-                    font-size: 1rem;
-                    margin-top: 30px;
-                    margin-bottom: 50px;
-                }
-            }
         }
     }
 }
