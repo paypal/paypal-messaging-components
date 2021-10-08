@@ -109,7 +109,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
 
                     #${uid} > div > iframe {
                         transition: all ${TRANSITION_DELAY}ms;
-                        transform: translateY(100%);
+                        transform: translateY(5%);
                         opacity: 0;
                     }
 
