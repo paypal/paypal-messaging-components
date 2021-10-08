@@ -8,9 +8,7 @@ const OfferCard = ({ offer: { content, meta }, index }) => {
     return (
         <div className={`offer__container ${index}`}>
             <div className="offer__row">
-                <div className="offer__field-header">
-                    <div className="offer__field-header">{termsLabel.offerHeader}</div>
-                </div>
+                <div className="offer__field-header">{termsLabel.offerHeader}</div>
             </div>
             <div className="offer__row">
                 <div className="offer__field-col">

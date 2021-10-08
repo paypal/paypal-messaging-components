@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 
-const LoadingShimmer = ({ numOffers }) => {
+const LoadingShimmer = ({ numOffers = 3 }) => {
     /**
      * Array.apply takes the number of offers returned from numOffers and renders the correct number of loading shimmers
      * by creating an array of that size to map over. Array.apply is supported in legacy browsers such as IE11.

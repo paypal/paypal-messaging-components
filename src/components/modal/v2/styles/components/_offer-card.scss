@@ -1,5 +1,9 @@
 .offer {
     &__container {
+        &:first-child {
+            margin-top: 16px;
+        }
+
         &:not(:last-child)::after {
             content: '';
             border-bottom: 2px solid rgba(196, 196, 196, 0.2);
@@ -60,7 +64,6 @@
         font-size: 1.2rem;
         color: black;
         font-weight: 800;
-        margin-top: 16px;
         @include mobile {
             font-size: 1.2rem;
             color: black;
