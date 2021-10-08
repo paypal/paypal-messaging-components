@@ -9,6 +9,9 @@
         "formattedMinAmount": "{formattedMinAmount}",
         "formattedMaxAmount": "{formattedMaxAmount}",
         "apr": "{apr}",
+        "total_payments": "{total_payments}",
+        "formattedTotalCost": "{formattedTotalCost}",
+        "formattedTotalInterest": "{formattedTotalInterest}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -22,6 +25,19 @@
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "apr": "${CREDIT_OFFERS_DS.apr}",
             "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "calculator": {
+            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
+            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
+        },
+        "termsLabel": {
+            "offerHeader": "{formattedPeriodicPayment}/mo. for {total_payments} months",
+            "zeroApr": "APR",
+            "nonZeroApr": "Est. APR",
+            "totalInterest": "Interest",
+            "total": "Total"
         }
     }
 }
