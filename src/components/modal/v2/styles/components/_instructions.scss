@@ -30,12 +30,12 @@
         list-style: none;
 
         @include desktop {
-            font-size: 1rem;
+            font-size: 0.9rem;
             padding-bottom: 25px;
         }
 
         @include tablet {
-            font-size: 1rem;
+            font-size: 0.9rem;
             padding-bottom: 2rem;
         }
 
