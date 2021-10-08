@@ -5,7 +5,7 @@ import Calculator from '../../Calculator';
 import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 
-export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, disclosure }) => {
+export const LongTerm = ({ calculator, disclaimer, instructions, disclosure }) => {
     const [expandedState, setExpandedState] = useState(false);
 
     return (
@@ -18,7 +18,6 @@ export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, dis
                                 <Calculator
                                     setExpandedState={setExpandedState}
                                     calculator={calculator}
-                                    termsLabel={termsLabel}
                                     disclaimer={disclaimer}
                                 />
                             </div>
