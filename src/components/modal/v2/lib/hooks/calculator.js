@@ -76,8 +76,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         stageTag
     } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(country, initialViewOfferTerms?.meta?.amount),
-        prevValue: localize(country, initialViewOfferTerms?.meta?.amount),
+        inputValue: localize(country, amount),
+        prevValue: localize(country, amount),
         terms: initialViewOfferTerms,
         isLoading: false
     });
