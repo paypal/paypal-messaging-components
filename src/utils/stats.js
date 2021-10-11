@@ -87,6 +87,7 @@ export function runStats({ container, activeTags, index }) {
         // Attributes temporarily required to exist as part of the stats event
         // {statsPayload} - (({statsPayload} ∩ {meta}) ∪ {attributes exclusive to other tracking events})
         logger.track({
+            index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
             first_render_delay: Math.round(firstRenderDelay).toString(),
