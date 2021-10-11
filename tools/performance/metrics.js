@@ -14,7 +14,7 @@ const fs = require('fs');
 
     const browser = await puppeteer.launch({
         headless: true,
-        // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        executablePath: process.env.puppeteerPath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         ignoreHTTPSErrors: true,
         devtools: false
     });
@@ -109,7 +109,7 @@ const fs = require('fs');
         stats.networkRequests = networkRequests;
 
         // stats has speed metric and network request data
-        fs.writeFile('dist/metrics.json', JSON.stringify(stats), err => {
+        fs.writeFile(`dist/metrics.json`, JSON.stringify(stats), err => {
             console.log(err);
         });
     });
