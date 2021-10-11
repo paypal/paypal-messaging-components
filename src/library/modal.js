@@ -1,8 +1,8 @@
 import { setup, Modal } from './controllers/modal';
 import { addPerformanceMeasure } from '../utils';
 
-window.credit = window.credit ?? {};
-window.credit.Modal = Modal;
+window.paypal = window.paypal ?? {};
+window.paypal.MessagesModal = Modal;
 
 addPerformanceMeasure('scriptLoadDelay');
 setup();
