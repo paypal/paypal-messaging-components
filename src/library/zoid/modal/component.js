@@ -339,6 +339,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: getFeatures
+            },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => __MESSAGES__.__TARGET__
             }
         }
     })
