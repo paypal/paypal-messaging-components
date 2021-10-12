@@ -16,7 +16,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 
     const browser = await puppeteer.launch({
         headless: true,
-        executablePath: process.env.puppeteerPath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        // executablePath: process.env.puppeteerPath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         ignoreHTTPSErrors: true,
         devtools: false
     });
