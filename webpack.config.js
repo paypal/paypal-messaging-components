@@ -71,7 +71,7 @@ module.exports = (env = {}) => {
 
     const LANDER_COMPONENTS_CONFIG = getWebpackConfig({
         entry: {
-            'smart-credit-modal-v2': './src/components/modal/v2/index.js'
+            'smart-credit-modal-v2-lander': './src/components/modal/v2/index.js'
         },
         libraryTarget: 'window',
         modulename: 'crc',
