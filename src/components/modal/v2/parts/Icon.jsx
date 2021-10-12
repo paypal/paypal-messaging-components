@@ -60,6 +60,77 @@ const Icon = ({ name, color }) => {
                     src="https://preview.redd.it/7c2gaheiowu31.png?auto=webp&s=5581d6fd2c0769db69c5e71e1d9938866aabb7fc"
                 />
             );
+        case 'pay-monthly-temp-image':
+            return (
+                <img
+                    alt="pp-lt"
+                    style={{ width: '100%' }}
+                    src="https://www.paypalobjects.com/marketing/web/us/en/credit-line-and-card-services/new/pp-credit-and-cards-hero.png"
+                />
+            );
+        case 'header-background':
+            return (
+                <svg width="1920" height="1380" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#a)">
+                        <path fill="#1040C1" d="M0 .5h1920v1379H0z" />
+                        <mask id="b" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1378">
+                            <path fill="#38AF88" d="M0 .5h1920v1377H0z" />
+                        </mask>
+                        <g mask="url(#b)">
+                            <path
+                                opacity=".5"
+                                fill="#1072EB"
+                                d="m1422.9-79.25 888.861 220.726-712.29 1458.8-888.862-220.724z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#1040C1"
+                                d="m-338 1307.5 82.832-1100.617 2253.678 151.87-82.832 1100.617z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#142C8E"
+                                d="M.238-240.688 874.44-23.603l-743.237 1522.18-874.201-217.085z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#1040C1"
+                                d="m-25 151.285 15.193-350.943 2297.565 125.71-15.193 350.943z"
+                            />
+                        </g>
+                        <mask id="c" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1378">
+                            <path fill="#38AF88" d="M0 .5h1920v1377H0z" />
+                        </mask>
+                        <g mask="url(#c)">
+                            <path
+                                opacity=".5"
+                                fill="#1072EB"
+                                d="m1422.9-79.25 888.861 220.726-712.29 1458.8-888.862-220.724z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#1040C1"
+                                d="m-338 1307.5 82.832-1100.617 2253.678 151.87-82.832 1100.617z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#142C8E"
+                                d="M.238-240.688 874.44-23.603l-743.237 1522.18-874.201-217.085z"
+                            />
+                            <path
+                                opacity=".5"
+                                fill="#1040C1"
+                                d="m-25 151.285 15.193-350.943 2297.565 125.71-15.193 350.943z"
+                            />
+                        </g>
+                    </g>
+                    <defs>
+                        <clipPath id="a">
+                            <path fill="#fff" transform="translate(0 .5)" d="M0 0h1920v1379H0z" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            );
         default:
             return null;
     }

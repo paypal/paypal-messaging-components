@@ -4,6 +4,7 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useServerData, useXProps } from '../lib';
 import TermsTable from './TermsTable';
+import Button from './Button';
 import Icon from './Icon';
 
 /**
@@ -48,7 +49,7 @@ const getComputedVariables = offers =>
         }
     );
 
-const getError = ({ meta: { error }, offers }, isLoading, calculator, amount) => {
+const getError = ({ meta: { error = '' }, offers }, isLoading, calculator, amount) => {
     const {
         minAmount,
         maxAmount,
@@ -150,9 +151,9 @@ const getDisplayValue = (value, country) => {
     return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
-    const { amount } = useXProps();
+    const { amount, onClick } = useXProps();
     const { country } = useServerData();
 
     // If an amount was passed in via xprops so amount is not undefined.
@@ -218,8 +219,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
         const delocalizedValue = delocalize(targetValue);
         const newDisplayValue = getDisplayValue(targetValue, country);
 
-        const finalValue =
-            targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 9 ? newDisplayValue : displayValue;
+        const finalValue = parseFloat(Number(delocalizedValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
 
         const selectionOffset = finalValue.length - targetValue.length;
 
@@ -252,6 +252,22 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
         return <Fragment />;
     };
 
+    // Only show the cta button when in checkout.
+    const renderButton = () => {
+        if (typeof cta !== 'undefined') {
+            return (
+                <Fragment>
+                    <div className="button__container">
+                        <Button onClick={() => onClick({ linkName: 'Pay Monthly Continue' })} className="cta">
+                            {cta.buttonText}
+                        </Button>
+                    </div>
+                </Fragment>
+            );
+        }
+        return <Fragment />;
+    };
+
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
@@ -277,6 +293,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
                 <Fragment />
             )}
             <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{disclaimer}</div>
+            {renderButton()}
         </div>
     );
 };
