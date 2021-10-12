@@ -65,6 +65,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
     onMarkup({ meta, styles: parentStyles, warnings });
 
+    window.addEventListener('focus', () => {
+        button.focus();
+    });
+
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props).some(key =>

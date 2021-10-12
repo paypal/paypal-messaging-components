@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.26.5](https://github.com/paypal/paypal-messaging-components/compare/v1.26.4...v1.26.5) (2021-09-28)
+
+
+### Code Refactoring
+
+* add interest-free back into Pi3 [snapshots] ([c118983](https://github.com/paypal/paypal-messaging-components/commit/c118983ce28b0c2892f07637009b6609750ec1d1))
+
 ### [1.26.2](https://github.com/paypal/paypal-messaging-components/compare/v1.26.1...v1.26.2) (2021-08-25)
 
 
