@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const { PerformanceObserver, performance } = require('perf_hooks');
 
 (async () => {
     const networkRequests = [];
@@ -11,6 +12,7 @@ const fs = require('fs');
         first_render_delay: null,
         render_duration: null
     };
+    const responseTimes = {};
 
     const browser = await puppeteer.launch({
         headless: true,
@@ -26,8 +28,9 @@ const fs = require('fs');
 
     // get request url and requestId to help match sizes
     page.on('request', async interceptedRequest => {
+        performance.mark(JSON.stringify({ start: interceptedRequest.url() }));
         // Get log request with first_render_delay and render_duration
-        if (interceptedRequest.url().includes('credit-presentment/log')) {
+        if (interceptedRequest.url().includes('credit-presentment/log') && interceptedRequest._postData) {
             const { tracking } = JSON.parse(interceptedRequest._postData);
             tracking.forEach(row => {
                 if (row.first_render_delay) {
@@ -42,52 +45,103 @@ const fs = require('fs');
         interceptedRequest.continue();
     });
 
+    page.on('response', async response => {
+        performance.mark(JSON.stringify({ end: response.url() }));
+        const obs = new PerformanceObserver((perfObserverList, observer) => {
+            perfObserverList.getEntries().forEach(row => {
+                // get name object and startTimes
+                const { name, startTime } = row;
+                // get name of mark for start and end
+                const { start, end } = JSON.parse(name);
+
+                if (start) {
+                    if (!responseTimes[start]) {
+                        responseTimes[start] = {};
+                    }
+                    responseTimes[start].start = startTime;
+                } else {
+                    if (!responseTimes[end]) {
+                        responseTimes[end] = {};
+                    }
+                    responseTimes[end].end = startTime;
+                }
+            });
+
+            observer.disconnect();
+        });
+        obs.observe({ entryTypes: ['mark'], buffered: true });
+    });
+
     page._client.on('Network.responseReceived', requestReceived => {
         // requestReceived.response.encodedDataLength is inaccurate for gzipped but fine for upload size. Getting gzip size from performance function data instead
-        networkRequests.push({
-            url: requestReceived.response.url,
-            speed: requestReceived.timestamp - requestReceived.response.timing.requestTime,
-            encoding:
-                requestReceived.response.headersText &&
-                requestReceived.response.headersText.includes('Content-Encoding: gzip')
-                    ? 'gzip'
-                    : 'unzipped',
-            size:
-                Number(requestReceived.response.headers['content-length']) ||
-                Number(requestReceived.response.headers['Content-Length']) ||
-                requestReceived.response.encodedDataLength,
-            download:
-                (requestReceived.response.headersText &&
-                    requestReceived.response.headersText.includes('Content-Encoding: gzip')) ||
-                Boolean(Number(requestReceived.response.headers['content-length'])) ||
-                Boolean(Number(requestReceived.response.headers['Content-Length']))
-        });
+        // get base64 image size
+        const stringLength = requestReceived.response.url.length - 'data:image/png;base64,'.length;
+        const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812;
+        const sizeInKb = sizeInBytes / 1000;
+
+        // remove gatsby build files
+        if (requestReceived.response.url.indexOf('herokuapp') === -1) {
+            networkRequests.push({
+                url: requestReceived.response.url,
+                speed: requestReceived.response.timing
+                    ? requestReceived.timestamp - requestReceived.response.timing.requestTime
+                    : 0,
+                encoding:
+                    (requestReceived.response.headersText &&
+                        requestReceived.response.headersText.includes('Content-Encoding')) ||
+                    (requestReceived.response.headersText &&
+                        requestReceived.response.headersText.includes('content-encoding')) ||
+                    (requestReceived.response.headers && requestReceived.response.headers['Content-Encoding']) ||
+                    (requestReceived.response.headers && requestReceived.response.headers['content-encoding'])
+                        ? 'gzip'
+                        : 'unzipped',
+                size:
+                    Number(requestReceived.response.headers['content-length']) ||
+                    Number(requestReceived.response.headers['Content-Length']) ||
+                    requestReceived.response.encodedDataLength ||
+                    sizeInKb,
+                download:
+                    (requestReceived.response.headersText &&
+                        requestReceived.response.headersText.includes('Content-Encoding: gzip')) ||
+                    Boolean(Number(requestReceived.response.headers['content-length'])) ||
+                    Boolean(Number(requestReceived.response.headers['Content-Length']))
+            });
+        }
     });
 
-    await page.goto('https://localhost.paypal.com:8080/standalone.html', {
-        waitUntil: 'networkidle2'
-    });
+    await page.goto(
+        `https://${process.env.METRICS_URL || 'localhost.paypal.com:8080/standalone.html'}?env=stage${
+            process.env.STAGE_TAG ? `&stageTag=${process.env.STAGE_TAG}` : ''
+        }`,
+        {
+            waitUntil: 'networkidle2'
+        }
+    );
 
     const resourceMetrics = await page.evaluate(() => {
-        const iframe = document.querySelector('iframe');
-
         return {
-            parentDocument: JSON.stringify(performance.getEntriesByType('resource')),
-            iframe: JSON.stringify(iframe.contentWindow.performance.getEntriesByType('resource'))
+            parentDocument: JSON.stringify(performance.getEntriesByType('resource'))
         };
     });
 
     // Wait for long enough for log request for fire
     await page.waitFor(10000).then(() => {
         const parentDocument = JSON.parse(resourceMetrics.parentDocument);
-        const iframe = JSON.parse(resourceMetrics.iframe);
-
         networkRequests.forEach((requests, index) => {
             stats.total_requests += 1;
+            if (
+                !requests.speed &&
+                responseTimes[requests.url] &&
+                responseTimes[requests.url].start &&
+                responseTimes[requests.url].end
+            ) {
+                const { start, end } = responseTimes[requests.url];
+                networkRequests[index].speed = end - start;
+            }
 
             if (requests.download) {
                 if (requests.encoding === 'gzip') {
-                    [...parentDocument, ...iframe].forEach(performanceRequestData => {
+                    [...parentDocument].forEach(performanceRequestData => {
                         if (requests.url === performanceRequestData.name) {
                             networkRequests[index].size = performanceRequestData.encodedBodySize;
                         }
@@ -101,15 +155,15 @@ const fs = require('fs');
             }
         });
 
-        const largestRequests = networkRequests.sort((a, b) => {
+        const largestRequests = [...networkRequests].sort((a, b) => {
             return b.size - a.size;
         });
         stats.largestRequests = [...largestRequests.splice(0, 3)];
 
-        stats.networkRequests = networkRequests;
+        stats.networkRequests = [...networkRequests];
 
         // stats has speed metric and network request data
-        fs.writeFile(`dist/metrics.json`, JSON.stringify(stats), err => {
+        fs.writeFile('dist/metrics.json', JSON.stringify(stats), err => {
             console.log(err);
         });
     });

@@ -38,7 +38,7 @@
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
-        "benchmark": "DEV_BROWSER=false BENCHMARK=true npm run dev:standalone & BENCHMARK=true webpack --env.analyze && node tools/performance/metrics.js && BENCHMARK=true webpack --env.analyzeComponents && BENCHMARK=true webpack --env.analyzeMessageComponents && node tools/performance/analyze.js"
+        "benchmark": "BENCHMARK=true webpack --env.analyze && STAGE_TAG=grant_test_stage_20211012 node tools/performance/metrics.js && BENCHMARK=true webpack --env.analyzeComponents && BENCHMARK=true webpack --env.analyzeMessageComponents && node tools/performance/analyze.js"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",
