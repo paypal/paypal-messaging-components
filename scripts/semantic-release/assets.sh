@@ -135,6 +135,9 @@ if [ ! -z "$tag" ]; then
     sed -i.bak "s/'$version'/env.VERSION/" ./globals.js
     [[ ! -z "$testEnv" ]] && sed -i.bak "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
 
+    # remove temporary file if it exists
+    rm globals.js.bak &> /dev/null
+    
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"
     echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list"
