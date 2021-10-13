@@ -43,10 +43,10 @@ pipeline {
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                sh '''
-                    OUTPUT=$(web stage --json --tag $STAGE_TAG)
-                    web notify $STAGE_TAG
-                '''
+                    sh '''
+                        OUTPUT=$(web stage --json --tag $STAGE_TAG)
+                        web notify $STAGE_TAG
+                    '''
                 }               
             }
         }
