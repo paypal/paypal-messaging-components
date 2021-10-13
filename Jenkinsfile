@@ -6,7 +6,6 @@ pipeline {
         nodejs 'Node12'
     }
     environment {
-        GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
         STAGE_TAG=sh(returnStdout: true, script: 'echo develop_$(date +%s)').trim()
     }
@@ -16,7 +15,7 @@ pipeline {
             steps {
                 checkout scm
                 sh '''
-                    echo "GIT_BRANCH: $GIT_BRANCH"
+                    echo $GIT_COMMIT_MESSAGE
                     node -v
                     npm -v
                     npm set registry https://npm.paypal.com
@@ -40,13 +39,18 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'channel',
-                        value: "$GIT_BRANCH",
+                        value: "$channel",
                     ],
                     [
                         $class: 'StringParameterValue',
                         name: 'stageTag',
                         value: "$STAGE_TAG",
-                    ]
+                    ],
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'gitCommit',
+                        value: "$GIT_COMMIT_MESSAGE",
+                    ],
                 ],
             )
         }
