@@ -30,11 +30,21 @@ module.exports = {
         collect: {
             numberOfRuns: 3,
             url: [
-                `${process.env.LIGHTHOUSE_URL}/?env=stage&stage_tag=${process.env.STAGE_TAG}`,
-                `${process.env.LIGHTHOUSE_URL}/category/jewelry?env=stage&stage_tag=${process.env.STAGE_TAG}`,
-                `${process.env.LIGHTHOUSE_URL}/product/7?env=stage&stage_tag=${process.env.STAGE_TAG}`,
-                `${process.env.LIGHTHOUSE_URL}/cart?env=stage&stage_tag=${process.env.STAGE_TAG}`,
-                `${process.env.LIGHTHOUSE_URL}/checkout?env=stage&stage_tag=${process.env.STAGE_TAG}`
+                `${process.env.LIGHTHOUSE_URL}/?env=stage${
+                    process.env.STAGE_TAG ? `&stage_tag=${process.env.STAGE_TAG}` : ''
+                }`,
+                `${process.env.LIGHTHOUSE_URL}/category/jewelry?env=stage${
+                    process.env.STAGE_TAG ? `&stage_tag=${process.env.STAGE_TAG}` : ''
+                }`,
+                `${process.env.LIGHTHOUSE_URL}/product/7?env=stage${
+                    process.env.STAGE_TAG ? `&stage_tag=${process.env.STAGE_TAG}` : ''
+                }`,
+                `${process.env.LIGHTHOUSE_URL}/cart?env=stage${
+                    process.env.STAGE_TAG ? `&stage_tag=${process.env.STAGE_TAG}` : ''
+                }`,
+                `${process.env.LIGHTHOUSE_URL}/checkout?env=stage${
+                    process.env.STAGE_TAG ? `&stage_tag=${process.env.STAGE_TAG}` : ''
+                }`
             ],
             settings: {
                 // preset: 'desktop',
