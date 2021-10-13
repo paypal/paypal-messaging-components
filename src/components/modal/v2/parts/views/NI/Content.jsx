@@ -2,11 +2,12 @@
 import { h, Fragment } from 'preact';
 import { useState, useRef } from 'preact/hooks';
 import Button from '../../Button';
+import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import styles from './styles/index.scss';
 import { useApplyNow } from '../../../lib';
 
-export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
+export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLink }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [expandedState] = useState(false);
@@ -41,6 +42,9 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer }) => {
                             });
                             return <li className="content__footer-item">{line}</li>;
                         })}
+                        <li className="content__footer-item">
+                            <ProductListLink>{listLink}</ProductListLink>
+                        </li>
                     </ul>
                 </main>
             </div>

@@ -66,5 +66,32 @@ export default {
                 }
             ]
         }
+    },
+    DEV_US_NI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'ni_um.json',
+                offersTemplate: 'ni.json',
+                product: 'PAYPAL_CREDIT_NO_INTEREST'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'ni.json',
+                product: 'PAYPAL_CREDIT_NO_INTEREST'
+            }
+        ],
+        offers: {
+            PAYPAL_CREDIT_NO_INTEREST: [
+                {
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 9999.99
+                }
+            ]
+        }
     }
 };
