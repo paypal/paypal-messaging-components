@@ -19,7 +19,8 @@ import {
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
-    ppDebug
+    ppDebug,
+    getDevTouchpoint
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -51,6 +52,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'merchant_id',
                 required: false,
                 value: validate.merchantId
+            },
+            customerId: {
+                type: 'string',
+                queryParam: 'customer_id',
+                required: false,
+                value: validate.customerId
             },
             currency: {
                 type: 'string',
@@ -334,11 +341,23 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: getStageTag
             },
+            devTouchpoint: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDevTouchpoint
+            },
             features: {
                 type: 'string',
                 queryParam: true,
                 required: false,
                 value: getFeatures
+            },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => __MESSAGES__.__TARGET__
             }
         }
     })

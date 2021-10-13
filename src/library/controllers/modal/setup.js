@@ -17,9 +17,12 @@ export default function setup() {
             MessagesModal: Modal
         };
 
-        // Don't clear window.paypal if SDK loaded first
-        if (window.paypal && !window.paypal.version) {
-            delete window.paypal;
+        if (window.paypal) {
+            delete window.paypal.MessagesModal;
+
+            if (Object.keys(window.paypal).length === 0) {
+                delete window.paypal;
+            }
         }
     }
 
