@@ -10,42 +10,44 @@ pipeline {
         STAGE_TAG=sh(returnStdout: true, script: 'echo $branch_$(date +%s)').trim()
     }
 
-    withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-        stages {
-            stage('Setup') {
-                steps {
-                    checkout scm
-                    sh '''
-                        echo $GIT_COMMIT_MESSAGE
-                        node -v
-                        npm -v
-                        npm set registry https://npm.paypal.com
-                        npm i -g @paypalcorp/web
-                    '''
+    stages {
+        stage('Setup') {
+            steps {
+                checkout scm
+                sh '''
+                    echo $GIT_COMMIT_MESSAGE
+                    node -v
+                    npm -v
+                    npm set registry https://npm.paypal.com
+                    npm i -g @paypalcorp/web
+                '''
+            }
+        }
+
+        stage('Stage Tag') {
+            when { 
+                not {
+                    branch 'release'
                 }
             }
-
-            stage('Stage Tag') {
-                when { 
-                    not {
-                        branch 'release'
-                    }
-                }
-                steps {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh 'npm run build -- -t $STAGE_TAG'
                 }
             }
+        }
 
-            stage('Deploy') {
-                when { 
-                    branch 'release'
-                }
-                steps {
-                    sh '''
-                        OUTPUT=$(web stage --json --tag $STAGE_TAG)
-                        web notify $STAGE_TAG
-                    '''
-                }
+        stage('Deploy') {
+            when { 
+                branch 'release'
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                sh '''
+                    OUTPUT=$(web stage --json --tag $STAGE_TAG)
+                    web notify $STAGE_TAG
+                '''
+                }               
             }
         }
     }
