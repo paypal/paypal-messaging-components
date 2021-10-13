@@ -71,6 +71,7 @@ export default (options = {}) => ({
                 const {
                     account,
                     merchantId,
+                    customerId,
                     currency,
                     amount,
                     placement,
@@ -88,6 +89,7 @@ export default (options = {}) => ({
                 const commonProps = {
                     account,
                     merchantId,
+                    customerId,
                     currency,
                     amount,
                     buyerCountry,
@@ -133,6 +135,7 @@ export default (options = {}) => ({
                         `{
                     clientID: ${account},
                     merchantID: ${merchantId},
+                    customerID: ${customerId},
                     offer: ${offer},
                     currency: ${currency},
                     ignoreCache: ${ignoreCache},
