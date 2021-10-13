@@ -53,6 +53,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.merchantId
             },
+            customerId: {
+                type: 'string',
+                queryParam: 'customer_id',
+                required: false,
+                value: validate.customerId
+            },
             currency: {
                 type: 'string',
                 queryParam: true,

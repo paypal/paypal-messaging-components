@@ -56,6 +56,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.merchantId
             },
+            customerId: {
+                type: 'string',
+                queryParam: 'customer_id',
+                required: false,
+                value: validate.customerId
+            },
             amount: {
                 type: 'number',
                 queryParam: true,
