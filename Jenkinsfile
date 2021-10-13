@@ -1,5 +1,3 @@
-STAGE_TAG = ""
-
 pipeline {
     agent {
         label 'mesos'
@@ -10,6 +8,7 @@ pipeline {
     environment {
         GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+        STAGE_TAG=sh(returnStdout: true, script: 'echo develop_$(date +%s)').trim()
     }
 
     stages {
@@ -25,10 +24,7 @@ pipeline {
                 '''
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
-                        STAGE_TAG=develop_$(date +%s)
                         npm run build -- -t $STAGE_TAG
-
-                        echo "$STAGE_TAG" > .env
                     '''
                 }
             }
