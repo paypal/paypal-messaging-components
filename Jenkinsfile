@@ -20,6 +20,7 @@ pipeline {
                     npm -v
                     npm set registry https://npm.paypal.com
                     npm i -g @paypalcorp/web
+                    printEnv
                 '''
             }
         }
