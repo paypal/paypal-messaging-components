@@ -79,6 +79,19 @@ export default {
 
         return undefined;
     },
+    customerId: ({ props: { customerId } }) => {
+        if (typeof customerId !== 'undefined') {
+            if (!validateType(Types.STRING, customerId)) {
+                logInvalidType('customerId', Types.STRING, customerId);
+            } else if (customerId.length !== 13 && customerId.length !== 10) {
+                logInvalid('customerId', 'Ensure the correct Merchant ID has been entered.');
+            } else {
+                return customerId;
+            }
+        }
+
+        return undefined;
+    },
     amount: ({ props: { amount } }) => {
         if (typeof amount !== 'undefined') {
             const numberAmount = Number(amount);
