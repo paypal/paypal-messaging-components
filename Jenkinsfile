@@ -1,3 +1,5 @@
+STAGE_TAG = ""
+
 pipeline {
     agent {
         label 'mesos'
@@ -47,7 +49,7 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'stageTag',
-                        value: sh(returnStdout: true. script='cat .env').trim(),
+                        value: "$STAGE_TAG",
                     ]
                 ],
             )
