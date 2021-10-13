@@ -74,6 +74,9 @@
                 font-size: 14px;
                 margin: 0 0 $line-height 0;
                 color: $tertiary-foreground;
+                .product-list-link {
+                    padding: 0px;
+                }
             }
         }
     }
