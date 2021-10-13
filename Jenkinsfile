@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        STAGE_TAG=sh(returnStdout: true, script: 'echo ${BRANCH_NAME}_$(date +%s)').trim()
+        STAGE_TAG=sh(returnStdout: true, script: 'echo ${GIT_BRANCH:7}_$(date +%s)').trim()
     }
 
     stages {
@@ -20,7 +20,6 @@ pipeline {
                     npm -v
                     npm set registry https://npm.paypal.com
                     npm i -g @paypalcorp/web
-                    printenv
                 '''
             }
         }
@@ -62,7 +61,7 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'channel',
-                        value: "$BRANCH_NAME",
+                        value: "${GIT_BRANCH:7}",
                     ],
                     [
                         $class: 'StringParameterValue',
