@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        STAGE_TAG=sh(returnStdout: true, script: 'echo $channel_$(date +%s)').trim()
+        STAGE_TAG=sh(returnStdout: true, script: 'echo $branch_$(date +%s)').trim()
     }
 
     stages {
