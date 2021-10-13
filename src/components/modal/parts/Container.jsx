@@ -29,7 +29,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             // eslint-disable-next-line no-param-reassign
             contentWrapper.current.scrollTop = 0;
         } else if (transitionState === 'OPEN') {
-            window.focus();
+            window.requestAnimationFrame(() => {
+                window.document.querySelector('#close-btn').focus();
+            });
         }
     }, [transitionState]);
 
