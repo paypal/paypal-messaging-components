@@ -37,6 +37,10 @@ module.exports = {
                 `${process.env.LIGHTHOUSE_URL}/checkout?stage_tag=${process.env.ARG}`
             ],
             settings: {
+                // preset: 'desktop',
+                output: 'json',
+                maxWaitForLoad: 10000,
+                chromeFlags: '--no-sandbox --disable-storage-reset --disable-dev-shm-usage --in-process-gpu',
                 formFactor: 'mobile',
                 throttling: mobileRegular3G,
                 screenEmulation: MOTOG4_EMULATION_METRICS,
