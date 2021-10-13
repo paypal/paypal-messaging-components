@@ -1,8 +1,15 @@
 .product-list-link {
     display: flex;
-    justify-content: center;
-    align-content: center;
+    border: none;
+    background: transparent;
     padding: 1em 0;
+    min-width: 315px;
+    @include desktop {
+        padding-left: 30px;
+    }
+    @include tablet {
+        margin: 0 auto;
+    }
     a {
         cursor: pointer;
     }
