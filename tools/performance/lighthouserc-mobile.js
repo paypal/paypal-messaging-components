@@ -30,11 +30,11 @@ module.exports = {
         collect: {
             numberOfRuns: 3,
             url: [
-                `${process.env.LIGHTHOUSE_URL}/?stage_tag=${process.env.ARG}`,
-                `${process.env.LIGHTHOUSE_URL}/category/jewelry?stage_tag=${process.env.ARG}`,
-                `${process.env.LIGHTHOUSE_URL}/product/7?stage_tag=${process.env.ARG}`,
-                `${process.env.LIGHTHOUSE_URL}/cart?stage_tag=${process.env.ARG}`,
-                `${process.env.LIGHTHOUSE_URL}/checkout?stage_tag=${process.env.ARG}`
+                `${process.env.LIGHTHOUSE_URL}/?env=stage&stage_tag=${process.env.STAGE_TAG}`,
+                `${process.env.LIGHTHOUSE_URL}/category/jewelry?env=stage&stage_tag=${process.env.STAGE_TAG}`,
+                `${process.env.LIGHTHOUSE_URL}/product/7?env=stage&stage_tag=${process.env.STAGE_TAG}`,
+                `${process.env.LIGHTHOUSE_URL}/cart?env=stage&stage_tag=${process.env.STAGE_TAG}`,
+                `${process.env.LIGHTHOUSE_URL}/checkout?env=stage&stage_tag=${process.env.STAGE_TAG}`
             ],
             settings: {
                 // preset: 'desktop',
