@@ -11,19 +11,39 @@ pipeline {
     }
 
     stages {
-        stage('Stage Tag') {
-            steps {
-                checkout scm
-                sh '''
-                    echo $GIT_COMMIT_MESSAGE
-                    node -v
-                    npm -v
-                    npm set registry https://npm.paypal.com
-                    npm i -g @paypalcorp/web
-                '''
-                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+            stage('Setup') {
+                steps {
+                    checkout scm
                     sh '''
-                        npm run build -- -t $STAGE_TAG
+                        echo $GIT_COMMIT_MESSAGE
+                        node -v
+                        npm -v
+                        npm set registry https://npm.paypal.com
+                        npm i -g @paypalcorp/web
+                    '''
+                }
+            }
+
+            stage('Stage Tag') {
+                when { 
+                    not {
+                        branch 'release'
+                    }
+                }
+                steps {
+                    sh 'npm run build -- -t $STAGE_TAG'
+                }
+            }
+
+            stage('Deploy') {
+                when { 
+                    branch 'release'
+                }
+                steps {
+                    sh '''
+                        OUTPUT=$(web stage --json --tag $STAGE_TAG)
+                        web notify $STAGE_TAG
                     '''
                 }
             }
@@ -39,7 +59,7 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'channel',
-                        value: "$channel",
+                        value: "$branch",
                     ],
                     [
                         $class: 'StringParameterValue',
