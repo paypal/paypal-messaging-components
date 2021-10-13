@@ -90,7 +90,7 @@ export default ({ doc, props, event }) => {
             position: relative !important;
         }
         .close-button > button {
-            background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
+             background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
             background-color: transparent;
             width: 44px;
             height: 44px;
@@ -99,9 +99,8 @@ export default ({ doc, props, event }) => {
             border: none;
             cursor: pointer;
             position: absolute;
-            top: 12px;
             z-index: 50;
-            right: 10px;
+            right: 0;
         }
 
         .error{
@@ -119,7 +118,6 @@ export default ({ doc, props, event }) => {
                 overflow-y: hidden;
             }
             .modal-content {
-                margin-top: 84px;
                 height: calc(100% - 84px);
                 
             }
