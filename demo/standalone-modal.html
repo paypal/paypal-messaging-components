@@ -12,8 +12,7 @@
         <script>
             window.credit
                 .Modal({
-                    account: 'DEV000000USLT',
-                    // account: 'DEV000000UMNI',
+                    account: 'DEV_US_MULTI',
                     onReady: ({ show }) => {
                         document.querySelector('#modal').addEventListener('click', () => {
                             show();
@@ -21,11 +20,6 @@
                     }
                 })
                 .render('#modal');
-            setTimeout(() => {
-                const btn = document.querySelector('#modal');
-                console.log('btn', btn);
-                btn.click();
-            }, 2000);
         </script>
     </body>
 </html>

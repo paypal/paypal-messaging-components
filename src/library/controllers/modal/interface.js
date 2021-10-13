@@ -20,6 +20,7 @@ const memoizedModal = memoizeOnProps(
     ({
         account,
         merchantId,
+        customerId,
         currency,
         amount,
         buyerCountry,
@@ -35,6 +36,7 @@ const memoizedModal = memoizeOnProps(
         const { render, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
+            customerId,
             currency,
             amount,
             buyerCountry,

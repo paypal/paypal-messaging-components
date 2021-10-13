@@ -13,8 +13,8 @@ const ContentWrapper = () => {
 
     let product;
 
-    if (useServerData()?.products?.length > 0) {
-        product = useServerData().products[0].meta.product;
+    if (useServerData()?.views?.length > 0) {
+        product = useServerData().views[0].meta.product;
     }
 
     const { headline, subheadline } = useContent(product);
