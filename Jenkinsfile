@@ -35,6 +35,7 @@ pipeline {
         always {
             build(
                 job: 'notifications',
+                wait: false,
                 parameters: [
                     [
                         $class: 'StringParameterValue',
