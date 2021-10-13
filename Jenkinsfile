@@ -33,9 +33,7 @@ pipeline {
 
     post {
         always {
-            step([$class: 'Mailer']) {
-                recipients 'rygilbert@paypal.com'
-            }
+            step([$class: 'Mailer', recipients: 'rygilbert@paypal.com'])
         }
     }
 }
