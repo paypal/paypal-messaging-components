@@ -85,6 +85,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: false,
                 required: false
             },
+            ignoreCache: {
+                type: 'boolean',
+                queryParam: 'ignore_cache',
+                required: false,
+                value: validate.ignoreCache
+            },
 
             // Callbacks
             onClick: {
@@ -319,7 +325,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             debug: {
                 type: 'boolean',
                 queryParam: 'pp_debug',
-                value: () => /(\?|&)pp_debug=true(&|$)/.test(window.location.search)
+                required: false,
+                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : undefined)
             },
             stageTag: {
                 type: 'string',
