@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Modal.js Dev Sandbox</title>
+        <title>Standalone Modal Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <script src="//localhost.paypal.com:8080/modal.js"></script>
     </head>
-
     <body>
-        <button id="modal">Click me</button>
+        <button class="learn-more">Learn more</button>
         <script>
-            paypal
-                .MessagesModal({
-                    account: 'DEV_US_MULTI',
-                    // account: 'DEV_US_NI',
-                    onReady: ({ show }) => {
-                        document.querySelector('#modal').addEventListener('click', () => {
-                            show();
-                        });
-                    }
-                })
-                .render('#modal');
+            const modal = window.paypal.MessagesModal({
+                account: 'DEV_US_MULTI',
+                // account: 'DEV_US_NI',
+            });
+            document.querySelector('.learn-more').addEventListener('click', () => {
+                modal.show();
+            });
         </script>
     </body>
 </html>
