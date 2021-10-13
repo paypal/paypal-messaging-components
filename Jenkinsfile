@@ -31,10 +31,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-
-        }
-    }
 }
