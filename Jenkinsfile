@@ -33,7 +33,21 @@ pipeline {
 
     post {
         always {
-            step([$class: 'Mailer', recipients: 'rygilbert@paypal.com'])
+            build(
+                job: 'notifications',
+                parameters: [
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'channel',
+                        value: "$GIT_BRANCH",
+                    ],
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'stageTag',
+                        value: "$STAGE_TAG",
+                    ]
+                ],
+            )
         }
     }
 }
