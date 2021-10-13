@@ -3,7 +3,7 @@ pipeline {
         label 'mesos'
     }
     tools {
-        nodejs 'Node10'
+        nodejs 'Node12'
     }
     environment {
         GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
@@ -44,7 +44,7 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'stageTag',
-                        value: "$STAGE_TAG",
+                        value: "${env.STAGE_TAG}",
                     ]
                 ],
             )
