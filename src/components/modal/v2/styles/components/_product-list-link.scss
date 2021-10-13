@@ -1,10 +1,20 @@
 .product-list-link {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 1em 0;
-    background-color: transparent;
     border: none;
+    background: transparent;
+    padding: 1em 0;
+    @include desktop {
+        display: flex;
+        padding-left: 30px;
+    }
+    @include tablet {
+        display: flex;
+        width: 315px;
+        margin: 0 auto;
+    }
+    @include mobile {
+        display: flex;
+        width: 315px;
+    }
     a {
         cursor: pointer;
     }
