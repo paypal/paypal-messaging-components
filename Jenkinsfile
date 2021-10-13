@@ -23,10 +23,19 @@ pipeline {
                 '''
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
-                        npm run build -- -t develop_$(date +%s)
-                        OUTPUT=$(web stage --json)
-                        BUNDLE_ID=$(node -e 'console.log(JSON.parse(process.argv[1]).id)' "$OUTPUT")
+                        STAGE_TAG=develop_$(date +%s)
+                        npm run build -- -t $STAGE_TAG
                     '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            steps {
+                step([$class: 'Mailer']) {
+                    recipients 'rygilbert@paypal.com'
                 }
             }
         }
