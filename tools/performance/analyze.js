@@ -98,7 +98,7 @@ html += `</table>`;
 // html += `<code>${JSON.stringify([messagesReport[0].groups[0].groups[0], ...messagingCompReport, ...componentsReport, metricsReport])}<code>`
 html += `</body></html>`;
 
-fs.writeFile(`${basePath}/dist/performanceData.html`, html, err => {
+fs.writeFile(`${basePath}/dist/performanceData${new Date().toISOString()}.html`, html, err => {
     if (err) {
         console.log('Error occured when writting performanceData.html');
     } else {

@@ -18,7 +18,8 @@ const { PerformanceObserver, performance } = require('perf_hooks');
         headless: true,
         // executablePath: process.env.puppeteerPath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         ignoreHTTPSErrors: true,
-        devtools: false
+        devtools: false,
+        args: ['--no-sandbox']
     });
 
     const page = await browser.newPage();
