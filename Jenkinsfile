@@ -10,8 +10,8 @@ pipeline {
         STAGE_TAG=sh(returnStdout: true, script: 'echo $branch_$(date +%s)').trim()
     }
 
-    stages {
-        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+    withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+        stages {
             stage('Setup') {
                 steps {
                     checkout scm
