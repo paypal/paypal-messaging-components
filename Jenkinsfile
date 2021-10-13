@@ -3,7 +3,7 @@ pipeline {
         label 'mesos'
     }
     tools {
-        nodejs 'Node12'
+        nodejs 'Node10'
     }
     environment {
         GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
@@ -29,6 +29,12 @@ pipeline {
                     '''
                 }
             }
+        }
+    }
+
+    post {
+        always {
+
         }
     }
 }
