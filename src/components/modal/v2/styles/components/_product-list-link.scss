@@ -1,19 +1,14 @@
 .product-list-link {
+    display: flex;
     border: none;
     background: transparent;
     padding: 1em 0;
+    min-width: 315px;
     @include desktop {
-        display: flex;
         padding-left: 30px;
     }
     @include tablet {
-        display: flex;
-        width: 315px;
         margin: 0 auto;
-    }
-    @include mobile {
-        display: flex;
-        width: 315px;
     }
     a {
         cursor: pointer;
