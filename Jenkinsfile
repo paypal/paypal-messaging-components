@@ -25,6 +25,8 @@ pipeline {
                     sh '''
                         STAGE_TAG=develop_$(date +%s)
                         npm run build -- -t $STAGE_TAG
+
+                        echo "$STAGE_TAG" > .env
                     '''
                 }
             }
@@ -45,7 +47,7 @@ pipeline {
                     [
                         $class: 'StringParameterValue',
                         name: 'stageTag',
-                        value: "${env.STAGE_TAG}",
+                        value: sh(returnStdout: true. script='cat .env').trim(),
                     ]
                 ],
             )
