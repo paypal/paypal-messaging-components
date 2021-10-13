@@ -15,7 +15,7 @@ const messagingCompReport = JSON.parse(
 const metricsReport = JSON.parse(fs.readFileSync(`${basePath}/dist/metrics.json`, { encoding: 'utf8' }));
 
 const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
-const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Gzipped</td></tr>`;
+const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
 const speedHeadings = `<tr><td>URL</td><td>Time in MS</td></tr>`;
 
 // Node Modules
@@ -35,22 +35,32 @@ const largestFiles = [...componentsReport, ...messagingCompReport]
         return b.gzipSize - a.gzipSize;
     })
     .splice(0, 3)
-    .map(files => `<tr><td>${files.label}</td><td>${files.parsedSize}</td><td>${files.gzipSize}</td></tr>`)
+    .map(files => `<tr><td><div>${files.label}</div></td><td>${files.parsedSize}</td><td>${files.gzipSize}</td></tr>`)
     .join('');
 
 // Speed Metrics and Network Requests
 const largestRequests = metricsReport.largestRequests
-    .map(files => `<tr><td>${files.url}</td><td>${files.encoding}</td><td>${files.size}</td></tr>`)
+    .map(files => `<tr><td><div>${files.url}</div></td><td>${files.encoding}</td><td>${files.size}</td></tr>`)
     .join('');
 
 const networkRequests = metricsReport.networkRequests
-    .map(files => `<tr><td>${files.url.split('?')[0]}</td><td>${files.speed.toFixed(4)}</td>`)
+    .map(files => `<tr><td><div>${files.url.split('?')[0]}</div></td><td>${files.speed.toFixed(4)}</td>`)
     .join('');
 
 let html = `<html>
 <head>
 <title>Performance Benchmark</title>
-<style>td:first-of-type{min-width: 250px; padding-right: 0;}td{padding: 0.25rem 0.45rem; }</style>
+<style>
+    td:first-of-type {
+        min-width: 250px; 
+        max-width:500px; 
+        overflow: auto;
+        padding-right: 1rem;
+    }
+    td {
+        padding: 0.25rem 0.45rem; 
+    }
+</style>
 </head><body>`;
 html += `<div>${new Date().toDateString()}</div>`;
 
