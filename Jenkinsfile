@@ -69,7 +69,7 @@ pipeline {
     post {
         success {
             emailext(
-                recipientProviders: ['recipients'],
+                recipientProviders: [recipients()],
                 subject: 'paypal-messaging-components - ${BRANCH_NAME} - Build #${env.BUILD_NUMBER} - SUCCESS!',
                 body: '''
                     Build Succeeded!<br />
