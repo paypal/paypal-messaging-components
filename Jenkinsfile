@@ -8,7 +8,7 @@ pipeline {
     environment {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        STAGE_TAG = sh(returnStdout: true, script: 'echo ${BRANCH_NAME}_$(date +%s)').trim()
+        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g")_$(date +%s)').trim()
     }
 
     stages {
