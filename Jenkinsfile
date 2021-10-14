@@ -8,7 +8,7 @@ pipeline {
     environment {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g")_$(date +%s)').trim()
+        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g" | sed "s/-/_/g")_$(date +%s)').trim()
     }
 
     stages {
@@ -73,6 +73,27 @@ pipeline {
                         $class: 'StringParameterValue',
                         name: 'gitCommit',
                         value: "$GIT_COMMIT_MESSAGE",
+                    ],
+                    
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'buildStatus',
+                        value: currentBuild.result
+                    ],
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'buildNumber',
+                        value: "${env.BUILD_NUMBER}",
+                    ],
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'buildNumber',
+                        value: "${env.BUILD_NUMBER}",
+                    ],
+                    [
+                        $class: 'StringParameterValue',
+                        name: 'buildUrl',
+                        value: "${env.BUILD_URL}",
                     ],
                 ],
             )
