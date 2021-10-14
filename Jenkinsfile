@@ -48,7 +48,7 @@ pipeline {
                         OUTPUT=$(web stage --json --tag $STAGE_TAG)
                         web notify $STAGE_TAG
                     '''
-                }               
+                }
             }
         }
     }
