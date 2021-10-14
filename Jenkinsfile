@@ -41,7 +41,6 @@ pipeline {
                 }
                 sh '''
                     echo "
-                        ${GIT_COMMIT_MESSAGE}<br />
                         Stage Tag: ${STAGE_TAG}<br />
                         Test Page: ${TEST_URL}${STAGE_TAG}
                     " > output
@@ -74,6 +73,8 @@ pipeline {
                 body: '''
                     Build Succeeded!<br />
                     <br />
+                    ${GIT_COMMIT_MESSAGE}<br />
+                    Build URL: ${env.BUILD_URL}<br />
                     ${FILE,path="output"}<br />
                     <br />
                     Regards,<br />
