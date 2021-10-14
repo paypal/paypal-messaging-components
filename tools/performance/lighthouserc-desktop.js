@@ -52,7 +52,8 @@ module.exports = {
             psiStrategy: 'desktop'
         },
         upload: {
-            target: 'temporary-public-storage'
+            target: 'filesystem',
+            reportFilenamePattern: 'desktop-%%HOSTNAME%%-%%PATHNAME%%-%%DATETIME%%.report.%%EXTENSION%%'
         }
     }
 };

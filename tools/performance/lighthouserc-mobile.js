@@ -58,7 +58,8 @@ module.exports = {
             psiStrategy: 'mobile'
         },
         upload: {
-            target: 'temporary-public-storage'
+            target: 'filesystem',
+            reportFilenamePattern: 'mobile-%%HOSTNAME%%-%%PATHNAME%%-%%DATETIME%%.report.%%EXTENSION%%'
         }
     }
 };
