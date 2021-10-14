@@ -39,6 +39,16 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh 'npm run build -- -t $STAGE_TAG'
                 }
+                sh '''
+                    # create a file with some info to be included in the email notification
+                    echo "
+                        $GIT_COMMIT_MESSAGE<br />
+                        Build URL: ${env.BUILD_URL}<br />
+                        Stage Tag: $STAGE_TAG<br />
+                        Test Page: $TEST_URL$STAGE_TAG
+                    " > output
+                    fi
+                '''
             }
         }
 
@@ -58,50 +68,20 @@ pipeline {
         }
     }
 
-    // Forward build information to another Jenkins job to handle build notifications
+    // Send email notification
     post {
-        always {
-            build(
-                job: 'notifications',
-                wait: false,
-                parameters: [
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'channel',
-                        value: "$BRANCH_NAME",
-                    ],
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'stageTag',
-                        value: "$STAGE_TAG",
-                    ],
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'gitCommit',
-                        value: "$GIT_COMMIT_MESSAGE",
-                    ],
-                    
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'buildStatus',
-                        value: currentBuild.result
-                    ],
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'buildNumber',
-                        value: "${env.BUILD_NUMBER}",
-                    ],
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'buildNumber',
-                        value: "${env.BUILD_NUMBER}",
-                    ],
-                    [
-                        $class: 'StringParameterValue',
-                        name: 'buildUrl',
-                        value: "${env.BUILD_URL}",
-                    ],
-                ],
+        success {
+            emailext(
+                recipientProviders: ['recipients'],
+                subject: 'paypal-messaging-components - ${BRANCH_NAME} - Build #${env.BUILD_NUMBER} - SUCCESS!',
+                body: '''
+                    Build Succeeded!<br />
+                    <br />
+                    ${FILE,path="output"}<br />
+                    <br />
+                    Regards,<br />
+                    Your friendly neighborhood digital butler
+                '''
             )
         }
     }
