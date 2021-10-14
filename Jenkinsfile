@@ -42,12 +42,11 @@ pipeline {
                 sh '''
                     # create a file with some info to be included in the email notification
                     echo "
-                        $GIT_COMMIT_MESSAGE<br />
+                        ${GIT_COMMIT_MESSAGE}<br />
                         Build URL: ${env.BUILD_URL}<br />
-                        Stage Tag: $STAGE_TAG<br />
-                        Test Page: $TEST_URL$STAGE_TAG
+                        Stage Tag: ${STAGE_TAG}<br />
+                        Test Page: ${TEST_URL}${STAGE_TAG}
                     " > output
-                    fi
                 '''
             }
         }
