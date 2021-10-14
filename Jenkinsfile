@@ -2,9 +2,12 @@ pipeline {
     agent {
         label 'mesos'
     }
+    
     tools {
         nodejs 'Node12'
     }
+
+    // STAGE_TAG will be {branch_name}_{timestamp}
     environment {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
@@ -25,6 +28,7 @@ pipeline {
             }
         }
 
+        // For non-release, auto-generate a stage build
         stage('Stage Tag') {
             when { 
                 not {
@@ -38,6 +42,7 @@ pipeline {
             }
         }
 
+        // For release, stage existing build assets and send notification
         stage('Deploy') {
             when { 
                 branch 'release'
@@ -53,6 +58,7 @@ pipeline {
         }
     }
 
+    // Forward build information to another Jenkins job to handle build notifications
     post {
         always {
             build(
