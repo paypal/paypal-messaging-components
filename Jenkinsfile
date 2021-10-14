@@ -77,7 +77,7 @@ pipeline {
                     <br />
                     ${GIT_COMMIT_MESSAGE}<br />
                     Build URL: ${env.BUILD_URL}<br />
-                    ${FILE,path="output"}<br />
+                    \${FILE,path="output"}<br />
                     <br />
                     Regards,<br />
                     Your friendly neighborhood digital butler
