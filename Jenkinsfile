@@ -68,10 +68,11 @@ pipeline {
     post {
         success {
             emailext(
+                mimeType: 'text/html',
                 // Single quotes on this so the variable makes it to the email plugin instead of Jenkins trying to replace
                 to: '$DEFAULT_RECIPIENTS',
-                subject: 'paypal-messaging-components - ${BRANCH_NAME} - Build #${env.BUILD_NUMBER} - SUCCESS!',
-                body: '''
+                subject: "paypal-messaging-components - ${BRANCH_NAME} - Build #${env.BUILD_NUMBER} - SUCCESS!",
+                body: "
                     Build Succeeded!<br />
                     <br />
                     ${GIT_COMMIT_MESSAGE}<br />
@@ -80,7 +81,7 @@ pipeline {
                     <br />
                     Regards,<br />
                     Your friendly neighborhood digital butler
-                '''
+                "
             )
         }
     }
