@@ -21,7 +21,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                checkout scm(git(branches: "$BRANCH"))
+                checkout scm
                 sh '''
                     echo $GIT_COMMIT_MESSAGE
                     node -v
