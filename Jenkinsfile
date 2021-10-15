@@ -11,7 +11,11 @@ pipeline {
     environment {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g" | sed "s/-/_/g")_$(date +%s)').trim()
+        // sed commands in order:
+        // remove origin/ from the branch name
+        // replace any hyphens (-) with underscores (_)
+        // shorten to 18 characters to allow space for the timestamp at the end
+        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g" | sed "s/-/_/g" | sed -e "s/(.{18}).*/$1/g")_$(date +%s)').trim()
     }
 
     stages {
@@ -37,7 +41,7 @@ pipeline {
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                    sh 'npm run build -- -t $STAGE_TAG'
+                    sh 'npm run build -- -t $STAGE_TAG -s TEST_ENV'
                 }
                 sh '''
                     echo "
