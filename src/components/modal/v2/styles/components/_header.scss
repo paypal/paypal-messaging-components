@@ -12,7 +12,6 @@
     }
 
     &__container {
-        background-color: $header-background;
         position: relative;
 
         @include desktop {
@@ -29,6 +28,16 @@
         }
     }
 
+    &__background-wrapper {
+        position: absolute;
+        z-index: -9;
+
+        svg {
+            width: 900px;
+            transform: translate(0, -30%);
+        }
+    }
+
     &__icons {
         justify-content: space-between;
         margin: auto;
@@ -37,6 +46,16 @@
         height: auto;
         text-align: center;
 
+        &.unsticky,
+        &.sticky {
+            @include desktop {
+                display: none;
+            }
+            @include tablet {
+                display: none;
+            }
+        }
+
         @include desktop {
             display: flex;
             flex-direction: column-reverse;
@@ -44,6 +63,54 @@
         @include tablet {
             display: flex;
             flex-direction: column-reverse;
+        }
+
+        // scroll sticky styles
+        @include mobile {
+            &.sticky {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                animation-name: slide;
+                animation-duration: 0.45s;
+                animation-timing-function: ease;
+                animation-fill-mode: forwards;
+                transform: translate(0, -54px);
+                background-color: $header-background;
+            }
+
+            &.unsticky {
+                position: fixed;
+                width: 100%;
+                top: 0px;
+                animation-name: unsticky;
+                animation-duration: 0.3s;
+                animation-timing-function: ease;
+                animation-fill-mode: forwards;
+                transform: translate(0, -54px);
+            }
+
+            @keyframes slide {
+                0% {
+                    transform: translate(0, -54px);
+                    opacity: 0.25;
+                }
+                100% {
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes unsticky {
+                0% {
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+                99% {
+                    transform: translate(0, -54px);
+                    opacity: 0;
+                }
+            }
         }
 
         .logo {
@@ -61,7 +128,7 @@
                 }
 
                 @include tablet {
-                    padding: 25px 25px 0px;
+                    padding: 0px 25px 0px;
                     display: flex;
                     justify-content: center;
                 }
@@ -75,6 +142,10 @@
                         }
 
                         @include tablet {
+                            height: 40px;
+                        }
+
+                        @include mobile {
                             height: 35px;
                         }
                     }
@@ -86,8 +157,9 @@
             top: 5px;
             right: 5px;
             pointer-events: all;
-            background: #142c8e;
+            background: transparent;
             border: none;
+            cursor: pointer;
 
             @include desktop {
                 display: flex;
@@ -112,7 +184,7 @@
                 }
 
                 path {
-                    stroke: #f589d0 !important;
+                    stroke: white !important;
                     stroke-width: 2.2;
                 }
             }
@@ -129,7 +201,7 @@
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             line-height: 36px;
             text-align: left;
             color: white;
@@ -137,7 +209,7 @@
         }
 
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 24px;
             text-align: left;
             color: white;
