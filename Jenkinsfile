@@ -43,13 +43,6 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh 'npm run build -- -t $STAGE_TAG -s $TEST_ENV'
                 }
-                sh '''
-                    echo "
-                        Stage Tag: ${STAGE_TAG}<br />
-                        CDN Bundle: https://UIDeploy--StaticContent--${STAGE_TAG}--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list<br />
-                        Test Page: ${TEST_URL}${STAGE_TAG}
-                    " > output
-                '''
             }
         }
 
@@ -83,7 +76,9 @@ pipeline {
                     <br />
                     ${GIT_COMMIT_MESSAGE}<br />
                     Build URL: ${env.BUILD_URL}<br />
-                    \${FILE,path="output"}<br />
+                    Stage Tag: ${STAGE_TAG}<br />
+                    CDN Bundle: https://UIDeploy--StaticContent--${STAGE_TAG}--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list<br />
+                    Test Page: ${TEST_URL}${STAGE_TAG}<br />
                     <br />
                     Regards,<br />
                     Your friendly neighborhood digital butler
