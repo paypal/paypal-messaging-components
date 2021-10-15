@@ -122,5 +122,11 @@ module.exports = (env = {}) => {
         vars: globals(env)
     });
 
+    if (process.env.BENCHMARK === 'true') {
+        setTimeout(() => {
+            process.exit();
+        }, 60000);
+    }
+
     return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, MESSAGING_DEV_COMPONENTS_CONFIG, RENDERING_DEV_CONFIG];
 };

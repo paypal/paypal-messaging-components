@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.26.6",
+    "version": "1.26.2",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -23,6 +23,8 @@
         "build:sandbox": "webpack --env.NODE_ENV=sandbox",
         "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
+        "build:analyzeComponents": "webpack --env.analyzeComponents",
+        "build:analyzeMComponents": "webpack --env.analyzeMessageComponents",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
@@ -35,7 +37,8 @@
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
-        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot"
+        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
+        "benchmark": "BENCHMARK=true webpack --env.analyze && STAGE_TAG=grant_test_stage_20211012 node tools/performance/metrics.js && BENCHMARK=true webpack --env.analyzeComponents && BENCHMARK=true webpack --env.analyzeMessageComponents && node tools/performance/compile.js"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",
