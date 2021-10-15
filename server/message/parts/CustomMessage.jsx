@@ -55,7 +55,6 @@ const CustomMessage = ({ children, data, meta, template }) => {
             <div
                 role="button"
                 className={`message ${offerTypeClass}`}
-                tabIndex="0"
                 dangerouslySetInnerHTML={{ __html: populatedMarkup }}
             />
             {/* eslint-enable react/no-danger, jsx-a11y/control-has-associated-label */}
