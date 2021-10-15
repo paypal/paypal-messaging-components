@@ -46,6 +46,7 @@ pipeline {
                 sh '''
                     echo "
                         Stage Tag: ${STAGE_TAG}<br />
+                        CDN Bundle: https://UIDeploy--StaticContent--${STAGE_TAG}--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list<br />
                         Test Page: ${TEST_URL}${STAGE_TAG}
                     " > output
                 '''
