@@ -59,7 +59,8 @@ module.exports = {
         },
         upload: {
             target: 'filesystem',
-            reportFilenamePattern: 'mobile-%%HOSTNAME%%-%%PATHNAME%%-%%DATETIME%%.report.%%EXTENSION%%'
+            outputDir: 'dist',
+            reportFilenamePattern: 'mobile-report-%%PATHNAME%%-%%DATETIME%%.%%EXTENSION%%'
         }
     }
 };

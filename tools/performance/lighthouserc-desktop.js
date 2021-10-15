@@ -53,7 +53,8 @@ module.exports = {
         },
         upload: {
             target: 'filesystem',
-            reportFilenamePattern: 'desktop-%%HOSTNAME%%-%%PATHNAME%%-%%DATETIME%%.report.%%EXTENSION%%'
+            outputDir: 'dist',
+            reportFilenamePattern: 'desktop-report-%%PATHNAME%%-%%DATETIME%%.%%EXTENSION%%'
         }
     }
 };

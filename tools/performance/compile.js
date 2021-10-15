@@ -13,10 +13,27 @@ const messagingCompReport = JSON.parse(
     fs.readFileSync(`${basePath}/dist/messagingCompReport.json`, { encoding: 'utf8' })
 );
 const metricsReport = JSON.parse(fs.readFileSync(`${basePath}/dist/metrics.json`, { encoding: 'utf8' }));
+const lightHouseReport = JSON.parse(fs.readFileSync(`${basePath}/dist/lighthouseScores.json`, { encoding: 'utf8' }));
 
 const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
 const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
 const speedHeadings = `<tr><td>URL</td><td>Time in MS</td></tr>`;
+const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>Seo</td></tr>`;
+
+const { desktopAverageScores, mobileAverageScores } = lightHouseReport;
+
+const desktopLighthouse = Object.keys(desktopAverageScores)
+    .map(
+        score =>
+            `<tr><td>${score}</td><td>${desktopAverageScores[score].performance}</td><td>${desktopAverageScores[score].accessibility}</td><td>${desktopAverageScores[score].bestPractices}</td><td>${desktopAverageScores[score].seo}</td></tr>`
+    )
+    .join('');
+const mobileLighthouse = Object.keys(mobileAverageScores)
+    .map(
+        score =>
+            `<tr><td>${score}</td><td>${mobileAverageScores[score].performance}</td><td>${mobileAverageScores[score].accessibility}</td><td>${mobileAverageScores[score].bestPractices}</td><td>${mobileAverageScores[score].seo}</td></tr>`
+    )
+    .join('');
 
 // Node Modules
 // console.log('largest npm', messagesReport[0].groups[0].groups[0].label);
@@ -63,6 +80,18 @@ let html = `<html>
 </style>
 </head><body>`;
 html += `<div>${new Date().toDateString()}</div>`;
+
+html += `<h2>Lighthouse Scores</h2>`;
+html += `<h3>Desktop</h3>`;
+html += `<table>`;
+html += lighthouseHeadings;
+html += desktopLighthouse;
+html += `</table>`;
+html += `<h3>Mobile</h3>`;
+html += `<table>`;
+html += lighthouseHeadings;
+html += mobileLighthouse;
+html += `</table>`;
 
 html += `<h2>NPM Modules</h2>`;
 html += `<table><tr><td>Largest</td><td>${messagesReport[0].groups[0].groups[0].label}</td></tr></table>`;
