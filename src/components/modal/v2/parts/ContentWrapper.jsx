@@ -10,6 +10,7 @@ import { LongTerm } from './views';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
+    const contentBodyRef = useRef();
 
     let product;
 
@@ -21,7 +22,7 @@ const ContentWrapper = () => {
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
-        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} />
+        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />
     };
 
     return (
@@ -29,7 +30,13 @@ const ContentWrapper = () => {
             <Overlay />
             <div className="content__wrapper" ref={contentWrapper}>
                 <div className="content__background">
-                    <Header logo="logo" headline={headline} subheadline={subheadline} />
+                    <Header
+                        logo="logo"
+                        headline={headline}
+                        subheadline={subheadline}
+                        contentWrapper={contentWrapper}
+                        contentBodyRef={contentBodyRef}
+                    />
                     {productView[product]}
                 </div>
             </div>

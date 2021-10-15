@@ -52,14 +52,6 @@ const Icon = ({ name, color }) => {
                     />
                 </svg>
             );
-        case 'pay-monthly-image':
-            return (
-                <img
-                    alt="temporary"
-                    style={{ width: '100%' }}
-                    src="https://preview.redd.it/7c2gaheiowu31.png?auto=webp&s=5581d6fd2c0769db69c5e71e1d9938866aabb7fc"
-                />
-            );
         case 'pay-monthly-temp-image':
             return (
                 <img
@@ -70,63 +62,95 @@ const Icon = ({ name, color }) => {
             );
         case 'header-background':
             return (
-                <svg width="1920" height="1380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#a)">
-                        <path fill="#1040C1" d="M0 .5h1920v1379H0z" />
-                        <mask id="b" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1378">
-                            <path fill="#38AF88" d="M0 .5h1920v1377H0z" />
+                <svg width="1920" height="1380" viewBox="0 0 1920 1380" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clipPath="url(#clip0)">
+                        <rect width="1920" height="1379" transform="translate(0 0.5)" fill="#1040C1" />
+                        <mask
+                            id="mask0"
+                            style={{ maskType: 'alpha' }}
+                            maskUnits="userSpaceOnUse"
+                            x="0"
+                            y="0"
+                            width="1920"
+                            height="1378"
+                        >
+                            <rect y="0.5" width="1920" height="1377" fill="#38AF88" />
                         </mask>
-                        <g mask="url(#b)">
-                            <path
-                                opacity=".5"
+                        <g mask="url(#mask0)">
+                            <rect
+                                opacity="0.5"
+                                width="915.857"
+                                height="1623.41"
+                                transform="matrix(0.970524 0.241004 -0.438762 0.898603 1422.9 -79.2495)"
                                 fill="#1072EB"
-                                d="m1422.9-79.25 888.861 220.726-712.29 1458.8-888.862-220.724z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="1103.73"
+                                height="2258.79"
+                                transform="matrix(0.0750469 -0.99718 0.997737 0.067235 -338 1307.5)"
                                 fill="#1040C1"
-                                d="m-338 1307.5 82.832-1100.617 2253.678 151.87-82.832 1100.617z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="900.752"
+                                height="1693.94"
+                                transform="matrix(0.970524 0.241004 -0.438762 0.898603 0.238281 -240.688)"
                                 fill="#142C8E"
-                                d="M.238-240.688 874.44-23.603l-743.237 1522.18-874.201-217.085z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="351.272"
+                                height="2301"
+                                transform="matrix(0.0432526 -0.999064 0.998507 0.0546328 -25 151.285)"
                                 fill="#1040C1"
-                                d="m-25 151.285 15.193-350.943 2297.565 125.71-15.193 350.943z"
                             />
                         </g>
-                        <mask id="c" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1378">
-                            <path fill="#38AF88" d="M0 .5h1920v1377H0z" />
+                        <mask
+                            id="mask1"
+                            style={{ maskType: 'alpha' }}
+                            maskUnits="userSpaceOnUse"
+                            x="0"
+                            y="0"
+                            width="1920"
+                            height="1378"
+                        >
+                            <rect y="0.5" width="1920" height="1377" fill="#38AF88" />
                         </mask>
-                        <g mask="url(#c)">
-                            <path
-                                opacity=".5"
+                        <g mask="url(#mask1)">
+                            <rect
+                                opacity="0.5"
+                                width="915.857"
+                                height="1623.41"
+                                transform="matrix(0.970524 0.241004 -0.438762 0.898603 1422.9 -79.2495)"
                                 fill="#1072EB"
-                                d="m1422.9-79.25 888.861 220.726-712.29 1458.8-888.862-220.724z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="1103.73"
+                                height="2258.79"
+                                transform="matrix(0.0750469 -0.99718 0.997737 0.067235 -338 1307.5)"
                                 fill="#1040C1"
-                                d="m-338 1307.5 82.832-1100.617 2253.678 151.87-82.832 1100.617z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="900.752"
+                                height="1693.94"
+                                transform="matrix(0.970524 0.241004 -0.438762 0.898603 0.238281 -240.688)"
                                 fill="#142C8E"
-                                d="M.238-240.688 874.44-23.603l-743.237 1522.18-874.201-217.085z"
                             />
-                            <path
-                                opacity=".5"
+                            <rect
+                                opacity="0.5"
+                                width="351.272"
+                                height="2301"
+                                transform="matrix(0.0432526 -0.999064 0.998507 0.0546328 -25 151.285)"
                                 fill="#1040C1"
-                                d="m-25 151.285 15.193-350.943 2297.565 125.71-15.193 350.943z"
                             />
                         </g>
                     </g>
                     <defs>
-                        <clipPath id="a">
-                            <path fill="#fff" transform="translate(0 .5)" d="M0 0h1920v1379H0z" />
+                        <clipPath id="clip0">
+                            <rect width="1920" height="1379" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                     </defs>
                 </svg>
