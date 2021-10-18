@@ -5,10 +5,11 @@ const lighthouseReports = {
     desktopReport: [],
     mobileReport: []
 };
-fs.readdirSync('dist').forEach(file => {
-    if (file.indexOf('desktop-report') !== -1) {
+// look inside lighthouse folder for files
+fs.readdirSync('lighthouse').forEach(file => {
+    if (file.indexOf('json') !== -1 && file.indexOf('desktop-report') !== -1) {
         lighthouseReports.desktopReport.push(file);
-    } else if (file.indexOf('mobile-report') !== -1) {
+    } else if (file.indexOf('json') !== -1 && file.indexOf('mobile-report') !== -1) {
         lighthouseReports.mobileReport.push(file);
     }
 });
@@ -16,7 +17,7 @@ fs.readdirSync('dist').forEach(file => {
 // create function for desktop and mobile
 const desktopScores = {};
 lighthouseReports.desktopReport.forEach(report => {
-    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/${report}`, { encoding: 'utf8' }));
+    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/lighthouse/${report}`, { encoding: 'utf8' }));
     if (!desktopScores[lighthouseReport.requestedUrl]) {
         desktopScores[lighthouseReport.requestedUrl] = [];
     }
@@ -32,7 +33,7 @@ lighthouseReports.desktopReport.forEach(report => {
 
 const mobileScores = {};
 lighthouseReports.mobileReport.forEach(report => {
-    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/${report}`, { encoding: 'utf8' }));
+    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/lighthouse/${report}`, { encoding: 'utf8' }));
     if (!mobileScores[lighthouseReport.requestedUrl]) {
         mobileScores[lighthouseReport.requestedUrl] = [];
     }
@@ -118,7 +119,11 @@ const getAverages = (desktopLighthouseScores, mobileLighthouseScores) => {
     });
 
     fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ desktopAverageScores, mobileAverageScores }), err => {
-        console.log(err);
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('lighthouseScores.json saved');
+        }
     });
 };
 

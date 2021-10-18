@@ -59,7 +59,7 @@ module.exports = {
         },
         upload: {
             target: 'filesystem',
-            // outputDir: './dist',
+            outputDir: 'lighthouse',
             reportFilenamePattern: 'mobile-report-%%PATHNAME%%-%%DATETIME%%.%%EXTENSION%%'
         }
     }
