@@ -9,6 +9,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         amount: window.xprops.amount ?? null,
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
+        ignoreCache: window.xprops.ignoreCache ?? null,
         style: JSON.stringify(window.xprops.style),
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
@@ -53,7 +54,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.textAlign = window.xprops.style?.text?.align || 'left';
     button.style.fontFamily = 'inherit';
     button.style.fontSize = 'inherit';
-    button.innerHTML = markup;
+    button.innerHTML = markup ?? '';
 
     onReady({
         meta,
@@ -63,6 +64,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
+
+    window.addEventListener('focus', () => {
+        button.focus();
+    });
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
@@ -77,6 +82,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyerCountry,
+                    ignoreCache,
                     offer,
                     payerId,
                     clientId,
@@ -92,6 +98,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyerCountry,
+                    ignoreCache,
                     style: JSON.stringify(style),
                     offer,
                     payerId,
@@ -104,6 +111,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     amount,
                     currency,
                     buyer_country: buyerCountry,
+                    ignore_cache: ignoreCache,
                     style,
                     credit_type: offer,
                     payer_id: payerId,

@@ -16,9 +16,11 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         clientId,
         merchantId,
         buyerCountry,
-        version,
         env,
-        deviceID: parentDeviceID
+        version,
+        deviceID: parentDeviceID,
+        ignoreCache,
+        stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -28,7 +30,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             // eslint-disable-next-line no-param-reassign
             contentWrapper.current.scrollTop = 0;
         } else if (transitionState === 'OPEN') {
-            window.focus();
+            window.requestAnimationFrame(() => {
+                window.document.querySelector('#close-btn').focus();
+            });
         }
     }, [transitionState]);
 
@@ -53,8 +57,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             clientId,
             merchantId,
             buyerCountry,
+            ignoreCache,
             version,
-            env
+            env,
+            stageTag
         }).then(data => {
             setServerData(data);
             setLoading(false);

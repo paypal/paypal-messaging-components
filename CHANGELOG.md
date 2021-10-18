@@ -1,5 +1,43 @@
 # Changelog
 
+### [1.26.6](https://github.com/paypal/paypal-messaging-components/compare/v1.26.5...v1.26.6) (2021-10-13)
+
+
+### Bug Fixes
+
+* use unformated APR for DE GPL disclosure check [snapshots] ([#634](https://github.com/paypal/paypal-messaging-components/issues/634)) ([dc72fbe](https://github.com/paypal/paypal-messaging-components/commit/dc72fbe9525036ac53ec115054d6c1e742265748))
+
+
+### Code Refactoring
+
+* fix accessibility issues from test reports ([#593](https://github.com/paypal/paypal-messaging-components/issues/593)) ([7ad90bd](https://github.com/paypal/paypal-messaging-components/commit/7ad90bd789827fef7b81f937e0533571c7245bdc))
+
+### [1.26.5](https://github.com/paypal/paypal-messaging-components/compare/v1.26.4...v1.26.5) (2021-09-28)
+
+
+### Code Refactoring
+
+* add interest-free back into Pi3 [snapshots] ([c118983](https://github.com/paypal/paypal-messaging-components/commit/c118983ce28b0c2892f07637009b6609750ec1d1))
+
+### [1.26.2](https://github.com/paypal/paypal-messaging-components/compare/v1.26.1...v1.26.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* DE GPL flex banner styles [snapshots] ([#594](https://github.com/paypal/paypal-messaging-components/issues/594)) ([d5e613f](https://github.com/paypal/paypal-messaging-components/commit/d5e613f93cfc199cb619fd2a7e3b5a75fab77ae3))
+* remove currency and buyerCountry strictness ([#598](https://github.com/paypal/paypal-messaging-components/issues/598)) ([53232c8](https://github.com/paypal/paypal-messaging-components/commit/53232c8fc14c8c6ca8b4e8c26e082f75317864b4))
+
+
+### Code Refactoring
+
+* add ignoreCache option to modal ([#583](https://github.com/paypal/paypal-messaging-components/issues/583)) ([4b06335](https://github.com/paypal/paypal-messaging-components/commit/4b06335d131aa28a1f7b983f1fa46dde6496d40b))
+* omit pp_debug when missing ([#591](https://github.com/paypal/paypal-messaging-components/issues/591)) ([1be88b1](https://github.com/paypal/paypal-messaging-components/commit/1be88b1e85bba2e16c28d5305f11fc002d92389c))
+
+
+### Continuous Integration
+
+* improve generated release notes ([#586](https://github.com/paypal/paypal-messaging-components/issues/586)) ([93190ea](https://github.com/paypal/paypal-messaging-components/commit/93190eab11dd147a913e408cb25f405e7e926604))
+
 ## [1.26.1](https://github.com/paypal/paypal-messaging-components/compare/v1.26.0...v1.26.1) (2021-08-12)
 
 
