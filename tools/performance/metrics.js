@@ -25,6 +25,8 @@ setTimeout(
 
         const page = await browser.newPage();
 
+        await page.setDefaultNavigationTimeout(0);
+
         // Get the network requests
         page.setRequestInterception(true);
 
