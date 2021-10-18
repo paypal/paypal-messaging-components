@@ -1,8 +1,8 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
+    const { onClick, onReady, onHover, onMarkup, onProps, resize, deviceID: parentDeviceID } = window.xprops;
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
@@ -60,10 +60,14 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         meta,
         activeTags: getActiveTags(button),
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
+
+    window.addEventListener('focus', () => {
+        button.focus();
+    });
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
@@ -154,8 +158,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 onReady({
                                     meta: data.meta ?? meta,
                                     activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
+                                    // If storage state is brand new, use the parent deviceID, otherwise use child
+                                    deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
                                 });
                             }
                         }

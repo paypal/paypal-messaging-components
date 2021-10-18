@@ -12,22 +12,17 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
         }
     },
+
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
-        [
-            ["Pay in 3 payments of {formattedPeriodicPayment}", [".", "weak"]],
-            ["medium.text", "large.text", "xlarge.text"]
-        ],
         [
             ["Pay in 3 interest-free payments of {formattedPeriodicPayment}", [".", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],
+
     "subHeadline": [],
 
-    "disclaimer": [
-        ["Late fees may apply.", ["default.fees"]],
-        ["Learn more", ["default"]]
-    ]
+    "disclaimer": [["Learn more", ["default"]]]
 }

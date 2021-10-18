@@ -2,6 +2,7 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { create } from 'zoid/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { getCurrentScriptUID } from 'belter/src';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 import {
     getMeta,
@@ -15,12 +16,14 @@ import {
     getGlobalState,
     getCurrentTime,
     writeStorageID,
-    getOrCreateStorageID,
     getStageTag,
     getFeatures,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    getScriptAttributes,
+    getDeviceID
 } from '../../utils';
+
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -98,16 +101,25 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
                 queryParam: false,
-                value: ({ props, focus }) => {
+                value: ({ props }) => {
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            onApply,
+                            getContainer
+                        } = props;
                         const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -123,7 +135,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',
-                            onClose: () => focus()
+                            onClose: () => {
+                                getContainer()
+                                    .querySelector('iframe')
+                                    .contentWindow.focus();
+                            }
                         });
 
                         logger.track({
@@ -149,14 +165,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onHover } = props;
+                    const { index, onHover } = props;
                     let hasHovered = false;
 
                     return ({ meta }) => {
-                        const { index } = props;
-
                         if (!hasHovered) {
                             hasHovered = true;
+
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
@@ -329,11 +344,17 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: getLibraryVersion,
                 debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__TARGET__,
+                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
+            },
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                value: getDeviceID,
+                debug: ppDebug(`Device ID: ${getDeviceID()}`)
             },
             sessionID: {
                 type: 'string',
@@ -364,6 +385,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            partnerAttributionId: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
             },
             features: {
                 type: 'string',
