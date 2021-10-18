@@ -16,7 +16,7 @@ fs.readdirSync('dist').forEach(file => {
 // create function for desktop and mobile
 const desktopScores = {};
 lighthouseReports.desktopReport.forEach(report => {
-    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/dist/${report}`, { encoding: 'utf8' }));
+    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/${report}`, { encoding: 'utf8' }));
     if (!desktopScores[lighthouseReport.requestedUrl]) {
         desktopScores[lighthouseReport.requestedUrl] = [];
     }
@@ -32,7 +32,7 @@ lighthouseReports.desktopReport.forEach(report => {
 
 const mobileScores = {};
 lighthouseReports.mobileReport.forEach(report => {
-    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/dist/${report}`, { encoding: 'utf8' }));
+    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/${report}`, { encoding: 'utf8' }));
     if (!mobileScores[lighthouseReport.requestedUrl]) {
         mobileScores[lighthouseReport.requestedUrl] = [];
     }
