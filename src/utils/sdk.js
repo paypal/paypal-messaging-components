@@ -1,4 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
+import 'core-js-pure/stable/object/entries';
+import arrayFrom from 'core-js-pure/stable/array/from';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import {
     getClientID,
     getEnv as getSDKEnv,
@@ -10,14 +13,10 @@ import {
     getSDKMeta,
     getSDKQueryParam,
     getSDKScript,
-    getSessionID as getSDKSessionID,
-    getStorageID as getSDKStorageID
+    getSessionID as getSDKSessionID
 } from '@paypal/sdk-client/src';
+import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
-import { getStorage, isLocalStorageEnabled } from 'belter/src';
-import arrayFrom from 'core-js-pure/stable/array/from';
-import 'core-js-pure/stable/object/entries';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -108,51 +107,45 @@ export function isZoidComponent() {
     return stringStartsWith(window.name, '__zoid__');
 }
 
+export function getStorage() {
+    return getBelterStorage({ name: getNamespace() });
+}
+
 // Use SDK methods when available, otherwise manually fetch storage via belter
 // see: https://github.com/paypal/paypal-sdk-client/blob/master/src/session.js
 export function getSessionID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKSessionID();
     } else {
-        return getStorage({ name: getNamespace() }).getSessionID();
-    }
-}
-
-// Retrieves storageID. NOTE: Creates new ID if not already in local storage.
-export function getOrCreateStorageID() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKStorageID();
-    } else {
-        return getStorage({ name: getNamespace() }).getID();
+        return getStorage().getSessionID();
     }
 }
 
 export function isStorageFresh() {
-    return getStorage({ name: getNamespace() }).isStateFresh();
-}
-
-// Retrieve namespaced localStorage directly
-function getRawStorage() {
-    return isLocalStorageEnabled()
-        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
-        : {};
+    return getStorage().isStateFresh();
 }
 
 export function writeStorageID(storageID) {
-    if (isLocalStorageEnabled()) {
+    // Do not write custom key within zoid components to ensure we use the child storage ID
+    if (isLocalStorageEnabled() && !isZoidComponent()) {
         try {
-            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
-            window.localStorage?.setItem(
-                `__${getNamespace()}_storage__`,
-                JSON.stringify({
-                    ...getRawStorage(),
-                    id: storageID
-                })
-            );
+            // Use a separate key for deviceID to avoid disturbing the storageID
+            getStorage().getState(storage => {
+                // Updating the passed-in object will update the stored value
+                // see: https://github.com/krakenjs/belter/blob/master/src/storage.js
+                // eslint-disable-next-line no-param-reassign
+                storage.messagingDeviceID = storageID;
+            });
         } catch (e) {
             // Handle Errors
         }
     }
+}
+
+// Use the custom deviceID field, but fall back to storage ID if it is not yet present
+// or does not exist (as in the child )
+export function getDeviceID() {
+    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
 // Check if the current script is in the process of being destroyed since

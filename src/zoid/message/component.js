@@ -9,17 +9,17 @@ import {
     getGlobalState,
     getGlobalUrl,
     getLibraryVersion,
+    runStats,
+    logger,
+    getSessionID,
+    writeStorageID,
     getMerchantConfig,
     getMeta,
-    getOrCreateStorageID,
-    getSessionID,
     getStageTag,
     isScriptBeingDestroyed,
-    logger,
     getFeatures,
     ppDebug,
-    runStats,
-    writeStorageID
+    getDeviceID
 } from '../../utils';
 import containerTemplate from './containerTemplate';
 import validate from './validation';
@@ -353,8 +353,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                value: getDeviceID,
+                debug: ppDebug(`Device ID: ${getDeviceID()}`)
             },
             sessionID: {
                 type: 'string',
