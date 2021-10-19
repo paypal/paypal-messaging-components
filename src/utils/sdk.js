@@ -1,25 +1,22 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
-
-import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
-
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import {
     getClientID,
-    getMerchantID,
-    getSDKScript,
     getEnv as getSDKEnv,
-    getSDKMeta,
-    getSDKAttributes,
-    getSDKQueryParam,
+    getFundingEligibility,
+    getMerchantID,
     getNamespace as getSDKNamespace,
-    getSessionID as getSDKSessionID,
-    getPayPalDomain as getSDKPayPalDomain
+    getPayPalDomain as getSDKPayPalDomain,
+    getSDKAttributes,
+    getSDKMeta,
+    getSDKQueryParam,
+    getSDKScript,
+    getSessionID as getSDKSessionID
 } from '@paypal/sdk-client/src';
-
 import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
-
-import 'core-js-pure/stable/object/entries';
+import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -27,6 +24,14 @@ export function getEnv() {
         return getSDKEnv();
     } else {
         return __ENV__;
+    }
+}
+
+export function getMerchantConfig() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getFundingEligibility()?.paylater?.merchantConfigHash;
+    } else {
+        return undefined;
     }
 }
 
