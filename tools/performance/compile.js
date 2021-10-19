@@ -18,25 +18,30 @@ const lightHouseReport = JSON.parse(fs.readFileSync(`${basePath}/dist/lighthouse
 const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
 const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
 const speedHeadings = `<tr><td>URL</td><td>Time in MS</td></tr>`;
-const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>Seo</td></tr>`;
+const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>SEO</td></tr>`;
 
 const { desktopAverageScores, mobileAverageScores } = lightHouseReport;
 
 const desktopLighthouse = Object.keys(desktopAverageScores)
     .map(
         score =>
-            `<tr><td>${score}</td><td>${desktopAverageScores[score].performance}</td><td>${desktopAverageScores[score].accessibility}</td><td>${desktopAverageScores[score].bestPractices}</td><td>${desktopAverageScores[score].seo}</td></tr>`
+            `<tr><td>${score}</td><td>${desktopAverageScores[score].performance.toFixed(
+                3
+            )}</td><td>${desktopAverageScores[score].accessibility.toFixed(3)}</td><td>${desktopAverageScores[
+                score
+            ].bestPractices.toFixed(3)}</td><td>${desktopAverageScores[score].seo.toFixed(3)}</td></tr>`
     )
     .join('');
 const mobileLighthouse = Object.keys(mobileAverageScores)
     .map(
         score =>
-            `<tr><td>${score}</td><td>${mobileAverageScores[score].performance}</td><td>${mobileAverageScores[score].accessibility}</td><td>${mobileAverageScores[score].bestPractices}</td><td>${mobileAverageScores[score].seo}</td></tr>`
+            `<tr><td>${score}</td><td>${mobileAverageScores[score].performance.toFixed(
+                3
+            )}</td><td>${mobileAverageScores[score].accessibility.toFixed(3)}</td><td>${mobileAverageScores[
+                score
+            ].bestPractices.toFixed(3)}</td><td>${mobileAverageScores[score].seo.toFixed(3)}</td></tr>`
     )
     .join('');
-
-// Node Modules
-// console.log('largest npm', messagesReport[0].groups[0].groups[0].label);
 
 // Messaging Size
 const messaging = `<tr><td>${messagingCompReport[0].label}</td><td>${messagingCompReport[0].parsedSize}</td><td>${messagingCompReport[0].gzipSize}</td></tr>`;

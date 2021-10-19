@@ -14,6 +14,7 @@ coverage
 oom_1
 **/__diff_output__/**
 tests/__reports__/*.html
+lighthouse
 
 # OS generated files #
 ######################
