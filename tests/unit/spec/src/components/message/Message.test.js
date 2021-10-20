@@ -112,13 +112,15 @@ describe('Message', () => {
     test('Fires onMarkup and onReady on complete re-render', async () => {
         const messageDocument = document.body.appendChild(Message(serverData));
 
+        const originalMRID = 'uid_xxxxxxxxxx_xxxxxxxxxxx';
+
         expect(request).not.toHaveBeenCalled();
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
 
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
-            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            messageRequestId: originalMRID,
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
 
@@ -142,7 +144,7 @@ describe('Message', () => {
 
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
-            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            messageRequestId: expect.not.stringMatching(originalMRID),
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({

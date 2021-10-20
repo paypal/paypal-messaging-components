@@ -1,4 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
+import { uniqueID } from 'belter/src';
+
 import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
@@ -151,10 +153,12 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         if (typeof onReady === 'function') {
+                            // currency, amount, payerId, clientId, merchantId, buyerCountry
                             onReady({
                                 meta: data.meta ?? meta,
                                 activeTags: getActiveTags(button),
-                                messageRequestId,
+                                // Generate new MRID on message update.
+                                messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
                                 deviceID: getOrCreateStorageID()
                             });
