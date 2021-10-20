@@ -1,0 +1,34 @@
+@import '../globals/mixins';
+
+.donut__single_payment {
+    display: flex;
+    flex-direction: column;
+
+    svg {
+        text {
+            font-size: 0.5rem;
+            line-height: 20px;
+            font-family: PayPalSansBig;
+            font-weight: 600;
+            color: $terms-details;
+        }
+    }
+    
+    span {
+        display: block;
+        text-align: center;
+
+        &:first-of-type {
+            font-family: PayPalSansBig;
+            font-weight: 600;
+        }
+        
+        .donut__timestamp {
+            color: $terms-details;
+
+            @include smallMobile {
+                font-size: 0.778rem;
+            }
+        }
+    }
+}
