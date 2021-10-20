@@ -2,6 +2,8 @@
 import { h } from 'preact';
 
 const OfferCard = ({ termsLabel, offer, index }) => {
+    const aprRemoveTrailingZeros = offer?.apr.replace(/([^\d]00)(?=[^\d]|$)/, '');
+
     return (
         <div className={`offer__container ${index}`}>
             <div className="offer__row">
@@ -12,8 +14,10 @@ const OfferCard = ({ termsLabel, offer, index }) => {
             </div>
             <div className="offer__row">
                 <div className="offer__field-col">
-                    <p className="offer__field-title">{termsLabel.apr}</p>
-                    <div className="offer__field-value">{offer.apr}%</div>
+                    <p className="offer__field-title">
+                        {aprRemoveTrailingZeros === '0' ? termsLabel.zeroApr : termsLabel.nonZeroApr}
+                    </p>
+                    <div className="offer__field-value">{aprRemoveTrailingZeros}%</div>
                 </div>
                 <div className="offer__field-col">
                     <p className="offer__field-title">{termsLabel.totalInterest}</p>

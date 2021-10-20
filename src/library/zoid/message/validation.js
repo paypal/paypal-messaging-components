@@ -2,7 +2,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 
-import { logger, memoize } from '../../../utils';
+import { logger, memoize, getEnv } from '../../../utils';
 
 export const Types = {
     ANY: 'ANY',
@@ -56,6 +56,8 @@ export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
             logInvalidType('account', Types.STRING, account);
+        } else if (getEnv() === 'local' && stringStartsWith(account, 'DEV_')) {
+            return account;
         } else if (account.length !== 13 && account.length !== 10 && !stringStartsWith(account, 'client-id:')) {
             logInvalid('account', 'Ensure the correct Merchant Account ID has been entered.');
         } else {
@@ -72,6 +74,19 @@ export default {
                 logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
             } else {
                 return merchantId;
+            }
+        }
+
+        return undefined;
+    },
+    customerId: ({ props: { customerId } }) => {
+        if (typeof customerId !== 'undefined') {
+            if (!validateType(Types.STRING, customerId)) {
+                logInvalidType('customerId', Types.STRING, customerId);
+            } else if (customerId.length !== 13 && customerId.length !== 10) {
+                logInvalid('customerId', 'Ensure the correct Merchant ID has been entered.');
+            } else {
+                return customerId;
             }
         }
 

@@ -12,10 +12,11 @@ import { useServerData } from '../../../lib/providers';
 export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTimestamps }) => {
     let qualifying;
     let periodicPayment;
-    if (useServerData()?.products?.length > 0) {
-        qualifying = useServerData().products[0].meta.qualifying;
-        periodicPayment = useServerData().products[0].meta.periodicPayment;
+    if (useServerData()?.views?.length > 0) {
+        qualifying = useServerData().views[0].meta.qualifying;
+        periodicPayment = useServerData().views[0].meta.periodicPayment;
     }
+
     const [expandedState] = useState(false);
     return (
         <Fragment>

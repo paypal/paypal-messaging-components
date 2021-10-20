@@ -2,7 +2,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
-import { useContent, useServerData } from '../lib';
+import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -12,18 +12,12 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
 
     let product;
-    const qualifying = {
-        isQualifying: null,
-        periodicPayment: null
-    };
-
-    if (useServerData()?.products?.length > 0) {
-        product = useServerData().products[0].meta.product;
-        qualifying.isQualifying = useServerData().products[0].meta.qualifying;
-        qualifying.periodicPayment = useServerData().products[0].meta.periodicPayment;
+    if (useServerData()?.views?.length > 0) {
+        product = useServerData().views[0].meta.product;
     }
 
     const { headline, subheadline, qualifyingSubheadline } = useContent(product);
+    const { qualifying: isQualifying } = useProductMeta(product);
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
@@ -40,7 +34,7 @@ const ContentWrapper = () => {
                         logo="logo"
                         headline={headline}
                         subheadline={subheadline}
-                        qualifying={qualifying}
+                        isQualifying={isQualifying}
                         qualifyingSubheadline={qualifyingSubheadline}
                     />
                     {productView[product]}

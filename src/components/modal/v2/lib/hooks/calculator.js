@@ -41,9 +41,11 @@ const reducer = (state, action) => {
     }
 };
 
-const delocalize = (country, amount) =>
-    Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
-const localize = (country, amount) => {
+export const delocalize = (country, amount) => {
+    return Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
+};
+
+export const localize = (country, amount) => {
     const number = Number(amount) || Number(0);
     if (country === 'DE') {
         return number.toLocaleString('de-DE', {
@@ -60,7 +62,8 @@ const localize = (country, amount) => {
 
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
-    const { terms: initialTerms, country, setServerData } = useServerData();
+    const { views, country, setServerData } = useServerData();
+    const initialViewOfferTerms = views[0];
     const {
         currency,
         payerId,
@@ -73,9 +76,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         stageTag
     } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(country, initialTerms.amount),
-        prevValue: localize(country, initialTerms.amount),
-        terms: initialTerms,
+        inputValue: localize(country, amount),
+        prevValue: localize(country, amount),
+        terms: initialViewOfferTerms,
         isLoading: false
     });
 
@@ -99,7 +102,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                 dispatch({
                     type: 'terms',
                     data: {
-                        ...data.terms,
+                        ...data.views[0],
                         autoSubmit
                     }
                 });
@@ -114,22 +117,22 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             });
     };
 
-    // Update the terms in the reducer based on outside changes to serverData
+    // Update the offer terms in the reducer based on outside changes to serverData
     useDidUpdateEffect(() => {
-        // When amount xprop changes, Container.jsx will fetch new serverData (including terms)
-        // If we see new terms, which match the amount prop, but the value in the input does not match
-        // This means the amount changed outside the modal, so we update the terms
+        // When amount xprop changes, Container.jsx will fetch new serverData (including offers)
+        // If we see new offer terms, which match the amount prop, but the value in the input does not match
+        // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (Number(initialTerms.amount) === amount && delocalize(country, state.inputValue) !== amount) {
+        if (Number(initialViewOfferTerms.amount) === amount && delocalize(country, state.inputValue) !== amount) {
             dispatch({
                 type: 'terms',
                 data: {
-                    ...initialTerms,
+                    ...initialViewOfferTerms,
                     autoSubmit: false
                 }
             });
         }
-    }, [initialTerms, amount]);
+    }, [initialViewOfferTerms, amount]);
 
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
@@ -186,10 +189,16 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     };
 
+    let { isLoading } = state;
+
+    if (state.inputValue === '0') {
+        isLoading = false;
+    }
+
     return {
         terms: state.terms,
         value: state.inputValue,
-        isLoading: state.isLoading,
+        isLoading,
         changeInput,
         submit
     };

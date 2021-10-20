@@ -8,7 +8,7 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, termsLabel,
         return (
             <Fragment>
                 <div className="offer__wrapper">
-                    <LoadingShimmer hasError={hasError} />
+                    <LoadingShimmer />
                 </div>
                 <div className="finance-terms__disclaimer">{disclaimer}</div>
             </Fragment>

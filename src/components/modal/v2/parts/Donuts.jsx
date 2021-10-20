@@ -1,6 +1,8 @@
 /** @jsx h */
 /* eslint-disable react/no-unknown-property */
 import { Fragment, h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
+import { debounce } from 'belter/src';
 
 const green500 = '#00CF92';
 const grey300 = '#DBD8D0';
@@ -10,9 +12,36 @@ const generateDonutData = (currentNum = 0, numOfPayments = 4) => {
     return [{ color: green500, percentage: (currentNum / numOfPayments) * 100 }];
 };
 
+const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        screenWidth: width,
+        screenheight: height
+    };
+};
+
+const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+
+        window.addEventListener(
+            'resize',
+            debounce(() => handleResize())
+        );
+
+        return () =>
+            window.removeEventListener(
+                'resize',
+                debounce(() => handleResize())
+            );
+    }, []);
+    return windowDimensions;
+};
+
 const Donuts = ({
-    width = '82px',
-    height = '82px',
     strokeWidth = 3,
     strokeLinecap = 'round',
     cx = 21,
@@ -25,7 +54,8 @@ const Donuts = ({
     baseColor = grey300,
     currentNum = 0,
     timeStamp,
-    periodicPayment
+    periodicPayment,
+    qualifying
     // ...rest
 }) => {
     const data = generateDonutData(currentNum, 4);
@@ -33,9 +63,18 @@ const Donuts = ({
     if (!segStrokeWidth) {
         segStrokeWidth = strokeWidth;
     }
-    // const radiusOffset = (segStrokeWidth - strokeWidth) / 2;
+    let width = '82px';
+    let height = '82px';
+
+    const { screenWidth } = useWindowDimensions();
+
+    if (screenWidth < 400) {
+        width = '60px';
+        height = '60px';
+    }
+
     return (
-        <div className="donut">
+        <div className="donut__single_payment">
             <svg
                 aria-hidden
                 width={width}
@@ -52,12 +91,12 @@ const Donuts = ({
                 </g>
                 {children && (
                     <text x={cx} y={cy + 2} text-anchor="middle" fill={grey600}>
-                        {children}
+                        {qualifying && children}
                     </text>
                 )}
             </svg>
-            <span>{periodicPayment}</span>
-            <span>{timeStamp}</span>
+            {periodicPayment && periodicPayment !== '-' && <span>{periodicPayment}</span>}
+            <span className="donut__timestamp">{timeStamp}</span>
         </div>
     );
 };

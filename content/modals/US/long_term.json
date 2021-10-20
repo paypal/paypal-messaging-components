@@ -32,19 +32,17 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later.",
             "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
-            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}.",
-            "minAmountRangeErr": "Enter an amount of {formattedMinAmount} or more.",
-            "maxAmountRangeErr": "Enter an amount no larger than {formattedMaxAmount}."
+            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
         },
-
         "termsLabel": {
-            "apr": "Est. APR",
+            "zeroApr": "APR",
+            "nonZeroApr": "Est. APR",
             "totalInterest": "Interest",
             "total": "Total"
         },
         "disclaimer": "Sample payments shown are based on 15% APR and may not include shipping and taxes.",
         "instructions": [
-            "Choose PayPal <strong>Pay Later</strong> at checkout and then <strong>Pay Monthly</strong>.",
+            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
             "Get a decision in seconds.",
             "Use autopay for your payments. It's easy!"
         ],

@@ -6,7 +6,7 @@ import { getOrCreateStorageID } from '../../../../utils';
 import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
 
 const Container = ({ children, contentWrapper }) => {
-    const { type, products, meta, setServerData } = useServerData();
+    const { type, views, meta, setServerData } = useServerData();
     const {
         onReady,
         currency,
@@ -36,7 +36,7 @@ const Container = ({ children, contentWrapper }) => {
         if (typeof onReady === 'function') {
             onReady({
                 type,
-                products: products.map(({ meta: productMeta }) => productMeta.product),
+                products: views.map(({ meta: productMeta }) => productMeta.product),
                 meta,
                 deviceID: getOrCreateStorageID()
             });

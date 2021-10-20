@@ -1,69 +1,32 @@
-.content__row.donuts {
+@import '../globals/mixins';
+
+.donut__single_payment {
     display: flex;
-    // align-items: center;
-    // background-color: #FFFFFF;
-    // border-top-left-radius: 40px;
-    // border-bottom-right-radius: 40px;
-    // min-height: 10em;
-    // z-index: 1;
-    width: 100%;
-    position: relative;
+    flex-direction: column;
 
-    // @include mobile {
-
-    // }
-
-    @include tablet {
-        width: 100%;
-        // top: -40px;
-        // top: -25px;
-    }
-
-    @include desktop {
-        max-width: initial;
-        top: 0;
-    //     background-color: transparent;
-    //     border-top-left-radius: 0;
-    //     border-bottom-right-radius: 0;
-    //     padding: 0 40px;
-        align-items: self-end;
-    }
-
-    .donuts__container {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        width: 100%;
-        padding: 0 25px;
-        max-width: 400px;
-        margin: 0 auto;
-
-        @include desktop {
-            // padding: auto;
+    svg {
+        text {
+            font-size: 0.5rem;
+            line-height: 20px;
+            font-family: PayPalSansBig;
+            font-weight: 600;
+            color: $terms-details;
         }
-
-        div {
-            display: flex;
-            flex-direction: column;
-
-            span {
-                text-align: center;
-                &:first-of-type {
-                    font-family: PayPalSansBig;
-                    font-weight: 600;
-                    color: $terms-details;
-                }
-            }
+    }
+    
+    span {
+        display: block;
+        text-align: center;
+        color: $terms-details;
+        font-size: 0.875rem;
+        
+        &:first-of-type {
+            font-family: PayPalSansBig;
+            font-weight: 600;
         }
-
-        svg {
-            text {
-                font-size: 0.5rem;
-                line-height: 20px;
-                font-family: PayPalSansBig;
-                font-weight: 600;
-                color: $terms-details;
-            }
+        
+        .donut__timestamp {
+            color: $terms-details;
         }
     }
 }

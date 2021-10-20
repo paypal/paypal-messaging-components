@@ -2,88 +2,125 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useCalculator, useXProps } from '../lib';
+import { useCalculator, useServerData, useXProps } from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
 const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading, calculator) => {
-    // grabs the various calculator errors from offer json
-    const { genericError, minAmountRangeErr, maxAmountRangeErr } = calculator;
+    // Grabs the various calculator errors from offer json
+    const { genericError, belowThreshold, aboveThreshold } = calculator;
 
-    // there is an error with the request or we don't get a max amount back give back a generic error
-    // generic error says something like - something went wrong, please try again later.
+    /**
+     * If there is an error with the request or we don't get a max amount back give back a generic error.
+     * Generic error says something like - "Something went wrong, please try again later."
+     */
     if (error || !maxAmount) {
         return genericError;
     }
 
-    // if amount is undefined (none is passed in) or isLoading is true, return null. we don't return an error until debounce is complete.
-    if (typeof amount === 'undefined' || isLoading) {
+    // If isLoading is true, do not return an error and instead return null. We don't return an error until debounce is complete.
+    if (isLoading) {
         return null;
     }
 
-    // checks amount against min and max amount ranges to determine which error message to show
-    if (+amount < minAmount) {
-        return minAmountRangeErr.replace(/(\.|,)00(.|\s*)EUR/g, '€');
-    }
-    if (+amount > maxAmount) {
-        return maxAmountRangeErr.replace(/(\.|,)00(.|\s*)EUR/g, '€');
+    // If amount is undefined (none is passed in), return the belowThreshold error.
+    if (typeof amount === 'undefined') {
+        return belowThreshold;
     }
 
-    // if we don't get back any qualifying offers, we return a generic error. - something went wrong, please try again later.
+    // Checks amount against qualifying min and max ranges to determine which error message to show.
+    if (amount < minAmount) {
+        return belowThreshold;
+    }
+    if (amount > maxAmount) {
+        return aboveThreshold;
+    }
+
+    // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
     if (!offers?.[0]?.qualified) {
         return genericError;
     }
 
-    // if none of these checks apply. don't return an error.
+    // If none of these checks apply, don't return an error.
     return null;
 };
 
-// TODO: probably won't need this anymore with CPNW changes.
-const delocalize = value =>
-    value
-        // Remove any non-currency character
-        .replace(/[^\d,]/g, '')
-        // Replace decimal marker
-        .replace(/,/, '.');
+const delocalize = (value, country) => {
+    switch (country) {
+        case 'DE':
+            return (
+                value
+                    // Remove any non-currency character
+                    .replace(/[^\d,]/g, '')
+                    // Replace decimal marker
+                    .replace(/,/, '.')
+            );
+        default:
+            return value.replace(/[^\d.]/g, '');
+    }
+};
 
-const getDisplayValue = value => {
-    const delocalizedValue = delocalize(value);
+const getDisplayValue = (value, country) => {
+    const delocalizedValue = delocalize(value, country);
 
-    // match all digits before the decimal and 1-2 digits after
+    // Match all digits before the decimal and 1-2 digits after
     // eslint-disable-next-line security/detect-unsafe-regex
     const [, whole, fraction = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
-    const formattedValue = Number(whole).toLocaleString('de-DE', {
-        currency: 'EUR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-    });
+    let formattedValue;
+    let displayStr;
 
-    // Allow display value to end with a dangling comma to allow typing a "cent" value
-    return delocalizedValue === '' || formattedValue === 'NaN'
-        ? ''
-        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''}`;
+    /**
+     * Determines displayed string formatting in input field based on country.
+     * Allow displayStr value to end with a dangling period decimal or comma to allow typing a "cent" value.
+     */
+    switch (country) {
+        case 'DE':
+            formattedValue = Number(whole).toLocaleString('de-DE', {
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+            displayStr = `${formattedValue}${
+                fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''
+            }`;
+            break;
+        default:
+            formattedValue = Number(whole).toLocaleString('en-US', {
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+            displayStr = `${formattedValue}${
+                fraction !== '' || value[value.length - 1] === '.' ? `.${fraction.slice(0, 2)}` : ''
+            }`;
+            break;
+    }
+
+    // Return empty string if delocalizedValue is an empty string or if formattedValue is 'NaN'. Otherwise return displayStr.
+    return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
 };
 
 const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
+    const { country } = useServerData();
 
-    // if an amount was passed in so amount is not undefined.
+    // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
-    // if the person entered an amount in the calc and it's not 0,00 or an empty string
-    const hasEnteredAmount = value !== '0,00' && value !== '';
-    // if no initial amount is passed in (amount is undefined) and they have not entered any amount at all. aka empty input field
+    // If the person entered an amount in the calc and it's not 0,00, 0.00, 0, and also not an empty string.
+    const hasEnteredAmount = value !== '0,00' && value !== '' && value !== '0.00' && value !== '0';
+    // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
-    // pass terms and isLoadings tate into getError to get the appropriate error, if any. could come back as 'null'.
+    // Pass terms, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
     const error = getError(terms, isLoading, calculator);
 
-    const { title, inputLabel, inputPlaceholder, amountRange } = calculator;
+    const { title, inputLabel, inputPlaceholder } = calculator;
 
     // Update display value based on changes from useCalculator
     useEffect(() => {
-        setDisplayValue(getDisplayValue(value));
+        setDisplayValue(getDisplayValue(value, country));
     }, [value]);
 
     /**
@@ -100,13 +137,18 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
         if (evt.key.length === 1 && !/[\d.,]/.test(evt.key)) {
             evt.preventDefault();
         }
+
+        // temp testing ctrl (or cmd) + a select all on input field
+        if ((evt.keyCode === 65 && evt.ctrlKey) || (evt.metaKey && evt.keyCode === 65)) {
+            evt.target.select();
+        }
     };
 
     const onInput = evt => {
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
 
         const delocalizedValue = delocalize(targetValue);
-        const newDisplayValue = getDisplayValue(targetValue);
+        const newDisplayValue = getDisplayValue(targetValue, country);
 
         const finalValue =
             targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 9 ? newDisplayValue : displayValue;
@@ -134,7 +176,7 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error ?? amountRange}</span>
+                        <span>{error}</span>
                     </div>
                 </div>
             );
@@ -152,22 +194,26 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
                         className={`input ${value === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
                         type="tel"
-                        value={displayValue}
+                        value={displayValue === '0' ? '' : displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
                     />
                 </div>
                 {renderError(error || emptyState || isLoading)}
             </form>
-            <div className="content-column">
-                <TermsTable
-                    terms={terms}
-                    termsLabel={termsLabel}
-                    disclaimer={disclaimer}
-                    isLoading={isLoading}
-                    hasError={(!hasInitialAmount && !hasEnteredAmount) || !!error}
-                />
-            </div>
+            {hasEnteredAmount ? (
+                <div className="content-column">
+                    <TermsTable
+                        terms={terms}
+                        termsLabel={termsLabel}
+                        disclaimer={disclaimer}
+                        isLoading={isLoading}
+                        hasError={error}
+                    />
+                </div>
+            ) : (
+                <Fragment />
+            )}
         </div>
     );
 };
