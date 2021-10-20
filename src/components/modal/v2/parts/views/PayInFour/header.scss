@@ -1,15 +1,7 @@
 @import '../../../styles/globals/mixins';
 
 .header {
-    &__wrapper {
-        @include tablet {
-            // max-width: 415px;
-            // margin: 0 auto;
-        }
-    }
-
     &__content {
-
         @include mobile {
             h1 {
                 font-size: 2rem;
@@ -77,10 +69,6 @@
         .content__col {
             flex-wrap: wrap;
             flex-direction: initial;
-
-            .content__row:first-child {
-                // background-color: transparent;
-            }
         }
 
         .content__row {
