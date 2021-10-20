@@ -81,33 +81,30 @@ export default ({ doc, props, event }) => {
         }
         .modal-content {
             position: relative;
-            background-color: #fefefe;
             margin: auto;
-            border: 1px solid #888;
-            max-width: 640px;
             height: 100%;
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
-            box-shadow: 0 5px 15px 0 rgb(0 0 0 / 50%);
         }
         .spinner{
             position: relative !important;
         }
         .close-button > button {
-            background-image: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='%232C2E2F' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
-            width: 38px;
-            height: 38px;
+             background-image: url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
+            background-color: transparent;
+            width: 44px;
+            height: 44px;
             display: block;
             padding: 0;
             border: none;
             cursor: pointer;
             position: absolute;
-            top: 12px;
             z-index: 50;
-            right: 10px;
+            right: 0;
         }
 
         .error{
+            color: white;
             width: 200px;
             height: 100px;
             position: absolute;
@@ -121,7 +118,6 @@ export default ({ doc, props, event }) => {
                 overflow-y: hidden;
             }
             .modal-content {
-                margin-top: 84px;
                 height: calc(100% - 84px);
                 
             }
