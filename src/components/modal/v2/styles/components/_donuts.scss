@@ -18,6 +18,7 @@
         display: block;
         text-align: center;
         color: $terms-details;
+        font-size: 0.875rem;
         
         &:first-of-type {
             font-family: PayPalSansBig;
@@ -26,10 +27,6 @@
         
         .donut__timestamp {
             color: $terms-details;
-
-            @include smallMobile {
-                font-size: 0.778rem;
-            }
         }
     }
 }
