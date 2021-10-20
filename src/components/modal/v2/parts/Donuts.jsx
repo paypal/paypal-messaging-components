@@ -95,7 +95,7 @@ const Donuts = ({
                     </text>
                 )}
             </svg>
-            {periodicPayment && <span>{periodicPayment}</span>}
+            {periodicPayment && periodicPayment !== '-' && <span>{periodicPayment}</span>}
             <span className="donut__timestamp">{timeStamp}</span>
         </div>
     );
