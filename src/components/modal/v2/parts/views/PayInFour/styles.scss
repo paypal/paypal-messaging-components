@@ -1,5 +1,37 @@
 @import '../../../styles/globals/mixins';
 
+.content__container .content__body {
+    .content__row {
+        &.productLink{
+            margin: 1rem 0 2rem;
+
+            @include tablet {
+                margin: 1rem 0 3rem;
+            }
+
+            .productLink__container{
+                max-width: 315px;
+                margin: 0 auto;
+
+                @include desktop {
+                    max-width: initial;
+                }
+
+                a {
+                    color: #1072eb;
+                    font-size: 0.75rem;
+                    line-height: 1.4;
+                    margin: 1rem auto 3rem;
+
+                    @include desktop {
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .content__row.donuts {
     display: flex;
     // align-items: center;

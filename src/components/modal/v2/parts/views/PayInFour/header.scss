@@ -1,0 +1,148 @@
+@import '../../../styles/globals/mixins';
+
+.header {
+    &__wrapper {
+        @include tablet {
+            // max-width: 415px;
+            // margin: 0 auto;
+        }
+    }
+
+    &__content {
+
+        @include mobile {
+            h1 {
+                font-size: 2rem;
+                line-height: 36px;
+                padding: 10px 20px 0px;
+            }
+
+            h2 {
+                padding: 10px 20px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+
+        @include smallMobile {
+
+            h1 {
+                font-size: 1.7rem;
+                line-height: 36px;
+                padding: 10px 25px 0px;
+            }
+
+            h2 {
+                padding: 10px 25px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+    }
+
+    &__icons {
+
+        .close {
+
+            svg {
+
+                path {
+                    stroke: #fff !important;
+                    stroke-width: 2.2;
+                }
+            }
+        }
+    }
+}
+
+.content__container {
+    background-color: #003087;
+    margin-top: -2rem;
+    padding-top: 2rem;
+    padding-bottom: 0;
+
+    .content__body {
+        z-index: 0;
+        position: relative;
+        top: 40px;
+        background-color: #F5F7FB;
+        padding: 0 25px;
+        box-sizing: border-box;
+
+        @include desktop {
+            padding: 0;
+            top: 0;
+        }
+
+        .content__col {
+            flex-wrap: wrap;
+            flex-direction: initial;
+
+            .content__row:first-child {
+                // background-color: transparent;
+            }
+        }
+
+        .content__row {
+
+            &.dynamic {
+                position: relative;
+                box-sizing: border-box;
+                background-color: transparent;
+                padding-left: 0px; 
+                padding-right: 0px;
+                margin: 0 -25px;
+
+                @include desktop {
+                    width: 100%;
+                    padding: 0;
+                    left: 0;
+                    top: 0;
+                    margin: 0;
+                    height: 600px;
+                    background-color: #fff;
+                }
+
+                .branded-image {
+                    height: 100%;
+                    display: flex;
+                    align-items: end;
+                }
+            }
+
+            &.instructions {
+                max-width: 315px;
+                padding: 0 25px;
+                margin: 0 auto;
+
+                @include tablet {
+                    padding: 0 75px;
+                    max-width: initial;
+                }
+
+                @include desktop {
+                    max-width: 270px;
+                }
+
+                ol.collapsed {
+                    @include desktop {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &.disclosure {
+                max-width: 315px;
+                margin: 0 auto;
+
+                @include desktop {
+                    width: 100%;
+                    padding: 2rem 60px 0;
+                    box-sizing: border-box;
+                    max-width: initial;
+                }
+            }
+
+        }
+    }
+}
