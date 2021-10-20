@@ -1,28 +1,28 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { create } from 'zoid/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
 import { getCurrentScriptUID } from 'belter/src';
-
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { ZalgoPromise } from 'zalgo-promise/src';
+import { create } from 'zoid/src';
 import {
-    getMeta,
-    getEnv,
-    getGlobalUrl,
     createGlobalVariableGetter,
+    getCurrentTime,
+    getEnv,
+    getGlobalState,
+    getGlobalUrl,
     getLibraryVersion,
     runStats,
     logger,
     getSessionID,
-    getGlobalState,
-    getCurrentTime,
     writeStorageID,
-    getOrCreateStorageID,
+    getMerchantConfig,
+    getMeta,
     getStageTag,
+    isScriptBeingDestroyed,
     getFeatures,
     ppDebug,
-    isScriptBeingDestroyed
+    getDeviceID
 } from '../../utils';
-import validate from './validation';
 import containerTemplate from './containerTemplate';
+import validate from './validation';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -98,7 +98,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
             // Callbacks
             onClick: {
                 type: 'function',
@@ -318,10 +317,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
+                decorate: ({ props }) => {
+                    return stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null;
+                },
                 default: () => '',
                 required: false
+            },
+            merchantConfigHash: {
+                type: 'string',
+                queryParam: 'merchant_config',
+                required: false,
+                value: getMerchantConfig,
+                debug: ppDebug(`Merchant Config Hash: ${getMerchantConfig()}`)
             },
             sdkMeta: {
                 type: 'string',
@@ -346,8 +353,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                value: getDeviceID,
+                debug: ppDebug(`Device ID: ${getDeviceID()}`)
             },
             sessionID: {
                 type: 'string',
