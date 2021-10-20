@@ -74,7 +74,7 @@
             top: 0;
         }
 
-        .content__col{
+        .content__col {
             flex-wrap: wrap;
             flex-direction: initial;
 
@@ -84,14 +84,6 @@
         }
 
         .content__row {
-            // background-color: #F5F7FB;
-            top: -40px;
-
-            @include desktop {
-                max-width: initial;
-                top: 0;
-
-            }
 
             &.dynamic {
                 position: relative;

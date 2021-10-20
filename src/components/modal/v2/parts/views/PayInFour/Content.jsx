@@ -5,7 +5,7 @@ import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 import Donuts from '../../Donuts';
 import headerScss from './header.scss';
-import productLinkScss from './productLink.scss';
+import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 
@@ -21,18 +21,27 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
         <Fragment>
             <style>
                 {headerScss._getCss()}
-                {productLinkScss._getCss()}
+                {styles._getCss()}
             </style>
             <div className="content__container pi4">
                 <main className="main">
                     <div className="content__body">
                         <div className="content__row dynamic">
                             <div className="content__col">
-                                <Donuts
-                                    timeStamps={donutTimestamps}
-                                    qualifying={qualifying}
-                                    periodicPayment={periodicPayment}
-                                />
+                                <div className="content__row donuts">
+                                    <div className="donuts__container">
+                                        {donutTimestamps.map((val, index) => (
+                                            <Donuts
+                                                qualifying={qualifying}
+                                                periodicPayment={periodicPayment}
+                                                currentNum={index + 1}
+                                                timeStamp={donutTimestamps[index]}
+                                            >
+                                                {qualifying ? '25%' : '25%'}
+                                            </Donuts>
+                                        ))}
+                                    </div>
+                                </div>
                                 <Instructions instructions={instructions} expandedState={expandedState} />
                             </div>
                             <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
