@@ -1,7 +1,6 @@
 /** @jsx h */
+/* eslint-disable react/no-unknown-property */
 import { Fragment, h } from 'preact';
-// import Donut from '@paypalcorp/ppc-ui-donut';
-// import { green500 } from 'pp-react';
 
 const green500 = '#00CF92';
 const grey300 = '#DBD8D0';
@@ -11,56 +10,10 @@ const generateDonutData = (currentNum = 0, numOfPayments = 4) => {
     return [{ color: green500, percentage: (currentNum / numOfPayments) * 100 }];
 };
 
-// const Donuts = ({ timeStamps, qualifying, periodicPayment }) => {
-//     return (
-//         <div className="content__row donuts">
-//             <div className="donuts__container">
-//                 {timeStamps.map(time => [
-//                     <Fragment>
-//                         <Donut
-//                             height="60"
-//                             strokeWidth={5}
-//                             data={generateDonutData(periodicPayment, 4)}
-//                             segmentStrokeWidth={7}/>
-//                         {qualifying === 'false' && <Fragment>25%</Fragment>}
-//                         <div>
-//                             <span>{qualifying === 'true' && <Fragment>{periodicPayment}</Fragment>}</span>
-//                             <span>{time}</span>
-//                         </div>
-//                     </Fragment>
-//                 ])}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Donuts;
-
-// type DonutData = {
-// 	color: string
-// 	percentage: number
-// }
-
-// interface DonutProps {
-// 	width: string
-// 	height: string
-// 	strokeWidth?: number
-// 	data?: Array<DonutData>
-// 	strokeLinecap?: 'round' | 'inherit' | 'butt' | 'square'
-// 	cx?: number
-// 	cy?: number
-// 	radius?: number
-// 	viewBox?: string
-// 	style?: object
-// 	segmentStrokeWidth?: number
-// 	baseColor?: string
-// }
-
 const Donuts = ({
-    width = '100%',
-    height = '100%',
-    strokeWidth = 5,
-    data = generateDonutData(),
+    width = '82px',
+    height = '82px',
+    strokeWidth = 3,
     strokeLinecap = 'round',
     cx = 21,
     cy = 21,
@@ -68,52 +21,46 @@ const Donuts = ({
     viewBox = `0 0 ${2 * cx} ${2 * cy}`,
     style = { fontSize: '0.375rem' },
     children,
-    segmentStrokeWidth = 7,
-    baseColor = grey300
+    segmentStrokeWidth = 4,
+    baseColor = grey300,
+    currentNum = 0,
+    timeStamp,
+    periodicPayment
     // ...rest
 }) => {
+    const data = generateDonutData(currentNum, 4);
     let segStrokeWidth = segmentStrokeWidth;
     if (!segStrokeWidth) {
         segStrokeWidth = strokeWidth;
     }
-    const radiusOffset = (segStrokeWidth - strokeWidth) / 2;
+    // const radiusOffset = (segStrokeWidth - strokeWidth) / 2;
     return (
-        <svg
-            aria-hidden
-            width={width}
-            height={height}
-            viewBox={viewBox}
-            className="donut"
-            style={style}
-            xmlns="http://www.w3.org/2000/svg"
-            // {...rest}
-        >
-            <circle
-                cx={cx}
-                cy={cy}
-                r={radius - radiusOffset}
-                fill="transparent"
-                stroke={baseColor}
-                strokeWidth={strokeWidth}
-            />
-            <g strokeWidth={segStrokeWidth} fill="transparent" strokeLinecap={strokeLinecap}>
-                <DonutSegments cx={cx} cy={cy} radius={radius} data={data} />
-            </g>
-            {children && (
-                <text x={cx} y={cy} textAnchor="middle" fill={grey600}>
-                    {children}
-                </text>
-            )}
-        </svg>
+        <div className="donut">
+            <svg
+                aria-hidden
+                width={width}
+                height={height}
+                viewBox={viewBox}
+                className="donut"
+                style={style}
+                xmlns="http://www.w3.org/2000/svg"
+                // {...rest}
+            >
+                <circle cx={cx} cy={cy} r={radius} fill="transparent" stroke={baseColor} stroke-width={strokeWidth} />
+                <g stroke-width={segStrokeWidth} fill="transparent" stroke-linecap={strokeLinecap}>
+                    <DonutSegments cx={cx} cy={cy} radius={radius} data={data} />
+                </g>
+                {children && (
+                    <text x={cx} y={cy + 2} text-anchor="middle" fill={grey600}>
+                        {children}
+                    </text>
+                )}
+            </svg>
+            <span>{periodicPayment}</span>
+            <span>{timeStamp}</span>
+        </div>
     );
 };
-
-// type DonutSegmentProps = {
-// 	cx: number
-// 	cy: number
-// 	radius: number
-// 	data: Array<DonutData>
-// }
 
 const DonutSegments = ({ cx, cy, radius, data }) => {
     let offset = 25; // To start from 12'O clock
@@ -129,13 +76,13 @@ const DonutSegments = ({ cx, cy, radius, data }) => {
                 cy={cy}
                 r={radius}
                 stroke={color}
-                strokeDasharray={strokeDasharray}
-                strokeDashoffset={strokeDashoffset}
+                stroke-dasharray={strokeDasharray}
+                stroke-dashoffset={strokeDashoffset}
             />
         );
     });
 
     return <Fragment>{segments.reverse()}</Fragment>;
 };
-
+/* eslint-enable react/no-unknown-property */
 export default Donuts;
