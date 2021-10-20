@@ -30,6 +30,11 @@ button {
     overflow: hidden;
 }
 
+button:focus .message__content,
+button:focus .message__content span.br {
+    text-decoration: underline;
+}
+
 .message__headline,
 .message__sub-headline,
 .message__disclaimer {

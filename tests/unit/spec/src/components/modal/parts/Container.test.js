@@ -68,8 +68,6 @@ describe('<Container />', () => {
     });
 
     test('scrolls to top when opening', () => {
-        window.focus = jest.fn();
-
         contentWrapper.current.scrollTop = 20;
 
         const { rerender } = render(
@@ -78,12 +76,16 @@ describe('<Container />', () => {
         );
 
         expect(contentWrapper.current.scrollTop).toBe(0);
-        expect(window.focus).not.toHaveBeenCalled();
+        window.requestAnimationFrame(() => {
+            expect(window.document.querySelector('#close-btn').focus).not.toHaveBeenCalled();
+        });
 
         rerender(<mockTransitionContext.Provider value={['OPEN']}>{content}</mockTransitionContext.Provider>);
 
         expect(contentWrapper.current.scrollTop).toBe(0);
-        expect(window.focus).toHaveBeenCalled();
+        window.requestAnimationFrame(() => {
+            expect(window.document.querySelector('#close-btn').focus).toHaveBeenCalled();
+        });
     });
 
     test('updates content when props change', async () => {

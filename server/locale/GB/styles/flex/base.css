@@ -23,8 +23,8 @@
     white-space: nowrap;
 }
 
-.message__disclaimer > span:last-child > span:only-child,
-.message__disclaimer > span:last-child > span.em {
+.message__disclaimer > span > span:only-child,
+.message__disclaimer > span > span.em {
     text-decoration: underline;
 }
 
