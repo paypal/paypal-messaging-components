@@ -4,6 +4,7 @@ import { useState } from 'preact/hooks';
 import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 import Donuts from '../../Donuts';
+import ProductListLink from '../../ProductListLink';
 import headerScss from './header.scss';
 import styles from './styles.scss';
 
@@ -57,7 +58,7 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
                         </div>
                         <div className="content__row productLink">
                             <div className="productLink__container">
-                                <a href="#ADD_PRODUCT_LINK">{linkToProductList}</a>
+                                <ProductListLink>{linkToProductList}</ProductListLink>
                             </div>
                         </div>
                     </div>
