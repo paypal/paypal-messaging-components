@@ -102,6 +102,12 @@
             left: auto;
             width: 100%;
         }
+
+        &.sticky {
+            .call-to-action .button.apply-now {
+                visibility: hidden;
+            }
+        }
     }
 
     @include mobile {
