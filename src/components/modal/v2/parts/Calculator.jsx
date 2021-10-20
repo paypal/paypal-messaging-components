@@ -153,7 +153,7 @@ const getDisplayValue = (value, country) => {
 
 const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
-    const { amount, onClick } = useXProps();
+    const { amount, onClose } = useXProps();
     const { country } = useServerData();
 
     // If an amount was passed in via xprops so amount is not undefined.
@@ -258,7 +258,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
             return (
                 <Fragment>
                     <div className="button__container">
-                        <Button onClick={() => onClick({ linkName: 'Pay Monthly Continue' })} className="cta">
+                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
                             {cta.buttonText}
                         </Button>
                     </div>
