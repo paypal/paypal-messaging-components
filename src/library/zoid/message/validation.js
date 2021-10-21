@@ -195,14 +195,12 @@ export default {
     channel: ({ props: { channel } }) => {
         if (typeof channel !== 'undefined') {
             const options = ['UPSTREAM', 'CHECKOUT'];
-            if (validateType(Types.STRING, channel) && arrayIncludes(options, channel)) {
-                return channel;
-            }
-            if (!arrayIncludes('channel', options, channel)) {
-                logInvalidOption('channel', options, channel);
-            }
             if (!validateType(Types.STRING, channel)) {
                 logInvalidType('channel', Types.STRING, channel);
+            } else if (!arrayIncludes(options, channel)) {
+                logInvalidOption('channel', options, channel);
+            } else {
+                return channel;
             }
         }
 
