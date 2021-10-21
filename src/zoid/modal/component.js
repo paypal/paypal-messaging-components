@@ -16,7 +16,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getOrCreateStorageID,
+    getDeviceID,
     getStageTag,
     getFeatures,
     ppDebug
@@ -310,7 +310,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID
+                value: getDeviceID
             },
             sessionID: {
                 type: 'string',

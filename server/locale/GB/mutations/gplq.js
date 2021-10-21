@@ -118,7 +118,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default.fees', 'default'],
+                disclaimer: ['default'],
                 styles: [
                     '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                     '.message__headline .tag--medium .weak { display: none; }'

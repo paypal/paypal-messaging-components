@@ -1,13 +1,14 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID, createState } from 'src/utils';
+import { request, getDeviceID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
-    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    getDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    isStorageFresh: jest.fn().mockReturnValue(false),
     request: jest.fn(() =>
         Promise.resolve({
             data: {
@@ -53,7 +54,7 @@ describe('Message', () => {
 
         createState.mockClear();
         request.mockClear();
-        getOrCreateStorageID.mockClear();
+        getDeviceID.mockClear();
         xPropsMock.clear();
     });
 
@@ -155,7 +156,7 @@ describe('Message', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+        getDeviceID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
 
@@ -164,6 +165,6 @@ describe('Message', () => {
             deviceID: 'uid_1111111111_11111111111',
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx'
         });
-        expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(getDeviceID).toHaveBeenCalled();
     });
 });

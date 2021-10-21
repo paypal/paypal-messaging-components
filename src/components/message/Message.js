@@ -1,10 +1,20 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from 'belter/src';
 
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize, messageRequestId } = window.xprops;
+    const {
+        onClick,
+        onReady,
+        onHover,
+        onMarkup,
+        onProps,
+        resize,
+        deviceID: parentDeviceID,
+        messageRequestId
+    } = window.xprops;
+
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
@@ -62,7 +72,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         activeTags: getActiveTags(button),
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
@@ -160,7 +170,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 // Generate new MRID on message update.
                                 messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
-                                deviceID: getOrCreateStorageID()
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
                             });
                         }
 
