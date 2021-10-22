@@ -32,6 +32,7 @@ const accounts = [
     // 'DEV00DEPI30NQ',
     // 'DEV000DEPI30Q',
     // 'DEV0000DEPI30',
+    // 'DEV0DEPI30GPL',
 
     // GB
     // 'DEV000000GBPL',
