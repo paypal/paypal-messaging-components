@@ -17,6 +17,12 @@
     .title {
         margin-top: 0;
         font-weight: 500;
+
+        @include desktop {
+            .lander & {
+                margin-top: 20px;
+            }
+        }
     }
 
     .input__wrapper {

@@ -44,17 +44,8 @@
         &:first-child {
             padding-bottom: 15px;
         }
-        @include tablet {
-            // display: flex;
-            // justify-content: space-evenly;
-        }
 
         @include mobile {
-            &:first-child {
-                padding-bottom: 15px;
-            }
-        }
-        @include smallMobile {
             &:first-child {
                 padding-bottom: 15px;
             }
@@ -66,13 +57,10 @@
         font-weight: 800;
         @include mobile {
             font-size: 1.2rem;
-            color: black;
             margin-top: 16px;
         }
         @include smallMobile {
             font-size: 1rem;
-            color: black;
-            margin-top: 16px;
         }
     }
 

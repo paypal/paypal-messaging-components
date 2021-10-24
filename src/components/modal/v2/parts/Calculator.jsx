@@ -4,7 +4,6 @@ import { useState, useEffect } from 'preact/hooks';
 
 import { useCalculator, useServerData, useXProps } from '../lib';
 import TermsTable from './TermsTable';
-import Button from './Button';
 import Icon from './Icon';
 
 /**
@@ -151,9 +150,9 @@ const getDisplayValue = (value, country) => {
     return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
-    const { amount, onClose } = useXProps();
+    const { amount } = useXProps();
     const { country } = useServerData();
 
     // If an amount was passed in via xprops so amount is not undefined.
@@ -252,22 +251,6 @@ const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
         return <Fragment />;
     };
 
-    // Only show the cta button when in checkout.
-    const renderButton = () => {
-        if (typeof cta !== 'undefined') {
-            return (
-                <Fragment>
-                    <div className="button__container">
-                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
-                            {cta.buttonText}
-                        </Button>
-                    </div>
-                </Fragment>
-            );
-        }
-        return <Fragment />;
-    };
-
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
@@ -293,7 +276,6 @@ const Calculator = ({ setExpandedState, calculator, disclaimer, cta }) => {
                 <Fragment />
             )}
             <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{disclaimer}</div>
-            {renderButton()}
         </div>
     );
 };

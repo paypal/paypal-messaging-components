@@ -1,10 +1,12 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
+import { useXProps } from '../../../lib';
 import Calculator from '../../Calculator';
 import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
+import Button from '../../Button';
 
 export const LongTerm = ({
     calculator,
@@ -17,17 +19,27 @@ export const LongTerm = ({
     contentBodyRef
 }) => {
     const [expandedState, setExpandedState] = useState(false);
+    const { onClose } = useXProps();
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
-     * partial has been added. Because we do not want to show the link to the product list modal if we are in checkout,
-     * we make sure "cta" is not in the content. If "cta" is undefined, render the Product List link, otherwise, return an empty Fragment.
+     * partial content has been added. Because we do not want to show the link to the product list modal if we are in checkout,
+     * we make sure "cta" is not in the content. If "cta" is not undefined, return the Checkout-specific cta button.
+     * Otherwise, render the Product List link.
      */
-    const renderProductListLink = () => {
-        if (typeof cta === 'undefined') {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+    const renderCheckoutCtaButton = () => {
+        if (typeof cta !== 'undefined') {
+            return (
+                <Fragment>
+                    <div className="button__container">
+                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                            {cta.buttonText}
+                        </Button>
+                    </div>
+                </Fragment>
+            );
         }
-        return <Fragment />;
+        return <ProductListLink>{linkToProductList}</ProductListLink>;
     };
 
     return (
@@ -42,7 +54,6 @@ export const LongTerm = ({
                                     calculator={calculator}
                                     disclaimer={disclaimer}
                                     buttonText={buttonText}
-                                    cta={cta}
                                 />
                             </div>
                             <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
@@ -56,7 +67,7 @@ export const LongTerm = ({
                         <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
                             {disclosure}
                         </div>
-                        {renderProductListLink()}
+                        {renderCheckoutCtaButton()}
                     </div>
                 </main>
             </div>
