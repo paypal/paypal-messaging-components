@@ -1,6 +1,6 @@
 {
     "meta": {
-        "product": "PAY_LATER_PAY_IN_FOUR",
+        "product": "PAY_LATER_SHORT_TERM",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",

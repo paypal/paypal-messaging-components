@@ -23,7 +23,7 @@ const ContentWrapper = () => {
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} />,
-        PAY_LATER_PAY_IN_FOUR: <PayInFour {...useContent(product)} />
+        PAY_LATER_SHORT_TERM: <PayInFour {...useContent(product)} />
     };
 
     return (

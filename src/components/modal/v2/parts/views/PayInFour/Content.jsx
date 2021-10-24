@@ -3,7 +3,7 @@ import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
 import Icon from '../../Icon';
 import Instructions from '../../Instructions';
-import Donuts from '../../Donuts';
+import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import headerScss from './header.scss';
 import styles from './styles.scss';
@@ -33,14 +33,14 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
                                 <div className="content__row donuts">
                                     <div className="donuts__container">
                                         {donutTimestamps.map((val, index) => (
-                                            <Donuts
+                                            <Donut
                                                 qualifying={qualifying}
                                                 periodicPayment={periodicPayment}
                                                 currentNum={index + 1}
                                                 timeStamp={donutTimestamps[index]}
                                             >
-                                                {qualifying ? '25%' : '25%'}
-                                            </Donuts>
+                                                {qualifying && `${((1 / donutTimestamps.length) * 100).toFixed(0)}%`}
+                                            </Donut>
                                         ))}
                                     </div>
                                 </div>
