@@ -41,7 +41,7 @@ const useWindowDimensions = () => {
     return windowDimensions;
 };
 
-const Donuts = ({
+const Donut = ({
     strokeWidth = 3,
     strokeLinecap = 'round',
     cx = 21,
@@ -124,4 +124,4 @@ const DonutSegments = ({ cx, cy, radius, data }) => {
     return <Fragment>{segments.reverse()}</Fragment>;
 };
 /* eslint-enable react/no-unknown-property */
-export default Donuts;
+export default Donut;
