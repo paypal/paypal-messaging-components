@@ -1,50 +1,11 @@
 @import '../../../../styles/globals/mixins';
-@import './mixins';
-.header__wrapper {
-    border-radius: 0px;
-    .header__container {
-        padding: 0px;
-        background-image: $primary-background;
-        background-repeat: no-repeat;
-        background-size: cover;
-        .header__icons {
-            flex-direction: row;
-            .close {
-                background-color: transparent;
-                svg {
-                    path {
-                        stroke: $secondary-button-color;
-                    }
-                }
-            }
-            .logo__wrapper {
-                padding: 0px;
-                justify-content: start;
-                .pp-logo {
-                    padding: 15px 0 0 $content-padding;
-                    img {
-                        height: unset;
-                        width: 25.6px;
-                    }
-                }
-            }
-        }
-        .header__content {
-            h1,
-            h2 {
-                text-align: left;
-                margin: $line-height $content-padding;
-                padding: 0px;
-            }
-            h1 {
-                font-size: 28px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-            @include mobile {
-                padding-bottom: 20px;
-            }
+
+.header {
+    &__content {
+        padding-bottom: 40px;
+
+        @include mobile {
+            padding-bottom: 0px;
         }
     }
 }

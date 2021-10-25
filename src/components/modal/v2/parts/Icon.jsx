@@ -60,6 +60,14 @@ const Icon = ({ name, color }) => {
                     src="https://preview.redd.it/7c2gaheiowu31.png?auto=webp&s=5581d6fd2c0769db69c5e71e1d9938866aabb7fc"
                 />
             );
+        case 'paypal-credit-image':
+            return (
+                <img
+                    alt="temporary"
+                    style={{ width: '100%' }}
+                    src="https://mcdn.wallpapersafari.com/medium/9/37/zXVoNw.jpg"
+                />
+            );
         default:
             return null;
     }

@@ -2,12 +2,13 @@
 import { h, Fragment } from 'preact';
 import { useState, useRef } from 'preact/hooks';
 import Button from '../../Button';
+import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import styles from './styles/index.scss';
 import { useApplyNow } from '../../../lib';
 
-export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLink }) => {
+export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLink, contentBodyRef }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [expandedState] = useState(false);
@@ -16,8 +17,26 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
             <style>{styles._getCss()}</style>
             <div className="ni content__container">
                 <main className="main">
-                    <div className="content__body">
-                        <Instructions instructions={instructions} expandedState={expandedState} />
+                    <div className="content__body" ref={contentBodyRef}>
+                        <div className="content__row dynamic">
+                            <div className="content__col">
+                                <Instructions instructions={instructions} expandedState={expandedState} />
+                                <div className="button__container">
+                                    <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                                        {buttonText}
+                                    </Button>
+                                </div>
+                                <div className="content__row content__disclaimer">{disclaimer}</div>
+                            </div>
+                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                                <div className="branded-image">
+                                    {/* TODO: update from temp desktop image */}
+                                    <Icon name="paypal-credit-image" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul className="content__footer">
                         <ul className="content__row terms">
                             {terms.map(item => (
                                 <li className="terms-item">
@@ -26,12 +45,6 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                                 </li>
                             ))}
                         </ul>
-                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
-                            {buttonText}
-                        </Button>
-                        <div className="content__row content__disclaimer">{disclaimer}</div>
-                    </div>
-                    <ul className="content__footer">
                         {footer.map(content => {
                             const line = content.map(item => {
                                 if (Array.isArray(item)) {
