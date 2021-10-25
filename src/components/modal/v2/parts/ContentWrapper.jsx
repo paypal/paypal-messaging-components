@@ -10,6 +10,7 @@ import { LongTerm } from './views';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
+    const contentBackground = useRef();
     const contentBodyRef = useRef();
 
     let product;
@@ -29,13 +30,14 @@ const ContentWrapper = () => {
         <Container contentWrapper={contentWrapper} contentMaxWidth={640}>
             <Overlay />
             <div className="content__wrapper" ref={contentWrapper}>
-                <div className="content__background">
+                <div className="content__background" ref={contentBackground}>
                     <Header
                         logo="logo"
                         headline={headline}
                         subheadline={subheadline}
                         contentWrapper={contentWrapper}
                         contentBodyRef={contentBodyRef}
+                        contentBackground={contentBackground}
                     />
                     {productView[product]}
                 </div>
