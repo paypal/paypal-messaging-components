@@ -18,7 +18,8 @@ const Container = ({ children, contentWrapper }) => {
         ignoreCache,
         version,
         env,
-        stageTag
+        stageTag,
+        channel
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -55,7 +56,8 @@ const Container = ({ children, contentWrapper }) => {
             ignoreCache,
             version,
             env,
-            stageTag
+            stageTag,
+            channel
         }).then(data => {
             setServerData(data);
             setLoading(false);
