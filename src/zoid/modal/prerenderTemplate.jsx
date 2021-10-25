@@ -38,6 +38,7 @@ const CloseIcon = ({ size = 36, strokeWidth = 1, color = '#000000' }) => {
 };
 
 export default ({ doc, props, event }) => {
+    const TRANSITION_DELAY = 300;
     const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
@@ -131,7 +132,7 @@ export default ({ doc, props, event }) => {
             margin-left: -60px;
             text-align: center;
         }
-        .close {
+        button.close {
             display: block;
             padding: 0;
             border: none;
@@ -142,11 +143,14 @@ export default ({ doc, props, event }) => {
             right: 5px;
             pointer-events: all;
             margin: 0;
+            z-index:50;
         }
+
         .close svg {
             height: 40px;
             width: 40px;
         }
+
         @media (max-width: 639px), (max-height: 539px) {
             .modal {
                 overflow-y: hidden;
@@ -161,7 +165,16 @@ export default ({ doc, props, event }) => {
             }
         }
     `;
-    const closeModal = () => event.trigger('modal-hide');
+
+    const handleShow = element => {
+        ZalgoPromise.delay(TRANSITION_DELAY).then(() => {
+            element.querySelector('#close-btn').focus();
+        });
+    };
+
+    const handleHide = () => {
+        event.trigger('modal-hide');
+    };
 
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
@@ -175,6 +188,22 @@ export default ({ doc, props, event }) => {
         });
     };
 
+    const handleEscape = evt => {
+        if (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27) {
+            handleHide();
+        }
+    };
+
+    const handleOnRender = body => {
+        body.addEventListener('keyup', handleEscape);
+        event.on('modal-show', () => {
+            handleShow(body);
+        });
+        handleShow(body);
+
+        checkForErrors();
+    };
+
     return (
         <html lang="en">
             <head>
@@ -182,16 +211,18 @@ export default ({ doc, props, event }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <style>{styles}</style>
-            <body onRender={checkForErrors}>
+            <body onRender={handleOnRender}>
                 <div class="modal">
-                    <div class="overlay" onClick={closeModal} />
-                    <div class="top-overlay" />
+                    <div class="overlay" onClick={handleHide} />
+                    <div class="top-overlay" onClick={handleHide} />
                     <div class="modal-content">
-                        <button class="close" aria-label="Close" type="button" id="close-btn" onClick={closeModal}>
+                        <button class="close" aria-label="Close" type="button" id="close-btn" onClick={handleHide}>
                             <CloseIcon color="#000000" size="36" />
                         </button>
                         <div class="error" style="display: none"></div>
-                        <Spinner nonce={props.nonce} />
+                        <div>
+                            <Spinner nonce={props.nonce} />
+                        </div>
                     </div>
                 </div>
             </body>
