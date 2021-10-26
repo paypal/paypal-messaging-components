@@ -5,14 +5,14 @@ import Calculator from '../../Calculator';
 import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 
-export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, disclosure }) => {
+export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, disclosure, contentBodyRef }) => {
     const [expandedState, setExpandedState] = useState(false);
 
     return (
         <Fragment>
             <div className="content__container">
                 <main className="main">
-                    <div className="content__body">
+                    <div className="content__body" ref={contentBodyRef}>
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <Calculator

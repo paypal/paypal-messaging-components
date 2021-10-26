@@ -12,7 +12,6 @@
     }
 
     &__container {
-        background-color: $header-background;
         position: relative;
 
         @include desktop {
@@ -24,8 +23,15 @@
         @include mobile {
             padding-bottom: 40px;
         }
-        @include smallMobile {
-            padding-bottom: 40px;
+    }
+
+    &__background-wrapper {
+        position: absolute;
+        z-index: -9;
+
+        svg {
+            width: 900px;
+            transform: translate(0, -30%);
         }
     }
 
@@ -37,14 +43,8 @@
         height: auto;
         text-align: center;
 
-        @include desktop {
-            display: flex;
-            flex-direction: column-reverse;
-        }
-        @include tablet {
-            display: flex;
-            flex-direction: column-reverse;
-        }
+        //importing sticky styles
+        @import './sticky';
 
         .logo {
             display: inline-block;
@@ -61,7 +61,7 @@
                 }
 
                 @include tablet {
-                    padding: 25px 25px 0px;
+                    padding: 0px 25px 0px;
                     display: flex;
                     justify-content: center;
                 }
@@ -75,6 +75,10 @@
                         }
 
                         @include tablet {
+                            height: 40px;
+                        }
+
+                        @include mobile {
                             height: 35px;
                         }
                     }
@@ -86,8 +90,9 @@
             top: 5px;
             right: 5px;
             pointer-events: all;
-            background: #142c8e;
+            background: transparent;
             border: none;
+            cursor: pointer;
 
             @include desktop {
                 display: flex;
@@ -100,8 +105,8 @@
             }
 
             svg {
-                height: 44px;
-                width: 44px;
+                height: 48px;
+                width: 48px;
 
                 @include desktop {
                     margin: 0px;
@@ -112,7 +117,7 @@
                 }
 
                 path {
-                    stroke: #f589d0 !important;
+                    stroke: white !important;
                     stroke-width: 2.2;
                 }
             }
@@ -129,67 +134,58 @@
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             line-height: 36px;
             text-align: left;
             color: white;
             margin: auto;
+
+            @include desktop {
+                text-align: center;
+            }
+
+            @include tablet {
+                max-width: 315px;
+                text-align: center;
+
+                .lander & {
+                    max-width: 100%;
+                }
+            }
+
+            @include mobile {
+                padding: 10px 25px 0px;
+            }
+
+            @include smallMobile {
+                font-size: 1.7rem;
+            }
         }
 
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 24px;
             text-align: left;
             color: white;
             margin: 0px;
-        }
 
-        @include desktop {
-            h1 {
-                text-align: center;
-            }
-            h2 {
+            @include desktop {
                 margin-top: 10px;
                 text-align: center;
             }
-        }
 
-        @include tablet {
-            h1 {
-                font-size: 2rem;
-                max-width: 315px;
-                text-align: center;
-            }
-            h2 {
+            @include tablet {
                 font-size: 1rem;
                 max-width: 315px;
                 margin: 1rem auto 0;
                 text-align: center;
-            }
-        }
 
-        @include mobile {
-            h1 {
-                font-size: 2rem;
-                line-height: 36px;
-                padding: 10px 25px 0px;
+                .lander & {
+                    max-width: 100%;
+                }
             }
 
-            h2 {
-                padding: 10px 25px 25px;
-                font-size: 1rem;
-                line-height: 20px;
-            }
-        }
-
-        @include smallMobile {
-            h1 {
-                font-size: 1.7rem;
-                line-height: 36px;
-                padding: 10px 25px 0px;
-            }
-
-            h2 {
+            @include mobile {
                 padding: 10px 25px 25px;
                 font-size: 1rem;
                 line-height: 20px;

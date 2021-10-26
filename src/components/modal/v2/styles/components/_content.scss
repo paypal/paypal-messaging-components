@@ -7,6 +7,13 @@
     padding-bottom: 1.5rem;
     flex-grow: 1;
 
+    .lander & {
+        border-radius: 100px 0px;
+        @include mobile {
+            border-radius: 0px;
+        }
+    }
+
     @include tablet {
         border-radius: 10px;
     }
@@ -57,6 +64,13 @@
             padding-left: 25px;
             padding-right: 25px;
             border-radius: 40px 0px;
+
+            .lander & {
+                border-radius: 100px 0px 0px 0px;
+                @include mobile {
+                    border-radius: 40px 0px;
+                }
+            }
             @include desktop {
                 height: 100%;
 
@@ -107,6 +121,7 @@
             padding: 1rem 0 0rem;
 
             @include desktop {
+                padding-top: 0px;
                 padding-left: 30px;
                 width: 90%;
                 font-size: 0.8rem;
