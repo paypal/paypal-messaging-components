@@ -1,3 +1,10 @@
+&.sticky,
+&.unsticky {
+    .lander & {
+        display: none;
+    }
+}
+
 @include desktop {
     display: flex;
     flex-direction: column-reverse;
