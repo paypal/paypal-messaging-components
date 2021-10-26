@@ -1,6 +1,22 @@
 @import '../../../styles/globals/mixins';
 
+$webpage : 1640px;
+
 .header__wrapper {
+    .header__container {
+        @media all and (min-width: $webpage) {
+            background-color: transparent;
+        }
+
+        .header__icons {
+            button {
+                @media all and (min-width: $webpage) {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .header__content {
         h1 {
             font-size: 1.89rem;
@@ -23,11 +39,21 @@
     }
 }
 
+.content__background {
+    @media all and (min-width: $webpage) {
+       max-width: 933px;
+    }
+}
+
 .content__container {
     background-color: #003087;
     margin-top: -2rem;
     padding-top: 2rem;
     padding-bottom: 0;
+
+    @media all and (min-width: $webpage) {
+        background-color: transparent;
+    }
 
     .content__body {
         z-index: 0;
@@ -42,15 +68,27 @@
             top: 0;
         }
 
-        .content__col {
-            flex-wrap: wrap;
-            flex-direction: initial;
+        @media all and (min-width: $webpage) {
+            border-top-left-radius: 100px;
+            border-bottom-right-radius: 100px;
+        }
+
+        .dynamic__container {
+            @media all and (min-width: $webpage) {
+                overflow: hidden;
+                background-color: #fff;
+                border-top-left-radius: 100px;
+            }
         }
 
         .content__row {
+            .content__col {
+                flex-wrap: wrap;
+                flex-direction: initial;
 
-            .content__col.collapsed:last-child {
-                overflow: hidden;
+                .collapsed:last-child {
+                    overflow: hidden;
+                }
             }
 
             .donuts {
@@ -123,10 +161,19 @@
                     background-color: #fff;
                 }
 
+                @media all and (min-width: $webpage) {
+                    max-width: 840px;
+                    margin: 0 auto;
+                }
+
                 .branded-image {
-                    height: 100%;
+                    width: 430px;
                     display: flex;
                     margin-top: 56px;
+
+                    @media all and (min-width: $webpage) {
+
+                    }
                 }
             }
 
@@ -163,19 +210,13 @@
                 }
             }
 
-            #productListLink {
-                @include mobile{
-                    min-width: initial;
-                }
-            }
-
             &.productLink{
                 margin: 1rem 0 2rem;
-    
+
                 @include tablet {
                     margin: 1rem 0 3rem;
                 }
-    
+
                 .productLink__container{
                     max-width: 315px;
                     margin: 0 auto;
@@ -183,12 +224,16 @@
                     @include desktop {
                         max-width: initial;
                     }
-    
+
                     a {
                         color: #1072eb;
                         font-size: 0.75rem;
                         line-height: 1.4;
-    
+
+                        @include mobile{
+                            min-width: initial;
+                        }
+
                         @include desktop {
                             padding-left: 30px;
                         }

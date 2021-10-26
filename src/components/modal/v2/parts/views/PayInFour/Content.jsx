@@ -28,28 +28,31 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
             <div className="content__container pi4">
                 <main className="main">
                     <div className="content__body">
-                        <div className="content__row dynamic">
-                            <div className="content__col">
-                                <div className="content__row donuts">
-                                    <div className="donuts__container">
-                                        {donutTimestamps.map((val, index) => (
-                                            <Donut
-                                                qualifying={qualifying}
-                                                periodicPayment={periodicPayment}
-                                                currentNum={index + 1}
-                                                timeStamp={donutTimestamps[index]}
-                                            >
-                                                {qualifying && `${((1 / donutTimestamps.length) * 100).toFixed(0)}%`}
-                                            </Donut>
-                                        ))}
+                        <div className="dynamic__container">
+                            <div className="content__row dynamic">
+                                <div className="content__col">
+                                    <div className="content__row donuts">
+                                        <div className="donuts__container">
+                                            {donutTimestamps.map((val, index) => (
+                                                <Donut
+                                                    qualifying={qualifying}
+                                                    periodicPayment={periodicPayment}
+                                                    currentNum={index + 1}
+                                                    timeStamp={donutTimestamps[index]}
+                                                >
+                                                    {qualifying &&
+                                                        `${((1 / donutTimestamps.length) * 100).toFixed(0)}%`}
+                                                </Donut>
+                                            ))}
+                                        </div>
                                     </div>
+                                    <Instructions instructions={instructions} expandedState={expandedState} />
                                 </div>
-                                <Instructions instructions={instructions} expandedState={expandedState} />
-                            </div>
-                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
-                                <div className="branded-image">
-                                    {/* TODO: update from temp desktop image */}
-                                    <Icon name="pi4-image" />
+                                <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                                    <div className="branded-image">
+                                        {/* TODO: update from temp desktop image */}
+                                        <Icon name="pi4-image" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
