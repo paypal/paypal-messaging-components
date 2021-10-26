@@ -103,6 +103,9 @@ export default function polyfillZoid() {
                 link: linkName
             });
         },
+        // Overridable defaults
+        integrationType: __MESSAGES__.__TARGET__,
+        // Specified props via query params
         ...props
     };
 }
