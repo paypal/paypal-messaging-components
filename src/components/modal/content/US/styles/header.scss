@@ -46,10 +46,6 @@
             border-color: white;
         }
         svg {
-            @include mobile {
-                height: 35px;
-                width: 35px;
-            }
             path {
                 stroke: white;
             }

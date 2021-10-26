@@ -152,8 +152,8 @@ export default ({ doc, props, event }) => {
             transform: translate(1px, -1px);
         }
         .close svg {
-            height: 40px;
-            width: 40px;
+            height: 44px;
+            width: 44px;
         }
         .close svg path {
             stroke: black;

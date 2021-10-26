@@ -52,10 +52,6 @@
             border-color: black;
         }
         svg {
-            @media (max-width: 639px), (max-height: 539px) {
-                height: 35px;
-                width: 35px;
-            }
             path {
                 stroke: black;
             }

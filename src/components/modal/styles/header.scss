@@ -2,7 +2,6 @@
     .close {
         /* 
         Some close button attributes will need to be determined by locale:
-            * media-query -> when to change button size
             * border-color: white or black
             * path stroke: white or black
         */
@@ -25,6 +24,10 @@
         svg {
             height: 44px;
             width: 44px;
+            @media (max-width: 639px), (max-height: 539px) {
+                height: 35px;
+                width: 35px;
+            }
         }
         path {
             stroke: white;
