@@ -48,7 +48,7 @@ const getComputedVariables = offers =>
         }
     );
 
-const getError = ({ meta: { error = '' }, offers }, isLoading, calculator, amount) => {
+const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
     const {
         minAmount,
         maxAmount,
