@@ -12,10 +12,11 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [expandedState] = useState(false);
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="ni content__container">
+            <div className="content__container">
                 <main className="main">
                     <div className="content__body" ref={contentBodyRef}>
                         <div className="content__row dynamic">
@@ -25,8 +26,8 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                                     <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
                                         {buttonText}
                                     </Button>
+                                    <div className="content__row content__disclaimer">{disclaimer}</div>
                                 </div>
-                                <div className="content__row content__disclaimer">{disclaimer}</div>
                             </div>
                             <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                                 <div className="branded-image">

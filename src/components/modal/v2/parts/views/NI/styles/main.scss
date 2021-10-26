@@ -50,8 +50,30 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                @include tablet {
+                    position: fixed;
+                    bottom: 0;
+                    width: calc(100%);
+                    background: $secondary-background;
+                    margin-bottom: 0;
+                    max-width: 640px;
+                    padding: 15px 0;
+                    .button {
+                        width: calc(80%);
+                    }
+                }
                 @include mobile {
-                    padding: 25px 0;
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: calc(100%);
+                    background: $secondary-background;
+                    margin-bottom: 0;
+                    max-width: 640px;
+                    padding: 15px 0;
+                    .button {
+                        width: calc(80%);
+                    }
                 }
             }
 
@@ -67,7 +89,15 @@
         background: $tertiary-background;
         padding: 25px;
         margin: 0;
-
+        @include tablet {
+            margin-bottom: 25px;
+        }
+        @include mobile {
+            margin-bottom: 25px;
+        }
+        @include smallMobile {
+            margin-bottom: 25px;
+        }
         .terms {
             @include desktop {
                 margin-left: 30px;
