@@ -43,6 +43,9 @@
         height: auto;
         text-align: center;
 
+        //importing sticky styles
+        @import './sticky';
+
         .logo {
             display: inline-block;
             margin-top: 1rem;
