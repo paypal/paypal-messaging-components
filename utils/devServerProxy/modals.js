@@ -124,4 +124,17 @@ export default function createModalRoutes(app, server) {
 
         res.send(props);
     });
+
+    app.get('/credit-presentment/lander/modal', async (req, res) => {
+        const props = getModalData(req);
+        const markup = createMockZoidMarkup({
+            component: 'modal-v2-lander',
+            props,
+            port
+        });
+
+        await waitForTimeout(REQUEST_DELAY);
+
+        res.send(markup);
+    });
 }
