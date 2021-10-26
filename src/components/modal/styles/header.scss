@@ -1,5 +1,11 @@
 .header-wrapper {
     .close {
+        /* 
+        Some close button attributes will need to be determined by locale:
+            * media-query -> when to change button size
+            * border-color: white or black
+            * path stroke: white or black
+        */
         display: block;
         padding: 0;
         border: none;
@@ -10,24 +16,20 @@
         right: 5px;
         pointer-events: all;
         margin: 0;
-
-        svg {
-            height: 40px;
-            width: 40px;
+        &:focus {
+            outline: none;
+            border: 1px solid white;
+            border-radius: 5px;
+            transform: translate(1px, -1px);
         }
-
+        svg {
+            height: 44px;
+            width: 44px;
+        }
         path {
+            stroke: white;
             stroke-width: 1px;
             transition: all 0.3s;
-        }
-    }
-
-    @media (max-width: 639px), (max-height: 539px) {
-        .close {
-            svg {
-                height: 35px;
-                width: 35px;
-            }
         }
     }
 }

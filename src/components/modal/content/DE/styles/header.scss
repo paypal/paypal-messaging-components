@@ -32,19 +32,16 @@
 
     .close {
         &:focus {
-            border: 1px solid white;
-            border-radius: 5px;
-            transform: translate(1px, -1px);
+            border-color: black;
         }
-
         svg {
-            height: 48px;
-            width: 48px;
-        }
-
-        path {
-            stroke-width: 1px;
-            transition: all 0.3s;
+            @media (max-width: 639px), (max-height: 539px) {
+                height: 35px;
+                width: 35px;
+            }
+            path {
+                stroke: black;
+            }
         }
     }
 

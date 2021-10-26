@@ -30,12 +30,16 @@
     }
 
     .close {
+        &:focus {
+            border-color: white;
+        }
         svg {
-            height: 44px;
-            width: 44px;
-
+            @include mobile {
+                height: 35px;
+                width: 35px;
+            }
             path {
-                stroke: white !important;
+                stroke: white;
             }
         }
     }
@@ -55,19 +59,6 @@
         h1 {
             font-size: 20px;
             line-height: 22px;
-        }
-    }
-
-    .close {
-        &:focus {
-            border: 1px solid white;
-            border-radius: 5px;
-            transform: translate(1px, -1px);
-        }
-        
-        svg {
-            height: 44px;
-            width: 44px;
         }
     }
 }

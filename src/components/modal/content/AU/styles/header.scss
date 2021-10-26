@@ -43,22 +43,16 @@
     }
 
     .close {
-        top: 5px;
-        right: 5px;
-        pointer-events: all;
-        
         &:focus {
-            border: 1px solid white;
-            border-radius: 5px;
-            transform: translate(1px, -1px);
+            border-color: white;
         }
-
         svg {
-            height: 44px;
-            width: 44px;
-
+            @include mobile {
+                height: 35px;
+                width: 35px;
+            }
             path {
-                stroke: white !important;
+                stroke: white;
             }
         }
     }
@@ -77,13 +71,6 @@
             & img {
                 height: 45px;
                 margin-right: 9px;
-            }
-        }
-
-        .close {
-            svg {
-                height: 44px;
-                width: 44px;
             }
         }
     }

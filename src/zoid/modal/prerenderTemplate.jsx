@@ -132,7 +132,7 @@ export default ({ doc, props, event }) => {
             margin-left: -60px;
             text-align: center;
         }
-        button.close {
+        .close {
             display: block;
             padding: 0;
             border: none;
@@ -143,14 +143,23 @@ export default ({ doc, props, event }) => {
             right: 5px;
             pointer-events: all;
             margin: 0;
-            z-index:50;
+            z-index: 50;
         }
-
+        .close:focus {
+            outline: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            transform: translate(1px, -1px);
+        }
         .close svg {
             height: 40px;
             width: 40px;
         }
-
+        .close svg path {
+            stroke: black;
+            stroke-width: 1px;
+            transition: all 0.3s;
+        }
         @media (max-width: 639px), (max-height: 539px) {
             .modal {
                 overflow-y: hidden;
@@ -200,8 +209,7 @@ export default ({ doc, props, event }) => {
             handleShow(body);
         });
         handleShow(body);
-
-        checkForErrors();
+        checkForErrors(body);
     };
 
     return (
