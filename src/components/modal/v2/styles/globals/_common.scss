@@ -22,7 +22,7 @@ h3,
 h4,
 p,
 li {
-    color: #2c2e2f;
+    color: $text-main;
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-weight: 400;
 }
@@ -67,7 +67,7 @@ p {
 
 a {
     text-decoration: none;
-    color: #0070ba;
+    color: $light-blue;
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-weight: 600;
 }
@@ -82,83 +82,4 @@ li {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: 0;
-}
-
-.button {
-    display: inline-block;
-    background: #0070ba;
-    border: none;
-    color: white;
-    border-radius: 3rem;
-    padding: 0.7em 1.5em;
-    font-size: 1rem;
-    text-align: center;
-    transition: all 0.2s;
-    font-weight: 500;
-    border: 1px solid #0070ba;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-        background: #003087;
-        border: 1px solid #003087;
-    }
-
-    &:focus {
-        text-decoration: underline;
-        outline: none;
-    }
-
-    &.secondary {
-        background: white;
-        color: #0070ba;
-        border: 1px solid #0070ba;
-    }
-
-    &.secondary:hover,
-    &.secondary:focus {
-        border-color: #003087;
-        box-shadow: 0 0 0 0.0625em #003087 inset;
-        color: #003087;
-        background: white;
-    }
-
-    &.md {
-        font-size: 0.9rem;
-    }
-}
-
-.spinner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    border-radius: 50%;
-    border-top: 4px solid #00ff7f;
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-    transition: opacity 0.2s;
-    pointer-events: none;
-    transform-origin: 0 0;
-    z-index: 5;
-}
-
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg) translate(-50%, -50%);
-    }
-    100% {
-        -webkit-transform: rotate(360deg) translate(-50%, -50%);
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg) translate(-50%, -50%);
-    }
-    100% {
-        transform: rotate(360deg) translate(-50%, -50%);
-    }
 }

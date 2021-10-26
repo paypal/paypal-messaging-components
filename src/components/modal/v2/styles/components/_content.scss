@@ -107,6 +107,7 @@
             padding: 1rem 0 0rem;
 
             @include desktop {
+                padding-top: 0px;
                 padding-left: 30px;
                 width: 90%;
                 font-size: 0.8rem;
