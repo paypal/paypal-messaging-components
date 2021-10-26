@@ -47,3 +47,9 @@ export const getContent = memoize(
         );
     }
 );
+
+/**
+ * Checks if target is lander. If true, lander-specific styles will be used.
+ * @returns boolean
+ */
+export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';

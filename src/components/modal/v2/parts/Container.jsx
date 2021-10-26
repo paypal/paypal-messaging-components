@@ -1,9 +1,18 @@
 /** @jsx h */
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getOrCreateStorageID } from '../../../../utils';
 
-import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
+import {
+    useTransitionState,
+    ScrollProvider,
+    useServerData,
+    useXProps,
+    useDidUpdateEffect,
+    getContent,
+    isLander
+} from '../lib';
+import Icon from './Icon';
 
 const Container = ({ children, contentWrapper }) => {
     const { type, views, meta, setServerData } = useServerData();
@@ -66,7 +75,8 @@ const Container = ({ children, contentWrapper }) => {
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <div className="modal-wrapper">
+            <div className={`modal-wrapper ${isLander ? 'lander' : ''}`}>
+                {isLander ? <Icon name="header-background" /> : <Fragment />}
                 <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                     <div className="wrapper">{children}</div>
