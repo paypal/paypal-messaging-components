@@ -42,9 +42,9 @@ npm start
 
 To run functional tests, first run `npm run dev:standalone` in one command line instance and `npm run test:func` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on.
 
-### Performance Benchmark
+## Performance Benchmark
 
-To run performance benchmark, first run `npm run dev:standalone` in one command line instance and `npm run benchmark` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on.
+To run performance benchmark, first run `npm run dev:standalone` in one command line instance and `npm run benchmark` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on. To use lighthouse benchmarking install the lighthouse cli via `npm install -g @lhci/cli`. Prior to running benchmark run `LIGHTHOUSE_URL={URL_WITH_NO_BRACKETS} lhci autorun --config=./tools/performance/lighthouserc-desktop.js` and `LIGHTHOUSE_URL={URL_WITH_NO_BRACKETS} lhci autorun --config=./tools/performance/lighthouserc-mobile.js`
 
 ## Releasing
 

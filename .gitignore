@@ -15,6 +15,7 @@ oom_1
 **/__diff_output__/**
 tests/__reports__/*.html
 lighthouse
+.lighthouseci
 
 # OS generated files #
 ######################
