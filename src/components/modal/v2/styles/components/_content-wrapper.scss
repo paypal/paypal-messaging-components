@@ -38,6 +38,13 @@
         flex-direction: column;
         border-radius: 10px;
         flex: 1 1 100%;
+
+        .modal-wrapper:not(.lander) & {
+            margin-top: auto;
+            margin-bottom: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
     }
 
     @include tablet {
