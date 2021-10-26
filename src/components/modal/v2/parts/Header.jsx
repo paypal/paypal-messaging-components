@@ -1,12 +1,11 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { useIntegration, useTransitionState } from '../lib';
+import { isLander, useTransitionState } from '../lib';
 import Icon from './Icon';
 
 const Header = ({ headline, subheadline, className = '', logo, contentWrapper, contentBodyRef, contentBackground }) => {
     const [, handleClose] = useTransitionState();
-    const { isLander } = useIntegration();
     const headerIconsRef = useRef(null);
     const [sticky, setSticky] = useState('unsticky');
 

@@ -10,7 +10,7 @@ import {
     useXProps,
     useDidUpdateEffect,
     getContent,
-    useIntegration
+    isLander
 } from '../lib';
 import Icon from './Icon';
 
@@ -72,13 +72,6 @@ const Container = ({ children, contentWrapper }) => {
             setLoading(false);
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
-
-    /**
-     * Checks if integration type is the lander. If true, lander-specific styles will be used.
-     * Additionally, passes integration type information to child components.
-     * @returns boolean
-     */
-    const { isLander } = useIntegration();
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
