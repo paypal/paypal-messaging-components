@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps } from '../../../lib';
+import { useXProps, useServerData } from '../../../lib';
 import Calculator from '../../Calculator';
 import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
@@ -39,7 +39,10 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        return <ProductListLink>{linkToProductList}</ProductListLink>;
+        if (useServerData()?.views?.length > 1 && typeof cta === 'undefined') {
+            return <ProductListLink>{linkToProductList}</ProductListLink>;
+        }
+        return <Fragment />;
     };
 
     return (
