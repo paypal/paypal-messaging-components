@@ -4,23 +4,34 @@ import { useRef, useState } from 'preact/hooks';
 import { useTransitionState } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, className = '', logo, contentWrapper, contentBodyRef }) => {
+const Header = ({ headline, subheadline, className = '', logo, contentWrapper, contentBodyRef, contentBackground }) => {
     const [, handleClose] = useTransitionState();
     const headerIconsRef = useRef(null);
     const [sticky, setSticky] = useState('unsticky');
 
+    const stickyScroll = offset => {
+        const { top } = contentBodyRef.current.getBoundingClientRect();
+
+        if (top <= offset) {
+            if (sticky !== 'sticky') setSticky('sticky');
+        }
+
+        if (top > offset && sticky === 'sticky') {
+            setSticky('unsticky');
+        }
+    };
+
     // Sticky header on scroll for mobile
     if (contentWrapper.current) {
         contentWrapper.current.addEventListener('scroll', () => {
-            const { top } = contentBodyRef.current.getBoundingClientRect();
+            stickyScroll(22);
+        });
+    }
 
-            if (top <= 22) {
-                if (sticky !== 'sticky') setSticky('sticky');
-            }
-
-            if (top > 22 && sticky === 'sticky') {
-                setSticky('unsticky');
-            }
+    // Sticky header on scroll for desktop and tablet
+    if (contentBackground.current) {
+        contentBackground.current.addEventListener('scroll', () => {
+            stickyScroll(150);
         });
     }
 
