@@ -1,91 +1,201 @@
 @import '../../../styles/globals/mixins';
 
-.content__container .content__body {
-    .content__row {
-        &.productLink{
-            margin: 1rem 0 2rem;
+.header__wrapper {
+    .header__content {
+        h1 {
+            font-size: 1.89rem;
+            line-height: 2.25rem;
+        }
+
+        h2 {
+            margin-top: 0.25rem;
+            font-size: 1rem;
+            line-height: 1.33rem;
 
             @include tablet {
-                margin: 1rem 0 3rem;
+                margin-top: 1rem;
             }
 
-            .productLink__container{
+            @include desktop {
+                margin-top: 1rem;
+            }
+         }
+    }
+}
+
+.content__container {
+    background-color: #003087;
+    margin-top: -2rem;
+    padding-top: 2rem;
+    padding-bottom: 0;
+
+    .content__body {
+        z-index: 0;
+        position: relative;
+        top: 40px;
+        background-color: #F5F7FB;
+        padding: 0 25px;
+        box-sizing: border-box;
+
+        @include desktop {
+            padding: 0;
+            top: 0;
+        }
+
+        .content__col {
+            flex-wrap: wrap;
+            flex-direction: initial;
+        }
+
+        .content__row {
+
+            .content__col.collapsed:last-child {
+                overflow: hidden;
+            }
+
+            .donuts {
+                display: flex;
+                align-items: center;
+                background-color: #FFFFFF;
+                border-top-left-radius: 40px;
+                border-bottom-right-radius: 40px;
+                min-height: 10em;
+                z-index: 1;
+                width: 100%;
+                position: relative;
+                top: -65px;
+                margin-bottom: -65px;
+            
+                @include desktop {
+                    max-width: initial;
+                    top: 0;
+                    margin-bottom: 0px;
+                    background-color: transparent;
+                    border-top-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    align-items: self-end;
+                }
+            
+                .donuts__container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    max-width: 360px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+            
+                    @include smallMobile {
+                        transform: translate(0px, 1rem);
+                    }
+            
+                    @include mobile {
+                        transform: translate(0px, 0.75rem);
+                    }
+            
+                    @include tablet {
+                        transform: translate(0px, 0.75rem);
+                    }
+            
+                    @include desktop {
+                        transform: translate(0px, 1rem);
+                        padding: 0 40px;
+                    }
+            
+                }
+            }
+
+            &.dynamic {
+                position: relative;
+                box-sizing: border-box;
+                background-color: transparent;
+                padding-left: 0px; 
+                padding-right: 0px;
+                margin: 0 -25px;
+
+                @include desktop {
+                    width: 100%;
+                    padding: 0;
+                    left: 0;
+                    top: 0;
+                    margin: 0;
+                    height: 600px;
+                    background-color: #fff;
+                }
+
+                .branded-image {
+                    height: 100%;
+                    display: flex;
+                    margin-top: 56px;
+                }
+            }
+
+            &.instructions {
+                max-width: 315px;
+                padding: 0 25px;
+                margin: 0 auto;
+
+                @include tablet {
+                    padding: 0 75px;
+                    max-width: initial;
+                }
+
+                @include desktop {
+                    max-width: 270px;
+                }
+
+                ol.collapsed {
+                    @include desktop {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &.disclosure {
                 max-width: 315px;
                 margin: 0 auto;
 
                 @include desktop {
+                    width: 100%;
+                    padding: 2rem 60px 0;
+                    box-sizing: border-box;
                     max-width: initial;
                 }
+            }
 
-                a {
-                    color: #1072eb;
-                    font-size: 0.75rem;
-                    line-height: 1.4;
+            #productListLink {
+                @include mobile{
+                    min-width: initial;
+                }
+            }
 
+            &.productLink{
+                margin: 1rem 0 2rem;
+    
+                @include tablet {
+                    margin: 1rem 0 3rem;
+                }
+    
+                .productLink__container{
+                    max-width: 315px;
+                    margin: 0 auto;
+    
                     @include desktop {
-                        padding-left: 30px;
+                        max-width: initial;
+                    }
+    
+                    a {
+                        color: #1072eb;
+                        font-size: 0.75rem;
+                        line-height: 1.4;
+    
+                        @include desktop {
+                            padding-left: 30px;
+                        }
                     }
                 }
             }
+
         }
-    }
-}
-
-.content__row.donuts {
-    display: flex;
-    align-items: center;
-    background-color: #FFFFFF;
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    min-height: 10em;
-    z-index: 1;
-    width: 100%;
-    position: relative;
-    top: -65px;
-    margin-bottom: -65px;
-
-    @include desktop {
-        max-width: initial;
-        top: 0;
-        margin-bottom: 0px;
-        background-color: transparent;
-        border-top-left-radius: 0;
-        border-bottom-right-radius: 0;
-        align-items: self-end;
-    }
-
-    .donuts__container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        max-width: 360px;
-        margin: 0 auto;
-        padding: 0 20px;
-
-        @include smallMobile {
-            transform: translate(0px, 1rem);
-        }
-
-        @include mobile {
-            transform: translate(0px, 0.75rem);
-        }
-
-        @include tablet {
-            transform: translate(0px, 0.75rem);
-        }
-
-        @include desktop {
-            transform: translate(0px, 1rem);
-            padding: 0 40px;
-        }
-
-    }
-}
-
-#productListLink {
-
-    @include mobile{
-        min-width: initial;
     }
 }
