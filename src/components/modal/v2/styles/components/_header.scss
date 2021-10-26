@@ -147,6 +147,10 @@
             @include tablet {
                 max-width: 315px;
                 text-align: center;
+
+                .lander & {
+                    max-width: 100%;
+                }
             }
 
             @include mobile {
@@ -175,6 +179,10 @@
                 max-width: 315px;
                 margin: 1rem auto 0;
                 text-align: center;
+
+                .lander & {
+                    max-width: 100%;
+                }
             }
 
             @include mobile {
