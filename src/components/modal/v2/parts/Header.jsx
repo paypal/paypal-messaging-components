@@ -1,11 +1,12 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { useTransitionState } from '../lib';
+import { useIntegration, useTransitionState } from '../lib';
 import Icon from './Icon';
 
 const Header = ({ headline, subheadline, className = '', logo, contentWrapper, contentBodyRef, contentBackground }) => {
     const [, handleClose] = useTransitionState();
+    const { isLander } = useIntegration();
     const headerIconsRef = useRef(null);
     const [sticky, setSticky] = useState('unsticky');
 
@@ -43,15 +44,21 @@ const Header = ({ headline, subheadline, className = '', logo, contentWrapper, c
                         <Icon name={logo} />
                     </div>
                 </div>
-                <button
-                    className="close"
-                    aria-label="Close"
-                    type="button"
-                    id="close-btn"
-                    onClick={() => handleClose('Close Button')}
-                >
-                    <Icon name="close" />
-                </button>
+                {/* We don't need to render an 'x' button if the target is a lander since you will close via 
+                a merchant-provided close button from their own iframe, or by closing the window in the case of a webpage. */}
+                {isLander ? (
+                    <Fragment />
+                ) : (
+                    <button
+                        className="close"
+                        aria-label="Close button"
+                        type="button"
+                        id="close-btn"
+                        onClick={() => handleClose('Close Button')}
+                    >
+                        <Icon name="close" />
+                    </button>
+                )}
             </Fragment>
         );
     };
@@ -59,9 +66,13 @@ const Header = ({ headline, subheadline, className = '', logo, contentWrapper, c
     return (
         <div className={`header__wrapper ${className}`}>
             <div className="header__container">
-                <div className="header__background-wrapper">
-                    <Icon name="header-background" />
-                </div>
+                {isLander ? (
+                    <Fragment />
+                ) : (
+                    <div className="header__background-wrapper">
+                        <Icon name="header-background" />
+                    </div>
+                )}
                 <div className="header__icons">{renderIcons()}</div>
                 <div className={`header__icons ${sticky}`} ref={headerIconsRef}>
                     {renderIcons()}
