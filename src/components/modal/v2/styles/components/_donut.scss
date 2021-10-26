@@ -1,16 +1,31 @@
 @import '../globals/mixins';
 
+$green500: #00CF92;
+$grey300: #DBD8D0;
+$grey600: #888;
+
 .donut__single_payment {
     display: flex;
     flex-direction: column;
+    width: 60px;
 
     svg {
+        transform: scale(1.18) translate(0px, -1rem);
+
         text {
             font-size: 0.5rem;
             line-height: 20px;
             font-family: PayPalSansBig;
             font-weight: 600;
             color: $terms-details;
+        }
+
+        .donut__background {
+            stroke: $grey300;
+        }
+
+        .donut__percent {
+            stroke: $green500;
         }
     }
     
@@ -26,6 +41,21 @@
         
         .donut__timestamp {
             color: $terms-details;
+        }
+    }
+}
+
+.donut__qualifying_payment {
+    width: 72px;
+
+    @include mobile {
+        width: 60px;
+    }
+
+    svg {
+
+        text {
+            transform: scale(0.9) translate(3px, 5px);
         }
     }
 }

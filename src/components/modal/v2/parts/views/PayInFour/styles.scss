@@ -59,13 +59,33 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        max-width: 400px;
+        max-width: 360px;
         margin: 0 auto;
         padding: 0 20px;
 
+        @include smallMobile {
+            transform: translate(0px, 1rem);
+        }
+
+        @include mobile {
+            transform: translate(0px, 0.75rem);
+        }
+
+        @include tablet {
+            transform: translate(0px, 0.75rem);
+        }
+
         @include desktop {
+            transform: translate(0px, 1rem);
             padding: 0 40px;
         }
 
+    }
+}
+
+#productListLink {
+
+    @include mobile{
+        min-width: initial;
     }
 }
