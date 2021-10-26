@@ -35,16 +35,6 @@
         }
     }
 
-    &__background-wrapper {
-        position: absolute;
-        z-index: -9;
-
-        svg {
-            width: 900px;
-            transform: translate(0, -30%);
-        }
-    }
-
     &__icons {
         justify-content: space-between;
         margin: auto;
@@ -52,6 +42,9 @@
         display: flex;
         height: auto;
         text-align: center;
+
+        //importing sticky styles
+        @import './sticky';
 
         .logo {
             display: inline-block;
