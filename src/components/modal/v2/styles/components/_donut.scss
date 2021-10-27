@@ -26,6 +26,8 @@ $grey600: #888;
 
         .donut__percent {
             stroke: $green500;
+            transform: rotate(-90deg);
+            transform-origin: center;
         }
     }
     

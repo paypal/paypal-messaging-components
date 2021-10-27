@@ -3,11 +3,9 @@
 import { Fragment, h } from 'preact';
 
 const generateDonutData = (currentNum = 0, numOfPayments = 4) => {
-    return [
-        {
-            percentage: (currentNum / numOfPayments) * 100
-        }
-    ];
+    return {
+        percentage: (currentNum / numOfPayments) * 100
+    };
 };
 
 const Donut = ({
@@ -66,26 +64,21 @@ const Donut = ({
 };
 
 const DonutSegments = ({ cx, cy, radius, data }) => {
-    let offset = 25; // To start from 12'O clock
-    const segments = data.map(({ percentage }) => {
-        const strokeDasharray = `${percentage} ${100 - percentage}`;
-        const strokeDashoffset = offset;
-        offset = 100 - percentage + offset;
+    const { percentage } = data;
+    const strokeDasharray = `${percentage} ${100 - percentage}`;
+    const strokeDashoffset = 100 - percentage + 25;
+    const segments = (
+        <circle
+            cx={cx}
+            cy={cy}
+            r={radius}
+            className="donut__percent"
+            stroke-dasharray={strokeDasharray}
+            stroke-dashoffset={strokeDashoffset}
+        />
+    );
 
-        return (
-            <circle
-                key={`${new Date().toDateString()}-${offset}`}
-                cx={cx}
-                cy={cy}
-                r={radius}
-                className="donut__percent"
-                stroke-dasharray={strokeDasharray}
-                stroke-dashoffset={strokeDashoffset}
-            />
-        );
-    });
-
-    return <Fragment>{segments.reverse()}</Fragment>;
+    return <Fragment>{[segments].reverse()}</Fragment>;
 };
 /* eslint-enable react/no-unknown-property */
 export default Donut;
