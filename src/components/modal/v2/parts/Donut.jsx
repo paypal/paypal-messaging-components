@@ -1,6 +1,6 @@
 /** @jsx h */
 /* eslint-disable react/no-unknown-property */
-import { Fragment, h } from 'preact';
+import { h } from 'preact';
 
 const generateDonutData = (currentNum = 0, numOfPayments = 4) => {
     return {
@@ -66,7 +66,6 @@ const Donut = ({
 const DonutSegments = ({ cx, cy, radius, data }) => {
     const { percentage } = data;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
-    const strokeDashoffset = 100 - percentage + 25;
     const segments = (
         <circle
             cx={cx}
@@ -74,11 +73,11 @@ const DonutSegments = ({ cx, cy, radius, data }) => {
             r={radius}
             className="donut__percent"
             stroke-dasharray={strokeDasharray}
-            stroke-dashoffset={strokeDashoffset}
+            stroke-dashoffset={25}
         />
     );
 
-    return <Fragment>{[segments].reverse()}</Fragment>;
+    return segments;
 };
 /* eslint-enable react/no-unknown-property */
 export default Donut;
