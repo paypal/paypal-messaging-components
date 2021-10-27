@@ -191,6 +191,10 @@ $webpage : 1640px;
                     max-width: 270px;
                 }
 
+                @media all and (min-width: $webpage) {
+                    max-width: 315px;
+                 }
+
                 ol.collapsed {
                     @include desktop {
                         width: 100%;
