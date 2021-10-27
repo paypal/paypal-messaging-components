@@ -1,0 +1,94 @@
+name: Snapshot Comparison Tests - Non-US
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+
+    push:
+        branches:
+            - develop
+            - release
+        paths:
+            # Generic
+            - banners/**
+            - modals/**
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # Exclude US Files
+            - '!banners/US/**'
+            - '!modals/US/**'
+            - '!server/locale/US/**'
+            - '!src/components/modal/content/US*/**'
+            - '!tests/functional/spec/US/**'
+    pull_request:
+        paths:
+            # Generic
+            - banners/**
+            - modals/**
+            - server/**
+            - src/**
+            - tests/functional/spec/*
+            - tests/functional/spec/utils/**
+            - utils/**
+            # Exclude US Files
+            - '!banners/US/**'
+            - '!modals/US/**'
+            - '!server/locale/US/**'
+            - '!src/components/modal/content/US*/**'
+            - '!tests/functional/spec/US/**'
+
+jobs:
+    getLocales:
+        name: Get Locales
+        runs-on: ubuntu-latest
+        outputs:
+            locale: ${{ steps.setMatrix.outputs.locale }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - id: setMatrix
+              run: echo "::set-output name=locale::$(cat ./.github/locales.json | tr '\n' ' ')"
+
+    compareSnapshots:
+        name: Non-US
+        runs-on: ubuntu-latest
+        needs: getLocales
+        strategy:
+            fail-fast: false
+            matrix:
+                locale: ${{ fromJSON(needs.getLocales.outputs.locale) }}
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Compare Banner Snapshots - ${{ matrix.locale }}
+              continue-on-error: true
+              run: |
+                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/banner
+
+            - name: Compare Modal Snapshot - ${{ matrix.locale }}
+              continue-on-error: true
+              run: |
+                  npm run test:func -- --testPathPattern spec/${{ matrix.locale }}/modal
+
+            - name: Collect Diffs and Upload to Imgur
+              run: |
+                  ./scripts/snapshot-tests/collect-diffs.sh

@@ -1,0 +1,66 @@
+name: Update Snapshots - US
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+    pull_request: {}
+    pull_request_target:
+        types: [labeled]
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+    getTestPathPatterns:
+        name: Get Locales
+        if: contains(github.event.pull_request.labels.*.name, 'snapshots')
+        runs-on: ubuntu-latest
+        outputs:
+            testPathPattern: ${{ steps.setMatrix.outputs.testPathPattern }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - id: setMatrix
+              run: echo "::set-output name=testPathPattern::$(cat ./.github/usTestPathPatterns.json | tr '\n' ' ')"
+
+    updateSnapshots:
+        name: US
+        if: contains(github.event.pull_request.labels.*.name, 'snapshots')
+        runs-on: ubuntu-latest
+        needs: getTestPathPatterns
+        strategy:
+            matrix:
+                testPathPattern: ${{ fromJSON(needs.getTestPathPatterns.outputs.testPathPattern) }}
+                node: [12]
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Update US Snapshots
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern spec/US/${{ matrix.testPathPattern }}
+                  git status
+
+            - name: Commit Updated Snapshots - ${{ matrix.testPathPattern }}
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: 'chore(snapshots): update US ${{ matrix.testPathPattern }} snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  commit_user_name: Snapshot Actions Bot
+                  file_pattern: tests/functional/snapshots/US/
+                  push_options: '-v'

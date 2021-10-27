@@ -1,0 +1,40 @@
+# TODO: use this to run files for any generic change that affects all locales.
+#       currently changedFiles will only trigger tests for locale-specific changes.
+#
+# changedFiles:
+#     name: Get Changed Locales
+#     runs-on: ubuntu-latest
+#     outputs:
+#         locales: ${{ steps.filter.outputs.changes }}
+#     steps:
+#         - name: Checkout repo
+#           uses: actions/checkout@v2
+#
+#         - name: Filter locale paths
+#           uses: dorny/paths-filter@v2
+#           id: filter
+#           with:
+#               filters: .github/locales.yml
+#
+#         # if none of the filter paths match, another file was changed that affect all locales
+#         - name: Set paths to all locales if none were filtered
+#           if: steps.filter.outputs.changes == '[]'
+#
+# Example dynamic matrix usage with the above
+# jobs:
+#     compareSnapshots:
+#         name: Non-US
+#         runs-on: ubuntu-latest
+#         # needs: changedFiles
+#         strategy:
+#             fail-fast: false
+#             matrix:
+#                 # locale: ${{ fromJSON(needs.changedFiles.outputs.locales) }}
+#                 locale: [DE, AU, FR, GB]
+#                 node: [12]
+#
+# content of .github.locales.yml
+# DE: '**/DE/**'
+# AU: '**/AU/**'
+# FR: '**/FR/**'
+# GB: '**/GB/**'
