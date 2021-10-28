@@ -31,7 +31,11 @@ const Donut = ({
     }
 
     return (
-        <div className={`donut__single_payment ${qualifying === 'true' && 'donut__qualifying_payment'}`}>
+        <div
+            className={`donut__single_payment ${
+                qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
+            }`}
+        >
             <svg
                 aria-hidden
                 viewBox={viewBox}
@@ -57,7 +61,9 @@ const Donut = ({
                     </text>
                 )}
             </svg>
-            {qualifying === 'true' && periodicPayment !== '-' && <span>{periodicPayment}</span>}
+            {qualifying === 'true' && periodicPayment !== '-' && (
+                <span className="donut__payment">{periodicPayment}</span>
+            )}
             <span className="donut__timestamp">{timeStamp}</span>
         </div>
     );
