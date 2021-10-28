@@ -152,19 +152,7 @@ $webpage : 1640px;
                     max-width: 360px;
                     margin: 0 auto;
                     padding: 0 20px;
-            
-                    @include smallMobile {
-                        transform: translate(0px, 1rem);
-                    }
-            
-                    @include mobile {
-                        transform: translate(0px, 0.75rem);
-                    }
-            
-                    @include tablet {
-                        transform: translate(0px, 0.75rem);
-                    }
-            
+
                     @include desktop {
                         transform: translate(0px, 1rem);
                         padding: 0 40px;
@@ -272,6 +260,14 @@ $webpage : 1640px;
 
                 @include tablet {
                     margin: 1rem 0 3rem;
+                }
+
+                #productListLink {
+                    min-width: initial;
+    
+                    @media (min-width: 350px){
+                        min-width: 315px;
+                    }
                 }
 
                 .productLink__container{
