@@ -112,6 +112,8 @@ main {
 
     .content-background {
         box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
+        display: flex;
+        flex-direction: column;
     }
 
     .overlay-side.left,
