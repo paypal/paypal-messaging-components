@@ -57,7 +57,7 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
                             </div>
                         </div>
                         <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                            {disclosure}
+                            <p>{disclosure}</p>
                         </div>
                         <div className="content__row productLink">
                             <div className="productLink__container">

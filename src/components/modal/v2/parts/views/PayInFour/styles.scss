@@ -9,6 +9,14 @@ $webpage : 1640px;
         }
 
         .header__icons {
+            .pp-logo {
+                img {
+                    @media all and (min-width: $webpage) {
+                        height: 48px;
+                    }
+                }
+            }
+
             button {
                 @media all and (min-width: $webpage) {
                     display: none;
@@ -18,9 +26,19 @@ $webpage : 1640px;
     }
 
     .header__content {
+        @media all and (min-width: $webpage) {
+            padding-bottom: 2rem;
+        }
+
         h1 {
             font-size: 1.89rem;
             line-height: 2.25rem;
+
+            @media all and (min-width: $webpage) {
+                font-size: 44px;
+                line-height: 48px;
+                margin: 0 auto;
+            }
         }
 
         h2 {
@@ -35,13 +53,25 @@ $webpage : 1640px;
             @include desktop {
                 margin-top: 1rem;
             }
+
+            @media all and (min-width: $webpage) {
+                max-width: 577px;
+                font-size: 28px;
+                line-height: 36px;
+                margin: 1rem auto 0;
+            }
          }
     }
 }
 
 .content__background {
+    @include desktop {
+        max-width: 884px;
+    }
+
     @media all and (min-width: $webpage) {
        max-width: 933px;
+       margin-top: 0;
     }
 }
 
@@ -111,7 +141,7 @@ $webpage : 1640px;
                     background-color: transparent;
                     border-top-left-radius: 0;
                     border-bottom-right-radius: 0;
-                    align-items: self-end;
+                    align-items: initial;
                 }
             
                 .donuts__container {
@@ -138,8 +168,15 @@ $webpage : 1640px;
                     @include desktop {
                         transform: translate(0px, 1rem);
                         padding: 0 40px;
+                        position: relative;
+                        top: 30px;
+                        max-width: 380px;
                     }
-            
+
+                    @media all and (min-width: $webpage) {
+                        padding: 0 20px;
+                    }
+
                 }
             }
 
@@ -166,13 +203,16 @@ $webpage : 1640px;
                     margin: 0 auto;
                 }
 
+                &.collapsed {
+                    max-width: 445px;
+                }
+
                 .branded-image {
-                    width: 430px;
                     display: flex;
                     margin-top: 56px;
 
                     @media all and (min-width: $webpage) {
-
+                        margin-top: 50px;
                     }
                 }
             }
@@ -199,6 +239,13 @@ $webpage : 1640px;
                     @include desktop {
                         width: 100%;
                     }
+
+                    li {
+                        @include desktop {
+                            font-size: 18px;
+                            line-height: 24px;
+                        }
+                    }
                 }
             }
 
@@ -212,6 +259,12 @@ $webpage : 1640px;
                     box-sizing: border-box;
                     max-width: initial;
                 }
+
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                    line-height: 20px;
+                }
             }
 
             &.productLink{
@@ -224,7 +277,7 @@ $webpage : 1640px;
                 .productLink__container{
                     max-width: 315px;
                     margin: 0 auto;
-    
+
                     @include desktop {
                         max-width: initial;
                     }
@@ -240,6 +293,8 @@ $webpage : 1640px;
 
                         @include desktop {
                             padding-left: 30px;
+                            font-size: 14px;
+                            line-height: 20px;
                         }
                     }
                 }

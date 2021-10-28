@@ -1,5 +1,6 @@
 @import '../globals/mixins';
 
+$webpage : 1640px;
 $green500: #00CF92;
 $grey300: #DBD8D0;
 $grey600: #888;
@@ -7,10 +8,39 @@ $grey600: #888;
 .donut__single_payment {
     display: flex;
     flex-direction: column;
-    width: 60px;
+
+    &.donut__qualifying_payment {
+
+        @include mobile {
+            width: 70px;
+        }
+
+        width: 94px;
+
+        svg {
+            max-width: 85px;
+
+            text {
+                color: $terms-details;
+                transform: translate(1px, 3px);
+            }
+        }
+    }
+    
+    &.donut__non_qualifying_payment {
+        @include mobile {
+            width: 70px;
+        }
+
+        width: 72px;
+
+        svg {
+            max-width: 64px;
+        }
+    }
 
     svg {
-        transform: scale(1.18) translate(0px, -1rem);
+        width: 100%;
 
         text {
             font-size: 0.5rem;
@@ -32,30 +62,25 @@ $grey600: #888;
     span {
         display: block;
         text-align: center;
-        font-size: 0.875rem;
+        font-size: 14px;
+        line-height: 20px;
 
-        &:first-of-type {
+        @media all and (min-width: $webpage) {
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        &.donut__payment {
             font-family: PayPalSansBig;
             font-weight: 600;
+
+            @media all and (min-width: $webpage) {
+                margin-top: 0.25rem;
+            }
         }
         
-        .donut__timestamp {
+        &.donut__timestamp {
             color: $terms-details;
-        }
-    }
-}
-
-.donut__qualifying_payment {
-    width: 72px;
-
-    @include mobile {
-        width: 60px;
-    }
-
-    svg {
-
-        text {
-            transform: scale(0.9) translate(3px, 5px);
         }
     }
 }

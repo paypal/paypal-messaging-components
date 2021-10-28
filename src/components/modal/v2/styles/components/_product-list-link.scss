@@ -3,7 +3,10 @@
     border: none;
     background: transparent;
     padding: 1em 0;
-    min-width: 315px;
+    min-width: initial;
+    @media (min-width: 350px){
+        min-width: 315px;
+    }
     @include desktop {
         padding-left: 30px;
     }
