@@ -18,6 +18,8 @@ $webpage : 1640px;
             }
 
             button {
+                margin-top: 0.25rem;
+                
                 @media all and (min-width: $webpage) {
                     display: none;
                 }
@@ -34,7 +36,7 @@ $webpage : 1640px;
             font-size: 1.89rem;
             line-height: 2.25rem;
 
-            @media all and (min-width: $webpage) {
+            @include desktop {
                 font-size: 44px;
                 line-height: 48px;
                 margin: 0 auto;
@@ -45,19 +47,16 @@ $webpage : 1640px;
             margin-top: 0.25rem;
             font-size: 1rem;
             line-height: 1.33rem;
+            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
             @include tablet {
                 margin-top: 1rem;
             }
 
             @include desktop {
-                margin-top: 1rem;
-            }
-
-            @media all and (min-width: $webpage) {
-                max-width: 577px;
                 font-size: 28px;
                 line-height: 36px;
+                max-width: 577px;
                 margin: 1rem auto 0;
             }
          }
@@ -133,9 +132,10 @@ $webpage : 1640px;
                 position: relative;
                 top: -65px;
                 margin-bottom: -65px;
-            
+
                 @include desktop {
                     max-width: initial;
+                    min-height: 5em;
                     top: 0;
                     margin-bottom: 0px;
                     background-color: transparent;
@@ -226,6 +226,12 @@ $webpage : 1640px;
                 ol.collapsed {
                     @include desktop {
                         width: 100%;
+                    }
+
+                    .instructions__bullet {
+                        @include desktop {
+                            line-height: 25px;
+                        }
                     }
 
                     li {

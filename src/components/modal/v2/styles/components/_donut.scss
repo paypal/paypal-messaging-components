@@ -81,6 +81,11 @@ $grey600: #888;
         
         &.donut__timestamp {
             color: $terms-details;
+            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+            @include desktop {
+                font-size: 18px;
+                line-height: 24px;
+            }
         }
     }
 }
