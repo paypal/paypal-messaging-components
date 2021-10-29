@@ -32,7 +32,11 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
                             <div className="content__row dynamic">
                                 <div className="content__col">
                                     <div className="content__row donuts">
-                                        <div className="donuts__container">
+                                        <div
+                                            className={`donuts__container ${
+                                                qualifying === 'true' ? 'donuts__qualifying' : 'donuts__non_qualifying'
+                                            }`}
+                                        >
                                             {donutTimestamps.map((val, index) => (
                                                 <Donut
                                                     qualifying={qualifying}

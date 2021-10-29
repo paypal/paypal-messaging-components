@@ -33,11 +33,11 @@ $webpage : 1640px;
         }
 
         h1 {
-            font-size: 1.89rem;
-            line-height: 2.25rem;
+            font-size: 1.75rem;
+            line-height: 36px;
 
             @include desktop {
-                font-size: 44px;
+                font-size: 2.75rem;
                 line-height: 48px;
                 margin: 0 auto;
             }
@@ -46,7 +46,7 @@ $webpage : 1640px;
         h2 {
             margin-top: 0.25rem;
             font-size: 1rem;
-            line-height: 1.33rem;
+            line-height: 24px;
             font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
             @include tablet {
@@ -54,7 +54,7 @@ $webpage : 1640px;
             }
 
             @include desktop {
-                font-size: 28px;
+                font-size: 1.75rem;
                 line-height: 36px;
                 max-width: 577px;
                 margin: 1rem auto 0;
@@ -153,16 +153,25 @@ $webpage : 1640px;
                     margin: 0 auto;
                     padding: 0 20px;
 
+                    @include tablet {
+                        max-width: 320px;
+                    }
+
                     @include desktop {
                         transform: translate(0px, 1rem);
                         padding: 0 40px;
                         position: relative;
                         top: 30px;
-                        max-width: 380px;
                     }
 
                     @media all and (min-width: $webpage) {
                         padding: 0 20px;
+                    }
+
+                    &.donuts__non_qualifying {
+                        @include desktop {
+                            max-width: 330px;
+                        }
                     }
 
                 }
@@ -235,10 +244,9 @@ $webpage : 1640px;
                     }
 
                     li {
-                        @include desktop {
-                            font-size: 18px;
-                            line-height: 24px;
-                        }
+                        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+                        font-size: 1.125rem;
+                        line-height: 24px;
                     }
                 }
             }
@@ -256,7 +264,8 @@ $webpage : 1640px;
 
                 p {
                     margin: 0;
-                    font-size: 14px;
+                    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+                    font-size: 0.875rem;
                     line-height: 20px;
                 }
             }
@@ -286,8 +295,9 @@ $webpage : 1640px;
 
                     a {
                         color: #1072eb;
-                        font-size: 0.75rem;
-                        line-height: 1.4;
+                        font-size: 0.875rem;
+                        line-height: 20px;
+                        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
                         @include mobile{
                             min-width: initial;
@@ -295,8 +305,7 @@ $webpage : 1640px;
 
                         @include desktop {
                             padding-left: 30px;
-                            font-size: 14px;
-                            line-height: 20px;
+
                         }
                     }
                 }
