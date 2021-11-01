@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.27.1](https://github.com/paypal/paypal-messaging-components/compare/v1.27.0...v1.27.1) (2021-10-26)
+
+
+### Code Refactoring
+
+* client-side generated unique identifier provided as messageRequestId ([#570](https://github.com/paypal/paypal-messaging-components/issues/570)) ([650358a](https://github.com/paypal/paypal-messaging-components/commit/650358a36e1d8bf9f16076f6bb717a1e88b99654))
+
 ## [1.27.0](https://github.com/paypal/paypal-messaging-components/compare/v1.26.6...v1.27.0) (2021-10-20)
 
 

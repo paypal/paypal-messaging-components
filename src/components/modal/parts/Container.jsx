@@ -17,9 +17,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         merchantId,
         buyerCountry,
         env,
-        deviceID: parentDeviceID,
-        version,
+        messageRequestId,
         ignoreCache,
+        version,
+        deviceID: parentDeviceID,
         stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
@@ -41,12 +42,13 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             onReady({
                 type,
                 products: products.map(({ meta: productMeta }) => productMeta.product),
+                messageRequestId,
                 meta,
                 // If storage state is brand new, use the parent deviceID, otherwise use child
                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
             });
         }
-    }, [meta.messageRequestId]);
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     useDidUpdateEffect(() => {
         setLoading(true);

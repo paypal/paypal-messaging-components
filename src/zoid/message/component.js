@@ -1,9 +1,10 @@
-import { getCurrentScriptUID } from 'belter/src';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 
+import { uniqueID, getCurrentScriptUID } from 'belter/src';
 import { create } from 'zoid/src';
+
 import {
     createGlobalVariableGetter,
     getCurrentTime,
@@ -193,8 +194,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags, deviceID }) => {
-                        const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
+                        const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
+
+                        // Message request ID generated server-side
+                        const { trackingDetails, offerType, ppDebugId } = meta;
+
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
@@ -376,6 +380,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 value: getCurrentScriptUID,
                 debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
+            },
+            messageRequestId: {
+                type: 'string',
+                queryParam: 'message_request_id',
+                value: uniqueID,
+                decorate: ({ props }) => {
+                    ppDebug(`Message Request ID: ${props.messageRequestId}`);
+                    return props.messageRequestId;
+                }
             },
             debug: {
                 type: 'boolean',
