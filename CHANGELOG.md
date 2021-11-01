@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.27.0](https://github.com/paypal/paypal-messaging-components/compare/v1.26.6...v1.27.0) (2021-10-20)
+
+
+### Features
+
+* add merchant configuration hash for caching ([#564](https://github.com/paypal/paypal-messaging-components/issues/564)) ([8c648c9](https://github.com/paypal/paypal-messaging-components/commit/8c648c911f7048c807274199b73f66c6df72fa43))
+
+
+### Bug Fixes
+
+* remove duplicate text from GPL GB flex messages [snapshots] ([#653](https://github.com/paypal/paypal-messaging-components/issues/653)) ([3396807](https://github.com/paypal/paypal-messaging-components/commit/339680709973a0b0f6a81a05e6de21f86fcc2ea7))
+* remove Festivo font from modal ([#613](https://github.com/paypal/paypal-messaging-components/issues/613)) ([842c736](https://github.com/paypal/paypal-messaging-components/commit/842c736c4a9a998a66e07d8cb6a026be02a82d03))
+* store child frame device ID in separate key [snapshots] ([#618](https://github.com/paypal/paypal-messaging-components/issues/618)) ([35ac487](https://github.com/paypal/paypal-messaging-components/commit/35ac4870cdac1b916a02b8c204cf77dcc156bc11))
+
+
+### Code Refactoring
+
+* update DE disclosure ([#619](https://github.com/paypal/paypal-messaging-components/issues/619)) ([74299d7](https://github.com/paypal/paypal-messaging-components/commit/74299d772d80580f11db1cd620a68f84d81b7948))
+
+
+### Continuous Integration
+
+* automatic stage tag ([#644](https://github.com/paypal/paypal-messaging-components/issues/644)) ([bb5b7c2](https://github.com/paypal/paypal-messaging-components/commit/bb5b7c209319d0ce3c2e43823e83e0bc027fc516))
+
 ### [1.26.6](https://github.com/paypal/paypal-messaging-components/compare/v1.26.5...v1.26.6) (2021-10-13)
 
 

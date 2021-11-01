@@ -16,10 +16,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         clientId,
         merchantId,
         buyerCountry,
-        ignoreCache,
-        version,
         env,
         deviceID: parentDeviceID,
+        version,
+        ignoreCache,
         stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
