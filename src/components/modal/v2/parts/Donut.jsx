@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import { h } from 'preact';
 
-const generateDonutData = (currentNum = 0, numOfPayments = 4) => {
+const generateDonutData = (currentNum = 0, numOfPayments) => {
     return {
         percentage: (currentNum / numOfPayments) * 100
     };
@@ -19,12 +19,12 @@ const Donut = ({
     children,
     segmentStrokeWidth = 4,
     currentNum = 0,
+    numOfPayments = 4,
     timeStamp,
     periodicPayment,
     qualifying
-    // ...rest
 }) => {
-    const data = generateDonutData(currentNum, 4);
+    const data = generateDonutData(currentNum, numOfPayments);
     let segStrokeWidth = segmentStrokeWidth;
     if (!segStrokeWidth) {
         segStrokeWidth = strokeWidth;
@@ -36,14 +36,7 @@ const Donut = ({
                 qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
         >
-            <svg
-                aria-hidden
-                viewBox={viewBox}
-                className="donut"
-                style={style}
-                xmlns="http://www.w3.org/2000/svg"
-                // {...rest}
-            >
+            <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                 <circle
                     cx={cx}
                     cy={cy}
