@@ -24,13 +24,12 @@ const Donut = ({
     periodicPayment,
     qualifying
 }) => {
-    const data = generateDonutData(currentNum, numOfPayments);
+    const { percentage } = generateDonutData(currentNum, numOfPayments);
     let segStrokeWidth = segmentStrokeWidth;
     if (!segmentStrokeWidth) {
         segStrokeWidth = strokeWidth;
     }
 
-    const { percentage } = data;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
     const segments = (
         <circle
