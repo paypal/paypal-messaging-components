@@ -119,7 +119,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default.fees', 'default']
+                disclaimer: ['default']
             }
         ],
         [
