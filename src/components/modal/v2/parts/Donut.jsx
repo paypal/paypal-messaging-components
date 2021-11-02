@@ -26,9 +26,22 @@ const Donut = ({
 }) => {
     const data = generateDonutData(currentNum, numOfPayments);
     let segStrokeWidth = segmentStrokeWidth;
-    if (!segStrokeWidth) {
+    if (!segmentStrokeWidth) {
         segStrokeWidth = strokeWidth;
     }
+
+    const { percentage } = data;
+    const strokeDasharray = `${percentage} ${100 - percentage}`;
+    const segments = (
+        <circle
+            cx={cx}
+            cy={cy}
+            r={radius}
+            className="donut__percent"
+            stroke-dasharray={strokeDasharray}
+            stroke-dashoffset={25}
+        />
+    );
 
     return (
         <div
@@ -46,7 +59,7 @@ const Donut = ({
                     stroke-width={strokeWidth}
                 />
                 <g stroke-width={segStrokeWidth} fill="transparent" stroke-linecap={strokeLinecap}>
-                    <DonutSegments cx={cx} cy={cy} radius={radius} data={data} />
+                    {segments}
                 </g>
                 {children && (
                     <text x={cx} y={cy} text-anchor="middle">
@@ -62,21 +75,5 @@ const Donut = ({
     );
 };
 
-const DonutSegments = ({ cx, cy, radius, data }) => {
-    const { percentage } = data;
-    const strokeDasharray = `${percentage} ${100 - percentage}`;
-    const segments = (
-        <circle
-            cx={cx}
-            cy={cy}
-            r={radius}
-            className="donut__percent"
-            stroke-dasharray={strokeDasharray}
-            stroke-dashoffset={25}
-        />
-    );
-
-    return segments;
-};
 /* eslint-enable react/no-unknown-property */
 export default Donut;
