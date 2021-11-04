@@ -57,7 +57,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
         }
     } = getComputedVariables(offers);
 
-    // Grabs the various calculator errors from offer json
+    // Grabs the generic calculator error from offer json
     const { genericError } = calculator;
 
     /**
@@ -150,24 +150,24 @@ const getDisplayValue = (value, country) => {
     return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
+    const { title, inputLabel, inputPlaceholder } = calculator;
 
     // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
-    // If the person entered an amount in the calc and it's not 0,00, 0.00, or 0.
 
+    // If the person entered an amount in the calc and it's not 0,00, 0.00, or 0.
     const hasEnteredAmount = value !== '0,00' && value !== '0.00' && value !== '0';
+
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
     // Pass terms, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
     const error = getError(terms, isLoading, calculator, delocalize(displayValue ?? '0'));
-
-    const { title, inputLabel, inputPlaceholder } = calculator;
 
     // Update display value based on changes from useCalculator
     useEffect(() => {
@@ -192,20 +192,8 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
             evt.preventDefault();
         }
 
-        let keyComboCheck;
-
-        /**
-         * Ctrl (or Cmd) + a select all on input field.
-         * Checks if browser is IE11 or not and uses appropriate key selection method.
-         * event.keyCode is depricated and not recommended for newer browsers, however, it
-         * is supported for IE11. Newer browsers should use the event.key and event.code methods.
-         * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
-         */
-        if (!!window.MSInputMethodContext && !!document.documentMode) {
-            keyComboCheck = evt.ctrlKey && evt.keyCode === 65;
-        } else {
-            keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
-        }
+        // Ctrl (or Cmd) + a select all on input field.
+        const keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
 
         if (keyComboCheck) {
             evt.target.select();
@@ -251,14 +239,32 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
         return <Fragment />;
     };
 
+    /**
+     * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
+     */
+    const { offers } = terms;
+    let aprDisclaimer = '';
+
+    const aprArr = offers.filter(offer => offer?.meta?.qualifying === 'true').map(offer => offer?.meta?.apr);
+
+    if (aprArr.length > 0) {
+        if (aprArr.filter(apr => apr.replace('.00', '') !== '0').length === aprArr.length) {
+            aprDisclaimer = nonZeroAPR;
+        } else if (aprArr.filter(apr => apr.replace('.00', '') === '0').length === aprArr.length) {
+            aprDisclaimer = zeroAPR;
+        } else {
+            aprDisclaimer = mixedAPR;
+        }
+    } else aprDisclaimer = zeroAPR;
+
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">{value !== '' ? inputLabel : ''}</div>
+                    <div className="input__label">{value !== '0.00' && value !== '' ? inputLabel : ''}</div>
                     <input
-                        className={`input ${value === '' ? 'empty-input' : ''}`}
+                        className={`input ${emptyState || value === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
                         type="tel"
                         value={parseFloat(delocalize(displayValue ?? '0')) === 0 ? '' : displayValue}
@@ -275,7 +281,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer }) => {
             ) : (
                 <Fragment />
             )}
-            <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{disclaimer}</div>
+            <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{aprDisclaimer}</div>
         </div>
     );
 };

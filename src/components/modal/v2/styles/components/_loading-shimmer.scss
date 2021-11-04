@@ -26,9 +26,6 @@
                 }
             }
             @include tablet {
-                &:first-child {
-                    margin-top: 20px;
-                }
                 &:last-child {
                     margin-bottom: 20px;
                 }

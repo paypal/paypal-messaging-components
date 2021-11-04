@@ -5,13 +5,26 @@
     padding-bottom: 10px;
 
     @include desktop {
+        margin-top: 25px;
+        margin-bottom: 10px;
         padding-left: 30px;
         padding-right: 60px;
     }
 
     @include tablet {
+        margin-top: 20px;
+        margin-bottom: 10px;
         padding-right: 0px;
         max-width: 315px;
+    }
+
+    @include mobile {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    @include smallMobile {
+        margin-top: 15px;
     }
 
     .title {
@@ -59,16 +72,20 @@
         @include tablet {
             text-align: center;
         }
+
+        &.no-amount {
+            .calculator__error {
+                @include tablet {
+                    margin-left: 25px;
+                }
+            }
+        }
     }
 
     &__error {
         color: black;
         font-size: 0.8rem;
-        margin-top: 0;
-
-        @include tablet {
-            margin-left: 25px;
-        }
+        margin-top: 10px;
 
         & > div {
             display: inline-flex;
@@ -94,6 +111,7 @@
 
     .finance-terms__disclaimer {
         font-size: 0.8rem;
+        line-height: 1.5;
         @include tablet {
             font-size: 0.75rem;
         }
