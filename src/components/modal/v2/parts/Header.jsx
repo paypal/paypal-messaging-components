@@ -75,6 +75,7 @@ const Header = ({ headline, subheadline, className = '', logo, contentWrapper, c
                 <div className="header__icons">{renderIcons()}</div>
                 <div className={`header__icons ${sticky}`} ref={headerIconsRef}>
                     {renderIcons()}
+                    <Icon name="header-background" />
                 </div>
                 <div className="header__content">
                     <h1>{headline}</h1>
