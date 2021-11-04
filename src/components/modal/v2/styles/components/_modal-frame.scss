@@ -6,10 +6,22 @@
     left: 0;
     width: 100%;
     height: 100%;
-    // This prevents FF from allowing the wrapper to be scrollable
-    // since it is animating from offscreen in the "hidden" part of
-    // this container.
-    // overflow: hidden;
+
+    &.lander {
+        > svg {
+            position: fixed;
+
+            @media screen and (max-height: calc(100vw*0.71875)) {
+                width: 100vw;
+                height: calc(100vw * 0.71875);
+            }
+
+            @media screen and (max-width: calc(100vh*1.39130434783)) {
+                width: calc(100vh * 1.39130434783);
+                height: 100vh;
+            }
+        }
+    }
 
     &::after {
         content: '';
@@ -22,11 +34,6 @@
 .modal-container {
     flex: 1 1 auto;
     position: relative;
-    // @include desktop {
-    //     // opacity: 0;
-    //     transform: translateY(-2%);
-    //     transition: transform 350ms ease, opacity 250ms ease;
-    // }
 
     &.show {
         .wrapper {
@@ -45,13 +52,6 @@
     }
 }
 
-.overlay-side {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    z-index: 2;
-}
-
 .wrapper {
     position: absolute;
     top: 0;
@@ -64,7 +64,6 @@
 
 .main {
     -webkit-overflow-scrolling: touch;
-    /*overflow-scrolling: touch;*/
     -moz-overflow-scrolling: touch;
     position: relative;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);

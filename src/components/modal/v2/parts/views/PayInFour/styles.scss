@@ -1,37 +1,80 @@
 @import '../../../styles/globals/mixins';
 
-$webpage : 1640px;
-
-.header__wrapper {
-    .header__container {
-        @media all and (min-width: $webpage) {
+.modal-wrapper.lander {
+    .header__wrapper {
+        .header__container {
             background-color: transparent;
-        }
-
-        .header__icons {
-            .pp-logo {
-                img {
-                    @media all and (min-width: $webpage) {
+    
+            .header__icons {
+                .pp-logo {
+                    img {
                         height: 48px;
                     }
                 }
-            }
-
-            button {
-                margin-top: 0.25rem;
-                
-                @media all and (min-width: $webpage) {
+    
+                button {
                     display: none;
                 }
+            }
+        }
+    
+        .header__content {
+            padding-bottom: 2rem;
+        }
+    }
+    
+    .content__background {
+        max-width: 933px;
+        margin-top: 0;
+    }
+    
+    .content__container {
+        background-color: transparent;
+    
+        .content__body {
+            border-top-left-radius: 100px;
+            border-bottom-right-radius: 100px;
+    
+            .dynamic__container {
+                overflow: hidden;
+                background-color: #fff;
+                border-top-left-radius: 100px;
+            }
+    
+            .content__row {
+                .donuts {
+                    .donuts__container {
+                        padding: 0 20px;
+                    }
+                }
+    
+                &.dynamic {
+                    max-width: 840px;
+                    margin: 0 auto;
+
+                    .branded-image {
+                        margin-top: 50px;
+                    }
+                }
+    
+                &.instructions {
+                    max-width: 315px;
+                }
+            }
+        }
+    }
+}
+
+.header__wrapper {
+    .header__container {
+        .header__icons {
+            button {
+                margin-top: 0.25rem;
             }
         }
     }
 
     .header__content {
-        @media all and (min-width: $webpage) {
-            padding-bottom: 2rem;
-        }
-
         h1 {
             font-size: 1.75rem;
             line-height: 36px;
@@ -67,11 +110,6 @@ $webpage : 1640px;
     @include desktop {
         max-width: 884px;
     }
-
-    @media all and (min-width: $webpage) {
-       max-width: 933px;
-       margin-top: 0;
-    }
 }
 
 .content__container {
@@ -79,10 +117,6 @@ $webpage : 1640px;
     margin-top: -2rem;
     padding-top: 2rem;
     padding-bottom: 0;
-
-    @media all and (min-width: $webpage) {
-        background-color: transparent;
-    }
 
     .content__body {
         z-index: 0;
@@ -95,19 +129,6 @@ $webpage : 1640px;
         @include desktop {
             padding: 0;
             top: 0;
-        }
-
-        @media all and (min-width: $webpage) {
-            border-top-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-        }
-
-        .dynamic__container {
-            @media all and (min-width: $webpage) {
-                overflow: hidden;
-                background-color: #fff;
-                border-top-left-radius: 100px;
-            }
         }
 
         .content__row {
@@ -164,10 +185,6 @@ $webpage : 1640px;
                         top: 30px;
                     }
 
-                    @media all and (min-width: $webpage) {
-                        padding: 0 20px;
-                    }
-
                     &.donuts__non_qualifying {
                         @include desktop {
                             max-width: 330px;
@@ -195,11 +212,6 @@ $webpage : 1640px;
                     background-color: #fff;
                 }
 
-                @media all and (min-width: $webpage) {
-                    max-width: 840px;
-                    margin: 0 auto;
-                }
-
                 &.collapsed {
                     max-width: 445px;
                 }
@@ -207,10 +219,6 @@ $webpage : 1640px;
                 .branded-image {
                     display: flex;
                     margin-top: 56px;
-
-                    @media all and (min-width: $webpage) {
-                        margin-top: 50px;
-                    }
                 }
             }
 
@@ -227,10 +235,6 @@ $webpage : 1640px;
                 @include desktop {
                     max-width: 270px;
                 }
-
-                @media all and (min-width: $webpage) {
-                    max-width: 315px;
-                 }
 
                 ol.collapsed {
                     @include desktop {

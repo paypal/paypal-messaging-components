@@ -10,7 +10,7 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 
-export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTimestamps }) => {
+export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTimestamps, contentBodyRef }) => {
     let qualifying;
     let periodicPayment;
     if (useServerData()?.views?.length > 0) {
@@ -25,9 +25,9 @@ export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTi
                 {headerScss._getCss()}
                 {styles._getCss()}
             </style>
-            <div className="content__container pi4">
+            <div className="content__container">
                 <main className="main">
-                    <div className="content__body">
+                    <div className="content__body" ref={contentBodyRef}>
                         <div className="dynamic__container">
                             <div className="content__row dynamic">
                                 <div className="content__col">

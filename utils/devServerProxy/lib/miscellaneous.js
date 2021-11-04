@@ -53,6 +53,7 @@ export const waitForTimeout = timeout => new Promise(resolve => setTimeout(resol
 export const createMockZoidMarkup = ({ component, props, scriptUID, port }) => {
     const setupFunctionName = component === 'message' ? 'crc.setupMessage' : 'crc.setupModal';
 
+    const interfaceScript = `<script>var interface = window.top.document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
     const componentScript = `<script src="//localhost.paypal.com:${port}/smart-credit-${component}.js"></script>`;
     const initializerScript = `<script>${setupFunctionName}(${JSON.stringify(props)})</script>`;
 
@@ -63,10 +64,7 @@ export const createMockZoidMarkup = ({ component, props, scriptUID, port }) => {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <script>
-        var interface = window.top.document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML;
-        document.write(interface);
-    </script>
+    ${component !== 'modal-v2-lander' ? interfaceScript : ''}
     ${componentScript}
     ${initializerScript}
 </body>

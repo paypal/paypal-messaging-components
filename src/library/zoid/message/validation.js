@@ -191,5 +191,19 @@ export default {
         }
 
         return undefined;
+    },
+    channel: ({ props: { channel } }) => {
+        if (typeof channel !== 'undefined') {
+            const options = ['UPSTREAM', 'CHECKOUT'];
+            if (!validateType(Types.STRING, channel)) {
+                logInvalidType('channel', Types.STRING, channel);
+            } else if (!arrayIncludes(options, channel)) {
+                logInvalidOption('channel', options, channel);
+            } else {
+                return channel;
+            }
+        }
+
+        return undefined;
     }
 };

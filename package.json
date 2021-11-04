@@ -26,6 +26,7 @@
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:modal": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone-modal --env.NODE_ENV=local --env.STAGE_TAG=local",
+        "dev:lander": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=lander --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:stage": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=stage",
         "dev:sandbox": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=sandbox",
         "dev:production": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=production",

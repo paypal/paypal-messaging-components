@@ -1,7 +1,6 @@
 import { logger } from '../../../../utils';
 
-// Standalone webpage not loaded through a zoid iframe
-if (__MESSAGES__.__TARGET__ === 'LANDER') {
+export default function polyfillZoid() {
     const props = window.location.search
         .slice(1)
         .split('&')
@@ -104,6 +103,9 @@ if (__MESSAGES__.__TARGET__ === 'LANDER') {
                 link: linkName
             });
         },
+        // Overridable defaults
+        integrationType: __MESSAGES__.__TARGET__,
+        // Specified props via query params
         ...props
     };
 }

@@ -31,13 +31,16 @@
             }
         }
     }
-
+    
     &__icons {
+        &.sticky {
+            @include desktop {
+                width: 884px;
+            }
+        }
 
         .close {
-
             svg {
-
                 path {
                     stroke-width: 2.2;
                 }
