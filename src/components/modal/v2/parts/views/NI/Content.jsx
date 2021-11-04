@@ -50,7 +50,11 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                             const line = content.map(item => {
                                 if (Array.isArray(item)) {
                                     const [text, link] = item;
-                                    return <a href={link}>{text}</a>;
+                                    return (
+                                        <a target="__blank" href={link}>
+                                            {text}
+                                        </a>
+                                    );
                                 }
                                 return <span>{item}</span>;
                             });
