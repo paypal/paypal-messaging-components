@@ -87,6 +87,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                         position: absolute;
                         white-space: nowrap; 
                         width: 1px;
+                        display: none;
                     }
 
                     #${uid} > div > iframe {
