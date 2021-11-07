@@ -16,7 +16,8 @@ jest.mock('src/components/modal/lib/providers/transition', () => ({
 }));
 
 jest.mock('src/components/modal/lib/utils', () => ({
-    getContent: jest.fn().mockResolvedValue(null)
+    getContent: jest.fn().mockResolvedValue(null),
+    setupTabIndex: jest.fn().mockResolvedValue(null)
 }));
 
 describe('<Container />', () => {

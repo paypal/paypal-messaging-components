@@ -30,3 +30,29 @@ export const getContent = memoize(
         );
     }
 );
+
+export function setupTabIndex() {
+    const modal = document.querySelector('.modal-container');
+    const focusableElementsString =
+        "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
+    const focusableElements = modal.querySelectorAll(focusableElementsString);
+    const firstTabStop = focusableElements[0];
+    const lastTabStop = focusableElements[focusableElements.length - 1];
+    function trapTabKey(e) {
+        // Check for TAB key press
+        if (e.keyCode === 9) {
+            // SHIFT + TAB
+            if (e.shiftKey) {
+                if (document.activeElement === firstTabStop) {
+                    e.preventDefault();
+                    lastTabStop.focus();
+                }
+                // TAB
+            } else if (document.activeElement === lastTabStop) {
+                e.preventDefault();
+                firstTabStop.focus();
+            }
+        }
+    }
+    modal.addEventListener('keydown', trapTabKey);
+}

@@ -3,7 +3,15 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getDeviceID, isStorageFresh } from '../../../utils';
 
-import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
+import {
+    useTransitionState,
+    ScrollProvider,
+    useServerData,
+    useXProps,
+    useDidUpdateEffect,
+    getContent,
+    setupTabIndex
+} from '../lib';
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
@@ -50,6 +58,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         }
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
+    useEffect(() => {
+        setupTabIndex();
+    }, []);
+
     useDidUpdateEffect(() => {
         setLoading(true);
         getContent({
@@ -66,6 +78,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         }).then(data => {
             setServerData(data);
             setLoading(false);
+            setupTabIndex();
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
