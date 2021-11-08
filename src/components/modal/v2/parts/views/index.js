@@ -1,2 +1,2 @@
 export * from './LongTerm/Content';
-export * from './PayInFour/Content';
+export * from './ShortTerm/Content';

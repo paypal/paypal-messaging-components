@@ -10,7 +10,7 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 
-export const PayInFour = ({ instructions, linkToProductList, disclosure, donutTimestamps, contentBodyRef }) => {
+export const ShortTerm = ({ instructions, linkToProductList, disclosure, donutTimestamps, contentBodyRef }) => {
     let qualifying;
     let periodicPayment;
     if (useServerData()?.views?.length > 0) {

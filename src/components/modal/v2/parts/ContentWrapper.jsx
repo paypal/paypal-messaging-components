@@ -6,7 +6,7 @@ import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
-import { LongTerm, PayInFour } from './views';
+import { LongTerm, ShortTerm } from './views';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
@@ -25,7 +25,7 @@ const ContentWrapper = () => {
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
-        PAY_LATER_SHORT_TERM: <PayInFour {...useContent(product)} contentBodyRef={contentBodyRef} />
+        PAY_LATER_SHORT_TERM: <ShortTerm {...useContent(product)} contentBodyRef={contentBodyRef} />
     };
 
     return (
