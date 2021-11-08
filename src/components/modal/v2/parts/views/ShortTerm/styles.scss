@@ -72,31 +72,10 @@
     }
 
     .header__content {
-        h1 {
-            font-size: 1.75rem;
-            line-height: 36px;
-
-            @include desktop {
-                font-size: 2.75rem;
-                line-height: 48px;
-                margin: 0 auto;
-            }
-        }
-
         h2 {
-            margin-top: 0.25rem;
-            font-size: 1rem;
-            line-height: 24px;
-
-            @include tablet {
-                margin-top: 1rem;
-            }
-
-            @include desktop {
-                font-size: 1.75rem;
-                line-height: 36px;
-                max-width: 577px;
-                margin: 1rem auto 0;
+            @include mobile {
+                padding: 20px 25px 25px;
+                line-height: 24px;
             }
          }
     }
@@ -170,7 +149,6 @@
 
                     @include desktop {
                         transform: translate(0px, 1rem);
-                        padding: 0 40px;
                         position: relative;
                         top: 30px;
                     }
@@ -207,7 +185,6 @@
             }
 
             &.instructions {
-                max-width: 315px;
                 padding: 0 25px;
                 margin: 0 auto;
 
@@ -239,7 +216,6 @@
             }
 
             &.disclosure {
-                max-width: 315px;
                 margin: 0 auto;
 
                 @include desktop {
@@ -272,7 +248,6 @@
                 }
 
                 .productLink__container{
-                    max-width: 315px;
                     margin: 0 auto;
 
                     @include desktop {
