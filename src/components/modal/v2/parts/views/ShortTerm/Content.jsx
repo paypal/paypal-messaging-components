@@ -5,7 +5,6 @@ import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
-import headerScss from './header.scss';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
@@ -21,10 +20,7 @@ export const ShortTerm = ({ instructions, linkToProductList, disclosure, donutTi
     const [expandedState] = useState(false);
     return (
         <Fragment>
-            <style>
-                {headerScss._getCss()}
-                {styles._getCss()}
-            </style>
+            <style>{styles._getCss()}</style>
             <div className="content__container">
                 <main className="main">
                     <div className="content__body" ref={contentBodyRef}>

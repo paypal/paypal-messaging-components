@@ -1,3 +1,4 @@
+@import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
 .modal-wrapper.lander {
@@ -56,10 +57,6 @@
                         margin-top: 50px;
                     }
                 }
-    
-                &.instructions {
-                    max-width: 315px;
-                }
             }
         }
     }
@@ -90,7 +87,6 @@
             margin-top: 0.25rem;
             font-size: 1rem;
             line-height: 24px;
-            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
             @include tablet {
                 margin-top: 1rem;
@@ -106,14 +102,8 @@
     }
 }
 
-.content__background {
-    @include desktop {
-        max-width: 884px;
-    }
-}
-
 .content__container {
-    background-color: #003087;
+    background-color: $dark-blue;
     margin-top: -2rem;
     padding-top: 2rem;
     padding-bottom: 0;
@@ -122,7 +112,7 @@
         z-index: 0;
         position: relative;
         top: 40px;
-        background-color: #F5F7FB;
+        background-color: $instructions-background;
         padding: 0 25px;
         box-sizing: border-box;
 
@@ -185,12 +175,6 @@
                         top: 30px;
                     }
 
-                    &.donuts__non_qualifying {
-                        @include desktop {
-                            max-width: 330px;
-                        }
-                    }
-
                 }
             }
 
@@ -233,7 +217,7 @@
                 }
 
                 @include desktop {
-                    max-width: 270px;
+                    max-width: 340px;
                 }
 
                 ol.collapsed {
@@ -248,7 +232,6 @@
                     }
 
                     li {
-                        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
                         font-size: 1.125rem;
                         line-height: 24px;
                     }
@@ -268,7 +251,6 @@
 
                 p {
                     margin: 0;
-                    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
                     font-size: 0.875rem;
                     line-height: 20px;
                 }
@@ -301,7 +283,6 @@
                         color: #1072eb;
                         font-size: 0.875rem;
                         line-height: 20px;
-                        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
                         @include mobile{
                             min-width: initial;
