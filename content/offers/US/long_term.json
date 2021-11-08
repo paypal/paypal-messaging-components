@@ -35,7 +35,7 @@
         "termsLabel": {
             "offerHeader": "{formattedPeriodicPayment}/mo. for {total_payments} months",
             "zeroApr": "APR",
-            "nonZeroApr": "Est. APR",
+            "nonZeroApr": "Est. APR*",
             "totalInterest": "Interest",
             "total": "Total"
         }
