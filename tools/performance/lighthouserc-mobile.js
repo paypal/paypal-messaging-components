@@ -5,7 +5,7 @@ if (!process.env.ARG) process.env.ARG = process.argv.pop().replace('--', '');
 module.exports = {
     ci: {
         collect: {
-            numberOfRuns: 4,
+            numberOfRuns: 2,
             url: [
                 `${process.env.LIGHTHOUSE_URL}/${process.env.STAGE_TAG ? `?stage_tag=${process.env.STAGE_TAG}` : ''}`,
                 `${process.env.LIGHTHOUSE_URL}/category/jewelry${
