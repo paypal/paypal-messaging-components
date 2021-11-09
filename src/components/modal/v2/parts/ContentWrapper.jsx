@@ -39,7 +39,7 @@ const ContentWrapper = () => {
                         logo="logo"
                         headline={headline}
                         subheadline={subheadline}
-                        isQualifying={isQualifying ?? false}
+                        isQualifying={isQualifying ?? 'false'}
                         qualifyingSubheadline={qualifyingSubheadline}
                         contentWrapper={contentWrapper}
                         contentBodyRef={contentBodyRef}

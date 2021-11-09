@@ -12,7 +12,7 @@ const Header = ({
     contentWrapper,
     contentBodyRef,
     contentBackground,
-    isQualifying = false,
+    isQualifying = 'false',
     qualifyingSubheadline
 }) => {
     const [, handleClose] = useTransitionState();
@@ -88,7 +88,11 @@ const Header = ({
                 </div>
                 <div className="header__content">
                     <h1>{headline}</h1>
-                    {isQualifying === true ? <h2>{qualifyingSubheadline ?? subheadline}</h2> : <h2>{subheadline}</h2>}
+                    {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
+                        <h2>{qualifyingSubheadline}</h2>
+                    ) : (
+                        <h2>{subheadline}</h2>
+                    )}
                 </div>
             </div>
         </div>
