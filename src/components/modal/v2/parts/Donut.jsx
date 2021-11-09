@@ -45,7 +45,7 @@ const Donut = ({
     return (
         <div
             className={`donut__single_payment ${
-                qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
+                children && qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">

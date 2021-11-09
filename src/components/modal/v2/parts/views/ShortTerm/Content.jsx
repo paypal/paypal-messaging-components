@@ -1,6 +1,5 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
 import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 import Donut from '../../Donut';
@@ -9,15 +8,22 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 
-export const ShortTerm = ({ instructions, linkToProductList, disclosure, donutTimestamps, contentBodyRef }) => {
-    let qualifying;
-    let periodicPayment;
-    if (useServerData()?.views?.length > 0) {
-        qualifying = useServerData().views[0].meta.qualifying;
-        periodicPayment = useServerData().views[0].meta.periodicPayment;
-    }
+export const ShortTerm = ({
+    instructions,
+    linkToProductList,
+    disclosure,
+    donutTimestamps,
+    qualifying,
+    periodicPayment,
+    contentBodyRef
+}) => {
+    const renderProductListLink = () => {
+        if (useServerData()?.views?.length > 1) {
+            return <ProductListLink>{linkToProductList}</ProductListLink>;
+        }
+        return <Fragment />;
+    };
 
-    const [expandedState] = useState(false);
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -28,27 +34,20 @@ export const ShortTerm = ({ instructions, linkToProductList, disclosure, donutTi
                             <div className="content__row dynamic">
                                 <div className="content__col">
                                     <div className="content__row donuts">
-                                        <div
-                                            className={`donuts__container ${
-                                                qualifying === 'true' ? 'donuts__qualifying' : 'donuts__non_qualifying'
-                                            }`}
-                                        >
+                                        <div className="donuts__container">
                                             {donutTimestamps.map((val, index) => (
                                                 <Donut
                                                     qualifying={qualifying}
                                                     periodicPayment={periodicPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
-                                                >
-                                                    {qualifying &&
-                                                        `${((1 / donutTimestamps.length) * 100).toFixed(0)}%`}
-                                                </Donut>
+                                                />
                                             ))}
                                         </div>
                                     </div>
-                                    <Instructions instructions={instructions} expandedState={expandedState} />
+                                    <Instructions instructions={instructions} />
                                 </div>
-                                <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                                <div className="content__col">
                                     <div className="branded-image">
                                         {/* TODO: update from temp desktop image */}
                                         <Icon name="pi4-image" />
@@ -56,13 +55,11 @@ export const ShortTerm = ({ instructions, linkToProductList, disclosure, donutTi
                                 </div>
                             </div>
                         </div>
-                        <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+                        <div className="content__row disclosure">
                             <p>{disclosure}</p>
                         </div>
                         <div className="content__row productLink">
-                            <div className="productLink__container">
-                                <ProductListLink>{linkToProductList}</ProductListLink>
-                            </div>
+                            <div className="productLink__container">{renderProductListLink()}</div>
                         </div>
                     </div>
                 </main>

@@ -1,119 +1,30 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
-.modal-wrapper.lander {
-    .header__wrapper {
-        .header__container {
-            background-color: transparent;
-    
-            .header__icons {
-                .pp-logo {
-                    img {
-                        height: 48px;
-                    }
-                }
-    
-                button {
-                    display: none;
-                }
-            }
-        }
-    
-        .header__content {
-            padding-bottom: 2rem;
-        }
-    }
-    
-    .content__background {
-        max-width: 933px;
-        margin-top: 0;
-    }
-    
-    .content__container {
-        background-color: transparent;
-    
-        .content__body {
-            border-top-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-    
-            .dynamic__container {
-                overflow: hidden;
-                background-color: #fff;
-                border-top-left-radius: 100px;
-            }
-    
-            .content__row {
-                .donuts {
-                    .donuts__container {
-                        padding: 0 20px;
-                    }
-                }
-    
-                &.dynamic {
-                    max-width: 840px;
-                    margin: 0 auto;
-
-                    .branded-image {
-                        margin-top: 50px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.header__wrapper {
-    .header__container {
-        .header__icons {
-            button {
-                margin-top: 0.25rem;
-            }
-        }
-    }
-
-    .header__content {
-        h2 {
-            @include mobile {
-                padding: 20px 25px 25px;
-                line-height: 24px;
-            }
-         }
-    }
-}
-
 .content__container {
-    background-color: $dark-blue;
-    margin-top: -2rem;
-    padding-top: 2rem;
-    padding-bottom: 0;
-
     .content__body {
-        z-index: 0;
-        position: relative;
-        top: 40px;
-        background-color: $instructions-background;
-        padding: 0 25px;
-        box-sizing: border-box;
-
         @include desktop {
-            padding: 0;
-            top: 0;
+            padding: 0px;
+        }
+
+        @include tablet {
+            margin-top: 0px;
+        }
+
+        @include mobile {
+            margin-top: 0px;
         }
 
         .content__row {
             .content__col {
                 flex-wrap: wrap;
                 flex-direction: initial;
-
-                .collapsed:last-child {
-                    overflow: hidden;
-                }
             }
 
             .donuts {
                 display: flex;
                 align-items: center;
-                background-color: #FFFFFF;
+                background-color: #ffffff;
                 border-top-left-radius: 40px;
                 border-bottom-right-radius: 40px;
                 min-height: 10em;
@@ -124,17 +35,13 @@
                 margin-bottom: -65px;
 
                 @include desktop {
-                    max-width: initial;
                     min-height: 5em;
                     top: 0;
                     margin-bottom: 0px;
                     background-color: transparent;
-                    border-top-left-radius: 0;
-                    border-bottom-right-radius: 0;
-                    align-items: initial;
                 }
-            
-                .donuts__container {
+
+                &__container {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -143,16 +50,15 @@
                     margin: 0 auto;
                     padding: 0 20px;
 
-                    @include tablet {
-                        max-width: 320px;
-                    }
-
                     @include desktop {
                         transform: translate(0px, 1rem);
                         position: relative;
                         top: 30px;
                     }
 
+                    @include tablet {
+                        max-width: 320px;
+                    }
                 }
             }
 
@@ -160,15 +66,12 @@
                 position: relative;
                 box-sizing: border-box;
                 background-color: transparent;
-                padding-left: 0px; 
+                padding-left: 0px;
                 padding-right: 0px;
-                margin: 0 -25px;
 
                 @include desktop {
                     width: 100%;
                     padding: 0;
-                    left: 0;
-                    top: 0;
                     margin: 0;
                     height: 600px;
                     background-color: #fff;
@@ -188,13 +91,13 @@
                 padding: 0 25px;
                 margin: 0 auto;
 
+                @include desktop {
+                    max-width: 340px;
+                }
+
                 @include tablet {
                     padding: 0 75px;
                     max-width: initial;
-                }
-
-                @include desktop {
-                    max-width: 340px;
                 }
 
                 ol.collapsed {
@@ -216,61 +119,10 @@
             }
 
             &.disclosure {
-                margin: 0 auto;
-
                 @include desktop {
-                    width: 100%;
-                    padding: 2rem 60px 0;
-                    box-sizing: border-box;
-                    max-width: initial;
-                }
-
-                p {
-                    margin: 0;
-                    font-size: 0.875rem;
-                    line-height: 20px;
+                    padding-top: 16px;
                 }
             }
-
-            &.productLink{
-                margin: 1rem 0 2rem;
-
-                @include tablet {
-                    margin: 1rem 0 3rem;
-                }
-
-                #productListLink {
-                    min-width: initial;
-    
-                    @media (min-width: 350px){
-                        min-width: 315px;
-                    }
-                }
-
-                .productLink__container{
-                    margin: 0 auto;
-
-                    @include desktop {
-                        max-width: initial;
-                    }
-
-                    a {
-                        color: #1072eb;
-                        font-size: 0.875rem;
-                        line-height: 20px;
-
-                        @include mobile{
-                            min-width: initial;
-                        }
-
-                        @include desktop {
-                            padding-left: 30px;
-
-                        }
-                    }
-                }
-            }
-
         }
     }
 }

@@ -19,13 +19,15 @@ const ContentWrapper = () => {
         product = useServerData().views[0].meta.product;
     }
 
-    const { headline, subheadline, qualifyingSubheadline } = useContent(product);
+    const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);
     const { qualifying: isQualifying } = useProductMeta(product);
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
-        PAY_LATER_SHORT_TERM: <ShortTerm {...useContent(product)} contentBodyRef={contentBodyRef} />
+        PAY_LATER_SHORT_TERM: (
+            <ShortTerm {...useContent(product)} {...useProductMeta(product)} contentBodyRef={contentBodyRef} />
+        )
     };
 
     return (
@@ -37,7 +39,7 @@ const ContentWrapper = () => {
                         logo="logo"
                         headline={headline}
                         subheadline={subheadline}
-                        isQualifying={isQualifying}
+                        isQualifying={isQualifying ?? false}
                         qualifyingSubheadline={qualifyingSubheadline}
                         contentWrapper={contentWrapper}
                         contentBodyRef={contentBodyRef}
