@@ -15,7 +15,7 @@
         margin-top: 20px;
         margin-bottom: 10px;
         padding-right: 0px;
-        max-width: 315px;
+        width: 315px;
     }
 
     @include mobile {
@@ -86,6 +86,10 @@
         color: black;
         font-size: 0.8rem;
         margin-top: 10px;
+
+        @include tablet {
+            display: flex;
+        }
 
         & > div {
             display: inline-flex;

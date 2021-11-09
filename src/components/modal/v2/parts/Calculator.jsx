@@ -75,12 +75,12 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
 
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, ' ');
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
     }
 
     // Checks amount against qualifying min and max ranges to determine which error message to show.
     if (amount < minAmount) {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, ' ');
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
     }
     if (amount > maxAmount) {
         return aboveThreshold.replace(/(\.[0-9]*?)00/g, '');
@@ -122,6 +122,7 @@ const getDisplayValue = (value, country) => {
     /**
      * Determines displayed string formatting in input field based on country.
      * Allow displayStr value to end with a dangling period decimal or comma to allow typing a "cent" value.
+     * TODO: Prior to ramping DE to universal modal schema, validate DE=specific calculator functionality.
      */
     switch (country) {
         case 'DE':
@@ -159,8 +160,8 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
 
-    // If the person entered an amount in the calc and it's not 0,00, 0.00, or 0.
-    const hasEnteredAmount = value !== '0,00' && value !== '0.00' && value !== '0';
+    // If the person entered an amount in the calc and it's not 0.00 or 0.
+    const hasEnteredAmount = delocalize(value) !== '0.00' && delocalize(value) !== '0';
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
@@ -262,9 +263,15 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">{value !== '0.00' && value !== '' ? inputLabel : ''}</div>
+                    <div className="input__label">
+                        {delocalize(value) !== '0.00' && delocalize(value) !== '0' && delocalize(value) !== ''
+                            ? inputLabel
+                            : ''}
+                    </div>
                     <input
-                        className={`input ${emptyState || value === '' ? 'empty-input' : ''}`}
+                        className={`input ${
+                            emptyState || delocalize(value) === '0' || delocalize(value) === '' ? 'empty-input' : ''
+                        }`}
                         placeholder={inputPlaceholder}
                         type="tel"
                         value={parseFloat(delocalize(displayValue ?? '0')) === 0 ? '' : displayValue}
