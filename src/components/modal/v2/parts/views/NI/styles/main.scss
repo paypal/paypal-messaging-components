@@ -5,7 +5,7 @@
 .content {
     &__container {
         background: white;
-        color: $secondary-foreground;
+        color: black;
         padding-bottom: 0px;
         border-radius: 0px;
 
@@ -54,7 +54,7 @@
                     position: fixed;
                     bottom: 0;
                     width: calc(100%);
-                    background: $secondary-background;
+                    background: white;
                     margin-bottom: 0;
                     max-width: 640px;
                     padding: 15px 0;
@@ -67,7 +67,7 @@
                     bottom: 0;
                     left: 0;
                     width: calc(100%);
-                    background: $secondary-background;
+                    background: white;
                     margin-bottom: 0;
                     max-width: 640px;
                     padding: 15px 0;
@@ -86,7 +86,7 @@
         }
     }
     &__footer {
-        background: $tertiary-background;
+        background: $instructions-background;
         padding: 25px;
         margin: 0;
         @include tablet {
@@ -110,7 +110,7 @@
             }
 
             &-item {
-                color: $tertiary-foreground;
+                color: $legal-disclaimer;
                 margin-bottom: 20px;
                 font-size: 14px;
                 display: flex;
@@ -125,7 +125,7 @@
                 &::before {
                     /* pseudo class necessary for setting bullet color separate from font */
                     content: '\2022';
-                    color: $secondary-bullet-color;
+                    color: $terms-bullet;
                     @include mobile {
                         padding: 0px 12.5px 0px 8px;
                     }
@@ -166,7 +166,7 @@
             list-style: none;
             font-size: 14px;
             margin: 0 0 20px 0;
-            color: $tertiary-foreground;
+            color: $legal-disclaimer;
             .product-list-link {
                 padding: 0px;
             }

@@ -12,7 +12,6 @@ export default clickTitle => {
         sandbox: 'sandbox.paypal',
         production: 'paypal'
     }[env];
-    console.info('useApplyNow', { urlBase, payerId, env, refId });
 
     return () => {
         onClick({ linkName: clickTitle });

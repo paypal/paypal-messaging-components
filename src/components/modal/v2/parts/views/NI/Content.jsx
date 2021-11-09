@@ -1,17 +1,23 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState, useRef } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 import Button from '../../Button';
 import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import styles from './styles/index.scss';
-import { useApplyNow } from '../../../lib';
+import { useServerData, useApplyNow } from '../../../lib';
 
-export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLink, contentBodyRef }) => {
+export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkToProductList, contentBodyRef }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-    const [expandedState] = useState(false);
+
+    const renderProductListLink = () => {
+        if (useServerData()?.views?.length > 1) {
+            return <ProductListLink>{linkToProductList}</ProductListLink>;
+        }
+        return <Fragment />;
+    };
 
     return (
         <Fragment>
@@ -21,7 +27,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                     <div className="content__body" ref={contentBodyRef}>
                         <div className="content__row dynamic">
                             <div className="content__col">
-                                <Instructions instructions={instructions} expandedState={expandedState} />
+                                <Instructions instructions={instructions} />
                                 <div className="button__container">
                                     <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
                                         {buttonText}
@@ -29,7 +35,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                                     <div className="content__row content__disclaimer">{disclaimer}</div>
                                 </div>
                             </div>
-                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                            <div className="content__col">
                                 <div className="branded-image">
                                     {/* TODO: update from temp desktop image */}
                                     <Icon name="paypal-credit-image" />
@@ -60,9 +66,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, listLi
                             });
                             return <li className="content__footer-item">{line}</li>;
                         })}
-                        <li className="content__footer-item">
-                            <ProductListLink>{listLink}</ProductListLink>
-                        </li>
+                        <li className="content__footer-item">{renderProductListLink}</li>
                     </ul>
                 </main>
             </div>
