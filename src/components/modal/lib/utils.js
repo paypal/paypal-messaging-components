@@ -32,25 +32,35 @@ export const getContent = memoize(
 );
 
 export function setupTabIndex() {
+    let tabIndex;
     const modal = document.querySelector('.modal-container');
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
-    const focusableElements = modal.querySelectorAll(focusableElementsString);
-    const firstTabStop = focusableElements[0];
-    const lastTabStop = focusableElements[focusableElements.length - 1];
+    // eslint-disable-next-line unicorn/prefer-spread
+    const focusableElements = Array.from(modal.querySelectorAll(focusableElementsString));
+    // eslint-disable-next-line unicorn/prefer-spread
+    const tabElements = Array.from(modal.querySelectorAll('.tab'));
+    function indexTabs() {
+        tabIndex = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
+    }
+    indexTabs();
+    if (tabElements.length > 0) {
+        tabElements.forEach(tab => tab.addEventListener('click', indexTabs));
+    }
+
     function trapTabKey(e) {
         // Check for TAB key press
         if (e.keyCode === 9) {
             // SHIFT + TAB
             if (e.shiftKey) {
-                if (document.activeElement === firstTabStop) {
+                if (document.activeElement === tabIndex[0]) {
                     e.preventDefault();
-                    lastTabStop.focus();
+                    tabIndex[tabIndex.length - 1].focus();
                 }
                 // TAB
-            } else if (document.activeElement === lastTabStop) {
+            } else if (document.activeElement === tabIndex[tabIndex.length - 1]) {
                 e.preventDefault();
-                firstTabStop.focus();
+                tabIndex[0].focus();
             }
         }
     }

@@ -54,6 +54,10 @@
             transform: scaleX(1);
         }
     }
+
+    &:focus {
+        outline: -webkit-focus-ring-color auto 5px;
+    }
 }
 
 .tab-transition {

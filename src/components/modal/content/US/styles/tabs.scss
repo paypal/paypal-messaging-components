@@ -75,6 +75,10 @@
             transform: translateX(0);
         }
     }
+
+    &:focus {
+        outline: -webkit-focus-ring-color auto 5px;
+    }
 }
 
 .tab-transition {
