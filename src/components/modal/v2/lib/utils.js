@@ -2,7 +2,21 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, memoize, ppDebug } from '../../../../utils';
 
 export const getContent = memoize(
-    ({ currency, amount, payerId, clientId, merchantId, buyerCountry, ignoreCache, version, env, stageTag }) => {
+    ({
+        currency,
+        amount,
+        payerId,
+        clientId,
+        merchantId,
+        buyerCountry,
+        ignoreCache,
+        version,
+        env,
+        stageTag,
+        integrationType,
+        channel,
+        devTouchpoint
+    }) => {
         const query = objectEntries({
             currency,
             amount,
@@ -13,7 +27,10 @@ export const getContent = memoize(
             ignore_cache: ignoreCache,
             version,
             env,
-            stageTag
+            stageTag,
+            integrationType,
+            channel,
+            devTouchpoint
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
@@ -30,3 +47,9 @@ export const getContent = memoize(
         );
     }
 );
+
+/**
+ * Checks if target is lander. If true, lander-specific styles will be used.
+ * @returns boolean
+ */
+export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';
