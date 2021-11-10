@@ -42,6 +42,12 @@
         display: flex;
         height: auto;
         text-align: center;
+        overflow: hidden;
+
+        > svg {
+            position: absolute;
+            bottom: 0;
+        }
 
         //importing sticky styles
         @import './sticky';
@@ -53,6 +59,7 @@
 
             &__wrapper {
                 padding: 15px 25px 0px;
+                z-index: 9;
 
                 @include desktop {
                     padding: 0px 25px 0px;
@@ -93,6 +100,7 @@
             background: transparent;
             border: none;
             cursor: pointer;
+            z-index: 9;
 
             @include desktop {
                 display: flex;
