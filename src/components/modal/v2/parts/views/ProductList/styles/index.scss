@@ -1,0 +1,19 @@
+.content__container .content__row.dynamic {
+    background-color: #f1efea;
+}
+
+.content_row.instructions {
+    max-width: 369px;
+}
+
+.content__row.disclosure {
+    padding-top: 17px;
+}
+
+.content_row p {
+    margin-top: 0;
+    color: black;
+    font-size: 18px;
+}
+
+@import './tile';

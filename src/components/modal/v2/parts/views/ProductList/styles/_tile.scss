@@ -1,0 +1,50 @@
+.tile {
+    max-width: 337px;
+    padding: 12px 12px 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 21px;
+    background: #ffffff;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+.tile:hover {
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 1px 4px 0px rgba(0, 0, 0, 0.08);
+}
+
+.tile:last-of-type {
+    margin-bottom: 0;
+}
+
+.tile__row {
+    display: flex;
+}
+
+.tile__image {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.tile__image svg {
+    width: 72px;
+    height: 45px;
+}
+
+.tile__header {
+    display: flex;
+    font-family: PayPal Sans Big;
+    font-size: 28px;
+    line-height: 36px;
+    align-items: center;
+    color: #000000;
+}
+
+.tile__body {
+    font-family: PayPal Sans Big;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #2c2e2f;
+}

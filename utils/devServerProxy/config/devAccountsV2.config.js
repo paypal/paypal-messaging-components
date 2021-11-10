@@ -1,6 +1,9 @@
+import { DEV_US_PRODUCT_LIST } from './productListUS.config';
+
 // Note that these values are solely mock structures for development purposes
 // that are not guaranteed to be reflective of what is in production
 export default {
+    DEV_US_PRODUCT_LIST,
     DEV_US_MULTI: {
         country: 'US',
         modalViews: [
