@@ -59,6 +59,16 @@
                     @include tablet {
                         max-width: 320px;
                     }
+
+                    @include smallMobile {
+                        padding: 0px;
+                    }
+                }
+
+                .lander & {
+                    @include tablet {
+                        border-radius: 100px 0px 0px 0px;
+                    }
                 }
             }
 
