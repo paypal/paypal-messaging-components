@@ -83,4 +83,13 @@
         border-radius: 100%;
         background: #142c8e;
     }
+
+    .lander & {
+        @include tablet {
+            margin: 0px;
+        }
+        @include mobile {
+            margin: 0px;
+        }
+    }
 }
