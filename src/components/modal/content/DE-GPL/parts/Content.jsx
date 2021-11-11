@@ -39,7 +39,6 @@ const Content = () => {
     useEffect(() => {
         // Product List should be displayed when no amount and GPL + PI30 are available.
         const productNames = products.map(theProduct => theProduct.meta.product);
-        console.log(productNames);
         if (productNames.includes('GPL') && productNames.includes('PI30')) {
             if (typeof amount === 'undefined' || amount === 0) {
                 selectProduct('none');
@@ -53,7 +52,6 @@ const Content = () => {
     const classNames = ['content'];
 
     function selectContent() {
-        console.log('selected product', selectedProduct);
         switch (selectedProduct) {
             case 'GPL':
                 return <GPL linkClick={linkClick} />;
