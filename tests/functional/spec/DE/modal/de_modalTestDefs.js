@@ -90,32 +90,25 @@ export const selectProductsFromList = ({ account, viewport, groupString }) => as
     const elementBanner = await page.$(selectors.banner.wrapper);
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
-    console.log('modal frame', modalFrame);
-    // take screencap of Product List
+
     await modalSnapshot(`${groupString} ${testNameParts} - Product List`, viewport, account);
-    // select the first button
+
     await modalFrame.click(selectors.button.pi30Button);
     await page.waitFor(200);
-    // expect header to contain Pi30 content
-    // const pi30Headline = await modalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
-    // expect(pi30Headline).toContain('Kaufen Sie jetzt was Sie möchten, bezahlen Sie erst in 30 Tagen');
+
     await modalSnapshot(`${groupString} ${testNameParts} - Pi30`, viewport, account);
-    // close then open modal
+
     await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(1000);
     await elementBanner.click();
     await page.waitFor(1000);
-    const secondElementModal = await page.$(selectors.modal.iframe);
-    const secondModalFrame = await secondElementModal.contentFrame();
-    console.log('second Modal Frame', secondModalFrame);
-    // select second button
-    await secondModalFrame.click(selectors.button.gplButton);
+
+    await modalFrame.waitForSelector(selectors.button.gplButton);
+    await modalFrame.click(selectors.button.gplButton);
     await page.waitFor(200);
-    // expect header to contain GPL content
-    // const gplHeadline = await secondModalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
-    // expect(gplHeadline).toContain('Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten');
+
     await modalSnapshot(`${groupString} ${testNameParts} - GPL`, viewport, account);
-    await secondModalFrame.click(selectors.button.closeBtn);
+    await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(1000);
 };
 
@@ -126,24 +119,20 @@ export const switchProducts = ({ account, viewport, groupString }) => async () =
 
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
-    // select the first button in Product List
+
     await modalFrame.click(selectors.button.pi30Button);
     await page.waitFor(200);
-    // expect header to contain Pi30 content
-    // const pi30Headline = await modalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
-    // expect(pi30Headline).toContain('Kaufen Sie jetzt was Sie möchten, bezahlen Sie erst in 30 Tagen');
+
     await modalSnapshot(`${groupString} ${testNameParts} (Pi30 Visible)`, viewport, account);
-    // click switch text
+
     modalFrame.click(selectors.button.switchingLink);
     await page.waitFor(200);
-    // expect header to contain GPL content
-    // const gplHeadline = await modalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
-    // expect(gplHeadline).toContain('Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten');
+
     await modalSnapshot(`${groupString} ${testNameParts} (GPL Visible)`, viewport, account);
-    // click switch text
+
     modalFrame.click(selectors.button.switchingLink);
     await page.waitFor(200);
-    // expect header to contain Pi30 content
+
     const Pi30Headline = await modalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
     expect(Pi30Headline).toContain('Kaufen Sie jetzt was Sie möchten, bezahlen Sie erst in 30 Tagen');
 };

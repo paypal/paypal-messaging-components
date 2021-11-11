@@ -119,7 +119,7 @@ describe.each([
     [viewports[0], bannerStyles[0]],
     [viewports[0], bannerStyles[1]],
     [viewports[1], bannerStyles[1]]
-])('DE Multiproduct Modal Functionality Tests %o', (viewport, bannerStyle) => {
+])('DE Multiproduct (Pi30 and GPL) Modal Functionality Tests %o', (viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account: multiprodAccount,
