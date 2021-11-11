@@ -86,4 +86,13 @@
             margin: 0px;
         }
     }
+
+    .lander & {
+        @include tablet {
+            margin: 0px;
+        }
+        @include mobile {
+            margin: 0px;
+        }
+    }
 }
