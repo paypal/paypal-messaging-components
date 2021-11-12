@@ -15,12 +15,16 @@ const ContentWrapper = () => {
 
     let defaultProduct;
     const views = useServerData()?.views;
-    if (views?.length > 0) {
+    if (views?.length === 1) {
         defaultProduct = views[0].meta.product;
+    }
+    if (views?.length > 1) {
+        defaultProduct = 'PRODUCT_LIST';
     }
     const [product, setProduct] = useState(defaultProduct);
 
     console.log({
+        viewsLength: views?.length,
         serverData: useServerData(),
         product: useProduct(product)
     });

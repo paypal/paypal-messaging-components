@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
+import { useServerData } from '../../../lib';
 import Icon from '../../Icon';
 import Tile from './Tile';
 import styles from './styles/index.scss';
@@ -29,6 +30,12 @@ const tilesContent = [
 export const ProductList = ({ disclosure, setProduct, contentBodyRef }) => {
     const [expandedState, setExpandedState] = useState(false);
 
+    const views = useServerData()?.views;
+    const availableTiles = views.map(view =>
+        tilesContent.find(tileContent => tileContent.viewName === view.meta.product)
+    );
+    console.log({ availableTiles });
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -40,7 +47,7 @@ export const ProductList = ({ disclosure, setProduct, contentBodyRef }) => {
                                 <div className="content_row instructions">
                                     <p>Choose an option for more details.</p>
                                 </div>
-                                {tilesContent.map(({ header, body, icon, viewName }, index) => (
+                                {availableTiles.map(({ header, body, icon, viewName }, index) => (
                                     <Tile
                                         key={index}
                                         header={header}
