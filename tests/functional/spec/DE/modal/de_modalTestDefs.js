@@ -1,3 +1,4 @@
+import openModal from '../../utils/initializeModal';
 import selectors from '../../utils/selectors';
 import { logTestName } from '../../utils/logging';
 import modalSnapshot from '../../utils/modalSnapshot';
@@ -87,7 +88,6 @@ export const selectProductsFromList = ({ account, viewport, groupString }) => as
     const testNameParts = 'Product List buttons for PI30 and GPL click';
     logTestName({ account, viewport, groupString, testNameParts });
 
-    const elementBanner = await page.$(selectors.banner.wrapper);
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
 
@@ -100,15 +100,20 @@ export const selectProductsFromList = ({ account, viewport, groupString }) => as
 
     await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(1000);
-    await elementBanner.click();
+    await openModal(viewport, {
+        account: 'DEV0DEPI30GPL',
+        style: groupString
+    });
     await page.waitFor(1000);
+    const elementModal2 = await page.$(selectors.modal.iframe);
+    const modalFrame2 = await elementModal2.contentFrame();
 
-    await modalFrame.waitForSelector(selectors.button.gplButton);
-    await modalFrame.click(selectors.button.gplButton);
+    await modalFrame2.waitForSelector(selectors.button.gplButton);
+    await modalFrame2.click(selectors.button.gplButton);
     await page.waitFor(200);
 
     await modalSnapshot(`${groupString} ${testNameParts} - GPL`, viewport, account);
-    await modalFrame.click(selectors.button.closeBtn);
+    await modalFrame2.click(selectors.button.closeBtn);
     await page.waitFor(1000);
 };
 
