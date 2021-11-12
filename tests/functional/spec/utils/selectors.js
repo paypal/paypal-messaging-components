@@ -6,7 +6,7 @@ const selectors = {
         iframeByAttribute: '[data-pp-id] iframe',
         container: '.message__container',
         messageMessaging: '.message__messaging',
-        legacyContainer: 'div[role="button"].message'
+        legacyContainer: '.msg-button'
     },
     modal: {
         iframe: 'iframe[title^="PayPal Modal"]',

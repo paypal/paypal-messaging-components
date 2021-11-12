@@ -51,7 +51,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const button = document.createElement('button');
 
     button.setAttribute('type', 'button');
-    button.setAttribute('aria-label', 'PayPal Pay Later Message');
 
     button.addEventListener('click', handleClick);
     button.addEventListener('mouseover', handleHover);
