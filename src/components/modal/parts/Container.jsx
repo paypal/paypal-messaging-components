@@ -84,7 +84,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <div className="modal-wrapper">
+            <div className="modal-wrapper" role="dialog" aria-label="PayPal Credit" aria-modal="true">
                 <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                     <div className="wrapper">{children}</div>
