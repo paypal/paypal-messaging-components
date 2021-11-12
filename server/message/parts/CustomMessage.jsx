@@ -51,12 +51,8 @@ const CustomMessage = ({ children, data, meta, template }) => {
     return (
         <>
             {children}
-            {/* eslint-disable react/no-danger, jsx-a11y/control-has-associated-label */}
-            <div
-                className={`message msg-button ${offerTypeClass}`}
-                dangerouslySetInnerHTML={{ __html: populatedMarkup }}
-            />
-            {/* eslint-enable react/no-danger, jsx-a11y/control-has-associated-label */}
+            {/* eslint-disable-next-line react/no-danger */}
+            <div className={`message ${offerTypeClass}`} dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
         </>
     );
 };
