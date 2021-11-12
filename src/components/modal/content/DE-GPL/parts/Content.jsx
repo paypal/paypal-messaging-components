@@ -51,7 +51,7 @@ const Content = () => {
 
     const classNames = ['content'];
 
-    function modalContent() {
+    function selectContent() {
         switch (selectedProduct) {
             case 'GPL':
                 return <GPL linkClick={linkClick} />;
@@ -62,10 +62,12 @@ const Content = () => {
         }
     }
 
+    const content = selectContent();
+
     return (
         <Fragment>
             <div className={classNames.join(' ')}>
-                <main className="main">{modalContent()}</main>
+                <main className="main">{content}</main>
             </div>
         </Fragment>
     );
