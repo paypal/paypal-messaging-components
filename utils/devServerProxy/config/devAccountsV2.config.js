@@ -30,6 +30,7 @@ export default {
         offers: {
             PAYPAL_CREDIT_NO_INTEREST: [
                 {
+                    totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 99,
