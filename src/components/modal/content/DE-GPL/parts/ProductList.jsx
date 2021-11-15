@@ -31,7 +31,7 @@ const ProductList = ({ buttonClick }) => {
             <Header logo="DE-GPL">
                 <h1>Jetzt kaufen, später bezahlen</h1>
                 <h3>
-                    Wählen Sie <b>PayPal</b>, um `<b>Später Bezahlen</b>` zu nutzen.
+                    Wählen Sie <b>PayPal</b>, um &quot;<b>Später Bezahlen</b>&quot; zu nutzen.
                 </h3>
             </Header>
             <section className="content-body product-list">
