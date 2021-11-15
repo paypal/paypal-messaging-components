@@ -155,14 +155,6 @@ const Icon = ({ name, color }) => {
                     </defs>
                 </svg>
             );
-        case 'paypal-credit-image':
-            return (
-                <img
-                    alt="temporary"
-                    style={{ width: '100%' }}
-                    src="https://mcdn.wallpapersafari.com/medium/9/37/zXVoNw.jpg"
-                />
-            );
         default:
             return null;
     }

@@ -1,5 +1,15 @@
-@import '../../../../styles/globals/mixins';
-@import '../../../../styles/globals/colors';
+@import '../../../styles/globals/mixins';
+@import '../../../styles/globals/colors';
+
+.header {
+    &__content {
+        padding-bottom: 40px;
+
+        @include mobile {
+            padding-bottom: 0px;
+        }
+    }
+}
 
 .content {
     &__container {
@@ -9,6 +19,10 @@
         border-radius: 0px;
 
         .content__body {
+            .dynamic {
+                padding-bottom: 1.5rem;
+            }
+
             .content__col {
                 @include desktop {
                     &.collapsed:last-child {
@@ -34,6 +48,17 @@
                 }
                 li {
                     font-size: 18px;
+                }
+
+                .lander & {
+                    margin-top: 10px;
+
+                    @include mobile {
+                        margin-top: 0px;
+                    }
+                    @include smallMobile {
+                        margin-top: 0px;
+                    }
                 }
             }
 
@@ -82,12 +107,27 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .content__disclaimer {
+                margin-top: 10px;
+            }
         }
     }
     &__footer {
         background: $instructions-background;
         padding: 25px;
         margin: 0;
+
+        @include desktop {
+            padding-left: 15px;
+        }
+
+        .lander & {
+            @include desktop {
+                border-radius: 0px 0px 100px 0px;
+            }
+        }
+
         @include tablet {
             margin-bottom: 25px;
         }
