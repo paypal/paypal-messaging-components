@@ -28,7 +28,7 @@
         },
         "disclaimer": {
             "zeroAPR": "Terms may vary based on purchase amount.",
-            "mixedAPR": "APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.",
+            "mixedAPR": "*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.",
             "nonZeroAPR": "*APR is 10-30% based on your credit. Terms may vary based on purchase amount."
         },
 
