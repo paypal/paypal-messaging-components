@@ -203,7 +203,7 @@ export default ({ addLog, options, markup, locale }) => {
     }
 
     return (
-        <div className="message msg-button">
+        <div className="message">
             <Styles
                 globalStyleRules={globalStyleRules}
                 localeStyleRules={localeStyleRules}

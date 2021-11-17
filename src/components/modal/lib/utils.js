@@ -38,17 +38,9 @@ export function setupTabIndex() {
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
     // eslint-disable-next-line unicorn/prefer-spread
     const focusableElements = Array.from(modal.querySelectorAll(focusableElementsString));
-    // eslint-disable-next-line unicorn/prefer-spread
-    const tabElements = Array.from(modal.querySelectorAll('.tab'));
-    function indexTabs() {
-        tabIndex = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
-    }
-    indexTabs();
-    if (tabElements.length > 0) {
-        tabElements.forEach(tab => tab.addEventListener('click', indexTabs));
-    }
 
     function trapTabKey(e) {
+        tabIndex = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
         // Check for TAB key press
         if (e.keyCode === 9) {
             // SHIFT + TAB
