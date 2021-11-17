@@ -73,8 +73,12 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         buyerCountry,
         ignoreCache,
         amount,
-        stageTag
+        stageTag,
+        integrationType,
+        channel,
+        devTouchpoint
     } = useXProps();
+
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, amount),
         prevValue: localize(country, amount),
@@ -93,7 +97,10 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             merchantId,
             buyerCountry,
             ignoreCache,
-            stageTag
+            stageTag,
+            integrationType,
+            channel,
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);
@@ -197,7 +204,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
 
     return {
         terms: state.terms,
-        value: state.inputValue,
+        // Replace start of value string that isn't a digit (i.e. if someone tries to enter a period or a comma first) with an empty string.
+        value: state.inputValue.replace(/^([^$\d]|\.|,)/g, ''),
         isLoading,
         changeInput,
         submit

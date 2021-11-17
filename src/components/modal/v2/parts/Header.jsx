@@ -4,7 +4,17 @@ import { useRef, useState } from 'preact/hooks';
 import { isLander, useTransitionState } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, className = '', logo, contentWrapper, contentBodyRef, contentBackground }) => {
+const Header = ({
+    headline,
+    subheadline,
+    className = '',
+    logo,
+    contentWrapper,
+    contentBodyRef,
+    contentBackground,
+    isQualifying = 'false',
+    qualifyingSubheadline
+}) => {
     const [, handleClose] = useTransitionState();
     const headerIconsRef = useRef(null);
     const [sticky, setSticky] = useState('unsticky');
@@ -75,10 +85,15 @@ const Header = ({ headline, subheadline, className = '', logo, contentWrapper, c
                 <div className="header__icons">{renderIcons()}</div>
                 <div className={`header__icons ${sticky}`} ref={headerIconsRef}>
                     {renderIcons()}
+                    <Icon name="header-background" />
                 </div>
                 <div className="header__content">
                     <h1>{headline}</h1>
-                    <h2>{subheadline}</h2>
+                    {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
+                        <h2>{qualifyingSubheadline}</h2>
+                    ) : (
+                        <h2>{subheadline}</h2>
+                    )}
                 </div>
             </div>
         </div>

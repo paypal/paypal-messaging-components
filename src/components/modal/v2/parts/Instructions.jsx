@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const Instructions = ({ instructions, expandedState }) => {
+const Instructions = ({ instructions, expandedState = false }) => {
     const renderBullet = index => {
         return <div className="instructions__bullet">{index}</div>;
     };

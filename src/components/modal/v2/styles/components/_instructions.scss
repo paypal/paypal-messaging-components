@@ -28,23 +28,20 @@
     li {
         color: black;
         list-style: none;
+        font-size: 0.9rem;
 
         @include desktop {
-            font-size: 0.9rem;
             padding-bottom: 25px;
         }
 
         @include tablet {
-            font-size: 0.9rem;
-            padding-bottom: 2rem;
+            padding-bottom: 32px;
         }
 
         @include mobile {
-            font-size: 0.9rem;
             padding-bottom: 25px;
         }
         @include smallMobile {
-            font-size: 0.9rem;
             padding-bottom: 35px;
         }
     }
@@ -59,9 +56,6 @@
                     padding-bottom: 0px;
                 }
                 @include mobile {
-                    padding-bottom: 0px;
-                }
-                @include smallMobile {
                     padding-bottom: 0px;
                 }
             }
@@ -81,6 +75,15 @@
         max-width: 25px;
         max-height: 25px;
         border-radius: 100%;
-        background: #142c8e;
+        background: $dark-blue;
+    }
+
+    .lander & {
+        @include tablet {
+            margin: 0px;
+        }
+        @include mobile {
+            margin: 0px;
+        }
     }
 }
