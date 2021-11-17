@@ -1,11 +1,15 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 
-const LoadingShimmer = () => {
+const LoadingShimmer = ({ numOffers = 3 }) => {
+    /**
+     * Takes the number of offers returned from numOffers and renders the correct
+     * number of loading shimmers by creating an array of that size to map over.
+     */
     return (
         <Fragment>
-            {/* TODO: revist map over offers */}
-            {[0, 1, 2].map(() => {
+            {/* eslint-disable-next-line unicorn/prefer-spread */}
+            {Array.from(Array(numOffers).keys()).map(() => {
                 return (
                     <div className="offer__container shimmer">
                         <div className="offer__row">
