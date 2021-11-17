@@ -2,10 +2,9 @@
 import { h, Fragment } from 'preact';
 import { useRef } from 'preact/hooks';
 import Button from '../../Button';
-import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
-import styles from './styles/index.scss';
+import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
 export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkToProductList, contentBodyRef }) => {
@@ -38,7 +37,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkTo
                             <div className="content__col">
                                 <div className="branded-image">
                                     {/* TODO: update from temp desktop image */}
-                                    <Icon name="paypal-credit-image" />
+                                    {/* <Icon name="paypal-credit-image" /> */}
                                 </div>
                             </div>
                         </div>
@@ -66,7 +65,9 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkTo
                             });
                             return <li className="content__footer-item">{line}</li>;
                         })}
-                        <li className="content__footer-item">{renderProductListLink}</li>
+                        <li className="content__footer-item">
+                            <ProductListLink>{renderProductListLink()}</ProductListLink>
+                        </li>
                     </ul>
                 </main>
             </div>
