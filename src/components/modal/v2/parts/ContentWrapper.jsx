@@ -2,11 +2,11 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
-import { useContent, useServerData } from '../lib';
+import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
-import { LongTerm } from './views';
+import { LongTerm, ShortTerm } from './views';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
@@ -19,11 +19,15 @@ const ContentWrapper = () => {
         product = useServerData().views[0].meta.product;
     }
 
-    const { headline, subheadline } = useContent(product);
+    const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);
+    const { qualifying: isQualifying } = useProductMeta(product);
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
-        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />
+        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
+        PAY_LATER_SHORT_TERM: (
+            <ShortTerm {...useContent(product)} {...useProductMeta(product)} contentBodyRef={contentBodyRef} />
+        )
     };
 
     return (
@@ -35,6 +39,8 @@ const ContentWrapper = () => {
                         logo="logo"
                         headline={headline}
                         subheadline={subheadline}
+                        isQualifying={isQualifying ?? 'false'}
+                        qualifyingSubheadline={qualifyingSubheadline}
                         contentWrapper={contentWrapper}
                         contentBodyRef={contentBodyRef}
                         contentBackground={contentBackground}
