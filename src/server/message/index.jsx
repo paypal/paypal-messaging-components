@@ -22,8 +22,10 @@ const logError = (addLog, val) => addLog('error', 'render_markup', `${logMessage
  * @param {Array<Array<any>>} rules Rules to apply the cascade
  * @returns {Object|Array} Applicable rules
  */
-const applyCascade = curry((style, flattened, type, rules) =>
-    rules.reduce(
+const applyCascade = curry((options, markup, flattened, type, rules) => {
+    const { style, amount } = options;
+    const { variables } = markup.meta;
+    return rules.reduce(
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
             if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
@@ -33,6 +35,8 @@ const applyCascade = curry((style, flattened, type, rules) =>
                 const calculatedVal =
                     typeof val === 'function'
                         ? val({
+                              amount: Number(amount),
+                              variables,
                               textSize: style.text?.size * BASIC_FONT_FACTOR
                           })
                         : val;
@@ -42,8 +46,8 @@ const applyCascade = curry((style, flattened, type, rules) =>
             return accumulator;
         },
         type === Array ? [] : {}
-    )
-);
+    );
+});
 const getfontSourceRule = (addLog, fontSource) => {
     if (!fontSource) {
         return '';
@@ -145,7 +149,7 @@ export default ({ addLog, options, markup, locale }) => {
 
     const styleSelectors = objectFlattenToArray(style);
 
-    const applyCascadeRules = applyCascade(style, styleSelectors);
+    const applyCascadeRules = applyCascade(options, markup, styleSelectors);
     const mutationRules =
         options.style.layout === 'custom'
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
