@@ -10,7 +10,7 @@ import {
     useXProps,
     useDidUpdateEffect,
     getContent,
-    setupTabIndex
+    setupTabTrap
 } from '../lib';
 import Overlay from './Overlay';
 
@@ -59,7 +59,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     useEffect(() => {
-        setupTabIndex();
+        setupTabTrap();
     }, []);
 
     useDidUpdateEffect(() => {
@@ -78,7 +78,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         }).then(data => {
             setServerData(data);
             setLoading(false);
-            setupTabIndex();
+            setupTabTrap();
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
