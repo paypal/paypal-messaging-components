@@ -1,11 +1,12 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useContent } from '../../../lib';
+import { OFFER } from '../../../../../utils/constants';
 
 const isZeroAPR = val => Number(val.replace(/[,.]/g, '')) === 0;
 
 const Disclaimer = ({ terms: { error, formattedMinAmount, formattedMaxAmount, offers } }) => {
-    const { disclosure, disclosureZeroAPR, disclaimer } = useContent('INST');
+    const { disclosure, disclosureZeroAPR, disclaimer } = useContent(OFFER.PAYPAL_CREDIT_INSTALLMENTS);
 
     if (!error && formattedMinAmount && formattedMaxAmount && offers && offers.length > 0) {
         const [offer] = offers;

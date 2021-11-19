@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "product": "GPL",
+        "product": "PAY_LATER_SHORT_TERM",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",

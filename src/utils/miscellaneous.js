@@ -8,6 +8,7 @@ import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { OFFER } from './constants';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -201,6 +202,9 @@ export function getProductForOffer(offer) {
     }
 
     switch (offer.toUpperCase()) {
+        case OFFER.PAY_LATER_LONG_TERM:
+            return OFFER.PAY_LATER_LONG_TERM;
+        case OFFER.PAY_LATER_SHORT_TERM:
         case 'GPL':
         case 'GPLQ':
         case 'GPLNQ':
@@ -215,22 +219,27 @@ export function getProductForOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
-            return 'GPL';
-        case 'EZP':
+            return OFFER.PAY_LATER_SHORT_TERM;
+        case OFFER.PAY_LATER_PAY_IN_1:
+            return OFFER.PAY_LATER_PAY_IN_1;
+        case OFFER.EZP:
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
         case 'PALA:MULTI:EQZ':
         case 'PALA:MULTI:GTZ':
         case 'PALA:SINGLE:EQZ':
         case 'PALA:SINGLE:GTZ':
-            return 'EZP';
+            return OFFER.EZP;
+        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
         case 'INST':
         case 'INST:ANY:EQZ':
         case 'INST:ANY:GTZ':
         case 'PALAQ:ANY:EQZ':
         case 'PALAQ:ANY:GTZ':
-            return 'INST';
+            return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
+        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
+        case 'NI':
         default:
-            return 'NI';
+            return OFFER.PAYPAL_CREDIT_NO_INTEREST;
     }
 }
