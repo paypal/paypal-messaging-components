@@ -21,7 +21,7 @@ const ContentWrapper = () => {
         if (integrationType === 'STANDALONE_MODAL') {
             validate.offer({ props: { offer } });
             // standalone modal only has offer
-            product = getProductForOffer(offer) ?? useServerData().views[0].meta.product;
+            product = offer ? getProductForOffer(offer) : useServerData().views[0].meta.product;
         } else {
             // check message offer is different than requested offer.
             product = modalOffer && modalOffer !== offer ? modalOffer : useServerData().views[0].meta.product;
