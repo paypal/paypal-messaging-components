@@ -19,12 +19,17 @@ const ContentWrapper = () => {
 
     if (useServerData()?.views?.length > 0) {
         if (integrationType === 'STANDALONE_MODAL') {
+            const viewsContainsOffer = useServerData().views.some(viewOffers => viewOffers.meta.product === offer);
             validate.offer({ props: { offer } });
             // standalone modal only has offer
-            product = offer ? getProductForOffer(offer) : useServerData().views[0].meta.product;
+            product = viewsContainsOffer && offer ? getProductForOffer(offer) : useServerData().views[0].meta.product;
         } else {
+            const viewsContainsOffer = useServerData().views.some(viewOffers => viewOffers.meta.product === modalOffer);
             // check message offer is different than requested offer.
-            product = modalOffer && modalOffer !== offer ? modalOffer : useServerData().views[0].meta.product;
+            product =
+                viewsContainsOffer && modalOffer && modalOffer !== offer
+                    ? modalOffer
+                    : useServerData().views[0].meta.product;
         }
     }
 
