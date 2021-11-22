@@ -3,6 +3,8 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
+import { getProductForOffer } from '../../../../utils';
+import validate from '../../../../library/zoid/message/validation';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -12,13 +14,18 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
     const contentBackground = useRef();
     const contentBodyRef = useRef();
-    const { offer, modalOffer } = useXProps();
-
+    const { offer, modalOffer, integrationType } = useXProps();
     let product;
 
     if (useServerData()?.views?.length > 0) {
-        // check message offer is different than requested offer.
-        product = modalOffer && modalOffer !== offer ? modalOffer : useServerData().views[0].meta.product;
+        if (integrationType === 'STANDALONE_MODAL') {
+            validate.offer({ props: { offer } });
+            // standalone modal only has offer
+            product = getProductForOffer(offer) ?? useServerData().views[0].meta.product;
+        } else {
+            // check message offer is different than requested offer.
+            product = modalOffer && modalOffer !== offer ? modalOffer : useServerData().views[0].meta.product;
+        }
     }
 
     const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);
