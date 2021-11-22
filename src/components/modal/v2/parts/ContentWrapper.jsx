@@ -2,7 +2,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
-import { useContent, useServerData, useProductMeta } from '../lib';
+import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -12,16 +12,17 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
     const contentBackground = useRef();
     const contentBodyRef = useRef();
+    const { offer, modalOffer } = useXProps();
 
     let product;
 
     if (useServerData()?.views?.length > 0) {
-        product = useServerData().views[0].meta.product;
+        // check message offer is different than requested offer.
+        product = modalOffer && modalOffer !== offer ? modalOffer : useServerData().views[0].meta.product;
     }
 
     const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);
     const { qualifying: isQualifying } = useProductMeta(product);
-
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
