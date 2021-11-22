@@ -8,6 +8,11 @@ export default {
                 template: 'long_term.json',
                 offersTemplate: 'long_term.json',
                 product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                template: 'short_term.json',
+                offersTemplate: 'short_term.json',
+                product: 'PAY_LATER_SHORT_TERM'
             }
         ],
         messageThresholds: [
