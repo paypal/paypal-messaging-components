@@ -1,17 +1,20 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable react/no-array-index-key */
 /** @jsx h */
 import { Fragment, h } from 'preact';
+import arrayFrom from 'core-js-pure/stable/array/from';
 
 const LoadingShimmer = ({ numOffers = 3 }) => {
     /**
      * Takes the number of offers returned from numOffers and renders the correct
      * number of loading shimmers by creating an array of that size to map over.
      */
+
     return (
         <Fragment>
-            {/* eslint-disable-next-line unicorn/prefer-spread */}
-            {Array.from(Array(numOffers).keys()).map(() => {
+            {arrayFrom({ length: numOffers }).map((_, index) => {
                 return (
-                    <div className="offer__container shimmer">
+                    <div className="offer__container shimmer" key={index}>
                         <div className="offer__row">
                             <div className="offer__field-loading" />
                         </div>

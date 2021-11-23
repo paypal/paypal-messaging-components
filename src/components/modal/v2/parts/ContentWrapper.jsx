@@ -1,7 +1,6 @@
-/* eslint-disable eslint-comments/disable-enable-pair, react/jsx-props-no-spreading */
 /** @jsx h */
 import { h } from 'preact';
-import { useRef } from 'preact/hooks';
+import { useRef, useState } from 'preact/hooks';
 import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
@@ -9,25 +8,25 @@ import Overlay from './Overlay';
 import { LongTerm, ShortTerm } from './views';
 
 const ContentWrapper = () => {
+    const { views } = useServerData();
     const contentWrapper = useRef();
     const contentBackground = useRef();
     const contentBodyRef = useRef();
+    const [product, setProduct] = useState();
+    const content = useContent(product);
+    const productMeta = useProductMeta(product);
 
-    let product;
-
-    if (useServerData()?.views?.length > 0) {
-        product = useServerData().views[0].meta.product;
+    if (views?.length > 0) {
+        setProduct(views[0].meta.product);
     }
 
-    const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);
-    const { qualifying: isQualifying } = useProductMeta(product);
+    const { headline, subheadline, qualifyingSubheadline = '' } = content;
+    const isQualifying = productMeta?.qualifying;
 
     // Add views to productView object where the keys are the product name and the values are the view component
     const productView = {
-        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
-        PAY_LATER_SHORT_TERM: (
-            <ShortTerm {...useContent(product)} {...useProductMeta(product)} contentBodyRef={contentBodyRef} />
-        )
+        PAY_LATER_LONG_TERM: <LongTerm content={content} contentBodyRef={contentBodyRef} />,
+        PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />
     };
 
     return (

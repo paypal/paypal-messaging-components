@@ -3,23 +3,17 @@ import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
 import { useXProps, useServerData } from '../../../lib';
 import Calculator from '../../Calculator';
-import Icon from '../../Icon';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import Button from '../../Button';
 
 export const LongTerm = ({
-    calculator,
-    disclaimer,
-    instructions,
-    disclosure,
-    linkToProductList,
-    buttonText,
-    cta,
+    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
     contentBodyRef
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { onClose } = useXProps();
+    const { views } = useServerData();
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -39,7 +33,7 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        if (useServerData()?.views?.length > 1 && typeof cta === 'undefined') {
+        if (views?.length > 1) {
             return <ProductListLink>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
@@ -61,8 +55,7 @@ export const LongTerm = ({
                             </div>
                             <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                                 <div className="branded-image">
-                                    {/* TODO: update from temp desktop image */}
-                                    <Icon name="pay-monthly-temp-image" />
+                                    {/* TODO: include Icon component when desktop images are final */}
                                 </div>
                             </div>
                         </div>

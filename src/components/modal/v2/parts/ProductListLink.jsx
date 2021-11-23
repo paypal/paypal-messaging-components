@@ -8,23 +8,12 @@ const openProductList = () => {
     console.warn('TODO: ProductListLink to change view to Product List');
 };
 
-const openProductListViaKeyboard = () => {
-    openProductList();
-};
-
 const ProductListLink = forwardRef(({ children, type = 'button', className }, ref) => {
     const classes = ['content__row', 'product-list-link'];
     if (className) classes.push(className);
 
     return (
-        <button
-            id="productListLink"
-            ref={ref}
-            className={classes.join(' ')}
-            type={type}
-            onClick={openProductList}
-            onKeyUp={openProductListViaKeyboard}
-        >
+        <button id="productListLink" ref={ref} className={classes.join(' ')} type={type} onClick={openProductList}>
             <a href="#productListLink">{children}</a>
         </button>
     );

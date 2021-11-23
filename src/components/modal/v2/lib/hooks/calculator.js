@@ -205,7 +205,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     return {
         terms: state.terms,
         // Replace start of value string that isn't a digit (i.e. if someone tries to enter a period or a comma first) with an empty string.
-        value: state.inputValue.replace(/^([^$\d]|\.|,)/g, ''),
+        value: state.inputValue.replace(/^\D/, ''),
         isLoading,
         changeInput,
         submit

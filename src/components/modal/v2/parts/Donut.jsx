@@ -2,12 +2,6 @@
 /* eslint-disable react/no-unknown-property */
 import { h } from 'preact';
 
-const generateDonutData = (currentNum = 0, numOfPayments) => {
-    return {
-        percentage: (currentNum / numOfPayments) * 100
-    };
-};
-
 const Donut = ({
     strokeWidth = 3,
     strokeLinecap = 'round',
@@ -16,7 +10,6 @@ const Donut = ({
     radius = 15.91549430918954,
     viewBox = `0 0 ${2 * cx} ${2 * cy}`,
     style = { fontSize: '0.375rem' },
-    children,
     segmentStrokeWidth = 4,
     currentNum = 0,
     numOfPayments = 4,
@@ -24,11 +17,8 @@ const Donut = ({
     periodicPayment,
     qualifying
 }) => {
-    const { percentage } = generateDonutData(currentNum, numOfPayments);
-    let segStrokeWidth = segmentStrokeWidth;
-    if (!segmentStrokeWidth) {
-        segStrokeWidth = strokeWidth;
-    }
+    const percentage = (currentNum / numOfPayments) * 100;
+    const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
 
     const strokeDasharray = `${percentage} ${100 - percentage}`;
     const segments = (
@@ -45,7 +35,7 @@ const Donut = ({
     return (
         <div
             className={`donut__single_payment ${
-                children && qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
+                qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
@@ -60,11 +50,9 @@ const Donut = ({
                 <g stroke-width={segStrokeWidth} fill="transparent" stroke-linecap={strokeLinecap}>
                     {segments}
                 </g>
-                {children && (
-                    <text x={cx} y={cy} text-anchor="middle">
-                        {qualifying === 'true' && children}
-                    </text>
-                )}
+                <text x={cx} y={cy} text-anchor="middle">
+                    {qualifying === 'true'}
+                </text>
             </svg>
             {qualifying === 'true' && periodicPayment !== '-' && (
                 <span className="donut__payment">{periodicPayment}</span>
