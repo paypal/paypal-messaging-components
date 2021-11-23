@@ -78,7 +78,6 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         }).then(data => {
             setServerData(data);
             setLoading(false);
-            setupTabTrap();
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 

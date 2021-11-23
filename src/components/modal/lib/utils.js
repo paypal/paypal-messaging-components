@@ -35,12 +35,13 @@ export const getContent = memoize(
 export function setupTabTrap() {
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
-    const focusableElements = arrayFrom(document.querySelectorAll(focusableElementsString));
 
     function trapTabKey(e) {
         // Check for TAB key press
         if (e.keyCode === 9) {
-            const tabArray = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
+            const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
+                node => window.getComputedStyle(node).visibility === 'visible'
+            );
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
                 e.preventDefault();
