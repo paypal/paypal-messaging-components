@@ -33,8 +33,6 @@ export const getContent = memoize(
 );
 
 export function setupTabTrap() {
-    let tabArray;
-    const modal = document.querySelector('.modal-container');
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
     const focusableElements = arrayFrom(document.querySelectorAll(focusableElementsString));
@@ -42,7 +40,7 @@ export function setupTabTrap() {
     function trapTabKey(e) {
         // Check for TAB key press
         if (e.keyCode === 9) {
-            tabArray = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
+            const tabArray = focusableElements.filter(node => window.getComputedStyle(node).visibility === 'visible');
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
                 e.preventDefault();
@@ -53,5 +51,5 @@ export function setupTabTrap() {
             }
         }
     }
-    modal.addEventListener('keydown', trapTabKey);
+    window.addEventListener('keydown', trapTabKey);
 }
