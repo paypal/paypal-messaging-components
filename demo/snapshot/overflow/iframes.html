@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV0000000GPL"></script>
+
+        <style>
+            body {
+                margin: 0;
+            }
+            .row {
+                height: 100vh;
+                background: #90a4ae;
+                display: flex;
+                flex-direction: column;
+            }
+            iframe {
+                height: 25vh;
+                background: linear-gradient(#b0bec5, #eceff1);
+                flex-grow: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+            @name: iframe messages render below the fold
+            @viewport: 400x300
+        -->
+
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config ?? '{}');
+
+            const iframeSrcPage = `../_iframe.html`;
+            const getIframe = attrs => {
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('data-test-visible', true);
+                Object.entries(attrs).map(([attributeName, attributeValue]) => {
+                    console.log(
+                        JSON.stringify(
+                            {
+                                attributeName,
+                                attributeValue
+                            },
+                            null,
+                            '    '
+                        )
+                    );
+                    iframe.setAttribute(attributeName, attributeValue);
+                });
+                return iframe;
+            };
+
+            const body = document.querySelector('body');
+            // each row is as tall as the viewport, and contains two iframes
+            Array.from({ length: 2 }).forEach(() => {
+                const row = document.createElement('div');
+                row.classList.add('row');
+                [
+                    { style: { layout: 'flex', ratio: '8x1' } },
+                    { style: { layout: 'text' } },
+                    { style: { layout: 'flex', ratio: '8x1' }, 'data-test-visible': false, width: '50px' },
+                    { style: { layout: 'text' }, 'data-test-visible': false, width: '50px' }
+                ].forEach(({ style: rowStyle, ...config }) => {
+                    const configStyle = config?.style ?? {};
+                    const queryParams = Object.entries({
+                        ...mappedParams,
+                        config: {
+                            ...config,
+                            style: {
+                                ...configStyle,
+                                ...rowStyle
+                            }
+                        }
+                    }).reduce((acc, [key, val]) => {
+                        if (acc.length === 0) {
+                            return `?${key}=${JSON.stringify(val)}`;
+                        }
+                        return `${acc}&${key}=${JSON.stringify(val)}`;
+                    }, '');
+                    const src = `${iframeSrcPage}${queryParams}`;
+                    const iframe = getIframe({ src, ...config });
+                    console.log(iframe);
+                    row.appendChild(iframe);
+                    return iframe;
+                });
+                body.appendChild(row);
+            });
+        </script>
+    </body>
+</html>
