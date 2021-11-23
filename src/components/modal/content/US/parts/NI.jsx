@@ -3,7 +3,6 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 
 import { useApplyNow, useContent, useServerData, useScroll, useXProps } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 import Button from '../../../parts/Button';
 
 export default ({ showApplyNow, switchTab }) => {
@@ -13,9 +12,7 @@ export default ({ showApplyNow, switchTab }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
-    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent(
-        OFFER.PAYPAL_CREDIT_NO_INTEREST
-    );
+    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('NI');
 
     showApplyNowRef.current = showApplyNow;
 

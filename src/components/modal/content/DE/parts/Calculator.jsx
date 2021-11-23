@@ -2,7 +2,6 @@
 import { h, Fragment } from 'preact';
 
 import { useCalculator, useContent } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 import Button from '../../../parts/Button';
 import TermsTable from './TermsTable';
 import Disclaimer from './Disclaimer';
@@ -11,7 +10,7 @@ const Calculator = () => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
     const {
         calculator: { title, instructions, disclosure }
-    } = useContent(OFFER.PAYPAL_CREDIT_INSTALLMENTS);
+    } = useContent('INST');
 
     const { error, formattedMinAmount, formattedMaxAmount, offers } = terms;
 

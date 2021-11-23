@@ -1,12 +1,11 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useContent } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 
 const TableContent = ({ terms: { error, amount, formattedAmount, maxAmount, minAmount, type, offers } }) => {
     const {
         terms: { genericError, minError, maxError, tableHeader }
-    } = useContent(OFFER.PAYPAL_CREDIT_INSTALLMENTS);
+    } = useContent('INST');
 
     const genericErrorEl = <h3 className="error">{genericError}</h3>;
 

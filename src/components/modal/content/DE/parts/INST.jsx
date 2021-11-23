@@ -4,10 +4,9 @@ import { h } from 'preact';
 import Carousel from './Carousel';
 import Calculator from './Calculator';
 import { useContent } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 
 const INST = () => {
-    const { carousel } = useContent(OFFER.PAYPAL_CREDIT_INSTALLMENTS);
+    const { carousel } = useContent('INST');
 
     return (
         <section className="content-body">

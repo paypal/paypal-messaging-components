@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "product": "PAYPAL_CREDIT_NO_INTEREST",
+        "product": "NI",
         "legacy": true,
         "variables": {}
     },

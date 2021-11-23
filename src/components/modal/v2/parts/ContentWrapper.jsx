@@ -3,7 +3,6 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
-import { getProductForOffer } from '../../../../utils';
 import validate from '../../../../library/zoid/message/validation';
 import Header from './Header';
 import Container from './Container';
@@ -14,23 +13,15 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
     const contentBackground = useRef();
     const contentBodyRef = useRef();
-    const { offer, modalOffer, integrationType } = useXProps();
+    const { offer, integrationType } = useXProps();
     let product;
 
     if (useServerData()?.views?.length > 0) {
-        if (integrationType === 'STANDALONE_MODAL') {
-            const viewsContainsOffer = useServerData().views.some(viewOffers => viewOffers.meta.product === offer);
+        const viewsContainsOffer = useServerData().views.some(viewOffers => viewOffers.meta.product === offer);
+        if (!viewsContainsOffer && integrationType === 'STANDALONE_MODAL') {
             validate.offer({ props: { offer } });
-            // standalone modal only has offer
-            product = viewsContainsOffer && offer ? getProductForOffer(offer) : useServerData().views[0].meta.product;
-        } else {
-            const viewsContainsOffer = useServerData().views.some(viewOffers => viewOffers.meta.product === modalOffer);
-            // check message offer is different than requested offer.
-            product =
-                viewsContainsOffer && modalOffer && modalOffer !== offer
-                    ? modalOffer
-                    : useServerData().views[0].meta.product;
         }
+        product = viewsContainsOffer && offer ? offer : useServerData().views[0].meta.product;
     }
 
     const { headline, subheadline, qualifyingSubheadline = '' } = useContent(product);

@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "product": "PAYPAL_CREDIT_NO_INTEREST",
+        "product": "NI",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",

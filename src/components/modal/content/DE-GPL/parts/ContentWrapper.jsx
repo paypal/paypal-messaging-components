@@ -3,14 +3,13 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import GPL from './GPL';
 import { useContent, useTransitionState } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 import Header from '../../../parts/Header';
 import Container from '../../../parts/Container';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
     const [, handleClose] = useTransitionState();
-    const { headline } = useContent(OFFER.PAY_LATER_SHORT_TERM);
+    const { headline } = useContent('GPL');
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={640}>

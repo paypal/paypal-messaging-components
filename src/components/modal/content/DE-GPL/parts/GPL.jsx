@@ -2,12 +2,11 @@
 import { h } from 'preact';
 
 import { useContent, useProductMeta } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 import Calculator from './Calculator';
 
 export default () => {
-    const { instructions, disclosure } = useContent(OFFER.PAY_LATER_SHORT_TERM);
-    const { apr } = useProductMeta(OFFER.PAY_LATER_SHORT_TERM);
+    const { instructions, disclosure } = useContent('GPL');
+    const { apr } = useProductMeta('GPL');
 
     return (
         <section className="content-body">

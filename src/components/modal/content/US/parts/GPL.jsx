@@ -3,12 +3,11 @@ import { h } from 'preact';
 
 import Icon from '../../../parts/Icon';
 import { useContent, useServerData, useProductMeta } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 
 export default ({ switchTab }) => {
     const { products } = useServerData();
-    const { headline, subHeadline, instructions } = useContent(OFFER.PAY_LATER_SHORT_TERM);
-    const { qualifying } = useProductMeta(OFFER.PAY_LATER_SHORT_TERM);
+    const { headline, subHeadline, instructions } = useContent('GPL');
+    const { qualifying } = useProductMeta('GPL');
 
     return (
         <section className="content-body">

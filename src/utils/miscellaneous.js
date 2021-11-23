@@ -222,14 +222,14 @@ export function getProductForOffer(offer) {
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
             return OFFER.PAY_LATER_PAY_IN_1;
-        case OFFER.EZP:
+        case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
         case 'PALA:MULTI:EQZ':
         case 'PALA:MULTI:GTZ':
         case 'PALA:SINGLE:EQZ':
         case 'PALA:SINGLE:GTZ':
-            return OFFER.EZP;
+            return 'EZP';
         case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
         case 'INST':
         case 'INST:ANY:EQZ':

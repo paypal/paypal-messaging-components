@@ -4,18 +4,17 @@ import { h } from 'preact';
 import * as NI from './NI';
 import * as EZP from './EZP';
 import Tabs from '../../../parts/Tabs';
-import { OFFER } from '../../../../../utils/constants';
 
 const tabsMap = {
-    [OFFER.EZP]: {
+    EZP: {
         title: 'Easy Payments',
-        product: OFFER.EZP,
+        product: 'EZP',
         header: <EZP.Header />,
         body: <EZP.Content />
     },
-    [OFFER.PAYPAL_CREDIT_NO_INTEREST]: {
+    NI: {
         title: '6 Months Special Financing',
-        product: OFFER.PAYPAL_CREDIT_NO_INTEREST,
+        product: 'NI',
         header: <NI.Header />,
         body: <NI.Content />
     }
@@ -23,7 +22,7 @@ const tabsMap = {
 
 // EZP modal will always have EZP + NI
 const Content = () => {
-    return <Tabs tabs={[tabsMap[OFFER.EZP], tabsMap[OFFER.PAYPAL_CREDIT_NO_INTEREST]]} />;
+    return <Tabs tabs={[tabsMap.EZP, tabsMap.NI]} />;
 };
 
 export default Content;

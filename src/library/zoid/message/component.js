@@ -15,7 +15,6 @@ import {
     getGlobalState,
     getCurrentTime,
     writeStorageID,
-    getProductForOffer,
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
@@ -127,7 +126,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offer
                         } = props;
                         const { offerType, messageRequestId } = meta;
-                        const modalOffer = getProductForOffer(validate.offer({ props: { offer } }) ?? offerType);
 
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
@@ -138,8 +136,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             amount,
                             buyerCountry,
                             onApply,
-                            offer: offerType,
-                            modalOffer,
+                            offer: offer ?? offerType,
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',
@@ -199,7 +196,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer, offer } = props;
                         const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
-                        const modalOffer = getProductForOffer(validate.offer({ props: { offer } }) ?? offerType);
+
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
@@ -237,7 +234,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-                        modal.updateProps({ refIndex: index, offer: offerType, modalOffer });
+                        modal.updateProps({ refIndex: index, offer: offer ?? offerType });
 
                         logger.track({
                             index,
