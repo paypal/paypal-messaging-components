@@ -12,14 +12,35 @@
             }
             .row {
                 height: 100vh;
-                background: #90a4ae;
+                background: linear-gradient(#cfd8dc, #37474f);
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
             }
-            iframe {
-                height: 25vh;
+            .iframe-wrapper {
+                width: 100vw;
+                display: flex;
+                flex-grow: 1;
+                justify-content: space-between;
+                column-gap: 10px;
+            }
+            .iframe {
+                /*
+                    Set the iframes to take up the whole row;
+                    four iframes have static heights though: ;
+                        - one 1x1 iframe set to 150px by 150px 
+                        - one 1x1 iframe set to 50px height
+                        - one text iframe set to 20px height
+                        - one 1x1 iframe set to 50px height
+                */
+                height: calc((100vh - (150px + 50px + 20px + 42px)) / (9 - 4));
                 background: linear-gradient(#b0bec5, #eceff1);
                 flex-grow: 1;
+            }
+            .annotation {
+                width: 50px;
+                text-align: center;
+                font-family: sans-serif;
             }
         </style>
     </head>
@@ -27,7 +48,7 @@
     <body>
         <!-- 
             @name: iframe messages render below the fold
-            @viewport: 400x300
+            @viewport: 400x500
         -->
 
         <script>
@@ -43,35 +64,70 @@
             const iframeSrcPage = `../_iframe.html`;
             const getIframe = attrs => {
                 const iframe = document.createElement('iframe');
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('data-test-visible', true);
-                Object.entries(attrs).map(([attributeName, attributeValue]) => {
-                    console.log(
-                        JSON.stringify(
-                            {
-                                attributeName,
-                                attributeValue
-                            },
-                            null,
-                            '    '
-                        )
-                    );
-                    iframe.setAttribute(attributeName, attributeValue);
+                iframe.classList.add('iframe');
+                Object.entries({
+                    frameborder: '0',
+                    'data-test-visible': true,
+                    ...attrs
+                }).map(([attributeName, attributeValue]) => {
+                    if (attributeName === 'data-test-visible') {
+                        if (attributeValue) {
+                            iframe.classList.add('visible');
+                        } else {
+                            iframe.classList.add('hidden');
+                        }
+                    }
+                    iframe.setAttribute(attributeName.replace('iframe-', ''), attributeValue);
                 });
                 return iframe;
             };
 
             const body = document.querySelector('body');
-            // each row is as tall as the viewport, and contains two iframes
+
+            // each row is as tall as the viewport, and contains iframes to test each layout
             Array.from({ length: 2 }).forEach(() => {
                 const row = document.createElement('div');
                 row.classList.add('row');
                 [
-                    { style: { layout: 'flex', ratio: '8x1' } },
-                    { style: { layout: 'text' } },
-                    { style: { layout: 'flex', ratio: '8x1' }, 'data-test-visible': false, width: '50px' },
-                    { style: { layout: 'text' }, 'data-test-visible': false, width: '50px' }
-                ].forEach(({ style: rowStyle, ...config }) => {
+                    // We expect the first set of iframes to be visible
+                    {
+                        bannerStyle: { layout: 'flex', ratio: '1x1' },
+                        'iframe-style': 'width:150px;height:150px;flex-grow:0;'
+                    },
+                    { bannerStyle: { layout: 'flex', ratio: '8x1' } },
+                    { bannerStyle: { layout: 'text' } },
+                    // but we expect the next set to not be visible because they do not have enough space
+                    {
+                        bannerStyle: { layout: 'flex', ratio: '1x1' },
+                        'data-test-visible': false,
+                        'iframe-style': 'height:50px;'
+                    },
+                    {
+                        bannerStyle: { layout: 'flex', ratio: '1x1' },
+                        'data-test-visible': false,
+                        'iframe-style': 'width:50px;flex-grow:0;'
+                    },
+                    {
+                        bannerStyle: { layout: 'flex', ratio: '8x1' },
+                        'data-test-visible': false,
+                        'iframe-style': 'width:50px;flex-grow:0;'
+                    },
+                    {
+                        bannerStyle: { layout: 'text' },
+                        'data-test-visible': false,
+                        'iframe-style': 'width:50px;flex-grow:0;'
+                    },
+                    {
+                        bannerStyle: { layout: 'text' },
+                        'data-test-visible': false,
+                        'iframe-style': 'height:20px;width:270px;flex-grow:0;'
+                    },
+                    {
+                        bannerStyle: { layout: 'text', text: { size: 16 } },
+                        'data-test-visible': false,
+                        'iframe-style': 'height:42px;width:140px;flex-grow:0;'
+                    }
+                ].forEach(({ bannerStyle, iframeStyle, ...config }) => {
                     const configStyle = config?.style ?? {};
                     const queryParams = Object.entries({
                         ...mappedParams,
@@ -79,19 +135,33 @@
                             ...config,
                             style: {
                                 ...configStyle,
-                                ...rowStyle
+                                ...bannerStyle
                             }
                         }
                     }).reduce((acc, [key, val]) => {
-                        if (acc.length === 0) {
-                            return `?${key}=${JSON.stringify(val)}`;
+                        let stringifiedValue = `${val}`;
+                        // if (typeof val !== 'undefined' && val !== null){
+                        if (typeof val === 'object') {
+                            stringifiedValue = JSON.stringify(val);
+                            // v = val
                         }
-                        return `${acc}&${key}=${JSON.stringify(val)}`;
+                        // if (val === null || typeof val === undefined){
+
+                        // }
+                        return `${acc.length === 0 ? `?` : `${acc}&`}${key}=${stringifiedValue}`;
                     }, '');
-                    const src = `${iframeSrcPage}${queryParams}`;
+                    const src = `${iframeSrcPage}?${queryParams}`;
+                    const iframeWrapper = document.createElement('div');
                     const iframe = getIframe({ src, ...config });
-                    console.log(iframe);
-                    row.appendChild(iframe);
+                    const annotation = document.createElement('span');
+                    iframeWrapper.classList.add('iframe-wrapper');
+                    annotation.classList.add('annotation');
+                    annotation.innerText = iframe.getAttribute('data-test-visible');
+                    // row.appendChild(iframe);
+                    // row.appendChild(annotation);
+                    iframeWrapper.appendChild(iframe);
+                    iframeWrapper.appendChild(annotation);
+                    row.appendChild(iframeWrapper);
                     return iframe;
                 });
                 body.appendChild(row);
