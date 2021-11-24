@@ -4,6 +4,7 @@ const hideMinOrMax = ({ amount, min: minString, max: maxString }) => {
 
     if (amount < min) return '.message__headline .max { display: none; }';
     if (amount > max) return '.message__headline .min { display: none; }';
+    return '';
 };
 
 export default hideMinOrMax;
