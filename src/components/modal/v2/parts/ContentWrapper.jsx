@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { useContent, useServerData, useProduct, useProductMeta } from '../lib';
+import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -12,8 +12,6 @@ const ContentWrapper = () => {
     const contentWrapper = useRef();
     const contentBackground = useRef();
     const contentBodyRef = useRef();
-    const content = useContent(product);
-    const productMeta = useProductMeta(product);
 
     let defaultProduct;
     if (views?.length === 1) {
@@ -23,21 +21,18 @@ const ContentWrapper = () => {
         defaultProduct = 'PRODUCT_LIST';
     }
     const [product, setProduct] = useState(defaultProduct);
-
-    console.log({
-        viewsLength: views?.length,
-        views,
-        serverData: useServerData(),
-        product: useProduct(product)
-    });
+    const content = useContent(product);
+    const productMeta = useProductMeta(product);
 
     const { headline, subheadline, qualifyingSubheadline = '' } = content;
     const isQualifying = productMeta?.qualifying;
 
     // Add views to productViewComponents object where the keys are the product name and the values are the view component
     const productViewComponents = {
+        // eslint-disable-next-line react/jsx-props-no-spreading
         PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
         PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />,
+        // eslint-disable-next-line react/jsx-props-no-spreading
         PRODUCT_LIST: <ProductList {...useContent(product)} setProduct={setProduct} contentBodyRef={contentBodyRef} />
     };
 

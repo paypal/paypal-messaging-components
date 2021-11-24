@@ -1,40 +1,15 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
 import { useServerData } from '../../../lib';
 import Icon from '../../Icon';
 import Tile from './Tile';
 import styles from './styles/index.scss';
 
-const tilesContent = [
-    {
-        header: 'Pay in 4',
-        icon: 'pay-in-4-tile',
-        body: 'Interest-free payments every 2 weeks, starting today.',
-        viewName: 'PAY_LATER_LONG_TERM'
-    },
-    {
-        header: 'Pay monthly',
-        icon: 'pay-monthly-tile',
-        body: 'Split your purchase into equal monthly payments.',
-        viewName: 'PAY_MONTHLY'
-    },
-    {
-        header: 'PayPal Credit',
-        icon: 'paypal-credit-tile',
-        body: 'No Interest if paid in full in 6 months for purchases of $99+.',
-        viewName: 'PAYPAL_CREDIT_NO_INTEREST'
-    }
-];
-
-export const ProductList = ({ disclosure, setProduct, contentBodyRef }) => {
-    const [expandedState, setExpandedState] = useState(false);
-
+export const ProductList = ({ instructions, disclosure, tiles, setProduct, contentBodyRef }) => {
     const views = useServerData()?.views;
-    const availableTiles = views.map(view =>
-        tilesContent.find(tileContent => tileContent.viewName === view.meta.product)
-    );
-    console.log({ availableTiles });
+    const availableTiles = views
+        .map(view => tiles.find(tileContent => tileContent.viewName === view.meta.product))
+        .filter(tile => !!tile);
 
     return (
         <Fragment>
@@ -45,11 +20,11 @@ export const ProductList = ({ disclosure, setProduct, contentBodyRef }) => {
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content_row instructions">
-                                    <p>Choose an option for more details.</p>
+                                    <p>{instructions.top}</p>
                                 </div>
-                                {availableTiles.map(({ header, body, icon, viewName }, index) => (
+                                {availableTiles.map(({ header, body, icon, viewName }) => (
                                     <Tile
-                                        key={index}
+                                        key={icon}
                                         header={header}
                                         body={body}
                                         icon={icon}
@@ -58,9 +33,8 @@ export const ProductList = ({ disclosure, setProduct, contentBodyRef }) => {
                                     />
                                 ))}
                                 <div className="content_row instructions">
-                                    <p>
-                                        Select <strong>PayPal</strong> at checkout to <strong>Pay Later</strong>.
-                                    </p>
+                                    {/* eslint-disable-next-line react/no-danger */}
+                                    <p dangerouslySetInnerHTML={{ __html: instructions.bottom }} />
                                 </div>
                             </div>
                             <div className="content__col collapsed">

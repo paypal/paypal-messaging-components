@@ -12,8 +12,8 @@ export const DEV_US_PRODUCT_LIST = {
             product: 'PAY_LATER_LONG_TERM'
         },
         {
-            template: 'long_term.json',
-            offersTemplate: 'long_term.json',
+            template: 'gpl.json',
+            offersTemplate: 'short_term.json',
             product: 'PAY_LATER_SHORT_TERM'
         }
     ],
