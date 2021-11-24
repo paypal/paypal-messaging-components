@@ -7,7 +7,7 @@ const Tile = ({ header, body, icon, viewName, setProduct }) => {
     const { tileIcons } = useContent('PRODUCT_LIST');
 
     return (
-        <div className="tile" onClick={() => setProduct(viewName)}>
+        <button className="tile" type="button" onClick={() => setProduct(viewName)}>
             <div className="tile__row">
                 <div className="tile__col tile__image">
                     <Icon content={tileIcons[icon]} />
@@ -17,7 +17,7 @@ const Tile = ({ header, body, icon, viewName, setProduct }) => {
                     <div className="tile__body">{body}</div>
                 </div>
             </div>
-        </div>
+        </button>
     );
 };
 
