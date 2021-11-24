@@ -52,14 +52,6 @@ const Icon = ({ name, color }) => {
                     />
                 </svg>
             );
-        case 'pay-monthly-temp-image':
-            return (
-                <img
-                    alt="pp-lt"
-                    style={{ width: '100%' }}
-                    src="https://www.paypalobjects.com/marketing/web/us/en/credit-line-and-card-services/new/pp-credit-and-cards-hero.png"
-                />
-            );
         case 'header-background':
             return (
                 <svg width="1920" height="1380" viewBox="0 0 1920 1380" fill="none" xmlns="http://www.w3.org/2000/svg">

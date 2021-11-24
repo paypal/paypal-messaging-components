@@ -31,12 +31,15 @@
             "mixedAPR": "*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.",
             "nonZeroAPR": "*APR is 10-30% based on your credit. Terms may vary based on purchase amount."
         },
-
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
-            "Get a decision in seconds.",
+            "Explore plan options. No sign up fees or late fees.",
+            "Choose a plan and pay nothing today.",
             "Use autopay for your payments. It's easy!"
         ],
+        "cta": {
+            "buttonText": "Continue with Pay Monthly",
+            "link": "https://www.paypal.com/link/to/long-term-application"
+        },
         "disclosure": "Payment options subject to credit approval. Estimated payment amounts may change based on shipping, taxes, or updates to your purchase. Offer availability depends on the merchant and purchase amount, and may not be available for subscriptions or recurring payments. You must be of legal age in your U.S. state of residence. [Lender disclosure][State licensing disclosures]",
         "linkToProductList": "See other ways to pay later"
     }

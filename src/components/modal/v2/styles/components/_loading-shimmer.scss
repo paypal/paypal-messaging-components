@@ -9,11 +9,10 @@
 
 .offer {
     &__container {
-        &.has-error {
-            display: none;
-        }
-
         &.shimmer {
+            &:first-child {
+                margin-top: 0px;
+            }
             &:not(:last-child)::after {
                 content: '';
                 border-bottom: 2px solid rgba(196, 196, 196, 0.2);
@@ -27,10 +26,6 @@
                 }
             }
             @include tablet {
-                // margin-bottom: 50px;
-                &:first-child {
-                    margin-top: 20px;
-                }
                 &:last-child {
                     margin-bottom: 20px;
                 }

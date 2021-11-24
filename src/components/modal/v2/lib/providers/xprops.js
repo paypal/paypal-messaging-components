@@ -2,9 +2,10 @@
 import { h, createContext } from 'preact';
 import { useState, useEffect, useContext } from 'preact/hooks';
 import polyfillZoid from '../zoid-polyfill';
+import { isLander } from '../utils';
 
 // Required for the lander where the modal is not loaded inside of a zoid iframe
-if (__MESSAGES__.__TARGET__ === 'LANDER') {
+if (isLander) {
     polyfillZoid();
 }
 

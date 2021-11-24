@@ -1,11 +1,12 @@
+// TODO: until PPUI has images for the universal modals, we will be using the tablet view for desktops.
 @mixin desktop {
-    @media (min-width: 1366px) {
+    @media (min-width: 99999999px) /* min-width: 1366px */ {
         @content;
     }
 }
 
 @mixin tablet {
-    @media (min-width: 640px) and (max-width: 1365px) {
+    @media (min-width: 640px) /*and (max-width: 1365px) */ {
         @content;
     }
 }
@@ -21,12 +22,3 @@
         @content;
     }
 }
-
-// CSS hack to target only IE11
-@mixin ie11 {
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-        @content;
-    }
-}
-
-$header-background: #003087;

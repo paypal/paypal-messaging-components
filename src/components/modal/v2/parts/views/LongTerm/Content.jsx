@@ -1,12 +1,43 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
+import { useXProps, useServerData } from '../../../lib';
 import Calculator from '../../Calculator';
-import Icon from '../../Icon';
+import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
+import Button from '../../Button';
 
-export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, disclosure, contentBodyRef }) => {
+export const LongTerm = ({
+    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
+    contentBodyRef
+}) => {
     const [expandedState, setExpandedState] = useState(false);
+    const { onClose } = useXProps();
+    const { views } = useServerData();
+
+    /**
+     * The presence of "cta" in the content means the channel is checkout and the checkout-specific
+     * partial content has been added. Because we do not want to show the link to the product list modal if we are in checkout,
+     * we make sure "cta" is not in the content. If "cta" is not undefined, return the Checkout-specific cta button.
+     * Otherwise, render the Product List link.
+     */
+    const renderCheckoutCtaButton = () => {
+        if (typeof cta !== 'undefined') {
+            return (
+                <Fragment>
+                    <div className="button__container">
+                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                            {cta.buttonText}
+                        </Button>
+                    </div>
+                </Fragment>
+            );
+        }
+        if (views?.length > 1) {
+            return <ProductListLink>{linkToProductList}</ProductListLink>;
+        }
+        return <Fragment />;
+    };
 
     return (
         <Fragment>
@@ -18,14 +49,13 @@ export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, dis
                                 <Calculator
                                     setExpandedState={setExpandedState}
                                     calculator={calculator}
-                                    termsLabel={termsLabel}
                                     disclaimer={disclaimer}
+                                    buttonText={buttonText}
                                 />
                             </div>
                             <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                                 <div className="branded-image">
-                                    {/* TODO: update from temp desktop image */}
-                                    <Icon name="pay-monthly-image" />
+                                    {/* TODO: include Icon component when desktop images are final */}
                                 </div>
                             </div>
                         </div>
@@ -33,8 +63,7 @@ export const LongTerm = ({ calculator, termsLabel, disclaimer, instructions, dis
                         <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
                             {disclosure}
                         </div>
-                        {/* TODO: button in XO flow */}
-                        {/* <div className="button">{buttonText}</div> */}
+                        {renderCheckoutCtaButton()}
                     </div>
                 </main>
             </div>

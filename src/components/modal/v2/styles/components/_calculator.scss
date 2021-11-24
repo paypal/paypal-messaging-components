@@ -5,18 +5,37 @@
     padding-bottom: 10px;
 
     @include desktop {
+        margin-top: 25px;
+        margin-bottom: 10px;
         padding-left: 30px;
         padding-right: 60px;
     }
 
     @include tablet {
+        margin-top: 20px;
+        margin-bottom: 10px;
         padding-right: 0px;
-        max-width: 315px;
+        width: 315px;
+    }
+
+    @include mobile {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    @include smallMobile {
+        margin-top: 15px;
     }
 
     .title {
         margin-top: 0;
         font-weight: 500;
+
+        @include desktop {
+            .lander & {
+                margin-top: 20px;
+            }
+        }
     }
 
     .input__wrapper {
@@ -53,16 +72,24 @@
         @include tablet {
             text-align: center;
         }
-        @include smallMobile {
-            // padding-bottom: 25px;
+
+        &.no-amount {
+            .calculator__error {
+                @include tablet {
+                    margin-left: 25px;
+                }
+            }
         }
     }
 
     &__error {
         color: black;
         font-size: 0.8rem;
-        margin-top: 0;
-        transition: margin-top 0.2s ease-out;
+        margin-top: 10px;
+
+        @include tablet {
+            display: flex;
+        }
 
         & > div {
             display: inline-flex;
@@ -83,6 +110,36 @@
 
         svg {
             margin: 0 0.5rem 0 0;
+        }
+    }
+
+    .finance-terms__disclaimer {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        @include tablet {
+            font-size: 0.75rem;
+        }
+        @include mobile {
+            font-size: 0.8rem;
+            margin-top: 0px;
+        }
+        @include smallMobile {
+            font-size: 0.7rem;
+            margin-top: 0px;
+        }
+
+        &.no-amount {
+            @include desktop {
+                margin-left: 26px;
+            }
+
+            @include tablet {
+                margin-left: 60px;
+            }
+
+            @include mobile {
+                margin-left: 26px;
+            }
         }
     }
 }
