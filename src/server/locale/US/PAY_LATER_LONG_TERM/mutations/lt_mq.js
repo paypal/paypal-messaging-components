@@ -1,5 +1,5 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import { textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const flex = [
@@ -9,42 +9,11 @@ const flex = [
             logo: Logo.PP_PAYPAL.WHITE,
             headline: [
                 {
-                    tag: 'xsmall'
-                },
-                {
-                    tag: 'medium'
+                    tag: 'default'
                 }
             ],
-            disclaimer: ['default']
-        }
-    ],
-    [
-        'ratio:20x1',
-        {
-            styles: [
-                `
-                @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
-                    .message__logo-container {
-                        max-width: 12%;
-                    }
-                }
-
-                @media (min-aspect-ratio: 200/11) and (min-width: 300px) {
-                    .message__logo:nth-of-type(1) {
-                        width: 18%;
-                    }
-                    .message__logo:nth-of-type(2) {
-                        width: 60%;
-                    }
-                }
-
-                @media (min-aspect-ratio: 60/11) and (min-width: 324px) {
-                    .message__headline .tag--medium .br:first-child {
-                        display: inline;
-                    }
-                }
-                `
-            ]
+            disclaimer: ['default'],
+            styles: []
         }
     ],
     [
@@ -52,21 +21,10 @@ const flex = [
         {
             headline: [
                 {
-                    tag: 'xsmall'
-                },
-                {
-                    tag: 'medium',
-                    br: ['on']
+                    tag: 'default'
                 }
             ],
-            styles: [
-                `@media (min-aspect-ratio: 60/11) and (min-width: 324px) {
-                    .message__headline .tag--medium .br:first-child {
-                        display: inline;
-                    }
-                }
-                `
-            ]
+            styles: ['@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }']
         }
     ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
@@ -78,19 +36,21 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'US'),
-                    xSmallFallback(textSize * 21),
+                    `@media screen and (max-width: ${textSize * 18.5}px) { 
+                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                    }`,
+                    textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 16)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
-                        tag: 'medium'
-                    },
-                    { tag: 'xsmall' }
+                        tag: 'default',
+                        br: ['mo.']
+                    }
                 ],
                 disclaimer: ['default']
             })
@@ -99,8 +59,10 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 38),
+                    `@media screen and (max-width: ${textSize * 18.5}px) { 
+                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                    }`,
+                    setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -108,16 +70,21 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    `@media screen and (max-width: ${textSize * 18.5}px) { 
+                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                    }`,
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'US'),
-                    xSmallFallback(textSize * 16),
+                    `@media screen and (max-width: ${textSize * 10.6}px) { 
+                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                    }`,
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -126,44 +93,26 @@ export default {
         ],
         [
             'logo.type:none',
-            ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+            {
+                styles: [],
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
-                    },
-                    {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'default',
+                        br: ['mo.']
                     }
                 ]
-            })
+            }
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [`.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['on'],
-                        replace: [
-                            ['purchases.', 'purchases'],
-                            ['later.', 'later']
-                        ]
-                    },
-                    {
-                        tag: 'xsmall.2',
-                        br: ['later.'],
-                        replace: [['later.', 'later']]
+                        tag: 'default',
+                        br: ['mo.']
                     }
                 ]
             })
