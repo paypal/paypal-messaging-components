@@ -6,7 +6,7 @@ import hideMinOrMax from './hideMinOrMax';
 const flex = [
     [
         'default',
-        ({ variables: { minAmount: min, maxAmount: max } }) => ({
+        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
             logo: Logo.PP_PAYPAL.WHITE,
             headline: [
                 {
@@ -19,13 +19,13 @@ const flex = [
     ],
     [
         'ratio:20x1',
-        ({ variables: { minAmount: min, maxAmount: max } }) => ({
+        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
             styles: [hideMinOrMax({ amount, min, max }), logo20x1()]
         })
     ],
     [
         'ratio:8x1',
-        ({ variables: { minAmount: min, maxAmount: max } }) => ({
+        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
             headline: [
                 {
                     tag: 'default'
