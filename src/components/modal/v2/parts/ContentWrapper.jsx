@@ -29,11 +29,9 @@ const ContentWrapper = () => {
 
     // Add views to productViewComponents object where the keys are the product name and the values are the view component
     const productViewComponents = {
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        PAY_LATER_LONG_TERM: <LongTerm {...useContent(product)} contentBodyRef={contentBodyRef} />,
+        PAY_LATER_LONG_TERM: <LongTerm content={content} contentBodyRef={contentBodyRef} />,
         PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />,
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        PRODUCT_LIST: <ProductList {...useContent(product)} setProduct={setProduct} contentBodyRef={contentBodyRef} />
+        PRODUCT_LIST: <ProductList content={content} setProduct={setProduct} contentBodyRef={contentBodyRef} />
     };
 
     return (

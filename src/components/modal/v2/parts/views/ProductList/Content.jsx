@@ -5,7 +5,7 @@ import Icon from '../../Icon';
 import Tile from './Tile';
 import styles from './styles/index.scss';
 
-export const ProductList = ({ instructions, disclosure, tiles, setProduct, contentBodyRef }) => {
+export const ProductList = ({ content: { instructions, disclosure, tiles }, setProduct, contentBodyRef }) => {
     const views = useServerData()?.views;
     const availableTiles = views
         .map(view => tiles.find(tileContent => tileContent.viewName === view.meta.product))
