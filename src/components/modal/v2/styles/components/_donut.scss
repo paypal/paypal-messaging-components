@@ -1,41 +1,30 @@
 @import '../globals/mixins';
 
-$webpage : 1640px;
-$green500: #00CF92;
-$grey300: #DBD8D0;
+$webpage: 1640px;
+$green500: #00cf92;
+$grey300: #dbd8d0;
 $grey600: #888;
 
 .donut__single_payment {
     display: flex;
     flex-direction: column;
 
+    @include mobile {
+        width: 70px;
+    }
+
+    width: 72px;
+
+    svg {
+        max-width: 64px;
+    }
+
     &.donut__qualifying_payment {
-
-        @include mobile {
-            width: 70px;
-        }
-
-        width: 94px;
-
         svg {
-            max-width: 85px;
-
             text {
                 color: $terms-details;
                 transform: translate(1px, 3px);
             }
-        }
-    }
-    
-    &.donut__non_qualifying_payment {
-        @include mobile {
-            width: 70px;
-        }
-
-        width: 72px;
-
-        svg {
-            max-width: 64px;
         }
     }
 
@@ -58,7 +47,7 @@ $grey600: #888;
             stroke: $green500;
         }
     }
-    
+
     span {
         display: block;
         text-align: center;
@@ -78,7 +67,7 @@ $grey600: #888;
                 margin-top: 0.25rem;
             }
         }
-        
+
         &.donut__timestamp {
             color: $terms-details;
             font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;

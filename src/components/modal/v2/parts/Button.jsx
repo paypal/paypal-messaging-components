@@ -6,7 +6,7 @@ import { forwardRef } from 'preact/compat';
 const Button = forwardRef(({ secondary, children, size, className, type = 'button', onClick = () => {} }, ref) => {
     const classes = ['button'];
     if (secondary) classes.push('secondary');
-    if (size) classes.push(`${size}`);
+    if (size) classes.push(size);
     if (className) classes.push(className);
 
     return (

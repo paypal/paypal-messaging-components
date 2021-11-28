@@ -1,6 +1,7 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable react/no-array-index-key */
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import Icon from '../../Icon';
 import Instructions from '../../Instructions';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
@@ -9,16 +10,14 @@ import styles from './styles.scss';
 import { useServerData } from '../../../lib/providers';
 
 export const ShortTerm = ({
-    instructions,
-    linkToProductList,
-    disclosure,
-    donutTimestamps,
-    qualifying,
-    periodicPayment,
+    content: { instructions, linkToProductList, disclosure, donutTimestamps },
+    productMeta: { qualifying, periodicPayment },
     contentBodyRef
 }) => {
+    const { views } = useServerData();
+
     const renderProductListLink = () => {
-        if (useServerData()?.views?.length > 1) {
+        if (views?.length > 1) {
             return <ProductListLink>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
@@ -35,8 +34,9 @@ export const ShortTerm = ({
                                 <div className="content__col">
                                     <div className="content__row donuts">
                                         <div className="donuts__container">
-                                            {donutTimestamps.map((val, index) => (
+                                            {donutTimestamps.map((_, index) => (
                                                 <Donut
+                                                    key={index}
                                                     qualifying={qualifying}
                                                     periodicPayment={periodicPayment}
                                                     currentNum={index + 1}
@@ -49,8 +49,7 @@ export const ShortTerm = ({
                                 </div>
                                 <div className="content__col">
                                     <div className="branded-image">
-                                        {/* TODO: update from temp desktop image */}
-                                        <Icon name="pi4-image" />
+                                        {/* TODO: include Icon component when desktop images are final */}
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 /** @jsx h */
-import { Fragment, h } from 'preact';
+import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import OfferCard from './OfferCard';
 import LoadingShimmer from './LoadingShimmer';
@@ -13,27 +13,19 @@ const TermsTable = ({ isLoading, terms: { offers }, hasError }) => {
 
     if (isLoading || hasError) {
         return (
-            <Fragment>
-                <div className="offer__wrapper">
-                    <LoadingShimmer numOffers={numOffers} />
-                </div>
-            </Fragment>
+            <div className="offer__wrapper">
+                <LoadingShimmer numOffers={numOffers} />
+            </div>
         );
     }
 
-    const sortedOffers = offers
-        .slice()
-        .sort((a, b) => b.term - a.term)
+    const qualifyingOffers = offers
         .filter(offer => offer.meta.qualifying === 'true')
         .map((offer, idx) => <OfferCard offer={offer} index={idx} />);
 
-    setNumOffers(sortedOffers.length);
+    setNumOffers(qualifyingOffers.length);
 
-    return (
-        <Fragment>
-            <div className="offer__wrapper">{sortedOffers}</div>
-        </Fragment>
-    );
+    return <div className="offer__wrapper">{qualifyingOffers}</div>;
 };
 
 export default TermsTable;

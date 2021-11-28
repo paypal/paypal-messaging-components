@@ -66,6 +66,11 @@
 
     &__field-col {
         display: inline-block;
+        max-width: 33.33%;
+
+        &:not(:last-child) {
+            flex-grow: 1;
+        }
     }
 
     &__field-title {

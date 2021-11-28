@@ -1,12 +1,12 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const OfferCard = ({ offer: { content, meta }, index }) => {
+const OfferCard = ({ offer: { content, meta } }) => {
     const { termsLabel } = content;
-    const aprRemoveTrailingZeros = meta?.apr.replace(/([^\d]00)(?=[^\d]|$)/, '');
+    const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
 
     return (
-        <div className={`offer__container ${index}`}>
+        <div className="offer__container">
             <div className="offer__row">
                 <div className="offer__field-header">{termsLabel.offerHeader}</div>
             </div>
