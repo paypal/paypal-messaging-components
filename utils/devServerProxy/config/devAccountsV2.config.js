@@ -5,6 +5,11 @@ export default {
         country: 'US',
         modalViews: [
             {
+                template: 'ni_v2.json',
+                offersTemplate: 'ni.json',
+                product: 'PAYPAL_CREDIT_NO_INTEREST'
+            },
+            {
                 template: 'long_term.json',
                 offersTemplate: 'long_term.json',
                 product: 'PAY_LATER_LONG_TERM'
@@ -18,6 +23,11 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
+                template: 'ni.json',
+                product: 'PAYPAL_CREDIT_NO_INTEREST'
+            },
+            {
+                amount: 0,
                 template: 'gplnq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
@@ -28,7 +38,8 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 99
+                    minAmount: 99,
+                    maxAmount: 9999.99
                 }
             ],
             PAY_LATER_SHORT_TERM: [

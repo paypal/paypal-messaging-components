@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useRef, useState, useEffect } from 'preact/hooks';
 import { isLander, useTransitionState } from '../lib';
 import Icon from './Icon';
 
@@ -31,19 +31,21 @@ const Header = ({
         }
     };
 
-    // Sticky header on scroll for mobile
-    if (contentWrapper.current) {
-        contentWrapper.current.addEventListener('scroll', () => {
-            stickyScroll(22);
-        });
-    }
+    useEffect(() => {
+        // Sticky header on scroll for mobile
+        if (contentWrapper.current) {
+            contentWrapper.current.addEventListener('scroll', () => {
+                stickyScroll(22);
+            });
+        }
 
-    // Sticky header on scroll for desktop and tablet
-    if (contentBackground.current) {
-        contentBackground.current.addEventListener('scroll', () => {
-            stickyScroll(150);
-        });
-    }
+        // Sticky header on scroll for desktop and tablet
+        if (contentBackground.current) {
+            contentBackground.current.addEventListener('scroll', () => {
+                stickyScroll(150);
+            });
+        }
+    }, [sticky]);
 
     const renderIcons = () => {
         return (
