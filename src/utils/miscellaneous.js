@@ -229,7 +229,7 @@ export function getProductForOffer(offer) {
         case 'PALA:MULTI:GTZ':
         case 'PALA:SINGLE:EQZ':
         case 'PALA:SINGLE:GTZ':
-            return 'EZP';
+            return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
         case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
         case 'INST':
         case 'INST:ANY:EQZ':

@@ -270,16 +270,29 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                         const requestedProduct = getProductForOffer(props.offer);
 
+                        const newAttributes = [
+                            'PAY_LATER_SHORT_TERM',
+                            'PAY_LATER_LONG_TERM',
+                            'PAY_LATER_PAY_IN_1',
+                            'PAYPAL_CREDIT_NO_INTEREST',
+                            'PAYPAL_CREDIT_INSTALLMENTS',
+                            'GPL',
+                            'NI'
+                        ];
+
                         if (
                             typeof props.offer !== 'undefined' &&
-                            Array.isArray(products) &&
-                            !arrayFind(products, supportedProduct => supportedProduct === requestedProduct)
+                            Array.isArray([...products, ...newAttributes]) &&
+                            !arrayFind(
+                                [...products, ...newAttributes],
+                                supportedProduct => supportedProduct === requestedProduct
+                            )
                         ) {
                             logger.warn('invalid_option_value', {
                                 location: 'offer',
-                                description: `Expected one of ["${products.join('", "')}"] but received "${
-                                    props.offer
-                                }".`
+                                description: `Expected one of ["${[...products, ...newAttributes].join(
+                                    '", "'
+                                )}"] but received "${props.offer}".`
                             });
                         }
 
