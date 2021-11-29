@@ -51,6 +51,14 @@
         margin-top: 50px;
         margin-bottom: 50px;
         max-width: 640px;
+        border-radius: 10px;
+
+        .modal-wrapper:not(.lander) & {
+            margin-top: auto;
+            margin-bottom: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
     }
 
     @include mobile {
