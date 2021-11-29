@@ -27,7 +27,7 @@ const ContentWrapper = () => {
     const productView = {
         PAY_LATER_LONG_TERM: <LongTerm content={content} contentBodyRef={contentBodyRef} />,
         PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />,
-        NI: <NI content={content} contentBodyRef={contentBodyRef} />
+        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} contentBodyRef={contentBodyRef} />
     };
 
     return (

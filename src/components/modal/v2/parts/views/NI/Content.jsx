@@ -7,7 +7,10 @@ import Instructions from '../../Instructions';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
-export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkToProductList, contentBodyRef }) => {
+export const NI = ({
+    content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
+    contentBodyRef
+}) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
@@ -36,8 +39,7 @@ export const NI = ({ instructions, terms, buttonText, disclaimer, footer, linkTo
                             </div>
                             <div className="content__col">
                                 <div className="branded-image">
-                                    {/* TODO: update from temp desktop image */}
-                                    {/* <Icon name="paypal-credit-image" /> */}
+                                    {/* TODO: include Icon component when desktop images are final */}
                                 </div>
                             </div>
                         </div>
