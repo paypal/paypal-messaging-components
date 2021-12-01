@@ -53,3 +53,4 @@ export const getContent = memoize(
  * @returns boolean
  */
 export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';
+export const isIframe = window.top !== window;

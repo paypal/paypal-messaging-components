@@ -6,6 +6,7 @@
     background: $instructions-background;
     padding-bottom: 1.5rem;
     flex-grow: 1;
+    margin-top: -$sticky-header-radius;
 
     .lander & {
         border-radius: 100px 0px;
@@ -36,20 +37,6 @@
         display: flex;
         flex-direction: column;
         padding: 0 20px;
-
-        @include desktop {
-            margin-top: -2rem;
-        }
-
-        @include tablet {
-            margin-top: -3rem;
-        }
-        @include mobile {
-            margin-top: -2rem;
-        }
-        @include smallMobile {
-            margin-top: -2.5rem;
-        }
     }
 
     .content__row {
@@ -57,7 +44,6 @@
             display: flex;
             flex-direction: row;
             margin: 0 -20px;
-            margin-top: -1px;
             background: white;
             padding-bottom: 0.5rem;
             padding-top: 1.5rem;

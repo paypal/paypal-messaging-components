@@ -26,8 +26,52 @@
     }
 
     &__background-wrapper {
-        position: absolute;
-        z-index: -9;
+        position: fixed;
+        z-index: 0;
+        max-width: 640px;
+        overflow: hidden;
+        height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
+
+        @include tablet {
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        // We have multiple backgrounds to give the appearance of
+        // reserving space at the top of the modal when scrolling.
+        // This requires having a portion of the background with a
+        // higher z-index so that the content scrolls underneath
+        &--sticky {
+            z-index: 1;
+            height: $sticky-header-height-mobile;
+
+            @include tablet {
+                height: $sticky-header-height-tablet;
+            }
+        }
+
+        &--gradient {
+            z-index: 1;
+            // Ends right above the header text in the scenario where mask-image
+            // isn't supported to prevent hiding the text on initial render
+            height: 6rem;
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                black,
+                black $sticky-header-height-mobile,
+                transparent 100px
+            );
+            mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
+
+            @include tablet {
+                -webkit-mask-image: linear-gradient(
+                    to bottom,
+                    black,
+                    black $sticky-header-height-tablet,
+                    transparent 100px
+                );
+                mask-image: linear-gradient(to bottom, black, black $sticky-header-height-tablet, transparent 100px);
+            }
+        }
 
         svg {
             width: 900px;
@@ -36,46 +80,47 @@
     }
 
     &__icons {
+        box-sizing: border-box;
         justify-content: space-between;
+        align-items: center;
         margin: auto;
-        z-index: 999;
+        z-index: 1001;
         display: flex;
         height: auto;
         text-align: center;
-        overflow: hidden;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        flex: 0 0 $sticky-header-height-mobile;
 
-        > svg {
-            position: absolute;
-            bottom: 0;
+        @include tablet {
+            flex: 0 0 $sticky-header-height-tablet;
         }
 
-        //importing sticky styles
-        @import './sticky';
-
         .logo {
-            display: inline-block;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-
             &__wrapper {
-                padding: 15px 25px 0px;
                 z-index: 9;
+                transform: translate(0, 2rem);
+                transition: all 0.2s ease-out;
+                padding: 0 25px;
 
-                @include desktop {
-                    padding: 0px 25px 0px;
+                @include tablet {
+                    transform: translate(calc(320px - 50%), 2rem);
                     display: flex;
                     justify-content: center;
                 }
 
-                @include tablet {
-                    padding: 0px 25px 0px;
-                    display: flex;
-                    justify-content: center;
+                &--scroll {
+                    transform: translate(0, 0);
                 }
 
                 .pp-logo {
-                    & img {
+                    img {
                         height: 30px;
+                        display: block;
+                        // Account for extra space included below the SVG logo so that
+                        // the img can be better centered automatically via flex
+                        padding-top: 20%;
 
                         @include desktop {
                             height: 44px;
@@ -94,8 +139,6 @@
         }
 
         .close {
-            top: 5px;
-            right: 5px;
             pointer-events: all;
             background: transparent;
             border: none;
@@ -131,6 +174,9 @@
     }
 
     &__content {
+        padding-top: 2rem;
+        position: relative;
+
         @include desktop {
             padding-bottom: 40px;
         }

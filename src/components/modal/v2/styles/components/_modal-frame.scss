@@ -60,6 +60,12 @@
     height: 100%;
     transition: transform 350ms;
     transform: translateY(100%);
+
+    .lander & {
+        position: static;
+        width: auto;
+        height: auto;
+    }
 }
 
 .main {

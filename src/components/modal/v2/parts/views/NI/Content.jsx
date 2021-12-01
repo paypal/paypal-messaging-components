@@ -7,10 +7,7 @@ import Instructions from '../../Instructions';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
-export const NI = ({
-    content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
-    contentBodyRef
-}) => {
+export const NI = ({ content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList } }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
@@ -26,7 +23,7 @@ export const NI = ({
             <style>{styles._getCss()}</style>
             <div className="content__container">
                 <main className="main">
-                    <div className="content__body" ref={contentBodyRef}>
+                    <div className="content__body">
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <Instructions instructions={instructions} />

@@ -1,65 +1,48 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
-import { useRef, useState, useEffect } from 'preact/hooks';
-import { isLander, useTransitionState } from '../lib';
+import { useState } from 'preact/hooks';
+import { isLander, useTransitionState, useScroll, isIframe } from '../lib';
 import Icon from './Icon';
 
-const Header = ({
-    headline,
-    subheadline,
-    className = '',
-    logo,
-    contentWrapper,
-    contentBodyRef,
-    contentBackground,
-    isQualifying = 'false',
-    qualifyingSubheadline
-}) => {
+const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
     const [, handleClose] = useTransitionState();
-    const headerIconsRef = useRef(null);
-    const [sticky, setSticky] = useState('unsticky');
+    const [isScrolled, setScrolled] = useState(false);
 
-    const stickyScroll = offset => {
-        const { top } = contentBodyRef.current.getBoundingClientRect();
+    useScroll(
+        ({ target: { scrollTop } }) => {
+            if (!isScrolled && scrollTop > 0) {
+                setScrolled(true);
+            } else if (isScrolled && scrollTop <= 0) {
+                setScrolled(false);
+            }
+        },
+        [isScrolled]
+    );
 
-        if (top <= offset) {
-            if (sticky !== 'sticky') setSticky('sticky');
-        }
-
-        if (top > offset && sticky === 'sticky') {
-            setSticky('unsticky');
-        }
-    };
-
-    useEffect(() => {
-        // Sticky header on scroll for mobile
-        if (contentWrapper.current) {
-            contentWrapper.current.addEventListener('scroll', () => {
-                stickyScroll(22);
-            });
-        }
-
-        // Sticky header on scroll for desktop and tablet
-        if (contentBackground.current) {
-            contentBackground.current.addEventListener('scroll', () => {
-                stickyScroll(150);
-            });
-        }
-    }, [sticky]);
-
-    const renderIcons = () => {
-        return (
-            <Fragment>
-                <div className="logo__wrapper">
+    // IMPORTANT: These elements cannot be nested inside of other elements.
+    // They are using very precise CSS position sticky rules that require this
+    // specific adjacent DOM structure
+    return (
+        <Fragment>
+            {(!isLander || isIframe) && (
+                <Fragment>
+                    <div className="header__background-wrapper header__background-wrapper--gradient">
+                        <Icon name="header-background" />
+                    </div>
+                    <div className="header__background-wrapper">
+                        <Icon name="header-background" />
+                    </div>
+                </Fragment>
+            )}
+            <div className="header__icons">
+                <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">
                         <Icon name={logo} />
                     </div>
                 </div>
-                {/* We don't need to render an 'x' button if the target is a lander since you will close via 
-                a merchant-provided close button from their own iframe, or by closing the window in the case of a webpage. */}
-                {isLander ? (
-                    <Fragment />
-                ) : (
+                {!isLander && (
+                    // We don't need to render an 'x' button if the target is a lander since you will close via a
+                    // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
                         className="close"
                         aria-label="Close button"
@@ -70,35 +53,21 @@ const Header = ({
                         <Icon name="close" />
                     </button>
                 )}
-            </Fragment>
-        );
-    };
-
-    return (
-        <div className={`header__wrapper ${className}`}>
-            <div className="header__container">
-                {isLander ? (
-                    <Fragment />
-                ) : (
-                    <div className="header__background-wrapper">
+                {(!isLander || isIframe) && (
+                    <div className="header__background-wrapper header__background-wrapper--sticky">
                         <Icon name="header-background" />
                     </div>
                 )}
-                <div className="header__icons">{renderIcons()}</div>
-                <div className={`header__icons ${sticky}`} ref={headerIconsRef}>
-                    {renderIcons()}
-                    <Icon name="header-background" />
-                </div>
-                <div className="header__content">
-                    <h1>{headline}</h1>
-                    {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                        <h2>{qualifyingSubheadline}</h2>
-                    ) : (
-                        <h2>{subheadline}</h2>
-                    )}
-                </div>
             </div>
-        </div>
+            <div className="header__content">
+                <h1>{headline}</h1>
+                {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
+                    <h2>{qualifyingSubheadline}</h2>
+                ) : (
+                    <h2>{subheadline}</h2>
+                )}
+            </div>
+        </Fragment>
     );
 };
 

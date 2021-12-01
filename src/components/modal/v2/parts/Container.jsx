@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useState, useRef } from 'preact/hooks';
 import { getOrCreateStorageID } from '../../../../utils';
 
 import {
@@ -10,11 +10,14 @@ import {
     useXProps,
     useDidUpdateEffect,
     getContent,
-    isLander
+    isLander,
+    isIframe
 } from '../lib';
 import Icon from './Icon';
+import Overlay from './Overlay';
 
-const Container = ({ children, contentWrapper }) => {
+const Container = ({ children }) => {
+    const contentWrapperRef = useRef();
     const { type, views, meta, setServerData } = useServerData();
     const {
         onReady,
@@ -35,8 +38,7 @@ const Container = ({ children, contentWrapper }) => {
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
-            // eslint-disable-next-line no-param-reassign
-            contentWrapper.current.scrollTop = 0;
+            contentWrapperRef.current.scrollTop = 0;
         } else if (transitionState === 'OPEN') {
             window.focus();
         }
@@ -76,12 +78,18 @@ const Container = ({ children, contentWrapper }) => {
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
     return (
-        <ScrollProvider containerRef={contentWrapper}>
-            <div className={`modal-wrapper ${isLander ? 'lander' : ''}`}>
-                {isLander && <Icon name="header-background" />}
+        <ScrollProvider containerRef={contentWrapperRef}>
+            <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''}`}>
+                {isLander && !isIframe && <Icon name="header-background" />}
                 <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
-                    <div className="wrapper">{children}</div>
+                    <div className="wrapper">
+                        <Overlay />
+                        {/* Scrollable content */}
+                        <div className="content__wrapper" ref={contentWrapperRef}>
+                            {children}
+                        </div>
+                    </div>
                 </section>
             </div>
         </ScrollProvider>
