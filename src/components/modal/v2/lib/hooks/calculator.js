@@ -4,6 +4,7 @@ import { debounce } from 'belter/src';
 import { useXProps, useServerData } from '../providers';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
+import { localize, delocalize } from '../locale';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -41,29 +42,11 @@ const reducer = (state, action) => {
     }
 };
 
-export const delocalize = (country, amount) => {
-    return Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
-};
-
-export const localize = (country, amount) => {
-    const number = Number(amount) || Number(0);
-    if (country === 'DE') {
-        return number.toLocaleString('de-DE', {
-            currency: 'EUR',
-            minimumFractionDigits: 2
-        });
-    }
-
-    return number.toLocaleString('en-US', {
-        currency: 'USD',
-        minimumFractionDigits: 2
-    });
-};
-
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { views, country, setServerData } = useServerData();
-    const initialViewOfferTerms = views[0];
+
+    const initialViewOfferTerms = views.find(view => view.meta.product === 'PAY_LATER_LONG_TERM');
     const {
         currency,
         payerId,
@@ -80,8 +63,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(country, amount),
-        prevValue: localize(country, amount),
+        inputValue: localize(amount, country, 2),
+        prevValue: localize(amount, country, 2),
         terms: initialViewOfferTerms,
         isLoading: false
     });
@@ -109,7 +92,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                 dispatch({
                     type: 'terms',
                     data: {
-                        ...data.views[0],
+                        ...data.views.find(view => view.meta.product === 'PAY_LATER_LONG_TERM'),
                         autoSubmit
                     }
                 });
@@ -130,7 +113,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         // If we see new offer terms, which match the amount prop, but the value in the input does not match
         // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (Number(initialViewOfferTerms.amount) === amount && delocalize(country, state.inputValue) !== amount) {
+        if (Number(initialViewOfferTerms.amount) === amount && delocalize(state.inputValue, country) !== amount) {
             dispatch({
                 type: 'terms',
                 data: {
@@ -144,7 +127,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
     calculateRef.current = () => {
-        const delocalizedValue = delocalize(country, state.inputValue);
+        const delocalizedValue = delocalize(state.inputValue, country).replace(/\.$/, '.00');
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             onCalculate({ value: delocalizedValue });
@@ -184,7 +167,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             type: 'input',
             data: {
                 value:
-                    localize(country, value).length > 9 || value.length > 9
+                    localize(value, country, 2).length > 9 || value.length > 9
                         ? state.inputValue
                         : value.replace(/[^\d.,]/g, ''),
                 autoSubmit
@@ -196,11 +179,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     };
 
-    let { isLoading } = state;
-
-    if (state.inputValue === '0') {
-        isLoading = false;
-    }
+    const { isLoading } = state;
 
     return {
         terms: state.terms,
