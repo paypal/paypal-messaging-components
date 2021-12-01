@@ -184,7 +184,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags, deviceID }) => {
-                        const { account, merchantId, index, modal, getContainer } = props;
+                        const { account, merchantId, index, modal, getContainer, channel } = props;
                         const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
@@ -207,7 +207,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID() // Session ID from parent local storage
+                                    sessionID: getSessionID(), // Session ID from parent local storage,
+                                    channel: channel ?? 'UPSTREAM'
                                 },
                                 [index]: {
                                     type: 'message',

@@ -113,7 +113,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onClick, onApply } = props;
 
                     return ({ linkName, src }) => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, channel } = props;
 
                         logger.track({
                             index,
@@ -121,6 +121,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName,
+                            event_channel: channel ?? 'UPSTREAM',
                             src: src ?? linkName
                         });
 
@@ -141,7 +142,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onCalculate } = props;
 
                     return ({ value }) => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, channel } = props;
 
                         logger.track({
                             index,
@@ -150,6 +151,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'click',
                             link: 'Calculator',
                             src: 'Calculator',
+                            event_channel: channel ?? 'UPSTREAM',
                             amount: value
                         });
 
@@ -163,7 +165,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onShow } = props;
+                    const { onShow, channel } = props;
 
                     return () => {
                         const { index, refIndex, src = 'show' } = props;
@@ -173,6 +175,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-open',
+                            event_channel: channel ?? 'UPSTREAM',
                             src
                         });
 
@@ -189,7 +192,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onClose } = props;
 
                     return ({ linkName }) => {
-                        const { index, refIndex } = props;
+                        const { index, refIndex, channel } = props;
 
                         event.trigger('modal-hide');
 
@@ -198,6 +201,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'modal-close',
+                            event_channel: channel ?? 'UPSTREAM',
                             link: linkName
                         });
 
@@ -214,7 +218,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, deviceID }) => {
-                        const { index, offer, merchantId, account, refIndex } = props;
+                        const { index, offer, merchantId, account, refIndex, channel } = props;
                         const { renderStart, show, hide } = state;
                         const { messageRequestId, trackingDetails, ppDebugId } = meta;
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
@@ -259,6 +263,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
+                            channel: channel ?? 'UPSTREAM',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
