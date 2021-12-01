@@ -72,14 +72,6 @@
         @include tablet {
             text-align: center;
         }
-
-        &.no-amount {
-            .calculator__error {
-                @include tablet {
-                    margin-left: 25px;
-                }
-            }
-        }
     }
 
     &__error {
@@ -134,7 +126,7 @@
             }
 
             @include tablet {
-                margin-left: 60px;
+                margin-left: 73px;
             }
 
             @include mobile {

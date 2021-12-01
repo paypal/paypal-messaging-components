@@ -20,12 +20,12 @@ const reducer = (state, action) => {
                 isLoading: true,
                 prevValue: state.inputValue
             };
-        case 'terms': {
+        case 'view': {
             const newInputValue = action.data.autoSubmit ? state.inputValue : action.data.formattedAmount;
 
             return {
                 isLoading: false,
-                terms: action.data,
+                view: action.data,
                 inputValue: newInputValue,
                 prevValue: newInputValue
             };
@@ -46,7 +46,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { views, country, setServerData } = useServerData();
 
-    const initialViewOfferTerms = views.find(view => view.meta.product === 'PAY_LATER_LONG_TERM');
+    // From the views retreived, find and return the view with an offers property (i.e. PAY_LATER_LONG_TERM) if there is one.
+    const viewWithOffers = views.find(view => view?.offers);
+
     const {
         currency,
         payerId,
@@ -65,7 +67,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(amount, country, 2),
         prevValue: localize(amount, country, 2),
-        terms: initialViewOfferTerms,
+        view: viewWithOffers,
         isLoading: false
     });
 
@@ -90,16 +92,16 @@ export default function useCalculator({ autoSubmit = false } = {}) {
 
                 // TODO: do not store terms in reducer since serverData will be kept up-to-date
                 dispatch({
-                    type: 'terms',
+                    type: 'view',
                     data: {
-                        ...data.views.find(view => view.meta.product === 'PAY_LATER_LONG_TERM'),
+                        ...data?.views.find(view => view?.offers),
                         autoSubmit
                     }
                 });
             })
             .catch(() => {
                 dispatch({
-                    type: 'terms',
+                    type: 'view',
                     data: {
                         error: true
                     }
@@ -113,16 +115,16 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         // If we see new offer terms, which match the amount prop, but the value in the input does not match
         // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (Number(initialViewOfferTerms.amount) === amount && delocalize(state.inputValue, country) !== amount) {
+        if (Number(viewWithOffers.amount) === amount && delocalize(state.inputValue, country) !== amount) {
             dispatch({
-                type: 'terms',
+                type: 'view',
                 data: {
-                    ...initialViewOfferTerms,
+                    ...viewWithOffers,
                     autoSubmit: false
                 }
             });
         }
-    }, [initialViewOfferTerms, amount]);
+    }, [viewWithOffers, amount]);
 
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
@@ -182,7 +184,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     const { isLoading } = state;
 
     return {
-        terms: state.terms,
+        view: state.view,
         // Replace start of value string that isn't a digit (i.e. if someone tries to enter a period or a comma first) with an empty string.
         value: state.inputValue.replace(/^\D/, ''),
         isLoading,
