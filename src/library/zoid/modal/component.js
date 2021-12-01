@@ -81,7 +81,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             },
             offer: {
                 type: 'string',
-                queryParam: true,
+                queryParam: false,
                 required: false
             },
             refId: {
