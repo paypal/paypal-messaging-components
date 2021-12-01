@@ -76,14 +76,21 @@
                 align-items: center;
                 @include tablet {
                     position: fixed;
-                    bottom: 0;
+                    left: calc(50% - 640px / 2);
+                    bottom: 5vh;
                     width: calc(100%);
                     background: white;
+                    border-radius: 0 0 10px 10px;
                     margin-bottom: 0;
                     max-width: 640px;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
+                    }
+
+                    .lander & {
+                        bottom: 0;
+                        border-radius: 0px;
                     }
                 }
                 @include mobile {
@@ -126,10 +133,20 @@
             @include desktop {
                 border-radius: 0px 0px 100px 0px;
             }
+            @include tablet {
+                padding-bottom: 85px;
+            }
         }
 
         @include tablet {
-            margin-bottom: 25px;
+            .modal-wrapper:not(.lander) & {
+                padding-bottom: 85px;
+                margin-bottom: 25px;
+            }
+
+            .lander {
+                margin-bottom: 0px;
+            }
         }
         @include mobile {
             margin-bottom: 70px;

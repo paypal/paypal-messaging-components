@@ -1,6 +1,4 @@
 .content__wrapper {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     margin: auto;
     height: 100%;
     max-height: 100vh;
@@ -17,6 +15,17 @@
 
     @include tablet {
         height: auto;
+
+        .lander & {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-gutter: stable both-edges;
+        }
+    }
+
+    @include mobile {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
