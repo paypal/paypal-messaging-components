@@ -2,14 +2,20 @@
 import { h, Fragment } from 'preact';
 import { useServerData } from '../../../lib';
 import Icon from '../../Icon';
-import Tile from './Tile';
-import styles from './styles/index.scss';
+import Tile from '../../Tile';
+import styles from './styles.scss';
 
 export const ProductList = ({ content: { instructions, disclosure, tiles }, setProduct, contentBodyRef }) => {
     const views = useServerData()?.views;
     const availableTiles = views
         .map(view => tiles.find(tileContent => tileContent.viewName === view.meta.product))
         .filter(tile => !!tile);
+
+    console.log({
+        availableTiles,
+        viewsLength: views?.length,
+        views
+    });
 
     return (
         <Fragment>
@@ -38,10 +44,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                 </div>
                             </div>
                             <div className="content__col collapsed">
-                                <div className="branded-image">
-                                    {/* TODO: update from temp desktop image */}
-                                    <Icon name="pay-monthly-image" />
-                                </div>
+                                <div className="branded-image"></div>
                             </div>
                         </div>
                         <div className="content__row disclosure">{disclosure}</div>

@@ -1,3 +1,6 @@
+@import '../../../styles/globals/colors';
+@import '../../../styles/globals/mixins';
+
 .content__container .content__row.dynamic {
     background-color: #f1efea;
 }
@@ -15,5 +18,3 @@
     color: black;
     font-size: 18px;
 }
-
-@import './tile';

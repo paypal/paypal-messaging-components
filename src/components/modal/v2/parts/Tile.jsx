@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useContent } from '../../../lib';
-import Icon from '../../Icon';
+import { useContent } from '../lib';
+import Icon from './Icon';
 
 const Tile = ({ header, body, icon, viewName, setProduct }) => {
     const { tileIcons } = useContent('PRODUCT_LIST');

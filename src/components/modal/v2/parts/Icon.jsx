@@ -5,11 +5,9 @@ import { h } from 'preact';
 import { logos } from '../lib';
 
 const Icon = ({ name, color, content }) => {
-    const className = `icon icon--${name}`;
-
     if (content) {
         // eslint-disable-next-line react/no-danger
-        return <div className={className} dangerouslySetInnerHTML={{ __html: content }} />;
+        return <div className="icon__wrapper" dangerouslySetInnerHTML={{ __html: content }} />;
     }
 
     switch (name) {
@@ -36,7 +34,7 @@ const Icon = ({ name, color, content }) => {
             );
         case 'pp-button':
             return (
-                <svg className={className} width="55" height="19" xmlns="http://www.w3.org/2000/svg">
+                <svg className={`icon icon--${name}`} width="55" height="19" xmlns="http://www.w3.org/2000/svg">
                     <g fill="none" fill-rule="evenodd">
                         <rect fill="#FFC43A" width="55" height="19" rx="9.5" />
                         <path
@@ -47,6 +45,7 @@ const Icon = ({ name, color, content }) => {
                     </g>
                 </svg>
             );
+
         case 'warning':
             return (
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,6 +57,7 @@ const Icon = ({ name, color, content }) => {
                     />
                 </svg>
             );
+
         case 'header-background':
             return (
                 <svg width="1920" height="1380" viewBox="0 0 1920 1380" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,6 +153,7 @@ const Icon = ({ name, color, content }) => {
                     </defs>
                 </svg>
             );
+
         default:
             return null;
     }
