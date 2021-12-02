@@ -5,6 +5,11 @@ export default {
         country: 'US',
         modalViews: [
             {
+                template: 'short_term.json',
+                offersTemplate: 'short_term.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            },
+            {
                 template: 'ni_v2.json',
                 offersTemplate: 'ni.json',
                 product: 'PAYPAL_CREDIT_NO_INTEREST'
