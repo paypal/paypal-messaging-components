@@ -31,6 +31,7 @@
         max-width: 640px;
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
+        max-height: 85vh; // Prevent it from bleeding below on small height tablet views
 
         @include tablet {
             border-radius: 1rem 1rem 0 0;

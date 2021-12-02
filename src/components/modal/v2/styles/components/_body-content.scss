@@ -42,6 +42,11 @@
         @include tablet {
             top: $sticky-header-height-tablet;
         }
+
+        // Disable on the lander
+        .lander & {
+            content: none;
+        }
     }
 
     & > :last-child {
