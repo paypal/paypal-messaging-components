@@ -11,12 +11,6 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
         .map(view => tiles.find(tileContent => tileContent.viewName === view.meta.product))
         .filter(tile => !!tile);
 
-    console.log({
-        availableTiles,
-        viewsLength: views?.length,
-        views
-    });
-
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
