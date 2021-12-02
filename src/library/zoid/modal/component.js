@@ -1,4 +1,3 @@
-import arrayFind from 'core-js-pure/stable/array/find';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
@@ -15,7 +14,6 @@ import {
     getScriptAttributes,
     logger,
     nextIndex,
-    getProductForOffer,
     getPerformanceMeasure,
     getSessionID,
     getOrCreateStorageID,
@@ -82,7 +80,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             offer: {
                 type: 'string',
                 queryParam: false,
-                required: false
+                required: false,
+                value: validate.offer
             },
             refId: {
                 type: 'string',
@@ -267,34 +266,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
-
-                        const requestedProduct = getProductForOffer(props.offer);
-
-                        const newAttributes = [
-                            'PAY_LATER_SHORT_TERM',
-                            'PAY_LATER_LONG_TERM',
-                            'PAY_LATER_PAY_IN_1',
-                            'PAYPAL_CREDIT_NO_INTEREST',
-                            'PAYPAL_CREDIT_INSTALLMENTS',
-                            'GPL',
-                            'NI'
-                        ];
-
-                        if (
-                            typeof props.offer !== 'undefined' &&
-                            Array.isArray([...products, ...newAttributes]) &&
-                            !arrayFind(
-                                [...products, ...newAttributes],
-                                supportedProduct => supportedProduct === requestedProduct
-                            )
-                        ) {
-                            logger.warn('invalid_option_value', {
-                                location: 'offer',
-                                description: `Expected one of ["${[...products, ...newAttributes].join(
-                                    '", "'
-                                )}"] but received "${props.offer}".`
-                            });
-                        }
 
                         if (
                             typeof onReady === 'function' &&

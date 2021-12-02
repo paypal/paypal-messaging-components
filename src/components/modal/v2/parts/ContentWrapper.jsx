@@ -1,8 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
-import validate from '../../../../library/zoid/message/validation';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -14,18 +13,10 @@ const ContentWrapper = () => {
     const contentBackground = useRef();
     const contentBodyRef = useRef();
 
-    const { offer, integrationType } = useXProps();
-    const [product, setProduct] = useState();
+    const { offer } = useXProps();
+    const product = views.find(view => view.meta.product === offer)?.meta.product ?? views[0].meta.product;
     const content = useContent(product);
     const productMeta = useProductMeta(product);
-
-    if (views?.length > 0) {
-        const viewsContainsOffer = views.some(viewOffers => viewOffers.meta.product === offer);
-        if (!viewsContainsOffer && integrationType === 'STANDALONE_MODAL') {
-            validate.offer({ props: { offer } });
-        }
-        setProduct(viewsContainsOffer && offer ? offer : views[0].meta.product);
-    }
 
     const { headline, subheadline, qualifyingSubheadline = '' } = content;
     const isQualifying = productMeta?.qualifying;

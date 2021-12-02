@@ -18,6 +18,7 @@ import {
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
+    getProductForOffer,
     ppDebug,
     isScriptBeingDestroyed,
     getDevTouchpoint
@@ -136,7 +137,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             amount,
                             buyerCountry,
                             onApply,
-                            offer: offer ?? offerType,
+                            offer: getProductForOffer(offer ?? offerType),
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',
@@ -234,7 +235,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-                        modal.updateProps({ refIndex: index, offer: offer ?? offerType });
+                        modal.updateProps({ refIndex: index, offer: getProductForOffer(offer ?? offerType) });
 
                         logger.track({
                             index,
