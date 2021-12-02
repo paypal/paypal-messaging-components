@@ -11,14 +11,18 @@ jest.mock('src/utils', () => ({
     isStorageFresh: jest.fn().mockReturnValue(false),
     request: jest.fn(() =>
         Promise.resolve({
-            data: {
-                markup: '<div>mock</div>',
-                meta: {},
-                parentStyles: 'body { color: blue; }',
-                warnings: []
-            }
+            data:
+                '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
         })
     ),
+    parseObjFromEncoding: jest.fn(() => ({
+        markup: '<div>mock</div>',
+        meta: {
+            messageRequestId: '23456'
+        },
+        parentStyles: 'body { color: blue; }',
+        warnings: []
+    })),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
 }));
@@ -144,12 +148,16 @@ describe('Message', () => {
         expect(request).toHaveBeenCalledTimes(1);
 
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {},
+            meta: {
+                messageRequestId: '23456'
+            },
             messageRequestId: expect.not.stringMatching(originalMRID),
             deviceID: 'uid_26a2522628_mtc6mjk6nti'
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {},
+            meta: {
+                messageRequestId: '23456'
+            },
             styles: 'body { color: blue; }',
             warnings: []
         });
