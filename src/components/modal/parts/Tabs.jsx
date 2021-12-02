@@ -9,7 +9,7 @@ import { getProductForOffer } from '../../../utils';
 // Determine pre-selected tab based on the offer type of the banner.
 const getInitialTabIndex = (offer, tabs) =>
     Math.max(
-        arrayFindIndex(tabs, ({ product }) => getProductForOffer(product) === getProductForOffer(offer)),
+        arrayFindIndex(tabs, ({ product }) => getProductForOffer(product) === offer),
         0
     );
 
