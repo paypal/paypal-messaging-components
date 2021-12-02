@@ -28,12 +28,17 @@
     &__background-wrapper {
         position: fixed;
         z-index: 0;
-        max-width: 640px;
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
 
         @include tablet {
+            max-width: $content-wrapper-max-width-tablet;
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        @include desktop {
+            max-width: $content-wrapper-max-width-desktop;
             border-radius: 1rem 1rem 0 0;
         }
 
@@ -43,10 +48,10 @@
         // higher z-index so that the content scrolls underneath
         &--sticky {
             z-index: 1;
-            height: $sticky-header-height-mobile;
+            height: $sticky-header-height-tablet-desktop;
 
-            @include tablet {
-                height: $sticky-header-height-tablet;
+            @include mobile {
+                height: $sticky-header-height-mobile;
             }
         }
 
@@ -58,19 +63,24 @@
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 black,
-                black $sticky-header-height-mobile,
+                black $sticky-header-height-tablet-desktop,
                 transparent 100px
             );
-            mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                black $sticky-header-height-tablet-desktop,
+                transparent 100px
+            );
 
-            @include tablet {
+            @include mobile {
                 -webkit-mask-image: linear-gradient(
                     to bottom,
                     black,
-                    black $sticky-header-height-tablet,
+                    black $sticky-header-height-mobile,
                     transparent 100px
                 );
-                mask-image: linear-gradient(to bottom, black, black $sticky-header-height-tablet, transparent 100px);
+                mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
             }
         }
 
@@ -92,21 +102,27 @@
         position: sticky;
         top: 0;
         width: 100%;
-        flex: 0 0 $sticky-header-height-mobile;
+        flex: 0 0 $sticky-header-height-tablet-desktop;
 
-        @include tablet {
-            flex: 0 0 $sticky-header-height-tablet;
+        @include mobile {
+            flex: 0 0 $sticky-header-height-mobile;
         }
 
         .logo {
             &__wrapper {
                 z-index: 9;
                 transform: translate(0, 2rem);
-                transition: all 0.2s ease-out;
-                padding: 0 25px;
+                transition: transform 0.2s ease-out;
+                padding: 0 20px;
 
                 @include tablet {
-                    transform: translate(calc(320px - 50%), 2rem);
+                    transform: translate(calc(#{$content-wrapper-max-width-tablet} / 2 - 50%), 2rem);
+                    display: flex;
+                    justify-content: center;
+                }
+
+                @include desktop {
+                    transform: translate(calc(#{$content-wrapper-max-width-desktop} / 2 - 50%), 2rem);
                     display: flex;
                     justify-content: center;
                 }

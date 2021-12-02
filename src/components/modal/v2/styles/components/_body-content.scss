@@ -13,9 +13,15 @@
     z-index: 1;
 
     @include tablet {
-        max-width: 640px;
-        border-radius: 1rem;
+        max-width: $content-wrapper-max-width-tablet;
         max-height: 90vh;
+        border-radius: 1rem;
+    }
+
+    @include desktop {
+        max-width: $content-wrapper-max-width-desktop;
+        max-height: 90vh;
+        border-radius: 1rem;
     }
 
     .lander & {
@@ -37,10 +43,10 @@
         border-radius: $sticky-header-radius 0 0 0;
         box-shadow: -$sticky-header-radius 0 0 0 #1334a1;
         z-index: 1001;
-        top: $sticky-header-height-mobile;
+        top: $sticky-header-height-tablet-desktop;
 
-        @include tablet {
-            top: $sticky-header-height-tablet;
+        @include mobile {
+            top: $sticky-header-height-mobile;
         }
 
         // Disable on the lander

@@ -9,7 +9,9 @@
     margin-top: -$sticky-header-radius;
 
     .lander & {
+        margin-top: 0;
         border-radius: 100px 0px;
+
         @include mobile {
             border-radius: 100px 0px 0px 0px;
         }
