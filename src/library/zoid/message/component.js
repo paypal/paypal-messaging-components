@@ -18,7 +18,6 @@ import {
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
-    getProductForOffer,
     ppDebug,
     isScriptBeingDestroyed,
     getDevTouchpoint
@@ -115,17 +114,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const {
-                            modal,
-                            index,
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            offer
-                        } = props;
+                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -137,7 +126,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             amount,
                             buyerCountry,
                             onApply,
-                            offer: getProductForOffer(offer ?? offerType),
+                            offer: offerType,
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',
@@ -195,7 +184,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onReady } = props;
 
                     return ({ meta, activeTags, deviceID }) => {
-                        const { account, merchantId, index, modal, getContainer, offer } = props;
+                        const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
@@ -235,7 +224,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             activeTags,
                             index
                         });
-                        modal.updateProps({ refIndex: index, offer: getProductForOffer(offer ?? offerType) });
+                        modal.updateProps({ refIndex: index, offer: offerType });
 
                         logger.track({
                             index,

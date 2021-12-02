@@ -108,20 +108,10 @@ export default {
         return undefined;
     },
     offer: ({ props: { offer } }) => {
-        const options = [
-            'PAY_LATER_SHORT_TERM',
-            'PAY_LATER_LONG_TERM',
-            'PAY_LATER_PAY_IN_1',
-            'PAYPAL_CREDIT_NO_INTEREST',
-            'PAYPAL_CREDIT_INSTALLMENTS',
-            'GPL',
-            'NI'
-        ];
-
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
                 logInvalidType('offer', Types.STRING, offer);
-            } else if (!arrayIncludes(options, offer)) {
+            } else if (offer !== 'NI') {
                 logInvalid('offer', 'Ensure valid offer type.');
             } else {
                 return offer;
