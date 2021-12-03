@@ -28,11 +28,24 @@ const ContentWrapper = () => {
     const { headline, subheadline, qualifyingSubheadline = '' } = content;
     const isQualifying = productMeta?.qualifying;
 
+    const openProductList = () => setProduct('PRODUCT_LIST');
+
     // Add views to productViewComponents object where the keys are the product name and the values are the view component
     const productViewComponents = {
-        PAY_LATER_LONG_TERM: <LongTerm content={content} contentBodyRef={contentBodyRef} />,
-        PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />,
-        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} contentBodyRef={contentBodyRef} />,
+        PAY_LATER_LONG_TERM: (
+            <LongTerm content={content} openProductList={openProductList} contentBodyRef={contentBodyRef} />
+        ),
+        PAY_LATER_SHORT_TERM: (
+            <ShortTerm
+                content={content}
+                productMeta={productMeta}
+                openProductList={openProductList}
+                contentBodyRef={contentBodyRef}
+            />
+        ),
+        PAYPAL_CREDIT_NO_INTEREST: (
+            <NI content={content} openProductList={openProductList} contentBodyRef={contentBodyRef} />
+        ),
         PRODUCT_LIST: <ProductList content={content} setProduct={setProduct} contentBodyRef={contentBodyRef} />
     };
 
