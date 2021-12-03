@@ -2,7 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useCalculator, useServerData, useXProps } from '../lib';
+import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue } from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
@@ -95,94 +95,41 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
     return null;
 };
 
-const delocalize = (value, country) => {
-    switch (country) {
-        case 'DE':
-            return (
-                value
-                    // Remove any non-currency character
-                    .replace(/[^\d,]/g, '')
-                    // Replace decimal marker
-                    .replace(/,/, '.')
-            );
-        default:
-            return value.replace(/[^\d.]/g, '');
-    }
-};
-
-const getDisplayValue = (value, country) => {
-    const delocalizedValue = delocalize(value, country);
-
-    // Match all digits before the decimal and 1-2 digits after
-    // eslint-disable-next-line security/detect-unsafe-regex
-    const [, whole, fraction = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
-    let formattedValue;
-    let displayStr;
-
-    /**
-     * Determines displayed string formatting in input field based on country.
-     * Allow displayStr value to end with a dangling period decimal or comma to allow typing a "cent" value.
-     * TODO: Prior to ramping DE to universal modal schema, validate DE=specific calculator functionality.
-     */
-    switch (country) {
-        case 'DE':
-            formattedValue = Number(whole).toLocaleString('de-DE', {
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
-            });
-            displayStr = `${formattedValue}${
-                fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''
-            }`;
-            break;
-        default:
-            formattedValue = Number(whole).toLocaleString('en-US', {
-                currency: 'USD',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
-            });
-            displayStr = `$${formattedValue}${
-                fraction !== '' || value[value.length - 1] === '.' ? `.${fraction.slice(0, 2)}` : ''
-            }`;
-            break;
-    }
-
-    // Return empty string if delocalizedValue is an empty string or if formattedValue is 'NaN'. Otherwise return displayStr.
-    return delocalizedValue === '' || formattedValue === 'NaN' ? '' : displayStr;
-};
-
 const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
-    const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
+    const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
     const { title, inputLabel, inputPlaceholder } = calculator;
 
+    // Set hasUsedInputField to true if someone has typed in the input field at any point.
+    const [hasUsedInputField, setHasUsedInputField] = useState(false);
+
     // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
 
-    // If the person entered an amount in the calc and it's not 0.00 or 0.
-    const hasEnteredAmount = delocalize(value) !== '0.00' && delocalize(value) !== '0';
+    // If the person entered an amount in the calc and it is not 0.
+    const hasEnteredAmount = !(parseInt(delocalize(value || '0'), 10) === 0);
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
-    // Pass terms, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(terms, isLoading, calculator, delocalize(displayValue ?? '0'));
 
-    // Update display value based on changes from useCalculator
+    // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0'));
+
     useEffect(() => {
-        if (!hasInitialAmount && !hasEnteredAmount) {
+        if (!hasInitialAmount) {
             setDisplayValue('');
         } else setDisplayValue(getDisplayValue(value, country));
-    }, [value]);
+    }, []);
 
     /**
-     * expandedState determines if the desktop view of the Pay Monthly modal is expanded (i.e. has terms or has loading shimmer).
+     * expandedState determines if the desktop view of the PAY_LATER_LONG_TERM modal is expanded (i.e. a view with offers exists or has loading shimmer).
      * If expandedState is false, a class of "collapsed" gets added to affected elements for styling purposes.
      */
     if (hasInitialAmount || hasEnteredAmount) {
-        if (terms || isLoading) {
+        if (view || isLoading) {
             setExpandedState(true);
         } else setExpandedState(false);
     }
@@ -202,12 +149,13 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     };
 
     const onInput = evt => {
-        const { selectionStart, selectionEnd, value: targetValue } = evt.target;
+        setHasUsedInputField(true);
 
-        const delocalizedValue = delocalize(targetValue);
+        const { selectionStart, selectionEnd, value: targetValue } = evt.target;
+        const onInputValue = delocalize(targetValue);
         const newDisplayValue = getDisplayValue(targetValue, country);
 
-        const finalValue = parseFloat(Number(delocalizedValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
+        const finalValue = parseFloat(Number(onInputValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
 
         const selectionOffset = finalValue.length - targetValue.length;
 
@@ -243,7 +191,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     /**
      * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
      */
-    const { offers } = terms;
+    const { offers } = view;
     let aprDisclaimer = '';
 
     const aprArr = offers.filter(offer => offer?.meta?.qualifying === 'true').map(offer => offer?.meta?.apr);
@@ -263,32 +211,28 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">
-                        {delocalize(value) !== '0.00' && delocalize(value) !== '0' && delocalize(value) !== ''
-                            ? inputLabel
-                            : ''}
-                    </div>
+                    <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
                     <input
-                        className={`input ${
-                            emptyState || delocalize(value) === '0' || delocalize(value) === '' ? 'empty-input' : ''
-                        }`}
+                        className={`input ${displayValue === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
                         type="tel"
-                        value={parseFloat(delocalize(displayValue ?? '0')) === 0 ? '' : displayValue}
+                        value={displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
                     />
                 </div>
                 {renderError(error || emptyState || isLoading)}
             </form>
-            {hasEnteredAmount ? (
+            {hasInitialAmount || hasUsedInputField ? (
                 <div className="content-column">
-                    <TermsTable terms={terms} isLoading={isLoading} hasError={error} />
+                    <TermsTable view={view} isLoading={isLoading} hasError={error} />
                 </div>
             ) : (
                 <Fragment />
             )}
-            <div className={`finance-terms__disclaimer ${emptyState ? 'no-amount' : ''}`}>{aprDisclaimer}</div>
+            <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
+                {aprDisclaimer}
+            </div>
         </div>
     );
 };
