@@ -16,7 +16,7 @@
         "tiles": [
             {
                 "header": "Pay in 4",
-                "icon": "pay-in-4-tile",
+                "icon": "pay-in-four-tile",
                 "body": "Interest-free payments every 2 weeks, starting today.",
                 "viewName": "PAY_LATER_SHORT_TERM"
             },

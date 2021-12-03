@@ -3,6 +3,7 @@ export const DEV_US_MULTI = {
     modalViews: [
         {
             template: 'product_list.json',
+            offersTemplate: 'long_term.json',
             product: 'PRODUCT_LIST'
         },
         {
@@ -34,6 +35,7 @@ export const DEV_US_MULTI = {
         }
     ],
     offers: {
+        PRODUCT_LIST: [],
         PAYPAL_CREDIT_NO_INTEREST: [
             {
                 totalPayments: 6,
