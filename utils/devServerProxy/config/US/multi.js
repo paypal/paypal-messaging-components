@@ -2,10 +2,6 @@ export const DEV_US_MULTI = {
     country: 'US',
     modalViews: [
         {
-            template: 'product_list.json',
-            product: 'PRODUCT_LIST'
-        },
-        {
             template: 'long_term.json',
             offersTemplate: 'long_term.json',
             product: 'PAY_LATER_LONG_TERM'
