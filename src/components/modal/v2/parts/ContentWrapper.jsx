@@ -14,12 +14,13 @@ const ContentWrapper = () => {
     const contentBodyRef = useRef();
 
     let defaultProduct;
-    if (views?.length === 1) {
-        defaultProduct = views[0].meta.product;
-    }
-    if (views?.length > 1) {
+    const sanitizeViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
+    if (sanitizeViews?.length === 1) {
+        defaultProduct = sanitizeViews[0]?.meta?.product;
+    } else if (sanitizeViews?.length > 1) {
         defaultProduct = 'PRODUCT_LIST';
     }
+
     const [product, setProduct] = useState(defaultProduct);
     const content = useContent(product);
     const productMeta = useProductMeta(product);
