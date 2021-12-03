@@ -17,13 +17,6 @@
         }
     }
 
-    @include tablet {
-        border-radius: 10px;
-    }
-    @include mobile {
-        border-radius: 0px;
-    }
-
     main {
         color: $legal-disclaimer;
         padding-top: 0;

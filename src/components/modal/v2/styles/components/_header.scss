@@ -1,16 +1,4 @@
 .header {
-    &__wrapper {
-        overflow: hidden;
-        flex: 0 0 auto;
-
-        @include tablet {
-            border-radius: 10px;
-        }
-        @include mobile {
-            border-radius: 0px;
-        }
-    }
-
     &__container {
         position: relative;
 
@@ -25,29 +13,32 @@
         }
     }
 
-    &__background-wrapper {
-        position: fixed;
+    &__fixed-wrapper {
+        @include fixedWrapper;
+
         z-index: 0;
+        overflow: hidden;
+        border-radius: $content-wrapper-border-radius $content-wrapper-border-radius 0 0;
+
+        &--front {
+            z-index: 1;
+        }
+
+        @include mobile {
+            border-radius: 0;
+        }
+    }
+
+    &__background-wrapper {
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-
-        @include tablet {
-            max-width: $content-wrapper-max-width-tablet;
-            border-radius: 1rem 1rem 0 0;
-        }
-
-        @include desktop {
-            max-width: $content-wrapper-max-width-desktop;
-            border-radius: 1rem 1rem 0 0;
-        }
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
         // This requires having a portion of the background with a
         // higher z-index so that the content scrolls underneath
         &--sticky {
-            z-index: 1;
             height: $sticky-header-height-tablet-desktop;
 
             @include mobile {
@@ -56,7 +47,6 @@
         }
 
         &--gradient {
-            z-index: 1;
             // Ends right above the header text in the scenario where mask-image
             // isn't supported to prevent hiding the text on initial render
             height: 6rem;

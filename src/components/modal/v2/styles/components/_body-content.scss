@@ -1,8 +1,29 @@
+// Windows does not clip scrollbars with overflow hidden
+// and border radius so we wrap a div around the scrollable
+// section and can clip from there
+.content__wrapper-overflow {
+    margin: auto;
+    overflow: hidden;
+    border-radius: $content-wrapper-border-radius;
+    width: 100%;
+
+    @include mobile {
+        border-radius: 0;
+    }
+
+    @include tablet {
+        max-width: $content-wrapper-max-width-tablet;
+    }
+
+    @include desktop {
+        max-width: $content-wrapper-max-width-desktop;
+    }
+}
+
 .content__wrapper {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     -moz-overflow-scrolling: touch;
-    margin: auto;
     height: 100%;
     max-height: 100vh;
     width: 100%;
@@ -12,17 +33,16 @@
     // Required to minor scrolling overflow around rounded corners in Safari
     // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
     z-index: 1;
+    // TODO: There appears to be a small 1px space below the content__container in windows
+    // where it's background color is not showing. Is this specific to browserstack?
+    background: $instructions-background;
 
     @include tablet {
-        max-width: $content-wrapper-max-width-tablet;
         max-height: 90vh;
-        border-radius: 1rem;
     }
 
     @include desktop {
-        max-width: $content-wrapper-max-width-desktop;
         max-height: 90vh;
-        border-radius: 1rem;
     }
 
     .lander & {
@@ -30,6 +50,7 @@
         max-height: none;
         margin-bottom: 4rem;
         border-radius: 0;
+        background: transparent;
     }
 
     // Small reverse border radius hook below the header to curve the top left

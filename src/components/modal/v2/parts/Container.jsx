@@ -83,9 +83,12 @@ const Container = ({ children }) => {
                 {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
-                {/* Scrollable content */}
-                <div className="content__wrapper" ref={contentWrapperRef}>
-                    {children}
+                {/* Presentational div to clip scrollbars with a rounded border */}
+                <div className="content__wrapper-overflow">
+                    {/* Scrollable content */}
+                    <div className="content__wrapper" ref={contentWrapperRef}>
+                        {children}
+                    </div>
                 </div>
             </div>
         </ScrollProvider>
