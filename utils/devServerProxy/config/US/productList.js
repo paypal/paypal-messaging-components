@@ -17,7 +17,7 @@ export const DEV_US_PRODUCT_LIST = {
             product: 'PAY_LATER_LONG_TERM'
         },
         {
-            template: 'ni.json',
+            template: 'ni_v2.json',
             product: 'PAYPAL_CREDIT_NO_INTEREST'
         }
     ]
