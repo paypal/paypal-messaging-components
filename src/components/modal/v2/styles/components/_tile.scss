@@ -1,4 +1,7 @@
-button.tile {
+@import '../globals/colors';
+@import '../globals/mixins';
+
+.tile {
     // normalize button before styling it
     border: 0;
     margin: 0;
@@ -14,44 +17,49 @@ button.tile {
     padding: 12px 12px 15px 20px;
     border-radius: 12px;
     margin-bottom: 21px;
-    background: #ffffff;
+    background: white;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-}
 
-.tile:hover {
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 1px 4px 0px rgba(0, 0, 0, 0.08);
-}
+    &:hover {
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 1px 4px 0px rgba(0, 0, 0, 0.08);
+    }
 
-.tile__row {
-    display: flex;
-}
+    @include mobile {
+        max-width: 100%;
+    }
 
-.tile__image {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-}
+    &__row {
+        display: flex;
 
-.tile__image svg {
-    width: 72px;
-    height: 45px;
-}
+        .tile__col {
+            &.tile__image {
+                display: flex;
+                align-items: center;
+                margin-right: 20px;
 
-.tile__header {
-    display: flex;
-    font-family: PayPal Sans Big;
-    font-size: 28px;
-    line-height: 36px;
-    align-items: center;
-    color: #000000;
-}
+                svg {
+                    width: 72px;
+                    height: 45px;
+                }
+            }
 
-.tile__body {
-    font-family: PayPal Sans Big;
-    font-size: 14px;
-    line-height: 20px;
-    display: flex;
-    align-items: center;
-    color: #2c2e2f;
+            .tile__header {
+                display: flex;
+                font-size: 28px;
+                line-height: 36px;
+                align-items: center;
+                color: black;
+            }
+
+            .tile__body {
+                margin-top: 5px;
+                font-size: 14px;
+                line-height: 20px;
+                display: flex;
+                align-items: center;
+                color: $text-main;
+            }
+        }
+    }
 }
