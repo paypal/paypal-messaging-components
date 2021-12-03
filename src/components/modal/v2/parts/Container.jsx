@@ -79,18 +79,14 @@ const Container = ({ children }) => {
 
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
-            <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''}`}>
+            <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''} ${loading ? 'loading' : ''}`}>
                 {isLander && !isIframe && <Icon name="header-background" />}
-                <section className={`modal-container show ${loading ? 'loading' : ''}`}>
-                    <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
-                    <div className="wrapper">
-                        <Overlay />
-                        {/* Scrollable content */}
-                        <div className="content__wrapper" ref={contentWrapperRef}>
-                            {children}
-                        </div>
-                    </div>
-                </section>
+                <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
+                <Overlay />
+                {/* Scrollable content */}
+                <div className="content__wrapper" ref={contentWrapperRef}>
+                    {children}
+                </div>
             </div>
         </ScrollProvider>
     );

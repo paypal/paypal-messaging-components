@@ -23,55 +23,10 @@
         }
     }
 
-    &::after {
-        content: '';
-        display: block;
-        visibility: hidden;
-        overflow-y: scroll;
-    }
-}
-
-.modal-container {
-    flex: 1 1 auto;
-    position: relative;
-
-    &.show {
-        .wrapper {
-            transform: translateY(0);
-            @include desktop {
-                display: flex;
-            }
-            @include tablet {
-                display: flex;
-            }
-        }
-
-        .overlay {
-            opacity: 1;
-        }
-    }
-}
-
-.wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: transform 350ms;
-    transform: translateY(100%);
-
-    .lander & {
-        position: static;
-        width: auto;
-        height: auto;
-    }
-}
-
-.main {
-    -webkit-overflow-scrolling: touch;
-    -moz-overflow-scrolling: touch;
-    position: relative;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0), 0 5px 15px 0 rgba(0, 0, 0, 0);
-    transition: box-shadow 350ms;
+    // &::after {
+    //     content: '';
+    //     display: block;
+    //     visibility: hidden;
+    //     overflow-y: scroll;
+    // }
 }

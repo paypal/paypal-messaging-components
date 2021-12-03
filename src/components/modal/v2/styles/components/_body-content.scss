@@ -1,6 +1,7 @@
 .content__wrapper {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
     margin: auto;
     height: 100%;
     max-height: 100vh;
