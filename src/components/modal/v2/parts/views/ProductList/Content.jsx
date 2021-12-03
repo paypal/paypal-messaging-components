@@ -6,10 +6,8 @@ import Tile from '../../Tile';
 import styles from './styles.scss';
 
 export const ProductList = ({ content: { instructions, disclosure, tiles }, setProduct, contentBodyRef }) => {
-    const views = useServerData()?.views;
-    const availableTiles = views
-        .map(view => tiles.find(tileContent => tileContent.viewName === view.meta.product))
-        .filter(tile => !!tile);
+    const { views } = useServerData();
+    const availableTiles = tiles.filter(tile => views.find(view => tile.viewName === view.meta.product));
 
     return (
         <Fragment>
@@ -19,7 +17,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                     <div className="content__body" ref={contentBodyRef}>
                         <div className="content__row dynamic">
                             <div className="content__col">
-                                <div className="content_row instructions">
+                                <div className="content__row instructions">
                                     <p>{instructions.top}</p>
                                 </div>
                                 {availableTiles.map(({ header, body, icon, viewName }) => (
@@ -32,7 +30,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                         setProduct={setProduct}
                                     />
                                 ))}
-                                <div className="content_row instructions">
+                                <div className="content__row instructions">
                                     {/* eslint-disable-next-line react/no-danger */}
                                     <p dangerouslySetInnerHTML={{ __html: instructions.bottom }} />
                                 </div>
@@ -41,7 +39,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                 <div className="branded-image"></div>
                             </div>
                         </div>
-                        <div className="content__row disclosure">{disclosure}</div>
+                        <div className="content__row disclosure collapsed">{disclosure}</div>
                     </div>
                 </main>
             </div>
