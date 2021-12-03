@@ -1,7 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useServerData } from '../../../lib';
-import Icon from '../../Icon';
 import Tile from '../../Tile';
 import styles from './styles.scss';
 
@@ -36,7 +35,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                 </div>
                             </div>
                             <div className="content__col collapsed">
-                                <div className="branded-image"></div>
+                                <div className="branded-image" />
                             </div>
                         </div>
                         <div className="content__row disclosure collapsed">{disclosure}</div>
