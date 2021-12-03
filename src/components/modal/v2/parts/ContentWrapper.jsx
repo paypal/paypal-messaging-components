@@ -5,7 +5,7 @@ import { useContent, useServerData, useProductMeta } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
-import { LongTerm, ShortTerm, ProductList } from './views';
+import { LongTerm, ShortTerm, NI, ProductList } from './views';
 
 const ContentWrapper = () => {
     const { views } = useServerData();
@@ -32,6 +32,7 @@ const ContentWrapper = () => {
     const productViewComponents = {
         PAY_LATER_LONG_TERM: <LongTerm content={content} contentBodyRef={contentBodyRef} />,
         PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} contentBodyRef={contentBodyRef} />,
+        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} contentBodyRef={contentBodyRef} />,
         PRODUCT_LIST: <ProductList content={content} setProduct={setProduct} contentBodyRef={contentBodyRef} />
     };
 

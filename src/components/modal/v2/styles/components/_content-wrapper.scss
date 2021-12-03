@@ -1,6 +1,4 @@
 .content__wrapper {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     margin: auto;
     height: 100%;
     max-height: 100vh;
@@ -17,6 +15,17 @@
 
     @include tablet {
         height: auto;
+
+        .lander & {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-gutter: stable both-edges;
+        }
+    }
+
+    @include mobile {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -51,6 +60,14 @@
         margin-top: 50px;
         margin-bottom: 50px;
         max-width: 640px;
+        border-radius: 10px;
+
+        .modal-wrapper:not(.lander) & {
+            margin-top: auto;
+            margin-bottom: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
     }
 
     @include mobile {

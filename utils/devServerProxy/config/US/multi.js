@@ -2,12 +2,27 @@ export const DEV_US_MULTI = {
     country: 'US',
     modalViews: [
         {
+            template: 'short_term.json',
+            offersTemplate: 'short_term.json',
+            product: 'PAY_LATER_SHORT_TERM'
+        },
+        {
+            template: 'ni_v2.json',
+            offersTemplate: 'ni.json',
+            product: 'PAYPAL_CREDIT_NO_INTEREST'
+        },
+        {
             template: 'long_term.json',
             offersTemplate: 'long_term.json',
             product: 'PAY_LATER_LONG_TERM'
         }
     ],
     messageThresholds: [
+        {
+            amount: 0,
+            template: 'ni.json',
+            product: 'PAYPAL_CREDIT_NO_INTEREST'
+        },
         {
             amount: 0,
             template: 'gplnq.json',
@@ -20,7 +35,8 @@ export const DEV_US_MULTI = {
                 totalPayments: 6,
                 apr: 0,
                 nominalRate: 0,
-                minAmount: 99
+                minAmount: 99,
+                maxAmount: 9999.99
             }
         ],
         PAY_LATER_SHORT_TERM: [

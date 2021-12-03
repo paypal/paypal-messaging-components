@@ -103,13 +103,11 @@
             z-index: 9;
 
             @include desktop {
-                display: flex;
-                justify-content: flex-end;
+                margin-left: auto;
             }
 
             @include tablet {
-                display: flex;
-                justify-content: flex-end;
+                margin-left: auto;
             }
 
             svg {
