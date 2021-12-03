@@ -20,10 +20,6 @@ const selectBestOffer = (offers = [], amount) =>
     );
 
 const getMorsVars = (country, offer, amount) => {
-    if (!offer) {
-        return {};
-    }
-
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
@@ -52,30 +48,6 @@ const getMorsVars = (country, offer, amount) => {
     };
 };
 
-const getParsedModalViews = ({ amount, country, modalViews, offers }) =>
-    modalViews.map(({ template, offersTemplate, product }) => {
-        const viewTemplate = JSON.parse(fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${template}`, 'utf8'));
-        delete viewTemplate.meta.variables; // Not part of the final response
-
-        const viewOffersTemplate =
-            offersTemplate &&
-            JSON.parse(fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8'));
-        delete viewOffersTemplate?.meta.variables; // Not part of the final response
-
-        const viewOffers = offers && offers[product];
-
-        return {
-            template: JSON.stringify(viewTemplate),
-            morsVars: getMorsVars(country, selectBestOffer(viewOffers, amount), amount),
-            offers:
-                viewOffersTemplate &&
-                viewOffers.map(offer => ({
-                    template: JSON.stringify(viewOffersTemplate),
-                    morsVars: getMorsVars(country, offer, amount)
-                }))
-        };
-    });
-
 export default function getDevAccountDetails({ account, amount, buyerCountry }) {
     if (devAccountMap[account]) {
         const [country, productNames, messageName] = devAccountMap[account];
@@ -98,15 +70,6 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
-
-        const parsedModalViews = getParsedModalViews({ amount, country, modalViews, offers });
-        if (!messageThresholds) {
-            return {
-                country,
-                modalViews: parsedModalViews
-            };
-        }
-
         const selectedMessage =
             messageThresholds.find(({ amount: minAmount }) => minAmount < amount) ??
             messageThresholds[messageThresholds.length - 1];
@@ -118,7 +81,30 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
 
         return {
             country,
-            modalViews: parsedModalViews,
+            modalViews: modalViews.map(({ template, offersTemplate, product }) => {
+                const viewTemplate = JSON.parse(
+                    fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${template}`, 'utf8')
+                );
+                delete viewTemplate.meta.variables; // Not part of the final response
+
+                const viewOffersTemplate =
+                    offersTemplate &&
+                    JSON.parse(fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8'));
+                delete viewOffersTemplate.meta.variables; // Not part of the final response
+
+                const viewOffers = offers[product];
+
+                return {
+                    template: JSON.stringify(viewTemplate),
+                    morsVars: getMorsVars(country, selectBestOffer(viewOffers, amount), amount),
+                    offers:
+                        viewOffersTemplate &&
+                        viewOffers.map(offer => ({
+                            template: JSON.stringify(viewOffersTemplate),
+                            morsVars: getMorsVars(country, offer, amount)
+                        }))
+                };
+            }),
             message: {
                 template: messageTemplate,
                 morsVars: getMorsVars(country, selectBestOffer(offers[selectedMessage.product], amount), amount)

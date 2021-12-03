@@ -1,32 +1,23 @@
-export const DEV_US_MULTI = {
+export const DEV_US_PRODUCT_LIST = {
     country: 'US',
     modalViews: [
         {
             template: 'product_list.json',
+            offersTemplate: 'long_term.json',
             product: 'PRODUCT_LIST'
-        },
-        {
-            template: 'short_term.json',
-            offersTemplate: 'short_term.json',
-            product: 'PAY_LATER_SHORT_TERM'
-        },
-        {
-            template: 'ni_v2.json',
-            offersTemplate: 'ni.json',
-            product: 'PAYPAL_CREDIT_NO_INTEREST'
         },
         {
             template: 'long_term.json',
             offersTemplate: 'long_term.json',
             product: 'PAY_LATER_LONG_TERM'
+        },
+        {
+            template: 'gpl.json',
+            offersTemplate: 'short_term.json',
+            product: 'PAY_LATER_SHORT_TERM'
         }
     ],
     messageThresholds: [
-        {
-            amount: 0,
-            template: 'ni.json',
-            product: 'PAYPAL_CREDIT_NO_INTEREST'
-        },
         {
             amount: 0,
             template: 'gplnq.json',
@@ -34,13 +25,21 @@ export const DEV_US_MULTI = {
         }
     ],
     offers: {
-        PAYPAL_CREDIT_NO_INTEREST: [
+        PRODUCT_LIST: [
             {
                 totalPayments: 6,
                 apr: 0,
                 nominalRate: 0,
                 minAmount: 99,
-                maxAmount: 9999.99
+                maxAmount: 5000
+            }
+        ],
+        PAYPAL_CREDIT_NO_INTEREST: [
+            {
+                totalPayments: 6,
+                apr: 0,
+                nominalRate: 0,
+                minAmount: 99
             }
         ],
         PAY_LATER_SHORT_TERM: [
