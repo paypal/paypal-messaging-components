@@ -23,9 +23,9 @@
     }
 }
 
-// Styles to created a fixed element that spans the full width of
+// Styles to create a fixed element that spans the full width of
 // the modal body content wrapper that accounts for the difference
-// between scrollbars across Windows and MacOS
+// between scrollbar widths across systems (e.g. Windows vs MacOS)
 @mixin fixedWrapper {
     position: fixed;
     left: 50%;
