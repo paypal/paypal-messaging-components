@@ -7,7 +7,7 @@ import NI from './NI';
 import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
 import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
-import { getProductForOffer } from '../../../../../utils';
+import { getStandardProductOffer } from '../../../../../utils';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {
@@ -22,9 +22,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
     // Offer may be undefined when modal is rendered via standalone modal integration
-    const product = getProductForOffer(offer);
+    const product = getStandardProductOffer(offer);
     // Product can be NONE when standalone modal so default to first product
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+    const initialProduct =
+        arrayFind(products, prod => (offer ? prod.meta.product === offer : prod.meta.product === product)) ||
+        products[0];
     const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
 
     useScroll(

@@ -196,7 +196,7 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getProductForOffer(offer) {
+export function getStandardProductOffer(offer) {
     if (typeof offer === 'undefined') {
         return 'NONE';
     }
