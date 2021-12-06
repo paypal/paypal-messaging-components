@@ -22,11 +22,9 @@ const Content = ({ headerRef, contentWrapper }) => {
     const handleApplyNowClick = useApplyNow('Apply Now');
     const [showApplyNow, setApplyNow] = useState(false);
     // Offer may be undefined when modal is rendered via standalone modal integration
-    const product = getStandardProductOffer(offer);
     // Product can be NONE when standalone modal so default to first product
     const initialProduct =
-        arrayFind(products, prod => (offer ? prod.meta.product === offer : prod.meta.product === product)) ||
-        products[0];
+        arrayFind(products, prod => getStandardProductOffer(prod.meta.product) === offer) || products[0];
     const [selectedProduct, setSelectedProduct] = useState(initialProduct.meta.product);
 
     useScroll(
@@ -86,10 +84,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     useDidUpdateEffect(() => {
         // For standalone modal the product determined by the offer changing may be invalid
         // so we need to search against the actual offers and provide a default
-        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
+        const fullProduct =
+            arrayFind(products, prod => getStandardProductOffer(prod.meta.product) === offer) || products[0];
 
         setSelectedProduct(fullProduct.meta.product);
-    }, [product]);
+    }, [offer]);
 
     const setShowApplyNow = show => {
         if (selectedProduct === 'NI' && show !== showApplyNow) {

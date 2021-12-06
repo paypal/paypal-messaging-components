@@ -238,7 +238,8 @@ export function getStandardProductOffer(offer) {
             return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
         case OFFER.PAYPAL_CREDIT_NO_INTEREST:
         case 'NI':
-        default:
             return OFFER.PAYPAL_CREDIT_NO_INTEREST;
+        default:
+            return undefined;
     }
 }
