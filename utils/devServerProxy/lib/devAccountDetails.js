@@ -19,10 +19,10 @@ const selectBestOffer = (offers = [], amount) =>
         undefined
     );
 
-const getMorsVars = (country, offer, amount) => {
+const getMorsVars = (country, offer = {}, amount) => {
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
-    const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
+    const { apr = 0, nominalRate = 0, totalPayments = 0, minAmount = 0, maxAmount = 0 } = offer;
     const total = Number(amount) + Number(amount) * (apr * 0.01) * (totalPayments / 12);
     const totalInterest = total - Number(amount);
 
