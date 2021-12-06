@@ -111,6 +111,8 @@ main {
     }
 
     .content-background {
+        display: flex;
+        flex-direction: column;
         box-shadow: 1px 21px 34px 2px rgba(0, 0, 0, 0.56);
     }
 
