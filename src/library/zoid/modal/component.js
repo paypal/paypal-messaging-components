@@ -20,8 +20,7 @@ import {
     getStageTag,
     getFeatures,
     ppDebug,
-    getDevTouchpoint,
-    getProductForOffer
+    getDevTouchpoint
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -81,8 +80,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             offer: {
                 type: 'string',
                 queryParam: false,
-                required: false,
-                decorate: ({ value }) => getProductForOffer(value)
+                required: false
             },
             refId: {
                 type: 'string',
