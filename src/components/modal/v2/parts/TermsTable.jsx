@@ -4,7 +4,7 @@ import { useState } from 'preact/hooks';
 import OfferCard from './OfferCard';
 import LoadingShimmer from './LoadingShimmer';
 
-const TermsTable = ({ isLoading, terms: { offers }, hasError }) => {
+const TermsTable = ({ isLoading, view: { offers }, hasError }) => {
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
      * depending on the last number of offers that were displayed.

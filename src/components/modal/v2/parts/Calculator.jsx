@@ -96,7 +96,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
 };
 
 const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
-    const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
+    const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
     const { title, inputLabel, inputPlaceholder } = calculator;
@@ -114,8 +114,9 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
-    // Pass terms, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(terms, isLoading, calculator, delocalize(displayValue ?? '0'));
+
+    // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0'));
 
     useEffect(() => {
         if (!hasInitialAmount) {
@@ -124,11 +125,11 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     }, []);
 
     /**
-     * expandedState determines if the desktop view of the Pay Monthly modal is expanded (i.e. has terms or has loading shimmer).
+     * expandedState determines if the desktop view of the PAY_LATER_LONG_TERM modal is expanded (i.e. a view with offers exists or has loading shimmer).
      * If expandedState is false, a class of "collapsed" gets added to affected elements for styling purposes.
      */
     if (hasInitialAmount || hasEnteredAmount) {
-        if (terms || isLoading) {
+        if (view || isLoading) {
             setExpandedState(true);
         } else setExpandedState(false);
     }
@@ -190,7 +191,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     /**
      * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
      */
-    const { offers } = terms;
+    const { offers } = view;
     let aprDisclaimer = '';
 
     const aprArr = offers.filter(offer => offer?.meta?.qualifying === 'true').map(offer => offer?.meta?.apr);
@@ -224,7 +225,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             </form>
             {hasInitialAmount || hasUsedInputField ? (
                 <div className="content-column">
-                    <TermsTable terms={terms} isLoading={isLoading} hasError={error} />
+                    <TermsTable view={view} isLoading={isLoading} hasError={error} />
                 </div>
             ) : (
                 <Fragment />
