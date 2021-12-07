@@ -10,7 +10,7 @@ import {
     isElement,
     getGlobalState,
     objectMerge,
-    getProductForOffer,
+    getStandardProductOffer,
     addPerformanceMeasure,
     globalEvent
 } from '../../../utils';
@@ -86,7 +86,7 @@ const memoizedModal = memoizeOnProps(
                 renderProm = renderModal('body');
             }
 
-            const requestedProduct = getProductForOffer(options.offer);
+            const requestedProduct = getStandardProductOffer(options.offer);
 
             if (
                 typeof options.offer !== 'undefined' &&

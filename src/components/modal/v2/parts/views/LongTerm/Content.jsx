@@ -8,7 +8,8 @@ import Instructions from '../../Instructions';
 import Button from '../../Button';
 
 export const LongTerm = ({
-    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta }
+    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
+    openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { onClose } = useXProps();
@@ -33,7 +34,7 @@ export const LongTerm = ({
             );
         }
         if (views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
     };

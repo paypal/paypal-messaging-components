@@ -11,13 +11,14 @@ import { useServerData } from '../../../lib/providers';
 
 export const ShortTerm = ({
     content: { instructions, linkToProductList, disclosure, donutTimestamps },
-    productMeta: { qualifying, periodicPayment }
+    productMeta: { qualifying, periodicPayment },
+    openProductList
 }) => {
     const { views } = useServerData();
 
     const renderProductListLink = () => {
         if (views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
     };

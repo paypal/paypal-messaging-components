@@ -1,28 +1,41 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useContent, useServerData, useProductMeta } from '../lib';
+import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
 import Header from './Header';
-import { LongTerm, ShortTerm, NI } from './views';
+import { LongTerm, ShortTerm, NI, ProductList } from './views';
 
 const BodyContent = () => {
     const { views } = useServerData();
-    const [product, setProduct] = useState();
+    const { offer } = useXProps();
+
+    let defaultProduct;
+    const sanitizeViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
+    if (sanitizeViews?.length === 1) {
+        defaultProduct = sanitizeViews[0]?.meta?.product;
+    } else if (sanitizeViews?.length > 1) {
+        defaultProduct = 'PRODUCT_LIST';
+    }
+
+    const [product, setProduct] = useState(
+        offer ? views.find(view => view.meta.product === offer)?.meta.product : defaultProduct
+    );
     const content = useContent(product);
     const productMeta = useProductMeta(product);
-
-    if (views?.length > 0) {
-        setProduct(views[0].meta.product);
-    }
 
     const { headline, subheadline, qualifyingSubheadline = '' } = content;
     const isQualifying = productMeta?.qualifying;
 
-    // Add views to productView object where the keys are the product name and the values are the view component
-    const productView = {
-        PAY_LATER_LONG_TERM: <LongTerm content={content} />,
-        PAY_LATER_SHORT_TERM: <ShortTerm content={content} productMeta={productMeta} />,
-        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} />
+    const openProductList = () => setProduct('PRODUCT_LIST');
+
+    // Add views to viewComponents object where the keys are the product name and the values are the view component
+    const viewComponents = {
+        PAY_LATER_LONG_TERM: <LongTerm content={content} openProductList={openProductList} />,
+        PAY_LATER_SHORT_TERM: (
+            <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
+        ),
+        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} openProductList={openProductList} />,
+        PRODUCT_LIST: <ProductList content={content} setProduct={setProduct} />
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
@@ -37,7 +50,7 @@ const BodyContent = () => {
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
             />
-            {productView[product]}
+            {viewComponents[product]}
         </Fragment>
     );
 };

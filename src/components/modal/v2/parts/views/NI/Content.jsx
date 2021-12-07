@@ -7,7 +7,10 @@ import Instructions from '../../Instructions';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
-export const NI = ({ content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList } }) => {
+export const NI = ({
+    content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
+    openProductList
+}) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
@@ -67,7 +70,9 @@ export const NI = ({ content: { instructions, terms, buttonText, disclaimer, foo
                             return <li className="content__footer-item">{line}</li>;
                         })}
                         <li className="content__footer-item">
-                            <ProductListLink>{renderProductListLink()}</ProductListLink>
+                            <ProductListLink openProductList={openProductList}>
+                                {renderProductListLink()}
+                            </ProductListLink>
                         </li>
                     </ul>
                 </main>
