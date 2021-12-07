@@ -19,10 +19,10 @@ const selectBestOffer = (offers = [], amount) =>
         undefined
     );
 
-const getMorsVars = (country, offer = {}, amount) => {
+const getMorsVars = (country, offer, amount) => {
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
-    const { apr = 0, nominalRate = 0, totalPayments = 0, minAmount = 0, maxAmount = 0 } = offer;
+    const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
     const total = Number(amount) + Number(amount) * (apr * 0.01) * (totalPayments / 12);
     const totalInterest = total - Number(amount);
 
@@ -90,15 +90,19 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                 const viewOffersTemplate =
                     offersTemplate &&
                     JSON.parse(fs.readFileSync(`${CONTENT_PATH}/offers/${country}/${offersTemplate}`, 'utf8'));
-                delete viewOffersTemplate.meta.variables; // Not part of the final response
+
+                if (viewOffersTemplate) {
+                    delete viewOffersTemplate.meta.variables; // Not part of the final response
+                }
 
                 const viewOffers = offers[product];
 
                 return {
                     template: JSON.stringify(viewTemplate),
-                    morsVars: getMorsVars(country, selectBestOffer(viewOffers, amount), amount),
+                    morsVars: viewOffers ? getMorsVars(country, selectBestOffer(viewOffers, amount), amount) : {},
                     offers:
                         viewOffersTemplate &&
+                        viewOffers &&
                         viewOffers.map(offer => ({
                             template: JSON.stringify(viewOffersTemplate),
                             morsVars: getMorsVars(country, offer, amount)
