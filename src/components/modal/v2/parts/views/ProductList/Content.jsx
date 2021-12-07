@@ -4,7 +4,7 @@ import { useServerData } from '../../../lib';
 import Tile from '../../Tile';
 import styles from './styles.scss';
 
-export const ProductList = ({ content: { instructions, disclosure, tiles }, setProduct }) => {
+export const ProductList = ({ content: { instructions, disclosure, tiles }, setViewName }) => {
     const { views } = useServerData();
     const availableTiles = tiles.filter(tile => views.find(view => tile.viewName === view.meta.product));
 
@@ -26,7 +26,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                         body={body}
                                         icon={icon}
                                         viewName={viewName}
-                                        setProduct={setProduct}
+                                        setViewName={setViewName}
                                     />
                                 ))}
                                 <div className="content__row instructions">
