@@ -3,12 +3,7 @@
 import { h } from 'preact';
 import { forwardRef } from 'preact/compat';
 
-const openProductList = () => {
-    // eslint-disable-next-line no-console
-    console.warn('TODO: ProductListLink to change view to Product List');
-};
-
-const ProductListLink = forwardRef(({ children, type = 'button', className }, ref) => {
+const ProductListLink = forwardRef(({ children, type = 'button', className, openProductList }, ref) => {
     const classes = ['content__row', 'product-list-link'];
     if (className) classes.push(className);
 
