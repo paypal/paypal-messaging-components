@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import { useContent, useServerData, useProductMeta } from '../lib';
+import { useContent, useServerData, useProductMeta, useXProps } from '../lib';
 import Header from './Header';
 import Container from './Container';
 import Overlay from './Overlay';
@@ -21,7 +21,10 @@ const ContentWrapper = () => {
         defaultProduct = 'PRODUCT_LIST';
     }
 
-    const [product, setProduct] = useState(defaultProduct);
+    const { offer } = useXProps();
+    const [product, setProduct] = useState(
+        offer ? views.find(view => view.meta.product === offer)?.meta.product : defaultProduct
+    );
     const content = useContent(product);
     const productMeta = useProductMeta(product);
 
