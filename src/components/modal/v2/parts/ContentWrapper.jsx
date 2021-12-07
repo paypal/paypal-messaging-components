@@ -22,8 +22,9 @@ const ContentWrapper = () => {
     }
 
     const { offer } = useXProps();
-    const [product, setProduct] =
-        useState(views.find(view => view.meta.product === offer)?.meta.product) ?? useState(defaultProduct);
+    const [product, setProduct] = offer
+        ? useState(views.find(view => view.meta.product === offer)?.meta.product)
+        : useState(defaultProduct);
     const content = useContent(product);
     const productMeta = useProductMeta(product);
 
