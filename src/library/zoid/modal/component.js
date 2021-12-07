@@ -279,7 +279,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         // Consumed in modal controller when validating the offer type passed in
                         // to determine if a modal is able to be displayed or not.
                         // Primary use-case is a standalone modal
-                        state.products = products.map(getStandardProductOffer); // eslint-disable-line no-param-reassign
+                        state.products = Array.isArray(products) && products.map(getStandardProductOffer); // eslint-disable-line no-param-reassign
                         event.trigger('ready');
                     };
                 }
