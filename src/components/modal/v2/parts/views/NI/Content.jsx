@@ -9,6 +9,7 @@ import { useServerData, useApplyNow } from '../../../lib';
 
 export const NI = ({
     content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
+    openProductList,
     contentBodyRef
 }) => {
     const buttonRef = useRef();
@@ -68,7 +69,9 @@ export const NI = ({
                             return <li className="content__footer-item">{line}</li>;
                         })}
                         <li className="content__footer-item">
-                            <ProductListLink>{renderProductListLink()}</ProductListLink>
+                            <ProductListLink openProductList={openProductList}>
+                                {renderProductListLink()}
+                            </ProductListLink>
                         </li>
                     </ul>
                 </main>
