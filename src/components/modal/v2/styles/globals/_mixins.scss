@@ -59,5 +59,9 @@
         display: block;
         visibility: hidden;
         overflow-y: scroll;
+
+        @include lander {
+            content: none; // Disable on lander since scrollbar exists at a different element
+        }
     }
 }
