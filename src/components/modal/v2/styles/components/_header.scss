@@ -207,7 +207,7 @@
                 max-width: 315px;
                 text-align: center;
 
-                .lander & {
+                @include lander {
                     max-width: 100%;
                 }
             }
@@ -239,7 +239,7 @@
                 margin: 1rem auto 0;
                 text-align: center;
 
-                .lander & {
+                @include lander {
                     max-width: 100%;
                 }
             }

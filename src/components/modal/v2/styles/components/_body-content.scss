@@ -45,13 +45,18 @@
         max-height: 90vh;
     }
 
-    .lander & {
+    @include lander {
         height: auto;
         max-height: none;
         margin-bottom: 4rem;
         border-radius: 0;
         background: transparent;
         overflow: visible;
+
+        @include mobile {
+            min-height: 100vh;
+            margin-bottom: 0;
+        }
     }
 
     // Small reverse border radius hook below the header to curve the top left
@@ -73,7 +78,7 @@
         }
 
         // Disable on the lander
-        .lander & {
+        @include lander {
             content: none;
         }
     }

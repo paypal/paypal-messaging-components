@@ -8,7 +8,7 @@
     flex-grow: 1;
     margin-top: -$sticky-header-radius;
 
-    .lander & {
+    @include lander {
         margin-top: 0;
         border-radius: 100px 0px;
 
@@ -46,7 +46,7 @@
             padding-right: 25px;
             border-radius: 0 0 40px 0;
 
-            .lander & {
+            @include lander {
                 border-radius: 100px 0px 0px 0px;
                 @include mobile {
                     border-radius: 40px 0px;

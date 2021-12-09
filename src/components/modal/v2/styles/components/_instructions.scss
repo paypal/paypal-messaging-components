@@ -79,7 +79,7 @@
         background: $dark-blue;
     }
 
-    .lander & {
+    @include lander {
         @include tablet {
             margin: 0px;
         }

@@ -51,7 +51,7 @@
                     font-size: 18px;
                 }
 
-                .lander & {
+                @include lander {
                     margin-top: 10px;
 
                     @include mobile {
@@ -79,7 +79,7 @@
                     border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
                     overflow: hidden;
 
-                    .lander & {
+                    @include lander {
                         bottom: 0;
                         border-radius: 0;
                     }
@@ -137,7 +137,7 @@
             padding-left: 15px;
         }
 
-        .lander & {
+        @include lander {
             @include desktop {
                 border-radius: 0px 0px 100px 0px;
             }
@@ -150,10 +150,6 @@
             .modal-wrapper:not(.lander) & {
                 padding-bottom: 85px;
                 margin-bottom: 25px;
-            }
-
-            .lander {
-                margin-bottom: 0px;
             }
         }
         @include mobile {
