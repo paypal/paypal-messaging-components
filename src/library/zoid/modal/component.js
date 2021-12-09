@@ -128,7 +128,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName,
-                            event_channel: channel ?? 'UPSTREAM',
+                            channel: channel ?? 'UPSTREAM',
                             integrationIdentifier,
                             src: src ?? linkName
                         });
@@ -159,7 +159,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'click',
                             link: 'Calculator',
                             src: 'Calculator',
-                            event_channel: channel ?? 'UPSTREAM',
+                            channel: channel ?? 'UPSTREAM',
                             integrationIdentifier,
                             amount: value
                         });
@@ -184,7 +184,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-open',
-                            event_channel: channel ?? 'UPSTREAM',
+                            channel: channel ?? 'UPSTREAM',
                             integrationIdentifier,
                             src
                         });
@@ -211,7 +211,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'modal-close',
-                            event_channel: channel ?? 'UPSTREAM',
+                            channel: channel ?? 'UPSTREAM',
                             integrationIdentifier,
                             link: linkName
                         });
