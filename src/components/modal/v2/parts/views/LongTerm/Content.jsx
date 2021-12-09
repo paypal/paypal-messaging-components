@@ -9,6 +9,7 @@ import Button from '../../Button';
 
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
+    openProductList,
     contentBodyRef
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -34,7 +35,7 @@ export const LongTerm = ({
             );
         }
         if (views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
     };

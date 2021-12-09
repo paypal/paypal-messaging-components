@@ -20,6 +20,7 @@ import {
     getStageTag,
     getFeatures,
     ppDebug,
+    getStandardProductOffer,
     getDevTouchpoint
 } from '../../../utils';
 import validate from '../message/validation';
@@ -85,7 +86,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             offer: {
                 type: 'string',
                 queryParam: false,
-                required: false
+                required: false,
+                decorate: ({ value }) => getStandardProductOffer(value)
             },
             refId: {
                 type: 'string',
@@ -292,7 +294,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         // Consumed in modal controller when validating the offer type passed in
                         // to determine if a modal is able to be displayed or not.
                         // Primary use-case is a standalone modal
-                        state.products = products; // eslint-disable-line no-param-reassign
+                        state.products = Array.isArray(products) && products.map(getStandardProductOffer); // eslint-disable-line no-param-reassign
                         event.trigger('ready');
                     };
                 }
