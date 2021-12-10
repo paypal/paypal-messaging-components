@@ -71,6 +71,7 @@ export default (options = {}) => ({
                 const {
                     account,
                     merchantId,
+                    customerId,
                     currency,
                     amount,
                     placement,
@@ -80,7 +81,8 @@ export default (options = {}) => ({
                     ignoreCache,
                     onClick,
                     onRender,
-                    onApply
+                    onApply,
+                    channel
                 } = merchantOptions;
 
                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -88,10 +90,12 @@ export default (options = {}) => ({
                 const commonProps = {
                     account,
                     merchantId,
+                    customerId,
                     currency,
                     amount,
                     buyerCountry,
-                    ignoreCache
+                    ignoreCache,
+                    channel
                 };
                 const modalProps = {
                     ...commonProps,
@@ -133,11 +137,13 @@ export default (options = {}) => ({
                         `{
                     clientID: ${account},
                     merchantID: ${merchantId},
+                    customerID: ${customerId},
                     offer: ${offer},
                     currency: ${currency},
                     ignoreCache: ${ignoreCache},
+                    channel: ${channel},
             
-                    index: data-pp-id="${index}"
+                    index: data-pp-id="${index}",
                     style: ${JSON.stringify(style)},
                     amount: ${amount},
                     buyerCountry: ${buyerCountry},

@@ -10,7 +10,7 @@ import {
     isElement,
     getGlobalState,
     objectMerge,
-    getProductForOffer,
+    getStandardProductOffer,
     addPerformanceMeasure,
     globalEvent
 } from '../../../utils';
@@ -20,6 +20,7 @@ const memoizedModal = memoizeOnProps(
     ({
         account,
         merchantId,
+        customerId,
         currency,
         amount,
         buyerCountry,
@@ -28,13 +29,15 @@ const memoizedModal = memoizeOnProps(
         onReady,
         onCalculate,
         onApply,
-        onClose
+        onClose,
+        channel
     }) => {
         addPerformanceMeasure('firstModalRenderDelay');
 
         const { render, updateProps, state, event } = getModalComponent()({
             account,
             merchantId,
+            customerId,
             currency,
             amount,
             buyerCountry,
@@ -43,7 +46,8 @@ const memoizedModal = memoizeOnProps(
             onReady,
             onCalculate,
             onApply,
-            onClose
+            onClose,
+            channel
         });
         // Fired from inside the default onReady callback
         const modalReady = new ZalgoPromise(resolve => event.once('ready', resolve));
@@ -82,7 +86,7 @@ const memoizedModal = memoizeOnProps(
                 renderProm = renderModal('body');
             }
 
-            const requestedProduct = getProductForOffer(options.offer);
+            const requestedProduct = getStandardProductOffer(options.offer);
 
             if (
                 typeof options.offer !== 'undefined' &&

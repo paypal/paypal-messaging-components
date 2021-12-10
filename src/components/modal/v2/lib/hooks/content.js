@@ -2,9 +2,9 @@ import arrayFind from 'core-js-pure/stable/array/find';
 import { useServerData } from '../providers';
 
 export function useProduct(product) {
-    const { products } = useServerData();
+    const { views } = useServerData();
 
-    return arrayFind(products, ({ meta }) => meta.product === product) ?? { content: {} };
+    return arrayFind(views, ({ meta }) => meta.product === product) ?? { content: {} };
 }
 
 export function useContent(product) {

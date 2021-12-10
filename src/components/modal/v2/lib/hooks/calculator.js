@@ -4,6 +4,7 @@ import { debounce } from 'belter/src';
 import { useXProps, useServerData } from '../providers';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
+import { localize, delocalize } from '../locale';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -19,12 +20,12 @@ const reducer = (state, action) => {
                 isLoading: true,
                 prevValue: state.inputValue
             };
-        case 'terms': {
+        case 'view': {
             const newInputValue = action.data.autoSubmit ? state.inputValue : action.data.formattedAmount;
 
             return {
                 isLoading: false,
-                terms: action.data,
+                view: action.data,
                 inputValue: newInputValue,
                 prevValue: newInputValue
             };
@@ -41,26 +42,13 @@ const reducer = (state, action) => {
     }
 };
 
-const delocalize = (country, amount) =>
-    Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
-const localize = (country, amount) => {
-    const number = Number(amount) || Number(0);
-    if (country === 'DE') {
-        return number.toLocaleString('de-DE', {
-            currency: 'EUR',
-            minimumFractionDigits: 2
-        });
-    }
-
-    return number.toLocaleString('en-US', {
-        currency: 'USD',
-        minimumFractionDigits: 2
-    });
-};
-
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
-    const { terms: initialTerms, country, setServerData } = useServerData();
+    const { views, country, setServerData } = useServerData();
+
+    // From the views retreived, find and return the view with an offers property (i.e. PAY_LATER_LONG_TERM) if there is one.
+    const viewWithOffers = views.find(view => view?.offers);
+
     const {
         currency,
         payerId,
@@ -70,12 +58,16 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         buyerCountry,
         ignoreCache,
         amount,
-        stageTag
+        stageTag,
+        integrationType,
+        channel,
+        devTouchpoint
     } = useXProps();
+
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(country, initialTerms.amount),
-        prevValue: localize(country, initialTerms.amount),
-        terms: initialTerms,
+        inputValue: localize(amount, country, 2),
+        prevValue: localize(amount, country, 2),
+        view: viewWithOffers,
         isLoading: false
     });
 
@@ -90,23 +82,26 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             merchantId,
             buyerCountry,
             ignoreCache,
-            stageTag
+            stageTag,
+            integrationType,
+            channel,
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);
 
                 // TODO: do not store terms in reducer since serverData will be kept up-to-date
                 dispatch({
-                    type: 'terms',
+                    type: 'view',
                     data: {
-                        ...data.terms,
+                        ...data?.views.find(view => view?.offers),
                         autoSubmit
                     }
                 });
             })
             .catch(() => {
                 dispatch({
-                    type: 'terms',
+                    type: 'view',
                     data: {
                         error: true
                     }
@@ -114,27 +109,27 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             });
     };
 
-    // Update the terms in the reducer based on outside changes to serverData
+    // Update the offer terms in the reducer based on outside changes to serverData
     useDidUpdateEffect(() => {
-        // When amount xprop changes, Container.jsx will fetch new serverData (including terms)
-        // If we see new terms, which match the amount prop, but the value in the input does not match
-        // This means the amount changed outside the modal, so we update the terms
+        // When amount xprop changes, Container.jsx will fetch new serverData (including offers)
+        // If we see new offer terms, which match the amount prop, but the value in the input does not match
+        // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (Number(initialTerms.amount) === amount && delocalize(country, state.inputValue) !== amount) {
+        if (Number(viewWithOffers.amount) === amount && delocalize(state.inputValue, country) !== amount) {
             dispatch({
-                type: 'terms',
+                type: 'view',
                 data: {
-                    ...initialTerms,
+                    ...viewWithOffers,
                     autoSubmit: false
                 }
             });
         }
-    }, [initialTerms, amount]);
+    }, [viewWithOffers, amount]);
 
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
     calculateRef.current = () => {
-        const delocalizedValue = delocalize(country, state.inputValue);
+        const delocalizedValue = delocalize(state.inputValue, country).replace(/\.$/, '.00');
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             onCalculate({ value: delocalizedValue });
@@ -174,7 +169,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             type: 'input',
             data: {
                 value:
-                    localize(country, value).length > 9 || value.length > 9
+                    localize(value, country, 2).length > 9 || value.length > 9
                         ? state.inputValue
                         : value.replace(/[^\d.,]/g, ''),
                 autoSubmit
@@ -186,10 +181,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         }
     };
 
+    const { isLoading } = state;
+
     return {
-        terms: state.terms,
-        value: state.inputValue,
-        isLoading: state.isLoading,
+        view: state.view,
+        // Replace start of value string that isn't a digit (i.e. if someone tries to enter a period or a comma first) with an empty string.
+        value: state.inputValue.replace(/^\D/, ''),
+        isLoading,
         changeInput,
         submit
     };

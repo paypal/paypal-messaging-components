@@ -19,7 +19,9 @@ import {
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
-    ppDebug
+    ppDebug,
+    getStandardProductOffer,
+    getDevTouchpoint
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -52,6 +54,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.merchantId
             },
+            customerId: {
+                type: 'string',
+                queryParam: 'customer_id',
+                required: false,
+                value: validate.customerId
+            },
             currency: {
                 type: 'string',
                 queryParam: true,
@@ -73,7 +81,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             offer: {
                 type: 'string',
                 queryParam: false,
-                required: false
+                required: false,
+                decorate: ({ value }) => getStandardProductOffer(value)
             },
             refId: {
                 type: 'string',
@@ -90,6 +99,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'ignore_cache',
                 required: false,
                 value: validate.ignoreCache
+            },
+            channel: {
+                type: 'string',
+                queryParam: 'channel',
+                required: false,
+                value: validate.channel
             },
 
             // Callbacks
@@ -252,6 +267,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
+
                         if (
                             typeof onReady === 'function' &&
                             // No need to fire the merchant's onReady if the modal products haven't changed
@@ -263,7 +279,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         // Consumed in modal controller when validating the offer type passed in
                         // to determine if a modal is able to be displayed or not.
                         // Primary use-case is a standalone modal
-                        state.products = products; // eslint-disable-line no-param-reassign
+                        state.products = Array.isArray(products) && products.map(getStandardProductOffer); // eslint-disable-line no-param-reassign
                         event.trigger('ready');
                     };
                 }
@@ -334,11 +350,23 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: getStageTag
             },
+            devTouchpoint: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDevTouchpoint
+            },
             features: {
                 type: 'string',
                 queryParam: true,
                 required: false,
                 value: getFeatures
+            },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => __MESSAGES__.__TARGET__
             }
         }
     })

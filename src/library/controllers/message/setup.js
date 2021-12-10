@@ -43,9 +43,13 @@ export default function setup() {
             Messages
         };
 
-        // Don't clear window.paypal if SDK loaded first
-        if (window.paypal && !window.paypal.version) {
-            delete window.paypal;
+        if (window.paypal) {
+            delete window.paypal.Messages;
+            delete window.paypal.Message;
+
+            if (Object.keys(window.paypal).length === 0) {
+                delete window.paypal;
+            }
         }
     }
 

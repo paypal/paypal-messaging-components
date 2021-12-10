@@ -6,12 +6,15 @@
     background: $instructions-background;
     padding-bottom: 1.5rem;
     flex-grow: 1;
+    margin-top: -$sticky-header-radius;
 
-    @include tablet {
-        border-radius: 10px;
-    }
-    @include mobile {
-        border-radius: 0px;
+    @include lander {
+        margin-top: 0;
+        border-radius: 100px 0px;
+
+        @include mobile {
+            border-radius: 100px 0px 0px 0px;
+        }
     }
 
     main {
@@ -29,20 +32,6 @@
         display: flex;
         flex-direction: column;
         padding: 0 20px;
-
-        @include desktop {
-            margin-top: -2rem;
-        }
-
-        @include tablet {
-            margin-top: -3rem;
-        }
-        @include mobile {
-            margin-top: -2rem;
-        }
-        @include smallMobile {
-            margin-top: -2.5rem;
-        }
     }
 
     .content__row {
@@ -50,13 +39,19 @@
             display: flex;
             flex-direction: row;
             margin: 0 -20px;
-            margin-top: -1px;
             background: white;
             padding-bottom: 0.5rem;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
-            border-radius: 40px 0px;
+            border-radius: 0 0 40px 0;
+
+            @include lander {
+                border-radius: 100px 0px 0px 0px;
+                @include mobile {
+                    border-radius: 40px 0px;
+                }
+            }
             @include desktop {
                 height: 100%;
 
@@ -70,6 +65,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+
+            @include mobile {
+                width: 100%;
+            }
 
             &.collapsed {
                 &:last-child {
@@ -107,6 +106,7 @@
             padding: 1rem 0 0rem;
 
             @include desktop {
+                padding-top: 0px;
                 padding-left: 30px;
                 width: 90%;
                 font-size: 0.8rem;
@@ -121,19 +121,6 @@
             &.collapsed {
                 @include desktop {
                     width: 34%;
-                }
-            }
-
-            .cta {
-                @include desktop {
-                    font-size: 1rem;
-                    margin-top: 30px;
-                    margin-bottom: 50px;
-                }
-                @include tablet {
-                    font-size: 1rem;
-                    margin-top: 30px;
-                    margin-bottom: 50px;
                 }
             }
         }

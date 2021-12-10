@@ -2,114 +2,160 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useCalculator, useXProps } from '../lib';
+import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue } from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
-const getError = ({ amount, minAmount, maxAmount, error, offers }, isLoading, calculator) => {
-    // grabs the various calculator errors from offer json
-    const { genericError, minAmountRangeErr, maxAmountRangeErr } = calculator;
+/**
+ *
+ * @param {*} offers Offers returned from the server.
+ * @returns Computed minAmount, maxAmount, belowThreshold, and aboveThreshold values.
+ *
+ * This function takes in the offers returned from the server and loops over each offer
+ * in order to find the absolute min and max amounts from the offers.
+ * From the offer with the lowest min amount, the belowThreshold error content is retrieved.
+ * Similarly with the offer with the highest max amount, the aboveThreshold error content is retrieved.
+ */
+const getComputedVariables = offers =>
+    offers.reduce(
+        (acc, { meta, content }) => {
+            if (meta.minAmount) {
+                acc.minAmount = acc.minAmount
+                    ? Math.min(acc.minAmount, Number(meta.minAmount))
+                    : Number(meta.minAmount);
 
-    // there is an error with the request or we don't get a max amount back give back a generic error
-    // generic error says something like - something went wrong, please try again later.
+                if (acc.minAmount === Number(meta.minAmount)) {
+                    acc.content.calculator.belowThreshold = content.calculator.belowThreshold;
+                }
+            }
+
+            if (meta.maxAmount) {
+                acc.maxAmount = acc.maxAmount
+                    ? Math.max(acc.maxAmount, Number(meta.maxAmount))
+                    : Number(meta.maxAmount);
+
+                if (acc.maxAmount === Number(meta.maxAmount)) {
+                    acc.content.calculator.aboveThreshold = content.calculator.aboveThreshold;
+                }
+            }
+
+            return acc;
+        },
+        {
+            content: {
+                calculator: {}
+            }
+        }
+    );
+
+const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
+    const {
+        minAmount,
+        maxAmount,
+        content: {
+            calculator: { belowThreshold, aboveThreshold }
+        }
+    } = getComputedVariables(offers);
+
+    // Grabs the generic calculator error from offer json
+    const { genericError } = calculator;
+
+    /**
+     * If there is an error with the request or we don't get a max amount back give back a generic error.
+     * Generic error says something like - "Something went wrong, please try again later."
+     */
     if (error || !maxAmount) {
         return genericError;
     }
 
-    // if amount is undefined (none is passed in) or isLoading is true, return null. we don't return an error until debounce is complete.
-    if (typeof amount === 'undefined' || isLoading) {
+    // If isLoading is true, do not return an error and instead return null. We don't return an error until debounce is complete.
+    if (isLoading) {
         return null;
     }
 
-    // checks amount against min and max amount ranges to determine which error message to show
-    if (+amount < minAmount) {
-        return minAmountRangeErr.replace(/(\.|,)00(.|\s*)EUR/g, '€');
-    }
-    if (+amount > maxAmount) {
-        return maxAmountRangeErr.replace(/(\.|,)00(.|\s*)EUR/g, '€');
+    // If amount is undefined (none is passed in), return the belowThreshold error.
+    if (typeof amount === 'undefined') {
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
     }
 
-    // if we don't get back any qualifying offers, we return a generic error. - something went wrong, please try again later.
-    if (!offers?.[0]?.qualified) {
+    // Checks amount against qualifying min and max ranges to determine which error message to show.
+    if (amount < minAmount) {
+        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
+    }
+    if (amount > maxAmount) {
+        return aboveThreshold.replace(/(\.[0-9]*?)00/g, '');
+    }
+
+    // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
+    if (!offers?.[0]?.meta?.qualifying === 'true') {
         return genericError;
     }
 
-    // if none of these checks apply. don't return an error.
+    // If none of these checks apply, don't return an error.
     return null;
 };
 
-// TODO: probably won't need this anymore with CPNW changes.
-const delocalize = value =>
-    value
-        // Remove any non-currency character
-        .replace(/[^\d,]/g, '')
-        // Replace decimal marker
-        .replace(/,/, '.');
-
-const getDisplayValue = value => {
-    const delocalizedValue = delocalize(value);
-
-    // match all digits before the decimal and 1-2 digits after
-    // eslint-disable-next-line security/detect-unsafe-regex
-    const [, whole, fraction = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
-    const formattedValue = Number(whole).toLocaleString('de-DE', {
-        currency: 'EUR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-    });
-
-    // Allow display value to end with a dangling comma to allow typing a "cent" value
-    return delocalizedValue === '' || formattedValue === 'NaN'
-        ? ''
-        : `${formattedValue}${fraction !== '' || value[value.length - 1] === ',' ? `,${fraction.slice(0, 2)}` : ''}`;
-};
-
-const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) => {
-    const { terms, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
+const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
+    const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
+    const { country } = useServerData();
+    const { title, inputLabel, inputPlaceholder } = calculator;
 
-    // if an amount was passed in so amount is not undefined.
+    // Set hasUsedInputField to true if someone has typed in the input field at any point.
+    const [hasUsedInputField, setHasUsedInputField] = useState(false);
+
+    // If an amount was passed in via xprops so amount is not undefined.
     const hasInitialAmount = typeof amount !== 'undefined';
-    // if the person entered an amount in the calc and it's not 0,00 or an empty string
-    const hasEnteredAmount = value !== '0,00' && value !== '';
-    // if no initial amount is passed in (amount is undefined) and they have not entered any amount at all. aka empty input field
+
+    // If the person entered an amount in the calc and it is not 0.
+    const hasEnteredAmount = !(parseInt(delocalize(value || '0'), 10) === 0);
+
+    // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
 
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
-    // pass terms and isLoadings tate into getError to get the appropriate error, if any. could come back as 'null'.
-    const error = getError(terms, isLoading, calculator);
 
-    const { title, inputLabel, inputPlaceholder, amountRange } = calculator;
+    // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0'));
 
-    // Update display value based on changes from useCalculator
     useEffect(() => {
-        setDisplayValue(getDisplayValue(value));
-    }, [value]);
+        if (!hasInitialAmount) {
+            setDisplayValue('');
+        } else setDisplayValue(getDisplayValue(value, country));
+    }, []);
 
     /**
-     * expandedState determines if the desktop view of the Pay Monthly modal is expanded (i.e. has terms or has loading shimmer)
-     * or not (due to error or empty input field). If expandedState is false, a class of "collapsed" gets added to affected elements
-     * for styling purposes.
+     * expandedState determines if the desktop view of the PAY_LATER_LONG_TERM modal is expanded (i.e. a view with offers exists or has loading shimmer).
+     * If expandedState is false, a class of "collapsed" gets added to affected elements for styling purposes.
      */
-    if (value !== '' && !!(terms || isLoading) && !(error || emptyState)) {
-        setExpandedState(true);
-    } else setExpandedState(false);
+    if (hasInitialAmount || hasEnteredAmount) {
+        if (view || isLoading) {
+            setExpandedState(true);
+        } else setExpandedState(false);
+    }
 
     const onKeyDown = evt => {
         // Only allow special keys or appropriate number/formatting keys
         if (evt.key.length === 1 && !/[\d.,]/.test(evt.key)) {
             evt.preventDefault();
         }
+
+        // Ctrl (or Cmd) + a select all on input field.
+        const keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
+
+        if (keyComboCheck) {
+            evt.target.select();
+        }
     };
 
     const onInput = evt => {
+        setHasUsedInputField(true);
+
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
+        const onInputValue = delocalize(targetValue);
+        const newDisplayValue = getDisplayValue(targetValue, country);
 
-        const delocalizedValue = delocalize(targetValue);
-        const newDisplayValue = getDisplayValue(targetValue);
-
-        const finalValue =
-            targetValue.length < 10 && Number(delocalizedValue).toFixed(2).length < 9 ? newDisplayValue : displayValue;
+        const finalValue = parseFloat(Number(onInputValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
 
         const selectionOffset = finalValue.length - targetValue.length;
 
@@ -134,7 +180,7 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error ?? amountRange}</span>
+                        <span>{error}</span>
                     </div>
                 </div>
             );
@@ -142,14 +188,32 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
         return <Fragment />;
     };
 
+    /**
+     * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
+     */
+    const { offers } = view;
+    let aprDisclaimer = '';
+
+    const aprArr = offers.filter(offer => offer?.meta?.qualifying === 'true').map(offer => offer?.meta?.apr);
+
+    if (aprArr.length > 0) {
+        if (aprArr.filter(apr => apr.replace('.00', '') !== '0').length === aprArr.length) {
+            aprDisclaimer = nonZeroAPR;
+        } else if (aprArr.filter(apr => apr.replace('.00', '') === '0').length === aprArr.length) {
+            aprDisclaimer = zeroAPR;
+        } else {
+            aprDisclaimer = mixedAPR;
+        }
+    } else aprDisclaimer = zeroAPR;
+
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">{value !== '' ? inputLabel : ''}</div>
+                    <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
                     <input
-                        className={`input ${value === '' ? 'empty-input' : ''}`}
+                        className={`input ${displayValue === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
                         type="tel"
                         value={displayValue}
@@ -159,14 +223,15 @@ const Calculator = ({ setExpandedState, calculator, termsLabel, disclaimer }) =>
                 </div>
                 {renderError(error || emptyState || isLoading)}
             </form>
-            <div className="content-column">
-                <TermsTable
-                    terms={terms}
-                    termsLabel={termsLabel}
-                    disclaimer={disclaimer}
-                    isLoading={isLoading}
-                    hasError={(!hasInitialAmount && !hasEnteredAmount) || !!error}
-                />
+            {hasInitialAmount || hasUsedInputField ? (
+                <div className="content-column">
+                    <TermsTable view={view} isLoading={isLoading} hasError={error} />
+                </div>
+            ) : (
+                <Fragment />
+            )}
+            <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
+                {aprDisclaimer}
             </div>
         </div>
     );

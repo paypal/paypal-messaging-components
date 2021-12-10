@@ -4,12 +4,12 @@ import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps, useScroll } from '../lib';
-import { getProductForOffer } from '../../../utils';
+import { getStandardProductOffer } from '../../../utils';
 
 // Determine pre-selected tab based on the offer type of the banner.
 const getInitialTabIndex = (offer, tabs) =>
     Math.max(
-        arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)),
+        arrayFindIndex(tabs, ({ product }) => getStandardProductOffer(product) === offer),
         0
     );
 

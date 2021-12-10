@@ -19,7 +19,8 @@ import {
     getStageTag,
     getFeatures,
     ppDebug,
-    isScriptBeingDestroyed
+    isScriptBeingDestroyed,
+    getDevTouchpoint
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -54,6 +55,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: 'merchant_id',
                 required: false,
                 value: validate.merchantId
+            },
+            customerId: {
+                type: 'string',
+                queryParam: 'customer_id',
+                required: false,
+                value: validate.customerId
             },
             amount: {
                 type: 'number',
@@ -179,6 +186,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags, deviceID }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
+
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
@@ -365,11 +373,23 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: getStageTag
             },
+            devTouchpoint: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDevTouchpoint
+            },
             features: {
                 type: 'string',
                 queryParam: true,
                 required: false,
                 value: getFeatures
+            },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => __MESSAGES__.__TARGET__
             }
         }
     })

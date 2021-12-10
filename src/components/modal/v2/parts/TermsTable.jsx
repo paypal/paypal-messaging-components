@@ -1,31 +1,31 @@
 /** @jsx h */
-import { Fragment, h } from 'preact';
+import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import OfferCard from './OfferCard';
 import LoadingShimmer from './LoadingShimmer';
 
-const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, termsLabel, disclaimer, hasError }) => {
+const TermsTable = ({ isLoading, view: { offers }, hasError }) => {
+    /**
+     * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
+     * depending on the last number of offers that were displayed.
+     */
+    const [numOffers, setNumOffers] = useState();
+
     if (isLoading || hasError) {
         return (
-            <Fragment>
-                <div className="offer__wrapper">
-                    <LoadingShimmer hasError={hasError} />
-                </div>
-                <div className="finance-terms__disclaimer">{disclaimer}</div>
-            </Fragment>
+            <div className="offer__wrapper">
+                <LoadingShimmer numOffers={numOffers} />
+            </div>
         );
     }
-    const sortedOffers = offers.slice().sort((a, b) => b.term - a.term);
 
-    return (
-        <Fragment>
-            <div className="offer__wrapper">
-                {sortedOffers.map((offer, idx) => (
-                    <OfferCard termsLabel={termsLabel} offer={offer} formattedAmount={formattedAmount} index={idx} />
-                ))}
-            </div>
-            <div className="finance-terms__disclaimer">{disclaimer}</div>
-        </Fragment>
-    );
+    const qualifyingOffers = offers
+        .filter(offer => offer.meta.qualifying === 'true')
+        .map((offer, idx) => <OfferCard offer={offer} index={idx} />);
+
+    setNumOffers(qualifyingOffers.length);
+
+    return <div className="offer__wrapper">{qualifyingOffers}</div>;
 };
 
 export default TermsTable;

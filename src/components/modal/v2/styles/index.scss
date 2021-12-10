@@ -1,5 +1,6 @@
 // Global stylesheets
 @import './globals/colors';
+@import './globals/variables';
 @import './globals/common';
 @import './globals/fonts';
 @import './globals/mixins';
@@ -7,7 +8,7 @@
 // Component stylesheets
 @import './components/button';
 @import './components/calculator';
-@import './components/content-wrapper';
+@import './components/body-content';
 @import './components/content';
 @import './components/header';
 @import './components/instructions';
@@ -15,4 +16,6 @@
 @import './components/modal-frame';
 @import './components/offer-card';
 @import './components/overlay';
-@import './components/terms-table';
+@import './components/product-list-link';
+@import './components/donut';
+@import './components/tile';
