@@ -12,8 +12,7 @@ import { useServerData } from '../../../lib/providers';
 export const ShortTerm = ({
     content: { instructions, linkToProductList, disclosure, donutTimestamps },
     productMeta: { qualifying, periodicPayment },
-    openProductList,
-    contentBodyRef
+    openProductList
 }) => {
     const { views } = useServerData();
 
@@ -29,7 +28,7 @@ export const ShortTerm = ({
             <style>{styles._getCss()}</style>
             <div className="content__container">
                 <main className="main">
-                    <div className="content__body" ref={contentBodyRef}>
+                    <div className="content__body">
                         <div className="dynamic__container">
                             <div className="content__row dynamic">
                                 <div className="content__col">

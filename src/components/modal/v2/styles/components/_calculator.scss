@@ -32,7 +32,7 @@
         font-weight: 500;
 
         @include desktop {
-            .lander & {
+            @include lander {
                 margin-top: 20px;
             }
         }

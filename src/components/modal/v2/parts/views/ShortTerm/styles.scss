@@ -25,14 +25,9 @@
                 display: flex;
                 align-items: center;
                 background-color: #ffffff;
-                border-top-left-radius: 40px;
-                border-bottom-right-radius: 40px;
+                border-radius: 0 0 40px 0;
                 min-height: 10em;
-                z-index: 1;
                 width: 100%;
-                position: relative;
-                top: -65px;
-                margin-bottom: -65px;
 
                 @include desktop {
                     min-height: 5em;
@@ -65,7 +60,7 @@
                     }
                 }
 
-                .lander & {
+                @include lander {
                     @include tablet {
                         border-radius: 100px 0px 0px 0px;
                     }
@@ -76,8 +71,7 @@
                 position: relative;
                 box-sizing: border-box;
                 background-color: transparent;
-                padding-left: 0px;
-                padding-right: 0px;
+                padding: 0;
 
                 @include desktop {
                     width: 100%;

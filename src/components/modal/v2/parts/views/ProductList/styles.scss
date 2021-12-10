@@ -42,7 +42,7 @@
                 color: black;
                 font-size: 18px;
 
-                .lander & {
+                @include lander {
                     margin-top: 30px;
                 }
             }
