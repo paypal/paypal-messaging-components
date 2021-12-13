@@ -2,71 +2,37 @@ const fs = require('fs');
 
 const basePath = process.cwd();
 
-if (!fs.existsSync(`${basePath}/dist/componentsReport.json`)) {
-    console.error('Please run "npm run benchmark" first.');
-    process.exit();
-}
+fs.access(`${basePath}/dist/componentsReport.json`, fs.constants.R_OK, err => {
+    if (err) {
+        console.error('Please run "npm run benchmark" first.');
+        process.exit();
+    }
+});
 
 const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
 const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
 const speedHeadings = `<tr><td>URL</td><td>Time in Seconds</td></tr>`;
-const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>SEO</td></tr>`;
 
 let html = `<html>
-<head>
-<title>Performance Benchmark</title>
-<style>
-    td:first-of-type {
-        min-width: 250px; 
-        max-width:500px; 
-        overflow: auto;
-        padding-right: 1rem;
-    }
-    td {
-        padding: 0.25rem 0.45rem; 
-    }
-</style>
-</head><body>`;
+                <head>
+                    <title>Performance Benchmark</title>
+                    <style>
+                        td:first-of-type {
+                            min-width: 250px; 
+                            max-width:500px; 
+                            overflow: auto;
+                            padding-right: 1rem;
+                        }
+                        td {
+                            padding: 0.25rem 0.45rem; 
+                        }
+                    </style>
+                </head>
+                <body>`;
 html += `<div>${new Date().toDateString()}</div>`;
 
 if (fs.existsSync(`${basePath}/dist/lighthouseScores.json`)) {
-    const lightHouseReport = JSON.parse(
-        fs.readFileSync(`${basePath}/dist/lighthouseScores.json`, { encoding: 'utf8' })
-    );
-    const { desktopAverageScores, mobileAverageScores } = lightHouseReport;
-
-    const desktopLighthouse = Object.keys(desktopAverageScores)
-        .map(
-            score =>
-                `<tr><td>${score}</td><td>${desktopAverageScores[score].performance.toFixed(
-                    3
-                )}</td><td>${desktopAverageScores[score].accessibility.toFixed(3)}</td><td>${desktopAverageScores[
-                    score
-                ].bestPractices.toFixed(3)}</td><td>${desktopAverageScores[score].seo.toFixed(3)}</td></tr>`
-        )
-        .join('');
-    const mobileLighthouse = Object.keys(mobileAverageScores)
-        .map(
-            score =>
-                `<tr><td>${score}</td><td>${mobileAverageScores[score].performance.toFixed(
-                    3
-                )}</td><td>${mobileAverageScores[score].accessibility.toFixed(3)}</td><td>${mobileAverageScores[
-                    score
-                ].bestPractices.toFixed(3)}</td><td>${mobileAverageScores[score].seo.toFixed(3)}</td></tr>`
-        )
-        .join('');
-
-    html += `<h2>Lighthouse Scores</h2>`;
-    html += `<h3>Desktop</h3>`;
-    html += `<table>`;
-    html += lighthouseHeadings;
-    html += desktopLighthouse;
-    html += `</table>`;
-    html += `<h3>Mobile</h3>`;
-    html += `<table>`;
-    html += lighthouseHeadings;
-    html += mobileLighthouse;
-    html += `</table>`;
+    html += fs.readFileSync(`${basePath}/dist/lighthouseScores.json`, { encoding: 'utf8' });
 }
 
 if (fs.existsSync(`${basePath}/dist/messagesReport.json`)) {
