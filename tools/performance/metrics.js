@@ -2,6 +2,52 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const { PerformanceObserver, performance } = require('perf_hooks');
 
+const createMetricsHtml = metricsReport => {
+    const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
+    const speedHeadings = `<tr><td>URL</td><td>Time in Seconds</td></tr>`;
+
+    // Speed Metrics and Network Requests
+    const largestRequests = metricsReport.largestRequests
+        .map(files => `<tr><td><div>${files.url}</div></td><td>${files.encoding}</td><td>${files.size} bytes</td></tr>`)
+        .join('');
+
+    const networkRequests = metricsReport.networkRequests
+        .map(files => `<tr><td><div>${files.url.split('?')[0]}</div></td><td>${files.speed.toFixed(4)}</td>`)
+        .join('');
+
+    let html = `<h2>Network Requests</h2>`;
+    html += `<table>`;
+    html += `<tr><td>Total Requests</td><td>${metricsReport.total_requests}</td></tr>`;
+    html += `<tr><td>total_download_gzipped</td><td>${metricsReport.total_download_gzipped} bytes</td></tr>`;
+    html += `<tr><td>total_download_unzipped</td><td>${metricsReport.total_download_unzipped} bytes</td></tr>`;
+    html += `<tr><td>total_upload</td><td>${metricsReport.total_upload} bytes</td></tr>`;
+    html += `<tr><td>first_render_delay</td><td>${metricsReport.first_render_delay} ms</td></tr>`;
+    html += `<tr><td>render_duration</td><td>${metricsReport.render_duration} ms</td></tr>`;
+    html += `</table>`;
+
+    html += `<h3>Largest Requests</h3>`;
+    html += `<table>`;
+    html += largeNetworkheadings;
+    html += largestRequests;
+    html += `</table><br/>`;
+
+    html += `<h3>All Network Requests</h3>`;
+    html += `<table><br/>`;
+    html += speedHeadings;
+    html += networkRequests;
+    html += `</table>`;
+
+    // stats has speed metric and network request data
+    fs.writeFile('dist/metrics.json', JSON.stringify({ html: `${html}` }), err => {
+        if (err) {
+            console.log('metrics.json failed to save');
+            console.log(err);
+        } else {
+            console.log('metrics.json saved');
+        }
+    });
+};
+
 setTimeout(
     async () => {
         const networkRequests = [];
@@ -17,7 +63,6 @@ setTimeout(
 
         const browser = await puppeteer.launch({
             headless: true,
-            // executablePath: process.env.puppeteerPath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
             ignoreHTTPSErrors: true,
             devtools: false,
             args: ['--no-sandbox']
@@ -162,14 +207,10 @@ setTimeout(
             const largestRequests = [...networkRequests].sort((a, b) => {
                 return b.size - a.size;
             });
-            stats.largestRequests = [...largestRequests.splice(0, 3)];
-
+            stats.largestRequests = [...largestRequests].splice(0, 3);
             stats.networkRequests = [...networkRequests];
 
-            // stats has speed metric and network request data
-            fs.writeFile('dist/metrics.json', JSON.stringify(stats), err => {
-                console.log(err);
-            });
+            createMetricsHtml(stats);
         });
 
         await browser.close();

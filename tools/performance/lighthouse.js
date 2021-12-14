@@ -162,7 +162,7 @@ const createLighthouseHtml = ({ desktopAverageScores, mobileAverageScores }) => 
     html += mobileLighthouse;
     html += `</table>`;
 
-    fs.writeFile('dist/lighthouseScores.json', `${html}`, err => {
+    fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ html: `${html}` }), err => {
         if (err) {
             console.log('lighthouseScores.json failed to save');
             console.log(err);
