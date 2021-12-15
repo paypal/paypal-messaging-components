@@ -3,14 +3,14 @@ const fs = require('fs');
 const basePath = process.cwd();
 
 /**
- *
- * @returns
+ * Get lighthouse files inside of lighthouse directory if it exists
+ * @returns {Promise} - array of lighthouse files names
  */
 const checkDirectory = async () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         fs.readdir(`${basePath}/lighthouse`, { encoding: 'utf8' }, (err, file) => {
             if (err) {
-                reject(err);
+                resolve([]);
             }
             resolve(file);
         });
@@ -18,9 +18,9 @@ const checkDirectory = async () => {
 };
 
 /**
- *
- * @param {*} files
- * @returns
+ * Read raw lighthouse json files and organize by url and seperate desktop and mobile
+ * @param {array} files - array of file names
+ * @returns {object} - desktop and mobile scores grouped by url
  */
 const groupScores = files => {
     const desktopScores = {};
@@ -64,12 +64,12 @@ const groupScores = files => {
 };
 
 /**
- *
- * @param {*} scores
- * @param {*} page
- * @returns
+ * Get average score of most recent lighthouse scores (excludes the warm up run)
+ * @param {array} scores - array of site score objects
+ * @param {string} page - url
+ * @returns {object} - scores for page
  */
-const getTimeSortedAverageScores = (scores, page) => {
+const getSortedAverageScores = (scores, page) => {
     const timeSorted = scores[page].sort((a, b) => a.fetchTime - b.fetchTime).slice(1);
 
     const averageTimes = {
@@ -97,31 +97,33 @@ const getTimeSortedAverageScores = (scores, page) => {
 };
 
 /**
- *
- * @param {*} desktopLighthouseScores
- * @param {*} mobileLighthouseScores
+ * Turns array of page scores into one averaged score per page
+ * @param {array} desktopLighthouseScores - all scores for each desktop page
+ * @param {array} mobileLighthouseScores - all scores for each mobile page
+ * @returns {object} - desktop and mobile averaged score for each page
  */
-const getAverages = (desktopLighthouseScores, mobileLighthouseScores) => {
+const getScores = (desktopLighthouseScores, mobileLighthouseScores) => {
     const desktopAverageScores = {};
     const mobileAverageScores = {};
 
     Object.keys(desktopLighthouseScores).forEach(page => {
-        desktopAverageScores[page] = getTimeSortedAverageScores(desktopLighthouseScores, page);
+        desktopAverageScores[page] = getSortedAverageScores(desktopLighthouseScores, page);
     });
 
     Object.keys(mobileLighthouseScores).forEach(page => {
-        mobileAverageScores[page] = getTimeSortedAverageScores(mobileLighthouseScores, page);
+        mobileAverageScores[page] = getSortedAverageScores(mobileLighthouseScores, page);
     });
 
     return { desktopAverageScores, mobileAverageScores };
 };
 
 /**
- *
- * @param {*} param0
- * @returns
+ * Create the html from the scores
+ * @param {object} desktopAverageScores - pages with averaged scores
+ * @param {object} mobileAverageScores - pages with averaged scores
+ * @returns {string} - html
  */
-const createLighthouseHtml = ({ desktopAverageScores, mobileAverageScores }) => {
+const createLighthouseHtml = (desktopAverageScores, mobileAverageScores) => {
     const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>SEO</td></tr>`;
 
     const desktopLighthouse = Object.keys(desktopAverageScores)
@@ -162,7 +164,16 @@ const createLighthouseHtml = ({ desktopAverageScores, mobileAverageScores }) => 
     html += mobileLighthouse;
     html += `</table>`;
 
-    fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ html: `${html}` }), err => {
+    return html;
+};
+
+/**
+ * Save the html to a json file
+ * @param {string} html
+ * @param {boolean} empty - whether there were any lighthouse files to score
+ */
+const outputLighthouseJson = (html, empty = false) => {
+    fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ html: `${empty ? html : ''}` }), err => {
         if (err) {
             console.log('lighthouseScores.json failed to save');
             console.log(err);
@@ -170,12 +181,10 @@ const createLighthouseHtml = ({ desktopAverageScores, mobileAverageScores }) => 
             console.log('lighthouseScores.json saved');
         }
     });
-
-    return html;
 };
 
 Promise.resolve(checkDirectory()).then(files => {
     const { desktopScores, mobileScores } = groupScores(files);
-    const { desktopAverageScores, mobileAverageScores } = getAverages(desktopScores, mobileScores);
-    createLighthouseHtml({ desktopAverageScores, mobileAverageScores });
+    const { desktopAverageScores, mobileAverageScores } = getScores(desktopScores, mobileScores);
+    outputLighthouseJson(createLighthouseHtml(desktopAverageScores, mobileAverageScores), files.length);
 });

@@ -2,6 +2,10 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const { PerformanceObserver, performance } = require('perf_hooks');
 
+/**
+ * Generate html from the metrics
+ * @param {object} metricsReport - stats
+ */
 const createMetricsHtml = metricsReport => {
     const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
     const speedHeadings = `<tr><td>URL</td><td>Time in Seconds</td></tr>`;
