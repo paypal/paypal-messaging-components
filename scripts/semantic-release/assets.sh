@@ -30,6 +30,12 @@ if [ ! -z "$tag" ]; then
     fi
     # Underscores not valid semver
     version=$version-$(echo $tag | sed "s/_/-/g" | sed -E "s/-([0-9]+)$/.\1/")
+    # Check if the CDN tag has already been used before spending time on the webpack build
+    tagStatus=$(web status $tag 2>&1)
+    if [[ $tagStatus =~ ^"✔ Complete" ]]; then
+        printf "Tag $tag already exists on the CDN\n\n"
+        exit 1
+    fi
 fi
 
 if [[ ! -z "$testEnv" ]]; then

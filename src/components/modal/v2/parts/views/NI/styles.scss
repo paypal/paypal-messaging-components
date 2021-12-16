@@ -1,3 +1,4 @@
+@import '../../../styles/globals/variables';
 @import '../../../styles/globals/mixins';
 @import '../../../styles/globals/colors';
 
@@ -50,7 +51,7 @@
                     font-size: 18px;
                 }
 
-                .lander & {
+                @include lander {
                     margin-top: 10px;
 
                     @include mobile {
@@ -70,34 +71,41 @@
                     width: 100%;
                 }
             }
+            .button__fixed-wrapper {
+                @include tablet {
+                    @include fixedWrapper;
+
+                    bottom: 5vh;
+                    border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
+                    overflow: hidden;
+
+                    @include lander {
+                        bottom: 0;
+                        border-radius: 0;
+                    }
+                }
+
+                @include mobile {
+                    @include fixedWrapper;
+                    bottom: 0;
+                }
+            }
+
             .button__container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
                 @include tablet {
-                    position: fixed;
-                    left: calc(50% - 640px / 2);
-                    bottom: 5vh;
-                    width: calc(100%);
                     background: white;
-                    border-radius: 0 0 10px 10px;
                     margin-bottom: 0;
                     max-width: 640px;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
-
-                    .lander & {
-                        bottom: 0;
-                        border-radius: 0px;
-                    }
                 }
                 @include mobile {
-                    position: fixed;
-                    bottom: 0;
-                    left: 0;
-                    width: calc(100%);
                     background: white;
                     margin-bottom: 0;
                     max-width: 640px;
@@ -129,7 +137,7 @@
             padding-left: 15px;
         }
 
-        .lander & {
+        @include lander {
             @include desktop {
                 border-radius: 0px 0px 100px 0px;
             }
@@ -142,10 +150,6 @@
             .modal-wrapper:not(.lander) & {
                 padding-bottom: 85px;
                 margin-bottom: 25px;
-            }
-
-            .lander {
-                margin-bottom: 0px;
             }
         }
         @include mobile {

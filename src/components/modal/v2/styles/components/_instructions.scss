@@ -1,5 +1,6 @@
 .instructions {
     text-align: left;
+    box-sizing: border-box;
 
     @include desktop {
         padding-left: 30px;
@@ -78,7 +79,7 @@
         background: $dark-blue;
     }
 
-    .lander & {
+    @include lander {
         @include tablet {
             margin: 0px;
         }

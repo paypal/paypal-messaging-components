@@ -3,11 +3,11 @@ import { h } from 'preact';
 import { useContent } from '../lib';
 import Icon from './Icon';
 
-const Tile = ({ header, body, icon, viewName, setProduct }) => {
+const Tile = ({ header, body, icon, viewName, setViewName }) => {
     const { tileIcons } = useContent('PRODUCT_LIST');
 
     return (
-        <button className="tile" type="button" onClick={() => setProduct(viewName)}>
+        <button className="tile" type="button" onClick={() => setViewName(viewName)}>
             <div className="tile__row">
                 <div className="tile__col tile__image">
                     <Icon content={tileIcons[icon]} />

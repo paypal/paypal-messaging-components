@@ -9,8 +9,7 @@ import Button from '../../Button';
 
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
-    openProductList,
-    contentBodyRef
+    openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { onClose } = useXProps();
@@ -41,33 +40,29 @@ export const LongTerm = ({
     };
 
     return (
-        <Fragment>
-            <div className="content__container">
-                <main className="main">
-                    <div className="content__body" ref={contentBodyRef}>
-                        <div className="content__row dynamic">
-                            <div className="content__col">
-                                <Calculator
-                                    setExpandedState={setExpandedState}
-                                    calculator={calculator}
-                                    disclaimer={disclaimer}
-                                    buttonText={buttonText}
-                                />
-                            </div>
-                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
-                                <div className="branded-image">
-                                    {/* TODO: include Icon component when desktop images are final */}
-                                </div>
+        <div className="content__container">
+            <main className="main">
+                <div className="content__body">
+                    <div className="content__row dynamic">
+                        <div className="content__col">
+                            <Calculator
+                                setExpandedState={setExpandedState}
+                                calculator={calculator}
+                                disclaimer={disclaimer}
+                                buttonText={buttonText}
+                            />
+                        </div>
+                        <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                            <div className="branded-image">
+                                {/* TODO: include Icon component when desktop images are final */}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} expandedState={expandedState} />
-                        <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                            {disclosure}
-                        </div>
-                        {renderCheckoutCtaButton()}
                     </div>
-                </main>
-            </div>
-        </Fragment>
+                    <Instructions instructions={instructions} expandedState={expandedState} />
+                    <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>{disclosure}</div>
+                    {renderCheckoutCtaButton()}
+                </div>
+            </main>
+        </div>
     );
 };

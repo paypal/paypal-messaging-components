@@ -4,7 +4,7 @@ import { useServerData } from '../../../lib';
 import Tile from '../../Tile';
 import styles from './styles.scss';
 
-export const ProductList = ({ content: { instructions, disclosure, tiles }, setProduct, contentBodyRef }) => {
+export const ProductList = ({ content: { instructions, disclosure, tiles }, setViewName }) => {
     const { views } = useServerData();
     const availableTiles = tiles.filter(tile => views.find(view => tile.viewName === view.meta.product));
 
@@ -13,7 +13,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
             <style>{styles._getCss()}</style>
             <div className="content__container">
                 <main className="main">
-                    <div className="content__body" ref={contentBodyRef}>
+                    <div className="content__body">
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content__row instructions">
@@ -26,7 +26,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setP
                                         body={body}
                                         icon={icon}
                                         viewName={viewName}
-                                        setProduct={setProduct}
+                                        setViewName={setViewName}
                                     />
                                 ))}
                                 <div className="content__row instructions">
