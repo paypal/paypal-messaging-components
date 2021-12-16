@@ -186,5 +186,6 @@ const outputLighthouseJson = (html, empty = false) => {
 Promise.resolve(checkDirectory()).then(files => {
     const { desktopScores, mobileScores } = groupScores(files);
     const { desktopAverageScores, mobileAverageScores } = getScores(desktopScores, mobileScores);
+    // create html for lighthouse scores and save to json file for compile.js
     outputLighthouseJson(createLighthouseHtml(desktopAverageScores, mobileAverageScores), files.length);
 });

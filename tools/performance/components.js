@@ -3,9 +3,9 @@ const fs = require('fs');
 const basePath = process.cwd();
 
 /**
- *
- * @param {*} file
- * @returns
+ * Get the json data for the analyzed bundles
+ * @param {string} file - file name
+ * @returns {promise} - array of objects
  */
 const getComponentFileData = file => {
     return new Promise(resolve => {
@@ -27,17 +27,17 @@ const getComponentFileData = file => {
 };
 
 /**
- *
- * @returns
+ * Create an array of promises for the bundle data
+ * @returns {array} - array of promises
  */
 const getComponentJson = () => {
     return [getComponentFileData('messagesReport'), getComponentFileData('componentsReport')];
 };
 
 /**
- *
- * @param {*} jsonDataArray
- * @returns
+ * Create HTML table row
+ * @param {array} jsonDataArray - each row is a file object
+ * @returns {string} - HTML table rows
  */
 const getFileSizeTableRowHtml = jsonDataArray => {
     return jsonDataArray
@@ -46,10 +46,10 @@ const getFileSizeTableRowHtml = jsonDataArray => {
 };
 
 /**
- *
- * @param {*} messagesReport
- * @param {*} componentsReport
- * @returns
+ * Create HTML for all components
+ * @param {array} messagesReport - bundle data for messages
+ * @param {array} componentsReport - bundle data for components
+ * @returns {string} - html for all components
  */
 const getComponentHtml = (messagesReport, componentsReport) => {
     const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
@@ -88,6 +88,7 @@ Promise.all(getComponentJson()).then(reports => {
     const [messagesReport, componentsReport] = reports;
     const html = getComponentHtml(messagesReport, componentsReport);
 
+    // save html to json file to be used in compile.js
     fs.writeFile('dist/components.json', JSON.stringify({ html: `${html}` }), err => {
         if (err) {
             console.log('components.json failed to save');

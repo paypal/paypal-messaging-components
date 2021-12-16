@@ -19,15 +19,22 @@ let html = `<html>
                 </head>
                 <body>
                     <div>${new Date().toDateString()}</div>`;
-html += JSON.parse(fs.readFileSync(`${basePath}/dist/lighthouseScores.json`)).html;
-html += JSON.parse(fs.readFileSync(`${basePath}/dist/components.json`)).html;
-html += JSON.parse(fs.readFileSync(`${basePath}/dist/metrics.json`)).html;
-html += `</body></html>`;
+try {
+    // get html from json files
+    html += JSON.parse(fs.readFileSync(`${basePath}/dist/lighthouseScores.json`)).html;
+    html += JSON.parse(fs.readFileSync(`${basePath}/dist/components.json`)).html;
+    html += JSON.parse(fs.readFileSync(`${basePath}/dist/metrics.json`)).html;
 
-fs.writeFile(`${basePath}/dist/performanceData${new Date().toISOString()}.html`, html, err => {
-    if (err) {
-        console.log('Error occured when writting performanceData.html');
-    } else {
-        console.log('performanceData.html created');
-    }
-});
+    html += `</body></html>`;
+
+    // output report html document
+    fs.writeFile(`${basePath}/dist/performanceData${new Date().toISOString()}.html`, html, err => {
+        if (err) {
+            console.log('Error occured when writting performanceData.html');
+        } else {
+            console.log('performanceData.html created');
+        }
+    });
+} catch (err) {
+    throw new Error('Make sure lighthouse.json, components.json, and metrics.json exist first');
+}
