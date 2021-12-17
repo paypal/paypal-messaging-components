@@ -53,7 +53,7 @@ const createMetricsHtml = metricsReport => {
 };
 
 // start puppeteer
-(async () => {
+const getMetrics = async () => {
     const networkRequests = [];
     const stats = {
         total_requests: 0,
@@ -229,4 +229,8 @@ const createMetricsHtml = metricsReport => {
 
     await browser.close();
     await process.exit();
-})();
+};
+
+if (process.env.BENCHMARK_METRICS === 'true') {
+    getMetrics();
+}

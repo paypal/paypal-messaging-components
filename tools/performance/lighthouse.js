@@ -116,53 +116,40 @@ const getScores = (desktopLighthouseScores, mobileLighthouseScores) => {
 };
 
 /**
+ * Get scores in table rows
+ * @param {array} scoresArr desktop or mobile scores
+ * @returns {array} - html table rows of scores
+ */
+const scores = scoresArr =>
+    Object.keys(scoresArr)
+        .map(
+            score =>
+                `<tr>
+                    <td>${score}</td>
+                    <td>${scoresArr[score].performance.toFixed(3)}</td>
+                    <td>${scoresArr[score].accessibility.toFixed(3)}</td>
+                    <td>${scoresArr[score].bestPractices.toFixed(3)}</td>
+                    <td>${scoresArr[score].seo.toFixed(3)}</td>
+                </tr>`
+        )
+        .join('');
+
+/**
  * Create the html from the scores
  * @param {object} desktopAverageScores - pages with averaged scores
  * @param {object} mobileAverageScores - pages with averaged scores
  * @returns {string} - html
  */
 const createLighthouseHtml = (desktopAverageScores, mobileAverageScores) => {
+    const desktopLighthouse = scores(desktopAverageScores);
+    const mobileLighthouse = scores(mobileAverageScores);
     const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>SEO</td></tr>`;
 
-    const desktopLighthouse = Object.keys(desktopAverageScores)
-        .map(
-            score =>
-                `<tr>
-                    <td>${score}</td>
-                    <td>${desktopAverageScores[score].performance.toFixed(3)}</td>
-                    <td>${desktopAverageScores[score].accessibility.toFixed(3)}</td>
-                    <td>${desktopAverageScores[score].bestPractices.toFixed(3)}</td>
-                    <td>${desktopAverageScores[score].seo.toFixed(3)}</td>
-                </tr>`
-        )
-        .join('');
-
-    const mobileLighthouse = Object.keys(mobileAverageScores)
-        .map(
-            score =>
-                `<tr>
-                    <td>${score}</td>
-                    <td>${mobileAverageScores[score].performance.toFixed(3)}</td>
-                    <td>${mobileAverageScores[score].accessibility.toFixed(3)}</td>
-                    <td>${mobileAverageScores[score].bestPractices.toFixed(3)}</td>
-                    <td>${mobileAverageScores[score].seo.toFixed(3)}</td>
-                </tr>`
-        )
-        .join('');
-
-    let html = `<h2>Lighthouse Scores</h2>`;
-    html += `<h3>Desktop</h3>`;
-    html += `<table>`;
-    html += lighthouseHeadings;
-    html += desktopLighthouse;
-    html += `</table>`;
-    html += `<h3>Mobile</h3>`;
-    html += `<table>`;
-    html += lighthouseHeadings;
-    html += mobileLighthouse;
-    html += `</table>`;
-
-    return html;
+    return `<h2>Lighthouse Scores</h2>
+    <h3>Desktop</h3>
+    <table>${lighthouseHeadings}${desktopLighthouse}</table>
+    <h3>Mobile</h3>
+    <table>${lighthouseHeadings}${mobileLighthouse}</table>`;
 };
 
 /**
@@ -181,7 +168,7 @@ const outputLighthouseJson = (html, empty = false) => {
     });
 };
 
-Promise.resolve(checkDirectory()).then(files => {
+checkDirectory().then(files => {
     const { desktopScores, mobileScores } = groupScores(files);
     const { desktopAverageScores, mobileAverageScores } = getScores(desktopScores, mobileScores);
     // create html for lighthouse scores and save to json file for compile.js

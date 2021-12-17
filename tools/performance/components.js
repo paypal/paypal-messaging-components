@@ -7,8 +7,8 @@ const basePath = process.cwd();
  * @param {string} file - file name
  * @returns {promise} - array of objects
  */
-const getComponentFileData = file => {
-    return new Promise(resolve => {
+const getComponentFileData = file =>
+    new Promise(resolve => {
         fs.readFile(`${basePath}/dist/${file}.json`, { encoding: 'utf-8' }, (err, data) => {
             if (err) {
                 resolve([]);
@@ -24,7 +24,6 @@ const getComponentFileData = file => {
             );
         });
     });
-};
 
 /**
  * Create an array of promises for the bundle data
@@ -67,19 +66,10 @@ const getComponentHtml = (messagesReport, componentsReport) => {
         [...componentsReport, ...messagesReport].sort((a, b) => b.gzipSize - a.gzipSize).splice(0, 3)
     );
 
-    html += `<h2>File Sizes</h2>`;
-    html += `<table>`;
-    html += headings;
-    html += messaging;
-    html += modals;
-    html += `</table>`;
-
-    html += `<h2>Largest Files</h2>`;
-
-    html += `<table>`;
-    html += headings;
-    html += largestFiles;
-    html += `</table>`;
+    html += `<h2>File Sizes</h2>
+    <table>${headings}${messaging}${modals}</table>
+    <h2>Largest Files</h2><table>
+    ${headings}${largestFiles}</table>`;
 
     return html;
 };
