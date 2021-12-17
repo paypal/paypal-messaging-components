@@ -231,6 +231,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         runStats({
                             container: getContainer(),
                             activeTags,
+                            messageRequestId,
                             index
                         });
                         modal.updateProps({ refIndex: index, offer: offerType });

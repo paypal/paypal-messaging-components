@@ -7,29 +7,26 @@ import { getScriptAttributes, isZoidComponent } from './sdk';
 import { getCurrentTime } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
-import { getNavigationTiming, getPerformanceMeasure } from './performance';
+import { getNavigationTiming, getPerformanceMeasure, getRequestMeasure, PERFORMANCE_MEASURE_KEYS } from './performance';
 import { getViewportIntersectionObserver } from './observers';
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
-        const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
-
-        const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
-        const pageLoadDelay = getNavigationTiming('loadEventStart');
-
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'page_loaded',
-            script_load_delay: Math.round(scriptLoadDelay).toString(),
-            dom_load_delay: Math.round(domLoadDelay).toString(),
-            page_load_delay: Math.round(pageLoadDelay).toString()
+            script_load_delay: getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.SCRIPT_LOAD_DELAY),
+            dom_load_delay: getNavigationTiming(PERFORMANCE_MEASURE_KEYS.DOM_CONTENT_LOADED_EVENT_START),
+            page_load_delay: getNavigationTiming(PERFORMANCE_MEASURE_KEYS.LOAD_EVENT_START)
         };
 
         logger.track(payload);
     });
 }
 
-export function runStats({ container, activeTags, index }) {
+const formatStat = value => Math.round(value).toString();
+
+export function runStats({ container, activeTags, index, messageRequestId }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
@@ -39,7 +36,7 @@ export function runStats({ container, activeTags, index }) {
 
     const sdkMetaAttributes = getScriptAttributes();
 
-    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
+    const firstRenderDelay = getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_RENDER_DELAY);
 
     // Create initial payload
     const payload = {
@@ -49,16 +46,17 @@ export function runStats({ container, activeTags, index }) {
         bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
         // Beaver logger filters payload props based on Boolean conversion value
         // so everything must be converted to a string to prevent unintended filtering
-        pos_x: Math.round(containerRect.left).toString(),
-        pos_y: Math.round(containerRect.top).toString(),
+        pos_x: formatStat(containerRect.left),
+        pos_y: formatStat(containerRect.top),
         browser_width: (topWindow?.innerWidth).toString(),
         browser_height: (topWindow?.innerHeight).toString(),
         visible: isInViewport(container).toString(),
         // Visible message sections
         active_tags: activeTags,
         // Performance measurements
-        first_render_delay: Math.round(firstRenderDelay).toString(),
-        render_duration: Math.round(getCurrentTime() - state.renderStart).toString()
+        first_render_delay: formatStat(firstRenderDelay),
+        request_duration: formatStat(getRequestMeasure('messageRequest', messageRequestId)),
+        render_duration: formatStat(getCurrentTime() - state.renderStart)
     };
 
     // No need for scroll event if banner is above the fold
