@@ -6,7 +6,7 @@ const basePath = process.cwd();
  * Get lighthouse files inside of lighthouse directory if it exists
  * @returns {Promise} - array of lighthouse files names
  */
-const checkDirectory = async () => {
+const checkDirectory = () => {
     return new Promise(resolve => {
         fs.readdir(`${basePath}/lighthouse`, { encoding: 'utf8' }, (err, file) => {
             if (err) {
@@ -70,7 +70,7 @@ const groupScores = files => {
  * @returns {object} - scores for page
  */
 const getSortedAverageScores = (scores, page) => {
-    const timeSorted = scores[page].sort((a, b) => a.fetchTime - b.fetchTime).slice(1);
+    const timeSorted = scores.sort((a, b) => a.fetchTime - b.fetchTime).slice(1);
 
     const averageTimes = {
         performance: 0,
@@ -106,12 +106,10 @@ const getScores = (desktopLighthouseScores, mobileLighthouseScores) => {
     const desktopAverageScores = {};
     const mobileAverageScores = {};
 
-    Object.keys(desktopLighthouseScores).forEach(page => {
-        desktopAverageScores[page] = getSortedAverageScores(desktopLighthouseScores, page);
-    });
-
-    Object.keys(mobileLighthouseScores).forEach(page => {
-        mobileAverageScores[page] = getSortedAverageScores(mobileLighthouseScores, page);
+    Object.entries(desktopLighthouseScores).forEach(page => {
+        const url = page[0];
+        desktopAverageScores[url] = getSortedAverageScores(desktopLighthouseScores[url], url);
+        mobileAverageScores[url] = getSortedAverageScores(mobileLighthouseScores[url], url);
     });
 
     return { desktopAverageScores, mobileAverageScores };
