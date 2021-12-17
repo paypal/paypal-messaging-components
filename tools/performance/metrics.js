@@ -232,5 +232,6 @@ const getMetrics = async () => {
 };
 
 if (process.env.BENCHMARK_METRICS === 'true') {
-    getMetrics();
+    // need to wait for server to start in jenkins
+    setTimeout(getMetrics(), process.env.METRICS_URL ? 0 : 30000);
 }
