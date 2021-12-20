@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+    </head>
+
+    <body>
+        <style>
+            .hide-banner {
+                position: absolute;
+                height: 500px;
+                width: 100%;
+                background: white;
+                z-index: 1;
+                pointer-events: none;
+            }
+        </style>
+        <div class="hide-banner"></div>
+        <div class="messages banner-1" data-pp-message></div>
+        <br />
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                if (key === 'amount' && decodeURIComponent(value) === '0.00') {
+                    accumulator[key] = undefined;
+                } else {
+                    accumulator[key] = decodeURIComponent(value);
+                }
+                return accumulator;
+            }, {});
+            console.log(mappedParams);
+
+            paypal
+                .Messages({
+                    ...mappedParams
+                })
+                .render('.messages');
+        </script>
+    </body>
+</html>
