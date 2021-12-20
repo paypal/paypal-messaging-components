@@ -1,5 +1,5 @@
-import { selectors, screenDimensions, filterPermutations, testNameParts, logTestName } from '../../utils/index';
-import { US } from '../../config/index';
+import { selectors, screenDimensions, filterPermutations, testNameParts, logTestName } from '../utils/index';
+import { US } from '../config/index';
 
 import {
     openProductListView,
@@ -20,7 +20,7 @@ import {
     showCorrectOfferBreakdown,
     showCorrectAPRDisclaimer,
     showCorrectOfferInfo
-} from '../../testFn';
+} from '../testFn';
 
 const {
     message: { messageContainer, messageIframe, messageMessaging },

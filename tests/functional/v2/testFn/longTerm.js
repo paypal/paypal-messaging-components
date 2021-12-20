@@ -4,7 +4,8 @@ const {
     modal: { contentWrapper },
     longTerm: {
         calculator: { errorContainer, input },
-        offerCard: { offerContainer, offerRow, offerField }
+        offerCard: { offerContainer, offerRow, offerField },
+        button: { checkoutCta }
     }
 } = selectors;
 
@@ -68,6 +69,17 @@ export const updateTermsViaCalc = async (contentWindow, modalContent, testName) 
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
     expect(offerFieldHeadline).toContain(modalContent.updatedOfferHeadline);
+    await modalSnapshot(testName, contentWindow);
+};
+
+/**
+ * Ensures the correct checkout CTA button content is shown.
+ */
+export const showCorrectXOButtonContent = async (contentWindow, modalContent, testName) => {
+    await contentWindow.waitForSelector(contentWrapper);
+    await contentWindow.waitForSelector(checkoutCta);
+    const checkoutButtonContent = await contentWindow.$eval(checkoutCta, element => element.innerText);
+    expect(checkoutButtonContent).toContain(modalContent.cta);
     await modalSnapshot(testName, contentWindow);
 };
 

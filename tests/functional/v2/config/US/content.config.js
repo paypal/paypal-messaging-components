@@ -122,7 +122,8 @@ export const US = {
                     updatedOfferHeadline: '$87.50/mo. for 6 months',
                     offerFieldValues: ['10%', '$9.95', '$208.95'],
                     aprDisclaimer:
-                        '*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.'
+                        '*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.',
+                    cta: 'Continue with Pay Monthly'
                 }
             }
         ]

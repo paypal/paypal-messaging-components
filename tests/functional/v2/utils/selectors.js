@@ -63,7 +63,7 @@ export const selectors = {
         },
         // channel: CHECKOUT button "Continue with Pay Monthly"
         button: {
-            checkout: '.cta'
+            checkoutCta: '.cta'
         },
         // Legal disclaimer underneath terms table
         termsDisclaimer: '.finance-terms__disclaimer'
