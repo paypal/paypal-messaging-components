@@ -1,7 +1,15 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from 'belter/src';
 
-import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    getRequestDuration
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
     const {
@@ -72,7 +80,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         activeTags: getActiveTags(button),
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        requestDuration: getRequestDuration()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
@@ -170,7 +179,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 // Generate new MRID on message update.
                                 messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
-                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                requestDuration: getRequestDuration()
                             });
                         }
 

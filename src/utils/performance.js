@@ -21,49 +21,28 @@ export const PERFORMANCE_MEASURE_KEYS = {
     DOM_CONTENT_LOADED_EVENT_START: 'domContentLoadedEventStart',
     // (PerformanceTiming.loadEventStart is DEPRECATED)
     // when the load event was sent for the parent page
-    LOAD_EVENT_START: 'loadEventStart',
-
-    // the time it took to load specific resources
-    REQUEST_DURATION: {
-        name: 'requestDuration',
-        requests: {
-            '/credit-presentment/smart/message': 'messageRequest'
-        }
-    }
+    LOAD_EVENT_START: 'loadEventStart'
 };
 
-// Use the PerformanceObserver().observe() to capture network request statistics for each message.
-// This runs globally, so we need messageRequestId to associate each request to each message
-(function setupRequestMeasures() {
-    const namespace = namespaced(PERFORMANCE_MEASURE_KEYS.REQUEST_DURATION.name);
-    if (!window[namespace]) {
-        window[namespace] = {};
-        new PerformanceObserver(list => {
-            list.getEntries().forEach(item => {
-                const { name, duration } = item.toJSON();
-                const [metricName] = Object.entries(PERFORMANCE_MEASURE_KEYS.REQUEST_DURATION.requests)
-                    .filter(([key]) => name.indexOf(key) > -1)
-                    .map(([, value]) => value);
-
-                if (typeof metricName !== 'undefined') {
-                    const searchParams = Object.fromEntries(new URL(name)?.searchParams.entries());
-                    const { message_request_id: messageRequestId } = searchParams;
-
-                    if (messageRequestId) {
-                        window[namespace][metricName] = {
-                            ...(window[namespace][metricName] ?? {}),
-                            [messageRequestId]: duration
-                        };
-                    }
-                }
-            });
-        }).observe({ type: 'resource', buffered: true });
+export function getRequestDuration() {
+    if (typeof window?.performance?.getEntries !== 'function') {
+        return -1;
     }
-})();
+    // eslint-disable-next-line compat/compat
+    const requests = window.performance
+        .getEntries()
+        .filter(
+            ({ name, entryType }) =>
+                (entryType === 'navigation' && `${name}`.indexOf('/credit-presentment/smart/message') > -1) ||
+                (entryType === 'resource' && `${name}`.indexOf('/credit-presentment/renderMessage') > -1)
+        );
 
-export function getRequestMeasure(requestName, messageRequestId) {
-    const namespace = namespaced(PERFORMANCE_MEASURE_KEYS.REQUEST_DURATION.name);
-    return window?.[namespace]?.[requestName]?.[messageRequestId] ?? -1;
+    const [{ connectStart, responseStart }] = requests.slice(-1);
+
+    if (typeof connectStart !== 'undefined') {
+        return responseStart - connectStart;
+    }
+    return -1;
 }
 
 export function getPerformanceMeasure(name) {

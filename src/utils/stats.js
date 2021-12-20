@@ -7,26 +7,26 @@ import { getScriptAttributes, isZoidComponent } from './sdk';
 import { getCurrentTime } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
-import { getNavigationTiming, getPerformanceMeasure, getRequestMeasure, PERFORMANCE_MEASURE_KEYS } from './performance';
+import { getNavigationTiming, getPerformanceMeasure, PERFORMANCE_MEASURE_KEYS } from './performance';
 import { getViewportIntersectionObserver } from './observers';
+
+const formatStat = value => Math.round(value).toString();
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'page_loaded',
-            script_load_delay: getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.SCRIPT_LOAD_DELAY),
-            dom_load_delay: getNavigationTiming(PERFORMANCE_MEASURE_KEYS.DOM_CONTENT_LOADED_EVENT_START),
-            page_load_delay: getNavigationTiming(PERFORMANCE_MEASURE_KEYS.LOAD_EVENT_START)
+            script_load_delay: formatStat(getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.SCRIPT_LOAD_DELAY)),
+            dom_load_delay: formatStat(getNavigationTiming(PERFORMANCE_MEASURE_KEYS.DOM_CONTENT_LOADED_EVENT_START)),
+            page_load_delay: formatStat(getNavigationTiming(PERFORMANCE_MEASURE_KEYS.LOAD_EVENT_START))
         };
 
         logger.track(payload);
     });
 }
 
-const formatStat = value => Math.round(value).toString();
-
-export function runStats({ container, activeTags, index, messageRequestId }) {
+export function runStats({ container, activeTags, index, requestDuration }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
@@ -55,7 +55,7 @@ export function runStats({ container, activeTags, index, messageRequestId }) {
         active_tags: activeTags,
         // Performance measurements
         first_render_delay: formatStat(firstRenderDelay),
-        request_duration: formatStat(getRequestMeasure('messageRequest', messageRequestId)),
+        request_duration: typeof requestDuration === 'number' ? formatStat(requestDuration) : undefined,
         render_duration: formatStat(getCurrentTime() - state.renderStart)
     };
 
