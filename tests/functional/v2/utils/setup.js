@@ -62,6 +62,9 @@ export const filterPermutations = (configs, accounts) => {
     return filteredPermutations.map(permutation => [permutation.country, permutation.account, permutation]);
 };
 
+/**
+ * Assembles a test name to be used in snapshots and logging from various config parts.
+ */
 export const testNameParts = (country, integration, account, amount, viewport) => {
     const testName = expect
         .getState()
