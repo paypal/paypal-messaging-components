@@ -40,6 +40,8 @@ export function getRequestDuration() {
     const [{ connectStart, responseStart }] = requests.slice(-1);
 
     if (typeof connectStart !== 'undefined') {
+        // This measures the "Waiting (Time To First Byte)" for the request;
+        // how long we've spent waiting for a response after sending the request
         return responseStart - connectStart;
     }
     return -1;
