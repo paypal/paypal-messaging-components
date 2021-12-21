@@ -55,7 +55,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
         active_tags: activeTags,
         // Performance measurements
         first_render_delay: formatStat(firstRenderDelay),
-        request_duration: typeof requestDuration === 'number' ? formatStat(requestDuration) : undefined,
+        request_duration: formatStat(requestDuration),
         render_duration: formatStat(getCurrentTime() - state.renderStart)
     };
 
