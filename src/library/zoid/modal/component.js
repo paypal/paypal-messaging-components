@@ -157,7 +157,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'click',
                             link: 'Calculator',
                             src: 'Calculator',
-
                             amount: value
                         });
 
