@@ -5,6 +5,7 @@ import { Messages, MessagesModal, setup } from './interface';
 // to export more than one named export onto an existing object
 window.paypal = window.paypal ?? {};
 window.paypal.Messages = Messages;
-window.paypal.MessagesModal = MessagesModal;
-
+window.paypal.MessagesModal = options => {
+    return MessagesModal({ ...options, integrationIdentifier: 'messagesModal' });
+};
 setup();

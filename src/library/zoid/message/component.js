@@ -208,14 +208,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID(), // Session ID from parent local storage,
-                                    channel: channel ?? 'UPSTREAM'
+                                    sessionID: getSessionID() // Session ID from parent local storage,
                                 },
                                 [index]: {
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    trackingDetails
+                                    trackingDetails,
+                                    channel: channel ?? 'UPSTREAM'
                                 }
                             };
                         });
