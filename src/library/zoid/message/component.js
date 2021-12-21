@@ -208,7 +208,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID() // Session ID from parent local storage,
+                                    sessionID: getSessionID() // Session ID from parent local storage
                                 },
                                 [index]: {
                                     type: 'message',
