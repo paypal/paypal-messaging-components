@@ -1,11 +1,12 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData } from '../../../lib';
+import { useXProps, useServerData, useCalculator } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import Button from '../../Button';
+import getComputedVariables from '../../../lib/getComputedVariables';
 
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
@@ -14,7 +15,11 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const { onClose } = useXProps();
     const { views } = useServerData();
-
+    const {
+        view: { offers },
+        value
+    } = useCalculator();
+    const { minAmount, maxAmount } = getComputedVariables(offers);
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
      * partial content has been added. Because we do not want to show the link to the product list modal if we are in checkout,
@@ -25,11 +30,19 @@ export const LongTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <Fragment>
-                    <div className="button__container">
-                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
-                            {cta.buttonText}
-                        </Button>
-                    </div>
+                    {value > minAmount && value < maxAmount ? (
+                        <div className="button__container">
+                            <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                                {cta.buttonTextEligible}
+                            </Button>
+                        </div>
+                    ) : (
+                        <div className="button__container">
+                            <Button onClick={() => onClose({ linkName: 'Back to Checkout' })} className="cta">
+                                {cta.buttonText}
+                            </Button>
+                        </div>
+                    )}
                 </Fragment>
             );
         }

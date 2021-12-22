@@ -14,7 +14,7 @@ export default {
                 product: 'PAYPAL_CREDIT_NO_INTEREST'
             },
             {
-                template: 'long_term.json',
+                template: 'long_term_xo.json',
                 offersTemplate: 'long_term.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
