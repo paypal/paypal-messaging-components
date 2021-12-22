@@ -1,0 +1,65 @@
+@import '../../../styles/globals/colors';
+@import '../../../styles/globals/mixins';
+
+.content__container {
+    .content__row {
+        &.dynamic {
+            background-color: $beige-background;
+
+            @include desktop {
+                height: 600px;
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+
+            .content__col {
+                @include desktop {
+                    padding-left: 50px;
+                }
+            }
+
+            &.collapsed {
+                max-width: 445px;
+            }
+
+            .branded-image {
+                display: flex;
+
+                @include desktop {
+                    position: relative;
+                    margin-top: 0px;
+                }
+            }
+        }
+
+        &.instructions {
+            @include desktop {
+                padding-left: 0px;
+            }
+
+            p {
+                margin-top: 0;
+                color: black;
+                font-size: 18px;
+
+                @include lander {
+                    margin-top: 30px;
+                }
+            }
+        }
+
+        &.disclosure {
+            &.collapsed {
+                @include desktop {
+                    width: 45%;
+                    margin-top: 25px;
+                    margin-bottom: 50px;
+                }
+            }
+
+            @include tablet {
+                margin-bottom: 25px;
+            }
+        }
+    }
+}

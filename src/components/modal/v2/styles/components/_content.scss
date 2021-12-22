@@ -6,19 +6,15 @@
     background: $instructions-background;
     padding-bottom: 1.5rem;
     flex-grow: 1;
+    margin-top: -$sticky-header-radius;
 
-    .lander & {
+    @include lander {
+        margin-top: 0;
         border-radius: 100px 0px;
-        @include mobile {
-            border-radius: 0px;
-        }
-    }
 
-    @include tablet {
-        border-radius: 10px;
-    }
-    @include mobile {
-        border-radius: 0px;
+        @include mobile {
+            border-radius: 100px 0px 0px 0px;
+        }
     }
 
     main {
@@ -36,20 +32,6 @@
         display: flex;
         flex-direction: column;
         padding: 0 20px;
-
-        @include desktop {
-            margin-top: -2rem;
-        }
-
-        @include tablet {
-            margin-top: -3rem;
-        }
-        @include mobile {
-            margin-top: -2rem;
-        }
-        @include smallMobile {
-            margin-top: -2.5rem;
-        }
     }
 
     .content__row {
@@ -57,15 +39,14 @@
             display: flex;
             flex-direction: row;
             margin: 0 -20px;
-            margin-top: -1px;
             background: white;
             padding-bottom: 0.5rem;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
-            border-radius: 40px 0px;
+            border-radius: 0 0 40px 0;
 
-            .lander & {
+            @include lander {
                 border-radius: 100px 0px 0px 0px;
                 @include mobile {
                     border-radius: 40px 0px;
@@ -84,6 +65,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+
+            @include mobile {
+                width: 100%;
+            }
 
             &.collapsed {
                 &:last-child {

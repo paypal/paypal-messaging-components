@@ -70,7 +70,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         buyerCountry,
         ignoreCache,
         amount,
-        stageTag
+        stageTag,
+        devTouchpoint
     } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
@@ -90,7 +91,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             merchantId,
             buyerCountry,
             ignoreCache,
-            stageTag
+            stageTag,
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);

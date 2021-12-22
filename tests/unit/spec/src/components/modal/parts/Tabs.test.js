@@ -24,7 +24,7 @@ describe('<Tabs />', () => {
     const onClick = jest.fn();
     xPropsMock({
         onClick,
-        offer: 'EZP'
+        offer: 'PAYPAL_CREDIT_INSTALLMENTS'
     });
 
     useTransitionState.mockImplementation(() => useContext(mockTransitionContext));
