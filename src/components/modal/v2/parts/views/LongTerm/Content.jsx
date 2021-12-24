@@ -15,11 +15,16 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const { onClose } = useXProps();
     const { views } = useServerData();
+
+    const calculatorHook = useCalculator({ autoSubmit: true });
     const {
         view: { offers },
         value
-    } = useCalculator();
+    } = calculatorHook;
     const { minAmount, maxAmount } = getComputedVariables(offers);
+
+    const eligible = value > minAmount && value < maxAmount;
+
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
      * partial content has been added. Because we do not want to show the link to the product list modal if we are in checkout,
@@ -30,7 +35,7 @@ export const LongTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <Fragment>
-                    {value > minAmount && value < maxAmount ? (
+                    {eligible ? (
                         <div className="button__container">
                             <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
                                 {cta.buttonTextEligible}
@@ -39,7 +44,7 @@ export const LongTerm = ({
                     ) : (
                         <div className="button__container">
                             <Button onClick={() => onClose({ linkName: 'Back to Checkout' })} className="cta">
-                                {cta.buttonText}
+                                {cta.buttonTextIneligible}
                             </Button>
                         </div>
                     )}
@@ -59,6 +64,7 @@ export const LongTerm = ({
                     <div className="content__row dynamic">
                         <div className="content__col">
                             <Calculator
+                                calculatorHook={calculatorHook}
                                 setExpandedState={setExpandedState}
                                 calculator={calculator}
                                 disclaimer={disclaimer}
