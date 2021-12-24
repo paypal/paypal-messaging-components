@@ -2,7 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useServerData, useXProps, delocalize, getDisplayValue } from '../lib';
+import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue } from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 import getComputedVariables from '../lib/getComputedVariables';
@@ -54,13 +54,8 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
     return null;
 };
 
-const Calculator = ({
-    calculatorHook,
-    setExpandedState,
-    calculator,
-    disclaimer: { zeroAPR, mixedAPR, nonZeroAPR }
-}) => {
-    const { view, value, isLoading, submit, changeInput } = calculatorHook;
+const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
+    const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
     const { title, inputLabel, inputPlaceholder } = calculator;

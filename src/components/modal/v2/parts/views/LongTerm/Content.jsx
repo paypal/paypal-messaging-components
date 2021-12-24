@@ -13,17 +13,14 @@ export const LongTerm = ({
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { onClose } = useXProps();
+    const { amount, onClose } = useXProps();
     const { views } = useServerData();
-
-    const calculatorHook = useCalculator({ autoSubmit: true });
     const {
-        view: { offers },
-        value
-    } = calculatorHook;
+        view: { offers }
+    } = useCalculator({ autoSubmit: true });
     const { minAmount, maxAmount } = getComputedVariables(offers);
 
-    const eligible = minAmount <= value && value <= maxAmount;
+    const eligible = amount >= minAmount && amount <= maxAmount;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -35,19 +32,17 @@ export const LongTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <Fragment>
-                    {eligible ? (
-                        <div className="button__container">
+                    <div className="button__container">
+                        {eligible ? (
                             <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
                                 {cta.buttonTextEligible}
                             </Button>
-                        </div>
-                    ) : (
-                        <div className="button__container">
+                        ) : (
                             <Button onClick={() => onClose({ linkName: 'Back to Checkout' })} className="cta">
                                 {cta.buttonTextIneligible}
                             </Button>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </Fragment>
             );
         }
@@ -64,7 +59,6 @@ export const LongTerm = ({
                     <div className="content__row dynamic">
                         <div className="content__col">
                             <Calculator
-                                calculatorHook={calculatorHook}
                                 setExpandedState={setExpandedState}
                                 calculator={calculator}
                                 disclaimer={disclaimer}
