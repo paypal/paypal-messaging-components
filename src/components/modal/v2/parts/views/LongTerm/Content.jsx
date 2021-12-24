@@ -17,7 +17,7 @@ export const LongTerm = ({
     const { views } = useServerData();
     const {
         view: { offers }
-    } = useCalculator({ autoSubmit: true });
+    } = useCalculator();
     const { minAmount, maxAmount } = getComputedVariables(offers);
 
     const eligible = amount >= minAmount && amount <= maxAmount;
