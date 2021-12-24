@@ -23,7 +23,7 @@ export const LongTerm = ({
     } = calculatorHook;
     const { minAmount, maxAmount } = getComputedVariables(offers);
 
-    const eligible = value > minAmount && value < maxAmount;
+    const eligible = minAmount <= value && value <= maxAmount;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
