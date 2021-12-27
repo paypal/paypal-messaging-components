@@ -27,6 +27,11 @@
         @include mobile {
             border-radius: 0;
         }
+
+        @include apiIframe {
+            max-width: 100%;
+            border-radius: 0;
+        }
     }
 
     &__background-wrapper {
@@ -77,6 +82,10 @@
         svg {
             width: 900px;
             transform: translate(0, -30%);
+
+            @include apiIframe {
+                width: 100%;
+            }
         }
     }
 
@@ -117,8 +126,19 @@
                     justify-content: center;
                 }
 
+                @include apiIframe {
+                    width: 100%;
+                    transform: translateY(2rem);
+                    transition: transform 0.2s ease-out, width 0.2s ease-out;
+                }
+
                 &--scroll {
                     transform: translate(0, 0);
+
+                    @include apiIframe {
+                        width: 30px;
+                        transform: translate(0, 0);
+                    }
                 }
 
                 .pp-logo {
