@@ -154,7 +154,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {
-                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        // removes first 4 characters which is <!-- and last 3 which is -->
+                        const encodedData = resData.slice(4, -3);
                         const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
