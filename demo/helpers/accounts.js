@@ -37,6 +37,10 @@ const accounts = [
     // FR
     // 'DEV000000FRPL',
     // 'DEV00000FRPLQ'
+    
+    // ES
+    // 'DEV000000ESPL',
+    // 'DEV00000ESPLQ'
 
     // AU
     // 'DEV000000AUPL',
