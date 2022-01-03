@@ -24,12 +24,6 @@ const Header = ({ children, className = '', logo, wrapperRef }) => {
         <div className={`header-wrapper ${className}`} ref={wrapperRef}>
             <div className="header-container">
                 <header className="header">
-                    <div className="logo-wrapper">
-                        <div className="logo" alt="PayPal Credit Logo">
-                            <Icon name={LOCALE.LOGO[logo || country]} />
-                        </div>
-                    </div>
-                    {children}
                     <button
                         className="close"
                         aria-label="Close"
@@ -39,6 +33,12 @@ const Header = ({ children, className = '', logo, wrapperRef }) => {
                     >
                         <Icon name="close" />
                     </button>
+                    <div className="logo-wrapper">
+                        <div className="logo" alt="PayPal Credit">
+                            <Icon name={LOCALE.LOGO[logo || country]} />
+                        </div>
+                    </div>
+                    {children}
                 </header>
             </div>
         </div>
