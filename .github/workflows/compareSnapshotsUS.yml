@@ -7,41 +7,7 @@ on:
         branches:
             - develop
             - release
-        paths:
-            # Generic
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # ignores all locales and content
-            - '!server/locale/**'
-            - '!src/components/modal/content/**'
-            # US Specific
-            - banners/US/**
-            - modals/US/**
-            # re-includes US locales and US content
-            - server/locale/US/**
-            - src/components/modal/content/US*/**
-            - tests/functional/spec/US/**
-    pull_request:
-        paths:
-            # Generic
-            - server/**
-            - src/**
-            - tests/functional/spec/*
-            - tests/functional/spec/utils/**
-            - utils/**
-            # ignores all locales and content
-            - '!server/locale/**'
-            - '!src/components/modal/content/**'
-            # US Specific
-            - banners/US/**
-            - modals/US/**
-            # re-includes US locales and US content
-            - server/locale/US/**
-            - src/components/modal/content/US*/**
-            - tests/functional/spec/US/**
+    pull_request: {}
 
 jobs:
     getTestPathPatterns:
@@ -55,7 +21,7 @@ jobs:
               uses: actions/checkout@v2
 
             - id: setMatrix
-              run: echo "::set-output name=testPathPattern::$(cat ./.github/usTestPathPatterns.json | tr '\n' ' ')"
+              run: echo "::set-output name=testPathPattern::$(cat ./.github/configs/usTestPathPatterns.json | tr '\n' ' ')"
 
     compareSnapshots:
         name: US

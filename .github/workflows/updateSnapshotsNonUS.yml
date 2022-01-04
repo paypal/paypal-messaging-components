@@ -18,7 +18,7 @@ jobs:
               uses: actions/checkout@v2
 
             - id: setMatrix
-              run: echo "::set-output name=locale::$(cat ./.github/locales.json | tr '\n' ' ')"
+              run: echo "::set-output name=locale::$(cat ./.github/configs/locales.json | tr '\n' ' ')"
 
     updateSnapshots:
         name: Non-US
