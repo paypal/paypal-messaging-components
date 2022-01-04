@@ -68,7 +68,17 @@ export default {
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod()
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_PAYPAL.COLOR[0],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['€,']
+                    },
+                    {
+                        tag: 'xsmall',
+                        br: ['ahora']
+                    }
+                ]
             })
         ],
         [
