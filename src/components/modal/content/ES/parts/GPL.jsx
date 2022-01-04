@@ -14,7 +14,7 @@ const GPL = () => {
             <div className="description">
                 <h2>{headline.singleProduct}</h2>
 
-                <h3>{qualifying ? subHeadline.qualified : auCurrencyFormat(subHeadline.unqualified)}</h3>
+                <h3>{qualifying ? subHeadline.qualified : esCurrencyFormat(subHeadline.unqualified)}</h3>
 
                 <div className="call-to-action">
                     <div>
@@ -36,7 +36,7 @@ const GPL = () => {
                 <h3>About Pay in 4</h3>
                 <ul>
                     {(qualifying ? terms : terms.slice(1)).map(term => (
-                        <li>{auCurrencyFormat(term)}</li>
+                        <li>{esCurrencyFormat(term)}</li>
                     ))}
                 </ul>
             </div>

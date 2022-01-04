@@ -65,7 +65,7 @@ export default {
                     addPeriod()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
-                                headline: [
+                headline: [
                     {
                         tag: 'medium',
                         br: ['intereses']
@@ -74,6 +74,7 @@ export default {
                         tag: 'xsmall',
                         br: ['ahora y']
                     }
+                ]
             })
         ],
         [
