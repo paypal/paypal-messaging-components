@@ -205,16 +205,5 @@ export default {
         }
 
         return undefined;
-    },
-    integrationIdentifier: ({ props: { integrationIdentifier } }) => {
-        if (typeof integrationIdentifier !== 'undefined') {
-            if (!validateType(Types.STRING, integrationIdentifier)) {
-                logInvalidType('integrationIdentifier', Types.STRING, integrationIdentifier);
-            } else {
-                return integrationIdentifier;
-            }
-        }
-
-        return undefined;
     }
 };
