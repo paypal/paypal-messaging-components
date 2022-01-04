@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useContent, useProductMeta } from '../../../lib';
 
-const auCurrencyFormat = string => string.replace(/\.00/g, '');
+const esCurrencyFormat = string => string.replace(/\.00/g, '');
 
 const GPL = () => {
     const { headline, subHeadline, terms, instructions } = useContent('GPL');
