@@ -107,12 +107,12 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        br: ['€,']
                     },
                     {
-                        tag: 'xsmall.2',
-                        replace: [['later.', 'later']]
+                        tag: 'xsmall',
+                        replace: [['después.', 'después']],
+                        br: ['después']
                     }
                 ]
             })
