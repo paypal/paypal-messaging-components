@@ -8,7 +8,7 @@
  * From the offer with the lowest min amount, the belowThreshold error content is retrieved.
  * Similarly with the offer with the highest max amount, the aboveThreshold error content is retrieved.
  */
-const getComputedVariables = offers =>
+export const getComputedVariables = offers =>
     offers.reduce(
         (acc, { meta, content }) => {
             if (meta.minAmount) {
@@ -39,4 +39,3 @@ const getComputedVariables = offers =>
             }
         }
     );
-export default getComputedVariables;

@@ -1,15 +1,14 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, useCalculator } from '../../../lib';
+import { useXProps, useServerData, useCalculator, getComputedVariables } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import Button from '../../Button';
-import getComputedVariables from '../../../lib/getComputedVariables';
 
 export const LongTerm = ({
-    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
+    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, cta },
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -20,7 +19,7 @@ export const LongTerm = ({
     } = useCalculator();
     const { minAmount, maxAmount } = getComputedVariables(offers);
 
-    const eligible = amount >= minAmount && amount <= maxAmount;
+    const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -33,7 +32,7 @@ export const LongTerm = ({
             return (
                 <Fragment>
                     <div className="button__container">
-                        {eligible ? (
+                        {isQualifyingAmount ? (
                             <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
                                 {cta.buttonTextEligible}
                             </Button>
@@ -62,7 +61,6 @@ export const LongTerm = ({
                                 setExpandedState={setExpandedState}
                                 calculator={calculator}
                                 disclaimer={disclaimer}
-                                buttonText={buttonText}
                             />
                         </div>
                         <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
