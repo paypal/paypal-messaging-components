@@ -12,7 +12,7 @@ export const LongTerm = ({
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { onClose } = useXProps();
+    const { onClick, onClose } = useXProps();
     const { views } = useServerData();
 
     /**
@@ -22,11 +22,19 @@ export const LongTerm = ({
      * Otherwise, render the Product List link.
      */
     const renderCheckoutCtaButton = () => {
+        const clickTitle = 'Pay Monthly Continue';
+
         if (typeof cta !== 'undefined') {
             return (
                 <Fragment>
                     <div className="button__container">
-                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                        <Button
+                            onClick={() => {
+                                onClick({ linkName: clickTitle });
+                                onClose({ linkName: clickTitle });
+                            }}
+                            className="cta"
+                        >
                             {cta.buttonText}
                         </Button>
                     </div>
