@@ -5,6 +5,10 @@ const { createLighthouseHtml } = require(`./lighthouse.js`);
 const { createMetricsHtml } = require(`./metrics.js`);
 const basePath = process.cwd();
 
+/**
+ * Write html to file
+ * @param {string} html - html
+ */
 const writeHtmlToFile = html =>
     fs.writeFile(`${basePath}/dist/performanceData${new Date().toISOString()}.html`, html, err => {
         if (err) {
@@ -14,6 +18,11 @@ const writeHtmlToFile = html =>
         }
     });
 
+/**
+ * Take data and create html string
+ * @param {object} data - contains all variables needed for final document
+ * @returns {string} - html
+ */
 const html = data => `<html>
     <head>
         <title>Performance Benchmark</title>
@@ -26,6 +35,7 @@ const html = data => `<html>
             }
             td {
                 padding: 0.25rem 0.45rem; 
+                word-wrap: break-word;
             }
         </style>
     </head>
@@ -43,7 +53,7 @@ try {
         ...JSON.parse(fs.readFileSync(`${basePath}/dist/components.json`)),
         ...JSON.parse(fs.readFileSync(`${basePath}/dist/metrics.json`))
     };
-
+    // create html and write to file
     writeHtmlToFile(html(htmlJsonData));
 } catch (err) {
     console.log(err);

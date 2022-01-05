@@ -5,6 +5,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 /**
  * Generate html from the metrics
  * @param {object} metricsReport - stats
+ * @returns {string} - html
  */
 const createMetricsHtml = ({
     totalRequests,
@@ -16,41 +17,35 @@ const createMetricsHtml = ({
     largestRequests,
     networkRequests
 }) => {
-    const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
-    const speedHeadings = `<tr><td>URL</td><td>Time in Seconds</td></tr>`;
-
-    // Speed Metrics and Network Requests
+    // create table row for largest requests
     const largestRequestsRow = largestRequests
-        .map(files => `<tr><td><div>${files.url}</div></td><td>${files.encoding}</td><td>${files.size} bytes</td></tr>`)
+        .map(files => `<tr><td>${files.url}</td><td>${files.encoding}</td><td>${files.size} bytes</td></tr>`)
         .join('');
 
+    // create table row for network requests
     const networkRequestsRow = networkRequests
-        .map(files => `<tr><td><div>${files.url.split('?')[0]}</div></td><td>${files.speed.toFixed(4)}</td>`)
+        .map(files => `<tr><td>${files.url.split('?')[0]}</td><td>${files.speed.toFixed(4)}</td>`)
         .join('');
 
-    let html = `<h2>Network Requests</h2>`;
-    html += `<table>`;
-    html += `<tr><td>Total Requests</td><td>${totalRequests}</td></tr>`;
-    html += `<tr><td>Total Download Gzipped</td><td>${totalDownloadGzipped} bytes</td></tr>`;
-    html += `<tr><td>Total Download Unzipped</td><td>${totalDownloadUnzipped} bytes</td></tr>`;
-    html += `<tr><td>Total Upload</td><td>${totalUpload} bytes</td></tr>`;
-    html += `<tr><td>First Render Delay</td><td>${firstRenderDelay} ms</td></tr>`;
-    html += `<tr><td>Render Duration</td><td>${renderDuration} ms</td></tr>`;
-    html += `</table>`;
-
-    html += `<h3>Largest Requests</h3>`;
-    html += `<table>`;
-    html += largeNetworkheadings;
-    html += largestRequestsRow;
-    html += `</table><br/>`;
-
-    html += `<h3>All Network Requests</h3>`;
-    html += `<table><br/>`;
-    html += speedHeadings;
-    html += networkRequestsRow;
-    html += `</table>`;
-
-    return html;
+    return `<h2>Network Requests</h2>
+            <table>
+                <tr><td>Total Requests</td><td>${totalRequests}</td></tr>
+                <tr><td>Total Download Gzipped</td><td>${totalDownloadGzipped} bytes</td></tr>
+                <tr><td>Total Download Unzipped</td><td>${totalDownloadUnzipped} bytes</td></tr>
+                <tr><td>Total Upload</td><td>${totalUpload} bytes</td></tr>
+                <tr><td>First Render Delay</td><td>${firstRenderDelay} ms</td></tr>
+                <tr><td>Render Duration</td><td>${renderDuration} ms</td></tr>
+            </table>
+            <h3>Largest Requests</h3>
+            <table>
+                <tr><td>URL</td><td>Encoding</td><td>Size</td></tr>
+                ${largestRequestsRow}
+            </table>
+            <h3>All Network Requests</h3>
+            <table>
+                <tr><td>URL</td><td>Time in Seconds</td></tr>
+                ${networkRequestsRow}
+            </table>`;
 };
 
 /**
@@ -58,7 +53,6 @@ const createMetricsHtml = ({
  * @param {object} metricsReport - stats
  */
 const createMetricsJson = metricsReport => {
-    // stats has speed metric and network request data
     fs.writeFile('dist/metrics.json', JSON.stringify({ ...metricsReport }), err => {
         if (err) {
             console.log('metrics.json failed to save');
@@ -69,7 +63,7 @@ const createMetricsJson = metricsReport => {
     });
 };
 
-// start puppeteer
+// start puppeteer. timeout allows for message library to start running in browser on jenkins
 const getMetrics = () =>
     setTimeout(
         async () => {
@@ -250,11 +244,10 @@ const getMetrics = () =>
             await browser.close();
             await process.exit();
         },
-        process.env.METRICS_URL ? 0 : 30000
+        process.env.METRICS_URL ? 0 : 30000 // need to wait for server to start in jenkins
     );
 
 if (process.env.BENCHMARK === 'true') {
-    // need to wait for server to start in jenkins
     getMetrics();
 }
 

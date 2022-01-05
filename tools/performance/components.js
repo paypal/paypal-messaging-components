@@ -52,10 +52,6 @@ const getFileSizeTableRowHtml = jsonDataArray => {
  * @returns {string} - html for all components
  */
 const getComponentHtml = ({ messagesReport, componentsReport }) => {
-    const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
-    let html = `<h2>NPM Modules</h2>`;
-    html += `<table><tr><td>Largest</td><td>${messagesReport[0].groups[0].groups[0].label}</td><td>${messagesReport[0].groups[0].groups[0].parsedSize} bytes (unzipped)</td></tr></table>`;
-
     // Messaging Size
     const messaging = getFileSizeTableRowHtml(messagesReport);
 
@@ -67,12 +63,14 @@ const getComponentHtml = ({ messagesReport, componentsReport }) => {
         [...componentsReport, ...messagesReport].sort((a, b) => b.gzipSize - a.gzipSize).splice(0, 3)
     );
 
-    html += `<h2>File Sizes</h2>
-    <table>${headings}${messaging}${modals}</table>
-    <h2>Largest Files</h2><table>
-    ${headings}${largestFiles}</table>`;
+    const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
 
-    return html;
+    return `<h2>NPM Modules</h2>
+        <table><tr><td>Largest</td><td>${messagesReport[0].groups[0].groups[0].label}</td><td>${messagesReport[0].groups[0].groups[0].parsedSize} bytes (unzipped)</td></tr></table>
+        <h2>File Sizes</h2>
+        <table>${headings}${messaging}${modals}</table>
+        <h2>Largest Files</h2>
+        <table>${headings}${largestFiles}</table>`;
 };
 
 /**
