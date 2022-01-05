@@ -1,7 +1,4 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import 'core-js-pure/stable/object/entries';
-import arrayFrom from 'core-js-pure/stable/array/from';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import {
     getClientID,
     getEnv as getSDKEnv,
@@ -15,8 +12,11 @@ import {
     getSDKScript,
     getSessionID as getSDKSessionID
 } from '@paypal/sdk-client/src';
-import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
+import { getStorage as getBelterStorage, isLocalStorageEnabled } from 'belter/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
+import 'core-js-pure/stable/object/entries';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -29,7 +29,7 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getFundingEligibility()?.paylater?.merchantConfigHash;
+        return getFundingEligibility()?.paylater?.merchantConfigHash ?? __MESSAGING_GLOBALS__?.merchantProfile?.hash;
     } else {
         return undefined;
     }
