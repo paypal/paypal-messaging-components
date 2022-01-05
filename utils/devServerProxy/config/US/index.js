@@ -127,7 +127,7 @@ export default {
             ]
         }
     },
-    DEV_US_NI: {
+    DEV_US_NO_INTEREST: {
         country: 'US',
         modalViews: [
             {
@@ -208,7 +208,7 @@ export default {
             ]
         }
     },
-    DEV_US_LONG_TERM_XO: {
+    DEV_US_LONG_TERM_CHECKOUT: {
         country: 'US',
         modalViews: [
             {

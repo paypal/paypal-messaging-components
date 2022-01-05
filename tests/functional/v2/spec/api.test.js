@@ -1,4 +1,4 @@
-import { selectors, screenDimensions, filterPermutations, testNameParts, logTestName } from '../utils/index';
+import { selectors, screenDimensions, filterPermutations, getTestName, logTestName } from '../utils/index';
 import { US } from '../config/index';
 import {
     openProductListView,
@@ -42,18 +42,18 @@ const setupAPI = async (viewport, account, amount) => {
 
 // Multi-product
 describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
-    '%s API Modal Iframe %s',
+    '%s - API Modal Iframe - %s',
     (country, account, { viewport, amount, modalContent }) => {
         beforeEach(async () => {
             await setupAPI(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
             await openProductListView(
                 modalFrame,
                 modalContent,
-                testNameParts(country, integration, account, amount, viewport)
+                getTestName(country, integration, account, amount, viewport)
             );
         });
 
@@ -62,25 +62,25 @@ describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
         });
 
         test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
-            await viewsShareAmount(modalFrame, testNameParts(country, integration, account, amount, viewport));
+            await viewsShareAmount(modalFrame, getTestName(country, integration, account, amount, viewport));
         });
     }
 );
 
 // Short term
 describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
-    '%s API Modal Iframe %s',
+    '%s - API Modal Iframe - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
             await setupAPI(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Shows correct subheadline for amount - ${viewport}`, async () => {
             await openShortTermView(
                 modalFrame,
                 modalContent,
-                testNameParts(country, integration, account, amount, viewport)
+                getTestName(country, integration, account, amount, viewport)
             );
         });
 
@@ -91,7 +91,7 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
                 maxAmount,
                 modalFrame,
                 modalContent,
-                testNameParts(country, integration, account, amount, viewport)
+                getTestName(country, integration, account, amount, viewport)
             );
         });
     }
@@ -99,11 +99,11 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
 
 // Long term
 describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
-    '%s API Modal Iframe %s',
+    '%s - API Modal Iframe - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
             await setupAPI(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         if (amount < minAmount) {
@@ -111,7 +111,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await belowThresholdErr(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         } else if (amount > maxAmount) {
@@ -119,7 +119,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await aboveThresholdErr(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         } else {
@@ -127,7 +127,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectOfferInfo(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -135,7 +135,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectOfferBreakdown(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -143,7 +143,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await updateTermsViaCalc(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -151,7 +151,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectAPRDisclaimer(
                     modalFrame,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         }
@@ -159,16 +159,16 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
 );
 
 // No Interest
-describe.each(filterPermutations([US], ['DEV_US_NI']))(
-    '%s API Modal Iframe %s',
+describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
+    '%s - API Modal Iframe - %s',
     (country, account, { viewport, amount, modalContent }) => {
         beforeEach(async () => {
             await setupAPI(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
-            await openNIView(modalFrame, modalContent, testNameParts(country, integration, account, amount, viewport));
+            await openNIView(modalFrame, modalContent, getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Click to see T&Cs - ${viewport}`, async () => {

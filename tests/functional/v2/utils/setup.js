@@ -65,10 +65,14 @@ export const filterPermutations = (configs, accounts) => {
 /**
  * Assembles a test name to be used in snapshots and logging from various config parts.
  */
-export const testNameParts = (country, integration, account, amount, viewport) => {
+export const getTestName = (country, integration, account, amount, viewport) => {
+    /**
+     * The below regex grabs the current test name and replaces spaces with underscores. Used in snapshot file naming.
+     * i.e. Esc_key_closes_modal
+     */
     const testName = expect
         .getState()
-        .currentTestName.split(' - ')[1]
+        .currentTestName.split(' - ')[3]
         .replace(/\s/g, '_');
     return `${country}-${integration}-${account}-${amount}-${testName}-${viewport}`;
 };

@@ -1,4 +1,4 @@
-export const US = {
+const US = {
     DEV_US_MULTI: {
         country: 'US',
         description: 'US Multi-product merchant',
@@ -11,7 +11,7 @@ export const US = {
                     headline: 'Pay later with flexible options',
                     shortTerm: 'Pay in 4 interest-free payments',
                     longTerm: 'Make easy monthly payments',
-                    ni: 'Pay over time with PayPal Credit'
+                    noInterest: 'Pay over time with PayPal Credit'
                 }
             }
         ]
@@ -19,8 +19,8 @@ export const US = {
     DEV_US_SHORT_TERM: {
         country: 'US',
         description: 'US merchant eligible for short term only',
-        minAmount: '30',
-        maxAmount: '1500',
+        minAmount: 30,
+        maxAmount: 1500,
         amounts: [
             {
                 value: '0.00',
@@ -54,7 +54,7 @@ export const US = {
             }
         ]
     },
-    DEV_US_NI: {
+    DEV_US_NO_INTEREST: {
         country: 'US',
         description: 'US merchant eligible for NI only',
         amounts: [
@@ -69,8 +69,8 @@ export const US = {
     DEV_US_LONG_TERM: {
         country: 'US',
         description: 'US merchant eligible for long term only',
-        minAmount: '199',
-        maxAmount: '20000',
+        minAmount: 199,
+        maxAmount: 20000,
         amounts: [
             {
                 value: '0.00',
@@ -107,11 +107,11 @@ export const US = {
             }
         ]
     },
-    DEV_US_LONG_TERM_XO: {
+    DEV_US_LONG_TERM_CHECKOUT: {
         country: 'US',
         description: 'US merchant eligible for long term only',
-        minAmount: '199',
-        maxAmount: '20000',
+        minAmount: 199,
+        maxAmount: 20000,
         amounts: [
             {
                 value: '199.00',
@@ -129,3 +129,5 @@ export const US = {
         ]
     }
 };
+
+export default US;

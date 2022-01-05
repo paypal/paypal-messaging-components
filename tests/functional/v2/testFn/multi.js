@@ -55,7 +55,7 @@ export const clickProductListTiles = async (contentWindow, modalContent) => {
     await switchViews(3, 'longTerm');
 
     // Switch to no interest view
-    await switchViews(4, 'ni');
+    await switchViews(4, 'noInterest');
 };
 
 /**

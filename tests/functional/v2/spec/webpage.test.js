@@ -1,4 +1,4 @@
-import { screenDimensions, filterPermutations, testNameParts, logTestName } from '../utils/index';
+import { screenDimensions, filterPermutations, getTestName, logTestName } from '../utils/index';
 import { US } from '../config/index';
 
 import {
@@ -30,19 +30,15 @@ const setupWebpage = async (viewport, account, amount) => {
 
 // Multi-product
 describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
-    '%s Lander Webpage %s',
+    '%s - Lander Webpage - %s',
     (country, account, { viewport, amount, modalContent }) => {
         beforeEach(async () => {
             await setupWebpage(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
-            await openProductListView(
-                page,
-                modalContent,
-                testNameParts(country, integration, account, amount, viewport)
-            );
+            await openProductListView(page, modalContent, getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Product list tiles send user to correct view - ${viewport}`, async () => {
@@ -50,22 +46,22 @@ describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
         });
 
         test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
-            await viewsShareAmount(page, testNameParts(country, integration, account, amount, viewport));
+            await viewsShareAmount(page, getTestName(country, integration, account, amount, viewport));
         });
     }
 );
 
 // Short term
 describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
-    '%s Lander Webpage %s',
+    '%s - Lander Webpage - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
             await setupWebpage(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Shows correct subheadline for amount - ${viewport}`, async () => {
-            await openShortTermView(page, modalContent, testNameParts(country, integration, account, amount, viewport));
+            await openShortTermView(page, modalContent, getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Donuts show correct periodic payment for amount - ${viewport}`, async () => {
@@ -75,7 +71,7 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
                 maxAmount,
                 page,
                 modalContent,
-                testNameParts(country, integration, account, amount, viewport)
+                getTestName(country, integration, account, amount, viewport)
             );
         });
     }
@@ -83,11 +79,11 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
 
 // Long term
 describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
-    '%s Lander Webpage %s',
+    '%s - Lander Webpage - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
             await setupWebpage(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         if (amount < minAmount) {
@@ -95,7 +91,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await belowThresholdErr(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         } else if (amount > maxAmount) {
@@ -103,7 +99,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await aboveThresholdErr(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         } else {
@@ -111,7 +107,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectOfferInfo(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -119,7 +115,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectOfferBreakdown(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -127,7 +123,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await updateTermsViaCalc(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
 
@@ -135,7 +131,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 await showCorrectAPRDisclaimer(
                     page,
                     modalContent,
-                    testNameParts(country, integration, account, amount, viewport)
+                    getTestName(country, integration, account, amount, viewport)
                 );
             });
         }
@@ -143,16 +139,16 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
 );
 
 // No Interest
-describe.each(filterPermutations([US], ['DEV_US_NI']))(
-    '%s Lander Webpage %s',
+describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
+    '%s - Lander Webpage - %s',
     (country, account, { viewport, amount, modalContent }) => {
         beforeEach(async () => {
             await setupWebpage(viewport, account, amount);
-            logTestName(testNameParts(country, integration, account, amount, viewport));
+            logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
-            await openNIView(page, modalContent, testNameParts(country, integration, account, amount, viewport));
+            await openNIView(page, modalContent, getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Click to see T&Cs - ${viewport}`, async () => {

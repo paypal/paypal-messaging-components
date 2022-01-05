@@ -8,17 +8,10 @@
     </head>
     <body>
         <button class="learn-more">Learn more</button>
+        <script src="../../helpers/utils.js"></script>
         <script>
             const query = window.location.search.substring(1);
-            const mappedParams = query.split('&').reduce((accumulator, param) => {
-                const [key, value] = param.split('=');
-                if (key === 'amount' && decodeURIComponent(value) === '0.00') {
-                    accumulator[key] = undefined;
-                } else {
-                    accumulator[key] = decodeURIComponent(value);
-                }
-                return accumulator;
-            }, {});
+            const mappedParams = mapQueryParams(query);
             console.log(mappedParams);
             const modal = window.paypal.MessagesModal({
                 ...mappedParams
