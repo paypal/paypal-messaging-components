@@ -106,11 +106,11 @@ const getMetrics = () =>
                     const { tracking } = JSON.parse(interceptedRequest._postData);
                     // look through each tracking request and fnd first render delay and renderDuration
                     tracking.forEach(row => {
-                        if (row.firstRenderDelay) {
-                            stats.firstRenderDelay = Number(row.firstRenderDelay);
+                        if (row.first_render_delay) {
+                            stats.firstRenderDelay = Number(row.first_render_delay);
                         }
-                        if (row.renderDuration) {
-                            stats.renderDuration = Number(row.renderDuration);
+                        if (row.render_duration) {
+                            stats.renderDuration = Number(row.render_duration);
                         }
                     });
                 }
