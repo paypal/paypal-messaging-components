@@ -140,7 +140,7 @@ const scores = scoresArr =>
  * @param {object} mobileAverageScores - pages with averaged scores
  * @returns {string} - html
  */
-const createLighthouseHtml = (desktopAverageScores, mobileAverageScores) => {
+const createLighthouseHtml = ({ desktopAverageScores, mobileAverageScores }) => {
     const desktopLighthouse = scores(desktopAverageScores);
     const mobileLighthouse = scores(mobileAverageScores);
     const lighthouseHeadings = `<tr><td>URL</td><td>Performance</td><td>Accessibility</td><td>Best Practices</td><td>SEO</td></tr>`;
@@ -154,11 +154,10 @@ const createLighthouseHtml = (desktopAverageScores, mobileAverageScores) => {
 
 /**
  * Save the html to a json file
- * @param {string} html
- * @param {boolean} empty - whether there were any lighthouse files to score
+ * @param {object} json
  */
-const outputLighthouseJson = (html, empty = false) => {
-    fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ html: `${empty ? html : ''}` }), err => {
+const outputLighthouseJson = json => {
+    fs.writeFile('dist/lighthouseScores.json', JSON.stringify({ ...json }), err => {
         if (err) {
             console.log('lighthouseScores.json failed to save');
             console.log(err);
@@ -168,9 +167,13 @@ const outputLighthouseJson = (html, empty = false) => {
     });
 };
 
-checkDirectory().then(files => {
-    const { desktopScores, mobileScores } = groupScores(files);
-    const { desktopAverageScores, mobileAverageScores } = getScores(desktopScores, mobileScores);
-    // create html for lighthouse scores and save to json file for compile.js
-    outputLighthouseJson(createLighthouseHtml(desktopAverageScores, mobileAverageScores), files.length);
-});
+if (process.env.BENCHMARK === 'true') {
+    checkDirectory().then(files => {
+        const { desktopScores, mobileScores } = groupScores(files);
+        const { desktopAverageScores, mobileAverageScores } = getScores(desktopScores, mobileScores);
+        // create html for lighthouse scores and save to json file for compile.js
+        outputLighthouseJson({ desktopAverageScores, mobileAverageScores });
+    });
+}
+
+module.exports = { createLighthouseHtml };

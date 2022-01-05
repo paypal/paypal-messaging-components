@@ -6,43 +6,60 @@ const { PerformanceObserver, performance } = require('perf_hooks');
  * Generate html from the metrics
  * @param {object} metricsReport - stats
  */
-const createMetricsHtml = metricsReport => {
+const createMetricsHtml = ({
+    totalRequests,
+    totalDownloadGzipped,
+    totalDownloadUnzipped,
+    totalUpload,
+    firstRenderDelay,
+    renderDuration,
+    largestRequests,
+    networkRequests
+}) => {
     const largeNetworkheadings = `<tr><td>URL</td><td>Encoding</td><td>Size</td></tr>`;
     const speedHeadings = `<tr><td>URL</td><td>Time in Seconds</td></tr>`;
 
     // Speed Metrics and Network Requests
-    const largestRequests = metricsReport.largestRequests
+    const largestRequestsRow = largestRequests
         .map(files => `<tr><td><div>${files.url}</div></td><td>${files.encoding}</td><td>${files.size} bytes</td></tr>`)
         .join('');
 
-    const networkRequests = metricsReport.networkRequests
+    const networkRequestsRow = networkRequests
         .map(files => `<tr><td><div>${files.url.split('?')[0]}</div></td><td>${files.speed.toFixed(4)}</td>`)
         .join('');
 
     let html = `<h2>Network Requests</h2>`;
     html += `<table>`;
-    html += `<tr><td>Total Requests</td><td>${metricsReport.total_requests}</td></tr>`;
-    html += `<tr><td>total_download_gzipped</td><td>${metricsReport.total_download_gzipped} bytes</td></tr>`;
-    html += `<tr><td>total_download_unzipped</td><td>${metricsReport.total_download_unzipped} bytes</td></tr>`;
-    html += `<tr><td>total_upload</td><td>${metricsReport.total_upload} bytes</td></tr>`;
-    html += `<tr><td>first_render_delay</td><td>${metricsReport.first_render_delay} ms</td></tr>`;
-    html += `<tr><td>render_duration</td><td>${metricsReport.render_duration} ms</td></tr>`;
+    html += `<tr><td>Total Requests</td><td>${totalRequests}</td></tr>`;
+    html += `<tr><td>Total Download Gzipped</td><td>${totalDownloadGzipped} bytes</td></tr>`;
+    html += `<tr><td>Total Download Unzipped</td><td>${totalDownloadUnzipped} bytes</td></tr>`;
+    html += `<tr><td>Total Upload</td><td>${totalUpload} bytes</td></tr>`;
+    html += `<tr><td>First Render Delay</td><td>${firstRenderDelay} ms</td></tr>`;
+    html += `<tr><td>Render Duration</td><td>${renderDuration} ms</td></tr>`;
     html += `</table>`;
 
     html += `<h3>Largest Requests</h3>`;
     html += `<table>`;
     html += largeNetworkheadings;
-    html += largestRequests;
+    html += largestRequestsRow;
     html += `</table><br/>`;
 
     html += `<h3>All Network Requests</h3>`;
     html += `<table><br/>`;
     html += speedHeadings;
-    html += networkRequests;
+    html += networkRequestsRow;
     html += `</table>`;
 
+    return html;
+};
+
+/**
+ * Generate json from the metrics
+ * @param {object} metricsReport - stats
+ */
+const createMetricsJson = metricsReport => {
     // stats has speed metric and network request data
-    fs.writeFile('dist/metrics.json', JSON.stringify({ html: `${html}` }), err => {
+    fs.writeFile('dist/metrics.json', JSON.stringify({ ...metricsReport }), err => {
         if (err) {
             console.log('metrics.json failed to save');
             console.log(err);
@@ -58,12 +75,12 @@ const getMetrics = () =>
         async () => {
             const networkRequests = [];
             const stats = {
-                total_requests: 0,
-                total_download_gzipped: 0,
-                total_download_unzipped: 0,
-                total_upload: 0,
-                first_render_delay: null,
-                render_duration: null
+                totalRequests: 0,
+                totalDownloadGzipped: 0,
+                totalDownloadUnzipped: 0,
+                totalUpload: 0,
+                firstRenderDelay: null,
+                renderDuration: null
             };
             const responseTimes = {};
 
@@ -84,16 +101,16 @@ const getMetrics = () =>
             // Listen for requests and get request url and requestId to help match sizes
             page.on('request', async interceptedRequest => {
                 performance.mark(JSON.stringify({ start: interceptedRequest.url() }));
-                // Get log request with first_render_delay and render_duration
+                // Get log request with firstRenderDelay and renderDuration
                 if (interceptedRequest.url().includes('credit-presentment/log') && interceptedRequest._postData) {
                     const { tracking } = JSON.parse(interceptedRequest._postData);
-                    // look through each tracking request and fnd first render delay and render_duration
+                    // look through each tracking request and fnd first render delay and renderDuration
                     tracking.forEach(row => {
-                        if (row.first_render_delay) {
-                            stats.first_render_delay = Number(row.first_render_delay);
+                        if (row.firstRenderDelay) {
+                            stats.firstRenderDelay = Number(row.firstRenderDelay);
                         }
-                        if (row.render_duration) {
-                            stats.render_duration = Number(row.render_duration);
+                        if (row.renderDuration) {
+                            stats.renderDuration = Number(row.renderDuration);
                         }
                     });
                 }
@@ -192,7 +209,7 @@ const getMetrics = () =>
                 const parentDocument = JSON.parse(resourceMetrics.parentDocument);
                 networkRequests.forEach((requests, index) => {
                     // count total requests
-                    stats.total_requests += 1;
+                    stats.totalRequests += 1;
                     // calculate the speed
                     if (
                         !requests.speed &&
@@ -211,12 +228,12 @@ const getMetrics = () =>
                                     networkRequests[index].size = performanceRequestData.encodedBodySize;
                                 }
                             });
-                            stats.total_download_gzipped += requests.size;
+                            stats.totalDownloadGzipped += requests.size;
                         } else {
-                            stats.total_download_unzipped += requests.size;
+                            stats.totalDownloadUnzipped += requests.size;
                         }
                     } else {
-                        stats.total_upload += requests.size;
+                        stats.totalUpload += requests.size;
                     }
                 });
                 // sort largest requests
@@ -227,7 +244,7 @@ const getMetrics = () =>
                 stats.largestRequests = [...largestRequests].splice(0, 3);
                 stats.networkRequests = [...networkRequests];
                 // create html out of stats
-                createMetricsHtml(stats);
+                createMetricsJson(stats);
             });
 
             await browser.close();
@@ -236,7 +253,9 @@ const getMetrics = () =>
         process.env.METRICS_URL ? 0 : 30000
     );
 
-if (process.env.BENCHMARK_METRICS === 'true') {
+if (process.env.BENCHMARK === 'true') {
     // need to wait for server to start in jenkins
     getMetrics();
 }
+
+module.exports = { createMetricsHtml };

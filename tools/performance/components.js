@@ -11,7 +11,8 @@ const getComponentFileData = file =>
     new Promise(resolve => {
         fs.readFile(`${basePath}/dist/${file}.json`, { encoding: 'utf-8' }, (err, data) => {
             if (err) {
-                resolve([]);
+                console.log(`${file} not found`);
+                throw err;
             }
 
             resolve(
@@ -50,7 +51,7 @@ const getFileSizeTableRowHtml = jsonDataArray => {
  * @param {array} componentsReport - bundle data for components
  * @returns {string} - html for all components
  */
-const getComponentHtml = (messagesReport, componentsReport) => {
+const getComponentHtml = ({ messagesReport, componentsReport }) => {
     const headings = `<tr><td>Name</td><td>Unzipped</td><td>Gzipped</td></tr>`;
     let html = `<h2>NPM Modules</h2>`;
     html += `<table><tr><td>Largest</td><td>${messagesReport[0].groups[0].groups[0].label}</td><td>${messagesReport[0].groups[0].groups[0].parsedSize} bytes (unzipped)</td></tr></table>`;
@@ -74,12 +75,13 @@ const getComponentHtml = (messagesReport, componentsReport) => {
     return html;
 };
 
-Promise.all(getComponentJson()).then(reports => {
-    const [messagesReport, componentsReport] = reports;
-    const html = getComponentHtml(messagesReport, componentsReport);
-
+/**
+ * Save the html to a json file
+ * @param {*} json
+ */
+const outputLighthouseJson = json => {
     // save html to json file to be used in compile.js
-    fs.writeFile('dist/components.json', JSON.stringify({ html: `${html}` }), err => {
+    fs.writeFile('dist/components.json', JSON.stringify({ ...json }), err => {
         if (err) {
             console.log('components.json failed to save');
             console.log(err);
@@ -87,4 +89,13 @@ Promise.all(getComponentJson()).then(reports => {
             console.log('components.json saved');
         }
     });
-});
+};
+
+if (process.env.BENCHMARK === 'true') {
+    Promise.all(getComponentJson()).then(reports => {
+        const [messagesReport, componentsReport] = reports;
+        outputLighthouseJson({ messagesReport, componentsReport });
+    });
+}
+
+module.exports = { getComponentHtml };
