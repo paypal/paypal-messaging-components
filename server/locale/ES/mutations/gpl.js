@@ -39,7 +39,19 @@ export default {
                     xSmallFallback(textSize * 16),
                     setLogoTop(textSize * 41.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    addPeriod(),
+                    `@media screen and (max-width: ${textSize *
+                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['tus']
+                    },
+                    {
+                        tag: 'xsmall',
+                        br: ['ahora y']
+                    }
                 ]
             })
         ],
