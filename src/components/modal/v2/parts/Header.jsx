@@ -26,19 +26,19 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
         <Fragment>
             {(!isLander || isIframe) && (
                 <Fragment>
-                    <div className="header__fixed-wrapper header__fixed-wrapper--front">
+                    <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
                         <div className="header__background-wrapper header__background-wrapper--gradient">
                             <Icon name="header-background" />
                         </div>
                     </div>
-                    <div className="header__fixed-wrapper">
+                    <div aria-hidden="true" className="header__fixed-wrapper">
                         <div className="header__background-wrapper">
                             <Icon name="header-background" />
                         </div>
                     </div>
                 </Fragment>
             )}
-            <div className="header__icons">
+            <div aria-hidden="true" className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">
                         <Icon name={logo} />
