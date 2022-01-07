@@ -16,7 +16,7 @@ export const NI = ({
 
     const renderProductListLink = () => {
         if (useServerData()?.views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
     };
@@ -69,11 +69,7 @@ export const NI = ({
                             });
                             return <li className="content__footer-item">{line}</li>;
                         })}
-                        <li className="content__footer-item">
-                            <ProductListLink openProductList={openProductList}>
-                                {renderProductListLink()}
-                            </ProductListLink>
-                        </li>
+                        <li className="content__footer-item">{renderProductListLink()}</li>
                     </ul>
                 </main>
             </div>
