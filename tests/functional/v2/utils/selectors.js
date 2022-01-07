@@ -42,7 +42,7 @@ export const selectors = {
     productList: {
         tile: '.tile'
     },
-    ni: {
+    noInterest: {
         // Apply Now button selectors unique to PPC NI view
         button: {
             termsLink: '.content__footer-item > a',

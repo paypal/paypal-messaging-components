@@ -6,7 +6,7 @@ import {
     clickProductListTiles,
     openShortTermView,
     donutsShowCorrectPayment,
-    openNIView,
+    openNoInterestView,
     openTermsPage,
     belowThresholdErr,
     aboveThresholdErr,
@@ -148,7 +148,7 @@ describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
         });
 
         test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
-            await openNIView(page, modalContent, getTestName(country, integration, account, amount, viewport));
+            await openNoInterestView(page, modalContent, getTestName(country, integration, account, amount, viewport));
         });
 
         test(`Amount:${amount} - Click to see T&Cs - ${viewport}`, async () => {

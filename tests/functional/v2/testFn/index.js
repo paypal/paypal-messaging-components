@@ -1,4 +1,4 @@
 export * from './multi';
 export * from './longTerm';
 export * from './shortTerm';
-export * from './ni';
+export * from './noInterest';

@@ -2,7 +2,7 @@ import { selectors, modalSnapshot } from '../utils/index';
 
 const {
     modal: { contentWrapper, instructions, instructionsItemWrapper, li },
-    ni: {
+    noInterest: {
         button: { termsLink, applyNowBtn }
     }
 } = selectors;
@@ -10,7 +10,7 @@ const {
 /**
  * Ensures no interest modal opens and has expected content.
  */
-export const openNIView = async (contentWindow, modalContent, testName) => {
+export const openNoInterestView = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(instructions);
     await contentWindow.waitForSelector(`${instructionsItemWrapper}:first-child > ${li}`);

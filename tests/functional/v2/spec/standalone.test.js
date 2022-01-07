@@ -10,7 +10,7 @@ import {
     closeAndReopenModal,
     openShortTermView,
     donutsShowCorrectPayment,
-    openNIView,
+    openNoInterestView,
     openTermsPage,
     belowThresholdErr,
     aboveThresholdErr,
@@ -204,7 +204,7 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM', 'DEV_US_LONG_TERM_CH
     }
 );
 
-// NI
+// No Interest
 describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
     '%s - Standalone Modal - %s',
     (country, account, { viewport, amount, modalContent }) => {
@@ -218,7 +218,11 @@ describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
         });
 
         test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
-            await openNIView(modalFrame, modalContent, getTestName(country, integration, account, amount, viewport));
+            await openNoInterestView(
+                modalFrame,
+                modalContent,
+                getTestName(country, integration, account, amount, viewport)
+            );
         });
 
         test(`Amount:${amount} - Click to see T&Cs - ${viewport}`, async () => {
