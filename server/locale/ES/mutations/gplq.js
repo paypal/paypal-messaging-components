@@ -58,7 +58,19 @@ export default {
                         18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 10.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    addPeriod(),
+                    `@media screen and (max-width: ${textSize *
+                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['plazos']
+                    },
+                    {
+                        tag: 'xsmall',
+                        br: ['ahora y']
+                    }
                 ]
             })
         ],
