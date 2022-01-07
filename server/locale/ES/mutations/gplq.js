@@ -27,7 +27,10 @@ export default {
                         tag: 'medium',
                         br: ['plazos']
                     },
-                    { tag: 'xsmall' }
+                    {
+                        tag: 'xsmall',
+                        br: ['ahora y']
+                    }
                 ],
                 disclaimer: ['default']
             })
