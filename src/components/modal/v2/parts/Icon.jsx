@@ -7,7 +7,7 @@ import { logos } from '../lib';
 const Icon = ({ name = '', color, content }) => {
     if (content) {
         // eslint-disable-next-line react/no-danger
-        return <div className="icon__wrapper" dangerouslySetInnerHTML={{ __html: content }} />;
+        return <div aria-hidden="true" className="icon__wrapper" dangerouslySetInnerHTML={{ __html: content }} />;
     }
 
     switch (name) {
