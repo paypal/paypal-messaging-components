@@ -38,7 +38,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     </div>
                 </Fragment>
             )}
-            <div aria-hidden="true" className="header__icons">
+            <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">
                         <Icon name={logo} />
