@@ -119,7 +119,12 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 18),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `@media screen and (max-width: ${textSize *
+                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
