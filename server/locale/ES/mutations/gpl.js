@@ -27,9 +27,9 @@ export default {
                         tag: 'medium',
                         br: ['tus']
                     },
-                    {                     
-                    tag: 'xsmall',                    
-                    br: ['ahora y']                     
+                    {
+                        tag: 'xsmall',
+                        br: ['ahora y']
                     }
                 ],
                 disclaimer: ['default']
