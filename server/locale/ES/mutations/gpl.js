@@ -40,7 +40,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 41.5),
+                    setLogoTop(textSize * 43.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and (max-width: ${textSize *
