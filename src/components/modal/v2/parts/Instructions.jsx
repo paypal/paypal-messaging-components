@@ -14,7 +14,7 @@ const Instructions = ({ instructions, expandedState = false }) => {
                         <li className="instructions__item-wrapper">
                             {renderBullet(index + 1)}
                             {/* eslint-disable-next-line react/no-danger */}
-                            <li dangerouslySetInnerHTML={{ __html: instruction }} />
+                            <div dangerouslySetInnerHTML={{ __html: instruction }} />
                         </li>
                     );
                 })}
