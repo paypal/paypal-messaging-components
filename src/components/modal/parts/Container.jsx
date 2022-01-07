@@ -3,7 +3,15 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getDeviceID, isStorageFresh } from '../../../utils';
 
-import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
+import {
+    useTransitionState,
+    ScrollProvider,
+    useServerData,
+    useXProps,
+    useDidUpdateEffect,
+    getContent,
+    setupTabTrap
+} from '../lib';
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
@@ -17,9 +25,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         merchantId,
         buyerCountry,
         env,
+        messageRequestId,
+        ignoreCache,
         version,
         deviceID: parentDeviceID,
-        ignoreCache,
         stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
@@ -41,12 +50,17 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             onReady({
                 type,
                 products: products.map(({ meta: productMeta }) => productMeta.product),
+                messageRequestId,
                 meta,
                 // If storage state is brand new, use the parent deviceID, otherwise use child
                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
             });
         }
-    }, [meta.messageRequestId]);
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
+
+    useEffect(() => {
+        setupTabTrap();
+    }, []);
 
     useDidUpdateEffect(() => {
         setLoading(true);
@@ -69,7 +83,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <div className="modal-wrapper">
+            <div className="modal-wrapper" role="dialog" aria-label="PayPal Credit" aria-modal="true">
                 <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                     <div className="wrapper">{children}</div>

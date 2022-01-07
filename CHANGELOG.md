@@ -1,5 +1,52 @@
 # Changelog
 
+### [1.27.2](https://github.com/paypal/paypal-messaging-components/compare/v1.27.1...v1.27.2) (2022-01-04)
+
+
+### Bug Fixes
+
+* accessibility issues ([#671](https://github.com/paypal/paypal-messaging-components/issues/671)) ([2f63ec5](https://github.com/paypal/paypal-messaging-components/commit/2f63ec52e2ddd3a550de674b9c81dfad714ce53f))
+* gpl styles mobile view change ([#668](https://github.com/paypal/paypal-messaging-components/issues/668)) ([2736fab](https://github.com/paypal/paypal-messaging-components/commit/2736fab6bfac392af8ae104e517e238b3be1b50b))
+
+
+### Code Refactoring
+
+* add "no late fees" to US Pay in 4 modal ([#669](https://github.com/paypal/paypal-messaging-components/issues/669)) ([6df8202](https://github.com/paypal/paypal-messaging-components/commit/6df820252b9211b4fd11591c143c1189dca07230))
+* add interest-free back into Pi3 cleanup ([#617](https://github.com/paypal/paypal-messaging-components/issues/617)) ([ff6a841](https://github.com/paypal/paypal-messaging-components/commit/ff6a841c09015c66a3f44ee587a16d3c6b8ba965))
+* remove mention of late fees from US and UK modal content [snapshots] ([#592](https://github.com/paypal/paypal-messaging-components/issues/592)) ([576d363](https://github.com/paypal/paypal-messaging-components/commit/576d3632eb5725c5b7035ea810fb51a21ee8bf86))
+* update DE legal disclosure for 9.99% ([944a0b4](https://github.com/paypal/paypal-messaging-components/commit/944a0b4d9aafe3112887da1b4e9382da7b82ceea))
+
+### [1.27.1](https://github.com/paypal/paypal-messaging-components/compare/v1.27.0...v1.27.1) (2021-10-26)
+
+
+### Code Refactoring
+
+* client-side generated unique identifier provided as messageRequestId ([#570](https://github.com/paypal/paypal-messaging-components/issues/570)) ([650358a](https://github.com/paypal/paypal-messaging-components/commit/650358a36e1d8bf9f16076f6bb717a1e88b99654))
+
+## [1.27.0](https://github.com/paypal/paypal-messaging-components/compare/v1.26.6...v1.27.0) (2021-10-20)
+
+
+### Features
+
+* add merchant configuration hash for caching ([#564](https://github.com/paypal/paypal-messaging-components/issues/564)) ([8c648c9](https://github.com/paypal/paypal-messaging-components/commit/8c648c911f7048c807274199b73f66c6df72fa43))
+
+
+### Bug Fixes
+
+* remove duplicate text from GPL GB flex messages [snapshots] ([#653](https://github.com/paypal/paypal-messaging-components/issues/653)) ([3396807](https://github.com/paypal/paypal-messaging-components/commit/339680709973a0b0f6a81a05e6de21f86fcc2ea7))
+* remove Festivo font from modal ([#613](https://github.com/paypal/paypal-messaging-components/issues/613)) ([842c736](https://github.com/paypal/paypal-messaging-components/commit/842c736c4a9a998a66e07d8cb6a026be02a82d03))
+* store child frame device ID in separate key [snapshots] ([#618](https://github.com/paypal/paypal-messaging-components/issues/618)) ([35ac487](https://github.com/paypal/paypal-messaging-components/commit/35ac4870cdac1b916a02b8c204cf77dcc156bc11))
+
+
+### Code Refactoring
+
+* update DE disclosure ([#619](https://github.com/paypal/paypal-messaging-components/issues/619)) ([74299d7](https://github.com/paypal/paypal-messaging-components/commit/74299d772d80580f11db1cd620a68f84d81b7948))
+
+
+### Continuous Integration
+
+* automatic stage tag ([#644](https://github.com/paypal/paypal-messaging-components/issues/644)) ([bb5b7c2](https://github.com/paypal/paypal-messaging-components/commit/bb5b7c209319d0ce3c2e43823e83e0bc027fc516))
+
 ### [1.26.6](https://github.com/paypal/paypal-messaging-components/compare/v1.26.5...v1.26.6) (2021-10-13)
 
 

@@ -33,7 +33,7 @@ describe('<CustomMessage />', () => {
         expect(queryByText(data.headline[1][0][0])).toBeNull();
         expect(queryByText('{{headline.small}}')).toBeNull();
 
-        expect(getByAltText('PayPal Credit logo')).toBeInTheDocument();
-        expect(getByAltText('PayPal Credit logo')).toHaveAttribute('src', 'color.png');
+        expect(getByAltText('PayPal Credit')).toBeInTheDocument();
+        expect(getByAltText('PayPal Credit')).toHaveAttribute('src', 'color.png');
     });
 });

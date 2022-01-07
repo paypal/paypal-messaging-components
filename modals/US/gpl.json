@@ -29,8 +29,8 @@
             "multiProduct": "Simple, short-term installments"
         },
         "subHeadline": {
-            "unqualified": "4 interest-free payments every 2 weeks, starting today, with no impact to your credit score. Available on purchases from {formattedMinAmount}-{formattedMaxAmount}.",
-            "qualified": "{formattedTransactionAmount} divided into 4 interest-free payments of {formattedPeriodicPayment} every 2 weeks, with no impact to your credit score. Down payment due today."
+            "unqualified": "4 interest-free payments every 2 weeks, starting today, with no late fees and no impact to your credit score. Available on purchases from {formattedMinAmount}-{formattedMaxAmount}.",
+            "qualified": "{formattedTransactionAmount} divided into 4 interest-free payments of {formattedPeriodicPayment} every 2 weeks, with no late fees and no impact to your credit score. Down payment due today."
         },
 
         "instructions": {
@@ -38,7 +38,6 @@
             "purchaseAmount": "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount}-{formattedMaxAmount}.",
             "items": [
                 "Pay in 4 is not currently available to residents of New Mexico, North Dakota, Missouri, South Dakota, Wisconsin, Nevada, Rhode Island, or any U.S. Territories. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services.",
-                "Late fees may apply for missed payments depending on your state of residency.",
                 "When applying, a soft credit check may be needed, but will not affect your credit score.",
                 "You must be of legal age in your U.S. state of residence to use Pay in 4.",
                 "Loans to California residents are made or arranged pursuant to a California Finance Lenders Law license.",
