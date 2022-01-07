@@ -15,8 +15,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 40.5, textSize, 'ES'),
-                    xSmallFallback(textSize * 21),
+                    textWrap(textSize * 43, textSize, 'ES'),
+                    xSmallFallback(textSize * 19.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod()
