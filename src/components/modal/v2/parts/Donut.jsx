@@ -32,10 +32,13 @@ const Donut = ({
         />
     );
 
+    const isQualifying = qualifying === 'true';
+
     return (
         <div
+            aria-hidden="true"
             className={`donut__single_payment ${
-                qualifying === 'true' ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
+                isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
@@ -51,12 +54,10 @@ const Donut = ({
                     {segments}
                 </g>
                 <text x={cx} y={cy} text-anchor="middle">
-                    {qualifying === 'true'}
+                    {isQualifying}
                 </text>
             </svg>
-            {qualifying === 'true' && periodicPayment !== '-' && (
-                <span className="donut__payment">{periodicPayment}</span>
-            )}
+            {isQualifying && periodicPayment !== '-' && <span className="donut__payment">{periodicPayment}</span>}
             <span className="donut__timestamp">{timeStamp}</span>
         </div>
     );
