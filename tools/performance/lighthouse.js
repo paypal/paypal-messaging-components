@@ -18,49 +18,48 @@ const checkDirectory = () => {
 };
 
 /**
+ * Return score object for 1 run
+ * @param {string} file - name of file
+ * @returns {object}
+ */
+const formatScoreObject = file => {
+    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/lighthouse/${file}`, { encoding: 'utf8' }));
+
+    return {
+        url: lighthouseReport.requestedUrl,
+        fetchTime: lighthouseReport.fetchTime,
+        performance: lighthouseReport.categories.performance.score,
+        accessibility: lighthouseReport.categories.accessibility.score,
+        bestPractices: lighthouseReport.categories['best-practices'].score,
+        seo: lighthouseReport.categories.seo.score
+    };
+};
+
+/**
  * Read raw lighthouse json files and organize by url and seperate desktop and mobile
  * @param {array} files - array of file names
  * @returns {object} - desktop and mobile scores grouped by url
  */
 const groupScores = files => {
-    const desktopScores = {};
-    const mobileScores = {};
-
+    const scores = { desktopScores: {}, mobileScores: {} };
     files.forEach(file => {
-        if (file.indexOf('json') !== -1 && file.indexOf('desktop-report') !== -1) {
-            const lighthouseReport = JSON.parse(
-                fs.readFileSync(`${basePath}/lighthouse/${file}`, { encoding: 'utf8' })
-            );
-            if (!desktopScores[lighthouseReport.requestedUrl]) {
-                desktopScores[lighthouseReport.requestedUrl] = [];
+        let pageLayout = '';
+        if (file.indexOf('desktop-report') !== -1) {
+            pageLayout = 'desktopScores';
+        } else if (file.indexOf('mobile-report') !== -1) {
+            pageLayout = 'mobileScores';
+        }
+        // There are other files besides json is output by lighthouse
+        if (file.indexOf('json') !== -1 && pageLayout) {
+            const score = formatScoreObject(file);
+            if (!scores[pageLayout][score.url]) {
+                scores[pageLayout][score.url] = [];
             }
-            desktopScores[lighthouseReport.requestedUrl].push({
-                url: lighthouseReport.requestedUrl,
-                fetchTime: lighthouseReport.fetchTime,
-                performance: lighthouseReport.categories.performance.score,
-                accessibility: lighthouseReport.categories.accessibility.score,
-                bestPractices: lighthouseReport.categories['best-practices'].score,
-                seo: lighthouseReport.categories.seo.score
-            });
-        } else if (file.indexOf('json') !== -1 && file.indexOf('mobile-report') !== -1) {
-            const lighthouseReport = JSON.parse(
-                fs.readFileSync(`${basePath}/lighthouse/${file}`, { encoding: 'utf8' })
-            );
-            if (!mobileScores[lighthouseReport.requestedUrl]) {
-                mobileScores[lighthouseReport.requestedUrl] = [];
-            }
-            mobileScores[lighthouseReport.requestedUrl].push({
-                url: lighthouseReport.requestedUrl,
-                fetchTime: lighthouseReport.fetchTime,
-                performance: lighthouseReport.categories.performance.score,
-                accessibility: lighthouseReport.categories.accessibility.score,
-                bestPractices: lighthouseReport.categories['best-practices'].score,
-                seo: lighthouseReport.categories.seo.score
-            });
+            scores[pageLayout][score.url].push(score);
         }
     });
 
-    return { desktopScores, mobileScores };
+    return scores;
 };
 
 /**
@@ -167,6 +166,7 @@ const outputLighthouseJson = json => {
     });
 };
 
+// Create Lighthouse Json Output for Report Document
 if (process.env.BENCHMARK === 'true') {
     checkDirectory().then(files => {
         const { desktopScores, mobileScores } = groupScores(files);
