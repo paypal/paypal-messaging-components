@@ -235,7 +235,7 @@ const getMetrics = () =>
                     return b.size - a.size;
                 });
                 // take only top 3 largest requests
-                stats.largestRequests = [...largestRequests].splice(0, 3);
+                stats.largestRequests = largestRequests.splice(0, 3);
                 stats.networkRequests = [...networkRequests];
                 // create html out of stats
                 createMetricsJson(stats);

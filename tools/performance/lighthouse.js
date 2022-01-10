@@ -18,13 +18,19 @@ const checkDirectory = () => {
 };
 
 /**
+ * Get json from file
+ * @param {string} file - name of file
+ * @returns {json}
+ */
+const getLighthouseReport = file => JSON.parse(fs.readFileSync(`${basePath}/lighthouse/${file}`, { encoding: 'utf8' }));
+
+/**
  * Return score object for 1 run
  * @param {string} file - name of file
  * @returns {object}
  */
 const formatScoreObject = file => {
-    const lighthouseReport = JSON.parse(fs.readFileSync(`${basePath}/lighthouse/${file}`, { encoding: 'utf8' }));
-
+    const lighthouseReport = getLighthouseReport(file);
     return {
         url: lighthouseReport.requestedUrl,
         fetchTime: lighthouseReport.fetchTime,

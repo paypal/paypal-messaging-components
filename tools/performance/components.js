@@ -11,7 +11,7 @@ const getComponentFileData = file =>
     new Promise(resolve => {
         fs.readFile(`${basePath}/dist/${file}.json`, { encoding: 'utf-8' }, (err, data) => {
             if (err) {
-                console.log(`${file} not found`);
+                console.log(err);
                 throw err;
             }
 
