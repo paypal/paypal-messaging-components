@@ -3,20 +3,16 @@ name: Lint, Unit, Non-snapshot tests
 on:
     # allow for manual triggers
     workflow_dispatch: {}
-
+    workflow_call: {}
     push:
         branches:
             - develop
-            - release
     pull_request: {}
 
 jobs:
     lintAndUnit:
         name: Lint and Unit Tests
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node: [12]
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2
@@ -24,7 +20,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v1
               with:
-                  node-version: ${{ matrix.node }}
+                  node-version: 12
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1
@@ -40,9 +36,6 @@ jobs:
     functionalNonSnapshot:
         name: Functional Non-Snapshot Tests
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node: [12]
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2
@@ -50,7 +43,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v1
               with:
-                  node-version: ${{ matrix.node }}
+                  node-version: 12
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1

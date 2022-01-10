@@ -1,0 +1,43 @@
+name: Release
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+    push:
+        branches:
+            - release
+
+jobs:
+    core:
+        uses: paypal/paypal-messaging-components/.github/workflows/core.yml@release
+
+    compareSnapshotsUS:
+        uses: paypal/paypal-messaging-components/.github/workflows/compareSnapshotsUS.yml@release
+
+    compareSnapshotsNonUS:
+        uses: paypal/paypal-messaging-components/.github/workflows/compareSnapshotsNonUS.yml@release
+
+    release:
+        name: Release
+        needs: [core, compareSnapshotsUS, compareSnapshotsNonUS]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+              with:
+                  # pulls all commits (needed for semantic release to correctly version)
+                  fetch-depth: '0'
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npx semantic-release@18
