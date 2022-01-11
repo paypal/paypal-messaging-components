@@ -37,7 +37,7 @@ export function getRequestDuration() {
                 (entryType === 'resource' && `${name}`.indexOf('/credit-presentment/renderMessage') > -1)
         );
 
-    const [{ connectStart, responseStart }] = requests.slice(-1);
+    const [{ connectStart, responseStart }] = [...requests.slice(-1), {}];
 
     if (typeof connectStart !== 'undefined') {
         // This measures the "Waiting (Time To First Byte)" for the request;
@@ -54,7 +54,7 @@ export function getPerformanceMeasure(name) {
 export function getNavigationTiming(name) {
     const entry = performance?.getEntriesByType('navigation')[0];
 
-    return Math.round(entry?.[name] ?? -1).toString();
+    return entry?.[name] ?? -1;
 }
 
 export function clearPerformance() {
