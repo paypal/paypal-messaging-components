@@ -10,15 +10,12 @@ jobs:
     core:
         uses: paypal/paypal-messaging-components/.github/workflows/core.yml@release
 
-    compareSnapshotsUS:
-        uses: paypal/paypal-messaging-components/.github/workflows/compareSnapshotsUS.yml@release
-
-    compareSnapshotsNonUS:
-        uses: paypal/paypal-messaging-components/.github/workflows/compareSnapshotsNonUS.yml@release
+    compareSnapshots:
+        uses: paypal/paypal-messaging-components/.github/workflows/snapshotCompare.yml@release
 
     release:
         name: Release
-        needs: [core, compareSnapshotsUS, compareSnapshotsNonUS]
+        needs: [core, compareSnapshots]
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo

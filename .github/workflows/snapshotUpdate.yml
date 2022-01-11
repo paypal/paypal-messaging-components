@@ -60,7 +60,7 @@ jobs:
                   path: workflow/metadata/
 
     updateSnapshots:
-        name: Update Snapshots
+        name: Update
         runs-on: ubuntu-latest
         needs: getMatrix
         strategy:

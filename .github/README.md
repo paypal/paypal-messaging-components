@@ -2,14 +2,16 @@
 
 GitHub Actions runs using workflows, which define jobs that we run for continuous integration (CI). Inside of our GitHub Actions, we have 4 different kinds of workflows:
 
-- [Linting, Unit Tests, and Non-Snapshot Functional Tests](#linting-unit-tests-and-non-snapshot-functional-tests)
-- [Snapshot Comparison](#snapshot-comparison)
-- [Update Snapshots](#update-snapshots)
-- [Deploy](#deploy)
+- [Core - Linting, Unit Tests, and Non-Snapshot Functional Tests](#linting-unit-tests-and-non-snapshot-functional-tests-core-yml)
+- [Snapshot Comparison](#snapshot-comparison-snapshot-compare-yml)
+- [Update Snapshots](#update-snapshots-snapshot-update-yml)
+- [Commit Snapshots](#commit-snapshots-snapshot-commit-yml)
+- [Release](#release-release-yml)
 
 Snapshot-based workflows are split further by US and non-US due to the numerous offers that US has. This keeps our CI running quickly.
 
-## Linting, Unit Tests, and Non-Snapshot Functional Tests
+
+## Core - Linting, Unit Tests, and Non-Snapshot Functional Tests (core.yml)
 
 This workflow runs two jobs.
 
@@ -22,51 +24,70 @@ This workflow runs two jobs.
 
 1. Runs non-snapshot functional tests to ensure that code works when it runs in the browser.
 
-## Snapshot Comparison
 
-There are two workflows here: `compareSnapshotsUS` and `compareSnapshotsNonUS`. Here's how they run:
+## Snapshot Comparison (snapshotCompare.yml)
 
-`compareSnapshotsUS` is for the US locale. 
+This workflow runs two jobs.
 
-1. `getTestPathPatterns` reads `usTestPathPatterns.json` and provides it as output.
-2. `compareSnapshots` reads the output of `getTestPathPatterns` to determine the tests to run.
-3. The server is run.
-4. Any failed comparison tests are collected and uploaded to imgur.
+`compareSnapshots`
 
-`compareSnapshotsNonUS` is for all non-US locales. 
+1. Reads `matrix.json` and provides it as output.
+2. Takes each locale and group to output a JSON array of valid testPathPatterns.
 
-1. `getLocales` reads `locales.json` and provides it as output.
-2. `compareSnapshots` reads the output of `getLocales` to determine the locales to check.
-3. The server is run.
-4. Any failed comparison tests are collected and uploaded to imgur.
+`compareSnapshots`
 
-## Update Snapshots
+1. `compareSnapshots` reads the output of `getMatrix` to determine the tests to run.
+2. The server is run.
+3. Any failed comparison tests are collected and uploaded to imgur.
 
-There are two workflows here: `updateSnapshotsUS` and `updateSnapshotsNonUS`. Here's how they run:
 
-`updateSnapshotsUS` is for the US locale.
+## Update Snapshots (snapshotUpdate.yml)
 
-1. `getTestPathPatterns` reads `usTestPathPatterns.json` and provides it as output.
-2. `updateSnapshots` reads the output of `getTestPathPatterns` to determine which tests may need updating.
-3. The server is run.
-4. Any comparison tests that failed in Snapshot Comparison will have their images updated.
-5. Updated images will be committed.
+This workflow runs three jobs.
 
-`updateSnapshotsNonUS` is for all non-US locales. 
+`getMatrix`
 
-1. `getLocales` reads `locales.json` and provides it as output.
-2. `updateSnapshots` reads the output of `getLocales` to determine which tests may need updating.
-3. The server is run.
-4. Any comparison tests that failed in Snapshot Comparison will have their images updated.
-5. Updated images will be committed.
+1. Reads `matrix.json` and provides it as output.
+2. Takes each locale and group to output a JSON array of valid testPathPatterns.
 
-## Deploy
+`captureMetadata`
+
+1. Saves the pull request number to a file.
+
+`updateSnapshots`
+
+1. Reads the output of `getMatrix` to determine which tests may need updating.
+2. The server is run.
+3. Any comparison tests that failed in Snapshot Comparison will have their images updated.
+4. Saves updated images as artifacts (workflow storage).
+
+## Commit Snapshots (snapshotCommit.yml)
 
 This workflow runs one job.
 
-`deploy`
+`commit`
 
-1. Deploys code using semantic-release
+1. Downloads the snapshot image artifacts from `updateSnapshots`.
+2. Removes the `snapshots` label.
+3. Commits thee snapshot images.
+
+
+## Release (release.yml)
+
+This workflow runs three jobs.
+
+`core`
+
+1. See [Core - Linting, Unit Tests, and Non-Snapshot Functional Tests](#linting-unit-tests-and-non-snapshot-functional-tests-core-yml)
+
+`compareSnapshots`
+
+1. See [Snapshot Comparison](#snapshot-comparison-snapshot-compare-yml)
+
+`release`
+
+1. Runs semantic-release to create a new release
+
 
 ## Workflow Triggers
 
@@ -78,6 +99,7 @@ Triggers are what causes a workflow to run. These are the current triggers for e
     - `pull_request` - runs on all pull requests
 - Snapshot Comparison
     - `workflow_dispatch` - allows for manually running a workflow
+    - `workflow_call` - 
     - `push` - runs the workflow when code is pushed to `develop` or `release`
     - `pull_request` - runs on all pull requests
     - **Note** - `push` and `pull_request` run US or non-US workflows if their related files are changed
@@ -86,10 +108,12 @@ Triggers are what causes a workflow to run. These are the current triggers for e
     - `pull_request` - runs on all pull requests
     - `pull_request_target` - runs on all pull requests from forks if the pull request has a label on it
     - **Note** - this workflow only runs if it is labeled with `snapshots`
-- Deploy
+- Commit Snapshots
+    - `workflow_run` - runs wheen another workflow finishes
+- Release
     - `workflow_dispatch` - allows for manually running a workflow
     - `push` - runs the workflow when code is pushed to `release`
-    - `pull_request` - runs only on a pull request to the release branch
+
 
 ## Other Notes
 
@@ -97,15 +121,6 @@ Triggers are what causes a workflow to run. These are the current triggers for e
 
 The strategy matrix makes it easy to run the same job with a different configuration.
 
-This matrix is used to run snapshot tests for each locale and to split the US locale by various test path patterns. The `locale` option for non-US and the `testPathPattern` option are generated dynamically by reading in `locales.json` and `usTestPathPatterens.json` respectively. This is done so developers can change them in onee place and every workflow using those options stays in sync.
+This matrix is used to run snapshot tests for each locale and to split the US locale by various test path patterns. The `matrix` option is generated dynamically by reading in `matrix.json`. This is done so developers can change `locale` and `groups` in one place and every workflow using those options stays in sync.
 
 You can read more in the [official docs here](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix).
-
-#### Option Names
-
-The singular `testPathPattern` and `locale` are used instead of the plural because the test command is testing only a single test path pattern oor a single locale.
-
-### Snapshot Job Names
-
-The `compareSnapshot` workflows are given the name "Snapshot Comparison" as opposed to "Compare Snapshots" to make it easier to differentiate from "Update Snapshots" in GitHub Actions user interface.
-

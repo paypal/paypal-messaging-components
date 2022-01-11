@@ -1,4 +1,4 @@
-name: Snapshot Comparison Tests
+name: Compare Snapshots
 on:
     # allow for manual triggers
     workflow_dispatch: {}
@@ -44,7 +44,7 @@ jobs:
                   echo "::set-output name=testPathPatterns::$testPathPatternsJson"
 
     compareSnapshots:
-        name: Compare Snapshots
+        name: Compare
         runs-on: ubuntu-latest
         needs: getMatrix
         strategy:
