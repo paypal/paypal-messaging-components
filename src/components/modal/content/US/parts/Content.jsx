@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
+import arrayFrom from 'core-js-pure/stable/array/from';
 
 import NI from './NI';
 import GPL from './GPL';
@@ -74,11 +75,21 @@ const Content = ({ headerRef, contentWrapper }) => {
         }
     };
 
+    function setFocusAfterLinkClick() {
+        const focusableElementsString =
+            "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
+        const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
+            node => window.getComputedStyle(node).visibility === 'visible'
+        );
+        tabArray[tabArray.length - 1].focus();
+    }
+
     // Tabs component will track tab switches by default
     // for "fake" tabs that show as links, we must track it manually
     const tabLinkClick = newProduct => {
         onClick({ linkName: newProduct, src: 'link_click' });
         selectProduct(newProduct);
+        setTimeout(() => setFocusAfterLinkClick(), 0);
     };
 
     useDidUpdateEffect(() => {

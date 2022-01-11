@@ -186,6 +186,10 @@
             height: 0.5rem;
             top: 0.1rem;
         }
+
+        &:focus {
+            text-decoration: underline;
+        }
     }
 
     @include desktop {
