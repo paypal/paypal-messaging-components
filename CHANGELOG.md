@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.28.0](https://github.com/paypal/paypal-messaging-components/compare/v1.27.2...v1.28.0) (2022-01-11)
+
+
+### Features
+
+* DE Pi30 [snapshots] ([#602](https://github.com/paypal/paypal-messaging-components/issues/602)) ([d83ffa8](https://github.com/paypal/paypal-messaging-components/commit/d83ffa80a275484cc0af9b4407b58dc2e4376099))
+
+
+### Build System
+
+* remove static namespace from SDK meta file ([#676](https://github.com/paypal/paypal-messaging-components/issues/676)) ([4acee0b](https://github.com/paypal/paypal-messaging-components/commit/4acee0b0f442c104e25c68f2629881ba9858e89f))
+
 ### [1.27.2](https://github.com/paypal/paypal-messaging-components/compare/v1.27.1...v1.27.2) (2022-01-04)
 
 
