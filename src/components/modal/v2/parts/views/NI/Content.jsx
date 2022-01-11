@@ -14,13 +14,6 @@ export const NI = ({
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
-    const renderProductListLink = () => {
-        if (useServerData()?.views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
-        }
-        return <Fragment />;
-    };
-
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -30,14 +23,6 @@ export const NI = ({
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <Instructions instructions={instructions} />
-                                <div className="button__fixed-wrapper">
-                                    <div className="button__container">
-                                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
-                                            {buttonText}
-                                        </Button>
-                                        <div className="content__row content__disclaimer">{disclaimer}</div>
-                                    </div>
-                                </div>
                             </div>
                             <div className="content__col">
                                 <div className="branded-image">
@@ -69,12 +54,26 @@ export const NI = ({
                             });
                             return <li className="content__footer-item">{line}</li>;
                         })}
-                        <li className="content__footer-item">
-                            <ProductListLink openProductList={openProductList}>
-                                {renderProductListLink()}
-                            </ProductListLink>
-                        </li>
+                        {useServerData()?.views?.length > 1 ? (
+                            <li className="content__footer-item">
+                                <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                            </li>
+                        ) : (
+                            <Fragment />
+                        )}
                     </ul>
+                    <div className="content__body">
+                        <div className="content__row dynamic">
+                            <div className="button__fixed-wrapper">
+                                <div className="button__container">
+                                    <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                                        {buttonText}
+                                    </Button>
+                                    <div className="content__row content__disclaimer">{disclaimer}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </main>
             </div>
         </Fragment>
