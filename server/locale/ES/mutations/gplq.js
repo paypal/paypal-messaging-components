@@ -12,12 +12,11 @@ import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutat
 
 const headlineBreaks = [
     {
-        sizes: ['xsmall'],
-        breaks: []
+        sizes: ['xsmall']
     },
     {
         sizes: ['medium'],
-        breaks: []
+        breaks: ['tus']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
