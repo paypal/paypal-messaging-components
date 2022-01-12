@@ -81,6 +81,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
         deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        // getRequestDuration runs in the child component (iframe/banner message),
+        // passing a value to onReady and up to the parent component to go out with
+        // the other stats
         requestDuration: getRequestDuration()
     });
 
@@ -180,6 +183,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
                                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                // getRequestDuration runs in the child component (iframe/banner message),
+                                // passing a value to onReady and up to the parent component to go out with
+                                // the other stats
                                 requestDuration: getRequestDuration()
                             });
                         }

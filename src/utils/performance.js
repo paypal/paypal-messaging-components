@@ -16,18 +16,22 @@ export const PERFORMANCE_MEASURE_KEYS = {
     // the parent page, to when zoid fires its Ready event
     SCRIPT_LOAD_DELAY: 'scriptLoadDelay',
 
-    // (PerformanceTiming.domContentLoadedEventStart is DEPRECATED)
+    // (PerformanceTiming.domContentLoadedEventStart is DEPRECATED, PerformanceNavigationTiming.domContentLoadedEventStart is not)
     // the timestamp before the DOMContentLoaded event for the parent page
     DOM_CONTENT_LOADED_EVENT_START: 'domContentLoadedEventStart',
-    // (PerformanceTiming.loadEventStart is DEPRECATED)
+    // (PerformanceTiming.loadEventStart is DEPRECATED, PerformanceNavigationTiming.loadEventStart is not)
     // when the load event was sent for the parent page
     LOAD_EVENT_START: 'loadEventStart'
 };
 
 export function getRequestDuration() {
+    // determine how long it took the iframe to load the banner message content
     if (typeof window?.performance?.getEntries !== 'function') {
         return -1;
     }
+
+    const validateMetric = metric => typeof metric === 'number' && metric > 0;
+
     // eslint-disable-next-line compat/compat
     const requests = window.performance
         .getEntries()
@@ -37,14 +41,14 @@ export function getRequestDuration() {
                 (entryType === 'resource' && `${name}`.indexOf('/credit-presentment/renderMessage') > -1)
         );
 
-    const [{ connectStart, responseStart }] = [...requests.slice(-1), {}];
+    const [{ requestStart, responseStart }] = [...requests.slice(-1), {}];
 
-    if (typeof connectStart !== 'undefined') {
-        // This measures the "Waiting (Time To First Byte)" for the request;
-        // how long we've spent waiting for a response after sending the request
-        return responseStart - connectStart;
-    }
-    return -1;
+    // This measures the "Waiting (Time To First Byte)" for the request;
+    // how long we've spent waiting for a response after sending the request
+    return validateMetric(requestStart) && validateMetric(responseStart) ? responseStart - requestStart : -1;
+    // NOTE: PerformanceNavigationTiming.requestStart and PerformanceNavigationTiming.responseStart are DEPRECATED
+    // A suitable alternative that measures the value found in the Network tab of Dev Tools could not be found.
+    // https://w3c.github.io/navigation-timing/timestamp-diagram.svg
 }
 
 export function getPerformanceMeasure(name) {
