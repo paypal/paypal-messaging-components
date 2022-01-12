@@ -9,7 +9,7 @@ const ProductListLink = forwardRef(({ children, type = 'button', className, open
 
     return (
         <button id="productListLink" ref={ref} className={classes.join(' ')} type={type} onClick={openProductList}>
-            <a href="#productListLink">{children}</a>
+            {children}
         </button>
     );
 });
