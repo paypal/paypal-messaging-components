@@ -86,7 +86,7 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testPathPattern }}
               run: |
-                  npm run test:func -- --testPathPattern "${{ matrix.testPathPattern }}"
+                  npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
                   git status --porcelain
 
             - name: Format Artifact Inputs
