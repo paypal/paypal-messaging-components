@@ -58,10 +58,11 @@ export const createMockZoidMarkup = ({ component, props, scriptUID, port }) => {
     const initializerScript = `<script>${setupFunctionName}(${JSON.stringify(props)})</script>`;
 
     return `
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PayPal - Pay Later</title>
 </head>
 <body>
     ${component !== 'modal-v2-lander' ? interfaceScript : ''}
