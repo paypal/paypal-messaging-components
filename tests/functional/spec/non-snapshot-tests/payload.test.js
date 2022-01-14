@@ -113,17 +113,8 @@ describe('payload testing', () => {
             ],
             matchObjects: [
                 {
-                    index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'stats',
-                    pos_x: '0',
-                    pos_y: '0',
-                    browser_width: '800',
-                    browser_height: '600',
-                    visible: 'true',
-                    active_tags: expect.any(String),
-                    adblock: 'false',
-                    blocked: 'false',
                     first_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number)
                 },

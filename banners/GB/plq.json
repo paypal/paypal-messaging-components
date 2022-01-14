@@ -12,6 +12,7 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
         }
     },
+
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
@@ -20,6 +21,7 @@
             ["medium", "large", "xlarge"]
         ]
     ],
+
     "subHeadline": [],
 
     "disclaimer": [["Learn more", ["default"]]]

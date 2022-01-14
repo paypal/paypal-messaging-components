@@ -1,5 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
+
 import { uniqueID, getCurrentScriptUID } from 'belter/src';
 import { create } from 'zoid/src';
 
@@ -20,10 +22,12 @@ import {
     isScriptBeingDestroyed,
     getFeatures,
     ppDebug,
+    getScriptAttributes,
     getDeviceID
 } from '../../utils';
-import containerTemplate from './containerTemplate';
+
 import validate from './validation';
+import containerTemplate from './containerTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -163,14 +167,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onHover } = props;
+                    const { index, onHover } = props;
                     let hasHovered = false;
 
                     return ({ meta }) => {
-                        const { index } = props;
-
                         if (!hasHovered) {
                             hasHovered = true;
+
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
@@ -354,6 +357,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: getLibraryVersion,
                 debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                value: () => __MESSAGES__.__TARGET__,
+                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
+            },
             deviceID: {
                 type: 'string',
                 queryParam: true,
@@ -398,6 +407,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getStageTag
+            },
+            partnerAttributionId: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
             },
             features: {
                 type: 'string',
