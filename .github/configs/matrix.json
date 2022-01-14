@@ -1,4 +1,4 @@
 {
-    "locales": ["US", "DE", "AU", "FR", "GB"],
+    "locales": ["US", "DE", "AU", "FR", "IT", "ES", "GB"],
     "groups": ["banner/text", "banner/flex", "modal/calc", "modal/base", "modal/standalone", "custom/custom"]
 }
