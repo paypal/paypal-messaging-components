@@ -12,10 +12,17 @@ const Icon = ({ name = '', color, content }) => {
 
     switch (name) {
         case 'logo':
-            return <img alt="PayPal Logo" src={logos.PRIMARY.WHITE[0].src} />;
+            return <img aria-hidden="true" alt="PayPal Logo" src={logos.PRIMARY.WHITE[0].src} />;
         case 'close':
             return (
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    aria-hidden="true"
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <path
                         d="M12 0L0 12"
                         transform="translate(12 12)"
@@ -34,7 +41,13 @@ const Icon = ({ name = '', color, content }) => {
             );
         case 'pp-button':
             return (
-                <svg className={`icon icon--${name}`} width="55" height="19" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    aria-hidden="true"
+                    className={`icon icon--${name}`}
+                    width="55"
+                    height="19"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <g fill="none" fill-rule="evenodd">
                         <rect fill="#FFC43A" width="55" height="19" rx="9.5" />
                         <path
@@ -48,7 +61,14 @@ const Icon = ({ name = '', color, content }) => {
 
         case 'warning':
             return (
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    aria-hidden="true"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <path
                         fill-rule="evenodd"
                         clip-rule="evenodd"
@@ -60,7 +80,14 @@ const Icon = ({ name = '', color, content }) => {
 
         case 'header-background':
             return (
-                <svg width="1920" height="1380" viewBox="0 0 1920 1380" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    aria-hidden="true"
+                    width="1920"
+                    height="1380"
+                    viewBox="0 0 1920 1380"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <g clipPath="url(#clip0)">
                         <rect width="1920" height="1379" transform="translate(0 0.5)" fill="#1040C1" />
                         <mask

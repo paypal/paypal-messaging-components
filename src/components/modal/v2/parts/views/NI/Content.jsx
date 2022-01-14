@@ -31,7 +31,7 @@ export const NI = ({
                             </div>
                         </div>
                     </div>
-                    <ul className="content__footer">
+                    <div className="content__footer">
                         <ul className="content__row terms">
                             {terms.map(item => (
                                 <li className="terms-item">
@@ -40,28 +40,32 @@ export const NI = ({
                                 </li>
                             ))}
                         </ul>
-                        {footer.map(content => {
-                            const line = content.map(item => {
-                                if (Array.isArray(item)) {
-                                    const [text, link] = item;
-                                    return (
-                                        <a target="__blank" href={link}>
-                                            {text}
-                                        </a>
-                                    );
-                                }
-                                return <span>{item}</span>;
-                            });
-                            return <li className="content__footer-item">{line}</li>;
-                        })}
-                        {useServerData()?.views?.length > 1 ? (
-                            <li className="content__footer-item">
-                                <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
-                            </li>
-                        ) : (
-                            <Fragment />
-                        )}
-                    </ul>
+                        <ul>
+                            {footer.map(content => {
+                                const line = content.map(item => {
+                                    if (Array.isArray(item)) {
+                                        const [text, link] = item;
+                                        return (
+                                            <a target="__blank" href={link}>
+                                                {text}
+                                            </a>
+                                        );
+                                    }
+                                    return <span>{item}</span>;
+                                });
+                                return <li className="content__footer-item">{line}</li>;
+                            })}
+                            {useServerData()?.views?.length > 1 ? (
+                                <li className="content__footer-item">
+                                    <ProductListLink openProductList={openProductList}>
+                                        {linkToProductList}
+                                    </ProductListLink>
+                                </li>
+                            ) : (
+                                <Fragment />
+                            )}
+                        </ul>
+                    </div>
                     <div className="content__body">
                         <div className="content__row dynamic">
                             <div className="button__fixed-wrapper">

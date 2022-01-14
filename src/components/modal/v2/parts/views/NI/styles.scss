@@ -162,11 +162,13 @@
         }
         .terms {
             @include desktop {
+                margin-top: 0;
                 margin-left: 30px;
                 margin-right: 30px;
             }
 
             @include tablet {
+                margin-top: 0;
                 margin-left: 30px;
                 margin-right: 30px;
             }
