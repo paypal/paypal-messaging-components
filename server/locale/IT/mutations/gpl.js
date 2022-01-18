@@ -28,7 +28,7 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 17.4),
                     setLogoTop(textSize * 41.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
@@ -37,7 +37,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [xSmallFallback(textSize * 17.4), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
