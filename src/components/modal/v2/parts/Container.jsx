@@ -38,10 +38,6 @@ const Container = ({ children }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setupTabTrap();
-    }, []);
-
-    useEffect(() => {
         if (transitionState === 'CLOSED') {
             contentWrapperRef.current.scrollTop = 0;
         } else if (transitionState === 'OPEN') {
@@ -82,6 +78,9 @@ const Container = ({ children }) => {
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
+    useEffect(() => {
+        setupTabTrap();
+    }, []);
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
             <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''} ${loading ? 'loading' : ''}`}>
