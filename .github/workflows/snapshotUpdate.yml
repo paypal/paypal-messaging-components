@@ -16,31 +16,9 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v2
 
-            - id: setMatrix
-              run: |
-                  echo "::set-output name=matrix::$(cat ./.github/configs/matrix.json | tr '\n' ' ')"
-
             - id: setTestPathPatterns
               run: |
-                  locales=$(echo "${{ join(fromJSON(steps.setMatrix.outputs.matrix).locales) }}" | tr ',' '\n')
-                  groups=$(echo "${{ join(fromJSON(steps.setMatrix.outputs.matrix).groups) }}" | tr ',' '\n')
-                  validTestPathPatterns=()
-
-                  for locale in $locales
-                  do
-                    for group in $groups
-                    do
-                        echo "$locale/$group"
-                        if [ -f "${{ github.workspace }}/tests/functional/spec/$locale/$group.test.js" ]; then
-                            validTestPathPatterns+=("$locale/$group")
-                        fi
-                    done
-                  done
-
-                  testPathPatternsJson=$(printf '"%s"', "${validTestPathPatterns[@]}")
-                  testPathPatternsJson="[${testPathPatternsJson%?}]"
-
-                  echo "::set-output name=testPathPatterns::$testPathPatternsJson"
+                  echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
 
     captureMetadata:
         name: Capture Metadata
