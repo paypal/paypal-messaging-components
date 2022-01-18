@@ -28,7 +28,7 @@
         display: inline;
     }
     .message__headline .tag--medium .br:first-child {
-        display: block;
+        display: inline;
     }
     .message__logo:nth-of-type(1) {
         width: 45%;
