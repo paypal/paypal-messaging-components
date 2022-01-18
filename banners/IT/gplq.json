@@ -13,12 +13,12 @@
     },
 
     "headline": [
-        ["Buy now, pay later.", ["default", "xsmall"]],
-        [["Buy now and pay later."], ["xsmall.2"]],
-        [["Pay in 3 interest-free payments of {formattedPeriodicPayment}"], ["medium", "large", "xlarge"]]
+        ["Acquista ora, paga dopo.", ["default", "xsmall"]],
+        ["Acquista ora e paga dopo.", ["xsmall.2"]],
+        [["Paga in 3 rate da {formattedPeriodicPayment} senza interessi."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],
 
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["Scopri di più", ["default"]]]
 }
