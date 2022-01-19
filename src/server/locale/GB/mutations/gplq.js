@@ -22,7 +22,7 @@ export default {
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
-                        tag: 'medium.text',
+                        tag: 'medium',
                         br: ['payments']
                     },
                     { tag: 'xsmall' }
@@ -73,7 +73,7 @@ export default {
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.text',
+                        tag: 'medium',
                         br: ['on'],
                         replace: [['purchases.', 'purchases']]
                     },
@@ -91,7 +91,7 @@ export default {
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium.text',
+                        tag: 'medium',
                         br: ['on'],
                         replace: [['purchases.', 'purchases']]
                     },
@@ -118,7 +118,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default.fees', 'default'],
+                disclaimer: ['default'],
                 styles: [
                     '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                     '.message__headline .tag--medium .weak { display: none; }'

@@ -25,7 +25,7 @@ const Header = ({ children, className = '', logo, wrapperRef }) => {
             <div className="header-container">
                 <header className="header">
                     <div className="logo-wrapper">
-                        <div className="logo" alt="PayPal Credit Logo">
+                        <div className="logo" alt="PayPal Credit">
                             <Icon name={LOCALE.LOGO[logo || country]} />
                         </div>
                     </div>
