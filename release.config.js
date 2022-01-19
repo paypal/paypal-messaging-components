@@ -1,5 +1,6 @@
+/* eslint-disable no-template-curly-in-string */
 module.exports = {
-    branch: 'release',
+    branches: ['release'],
     plugins: [
         [
             '@semantic-release/commit-analyzer',
