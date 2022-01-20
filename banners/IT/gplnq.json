@@ -13,7 +13,6 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-
     "headline": [
         ["Acquista ora, paga dopo.", ["default", "xsmall"]],
         ["Acquista ora e paga dopo.", ["xsmall.2"]],
@@ -22,8 +21,6 @@
             ["medium", "large", "xlarge"]
         ]
     ],
-
     "subHeadline": [],
-
     "disclaimer": [["Scopri di più", ["default"]]]
 }

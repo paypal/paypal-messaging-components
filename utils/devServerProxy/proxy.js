@@ -56,8 +56,9 @@ const devAccountMap = {
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
     DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
 
-    DEV000000ITPL: ['IT', ['gpl'], 'gpl'],
-    DEV00000ITPLQ: ['IT', ['gpl'], 'gplq']
+    DEV0000ITPLNA: ['IT', ['gpl'], 'gpl_no_amount'],
+    DEV00000ITPLQ: ['IT', ['gpl'], 'gplq'],
+    DEV0000ITPLNQ: ['IT', ['gpl'], 'gplnq']
 };
 
 export default (app, server, compiler) => {
