@@ -136,7 +136,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             onClose: () => {
                                 getContainer()
                                     .querySelector('iframe')
-                                    .contentWindow.focus();
+                                    .focus();
                             }
                         });
 
