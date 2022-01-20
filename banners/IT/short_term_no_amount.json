@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "IT",
-        "offerType": "GPL",
+        "offerType": "SHORT_TERM:NO_AMOUNT",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {
