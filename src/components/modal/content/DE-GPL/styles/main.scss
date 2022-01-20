@@ -1,3 +1,5 @@
+$PayPal-Big:PayPalSansBig, Helvetica, Arial, Sans-Serif;
+
 .content-wrapper {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -10,10 +12,11 @@
 }
 
 .content {
+    font-family:$PayPal-Big;
+    height:100%;
     padding-top: 0;
     position: relative;
     z-index: 50;
-    background: white;
     flex: 1 1 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -27,6 +30,9 @@
     width: 100%;
     margin: auto;
     max-width: 640px;
+    background: linear-gradient(rgba(0,0,0,0), #f7f5f0, #f7f5f0);        
+    display: flex;
+    flex-direction: column;
 }
 
 main {
@@ -38,10 +44,11 @@ main {
 }
 
 .content-column {
-    width: 500px;
+    width: 420px;
     max-width: calc(100% - 72px);
-    margin: auto;
+    margin: 0 auto;
     box-sizing: border-box;
+    padding: 0 12px;
 }
 
 .modal-container.loading {
@@ -66,8 +73,6 @@ main {
         margin: auto;
         width: 100%;
         box-shadow: 0px 10px 14px 1px rgba(0, 0, 0, 0.6);
-        display: flex;
-        flex-direction: column;
         border-radius: 10px;
         flex: 1 1 100%;
     }
@@ -94,7 +99,6 @@ main {
     .content-column {
         max-width: 400px;
         width: auto;
-        padding: 0 12px;
     }
 
     .content-wrapper {
