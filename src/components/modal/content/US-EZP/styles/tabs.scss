@@ -54,6 +54,10 @@
             transform: scaleX(1);
         }
     }
+
+    &:focus {
+        outline: #005187 auto 5px;
+    }
 }
 
 .tab-transition {
@@ -71,6 +75,7 @@
     pointer-events: none;
     transition: opacity 0.3s;
     transition-delay: 0.3s;
+    visibility: hidden;
 
     &.selected {
         position: relative;
@@ -79,5 +84,6 @@
         opacity: 1;
         pointer-events: all;
         transition-delay: 0s;
+        visibility: visible;
     }
 }
