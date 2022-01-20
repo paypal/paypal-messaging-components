@@ -14,11 +14,7 @@
         }
     },
 
-    "headline": [
-        ["Acquista ora, paga dopo.", ["default", "xsmall"]],
-        ["Acquista ora e paga dopo.", ["xsmall.2"]],
-        [["Paga in 3 rate da {formattedPeriodicPayment} senza interessi."], ["medium", "large", "xlarge"]]
-    ],
+    "headline": [["Acquista ora, paga dopo.", ["default", "xsmall"]]],
 
     "subHeadline": [],
 

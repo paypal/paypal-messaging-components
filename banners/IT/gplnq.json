@@ -13,17 +13,14 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-
     "headline": [
-        ["Buy now, pay later.", ["default", "xsmall"]],
-        ["Buy now and pay later.", ["xsmall.2"]],
+        ["Acquista ora, paga dopo.", ["default", "xsmall"]],
+        ["Acquista ora e paga dopo.", ["xsmall.2"]],
         [
-            "Pay in 3 interest-free payments on purchases of {formattedMinAmount}-{formattedMaxAmount}",
+            "Paga gli acquisti tra {formattedMinAmount} e {formattedMaxAmount} in 3 rate senza interessi.",
             ["medium", "large", "xlarge"]
         ]
     ],
-
     "subHeadline": [],
-
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["Scopri di più", ["default"]]]
 }
