@@ -1,9 +1,8 @@
 import fs from 'fs';
-import path from 'path';
 import got from 'got';
-
+import path from 'path';
 import { PORT, VARIANT } from '../../server/constants';
-import { populateTemplate, localizeCurrency } from './miscellaneous';
+import { localizeCurrency, populateTemplate } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 // set this environment variable to simulate the time for the request to be answered
@@ -54,7 +53,10 @@ const devAccountMap = {
     DEV00000FRPLQ: ['FR', ['gpl'], 'gplq'],
 
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
-    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq']
+    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
+
+    DEV000000ITPL: ['IT', ['gpl'], 'gpl'],
+    DEV00000ITPLQ: ['IT', ['gpl'], 'gplq']
 };
 
 export default (app, server, compiler) => {
