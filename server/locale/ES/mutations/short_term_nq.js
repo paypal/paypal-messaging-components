@@ -107,7 +107,11 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 20),
+                    `@media screen and (max-width: ${textSize *
+                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                ],
                 logo: false,
                 headline: [
                     {
