@@ -3,7 +3,15 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { getDeviceID, isStorageFresh } from '../../../utils';
 
-import { useTransitionState, ScrollProvider, useServerData, useXProps, useDidUpdateEffect, getContent } from '../lib';
+import {
+    useTransitionState,
+    ScrollProvider,
+    useServerData,
+    useXProps,
+    useDidUpdateEffect,
+    getContent,
+    setupTabTrap
+} from '../lib';
 import Overlay from './Overlay';
 
 const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight }) => {
@@ -50,6 +58,10 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         }
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
+    useEffect(() => {
+        setupTabTrap();
+    }, []);
+
     useDidUpdateEffect(() => {
         setLoading(true);
         getContent({
@@ -71,7 +83,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     return (
         <ScrollProvider containerRef={contentWrapper}>
-            <div className="modal-wrapper">
+            <div className="modal-wrapper" role="dialog" aria-label="PayPal Credit" aria-modal="true">
                 <section className={`modal-container show ${loading ? 'loading' : ''}`}>
                     <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                     <div className="wrapper">{children}</div>

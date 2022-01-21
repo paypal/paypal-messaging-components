@@ -8,6 +8,7 @@ import {
     createState,
     isStorageFresh,
     getDeviceID,
+    parseObjFromEncoding,
     getRequestDuration
 } from '../../utils';
 
@@ -59,7 +60,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const button = document.createElement('button');
 
     button.setAttribute('type', 'button');
-    button.setAttribute('aria-label', 'PayPal Pay Later Message');
 
     button.addEventListener('click', handleClick);
     button.addEventListener('mouseover', handleHover);
@@ -156,8 +156,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;

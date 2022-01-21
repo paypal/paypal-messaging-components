@@ -84,7 +84,6 @@ const memoizedModal = memoizeOnProps(
             }
 
             const requestedProduct = getProductForOffer(options.offer);
-
             if (
                 typeof options.offer !== 'undefined' &&
                 Array.isArray(state.products) &&

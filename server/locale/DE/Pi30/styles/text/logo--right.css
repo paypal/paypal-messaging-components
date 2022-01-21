@@ -1,0 +1,16 @@
+.message__logo:first-child {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.message__content {
+    align-items: center;
+}
+
+.message__headline > .tag--medium > span > span {
+    white-space: normal;
+}
+
+.message__headline > .tag--xsmall > span {
+    white-space: normal;
+}

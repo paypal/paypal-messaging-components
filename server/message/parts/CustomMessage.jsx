@@ -35,7 +35,7 @@ const CustomMessage = ({ children, data, meta, template }) => {
         if (type === 'logo') {
             const src = getLogos(meta.offerCountry, meta.offerType)[parts[0].toUpperCase()][parts[1].toUpperCase()]
                 ?.src;
-            return `<img alt="PayPal Credit logo" src="${src}" />`;
+            return `<img alt="PayPal Credit" src="${src}" />`;
         }
 
         const tag = parts.join('.');
@@ -51,13 +51,8 @@ const CustomMessage = ({ children, data, meta, template }) => {
     return (
         <>
             {children}
-            {/* eslint-disable react/no-danger, jsx-a11y/control-has-associated-label */}
-            <div
-                role="button"
-                className={`message ${offerTypeClass}`}
-                dangerouslySetInnerHTML={{ __html: populatedMarkup }}
-            />
-            {/* eslint-enable react/no-danger, jsx-a11y/control-has-associated-label */}
+            {/* eslint-disable-next-line react/no-danger */}
+            <div className={`message ${offerTypeClass}`} dangerouslySetInnerHTML={{ __html: populatedMarkup }} />
         </>
     );
 };

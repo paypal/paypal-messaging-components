@@ -1,0 +1,101 @@
+name: Update Snapshots
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+    pull_request:
+        types: [labeled]
+
+jobs:
+    getMatrix:
+        name: Get Matrix
+        if: github.event.label.name == 'snapshots' || github.event_name == 'workflow_dispatch'
+        runs-on: ubuntu-latest
+        outputs:
+            testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - id: setTestPathPatterns
+              run: |
+                  echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
+
+    captureMetadata:
+        name: Capture Metadata
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        steps:
+            - name: Capture PR Number
+              run: |
+                  mkdir -p ./workflow/metadata
+                  echo ${{ github.event.number }} > ./workflow/metadata/pull_number.txt
+
+            - name: Save Metadata
+              uses: actions/upload-artifact@v2
+              with:
+                  name: metadata
+                  path: workflow/metadata/
+
+    updateSnapshots:
+        name: Update
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        strategy:
+            matrix:
+                testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Update Snapshots - ${{ matrix.testPathPattern }}
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
+                  git status --porcelain
+
+            - name: Format Artifact Inputs
+              id: artifactInputs
+              run: |
+                  if [ -z "$(git status --porcelain)" ]
+                  then
+                      echo "::set-output name=skip::true"
+                      exit 0
+                  fi
+
+                  ARTIFACT_NAME="snapshot-$(sed 's/\//-/g' <<< '${{ matrix.testPathPattern }}')"
+                  echo "::set-output name=name::$ARTIFACT_NAME"
+
+                  ARTIFACT_PATH="snapshots/"
+                  echo "::set-output name=path::$ARTIFACT_PATH"
+
+                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots' | sed -E "s/^.{3}//")
+                  echo "$UPDATED_SNAPSHOTS" | while read -r path
+                  do
+                      newpath=$(echo $path | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newdir=$(echo $newpath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      mkdir -p "${{ github.workspace }}/$newdir"
+                      mv "${{ github.workspace }}/$path" "${{ github.workspace }}/$newpath"
+                  done
+
+            - name: Save Snapshot Artifact
+              if: steps.artifactInputs.outputs.skip != 'true'
+              uses: actions/upload-artifact@v2
+              with:
+                  name: ${{ steps.artifactInputs.outputs.name }}
+                  path: ${{ steps.artifactInputs.outputs.path }}
+                  retention-days: 1
