@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "ES",
-        "offerType": "GPL",
+        "offerType": "SHORT_TERM:NO_AMOUNT",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {
@@ -14,13 +14,7 @@
         }
     },
 
-    "headline": [
-        ["Compra ahora y paga después.", ["default", "xsmall"]],
-        [
-            "Paga en 3 plazos sin intereses tus compras de {formattedMinAmount} a {formattedMaxAmount}",
-            ["medium", "large", "xlarge"]
-        ]
-    ],
+    "headline": [["Compra ahora y paga después.", ["default"]]],
 
     "subHeadline": [],
 

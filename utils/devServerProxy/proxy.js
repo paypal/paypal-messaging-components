@@ -53,11 +53,12 @@ const devAccountMap = {
     DEV000000FRPL: ['FR', ['gpl'], 'gpl'],
     DEV00000FRPLQ: ['FR', ['gpl'], 'gplq'],
 
-    DEV000000ESPL: ['ES', ['gpl'], 'gpl'],
-    DEV00000ESPLQ: ['ES', ['gpl'], 'gplq'],
-
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
-    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq']
+    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
+
+    DEV0000ESPLNA: ['ES', ['gpl'], 'short_term_no_amount'],
+    DEV00000ESPLQ: ['ES', ['gpl'], 'short_term_q'],
+    DEV0000ESPLNQ: ['ES', ['gpl'], 'short_term_nq']
 };
 
 export default (app, server, compiler) => {
