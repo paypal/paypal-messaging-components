@@ -26,14 +26,13 @@ export const PERFORMANCE_MEASURE_KEYS = {
 
 export function getRequestDuration() {
     // determine how long it took the iframe to load the banner message content
-    if (typeof window?.performance?.getEntries !== 'function') {
+    if (typeof performance?.getEntries !== 'function') {
         return -1;
     }
 
     const validateMetric = metric => typeof metric === 'number' && metric > 0;
 
-    // eslint-disable-next-line compat/compat
-    const requests = window.performance
+    const requests = performance
         .getEntries()
         .filter(
             ({ name, entryType }) =>
