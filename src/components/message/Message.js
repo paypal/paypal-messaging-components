@@ -1,7 +1,15 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from 'belter/src';
 
-import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
     const {
@@ -143,8 +151,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
