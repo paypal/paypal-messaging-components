@@ -3,8 +3,8 @@ import { logTestName } from './utils/logging';
 import modalSnapshot from './utils/modalSnapshot';
 
 /**
- * General modal function tests for the US, DE, and GB locales.
- * Runs inside of modalText and modalFlex test files for the US, DE, and GB locales.
+ * General modal function tests for the locales.
+ * Runs inside of modalText and modalFlex test files for the locales.
  */
 
 export const xClosesModal = ({ account, viewport, groupString }) => async () => {

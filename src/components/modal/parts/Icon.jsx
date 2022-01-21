@@ -643,6 +643,210 @@ const Icon = ({ name, color }) => {
                     />
                 </svg>
             );
+        case 'pi30-hourglass':
+            return (
+                <svg width="51" height="64" viewBox="0 0 51 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                        width="32.5326"
+                        height="4.30038"
+                        rx="2.15019"
+                        transform="matrix(0.948669 0.316543 -0.351829 0.936165 19.3501 1.47393)"
+                        fill="#0C0C0D"
+                    />
+                    <path
+                        d="M25.0761 31.9737C31.8791 34.2198 39.4487 30.6307 41.9833 23.9571L17.3477 15.8232C14.813 22.4967 18.2732 29.7275 25.0761 31.9737Z"
+                        fill="#D1F1FF"
+                    />
+                    <rect
+                        width="25.9668"
+                        height="11.0367"
+                        transform="matrix(0.949682 0.313868 -0.35483 0.935171 20.8545 6.31657)"
+                        fill="#D1F1FF"
+                    />
+                    <rect
+                        width="32.5326"
+                        height="4.30038"
+                        rx="2.15019"
+                        transform="matrix(-0.948669 -0.316543 0.351829 -0.936165 31.4038 62.3627)"
+                        fill="#0C0C0D"
+                    />
+                    <path
+                        d="M25.6778 31.8627C18.8748 29.6166 11.3052 33.2057 8.7706 39.8792L33.4062 48.0132C35.9409 41.3397 32.4807 34.1088 25.6778 31.8627Z"
+                        fill="#D1F1FF"
+                    />
+                    <rect
+                        width="25.9668"
+                        height="11.0367"
+                        transform="matrix(-0.949682 -0.313867 0.35483 -0.93517 29.8994 57.5198)"
+                        fill="#D1F1FF"
+                    />
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M17.3154 24.7117C18.6668 27.9688 21.4327 30.6725 25.168 31.9336C31.8751 34.1979 39.2233 30.9721 41.8129 24.7117H17.3154Z"
+                        fill="#F9B822"
+                    />
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M5.71523 47.8538L5.23779 49.1392L30.0666 57.5214L33.6576 47.8538H5.71523Z"
+                        fill="#FFC43A"
+                    />
+                    <circle cx="22.3373" cy="36.2677" r="1.73969" fill="#FFC43A" />
+                    <circle cx="22.3373" cy="42.0665" r="1.73969" fill="#FFC43A" />
+                </svg>
+            );
+        case 'ratenzahlung-calendar':
+            return (
+                <svg width="64" height="64" viewBox="10 10 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                        x="52.3303"
+                        y="18.4798"
+                        width="35.9895"
+                        height="44.7295"
+                        rx="3.15996"
+                        transform="rotate(58.5 52.3303 18.4798)"
+                        fill="#1072EB"
+                    />
+                    <rect
+                        x="53.1641"
+                        y="14.9465"
+                        width="35.9895"
+                        height="44.7295"
+                        rx="3.15996"
+                        transform="rotate(58.5 53.1641 14.9465)"
+                        fill="#9EE0FE"
+                    />
+                    <rect
+                        x="25.094"
+                        y="42.747"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 25.094 42.747)"
+                        fill="white"
+                    />
+                    <rect
+                        x="32.7476"
+                        y="37.8873"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 32.7476 37.8873)"
+                        fill="white"
+                    />
+                    <rect
+                        x="40.3745"
+                        y="33.2135"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 40.3745 33.2135)"
+                        fill="white"
+                    />
+                    <rect
+                        x="48.0024"
+                        y="28.5378"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 48.0024 28.5378)"
+                        fill="white"
+                    />
+                    <rect
+                        x="29.5437"
+                        y="49.7806"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 29.5437 49.7806)"
+                        fill="white"
+                    />
+                    <rect
+                        x="33.9678"
+                        y="57.0022"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 33.9678 57.0022)"
+                        fill="white"
+                    />
+                    <rect
+                        x="37.1716"
+                        y="45.106"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 37.1716 45.106)"
+                        fill="white"
+                    />
+                    <rect
+                        x="41.5957"
+                        y="52.3267"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 41.5957 52.3267)"
+                        fill="white"
+                    />
+                    <rect
+                        x="44.7996"
+                        y="40.4335"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 44.7996 40.4335)"
+                        fill="white"
+                    />
+                    <rect
+                        x="49.2236"
+                        y="47.6521"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 49.2236 47.6521)"
+                        fill="white"
+                    />
+                    <rect
+                        x="52.426"
+                        y="35.758"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 52.426 35.758)"
+                        fill="white"
+                    />
+                    <rect
+                        x="56.8516"
+                        y="42.9788"
+                        width="5.53794"
+                        height="5.50428"
+                        rx="2.75214"
+                        transform="rotate(-31.5 56.8516 42.9788)"
+                        fill="white"
+                    />
+                    <line
+                        x1="25.494"
+                        y1="33.0719"
+                        x2="24.2467"
+                        y2="31.0365"
+                        stroke="#1072EB"
+                        stroke-width="5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <line
+                        x1="41.7333"
+                        y1="23.1213"
+                        x2="40.486"
+                        y2="21.0858"
+                        stroke="#1072EB"
+                        stroke-width="5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            );
         default:
             return null;
     }
