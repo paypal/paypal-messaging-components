@@ -105,7 +105,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
-
+            channel: {
+                type: 'string',
+                queryParam: 'channel',
+                required: false,
+                default: () => 'UPSTREAM',
+                value: validate.channel
+            },
             // Callbacks
             onClick: {
                 type: 'function',
@@ -208,14 +214,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID() // Session ID from parent local storage
+                                    sessionID: getSessionID(), // Session ID from parent local storage,
+                                    channel
                                 },
                                 [index]: {
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    trackingDetails,
-                                    channel: channel ?? 'UPSTREAM'
+                                    trackingDetails
                                 }
                             };
                         });
