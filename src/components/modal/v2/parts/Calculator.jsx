@@ -138,7 +138,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 >
                     <div>
                         {error ? <Icon name="warning" /> : null}
-                        <span>{error}</span>
+                        <div>{error}</div>
                     </div>
                 </div>
             );
