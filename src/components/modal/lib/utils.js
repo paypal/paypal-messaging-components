@@ -1,3 +1,4 @@
+import arrayFrom from 'core-js-pure/stable/array/from';
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, memoize, ppDebug } from '../../../utils';
 
@@ -43,3 +44,26 @@ export const getContent = memoize(
         );
     }
 );
+
+export function setupTabTrap() {
+    const focusableElementsString =
+        "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
+
+    function trapTabKey(e) {
+        // Check for TAB key press
+        if (e.keyCode === 9) {
+            const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
+                node => window.getComputedStyle(node).visibility === 'visible'
+            );
+            // SHIFT + TAB
+            if (e.shiftKey && document.activeElement === tabArray[0]) {
+                e.preventDefault();
+                tabArray[tabArray.length - 1].focus();
+            } else if (document.activeElement === tabArray[tabArray.length - 1]) {
+                e.preventDefault();
+                tabArray[0].focus();
+            }
+        }
+    }
+    window.addEventListener('keydown', trapTabKey);
+}

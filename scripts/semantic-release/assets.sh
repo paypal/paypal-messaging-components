@@ -133,20 +133,23 @@ if [ ! -z "$tag" ]; then
     fi
 
     # Manually replace the globals.js variables so that it applies to the SDK bundler
-    sed -i '' "s/env.STAGE_TAG/'$tag'/" ./globals.js
-    sed -i '' "s/env.VERSION/'$version'/" ./globals.js
-    [[ ! -z "$testEnv" ]] && sed -i '' "s/env.TEST_ENV/'https:\/\/www.$testEnv'/" ./globals.js
+    sed -i.bak "s/env.STAGE_TAG/'$tag'/" ./globals.js
+    sed -i.bak "s/env.VERSION/'$version'/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i.bak "s/env.TEST_ENV/'https:\/\/www.$testEnv'/" ./globals.js
     [[ $devTouchpoint = true ]] && sed -i '' "s/env.DEV_TOUCHPOINT/true/" ./globals.js
     # Pack the library module similar to publishing the module to npm
     npm pack --quiet > /dev/null
     mv ./*.tgz ./dist/bizcomponents/stage/package.tgz
     # Reset the manual variables
-    sed -i '' "s/'$tag'/env.STAGE_TAG/" ./globals.js
-    sed -i '' "s/'$version'/env.VERSION/" ./globals.js
-    [[ ! -z "$testEnv" ]] && sed -i '' "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
+    sed -i.bak "s/'$tag'/env.STAGE_TAG/" ./globals.js
+    sed -i.bak "s/'$version'/env.VERSION/" ./globals.js
+    [[ ! -z "$testEnv" ]] && sed -i.bak "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
     [[ $devTouchpoint = true ]] && sed -i '' "s/__DEV_TOUCHPOINT__: true/__DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT/" ./globals.js
 
-    echo "web stage --tag $tag"
+    # remove temporary file if it exists
+    rm globals.js.bak &> /dev/null
+    
+    printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"
     printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 

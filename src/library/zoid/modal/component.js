@@ -2,7 +2,7 @@ import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
-import { getCurrentScriptUID } from 'belter/src';
+import { uniqueID, getCurrentScriptUID } from 'belter/src';
 
 import {
     getMeta,
@@ -16,7 +16,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getOrCreateStorageID,
+    getDeviceID,
     getStageTag,
     getFeatures,
     ppDebug,
@@ -216,9 +216,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, deviceID }) => {
-                        const { index, offer, merchantId, account, refIndex } = props;
+                        const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
-                        const { messageRequestId, trackingDetails, ppDebugId } = meta;
+                        const { trackingDetails, ppDebugId } = meta;
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
@@ -326,7 +326,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID
+                value: getDeviceID
             },
             sessionID: {
                 type: 'string',
@@ -337,6 +337,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID
+            },
+            messageRequestId: {
+                type: 'string',
+                queryParam: 'message_request_id',
+                value: uniqueID,
+                decorate: ({ props }) => {
+                    ppDebug(`Modal Message Request ID: ${props.messageRequestId}`);
+                    return props.messageRequestId;
+                }
             },
             debug: {
                 type: 'boolean',

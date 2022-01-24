@@ -1,7 +1,6 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
-
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { logger, memoize, getEnv } from '../../../utils';
 
 export const Types = {
@@ -202,6 +201,17 @@ export default {
             } else {
                 return channel;
             }
+        }
+
+        return undefined;
+    },
+    merchantConfig: ({ props: { merchantConfig } }) => {
+        if (typeof merchantConfig !== 'undefined') {
+            if (!validateType(Types.STRING, merchantConfig)) {
+                // fail silently since value is supplied by sdk
+                return undefined;
+            }
+            return merchantConfig;
         }
 
         return undefined;
