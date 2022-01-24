@@ -70,7 +70,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <h2>{qualifyingSubheadline}</h2>
                 ) : (
-                    <h2>{subheadline}</h2>
+                    <h2>{subheadline ?? ''}</h2>
                 )}
             </div>
         </Fragment>

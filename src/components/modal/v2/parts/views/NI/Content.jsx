@@ -14,6 +14,13 @@ export const NI = ({
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
+    const renderProductListLink = () => {
+        if (useServerData()?.views?.length > 1) {
+            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
+        }
+        return <Fragment />;
+    };
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
