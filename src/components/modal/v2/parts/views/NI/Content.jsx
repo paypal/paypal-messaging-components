@@ -14,9 +14,13 @@ export const NI = ({
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
-    const renderProductListLink = () => {
+    const renderProductListLinkItem = () => {
         if (useServerData()?.views?.length > 1) {
-            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
+            return (
+                <li className="content__footer-item">
+                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                </li>
+            );
         }
         return <Fragment />;
     };
@@ -62,7 +66,7 @@ export const NI = ({
                                 });
                                 return <li className="content__footer-item">{line}</li>;
                             })}
-                            <li className="content__footer-item">{renderProductListLink()}</li>
+                            {renderProductListLinkItem()}
                         </ul>
                     </div>
                     <div className="content__body">
