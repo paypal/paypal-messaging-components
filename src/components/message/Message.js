@@ -8,7 +8,8 @@ import {
     createState,
     isStorageFresh,
     getDeviceID,
-    parseObjFromEncoding
+    parseObjFromEncoding,
+    getRequestDuration
 } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
@@ -79,7 +80,11 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         activeTags: getActiveTags(button),
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        // getRequestDuration runs in the child component (iframe/banner message),
+        // passing a value to onReady and up to the parent component to go out with
+        // the other stats
+        requestDuration: getRequestDuration()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
@@ -179,7 +184,11 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 // Generate new MRID on message update.
                                 messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
-                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                // getRequestDuration runs in the child component (iframe/banner message),
+                                // passing a value to onReady and up to the parent component to go out with
+                                // the other stats
+                                requestDuration: getRequestDuration()
                             });
                         }
 
