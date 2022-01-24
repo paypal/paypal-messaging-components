@@ -62,15 +62,7 @@ export const NI = ({
                                 });
                                 return <li className="content__footer-item">{line}</li>;
                             })}
-                            {useServerData()?.views?.length > 1 ? (
-                                <li className="content__footer-item">
-                                    <ProductListLink openProductList={openProductList}>
-                                        {linkToProductList}
-                                    </ProductListLink>
-                                </li>
-                            ) : (
-                                <Fragment />
-                            )}
+                            <li className="content__footer-item">{renderProductListLink()}</li>
                         </ul>
                     </div>
                     <div className="content__body">
