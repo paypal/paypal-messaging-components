@@ -57,6 +57,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             integrationIdentifier: {
                 type: 'string',
                 queryParam: true,
+                value: ({ props: { refIndex } }) => {
+                    return refIndex ? undefined : 'messagesModal';
+                },
                 required: false
             },
             customerId: {
@@ -121,7 +124,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onClick, onApply } = props;
 
                     return ({ linkName, src }) => {
-                        const { index, refIndex, channel, integrationIdentifier } = props;
+                        const { index, refIndex } = props;
 
                         logger.track({
                             index,
@@ -129,8 +132,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             et: 'CLICK',
                             event_type: 'click',
                             link: linkName,
-                            channel,
-                            integrationIdentifier,
                             src: src ?? linkName
                         });
 
@@ -151,7 +152,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onCalculate } = props;
 
                     return ({ value }) => {
-                        const { index, refIndex, channel, integrationIdentifier } = props;
+                        const { index, refIndex } = props;
 
                         logger.track({
                             index,
@@ -160,8 +161,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'click',
                             link: 'Calculator',
                             src: 'Calculator',
-                            channel,
-                            integrationIdentifier,
                             amount: value
                         });
 
@@ -178,15 +177,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onShow } = props;
 
                     return () => {
-                        const { index, refIndex, src = 'show', channel, integrationIdentifier } = props;
+                        const { index, refIndex, src = 'show' } = props;
 
                         logger.track({
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-open',
-                            channel,
-                            integrationIdentifier,
                             src
                         });
 
@@ -203,7 +200,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onClose } = props;
 
                     return ({ linkName }) => {
-                        const { index, refIndex, channel, integrationIdentifier } = props;
+                        const { index, refIndex } = props;
 
                         event.trigger('modal-hide');
 
@@ -212,8 +209,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLICK',
                             event_type: 'modal-close',
-                            channel,
-                            integrationIdentifier,
                             link: linkName
                         });
 
@@ -257,7 +252,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     type: 'modal',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    trackingDetails
+                                    trackingDetails,
+                                    channel,
+                                    integrationIdentifier
                                 }
                             };
                         });
@@ -275,8 +272,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-render',
-                            channel,
-                            integrationIdentifier,
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
