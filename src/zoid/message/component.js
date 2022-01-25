@@ -190,7 +190,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
 
-                    return ({ meta, activeTags, deviceID }) => {
+                    return ({ meta, activeTags, deviceID, requestDuration }) => {
                         const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
 
                         // Message request ID generated server-side
@@ -231,6 +231,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         runStats({
                             container: getContainer(),
                             activeTags,
+                            requestDuration,
                             index
                         });
                         modal.updateProps({ refIndex: index, offer: offerType });

@@ -97,6 +97,18 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
     });
 }
 
+export function parseObjFromEncoding(encodedStr) {
+    // equivalent to JSON.parse(fromBinary(atob(encodedStr))) as in initScript
+    const binary = atob(encodedStr);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    // need to use .apply instead of spread operator so IE can understand
+    const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+    return JSON.parse(decodedStr);
+}
+
 export function createEvent(name) {
     if (typeof Event === 'function') {
         return new Event(name);
