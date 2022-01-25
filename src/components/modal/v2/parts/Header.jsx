@@ -19,6 +19,10 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
         [isScrolled]
     );
 
+    const getScrollClass = (scrolled, className) => (scrolled ? `${className}--scroll` : '');
+    const headerClasses = ['header__fixed-wrapper', getScrollClass(isScrolled, 'header__fixed-wrapper')].join(' ');
+    const logoClasses = ['logo__wrapper', getScrollClass(isScrolled, 'logo__wrapper')].join(' ');
+
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -26,12 +30,12 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
         <Fragment>
             {(!isLander || isIframe) && (
                 <Fragment>
-                    <div className="header__fixed-wrapper header__fixed-wrapper--front">
+                    <div className={`${headerClasses} header__fixed-wrapper--front`}>
                         <div className="header__background-wrapper header__background-wrapper--gradient">
                             <Icon name="header-background" />
                         </div>
                     </div>
-                    <div className="header__fixed-wrapper">
+                    <div className={`${headerClasses}`}>
                         <div className="header__background-wrapper">
                             <Icon name="header-background" />
                         </div>
@@ -39,7 +43,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 </Fragment>
             )}
             <div className="header__icons">
-                <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
+                <div className={`${logoClasses}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">
                         <Icon name={logo} />
                     </div>
@@ -58,7 +62,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     </button>
                 )}
                 {(!isLander || isIframe) && (
-                    <div className="header__fixed-wrapper header__fixed-wrapper--front">
+                    <div className={`${headerClasses} header__fixed-wrapper--front`}>
                         <div className="header__background-wrapper header__background-wrapper--sticky">
                             <Icon name="header-background" />
                         </div>

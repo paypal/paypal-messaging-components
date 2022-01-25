@@ -33,6 +33,12 @@
             border-radius: 0;
             transform: translate(-50%, -15px);
         }
+
+        &--scroll {
+            @include apiIframe {
+                transform: translate(-50%, -6px) scale(1.2);
+            }
+        }
     }
 
     &__background-wrapper {
