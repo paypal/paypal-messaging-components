@@ -29,7 +29,11 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getFundingEligibility()?.paylater?.merchantConfigHash ?? __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+        try {
+            return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+        } catch {
+            return getFundingEligibility()?.paylater?.merchantConfigHash;
+        }
     } else {
         return undefined;
     }
