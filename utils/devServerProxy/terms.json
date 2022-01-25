@@ -1,9 +1,9 @@
 {
-    "minAmount": 30,
-    "maxAmount": 2000,
+    "minAmount": 199,
+    "maxAmount": 5000,
     "offers": [
         {
-            "term": 4,
+            "term": 12,
             "apr": 0,
             "nominalRate": 0
         }
