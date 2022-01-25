@@ -92,21 +92,35 @@ export default (app, server, compiler) => {
         return null;
     };
 
-    const createMockZoidMarkup = (component, initializer, scriptUID) => `
-        <!DOCTYPE html>
-        <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </head>
-        <body>
-            <script>
-                var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
-                document.write(interface);
-            </script>
-            <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
-            ${initializer}
-        </body>
-    `;
+    const createMockZoidMarkup = (component, initializer, scriptUID, encodedData) => `
+    <!--${encodedData}-->    
+    <!DOCTYPE html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <script>
+            var interface = window.top.document.querySelector('script[src*="components"][src*="messages"][data-uid-auto="${scriptUID}"],script[src*="messaging.js"][data-uid-auto="${scriptUID}"]').outerHTML;
+            document.write(interface);
+        </script>
+        <script src="//localhost.paypal.com:${PORT}/smart-credit-${component}.js"></script>
+        <script>
+            function parseObjFromEncoding(encodedStr) {
+                // as in Message.js, JSON.parse(fromBinary(atob(encodedStr)))
+                const binary = atob(encodedStr);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < bytes.length; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                // need to use .apply instead of spread operator so IE can understand
+                const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+                return JSON.parse(decodedStr);
+            }
+        </script>
+        ${initializer}
+    </body>
+`;
 
     const passthroughMessageReq = async req => {
         const { style, ...params } = req.query;
@@ -195,18 +209,35 @@ export default (app, server, compiler) => {
 
     app.get('/credit-presentment/smart/message', async (req, res) => {
         const { scriptUID } = req.query;
-        const props = await getRenderedMessage(req);
 
-        if (props) {
+        // encodeObj is parallel to encoding done in CPNW's scriptsLoader with its btoa(toBinary()) in utils/binaryBuffer
+        function encodeObj(obj) {
+            function btoa(str) {
+                const buffer = Buffer.from(str.toString(), 'binary');
+                return buffer.toString('base64');
+            }
+            // toBinary() workaround to make btoa() work with UTF strings.
+            function toBinary(str) {
+                const codeUnits = new Uint16Array(str.length);
+                for (let i = 0; i < codeUnits.length; i++) {
+                    codeUnits[i] = str.charCodeAt(i);
+                }
+                return String.fromCharCode(...new Uint8Array(codeUnits.buffer));
+            }
+            return btoa(toBinary(JSON.stringify(obj)));
+        }
+
+        const data = await getRenderedMessage(req);
+        if (data) {
+            const encodedData = encodeObj(data);
+
+            const initializer = `<script>
+                crc.setupMessage(parseObjFromEncoding(document.firstChild.nodeValue));
+            </script>`;
+
             res.set('Cache-Control', 'public, max-age=10');
 
-            res.send(
-                createMockZoidMarkup(
-                    'message',
-                    `<script>crc.setupMessage(${JSON.stringify(props)})</script>`,
-                    scriptUID
-                )
-            );
+            res.send(createMockZoidMarkup('message', initializer, scriptUID, encodedData));
         } else {
             res.status(400).send('');
         }
