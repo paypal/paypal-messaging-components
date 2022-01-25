@@ -1,7 +1,8 @@
 // mutations import here.
-import shortTermNoAmount from './short_term_no_amount';
-import shortTermNq from './short_term_nq';
 import shortTermQ from './short_term_q';
+import shortTermNq from './short_term_nq';
+import shortTermNoAmount from './short_term_no_amount';
+
 
 export default function getMutations(id, type) {
     switch (id) {

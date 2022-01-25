@@ -66,6 +66,14 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 | AUPL         | AU GPL       | gpl       | Pay Later                      |
 | AUPLQ        | AU GPLQ      | gplq      | Pay Later, Qualifying Purchase |
 
+### IT (Italy)
+
+| Abbreviation | PStudio Name     | File Name            | Message                                        |
+| ------------ | ---------------- | -------------------- | ---------------------------------------------- |
+| ITPLNA       | IT Short Term NA | short_term_no_amount | Pay Later, Short Term, No Amount               |
+| ITPLQ        | IT Short Term Q  | short_term_q         | Pay Later, Short Term, Qualifying Purchase     |
+| ITPLNQ       | IT Short Term NQ | short_term_nq        | Pay Later, Short Term, Non-Qualifying Purchase |
+
 ## Explanation
 
 ### Abbreviation Column

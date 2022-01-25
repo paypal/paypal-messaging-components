@@ -2,8 +2,10 @@ import AU from './AU';
 import DE from './DE';
 import FR from './FR';
 import GB from './GB';
-import IT from './IT';
 import US from './US';
+import AU from './AU';
+import IT from './IT';
+
 
 const getLocaleSettings = (offerCountry, offerType) => {
     switch (offerCountry) {

@@ -1,5 +1,5 @@
-import logos from '../../message/logos';
 import getMutations from './mutations';
+import logos from '../../message/logos';
 import styles from './styles';
 import validOptions from './validOptions';
 
