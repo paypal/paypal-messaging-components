@@ -89,6 +89,11 @@
                     @include fixedWrapper;
                     bottom: 0;
                 }
+
+                @include apiIframe {
+                    max-width: 100%;
+                    bottom: 0;
+                }
             }
 
             .button__container {
@@ -103,6 +108,10 @@
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
+                    }
+
+                    @include apiIframe {
+                        max-width: 100%;
                     }
                 }
                 @include mobile {
