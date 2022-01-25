@@ -29,6 +29,7 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
+        // TODO: remove getFundingEligibility call and try catch after globals swap
         try {
             return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
         } catch {
