@@ -46,8 +46,8 @@ const accounts = [
     // 'DEV000000AUPL',
     // 'DEV00000AUPLQ'
 
-
     // IT
-    'DEV000000ITPL',
-    'DEV00000ITPLQ'
+    'DEV0000ITPLNA',
+    'DEV00000ITPLQ',
+    'DEV0000ITPLNQ'
 ];

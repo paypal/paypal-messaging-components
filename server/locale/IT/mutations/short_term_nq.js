@@ -35,14 +35,14 @@ const flex = [
                 }
             ],
             disclaimer: ['default'],
-            styles: ['.message__headline .tag--medium > span:first-child:after { content: "."; }']
+            styles: []
         }
     ],
     [
         'ratio:20x1',
         {
             headline: [...headlineBreaks],
-            styles: [logo20x1(), '.message__headline .tag--medium > span:first-child:after { content: "."; }']
+            styles: [logo20x1()]
         }
     ],
     [
