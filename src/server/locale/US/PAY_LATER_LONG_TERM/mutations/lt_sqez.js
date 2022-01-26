@@ -39,7 +39,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 18.5}px) { 
-                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                        .message__headline > .tag--default > span > span:last-child { white-space: normal; }
                     }`,
                     textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
