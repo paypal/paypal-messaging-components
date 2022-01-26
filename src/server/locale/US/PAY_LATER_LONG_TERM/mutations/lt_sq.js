@@ -78,6 +78,12 @@ export default {
                         .message__headline > .tag--default { white-space: normal; } 
                     }`,
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ],
+                headline: [
+                    {
+                        tag: 'default',
+                        br: ['payments']
+                    }
                 ]
             })
         ],
