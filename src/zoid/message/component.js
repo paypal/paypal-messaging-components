@@ -120,11 +120,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         } = props;
                         const { offerType, messageRequestId } = meta;
 
-                        const container = getContainer();
-                        const { messagesMap } = getGlobalState();
-                        const { state } = messagesMap.get(container);
-                        const { requestDuration } = state;
-
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
@@ -155,8 +150,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             index,
                             et: 'CLICK',
                             event_type: 'click',
-                            link: 'Banner Wrapper',
-                            request_duration: requestDuration
+                            link: 'Banner Wrapper'
                         });
 
                         if (typeof onClick === 'function') {
@@ -173,20 +167,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     let hasHovered = false;
 
                     return ({ meta }) => {
-                        const { index, getContainer } = props;
+                        const { index } = props;
 
-                        const container = getContainer();
-
-                        const { messagesMap } = getGlobalState();
-                        const { state } = messagesMap.get(container);
-                        const { requestDuration } = state;
                         if (!hasHovered) {
                             hasHovered = true;
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
-                                event_type: 'hover',
-                                request_duration: requestDuration
+                                event_type: 'hover'
                             });
                         }
 

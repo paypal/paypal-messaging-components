@@ -30,10 +30,6 @@ export function runStats({ container, activeTags, index, requestDuration }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
-    // Storing how long it took to load the iframe content so it can be reported in
-    // message_rendered, message_clicked, and message_viewed events
-    state.requestDuration = formatStat(requestDuration);
-
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -59,7 +55,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
         active_tags: activeTags,
         // Performance measurements
         first_render_delay: formatStat(firstRenderDelay),
-        request_duration: state.requestDuration,
+        request_duration: formatStat(requestDuration),
         render_duration: formatStat(getCurrentTime() - state.renderStart)
     };
 
