@@ -82,9 +82,6 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.6}px) { 
-                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
-                    }`,
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
