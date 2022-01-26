@@ -41,7 +41,12 @@ pipeline {
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                    sh 'npm run build -- -t $STAGE_TAG -s $TEST_ENV'
+                    sh '''
+                        npm run build -- -t $STAGE_TAG -s $TEST_ENV
+                        ls -al
+                        cat ./dist/bizcomponents/js/messaging.js
+                        cat ./dist/bizcomponents/stage/messaging.js
+                    '''
                 }
             }
         }
