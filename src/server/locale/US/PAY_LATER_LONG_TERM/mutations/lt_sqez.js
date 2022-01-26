@@ -86,6 +86,12 @@ export default {
                     textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
+                headline: [
+                    {
+                        tag: 'default',
+                        br: ['mo.']
+                    }
+                ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
