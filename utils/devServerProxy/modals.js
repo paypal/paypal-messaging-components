@@ -63,7 +63,11 @@ export default function createModalRoutes(app, server) {
                 return 'US-EZP';
             }
 
-            if (props.country === 'DE' && props.products?.some(product => product.meta.product === 'GPL')) {
+            if (
+                props.country === 'DE' &&
+                (props.products?.some(product => product.meta.product === 'GPL') ||
+                    props.products?.some(product => product.meta.product === 'PI30'))
+            ) {
                 return 'DE-GPL';
             }
 

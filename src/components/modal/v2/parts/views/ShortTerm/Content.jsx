@@ -23,6 +23,10 @@ export const ShortTerm = ({
         return <Fragment />;
     };
 
+    const donutScreenReaderString = donutTimestamps
+        .map(timestamp => `${periodicPayment.replace('.00', '')} for ${timestamp}`)
+        .join(', ');
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -34,6 +38,9 @@ export const ShortTerm = ({
                                 <div className="content__col">
                                     <div className="content__row donuts">
                                         <div className="donuts__container">
+                                            <span aria-hidden={qualifying !== 'true'} className="sr-only">
+                                                {donutScreenReaderString}
+                                            </span>
                                             {donutTimestamps.map((_, index) => (
                                                 <Donut
                                                     key={index}

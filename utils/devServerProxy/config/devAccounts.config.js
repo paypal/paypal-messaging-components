@@ -31,6 +31,12 @@ export default {
     DEV0XBDEPLGTZ: ['DE', ['gpl'], 'gpl_gtz-non-de'],
     DEVXBDEPLQEQZ: ['DE', ['gpl'], 'gplq_eqz-non-de'],
     DEVXBDEPLQGTZ: ['DE', ['gpl'], 'gplq_gtz-non-de'],
+    DEV00DEPI30NQ: ['DE', ['pi30'], 'pi30nq'],
+    DEV000DEPI30Q: ['DE', ['pi30'], 'pi30q'],
+    DEV0000DEPI30: ['DE', ['pi30'], 'pi30'],
+
+    // Multi product modal
+    DEV0DEPI30GPL: ['DE', ['pi30', 'gpl'], 'pi30'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
     DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],

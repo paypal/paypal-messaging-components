@@ -1,3 +1,8 @@
+button:focus .message__content,
+button:focus .message__content span.br {
+    text-decoration: underline;
+}
+
 .message {
     display: block;
     width: 100%;

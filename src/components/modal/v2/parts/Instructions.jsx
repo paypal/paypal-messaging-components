@@ -11,11 +11,11 @@ const Instructions = ({ instructions, expandedState = false }) => {
             <ol className={`${expandedState ? '' : 'collapsed'}`}>
                 {instructions.map((instruction, index) => {
                     return (
-                        <div className="instructions__item-wrapper">
+                        <li className="instructions__item-wrapper">
                             {renderBullet(index + 1)}
                             {/* eslint-disable-next-line react/no-danger */}
-                            <li dangerouslySetInnerHTML={{ __html: instruction }} />
-                        </div>
+                            <div dangerouslySetInnerHTML={{ __html: instruction }} />
+                        </li>
                     );
                 })}
             </ol>

@@ -19,7 +19,6 @@
     "content": {
         "headline": "Make easy monthly payments",
         "subheadline": "Give your budget a break, with no down payment.",
-
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
@@ -31,7 +30,6 @@
             "mixedAPR": "*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.",
             "nonZeroAPR": "*APR is 10-30% based on your credit. Terms may vary based on purchase amount."
         },
-
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
             "Get a decision in seconds.",

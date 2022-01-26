@@ -1,8 +1,20 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import { uniqueID } from 'belter/src';
+
+import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
+    const {
+        onClick,
+        onReady,
+        onHover,
+        onMarkup,
+        onProps,
+        resize,
+        deviceID: parentDeviceID,
+        messageRequestId
+    } = window.xprops;
+
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
@@ -18,7 +30,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     });
 
     const [serverData, setServerData] = createState({
-        metaMessageRequestId: meta.messageRequestId ?? null,
         parentStyles,
         warnings,
         markup
@@ -40,7 +51,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const button = document.createElement('button');
 
     button.setAttribute('type', 'button');
-    button.setAttribute('aria-label', 'PayPal Pay Later Message');
 
     button.addEventListener('click', handleClick);
     button.addEventListener('mouseover', handleHover);
@@ -59,11 +69,16 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     onReady({
         meta,
         activeTags: getActiveTags(button),
+        messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
     });
 
     onMarkup({ meta, styles: parentStyles, warnings });
+
+    window.addEventListener('focus', () => {
+        button.focus();
+    });
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
@@ -103,7 +118,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                 });
 
                 const query = objectEntries({
-                    message_request_id: meta.messageRequestId,
+                    message_request_id: messageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
@@ -147,17 +162,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         if (typeof onReady === 'function') {
-                            if (
-                                serverData.metaMessageRequestId !==
-                                (data.meta.messageRequestId ?? meta.messageRequestId)
-                            ) {
-                                onReady({
-                                    meta: data.meta ?? meta,
-                                    activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
-                                });
-                            }
+                            // currency, amount, payerId, clientId, merchantId, buyerCountry
+                            onReady({
+                                meta: data.meta ?? meta,
+                                activeTags: getActiveTags(button),
+                                // Generate new MRID on message update.
+                                messageRequestId: uniqueID(),
+                                // Utility will create iframe deviceID if it doesn't exist.
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+                            });
                         }
 
                         if (typeof onMarkup === 'function') {
@@ -176,7 +189,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         setServerData({
-                            metaMessageRequestId: data.meta.messageRequestId ?? meta.messageRequestId,
                             parentStyles: data.parentStyles ?? parentStyles,
                             warnings: data.warnings ?? warnings,
                             markup: data.markup ?? markup
