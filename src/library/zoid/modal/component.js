@@ -289,7 +289,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             index: {
                 type: 'string',
                 queryParam: false,
-                default: () => nextIndex().toString()
+                value: ({ state }) => {
+                    // This function is called multiple times throughout zoid's lifecycle
+                    // so we do not want to call a function with side-effects more than once
+                    if (!state.index) {
+                        state.index = nextIndex().toString(); // eslint-disable-line no-param-reassign
+                    }
+
+                    return state.index;
+                }
             },
             payerId: {
                 type: 'string',
