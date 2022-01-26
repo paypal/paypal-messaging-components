@@ -59,8 +59,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 18.5}px) { 
-                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                   `@media screen and (max-width: ${textSize * 25.5}px) {
+                        .message__headline > .tag--default { white-space: normal; }
                     }`,
                     setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
