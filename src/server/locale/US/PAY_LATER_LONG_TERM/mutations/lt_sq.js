@@ -45,7 +45,8 @@ export default {
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
-                        tag: 'default'
+                        tag: 'default',
+                        br: ['of']
                     }
                 ],
                 disclaimer: ['default']
