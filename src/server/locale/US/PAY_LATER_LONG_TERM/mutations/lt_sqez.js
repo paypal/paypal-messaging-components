@@ -62,7 +62,7 @@ export default {
                    `@media screen and (max-width: ${textSize * 25.5}px) {
                         .message__headline > .tag--default { white-space: normal; }
                     }`,
-                    setLogoTop(textSize * 32),
+                    setLogoTop(textSize * 33.4),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
