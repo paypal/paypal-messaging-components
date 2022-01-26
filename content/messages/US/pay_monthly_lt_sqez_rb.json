@@ -17,9 +17,10 @@
         }
     },
     "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
         [
             ["Make ${total_payments} payments of ${formattedMonthlyPayment}/mo. or 0% APR."],
-            ["default", "xsmall", "small", "medium", "large", "xlarge"]
+            ["small", "medium", "large", "xlarge"]
         ]
     ],
     "subHeadline": [],

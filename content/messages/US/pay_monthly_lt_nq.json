@@ -17,13 +17,14 @@
         }
     },
     "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
         [
             [
                 "Pay monthly for purchases",
                 ["${formattedMinAmount}+.", "min"],
                 ["${formattedMaxAmount} or less.", "max"]
             ],
-            ["default", "xsmall", "small", "medium", "large", "xlarge"]
+            ["small", "medium", "large", "xlarge"]
         ]
     ],
     "subHeadline": [],
