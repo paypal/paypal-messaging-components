@@ -49,7 +49,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['mo.']
+                        br: ['of']
                     }
                 ],
                 disclaimer: ['default']
