@@ -9,14 +9,12 @@
     font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
     font-weight: 600;
     cursor: pointer;
+
     @include desktop {
         padding-left: 30px;
     }
     @include tablet {
         margin: 1em auto;
         padding: 0;
-    }
-    a {
-        cursor: pointer;
     }
 }
