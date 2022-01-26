@@ -75,7 +75,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 18.5}px) { 
-                        .message__headline > .tag--default > span.br:first-child { white-space: normal; } 
+                        .message__headline > .tag--default { white-space: normal; } 
                     }`,
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
