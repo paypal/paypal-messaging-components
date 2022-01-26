@@ -16,4 +16,4 @@ If, however, you need to override common styles for a specific view (i.e. the ba
 
 4. Create `<style></style>` tags at the top of the element tree inside of the `return()` statement. You will likely need to use a `Fragment` to wrap everything into. Import `Fragment` into `preact` if you haven't done so already. Inside the style tag you can pass in `{fileName._getCss()}`. Your view will use the styles from the file you created, acting as an override for any of the selectors within.
 
-Import your view into `ContentWrapper.jsx`. Inside of `ContentWrapper`, the `Header` component is already added for you. `Content.jsx` represents the body content of the view. All the content from the product's meta will then be passed as props to the components.
+Import your view into `BodyContent.jsx`. Inside of `BodyContent`, the `Header` component is already added for you. `Content.jsx` represents the body content of the view. All the content from the product's JSON will then be passed as props to the components.

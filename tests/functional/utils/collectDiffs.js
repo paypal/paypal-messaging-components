@@ -7,6 +7,7 @@ const DIFF_FOLDER = '__diff_output__';
 const DIFF_DIR = path.resolve(__dirname, `../${DIFF_FOLDER}`);
 const DIFF_FOLDERS_LIST = path.resolve(__dirname, '../../../diff_folders.log');
 
+// Move all snapshot diffs to tests/funcction/__diff_output under banner/ or modal/
 const collectDiffs = async () => {
     const snapshotPath = path.resolve(__dirname, '../snapshots');
 

@@ -1,7 +1,7 @@
 // Media queries shared across numerous locales. All other media queries should be placed in their specific locale folders.
 
 /**
- * Used for primary and alternative GPL US/GB styles in order to fallback to the .tag--xsmall message.
+ * Used for primary and alternative GPL styles in order to fallback to the .tag--xsmall message.
  */
 export function xSmallFallback(breakpoint) {
     return `
@@ -133,4 +133,24 @@ export function logo20x1() {
         }
     }
     `;
+}
+
+/**
+ * Used in DE GPL and DE Pi30
+ * Stop wrapping past a certain point on xsmall tag.
+ */
+export function xSmallNoWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {.locale--DE .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
+}
+
+/**
+ * Media query used in GPL GTZ and GPLQ GTZ for wrapping of a logo primary left position message.
+ */
+export function primaryWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) { 
+        .locale--DE .message__headline .tag--xsmall > span:first-child {
+            white-space: normal;
+        }
+        .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
+    }`;
 }

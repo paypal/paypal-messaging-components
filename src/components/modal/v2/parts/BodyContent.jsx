@@ -1,7 +1,15 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
-import { useContent, useServerData, useProductMeta, useXProps, useScroll, useDidUpdateEffect } from '../lib';
+import { useEffect, useState, useMemo } from 'preact/hooks';
+import {
+    useContent,
+    useServerData,
+    useProductMeta,
+    useXProps,
+    useScroll,
+    useDidUpdateEffect,
+    useTransitionState
+} from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NI, ProductList } from './views';
 
@@ -9,18 +17,28 @@ const BodyContent = () => {
     const { views } = useServerData();
     const { offer } = useXProps();
     const { scrollTo } = useScroll();
+    const [transitionState] = useTransitionState();
+    const primaryViewName = useMemo(() => {
+        if (offer) {
+            const viewName = views.find(view => view.meta.product === offer)?.meta.product;
 
-    let defaultViewName;
-    const sanitizeViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
-    if (sanitizeViews?.length === 1) {
-        defaultViewName = sanitizeViews[0]?.meta?.product;
-    } else if (sanitizeViews?.length > 1) {
-        defaultViewName = 'PRODUCT_LIST';
-    }
+            if (viewName) {
+                return viewName;
+            }
+        }
 
-    const [viewName, setViewName] = useState(
-        offer ? views.find(view => view.meta.product === offer)?.meta.product : defaultViewName
-    );
+        let defaultViewName;
+        const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
+        if (productViews?.length === 1) {
+            defaultViewName = productViews[0]?.meta?.product;
+        } else if (productViews?.length > 1) {
+            defaultViewName = 'PRODUCT_LIST';
+        }
+
+        return defaultViewName;
+    }, [offer, ...views.map(view => view?.meta?.product)]);
+
+    const [viewName, setViewName] = useState(primaryViewName);
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
@@ -31,12 +49,20 @@ const BodyContent = () => {
 
     useDidUpdateEffect(() => {
         scrollTo(0); // Reset scroll position to top when view changes
+        window.document.querySelector('#close-btn').focus();
     }, [viewName]);
 
     useDidUpdateEffect(() => {
         // Update view when offer param dynamically changed
-        setViewName(views.find(view => view.meta.product === offer)?.meta.product ?? viewName);
+        setViewName(primaryViewName ?? viewName);
     }, [offer]);
+
+    useEffect(() => {
+        // Reset back to the primary view after closing the modal
+        if (transitionState === 'CLOSED') {
+            setViewName(primaryViewName);
+        }
+    }, [transitionState]);
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
