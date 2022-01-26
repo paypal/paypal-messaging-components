@@ -2,14 +2,13 @@
 
 GitHub Actions runs using workflows, which define jobs that we run for continuous integration (CI). Inside of our GitHub Actions, we have 4 different kinds of workflows:
 
-- [Core - Linting, Unit Tests, and Non-Snapshot Functional Tests](#linting-unit-tests-and-non-snapshot-functional-tests-core-yml)
-- [Snapshot Comparison](#snapshot-comparison-snapshot-compare-yml)
-- [Update Snapshots](#update-snapshots-snapshot-update-yml)
-- [Commit Snapshots](#commit-snapshots-snapshot-commit-yml)
-- [Release](#release-release-yml)
+-   [Core - Linting, Unit Tests, and Non-Snapshot Functional Tests](#linting-unit-tests-and-non-snapshot-functional-tests-core-yml)
+-   [Snapshot Comparison](#snapshot-comparison-snapshot-compare-yml)
+-   [Update Snapshots](#update-snapshots-snapshot-update-yml)
+-   [Commit Snapshots](#commit-snapshots-snapshot-commit-yml)
+-   [Release](#release-release-yml)
 
 Snapshot-based workflows are split further by US and non-US due to the numerous offers that US has. This keeps our CI running quickly.
-
 
 ## Core - Linting, Unit Tests, and Non-Snapshot Functional Tests (core.yml)
 
@@ -23,7 +22,6 @@ This workflow runs two jobs.
 `functionalNonSnapshot`
 
 1. Runs non-snapshot functional tests to ensure that code works when it runs in the browser.
-
 
 ## Snapshot Comparison (snapshotCompare.yml)
 
@@ -39,7 +37,6 @@ This workflow runs two jobs.
 1. `compareSnapshots` reads the output of `getMatrix` to determine the tests to run.
 2. The server is run.
 3. Any failed comparison tests are collected and uploaded to imgur.
-
 
 ## Update Snapshots (snapshotUpdate.yml)
 
@@ -71,7 +68,6 @@ This workflow runs one job.
 2. Removes the `snapshots` label.
 3. Commits thee snapshot images.
 
-
 ## Release (release.yml)
 
 This workflow runs three jobs.
@@ -88,32 +84,30 @@ This workflow runs three jobs.
 
 1. Runs semantic-release to create a new release
 
-
 ## Workflow Triggers
 
 Triggers are what causes a workflow to run. These are the current triggers for each of our workflows.
 
-- Linting, Unit Tests, and Non-Snapshot Functional Tests
-    - `workflow_dispatch` - allows for manually running a workflow
-    - `push` - runs the workflow when code is pushed to `develop` or `release`
-    - `pull_request` - runs on all pull requests
-- Snapshot Comparison
-    - `workflow_dispatch` - allows for manually running a workflow
-    - `workflow_call` - 
-    - `push` - runs the workflow when code is pushed to `develop` or `release`
-    - `pull_request` - runs on all pull requests
-    - **Note** - `push` and `pull_request` run US or non-US workflows if their related files are changed
-- Update Snapshots
-    - `workflow_dispatch` - allows for manually running a workflow
-    - `pull_request` - runs on all pull requests
-    - `pull_request_target` - runs on all pull requests from forks if the pull request has a label on it
-    - **Note** - this workflow only runs if it is labeled with `snapshots`
-- Commit Snapshots
-    - `workflow_run` - runs wheen another workflow finishes
-- Release
-    - `workflow_dispatch` - allows for manually running a workflow
-    - `push` - runs the workflow when code is pushed to `release`
-
+-   Linting, Unit Tests, and Non-Snapshot Functional Tests
+    -   `workflow_dispatch` - allows for manually running a workflow
+    -   `push` - runs the workflow when code is pushed to `develop` or `release`
+    -   `pull_request` - runs on all pull requests
+-   Snapshot Comparison
+    -   `workflow_dispatch` - allows for manually running a workflow
+    -   `workflow_call` -
+    -   `push` - runs the workflow when code is pushed to `develop` or `release`
+    -   `pull_request` - runs on all pull requests
+    -   **Note** - `push` and `pull_request` run US or non-US workflows if their related files are changed
+-   Update Snapshots
+    -   `workflow_dispatch` - allows for manually running a workflow
+    -   `pull_request` - runs on all pull requests
+    -   `pull_request_target` - runs on all pull requests from forks if the pull request has a label on it
+    -   **Note** - this workflow only runs if it is labeled with `snapshots`
+-   Commit Snapshots
+    -   `workflow_run` - runs wheen another workflow finishes
+-   Release
+    -   `workflow_dispatch` - allows for manually running a workflow
+    -   `push` - runs the workflow when code is pushed to `release`
 
 ## Other Notes
 
