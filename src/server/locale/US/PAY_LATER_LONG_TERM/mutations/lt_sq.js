@@ -61,6 +61,12 @@ export default {
                     }`,
                     setLogoTop(textSize * 28.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ],
+                headline: [
+                    {
+                        tag: 'default',
+                        br: ['payments']
+                    }
                 ]
             })
         ],
