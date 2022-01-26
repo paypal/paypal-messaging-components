@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.29.0](https://github.com/paypal/paypal-messaging-components/compare/v1.28.0...v1.29.0) (2022-01-26)
+
+
+### Features
+
+* measure cdn stats (DTCRCGEMI-194) ([#687](https://github.com/paypal/paypal-messaging-components/issues/687)) ([5b21ce2](https://github.com/paypal/paypal-messaging-components/commit/5b21ce2a0bd7cfbf8cf46ca98ce44f50f6d52676))
+
+
+### Bug Fixes
+
+* locale parity  ([7d063d6](https://github.com/paypal/paypal-messaging-components/commit/7d063d6b56b7a33c09a913931e7d8519c53927d9)), closes [#708](https://github.com/paypal/paypal-messaging-components/issues/708)
+* side-effect prop functions called once ([#715](https://github.com/paypal/paypal-messaging-components/issues/715)) ([ca62e2f](https://github.com/paypal/paypal-messaging-components/commit/ca62e2f8d25b84ae7c5b2efbdd135f79f0d8d923))
+* wrap new globals access in try catch ([#716](https://github.com/paypal/paypal-messaging-components/issues/716)) ([b84153d](https://github.com/paypal/paypal-messaging-components/commit/b84153d230f4c3c21a5a4fa5e0cd625367650d3c))
+
+
+### Continuous Integration
+
+* add Spain and Italy to matrix for github actions ([#705](https://github.com/paypal/paypal-messaging-components/issues/705)) ([a1181db](https://github.com/paypal/paypal-messaging-components/commit/a1181db006e3b6d17e0a8c80a34c6d896385606e))
+* fix snapshot update command ([#702](https://github.com/paypal/paypal-messaging-components/issues/702)) ([52280c9](https://github.com/paypal/paypal-messaging-components/commit/52280c9fc08fe3058fa362bb69fa640a035a951a))
+* full transition to GitHub Actions ([#666](https://github.com/paypal/paypal-messaging-components/issues/666)) ([4589320](https://github.com/paypal/paypal-messaging-components/commit/4589320cd954aac7a07e8c4c84be81b19f64df11))
+* simplify test paths ([#706](https://github.com/paypal/paypal-messaging-components/issues/706)) ([36fae63](https://github.com/paypal/paypal-messaging-components/commit/36fae63c949152ad99d2bfd23824ccb4ee716540))
+
+
+### Code Refactoring
+
+* add support for new __MESSAGING_GLOBALS__ object ([#696](https://github.com/paypal/paypal-messaging-components/issues/696)) ([4d9a5c0](https://github.com/paypal/paypal-messaging-components/commit/4d9a5c001ba44c2f399f71c68affcd1f0487d89c))
+* remove renderMessage (re-adding from dtcgemi-32) ([#682](https://github.com/paypal/paypal-messaging-components/issues/682)) ([e4f2040](https://github.com/paypal/paypal-messaging-components/commit/e4f2040aec5269ba67efacefb22c65249da9dede))
+* update legal disclosures for Pay in 4 and NI local modal content ([#700](https://github.com/paypal/paypal-messaging-components/issues/700)) ([bdf8d7c](https://github.com/paypal/paypal-messaging-components/commit/bdf8d7c6053a9d8f6d9553a124282f1df698ad76))
+
 ## [1.28.0](https://github.com/paypal/paypal-messaging-components/compare/v1.27.2...v1.28.0) (2022-01-11)
 
 
