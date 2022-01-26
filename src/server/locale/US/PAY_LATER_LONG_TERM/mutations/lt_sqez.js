@@ -103,7 +103,8 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['mo.']
+                        br: ['of'],
+                        replace: [['APR.', 'APR']]
                     }
                 ]
             }
