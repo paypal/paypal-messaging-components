@@ -11,6 +11,7 @@ import {
     logger,
     getCurrentTime,
     addPerformanceMeasure,
+    PERFORMANCE_MEASURE_KEYS,
     globalEvent
 } from '../../utils';
 
@@ -20,8 +21,7 @@ import { ppDebug } from '../../utils/debug';
 
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
-        addPerformanceMeasure('firstRenderDelay');
-
+        addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_RENDER_DELAY);
         const renderStart = getCurrentTime();
         const { messagesMap } = getGlobalState();
         const containers = getAllBySelector(selector);
