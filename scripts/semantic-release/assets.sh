@@ -28,12 +28,17 @@ if [ ! -z "$tag" ]; then
         printf "Stage tag must only contain alpha-numeric and underscore characters\n\n"
         exit 1
     fi
+
+    if [ "${#tag}" -gt 30 ]; then
+        printf "Stage tag must be 30 characters or less (${#tag})\n\n"
+        exit 1
+    fi
     # Underscores not valid semver
     version=$version-$(echo $tag | sed "s/_/-/g" | sed -E "s/-([0-9]+)$/.\1/")
     # Check if the CDN tag has already been used before spending time on the webpack build
     tagStatus=$(web status $tag 2>&1)
-    if [[ $tagStatus =~ ^"✔ Complete" ]]; then
-        printf "Tag $tag already exists on the CDN\n\n"
+    if [[ $tagStatus =~ "✔ Complete" ]]; then
+        printf "Stage tag already exists and must be unique ($tag)\n\n"
         exit 1
     fi
 fi
@@ -158,3 +163,4 @@ if [ ! -z "$tag" ]; then
     # Remove new dist files
     git clean -fd dist > /dev/null
 fi
+
