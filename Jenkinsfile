@@ -22,15 +22,12 @@ pipeline {
         stage('Setup') {
             steps {
                 checkout scm
-                withCredentials([usernamePassword(credentialsId: 'nexus-platform-credentials', passwordVariable: 'NEXUS_IQ_USERNAME', usernameVariable: 'NEXUS_IQ_PASSWORD')]) {
-                    sh '''
-                        echo $GIT_COMMIT_MESSAGE
-                        node -v
-                        npm -v
-                        npm i --reg https://npm.paypal.com
-                        npm i --reg https://npm.paypal.com -g @paypalcorp/web
-                    '''
-                }
+                sh '''
+                    echo $GIT_COMMIT_MESSAGE
+                    node -v
+                    npm -v
+                    npm i --reg https://npm.paypal.com -g @paypalcorp/web
+                '''
             }
         }
 
@@ -44,8 +41,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
+                        npm i --reg https://npm.paypal.com
                         npm run build -- -t $STAGE_TAG -s $TEST_ENV
-                        cat dist/bizcomponents/stage/temp.txt 
                     '''
                 }
             }
