@@ -45,7 +45,6 @@ pipeline {
                         npm run build -- -t $STAGE_TAG -s $TEST_ENV
                         cd dist/bizcomponents
                         ls -al
-                        cat stage/messaging.js
                         cd stage/versioned
                         ls -al
                     '''
