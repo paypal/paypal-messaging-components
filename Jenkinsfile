@@ -43,10 +43,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                     sh '''
                         npm run build -- -t $STAGE_TAG -s $TEST_ENV
-                        cd dist/bizcomponents
-                        ls -al
-                        cd stage/versioned
-                        ls -al
+                        cat dist/bizcomponents/stage/temp.txt 
                     '''
                 }
             }
