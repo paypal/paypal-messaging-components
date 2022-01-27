@@ -29,15 +29,8 @@
         }
 
         @include apiIframe {
-            max-width: 100%;
+            max-width: $content-wrapper-max-width-api-iframe;
             border-radius: 0;
-            transform: translate(-50%, -15px);
-        }
-
-        &--scroll {
-            @include apiIframe {
-                transform: translate(-50%, -6px) scale(1.2);
-            }
         }
     }
 
@@ -91,7 +84,8 @@
             transform: translate(0, -30%);
 
             @include apiIframe {
-                width: 100%;
+                min-width: 800px;
+                width: $content-wrapper-max-width-api-iframe;
             }
         }
     }
@@ -134,18 +128,15 @@
                 }
 
                 @include apiIframe {
-                    width: 100%;
-                    transform: translateY(2rem);
-                    transition: transform 0.2s ease-out, width 0.2s ease-out;
+                    transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+
+                    &--scroll {
+                        transform: translate(0, 0);
+                    }
                 }
 
                 &--scroll {
                     transform: translate(0, 0);
-
-                    @include apiIframe {
-                        width: 30px;
-                        transform: translate(0, 0);
-                    }
                 }
 
                 .pp-logo {
