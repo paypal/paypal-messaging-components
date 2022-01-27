@@ -22,14 +22,17 @@ pipeline {
         stage('Setup') {
             steps {
                 checkout scm
-                sh '''
-                    echo $GIT_COMMIT_MESSAGE
-                    node -v
-                    npm -v
-                    npm set registry https://npm.paypal.com
-                    npm ci
-                    npm i -g @paypalcorp/web
-                '''
+                nexus-platform-credentials
+                withCredentials([usernamePassword(credentialsId: 'nexus-platform-credentials', passwordVariable: 'NEXUS_IQ_USERNAME', usernameVariable: 'NEXUS_IQ_PASSWORD')]) {
+                    sh '''
+                        echo $GIT_COMMIT_MESSAGE
+                        node -v
+                        npm -v
+                        npm set registry https://npm.paypal.com
+                        npm i
+                        npm i -g @paypalcorp/web
+                    '''
+                }
             }
         }
 
