@@ -27,9 +27,8 @@ pipeline {
                         echo $GIT_COMMIT_MESSAGE
                         node -v
                         npm -v
-                        npm set registry https://npm.paypal.com
-                        npm i
-                        npm i -g @paypalcorp/web
+                        npm i --reg https://npm.paypal.com
+                        npm i --reg https://npm.paypal.com -g @paypalcorp/web
                     '''
                 }
             }
