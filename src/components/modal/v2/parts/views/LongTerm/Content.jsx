@@ -1,19 +1,25 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData } from '../../../lib';
+import { useXProps, useServerData, useCalculator, getComputedVariables } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import Button from '../../Button';
 
 export const LongTerm = ({
-    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, buttonText, cta },
+    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, cta },
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { onClose } = useXProps();
+    const { amount, onClose } = useXProps();
     const { views } = useServerData();
+    const {
+        view: { offers }
+    } = useCalculator();
+    const { minAmount, maxAmount } = getComputedVariables(offers);
+
+    const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -26,9 +32,15 @@ export const LongTerm = ({
             return (
                 <Fragment>
                     <div className="button__container">
-                        <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
-                            {cta.buttonText}
-                        </Button>
+                        {isQualifyingAmount ? (
+                            <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                                {cta.buttonTextEligible}
+                            </Button>
+                        ) : (
+                            <Button onClick={() => onClose({ linkName: 'Back to Checkout' })} className="cta">
+                                {cta.buttonTextIneligible}
+                            </Button>
+                        )}
                     </div>
                 </Fragment>
             );
@@ -49,7 +61,6 @@ export const LongTerm = ({
                                 setExpandedState={setExpandedState}
                                 calculator={calculator}
                                 disclaimer={disclaimer}
-                                buttonText={buttonText}
                             />
                         </div>
                         <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>

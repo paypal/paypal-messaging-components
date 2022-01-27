@@ -3,7 +3,7 @@ import path from 'path';
 import got from 'got';
 
 import { PORT, VARIANT } from '../../src/server/constants';
-import { populateTemplate, createMockZoidMarkup, waitForTimeout } from './lib/miscellaneous';
+import { populateTemplate, createMockZoidMarkup, waitForTimeout, btoa, toBinary } from './lib/miscellaneous';
 import getDevAccountDetails from './lib/devAccountDetails';
 
 // set this environment variable to simulate the time for the request to be answered
@@ -95,7 +95,8 @@ export default function createMessageRoutes(app, server, compiler) {
     app.get('/credit-presentment/smart/message', async (req, res) => {
         const { scriptUID } = req.query;
         const props = await getMessageData(req, compiler);
-        const markup = createMockZoidMarkup({ component: 'message', props, scriptUID, port });
+        const encodedData = btoa(toBinary(JSON.stringify(props)));
+        const markup = createMockZoidMarkup({ component: 'message', encodedData, scriptUID, port });
 
         await waitForTimeout(REQUEST_DELAY);
 

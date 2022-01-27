@@ -12,6 +12,7 @@ import {
     objectMerge,
     getStandardProductOffer,
     addPerformanceMeasure,
+    PERFORMANCE_MEASURE_KEYS,
     globalEvent
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
@@ -32,7 +33,7 @@ const memoizedModal = memoizeOnProps(
         onClose,
         channel
     }) => {
-        addPerformanceMeasure('firstModalRenderDelay');
+        addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
         const { render, updateProps, state, event } = getModalComponent()({
             account,

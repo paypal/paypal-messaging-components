@@ -11,7 +11,8 @@ import {
     useDidUpdateEffect,
     getContent,
     isLander,
-    isIframe
+    isIframe,
+    setupTabTrap
 } from '../lib';
 import Icon from './Icon';
 import Overlay from './Overlay';
@@ -76,6 +77,10 @@ const Container = ({ children }) => {
             setLoading(false);
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
+
+    useEffect(() => {
+        setupTabTrap();
+    }, []);
 
     const modalWrapperClassName = [
         'modal-wrapper',

@@ -12,8 +12,6 @@
         flex: 1 1 100%;
     }
     .message__logo-container {
-        width: 25%;
-        margin-left: 5px;
         display: flex;
         align-items: center;
         flex: 1 0 16%;
