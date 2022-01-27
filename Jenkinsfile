@@ -27,8 +27,8 @@ pipeline {
                     node -v
                     npm -v
                     npm set registry https://npm.paypal.com
-                    npm i -g @paypalcorp/web
                     npm i
+                    npm i -g @paypalcorp/web
                 '''
             }
         }
