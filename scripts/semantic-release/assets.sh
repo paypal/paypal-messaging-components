@@ -83,7 +83,7 @@ filteredModule="${filteredModule:1}"
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
 do
-    npm run build:"$env" -- --env.VERSION="$version" --env.MODULE="$filteredModule" ${optionalArgs[@]} --bail
+    npm run --silent build:"$env" -- --env.VERSION="$version" --env.MODULE="$filteredModule" ${optionalArgs[@]} --bail --display none &> /dev/null
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
@@ -94,8 +94,6 @@ do
     mv ./dist/*.{js,map} ./dist/bizcomponents/"$dir"
 
     cd ./dist/bizcomponents/"$dir"
-
-    ls -al
 
     # Create versioned copies of every asset
     for fullfile in ./*.js
