@@ -63,8 +63,6 @@
                 }
             }
 
- 
-            
             .button {
                 padding: 15px 100px 15px 100px;
 
@@ -93,7 +91,7 @@
                 }
 
                 @include apiIframe {
-                    max-width: 100%;
+                    max-width: $content-wrapper-max-width-api-iframe;
                     bottom: 0;
                 }
             }
@@ -113,7 +111,7 @@
                     }
 
                     @include apiIframe {
-                        max-width: 100%;
+                        max-width: $content-wrapper-max-width-api-iframe;
                     }
                 }
                 @include mobile {

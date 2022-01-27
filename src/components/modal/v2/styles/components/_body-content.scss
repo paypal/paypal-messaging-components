@@ -20,7 +20,7 @@
     }
 
     @include apiIframe {
-        max-width: 100%;
+        max-width: $content-wrapper-max-width-api-iframe;
         margin: 0;
         border-radius: 0;
     }
