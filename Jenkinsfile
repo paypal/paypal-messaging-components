@@ -22,7 +22,6 @@ pipeline {
         stage('Setup') {
             steps {
                 checkout scm
-                nexus-platform-credentials
                 withCredentials([usernamePassword(credentialsId: 'nexus-platform-credentials', passwordVariable: 'NEXUS_IQ_USERNAME', usernameVariable: 'NEXUS_IQ_PASSWORD')]) {
                     sh '''
                         echo $GIT_COMMIT_MESSAGE
