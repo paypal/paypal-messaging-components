@@ -1,5 +1,5 @@
 import { selectors, screenDimensions, filterPermutations, getTestName, logTestName } from '../utils/index';
-import { US } from '../config/index';
+import { US, IT } from '../config/index';
 import {
     openProductListView,
     clickProductListTiles,
@@ -40,6 +40,10 @@ const setupAPI = async (viewport, account, amount) => {
     await page.waitFor(5 * 1000);
 };
 
+const formatTestMessage = ({ amount, viewport, description }) => {
+    return [`Amount:${amount}`.padEnd(14), `${viewport}`.padEnd(7), `${description}`].join(' - ');
+};
+
 // Multi-product
 describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
     '%s - API Modal Iframe - %s',
@@ -49,7 +53,7 @@ describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
+        test(formatTestMessage({ amount, viewport, description: `Opens to product list view` }), async () => {
             await openProductListView(
                 modalFrame,
                 modalContent,
@@ -57,18 +61,21 @@ describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
             );
         });
 
-        test(`Amount:${amount} - Product list tiles send user to correct view - ${viewport}`, async () => {
-            await clickProductListTiles(modalFrame, modalContent);
-        });
+        test(
+            formatTestMessage({ amount, viewport, description: `Product list tiles send user to correct view` }),
+            async () => {
+                await clickProductListTiles(modalFrame, modalContent);
+            }
+        );
 
-        test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
+        test(formatTestMessage({ amount, viewport, description: `Amount persists between views` }), async () => {
             await viewsShareAmount(modalFrame, getTestName(country, integration, account, amount, viewport));
         });
     }
 );
 
 // Short term
-describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
+describe.each(filterPermutations([US, IT], ['DEV_US_SHORT_TERM', 'DEV_IT_SHORT_TERM']))(
     '%s - API Modal Iframe - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
@@ -76,7 +83,7 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        test(`Amount:${amount} - Shows correct subheadline for amount - ${viewport}`, async () => {
+        test(formatTestMessage({ amount, viewport, description: `Shows correct subheadline for amount` }), async () => {
             await openShortTermView(
                 modalFrame,
                 modalContent,
@@ -84,16 +91,19 @@ describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
             );
         });
 
-        test(`Amount:${amount} - Donuts show correct periodic payment for amount - ${viewport}`, async () => {
-            await donutsShowCorrectPayment(
-                amount,
-                minAmount,
-                maxAmount,
-                modalFrame,
-                modalContent,
-                getTestName(country, integration, account, amount, viewport)
-            );
-        });
+        test(
+            formatTestMessage({ amount, viewport, description: `Donuts show correct periodic payment for amount` }),
+            async () => {
+                await donutsShowCorrectPayment(
+                    amount,
+                    minAmount,
+                    maxAmount,
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            }
+        );
     }
 );
 
@@ -107,39 +117,67 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
         });
 
         if (amount < minAmount) {
-            test(`Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`, async () => {
-                await belowThresholdErr(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
+            test(
+                formatTestMessage({
+                    amount,
+                    viewport,
+                    description: `Amounts below ${minAmount} show correct below threshold warning`
+                }),
+                async () => {
+                    await belowThresholdErr(
+                        modalFrame,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                }
+            );
         } else if (amount > maxAmount) {
-            test(`Amount:${amount} - Amounts above ${maxAmount} show correct above threshold warning - ${viewport}`, async () => {
-                await aboveThresholdErr(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
+            test(
+                formatTestMessage({
+                    amount,
+                    viewport,
+                    description: `Amounts above ${maxAmount} show correct above threshold warning`
+                }),
+                async () => {
+                    await aboveThresholdErr(
+                        modalFrame,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                }
+            );
         } else {
-            test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
-                await showCorrectOfferInfo(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
+            test(
+                formatTestMessage({
+                    amount,
+                    viewport,
+                    description: `Offer cards show correct payment headline information`
+                }),
+                async () => {
+                    await showCorrectOfferInfo(
+                        modalFrame,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                }
+            );
 
-            test(`Amount:${amount} - Offer cards show correct payment breakdown information for amount - ${viewport}`, async () => {
-                await showCorrectOfferBreakdown(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
+            test(
+                formatTestMessage({
+                    amount,
+                    viewport,
+                    description: `Offer cards show correct payment breakdown information for amount`
+                }),
+                async () => {
+                    await showCorrectOfferBreakdown(
+                        modalFrame,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                }
+            );
 
-            test(`Amount:${amount} - Update offers via calculator - ${viewport}`, async () => {
+            test(formatTestMessage({ amount, viewport, description: `Update offers via calculator` }), async () => {
                 await updateTermsViaCalc(
                     modalFrame,
                     modalContent,
@@ -147,13 +185,16 @@ describe.each(filterPermutations([US], ['DEV_US_LONG_TERM']))(
                 );
             });
 
-            test(`Amount:${amount} - Displays correct APR legal disclaimer - ${viewport}`, async () => {
-                await showCorrectAPRDisclaimer(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
+            test(
+                formatTestMessage({ amount, viewport, description: `Displays correct APR legal disclaimer` }),
+                async () => {
+                    await showCorrectAPRDisclaimer(
+                        modalFrame,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                }
+            );
         }
     }
 );
@@ -167,7 +208,7 @@ describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
+        test(formatTestMessage({ amount, viewport, description: `Shows correct content for amount` }), async () => {
             await openNoInterestView(
                 modalFrame,
                 modalContent,
@@ -175,12 +216,19 @@ describe.each(filterPermutations([US], ['DEV_US_NO_INTEREST']))(
             );
         });
 
-        test(`Amount:${amount} - Click to see T&Cs - ${viewport}`, async () => {
+        test(formatTestMessage({ amount, viewport, description: `Click to see T&Cs` }), async () => {
             await openTermsPage(modalFrame);
         });
 
-        test(`Amount:${amount} - Clicking apply now button goes to credit application for amount - ${viewport}`, async () => {
-            await openCreditApplicationLogin(modalFrame);
-        });
+        test(
+            formatTestMessage({
+                amount,
+                viewport,
+                description: `Clicking apply now button goes to credit application for amount`
+            }),
+            async () => {
+                await openCreditApplicationLogin(modalFrame);
+            }
+        );
     }
 );
