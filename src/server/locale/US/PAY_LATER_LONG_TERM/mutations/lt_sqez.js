@@ -94,6 +94,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     textWrap(textSize * 32, textSize, 'US'),

@@ -99,9 +99,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 10.6}px) { 
-                        .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
-                    }`,
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     altNoWrap(textSize * 10.6),
                     textWrap(textSize * 32, textSize, 'US'),
                     xSmallFallback(textSize * 12.5),
@@ -113,7 +111,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18)],
+                styles: [xSmallFallback(textSize * 16)],
                 logo: false,
                 headline: [
                     {
@@ -129,7 +127,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 16), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {

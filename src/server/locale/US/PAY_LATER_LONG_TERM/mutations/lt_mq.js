@@ -44,7 +44,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 14.5),
                     textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16)
@@ -91,6 +91,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
+                    `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     textWrap(textSize * 32, textSize, 'US'),
@@ -101,8 +102,8 @@ export default {
         ],
         [
             'logo.type:none',
-            {
-                styles: [],
+            ({ textSize }) => ({
+                styles: [xSmallFallback(textSize * 11.5)],
                 logo: false,
                 headline: [
                     {
@@ -114,12 +115,12 @@ export default {
                         replace: [['later.', 'later']]
                     }
                 ]
-            }
+            })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 4}px }`],
+                styles: [`.message__logo { width: ${textSize * 4}px }`, xSmallFallback(textSize * 11.5)],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
