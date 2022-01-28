@@ -83,7 +83,7 @@ export default {
                     `@media screen and (max-width: ${textSize * 18.5}px) { 
                         .message__headline > .tag--medium { white-space: normal; } 
                     }`,
-                    xSmallFallback(textSize * 15.5),
+                    xSmallFallback(textSize * 13),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ],
                 headline: [
