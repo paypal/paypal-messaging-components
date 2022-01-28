@@ -3,7 +3,7 @@ const hideMinOrMax = ({ amount, min: minString, max: maxString }) => {
     const max = Number(maxString);
 
     if (amount < min) return '.message__headline .max { display: none; }';
-    if (amount > max) return '.message__headline .min { display: none; }';
+    if (amount > max || !amount) return '.message__headline .min { display: none; }';
     return '';
 };
 

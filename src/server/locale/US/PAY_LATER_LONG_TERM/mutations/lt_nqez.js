@@ -129,7 +129,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['purchases'],
-                        replace: [['less.', 'less']]
+                        replace: [
+                            ['less.', 'less'],
+                            ['+.', '+']
+                        ]
                     }
                 ]
             })
@@ -147,7 +150,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['purchases'],
-                        replace: [['less.', 'less']]
+                        replace: [
+                            ['less.', 'less'],
+                            ['+.', '+']
+                        ]
                     }
                 ]
             })
