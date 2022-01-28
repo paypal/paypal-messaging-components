@@ -8,6 +8,7 @@ $grey600: #888;
 .donut__single_payment {
     display: flex;
     flex-direction: column;
+    align-self: start;
 
     @include mobile {
         width: 70px;
