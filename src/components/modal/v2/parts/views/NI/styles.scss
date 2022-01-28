@@ -91,7 +91,6 @@
                 }
 
                 @include apiIframe {
-                    max-width: $content-wrapper-max-width-api-iframe;
                     bottom: 0;
                 }
             }
@@ -104,24 +103,25 @@
                 @include tablet {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
-
-                    @include apiIframe {
-                        max-width: $content-wrapper-max-width-api-iframe;
-                    }
                 }
+
                 @include mobile {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
+                }
+
+                @include apiIframe {
+                    max-width: $content-wrapper-max-width-api-iframe;
                 }
             }
 
