@@ -12,7 +12,8 @@ const InlineLinks = ({ text }) => {
             if (typeof linkUrl !== 'undefined') {
                 // if the next chunk is an array with two strings, use the second string as the href for the first
                 return (
-                    <a target="__blank" href={linkUrl}>
+                    // class name is singular because it is applied to a single link
+                    <a target="__blank" className="inline-link" href={linkUrl}>
                         {linkText}
                     </a>
                 );
