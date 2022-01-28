@@ -48,6 +48,7 @@ export const ShortTerm = ({
                                                     periodicPayment={periodicPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
+                                                    numOfPayments={donutTimestamps.length}
                                                 />
                                             ))}
                                         </div>
