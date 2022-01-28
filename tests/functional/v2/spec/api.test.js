@@ -41,7 +41,11 @@ const setupAPI = async (viewport, account, amount) => {
 };
 
 const formatTestMessage = ({ amount, viewport, description }) => {
-    return [`Amount:${amount}`.padEnd(14), `${viewport}`.padEnd(7), `${description}`].join(' - ');
+    // The test message format affects how we are processing snapshots
+    // TODO:
+    //     1. verify padding doesn't break things
+    //     2. elaborate on how snapshots parses and uses these test nanes
+    return [`Amount:${amount}`.padEnd(14), `${description}`, `${viewport}`.padEnd(7)].join(' - ');
 };
 
 // Multi-product
