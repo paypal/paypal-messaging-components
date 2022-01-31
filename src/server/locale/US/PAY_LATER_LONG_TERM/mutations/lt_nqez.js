@@ -83,7 +83,7 @@ export default {
             ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
                 styles: [
                     hideMinOrMax({ amount, min, max }),
-                    xSmallFallback(textSize * 15.5),
+                    xSmallFallback(textSize * 13),
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
