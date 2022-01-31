@@ -15,6 +15,13 @@ export default {
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
     // temp dev account for pay later long term universal modal view development
     DEV000000USLT: ['US', ['long_term'], 'long_term'],
+    DEV0000USLTMQ: ['US', ['long_term'], 'pay_monthly_lt_mq'],
+    DEV00USLTMQEZ: ['US', ['long_term'], 'pay_monthly_lt_mqez'],
+    DEV00USLTMQRB: ['US', ['long_term'], 'pay_monthly_lt_mqez_rb'],
+    DEV0000USLTNQ: ['US', ['long_term'], 'pay_monthly_lt_nq'],
+    DEV00USLTNQEZ: ['US', ['long_term'], 'pay_monthly_lt_nqez'],
+    DEV0000USLTSQ: ['US', ['long_term'], 'pay_monthly_lt_sq'],
+    DEV00USLTSQEZ: ['US', ['long_term'], 'pay_monthly_lt_sqez'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
