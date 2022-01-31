@@ -25,7 +25,7 @@
 }
 
 .message__content {
-    display: inline-flex;
+    display: inline;
 }
 
 .message__messaging span.br {
