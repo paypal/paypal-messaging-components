@@ -87,7 +87,7 @@ export default {
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
-                    setLogoTop(textSize * 40),
+                    setLogoTop(textSize * 38),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
