@@ -133,6 +133,10 @@ export default {
                             ['less.', 'less'],
                             ['+.', '+']
                         ]
+                    },
+                     {
+                        tag: 'xsmall',
+                        replace: [['later.', 'later']]
                     }
                 ]
             })
