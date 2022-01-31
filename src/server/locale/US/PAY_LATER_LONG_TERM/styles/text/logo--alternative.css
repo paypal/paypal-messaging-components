@@ -1,5 +1,5 @@
 .message__messaging {
-    display: inline-block;
+    display: inline;
     white-space: normal;
     flex: 0 0 auto;
 }
