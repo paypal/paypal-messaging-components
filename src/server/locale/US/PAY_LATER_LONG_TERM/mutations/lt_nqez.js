@@ -134,7 +134,7 @@ export default {
                             ['+.', '+']
                         ]
                     },
-                     {
+                    {
                         tag: 'xsmall',
                         replace: [['later.', 'later']]
                     }
@@ -159,7 +159,7 @@ export default {
                             ['+.', '+']
                         ]
                     },
-                     {
+                    {
                         tag: 'xsmall',
                         replace: [['later.', 'later']]
                     }
