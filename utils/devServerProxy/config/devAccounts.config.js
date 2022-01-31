@@ -22,6 +22,7 @@ export default {
     DEV00USLTNQEZ: ['US', ['long_term'], 'pay_monthly_lt_nqez'],
     DEV0000USLTSQ: ['US', ['long_term'], 'pay_monthly_lt_sq'],
     DEV00USLTSQEZ: ['US', ['long_term'], 'pay_monthly_lt_sqez'],
+    DEV00USLTSQRB: ['US', ['long_term'], 'pay_monthly_lt_sqez_rb'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],

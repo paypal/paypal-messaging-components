@@ -20,7 +20,7 @@
         ["Buy now, pay later.", ["default", "xsmall"]],
         [
             [
-                "Pay monthly for purchases",
+                "Pay monthly for purchases of",
                 ["${formattedMinAmount}+.", "min"],
                 ["${formattedMaxAmount} or less.", "max"]
             ],

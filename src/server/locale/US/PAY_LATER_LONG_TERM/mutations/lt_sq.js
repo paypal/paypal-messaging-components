@@ -115,7 +115,8 @@ export default {
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium'
+                        tag: 'medium',
+                        replace: [['mo.', 'mo']]
                     },
                     {
                         tag: 'xsmall',
@@ -131,7 +132,8 @@ export default {
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
-                        tag: 'medium'
+                        tag: 'medium',
+                        replace: [['mo.', 'mo']]
                     },
                     { tag: 'xsmall', replace: [['later.', 'later']] }
                 ]

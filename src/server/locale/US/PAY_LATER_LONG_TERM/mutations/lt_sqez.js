@@ -121,7 +121,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['of'],
-                        replace: [['APR.', 'APR']]
+                        replace: [
+                            ['APR.', 'APR'],
+                            ['mo.', 'mo']
+                        ]
                     },
                     {
                         tag: 'xsmall',
@@ -139,7 +142,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['of'],
-                        replace: [['APR.', 'APR']]
+                        replace: [
+                            ['APR.', 'APR'],
+                            ['mo.', 'mo']
+                        ]
                     },
                     {
                         tag: 'xsmall',

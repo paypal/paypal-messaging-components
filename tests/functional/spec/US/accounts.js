@@ -19,5 +19,6 @@ export default [
     'DEV0000USLTNQ',
     'DEV00USLTNQEZ',
     'DEV0000USLTSQ',
-    'DEV00USLTSQEZ'
+    'DEV00USLTSQEZ',
+    'DEV00USLTSQRB'
 ];

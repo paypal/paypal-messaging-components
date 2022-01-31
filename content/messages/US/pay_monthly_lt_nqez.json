@@ -20,7 +20,7 @@
         ["Buy now, pay later.", ["default", "xsmall"]],
         [
             [
-                "Pay monthly at 0% APR for purchases",
+                "Pay monthly at 0% APR for purchases of",
                 ["${formattedMinAmount}+.", "min"],
                 ["${formattedMaxAmount} or less.", "max"]
             ],

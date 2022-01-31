@@ -111,8 +111,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['mo.'],
-                        replace: [['APR.', 'APR']]
+                        br: ['mo.', 'mo'],
+                        replace: [
+                            ['APR.', 'APR'],
+                            ['mo.', 'mo']
+                        ]
                     },
                     {
                         tag: 'xsmall',
@@ -129,8 +132,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['mo.'],
-                        replace: [['APR.', 'APR']]
+                        br: ['mo.', 'mo'],
+                        replace: [
+                            ['APR.', 'APR'],
+                            ['mo.', 'mo']
+                        ]
                     },
                     {
                         tag: 'xsmall',

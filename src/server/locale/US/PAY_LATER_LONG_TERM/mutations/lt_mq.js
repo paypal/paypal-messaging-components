@@ -108,7 +108,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['mo.']
+                        br: ['mo.', 'mo'],
+                        replace: [['mo.', 'mo']]
                     },
                     {
                         tag: 'xsmall',
@@ -125,7 +126,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['mo.']
+                        br: ['mo.', 'mo'],
+                        replace: [['mo.', 'mo']]
                     },
                     {
                         tag: 'xsmall',

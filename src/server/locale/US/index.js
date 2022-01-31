@@ -16,6 +16,7 @@ export default offerType => {
         case 'LT_NQEZ':
         case 'LT_SQ':
         case 'LT_SQEZ':
+        case 'LT_SQEZ_RB':
         case 'PAY_LATER_LONG_TERM':
             return payLaterLongTerm;
         default:
