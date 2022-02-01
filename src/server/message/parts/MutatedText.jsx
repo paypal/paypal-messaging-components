@@ -47,6 +47,7 @@ const MutatedText = ({ tagData, options }) => {
          * Used in messages with a min or max amount in the message - i.e. "...purchases of $199+" or "...purchases of $10,000 or less"
          * Looks for an amount followed by a "+" sign or "or less"
          */
+        // eslint-disable-next-line security/detect-unsafe-regex
         const messageMinOrMaxMatch = formattedStr.match(/((\$)(\d{1,5}(\.|,)){1,3}00(\+| or less))/g);
 
         if (purchaseRangeMatch !== null) {
