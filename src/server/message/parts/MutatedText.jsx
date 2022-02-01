@@ -18,6 +18,7 @@ const MutatedText = ({ tagData, options }) => {
     }
 
     /**
+     * Steps in purchaseRangeMatch regex check for currency format:
      * 1. (\$|£)?
      * Either $ or £ or... neither
      * 2. \d{1,5}
@@ -37,18 +38,30 @@ const MutatedText = ({ tagData, options }) => {
      */
     const currencyFormat = string => {
         let formattedStr = string;
-        const match = formattedStr.match(
+        // Used in messages with a purchase range in their message, separated by a hyphen - i.e. "...on purchases of $30-$1500"
+        const purchaseRangeMatch = formattedStr.match(
             // eslint-disable-next-line security/detect-unsafe-regex
             /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?|((,|\.)\d\d)(.|\s*)EUR)/g
         );
-        if (match !== null) {
-            match.forEach(foundString => {
+        /**
+         * Used in messages with a min or max amount in the message - i.e. "...purchases of $199+" or "...purchases of $10,000 or less"
+         * Looks for an amount followed by a "+" sign or "or less"
+         */
+        const messageMinOrMaxMatch = formattedStr.match(/((\$)(\d{1,5}(\.|,)){1,3}00(\+| or less))/g);
+
+        if (purchaseRangeMatch !== null) {
+            purchaseRangeMatch.forEach(foundString => {
                 const filteredString = foundString
                     .replace(/(\.|,)00-/g, '-')
                     .replace(/(\.|,)00$/g, '')
                     .replace(/(\.|,)00€/g, '€')
                     .replace(/(\.|,)00(.|\s*)EUR/g, '€')
                     .replace(/(\s*EUR)/g, '€');
+                formattedStr = formattedStr.replace(foundString, filteredString);
+            });
+        } else if (messageMinOrMaxMatch !== null) {
+            messageMinOrMaxMatch.forEach(foundString => {
+                const filteredString = foundString.replace(/(\.)00/g, '');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }
