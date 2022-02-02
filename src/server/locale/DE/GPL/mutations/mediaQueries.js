@@ -17,18 +17,6 @@ export function xSmallNoWrap(breakpoint) {
 }
 
 /**
- * Media query used in GPL GTZ and GPLQ GTZ for wrapping of a logo primary left position message.
- */
-export function primaryWrap(breakpoint) {
-    return `@media screen and (max-width: ${breakpoint}px) { 
-        .locale--DE .message__headline .tag--xsmall > span:first-child {
-            white-space: normal;
-        }
-        .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
-    }`;
-}
-
-/**
  * Adds the word "Ratenzahlung" after logo type none 9.99% DE GPL fallback messages
  */
 export function logoNoneAddRatenzahlungAfterPayPal(breakpoint, elementChild = 3) {

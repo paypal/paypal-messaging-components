@@ -16,11 +16,10 @@ const ProductListLink = forwardRef(({ children, type = 'button', className, open
             className={classes.join(' ')}
             type={type}
             onClick={() => {
-                onClick({ linkName: 'PRODUCT_LIST', src: 'link_click' });
-                openProductList();
+                onClick({ linkName: 'PRODUCT_LIST', src: 'link_click' }, openProductList());
             }}
         >
-            <a href="#productListLink">{children}</a>
+            {children}
         </button>
     );
 });
