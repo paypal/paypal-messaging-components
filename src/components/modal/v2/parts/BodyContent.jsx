@@ -49,7 +49,8 @@ const BodyContent = () => {
 
     useDidUpdateEffect(() => {
         scrollTo(0); // Reset scroll position to top when view changes
-        window.document.querySelector('#close-btn')?.focus();
+        const closeButton = window.document.querySelector('#close-btn');
+        if (closeButton) closeButton.focus();
     }, [viewName]);
 
     useDidUpdateEffect(() => {
