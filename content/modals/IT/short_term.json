@@ -6,6 +6,10 @@
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
+        "schema": "v2",
+        "offerCountry": "IT",
+        "creditProductIdentifier": "{credit_product_identifier}",
+        "creditType": "{credit_type}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
