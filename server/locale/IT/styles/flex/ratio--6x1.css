@@ -64,10 +64,6 @@
         font-size: 3.8vw;
     }
 
-    .message__logo:nth-of-type(1) {
-        width: 55%;
-    }
-
     .message__logo-container {
         margin-right: 2.5%;
     }
