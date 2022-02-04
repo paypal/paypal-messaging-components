@@ -31,7 +31,8 @@ const memoizedModal = memoizeOnProps(
         onCalculate,
         onApply,
         onClose,
-        channel
+        channel,
+        integrationIdentifier
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
@@ -48,7 +49,8 @@ const memoizedModal = memoizeOnProps(
             onCalculate,
             onApply,
             onClose,
-            channel
+            channel,
+            integrationIdentifier
         });
         // Fired from inside the default onReady callback
         const modalReady = new ZalgoPromise(resolve => event.once('ready', resolve));
