@@ -31,7 +31,7 @@ export const TransitionStateProvider = ({ children }) => {
                         setState(STATUS.CLOSED);
                     }
                 },
-                { threshold: 0.05 }
+                { threshold: 1 }
             );
 
             observer.observe(document.body);
