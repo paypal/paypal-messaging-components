@@ -12,7 +12,7 @@ export const LongTerm = ({
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { amount, onClose } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const { views } = useServerData();
     const {
         view: { offers }
@@ -28,16 +28,35 @@ export const LongTerm = ({
      * Otherwise, render the Product List link.
      */
     const renderCheckoutCtaButton = () => {
+        /**
+         * Event link name used in Pay Monthly XO version of the modal.
+         * If initial amount is qualfying and eligible for Pay Monthly in XO, use eligibleClickTitle and vice versa if ineligible.
+         */
+        const eligibleClickTitle = 'Pay Monthly Continue';
+        const ineligibleClickTitle = 'Back to Checkout';
+
         if (typeof cta !== 'undefined') {
             return (
                 <Fragment>
                     <div className="button__container">
                         {isQualifyingAmount ? (
-                            <Button onClick={() => onClose({ linkName: 'Pay Monthly Continue' })} className="cta">
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: eligibleClickTitle });
+                                    onClose({ linkName: eligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
                                 {cta.buttonTextEligible}
                             </Button>
                         ) : (
-                            <Button onClick={() => onClose({ linkName: 'Back to Checkout' })} className="cta">
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: ineligibleClickTitle });
+                                    onClose({ linkName: ineligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
                                 {cta.buttonTextIneligible}
                             </Button>
                         )}

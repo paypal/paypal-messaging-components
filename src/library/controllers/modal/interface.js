@@ -12,6 +12,7 @@ import {
     objectMerge,
     getStandardProductOffer,
     addPerformanceMeasure,
+    PERFORMANCE_MEASURE_KEYS,
     globalEvent
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
@@ -30,9 +31,10 @@ const memoizedModal = memoizeOnProps(
         onCalculate,
         onApply,
         onClose,
-        channel
+        channel,
+        integrationIdentifier
     }) => {
-        addPerformanceMeasure('firstModalRenderDelay');
+        addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
         const { render, updateProps, state, event } = getModalComponent()({
             account,
@@ -47,7 +49,8 @@ const memoizedModal = memoizeOnProps(
             onCalculate,
             onApply,
             onClose,
-            channel
+            channel,
+            integrationIdentifier
         });
         // Fired from inside the default onReady callback
         const modalReady = new ZalgoPromise(resolve => event.once('ready', resolve));

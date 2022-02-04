@@ -1,10 +1,9 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
-import 'core-js-pure/stable/object/entries';
 
+import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
-
 import {
     getClientID,
     getMerchantID,
@@ -19,7 +18,6 @@ import {
     getStorageID as getSDKStorageID,
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
-import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -32,7 +30,12 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getFundingEligibility()?.paylater?.merchantConfigHash;
+        // TODO: remove getFundingEligibility call and try catch after globals swap
+        try {
+            return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+        } catch {
+            return getFundingEligibility()?.paylater?.merchantConfigHash;
+        }
     } else {
         return undefined;
     }

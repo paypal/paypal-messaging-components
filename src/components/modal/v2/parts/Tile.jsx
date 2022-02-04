@@ -1,13 +1,22 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useContent } from '../lib';
+import { useContent, useXProps } from '../lib';
 import Icon from './Icon';
 
 const Tile = ({ header, body, icon, viewName, setViewName }) => {
     const { tileIcons } = useContent('PRODUCT_LIST');
+    const { onClick } = useXProps();
 
     return (
-        <button className="tile" aria-label={`${header} ${body}`} type="button" onClick={() => setViewName(viewName)}>
+        <button
+            className="tile"
+            aria-label={`${header} ${body}`}
+            type="button"
+            onClick={() => {
+                setViewName(viewName);
+                onClick({ linkName: viewName, src: 'link_click' });
+            }}
+        >
             <div className="tile__row">
                 <div className="tile__col tile__image">
                     <Icon content={tileIcons[icon]} />

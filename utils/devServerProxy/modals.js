@@ -1,4 +1,4 @@
-import { createMockZoidMarkup, populateTemplate, waitForTimeout } from './lib/miscellaneous';
+import { createMockZoidMarkup, populateTemplate, waitForTimeout, btoa, toBinary } from './lib/miscellaneous';
 import getDevAccountDetails from './lib/devAccountDetails';
 
 const REQUEST_DELAY = process.env.REQUEST_DELAY ?? 500;
@@ -53,6 +53,7 @@ export default function createModalRoutes(app, server) {
     app.get('/credit-presentment/smart/modal', async (req, res) => {
         const { scriptUID } = req.query;
         const props = getModalData(req);
+        const encodedData = btoa(toBinary(JSON.stringify(props)));
 
         const postfix = (() => {
             if (props.views) {
@@ -76,7 +77,7 @@ export default function createModalRoutes(app, server) {
 
         const markup = createMockZoidMarkup({
             component: `modal-${postfix}`,
-            props,
+            encodedData,
             scriptUID,
             port
         });
@@ -96,9 +97,10 @@ export default function createModalRoutes(app, server) {
 
     app.get('/credit-presentment/lander/modal', async (req, res) => {
         const props = getModalData(req);
+        const encodedData = btoa(toBinary(JSON.stringify(props)));
         const markup = createMockZoidMarkup({
             component: 'modal-v2-lander',
-            props,
+            encodedData,
             port
         });
 

@@ -54,6 +54,14 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.merchantId
             },
+            integrationIdentifier: {
+                type: 'string',
+                queryParam: true,
+                value: ({ props: { refIndex } }) => {
+                    return refIndex ? undefined : 'messagesModal';
+                },
+                required: false
+            },
             customerId: {
                 type: 'string',
                 queryParam: 'customer_id',
@@ -104,6 +112,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: 'channel',
                 required: false,
+                default: () => 'UPSTREAM',
                 value: validate.channel
             },
 
@@ -289,7 +298,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             index: {
                 type: 'string',
                 queryParam: false,
-                default: () => nextIndex().toString()
+                value: ({ state }) => {
+                    // This function is called multiple times throughout zoid's lifecycle
+                    // so we do not want to call a function with side-effects more than once
+                    if (!state.index) {
+                        state.index = nextIndex().toString(); // eslint-disable-line no-param-reassign
+                    }
+
+                    return state.index;
+                }
             },
             payerId: {
                 type: 'string',

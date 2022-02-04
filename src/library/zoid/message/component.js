@@ -106,6 +106,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ignoreCache
             },
+            channel: {
+                type: 'string',
+                queryParam: 'channel',
+                required: false,
+                default: () => 'UPSTREAM',
+                value: validate.channel
+            },
             // Callbacks
             onClick: {
                 type: 'function',
@@ -196,10 +203,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-
-                    return ({ meta, activeTags, deviceID }) => {
-                        const { account, merchantId, index, modal, getContainer } = props;
-                        const { messageRequestId, trackingDetails, offerType, ppDebugId } = meta;
+                    return ({ meta, activeTags, deviceID, requestDuration }) => {
+                        const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
+                        const { trackingDetails, offerType, ppDebugId } = meta;
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
@@ -222,7 +228,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID() // Session ID from parent local storage
+                                    sessionID: getSessionID() // Session ID from parent local storage,
                                 },
                                 [index]: {
                                     type: 'message',
@@ -236,6 +242,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         runStats({
                             container: getContainer(),
                             activeTags,
+                            requestDuration,
                             index
                         });
                         modal.updateProps({ refIndex: index, offer: offerType });
@@ -380,10 +387,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             messageRequestId: {
                 type: 'string',
                 queryParam: 'message_request_id',
-                value: uniqueID,
-                decorate: ({ props }) => {
-                    ppDebug(`Message Request ID: ${props.messageRequestId}`);
-                    return props.messageRequestId;
+                value: ({ state }) => {
+                    // This function is called multiple times throughout zoid's lifecycle
+                    // so we do not want to call a function with side-effects more than once
+                    if (!state.messageRequestId) {
+                        state.messageRequestId = uniqueID(); // eslint-disable-line no-param-reassign
+                    }
+
+                    ppDebug(`Message Request ID: ${state.messageRequestId}`);
+                    return state.messageRequestId;
                 }
             },
             debug: {
