@@ -89,6 +89,10 @@
                     @include fixedWrapper;
                     bottom: 0;
                 }
+
+                @include apiIframe {
+                    bottom: 0;
+                }
             }
 
             .button__container {
@@ -99,20 +103,25 @@
                 @include tablet {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
                 }
+
                 @include mobile {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
+                }
+
+                @include apiIframe {
+                    max-width: $content-wrapper-max-width-api-iframe;
                 }
             }
 
@@ -160,11 +169,13 @@
         }
         .terms {
             @include desktop {
+                margin-top: 0;
                 margin-left: 30px;
                 margin-right: 30px;
             }
 
             @include tablet {
+                margin-top: 0;
                 margin-left: 30px;
                 margin-right: 30px;
             }

@@ -4,6 +4,7 @@ import { useRef } from 'preact/hooks';
 import Button from '../../Button';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
+import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
@@ -14,9 +15,13 @@ export const NI = ({
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
-    const renderProductListLink = () => {
+    const renderProductListLinkItem = () => {
         if (useServerData()?.views?.length > 1) {
-            return <ProductListLink>{linkToProductList}</ProductListLink>;
+            return (
+                <li className="content__footer-item">
+                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                </li>
+            );
         }
         return <Fragment />;
     };
@@ -30,14 +35,6 @@ export const NI = ({
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <Instructions instructions={instructions} />
-                                <div className="button__fixed-wrapper">
-                                    <div className="button__container">
-                                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
-                                            {buttonText}
-                                        </Button>
-                                        <div className="content__row content__disclaimer">{disclaimer}</div>
-                                    </div>
-                                </div>
                             </div>
                             <div className="content__col">
                                 <div className="branded-image">
@@ -46,7 +43,7 @@ export const NI = ({
                             </div>
                         </div>
                     </div>
-                    <ul className="content__footer">
+                    <div className="content__footer">
                         <ul className="content__row terms">
                             {terms.map(item => (
                                 <li className="terms-item">
@@ -55,26 +52,29 @@ export const NI = ({
                                 </li>
                             ))}
                         </ul>
-                        {footer.map(content => {
-                            const line = content.map(item => {
-                                if (Array.isArray(item)) {
-                                    const [text, link] = item;
-                                    return (
-                                        <a target="__blank" href={link}>
-                                            {text}
-                                        </a>
-                                    );
-                                }
-                                return <span>{item}</span>;
-                            });
-                            return <li className="content__footer-item">{line}</li>;
-                        })}
-                        <li className="content__footer-item">
-                            <ProductListLink openProductList={openProductList}>
-                                {renderProductListLink()}
-                            </ProductListLink>
-                        </li>
-                    </ul>
+                        <ul>
+                            {footer.map(lineContent => {
+                                return (
+                                    <li className="content__footer-item">
+                                        <InlineLinks text={lineContent} />
+                                    </li>
+                                );
+                            })}
+                            {renderProductListLinkItem()}
+                        </ul>
+                    </div>
+                    <div className="content__body">
+                        <div className="content__row dynamic">
+                            <div className="button__fixed-wrapper">
+                                <div className="button__container">
+                                    <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                                        {buttonText}
+                                    </Button>
+                                    <div className="content__row content__disclaimer">{disclaimer}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </main>
             </div>
         </Fragment>

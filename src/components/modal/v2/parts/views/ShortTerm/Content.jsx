@@ -5,6 +5,7 @@ import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
+import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
@@ -23,6 +24,10 @@ export const ShortTerm = ({
         return <Fragment />;
     };
 
+    const donutScreenReaderString = donutTimestamps
+        .map(timestamp => `${periodicPayment.replace('.00', '')} for ${timestamp}`)
+        .join(', ');
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -34,6 +39,9 @@ export const ShortTerm = ({
                                 <div className="content__col">
                                     <div className="content__row donuts">
                                         <div className="donuts__container">
+                                            <span aria-hidden={qualifying !== 'true'} className="sr-only">
+                                                {donutScreenReaderString}
+                                            </span>
                                             {donutTimestamps.map((_, index) => (
                                                 <Donut
                                                     key={index}
@@ -41,6 +49,7 @@ export const ShortTerm = ({
                                                     periodicPayment={periodicPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
+                                                    numOfPayments={donutTimestamps.length}
                                                 />
                                             ))}
                                         </div>
@@ -55,7 +64,9 @@ export const ShortTerm = ({
                             </div>
                         </div>
                         <div className="content__row disclosure">
-                            <p>{disclosure}</p>
+                            <p>
+                                <InlineLinks text={disclosure} />
+                            </p>
                         </div>
                         <div className="content__row productLink">
                             <div className="productLink__container">{renderProductListLink()}</div>

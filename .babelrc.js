@@ -4,5 +4,6 @@ module.exports = {
         test: {
             presets: [['@babel/env', { targets: { node: 'current' } }]]
         }
-    }
+    },
+    plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]]
 };

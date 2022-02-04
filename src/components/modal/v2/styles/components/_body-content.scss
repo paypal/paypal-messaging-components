@@ -18,6 +18,11 @@
     @include desktop {
         max-width: $content-wrapper-max-width-desktop;
     }
+
+    @include apiIframe {
+        max-width: $content-wrapper-max-width-api-iframe;
+        border-radius: 0;
+    }
 }
 
 .content__wrapper {
@@ -57,6 +62,10 @@
             min-height: 100vh;
             margin-bottom: 0;
         }
+    }
+
+    @include apiIframe {
+        max-height: 100%;
     }
 
     // Small reverse border radius hook below the header to curve the top left
