@@ -5,6 +5,7 @@ import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
+import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
@@ -48,6 +49,7 @@ export const ShortTerm = ({
                                                     periodicPayment={periodicPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
+                                                    numOfPayments={donutTimestamps.length}
                                                 />
                                             ))}
                                         </div>
@@ -62,7 +64,9 @@ export const ShortTerm = ({
                             </div>
                         </div>
                         <div className="content__row disclosure">
-                            <p>{disclosure}</p>
+                            <p>
+                                <InlineLinks text={disclosure} />
+                            </p>
                         </div>
                         <div className="content__row productLink">
                             <div className="productLink__container">{renderProductListLink()}</div>

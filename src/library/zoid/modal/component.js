@@ -54,6 +54,14 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.merchantId
             },
+            integrationIdentifier: {
+                type: 'string',
+                queryParam: true,
+                value: ({ props: { refIndex } }) => {
+                    return refIndex ? undefined : 'messagesModal';
+                },
+                required: false
+            },
             customerId: {
                 type: 'string',
                 queryParam: 'customer_id',
@@ -104,6 +112,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: 'channel',
                 required: false,
+                default: () => 'UPSTREAM',
                 value: validate.channel
             },
 

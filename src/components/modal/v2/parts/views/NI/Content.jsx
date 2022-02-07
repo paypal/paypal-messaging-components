@@ -4,6 +4,7 @@ import { useRef } from 'preact/hooks';
 import Button from '../../Button';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
+import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
@@ -52,19 +53,12 @@ export const NI = ({
                             ))}
                         </ul>
                         <ul>
-                            {footer.map(content => {
-                                const line = content.map(item => {
-                                    if (Array.isArray(item)) {
-                                        const [text, link] = item;
-                                        return (
-                                            <a target="__blank" href={link}>
-                                                {text}
-                                            </a>
-                                        );
-                                    }
-                                    return <span>{item}</span>;
-                                });
-                                return <li className="content__footer-item">{line}</li>;
+                            {footer.map(lineContent => {
+                                return (
+                                    <li className="content__footer-item">
+                                        <InlineLinks text={lineContent} />
+                                    </li>
+                                );
                             })}
                             {renderProductListLinkItem()}
                         </ul>
