@@ -16,7 +16,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {
-        VISUALLY_HIDDEN: `${uid}-hide`,
+        HIDDEN: `${uid}-hide`,
         MODAL_SHOW: `${uid}-show`,
         TRANSITION: `${uid}-transition`
     };
@@ -26,7 +26,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
 
         const handleShow = () => {
             state.open = true;
-            wrapper.classList.remove(CLASS.VISUALLY_HIDDEN);
+            wrapper.classList.remove(CLASS.HIDDEN);
             hijackViewport();
             // Browser needs to repaint otherwise the transition happens immediately
             // Firefox requires 2 RAFs due to where they are called in the event loop
@@ -42,7 +42,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
             overlay.classList.remove(CLASS.MODAL_SHOW);
             replaceViewport();
             setTimeout(() => {
-                wrapper.classList.add(CLASS.VISUALLY_HIDDEN);
+                wrapper.classList.add(CLASS.HIDDEN);
             }, TRANSITION_DELAY);
         };
 
@@ -76,17 +76,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     // style values unintentionally with greedy JavaScript and the style tag with !important
     // helps to protect our desired styles.
     return (
-        <div id={uid} class={CLASS.VISUALLY_HIDDEN} onRender={handleRender}>
+        <div id={uid} class={CLASS.HIDDEN} onRender={handleRender}>
             <style>
                 {`
-                    #${uid}.${CLASS.VISUALLY_HIDDEN} {
-                        clip: rect(0 0 0 0); 
-                        clip-path: inset(50%);
-                        height: 1px;
-                        overflow: hidden;
-                        position: absolute;
-                        white-space: nowrap; 
-                        width: 1px;
+                    #${uid}.${CLASS.HIDDEN} {
                         visibility: hidden;
                     }
 

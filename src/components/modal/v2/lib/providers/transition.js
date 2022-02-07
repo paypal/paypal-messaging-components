@@ -31,7 +31,8 @@ export const TransitionStateProvider = ({ children }) => {
                         setState(STATUS.CLOSED);
                     }
                 },
-                { threshold: 0.05 }
+                // Triggers observer when body is or is not 100% in view of the viewport
+                { threshold: 1 }
             );
 
             observer.observe(document.body);
