@@ -5,6 +5,8 @@ import { useState, useEffect, useContext } from 'preact/hooks';
 import { useXProps } from './xprops';
 import { getIntersectionObserverPolyfill } from '../../../../../utils';
 
+const TRANSITION_DELAY = 300;
+
 export const STATUS = {
     OPEN: 'OPEN',
     CLOSED: 'CLOSED'
@@ -28,7 +30,9 @@ export const TransitionStateProvider = ({ children }) => {
                         setState(STATUS.OPEN);
                         onShow();
                     } else {
-                        setState(STATUS.CLOSED);
+                        setTimeout(() => {
+                            setState(STATUS.CLOSED);
+                        }, TRANSITION_DELAY);
                     }
                 },
                 // Triggers observer when body is or is not 100% in view of the viewport
