@@ -126,7 +126,7 @@ const memoizedModal = memoizeOnProps(
             updateProps
         };
     },
-    ['account', 'merchantId']
+    ['account', 'merchantId', 'buyerCountry']
 );
 
 export default options => memoizedModal(objectMerge(getGlobalState().config, options));
