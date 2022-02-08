@@ -45,5 +45,9 @@ export default {
     DEV00000FRPLQ: ['FR', ['gpl'], 'gplq'],
 
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
-    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq']
+    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
+
+    DEV0000ITPLNA: ['IT', ['gpl'], 'short_term_no_amount'],
+    DEV00000ITPLQ: ['IT', ['gpl'], 'short_term_q'],
+    DEV0000ITPLNQ: ['IT', ['gpl'], 'short_term_nq']
 };

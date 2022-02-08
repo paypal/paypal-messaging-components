@@ -1,0 +1,12 @@
+.message__headline {
+    color: black;
+}
+
+.message__messaging .message__headline > span:first-of-type {
+    color: black;
+}
+
+.message__disclaimer > .tag--default > span {
+    color: black;
+    text-decoration: underline;
+}
