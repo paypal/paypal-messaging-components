@@ -1,13 +1,13 @@
+.message__logo-container::before {
+    content: 'con ';
+}
+
 .message__logo-container {
     display: inline;
 }
 
 .message__logo-container::after {
     content: '.';
-}
-
-.message__logo-container::before {
-    content: 'con ';
 }
 
 .message__logo:last-child {
