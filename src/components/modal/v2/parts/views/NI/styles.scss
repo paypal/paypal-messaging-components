@@ -72,26 +72,16 @@
                 }
             }
             .button__fixed-wrapper {
-                @include tablet {
-                    @include fixedWrapper;
+                @include fixedWrapper;
+                bottom: 0;
 
-                    bottom: 5vh;
+                @include tablet {
                     border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
                     overflow: hidden;
 
                     @include lander {
-                        bottom: 0;
                         border-radius: 0;
                     }
-                }
-
-                @include mobile {
-                    @include fixedWrapper;
-                    bottom: 0;
-                }
-
-                @include apiIframe {
-                    bottom: 0;
                 }
             }
 

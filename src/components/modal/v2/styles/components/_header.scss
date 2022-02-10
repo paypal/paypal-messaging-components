@@ -17,6 +17,7 @@
         @include fixedWrapper;
 
         z-index: 0;
+        top: 0;
         overflow: hidden;
         border-radius: $content-wrapper-border-radius $content-wrapper-border-radius 0 0;
 
