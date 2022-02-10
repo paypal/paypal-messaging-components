@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'preact/hooks';
 
 import { useXProps } from './xprops';
 import { getIntersectionObserverPolyfill } from '../../../../../utils';
+import { isLander, isIframe } from '../utils';
 
 const TRANSITION_DELAY = 300;
 
@@ -22,25 +23,28 @@ export const TransitionStateProvider = ({ children }) => {
     const [state, setState] = useState(STATUS.OPEN);
 
     useEffect(() => {
-        getIntersectionObserverPolyfill().then(() => {
-            // eslint-disable-next-line compat/compat
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        setState(STATUS.OPEN);
-                        onShow();
-                    } else {
-                        setTimeout(() => {
-                            setState(STATUS.CLOSED);
-                        }, TRANSITION_DELAY);
-                    }
-                },
-                // Triggers observer when body is or is not 100% in view of the viewport
-                { threshold: 1 }
-            );
+        // Transition accounts for the modal animating open and closed,
+        // which does not apply when rendered as a lander
+        if (!isLander || isIframe) {
+            getIntersectionObserverPolyfill().then(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setState(STATUS.OPEN);
+                            onShow();
+                        } else {
+                            setTimeout(() => {
+                                setState(STATUS.CLOSED);
+                            }, TRANSITION_DELAY);
+                        }
+                    },
+                    // Triggers observer when body is or is not 100% in view of the viewport
+                    { threshold: 1 }
+                );
 
-            observer.observe(document.body);
-        });
+                observer.observe(document.body);
+            });
+        }
     }, []);
 
     return (
