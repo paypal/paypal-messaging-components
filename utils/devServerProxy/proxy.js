@@ -1,9 +1,8 @@
 import fs from 'fs';
-import path from 'path';
 import got from 'got';
-
+import path from 'path';
 import { PORT, VARIANT } from '../../server/constants';
-import { populateTemplate, localizeCurrency } from './miscellaneous';
+import { localizeCurrency, populateTemplate } from './miscellaneous';
 import { getTerms } from './mockTerms';
 
 // set this environment variable to simulate the time for the request to be answered
