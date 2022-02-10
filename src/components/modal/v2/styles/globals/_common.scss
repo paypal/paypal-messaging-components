@@ -7,9 +7,12 @@ body {
 
 html {
     min-width: inherit !important;
-    // Overscroll background color since we use an SVG pattern
-    // for the core background which moves with the overscroll
-    background: #1040c1;
+
+    &.lander {
+        // Overscroll background color since we use an SVG pattern
+        // for the core background which moves with the overscroll
+        background: #1040c1;
+    }
 }
 
 body {
