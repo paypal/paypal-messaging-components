@@ -22,7 +22,7 @@ const flex = [
                     tag: 'xsmall'
                 }
             ],
-            disclaimer: ['default'],
+            disclaimer: ['default']
         }
     ],
     [
@@ -42,9 +42,7 @@ const flex = [
                     tag: 'xsmall'
                 }
             ],
-            styles: [
-                '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
-            ]
+            styles: ['@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }']
         }
     ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
@@ -147,10 +145,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize  }) => ({
-                styles: [
-                    xSmallFallback(textSize * 18),
-                    `.message__logo { width: ${textSize * 4}px }`
-                ],
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
