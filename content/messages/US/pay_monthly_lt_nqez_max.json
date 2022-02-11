@@ -2,7 +2,7 @@
     "meta": {
         "id": "d8dbfe8b-0bb8-44b1-ae07-6f32816fafe6",
         "offerCountry": "US",
-        "offerType": "LT_NQEZ",
+        "offerType": "LT_NQEZ_MAX",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {
@@ -19,11 +19,7 @@
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
         [
-            [
-                "Pay monthly at 0% APR for purchases of",
-                ["${formattedMinAmount}+.", "min"],
-                ["${formattedMaxAmount} or less.", "max"]
-            ],
+            "Pay monthly at 0% APR for purchases of ${formattedMaxAmount} or less.",
             ["small", "medium", "large", "xlarge"]
         ]
     ],

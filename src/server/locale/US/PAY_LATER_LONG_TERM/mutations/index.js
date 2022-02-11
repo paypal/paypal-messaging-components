@@ -11,8 +11,12 @@ import lt_sqez from './lt_sqez';
 export default function getMutations(id, type) {
     switch (id) {
         case 'LT_NQ':
+        case 'LT_NQ_MIN':
+        case 'LT_NQ_MAX':
             return lt_nq[type];
         case 'LT_NQEZ':
+        case 'LT_NQEZ_MIN':
+        case 'LT_NQEZ_MAX':
             return lt_nqez[type];
         case 'LT_SQ':
             return lt_sq[type];

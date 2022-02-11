@@ -8,12 +8,11 @@ import {
     xSmallFallback
 } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
-import hideMinOrMax from './hideMinOrMax';
 
 const flex = [
     [
         'default',
-        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
+        {
             logo: Logo.PP_PAYPAL.WHITE,
             headline: [
                 {
@@ -24,28 +23,28 @@ const flex = [
                 }
             ],
             disclaimer: ['default'],
-            styles: [hideMinOrMax({ amount, min, max })]
-        })
+            styles: []
+        }
     ],
     [
         'ratio:20x1',
-        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
-            styles: [hideMinOrMax({ amount, min, max }), logo20x1()]
-        })
+        {
+            styles: [ logo20x1()]
+        }
     ],
     [
         'ratio:8x1',
-        ({ amount, variables: { minAmount: min, maxAmount: max } }) => ({
+        {
             headline: [
                 {
                     tag: 'medium'
                 }
             ],
             styles: [
-                hideMinOrMax({ amount, min, max }),
+                
                 '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
             ]
-        })
+        }
     ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ...flexLogoMutations
@@ -56,9 +55,9 @@ export default {
     'layout:text': [
         [
             'default',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize,  }) => ({
                 styles: [
-                    hideMinOrMax({ amount, min, max }),
+                    
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
@@ -80,9 +79,9 @@ export default {
         ],
         [
             'logo.type:primary && logo.position:right',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize,  }) => ({
                 styles: [
-                    hideMinOrMax({ amount, min, max }),
+                    
                     xSmallFallback(textSize * 13),
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
@@ -94,9 +93,9 @@ export default {
         ],
         [
             'logo.type:primary && logo.position:top',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize }) => ({
                 styles: [
-                    hideMinOrMax({ amount, min, max }),
+                    
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
@@ -107,9 +106,9 @@ export default {
         ],
         [
             'logo.type:alternative',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize }) => ({
                 styles: [
-                    hideMinOrMax({ amount, min, max }),
+                    
                     `@media screen and (max-width: ${textSize * 28.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
@@ -125,8 +124,8 @@ export default {
         ],
         [
             'logo.type:none',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
-                styles: [xSmallFallback(textSize * 18), hideMinOrMax({ amount, min, max })],
+            ({ textSize }) => ({
+                styles: [xSmallFallback(textSize * 18), ],
                 logo: false,
                 headline: [
                     {
@@ -146,10 +145,10 @@ export default {
         ],
         [
             'logo.type:inline',
-            ({ textSize, amount, variables: { minAmount: min, maxAmount: max } }) => ({
+            ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 18),
-                    hideMinOrMax({ amount, min, max }),
+                    
                     `.message__logo { width: ${textSize * 4}px }`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
