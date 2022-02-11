@@ -144,7 +144,7 @@ export default {
         ],
         [
             'logo.type:inline',
-            ({ textSize  }) => ({
+            ({ textSize }) => ({
                 styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
