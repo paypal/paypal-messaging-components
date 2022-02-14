@@ -13,8 +13,6 @@ export default {
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
-    // temp dev account for pay later long term universal modal view development
-    DEV000000USLT: ['US', ['long_term'], 'long_term'],
     DEV0000USLTMQ: ['US', ['long_term'], 'pay_monthly_lt_mq'],
     DEV00USLTMQEZ: ['US', ['long_term'], 'pay_monthly_lt_mqez'],
     DEV00USLTMQRB: ['US', ['long_term'], 'pay_monthly_lt_mqez_rb'],
