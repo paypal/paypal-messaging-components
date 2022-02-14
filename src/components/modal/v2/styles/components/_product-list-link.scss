@@ -1,0 +1,20 @@
+.product-list-link {
+    display: flex;
+    border: none;
+    background: transparent;
+    margin-top: 1em;
+    min-width: 315px;
+    text-decoration: none;
+    color: $light-blue;
+    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-weight: 600;
+    cursor: pointer;
+
+    @include desktop {
+        padding-left: 30px;
+    }
+    @include tablet {
+        margin: 1em auto;
+        padding: 0;
+    }
+}

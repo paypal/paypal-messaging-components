@@ -72,3 +72,16 @@ function objectSet(object, propString, value) {
 
     return object;
 }
+
+// Used in snapshot functional test html pages
+function mapQueryParams(query) {
+    return query.split('&').reduce((accumulator, param) => {
+        const [key, value] = param.split('=');
+        if (key === 'amount' && decodeURIComponent(value) === '0.00') {
+            accumulator[key] = undefined;
+        } else {
+            accumulator[key] = decodeURIComponent(value);
+        }
+        return accumulator;
+    }, {});
+}

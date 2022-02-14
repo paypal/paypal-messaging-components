@@ -1,9 +1,8 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import { useServerData } from '../../../lib';
+import { useServerData } from '../providers';
 
 export function useProduct(product) {
     const { products } = useServerData();
-
     return arrayFind(products, ({ meta }) => meta.product === product) ?? { content: {} };
 }
 
