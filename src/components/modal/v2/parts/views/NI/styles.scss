@@ -74,6 +74,7 @@
             .button__fixed-wrapper {
                 @include fixedWrapper;
                 bottom: 0;
+                z-index: 1;
 
                 @include tablet {
                     border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
@@ -141,16 +142,16 @@
                 border-radius: 0px 0px 100px 0px;
             }
             @include tablet {
-                padding-bottom: 85px;
+                padding-bottom: 30px;
+                margin-bottom: 0;
             }
         }
 
         @include tablet {
-            .modal-wrapper:not(.lander) & {
-                padding-bottom: 85px;
-                margin-bottom: 25px;
-            }
+            padding-bottom: 50px;
+            margin-bottom: 25px;
         }
+
         @include mobile {
             margin-bottom: 70px;
         }
