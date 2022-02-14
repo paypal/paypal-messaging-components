@@ -102,15 +102,11 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize * 28.5}px) { 
-                        .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
-                    }`,
                     xSmallFallback(textSize * 12.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    `@media screen and (max-width: ${textSize * 12.5}px) {
-                        .message__headline .tag--xsmall > span { white-space: normal; }
-                    }`
+                    `.locale--US .message__messaging span.br {white-space: normal}`,
+                    `.message__headline .tag--xsmall > span {white-space: normal}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
