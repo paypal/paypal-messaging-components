@@ -98,6 +98,18 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
     });
 }
 
+export function parseObjFromEncoding(encodedStr) {
+    // equivalent to JSON.parse(fromBinary(atob(encodedStr))) as in initScript
+    const binary = atob(encodedStr);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    // need to use .apply instead of spread operator so IE can understand
+    const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+    return JSON.parse(decodedStr);
+}
+
 export function createEvent(name) {
     if (typeof Event === 'function') {
         return new Event(name);
@@ -222,6 +234,10 @@ export function getStandardProductOffer(offer) {
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
             return OFFER.PAY_LATER_PAY_IN_1;
+        case 'PI30':
+        case 'PI30Q':
+        case 'PI30NQ':
+            return 'PI30';
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
@@ -238,6 +254,7 @@ export function getStandardProductOffer(offer) {
             return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
         case OFFER.PAYPAL_CREDIT_NO_INTEREST:
         case 'NI':
+        case 'NIQ':
             return OFFER.PAYPAL_CREDIT_NO_INTEREST;
         default:
             return undefined;

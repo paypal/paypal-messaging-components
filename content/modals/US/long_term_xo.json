@@ -19,7 +19,6 @@
     "content": {
         "headline": "Pay with monthly installments",
         "subheadline": "Get more time to pay, with no down payment or late fees.",
-
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
@@ -37,7 +36,8 @@
             "Use autopay for your payments. It's easy!"
         ],
         "cta": {
-            "buttonText": "Continue with Pay Monthly",
+            "buttonTextEligible": "Continue with Pay Monthly",
+            "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/long-term-application"
         },
         "disclosure": "Payment options subject to credit approval. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Missed payments may have an impact on consumer's credit report. Offer availability depends on the merchant and purchase amount, and may not be available for subscriptions or recurring payments. You must be of legal age in your U.S. state of residence. [Lender disclosure][State licensing disclosures]",

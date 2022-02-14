@@ -22,7 +22,8 @@
 
         &:focus {
             text-decoration: underline;
-            outline: none;
+            outline: 3px solid $dark-blue;
+                  
         }
     }
 }

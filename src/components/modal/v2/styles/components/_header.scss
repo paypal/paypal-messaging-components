@@ -27,6 +27,10 @@
         @include mobile {
             border-radius: 0;
         }
+
+        @include apiIframe {
+            border-radius: 0;
+        }
     }
 
     &__background-wrapper {
@@ -77,6 +81,11 @@
         svg {
             width: 900px;
             transform: translate(0, -30%);
+
+            @include apiIframe {
+                min-width: 800px;
+                width: $content-wrapper-max-width-api-iframe;
+            }
         }
     }
 
@@ -115,6 +124,15 @@
                     transform: translate(calc(#{$content-wrapper-max-width-desktop} / 2 - 50%), 2rem);
                     display: flex;
                     justify-content: center;
+                }
+
+                @include apiIframe {
+                    transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+
+                    // copied here because apiIframe mixin has higher priority than the scroll below
+                    &--scroll {
+                        transform: translate(0, 0);
+                    }
                 }
 
                 &--scroll {

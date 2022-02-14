@@ -29,6 +29,12 @@
     }
 }
 
+@mixin apiIframe {
+    .api-iframe & {
+        @content;
+    }
+}
+
 // Styles to create a fixed element that spans the full width of
 // the modal body content wrapper that accounts for the difference
 // between scrollbar widths across systems (e.g. Windows vs MacOS)
@@ -47,6 +53,10 @@
 
     @include desktop {
         max-width: $content-wrapper-max-width-desktop;
+    }
+
+    @include apiIframe {
+        max-width: $content-wrapper-max-width-api-iframe;
     }
 
     :first-child {

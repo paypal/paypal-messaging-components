@@ -11,7 +11,8 @@ import {
     useDidUpdateEffect,
     getContent,
     isLander,
-    isIframe
+    isIframe,
+    setupTabTrap
 } from '../lib';
 import Icon from './Icon';
 import Overlay from './Overlay';
@@ -77,9 +78,20 @@ const Container = ({ children }) => {
         });
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
 
+    useEffect(() => {
+        setupTabTrap();
+    }, []);
+
+    const modalWrapperClassName = [
+        'modal-wrapper',
+        isLander && !isIframe ? 'lander' : '',
+        loading ? 'loading' : '',
+        isLander && isIframe ? 'api-iframe' : ''
+    ].join(' ');
+
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
-            <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''} ${loading ? 'loading' : ''}`}>
+            <div className={modalWrapperClassName}>
                 {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
