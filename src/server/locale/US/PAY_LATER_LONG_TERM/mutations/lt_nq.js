@@ -59,10 +59,10 @@ export default {
                     `@media screen and (max-width: ${textSize * 18.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 14),
                     textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 16)
+                    setLogoTop(textSize * 14)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
