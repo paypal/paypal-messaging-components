@@ -112,7 +112,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18)],
+                styles: [xSmallFallback(textSize * 14)],
                 logo: false,
                 headline: [
                     {
