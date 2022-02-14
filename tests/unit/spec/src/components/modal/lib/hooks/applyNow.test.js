@@ -1,6 +1,6 @@
 import applyNow from 'src/components/modal/lib/hooks/applyNow';
 
-import { useXProps } from 'src/components/lib/providers/xprops';
+import { useXProps } from 'src/components/modal/lib/providers/xprops';
 
 global.open = jest.fn();
 
@@ -10,7 +10,7 @@ const defaultXProps = {
     onClick: jest.fn()
 };
 
-jest.mock('src/components/lib/providers/xprops');
+jest.mock('src/components/modal/lib/providers/xprops');
 
 jest.mock('preact/hooks', () => ({
     useContext: () => ({

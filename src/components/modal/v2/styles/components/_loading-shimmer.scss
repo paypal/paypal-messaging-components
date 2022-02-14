@@ -1,0 +1,59 @@
+@keyframes shimmer {
+    0% {
+        background-position: -2000px 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.offer {
+    &__container {
+        &.shimmer {
+            &:first-child {
+                margin-top: 0px;
+            }
+            &:not(:last-child)::after {
+                content: '';
+                border-bottom: 2px solid rgba(196, 196, 196, 0.2);
+                display: block;
+                margin-top: 25px;
+                margin-bottom: 25px;
+
+                @include mobile {
+                    margin-top: 20px;
+                    margin-bottom: 5px;
+                }
+            }
+            @include tablet {
+                &:last-child {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    &__field-loading {
+        height: 500px;
+        position: relative;
+        background: #eee;
+        height: 20px;
+        margin: 4px 0;
+        animation: shimmer 2s linear infinite;
+        background: linear-gradient(to bottom right, #f1efea 21%, #e4e0d6 25%, #f1efea 29%);
+        background-size: 3000px 1000px;
+        width: 100%;
+    }
+
+    &__col {
+        flex-grow: 1;
+
+        .shimmer & {
+            margin-right: 25px;
+
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+}

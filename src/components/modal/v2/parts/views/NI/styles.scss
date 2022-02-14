@@ -1,0 +1,237 @@
+@import '../../../styles/globals/variables';
+@import '../../../styles/globals/mixins';
+@import '../../../styles/globals/colors';
+
+.header {
+    &__content {
+        padding-bottom: 40px;
+
+        @include mobile {
+            padding-bottom: 0px;
+        }
+    }
+}
+
+.content {
+    &__container {
+        background: white;
+        color: black;
+        padding-bottom: 0px;
+        border-radius: 0px;
+
+        .content__body {
+            .dynamic {
+                padding-bottom: 1.5rem;
+            }
+
+            .content__col {
+                @include desktop {
+                    &.collapsed:last-child {
+                        position: relative;
+                    }
+                }
+
+                @include tablet {
+                    margin-left: 40px;
+                    margin-right: 40px;
+                }
+            }
+
+            .instructions {
+                ol {
+                    max-width: unset;
+                    padding: 0px;
+                    margin-bottom: 0px;
+
+                    &.collapsed {
+                        width: 100%;
+                    }
+                }
+                li {
+                    font-size: 18px;
+                }
+
+                @include lander {
+                    margin-top: 10px;
+
+                    @include mobile {
+                        margin-top: 0px;
+                    }
+                    @include smallMobile {
+                        margin-top: 0px;
+                    }
+                }
+            }
+
+            .button {
+                padding: 15px 100px 15px 100px;
+
+                @include mobile {
+                    padding: 15px 70px 15px 70px;
+                    width: 100%;
+                }
+            }
+            .button__fixed-wrapper {
+                @include fixedWrapper;
+                bottom: 0;
+                z-index: 1;
+
+                @include tablet {
+                    border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
+                    overflow: hidden;
+
+                    @include lander {
+                        border-radius: 0;
+                    }
+                }
+            }
+
+            .button__container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                @include tablet {
+                    background: white;
+                    margin-bottom: 0;
+                    max-width: $content-wrapper-max-width-tablet;
+                    padding: 15px 0;
+                    .button {
+                        width: calc(80%);
+                    }
+                }
+
+                @include mobile {
+                    background: white;
+                    margin-bottom: 0;
+                    max-width: $content-wrapper-max-width-tablet;
+                    padding: 15px 0;
+                    .button {
+                        width: calc(80%);
+                    }
+                }
+
+                @include apiIframe {
+                    max-width: $content-wrapper-max-width-api-iframe;
+                }
+            }
+
+            .button,
+            .content__disclaimer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .content__disclaimer {
+                margin-top: 10px;
+            }
+        }
+    }
+    &__footer {
+        background: $instructions-background;
+        padding: 25px;
+        margin: 0;
+
+        @include desktop {
+            padding-left: 15px;
+        }
+
+        @include lander {
+            @include desktop {
+                border-radius: 0px 0px 100px 0px;
+            }
+            @include tablet {
+                padding-bottom: 30px;
+                margin-bottom: 0;
+            }
+        }
+
+        @include tablet {
+            padding-bottom: 50px;
+            margin-bottom: 25px;
+        }
+
+        @include mobile {
+            margin-bottom: 70px;
+        }
+        @include smallMobile {
+            margin-bottom: 70px;
+        }
+        .terms {
+            @include desktop {
+                margin-top: 0;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            @include tablet {
+                margin-top: 0;
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            &-item {
+                color: $legal-disclaimer;
+                margin-bottom: 20px;
+                font-size: 14px;
+                display: flex;
+                margin-left: unset;
+
+                @include desktop {
+                    margin-bottom: 10px;
+                }
+            }
+
+            &-bullet {
+                &::before {
+                    /* pseudo class necessary for setting bullet color separate from font */
+                    content: '\2022';
+                    color: $terms-bullet;
+                    @include mobile {
+                        padding: 0px 12.5px 0px 8px;
+                    }
+
+                    @include smallMobile {
+                        padding: 0px 12.5px 0px 0px;
+                    }
+                    padding: 0 12.5px;
+                    font-weight: bold;
+                    font-size: large;
+                }
+            }
+        }
+
+        &-item {
+            &:nth-child(2) {
+                margin-top: 20px;
+            }
+            @include desktop {
+                margin-left: 45px;
+                margin-right: 45px;
+            }
+
+            @include tablet {
+                margin-left: 45px;
+                margin-right: 45px;
+
+                .product-list-link {
+                    margin: 0px;
+                }
+            }
+
+            @include mobile {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            list-style: none;
+            font-size: 14px;
+            margin: 0 0 20px 0;
+            color: $legal-disclaimer;
+            .product-list-link {
+                padding: 0px;
+            }
+        }
+    }
+}

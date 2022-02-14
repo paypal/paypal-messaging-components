@@ -31,18 +31,18 @@ Both pages have code ready to be uncommented or commented out to change which su
 
 ### Pages
 
--   [demo/snapshot/banner.html](https://github.com/paypal/paypal-messaging-components/blob/develop/demo/snapshot/banner.html) is the page for creating snapshots of a message banner.Optional query parameters includes:
+-   [demo/snapshot/banner.html](demo/snapshot/banner.html) is the page for creating snapshots of a message banner.Optional query parameters includes:
 
     -   `config`
     -   `padding`
 
--   [demo/snapshot/modal.html](https://github.com/paypal/paypal-messaging-components/blob/develop/demo/snapshot/modal.html) is the page for creating snapshots of a message modal. Optional query parameters includes:
+-   [demo/snapshot/modal.html](demo/snapshot/modal.html) is the page for creating snapshots of a message modal. Optional query parameters includes:
 
     -   `config`
     -   `padding`
     -   `click`
 
--   [demo/snapshot/multi-banner.html](https://github.com/paypal/paypal-messaging-components/blob/develop/demo/snapshot/multi-banner.html) is the page for creating snapshots of multiple message banners with the express purpose of showing font size relative to other banners with different font sizes. Optional query parameters includes:
+-   [demo/snapshot/multi-banner.html](demo/snapshot/multi-banner.html) is the page for creating snapshots of multiple message banners with the express purpose of showing font size relative to other banners with different font sizes. Optional query parameters includes:
     -   `config`
     -   `padding`
     -   `bannerGroup`
