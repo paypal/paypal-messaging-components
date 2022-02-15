@@ -4,8 +4,8 @@ module.exports = {
         [
             'jest-html-reporter',
             {
-                pageTitle: 'All V2 Functional Tests - PayPal Messaging Components',
-                outputPath: './tests/__reports__/all-functional.html',
+                pageTitle: 'All V2 Snapshot Tests - PayPal Messaging Components',
+                outputPath: './tests/__reports__/all-snapshots.html',
                 // outputs detailed message for complete suite failures
                 includeSuiteFailure: true,
                 // outputs detailed message for test failure
@@ -15,7 +15,7 @@ module.exports = {
             }
         ]
     ],
-    testMatch: ['<rootDir>/**/?(*.)test.js?(x)'],
+    testMatch: ['<rootDir>/spec/snapshot-tests/**/?(*.)test.js?(x)'],
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
