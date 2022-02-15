@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.29.0",
+    "version": "1.30.0",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -10,9 +10,8 @@
     "main": "dist/messaging.js",
     "module": "src/index.js",
     "files": [
-        "banners/",
-        "src/",
-        "server/",
+        "src/library",
+        "src/utils",
         "dist/",
         "__sdk__.js",
         "globals.js"
@@ -24,8 +23,10 @@
         "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
-        "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk --env.STAGE_TAG=local",
+        "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
+        "dev:modal": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone-modal --env.NODE_ENV=local --env.STAGE_TAG=local",
+        "dev:lander": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=lander --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:stage": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=stage",
         "dev:sandbox": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=sandbox",
         "dev:production": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=production",
@@ -35,7 +36,9 @@
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
-        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot"
+        "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
+        "test:func:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/v2/jest.allFunctional.config.js",
+        "test:func:v2:ciupdate": "jest --verbose --config tests/functional/v2/jest.allFunctional.config.js --updateSnapshot"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",

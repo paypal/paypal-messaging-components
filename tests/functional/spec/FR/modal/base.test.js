@@ -1,7 +1,7 @@
 import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, amounts, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
-import { gbModalContent } from './fr_modalTestDefs';
+import { frModalContent } from './fr_modalTestDefs';
 
 const accounts = ['DEV000000FRPL', 'DEV00000FRPLQ'];
 
@@ -35,6 +35,6 @@ describe.each([
     );
     test(
         `${groupString} verify that value prop in modal is correct`,
-        gbModalContent({ account, viewport, groupString })
+        frModalContent({ account, viewport, groupString })
     );
 });
