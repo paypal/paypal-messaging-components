@@ -97,4 +97,4 @@ jobs:
 
             - name: Collect Diffs and Upload to Imgur
               run: |
-                  ./scripts/snapshot-tests/collect-diffs.sh
+                  ./scripts/snapshot-tests/collect-diffs-v2.sh
