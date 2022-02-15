@@ -1,6 +1,6 @@
 import { useTransitionState, useXProps, useServerData } from '../providers';
 
-export default clickTitle => {
+export default (clickTitle, src = 'link_click') => {
     const { payerId } = useServerData();
     const { onClick, refId, env = 'production' } = useXProps();
 
@@ -14,7 +14,7 @@ export default clickTitle => {
     }[env];
 
     return () => {
-        onClick({ linkName: clickTitle });
+        onClick({ linkName: clickTitle, src });
         // TODO: Get finalized query param keys
         const win = window.open(
             `https://www.${urlBase}.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=${refId}&payer_id=${payerId}`
