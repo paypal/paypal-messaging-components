@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
-            testConfigs: ${{ steps.setTestPathPatterns.outputs.testConfigs }}
+            testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2

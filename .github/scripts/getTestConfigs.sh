@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ev
 
 # lists all functional test configs and removes text leaving only {locale}/{account}
 validTestConfigs=$(ls ./tests/functional/v2/config/*/DEV* | sed -E 's/(^.*config\/)//;s/.js//')
