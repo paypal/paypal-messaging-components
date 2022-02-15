@@ -32,6 +32,19 @@
             "Completa la compra con el primer pago hoy.",
             "Los pagos restantes se hacen automáticamente. ¡Es fácil!"
         ],
-        "disclosure": "Paga en 3 plazos está disponible si tu compra cumple los requisitos y su importe es de entre {formattedMinAmount} y {formattedMaxAmount}. Sujeto a la aprobación por parte de PayPal. Consulta el documento de información previa y los términos y condiciones para más información. Crédito con un pago inicial obligatorio. Disponible solo para clientes particulares residentes en España. Crédito de dos meses. Tienes un plazo de 14 días para desistir de tu crédito. El prestamista es PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. Un crédito es un compromiso vinculante que debe ser reembolsado y puede afectar a tu historial crediticio. Asegúrate de verificar tu capacidad de reembolso antes de comprometerte."
+        "disclosure": [
+            [
+                "Paga en 3 plazos está disponible si tu compra cumple los requisitos y su importe es de entre {formattedMinAmount} y {formattedMaxAmount}. Sujeto a la aprobación por parte de PayPal. Consulta "
+            ],
+            [
+                "el documento de información previa",
+                "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=es_ES"
+            ],
+            [" y "],
+            ["los términos y condiciones", "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-full?locale.x=es_ES"],
+            [
+                " para más información. Crédito con un pago inicial obligatorio. Disponible solo para clientes particulares residentes en España. Crédito de dos meses. Tienes un plazo de 14 días para desistir de tu crédito. El prestamista es PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. Un crédito es un compromiso vinculante que debe ser reembolsado y puede afectar a tu historial crediticio. Asegúrate de verificar tu capacidad de reembolso antes de comprometerte."
+            ]
+        ]
     }
 }
