@@ -8,9 +8,12 @@ let modalFrame;
 const { CONFIG_PATH } = process.env;
 const [LOCALE, ACCOUNT] = CONFIG_PATH.split('/');
 const LOCALE_CONFIG = config[LOCALE];
+const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'sdk';
 
-describe.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
+const descFn = ACCOUNT_CONFIG.testFileName === 'noInterest' ? describe : describe.skip;
+
+descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - SDK Modal - %s',
     (country, account, { viewport, amount, modalContent }) => {
         beforeEach(async () => {

@@ -15,9 +15,12 @@ let modalFrame;
 const { CONFIG_PATH } = process.env;
 const [LOCALE, ACCOUNT] = CONFIG_PATH.split('/');
 const LOCALE_CONFIG = config[LOCALE];
+// const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'sdk';
 
-// TODO: Enable once pay monthly messages are complete
+// const descFn = ACCOUNT_CONFIG.testFileName === 'longTerm' ? describe : describe.skip;
+
+// TODO: Switch to descFn once pay monthly messages are complete
 describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - SDK Modal - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
