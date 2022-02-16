@@ -24,6 +24,7 @@
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local --env.STAGE_TAG=local",
+        "dev:ci": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=ci --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:modal": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone-modal --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:lander": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=lander --env.NODE_ENV=local --env.STAGE_TAG=local",

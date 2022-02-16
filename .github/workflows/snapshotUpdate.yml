@@ -129,7 +129,7 @@ jobs:
 
             - name: Run server
               run: |
-                  ./.github/scripts/runServer.sh
+                  ./.github/scripts/runServerV2.sh
 
             - name: Update Snapshots - ${{ matrix.testConfig }}
               run: |

@@ -88,7 +88,7 @@ jobs:
 
             - name: Run server
               run: |
-                  ./.github/scripts/runServer.sh
+                  ./.github/scripts/runServerV2.sh
 
             - name: Compare Snapshots - ${{ matrix.testConfig }}
               continue-on-error: true
