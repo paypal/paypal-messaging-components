@@ -1,8 +1,66 @@
+import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
 import Logo from '../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../message/mediaQueries';
-import { textLogoMutations } from '../../../message/logoMutations';
+import {
+    altNoWrap,
+    logo20x1,
+    messageLogoWidth,
+    setLogoTop,
+    textWrap,
+    xSmallFallback
+} from '../../../message/mediaQueries';
+
+const headlineBreaks = [
+    {
+        sizes: ['xsmall']
+    },
+    {
+        sizes: ['medium'],
+        breaks: ['rate']
+    }
+].reduce((acc, item) => {
+    const { sizes, breaks } = item;
+    sizes.forEach(size => {
+        acc.push({
+            tag: size,
+            br: breaks
+        });
+    });
+    return acc;
+}, []);
 
 export default {
+    'layout:flex': [
+        [
+            'default',
+            {
+                logo: Logo.PP_PAYPAL.WHITE,
+                headline: [
+                    {
+                        tag: 'xsmall'
+                    },
+                    {
+                        tag: 'medium'
+                    }
+                ],
+                disclaimer: ['default'],
+                styles: []
+            }
+        ],
+        [
+            'ratio:20x1',
+            {
+                headline: [...headlineBreaks],
+                styles: [logo20x1()]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: [...headlineBreaks]
+            }
+        ],
+        ...flexLogoMutations
+    ],
     'layout:text': [
         [
             'default',
