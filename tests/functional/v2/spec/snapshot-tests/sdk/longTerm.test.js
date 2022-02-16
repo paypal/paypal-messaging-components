@@ -15,10 +15,13 @@ let modalFrame;
 const { CONFIG_PATH } = process.env;
 const [LOCALE, ACCOUNT] = CONFIG_PATH.split('/');
 const LOCALE_CONFIG = config[LOCALE];
-// const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
+const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'sdk';
+const testFileName = 'longTerm';
 
-// const descFn = ACCOUNT_CONFIG.testFileName === 'longTerm' ? describe : describe.skip;
+const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
+const descFn = runTest ? describe : describe.skip; // eslint-disable-line no-unused-vars
+console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}`); // eslint-disable-line no-console
 
 // TODO: Switch to descFn once pay monthly messages are complete
 describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(

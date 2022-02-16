@@ -1,4 +1,5 @@
 export const DEV_US_NO_INTEREST = {
+    testFileName: 'noInterest',
     country: 'US',
     description: 'US merchant eligible for NI only',
     amounts: [

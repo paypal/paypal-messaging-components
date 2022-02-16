@@ -1,4 +1,5 @@
 export const DEV_US_LONG_TERM_CHECKOUT = {
+    testFileName: 'longTermCheckout',
     country: 'US',
     description: 'US merchant eligible for long term only',
     minAmount: 199,

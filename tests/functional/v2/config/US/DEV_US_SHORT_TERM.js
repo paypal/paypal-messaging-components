@@ -1,4 +1,5 @@
 export const DEV_US_SHORT_TERM = {
+    testFileName: 'shortTerm',
     country: 'US',
     description: 'US merchant eligible for short term only',
     minAmount: 30,

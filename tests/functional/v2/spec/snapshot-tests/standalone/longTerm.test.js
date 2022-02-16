@@ -18,8 +18,12 @@ const [LOCALE, ACCOUNT] = CONFIG_PATH.split('/');
 const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'standalone';
+const testFileName = 'longTerm';
 
-const descFn = ACCOUNT_CONFIG.testFileName === 'longTerm' ? describe : describe.skip;
+// includes allows for longTermCheckout
+const runTest = ACCOUNT_CONFIG.testFileName.includes(testFileName);
+const descFn = runTest ? describe : describe.skip;
+console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}`); // eslint-disable-line no-console
 
 descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - Standalone Modal - %s',

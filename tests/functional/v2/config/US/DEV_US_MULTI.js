@@ -1,4 +1,5 @@
 export const DEV_US_MULTI = {
+    testFileName: 'multiProduct',
     country: 'US',
     description: 'US Multi-product merchant',
     amounts: [
