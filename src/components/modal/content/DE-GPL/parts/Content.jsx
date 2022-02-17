@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
 
 import PI30 from './Pi30';
@@ -14,14 +14,23 @@ const Content = () => {
     const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const product = getStandardProductOffer(offer);
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
     // Product List should be displayed when no amount and GPL + PI30 are available.
     const productNames = products.map(theProduct => theProduct.meta.product);
-    const [selectedProduct, selectProduct] = useState(
-        productNames.includes('GPL') && productNames.includes('PI30') && (typeof amount === 'undefined' || amount === 0)
-            ? 'none'
-            : initialProduct.meta.product
+
+    // calculate what the inital product should be
+    // will change based on offer and products avaliable
+    const initalProduct = useMemo(
+        () =>
+            productNames.includes('GPL') &&
+            productNames.includes('PI30') &&
+            (typeof amount === 'undefined' || amount === 0)
+                ? 'none'
+                : (arrayFind(products, theProduct => theProduct.meta.product === product) || products[0]).meta.product,
+        [(offer, products.map(theProduct => theProduct?.meta.product))]
     );
+
+    const [selectedProduct, selectProduct] = useState(initalProduct);
+
     // Tracking for Product List clicks (button clicks) and for buttons that appear as links
     const buttonClick = theProduct => {
         onClick({ linkName: theProduct, src: 'button_click' });
@@ -33,22 +42,15 @@ const Content = () => {
         selectProduct(theProduct);
     };
 
+    // if the inital product changes lets re-calculate what the inital product was
     useDidUpdateEffect(() => {
-        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-        selectProduct(fullProduct.meta.product);
-    }, [product]);
+        selectProduct(initalProduct);
+    }, [initalProduct]);
 
     useDidUpdateEffect(() => {
+        // on close go back to the original product
         if (transitionState === 'CLOSED') {
-            if (
-                productNames.includes('GPL') &&
-                productNames.includes('PI30') &&
-                (typeof amount === 'undefined' || amount === 0)
-            ) {
-                selectProduct('none');
-            } else {
-                selectProduct(initialProduct.meta.product);
-            }
+            selectProduct(initalProduct);
         }
     }, [transitionState]);
 
