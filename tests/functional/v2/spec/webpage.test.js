@@ -1,6 +1,6 @@
 import { screenDimensions, filterPermutations, getTestName, logTestName } from '../utils/index';
 import { US } from '../config/index';
-
+import { GB } from '../config/GB.config';
 import {
     openProductListView,
     clickProductListTiles,
@@ -52,7 +52,7 @@ describe.each(filterPermutations([US], ['DEV_US_MULTI']))(
 );
 
 // Short term
-describe.each(filterPermutations([US], ['DEV_US_SHORT_TERM']))(
+describe.each(filterPermutations([US, GB], ['DEV_US_SHORT_TERM', 'DEV_GB_SHORT_TERM']))(
     '%s - Lander Webpage - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
