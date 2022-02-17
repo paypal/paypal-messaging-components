@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useMemo, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
 
 import PI30 from './Pi30';
@@ -19,17 +19,15 @@ const Content = () => {
 
     // calculate what the inital product should be
     // will change based on offer and products avaliable
-    const initalProduct = useMemo(
-        () =>
-            productNames.includes('GPL') &&
-            productNames.includes('PI30') &&
-            (typeof amount === 'undefined' || amount === 0)
-                ? 'none'
-                : (arrayFind(products, theProduct => theProduct.meta.product === product) || products[0]).meta.product,
-        [(offer, products.map(theProduct => theProduct?.meta.product))]
-    );
+    const initialProduct =
+        productNames.includes('GPL') && productNames.includes('PI30') && (typeof amount === 'undefined' || amount === 0)
+            ? 'none'
+            : (
+                  arrayFind(products, theProduct => getStandardProductOffer(theProduct.meta.product) === product) ||
+                  products[0]
+              ).meta.product;
 
-    const [selectedProduct, selectProduct] = useState(initalProduct);
+    const [selectedProduct, selectProduct] = useState(initialProduct);
 
     // Tracking for Product List clicks (button clicks) and for buttons that appear as links
     const buttonClick = theProduct => {
@@ -44,13 +42,13 @@ const Content = () => {
 
     // if the inital product changes lets re-calculate what the inital product was
     useDidUpdateEffect(() => {
-        selectProduct(initalProduct);
-    }, [initalProduct]);
+        selectProduct(initialProduct);
+    }, [initialProduct]);
 
     useDidUpdateEffect(() => {
         // on close go back to the original product
         if (transitionState === 'CLOSED') {
-            selectProduct(initalProduct);
+            selectProduct(initialProduct);
         }
     }, [transitionState]);
 
