@@ -1,6 +1,5 @@
 import { selectors, screenDimensions, filterPermutations, getTestName, logTestName } from '../utils/index';
-import { US } from '../config/index';
-import { GB } from '../config/GB.config';
+import { US, GB } from '../config/index';
 import {
     openProductListView,
     clickProductListTiles,

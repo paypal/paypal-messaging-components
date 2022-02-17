@@ -3,32 +3,32 @@ const GB = {
         country: 'GB',
         description: 'GB merchant eligible for short term only',
         minAmount: 30,
-        maxAmount: 1500,
+        maxAmount: 2000,
         amounts: [
             {
                 value: '0.00',
                 message: 'Non-qualifying Pay in 3',
                 expectedValue: 'Pay in 3 interest-free payments',
                 modalContent: {
-                    subheadline: 'Available for purchases of $30.00 to $1,500.00. No sign-up fees or late fees.',
+                    subheadline: 'Available for purchases of £30.00 to £2,000.00. No sign-up fees or late fees.',
                     periodicPayment: null
                 }
             },
             {
                 value: '30.00',
                 message: 'Qualifying Pay in 3',
-                expectedValue: 'Pay in 3 interest-free payments of $7.50',
+                expectedValue: 'Pay in 3 interest-free payments of £10.00',
                 modalContent: {
-                    subheadline: 'Split your purchase of $30.00 into 3 with no sign-up fees or late fees.',
-                    periodicPayment: '$7.50'
+                    subheadline: 'Split your purchase of £30.00 into 3 with no sign-up fees or late fees.',
+                    periodicPayment: '£10.00'
                 }
             },
             {
-                value: '1500.01',
+                value: '2000.01',
                 message: 'Non-qualifying Pay in 3',
-                expectedValue: 'Pay in 3 interest-free payments on qualifying purchases',
+                expectedValue: 'Pay in 3 interest-free payments',
                 modalContent: {
-                    subheadline: 'Available for purchases of $30.00 to $1,500.00. No sign-up fees or late fees.',
+                    subheadline: 'Available for purchases of £30.00 to £2,000.00. No sign-up fees or late fees.',
                     periodicPayment: ''
                 }
             }

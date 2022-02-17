@@ -19,7 +19,7 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'pl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
@@ -31,7 +31,7 @@ export default {
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 30,
-                    maxAmount: 1500
+                    maxAmount: 2000
                 }
             ]
         }
