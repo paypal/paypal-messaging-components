@@ -10,16 +10,41 @@
     <body>
         <div class="messages" data-pp-message></div>
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'text',
-            //             logo: {
-            //                 type: 'none'
-            //             }
-            //         }
-            //     })
-            //     .render('.messages');
+            paypal
+                .Messages({
+                    style: {
+                        layout: 'flex',
+                        ratio: '8x1',
+                        color: 'blue'
+                    }
+                })
+                .render('.messages');
+
+            setTimeout(() => {
+                paypal
+                    .Messages({
+                        amount: 100,
+                        style: {
+                            layout: 'flex',
+                            ratio: '8x1',
+                            color: 'blue'
+                        }
+                    })
+                    .render('.messages');
+            }, 1000);
+
+            setTimeout(() => {
+                paypal
+                    .Messages({
+                        amount: 1000,
+                        style: {
+                            layout: 'flex',
+                            ratio: '8x1',
+                            color: 'blue'
+                        }
+                    })
+                    .render('.messages');
+            }, 2000);
         </script>
     </body>
 </html>

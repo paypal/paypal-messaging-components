@@ -135,8 +135,11 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     merchantId
                 });
 
+                // Generate new MRID on message update.
+                const newMessageRequestId = uniqueID();
+
                 const query = objectEntries({
-                    message_request_id: messageRequestId,
+                    message_request_id: newMessageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
@@ -186,8 +189,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                             onReady({
                                 meta: data.meta ?? serverData.meta,
                                 activeTags: getActiveTags(button),
-                                // Generate new MRID on message update.
-                                messageRequestId: uniqueID(),
+                                messageRequestId: newMessageRequestId,
                                 // Utility will create iframe deviceID if it doesn't exist.
                                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
