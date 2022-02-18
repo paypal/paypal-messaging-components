@@ -4,8 +4,9 @@ SUPPORTED_MODULES=("library" "components" "render")
 # default value if none supplied
 environment="production,sandbox,stage"
 module="library,components,render"
+devTouchpoint=false
 
-while getopts ":v:e:m:t:s:" flag
+while getopts ":v:e:m:t:s:d" flag
 do
     case "$flag" in
         v) version=$OPTARG;;
@@ -13,6 +14,7 @@ do
         m) module=$OPTARG;;
         t) tag=$OPTARG;;
         s) testEnv=$OPTARG;;
+        d) devTouchpoint=true;;
     esac
 done
 
@@ -26,8 +28,19 @@ if [ ! -z "$tag" ]; then
         printf "Stage tag must only contain alpha-numeric and underscore characters\n\n"
         exit 1
     fi
+
+    if [ "${#tag}" -gt 30 ]; then
+        printf "Stage tag must be 30 characters or less (${#tag})\n\n"
+        exit 1
+    fi
     # Underscores not valid semver
     version=$version-$(echo $tag | sed "s/_/-/g" | sed -E "s/-([0-9]+)$/.\1/")
+    # Check if the CDN tag has already been used before spending time on the webpack build
+    tagStatus=$(web status $tag 2>&1)
+    if [[ $tagStatus =~ "✔ Complete" ]]; then
+        printf "Stage tag already exists and must be unique ($tag)\n\n"
+        exit 1
+    fi
 fi
 
 if [[ ! -z "$testEnv" ]]; then
@@ -79,6 +92,7 @@ filteredModule="${filteredModule:1}"
 # Optional webpack args
 [[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
 [[ ! -z "$testEnv" ]] && optionalArgs+=("--env.TEST_ENV=https://www.$testEnv")
+[[ $devTouchpoint = true ]] && optionalArgs+=("--env.DEV_TOUCHPOINT")
 
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
@@ -127,20 +141,26 @@ if [ ! -z "$tag" ]; then
     sed -i.bak "s/env.STAGE_TAG/'$tag'/" ./globals.js
     sed -i.bak "s/env.VERSION/'$version'/" ./globals.js
     [[ ! -z "$testEnv" ]] && sed -i.bak "s/env.TEST_ENV/'https:\/\/www.$testEnv'/" ./globals.js
+    [[ $devTouchpoint = true ]] && sed -i '' "s/env.DEV_TOUCHPOINT/true/" ./globals.js
     # Pack the library module similar to publishing the module to npm
-    npm pack
+    npm pack --quiet > /dev/null
     mv ./*.tgz ./dist/bizcomponents/stage/package.tgz
     # Reset the manual variables
     sed -i.bak "s/'$tag'/env.STAGE_TAG/" ./globals.js
     sed -i.bak "s/'$version'/env.VERSION/" ./globals.js
     [[ ! -z "$testEnv" ]] && sed -i.bak "s/'https:\/\/www.$testEnv'/env.TEST_ENV/" ./globals.js
+    [[ $devTouchpoint = true ]] && sed -i '' "s/__DEV_TOUCHPOINT__: true/__DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT/" ./globals.js
 
     # remove temporary file if it exists
     rm globals.js.bak &> /dev/null
     
     printf "\nweb stage --tag $tag\n"
     web stage --tag "$tag"
-    echo "https://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list"
+    printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 
-    rm ./dist/bizcomponents/stage/package.tgz
+    # Reset modified dist files
+    git checkout -- dist
+    # Remove new dist files
+    git clean -fd dist > /dev/null
 fi
+

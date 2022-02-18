@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { renderHook, act } from '@testing-library/preact-hooks';
-import { ServerDataProvider, useServerData } from 'src/components/lib/providers/serverData';
+import { ServerDataProvider, useServerData } from 'src/components/modal/lib/providers/serverData';
 
 describe('serverData', () => {
     test('useServerData can access and update ServerDataProvider', () => {

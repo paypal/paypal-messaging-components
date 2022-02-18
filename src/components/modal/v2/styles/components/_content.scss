@@ -1,0 +1,128 @@
+.content__container {
+    position: relative;
+    background: transparent;
+    box-sizing: border-box;
+    padding-top: 0;
+    background: $instructions-background;
+    padding-bottom: 1.5rem;
+    flex-grow: 1;
+    margin-top: -$sticky-header-radius;
+
+    @include lander {
+        margin-top: 0;
+        border-radius: 100px 0px;
+
+        @include mobile {
+            border-radius: 100px 0px 0px 0px;
+        }
+    }
+
+    main {
+        color: $legal-disclaimer;
+        padding-top: 0;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 100%;
+    }
+
+    .content__body {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .content__row {
+        &.dynamic {
+            display: flex;
+            flex-direction: row;
+            margin: 0 -20px;
+            background: white;
+            padding-bottom: 0.5rem;
+            padding-top: 1.5rem;
+            padding-left: 25px;
+            padding-right: 25px;
+            border-radius: 0 0 40px 0;
+
+            @include lander {
+                border-radius: 100px 0px 0px 0px;
+                @include mobile {
+                    border-radius: 40px 0px;
+                }
+            }
+            @include desktop {
+                height: 100%;
+
+                .content__col {
+                    width: 50%;
+                }
+            }
+        }
+
+        .content__col {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            @include mobile {
+                width: 100%;
+            }
+
+            &.collapsed {
+                &:last-child {
+                    @include desktop {
+                        position: absolute;
+                        right: 0;
+                    }
+                }
+            }
+
+            &:first-child {
+                @include tablet {
+                    align-items: center;
+                    width: 100%;
+                }
+            }
+
+            &:last-child {
+                @include tablet {
+                    display: none;
+                }
+                @include mobile {
+                    display: none;
+                }
+                @include smallMobile {
+                    display: none;
+                }
+            }
+        }
+
+        &.disclosure {
+            text-align: left;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            padding: 1rem 0 0rem;
+
+            @include desktop {
+                padding-top: 0px;
+                padding-left: 30px;
+                width: 90%;
+                font-size: 0.8rem;
+            }
+
+            @include tablet {
+                font-size: 0.75rem;
+                max-width: 315px;
+                margin: 0 auto;
+            }
+
+            &.collapsed {
+                @include desktop {
+                    width: 34%;
+                }
+            }
+        }
+    }
+}

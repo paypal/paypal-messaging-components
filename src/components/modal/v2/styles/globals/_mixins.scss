@@ -1,0 +1,77 @@
+// TODO: until PPUI has images for the universal modals, we will be using the tablet view for desktops.
+@mixin desktop {
+    @media (min-width: 99999999px) /* min-width: 1366px */ {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: 640px) /*and (max-width: 1365px) */ {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 639px) {
+        @content;
+    }
+}
+
+@mixin smallMobile {
+    @media (max-width: 350px) {
+        @content;
+    }
+}
+
+@mixin lander {
+    .lander & {
+        @content;
+    }
+}
+
+@mixin apiIframe {
+    .api-iframe & {
+        @content;
+    }
+}
+
+// Styles to create a fixed element that spans the full width of
+// the modal body content wrapper that accounts for the difference
+// between scrollbar widths across systems (e.g. Windows vs MacOS)
+@mixin fixedWrapper {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    // Prevent the wrapper from intercepting click events from the scrollbar
+    pointer-events: none;
+
+    @include tablet {
+        max-width: $content-wrapper-max-width-tablet;
+    }
+
+    @include desktop {
+        max-width: $content-wrapper-max-width-desktop;
+    }
+
+    @include apiIframe {
+        max-width: $content-wrapper-max-width-api-iframe;
+    }
+
+    :first-child {
+        pointer-events: all; // Enable pointer events for portion not blocking the scrollbar
+        flex: 1 1 100%;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        visibility: hidden;
+        overflow-y: scroll;
+
+        @include lander {
+            content: none; // Disable on lander since scrollbar exists at a different element
+        }
+    }
+}

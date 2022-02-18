@@ -1,11 +1,13 @@
-import setup from 'src/controllers/message/setup';
+import setup from 'src/library/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
-import Messages from 'src/controllers/message/interface';
+import Messages from 'src/library/controllers/message/interface';
 import { getGlobalState } from 'src/utils';
-import destroy from 'src/controllers/message/destroy';
+import destroy from 'src/library/controllers/message/destroy';
 
-jest.mock('src/controllers/message/interface', () => {
+jest.mock('src/library/zoid/message');
+
+jest.mock('src/library/controllers/message/interface', () => {
     const mockRender = jest.fn();
 
     return jest.fn(() => ({

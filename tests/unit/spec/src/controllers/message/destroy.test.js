@@ -1,4 +1,4 @@
-import destroy from 'src/controllers/message/destroy';
+import destroy from 'src/library/controllers/message/destroy';
 import { setGlobalState, getGlobalState } from 'src/utils';
 
 describe('message destroy', () => {

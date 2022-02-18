@@ -1,22 +1,23 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import 'core-js-pure/stable/object/entries';
-import arrayFrom from 'core-js-pure/stable/array/from';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import {
-    getClientID,
-    getEnv as getSDKEnv,
-    getFundingEligibility,
-    getMerchantID,
-    getNamespace as getSDKNamespace,
-    getPayPalDomain as getSDKPayPalDomain,
-    getSDKAttributes,
-    getSDKMeta,
-    getSDKQueryParam,
-    getSDKScript,
-    getSessionID as getSDKSessionID
-} from '@paypal/sdk-client/src';
+import arrayFrom from 'core-js-pure/stable/array/from';
+
 import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
+import {
+    getClientID,
+    getMerchantID,
+    getSDKScript,
+    getEnv as getSDKEnv,
+    getFundingEligibility,
+    getSDKMeta,
+    getSDKAttributes,
+    getSDKQueryParam,
+    getNamespace as getSDKNamespace,
+    getSessionID as getSDKSessionID,
+    getStorageID as getSDKStorageID,
+    getPayPalDomain as getSDKPayPalDomain
+} from '@paypal/sdk-client/src';
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -29,7 +30,12 @@ export function getEnv() {
 
 export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getFundingEligibility()?.paylater?.merchantConfigHash;
+        // TODO: remove getFundingEligibility call and try catch after globals swap
+        try {
+            return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+        } catch {
+            return getFundingEligibility()?.paylater?.merchantConfigHash;
+        }
     } else {
         return undefined;
     }
@@ -121,21 +127,37 @@ export function getSessionID() {
     }
 }
 
+// Retrieves storageID. NOTE: Creates new ID if not already in local storage.
+export function getOrCreateStorageID() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKStorageID();
+    } else {
+        return getStorage().getID();
+    }
+}
+
 export function isStorageFresh() {
     return getStorage().isStateFresh();
 }
 
+// Retrieve namespaced localStorage directly
+function getRawStorage() {
+    return isLocalStorageEnabled()
+        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
+        : {};
+}
+
 export function writeStorageID(storageID) {
-    // Do not write custom key within zoid components to ensure we use the child storage ID
-    if (isLocalStorageEnabled() && !isZoidComponent()) {
+    if (isLocalStorageEnabled()) {
         try {
-            // Use a separate key for deviceID to avoid disturbing the storageID
-            getStorage().getState(storage => {
-                // Updating the passed-in object will update the stored value
-                // see: https://github.com/krakenjs/belter/blob/master/src/storage.js
-                // eslint-disable-next-line no-param-reassign
-                storage.messagingDeviceID = storageID;
-            });
+            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
+            window.localStorage?.setItem(
+                `__${getNamespace()}_storage__`,
+                JSON.stringify({
+                    ...getRawStorage(),
+                    id: storageID
+                })
+            );
         } catch (e) {
             // Handle Errors
         }
@@ -187,6 +209,14 @@ export function getStageTag() {
         }
     } else {
         return undefined;
+    }
+}
+
+export function getDevTouchpoint() {
+    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        return true;
+    } else {
+        return undefined; // Prevent the zoid query param
     }
 }
 

@@ -54,6 +54,10 @@
             transform: scaleX(1);
         }
     }
+
+    &:focus {
+        outline: #005187 auto 5px;
+    }
 }
 
 .tab-transition {
