@@ -5,9 +5,11 @@ const { localeOptions } = require('./locales');
 
 module.exports = (env = {}) => {
     // messaging.js
-    const MESSAGES_CONFIG = getWebpackConfig({
-        entry: './src/index.js',
-        filename: 'messaging.js',
+    const MESSAGING_JS_CONFIG = getWebpackConfig({
+        entry: {
+            messaging: './src/library/messaging.js'
+        },
+        filename: '[name].js',
         // Need to explicitly disable this feature. The library has it's own
         // window bootstrap mechanism to attach multiple "exports" onto window.paypal
         libraryTarget: false,
@@ -22,8 +24,37 @@ module.exports = (env = {}) => {
         })
     });
 
+    const MODAL_JS_CONFIG = getWebpackConfig({
+        entry: {
+            modal: './src/library/modal.js'
+        },
+        filename: '[name].js',
+        // Need to explicitly disable this feature. The library has it's own
+        // window bootstrap mechanism to attach multiple "exports" onto window.paypal
+        libraryTarget: false,
+        web: true,
+        minify: true,
+        debug: false,
+        analyze: env.analyze,
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'standalone-modal'
+        })
+    });
+
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
+        entry: [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
+            (accumulator, locale) => ({
+                ...accumulator,
+                [`smart-credit-modal-${locale}`]: `././src/components/modal/content/${locale}/index.js`
+            }),
+            {
+                'smart-credit-message': './src/components/message/index.js',
+                'smart-credit-modal-v2': './src/components/modal/v2/index.js'
+            }
+        ),
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
@@ -34,41 +65,37 @@ module.exports = (env = {}) => {
         env: env.NODE_ENV,
         vars: globals({
             ...env,
-            TARGET: 'components'
+            TARGET: 'component'
         })
     });
 
-    COMPONENTS_CONFIG.entry = [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
-        (accumulator, locale) => ({
-            ...accumulator,
-            [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
-        }),
-        {}
-    );
-
-    const MESSAGING_COMPONENTS_CONFIG = getWebpackConfig({
+    const LANDER_COMPONENTS_CONFIG = getWebpackConfig({
+        entry: {
+            'smart-credit-modal-v2-lander': './src/components/modal/v2/index.js'
+        },
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
         minify: true,
         debug: false,
         analyze: env.analyzeComponents,
-        entry: './src/components/message/index.js',
-        filename: 'smart-credit-message.js',
+        filename: '[name].js',
         env: env.NODE_ENV,
         vars: globals({
             ...env,
-            TARGET: 'messagingComponent'
+            TARGET: 'lander'
         })
     });
 
     const RENDERING_CONFIG = getWebpackConfig({
-        entry: ['./server/index.js'],
+        entry: {
+            renderMessage: './src/server/index.js'
+        },
         libraryTarget: 'commonjs',
         modulename: 'renderMessage',
         minify: true,
         debug: false,
-        filename: 'renderMessage.js',
+        filename: '[name].js',
         env: env.NODE_ENV,
         vars: globals({
             ...env,
@@ -77,8 +104,8 @@ module.exports = (env = {}) => {
     });
 
     const modules = {
-        library: [MESSAGES_CONFIG],
-        components: [COMPONENTS_CONFIG, MESSAGING_COMPONENTS_CONFIG],
+        library: [MESSAGING_JS_CONFIG, MODAL_JS_CONFIG],
+        components: [COMPONENTS_CONFIG, LANDER_COMPONENTS_CONFIG],
         render: [RENDERING_CONFIG]
     };
 

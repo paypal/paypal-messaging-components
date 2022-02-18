@@ -1,7 +1,7 @@
-import validateStyle from '../../../../server/validateStyle';
-import { getValidOptions } from '../../../../server/locale';
+import validateStyle from 'server/validateStyle';
+import { getValidOptions } from 'server/locale';
 
-jest.mock('../../../../server/message/logos.js', () => ({
+jest.mock('server/message/logos.js', () => ({
     __esModule: true,
     default: {
         PP_PAYPAL: {

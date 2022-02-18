@@ -1,0 +1,131 @@
+@import '../../../styles/globals/colors';
+@import '../../../styles/globals/mixins';
+
+.content__container {
+    .content__body {
+        @include desktop {
+            padding: 0px;
+        }
+
+        @include tablet {
+            margin-top: 0px;
+        }
+
+        @include mobile {
+            margin-top: 0px;
+        }
+
+        .content__row {
+            .content__col {
+                flex-wrap: wrap;
+                flex-direction: initial;
+            }
+
+            .donuts {
+                display: flex;
+                align-items: center;
+                background-color: #ffffff;
+                border-radius: 0 0 40px 0;
+                min-height: 10em;
+                width: 100%;
+
+                @include desktop {
+                    min-height: 5em;
+                    top: 0;
+                    margin-bottom: 0px;
+                    background-color: transparent;
+                }
+
+                &__container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    max-width: 360px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+
+                    @include desktop {
+                        transform: translate(0px, 1rem);
+                        position: relative;
+                        top: 30px;
+                    }
+
+                    @include tablet {
+                        max-width: 320px;
+                    }
+
+                    @include smallMobile {
+                        padding: 0px;
+                    }
+                }
+
+                @include lander {
+                    @include tablet {
+                        border-radius: 100px 0px 0px 0px;
+                    }
+                }
+            }
+
+            &.dynamic {
+                position: relative;
+                box-sizing: border-box;
+                background-color: transparent;
+                padding: 0;
+
+                @include desktop {
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+                    height: 600px;
+                    background-color: #fff;
+                }
+
+                &.collapsed {
+                    max-width: 445px;
+                }
+
+                .branded-image {
+                    display: flex;
+                    margin-top: 56px;
+                }
+            }
+
+            &.instructions {
+                padding: 0 25px;
+
+                @include desktop {
+                    max-width: 340px;
+                }
+
+                @include tablet {
+                    padding: 0 75px;
+                    max-width: initial;
+                }
+
+                ol.collapsed {
+                    @include desktop {
+                        width: 100%;
+                    }
+
+                    .instructions__bullet {
+                        @include desktop {
+                            line-height: 25px;
+                        }
+                    }
+
+                    li {
+                        font-size: 1.125rem;
+                        line-height: 24px;
+                    }
+                }
+            }
+
+            &.disclosure {
+                @include desktop {
+                    padding-top: 16px;
+                }
+            }
+        }
+    }
+}
