@@ -37,8 +37,7 @@ export function getRequestDuration() {
         .filter(
             ({ name, entryType }) =>
                 (entryType === 'navigation' || entryType === 'resource') &&
-                (`${name}`.indexOf('/credit-presentment/smart/message') > -1 ||
-                    `${name}`.indexOf('/credit-presentment/renderMessage') > -1)
+                `${name}`.indexOf('/credit-presentment/smart/message') > -1
         );
 
     const [{ requestStart, responseStart }] = [...requests.slice(-1), {}];
