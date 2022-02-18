@@ -205,6 +205,16 @@ export default {
 
         return undefined;
     },
+    nonce: ({ props: { nonce } }) => {
+        if (typeof nonce !== 'undefined') {
+            if (!validateType(Types.STRING, nonce)) {
+                logInvalidType('nonce', Types.STRING, nonce);
+            } else {
+                return nonce;
+            }
+        }
+        return undefined;
+    },
     merchantConfig: ({ props: { merchantConfig } }) => {
         if (typeof merchantConfig !== 'undefined') {
             if (!validateType(Types.STRING, merchantConfig)) {

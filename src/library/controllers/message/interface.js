@@ -82,7 +82,8 @@ export default (options = {}) => ({
                     onClick,
                     onRender,
                     onApply,
-                    channel
+                    channel,
+                    nonce
                 } = merchantOptions;
 
                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -95,7 +96,8 @@ export default (options = {}) => ({
                     amount,
                     buyerCountry,
                     ignoreCache,
-                    channel
+                    channel,
+                    nonce
                 };
                 const modalProps = {
                     ...commonProps,
