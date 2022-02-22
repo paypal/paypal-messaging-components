@@ -3,7 +3,6 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from 'zoid/src';
 import { uniqueID, getCurrentScriptUID } from 'belter/src';
-import { getCSPNonce } from '@paypal/sdk-client/src';
 
 import {
     getMeta,
@@ -20,6 +19,7 @@ import {
     getDeviceID,
     getStageTag,
     getFeatures,
+    getNonce,
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint
@@ -397,7 +397,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             },
             nonce: {
                 type: 'string',
-                default: getCSPNonce,
+                default: getNonce,
                 value: validate.nonce
             }
         }

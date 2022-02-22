@@ -140,7 +140,7 @@ export default ({ doc, props, event }) => {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <style>{styles}</style>
+            <style nonce={props.nonce}>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
                     <div class="overlay" onClick={closeModal} />
