@@ -2,7 +2,6 @@ import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from 'zalgo-promise/src';
 import { uniqueID, getCurrentScriptUID } from 'belter/src';
 import { create } from 'zoid/src';
-import { getCSPNonce } from '@paypal/sdk-client/src';
 
 import {
     getMeta,
@@ -434,11 +433,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: () => __MESSAGES__.__TARGET__
-            },
-            nonce: {
-                type: 'string',
-                default: getCSPNonce,
-                value: validate.nonce
             }
         }
     })

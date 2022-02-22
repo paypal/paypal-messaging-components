@@ -5,6 +5,7 @@ import {
     getAccount,
     getCurrency,
     getPartnerAccount,
+    getNonce,
     getInsertionObserver,
     isZoidComponent,
     ppDebug,
@@ -29,6 +30,7 @@ export default function setup() {
         Messages.setGlobalConfig({
             account: partnerAccount || getAccount(),
             merchantId: partnerAccount && getAccount(),
+            nonce: getNonce(),
             currency: getCurrency(),
             ...inlineScriptOptions
         });
