@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useCalculator, getComputedVariables } from '../../../lib';
+import { useXProps, useServerData, useCalculator, getComputedVariables } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -9,11 +9,11 @@ import Button from '../../Button';
 
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, linkToProductList, cta },
-    openProductList,
-    productViews
+    openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
+    const { views } = useServerData();
     const {
         view: { offers }
     } = useCalculator();
@@ -64,7 +64,7 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        if (productViews?.length > 1) {
+        if (views?.length > 2) {
             return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;

@@ -19,7 +19,6 @@ const BodyContent = () => {
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
 
-    const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
     const primaryViewName = useMemo(() => {
         if (offer) {
             const viewName = views.find(view => view.meta.product === offer)?.meta.product;
@@ -30,6 +29,7 @@ const BodyContent = () => {
         }
 
         let defaultViewName;
+        const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
         if (productViews?.length === 1) {
             defaultViewName = productViews[0]?.meta?.product;
         } else if (productViews?.length > 1) {
@@ -68,20 +68,11 @@ const BodyContent = () => {
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
-        PAY_LATER_LONG_TERM: (
-            <LongTerm content={content} openProductList={openProductList} productViews={productViews} />
-        ),
+        PAY_LATER_LONG_TERM: <LongTerm content={content} openProductList={openProductList} />,
         PAY_LATER_SHORT_TERM: (
-            <ShortTerm
-                content={content}
-                productMeta={productMeta}
-                openProductList={openProductList}
-                productViews={productViews}
-            />
+            <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
         ),
-        PAYPAL_CREDIT_NO_INTEREST: (
-            <NI content={content} openProductList={openProductList} productViews={productViews} />
-        ),
+        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} openProductList={openProductList} />,
         PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />
     };
 

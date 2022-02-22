@@ -6,18 +6,18 @@ import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
-import { useApplyNow } from '../../../lib';
+import { useServerData, useApplyNow } from '../../../lib';
 
 export const NI = ({
     content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
-    openProductList,
-    productViews
+    openProductList
 }) => {
+    const { views } = useServerData();
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
     const renderProductListLinkItem = () => {
-        if (productViews?.length > 1) {
+        if (views?.length > 2) {
             return (
                 <li className="content__footer-item">
                     <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
