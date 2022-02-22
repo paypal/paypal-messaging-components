@@ -18,7 +18,6 @@ const BodyContent = () => {
     const { offer } = useXProps();
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
-
     const primaryViewName = useMemo(() => {
         if (offer) {
             const viewName = views.find(view => view.meta.product === offer)?.meta.product;
