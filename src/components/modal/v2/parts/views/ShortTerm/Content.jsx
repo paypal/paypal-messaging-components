@@ -8,17 +8,14 @@ import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
-import { useServerData } from '../../../lib/providers';
-
 export const ShortTerm = ({
     content: { instructions, linkToProductList, disclosure, donutTimestamps },
     productMeta: { qualifying, periodicPayment },
-    openProductList
+    openProductList,
+    productViews
 }) => {
-    const { views } = useServerData();
-
     const renderProductListLink = () => {
-        if (views?.length > 1) {
+        if (productViews?.length > 1) {
             return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
