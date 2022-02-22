@@ -3,7 +3,11 @@ import { h } from 'preact';
 
 const Instructions = ({ instructions, expandedState = false }) => {
     const renderBullet = index => {
-        return <div className="instructions__bullet">{index}</div>;
+        return (
+            <div className="instructions__bullet">
+                <span>{index}</span>
+            </div>
+        );
     };
 
     return (

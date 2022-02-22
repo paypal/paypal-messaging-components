@@ -1,12 +1,12 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
 
 import PI30 from './Pi30';
 import GPL from './GPL';
 import ProductList from './ProductList';
-import { useServerData, useXProps, useTransitionState } from '../../../lib';
+import { useServerData, useXProps, useTransitionState, useDidUpdateEffect } from '../../../lib';
 import { getStandardProductOffer } from '../../../../../utils';
 
 const Content = () => {
@@ -14,10 +14,21 @@ const Content = () => {
     const { offer, amount, onClick } = useXProps();
     const [transitionState] = useTransitionState();
     const product = getStandardProductOffer(offer);
-    const initialProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-    const [selectedProduct, selectProduct] = useState(initialProduct.meta.product);
     // Product List should be displayed when no amount and GPL + PI30 are available.
     const productNames = products.map(theProduct => theProduct.meta.product);
+
+    // calculate what the inital product should be
+    // will change based on offer and products avaliable
+    const initialProduct =
+        productNames.includes('GPL') && productNames.includes('PI30') && (typeof amount === 'undefined' || amount === 0)
+            ? 'none'
+            : (
+                  arrayFind(products, theProduct => getStandardProductOffer(theProduct.meta.product) === product) ||
+                  products[0]
+              ).meta.product;
+
+    const [selectedProduct, selectProduct] = useState(initialProduct);
+
     // Tracking for Product List clicks (button clicks) and for buttons that appear as links
     const buttonClick = theProduct => {
         onClick({ linkName: theProduct, src: 'button_click' });
@@ -29,18 +40,17 @@ const Content = () => {
         selectProduct(theProduct);
     };
 
-    useEffect(() => {
-        const fullProduct = arrayFind(products, prod => prod.meta.product === product) || products[0];
-        selectProduct(fullProduct.meta.product);
-        if (productNames.includes('GPL') && productNames.includes('PI30')) {
-            if (typeof amount === 'undefined' || amount === 0) {
-                selectProduct('none');
-            }
-        }
+    // if the inital product changes lets re-calculate what the inital product was
+    useDidUpdateEffect(() => {
+        selectProduct(initialProduct);
+    }, [initialProduct]);
+
+    useDidUpdateEffect(() => {
+        // on close go back to the original product
         if (transitionState === 'CLOSED') {
-            selectProduct(initialProduct.meta.product);
+            selectProduct(initialProduct);
         }
-    }, [transitionState, product]);
+    }, [transitionState]);
 
     const classNames = ['content'];
 
