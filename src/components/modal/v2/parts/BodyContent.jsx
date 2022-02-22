@@ -35,6 +35,7 @@ const BodyContent = () => {
         } else if (productViews?.length > 1) {
             defaultViewName = 'PRODUCT_LIST';
         }
+
         return defaultViewName;
     }, [offer, ...views.map(view => view?.meta?.product)]);
 
