@@ -149,6 +149,8 @@ describe('client callbacks', () => {
 
     beforeEach(async () => {
         await page.goto(`https://localhost.paypal.com:8080/blank.html`);
+        await page.exposeFunction(`getContext`, getContext);
+        await page.exposeFunction(`delay`, delay);
     });
 
     // Check that we can write a callback function on the message html tag
@@ -157,8 +159,6 @@ describe('client callbacks', () => {
         'inline attribute',
         'script'
     ])('%s', async method => {
-        await page.exposeFunction(`getContext`, getContext);
-        await page.exposeFunction(`delay`, delay);
         const {
             onEvents: {
                 onRender: { outValue: renderOutput },
