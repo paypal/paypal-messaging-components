@@ -73,7 +73,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
-            <style nonce={props.nonce}>{baseStyles}</style>
+            <style nonce={props.cspNonce}>{baseStyles}</style>
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>

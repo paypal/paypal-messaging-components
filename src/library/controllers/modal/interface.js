@@ -32,7 +32,7 @@ const memoizedModal = memoizeOnProps(
         onApply,
         onClose,
         channel,
-        nonce,
+        cspNonce,
         integrationIdentifier
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
@@ -51,7 +51,7 @@ const memoizedModal = memoizeOnProps(
             onApply,
             onClose,
             channel,
-            nonce,
+            cspNonce,
             integrationIdentifier
         });
         // Fired from inside the default onReady callback

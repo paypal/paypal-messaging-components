@@ -106,9 +106,6 @@ export default ({ doc, props, event }) => {
             top: 67%;
             left: 50%;
             margin-left: -60px;
-        }
-
-        .error-initial{
             display: none
         }
 
@@ -143,7 +140,7 @@ export default ({ doc, props, event }) => {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <style nonce={props.nonce}>{styles}</style>
+            <style nonce={props.cspNonce}>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
                     <div class="overlay" onClick={closeModal} />
@@ -152,7 +149,7 @@ export default ({ doc, props, event }) => {
                         <div class="close-button">
                             <button onClick={closeModal} type="button" />
                         </div>
-                        <div class="error error-initial"></div>
+                        <div class="error"></div>
                         <Spinner nonce={props.nonce} />
                     </div>
                 </div>

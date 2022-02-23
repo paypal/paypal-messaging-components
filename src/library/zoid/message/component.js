@@ -435,10 +435,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: () => __MESSAGES__.__TARGET__
             },
-            nonce: {
+            cspNonce: {
                 type: 'string',
+                required: false,
                 default: getNonce,
-                value: validate.nonce
+                value: validate.cspNonce
             }
         }
     })

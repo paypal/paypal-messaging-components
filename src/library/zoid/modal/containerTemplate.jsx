@@ -12,7 +12,7 @@ import { createTitleGenerator, viewportHijack } from '../../../utils';
 const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, state, props: { nonce } }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce } }) => {
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {
@@ -77,7 +77,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { nonce 
     // helps to protect our desired styles.
     return (
         <div id={uid} class={CLASS.HIDDEN} onRender={handleRender}>
-            <style nonce={nonce}>
+            <style nonce={cspNonce}>
                 {`
                     #${uid}.${CLASS.HIDDEN} {
                         visibility: hidden;

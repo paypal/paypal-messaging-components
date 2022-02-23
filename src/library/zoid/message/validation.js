@@ -205,12 +205,12 @@ export default {
 
         return undefined;
     },
-    nonce: ({ props: { nonce } }) => {
-        if (typeof nonce !== 'undefined') {
-            if (!validateType(Types.STRING, nonce)) {
-                logInvalidType('nonce', Types.STRING, nonce);
+    cspNonce: ({ props: { cspNonce } }) => {
+        if (typeof cspNonce !== 'undefined') {
+            if (!validateType(Types.STRING, cspNonce)) {
+                logInvalidType('cspNonce', Types.STRING, cspNonce);
             } else {
-                return nonce;
+                return cspNonce;
             }
         }
         return undefined;
