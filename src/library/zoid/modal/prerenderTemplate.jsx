@@ -4,7 +4,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/style-prop-object */
 /* eslint-disable react/no-unknown-property */
 /** @jsx node */
 import { node, dom } from 'jsx-pragmatic/src';
@@ -109,6 +108,10 @@ export default ({ doc, props, event }) => {
             margin-left: -60px;
         }
 
+        .error-initial{
+            display: none
+        }
+
         @media (max-width: 639px), (max-height: 539px){
             .modal{
                 overflow-y: hidden;
@@ -149,7 +152,7 @@ export default ({ doc, props, event }) => {
                         <div class="close-button">
                             <button onClick={closeModal} type="button" />
                         </div>
-                        <div class="error" style="display: none"></div>
+                        <div class="error error-initial"></div>
                         <Spinner nonce={props.nonce} />
                     </div>
                 </div>

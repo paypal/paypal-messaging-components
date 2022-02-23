@@ -95,6 +95,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { nonce 
                     #${uid} > div {
                         background: rgba(108, 115, 120, 0);
                         transition: background ${TRANSITION_DELAY}ms linear;
+                        ${fullScreen('fixed')}
                     }
 
                     #${uid} > div.${CLASS.MODAL_SHOW} {
@@ -126,7 +127,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { nonce 
                     }
                 `}
             </style>
-            <div style={fullScreen('fixed')}>
+            <div>
                 <node el={frame} title={modalTitle} />
                 <node el={prerenderFrame} title={`Prerender ${modalTitle}`} />
             </div>
