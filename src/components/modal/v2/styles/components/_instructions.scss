@@ -1,0 +1,102 @@
+.instructions {
+    text-align: left;
+    box-sizing: border-box;
+
+    @include desktop {
+        padding-left: 30px;
+    }
+
+    @include tablet {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    ol {
+        padding: 15px 0px 0px;
+        @include desktop {
+            padding: 25px 0px 0px;
+        }
+        @include tablet {
+            max-width: 315px;
+        }
+        &.collapsed {
+            @include desktop {
+                width: 34%;
+            }
+        }
+    }
+    li {
+        color: black;
+        list-style: none;
+        font-size: 0.9rem;
+
+        @include desktop {
+            padding-bottom: 25px;
+        }
+
+        @include tablet {
+            padding-bottom: 32px;
+        }
+
+        @include mobile {
+            padding-bottom: 25px;
+        }
+        @include smallMobile {
+            padding-bottom: 35px;
+        }
+    }
+
+    .instructions__item-wrapper {
+        display: flex;
+        flex-direction: row;
+
+        &:last-child {
+            li {
+                @include tablet {
+                    padding-bottom: 0px;
+                }
+                @include mobile {
+                    padding-bottom: 0px;
+                }
+            }
+        }
+    }
+
+    .instructions__bullet {
+        font-size: 15px;
+        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+        color: white;
+        margin-right: 1.5rem;
+
+        span {
+            position: relative;
+            z-index: 1;
+
+            &::after {
+                content: '';
+                display: block;
+                width: 25px;
+                height: 25px;
+                background: $dark-blue;
+                border-radius: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+            }
+        }
+
+        // line-height: 25px;
+    }
+
+    @include lander {
+        @include tablet {
+            margin: 0px;
+        }
+        @include mobile {
+            margin: 0px;
+        }
+    }
+}

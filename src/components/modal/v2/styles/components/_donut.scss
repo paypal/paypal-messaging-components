@@ -1,0 +1,80 @@
+@import '../globals/mixins';
+
+$webpage: 1640px;
+$green500: #00cf92;
+$grey300: #dbd8d0;
+$grey600: #888;
+
+.donut__single_payment {
+    display: flex;
+    flex-direction: column;
+
+    @include mobile {
+        width: 70px;
+    }
+
+    width: 72px;
+
+    svg {
+        max-width: 64px;
+    }
+
+    &.donut__qualifying_payment {
+        svg {
+            text {
+                color: $terms-details;
+                transform: translate(1px, 3px);
+            }
+        }
+    }
+
+    svg {
+        width: 100%;
+
+        text {
+            font-size: 0.5rem;
+            line-height: 20px;
+            font-family: PayPalSansBig;
+            font-weight: 600;
+            color: $terms-details;
+        }
+
+        .donut__background {
+            stroke: $grey300;
+        }
+
+        .donut__percent {
+            stroke: $green500;
+        }
+    }
+
+    span {
+        display: block;
+        text-align: center;
+        font-size: 0.875rem;
+        line-height: 20px;
+
+        @media all and (min-width: $webpage) {
+            font-size: 1.125rem;
+            line-height: 24px;
+        }
+
+        &.donut__payment {
+            font-family: PayPalSansBig;
+            font-weight: 600;
+
+            @media all and (min-width: $webpage) {
+                margin-top: 0.25rem;
+            }
+        }
+
+        &.donut__timestamp {
+            color: $terms-details;
+            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+            @include desktop {
+                font-size: 1.125rem;
+                line-height: 24px;
+            }
+        }
+    }
+}
