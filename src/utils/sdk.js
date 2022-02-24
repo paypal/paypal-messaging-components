@@ -52,7 +52,11 @@ export function getAccount() {
 }
 
 export function getNonce() {
-    return getCSPNonce() ?? '';
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getCSPNonce() ?? '';
+    } else {
+        return undefined;
+    }
 }
 
 // Partner accounts should always integrate using client id so no need to prefix it with 'client-id:'
