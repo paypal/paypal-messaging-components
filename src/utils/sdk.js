@@ -53,7 +53,7 @@ export function getAccount() {
 
 export function getNonce() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getCSPNonce() ?? '';
+        return getCSPNonce();
     } else {
         return undefined;
     }
