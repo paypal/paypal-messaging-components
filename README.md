@@ -82,8 +82,8 @@ npm start
 ### Functional
 
 1. Run `npm run dev:ci` in one command line instance
-2. In a second window run the below command, which runs tests for a specific integrationType
-    - integrationType is one of: `api`, `sdk`, `standalone`, or `webpage`
+2. In a second window run the below command, which runs tests for a specific `integrationType`
+    - `integrationType` is one of: `api`, `sdk`, `standalone`, or `webpage`
 
 ```
 CONFIG_PATH={locale}/{account} npm run test:func:snapshots -- --testPathPattern {integrationType}
