@@ -169,6 +169,7 @@ jobs:
                       mkdir -p "${{ github.workspace }}/$newDir"
                       mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                   done
+                  mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
 
             - name: Save Snapshot Artifact
               if: steps.artifactInputs.outputs.skip != 'true'
