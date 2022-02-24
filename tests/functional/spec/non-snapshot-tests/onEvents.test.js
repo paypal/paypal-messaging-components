@@ -29,72 +29,70 @@ const getContext = () => {
 
 // Add a message banner with attached callbacks
 const renderMessage = async method => {
-    switch (method) {
-        case 'inline attribute':
-            return page.evaluate(async () => {
-                const {
-                    onEvents,
-                    config: {
-                        account,
-                        amount,
-                        style: { layout }
-                    }
-                } = await getContext();
+    if (method === 'inline attribute') {
+        return page.evaluate(async () => {
+            const {
+                onEvents,
+                config: {
+                    account,
+                    amount,
+                    style: { layout }
+                }
+            } = await getContext();
 
-                const div = document.createElement('div');
-                div.setAttribute('data-pp-account', account);
-                div.setAttribute('data-pp-amount', amount);
-                div.setAttribute('data-pp-style-layout', layout);
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-account', account);
+            div.setAttribute('data-pp-amount', amount);
+            div.setAttribute('data-pp-style-layout', layout);
 
-                // add a callback function for each event
-                Object.values(onEvents).forEach(({ tagAttribute, inValue }) => {
-                    div.setAttribute(tagAttribute, inValue);
-                });
-
-                document.body.appendChild(div);
-                await delay(200);
-
-                div.setAttribute('data-pp-message', '');
-                await delay(2000);
+            // add a callback function for each event
+            Object.values(onEvents).forEach(({ tagAttribute, inValue }) => {
+                div.setAttribute(tagAttribute, inValue);
             });
-        default:
-            return page.evaluate(async () => {
-                const { onEvents, config } = await getContext();
 
-                // given a json object, stringify it so it can be interpreted within an html script tag
-                const writeMsgConfig = ({ ...cfg }) => {
-                    const transcribeFunctions = (key, val) =>
-                        Object.keys(onEvents).includes(key) ? `function (){ ${val} }` : val;
-                    // remove the quotes surrounding the stringified callback function
-                    return JSON.stringify(cfg, transcribeFunctions, '     ').replace(/"(function.+?)"/g, '$1');
-                };
+            document.body.appendChild(div);
+            await delay(200);
 
-                const div = document.createElement('div');
-                div.setAttribute('id', 'message');
-                document.body.appendChild(div);
-                await delay(200);
+            div.setAttribute('data-pp-message', '');
+            await delay(2000);
+        });
+    }
+    return page.evaluate(async () => {
+        const { onEvents, config } = await getContext();
 
-                const script = document.createElement('script');
+        // given a json object, stringify it so it can be interpreted within an html script tag
+        const writeMsgConfig = ({ ...cfg }) => {
+            const transcribeFunctions = (key, val) =>
+                Object.keys(onEvents).includes(key) ? `function (){ ${val} }` : val;
+            // remove the quotes surrounding the stringified callback function
+            return JSON.stringify(cfg, transcribeFunctions, '     ').replace(/"(function.+?)"/g, '$1');
+        };
 
-                const eventCallbacks = Object.entries(onEvents).reduce((acc, [name, { inValue }]) => {
-                    // get a json object pairing the events to what we want them to execute
-                    return {
-                        ...acc,
-                        [name]: inValue
-                    };
-                }, {});
+        const div = document.createElement('div');
+        div.setAttribute('id', 'message');
+        document.body.appendChild(div);
+        await delay(200);
 
-                // Create the interior of the script function so that we create
-                // a paypal message with attached callback events
-                script.innerHTML = `
+        const script = document.createElement('script');
+
+        const eventCallbacks = Object.entries(onEvents).reduce((acc, [name, { inValue }]) => {
+            // get a json object pairing the events to what we want them to execute
+            return {
+                ...acc,
+                [name]: inValue
+            };
+        }, {});
+
+        // Create the interior of the script function so that we create
+        // a paypal message with attached callback events
+        script.innerHTML = `
                 paypal.Message(
                 ${writeMsgConfig({ ...config, ...eventCallbacks })},
                 ).render('#message')`;
 
-                document.body.appendChild(script);
-                await delay(2000);
-            });
-    }
+        document.body.appendChild(script);
+        await delay(2000);
+    });
 };
 
 // Click the message banner to open the modal
