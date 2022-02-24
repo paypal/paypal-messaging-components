@@ -151,10 +151,10 @@ jobs:
                   ARTIFACT_PATH="snapshotsV2/"
                   echo "::set-output name=path::$ARTIFACT_PATH"
 
-                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots' | sed -E "s/^.{3}//")
+                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
                   echo "$UPDATED_SNAPSHOTS" | while read -r path
                   do
-                      newpath=$(echo $path | sed -E "s/^.+(snapshotsV2.+)$/\\1/")
+                      newpath=$(echo $path | sed -E "s/^.+(snapshots.+)$/\\1/")
                       newdir=$(echo $newpath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
                       mkdir -p "${{ github.workspace }}/$newdir"
