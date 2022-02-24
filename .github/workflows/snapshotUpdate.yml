@@ -41,7 +41,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: metadata
-                  path: workflow/metadata/
+                  filePath: workflow/metadata/
 
     updateSnapshots:
         name: Update
@@ -86,16 +86,16 @@ jobs:
                   echo "::set-output name=name::$ARTIFACT_NAME"
 
                   ARTIFACT_PATH="snapshots/"
-                  echo "::set-output name=path::$ARTIFACT_PATH"
+                  echo "::set-output name=filePath::$ARTIFACT_PATH"
 
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots' | sed -E "s/^.{3}//")
-                  echo "$UPDATED_SNAPSHOTS" | while read -r path
+                  echo "$UPDATED_SNAPSHOTS" | while read -r filePath
                   do
-                      newpath=$(echo $path | sed -E "s/^.+(snapshots.+)$/\\1/")
-                      newdir=$(echo $newpath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+                      newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
-                      mkdir -p "${{ github.workspace }}/$newdir"
-                      mv "${{ github.workspace }}/$path" "${{ github.workspace }}/$newpath"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                   done
 
             - name: Save Snapshot Artifact
@@ -103,7 +103,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
-                  path: ${{ steps.artifactInputs.outputs.path }}
+                  filePath: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
 
     updateSnapshotsV2:
@@ -149,16 +149,18 @@ jobs:
                   echo "::set-output name=name::$ARTIFACT_NAME"
 
                   ARTIFACT_PATH="snapshotsV2/"
-                  echo "::set-output name=path::$ARTIFACT_PATH"
+                  echo "::set-output name=filePath::$ARTIFACT_PATH"
 
+                  # even though we're not committing files here, this forces git to list full file paths, not folders
+                  git add .
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
-                  echo "$UPDATED_SNAPSHOTS" | while read -r path
+                  echo "$UPDATED_SNAPSHOTS" | while read -r filePath
                   do
-                      newpath=$(echo $path | sed -E "s/^.+(snapshots.+)$/\\1/")
-                      newdir=$(echo $newpath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+                      newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
-                      mkdir -p "${{ github.workspace }}/$newdir"
-                      mv "${{ github.workspace }}/$path" "${{ github.workspace }}/$newpath"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                   done
 
             - name: Save Snapshot Artifact
@@ -166,5 +168,5 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
-                  path: ${{ steps.artifactInputs.outputs.path }}
+                  filePath: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
