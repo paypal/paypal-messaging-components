@@ -37,7 +37,8 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             page.close();
         });
 
-        test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
+        // enable these tests after generic BNPL message works with DEV_US_MULTI
+        test.skip(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
             await openProductListView(
                 modalFrame,
                 modalContent,
@@ -45,11 +46,11 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             );
         });
 
-        test(`Amount:${amount} - Product list tiles send user to correct view - ${viewport}`, async () => {
+        test.skip(`Amount:${amount} - Product list tiles send user to correct view - ${viewport}`, async () => {
             await clickProductListTiles(modalFrame, modalContent);
         });
 
-        test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
+        test.skip(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
             await viewsShareAmount(modalFrame, getTestName(country, integration, account, amount, viewport));
         });
 
