@@ -41,7 +41,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: metadata
-                  filePath: workflow/metadata/
+                  path: workflow/metadata/
 
     updateSnapshots:
         name: Update
@@ -153,10 +153,17 @@ jobs:
 
                   # even though we're not committing files here, this forces git to list full file paths, not folders
                   git add .
+
+                  # porcelain flag makes "git status" easy to interpret for scripts. grep searches for snapshot files
+                  # sed removes the initial 3 characters of "git status", which show the state of the file
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
                   echo "$UPDATED_SNAPSHOTS" | while read -r filePath
                   do
+                      # newPath is the new top level file path
+                      # ex: snapshots/{picType}/{integrationType}/{locale}/{account}/{screenType}/{fileName}
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+
+                      # newDir chops off {fileName} from {newPath}
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
                       mkdir -p "${{ github.workspace }}/$newDir"
@@ -168,5 +175,5 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
-                  filePath: ${{ steps.artifactInputs.outputs.filePath }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
