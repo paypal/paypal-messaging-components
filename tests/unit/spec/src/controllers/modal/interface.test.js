@@ -31,12 +31,6 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
-const onEvents = {
-    onRender: jest.fn(),
-    onClick: jest.fn(),
-    onApply: jest.fn()
-};
-
 const clearMocks = () => {
     logger.track.mockClear();
 
@@ -45,7 +39,6 @@ const clearMocks = () => {
     getModalComponent()().hide.mockClear();
     getModalComponent()().event.trigger.mockClear();
     getModalComponent().mockClear();
-    Object.values(onEvents).forEach(fn => fn.mockClear());
 };
 
 describe('modal interface', () => {
