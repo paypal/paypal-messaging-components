@@ -81,9 +81,10 @@ const Container = ({ children }) => {
     useEffect(() => {
         setupTabTrap();
     }, []);
+
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
-            <div className={`modal-wrapper ${isLander && !isIframe ? 'lander' : ''} ${loading ? 'loading' : ''}`}>
+            <div className={`modal-wrapper${loading ? ' loading' : ''}`}>
                 {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />

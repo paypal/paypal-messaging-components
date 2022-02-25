@@ -63,8 +63,6 @@
                 }
             }
 
- 
-            
             .button {
                 padding: 15px 100px 15px 100px;
 
@@ -74,22 +72,17 @@
                 }
             }
             .button__fixed-wrapper {
-                @include tablet {
-                    @include fixedWrapper;
+                @include fixedWrapper;
+                bottom: 0;
+                z-index: 1;
 
-                    bottom: 5vh;
+                @include tablet {
                     border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
                     overflow: hidden;
 
                     @include lander {
-                        bottom: 0;
                         border-radius: 0;
                     }
-                }
-
-                @include mobile {
-                    @include fixedWrapper;
-                    bottom: 0;
                 }
             }
 
@@ -101,20 +94,25 @@
                 @include tablet {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
                 }
+
                 @include mobile {
                     background: white;
                     margin-bottom: 0;
-                    max-width: 640px;
+                    max-width: $content-wrapper-max-width-tablet;
                     padding: 15px 0;
                     .button {
                         width: calc(80%);
                     }
+                }
+
+                @include apiIframe {
+                    max-width: $content-wrapper-max-width-api-iframe;
                 }
             }
 
@@ -144,16 +142,16 @@
                 border-radius: 0px 0px 100px 0px;
             }
             @include tablet {
-                padding-bottom: 85px;
+                padding-bottom: 30px;
+                margin-bottom: 0;
             }
         }
 
         @include tablet {
-            .modal-wrapper:not(.lander) & {
-                padding-bottom: 85px;
-                margin-bottom: 25px;
-            }
+            padding-bottom: 50px;
+            margin-bottom: 25px;
         }
+
         @include mobile {
             margin-bottom: 70px;
         }
