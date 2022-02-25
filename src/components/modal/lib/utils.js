@@ -3,7 +3,19 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import { request, memoize, ppDebug } from '../../../utils';
 
 export const getContent = memoize(
-    ({ currency, amount, payerId, clientId, merchantId, buyerCountry, ignoreCache, version, env, stageTag }) => {
+    ({
+        currency,
+        amount,
+        payerId,
+        clientId,
+        merchantId,
+        buyerCountry,
+        ignoreCache,
+        version,
+        env,
+        stageTag,
+        devTouchpoint
+    }) => {
         const query = objectEntries({
             currency,
             amount,
@@ -14,7 +26,8 @@ export const getContent = memoize(
             ignore_cache: ignoreCache,
             version,
             env,
-            stageTag
+            stageTag,
+            devTouchpoint
         })
             .filter(([, val]) => Boolean(val))
             .reduce(

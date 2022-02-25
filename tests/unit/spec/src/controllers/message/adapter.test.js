@@ -1,4 +1,4 @@
-import Messages from 'src/controllers/message/adapter';
+import Messages from 'src/library/controllers/message/adapter';
 import { getGlobalState } from 'src/utils';
 
 describe('message adapter', () => {

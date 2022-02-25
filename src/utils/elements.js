@@ -41,6 +41,7 @@ export function getInlineOptions(container) {
     const attributeNameOverride = {
         buyercountry: 'buyerCountry',
         merchantid: 'merchantId',
+        customerid: 'customerId',
         fontfamily: 'fontFamily',
         fontsource: 'fontSource',
         onclick: 'onClick',

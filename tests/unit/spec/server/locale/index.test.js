@@ -99,6 +99,16 @@ jest.mock('server/locale/DE/GPL/mutations/gplq_gtz-non-de', () => ({
     'layout:flex': ['flex', 'DE', 'GPLQ:GTZ:NON-DE']
 }));
 
+jest.mock('server/locale/DE/Pi30/mutations/pi30', () => ({
+    'layout:text': ['text', 'DE', 'PI30'],
+    'layout:flex': ['flex', 'DE', 'PI30']
+}));
+
+jest.mock('server/locale/DE/Pi30/mutations/pi30q', () => ({
+    'layout:text': ['text', 'DE', 'PI30Q'],
+    'layout:flex': ['flex', 'DE', 'PI30Q']
+}));
+
 jest.mock('server/locale/GB/mutations/gpl', () => ({
     'layout:text': ['text', 'GB', 'PL'],
     'layout:flex': ['flex', 'GB', 'PL']
@@ -109,12 +119,24 @@ jest.mock('server/locale/GB/mutations/gplq', () => ({
     'layout:flex': ['flex', 'GB', 'PLQ']
 }));
 
+jest.mock('server/locale/FR/mutations/gpl', () => ({
+    'layout:text': ['text', 'FR', 'GPL'],
+    'layout:flex': ['flex', 'FR', 'GPL']
+}));
+
+jest.mock('server/locale/FR/mutations/gplq', () => ({
+    'layout:text': ['text', 'FR', 'GPLQ'],
+    'layout:flex': ['flex', 'FR', 'GPLQ']
+}));
+
 jest.mock('server/locale/AU/mutations/gpl', () => ({
-    'layout:text': ['text', 'AU', 'GPL']
+    'layout:text': ['text', 'AU', 'GPL'],
+    'layout:flex': ['flex', 'AU', 'GPL']
 }));
 
 jest.mock('server/locale/AU/mutations/gplq', () => ({
-    'layout:text': ['text', 'AU', 'GPLQ']
+    'layout:text': ['text', 'AU', 'GPLQ'],
+    'layout:flex': ['flex', 'AU', 'GPLQ']
 }));
 
 describe('locale methods', () => {
@@ -148,8 +170,14 @@ describe('locale methods', () => {
             ['DE', 'GPLQ:GTZ:NON-DE'],
             ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
+            ['DE', 'PI30'],
+            ['DE', 'PI30Q'],
             ['GB', 'PL'],
-            ['GB', 'PLQ']
+            ['GB', 'PLQ'],
+            ['FR', 'GPL'],
+            ['FR', 'GPLQ'],
+            ['AU', 'GPL'],
+            ['AU', 'GPLQ']
         ])('returns correct mutations %s %s', (locale, offerType) => {
             const textMutations = getMutations(locale, offerType, 'layout:text', {});
             expect(textMutations).toEqual(['text', locale, offerType]);

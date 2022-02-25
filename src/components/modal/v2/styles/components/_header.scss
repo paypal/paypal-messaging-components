@@ -1,0 +1,273 @@
+.header {
+    &__container {
+        position: relative;
+
+        @include desktop {
+            padding-bottom: 30px;
+        }
+        @include tablet {
+            padding-bottom: 40px;
+        }
+        @include mobile {
+            padding-bottom: 40px;
+        }
+    }
+
+    &__fixed-wrapper {
+        @include fixedWrapper;
+
+        z-index: 0;
+        top: 0;
+        overflow: hidden;
+        border-radius: $content-wrapper-border-radius $content-wrapper-border-radius 0 0;
+
+        &--front {
+            z-index: 1;
+        }
+
+        @include mobile {
+            border-radius: 0;
+        }
+
+        @include apiIframe {
+            border-radius: 0;
+        }
+    }
+
+    &__background-wrapper {
+        overflow: hidden;
+        height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
+        max-height: 85vh; // Prevent it from bleeding below on small height tablet views
+
+        // We have multiple backgrounds to give the appearance of
+        // reserving space at the top of the modal when scrolling.
+        // This requires having a portion of the background with a
+        // higher z-index so that the content scrolls underneath
+        &--sticky {
+            height: $sticky-header-height-tablet-desktop;
+
+            @include mobile {
+                height: $sticky-header-height-mobile;
+            }
+        }
+
+        &--gradient {
+            // Ends right above the header text in the scenario where mask-image
+            // isn't supported to prevent hiding the text on initial render
+            height: 6rem;
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                black,
+                black $sticky-header-height-tablet-desktop,
+                transparent 100px
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                black $sticky-header-height-tablet-desktop,
+                transparent 100px
+            );
+
+            @include mobile {
+                -webkit-mask-image: linear-gradient(
+                    to bottom,
+                    black,
+                    black $sticky-header-height-mobile,
+                    transparent 100px
+                );
+                mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
+            }
+        }
+
+        svg {
+            width: 900px;
+            transform: translate(0, -30%);
+
+            @include apiIframe {
+                min-width: 800px;
+                width: $content-wrapper-max-width-api-iframe;
+            }
+        }
+    }
+
+    &__icons {
+        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        z-index: 1001;
+        display: flex;
+        height: auto;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        flex: 0 0 $sticky-header-height-tablet-desktop;
+
+        @include mobile {
+            flex: 0 0 $sticky-header-height-mobile;
+        }
+
+        .logo {
+            &__wrapper {
+                z-index: 9;
+                transform: translate(0, 2rem);
+                transition: transform 0.2s ease-out;
+                padding: 0 20px;
+
+                @include tablet {
+                    transform: translate(calc(#{$content-wrapper-max-width-tablet} / 2 - 50%), 2rem);
+                    display: flex;
+                    justify-content: center;
+                }
+
+                @include desktop {
+                    transform: translate(calc(#{$content-wrapper-max-width-desktop} / 2 - 50%), 2rem);
+                    display: flex;
+                    justify-content: center;
+                }
+
+                @include apiIframe {
+                    transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+
+                    // copied here because apiIframe mixin has higher priority than the scroll below
+                    &--scroll {
+                        transform: translate(0, 0);
+                    }
+                }
+
+                &--scroll {
+                    transform: translate(0, 0);
+                }
+
+                .pp-logo {
+                    img {
+                        height: 30px;
+                        display: block;
+                        // Account for extra space included below the SVG logo so that
+                        // the img can be better centered automatically via flex
+                        padding-top: 20%;
+
+                        @include desktop {
+                            height: 44px;
+                        }
+
+                        @include tablet {
+                            height: 40px;
+                        }
+
+                        @include mobile {
+                            height: 35px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .close {
+            pointer-events: all;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 9;
+
+            @include desktop {
+                margin-left: auto;
+            }
+
+            @include tablet {
+                margin-left: auto;
+            }
+
+            svg {
+                height: 48px;
+                width: 48px;
+
+                @include desktop {
+                    margin: 0px;
+                }
+
+                @include tablet {
+                    margin: 0px;
+                }
+
+                path {
+                    stroke: white !important;
+                    stroke-width: 2.2;
+                }
+            }
+        }
+    }
+
+    &__content {
+        padding-top: 2rem;
+        position: relative;
+
+        @include desktop {
+            padding-bottom: 40px;
+        }
+        @include tablet {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 36px;
+            text-align: left;
+            color: white;
+            margin: auto;
+
+            @include desktop {
+                text-align: center;
+            }
+
+            @include tablet {
+                max-width: 315px;
+                text-align: center;
+
+                @include lander {
+                    max-width: 100%;
+                }
+            }
+
+            @include mobile {
+                padding: 10px 25px 0px;
+            }
+
+            @include smallMobile {
+                font-size: 1.7rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            line-height: 24px;
+            text-align: left;
+            color: white;
+            margin: 0px;
+
+            @include desktop {
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            @include tablet {
+                font-size: 1rem;
+                max-width: 315px;
+                margin: 1rem auto 0;
+                text-align: center;
+
+                @include lander {
+                    max-width: 100%;
+                }
+            }
+
+            @include mobile {
+                padding: 10px 25px 25px;
+                font-size: 1rem;
+                line-height: 20px;
+            }
+        }
+    }
+}

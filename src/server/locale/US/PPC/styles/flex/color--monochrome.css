@@ -1,0 +1,8 @@
+.message__content {
+    color: black;
+    border: 1px solid black;
+}
+
+.message__background {
+    background: #ffffff;
+}

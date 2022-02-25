@@ -1,7 +1,16 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from 'belter/src';
 
-import { request, getActiveTags, ppDebug, createState, isStorageFresh, getDeviceID } from '../../utils';
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding,
+    getRequestDuration
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
     const {
@@ -32,18 +41,19 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const [serverData, setServerData] = createState({
         parentStyles,
         warnings,
-        markup
+        markup,
+        meta
     });
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
-            onClick({ meta });
+            onClick({ meta: serverData.meta });
         }
     };
 
     const handleHover = () => {
         if (typeof onHover === 'function') {
-            onHover({ meta });
+            onHover({ meta: serverData.meta });
         }
     };
 
@@ -67,14 +77,22 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.innerHTML = markup ?? '';
 
     onReady({
-        meta,
+        meta: serverData.meta,
         activeTags: getActiveTags(button),
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        // getRequestDuration runs in the child component (iframe/banner message),
+        // passing a value to onReady and up to the parent component to go out with
+        // the other stats
+        requestDuration: getRequestDuration()
     });
 
-    onMarkup({ meta, styles: parentStyles, warnings });
+    onMarkup({
+        meta: serverData.meta,
+        styles: serverData.parentStyles,
+        warnings: serverData.warnings
+    });
 
     window.addEventListener('focus', () => {
         button.focus();
@@ -117,8 +135,11 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     merchantId
                 });
 
+                // Generate new MRID on message update.
+                const newMessageRequestId = uniqueID();
+
                 const query = objectEntries({
-                    message_request_id: messageRequestId,
+                    message_request_id: newMessageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
@@ -143,8 +164,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
@@ -164,12 +187,15 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         if (typeof onReady === 'function') {
                             // currency, amount, payerId, clientId, merchantId, buyerCountry
                             onReady({
-                                meta: data.meta ?? meta,
+                                meta: data.meta ?? serverData.meta,
                                 activeTags: getActiveTags(button),
-                                // Generate new MRID on message update.
-                                messageRequestId: uniqueID(),
+                                messageRequestId: newMessageRequestId,
                                 // Utility will create iframe deviceID if it doesn't exist.
-                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                // getRequestDuration runs in the child component (iframe/banner message),
+                                // passing a value to onReady and up to the parent component to go out with
+                                // the other stats
+                                requestDuration: getRequestDuration()
                             });
                         }
 
@@ -181,17 +207,18 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                             ) {
                                 // resizes the parent message div
                                 onMarkup({
-                                    meta: data.meta ?? meta,
-                                    styles: data.parentStyles ?? parentStyles,
-                                    warnings: data.warnings ?? warnings
+                                    meta: data.meta ?? serverData.meta,
+                                    styles: data.parentStyles ?? serverData.parentStyles,
+                                    warnings: data.warnings ?? serverData.warnings
                                 });
                             }
                         }
 
                         setServerData({
-                            parentStyles: data.parentStyles ?? parentStyles,
-                            warnings: data.warnings ?? warnings,
-                            markup: data.markup ?? markup
+                            parentStyles: data.parentStyles ?? serverData.parentStyles,
+                            warnings: data.warnings ?? serverData.warnings,
+                            markup: data.markup ?? serverData.markup,
+                            meta: data.meta ?? serverData.meta
                         });
                     }
                 );
