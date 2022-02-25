@@ -64,7 +64,7 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        if (views?.length > 1) {
+        if (views?.length > 2) {
             return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;

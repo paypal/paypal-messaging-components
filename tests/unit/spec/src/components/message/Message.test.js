@@ -25,7 +25,7 @@ jest.mock('src/utils', () => ({
     })),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message')),
-    getRequestDuration: jest.fn(() => -1)
+    getRequestDuration: jest.fn(() => 123)
 }));
 
 describe('Message', () => {
@@ -91,7 +91,7 @@ describe('Message', () => {
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: -1
+            requestDuration: 123
         });
     });
 
@@ -129,7 +129,7 @@ describe('Message', () => {
             meta: {},
             messageRequestId: originalMRID,
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: -1
+            requestDuration: 123
         });
 
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
@@ -156,7 +156,7 @@ describe('Message', () => {
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: -1
+            requestDuration: 123
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
@@ -176,7 +176,7 @@ describe('Message', () => {
             meta: {},
             deviceID: 'uid_1111111111_11111111111',
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
-            requestDuration: -1
+            requestDuration: 123
         });
         expect(getDeviceID).toHaveBeenCalled();
     });
