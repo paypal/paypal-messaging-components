@@ -8,12 +8,13 @@ $grey600: #888;
 .donut__single_payment {
     display: flex;
     flex-direction: column;
+    align-self: start;
 
     @include mobile {
         width: 70px;
     }
 
-    width: 72px;
+    width: 80px;
 
     svg {
         max-width: 64px;
@@ -51,7 +52,7 @@ $grey600: #888;
     span {
         display: block;
         text-align: center;
-        font-size: 0.875rem;
+        font-size: 1rem;
         line-height: 20px;
 
         @media all and (min-width: $webpage) {

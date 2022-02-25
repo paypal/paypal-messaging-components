@@ -36,12 +36,11 @@ export function getRequestDuration() {
         .getEntries()
         .filter(
             ({ name, entryType }) =>
-                (entryType === 'navigation' && `${name}`.indexOf('/credit-presentment/smart/message') > -1) ||
-                (entryType === 'resource' && `${name}`.indexOf('/credit-presentment/renderMessage') > -1)
+                (entryType === 'navigation' || entryType === 'resource') &&
+                `${name}`.indexOf('/credit-presentment/smart/message') > -1
         );
 
     const [{ requestStart, responseStart }] = [...requests.slice(-1), {}];
-
     // This measures the "Waiting (Time To First Byte)" for the request;
     // how long we've spent waiting for a response after sending the request
     return validateMetric(requestStart) && validateMetric(responseStart) ? responseStart - requestStart : -1;
