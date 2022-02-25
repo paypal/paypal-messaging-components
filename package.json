@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.29.0",
+    "version": "1.30.0",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -23,7 +23,7 @@
         "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
-        "dev": "webpack-dev-server --config webpack.config.dev.js --env.NODE_ENV=local --env.TARGET=sdk --env.STAGE_TAG=local",
+        "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:modal": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone-modal --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:lander": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=lander --env.NODE_ENV=local --env.STAGE_TAG=local",
