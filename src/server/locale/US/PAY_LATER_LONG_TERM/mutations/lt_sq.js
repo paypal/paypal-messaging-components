@@ -1,5 +1,12 @@
 import Logo from '../../../../message/logos';
-import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, xSmallFallback } from '../../../../message/mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    logo20x1,
+    xSmallFallback
+} from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
 const flex = [
@@ -9,12 +16,20 @@ const flex = [
             logo: Logo.PP_PAYPAL.WHITE,
             headline: [
                 {
-                    tag: 'medium'
+                    tag: 'xsmall'
                 },
-                { tag: 'xsmall' }
+                {
+                    tag: 'medium'
+                }
             ],
             disclaimer: ['default'],
             styles: []
+        }
+    ],
+    [
+        'ratio:20x1',
+        {
+            styles: [logo20x1()]
         }
     ],
     [
@@ -22,11 +37,12 @@ const flex = [
         {
             headline: [
                 {
-                    tag: 'medium'
+                    tag: 'xsmall'
                 },
-                { tag: 'xsmall' }
-            ],
-            styles: ['@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }']
+                {
+                    tag: 'medium'
+                }
+            ]
         }
     ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],

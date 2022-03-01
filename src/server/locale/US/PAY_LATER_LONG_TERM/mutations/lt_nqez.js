@@ -16,10 +16,10 @@ const flex = [
             logo: Logo.PP_PAYPAL.WHITE,
             headline: [
                 {
-                    tag: 'medium'
+                    tag: 'xsmall'
                 },
                 {
-                    tag: 'xsmall'
+                    tag: 'medium'
                 }
             ],
             disclaimer: ['default'],
@@ -37,10 +37,12 @@ const flex = [
         {
             headline: [
                 {
+                    tag: 'xsmall'
+                },
+                {
                     tag: 'medium'
                 }
-            ],
-            styles: ['@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }']
+            ]
         }
     ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
