@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { uniqueID } from 'belter/src';
+import { uniqueID } from '@krakenjs/belter/src';
 
 import {
     request,

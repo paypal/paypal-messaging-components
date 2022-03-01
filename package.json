@@ -46,13 +46,13 @@
         "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",
         "@paypal/sdk-logos": "^1.0.26",
-        "beaver-logger": "^4.0.14",
-        "belter": "^1.0.112",
+        "@krakenjs/beaver-logger": "^5.0.0",
+        "@krakenjs/belter": "^2.0.0",
         "core-js-pure": "^3.0.1",
-        "jsx-pragmatic": "^2.0.7",
-        "post-robot": "^10.0.29",
-        "zalgo-promise": "^1.0.38",
-        "zoid": "^9.0.46"
+        "@krakenjs/jsx-pragmatic": "^3.0.0",
+        "@krakenjs/post-robot": "^11.0.0",
+        "@krakenjs/zalgo-promise": "^2.0.0",
+        "@krakenjs/zoid": "^10.0.0"
     },
     "devDependencies": {
         "@babel/register": "^7.10.4",
