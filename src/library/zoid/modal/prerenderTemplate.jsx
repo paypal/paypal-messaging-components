@@ -150,7 +150,7 @@ export default ({ doc, props, event }) => {
                             <button onClick={closeModal} type="button" />
                         </div>
                         <div class="error"></div>
-                        <Spinner nonce={props.nonce} />
+                        <Spinner nonce={props.cspNonce} />
                     </div>
                 </div>
             </body>
