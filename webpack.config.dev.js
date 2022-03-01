@@ -40,6 +40,21 @@ module.exports = (env = {}) => {
 
     const LIBRARY_DEV_CONFIG = (() => {
         switch (env.TARGET) {
+            case 'ci': {
+                return getWebpackConfig({
+                    entry: {
+                        modal: './src/library/modal.js',
+                        messaging: './src/library/messaging.js'
+                    },
+                    filename: '[name].js',
+                    libraryTarget: false,
+                    debug: true,
+                    minify: false,
+                    sourcemaps: true,
+                    env: env.NODE_ENV,
+                    vars: globals(env)
+                });
+            }
             case 'standalone':
             case 'standalone-modal': {
                 const name = env.TARGET === 'standalone-modal' ? 'modal' : 'messaging';
