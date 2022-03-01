@@ -45,6 +45,8 @@ jobs:
 
                           if (artifact.name === 'metadata') {
                             execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip`);
+                          } else if (artifact.name.includes('v2')) {
+                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/v2/snapshots`);
                           } else {
                             execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/snapshots`);
                           }

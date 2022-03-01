@@ -108,6 +108,7 @@ export default (options = {}) => ({
                     style,
                     offer,
                     onClick,
+                    onApply,
                     onReady: (...args) => {
                         if (typeof onRender === 'function') {
                             onRender(...args);

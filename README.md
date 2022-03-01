@@ -2,7 +2,7 @@
 
 ---
 
-[![Build Status](https://travis-ci.org/paypal/paypal-messaging-components.svg?branch=master)](https://travis-ci.org/paypal/paypal-messaging-components) [![dependencies Status](https://david-dm.org/paypal/paypal-messaging-components/status.svg)](https://david-dm.org/paypal/paypal-messaging-components) [![devDependencies Status](https://david-dm.org/paypal/paypal-messaging-components/dev-status.svg)](https://david-dm.org/paypal/paypal-messaging-components?type=dev)
+[![Compare Snapshots](https://github.com/paypal/paypal-messaging-components/actions/workflows/snapshotCompare.yml/badge.svg)](https://github.com/paypal/paypal-messaging-components/actions/workflows/snapshotCompare.yml) [![dependencies Status](https://david-dm.org/paypal/paypal-messaging-components/status.svg)](https://david-dm.org/paypal/paypal-messaging-components) [![devDependencies Status](https://david-dm.org/paypal/paypal-messaging-components/dev-status.svg)](https://david-dm.org/paypal/paypal-messaging-components?type=dev)
 
 A messaging component allowing easy integration of PayPal Credit Messages onto your site.
 
@@ -100,7 +100,25 @@ npm run build -- -t stage-tag-name -s test-environment-link
 
 ### Functional
 
-To run functional tests, first run `npm run dev:standalone` in one command line instance and `npm run test:func` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on.
+1. Run `npm run dev:ci` in one command line instance
+2. In a second window run the below command, which runs tests for a specific `integrationType`
+    - `integrationType` is one of: `api`, `sdk`, `standalone`, or `webpage`
+
+```
+CONFIG_PATH={locale}/{account} npm run test:func:snapshots -- --testPathPattern {integrationType}
+```
+
+Example
+
+```
+CONFIG_PATH=US/DEV_US_MULTI npm run test:func:snapshots -- --testPathPattern sdk
+```
+
+Alternatively, you can remove ` -- --testPathPattern {integrationType}` and just run the following to run tests on an account for all integration types.
+
+```
+CONFIG_PATH={locale}/{account} npm run test:func:snapshots
+```
 
 ## Releasing
 
