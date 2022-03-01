@@ -1,0 +1,3 @@
+.message__headline > span:last-child > span:last-child::after {
+    color: #023187;
+}
