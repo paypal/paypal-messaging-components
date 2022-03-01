@@ -13,8 +13,16 @@ export default {
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
-    // temp dev account for pay later long term universal modal view development
-    DEV000000USLT: ['US', ['long_term'], 'long_term'],
+    DEV0000USLTMQ: ['US', ['long_term'], 'pay_monthly_lt_mq'],
+    DEV00USLTMQEZ: ['US', ['long_term'], 'pay_monthly_lt_mqez'],
+    DEV00USLTMQRB: ['US', ['long_term'], 'pay_monthly_lt_mqez_rb'],
+    DEV0USLTNQMAX: ['US', ['long_term'], 'pay_monthly_lt_nq_max'],
+    DEV0USLTNQMIN: ['US', ['long_term'], 'pay_monthly_lt_nq_min'],
+    DEVUSLTNQEZMX: ['US', ['long_term'], 'pay_monthly_lt_nqez_max'],
+    DEVUSLTNQEZMN: ['US', ['long_term'], 'pay_monthly_lt_nqez_min'],
+    DEV0000USLTSQ: ['US', ['long_term'], 'pay_monthly_lt_sq'],
+    DEV00USLTSQEZ: ['US', ['long_term'], 'pay_monthly_lt_sqez'],
+    DEV00USLTSQRB: ['US', ['long_term'], 'pay_monthly_lt_sqez_rb'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
