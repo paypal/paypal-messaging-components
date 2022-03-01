@@ -106,7 +106,7 @@ export default ({ doc, props, event }) => {
             top: 67%;
             left: 50%;
             margin-left: -60px;
-            display: none
+            display: none;
         }
 
         @media (max-width: 639px), (max-height: 539px){

@@ -14,6 +14,7 @@ export function checkAdblock() {
         'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links'
     );
 
+    // Using setProperty instead of setAttribute to prevent csp nonce issues
     bait.style.setProperty('width', '1px', 'important');
     bait.style.setProperty('height', '1px', 'important');
     bait.style.setProperty('position', 'absolute', 'important');
