@@ -11,8 +11,18 @@ export function checkAdblock() {
     const bait = window.document.body.appendChild(window.document.createElement('div'));
     bait.setAttribute(
         'class',
-        'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links pp-adblock'
+        'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links'
     );
+
+    bait.style.setProperty('width', '1px', 'important');
+
+    bait.style.setProperty('height', '1px', 'important');
+
+    bait.style.setProperty('position', 'absolute', 'important');
+
+    bait.style.setProperty('left', '-10000px', 'important');
+
+    bait.style.setProperty('top', '-1000px', 'important');
 
     const baitStyles = window.getComputedStyle !== undefined ? window.getComputedStyle(bait) : undefined;
 
