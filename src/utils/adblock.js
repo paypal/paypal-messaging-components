@@ -15,13 +15,9 @@ export function checkAdblock() {
     );
 
     bait.style.setProperty('width', '1px', 'important');
-
     bait.style.setProperty('height', '1px', 'important');
-
     bait.style.setProperty('position', 'absolute', 'important');
-
     bait.style.setProperty('left', '-10000px', 'important');
-
     bait.style.setProperty('top', '-1000px', 'important');
 
     const baitStyles = window.getComputedStyle !== undefined ? window.getComputedStyle(bait) : undefined;
