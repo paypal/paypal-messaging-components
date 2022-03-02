@@ -1,0 +1,29 @@
+.button__container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    .button {
+        display: inline-block;
+        background: $dark-blue;
+        border: none;
+        color: white;
+        border-radius: 3rem;
+        padding: 0.7em 2.5em;
+        font-size: 1rem;
+        text-align: center;
+        transition: all 0.2s;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background: $light-blue;
+        }
+
+        &:focus {
+            text-decoration: underline;
+            outline: 3px solid $dark-blue;
+                  
+        }
+    }
+}

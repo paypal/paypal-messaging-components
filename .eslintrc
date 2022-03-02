@@ -6,7 +6,8 @@
         "node": true
     },
     "globals": {
-        "__MESSAGES__": true
+        "__MESSAGES__": true,
+        "__MESSAGING_GLOBALS__": true
     },
     "plugins": ["prettier"],
     "rules": {

@@ -8,6 +8,7 @@ import { node, dom } from 'jsx-pragmatic/src';
 import { ZalgoPromise } from 'zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { OFFER } from './constants';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -95,6 +96,18 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
 
         xhttp.send(typeof data === 'object' ? JSON.stringify(data) : data);
     });
+}
+
+export function parseObjFromEncoding(encodedStr) {
+    // equivalent to JSON.parse(fromBinary(atob(encodedStr))) as in initScript
+    const binary = atob(encodedStr);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    // need to use .apply instead of spread operator so IE can understand
+    const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+    return JSON.parse(decodedStr);
 }
 
 export function createEvent(name) {
@@ -195,12 +208,15 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getProductForOffer(offer) {
+export function getStandardProductOffer(offer) {
     if (typeof offer === 'undefined') {
         return 'NONE';
     }
 
     switch (offer.toUpperCase()) {
+        case OFFER.PAY_LATER_LONG_TERM:
+            return OFFER.PAY_LATER_LONG_TERM;
+        case OFFER.PAY_LATER_SHORT_TERM:
         case 'GPL':
         case 'GPLQ':
         case 'GPLNQ':
@@ -215,7 +231,13 @@ export function getProductForOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
-            return 'GPL';
+            return OFFER.PAY_LATER_SHORT_TERM;
+        case OFFER.PAY_LATER_PAY_IN_1:
+            return OFFER.PAY_LATER_PAY_IN_1;
+        case 'PI30':
+        case 'PI30Q':
+        case 'PI30NQ':
+            return 'PI30';
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
@@ -223,14 +245,20 @@ export function getProductForOffer(offer) {
         case 'PALA:MULTI:GTZ':
         case 'PALA:SINGLE:EQZ':
         case 'PALA:SINGLE:GTZ':
-            return 'EZP';
+        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
         case 'INST':
         case 'INST:ANY:EQZ':
         case 'INST:ANY:GTZ':
         case 'PALAQ:ANY:EQZ':
         case 'PALAQ:ANY:GTZ':
-            return 'INST';
+            return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
+        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
+        case 'NI':
+        case 'NI:NON-US':
+        case 'NIQ':
+        case 'NIQ:NON-US':
+            return OFFER.PAYPAL_CREDIT_NO_INTEREST;
         default:
-            return 'NI';
+            return undefined;
     }
 }

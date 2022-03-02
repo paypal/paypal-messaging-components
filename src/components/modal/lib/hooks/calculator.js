@@ -1,7 +1,8 @@
 import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from 'belter/src';
 
-import { useXProps, useServerData, useDidUpdateEffect } from '../../../lib';
+import { useXProps, useServerData } from '../providers';
+import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
@@ -69,7 +70,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         buyerCountry,
         ignoreCache,
         amount,
-        stageTag
+        stageTag,
+        devTouchpoint
     } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
@@ -89,7 +91,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             merchantId,
             buyerCountry,
             ignoreCache,
-            stageTag
+            stageTag,
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);

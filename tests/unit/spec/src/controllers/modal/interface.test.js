@@ -1,8 +1,8 @@
-import Modal from 'src/controllers/modal/interface';
-import { getModalComponent } from 'src/zoid/modal';
+import Modal from 'src/library/controllers/modal/interface';
+import { getModalComponent } from 'src/library/zoid/modal';
 import { logger } from 'src/utils';
 
-jest.mock('src/zoid/modal', () => {
+jest.mock('src/library/zoid/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockHide = jest.fn(() => Promise.resolve());
@@ -163,7 +163,7 @@ describe('modal interface', () => {
         expect(onCalculate).toHaveBeenLastCalledWith({ value: 100 });
     });
 
-    test('Passes onApply handler', async () => {
+    test('Passes onApply handler on modal', async () => {
         const onApply = jest.fn();
         await Modal({ account: '11', index: '1', onApply }).render();
 

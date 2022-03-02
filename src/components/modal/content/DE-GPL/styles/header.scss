@@ -5,18 +5,34 @@
     h1 {
         font-size: 1.5rem;
         line-height: 35px;
-        max-width: 320px;
+        color: white;
+        margin: 0.5rem auto;
+    }
+
+    h2 {
+        font-family:$PayPal-Big;
+        font-size: 1.1rem;
+        line-height: 28px;
+        color: white;
+        margin: auto;
+    }
+
+    h3 {
+        font-family:$PayPal-Big;
+        font-size: 0.8rem;
+        font-weight:normal;
+        line-height: 0.8rem;
         color: white;
         margin: auto;
     }
 
     .header {
-        max-width: 500px;
+        max-width: 420px;
         margin: auto;
         z-index: 999;
         display: block;
         height: auto;
-        padding-top: 30px;
+        padding: 30px 0;
         text-align: center;
     }
 
@@ -52,6 +68,10 @@
             font-size: 26px;
             line-height: 30px;
             padding-bottom: 20px;
+            max-width: 320px;
+        }
+        h2 {
+            max-width: 320px;
         }
     }
 
@@ -59,6 +79,36 @@
         h1 {
             font-size: 20px;
             line-height: 22px;
+            max-width: 320px;
+        }
+        h2 {
+            max-width: 320px;
+        }
+    }
+
+    
+    @include desktop {
+        .header {
+            padding:1rem 0 3rem;
+            .logo-wrapper, h1, h3 {
+                padding:1rem 0;
+            }
+            .logo {
+                margin:0;
+                padding-bottom:0.5rem;
+
+                img {
+                    height:3rem;
+                }
+            }
+        }
+        h1 {
+            font-size:2rem;
+            margin:0;
+        }
+        h3 {
+            font-size:1.2rem;
+            line-height:1.5rem;
         }
     }
 

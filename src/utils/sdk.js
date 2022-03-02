@@ -2,13 +2,14 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
+import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
-
 import {
     getClientID,
     getMerchantID,
     getSDKScript,
     getEnv as getSDKEnv,
+    getFundingEligibility,
     getSDKMeta,
     getSDKAttributes,
     getSDKQueryParam,
@@ -18,16 +19,25 @@ import {
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
-import { isLocalStorageEnabled, getStorage } from 'belter/src';
-
-import 'core-js-pure/stable/object/entries';
-
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKEnv();
     } else {
         return __ENV__;
+    }
+}
+
+export function getMerchantConfig() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        // TODO: remove getFundingEligibility call and try catch after globals swap
+        try {
+            return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+        } catch {
+            return getFundingEligibility()?.paylater?.merchantConfigHash;
+        }
+    } else {
+        return undefined;
     }
 }
 
@@ -103,13 +113,17 @@ export function isZoidComponent() {
     return stringStartsWith(window.name, '__zoid__');
 }
 
+export function getStorage() {
+    return getBelterStorage({ name: getNamespace() });
+}
+
 // Use SDK methods when available, otherwise manually fetch storage via belter
 // see: https://github.com/paypal/paypal-sdk-client/blob/master/src/session.js
 export function getSessionID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKSessionID();
     } else {
-        return getStorage({ name: getNamespace() }).getSessionID();
+        return getStorage().getSessionID();
     }
 }
 
@@ -118,12 +132,12 @@ export function getOrCreateStorageID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
-        return getStorage({ name: getNamespace() }).getID();
+        return getStorage().getID();
     }
 }
 
 export function isStorageFresh() {
-    return getStorage({ name: getNamespace() }).isStateFresh();
+    return getStorage().isStateFresh();
 }
 
 // Retrieve namespaced localStorage directly
@@ -148,6 +162,12 @@ export function writeStorageID(storageID) {
             // Handle Errors
         }
     }
+}
+
+// Use the custom deviceID field, but fall back to storage ID if it is not yet present
+// or does not exist (as in the child )
+export function getDeviceID() {
+    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
 // Check if the current script is in the process of being destroyed since
@@ -189,6 +209,14 @@ export function getStageTag() {
         }
     } else {
         return undefined;
+    }
+}
+
+export function getDevTouchpoint() {
+    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        return true;
+    } else {
+        return undefined; // Prevent the zoid query param
     }
 }
 

@@ -56,6 +56,7 @@ describe('stats', () => {
         visible: 'true',
         active_tags: expect.any(String),
         render_duration: expect.stringNumber(),
+        request_duration: expect.stringNumber(),
         first_render_delay: expect.stringNumber()
     };
 
@@ -84,7 +85,7 @@ describe('stats', () => {
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: -1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -109,7 +110,7 @@ describe('stats', () => {
             bn_code: 'some-partner-id'
         };
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: 0 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -140,7 +141,7 @@ describe('stats', () => {
             visible: 'false'
         };
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: 1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
