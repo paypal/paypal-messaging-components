@@ -19,4 +19,8 @@
             transition: all 0.3s;
         }
     }
+
+    #close-btn {
+        z-index:15
+    }
 }
