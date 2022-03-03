@@ -33,6 +33,6 @@
             "Remaining payments are taken automatically."
         ],
         "disclosure": "Available for purchases of {formattedMinAmount}-{formattedMaxAmount}. Subject to status. Terms and Conditions apply. UK residents only. Paypal is a responsible lender. Pay in 3 performance may influence your credit score. PayPal Pay in 3 is a trading name of PayPal (Europe) S.á.r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg.",
-        "linkToProductList": "See other ways to pay over time"
+        "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]
     }
 }
