@@ -11,6 +11,7 @@ import {
     useTransitionState
 } from '../lib';
 import Header from './Header';
+import { currencyFormat } from '../lib/hooks/currency'; // Remove .00 cents from formated min and max
 import { LongTerm, ShortTerm, NI, ProductList } from './views';
 
 const BodyContent = () => {
@@ -83,7 +84,7 @@ const BodyContent = () => {
             <Header
                 logo="logo"
                 headline={headline}
-                subheadline={subheadline}
+                subheadline={currencyFormat(subheadline)}
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
             />
