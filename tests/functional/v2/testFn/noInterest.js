@@ -1,7 +1,7 @@
 import { selectors, modalSnapshot } from '../utils/index';
 
 const {
-    modal: { contentWrapper, instructions, instructionsItemWrapper, li },
+    modal: { contentWrapper, instructions, instructionsItemWrapper, div },
     noInterest: {
         button: { termsLink, applyNowBtn }
     }
@@ -13,9 +13,10 @@ const {
 export const openNoInterestView = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(instructions);
-    await contentWindow.waitForSelector(`${instructionsItemWrapper}:first-child > ${li}`);
+    const instructionsDivSelector = `${instructionsItemWrapper}:first-child > ${div}:last-child`;
+    await contentWindow.waitForSelector(instructionsDivSelector);
 
-    const numberedBullet = await contentWindow.$eval(li, element => element.innerText);
+    const numberedBullet = await contentWindow.$eval(instructionsDivSelector, element => element.innerText);
     expect(numberedBullet).toContain(modalContent);
     await modalSnapshot(testName, contentWindow);
 };
