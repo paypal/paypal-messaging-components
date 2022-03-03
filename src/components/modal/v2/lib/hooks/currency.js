@@ -1,12 +1,12 @@
 export const currencyFormat = string => {
     let formattedStr = string;
-    const match = formattedStr.match(
-        // eslint-disable-next-line security/detect-unsafe-regex
-        /((\$|£)?(\d{1,5}(\.|,)){1,3}00)/g
-    );
+    const match =
+        formattedStr?.match(
+            // eslint-disable-next-line security/detect-unsafe-regex
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00)/g
+        ) ?? null;
     if (match !== null) {
         match.forEach(foundString => {
-            console.error(foundString);
             const filteredString = foundString
                 .replace(/(\.|,)00-/g, '-')
                 .replace(/(\.|,)00$/g, '')
