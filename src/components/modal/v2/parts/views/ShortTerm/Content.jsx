@@ -19,7 +19,7 @@ export const ShortTerm = ({
 
     const renderProductListLink = () => {
         return (
-            views?.length >= 1 && (
+            views?.length > 1 && (
                 <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
             )
         );

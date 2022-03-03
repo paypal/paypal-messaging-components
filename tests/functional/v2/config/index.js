@@ -1,2 +1,2 @@
-export { default as US } from './US.config';
-export { default as GB } from './GB.config';
+export * as US from './US';
+export * as GB from './GB';

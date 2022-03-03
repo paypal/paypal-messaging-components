@@ -14,6 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
+            testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
               uses: actions/checkout@v2
@@ -22,6 +23,11 @@ jobs:
               name: Set test path patterns
               run: |
                   echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
+
+            - id: setTestConfigs
+              name: Set test config environment variables
+              run: |
+                  echo "::set-output name=testConfigs::$(./.github/scripts/getTestConfigs.sh)"
 
     compareSnapshots:
         name: Compare
@@ -57,3 +63,38 @@ jobs:
             - name: Collect Diffs and Upload to Imgur
               run: |
                   ./scripts/snapshot-tests/collect-diffs.sh
+
+    compareSnapshotsV2:
+        name: Compare V2
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        strategy:
+            fail-fast: false
+            matrix:
+                testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServerV2.sh
+
+            - name: Compare Snapshots - ${{ matrix.testConfig }}
+              continue-on-error: true
+              run: |
+                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots
+
+            - name: Collect Diffs and Upload to Imgur
+              run: |
+                  ./scripts/snapshot-tests/collect-diffs-v2.sh
