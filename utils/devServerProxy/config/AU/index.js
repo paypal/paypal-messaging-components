@@ -1,5 +1,5 @@
 export default {
-    DEV_AU_MULTI: {
+    DEV_AU_SHORT_TERM: {
         country: 'AU',
         modalViews: [
             {
@@ -10,17 +10,17 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'ni.json',
+                template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 30,
-                template: 'gplnq.json',
+                template: 'gplq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 1500.01,
-                template: 'gplnq.json',
+                template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
         ],
