@@ -104,6 +104,7 @@ jobs:
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}
+
                   retention-days: 1
 
     updateSnapshotsV2:
