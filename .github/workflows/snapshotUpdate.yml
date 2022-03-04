@@ -103,7 +103,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
-                  filePath: ${{ steps.artifactInputs.outputs.filePath }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
 
     updateSnapshotsV2:
