@@ -2,7 +2,6 @@
     display: inline-block;
     white-space: normal;
     flex: 0 0 auto;
-    color: red;
 }
 
 .message__content {
