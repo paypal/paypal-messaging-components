@@ -1,3 +1,14 @@
+.message__messaging {
+    display: inline-block;
+    white-space: normal;
+    flex: 0 0 auto;
+    color: red;
+}
+
+.message__content {
+    align-items: center;
+}
+
 .message__logo-container {
     display: flex;
     align-items: center;
