@@ -47,7 +47,7 @@ export default {
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
     DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
 
-    DEV0000ESPLNA: ['ES', ['gpl'], 'short_term_no_amount'],
-    DEV00000ESPLQ: ['ES', ['gpl'], 'short_term_q'],
-    DEV0000ESPLNQ: ['ES', ['gpl'], 'short_term_nq']
+    DEV0000ESPLNA: ['ES', ['short_term'], 'short_term_no_amount'],
+    DEV00000ESPLQ: ['ES', ['short_term'], 'short_term_q'],
+    DEV0000ESPLNQ: ['ES', ['short_term'], 'short_term_nq']
 };
