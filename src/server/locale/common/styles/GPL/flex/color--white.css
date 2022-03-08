@@ -1,6 +1,4 @@
-.message__background {
-    background: #ffffff;
-}
+/* Shared between AU and DE as their text color for white flex banners differs from other locales */
 
 .message__content {
     color: #009cde;
