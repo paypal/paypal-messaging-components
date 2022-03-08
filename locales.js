@@ -1,3 +1,3 @@
 module.exports = {
-    localeOptions: ['US', 'DE', 'GB', 'FR', 'AU', 'IT']
+    localeOptions: ['US', 'DE', 'GB', 'FR', 'AU']
 };
