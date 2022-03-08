@@ -60,13 +60,16 @@ export default function createModalRoutes(app, server) {
                 return 'v2';
             }
 
-            if (props.country === 'US' && props.products?.some(product => product.meta.product === 'EZP')) {
+            if (
+                props.country === 'US' &&
+                props.products?.some(product => product.meta.product === 'PAYPAL_CREDIT_INSTALLMENTS')
+            ) {
                 return 'US-EZP';
             }
 
             if (
                 props.country === 'DE' &&
-                (props.products?.some(product => product.meta.product === 'GPL') ||
+                (props.products?.some(product => product.meta.product === 'PAY_LATER_SHORT_TERM') ||
                     props.products?.some(product => product.meta.product === 'PI30'))
             ) {
                 return 'DE-GPL';

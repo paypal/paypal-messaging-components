@@ -10,7 +10,7 @@ const Calculator = () => {
     const { terms, value, isLoading, submit, changeInput } = useCalculator();
     const {
         calculator: { title, instructions, disclosure }
-    } = useContent('INST');
+    } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
 
     const { error, formattedMinAmount, formattedMaxAmount, offers } = terms;
 

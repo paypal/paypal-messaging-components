@@ -11,7 +11,7 @@ import Button from '../../../parts/Button';
 export const Header = () => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
-    const { title, subtitle } = useContent('EZP');
+    const { title, subtitle } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
 
     useScroll(({ target: { scrollTop } }) => {
         const { offsetTop, clientHeight } = buttonRef.current;
@@ -46,7 +46,7 @@ export const Header = () => {
 export const Content = () => {
     const { onClick } = useXProps();
 
-    const { instructions, about, disclaimer, copyright } = useContent('EZP');
+    const { instructions, about, disclaimer, copyright } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
 
     return (
         <section className="content-body">

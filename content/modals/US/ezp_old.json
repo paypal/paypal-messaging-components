@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "US",
-        "product": "EZP",
+        "product": "PAYPAL_CREDIT_INSTALLMENTS",
         "legacy": true,
         "variables": {}
     },

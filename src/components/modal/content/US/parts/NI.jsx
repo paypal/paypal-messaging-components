@@ -12,7 +12,7 @@ export default ({ showApplyNow, switchTab }) => {
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
     const { products } = useServerData();
-    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('NI');
+    const { headline, subHeadline, applyNow, terms, disclaimer, copyright } = useContent('PAYPAL_CREDIT_NO_INTEREST');
 
     showApplyNowRef.current = showApplyNow;
 

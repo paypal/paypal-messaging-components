@@ -20,7 +20,9 @@ const Content = () => {
     // calculate what the inital product should be
     // will change based on offer and products avaliable
     const initialProduct =
-        productNames.includes('GPL') && productNames.includes('PI30') && (typeof amount === 'undefined' || amount === 0)
+        productNames.includes('PAY_LATER_SHORT_TERM') &&
+        productNames.includes('PI30') &&
+        (typeof amount === 'undefined' || amount === 0)
             ? 'none'
             : (
                   arrayFind(products, theProduct => getStandardProductOffer(theProduct.meta.product) === product) ||
@@ -56,7 +58,7 @@ const Content = () => {
 
     function selectContent() {
         switch (selectedProduct) {
-            case 'GPL':
+            case 'PAY_LATER_SHORT_TERM':
                 return <GPL linkClick={linkClick} />;
             case 'PI30':
                 return <PI30 linkClick={linkClick} />;

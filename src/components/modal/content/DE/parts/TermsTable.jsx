@@ -5,7 +5,7 @@ import { useContent } from '../../../lib';
 const TableContent = ({ terms: { error, amount, formattedAmount, maxAmount, minAmount, type, offers } }) => {
     const {
         terms: { genericError, minError, maxError, tableHeader }
-    } = useContent('INST');
+    } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
 
     const genericErrorEl = <h3 className="error">{genericError}</h3>;
 

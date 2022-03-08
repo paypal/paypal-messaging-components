@@ -6,23 +6,23 @@ import * as EZP from './EZP';
 import Tabs from '../../../parts/Tabs';
 
 const tabsMap = {
-    EZP: {
+    PAYPAL_CREDIT_INSTALLMENTS: {
         title: 'Easy Payments',
-        product: 'EZP',
+        product: 'PAYPAL_CREDIT_INSTALLMENTS',
         header: <EZP.Header />,
         body: <EZP.Content />
     },
-    NI: {
+    PAYPAL_CREDIT_NO_INTEREST: {
         title: '6 Months Special Financing',
-        product: 'NI',
+        product: 'PAYPAL_CREDIT_NO_INTEREST',
         header: <NI.Header />,
         body: <NI.Content />
     }
 };
 
-// EZP modal will always have EZP + NI
+// EZP modal will always have EZP + PAYPAL_CREDIT_NO_INTEREST
 const Content = () => {
-    return <Tabs tabs={[tabsMap.EZP, tabsMap.NI]} />;
+    return <Tabs tabs={[tabsMap.PAYPAL_CREDIT_INSTALLMENTS, tabsMap.PAYPAL_CREDIT_NO_INTEREST]} />;
 };
 
 export default Content;

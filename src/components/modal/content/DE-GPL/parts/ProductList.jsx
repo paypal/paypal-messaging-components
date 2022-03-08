@@ -23,7 +23,7 @@ const ProductList = ({ buttonClick }) => {
     const { products } = useServerData();
     const productButtons = products
         // This filter is for when GPL and INST sometimes coexist in stage, despite that they should not in prod.
-        .filter(product => product.meta.product !== 'INST')
+        .filter(product => product.meta.product !== 'PAYPAL_CREDIT_INSTALLMENTS')
         .map(product => <ProductButton buttonClick={buttonClick} product={product.meta.product} />);
 
     return (

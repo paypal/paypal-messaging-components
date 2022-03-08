@@ -27,7 +27,7 @@ const PI30 = ({ linkClick }) => {
     const switchText = (
         <p className="switching-text content-column">
             {switchingText[0]}
-            <button type="button" className="switching-link" onClick={() => linkClick('GPL')}>
+            <button type="button" className="switching-link" onClick={() => linkClick('PAY_LATER_SHORT_TERM')}>
                 {switchingText[1]}
             </button>
         </p>
@@ -41,7 +41,7 @@ const PI30 = ({ linkClick }) => {
             </Header>
             <section className="content-body pi30">
                 <div className="instructions transitional content-column">{list}</div>
-                {productNames.includes('GPL') && switchText}
+                {productNames.includes('PAY_LATER_SHORT_TERM') && switchText}
                 <div className="disclosure dashed-border transitional content-column">
                     {legalTerms.replace(/[,]00/g, '')}
                 </div>

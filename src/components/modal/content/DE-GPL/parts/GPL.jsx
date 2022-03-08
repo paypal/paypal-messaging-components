@@ -9,8 +9,8 @@ import Calculator from './Calculator';
 export default ({ linkClick }) => {
     const { products } = useServerData();
     const productNames = products.map(theProduct => theProduct.meta.product);
-    const { headline, instructions, switchingText, disclosure } = useContent('GPL');
-    const { apr } = useProductMeta('GPL');
+    const { headline, instructions, switchingText, disclosure } = useContent('PAY_LATER_SHORT_TERM');
+    const { apr } = useProductMeta('PAY_LATER_SHORT_TERM');
 
     // GPL-specific style changes because calculator continues header
     function stylizeHeaderForGPL() {
