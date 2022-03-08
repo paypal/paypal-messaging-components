@@ -32,7 +32,7 @@
             "Complete your purchase with a 25% first payment.",
             "Remaining payments are taken automatically. It’s easy!"
         ],
-        "disclosure": "PayPal Pay in 4 is available for eligible purchases of $30 to $1,500 AUD. Some seller exclusions apply and subject to customer eligibility. We may run a credit check when you apply. We don't charge late fees, but late or missed payments could impact your PayPal account and credit score. You must live in Australia, have an Australian PayPal account, and agree to all relevant terms and conditions to use Pay in 4.",
+        "disclosure": "PayPal Pay in 4 is available for eligible purchases of {formattedMinAmount} to {formattedMaxAmount} AUD. Some seller exclusions apply and subject to customer eligibility. We may run a credit check when you apply. We don't charge late fees, but late or missed payments could impact your PayPal account and credit score. You must live in Australia, have an Australian PayPal account, and agree to all relevant terms and conditions to use Pay in 4.",
         "linkToProductList": "See other ways to pay later"
     }
 }
