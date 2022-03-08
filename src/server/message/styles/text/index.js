@@ -8,6 +8,8 @@ import logoTop from './logo--top.css';
 import logoAlternativeTop from './logo--alternativetop.css';
 import textWhite from './text--white.css';
 import textBlack from './text--black.css';
+import textMonochrome from './text--monochrome.css';
+import textGrayscale from './text--grayscale.css';
 
 export default [
     ['default', [common, base].join('\n')],
@@ -21,7 +23,7 @@ export default [
     ['logo.type:alternative && logo.position:top', logoAlternativeTop],
 
     ['text.color:black', textBlack],
-    ['text.color:white', textWhite]
-    // ['text.color:white', textWhite, disclaimerInverse],
-    // ['text.color:white', textWhite, disclaimerInverse],
+    ['text.color:white', textWhite],
+    ['text.color:monochrome', textMonochrome],
+    ['text.color:grayscale', textGrayscale]
 ];

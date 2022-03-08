@@ -1,7 +1,4 @@
 import base from './base.css';
-import textMonochrome from './text--monochrome.css';
-import textGrayscale from './text--grayscale.css';
-import textWhite from './text--white.css';
 import logoPrimary from './logo--primary.css';
 import logoAlternative from './logo--alternative.css';
 import logoInline from './logo--inline.css';
@@ -26,10 +23,6 @@ export default [
 
     ['logo.type:inline', logoInline],
     ['logo.type:none', logoNone],
-
-    ['text.color:monochrome', textMonochrome],
-    ['text.color:grayscale', textGrayscale],
-    ['text.color:white', textWhite],
 
     ['text.align:right', textRight],
     ['text.align:right && logo.type:primary', textRightLogoPrimary],
