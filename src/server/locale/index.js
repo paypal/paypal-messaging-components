@@ -2,6 +2,7 @@ import US from './US';
 import DE from './DE';
 import GB from './GB';
 import FR from './FR';
+import ES from './ES';
 import AU from './AU';
 import IT from './IT';
 
@@ -11,6 +12,8 @@ const getLocaleSettings = (offerCountry, offerType) => {
             return DE(offerType);
         case 'GB':
             return GB;
+        case 'ES':
+            return ES;
         case 'FR':
             return FR;
         case 'AU':
