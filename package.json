@@ -24,6 +24,7 @@
         "build:analyze": "webpack --env.analyze",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local --env.STAGE_TAG=local",
+        "dev:ci": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=ci --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:standalone": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:modal": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=standalone-modal --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:lander": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=lander --env.NODE_ENV=local --env.STAGE_TAG=local",
@@ -37,8 +38,8 @@
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
-        "test:func:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/v2/jest.allFunctional.config.js",
-        "test:func:v2:ciupdate": "jest --verbose --config tests/functional/v2/jest.allFunctional.config.js --updateSnapshot"
+        "test:func:snapshots": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/v2/jest.snapshotTests.config.js",
+        "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
     },
     "dependencies": {
         "@paypal/common-components": "^1.0.18",
