@@ -84,13 +84,5 @@ jobs:
               with:
                   commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'
                   commit_options: '--no-verify --quiet'
-                  file_pattern: tests/functional/snapshots
-                  push_options: '-v'
-
-            - name: Commit Updated v2 Snapshots
-              uses: stefanzweifel/git-auto-commit-action@v4
-              with:
-                  commit_message: 'chore(snapshots): v2 ${{ github.event.workflow.name }} [skip ci]'
-                  commit_options: '--no-verify --quiet'
-                  file_pattern: tests/functional/v2/snapshots
+                  file_pattern: tests/functional/snapshots tests/functional/v2/snapshots
                   push_options: '-v'
