@@ -121,7 +121,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['00.', '00']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -139,7 +139,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['00.', '00']]
                     },
                     {
                         tag: 'xsmall.2',
