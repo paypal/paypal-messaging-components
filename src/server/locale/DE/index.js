@@ -16,6 +16,9 @@ export default offerType => {
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
+        case 'PI30:NON-DE':
+        case 'PI30Q:NON-DE':
+        case 'PI30NQ:NON-DE':
             return pi30;
         default:
             return ratenzahlung;
