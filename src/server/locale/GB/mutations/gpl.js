@@ -23,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['from']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -52,7 +52,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 40, textSize, 'GB'),
-                    xSmallFallback(textSize * 18),
+                    xSmallFallback(textSize * 16),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -62,14 +62,19 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 20)],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    `@media screen and (max-width: ${textSize * 21}px) {
+                        .message__messaging span.br { white-space: normal }
+                    }`
+                ],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
-                            ['00.00.', '00.00'],
+                            ['£5,000.', '£5,000'],
                             ['later.', 'later']
                         ]
                     },
@@ -84,14 +89,14 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 20), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [xSmallFallback(textSize * 16)],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
-                            ['00.00.', '00.00'],
+                            ['£5,000.', '£5,000'],
                             ['later.', 'later']
                         ]
                     },
