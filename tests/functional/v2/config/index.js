@@ -2,3 +2,4 @@
 export * as US from './US';
 export * as ES from './ES';
 export * as IT from './IT';
+export * as FR from './FR';
