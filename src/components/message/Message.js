@@ -41,19 +41,18 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const [serverData, setServerData] = createState({
         parentStyles,
         warnings,
-        markup,
-        meta
+        markup
     });
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
-            onClick({ meta: serverData.meta });
+            onClick({ meta });
         }
     };
 
     const handleHover = () => {
         if (typeof onHover === 'function') {
-            onHover({ meta: serverData.meta });
+            onHover({ meta });
         }
     };
 
@@ -77,7 +76,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.innerHTML = markup ?? '';
 
     onReady({
-        meta: serverData.meta,
+        meta,
         activeTags: getActiveTags(button),
         messageRequestId,
         // Utility will create iframe deviceID if it doesn't exist.
@@ -88,11 +87,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         requestDuration: getRequestDuration()
     });
 
-    onMarkup({
-        meta: serverData.meta,
-        styles: serverData.parentStyles,
-        warnings: serverData.warnings
-    });
+    onMarkup({ meta, styles: parentStyles, warnings });
 
     window.addEventListener('focus', () => {
         button.focus();
@@ -135,11 +130,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     merchantId
                 });
 
-                // Generate new MRID on message update.
-                const newMessageRequestId = uniqueID();
-
                 const query = objectEntries({
-                    message_request_id: newMessageRequestId,
+                    message_request_id: messageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
@@ -187,9 +179,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         if (typeof onReady === 'function') {
                             // currency, amount, payerId, clientId, merchantId, buyerCountry
                             onReady({
-                                meta: data.meta ?? serverData.meta,
+                                meta: data.meta ?? meta,
                                 activeTags: getActiveTags(button),
-                                messageRequestId: newMessageRequestId,
+                                // Generate new MRID on message update.
+                                messageRequestId: uniqueID(),
                                 // Utility will create iframe deviceID if it doesn't exist.
                                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
@@ -207,18 +200,17 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                             ) {
                                 // resizes the parent message div
                                 onMarkup({
-                                    meta: data.meta ?? serverData.meta,
-                                    styles: data.parentStyles ?? serverData.parentStyles,
-                                    warnings: data.warnings ?? serverData.warnings
+                                    meta: data.meta ?? meta,
+                                    styles: data.parentStyles ?? parentStyles,
+                                    warnings: data.warnings ?? warnings
                                 });
                             }
                         }
 
                         setServerData({
-                            parentStyles: data.parentStyles ?? serverData.parentStyles,
-                            warnings: data.warnings ?? serverData.warnings,
-                            markup: data.markup ?? serverData.markup,
-                            meta: data.meta ?? serverData.meta
+                            parentStyles: data.parentStyles ?? parentStyles,
+                            warnings: data.warnings ?? warnings,
+                            markup: data.markup ?? markup
                         });
                     }
                 );

@@ -35,12 +35,15 @@ export const ScrollProvider = ({ children, containerRef }) => {
 
     useEffect(() => {
         const handleScroll = event => callbacks.forEach(callback => callback(event));
+
         const passiveOption = getEventListenerPassiveOptionIfSupported();
 
         containerRef.current.addEventListener('scroll', handleScroll, passiveOption);
+        containerRef.current.addEventListener('touchmove', handleScroll, passiveOption);
 
         return () => {
             containerRef.current.removeEventListener('scroll', handleScroll, passiveOption);
+            containerRef.current.removeEventListener('touchmove', handleScroll, passiveOption);
         };
     }, [callbacks]);
 

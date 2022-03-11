@@ -70,7 +70,6 @@ export default ({ showApplyNow, switchTab }) => {
 
             <p>
                 <a
-                    className="terms-link"
                     onClick={() => onClick({ linkName: 'Legal Terms' })}
                     target="_blank"
                     rel="noopener noreferrer"

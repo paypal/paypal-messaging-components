@@ -12,12 +12,11 @@ export const NI = ({
     content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
     openProductList
 }) => {
-    const { views } = useServerData();
     const buttonRef = useRef();
     const handleApplyNowClick = useApplyNow('Apply Now');
 
     const renderProductListLinkItem = () => {
-        if (views?.length > 2) {
+        if (useServerData()?.views?.length > 1) {
             return (
                 <li className="content__footer-item">
                     <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>

@@ -47,17 +47,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
 
     useEffect(() => {
         if (typeof onReady === 'function') {
-            const productNames = products.map(({ meta: productMeta }) => productMeta.product);
-
-            // TODO: Temporary hack needed for the generic message labeled as PI30
-            // which is an issue when PI30 is suppressed
-            if (products.find(({ meta: { offerCountry } }) => offerCountry === 'DE')) {
-                productNames.push('PI30');
-            }
-
             onReady({
                 type,
-                products: productNames,
+                products: products.map(({ meta: productMeta }) => productMeta.product),
                 messageRequestId,
                 meta,
                 // If storage state is brand new, use the parent deviceID, otherwise use child

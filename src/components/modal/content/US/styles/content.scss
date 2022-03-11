@@ -163,13 +163,6 @@
         }
     }
 
-    .terms-link:focus {
-        outline-color: -webkit-focus-ring-color;
-        outline-style: auto;
-        outline-offset: 1px;
-        outline-width: 5px;
-    }
-
     .tab-switch-button {
         border: none;
         outline: none;
@@ -192,13 +185,6 @@
             width: 0.5rem;
             height: 0.5rem;
             top: 0.1rem;
-        }
-
-        &:focus {
-            outline-color: -webkit-focus-ring-color;
-            outline-style: auto;
-            outline-offset: 2px;
-            outline-width: 5px;
         }
     }
 

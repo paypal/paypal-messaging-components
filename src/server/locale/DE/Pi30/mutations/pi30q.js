@@ -159,10 +159,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['nach'],
-                        replace: [
-                            ['Sie nach', 'Sie'],
-                            ['Tagen', 'Tage später']
-                        ]
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',
@@ -184,10 +181,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['nach'],
-                        replace: [
-                            ['Sie nach', 'Sie'],
-                            ['Tagen', 'Tage später']
-                        ]
+                        replace: [['Tagen', 'Tage später']]
                     },
                     {
                         tag: 'xsmall',

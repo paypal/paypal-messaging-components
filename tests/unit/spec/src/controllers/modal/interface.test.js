@@ -163,7 +163,7 @@ describe('modal interface', () => {
         expect(onCalculate).toHaveBeenLastCalledWith({ value: 100 });
     });
 
-    test('Passes onApply handler on modal', async () => {
+    test('Passes onApply handler', async () => {
         const onApply = jest.fn();
         await Modal({ account: '11', index: '1', onApply }).render();
 

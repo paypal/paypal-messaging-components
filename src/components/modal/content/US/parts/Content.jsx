@@ -79,7 +79,6 @@ const Content = ({ headerRef, contentWrapper }) => {
     const tabLinkClick = newProduct => {
         onClick({ linkName: newProduct, src: 'link_click' });
         selectProduct(newProduct);
-        document.querySelector('#close-btn').focus();
     };
 
     useDidUpdateEffect(() => {

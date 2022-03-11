@@ -18,7 +18,7 @@ export const ShortTerm = ({
     const { views } = useServerData();
 
     const renderProductListLink = () => {
-        if (views?.length > 2) {
+        if (views?.length > 1) {
             return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;

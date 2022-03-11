@@ -310,30 +310,4 @@ describe('message interface', () => {
         expect(onHover).toHaveBeenCalledTimes(1);
         expect(onHover).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
     });
-
-    // The Message component does not use the onApply function that the client attaches,
-    // but it does need to be able to accept a function for onApply so it can be passed
-    // on to the Modal component
-    test('Passes onApply handler on message', async () => {
-        const container = document.createElement('div');
-        document.body.appendChild(container);
-        const onApply = jest.fn();
-
-        await Messages({ onApply }).render(container);
-
-        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
-        expect(getMessageComponent()).toHaveBeenLastCalledWith(
-            expect.objectContaining({
-                onApply: expect.any(Function)
-            })
-        );
-        expect(onApply).not.toHaveBeenCalled();
-
-        const [[{ onApply: onApplyHandler }]] = getMessageComponent().mock.calls;
-
-        onApplyHandler({ meta: { messageRequestId: '12345' } });
-
-        expect(onApply).toHaveBeenCalledTimes(1);
-        expect(onApply).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
-    });
 });

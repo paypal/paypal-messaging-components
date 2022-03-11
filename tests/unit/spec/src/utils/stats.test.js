@@ -110,7 +110,7 @@ describe('stats', () => {
             bn_code: 'some-partner-id'
         };
 
-        runStats({ container, activeTags: '', index, requestDuration: 0 });
+        runStats({ container, activeTags: '', index, requestDuration: -1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -141,7 +141,7 @@ describe('stats', () => {
             visible: 'false'
         };
 
-        runStats({ container, activeTags: '', index, requestDuration: 1 });
+        runStats({ container, activeTags: '', index, requestDuration: -1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 

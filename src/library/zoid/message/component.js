@@ -150,7 +150,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             onClose: () => {
                                 getContainer()
                                     .querySelector('iframe')
-                                    .focus();
+                                    .contentWindow.focus();
                             }
                         });
 
@@ -242,8 +242,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         runStats({
                             container: getContainer(),
                             activeTags,
-                            index,
-                            requestDuration
+                            requestDuration,
+                            index
                         });
                         modal.updateProps({ refIndex: index, offer: offerType });
 

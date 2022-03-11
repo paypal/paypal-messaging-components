@@ -26,7 +26,6 @@ export const selectors = {
         instructions: '.instructions',
         instructionsItemWrapper: '.instructions__item-wrapper',
         li: 'li',
-        div: 'div',
 
         // Button selectors shared across all views - i.e., the product list link and close button
         button: {
