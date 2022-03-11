@@ -3,6 +3,7 @@
     .message__headline {
         font-size: 3.5vw;
         line-height: 1.1em;
+        display: inline;
     }
     .tag--default {
         font-size: 3.1vw;
@@ -29,6 +30,9 @@
     }
     .message__logo:nth-of-type(2) {
         display: none;
+    }
+    .message__disclaimer {
+        display: block;
     }
 }
 @media (min-aspect-ratio: 60/11) and (max-width: 374px) {
