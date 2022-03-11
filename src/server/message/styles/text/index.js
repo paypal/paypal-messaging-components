@@ -5,7 +5,7 @@ import logoInline from './logo--inline.css';
 import logoNone from './logo--none.css';
 import logoRight from './logo--right.css';
 import logoTop from './logo--top.css';
-import logoAlternativeTop from './logo--alternativetop.css';
+import logoAlternativePositionTop from './logo--alternative-position--top.css';
 import textWhite from './text--white.css';
 import textBlack from './text--black.css';
 import textMonochrome from './text--monochrome.css';
@@ -20,7 +20,7 @@ export default [
 
     ['logo.position:right', logoRight],
     ['logo.position:top', logoTop],
-    ['logo.type:alternative && logo.position:top', logoAlternativeTop],
+    ['logo.type:alternative && logo.position:top', logoAlternativePositionTop],
 
     ['text.color:black', textBlack],
     ['text.color:white', textWhite],

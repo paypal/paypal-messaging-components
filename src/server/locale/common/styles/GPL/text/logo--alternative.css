@@ -17,11 +17,6 @@
 
 .message__logo:first-child {
     margin-right: 5px;
-    margin-top: 2px;
-}
-
-.message__logo > img {
-    top: 1px;
 }
 
 .message__content {

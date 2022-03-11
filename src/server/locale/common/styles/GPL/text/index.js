@@ -12,6 +12,7 @@ import textRight from './text--right.css';
 import textRightLogoPrimary from './text--right-logo--primary.css';
 import textRightLogoAlternative from './text--right-logo--alternative.css';
 import textRightLogoInline from './text--right-logo--inline.css';
+import logoPrimaryPositionTop from './logo--primary-position--top.css';
 
 export default [
     ['default', base],
@@ -20,6 +21,7 @@ export default [
     ['logo.position:right', logoRight],
 
     ['logo.type:alternative', logoAlternative],
+    ['logo.type:primary && logo.position:top', logoPrimaryPositionTop],
 
     ['logo.type:inline', logoInline],
     ['logo.type:none', logoNone],
