@@ -1,5 +1,26 @@
 # Changelog
 
+### [1.30.1](https://github.com/paypal/paypal-messaging-components/compare/v1.30.0...v1.30.1) (2022-02-25)
+
+
+### Bug Fixes
+
+* accessibility issues including reverse tabbing and nav link focus ([#701](https://github.com/paypal/paypal-messaging-components/issues/701)) ([67a2aee](https://github.com/paypal/paypal-messaging-components/commit/67a2aee5a7eca9b851fdb676002c6c8fb1ccf037))
+* add missing NI offerType map values ([#748](https://github.com/paypal/paypal-messaging-components/issues/748)) ([d2ae4b1](https://github.com/paypal/paypal-messaging-components/commit/d2ae4b1e8f6b0c293119f7f9b872a16aff44a46d))
+* added buyerCountry to the list of props to memoize the modal ([#729](https://github.com/paypal/paypal-messaging-components/issues/729)) ([2e7e1d7](https://github.com/paypal/paypal-messaging-components/commit/2e7e1d77ee5827174e17a5e29b4d752ac33cd18b))
+* calculate de-pi30 product list modal ([#735](https://github.com/paypal/paypal-messaging-components/issues/735)) ([2d25422](https://github.com/paypal/paypal-messaging-components/commit/2d25422fdcb893a1f2bb63289f8e49e1302a379e))
+* donut font sizing and spacing ([#745](https://github.com/paypal/paypal-messaging-components/issues/745)) ([9e3e36a](https://github.com/paypal/paypal-messaging-components/commit/9e3e36ac2a33041cadf71157e0cf2587d232ced2))
+* ensure callback functions work ([#739](https://github.com/paypal/paypal-messaging-components/issues/739)) ([062c3c3](https://github.com/paypal/paypal-messaging-components/commit/062c3c303488c56dd08a13d507840cc82e4d3f60))
+* product list link render condition ([#746](https://github.com/paypal/paypal-messaging-components/issues/746)) ([cebd61a](https://github.com/paypal/paypal-messaging-components/commit/cebd61aa5dab0b2f2ca345deacd7cd1776c81c25))
+* properly generate mrid for message update ([#741](https://github.com/paypal/paypal-messaging-components/issues/741)) ([366d6ec](https://github.com/paypal/paypal-messaging-components/commit/366d6ecfe2f20c856ee3f8d03d04f816af1a49b0))
+* remove touchmove events to prevent scroll miscalculations ([#744](https://github.com/paypal/paypal-messaging-components/issues/744)) ([f962b82](https://github.com/paypal/paypal-messaging-components/commit/f962b8217adbefeaa9ded78ad209596eb4b7985e))
+* updated replace for logo none and inline ([#747](https://github.com/paypal/paypal-messaging-components/issues/747)) ([5ca6f55](https://github.com/paypal/paypal-messaging-components/commit/5ca6f55484aba2c55e61ff709a0cc4649d737513))
+
+
+### Code Refactoring
+
+* update performance entry search (DTCRCGEMI-194) ([#717](https://github.com/paypal/paypal-messaging-components/issues/717)) ([cdee51d](https://github.com/paypal/paypal-messaging-components/commit/cdee51d52c854fc80dc6634fef5e89698f660b2a))
+
 ## [1.30.0](https://github.com/paypal/paypal-messaging-components/compare/v1.29.0...v1.30.0) (2022-02-14)
 
 

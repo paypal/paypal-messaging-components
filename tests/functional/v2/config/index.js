@@ -1,1 +1,1 @@
-export { default as US } from './US.config';
+export * as US from './US';
