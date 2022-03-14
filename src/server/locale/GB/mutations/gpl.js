@@ -63,7 +63,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 20),
                     `@media screen and (max-width: ${textSize * 21}px) {
                         .message__messaging span.br { white-space: normal }
                     }`
@@ -89,7 +89,13 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `@media screen and (max-width: ${textSize * 21}px) {
+                        .message__messaging span.br { white-space: normal }
+                    }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
