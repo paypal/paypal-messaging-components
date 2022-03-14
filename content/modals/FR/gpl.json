@@ -24,7 +24,7 @@
     },
     "content": {
         "headline": {
-            "singleProduct": "Payez en 4X"
+            "singleProduct": "Payez en 4X sans frais"
         },
         "subHeadline": {
             "unqualified": "4 échéances sans frais, pour les achats de {formattedMinAmount} à {formattedMaxAmount}. ",
