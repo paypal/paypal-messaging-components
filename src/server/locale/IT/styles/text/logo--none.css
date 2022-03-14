@@ -1,0 +1,11 @@
+.message__headline > span:last-of-type {
+    display: inline-block;
+}
+
+.weak {
+    display: none;
+}
+
+.message__headline {
+    white-space: normal;
+}
