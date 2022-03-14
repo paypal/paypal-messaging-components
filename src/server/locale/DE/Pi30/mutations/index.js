@@ -8,7 +8,6 @@ import pi30nqNonDe from './pi30nq-non-de';
 import pi30qNonDe from './pi30q-non-de';
 
 export default function getMutations(id, type) {
-    console.warn(1, id, type);
     switch (id) {
         case 'PI30Q':
             return pi30q[type];
