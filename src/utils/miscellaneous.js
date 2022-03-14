@@ -231,6 +231,9 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        case 'SHORT_TERM:Q':
+        case 'SHORT_TERM:NQ':
+        case 'SHORT_TERM:NO_AMOUNT':
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
             return OFFER.PAY_LATER_PAY_IN_1;
@@ -254,7 +257,9 @@ export function getStandardProductOffer(offer) {
             return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
         case OFFER.PAYPAL_CREDIT_NO_INTEREST:
         case 'NI':
+        case 'NI:NON-US':
         case 'NIQ':
+        case 'NIQ:NON-US':
             return OFFER.PAYPAL_CREDIT_NO_INTEREST;
         default:
             return undefined;
