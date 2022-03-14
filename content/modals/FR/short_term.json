@@ -24,7 +24,7 @@
         }
     },
     "content": {
-        "headline": "Payez en 4X",
+        "headline": "Payez en 4X sans frais",
 
         "subheadline": "Disponible pour les achats de {formattedMinAmount} à {formattedMaxAmount}. Pas de frais de dossier ni de frais de retard.",
         "qualifyingSubheadline": "Payez votre achat de {formattedTransactionAmount} en 4 fois sans frais de dossier ni frais de retard.",
