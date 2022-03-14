@@ -6,7 +6,7 @@ import Calculator from './Calculator';
 import { useContent } from '../../../lib';
 
 const INST = () => {
-    const { carousel } = useContent('PAYPAL_CREDIT_INSTALLMENTS');
+    const { carousel } = useContent('PAY_LATER_SHORT_TERM');
 
     return (
         <section className="content-body">
