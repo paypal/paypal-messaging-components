@@ -2,6 +2,10 @@
     margin-right: 5px;
 }
 
+.message__logo:last-child {
+    margin-top: 0px;
+}
+
 .message__content {
     align-items: center;
 }
