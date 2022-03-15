@@ -83,9 +83,11 @@ jobs:
                   fi
 
                   ARTIFACT_NAME="snapshot-$(sed 's/\//-/g' <<< '${{ matrix.testPathPattern }}')"
+                  echo "ARTIFACT_NAME=$ARTIFACT_NAME"
                   echo "::set-output name=name::$ARTIFACT_NAME"
 
                   ARTIFACT_PATH="snapshots/"
+                  echo "ARTIFACT_PATH=$ARTIFACT_PATH"
                   echo "::set-output name=filePath::$ARTIFACT_PATH"
 
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots' | sed -E "s/^.{3}//")
@@ -93,6 +95,10 @@ jobs:
                   do
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
 
                       mkdir -p "${{ github.workspace }}/$newDir"
                       mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
@@ -146,9 +152,11 @@ jobs:
                   fi
 
                   ARTIFACT_NAME="snapshot-v2-$(sed 's/\//-/g' <<< '${{ matrix.testConfig }}')"
+                  echo "ARTIFACT_NAME=$ARTIFACT_NAME"
                   echo "::set-output name=name::$ARTIFACT_NAME"
 
                   ARTIFACT_PATH="snapshotsV2/"
+                  echo "ARTIFACT_PATH=$ARTIFACT_PATH"
                   echo "::set-output name=filePath::$ARTIFACT_PATH"
 
                   # even though we're not committing files here, this forces git to list full file paths, not folders
@@ -165,6 +173,10 @@ jobs:
 
                       # newDir chops off {fileName} from {newPath}
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
 
                       mkdir -p "${{ github.workspace }}/$newDir"
                       mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
