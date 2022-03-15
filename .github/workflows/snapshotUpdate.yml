@@ -94,13 +94,15 @@ jobs:
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
-                      # Skip creating a directory if filePath is already a directory
-                      # to prevent duplicate nested directories
-                      if [[ ! "$filePath" =~ /$ ]]; then
-                        mkdir -p "${{ github.workspace }}/$newDir"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
+                      else
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
-
-                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                   done
 
             - name: Save Snapshot Artifact
@@ -167,17 +169,18 @@ jobs:
                       # newPath is the new top level file path
                       # ex: snapshots/{picType}/{integrationType}/{locale}/{account}/{screenType}/{fileName}
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
-
                       # newDir chops off {fileName} from {newPath}
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
-                      # Skip creating a directory if filePath is already a directory
-                      # to prevent duplicate nested directories
-                      if [[ ! "$filePath" =~ /$ ]]; then
-                        mkdir -p "${{ github.workspace }}/$newDir"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
+                      else
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
-
-                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                   done
                   mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
 
