@@ -94,13 +94,22 @@ jobs:
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
                       
                       if [ -d "${{ github.workspace }}/$filePath" ]; then
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
                         mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
                       else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                         mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
                   done
@@ -166,19 +175,25 @@ jobs:
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
                   echo "$UPDATED_SNAPSHOTS" | while read -r filePath
                   do
-                      # newPath is the new top level file path
-                      # ex: snapshots/{picType}/{integrationType}/{locale}/{account}/{screenType}/{fileName}
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
-                      # newDir chops off {fileName} from {newPath}
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
                       
                       if [ -d "${{ github.workspace }}/$filePath" ]; then
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
                         mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
                       else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                         mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
                   done
