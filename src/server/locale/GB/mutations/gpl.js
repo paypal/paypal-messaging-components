@@ -74,6 +74,7 @@ export default {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
+                            ['purchases.', 'purchases'],
                             ['£5,000.', '£5,000'],
                             ['later.', 'later']
                         ]
@@ -102,6 +103,7 @@ export default {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
+                            ['purchases.', 'purchases'],
                             ['£5,000.', '£5,000'],
                             ['later.', 'later']
                         ]
