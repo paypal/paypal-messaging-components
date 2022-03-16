@@ -11,7 +11,7 @@ export const DEV_ES_SHORT_TERM = {
             expectedValue: 'Paga en 3 plazos sin intereses tus compras de 30,00 € a 2.000,00 €',
             modalContent: {
                 subheadline:
-                    'Disponible para las compras de 30,00 € a 2.000,00 €. Sin comisiones de apertura ni por pago atrasado.',
+                    'Disponible para las compras de 30 € a 2.000 €. Sin comisiones de apertura ni por pago atrasado.',
                 periodicPayment: null
             }
         },
@@ -31,7 +31,7 @@ export const DEV_ES_SHORT_TERM = {
             expectedValue: 'Paga en 3 plazos sin intereses tus compras de 30,00 € a 2.000,00 €',
             modalContent: {
                 subheadline:
-                    'Disponible para las compras de 30,00 € a 2.000,00 €. Sin comisiones de apertura ni por pago atrasado.',
+                    'Disponible para las compras de 30 € a 2.000 €. Sin comisiones de apertura ni por pago atrasado.',
                 periodicPayment: ''
             }
         }
