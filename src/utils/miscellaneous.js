@@ -240,6 +240,9 @@ export function getStandardProductOffer(offer) {
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
+        case 'PI30:NON-DE':
+        case 'PI30Q:NON-DE':
+        case 'PI30NQ:NON-DE':
             return 'PI30';
         case 'EZP':
         case 'EZP:ANY:EQZ':
