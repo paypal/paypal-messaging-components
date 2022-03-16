@@ -1,4 +1,9 @@
 export const currencyFormat = string => {
+    if (Array.isArray(string)) {
+        // Recursively loop down through nested arrays
+        return string.map(currencyFormat);
+    }
+
     let formattedStr = string;
     const match =
         formattedStr?.match(
