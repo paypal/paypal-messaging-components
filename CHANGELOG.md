@@ -1,5 +1,37 @@
 # Changelog
 
+## [1.32.0](https://github.com/paypal/paypal-messaging-components/compare/v1.31.0...v1.32.0) (2022-03-16)
+
+
+### Features
+
+* support cspNonce param ([#740](https://github.com/paypal/paypal-messaging-components/issues/740)) ([eefce03](https://github.com/paypal/paypal-messaging-components/commit/eefce03f3251b6fed06ecebd6edf332e9aabf110))
+
+
+### Bug Fixes
+
+* add cross-border DE messages ([#768](https://github.com/paypal/paypal-messaging-components/issues/768)) ([5ee39ed](https://github.com/paypal/paypal-messaging-components/commit/5ee39ed553383a818f88b277184432f84f1fdef2))
+* use 1rem for donut payment and timestamp across all viewports ([#769](https://github.com/paypal/paypal-messaging-components/issues/769)) ([f43780e](https://github.com/paypal/paypal-messaging-components/commit/f43780ea853d44a89459a6d89b8fd0da984fee0d))
+
+
+### Code Refactoring
+
+* remove short-term min and max cents ([#756](https://github.com/paypal/paypal-messaging-components/issues/756)) ([b4736a3](https://github.com/paypal/paypal-messaging-components/commit/b4736a30974a1f41a7ac37a3c1e9c1d12fec9ad2))
+
+## [1.31.0](https://github.com/paypal/paypal-messaging-components/compare/v1.30.1...v1.31.0) (2022-03-09)
+
+
+### Features
+
+* adds ES-PI3 messages, flex, and modal ([#755](https://github.com/paypal/paypal-messaging-components/issues/755)) ([3039c8c](https://github.com/paypal/paypal-messaging-components/commit/3039c8c257725364af2ce019f241acf20a388685)), closes [#691](https://github.com/paypal/paypal-messaging-components/issues/691) [#733](https://github.com/paypal/paypal-messaging-components/issues/733)
+* GitHub Actions for Universal Modal ([#731](https://github.com/paypal/paypal-messaging-components/issues/731)) ([73ece62](https://github.com/paypal/paypal-messaging-components/commit/73ece6207b508bc69a10477b7dd32e15d686ce23))
+* IT-Pi3 text, flex, and modal ([#759](https://github.com/paypal/paypal-messaging-components/issues/759)) ([44816cd](https://github.com/paypal/paypal-messaging-components/commit/44816cd6c964e62a2a6776915b6b3ed599b6ba17)), closes [#660](https://github.com/paypal/paypal-messaging-components/issues/660) [#656](https://github.com/paypal/paypal-messaging-components/issues/656) [#665](https://github.com/paypal/paypal-messaging-components/issues/665) [#686](https://github.com/paypal/paypal-messaging-components/issues/686) [#712](https://github.com/paypal/paypal-messaging-components/issues/712) [#689](https://github.com/paypal/paypal-messaging-components/issues/689) [#703](https://github.com/paypal/paypal-messaging-components/issues/703) [#720](https://github.com/paypal/paypal-messaging-components/issues/720) [#721](https://github.com/paypal/paypal-messaging-components/issues/721) [#750](https://github.com/paypal/paypal-messaging-components/issues/750) [#723](https://github.com/paypal/paypal-messaging-components/issues/723)
+
+
+### Continuous Integration
+
+* use path instead of filePath ([#760](https://github.com/paypal/paypal-messaging-components/issues/760)) ([050f181](https://github.com/paypal/paypal-messaging-components/commit/050f18160fab285bc5cd5edcd1efc06e40d21ddd))
+
 ### [1.30.1](https://github.com/paypal/paypal-messaging-components/compare/v1.30.0...v1.30.1) (2022-02-25)
 
 
