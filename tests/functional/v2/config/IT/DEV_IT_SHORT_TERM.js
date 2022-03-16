@@ -10,8 +10,7 @@ export const DEV_IT_SHORT_TERM = {
             message: 'Pay in 3, no amount',
             expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
             modalContent: {
-                subheadline:
-                    'Disponibile per acquisti tra 30,00 € e 2.000,00 €. Nessuna tariffa iniziale o di ritardo.',
+                subheadline: 'Disponibile per acquisti tra 30 € e 2.000 €. Nessuna tariffa iniziale o di ritardo.',
                 periodicPayment: null
             }
         },
@@ -29,8 +28,7 @@ export const DEV_IT_SHORT_TERM = {
             message: 'Pay in 3, non-qualifying',
             expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
             modalContent: {
-                subheadline:
-                    'Disponibile per acquisti tra 30,00 € e 2.000,00 €. Nessuna tariffa iniziale o di ritardo.',
+                subheadline: 'Disponibile per acquisti tra 30 € e 2.000 €. Nessuna tariffa iniziale o di ritardo.',
                 periodicPayment: ''
             }
         }
