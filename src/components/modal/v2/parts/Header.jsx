@@ -3,6 +3,7 @@ import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { isLander, useTransitionState, useScroll, isIframe } from '../lib';
 import Icon from './Icon';
+import { currencyFormat } from '../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
     const [, handleClose] = useTransitionState();
@@ -70,7 +71,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <h2>{qualifyingSubheadline}</h2>
                 ) : (
-                    <h2>{subheadline ?? ''}</h2>
+                    <h2>{currencyFormat(subheadline) ?? ''}</h2>
                 )}
             </div>
         </Fragment>

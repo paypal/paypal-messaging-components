@@ -194,7 +194,7 @@ jobs:
                       else
                         echo "moving file"
                         echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
-                        mv "${{ github.workspace }}/$filePath ${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
                   done
                   mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
