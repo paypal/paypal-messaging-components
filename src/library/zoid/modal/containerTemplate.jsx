@@ -12,7 +12,7 @@ import { createTitleGenerator, viewportHijack } from '../../../utils';
 const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce } }) => {
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {
@@ -77,7 +77,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
     // helps to protect our desired styles.
     return (
         <div id={uid} class={CLASS.HIDDEN} onRender={handleRender}>
-            <style>
+            <style nonce={cspNonce}>
                 {`
                     #${uid}.${CLASS.HIDDEN} {
                         visibility: hidden;
@@ -95,6 +95,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     #${uid} > div {
                         background: rgba(108, 115, 120, 0);
                         transition: background ${TRANSITION_DELAY}ms linear;
+                        ${fullScreen('fixed')}
                     }
 
                     #${uid} > div.${CLASS.MODAL_SHOW} {
@@ -126,7 +127,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state }) => {
                     }
                 `}
             </style>
-            <div style={fullScreen('fixed')}>
+            <div>
                 <node el={frame} title={modalTitle} />
                 <node el={prerenderFrame} title={`Prerender ${modalTitle}`} />
             </div>

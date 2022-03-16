@@ -21,7 +21,6 @@
     }
     .message__logo-container {
         max-width: 15%;
-        margin-bottom: -4px;
     }
     .message__messaging {
         flex: unset;
@@ -49,7 +48,7 @@
     }
     .message__headline span.tag--xsmall {
         display: inline;
-        font-size: 2.5vw;
+        font-size: 2vw;
     }
     .tag--default {
         font-size: 0.6rem;
