@@ -34,9 +34,12 @@ export default {
     DEV00DEPI30NQ: ['DE', ['pi30'], 'pi30nq'],
     DEV000DEPI30Q: ['DE', ['pi30'], 'pi30q'],
     DEV0000DEPI30: ['DE', ['pi30'], 'pi30'],
-
+    DEVXBDEPI30NQ: ['DE', ['pi30'], 'pi30nq-non-de'],
+    DEV0XBDEPI30Q: ['DE', ['pi30'], 'pi30q-non-de'],
+    DEV00XBDEPI30: ['DE', ['pi30'], 'pi30-non-de'],
     // Multi product modal
-    DEV0DEPI30GPL: ['DE', ['pi30', 'gpl'], 'pi30'],
+    DEV000DEMULTI: ['DE', ['pi30', 'gpl'], 'pi30'],
+    DEV0XBDEMULTI: ['DE', ['pi30', 'gpl'], 'pi30-non-de'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
     DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
