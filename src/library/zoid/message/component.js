@@ -18,6 +18,7 @@ import {
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
+    getNonce,
     ppDebug,
     isScriptBeingDestroyed,
     getDevTouchpoint,
@@ -433,6 +434,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: () => __MESSAGES__.__TARGET__
+            },
+            cspNonce: {
+                type: 'string',
+                required: false,
+                default: getNonce,
+                value: validate.cspNonce
             }
         }
     })
