@@ -105,11 +105,11 @@ jobs:
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting
                         echo "moving directory"
-                        echo "mv ${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
-                        mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
                       else
                         echo "moving file"
-                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                        echo "mv ${{ github.workspace }}/$filePath ${{ github.workspace }}/$newPath"
                         mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
                       fi
                   done
@@ -189,12 +189,12 @@ jobs:
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting
                         echo "moving directory"
-                        echo "mv ${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
-                        mv "${{ github.workspace }}/$filePath*" "${{ github.workspace }}/$newDir"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
                       else
                         echo "moving file"
                         echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
-                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath ${{ github.workspace }}/$newPath"
                       fi
                   done
                   mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
