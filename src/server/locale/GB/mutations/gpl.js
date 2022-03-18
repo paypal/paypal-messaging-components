@@ -75,7 +75,7 @@ export default {
                         br: ['purchases'],
                         replace: [
                             ['purchases.', 'purchases'],
-                            ['£5,000.', '£5,000'],
+                            ['0.', '0'],
                             ['later.', 'later']
                         ]
                     },
@@ -104,7 +104,7 @@ export default {
                         br: ['purchases'],
                         replace: [
                             ['purchases.', 'purchases'],
-                            ['£5,000.', '£5,000'],
+                            ['0.', '0'],
                             ['later.', 'later']
                         ]
                     },
