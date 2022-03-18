@@ -2,6 +2,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { logger, memoize, getEnv } from '../../../utils';
+import { OFFER } from '../../../utils/constants';
 
 export const Types = {
     ANY: 'ANY',
@@ -107,10 +108,17 @@ export default {
         return undefined;
     },
     offer: ({ props: { offer } }) => {
+        const offerTypes = [
+            OFFER.PAY_LATER_SHORT_TERM,
+            OFFER.PAY_LATER_LONG_TERM,
+            OFFER.PAY_LATER_PAY_IN_1,
+            OFFER.PAYPAL_CREDIT_NO_INTEREST,
+            OFFER.PAYPAL_CREDIT_INSTALLMENTS
+        ];
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
                 logInvalidType('offer', Types.STRING, offer);
-            } else if (offer !== 'NI') {
+            } else if (!offerTypes.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
             } else {
                 return offer;
