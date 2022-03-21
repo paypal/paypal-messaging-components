@@ -7,7 +7,7 @@ import IT from './IT';
 // that are not guaranteed to be reflective of what is in production
 export default {
     ...US,
-    ...AU
+    ...AU,
     ...ES,
     ...IT
 };
