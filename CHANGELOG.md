@@ -1,5 +1,170 @@
 # Changelog
 
+## [1.32.0](https://github.com/paypal/paypal-messaging-components/compare/v1.31.0...v1.32.0) (2022-03-16)
+
+
+### Features
+
+* support cspNonce param ([#740](https://github.com/paypal/paypal-messaging-components/issues/740)) ([eefce03](https://github.com/paypal/paypal-messaging-components/commit/eefce03f3251b6fed06ecebd6edf332e9aabf110))
+
+
+### Bug Fixes
+
+* add cross-border DE messages ([#768](https://github.com/paypal/paypal-messaging-components/issues/768)) ([5ee39ed](https://github.com/paypal/paypal-messaging-components/commit/5ee39ed553383a818f88b277184432f84f1fdef2))
+* use 1rem for donut payment and timestamp across all viewports ([#769](https://github.com/paypal/paypal-messaging-components/issues/769)) ([f43780e](https://github.com/paypal/paypal-messaging-components/commit/f43780ea853d44a89459a6d89b8fd0da984fee0d))
+
+
+### Code Refactoring
+
+* remove short-term min and max cents ([#756](https://github.com/paypal/paypal-messaging-components/issues/756)) ([b4736a3](https://github.com/paypal/paypal-messaging-components/commit/b4736a30974a1f41a7ac37a3c1e9c1d12fec9ad2))
+
+## [1.31.0](https://github.com/paypal/paypal-messaging-components/compare/v1.30.1...v1.31.0) (2022-03-09)
+
+
+### Features
+
+* adds ES-PI3 messages, flex, and modal ([#755](https://github.com/paypal/paypal-messaging-components/issues/755)) ([3039c8c](https://github.com/paypal/paypal-messaging-components/commit/3039c8c257725364af2ce019f241acf20a388685)), closes [#691](https://github.com/paypal/paypal-messaging-components/issues/691) [#733](https://github.com/paypal/paypal-messaging-components/issues/733)
+* GitHub Actions for Universal Modal ([#731](https://github.com/paypal/paypal-messaging-components/issues/731)) ([73ece62](https://github.com/paypal/paypal-messaging-components/commit/73ece6207b508bc69a10477b7dd32e15d686ce23))
+* IT-Pi3 text, flex, and modal ([#759](https://github.com/paypal/paypal-messaging-components/issues/759)) ([44816cd](https://github.com/paypal/paypal-messaging-components/commit/44816cd6c964e62a2a6776915b6b3ed599b6ba17)), closes [#660](https://github.com/paypal/paypal-messaging-components/issues/660) [#656](https://github.com/paypal/paypal-messaging-components/issues/656) [#665](https://github.com/paypal/paypal-messaging-components/issues/665) [#686](https://github.com/paypal/paypal-messaging-components/issues/686) [#712](https://github.com/paypal/paypal-messaging-components/issues/712) [#689](https://github.com/paypal/paypal-messaging-components/issues/689) [#703](https://github.com/paypal/paypal-messaging-components/issues/703) [#720](https://github.com/paypal/paypal-messaging-components/issues/720) [#721](https://github.com/paypal/paypal-messaging-components/issues/721) [#750](https://github.com/paypal/paypal-messaging-components/issues/750) [#723](https://github.com/paypal/paypal-messaging-components/issues/723)
+
+
+### Continuous Integration
+
+* use path instead of filePath ([#760](https://github.com/paypal/paypal-messaging-components/issues/760)) ([050f181](https://github.com/paypal/paypal-messaging-components/commit/050f18160fab285bc5cd5edcd1efc06e40d21ddd))
+
+### [1.30.1](https://github.com/paypal/paypal-messaging-components/compare/v1.30.0...v1.30.1) (2022-02-25)
+
+
+### Bug Fixes
+
+* accessibility issues including reverse tabbing and nav link focus ([#701](https://github.com/paypal/paypal-messaging-components/issues/701)) ([67a2aee](https://github.com/paypal/paypal-messaging-components/commit/67a2aee5a7eca9b851fdb676002c6c8fb1ccf037))
+* add missing NI offerType map values ([#748](https://github.com/paypal/paypal-messaging-components/issues/748)) ([d2ae4b1](https://github.com/paypal/paypal-messaging-components/commit/d2ae4b1e8f6b0c293119f7f9b872a16aff44a46d))
+* added buyerCountry to the list of props to memoize the modal ([#729](https://github.com/paypal/paypal-messaging-components/issues/729)) ([2e7e1d7](https://github.com/paypal/paypal-messaging-components/commit/2e7e1d77ee5827174e17a5e29b4d752ac33cd18b))
+* calculate de-pi30 product list modal ([#735](https://github.com/paypal/paypal-messaging-components/issues/735)) ([2d25422](https://github.com/paypal/paypal-messaging-components/commit/2d25422fdcb893a1f2bb63289f8e49e1302a379e))
+* donut font sizing and spacing ([#745](https://github.com/paypal/paypal-messaging-components/issues/745)) ([9e3e36a](https://github.com/paypal/paypal-messaging-components/commit/9e3e36ac2a33041cadf71157e0cf2587d232ced2))
+* ensure callback functions work ([#739](https://github.com/paypal/paypal-messaging-components/issues/739)) ([062c3c3](https://github.com/paypal/paypal-messaging-components/commit/062c3c303488c56dd08a13d507840cc82e4d3f60))
+* product list link render condition ([#746](https://github.com/paypal/paypal-messaging-components/issues/746)) ([cebd61a](https://github.com/paypal/paypal-messaging-components/commit/cebd61aa5dab0b2f2ca345deacd7cd1776c81c25))
+* properly generate mrid for message update ([#741](https://github.com/paypal/paypal-messaging-components/issues/741)) ([366d6ec](https://github.com/paypal/paypal-messaging-components/commit/366d6ecfe2f20c856ee3f8d03d04f816af1a49b0))
+* remove touchmove events to prevent scroll miscalculations ([#744](https://github.com/paypal/paypal-messaging-components/issues/744)) ([f962b82](https://github.com/paypal/paypal-messaging-components/commit/f962b8217adbefeaa9ded78ad209596eb4b7985e))
+* updated replace for logo none and inline ([#747](https://github.com/paypal/paypal-messaging-components/issues/747)) ([5ca6f55](https://github.com/paypal/paypal-messaging-components/commit/5ca6f55484aba2c55e61ff709a0cc4649d737513))
+
+
+### Code Refactoring
+
+* update performance entry search (DTCRCGEMI-194) ([#717](https://github.com/paypal/paypal-messaging-components/issues/717)) ([cdee51d](https://github.com/paypal/paypal-messaging-components/commit/cdee51d52c854fc80dc6634fef5e89698f660b2a))
+
+## [1.30.0](https://github.com/paypal/paypal-messaging-components/compare/v1.29.0...v1.30.0) (2022-02-14)
+
+
+### Features
+
+* universal modal ([#726](https://github.com/paypal/paypal-messaging-components/issues/726)) ([7e993ed](https://github.com/paypal/paypal-messaging-components/commit/7e993ed5aa94994390277a7cc431a69f24da6ea4))
+
+
+### Continuous Integration
+
+* fix auto stage tag ([#719](https://github.com/paypal/paypal-messaging-components/issues/719)) ([676055e](https://github.com/paypal/paypal-messaging-components/commit/676055e3e94edb1cbbb45cd108adcbe4836bbaf6))
+
+## [1.29.0](https://github.com/paypal/paypal-messaging-components/compare/v1.28.0...v1.29.0) (2022-01-26)
+
+
+### Features
+
+* measure cdn stats (DTCRCGEMI-194) ([#687](https://github.com/paypal/paypal-messaging-components/issues/687)) ([5b21ce2](https://github.com/paypal/paypal-messaging-components/commit/5b21ce2a0bd7cfbf8cf46ca98ce44f50f6d52676))
+
+
+### Bug Fixes
+
+* locale parity  ([7d063d6](https://github.com/paypal/paypal-messaging-components/commit/7d063d6b56b7a33c09a913931e7d8519c53927d9)), closes [#708](https://github.com/paypal/paypal-messaging-components/issues/708)
+* side-effect prop functions called once ([#715](https://github.com/paypal/paypal-messaging-components/issues/715)) ([ca62e2f](https://github.com/paypal/paypal-messaging-components/commit/ca62e2f8d25b84ae7c5b2efbdd135f79f0d8d923))
+* wrap new globals access in try catch ([#716](https://github.com/paypal/paypal-messaging-components/issues/716)) ([b84153d](https://github.com/paypal/paypal-messaging-components/commit/b84153d230f4c3c21a5a4fa5e0cd625367650d3c))
+
+
+### Continuous Integration
+
+* add Spain and Italy to matrix for github actions ([#705](https://github.com/paypal/paypal-messaging-components/issues/705)) ([a1181db](https://github.com/paypal/paypal-messaging-components/commit/a1181db006e3b6d17e0a8c80a34c6d896385606e))
+* fix snapshot update command ([#702](https://github.com/paypal/paypal-messaging-components/issues/702)) ([52280c9](https://github.com/paypal/paypal-messaging-components/commit/52280c9fc08fe3058fa362bb69fa640a035a951a))
+* full transition to GitHub Actions ([#666](https://github.com/paypal/paypal-messaging-components/issues/666)) ([4589320](https://github.com/paypal/paypal-messaging-components/commit/4589320cd954aac7a07e8c4c84be81b19f64df11))
+* simplify test paths ([#706](https://github.com/paypal/paypal-messaging-components/issues/706)) ([36fae63](https://github.com/paypal/paypal-messaging-components/commit/36fae63c949152ad99d2bfd23824ccb4ee716540))
+
+
+### Code Refactoring
+
+* add support for new __MESSAGING_GLOBALS__ object ([#696](https://github.com/paypal/paypal-messaging-components/issues/696)) ([4d9a5c0](https://github.com/paypal/paypal-messaging-components/commit/4d9a5c001ba44c2f399f71c68affcd1f0487d89c))
+* remove renderMessage (re-adding from dtcgemi-32) ([#682](https://github.com/paypal/paypal-messaging-components/issues/682)) ([e4f2040](https://github.com/paypal/paypal-messaging-components/commit/e4f2040aec5269ba67efacefb22c65249da9dede))
+* update legal disclosures for Pay in 4 and NI local modal content ([#700](https://github.com/paypal/paypal-messaging-components/issues/700)) ([bdf8d7c](https://github.com/paypal/paypal-messaging-components/commit/bdf8d7c6053a9d8f6d9553a124282f1df698ad76))
+
+## [1.28.0](https://github.com/paypal/paypal-messaging-components/compare/v1.27.2...v1.28.0) (2022-01-11)
+
+
+### Features
+
+* DE Pi30 [snapshots] ([#602](https://github.com/paypal/paypal-messaging-components/issues/602)) ([d83ffa8](https://github.com/paypal/paypal-messaging-components/commit/d83ffa80a275484cc0af9b4407b58dc2e4376099))
+
+
+### Build System
+
+* remove static namespace from SDK meta file ([#676](https://github.com/paypal/paypal-messaging-components/issues/676)) ([4acee0b](https://github.com/paypal/paypal-messaging-components/commit/4acee0b0f442c104e25c68f2629881ba9858e89f))
+
+### [1.27.2](https://github.com/paypal/paypal-messaging-components/compare/v1.27.1...v1.27.2) (2022-01-04)
+
+
+### Bug Fixes
+
+* accessibility issues ([#671](https://github.com/paypal/paypal-messaging-components/issues/671)) ([2f63ec5](https://github.com/paypal/paypal-messaging-components/commit/2f63ec52e2ddd3a550de674b9c81dfad714ce53f))
+* gpl styles mobile view change ([#668](https://github.com/paypal/paypal-messaging-components/issues/668)) ([2736fab](https://github.com/paypal/paypal-messaging-components/commit/2736fab6bfac392af8ae104e517e238b3be1b50b))
+
+
+### Code Refactoring
+
+* add "no late fees" to US Pay in 4 modal ([#669](https://github.com/paypal/paypal-messaging-components/issues/669)) ([6df8202](https://github.com/paypal/paypal-messaging-components/commit/6df820252b9211b4fd11591c143c1189dca07230))
+* add interest-free back into Pi3 cleanup ([#617](https://github.com/paypal/paypal-messaging-components/issues/617)) ([ff6a841](https://github.com/paypal/paypal-messaging-components/commit/ff6a841c09015c66a3f44ee587a16d3c6b8ba965))
+* remove mention of late fees from US and UK modal content [snapshots] ([#592](https://github.com/paypal/paypal-messaging-components/issues/592)) ([576d363](https://github.com/paypal/paypal-messaging-components/commit/576d3632eb5725c5b7035ea810fb51a21ee8bf86))
+* update DE legal disclosure for 9.99% ([944a0b4](https://github.com/paypal/paypal-messaging-components/commit/944a0b4d9aafe3112887da1b4e9382da7b82ceea))
+
+### [1.27.1](https://github.com/paypal/paypal-messaging-components/compare/v1.27.0...v1.27.1) (2021-10-26)
+
+
+### Code Refactoring
+
+* client-side generated unique identifier provided as messageRequestId ([#570](https://github.com/paypal/paypal-messaging-components/issues/570)) ([650358a](https://github.com/paypal/paypal-messaging-components/commit/650358a36e1d8bf9f16076f6bb717a1e88b99654))
+
+## [1.27.0](https://github.com/paypal/paypal-messaging-components/compare/v1.26.6...v1.27.0) (2021-10-20)
+
+
+### Features
+
+* add merchant configuration hash for caching ([#564](https://github.com/paypal/paypal-messaging-components/issues/564)) ([8c648c9](https://github.com/paypal/paypal-messaging-components/commit/8c648c911f7048c807274199b73f66c6df72fa43))
+
+
+### Bug Fixes
+
+* remove duplicate text from GPL GB flex messages [snapshots] ([#653](https://github.com/paypal/paypal-messaging-components/issues/653)) ([3396807](https://github.com/paypal/paypal-messaging-components/commit/339680709973a0b0f6a81a05e6de21f86fcc2ea7))
+* remove Festivo font from modal ([#613](https://github.com/paypal/paypal-messaging-components/issues/613)) ([842c736](https://github.com/paypal/paypal-messaging-components/commit/842c736c4a9a998a66e07d8cb6a026be02a82d03))
+* store child frame device ID in separate key [snapshots] ([#618](https://github.com/paypal/paypal-messaging-components/issues/618)) ([35ac487](https://github.com/paypal/paypal-messaging-components/commit/35ac4870cdac1b916a02b8c204cf77dcc156bc11))
+
+
+### Code Refactoring
+
+* update DE disclosure ([#619](https://github.com/paypal/paypal-messaging-components/issues/619)) ([74299d7](https://github.com/paypal/paypal-messaging-components/commit/74299d772d80580f11db1cd620a68f84d81b7948))
+
+
+### Continuous Integration
+
+* automatic stage tag ([#644](https://github.com/paypal/paypal-messaging-components/issues/644)) ([bb5b7c2](https://github.com/paypal/paypal-messaging-components/commit/bb5b7c209319d0ce3c2e43823e83e0bc027fc516))
+
+### [1.26.6](https://github.com/paypal/paypal-messaging-components/compare/v1.26.5...v1.26.6) (2021-10-13)
+
+
+### Bug Fixes
+
+* use unformated APR for DE GPL disclosure check [snapshots] ([#634](https://github.com/paypal/paypal-messaging-components/issues/634)) ([dc72fbe](https://github.com/paypal/paypal-messaging-components/commit/dc72fbe9525036ac53ec115054d6c1e742265748))
+
+
+### Code Refactoring
+
+* fix accessibility issues from test reports ([#593](https://github.com/paypal/paypal-messaging-components/issues/593)) ([7ad90bd](https://github.com/paypal/paypal-messaging-components/commit/7ad90bd789827fef7b81f937e0533571c7245bdc))
+
 ### [1.26.5](https://github.com/paypal/paypal-messaging-components/compare/v1.26.4...v1.26.5) (2021-09-28)
 
 

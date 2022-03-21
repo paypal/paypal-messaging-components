@@ -45,10 +45,16 @@
         top: 5px;
         right: 5px;
         pointer-events: all;
+        
+        &:focus {
+            border: 1px solid white;
+            border-radius: 5px;
+            transform: translate(1px, -1px);
+        }
 
         svg {
-            height: 40px;
-            width: 40px;
+            height: 44px;
+            width: 44px;
 
             path {
                 stroke: white !important;
@@ -65,8 +71,8 @@
 
         .close {
             svg {
-                height: 35px;
-                width: 35px;
+                height: 44px;
+                width: 44px;
             }
         }
     }

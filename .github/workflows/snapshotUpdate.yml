@@ -1,0 +1,208 @@
+name: Update Snapshots
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+    pull_request:
+        types: [labeled]
+
+jobs:
+    getMatrix:
+        name: Get Matrix
+        if: github.event.label.name == 'snapshots' || github.event_name == 'workflow_dispatch'
+        runs-on: ubuntu-latest
+        outputs:
+            testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
+            testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - id: setTestPathPatterns
+              run: |
+                  echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
+
+            - id: setTestConfigs
+              name: Set test config environment variables
+              run: |
+                  echo "::set-output name=testConfigs::$(./.github/scripts/getTestConfigs.sh)"
+
+    captureMetadata:
+        name: Capture Metadata
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        steps:
+            - name: Capture PR Number
+              run: |
+                  mkdir -p ./workflow/metadata
+                  echo ${{ github.event.number }} > ./workflow/metadata/pull_number.txt
+
+            - name: Save Metadata
+              uses: actions/upload-artifact@v2
+              with:
+                  name: metadata
+                  path: workflow/metadata/
+
+    updateSnapshots:
+        name: Update
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        strategy:
+            matrix:
+                testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Update Snapshots - ${{ matrix.testPathPattern }}
+              run: |
+                  npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
+                  git status --porcelain
+
+            - name: Format Artifact Inputs
+              id: artifactInputs
+              run: |
+                  if [ -z "$(git status --porcelain)" ]
+                  then
+                      echo "::set-output name=skip::true"
+                      exit 0
+                  fi
+
+                  ARTIFACT_NAME="snapshot-$(sed 's/\//-/g' <<< '${{ matrix.testPathPattern }}')"
+                  echo "::set-output name=name::$ARTIFACT_NAME"
+
+                  ARTIFACT_PATH="snapshots/"
+                  echo "::set-output name=filePath::$ARTIFACT_PATH"
+
+                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots' | sed -E "s/^.{3}//")
+                  echo "$UPDATED_SNAPSHOTS" | while read -r filePath
+                  do
+                      newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
+                      else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath ${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                      fi
+                  done
+
+            - name: Save Snapshot Artifact
+              if: steps.artifactInputs.outputs.skip != 'true'
+              uses: actions/upload-artifact@v2
+              with:
+                  name: ${{ steps.artifactInputs.outputs.name }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
+                  retention-days: 1
+
+    updateSnapshotsV2:
+        name: Update V2
+        runs-on: ubuntu-latest
+        needs: getMatrix
+        strategy:
+            matrix:
+                testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServerV2.sh
+
+            - name: Update Snapshots - ${{ matrix.testConfig }}
+              run: |
+                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate 
+                  git status --porcelain
+
+            - name: Format Artifact Inputs
+              id: artifactInputs
+              run: |
+                  if [ -z "$(git status --porcelain)" ]
+                  then
+                      echo "::set-output name=skip::true"
+                      exit 0
+                  fi
+
+                  ARTIFACT_NAME="snapshot-v2-$(sed 's/\//-/g' <<< '${{ matrix.testConfig }}')"
+                  echo "::set-output name=name::$ARTIFACT_NAME"
+
+                  ARTIFACT_PATH="snapshotsV2/"
+                  echo "::set-output name=filePath::$ARTIFACT_PATH"
+
+                  # even though we're not committing files here, this forces git to list full file paths, not folders
+                  git add .
+
+                  # porcelain flag makes "git status" easy to interpret for scripts. grep searches for snapshot files
+                  # sed removes the initial 3 characters of "git status", which show the state of the file
+                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
+                  echo "$UPDATED_SNAPSHOTS" | while read -r filePath
+                  do
+                      newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+                      
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
+                      else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                      fi
+                  done
+                  mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
+
+            - name: Save Snapshot Artifact
+              if: steps.artifactInputs.outputs.skip != 'true'
+              uses: actions/upload-artifact@v2
+              with:
+                  name: ${{ steps.artifactInputs.outputs.name }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
+                  retention-days: 1

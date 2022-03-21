@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Lander Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    </head>
+
+    <body>
+        <style>
+            .learn-more {
+                margin-bottom: 50px;
+            }
+            body {
+                background: #2c2e2f;
+            }
+
+            iframe {
+                border: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+        <div id="iframe-container"></div>
+        <script src="../../helpers/utils.js"></script>
+        <script>
+            // maps over different config query params used to pass into iframe src
+            const query = window.location.search.substring(1);
+            const mappedParams = mapQueryParams(query);
+            console.log(mappedParams);
+            const { account, amount, width, height } = mappedParams;
+
+            // creates iframe element and assign attributes
+            const iframeEl = document.createElement('iframe');
+            iframeEl.setAttribute(
+                'src',
+                `https://localhost.paypal.com:8080/credit-presentment/lander/modal?payer_id=${account}&amount=${amount}`
+            );
+            iframeEl.setAttribute('id', 'api-iframe');
+            iframeEl.setAttribute('width', `${width}`);
+            iframeEl.setAttribute('height', `${height}`);
+            iframeEl.setAttribute('allowtransparency', 'true');
+            document.getElementById('iframe-container').appendChild(iframeEl);
+        </script>
+    </body>
+</html>

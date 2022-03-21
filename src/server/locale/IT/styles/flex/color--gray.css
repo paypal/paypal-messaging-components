@@ -1,0 +1,11 @@
+.message__background {
+    background: #ebecee;
+}
+
+.message__content {
+    color: #023187;
+}
+
+.message__headline > span:last-child > span:last-child::after {
+    color: #023187;
+}

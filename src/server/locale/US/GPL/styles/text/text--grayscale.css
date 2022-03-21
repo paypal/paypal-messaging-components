@@ -1,0 +1,7 @@
+.message__messaging .message__headline > span:first-of-type {
+    color: #2c2e2f;
+}
+
+.message__disclaimer span {
+    color: #2c2e2f;
+}

@@ -1,5 +1,4 @@
-import { useXProps, useServerData } from '../../../lib';
-import { useTransitionState } from '../providers';
+import { useTransitionState, useXProps, useServerData } from '../providers';
 
 export default clickTitle => {
     const { payerId } = useServerData();

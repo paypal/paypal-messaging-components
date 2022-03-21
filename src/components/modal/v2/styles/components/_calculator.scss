@@ -1,0 +1,137 @@
+.calculator {
+    transition: padding-top 0.2s ease-out;
+    flex-grow: 1;
+    padding-right: 25px;
+    padding-bottom: 10px;
+
+    @include desktop {
+        margin-top: 25px;
+        margin-bottom: 10px;
+        padding-left: 30px;
+        padding-right: 60px;
+    }
+
+    @include tablet {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        padding-right: 0px;
+        width: 315px;
+    }
+
+    @include mobile {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    @include smallMobile {
+        margin-top: 15px;
+    }
+
+    .title {
+        margin-top: 0;
+        font-weight: 500;
+
+        @include desktop {
+            @include lander {
+                margin-top: 20px;
+            }
+        }
+    }
+
+    .input__wrapper {
+        position: relative;
+        display: inline-block;
+        font-size: 0.9rem;
+        text-align: left;
+        margin-bottom: 0.25rem;
+
+        .input__label {
+            position: absolute;
+            left: 0.5rem;
+            top: 0.25rem;
+        }
+
+        .input {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: $text-main;
+            font-size: 1rem;
+            padding: 1.75rem 0.5rem 0.25rem;
+
+            &.empty-input {
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+        }
+    }
+
+    .form {
+        text-align: left;
+
+        @include tablet {
+            text-align: center;
+        }
+    }
+
+    &__error {
+        color: black;
+        font-size: 0.8rem;
+        margin-top: 10px;
+
+        @include tablet {
+            display: flex;
+        }
+
+        & > div {
+            display: inline-flex;
+            text-align: left;
+            align-items: flex-start;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        &.hide {
+            margin-top: -20px;
+
+            & > div {
+                height: 0;
+                overflow: hidden;
+            }
+        }
+
+        svg {
+            margin: 0 0.5rem 0 0;
+        }
+    }
+
+    .finance-terms__disclaimer {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        @include tablet {
+            font-size: 0.75rem;
+        }
+        @include mobile {
+            font-size: 0.8rem;
+            margin-top: 0px;
+        }
+        @include smallMobile {
+            font-size: 0.7rem;
+            margin-top: 0px;
+        }
+
+        &.no-amount {
+            @include desktop {
+                margin-left: 26px;
+            }
+
+            @include tablet {
+                margin-left: 73px;
+            }
+
+            @include mobile {
+                margin-left: 26px;
+            }
+        }
+    }
+}

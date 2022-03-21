@@ -1,0 +1,88 @@
+name: Commit Snapshots
+
+on:
+    workflow_run:
+        workflows: ['Update Snapshots']
+        types:
+            - completed
+
+jobs:
+    commit:
+        name: Commit Snapshots
+        if: github.event.workflow_run.conclusion == 'success'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.workflow_run.head_branch }}
+                  repository: ${{ github.event.workflow_run.head_repository.full_name }}
+                  token: ${{ secrets.COMMIT_TOKEN }}
+
+            - name: Download Artifacts
+              uses: actions/github-script@v3.1.0
+              with:
+                  script: |
+                      const fs = require('fs');
+                      const { execSync } = require('child_process');
+
+                      const artifacts = await github.actions.listWorkflowRunArtifacts({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        run_id: context.payload.workflow_run.id
+                      });
+
+                      await Promise.all(
+                        artifacts.data.artifacts.map(async (artifact) => {
+                          const download = await github.actions.downloadArtifact({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            artifact_id: artifact.id,
+                            archive_format: 'zip'
+                          });
+                          
+                          fs.writeFileSync(`${{ github.workspace }}/${artifact.name}.zip`, Buffer.from(download.data));
+
+                          console.log(`Checking artifact: ${artifact.name}`)
+
+                          if (artifact.name === 'metadata') {
+                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip`);
+                          } else if (artifact.name.includes('v2')) {
+                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/v2/snapshots`);
+                          } else {
+                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/snapshots`);
+                          }
+                        })
+                      );
+
+            - name: List Snapshots
+              run: |
+                  git status --porcelain
+
+            - name: Reset Label
+              if: github.event.workflow_run.event == 'pull_request'
+              uses: actions/github-script@v3.1.0
+              with:
+                  # The workflow_run that comes along with the event drops the PR number for some reason
+                  # so we have to pass the PR number from the original workflow as an artifact
+                  script: |
+                      const fs = require('fs');
+
+                      const pullNumber = fs.readFileSync('./pull_number.txt', 'utf8');
+
+                      await github.issues.removeLabel({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: pullNumber,
+                        name: 'snapshots'
+                      }).catch(() => {
+                        console.log('snapshots label has already been removed');
+                      });
+
+            - name: Commit Updated Snapshots
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  file_pattern: tests/functional/snapshots tests/functional/v2/snapshots
+                  push_options: '-v'

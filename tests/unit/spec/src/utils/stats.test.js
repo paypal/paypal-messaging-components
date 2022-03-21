@@ -69,6 +69,7 @@ describe('stats', () => {
         visible: 'true',
         active_tags: expect.any(String),
         render_duration: expect.stringNumber(),
+        request_duration: expect.stringNumber(),
         first_render_delay: expect.stringNumber()
     };
 
@@ -101,7 +102,7 @@ describe('stats', () => {
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: -1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -130,7 +131,7 @@ describe('stats', () => {
         });
         messagesMap.set(container, { state: { renderStart: start } });
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: 0 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -161,7 +162,7 @@ describe('stats', () => {
             visible: 'false'
         };
 
-        runStats({ container, activeTags: '', index });
+        runStats({ container, activeTags: '', index, requestDuration: 1 });
 
         await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -190,6 +191,7 @@ describe('stats', () => {
                 event_type: evntType,
                 first_render_delay: frd,
                 render_duration: rd,
+                request_duration: rqd,
                 ...expectedPayload
             } = defaultProps;
 
@@ -205,7 +207,8 @@ describe('stats', () => {
             const statsPayload = await buildStatsPayload({
                 container,
                 activeTags: 'headline:MEDIUM::subheadline:NONE::disclaimer:NONE',
-                index: '1'
+                index: '1',
+                requestDuration: rqd
             });
 
             expect(statsPayload).toMatchObject(expectedPayload);

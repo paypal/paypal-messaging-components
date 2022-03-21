@@ -7,22 +7,19 @@ import { getScriptAttributes, isZoidComponent } from './sdk';
 import { getCurrentTime } from './miscellaneous';
 import { getGlobalState } from './global';
 import { awaitWindowLoad } from './events';
-import { getNavigationTiming, getPerformanceMeasure } from './performance';
+import { getNavigationTiming, getPerformanceMeasure, PERFORMANCE_MEASURE_KEYS } from './performance';
 import { getViewportIntersectionObserver } from './observers';
+
+const formatStat = value => Math.round(value).toString();
 
 if (!isZoidComponent()) {
     awaitWindowLoad.then(() => {
-        const scriptLoadDelay = getPerformanceMeasure('scriptLoadDelay');
-
-        const domLoadDelay = getNavigationTiming('domContentLoadedEventStart');
-        const pageLoadDelay = getNavigationTiming('loadEventStart');
-
         const payload = {
             et: 'CLIENT_IMPRESSION',
             event_type: 'page_loaded',
-            script_load_delay: Math.round(scriptLoadDelay).toString(),
-            dom_load_delay: Math.round(domLoadDelay).toString(),
-            page_load_delay: Math.round(pageLoadDelay).toString()
+            script_load_delay: formatStat(getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.SCRIPT_LOAD_DELAY)),
+            dom_load_delay: formatStat(getNavigationTiming(PERFORMANCE_MEASURE_KEYS.DOM_CONTENT_LOADED_EVENT_START)),
+            page_load_delay: formatStat(getNavigationTiming(PERFORMANCE_MEASURE_KEYS.LOAD_EVENT_START))
         };
 
         logger.track(payload);
@@ -44,7 +41,7 @@ export function addLoggerMetaMutator(index, metaMutation) {
 
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
-export function buildStatsPayload({ container, activeTags, index }) {
+export function buildStatsPayload({ container, activeTags, index, requestDuration }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -64,24 +61,26 @@ export function buildStatsPayload({ container, activeTags, index }) {
             browser_width: (topWindow?.innerWidth).toString(),
             browser_height: (topWindow?.innerHeight).toString(),
             visible: isInViewport(container).toString(),
-            active_tags: activeTags
+            active_tags: activeTags,
+            request_duration: formatStat(requestDuration)
         };
     });
 }
 
-export function runStats({ container, activeTags, index }) {
+export function runStats({ container, activeTags, index, requestDuration }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
-    const firstRenderDelay = getPerformanceMeasure('firstRenderDelay');
     const renderDuration = Math.round(getCurrentTime() - state.renderStart).toString();
+
+    const firstRenderDelay = getPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_RENDER_DELAY);
 
     // No need for scroll event if banner is above the fold
     if (!isInViewport(container)) {
         getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
-    buildStatsPayload({ container, activeTags, index }).then(statsPayload => {
+    buildStatsPayload({ container, activeTags, index, requestDuration }).then(statsPayload => {
         addLoggerMetaMutator(index, { type: 'message', stats: statsPayload });
 
         // Attributes temporarily required to exist as part of the stats event
