@@ -25,7 +25,7 @@
     "content": {
         "headline": "Pay in 4 interest-free payments",
         "subheadline": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. No sign-up fees or late fees.",
-        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or no late fees.",
+        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
