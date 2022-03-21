@@ -10,7 +10,7 @@ export const DEV_GB_SHORT_TERM = {
             message: 'Non-qualifying Pay in 3',
             expectedValue: 'Pay in 3 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases of £30.00 to £2,000.00. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases of £30 to £2,000. No sign-up fees or late fees.',
                 periodicPayment: null
             }
         },
@@ -19,7 +19,7 @@ export const DEV_GB_SHORT_TERM = {
             message: 'Qualifying Pay in 3',
             expectedValue: 'Pay in 3 interest-free payments of £10.00',
             modalContent: {
-                subheadline: 'Split your purchase of £30.00 into 3 with no sign-up fees or late fees.',
+                subheadline: 'Split your purchase of £30 into 3 with no sign-up fees or late fees.',
                 periodicPayment: '£10.00'
             }
         },
@@ -28,7 +28,7 @@ export const DEV_GB_SHORT_TERM = {
             message: 'Non-qualifying Pay in 3',
             expectedValue: 'Pay in 3 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases of £30.00 to £2,000.00. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases of £30 to £2,000. No sign-up fees or late fees.',
                 periodicPayment: ''
             }
         }
