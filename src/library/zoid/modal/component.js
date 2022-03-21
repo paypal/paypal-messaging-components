@@ -19,6 +19,7 @@ import {
     getDeviceID,
     getStageTag,
     getFeatures,
+    getNonce,
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint
@@ -393,6 +394,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: () => __MESSAGES__.__TARGET__
+            },
+            cspNonce: {
+                type: 'string',
+                required: false,
+                default: getNonce,
+                value: validate.cspNonce
             }
         }
     })

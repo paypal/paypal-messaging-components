@@ -101,7 +101,7 @@ export const selectProductsFromList = ({ account, viewport, groupString }) => as
     await modalFrame.click(selectors.button.closeBtn);
     await page.waitFor(1000);
     await openModal(viewport, {
-        account: 'DEV0DEPI30GPL',
+        account: 'DEV000DEMULTI',
         style: groupString
     });
     await page.waitFor(1000);

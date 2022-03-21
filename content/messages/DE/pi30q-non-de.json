@@ -1,0 +1,23 @@
+{
+    "meta": {
+        "offerCountry": "DE",
+        "offerType": "PI30Q:NON-DE",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}"
+        }
+    },
+    "headline": [
+        ["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]],
+        [["Bezahlen Sie nach 30 Tagen"], ["medium", "large", "xlarge"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit dt. PayPal Konto.", ["extra"]]
+    ]
+}
