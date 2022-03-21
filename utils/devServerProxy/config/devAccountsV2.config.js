@@ -4,5 +4,5 @@ import GB from './GB';
 // that are not guaranteed to be reflective of what is in production
 export default {
     ...US,
-    ...GB
+    ...GB,
 };
