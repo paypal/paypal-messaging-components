@@ -31,7 +31,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
         ignoreCache: window.xprops.ignoreCache ?? null,
-        style: JSON.stringify(window.xprops.style),
+        style: window.xprops.style,
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
@@ -100,11 +100,20 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
-            const shouldRerender = Object.keys(props).some(key =>
-                typeof props[key] !== 'object'
-                    ? props[key] !== xprops[key]
-                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
-            );
+            const shouldRerender = Object.keys(props)
+                // lets check what is null and undefined and make sure we do not attempt to update
+                .filter(
+                    key =>
+                        props[key] !== undefined &&
+                        props[key] !== null &&
+                        xprops[key] !== undefined &&
+                        xprops[key] !== null
+                )
+                .some(key =>
+                    typeof props[key] !== 'object'
+                        ? props[key] !== xprops[key]
+                        : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
+                );
 
             if (shouldRerender) {
                 const {
