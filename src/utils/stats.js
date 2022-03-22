@@ -41,7 +41,8 @@ export function addLoggerMetaMutator(index, metaMutation) {
 
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
-export function buildStatsPayload({ container, activeTags, index, requestDuration }) {
+// TODO: Add requestDuration here after CPNW changes made to allow param on non-stats events
+export function buildStatsPayload({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -61,8 +62,7 @@ export function buildStatsPayload({ container, activeTags, index, requestDuratio
             browser_width: (topWindow?.innerWidth).toString(),
             browser_height: (topWindow?.innerHeight).toString(),
             visible: isInViewport(container).toString(),
-            active_tags: activeTags,
-            request_duration: formatStat(requestDuration)
+            active_tags: activeTags
         };
     });
 }
@@ -90,6 +90,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
             first_render_delay: Math.round(firstRenderDelay).toString(),
+            request_duration: formatStat(requestDuration),
             render_duration: renderDuration
         });
     });
