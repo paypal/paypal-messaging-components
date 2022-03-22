@@ -9,6 +9,7 @@ import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
+import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
     content: { instructions, linkToProductList, disclosure, donutTimestamps },
@@ -65,7 +66,7 @@ export const ShortTerm = ({
                         </div>
                         <div className="content__row disclosure">
                             <p>
-                                <InlineLinks text={disclosure} />
+                                <InlineLinks text={currencyFormat(disclosure)} />
                             </p>
                         </div>
                         <div className="content__row productLink">

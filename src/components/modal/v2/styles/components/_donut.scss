@@ -55,8 +55,8 @@ $grey600: #888;
         line-height: 20px;
 
         @media all and (min-width: $webpage) {
-            font-size: 1.125rem;
-            line-height: 24px;
+            font-size: 1rem;
+            line-height: 22px;
         }
 
         &.donut__payment {
@@ -72,8 +72,8 @@ $grey600: #888;
             color: $terms-details;
             font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
             @include desktop {
-                font-size: 1.125rem;
-                line-height: 24px;
+                font-size: 1rem;
+                line-height: 22px;
             }
         }
     }
