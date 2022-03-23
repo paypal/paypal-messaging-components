@@ -22,6 +22,10 @@
         .content__body {
             .dynamic {
                 padding-bottom: 1.5rem;
+
+                @include mobile {
+                    padding-bottom: 0rem;
+                }
             }
 
             .content__col {
@@ -137,6 +141,10 @@
             padding-left: 15px;
         }
 
+        @include mobile {
+            padding-top: 5px;
+        }
+
         @include lander {
             @include desktop {
                 border-radius: 0px 0px 100px 0px;
@@ -179,6 +187,10 @@
                 margin-left: unset;
 
                 @include desktop {
+                    margin-bottom: 10px;
+                }
+
+                @include mobile {
                     margin-bottom: 10px;
                 }
             }
