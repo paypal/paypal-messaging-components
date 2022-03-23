@@ -113,7 +113,8 @@ export default {
             OFFER.PAY_LATER_LONG_TERM,
             OFFER.PAY_LATER_PAY_IN_1,
             OFFER.PAYPAL_CREDIT_NO_INTEREST,
-            OFFER.PAYPAL_CREDIT_INSTALLMENTS
+            OFFER.PAYPAL_CREDIT_INSTALLMENTS,
+            'NI'
         ];
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
