@@ -23,6 +23,10 @@
             .dynamic {
                 padding-bottom: 1.5rem;
 
+                @include tablet {
+                    padding-bottom: 0rem;
+                }
+
                 @include mobile {
                     padding-bottom: 0rem;
                 }
