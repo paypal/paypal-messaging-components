@@ -74,7 +74,6 @@ export default {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
-                            ['purchases.', 'purchases'],
                             ['0.', '0'],
                             ['later.', 'later']
                         ]
@@ -103,7 +102,6 @@ export default {
                         tag: 'medium',
                         br: ['purchases'],
                         replace: [
-                            ['purchases.', 'purchases'],
                             ['0.', '0'],
                             ['later.', 'later']
                         ]
