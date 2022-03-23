@@ -101,7 +101,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props)
-                // lets check what is null and undefined and make sure we do not attempt to update
+                // specific situation where this variable would compare null to undefined casuing it to render as true.
+                // to migtigae that we are filtering all xprops and props values that are equal to null or undefined
+                // thus only checking values that are not null or undefined and determing if we need to rerender or not. 
+                // Rene 03/23/22
                 .filter(
                     key =>
                         props[key] !== undefined &&
