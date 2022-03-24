@@ -98,25 +98,28 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         button.focus();
     });
 
+    // return boolean if propsValue is not equal to undefined or null
+    // propsValue can be either props or xprops
+    // if returns true it means propsValue changed
+    // if returns false it means propsValue did not change
+    const didPropsChange = propsValue => {
+        return typeof propsValue !== 'undefined' && propsValue !== null;
+    };
+
     if (typeof onProps === 'function') {
         onProps(xprops => {
-            const shouldRerender = Object.keys(props)
-                // specific situation where this variable would compare null to undefined casuing it to render as true.
-                // to mitigate that we are filtering all xprops and props values that are equal to null or undefined
-                // thus only checking values that are not null or undefined and determing if we need to rerender or not. 
-                // Rene 03/23/22
-                .filter(
-                    key =>
-                        props[key] !== undefined &&
-                        props[key] !== null &&
-                        xprops[key] !== undefined &&
-                        xprops[key] !== null
-                )
-                .some(key =>
-                    typeof props[key] !== 'object'
+            const shouldRerender = Object.keys(props).some(key => {
+                // check to see if either any props or xpros values have changed
+                // if either prop or xprops have changed
+                // let's take an extra step to determine which values do not equal each other
+                if (didPropsChange(props[key]) || didPropsChange(xprops[key])) {
+                    return typeof props[key] !== 'object'
                         ? props[key] !== xprops[key]
-                        : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
-                );
+                        : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
+                }
+                // if none changed do not rerender
+                return false;
+            });
 
             if (shouldRerender) {
                 const {
