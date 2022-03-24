@@ -98,26 +98,24 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         button.focus();
     });
 
-    // return boolean if propsValue is not equal to undefined or null
-    // propsValue can be either props or xprops
-    // if returns true it means propsValue changed
-    // if returns false it means propsValue did not change
-    const didPropsChange = propsValue => {
-        return typeof propsValue !== 'undefined' && propsValue !== null;
+    // returns true if value is not equal to undefined and null
+    // returns false if value is equal to undefined and null
+    const isValueUndefinedOrNull = value => {
+        return typeof value !== 'undefined' && value !== null;
     };
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props).some(key => {
-                // check to see if either props or xpros values have changed
-                // if any of the props or xprops value have changed
-                // let's take an extra step to determine which values do not equal each other
-                if (didPropsChange(props[key]) || didPropsChange(xprops[key])) {
+                // check to see if either x/props values are undefined and null
+                if (isValueUndefinedOrNull(props[key]) || isValueUndefinedOrNull(xprops[key])) {
+                    // if any of the x/props values are not undefined and null
+                    // let's take an extra step to determine which x/prop values do not equal each other
                     return typeof props[key] !== 'object'
                         ? props[key] !== xprops[key]
                         : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
                 }
-                // if none changed do not rerender
+                // if nothing changed do not rerender
                 return false;
             });
 
