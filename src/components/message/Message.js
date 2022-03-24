@@ -101,7 +101,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props).some(key => {
-                // check to see if either x/props values are undefined or null
+                // check to see if both x/props values are undefined or null
                 if (
                     (typeof props[key] === 'undefined' || props[key] === null) &&
                     (typeof xprops[key] === 'undefined' || xprops[key] === null)
