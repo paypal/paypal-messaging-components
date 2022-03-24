@@ -106,7 +106,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     (typeof props[key] === 'undefined' || props[key] === null) &&
                     (typeof xprops[key] === 'undefined' || xprops[key] === null)
                 ) {
-                    // if nothing changed do not rerender
+                    // x/props values are undefined or null carry on
                     return false;
                 }
 
