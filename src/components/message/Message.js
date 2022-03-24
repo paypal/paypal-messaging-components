@@ -109,8 +109,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props).some(key => {
-                // check to see if either any props or xpros values have changed
-                // if either prop or xprops have changed
+                // check to see if either props or xpros values have changed
+                // if any of the props or xprops value have changed
                 // let's take an extra step to determine which values do not equal each other
                 if (didPropsChange(props[key]) || didPropsChange(xprops[key])) {
                     return typeof props[key] !== 'object'
