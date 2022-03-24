@@ -98,25 +98,21 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         button.focus();
     });
 
-    // returns true if value is not equal to undefined and null
-    // returns false if value is equal to undefined and null
-    const isValueUndefinedOrNull = value => {
-        return typeof value !== 'undefined' && value !== null;
-    };
-
     if (typeof onProps === 'function') {
         onProps(xprops => {
             const shouldRerender = Object.keys(props).some(key => {
-                // check to see if either x/props values are undefined and null
-                if (isValueUndefinedOrNull(props[key]) || isValueUndefinedOrNull(xprops[key])) {
-                    // if any of the x/props values are not undefined and null
-                    // let's take an extra step to determine which x/prop values do not equal each other
-                    return typeof props[key] !== 'object'
-                        ? props[key] !== xprops[key]
-                        : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
+                // check to see if either x/props values are undefined or null
+                if (
+                    (typeof props[key] === 'undefined' || props[key] === null) &&
+                    (typeof xprops[key] === 'undefined' || xprops[key] === null)
+                ) {
+                    // if nothing changed do not rerender
+                    return false;
                 }
-                // if nothing changed do not rerender
-                return false;
+
+                return typeof props[key] !== 'object'
+                    ? props[key] !== xprops[key]
+                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
             });
 
             if (shouldRerender) {
@@ -141,7 +137,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     currency,
                     buyerCountry,
                     ignoreCache,
-                    style: JSON.stringify(style),
+                    style,
                     offer,
                     payerId,
                     clientId,
