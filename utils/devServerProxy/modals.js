@@ -62,15 +62,19 @@ export default function createModalRoutes(app, server) {
 
             if (
                 props.country === 'US' &&
-                props.products?.some(product => product.meta.product === 'PAYPAL_CREDIT_INSTALLMENTS')
+                props.products?.some(
+                    product => product.meta.product === 'EZP' || product.meta.product === 'PAYPAL_CREDIT_INSTALLMENTS'
+                )
             ) {
                 return 'US-EZP';
             }
 
             if (
                 props.country === 'DE' &&
-                (props.products?.some(product => product.meta.product === 'PAY_LATER_SHORT_TERM') ||
-                    props.products?.some(product => product.meta.product === 'PI30'))
+                (props.products?.some(product => product.meta.product === 'GPL') ||
+                    props.products?.some(product => product.meta.product === 'PAY_LATER_LONG_TERM') ||
+                    props.products?.some(product => product.meta.product === 'PI30') ||
+                    props.products?.some(product => product.meta.product === 'PAY_LATER_PAY_IN_1'))
             ) {
                 return 'DE-GPL';
             }
