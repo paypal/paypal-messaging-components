@@ -9,16 +9,12 @@ export default offerType => {
         case 'GPLNQ':
         case 'GPLNQ_RANGE':
             return gpl;
-        case 'LT_NO_AMMT':
+        case 'LT_NO_AMNT':
         case 'LT_MQ':
         case 'LT_MQEZ':
         case 'LT_MQEZ_RB':
         case 'LT_NQ':
-        case 'LT_NQ_MIN':
-        case 'LT_NQ_MAX':
         case 'LT_NQEZ':
-        case 'LT_NQEZ_MIN':
-        case 'LT_NQEZ_MAX':
         case 'LT_SQ':
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
