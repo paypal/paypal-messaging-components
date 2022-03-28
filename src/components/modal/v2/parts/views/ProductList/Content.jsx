@@ -6,7 +6,10 @@ import styles from './styles.scss';
 
 export const ProductList = ({ content: { instructions, disclosure, tiles }, setViewName }) => {
     const { views } = useServerData();
-    const availableTiles = tiles.filter(tile => views.find(view => tile.viewName === view.meta.product));
+    const availableTiles = {
+        payLater: tiles.payLater.filter(tile => views.find(view => tile.viewName === view.meta.product)),
+        credit: tiles.credit.filter(tile => views.find(view => tile.viewName === view.meta.product))
+    };
 
     return (
         <Fragment>
@@ -17,9 +20,9 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setV
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content__row instructions">
-                                    <p>{instructions.top}</p>
+                                    <p>{instructions.payLater}</p>
                                 </div>
-                                {availableTiles.map(({ header, body, icon, viewName }) => (
+                                {availableTiles.payLater.map(({ header, body, icon, viewName }) => (
                                     <Tile
                                         key={icon}
                                         header={header}
@@ -29,10 +32,22 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setV
                                         setViewName={setViewName}
                                     />
                                 ))}
-                                <div className="content__row instructions">
-                                    {/* eslint-disable-next-line react/no-danger */}
-                                    <p dangerouslySetInnerHTML={{ __html: instructions.bottom }} />
-                                </div>
+
+                                {!!availableTiles.credit.length && (
+                                    <div className="content__row instructions">
+                                        <p>{instructions.credit}</p>
+                                    </div>
+                                )}
+                                {availableTiles.credit.map(({ header, body, icon, viewName }) => (
+                                    <Tile
+                                        key={icon}
+                                        header={header}
+                                        body={body}
+                                        icon={icon}
+                                        viewName={viewName}
+                                        setViewName={setViewName}
+                                    />
+                                ))}
                             </div>
                             <div className="content__col collapsed">
                                 <div className="branded-image" />

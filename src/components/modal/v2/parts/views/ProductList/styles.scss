@@ -2,6 +2,8 @@
 @import '../../../styles/globals/mixins';
 
 .content__container {
+    background-color: $beige-background;
+
     .content__row {
         &.dynamic {
             background-color: $beige-background;
