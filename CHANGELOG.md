@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.33.0](https://github.com/paypal/paypal-messaging-components/compare/v1.32.0...v1.33.0) (2022-03-22)
+
+
+### Features
+
+* GB Pay in 3 universal modal ([#737](https://github.com/paypal/paypal-messaging-components/issues/737)) ([466be7c](https://github.com/paypal/paypal-messaging-components/commit/466be7c304adf94b1cbf7053a63fb53b005adddc))
+* update UK message to include purchase range ([#736](https://github.com/paypal/paypal-messaging-components/issues/736)) ([459f7c9](https://github.com/paypal/paypal-messaging-components/commit/459f7c90fb9cc140768c271c30e0289c4c36beb1))
+
+
+### Bug Fixes
+
+* gb mutation for inline and none ([#772](https://github.com/paypal/paypal-messaging-components/issues/772)) ([cd5a472](https://github.com/paypal/paypal-messaging-components/commit/cd5a4727d00aa69abc506aafd217a8f2515250ca))
+
+
+### Code Refactoring
+
+* amplitude parity ([#642](https://github.com/paypal/paypal-messaging-components/issues/642)) ([c992186](https://github.com/paypal/paypal-messaging-components/commit/c99218670c89d23ffee9dedf0e9b98e1b5712dea))
+* update FR message to include purchase range ([#738](https://github.com/paypal/paypal-messaging-components/issues/738)) ([74eb2cf](https://github.com/paypal/paypal-messaging-components/commit/74eb2cf34fc3ce5c6be84efc07c7215fe757ddbb))
+
+## [1.32.0](https://github.com/paypal/paypal-messaging-components/compare/v1.31.0...v1.32.0) (2022-03-16)
+
+
+### Features
+
+* support cspNonce param ([#740](https://github.com/paypal/paypal-messaging-components/issues/740)) ([eefce03](https://github.com/paypal/paypal-messaging-components/commit/eefce03f3251b6fed06ecebd6edf332e9aabf110))
+
+
+### Bug Fixes
+
+* add cross-border DE messages ([#768](https://github.com/paypal/paypal-messaging-components/issues/768)) ([5ee39ed](https://github.com/paypal/paypal-messaging-components/commit/5ee39ed553383a818f88b277184432f84f1fdef2))
+* use 1rem for donut payment and timestamp across all viewports ([#769](https://github.com/paypal/paypal-messaging-components/issues/769)) ([f43780e](https://github.com/paypal/paypal-messaging-components/commit/f43780ea853d44a89459a6d89b8fd0da984fee0d))
+
+
+### Code Refactoring
+
+* remove short-term min and max cents ([#756](https://github.com/paypal/paypal-messaging-components/issues/756)) ([b4736a3](https://github.com/paypal/paypal-messaging-components/commit/b4736a30974a1f41a7ac37a3c1e9c1d12fec9ad2))
+
 ## [1.31.0](https://github.com/paypal/paypal-messaging-components/compare/v1.30.1...v1.31.0) (2022-03-09)
 
 
