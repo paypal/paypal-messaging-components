@@ -30,7 +30,7 @@ export const DEV_FR_SHORT_TERM = {
             expectedValue: 'Disponible pour les achats de 30,00 € à 2.000,00 €',
             modalContent: {
                 subheadline:
-                    'Disponible pour les achats de 30,00 € à 2.000,00 €. Pas de frais de dossier ni de frais de retard.',
+                    'Disponible pour les achats de 30 € à 2.000 €. Pas de frais de dossier ni de frais de retard.',
                 periodicPayment: ''
             }
         }
