@@ -139,7 +139,7 @@ export default {
                         ]
                     },
                     {
-                        tag: 'xsmall',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -160,7 +160,7 @@ export default {
                         ]
                     },
                     {
-                        tag: 'xsmall',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
