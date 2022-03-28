@@ -15,8 +15,7 @@ export default function getMutations(id, type) {
             return lt_nq[type];
         case 'LT_NO_AMNT':
             return lt_no_amnt[type];
-        case 'LT_NQEZ_MIN':
-        case 'LT_NQEZ_MAX':
+        case 'LT_NQEZ':
             return lt_nqez[type];
         case 'LT_SQ':
             return lt_sq[type];

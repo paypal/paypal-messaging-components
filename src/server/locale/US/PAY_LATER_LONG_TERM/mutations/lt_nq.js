@@ -96,7 +96,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 11.5),
+                    xSmallFallback(textSize * 12.3),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.locale--US .message__messaging span.br {white-space: normal}`,
