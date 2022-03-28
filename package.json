@@ -48,10 +48,10 @@
         "@krakenjs/post-robot": "^11.0.0",
         "@krakenjs/zalgo-promise": "^2.0.0",
         "@krakenjs/zoid": "^10.0.0",
-        "@paypal/common-components": "^1.0.24-alpha.1",
-        "@paypal/sdk-client": "^4.0.166-alpha.2",
-        "@paypal/sdk-constants": "^1.0.11-6.alpha-1",
-        "@paypal/sdk-logos": "^1.0.43-alpha.1",
+        "@paypal/common-components": "^1.0.27",
+        "@paypal/sdk-client": "^4.0.166",
+        "@paypal/sdk-constants": "^1.0.118",
+        "@paypal/sdk-logos": "^1.0.45",
         "core-js-pure": "^3.0.1"
     },
     "devDependencies": {
