@@ -51,6 +51,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
             xhttp.withCredentials = true;
         }
 
+        // eslint-disable-next-line unicorn/prefer-add-event-listener
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
