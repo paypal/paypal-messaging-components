@@ -120,6 +120,7 @@ const clickApply = async () =>
 
         // We want to verify there is an Apply Now button to click,
         // and click only that one visible button
+        // eslint-disable-next-line no-console
         console.log(`Found ${visibleButtons.length} visible 'Apply Now' Button`);
         if (visibleButtons.length > 0) {
             const [applyNow] = visibleButtons;
