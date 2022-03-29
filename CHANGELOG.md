@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.34.0](https://github.com/paypal/paypal-messaging-components/compare/v1.33.0...v1.34.0) (2022-03-29)
+
+
+### Features
+
+* AU universal modal ([#758](https://github.com/paypal/paypal-messaging-components/issues/758)) ([9d5808b](https://github.com/paypal/paypal-messaging-components/commit/9d5808b0041527c5764fa66c1ddbb6e09de51264))
+* FR universal modal ([#767](https://github.com/paypal/paypal-messaging-components/issues/767)) ([2c042e3](https://github.com/paypal/paypal-messaging-components/commit/2c042e322f48508bd9a5461712fd9dd9461360a7))
+
+
+### Bug Fixes
+
+* update PPC view styles to show more legal text above the fold ([#777](https://github.com/paypal/paypal-messaging-components/issues/777)) ([476e8d7](https://github.com/paypal/paypal-messaging-components/commit/476e8d78c279878de796ca19a3c3c7f069808f6a))
+
 ## [1.33.0](https://github.com/paypal/paypal-messaging-components/compare/v1.32.0...v1.33.0) (2022-03-22)
 
 
