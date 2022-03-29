@@ -55,11 +55,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const selectProduct = newProduct => {
         scrollTo(0);
 
-        if (newProduct !== 'PAYPAL_CREDIT_NO_INTEREST') {
+        if (getStandardProductOffer(newProduct) !== 'PAYPAL_CREDIT_NO_INTEREST') {
             setApplyNow(false);
         }
 
-        setSelectedProduct(newProduct);
+        setSelectedProduct(getStandardProductOffer(newProduct));
 
         /**
          * For multiproduct modal:
@@ -92,7 +92,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     }, [offer]);
 
     const setShowApplyNow = show => {
-        if (selectedProduct === 'PAYPAL_CREDIT_NO_INTEREST' && show !== showApplyNow) {
+        if (getStandardProductOffer(selectedProduct) === 'PAYPAL_CREDIT_NO_INTEREST' && show !== showApplyNow) {
             setApplyNow(show);
         }
     };
@@ -116,7 +116,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     };
 
     const tabs = products
-        .map(({ meta }) => tabsMap[meta.product])
+        .map(({ meta }) => tabsMap[getStandardProductOffer(meta.product)])
         // Filter to only the visible tab if no amount is passed in
         .filter(tab => typeof amount === 'undefined' || amount === 0 || tab.product === selectedProduct);
 

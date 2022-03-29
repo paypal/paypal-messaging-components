@@ -208,9 +208,13 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getStandardProductOffer(offer) {
+export function getStandardProductOffer(offer, offerCountry = '') {
     if (typeof offer === 'undefined') {
         return 'NONE';
+    }
+
+    if (offer === 'GPL' && offerCountry === 'DE') {
+        return OFFER.PAY_LATER_LONG_TERM;
     }
 
     switch (offer.toUpperCase()) {
@@ -233,11 +237,10 @@ export function getStandardProductOffer(offer) {
         case 'GPLQ:GTZ:NON-DE':
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
-            return OFFER.PAY_LATER_PAY_IN_1;
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
-            return 'PI30';
+            return OFFER.PAY_LATER_PAY_IN_1;
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':

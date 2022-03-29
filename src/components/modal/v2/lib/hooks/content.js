@@ -1,10 +1,14 @@
 import arrayFind from 'core-js-pure/stable/array/find';
 import { useServerData } from '../providers';
+import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
 
 export function useProduct(product) {
     const { views } = useServerData();
-
-    return arrayFind(views, ({ meta }) => meta.product === product) ?? { content: {} };
+    return (
+        arrayFind(views, ({ meta }) => getStandardProductOffer(meta.product) === getStandardProductOffer(product)) ?? {
+            content: {}
+        }
+    );
 }
 
 export function useContent(product) {

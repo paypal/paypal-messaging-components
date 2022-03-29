@@ -5,12 +5,15 @@ import { useEffect } from 'preact/hooks';
 import { useServerData, useContent, useProductMeta } from '../../../lib';
 import Header from '../../../parts/Header';
 import Calculator from './Calculator';
+import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
 
 export default ({ linkClick }) => {
     const { products } = useServerData();
-    const productNames = products.map(theProduct => theProduct.meta.product);
-    const { headline, instructions, switchingText, disclosure } = useContent('PAY_LATER_SHORT_TERM');
-    const { apr } = useProductMeta('PAY_LATER_SHORT_TERM');
+    const productNames = products.map(theProduct =>
+        getStandardProductOffer(theProduct.meta.product, theProduct.meta.offerCountry)
+    );
+    const { headline, instructions, switchingText, disclosure } = useContent('PAY_LATER_LONG_TERM');
+    const { apr } = useProductMeta('PAY_LATER_LONG_TERM');
 
     // GPL-specific style changes because calculator continues header
     function stylizeHeaderForGPL() {
@@ -25,7 +28,7 @@ export default ({ linkClick }) => {
     const switchText = (
         <p className="switching-text">
             {switchingText[0]}
-            <button type="button" className="switching-link" onClick={() => linkClick('PI30')}>
+            <button type="button" className="switching-link" onClick={() => linkClick('PAY_LATER_PAY_IN_1')}>
                 {switchingText[1]}
             </button>
         </p>
@@ -48,7 +51,7 @@ export default ({ linkClick }) => {
                     </div>
                 </div>
                 <div className="content-footer content-column">
-                    {productNames.includes('PI30') && switchText}
+                    {productNames.includes('PAY_LATER_PAY_IN_1') && switchText}
                     <div className="disclosure dashed-border transitional">{disclosureText}</div>
                 </div>
             </section>

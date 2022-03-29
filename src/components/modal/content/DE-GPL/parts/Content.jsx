@@ -15,22 +15,26 @@ const Content = () => {
     const [transitionState] = useTransitionState();
     const product = getStandardProductOffer(offer);
     // Product List should be displayed when no amount and GPL + PI30 are available.
-    const productNames = products.map(theProduct => theProduct.meta.product);
+    const productNames = products.map(theProduct =>
+        getStandardProductOffer(theProduct.meta.product, theProduct.meta.offerCountry)
+    );
 
     // calculate what the inital product should be
     // will change based on offer and products avaliable
+    // using available products offer country to correct PAY_LATER_SHORT_TERM to PAY_LATER_LONG_TERM for finding initial product
     const initialProduct =
-        productNames.includes('PAY_LATER_SHORT_TERM') &&
-        productNames.includes('PI30') &&
-        (typeof amount === 'undefined' || amount === 0)
+        (productNames.includes('GPL') && productNames.includes('PI30')) ||
+        (productNames.includes('PAY_LATER_LONG_TERM') &&
+            productNames.includes('PAY_LATER_PAY_IN_1') &&
+            (typeof amount === 'undefined' || amount === 0))
             ? 'none'
-            : (
-                  arrayFind(products, theProduct => getStandardProductOffer(theProduct.meta.product) === product) ||
-                  products[0]
-              ).meta.product;
-
+            : arrayFind(
+                  products,
+                  theProduct =>
+                      getStandardProductOffer(theProduct.meta.product, theProduct.meta.offerCountry) ===
+                      getStandardProductOffer(product, theProduct.meta.offerCountry)
+              ) || getStandardProductOffer(products[0].meta.product, products[0].meta.offerCountry);
     const [selectedProduct, selectProduct] = useState(initialProduct);
-
     // Tracking for Product List clicks (button clicks) and for buttons that appear as links
     const buttonClick = theProduct => {
         onClick({ linkName: theProduct, src: 'button_click' });
@@ -58,9 +62,9 @@ const Content = () => {
 
     function selectContent() {
         switch (selectedProduct) {
-            case 'PAY_LATER_SHORT_TERM':
+            case 'PAY_LATER_LONG_TERM':
                 return <GPL linkClick={linkClick} />;
-            case 'PI30':
+            case 'PAY_LATER_PAY_IN_1':
                 return <PI30 linkClick={linkClick} />;
             default:
                 return <ProductList buttonClick={buttonClick} />;
