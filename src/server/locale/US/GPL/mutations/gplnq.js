@@ -122,6 +122,7 @@ export default {
                         tag: 'medium',
                         br: ['on'],
                         replace: [
+                            //TODO: can be removed after content has swapped
                             ['purchases.', 'purchases'],
                             ['00.', '00']
                         ]
@@ -143,6 +144,7 @@ export default {
                         tag: 'medium',
                         br: ['on'],
                         replace: [
+                             //TODO: can be removed after content has swapped
                             ['purchases.', 'purchases'],
                             ['00.', '00']
                         ]
