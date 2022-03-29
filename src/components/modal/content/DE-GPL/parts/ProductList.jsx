@@ -2,6 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useContent, useServerData } from '../../../lib';
 import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
+import { OFFER } from '../../../../../utils/constants';
 
 import Header from '../../../parts/Header';
 import Icon from '../../../parts/Icon';
@@ -27,7 +28,7 @@ const ProductList = ({ buttonClick }) => {
         .filter(
             product =>
                 getStandardProductOffer(product.meta.product, product.meta.offerCountry) !==
-                'PAYPAL_CREDIT_INSTALLMENTS'
+                OFFER.PAYPAL_CREDIT_INSTALLMENTS
         )
         .map(product => (
             <ProductButton

@@ -8,6 +8,7 @@ import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
 import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
 import { getStandardProductOffer } from '../../../../../utils';
+import { OFFER as PRODUCT_OFFERS } from '../../../../../utils/constants';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {
@@ -55,7 +56,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     const selectProduct = newProduct => {
         scrollTo(0);
 
-        if (getStandardProductOffer(newProduct) !== 'PAYPAL_CREDIT_NO_INTEREST') {
+        if (getStandardProductOffer(newProduct) !== PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST) {
             setApplyNow(false);
         }
 
@@ -92,7 +93,10 @@ const Content = ({ headerRef, contentWrapper }) => {
     }, [offer]);
 
     const setShowApplyNow = show => {
-        if (getStandardProductOffer(selectedProduct) === 'PAYPAL_CREDIT_NO_INTEREST' && show !== showApplyNow) {
+        if (
+            getStandardProductOffer(selectedProduct) === PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST &&
+            show !== showApplyNow
+        ) {
             setApplyNow(show);
         }
     };
@@ -107,11 +111,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const tabsMap = {
         PAY_LATER_SHORT_TERM: {
             title: 'Pay in 4',
-            product: 'PAY_LATER_SHORT_TERM'
+            product: PRODUCT_OFFERS.PAY_LATER_SHORT_TERM
         },
         PAYPAL_CREDIT_NO_INTEREST: {
             title: 'PayPal Credit',
-            product: 'PAYPAL_CREDIT_NO_INTEREST'
+            product: PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST
         }
     };
 
@@ -123,13 +127,13 @@ const Content = ({ headerRef, contentWrapper }) => {
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
     tabsMap.PAY_LATER_SHORT_TERM.body = (
-        <GPL switchTab={showTabSwitch ? () => tabLinkClick('PAYPAL_CREDIT_NO_INTEREST') : null} />
+        <GPL switchTab={showTabSwitch ? () => tabLinkClick(PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST) : null} />
     );
 
     tabsMap.PAYPAL_CREDIT_NO_INTEREST.body = (
         <NI
             showApplyNow={setShowApplyNow}
-            switchTab={showTabSwitch ? () => tabLinkClick('PAY_LATER_SHORT_TERM') : null}
+            switchTab={showTabSwitch ? () => tabLinkClick(PRODUCT_OFFERS.PAY_LATER_SHORT_TERM) : null}
         />
     );
 

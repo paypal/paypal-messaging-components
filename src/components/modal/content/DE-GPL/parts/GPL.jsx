@@ -6,14 +6,15 @@ import { useServerData, useContent, useProductMeta } from '../../../lib';
 import Header from '../../../parts/Header';
 import Calculator from './Calculator';
 import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
+import { OFFER } from '../../../../../utils/constants';
 
 export default ({ linkClick }) => {
     const { products } = useServerData();
     const productNames = products.map(theProduct =>
         getStandardProductOffer(theProduct.meta.product, theProduct.meta.offerCountry)
     );
-    const { headline, instructions, switchingText, disclosure } = useContent('PAY_LATER_LONG_TERM');
-    const { apr } = useProductMeta('PAY_LATER_LONG_TERM');
+    const { headline, instructions, switchingText, disclosure } = useContent(OFFER.PAY_LATER_LONG_TERM);
+    const { apr } = useProductMeta(OFFER.PAY_LATER_LONG_TERM);
 
     // GPL-specific style changes because calculator continues header
     function stylizeHeaderForGPL() {
@@ -28,7 +29,7 @@ export default ({ linkClick }) => {
     const switchText = (
         <p className="switching-text">
             {switchingText[0]}
-            <button type="button" className="switching-link" onClick={() => linkClick('PAY_LATER_PAY_IN_1')}>
+            <button type="button" className="switching-link" onClick={() => linkClick(OFFER.PAY_LATER_PAY_IN_1)}>
                 {switchingText[1]}
             </button>
         </p>
@@ -51,7 +52,7 @@ export default ({ linkClick }) => {
                     </div>
                 </div>
                 <div className="content-footer content-column">
-                    {productNames.includes('PAY_LATER_PAY_IN_1') && switchText}
+                    {productNames.includes(OFFER.PAY_LATER_PAY_IN_1) && switchText}
                     <div className="disclosure dashed-border transitional">{disclosureText}</div>
                 </div>
             </section>

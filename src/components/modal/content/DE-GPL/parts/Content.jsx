@@ -8,6 +8,7 @@ import GPL from './GPL';
 import ProductList from './ProductList';
 import { useServerData, useXProps, useTransitionState, useDidUpdateEffect } from '../../../lib';
 import { getStandardProductOffer } from '../../../../../utils';
+import { OFFER } from '../../../../../utils/constants';
 
 const Content = () => {
     const { products } = useServerData();
@@ -24,8 +25,8 @@ const Content = () => {
     // using available products offer country to correct PAY_LATER_SHORT_TERM to PAY_LATER_LONG_TERM for finding initial product
     const initialProduct =
         (productNames.includes('GPL') && productNames.includes('PI30')) ||
-        (productNames.includes('PAY_LATER_LONG_TERM') &&
-            productNames.includes('PAY_LATER_PAY_IN_1') &&
+        (productNames.includes(OFFER.PAY_LATER_LONG_TERM) &&
+            productNames.includes(OFFER.PAY_LATER_PAY_IN_1) &&
             (typeof amount === 'undefined' || amount === 0))
             ? 'none'
             : arrayFind(
@@ -62,9 +63,9 @@ const Content = () => {
 
     function selectContent() {
         switch (selectedProduct) {
-            case 'PAY_LATER_LONG_TERM':
+            case OFFER.PAY_LATER_LONG_TERM:
                 return <GPL linkClick={linkClick} />;
-            case 'PAY_LATER_PAY_IN_1':
+            case OFFER.PAY_LATER_PAY_IN_1:
                 return <PI30 linkClick={linkClick} />;
             default:
                 return <ProductList buttonClick={buttonClick} />;

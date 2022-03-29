@@ -5,16 +5,18 @@ import * as NI from './NI';
 import * as EZP from './EZP';
 import Tabs from '../../../parts/Tabs';
 
+import { OFFER } from '../../../../../utils/constants';
+
 const tabsMap = {
     PAYPAL_CREDIT_INSTALLMENTS: {
         title: 'Easy Payments',
-        product: 'PAYPAL_CREDIT_INSTALLMENTS',
+        product: OFFER.PAYPAL_CREDIT_INSTALLMENTS,
         header: <EZP.Header />,
         body: <EZP.Content />
     },
     PAYPAL_CREDIT_NO_INTEREST: {
         title: '6 Months Special Financing',
-        product: 'PAYPAL_CREDIT_NO_INTEREST',
+        product: OFFER.PAYPAL_CREDIT_NO_INTEREST,
         header: <NI.Header />,
         body: <NI.Content />
     }
