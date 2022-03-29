@@ -1,5 +1,6 @@
 import US from './US';
 import GB from './GB';
+import AU from './AU';
 import ES from './ES';
 import IT from './IT';
 import FR from './FR';
@@ -9,6 +10,7 @@ import FR from './FR';
 export default {
     ...US,
     ...GB,
+    ...AU,
     ...ES,
     ...IT,
     ...FR
