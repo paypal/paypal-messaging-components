@@ -142,7 +142,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['00.', '00']]
+                        replace: [
+                            ['purchases.', 'purchases'],
+                            ['00.', '00']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
