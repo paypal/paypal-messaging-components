@@ -19,7 +19,7 @@ export const DEV_AU_SHORT_TERM = {
             message: 'Qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments of $7.50',
             modalContent: {
-                subheadline: 'Split your purchase of $30 into 4 with no sign-up fees or late fees.',
+                subheadline: 'Split your purchase of $30.00 into 4 with no sign-up fees or late fees.',
                 periodicPayment: '$7.50'
             }
         },
