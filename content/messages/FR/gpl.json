@@ -9,10 +9,17 @@
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
-            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-    "headline": [[["Payez en 4X sans frais pour les achats éligibles."], ["default", "small"]]],
+    "headline": [
+        [["Payez en 4X sans frais pour les achats éligibles."], ["default", "small"]],
+        [
+            ["Payez en 4X sans frais pour les achats de {formattedMinAmount}-{formattedMaxAmount}."],
+            ["default.2", "small.2"]
+        ]
+    ],
     "subHeadline": [[["Payez avec PayPal et choisissez le paiement en 4X."], ["default", "small"]]],
     "disclaimer": [["En savoir plus", ["default"]]]
 }

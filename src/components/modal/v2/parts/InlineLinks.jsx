@@ -34,7 +34,9 @@ const InlineLinks = ({ text }) => {
                 );
             }
         }
-        return <span>{textChunk}</span>;
+
+        // eslint-disable-next-line react/no-danger
+        return <span dangerouslySetInnerHTML={{ __html: textChunk }} />;
     });
 };
 

@@ -235,12 +235,18 @@ export function getStandardProductOffer(offer, offerCountry = '') {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        case 'SHORT_TERM:Q':
+        case 'SHORT_TERM:NQ':
+        case 'SHORT_TERM:NO_AMOUNT':
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
-            return OFFER.PAY_LATER_PAY_IN_1;
+        case 'PI30:NON-DE':
+        case 'PI30Q:NON-DE':
+        case 'PI30NQ:NON-DE':
+            return 'PI30';
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
