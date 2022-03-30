@@ -246,7 +246,7 @@ export function getStandardProductOffer(offer, offerCountry = '') {
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
-            return 'PI30';
+            return OFFER.PAY_LATER_PAY_IN_1;
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
