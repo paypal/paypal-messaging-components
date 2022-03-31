@@ -10,6 +10,7 @@ export const currencyFormat = string => {
             // eslint-disable-next-line security/detect-unsafe-regex
             /((\$|£)?(\d{1,5}(\.|,)){1,3}00)/g
         ) ?? null;
+
     if (match !== null) {
         match.forEach(foundString => {
             const filteredString = foundString
@@ -21,5 +22,5 @@ export const currencyFormat = string => {
             formattedStr = formattedStr.replace(foundString, filteredString);
         });
     }
-    return formattedStr;
+    return formattedStr.replace(/(EUR)/g, '€');
 };
