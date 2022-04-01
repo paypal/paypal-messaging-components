@@ -32,6 +32,7 @@ export const TransitionStateProvider = ({ children }) => {
                         if (entry.isIntersecting) {
                             setState(STATUS.OPEN);
                             onShow();
+                            observer.unobserve(document.body);
                         } else {
                             setTimeout(() => {
                                 setState(STATUS.CLOSED);
@@ -42,7 +43,7 @@ export const TransitionStateProvider = ({ children }) => {
                     { threshold: 1 }
                 );
 
-                observer.unobserve(document.body);
+                observer.observe(document.body);
             });
         }
     }, []);
