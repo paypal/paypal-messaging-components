@@ -5,26 +5,24 @@ import * as NI from './NI';
 import * as EZP from './EZP';
 import Tabs from '../../../parts/Tabs';
 
-import { OFFER } from '../../../../../utils/constants';
-
 const tabsMap = {
-    PAYPAL_CREDIT_INSTALLMENTS: {
+    EZP: {
         title: 'Easy Payments',
-        product: OFFER.PAYPAL_CREDIT_INSTALLMENTS,
+        product: 'EZP',
         header: <EZP.Header />,
         body: <EZP.Content />
     },
-    PAYPAL_CREDIT_NO_INTEREST: {
+    NI: {
         title: '6 Months Special Financing',
-        product: OFFER.PAYPAL_CREDIT_NO_INTEREST,
+        product: 'NI',
         header: <NI.Header />,
         body: <NI.Content />
     }
 };
 
-// EZP modal will always have EZP + PAYPAL_CREDIT_NO_INTEREST
+// EZP modal will always have EZP + NI
 const Content = () => {
-    return <Tabs tabs={[tabsMap.PAYPAL_CREDIT_INSTALLMENTS, tabsMap.PAYPAL_CREDIT_NO_INTEREST]} />;
+    return <Tabs tabs={[tabsMap.EZP, tabsMap.NI]} />;
 };
 
 export default Content;
