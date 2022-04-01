@@ -32,6 +32,7 @@ const memoizedModal = memoizeOnProps(
         onApply,
         onClose,
         channel,
+        cspNonce,
         integrationIdentifier
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
@@ -50,6 +51,7 @@ const memoizedModal = memoizeOnProps(
             onApply,
             onClose,
             channel,
+            cspNonce,
             integrationIdentifier
         });
         // Fired from inside the default onReady callback
@@ -133,7 +135,7 @@ const memoizedModal = memoizeOnProps(
             updateProps
         };
     },
-    ['account', 'merchantId']
+    ['account', 'merchantId', 'buyerCountry']
 );
 
 export default options => memoizedModal(objectMerge(getGlobalState().config, options));

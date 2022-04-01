@@ -1,0 +1,8 @@
+button {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.message__logo-container {
+    justify-content: center;
+}

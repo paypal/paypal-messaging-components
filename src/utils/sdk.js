@@ -13,6 +13,7 @@ import {
     getSDKMeta,
     getSDKAttributes,
     getSDKQueryParam,
+    getCSPNonce,
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
@@ -45,6 +46,14 @@ export function getAccount() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         // TODO: Should we pass both up if they exist so that nodeweb can create a partner context?
         return getMerchantID()[0] || `client-id:${getClientID()}`;
+    } else {
+        return undefined;
+    }
+}
+
+export function getNonce() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getCSPNonce();
     } else {
         return undefined;
     }
