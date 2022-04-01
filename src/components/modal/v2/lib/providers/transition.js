@@ -42,7 +42,7 @@ export const TransitionStateProvider = ({ children }) => {
                     { threshold: 1 }
                 );
 
-                observer.observe(document.body);
+                observer.unobserve(document.body);
             });
         }
     }, []);
