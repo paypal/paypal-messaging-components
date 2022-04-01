@@ -8,7 +8,6 @@ import GPL from './GPL';
 import Tabs from '../../../parts/Tabs';
 import { useServerData, useScroll, useApplyNow, useXProps, useDidUpdateEffect, useTransitionState } from '../../../lib';
 import { getStandardProductOffer } from '../../../../../utils';
-import { OFFER as PRODUCT_OFFERS } from '../../../../../utils/constants';
 import Button from '../../../parts/Button';
 
 const Content = ({ headerRef, contentWrapper }) => {
@@ -56,11 +55,11 @@ const Content = ({ headerRef, contentWrapper }) => {
     const selectProduct = newProduct => {
         scrollTo(0);
 
-        if (getStandardProductOffer(newProduct) !== PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST) {
+        if (newProduct !== 'NI') {
             setApplyNow(false);
         }
 
-        setSelectedProduct(getStandardProductOffer(newProduct));
+        setSelectedProduct(newProduct);
 
         /**
          * For multiproduct modal:
@@ -93,10 +92,7 @@ const Content = ({ headerRef, contentWrapper }) => {
     }, [offer]);
 
     const setShowApplyNow = show => {
-        if (
-            getStandardProductOffer(selectedProduct) === PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST &&
-            show !== showApplyNow
-        ) {
+        if (selectedProduct === 'NI' && show !== showApplyNow) {
             setApplyNow(show);
         }
     };
@@ -109,32 +105,27 @@ const Content = ({ headerRef, contentWrapper }) => {
     }, [transitionState]);
 
     const tabsMap = {
-        PAY_LATER_SHORT_TERM: {
+        GPL: {
             title: 'Pay in 4',
-            product: PRODUCT_OFFERS.PAY_LATER_SHORT_TERM
+            product: 'GPL'
         },
-        PAYPAL_CREDIT_NO_INTEREST: {
+        NI: {
             title: 'PayPal Credit',
-            product: PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST
+            product: 'NI'
         }
     };
 
     const tabs = products
-        .map(({ meta }) => tabsMap[getStandardProductOffer(meta.product)])
+        .map(({ meta }) => tabsMap[meta.product])
         // Filter to only the visible tab if no amount is passed in
         .filter(tab => typeof amount === 'undefined' || amount === 0 || tab.product === selectedProduct);
 
     const showTabSwitch = tabs.length === 1 && products.length > 1;
     // Add the body of the tabs later to be able to reference the callbacks which reference the tabsMap
-    tabsMap.PAY_LATER_SHORT_TERM.body = (
-        <GPL switchTab={showTabSwitch ? () => tabLinkClick(PRODUCT_OFFERS.PAYPAL_CREDIT_NO_INTEREST) : null} />
-    );
+    tabsMap.GPL.body = <GPL switchTab={showTabSwitch ? () => tabLinkClick('NI') : null} />;
 
-    tabsMap.PAYPAL_CREDIT_NO_INTEREST.body = (
-        <NI
-            showApplyNow={setShowApplyNow}
-            switchTab={showTabSwitch ? () => tabLinkClick(PRODUCT_OFFERS.PAY_LATER_SHORT_TERM) : null}
-        />
+    tabsMap.NI.body = (
+        <NI showApplyNow={setShowApplyNow} switchTab={showTabSwitch ? () => tabLinkClick('GPL') : null} />
     );
 
     const tabsContent =

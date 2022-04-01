@@ -1,8 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useContent, useServerData } from '../../../lib';
-import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
-import { OFFER } from '../../../../../utils/constants';
 
 import Header from '../../../parts/Header';
 import Icon from '../../../parts/Icon';
@@ -25,17 +23,8 @@ const ProductList = ({ buttonClick }) => {
     const { products } = useServerData();
     const productButtons = products
         // This filter is for when GPL and INST sometimes coexist in stage, despite that they should not in prod.
-        .filter(
-            product =>
-                getStandardProductOffer(product.meta.product, product.meta.offerCountry) !==
-                OFFER.PAYPAL_CREDIT_INSTALLMENTS
-        )
-        .map(product => (
-            <ProductButton
-                buttonClick={buttonClick}
-                product={getStandardProductOffer(product.meta.product, product.meta.offerCountry)}
-            />
-        ));
+        .filter(product => product.meta.product !== 'INST')
+        .map(product => <ProductButton buttonClick={buttonClick} product={product.meta.product} />);
 
     return (
         <Fragment>

@@ -1,6 +1,6 @@
 {
     "meta": {
-        "product": "PAY_LATER_SHORT_TERM",
+        "product": "GPL",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",

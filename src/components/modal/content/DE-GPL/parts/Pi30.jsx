@@ -3,16 +3,12 @@ import { h, Fragment } from 'preact';
 
 import { useServerData, useContent } from '../../../lib';
 import Header from '../../../parts/Header';
-import { getStandardProductOffer } from '../../../../../utils/miscellaneous';
-import { OFFER } from '../../../../../utils/constants';
 
 const PI30 = ({ linkClick }) => {
     const { products } = useServerData();
-    const productNames = products.map(theProduct =>
-        getStandardProductOffer(theProduct.meta.product, theProduct.meta.offerCountry)
-    );
+    const productNames = products.map(theProduct => theProduct.meta.product);
 
-    const { headline, subHeadline, stepsList, switchingText, legalTerms } = useContent(OFFER.PAY_LATER_PAY_IN_1);
+    const { headline, subHeadline, stepsList, switchingText, legalTerms } = useContent('PI30');
 
     const list = [];
     for (let i = 1; i <= stepsList.length; i++) {
@@ -31,7 +27,7 @@ const PI30 = ({ linkClick }) => {
     const switchText = (
         <p className="switching-text content-column">
             {switchingText[0]}
-            <button type="button" className="switching-link" onClick={() => linkClick(OFFER.PAY_LATER_LONG_TERM)}>
+            <button type="button" className="switching-link" onClick={() => linkClick('GPL')}>
                 {switchingText[1]}
             </button>
         </p>
@@ -45,7 +41,7 @@ const PI30 = ({ linkClick }) => {
             </Header>
             <section className="content-body pi30">
                 <div className="instructions transitional content-column">{list}</div>
-                {productNames.includes(OFFER.PAY_LATER_LONG_TERM) && switchText}
+                {productNames.includes('GPL') && switchText}
                 <div className="disclosure dashed-border transitional content-column">
                     {legalTerms.replace(/[,]00/g, '')}
                 </div>

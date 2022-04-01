@@ -2,7 +2,6 @@
 import { Fragment, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useContent } from '../../../lib';
-import { OFFER } from '../../../../../utils/constants';
 
 const OfferCard = ({ offer, formattedAmount, index }) => {
     const [expanded, setExpanded] = useState(null);
@@ -50,7 +49,7 @@ const OfferCard = ({ offer, formattedAmount, index }) => {
 const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError }) => {
     const {
         terms: { disclaimer }
-    } = useContent(OFFER.PAY_LATER_LONG_TERM);
+    } = useContent('GPL');
 
     if (isLoading || hasError) {
         return (
