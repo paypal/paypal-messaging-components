@@ -134,9 +134,14 @@ export default {
             'logo.type:alternative && logo.position:right',
             ({ textSize }) => ({
                 styles: [
+                    `.weak {
+                        display:none;
+                    }`,
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`,
+                    `@media screen and (max-width: ${textSize *
+                        42}px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 34, textSize, 'US'),
                     `.message__headline span:only-child { white-space: normal; }`
                 ],
