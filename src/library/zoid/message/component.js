@@ -208,8 +208,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, requestDuration }) => {
-                        const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
+                    return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
+                        const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
