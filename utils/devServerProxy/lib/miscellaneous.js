@@ -38,7 +38,7 @@ export const localizeCurrency = country => (amount, fractionDigits = 2) => {
 
     switch (country) {
         case 'DE':
-            return `${localizedAmount}EUR`;
+            return `${localizedAmount}€`;
         case 'GB':
             return `£${localizedAmount}`;
         case 'FR':
