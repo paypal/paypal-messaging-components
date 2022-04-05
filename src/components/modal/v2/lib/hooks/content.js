@@ -3,6 +3,7 @@ import { useServerData } from '../providers';
 
 export function useProduct(product) {
     const { views } = useServerData();
+
     return arrayFind(views, ({ meta }) => meta.product === product) ?? { content: {} };
 }
 
