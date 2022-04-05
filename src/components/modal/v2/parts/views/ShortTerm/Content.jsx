@@ -38,8 +38,10 @@ export const ShortTerm = ({
     };
 
     const donutScreenReaderString = donutTimestamps
-        .map(timestamp => `${periodicPayment.replace('.00', '')} for ${timestamp}`)
+        .map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`)
         .join(', ');
+    // regex replaces EUR with the euro symbol €
+    const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
 
     return (
         <Fragment>
@@ -59,7 +61,7 @@ export const ShortTerm = ({
                                                 <Donut
                                                     key={index}
                                                     qualifying={qualifying}
-                                                    periodicPayment={periodicPayment}
+                                                    periodicPayment={localeFormattedPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
                                                     numOfPayments={donutTimestamps.length}
