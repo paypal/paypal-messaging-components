@@ -208,13 +208,9 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getStandardProductOffer(offer, offerCountry = '') {
+export function getStandardProductOffer(offer) {
     if (typeof offer === 'undefined') {
         return 'NONE';
-    }
-
-    if (offer === 'GPL' && offerCountry === 'DE') {
-        return OFFER.PAY_LATER_LONG_TERM;
     }
 
     switch (offer.toUpperCase()) {
