@@ -1,6 +1,6 @@
 /** @jsx node */
 import { fireEvent } from '@testing-library/dom';
-import { node, dom } from 'jsx-pragmatic/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { createState, getDataByTag, createEvent, viewportHijack, dynamicImport } from 'src/utils';
 
 jest.mock('src/utils/observers', () => ({}));

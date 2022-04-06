@@ -2,7 +2,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
-import { isLocalStorageEnabled, getStorage as getBelterStorage } from 'belter/src';
+import { isLocalStorageEnabled, getStorage as getBelterStorage } from '@krakenjs/belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import {
     getClientID,
@@ -159,7 +159,6 @@ function getRawStorage() {
 export function writeStorageID(storageID) {
     if (isLocalStorageEnabled()) {
         try {
-            /* eslint-disable no-unused-expressions, flowtype/no-unused-expressions */
             window.localStorage?.setItem(
                 `__${getNamespace()}_storage__`,
                 JSON.stringify({

@@ -2,9 +2,9 @@ pipeline {
     agent {
         label 'mesos'
     }
-    
+
     tools {
-        nodejs 'Node12'
+        nodejs 'Node14'
     }
 
     // STAGE_TAG will be {branch_name}_{timestamp}
@@ -33,7 +33,7 @@ pipeline {
 
         // For non-release, auto-generate a stage build
         stage('Stage Tag') {
-            when { 
+            when {
                 not {
                     branch 'release'
                 }
@@ -50,7 +50,7 @@ pipeline {
 
         // For release, stage existing build assets and send notification
         stage('Deploy') {
-            when { 
+            when {
                 branch 'release'
             }
             steps {

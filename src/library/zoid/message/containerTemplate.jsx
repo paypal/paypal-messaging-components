@@ -1,6 +1,6 @@
 /** @jsx node */
-import { node, dom } from 'jsx-pragmatic/src';
-import { EVENT } from 'zoid/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { EVENT } from '@krakenjs/zoid/src';
 
 import { getOverflowObserver, createTitleGenerator } from '../../../utils';
 

@@ -1,8 +1,8 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
-import { create } from 'zoid/src';
-import { uniqueID, getCurrentScriptUID } from 'belter/src';
+import { create } from '@krakenjs/zoid/src';
+import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 
 import {
     getMeta,
