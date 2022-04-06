@@ -1,5 +1,22 @@
 # Changelog
 
+### [1.34.1](https://github.com/paypal/paypal-messaging-components/compare/v1.34.0...v1.34.1) (2022-04-06)
+
+
+### Bug Fixes
+
+* duplicate stats events ([#776](https://github.com/paypal/paypal-messaging-components/issues/776)) ([16907bf](https://github.com/paypal/paypal-messaging-components/commit/16907bfe13b5e4d188a0d1497d35ffdd204adc26))
+* remove comma in ES inline/none logo types ([#786](https://github.com/paypal/paypal-messaging-components/issues/786)) ([083f970](https://github.com/paypal/paypal-messaging-components/commit/083f9708b2fae261433d0bff63d51e135a6f7afe))
+* replace EUR with euro symbol ([#788](https://github.com/paypal/paypal-messaging-components/issues/788)) ([98d79dd](https://github.com/paypal/paypal-messaging-components/commit/98d79dd6c9f2525858d2fe68ce0e139d0b344cc4))
+* use mrid from within iframe to handle updates correctly ([#752](https://github.com/paypal/paypal-messaging-components/issues/752)) ([0b43ede](https://github.com/paypal/paypal-messaging-components/commit/0b43ede500ed37b7b0164e12c993722dba6ee623))
+
+
+### Code Refactoring
+
+* logo alignment and style consolidation ([#762](https://github.com/paypal/paypal-messaging-components/issues/762)) ([5f0bb12](https://github.com/paypal/paypal-messaging-components/commit/5f0bb12dc7aac8b3fe306385dd0491906270a53f))
+* show eligible purchase range in non-qualifying US Pay in 4 message ([#765](https://github.com/paypal/paypal-messaging-components/issues/765)) ([016a0a1](https://github.com/paypal/paypal-messaging-components/commit/016a0a10c99ea263a1e0651c7622e9c103f1af42))
+* update UK universal modal legal disclosure  ([#780](https://github.com/paypal/paypal-messaging-components/issues/780)) ([262e826](https://github.com/paypal/paypal-messaging-components/commit/262e8265a17306c2a4b32fd771ea602151aff16f))
+
 ## [1.34.0](https://github.com/paypal/paypal-messaging-components/compare/v1.33.0...v1.34.0) (2022-03-29)
 
 
