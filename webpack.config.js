@@ -1,4 +1,4 @@
-const { getWebpackConfig } = require('grumbler-scripts/config/webpack.config');
+const { getWebpackConfig } = require('@krakenjs/grumbler-scripts/config/webpack.config');
 
 const globals = require('./globals');
 const { localeOptions } = require('./locales');

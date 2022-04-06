@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
     objectMerge,

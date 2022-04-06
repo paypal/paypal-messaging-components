@@ -1,5 +1,5 @@
 // TODO: use this file as entry point after experiment removed
-import { destroy as zoidDestroy } from 'zoid/src';
+import { destroy as zoidDestroy } from '@krakenjs/zoid/src';
 
 import { setup as setupMessages, destroy as destroyMessages } from '../controllers/message';
 import { setup as setupModal } from '../controllers/modal';

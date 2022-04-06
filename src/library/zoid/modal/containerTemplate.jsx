@@ -2,10 +2,10 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /** @jsx node */
-import { destroyElement } from 'belter/src';
-import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { EVENT } from 'zoid/src';
+import { destroyElement } from '@krakenjs/belter/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { EVENT } from '@krakenjs/zoid/src';
 
 import { createTitleGenerator, viewportHijack } from '../../../utils';
 
