@@ -60,21 +60,14 @@ export default function createModalRoutes(app, server) {
                 return 'v2';
             }
 
-            if (
-                props.country === 'US' &&
-                props.products?.some(
-                    product => product.meta.product === 'EZP' || product.meta.product === 'PAYPAL_CREDIT_INSTALLMENTS'
-                )
-            ) {
+            if (props.country === 'US' && props.products?.some(product => product.meta.product === 'EZP')) {
                 return 'US-EZP';
             }
 
             if (
                 props.country === 'DE' &&
                 (props.products?.some(product => product.meta.product === 'GPL') ||
-                    props.products?.some(product => product.meta.product === 'PAY_LATER_LONG_TERM') ||
-                    props.products?.some(product => product.meta.product === 'PI30') ||
-                    props.products?.some(product => product.meta.product === 'PAY_LATER_PAY_IN_1'))
+                    props.products?.some(product => product.meta.product === 'PI30'))
             ) {
                 return 'DE-GPL';
             }
