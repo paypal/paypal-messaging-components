@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { uniqueID } from 'belter/src';
+import { uniqueID } from '@krakenjs/belter/src';
 
 import {
     request,
@@ -31,7 +31,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
         ignoreCache: window.xprops.ignoreCache ?? null,
-        style: JSON.stringify(window.xprops.style),
+        style: window.xprops.style,
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
@@ -100,11 +100,20 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
-            const shouldRerender = Object.keys(props).some(key =>
-                typeof props[key] !== 'object'
+            const shouldRerender = Object.keys(props).some(key => {
+                // check to see if both x/props values are undefined or null
+                if (
+                    (typeof props[key] === 'undefined' || props[key] === null) &&
+                    (typeof xprops[key] === 'undefined' || xprops[key] === null)
+                ) {
+                    // x/props values are undefined or null carry on
+                    return false;
+                }
+
+                return typeof props[key] !== 'object'
                     ? props[key] !== xprops[key]
-                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
-            );
+                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
+            });
 
             if (shouldRerender) {
                 const {
@@ -128,7 +137,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     currency,
                     buyerCountry,
                     ignoreCache,
-                    style: JSON.stringify(style),
+                    style,
                     offer,
                     payerId,
                     clientId,

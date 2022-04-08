@@ -10,6 +10,8 @@ import colorGray from './color--gray.css';
 import colorBlack from './color--black.css';
 import colorWhite from './color--white.css';
 import colorWhiteNoBorder from './color--white-no-border.css';
+import colorMonochrome from './color--monochrome.css';
+import colorGrayscale from './color--grayscale.css';
 
 export default [
     ['default', [common, base].join('\n')],
@@ -23,5 +25,7 @@ export default [
     ['color:gray', colorGray],
     ['color:black', colorBlack],
     ['color:white', colorWhite],
-    ['color:white-no-border', colorWhiteNoBorder]
+    ['color:white-no-border', colorWhiteNoBorder],
+    ['color:monochrome', colorMonochrome],
+    ['color:grayscale', colorGrayscale]
 ];

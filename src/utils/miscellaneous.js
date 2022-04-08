@@ -4,8 +4,8 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
 import { OFFER } from './constants';
@@ -51,6 +51,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
             xhttp.withCredentials = true;
         }
 
+        // eslint-disable-next-line unicorn/prefer-add-event-listener
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp

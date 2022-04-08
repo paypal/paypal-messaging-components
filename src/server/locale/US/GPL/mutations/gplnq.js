@@ -121,7 +121,11 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            // TODO: can be removed after content has swapped
+                            ['purchases.', 'purchases'],
+                            ['00.', '00']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
@@ -139,7 +143,11 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            // TODO: can be removed after content has swapped
+                            ['purchases.', 'purchases'],
+                            ['00.', '00']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
