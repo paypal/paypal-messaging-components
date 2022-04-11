@@ -69,7 +69,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
             <div className="header__content">
                 <h1>{headline}</h1>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <h2>{qualifyingSubheadline}</h2>
+                    <h2>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h2>
                 ) : (
                     <h2>{currencyFormat(subheadline) ?? ''}</h2>
                 )}

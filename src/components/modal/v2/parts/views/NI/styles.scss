@@ -6,8 +6,30 @@
     &__content {
         padding-bottom: 40px;
 
+        @include apiIframe {
+            @include tablet {
+                padding-bottom: 25px;
+            }
+        }
+
         @include mobile {
             padding-bottom: 0px;
+        }
+
+        h1 {
+            @include apiIframe {
+                @include tablet {
+                    max-width: none;
+                }
+            }
+        }
+
+        h2 {
+            @include apiIframe {
+                @include tablet {
+                    margin-top: 0.5rem;
+                }
+            }
         }
     }
 }
@@ -22,6 +44,20 @@
         .content__body {
             .dynamic {
                 padding-bottom: 1.5rem;
+
+                @include tablet {
+                    padding-bottom: 0rem;
+                }
+
+                @include mobile {
+                    padding-bottom: 0rem;
+                }
+
+                @include apiIframe {
+                    @include tablet {
+                        padding-top: 1rem;
+                    }
+                }
             }
 
             .content__col {
@@ -49,6 +85,13 @@
                 }
                 li {
                     font-size: 18px;
+                    &:last-child {
+                        @include apiIframe {
+                            @include tablet {
+                                padding-bottom: 25px;
+                            }
+                        }
+                    }
                 }
 
                 @include lander {
@@ -137,6 +180,10 @@
             padding-left: 15px;
         }
 
+        @include mobile {
+            padding-top: 5px;
+        }
+
         @include lander {
             @include desktop {
                 border-radius: 0px 0px 100px 0px;
@@ -180,6 +227,16 @@
 
                 @include desktop {
                     margin-bottom: 10px;
+                }
+
+                @include mobile {
+                    margin-bottom: 10px;
+                }
+
+                @include apiIframe {
+                    @include tablet {
+                        margin-bottom: 15px;
+                    }
                 }
             }
 

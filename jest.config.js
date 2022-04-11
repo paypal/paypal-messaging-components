@@ -19,14 +19,14 @@ module.exports = {
         '^src/(.*)': '<rootDir>/src/$1',
         '^server/(.*)': '<rootDir>/src/server/$1',
         '^utils/(.*)': '<rootDir>/tests/unit/utils/$1',
-        'zalgo-promise/src': 'zalgo-promise',
-        'zoid/src': 'zoid',
-        'jsx-pragmatic/src': 'jsx-pragmatic',
+        '@krakenjs/zalgo-promise/src': '@krakenjs/zalgo-promise',
+        '@krakenjs/zoid/src': '@krakenjs/zoid',
+        '@krakenjs/jsx-pragmatic/src': '@krakenjs/jsx-pragmatic',
         '@paypal/sdk-client/src': '@paypal/sdk-client',
         '@paypal/sdk-constants/src': '@paypal/sdk-constants',
         '@paypal/sdk-logos/src': '@paypal/sdk-logos',
-        'belter/src': 'belter',
-        'beaver-logger/src': 'beaver-logger'
+        '@krakenjs/belter/src': '@krakenjs/belter',
+        '@krakenjs/beaver-logger/src': '@krakenjs/beaver-logger'
     },
     collectCoverageFrom: ['./src/**'],
     transform: {

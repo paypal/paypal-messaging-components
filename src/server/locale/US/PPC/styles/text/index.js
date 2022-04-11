@@ -1,9 +1,10 @@
 import base from './base.css';
-import textMonochrome from './text--monochrome.css';
-import textGrayscale from './text--grayscale.css';
 import logoInline from './logo--inline.css';
 import logoTop from './logo--top.css';
+import logoPrimary from './logo--primary.css';
 import logoPrimaryPostionRight from './logo--primary-position--right.css';
+import logoAlternative from './logo--alternative.css';
+import logoAlternativePostionRight from './logo--alternative-position--right.css';
 import textRight from './text--right.css';
 import textRightLogoRight from './text--right-logo--right.css';
 import textRightLogoRightAlternative from './text--right-logo--right-alternative.css';
@@ -16,10 +17,11 @@ import textCenterLogoTop from './text--center-logo--top.css';
 
 export default [
     ['default', base],
-    ['text.color:monochrome', textMonochrome],
-    ['text.color:grayscale', textGrayscale],
     ['logo.type:inline', logoInline],
+    ['logo.type:primary', logoPrimary],
     ['logo.type:primary && logo.position:right', logoPrimaryPostionRight],
+    ['logo.type:alternative', logoAlternative],
+    ['logo.type:alternative && logo.position:right', logoAlternativePostionRight],
 
     ['logo.position:top', logoTop],
 
