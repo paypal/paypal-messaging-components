@@ -237,6 +237,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    partnerClientId: merchantId && account.slice(10), // slice is to remove the characters 'client-id:' from account name
                                     trackingDetails
                                 }
                             };
