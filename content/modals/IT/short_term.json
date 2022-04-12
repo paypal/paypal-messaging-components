@@ -27,10 +27,10 @@
         }
     },
     "content": {
-        "headline": "Paga in 3 rate senza intressi",
+        "headline": "Paga in 3 rate senza interessi",
         "subheadline": "Disponibile per acquisti tra {formattedMinAmount} e {formattedMaxAmount}. Nessuna tariffa iniziale o di ritardo.",
         "qualifyingSubheadline": "Dividi in 3 il tuo acquisto di {formattedTransactionAmount} senza tariffe iniziali o di ritardo.",
-        "donutTimestamps": ["Oggi", "Tira 1 mese", "Tira 2 mesi"],
+        "donutTimestamps": ["Oggi", "Tra 1 mese", "Tra 2 mesi"],
         "instructions": [
             "Scegli PayPal al checkout per pagare dopo con <strong>Paga in 3 rate</strong>. ",
             "Completa il tuo acquisto pagando la prima rata oggi.",

@@ -1,5 +1,5 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
     logger,

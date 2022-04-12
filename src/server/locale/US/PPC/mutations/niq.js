@@ -150,9 +150,14 @@ export default {
             'logo.type:alternative && logo.position:right',
             ({ textSize }) => ({
                 styles: [
+                    `.weak {
+                        display:none;
+                    }`,
                     basicMediaQuery(textSize * 18.5),
                     altContentMediaQuery(textSize * 42),
                     `.message__logo-container { width: ${textSize * 5}px }`,
+                    `@media screen and (max-width: ${textSize *
+                        42}px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 40, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
