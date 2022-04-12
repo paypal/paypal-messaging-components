@@ -13,7 +13,7 @@ export default function getMutations(id, type) {
     switch (id) {
         case 'LT_NQ':
             return lt_nq[type];
-        case 'LT_NO_AMNT':
+        case 'GENERIC':
             return lt_no_amnt[type];
         case 'LT_NQEZ':
             return lt_nqez[type];
