@@ -53,8 +53,7 @@ export default function polyfillZoid() {
             });
 
             logger.track({
-                // index,
-                // refIndex,
+                index: '1',
                 et: 'CLIENT_IMPRESSION',
                 event_type: 'modal-render',
                 modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
@@ -66,8 +65,7 @@ export default function polyfillZoid() {
         },
         onClick: ({ linkName, src }) => {
             logger.track({
-                // index,
-                // refIndex,
+                index: '1',
                 et: 'CLICK',
                 event_type: 'click',
                 link: linkName,
@@ -76,8 +74,7 @@ export default function polyfillZoid() {
         },
         onCalculate: ({ value }) => {
             logger.track({
-                // index,
-                // refIndex,
+                index: '1',
                 et: 'CLICK',
                 event_type: 'click',
                 link: 'Calculator',
@@ -87,17 +84,15 @@ export default function polyfillZoid() {
         },
         onShow: () => {
             logger.track({
-                // index,
-                // refIndex,
+                index: '1',
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open'
-                // src
+                event_type: 'modal-open',
+                src: 'Show'
             });
         },
         onClose: ({ linkName }) => {
             logger.track({
-                // index,
-                // refIndex,
+                index: '1',
                 et: 'CLICK',
                 event_type: 'modal-close',
                 link: linkName
