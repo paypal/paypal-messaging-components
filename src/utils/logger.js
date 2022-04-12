@@ -18,13 +18,11 @@ export const logger = Logger({
     flushInterval: 10 * 1000,
     // Override transport so we can use withCredentials
     transport: ({ url, method, json, headers }) => {
-        // Lander does not have index providing one
-        const landerPayload = __MESSAGES__.__TARGET__ === 'LANDER' ? '1' : undefined;
         // Because there is no way to remove payload builders from beaver-logger
         // Filter the meta object to remove inactive banner meta commonly caused by SPAs
         const eventsIndexes = json.events.reduce(
             (accumulator, { payload: { index, refIndex } }) => [...accumulator, index, refIndex],
-            [landerPayload]
+            []
         );
 
         const trackingIndexes = json.tracking.reduce(
