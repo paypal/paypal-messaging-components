@@ -237,7 +237,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    partnerClientId: merchantId && account.slice(10), // slice is to remove the characters 'client-id:' from account name
                                     trackingDetails
                                 }
                             };
@@ -247,7 +246,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             container: getContainer(),
                             activeTags,
                             index,
-                            requestDuration
+                            requestDuration,
+                            partnerClientId: merchantId && account.slice(10) // slice is to remove the characters 'client-id:' from account name
                         });
                         modal.updateProps({ refIndex: index, offer: offerType });
 
