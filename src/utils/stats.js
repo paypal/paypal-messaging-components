@@ -42,7 +42,7 @@ export function addLoggerMetaMutator(index, metaMutation) {
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
 // TODO: Add requestDuration here after CPNW changes made to allow param on non-stats events
-export function buildStatsPayload({ container, activeTags, index, partnerClientId }) {
+export function buildStatsPayload({ container, activeTags, index }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -62,13 +62,12 @@ export function buildStatsPayload({ container, activeTags, index, partnerClientI
             browser_width: (topWindow?.innerWidth).toString(),
             browser_height: (topWindow?.innerHeight).toString(),
             visible: isInViewport(container).toString(),
-            active_tags: activeTags,
-            partner_client_id: partnerClientId
+            active_tags: activeTags
         };
     });
 }
 
-export function runStats({ container, activeTags, index, requestDuration, partnerClientId }) {
+export function runStats({ container, activeTags, index, requestDuration }) {
     const { messagesMap } = getGlobalState();
     const { state } = messagesMap.get(container);
 
@@ -81,7 +80,7 @@ export function runStats({ container, activeTags, index, requestDuration, partne
         getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
-    buildStatsPayload({ container, activeTags, index, requestDuration, partnerClientId }).then(statsPayload => {
+    buildStatsPayload({ container, activeTags, index, requestDuration }).then(statsPayload => {
         addLoggerMetaMutator(index, { type: 'message', stats: statsPayload });
 
         // Attributes temporarily required to exist as part of the stats event
