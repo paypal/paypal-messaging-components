@@ -12,7 +12,7 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, disclosure, donutTimestamps, learnMoreLink },
+    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
@@ -57,14 +57,14 @@ export const ShortTerm = ({
                                             <span aria-hidden={qualifying !== 'true'} className="sr-only">
                                                 {donutScreenReaderString}
                                             </span>
-                                            {donutTimestamps.map((_, index) => (
+                                            {estimatedInstallments.items.map((installment, index) => (
                                                 <Donut
                                                     key={index}
                                                     qualifying={qualifying}
                                                     periodicPayment={localeFormattedPayment}
                                                     currentNum={index + 1}
-                                                    timeStamp={donutTimestamps[index]}
-                                                    numOfPayments={donutTimestamps.length}
+                                                    timeStamp={installment.payment_date}
+                                                    numOfPayments={estimatedInstallments.items.length}
                                                 />
                                             ))}
                                         </div>
