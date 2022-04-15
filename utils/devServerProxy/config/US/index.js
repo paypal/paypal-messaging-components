@@ -175,7 +175,7 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'pay_monthly_lt_nqez.json',
+                template: 'pay_monthly_lt_nqez_max.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

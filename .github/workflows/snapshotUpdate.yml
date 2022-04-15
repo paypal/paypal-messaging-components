@@ -57,7 +57,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v1
               with:
-                  node-version: 12
+                  node-version: 14
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1
@@ -100,7 +100,7 @@ jobs:
 
                       echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
-                      
+
                       if [ -d "${{ github.workspace }}/$filePath" ]; then
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting
@@ -136,7 +136,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v1
               with:
-                  node-version: 12
+                  node-version: 14
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1
@@ -149,7 +149,7 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testConfig }}
               run: |
-                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate 
+                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate
                   git status --porcelain
 
             - name: Format Artifact Inputs
@@ -184,7 +184,7 @@ jobs:
 
                       echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
-                      
+
                       if [ -d "${{ github.workspace }}/$filePath" ]; then
                         # If filePath is a directory we want to move all of its contents
                         # into the new directory location to prevent duplicate directory nesting

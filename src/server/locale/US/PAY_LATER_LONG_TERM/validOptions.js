@@ -24,9 +24,5 @@ export default {
             fontFamily: [Types.STRING],
             fontSource: [Types.ANY]
         }
-    },
-    custom: {
-        markup: [Types.STRING],
-        ratio: [Types.ANY]
     }
 };

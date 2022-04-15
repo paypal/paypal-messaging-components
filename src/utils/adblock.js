@@ -1,10 +1,12 @@
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { memoize } from './functional';
 
 /**
  * Check whether or not the current user is running an ad blocker
  * @returns {Promise<Boolean>} Whether adblock is running or not
  */
-export function checkAdblock() {
+// eslint-disable-next-line prefer-arrow-callback
+export const checkAdblock = memoize(function check() {
     const loops = 5;
     const checkTime = 50;
 
@@ -50,4 +52,4 @@ export function checkAdblock() {
             }, checkTime);
         })(loops);
     });
-}
+});

@@ -12,22 +12,36 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, disclosure, donutTimestamps },
+    content: { instructions, linkToProductList, disclosure, donutTimestamps, learnMoreLink },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
     const { views } = useServerData();
 
     const renderProductListLink = () => {
-        if (views?.length > 2) {
-            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
-        }
-        return <Fragment />;
+        return (
+            views?.length > 2 && (
+                <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+            )
+        );
+    };
+
+    // Optional outbound link to MPP product learn more page
+    const renderLearnMoreLink = () => {
+        return (
+            learnMoreLink && (
+                <div className="learnMoreLink__container">
+                    <InlineLinks text={learnMoreLink} />
+                </div>
+            )
+        );
     };
 
     const donutScreenReaderString = donutTimestamps
-        .map(timestamp => `${periodicPayment.replace('.00', '')} for ${timestamp}`)
+        .map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`)
         .join(', ');
+    // regex replaces EUR with the euro symbol €
+    const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
 
     return (
         <Fragment>
@@ -47,7 +61,7 @@ export const ShortTerm = ({
                                                 <Donut
                                                     key={index}
                                                     qualifying={qualifying}
-                                                    periodicPayment={periodicPayment}
+                                                    periodicPayment={localeFormattedPayment}
                                                     currentNum={index + 1}
                                                     timeStamp={donutTimestamps[index]}
                                                     numOfPayments={donutTimestamps.length}
@@ -70,6 +84,7 @@ export const ShortTerm = ({
                             </p>
                         </div>
                         <div className="content__row productLink">
+                            {renderLearnMoreLink()}
                             <div className="productLink__container">{renderProductListLink()}</div>
                         </div>
                     </div>

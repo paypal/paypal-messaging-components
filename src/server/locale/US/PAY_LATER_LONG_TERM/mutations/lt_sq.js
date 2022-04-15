@@ -135,7 +135,7 @@ export default {
                         replace: [['mo.', 'mo']]
                     },
                     {
-                        tag: 'xsmall',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -151,7 +151,7 @@ export default {
                         tag: 'medium',
                         replace: [['mo.', 'mo']]
                     },
-                    { tag: 'xsmall', replace: [['later.', 'later']] }
+                    { tag: 'xsmall.2', replace: [['later.', 'later']] }
                 ]
             })
         ],
