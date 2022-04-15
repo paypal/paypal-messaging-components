@@ -1,5 +1,5 @@
 import { useReducer, useMemo, useRef } from 'preact/hooks';
-import { debounce } from 'belter/src';
+import { debounce } from '@krakenjs/belter/src';
 
 import { useXProps, useServerData } from '../providers';
 import { useDidUpdateEffect } from './helpers';

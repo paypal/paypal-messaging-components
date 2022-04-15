@@ -1,5 +1,5 @@
-const postRobotGlobals = require('post-robot/globals');
-const zoidGlobals = require('zoid/globals');
+const postRobotGlobals = require('@krakenjs/post-robot/globals');
+const zoidGlobals = require('@krakenjs/zoid/globals');
 
 const { version } = require('./package.json');
 

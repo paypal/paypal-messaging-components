@@ -34,7 +34,7 @@
 }
 @media (min-aspect-ratio: 60/11) and (max-width: 374px) {
     .message__headline {
-        font-size: 4.5vw;
+        font-size: 4vw;
     }
     .message__disclaimer {
         font-size: 3vw;

@@ -13,8 +13,16 @@ export default {
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
-    // temp dev account for pay later long term universal modal view development
-    DEV000000USLT: ['US', ['long_term'], 'long_term'],
+    DEV0000USLTMQ: ['US', ['long_term'], 'pay_monthly_lt_mq'],
+    DEV00USLTMQEZ: ['US', ['long_term'], 'pay_monthly_lt_mqez'],
+    DEV00USLTMQRB: ['US', ['long_term'], 'pay_monthly_lt_mqez_rb'],
+    DEV0USLTNQMAX: ['US', ['long_term'], 'pay_monthly_lt_nq_max'],
+    DEV0USLTNQMIN: ['US', ['long_term'], 'pay_monthly_lt_nq_min'],
+    DEVUSLTNQEZMX: ['US', ['long_term'], 'pay_monthly_lt_nqez_max'],
+    DEVUSLTNQEZMN: ['US', ['long_term'], 'pay_monthly_lt_nqez_min'],
+    DEV0000USLTSQ: ['US', ['long_term'], 'pay_monthly_lt_sq'],
+    DEV00USLTSQEZ: ['US', ['long_term'], 'pay_monthly_lt_sqez'],
+    DEV00USLTSQRB: ['US', ['long_term'], 'pay_monthly_lt_sqez_rb'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],
@@ -34,9 +42,12 @@ export default {
     DEV00DEPI30NQ: ['DE', ['pi30'], 'pi30nq'],
     DEV000DEPI30Q: ['DE', ['pi30'], 'pi30q'],
     DEV0000DEPI30: ['DE', ['pi30'], 'pi30'],
-
+    DEVXBDEPI30NQ: ['DE', ['pi30'], 'pi30nq-non-de'],
+    DEV0XBDEPI30Q: ['DE', ['pi30'], 'pi30q-non-de'],
+    DEV00XBDEPI30: ['DE', ['pi30'], 'pi30-non-de'],
     // Multi product modal
-    DEV0DEPI30GPL: ['DE', ['pi30', 'gpl'], 'pi30'],
+    DEV000DEMULTI: ['DE', ['pi30', 'gpl'], 'pi30'],
+    DEV0XBDEMULTI: ['DE', ['pi30', 'gpl'], 'pi30-non-de'],
 
     DEV000000GBPL: ['GB', ['gpl'], 'pl'],
     DEV00000GBPLQ: ['GB', ['gpl'], 'plq'],
@@ -45,5 +56,13 @@ export default {
     DEV00000FRPLQ: ['FR', ['gpl'], 'gplq'],
 
     DEV000000AUPL: ['AU', ['gpl'], 'gpl'],
-    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq']
+    DEV00000AUPLQ: ['AU', ['gpl'], 'gplq'],
+
+    DEV0000ESPLNA: ['ES', ['short_term'], 'short_term_no_amount'],
+    DEV00000ESPLQ: ['ES', ['short_term'], 'short_term_q'],
+    DEV0000ESPLNQ: ['ES', ['short_term'], 'short_term_nq'],
+
+    DEV0000ITPLNA: ['IT', ['short_term'], 'short_term_no_amount'],
+    DEV00000ITPLQ: ['IT', ['short_term'], 'short_term_q'],
+    DEV0000ITPLNQ: ['IT', ['short_term'], 'short_term_nq']
 };

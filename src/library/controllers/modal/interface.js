@@ -1,5 +1,5 @@
 import arrayFind from 'core-js-pure/stable/array/find';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
     logger,
@@ -32,6 +32,7 @@ const memoizedModal = memoizeOnProps(
         onApply,
         onClose,
         channel,
+        cspNonce,
         integrationIdentifier
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
@@ -50,6 +51,7 @@ const memoizedModal = memoizeOnProps(
             onApply,
             onClose,
             channel,
+            cspNonce,
             integrationIdentifier
         });
         // Fired from inside the default onReady callback

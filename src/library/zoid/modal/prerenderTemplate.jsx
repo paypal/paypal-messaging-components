@@ -4,12 +4,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/style-prop-object */
 /* eslint-disable react/no-unknown-property */
 /** @jsx node */
-import { node, dom } from 'jsx-pragmatic/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 export default ({ doc, props, event }) => {
     const ERROR_DELAY = 15000;
@@ -107,6 +106,7 @@ export default ({ doc, props, event }) => {
             top: 67%;
             left: 50%;
             margin-left: -60px;
+            display: none;
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -140,7 +140,7 @@ export default ({ doc, props, event }) => {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <style>{styles}</style>
+            <style nonce={props.cspNonce}>{styles}</style>
             <body onRender={checkForErrors}>
                 <div class="modal">
                     <div class="overlay" onClick={closeModal} />
@@ -149,8 +149,8 @@ export default ({ doc, props, event }) => {
                         <div class="close-button">
                             <button onClick={closeModal} type="button" />
                         </div>
-                        <div class="error" style="display: none"></div>
-                        <Spinner nonce={props.nonce} />
+                        <div class="error"></div>
+                        <Spinner nonce={props.cspNonce} />
                     </div>
                 </div>
             </body>

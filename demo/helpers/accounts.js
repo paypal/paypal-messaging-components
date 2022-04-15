@@ -11,10 +11,22 @@ const accounts = [
     'DEV0000000PSG',
     'DEV0000000PMZ',
     'DEV0000000PMG',
+    // pay later short term
     'DEV0000000GPL',
     'DEV00000GPLNQ',
     'DEV000000GPLQ',
-    'DEVGPLNQRANGE'
+    'DEVGPLNQRANGE',
+    // pay later long term - monthly
+    'DEV0000USLTMQ',
+    'DEV00USLTMQEZ',
+    'DEV00USLTMQRB',
+    'DEV0USLTNQMAX',
+    'DEV0USLTNQMIN',
+    'DEVUSLTNQEZMX',
+    'DEVUSLTNQEZMN',
+    'DEV0000USLTSQ',
+    'DEV00USLTSQEZ',
+    'DEV00USLTSQRB',
 
     // DE
     // 'DEV0000000IAZ',
@@ -32,7 +44,11 @@ const accounts = [
     // 'DEV00DEPI30NQ',
     // 'DEV000DEPI30Q',
     // 'DEV0000DEPI30',
-    // 'DEV0DEPI30GPL',
+    // 'DEV000DEMULTI',
+    // 'DEVXBDEPI30NQ',
+    // 'DEV0XBDEPI30Q',
+    // 'DEV00XBDEPI30',
+    // 'DEV0XBDEMULTI',
 
     // GB
     // 'DEV000000GBPL',
@@ -41,8 +57,18 @@ const accounts = [
     // FR
     // 'DEV000000FRPL',
     // 'DEV00000FRPLQ'
+    
+    // ES
+    // 'DEV00000ESPLQ',
+    // 'DEV0000ESPLNQ',
+    // 'DEV0000ESPLNA',
 
     // AU
     // 'DEV000000AUPL',
     // 'DEV00000AUPLQ'
+
+    // IT
+    // 'DEV0000ITPLNA',
+    // 'DEV00000ITPLQ',
+    // 'DEV0000ITPLNQ'
 ];

@@ -171,7 +171,7 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
+                template: 'pay_monthly_lt_nqez.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

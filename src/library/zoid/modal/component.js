@@ -1,8 +1,8 @@
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
-import { create } from 'zoid/src';
-import { uniqueID, getCurrentScriptUID } from 'belter/src';
+import { create } from '@krakenjs/zoid/src';
+import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 
 import {
     getMeta,
@@ -19,6 +19,7 @@ import {
     getDeviceID,
     getStageTag,
     getFeatures,
+    getNonce,
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint
@@ -393,6 +394,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: () => __MESSAGES__.__TARGET__
+            },
+            cspNonce: {
+                type: 'string',
+                required: false,
+                default: getNonce,
+                value: validate.cspNonce
             }
         }
     })

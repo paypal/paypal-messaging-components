@@ -94,8 +94,24 @@ jobs:
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
-                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
+                      else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath ${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                      fi
                   done
 
             - name: Save Snapshot Artifact
@@ -103,7 +119,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
-                  filePath: ${{ steps.artifactInputs.outputs.filePath }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
 
     updateSnapshotsV2:
@@ -120,7 +136,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v1
               with:
-                  node-version: 12
+                  node-version: 14
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1
@@ -133,7 +149,7 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testConfig }}
               run: |
-                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate 
+                  CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate
                   git status --porcelain
 
             - name: Format Artifact Inputs
@@ -159,15 +175,27 @@ jobs:
                   UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'v2/snapshots' | sed -E "s/^.{3}//")
                   echo "$UPDATED_SNAPSHOTS" | while read -r filePath
                   do
-                      # newPath is the new top level file path
-                      # ex: snapshots/{picType}/{integrationType}/{locale}/{account}/{screenType}/{fileName}
                       newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
-
-                      # newDir chops off {fileName} from {newPath}
                       newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
 
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
                       mkdir -p "${{ github.workspace }}/$newDir"
-                      mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
+                      else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                      fi
                   done
                   mv "${{ github.workspace }}/snapshots" "${{ github.workspace }}/snapshotsV2"
 
