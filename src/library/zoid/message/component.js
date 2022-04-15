@@ -93,6 +93,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: 'credit_type',
                 required: false,
                 value: validate.offer
+                // validate: validate.offer
             },
             buyerCountry: {
                 type: 'string',

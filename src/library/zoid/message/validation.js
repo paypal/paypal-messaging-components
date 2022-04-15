@@ -36,6 +36,7 @@ export function validateType(expectedType, val) {
 }
 
 // Formalized validation logger helper functions
+
 const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
@@ -114,11 +115,11 @@ export default {
                 logInvalidType('offer', Types.STRING, offer);
             } else if (!offerType.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
+                // throw new Error('Test');
             } else {
                 return offer;
             }
         }
-
         return undefined;
     },
     // TODO: Handle server side locale specific style validation warnings passed down to client.
