@@ -17,8 +17,8 @@
         }
     },
     "content": {
-        "headline": "Make easy monthly payments",
-        "subheadline": "Give your budget a break, with no down payment.",
+        "headline": "Pay with monthly installments",
+        "subheadline": "Get more time to pay, with no down payment or late fees.",
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
@@ -27,8 +27,8 @@
         },
         "disclaimer": {
             "zeroAPR": "Terms may vary based on purchase amount.",
-            "mixedAPR": "*APR is 0-30% based on your credit. Terms and 0% APR may vary based on purchase amount.",
-            "nonZeroAPR": "*APR is 10-30% based on your credit. Terms may vary based on purchase amount."
+            "mixedAPR": "*APR is 0% to 29.99% based on your credit. Terms and 0% APR may vary based on purchase amount.",
+            "nonZeroAPR": "*APR is 9.99% to 29.99% based on your credit. Terms may vary based on purchase amount."
         },
         "instructions": [
             "Explore plan options. No sign up fees or late fees.",
@@ -40,7 +40,7 @@
             "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/long-term-application"
         },
-        "disclosure": "Payment options subject to credit approval. Estimated payment amounts may change based on shipping, taxes, or updates to your purchase. Offer availability depends on the merchant and purchase amount, and may not be available for subscriptions or recurring payments. You must be of legal age in your U.S. state of residence. [Lender disclosure][State licensing disclosures]",
-        "linkToProductList": "See other ways to pay later"
+        "disclosure": "Payment options subject to credit approval. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Missed payments may have an impact on consumer's credit report. Offer availability depends on the merchant and purchase amount, and may not be available for subscriptions or recurring payments. You must be of legal age in your U.S. state of residence. [Lender disclosure][State licensing disclosures]",
+        "linkToProductList": "See other ways to pay over time"
     }
 }
