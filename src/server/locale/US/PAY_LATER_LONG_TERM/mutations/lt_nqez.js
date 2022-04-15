@@ -118,13 +118,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['purchases'],
-                        replace: [
-                            ['less.', 'less'],
-                            ['+.', '+']
-                        ]
+                        replace: [['0.', '0']]
                     },
                     {
-                        tag: 'xsmall',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -139,13 +136,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['purchases'],
-                        replace: [
-                            ['less.', 'less'],
-                            ['+.', '+']
-                        ]
+                        replace: [['0.', '0']]
                     },
                     {
-                        tag: 'xsmall',
+                        tag: 'xsmall.2',
                         replace: [['later.', 'later']]
                     }
                 ]

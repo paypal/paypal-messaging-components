@@ -24,6 +24,10 @@ export default {
         ],
         messageThresholds: [
             {
+                template: 'pay_monthly_lt_no_amnt.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
                 amount: 0,
                 template: 'gplnq.json',
                 product: 'PAY_LATER_SHORT_TERM'
@@ -171,7 +175,7 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'pay_monthly_lt_nqez_max.json',
+                template: 'pay_monthly_lt_nqez.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

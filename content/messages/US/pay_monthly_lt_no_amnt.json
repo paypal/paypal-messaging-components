@@ -2,7 +2,7 @@
     "meta": {
         "id": "d8dbfe8b-0bb8-44b1-ae07-6f32816fafe6",
         "offerCountry": "US",
-        "offerType": "LT_NQ_MIN",
+        "offerType": "GENERIC",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {
@@ -18,7 +18,7 @@
     },
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
-        ["Pay monthly for purchases of ${formattedMinAmount}+.", ["small", "medium", "large", "xlarge"]]
+        ["Buy now and pay later.", ["xsmall.2"]]
     ],
     "subHeadline": [],
     "disclaimer": [["Learn more", ["default"]]]

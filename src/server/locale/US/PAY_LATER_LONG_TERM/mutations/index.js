@@ -7,14 +7,15 @@ import lt_mq from './lt_mq';
 import lt_mqez from './lt_mqez';
 import lt_sq from './lt_sq';
 import lt_sqez from './lt_sqez';
+import lt_no_amnt from './lt_no_amnt';
 
 export default function getMutations(id, type) {
     switch (id) {
-        case 'LT_NQ_MIN':
-        case 'LT_NQ_MAX':
+        case 'LT_NQ':
             return lt_nq[type];
-        case 'LT_NQEZ_MIN':
-        case 'LT_NQEZ_MAX':
+        case 'GENERIC':
+            return lt_no_amnt[type];
+        case 'LT_NQEZ':
             return lt_nqez[type];
         case 'LT_SQ':
             return lt_sq[type];
