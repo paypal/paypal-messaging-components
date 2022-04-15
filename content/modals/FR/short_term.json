@@ -28,8 +28,14 @@
 
         "subheadline": "Disponible pour les achats de {formattedMinAmount} à {formattedMaxAmount}. Pas de frais de dossier ni de frais de retard.",
         "qualifyingSubheadline": "Payez votre achat de {formattedTransactionAmount} en 4 fois sans frais de dossier ni frais de retard.",
-
-        "donutTimestamps": ["Aujourd'hui", "1 mois", "2 mois", "3 mois"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{periodicPayment}", "payment_date": "Aujourd'hui" },
+                { "total_payment:": "{periodicPayment}", "payment_date": "1 mois" },
+                { "total_payment:": "{periodicPayment}", "payment_date": "2 mois" },
+                { "total_payment:": "{periodicPayment}", "payment_date": "3 mois" }
+            ]
+        },
 
         "instructions": [
             "Choisissez PayPal au moment du paiement pour bénéficier du Paiement en 4X.",

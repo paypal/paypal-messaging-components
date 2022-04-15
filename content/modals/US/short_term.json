@@ -34,7 +34,6 @@
                 { "total_payment:": "{periodicPayment}", "payment_date": "6 weeks" }
             ]
         },
-        "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
             "Complete your purchase with a 25% down payment.",
