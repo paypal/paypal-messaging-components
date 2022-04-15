@@ -12,8 +12,8 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
-    productMeta: { qualifying, periodicPayment },
+    content: { instructions, linkToProductList, estimatedInstallments, disclosure, learnMoreLink },
+    productMeta: { qualifying },
     openProductList
 }) => {
     const { views } = useServerData();
@@ -37,11 +37,9 @@ export const ShortTerm = ({
         );
     };
 
-    const donutScreenReaderString = donutTimestamps
-        .map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`)
+    const donutScreenReaderString = estimatedInstallments.items
+        .map(timestamp => `${timestamp.total_payment} for ${timestamp.payment_date}`)
         .join(', ');
-    // regex replaces EUR with the euro symbol €
-    const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
 
     return (
         <Fragment>
@@ -61,7 +59,11 @@ export const ShortTerm = ({
                                                 <Donut
                                                     key={index}
                                                     qualifying={qualifying}
-                                                    periodicPayment={localeFormattedPayment}
+                                                    // regex replaces EUR with the euro symbol €
+                                                    periodicPayment={(installment.total_payment ?? '').replace(
+                                                        /(\s?EUR)/g,
+                                                        ' €'
+                                                    )}
                                                     currentNum={index + 1}
                                                     timeStamp={installment.payment_date}
                                                     numOfPayments={estimatedInstallments.items.length}
