@@ -24,11 +24,12 @@ export default {
         ],
         messageThresholds: [
             {
-                template: 'pay_monthly_lt_no_amnt.json',
-                product: 'PAY_LATER_LONG_TERM'
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
             },
             {
-                amount: 0,
+                amount: 0.01,
                 template: 'gplnq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -175,7 +176,22 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'pay_monthly_lt_nqez.json',
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 199,
+                template: 'long_term_sq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 10000.01,
+                template: 'long_term_nq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -224,7 +240,7 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
+                template: 'generic.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {

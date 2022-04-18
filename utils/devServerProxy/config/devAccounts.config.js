@@ -13,16 +13,17 @@ export default {
     DEV000000GPLQ: ['US', ['gpl'], 'gplq'],
     DEV00000GPLNQ: ['US', ['gpl'], 'gplnq'],
     DEVGPLNQRANGE: ['US', ['gpl'], 'gplnq_range'],
-    DEV0000USLTMQ: ['US', ['long_term'], 'pay_monthly_lt_mq'],
-    DEV00USLTMQEZ: ['US', ['long_term'], 'pay_monthly_lt_mqez'],
-    DEV00USLTMQRB: ['US', ['long_term'], 'pay_monthly_lt_mqez_rb'],
-    DEV00USLTNQEZ: ['US', ['long_term'], 'pay_monthly_lt_nqez'],
-    DEV0000USLTNQ: ['US', ['long_term'], 'pay_monthly_lt_nq'],
-    DEV0000USLTSQ: ['US', ['long_term'], 'pay_monthly_lt_sq'],
-    DEV00USLTSQEZ: ['US', ['long_term'], 'pay_monthly_lt_sqez'],
-    DEV00USLTSQRB: ['US', ['long_term'], 'pay_monthly_lt_sqez_rb'],
 
-    DEVUSLTNOAMNT: ['US', ['long_term'], 'pay_monthly_lt_no_amnt'],
+    // US Long Term
+    DEV0USGENERIC: ['US', ['product_list'], 'generic'],
+    DEV00USLTMQGZ: ['US', ['long_term'], 'long_term_multi_gtz'],
+    DEV00USLTMQEZ: ['US', ['long_term'], 'long_term_multi_eqz'],
+    DEVUSLTMQEZRB: ['US', ['long_term'], 'long_term_multi_eqz_rb'],
+    DEV00USLTNQEZ: ['US', ['long_term'], 'long_term_nq_eqz'],
+    DEV00USLTNQGZ: ['US', ['long_term'], 'long_term_nq_gtz'],
+    DEV00USLTSQGZ: ['US', ['long_term'], 'long_term_single_gtz'],
+    DEV00USLTSQEZ: ['US', ['long_term'], 'long_term_single_eqz'],
+    DEVUSLTSQEZRB: ['US', ['long_term'], 'long_term_single_eqz_rb'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['gpl', 'ni'], 'gpl'],

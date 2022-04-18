@@ -215,6 +215,14 @@ export function getStandardProductOffer(offer) {
     }
 
     switch (offer.toUpperCase()) {
+        case 'LT_NQEZ':
+        case 'LT_NQGZ':
+        case 'LT_MQEZ':
+        case 'LT_MQEZ_RB':
+        case 'LT_MQGZ':
+        case 'LT_SQEZ':
+        case 'LT_SQEZ_RB':
+        case 'LT_SQGZ':
         case OFFER.PAY_LATER_LONG_TERM:
             return OFFER.PAY_LATER_LONG_TERM;
         case OFFER.PAY_LATER_SHORT_TERM:

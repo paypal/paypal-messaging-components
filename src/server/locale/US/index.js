@@ -10,14 +10,14 @@ export default offerType => {
         case 'GPLNQ_RANGE':
             return gpl;
         case 'GENERIC':
-        case 'LT_MQ':
+        case 'LT_NQEZ':
+        case 'LT_NQGZ':
         case 'LT_MQEZ':
         case 'LT_MQEZ_RB':
-        case 'LT_NQ':
-        case 'LT_NQEZ':
-        case 'LT_SQ':
+        case 'LT_MQGZ':
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
+        case 'LT_SQGZ':
         case 'PAY_LATER_LONG_TERM':
             return payLaterLongTerm;
         default:
