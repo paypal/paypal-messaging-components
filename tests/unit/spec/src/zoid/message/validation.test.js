@@ -116,23 +116,23 @@ describe('validate', () => {
             'PAYPAL_CREDIT_INSTALLMENTS',
             'NI'
         ].forEach(supportedOffer => {
-            const offer = validate.offer({ props: { offer: supportedOffer } });
+            const isValidOffer = validate.offer(supportedOffer);
 
-            expect(offer).toEqual(supportedOffer);
+            expect(isValidOffer).toEqual(true);
             expect(console.warn).not.toHaveBeenCalled();
         });
 
         {
-            const offer = validate.offer({ props: {} });
+            const isValidOffer = validate.offer();
 
-            expect(offer).toBeUndefined();
+            expect(isValidOffer).toEqual(true);
             expect(console.warn).not.toHaveBeenCalled();
         }
 
         ['EZP', 12345, {}, null].forEach((invalidOffer, index) => {
-            const offer = validate.offer({ props: { offer: invalidOffer } });
+            const isValidOffer = validate.offer(invalidOffer);
 
-            expect(offer).toBeUndefined();
+            expect(isValidOffer).toEqual(false);
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),

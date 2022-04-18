@@ -36,21 +36,20 @@ export function validateType(expectedType, val) {
 }
 
 // Formalized validation logger helper functions
-
-const logInvalid = memoize((location, message) =>
+export const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
         location
     })
 );
-const logInvalidType = (location, expectedType, val) => {
+export const logInvalidType = (location, expectedType, val) => {
     const valType = Array.isArray(val) ? 'array' : typeof val;
     logInvalid(
         location,
         `Expected type "${expectedType.toLowerCase()}" but instead received "${valType}" (${JSON.stringify(val)}).`
     );
 };
-const logInvalidOption = (location, options, val) =>
+export const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
 export default {
@@ -108,20 +107,22 @@ export default {
 
         return undefined;
     },
-    offer: ({ props: { offer } }) => {
-        const offerType = [...Object.values(OFFER), 'NI'];
+
+    offer: offer => {
+        const offerTypes = [...Object.values(OFFER), 'NI'];
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
                 logInvalidType('offer', Types.STRING, offer);
-            } else if (!offerType.includes(offer)) {
+                return false;
+            }
+            if (!offerTypes.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
-                // throw new Error('Test');
-            } else {
-                return offer;
+                return false;
             }
         }
-        return undefined;
+        return true;
     },
+
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
     style: ({ props: { style: styleInput } }) => {

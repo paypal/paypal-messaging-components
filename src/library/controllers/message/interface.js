@@ -1,6 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from 'zalgo-promise/src';
-
+import validate from '../../zoid/message/validation';
 import {
     objectMerge,
     getInlineOptions,
@@ -85,6 +85,9 @@ export default (options = {}) => ({
                     channel
                 } = merchantOptions;
 
+                if (!validate.offer(offer)) {
+                    return null;
+                }
                 // Explicitly select props to pass in to avoid unintentionally sending
                 // in props meant for only either the message or modal (e.g. onClick)
                 const commonProps = {
