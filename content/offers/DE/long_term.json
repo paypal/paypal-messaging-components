@@ -1,8 +1,8 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
-        "offerCountry": "US",
-        "periodicPayment": "{formattedPeriodicPayment}",
+        "offerCountry": "DE",
+        "formattedPeriodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
@@ -34,11 +34,11 @@
             "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
         },
         "termsLabel": {
-            "offerHeader": "{formattedPeriodicPayment}/mo. for {total_payments} months",
-            "zeroApr": "APR",
-            "nonZeroApr": "Est. APR*",
-            "totalInterest": "Interest",
-            "total": "Total"
+            "offerPayment": "{formattedPeriodicPayment}/mo.",
+            "offerNumInstallments": "{total_payments} Installments",
+            "eMoney": "eMoney transaction amount",
+            "totalInterest": "Total Interest",
+            "total": "Total Amount"
         }
     }
 }

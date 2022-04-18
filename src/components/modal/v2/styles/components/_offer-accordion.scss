@@ -1,0 +1,74 @@
+.accordion {
+    &__container {
+        border: 1px solid #dbdddd;
+        border-radius: 12px;
+        font-size: 14px;
+        width: 311px;
+        color: $text-main;
+        margin-bottom: 10px;
+
+        @include mobile {
+            width: auto;
+            margin-right: -25px;
+        }
+
+        &-expanded {
+            height: 242px;
+        }
+        &:first-child {
+            margin-top: 35px;
+        }
+        &.active {
+            outline: 3px solid #1072eb;
+            border-color: transparent;
+        }
+    }
+
+    &__header-container {
+        font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+        font-size: 18px;
+        color: #0c0c0d;
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 18px 22px 13px;
+        background: none;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        .accordion__offer-field-header:first-child {
+            font-weight: 600;
+        }
+    }
+
+    &__collapsible {
+        display: flex;
+        flex-direction: column;
+        height: 0px;
+        overflow: hidden;
+        transition: height 0.2s linear;
+
+        .open & {
+            height: 172px;
+            transition: height 0.2s linear;
+        }
+        .accordion__row {
+            display: flex;
+            justify-content: space-between;
+            padding: 25px 18px 0px 13px;
+            &:first-child {
+                padding-top: 0px;
+
+                .accordion__offer-field-title {
+                    color: #0070ba;
+                    // cursor: pointer;
+                }
+            }
+
+            .accordion__offer-apr-disclaimer {
+                color: #515354;
+                line-height: 1.3;
+                padding-bottom: 9px;
+            }
+        }
+    }
+}

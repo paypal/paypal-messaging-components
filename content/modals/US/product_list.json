@@ -1,6 +1,7 @@
 {
     "meta": {
-        "product": "PRODUCT_LIST"
+        "product": "PRODUCT_LIST",
+        "offerCountry": "US"
     },
     "content": {
         "headline": "Pay later with flexible options",

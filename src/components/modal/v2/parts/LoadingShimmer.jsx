@@ -4,7 +4,7 @@
 import { Fragment, h } from 'preact';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
-const LoadingShimmer = ({ numOffers = 3 }) => {
+const LoadingShimmer = ({ numOffers = 3, meta: { offerCountry } }) => {
     /**
      * Takes the number of offers returned from numOffers and renders the correct
      * number of loading shimmers by creating an array of that size to map over.
@@ -13,6 +13,18 @@ const LoadingShimmer = ({ numOffers = 3 }) => {
     return (
         <Fragment>
             {arrayFrom({ length: numOffers }).map((_, index) => {
+                if (offerCountry === 'DE') {
+                    return (
+                        <div id={`${index}`} className="accordion__container shimmer">
+                            <div className="accordion__row">
+                                <button className="accordion__header-container" type="button">
+                                    <div className="offer__field-loading" style={{ width: '60%' }} />
+                                    <div className="offer__field-loading" style={{ width: '30%' }} />
+                                </button>
+                            </div>
+                        </div>
+                    );
+                }
                 return (
                     <div className="offer__container shimmer" key={index}>
                         <div className="offer__row">

@@ -6,7 +6,7 @@ import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue, g
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
-const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
+const getError = ({ offers, error = '' }, isLoading, calculator, amount, country = 'US') => {
     const {
         minAmount,
         maxAmount,
@@ -31,17 +31,21 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
         return null;
     }
 
+    const replaceRegExp = {
+        DE: /(,[0-9]*?)00/g,
+        US: /(\.[0-9]*?)00/g
+    };
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return belowThreshold.replace(replaceRegExp[country], '');
     }
 
     // Checks amount against qualifying min and max ranges to determine which error message to show.
     if (amount < minAmount) {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return belowThreshold.replace(replaceRegExp[country], '');
     }
     if (amount > maxAmount) {
-        return aboveThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return aboveThreshold.replace(replaceRegExp[country], '');
     }
 
     // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
@@ -57,7 +61,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
-    const { title, inputLabel, inputPlaceholder } = calculator;
+    const { title, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
     const [hasUsedInputField, setHasUsedInputField] = useState(false);
@@ -66,7 +70,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const hasInitialAmount = typeof amount !== 'undefined';
 
     // If the person entered an amount in the calc and it is not 0.
-    const hasEnteredAmount = !(parseInt(delocalize(value || '0'), 10) === 0);
+    const hasEnteredAmount = !(parseInt(delocalize(value || '0', country), 10) === 0);
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
@@ -74,7 +78,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
 
     // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0'));
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country), country);
 
     useEffect(() => {
         if (!hasInitialAmount) {
@@ -110,7 +114,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
         setHasUsedInputField(true);
 
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
-        const onInputValue = delocalize(targetValue);
+        const onInputValue = delocalize(targetValue, country);
         const newDisplayValue = getDisplayValue(targetValue, country);
 
         const finalValue = parseFloat(Number(onInputValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
@@ -170,6 +174,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
                     <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
+                    {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
                         className={`input ${displayValue === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
@@ -183,14 +188,15 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             </form>
             {hasInitialAmount || hasUsedInputField ? (
                 <div className="content-column">
-                    <TermsTable view={view} isLoading={isLoading} hasError={error} />
+                    <TermsTable view={view} isLoading={isLoading} hasError={error} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (
                 <Fragment />
             )}
-            <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
+            {/* TODO: Fix with DE */}
+            {/* <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
                 {aprDisclaimer}
-            </div>
+            </div> */}
         </div>
     );
 };
