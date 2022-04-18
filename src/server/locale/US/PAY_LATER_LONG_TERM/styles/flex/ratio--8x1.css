@@ -2,7 +2,7 @@
     .message__headline {
         display: inline;
         padding-right: 0;
-        margin-right: 0;
+        margin-right: 7px;
         line-height: 1.3em;
     }
 
@@ -17,10 +17,6 @@
         width: 50%;
         margin-left: 10px;
         margin-right: 0;
-    }
-
-    .message__disclaimer {
-        margin-left: 7px;
     }
 }
 

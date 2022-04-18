@@ -13,8 +13,7 @@
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
-            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
-            "apr": "${CREDIT_OFFERS_DS.apr}"
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
         }
     },
     "headline": [
