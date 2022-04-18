@@ -1,6 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { ZalgoPromise } from 'zalgo-promise/src';
 import validate from '../../zoid/message/validation';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+
 import {
     objectMerge,
     getInlineOptions,
@@ -82,7 +83,8 @@ export default (options = {}) => ({
                     onClick,
                     onRender,
                     onApply,
-                    channel
+                    channel,
+                    cspNonce
                 } = merchantOptions;
 
                 if (!validate.offer(offer)) {
@@ -98,7 +100,8 @@ export default (options = {}) => ({
                     amount,
                     buyerCountry,
                     ignoreCache,
-                    channel
+                    channel,
+                    cspNonce
                 };
                 const modalProps = {
                     ...commonProps,

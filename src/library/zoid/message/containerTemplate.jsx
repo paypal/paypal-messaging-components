@@ -1,6 +1,6 @@
 /** @jsx node */
-import { node, dom } from 'jsx-pragmatic/src';
-import { EVENT } from 'zoid/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { EVENT } from '@krakenjs/zoid/src';
 
 import { getOverflowObserver, createTitleGenerator } from '../../../utils';
 
@@ -73,7 +73,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     const messageTitle = getTitle(frame.title);
     return (
         <span id={uid}>
-            <style>{baseStyles}</style>
+            <style nonce={props.cspNonce}>{baseStyles}</style>
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>

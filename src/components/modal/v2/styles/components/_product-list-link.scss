@@ -17,4 +17,7 @@
         margin: 1em auto;
         padding: 0;
     }
+    @include mobile {
+        padding: 0;
+    }
 }

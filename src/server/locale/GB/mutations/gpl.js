@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 37, textSize, 'GB'),
+                    textWrap(textSize * 45, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
@@ -23,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['from']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 36 + 10),
+                    setLogoTop(textSize * 44 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -51,8 +51,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'GB'),
-                    xSmallFallback(textSize * 18),
+                    textWrap(textSize * 40, textSize, 'GB'),
+                    xSmallFallback(textSize * 16),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -62,14 +62,19 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16)],
+                styles: [
+                    xSmallFallback(textSize * 20),
+                    `@media screen and (max-width: ${textSize * 21}px) {
+                        .message__messaging span.br { white-space: normal }
+                    }`
+                ],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['purchases'],
                         replace: [
-                            ['purchases.', 'purchases'],
+                            ['0.', '0'],
                             ['later.', 'later']
                         ]
                     },
@@ -84,14 +89,20 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 16),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `@media screen and (max-width: ${textSize * 21}px) {
+                        .message__messaging span.br { white-space: normal }
+                    }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['purchases'],
                         replace: [
-                            ['purchases.', 'purchases'],
+                            ['0.', '0'],
                             ['later.', 'later']
                         ]
                     },

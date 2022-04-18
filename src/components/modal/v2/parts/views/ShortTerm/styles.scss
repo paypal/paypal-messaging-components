@@ -95,6 +95,7 @@
                 padding: 0 25px;
 
                 @include desktop {
+                    padding: 30px;
                     max-width: 340px;
                 }
 
@@ -124,6 +125,28 @@
             &.disclosure {
                 @include desktop {
                     padding-top: 16px;
+                }
+            }
+            
+            .learnMoreLink__container {
+                font-size: 13.33px;
+
+                a {
+                    display: flex;
+
+                    @include desktop {
+                        margin: 0px;
+                        padding-left: 30px;
+                    }
+
+                    @include tablet {
+                        margin: 1em auto;
+                        max-width: 315px;
+                    }
+
+                    @include mobile {
+                        max-width: none;
+                    }
                 }
             }
         }

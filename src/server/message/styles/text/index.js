@@ -5,9 +5,11 @@ import logoInline from './logo--inline.css';
 import logoNone from './logo--none.css';
 import logoRight from './logo--right.css';
 import logoTop from './logo--top.css';
-import logoAlternativeTop from './logo--alternativetop.css';
+import logoAlternativePositionTop from './logo--alternative-position--top.css';
 import textWhite from './text--white.css';
 import textBlack from './text--black.css';
+import textMonochrome from './text--monochrome.css';
+import textGrayscale from './text--grayscale.css';
 
 export default [
     ['default', [common, base].join('\n')],
@@ -18,10 +20,10 @@ export default [
 
     ['logo.position:right', logoRight],
     ['logo.position:top', logoTop],
-    ['logo.type:alternative && logo.position:top', logoAlternativeTop],
+    ['logo.type:alternative && logo.position:top', logoAlternativePositionTop],
 
     ['text.color:black', textBlack],
-    ['text.color:white', textWhite]
-    // ['text.color:white', textWhite, disclaimerInverse],
-    // ['text.color:white', textWhite, disclaimerInverse],
+    ['text.color:white', textWhite],
+    ['text.color:monochrome', textMonochrome],
+    ['text.color:grayscale', textGrayscale]
 ];

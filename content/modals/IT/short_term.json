@@ -1,0 +1,51 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "schema": "v2",
+        "offerCountry": "IT",
+        "creditProductIdentifier": "{credit_product_identifier}",
+        "creditType": "{credit_type}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Paga in 3 rate senza interessi",
+        "subheadline": "Disponibile per acquisti tra {formattedMinAmount} e {formattedMaxAmount}. Nessuna tariffa iniziale o di ritardo.",
+        "qualifyingSubheadline": "Dividi in 3 il tuo acquisto di {formattedTransactionAmount} senza tariffe iniziali o di ritardo.",
+        "donutTimestamps": ["Oggi", "Tra 1 mese", "Tra 2 mesi"],
+        "instructions": [
+            "Scegli PayPal al checkout per pagare dopo con <strong>Paga in 3 rate</strong>. ",
+            "Completa il tuo acquisto pagando la prima rata oggi.",
+            "I pagamenti rimanenti avverranno automaticamente. È facile!"
+        ],
+        "disclosure": [
+            [
+                "Disponibile solo su acquisti idonei da {formattedMinAmount} a {formattedMaxAmount}. L’idoneità di Paga in 3 rate è soggetta ad approvazione. Consulta il"
+            ],
+            ["foglio informativo", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=it_IT"],
+            ["e i"],
+            ["termini e le condizioni", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-full?locale.x=it_IT"],
+            [
+                "per maggiori informazioni. Finanziamento con acconto richiesto. Disponibile solo per clienti persone fisiche residenti in Italia. Finanziamento di due mesi. Hai un periodo di 14 giorni per recedere dal tuo finanziamento. Il creditore è PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Un finanziamento è un impegno vincolante che deve essere rimborsato e può influenzare il tuo merito creditizio. Assicurati di essere in grado di ripagare prima di prendere un impegno."
+            ]
+        ]
+    }
+}

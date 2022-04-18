@@ -1,5 +1,5 @@
 import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos/src';
-import { html } from 'jsx-pragmatic/src';
+import { html } from '@krakenjs/jsx-pragmatic/src';
 
 function getSrc(component) {
     return component
