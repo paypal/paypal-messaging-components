@@ -174,7 +174,9 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
                     <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
-                    {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
+                    {inputCurrencySymbol && displayValue !== '' && (
+                        <div className="input__currency-symbol">{inputCurrencySymbol}</div>
+                    )}
                     <input
                         className={`input ${displayValue === '' ? 'empty-input' : ''}`}
                         placeholder={inputPlaceholder}
@@ -193,10 +195,15 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             ) : (
                 <Fragment />
             )}
-            {/* TODO: Fix with DE */}
-            {/* <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
-                {aprDisclaimer}
-            </div> */}
+            {country === 'US' && (
+                <div
+                    className={`finance-terms__disclaimer ${
+                        !(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''
+                    }`}
+                >
+                    {aprDisclaimer}
+                </div>
+            )}
         </div>
     );
 };

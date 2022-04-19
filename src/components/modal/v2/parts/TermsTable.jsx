@@ -6,6 +6,7 @@ import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
 const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer }) => {
+    const { offerCountry } = meta;
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
      * depending on the last number of offers that were displayed.
@@ -16,7 +17,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer
     if (isLoading || hasError) {
         return (
             <div className="offer__wrapper">
-                <LoadingShimmer numOffers={meta?.offerCountry !== 'DE' ? numOffers : 4} meta={meta} />
+                <LoadingShimmer numOffers={offerCountry !== 'DE' ? numOffers : 4} offerCountry={offerCountry} />
             </div>
         );
     }
@@ -25,7 +26,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer
         .filter(offer => offer.meta.qualifying === 'true')
         .map((offer, idx) => {
             // Only DE uses the accordion style for presentation of offers in the modal.
-            if (meta?.offerCountry !== 'DE') {
+            if (offerCountry !== 'DE') {
                 return <OfferCard offer={offer} index={idx} />;
             }
             return (

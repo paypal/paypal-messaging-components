@@ -4,7 +4,7 @@
 import { Fragment, h } from 'preact';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
-const LoadingShimmer = ({ numOffers = 3, meta: { offerCountry } }) => {
+const LoadingShimmer = ({ numOffers = 3, offerCountry }) => {
     /**
      * Takes the number of offers returned from numOffers and renders the correct
      * number of loading shimmers by creating an array of that size to map over.

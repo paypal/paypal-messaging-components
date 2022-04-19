@@ -59,8 +59,9 @@
                 padding-top: 0px;
 
                 .accordion__offer-field-title {
-                    color: #0070ba;
-                    // cursor: pointer;
+                    .inline-link {
+                        font-weight: normal;
+                    }
                 }
             }
 

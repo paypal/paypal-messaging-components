@@ -36,7 +36,7 @@
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment}/mo.",
             "offerNumInstallments": "{total_payments} Installments",
-            "eMoney": "eMoney transaction amount",
+            "eMoney": [["eMoney transaction amount", "https://www.paypal.com/us/webapps/mpp/home"]],
             "totalInterest": "Total Interest",
             "total": "Total Amount"
         }
