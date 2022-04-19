@@ -1,7 +1,7 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { uniqueID, getCurrentScriptUID } from 'belter/src';
-import { create } from 'zoid/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
+import { create } from '@krakenjs/zoid/src';
 
 import {
     getMeta,
