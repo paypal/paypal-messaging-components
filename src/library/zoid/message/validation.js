@@ -107,20 +107,18 @@ export default {
 
         return undefined;
     },
-
-    offer: offer => {
-        const offerTypes = [...Object.values(OFFER), 'NI'];
+    offer: ({ props: { offer } }) => {
+        const offerType = [...Object.values(OFFER), 'NI'];
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
                 logInvalidType('offer', Types.STRING, offer);
-                return false;
+                throw new Error('offer_validation_error');
             }
-            if (!offerTypes.includes(offer)) {
+            if (!offerType.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
-                return false;
+                throw new Error('offer_validation_error');
             }
         }
-        return true;
     },
 
     // TODO: Handle server side locale specific style validation warnings passed down to client.
@@ -207,16 +205,6 @@ export default {
             }
         }
 
-        return undefined;
-    },
-    cspNonce: ({ props: { cspNonce } }) => {
-        if (typeof cspNonce !== 'undefined') {
-            if (!validateType(Types.STRING, cspNonce)) {
-                logInvalidType('cspNonce', Types.STRING, cspNonce);
-            } else {
-                return cspNonce;
-            }
-        }
         return undefined;
     },
     merchantConfig: ({ props: { merchantConfig } }) => {
