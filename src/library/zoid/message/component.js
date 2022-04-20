@@ -213,6 +213,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
+                        // Even though we are attempting to get this value before the initial message render (see utils/experiments.js)
+                        // We still want to write it here to handle the scenario where the SDK has never been loaded
+                        // and thus the inner iframe has no value for deviceID until after the first message render
                         writeStorageID(deviceID);
 
                         logger.addMetaBuilder(existingMeta => {
