@@ -59,7 +59,7 @@ const countryBasedPaymentDates = country => {
 const countryBasedInstallments = ({ amount, total, totalPayments, country }) => {
     const toLocaleCurrency = localizeCurrency(country);
     return countryBasedPaymentDates(country).map(dateLabel => ({
-        'total_payment:': amount ? toLocaleCurrency(total / totalPayments) : '-',
+        total_payment: amount ? toLocaleCurrency(total / totalPayments) : '-',
         payment_date: dateLabel
     }));
 };
