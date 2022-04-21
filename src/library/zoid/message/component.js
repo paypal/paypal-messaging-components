@@ -212,7 +212,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
                         // hack to remove ts_c from the getCookieByName return value to only give us
-                        // vt and vr url encoded
+                        // vt and vr url
                         const tsCookie =
                             getCookieByName('ts_c') !== null
                                 ? // remove ts_c= from the begining
