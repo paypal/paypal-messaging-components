@@ -178,8 +178,7 @@ export function getDeviceID() {
     return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
-// Use the custom deviceID field, but fall back to storage ID if it is not yet present
-// or does not exist (as in the child )
+// get the ts cookie from local storage
 export function getTsCookieFromStorage() {
     return getStorage().getState(storage => storage.ts);
 }
