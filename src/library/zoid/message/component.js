@@ -211,12 +211,19 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
-                        // hack to remove ts_c from the getCookieByName return value to only give us
-                        // vt and vr url
                         const tsCookie =
                             getCookieByName('ts_c') !== null
-                                ? // remove ts_c= from the begining
-                                  getCookieByName('ts_c').slice(5, getCookieByName('ts_c').length)
+                                ? // hack to remove ts_c from the getCookieByName return value to only give us
+                                  // vt and vr
+                                  decodeURIComponent(getCookieByName('ts_c').slice(5, getCookieByName('ts_c').length))
+                                      .split('&')
+                                      .reduce((acc, currValue) => {
+                                          // for example vr=2e1ab8701800ae7732f49876ffffffd7
+                                          // we split at = which returns
+                                          // ['vr', '2e1ab8701800ae7732f49876ffffffd7']
+                                          const [key, value] = currValue.split('=');
+                                          return { ...acc, [key]: value };
+                                      }, {})
                                 : getCookieByName('ts_c');
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
