@@ -17,7 +17,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles }, setV
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content__row instructions">
-                                    <p>{instructions.top}</p>
+                                    <p dangerouslySetInnerHTML={{ __html: instructions.top }} />
                                 </div>
                                 {availableTiles.map(({ header, body, icon, viewName }) => (
                                     <Tile
