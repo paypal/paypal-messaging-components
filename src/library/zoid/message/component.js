@@ -24,7 +24,8 @@ import {
     isScriptBeingDestroyed,
     getScriptAttributes,
     getDevTouchpoint,
-    getMerchantConfig
+    getMerchantConfig,
+    getLocalTreatments
 } from '../../../utils';
 
 import validate from './validation';
@@ -351,6 +352,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: getMerchantConfig,
                 debug: ppDebug(`Merchant Config Hash: ${getMerchantConfig()}`)
+            },
+            treatmentsHash: {
+                type: 'string',
+                queryParam: 'treatments',
+                required: false,
+                value: getLocalTreatments,
+                debug: ppDebug(`Treatments Hash: ${getLocalTreatments()}`)
             },
             sdkMeta: {
                 type: 'string',
