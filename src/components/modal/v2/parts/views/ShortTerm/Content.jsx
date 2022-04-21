@@ -60,7 +60,7 @@ export const ShortTerm = ({
                                             <span aria-hidden={qualifying !== 'true'} className="sr-only">
                                                 {donutScreenReaderString}
                                             </span>
-                                            {(estimatedInstallments.items ?? donutTimestamps).map(
+                                            {(estimatedInstallments?.items ?? donutTimestamps).map(
                                                 (installment, index) => (
                                                     <Donut
                                                         key={index}
@@ -74,7 +74,7 @@ export const ShortTerm = ({
                                                         currentNum={index + 1}
                                                         timeStamp={installment?.payment_date ?? donutTimestamps[index]}
                                                         numOfPayments={
-                                                            (estimatedInstallments.items ?? donutTimestamps).length
+                                                            (estimatedInstallments?.items ?? donutTimestamps).length
                                                         }
                                                     />
                                                 )
