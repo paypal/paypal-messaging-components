@@ -30,11 +30,12 @@
         "headline": "Paga in 3 rate senza interessi",
         "subheadline": "Disponibile per acquisti tra {formattedMinAmount} e {formattedMaxAmount}. Nessuna tariffa iniziale o di ritardo.",
         "qualifyingSubheadline": "Dividi in 3 il tuo acquisto di {formattedTransactionAmount} senza tariffe iniziali o di ritardo.",
+        "donutTimestamps": ["Oggi", "Tra 1 mese", "Tra 2 mesi"],
         "estimatedInstallments": {
             "items": [
-                { "total_payment:": "{periodicPayment}", "payment_date": "Oggi" },
-                { "total_payment:": "{periodicPayment}", "payment_date": "Tra 1 mese" },
-                { "total_payment:": "{periodicPayment}", "payment_date": "Tra 2 mesi" }
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Oggi" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Tra 1 mese" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Tra 2 mesi" }
             ]
         },
         "instructions": [

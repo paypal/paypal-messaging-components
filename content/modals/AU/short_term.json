@@ -26,12 +26,13 @@
         "headline": "Pay in 4 interest-free payments",
         "subheadline": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. No sign-up fees or late fees.",
         "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
+        "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "estimatedInstallments": {
             "items": [
-                { "total_payment:": "{periodicPayment}", "payment_date": "Today" },
-                { "total_payment:": "{periodicPayment}", "payment_date": "2 weeks" },
-                { "total_payment:": "{periodicPayment}", "payment_date": "4 weeks" },
-                { "total_payment:": "{periodicPayment}", "payment_date": "6 weeks" }
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 weeks" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "4 weeks" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "6 weeks" }
             ]
         },
         "instructions": [
