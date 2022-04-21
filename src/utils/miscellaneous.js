@@ -268,3 +268,13 @@ export function getStandardProductOffer(offer) {
             return undefined;
     }
 }
+
+/**
+ * Get value of cookie name
+ * @param name - name of cookie
+ */
+export function getCookieByName(name) {
+    const cookieString = document.cookie.match(`${name}=[^;]+`);
+    // cookieString will return null if no match
+    return cookieString ? cookieString[0] : cookieString;
+}

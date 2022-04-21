@@ -156,14 +156,14 @@ function getRawStorage() {
         : {};
 }
 
-export function writeStorageID(storageID) {
+export function writeToLocalStorage(values) {
     if (isLocalStorageEnabled()) {
         try {
             window.localStorage?.setItem(
                 `__${getNamespace()}_storage__`,
                 JSON.stringify({
                     ...getRawStorage(),
-                    id: storageID
+                    ...values
                 })
             );
         } catch (e) {
@@ -176,6 +176,12 @@ export function writeStorageID(storageID) {
 // or does not exist (as in the child )
 export function getDeviceID() {
     return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
+}
+
+// Use the custom deviceID field, but fall back to storage ID if it is not yet present
+// or does not exist (as in the child )
+export function getTsCookieFromStorage() {
+    return getStorage().getState(storage => storage.ts);
 }
 
 // Check if the current script is in the process of being destroyed since

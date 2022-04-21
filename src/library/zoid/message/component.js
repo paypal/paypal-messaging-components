@@ -15,7 +15,7 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    writeStorageID,
+    writeToLocalStorage,
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
@@ -24,7 +24,8 @@ import {
     isScriptBeingDestroyed,
     getScriptAttributes,
     getDevTouchpoint,
-    getMerchantConfig
+    getMerchantConfig,
+    getCookieByName
 } from '../../../utils';
 
 import validate from './validation';
@@ -210,10 +211,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
+                        // hack to remove ts_c from the getCookieByName return value to only give us
+                        // vt and vr url encoded
+                        const tsCookie =
+                            getCookieByName('ts_c') !== null
+                                ? // remove ts_c= from the begining
+                                  getCookieByName('ts_c').slice(5, getCookieByName('ts_c').length)
+                                : getCookieByName('ts_c');
+
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
-                        // Write deviceID from iframe localStorage to merchant domain localStorage
-                        writeStorageID(deviceID);
+                        // Write deviceID and ts cookie from iframe localStorage to merchant domain localStorage
+                        writeToLocalStorage({ id: deviceID, ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -230,6 +239,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 // Need to merge global attribute here due to preserve performance attributes
                                 global: {
                                     ...existingGlobal,
+                                    ts: tsCookie, // send ts cookie in log
                                     deviceID, // deviceID from internal iframe storage
                                     sessionID: getSessionID() // Session ID from parent local storage,
                                 },
