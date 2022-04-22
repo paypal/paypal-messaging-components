@@ -13,7 +13,7 @@ export const fetchTreatments = memoize(() => {
     document.body.appendChild(treatmentsIframe);
 
     const receiveTreatments = event => {
-        if (event.origin === getPayPalDomain()) {
+        if (event.origin === getPayPalDomain() && event.data.treatmentsHash) {
             updateStorage({
                 experiments: {
                     treatmentsHash: event.data.treatmentsHash,
@@ -32,18 +32,18 @@ export const fetchTreatments = memoize(() => {
 });
 
 export function getLocalTreatments() {
-    const storage = getStorage();
+    const experiments = getStorage().getState(state => state.experiments);
 
-    if (!storage.experiments) {
+    if (!experiments) {
         return null;
     }
 
-    if (storage.experiments.expiration < Date.now()) {
+    if (experiments.expiration < Date.now()) {
         // use existing value, but update treatments in the background
         fetchTreatments();
     }
 
-    return storage.experiments.treatmentsHash;
+    return experiments.treatmentsHash;
 }
 
 export function ensureTreatments() {
