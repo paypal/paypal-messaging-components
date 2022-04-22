@@ -31,7 +31,7 @@
             "items": [
                 { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Hoy" },
                 { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 mes" },
-                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 mes" }
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 meses" }
             ]
         },
         "instructions": [
