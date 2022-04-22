@@ -1,14 +1,13 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import arrayFrom from 'core-js-pure/stable/array/from';
-
-import { getGlobalState, createGlobalVariableGetter } from './global';
-import { dynamicImport, getCurrentTime } from './miscellaneous';
-import { awaitWindowLoad, awaitFirstRender } from './events';
-import { logger } from './logger';
-import { getNamespace, isScriptBeingDestroyed } from './sdk';
-import { getRoot, elementContains, isElement, elementOutside } from './elements';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ppDebug } from './debug';
+import { elementContains, elementOutside, getRoot, isElement } from './elements';
+import { awaitFirstRender, awaitWindowLoad } from './events';
+import { createGlobalVariableGetter, getGlobalState } from './global';
+import { logger } from './logger';
+import { dynamicImport, getCurrentTime } from './miscellaneous';
+import { getNamespace, isScriptBeingDestroyed } from './sdk';
 
 export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
@@ -126,8 +125,8 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                     entries.forEach(entry => {
                         const iframe = entry.target;
                         const container = iframe.parentNode.parentNode;
-                        ppDebug('Message Container:', { debugObj: container });
-                        ppDebug('Messages Container Parent:', { debugObj: container.parentNode });
+                        ppDebug('Message Container', null, { debugObj: container });
+                        ppDebug('Messages Container Parent', null, { debugObj: container.parentNode });
                         // If the library has been cleaned up by an SDK destroy, the container
                         // may not exist in the current SDK script messageMap. In this scenario
                         // we will short circuit on the state.render check
@@ -176,7 +175,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                 et: 'CLIENT_IMPRESSION',
                                 event_type: 'message_hidden'
                             });
-                            ppDebug(`Message Hidden: true`);
+                            ppDebug('Message Hidden', true);
                             state.renderComplete = true;
                             delete state.renderStart;
 

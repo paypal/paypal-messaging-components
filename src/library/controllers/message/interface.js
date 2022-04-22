@@ -1,21 +1,19 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-
+import objectEntries from 'core-js-pure/stable/object/entries';
 import {
-    objectMerge,
-    getInlineOptions,
-    getGlobalState,
+    addPerformanceMeasure,
     getAllBySelector,
     getAttributeObserver,
-    nextIndex,
-    logger,
     getCurrentTime,
-    addPerformanceMeasure,
-    PERFORMANCE_MEASURE_KEYS,
+    getGlobalState,
+    getInlineOptions,
     globalEvent,
+    logger,
+    nextIndex,
+    objectMerge,
+    PERFORMANCE_MEASURE_KEYS,
     ppDebug
 } from '../../../utils';
-
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
 
@@ -136,26 +134,24 @@ export default (options = {}) => ({
 
                     getAttributeObserver().observe(container, { attributes: true });
 
-                    ppDebug(
-                        `{
-                    clientID: ${account},
-                    merchantID: ${merchantId},
-                    customerID: ${customerId},
-                    offer: ${offer},
-                    currency: ${currency},
-                    ignoreCache: ${ignoreCache},
-                    channel: ${channel},
-            
-                    index: data-pp-id="${index}",
-                    style: ${JSON.stringify(style)},
-                    amount: ${amount},
-                    buyerCountry: ${buyerCountry},
-                    placement: ${placement},
-            
-                    renderStart: ${new Date(renderStart).toLocaleString()},
-                    renderMessageTime: ${new Date().toLocaleString()}
-                    }`
-                    );
+                    ppDebug('messageParameters', {
+                        clientID: account,
+                        merchantID: merchantId,
+                        customerID: customerId,
+                        offer,
+                        currency,
+                        ignoreCache,
+                        channel,
+
+                        index: `data-pp-id="${index}"`,
+                        style: JSON.stringify(style),
+                        amount,
+                        buyerCountry,
+                        placement,
+
+                        renderStart: new Date(renderStart).toLocaleString(),
+                        renderMessageTime: new Date().toLocaleString()
+                    });
 
                     return render(container).then(() => globalEvent.trigger('render'));
                 }

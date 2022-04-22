@@ -1,13 +1,12 @@
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import arrayFind from 'core-js-pure/stable/array/find';
-import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
+import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-
-import { curry } from './functional';
-import { objectMerge, flattenedToObject } from './objects';
 import { ppDebug } from './debug';
+import { curry } from './functional';
+import { flattenedToObject, objectMerge } from './objects';
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
@@ -412,7 +411,7 @@ export const getRoot = baseElement => {
     // containers that may have content outside of the root element.
     const root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
 
-    ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
+    ppDebug('Root', null, { debugObj: root || 'undefined. Viewport is used as the root.' });
 
     return root;
 };

@@ -1,15 +1,14 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from '@krakenjs/belter/src';
-
+import objectEntries from 'core-js-pure/stable/object/entries';
 import {
-    request,
-    getActiveTags,
-    ppDebug,
     createState,
-    isStorageFresh,
+    getActiveTags,
     getDeviceID,
+    getRequestDuration,
+    isStorageFresh,
     parseObjFromEncoding,
-    getRequestDuration
+    ppDebug,
+    request
 } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
@@ -171,7 +170,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     )
                     .slice(1);
 
-                ppDebug('Updating message with new props...', { inZoid: true });
+                ppDebug('Updating message with new props...', null, { inZoid: true });
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {

@@ -1,6 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, memoize, ppDebug } from '../../../utils';
+import { memoize, ppDebug, request } from '../../../utils';
 
 export const getContent = memoize(
     ({
@@ -37,7 +37,7 @@ export const getContent = memoize(
             )
             .slice(1);
 
-        ppDebug('Updating modal with new props...', { inZoid: true });
+        ppDebug('Updating modal with new props...', null, { inZoid: true });
 
         return request('GET', `${window.location.origin}/credit-presentment/modalContent?${query}`).then(
             ({ data }) => data

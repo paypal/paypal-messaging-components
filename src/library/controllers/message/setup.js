@@ -1,17 +1,17 @@
 import {
-    getInlineOptions,
-    getGlobalState,
-    getScript,
     getAccount,
     getCurrency,
-    getPartnerAccount,
+    getGlobalState,
+    getInlineOptions,
     getInsertionObserver,
+    getOverflowObserver,
+    getPartnerAccount,
+    getScript,
     isZoidComponent,
-    ppDebug,
-    getOverflowObserver
+    ppDebug
 } from '../../../utils';
-import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
+import Messages from './adapter';
 
 export default function setup() {
     // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
@@ -22,7 +22,7 @@ export default function setup() {
     // Populate global config options
     const script = getScript();
     if (script) {
-        ppDebug('Script:', { debugObj: script });
+        ppDebug('Script', null, { debugObj: script });
         const inlineScriptOptions = getInlineOptions(script);
         const partnerAccount = getPartnerAccount();
 
@@ -78,7 +78,7 @@ export default function setup() {
                 attributeFilter: ['data-pp-message']
             });
 
-            ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
+            ppDebug('DOMContentLoaded', new Date().toLocaleString());
         };
 
         if (document.readyState === 'loading') {

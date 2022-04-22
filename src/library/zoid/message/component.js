@@ -1,34 +1,32 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
+import { getCurrentScriptUID, uniqueID } from '@krakenjs/belter/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
-
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
+import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import {
-    getMeta,
-    getEnv,
-    getGlobalUrl,
     createGlobalVariableGetter,
-    getLibraryVersion,
-    runStats,
-    logger,
-    getSessionID,
-    getGlobalState,
     getCurrentTime,
-    writeStorageID,
-    getOrCreateStorageID,
-    getStageTag,
-    getFeatures,
-    getNonce,
-    ppDebug,
-    isScriptBeingDestroyed,
-    getScriptAttributes,
     getDevTouchpoint,
-    getMerchantConfig
+    getEnv,
+    getFeatures,
+    getGlobalState,
+    getGlobalUrl,
+    getLibraryVersion,
+    getMerchantConfig,
+    getMeta,
+    getNonce,
+    getOrCreateStorageID,
+    getScriptAttributes,
+    getSessionID,
+    getStageTag,
+    isScriptBeingDestroyed,
+    logger,
+    ppDebug,
+    runStats,
+    writeStorageID
 } from '../../../utils';
-
-import validate from './validation';
 import containerTemplate from './containerTemplate';
+import validate from './validation';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
@@ -210,7 +208,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
 
-                        ppDebug(`Message Correlation ID: ${ppDebugId}`);
+                        ppDebug('Message Correlation ID', ppDebugId);
 
                         // Write deviceID from iframe localStorage to merchant domain localStorage
                         writeStorageID(deviceID);
@@ -347,7 +345,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: 'merchant_config',
                 required: false,
                 value: getMerchantConfig,
-                debug: ppDebug(`Merchant Config Hash: ${getMerchantConfig()}`)
+                debug: ppDebug('Merchant Config Hash', getMerchantConfig())
             },
             sdkMeta: {
                 type: 'string',
@@ -355,43 +353,43 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 sendToChild: false,
                 required: false,
                 value: getMeta,
-                debug: ppDebug(`SDK Meta: ${getMeta()}`)
+                debug: ppDebug('SDK Meta', getMeta())
             },
             env: {
                 type: 'string',
                 queryParam: true,
                 value: getEnv,
-                debug: ppDebug(`Environment: ${getEnv()}`)
+                debug: ppDebug('Environment', getEnv())
             },
             version: {
                 type: 'string',
                 queryParam: true,
                 value: getLibraryVersion,
-                debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
+                debug: ppDebug('Library Version', getLibraryVersion())
             },
             integrationType: {
                 type: 'string',
                 queryParam: true,
                 value: () => __MESSAGES__.__TARGET__,
-                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
+                debug: ppDebug('Library Integration', __MESSAGES__.__TARGET__)
             },
             deviceID: {
                 type: 'string',
                 queryParam: true,
                 value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                debug: ppDebug('Device ID', getOrCreateStorageID())
             },
             sessionID: {
                 type: 'string',
                 queryParam: true,
                 value: getSessionID,
-                debug: ppDebug(`Session ID: ${getSessionID()}`)
+                debug: ppDebug('Session ID', getSessionID())
             },
             scriptUID: {
                 type: 'string',
                 queryParam: true,
                 value: getCurrentScriptUID,
-                debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
+                debug: ppDebug('ScriptUID', getCurrentScriptUID())
             },
             messageRequestId: {
                 type: 'string',
@@ -403,7 +401,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         state.messageRequestId = uniqueID(); // eslint-disable-line no-param-reassign
                     }
 
-                    ppDebug(`Message Request ID: ${state.messageRequestId}`);
+                    ppDebug('Message Request ID', state.messageRequestId);
                     return state.messageRequestId;
                 }
             },
@@ -417,7 +415,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: false,
                 value: () => window.location.href,
-                debug: ppDebug(`Message Location: ${window.location.href}`)
+                debug: ppDebug('Message Location', window.location.href)
             },
             stageTag: {
                 type: 'string',
@@ -431,7 +429,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
                 debug: ppDebug(
-                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                    'Partner Attribution ID',
+                    (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]
                 )
             },
             devTouchpoint: {

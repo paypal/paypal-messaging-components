@@ -1,28 +1,27 @@
+import { getCurrentScriptUID, uniqueID } from '@krakenjs/belter/src';
+import { create } from '@krakenjs/zoid/src';
+import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { SDK_SETTINGS } from '@paypal/sdk-constants';
-import { create } from '@krakenjs/zoid/src';
-import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
-
 import {
-    getMeta,
-    getEnv,
-    getGlobalUrl,
     createGlobalVariableGetter,
     getCurrentTime,
+    getDeviceID,
+    getDevTouchpoint,
+    getEnv,
+    getFeatures,
+    getGlobalUrl,
     getLibraryVersion,
+    getMeta,
+    getNonce,
+    getPerformanceMeasure,
     getScriptAttributes,
+    getSessionID,
+    getStageTag,
+    getStandardProductOffer,
     logger,
     nextIndex,
-    getPerformanceMeasure,
-    getSessionID,
-    getDeviceID,
-    getStageTag,
-    getFeatures,
-    getNonce,
-    ppDebug,
-    getStandardProductOffer,
-    getDevTouchpoint
+    ppDebug
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -229,7 +228,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
-                        ppDebug(`Modal Correlation ID: ${ppDebugId}`);
+                        ppDebug('Modal Correlation ID', ppDebugId);
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -361,7 +360,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'message_request_id',
                 value: uniqueID,
                 decorate: ({ props }) => {
-                    ppDebug(`Modal Message Request ID: ${props.messageRequestId}`);
+                    ppDebug('Modal Message Request ID', props.messageRequestId);
                     return props.messageRequestId;
                 }
             },
