@@ -37,7 +37,9 @@ export const ShortTerm = ({
         );
     };
 
-    const donutScreenReaderString = Object.keys(estimatedInstallments?.items).length
+    const hasInstallments = Object.keys(estimatedInstallments?.items).length;
+
+    const donutScreenReaderString = hasInstallments
         ? estimatedInstallments.items
               .map(timestamp => `${timestamp.total_payment} for ${timestamp.payment_date}`)
               .join(', ')
@@ -60,29 +62,28 @@ export const ShortTerm = ({
                                             <span aria-hidden={qualifying !== 'true'} className="sr-only">
                                                 {donutScreenReaderString}
                                             </span>
-                                            {(Object.keys(estimatedInstallments?.items).length
-                                                ? estimatedInstallments?.items
-                                                : donutTimestamps
-                                            ).map((installment, index) => (
-                                                <Donut
-                                                    key={index}
-                                                    qualifying={qualifying}
-                                                    // regex replaces EUR with the euro symbol €
-                                                    periodicPayment={
-                                                        installment?.total_payment
-                                                            ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                            : localeFormattedPayment
-                                                    }
-                                                    currentNum={index + 1}
-                                                    timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                                    numOfPayments={
-                                                        (Object.keys(estimatedInstallments?.items).length
-                                                            ? estimatedInstallments?.items
-                                                            : donutTimestamps
-                                                        ).length
-                                                    }
-                                                />
-                                            ))}
+                                            {(hasInstallments ? estimatedInstallments?.items : donutTimestamps).map(
+                                                (installment, index) => (
+                                                    <Donut
+                                                        key={index}
+                                                        qualifying={qualifying}
+                                                        // regex replaces EUR with the euro symbol €
+                                                        periodicPayment={
+                                                            installment?.total_payment
+                                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                                : localeFormattedPayment
+                                                        }
+                                                        currentNum={index + 1}
+                                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                                        numOfPayments={
+                                                            (hasInstallments
+                                                                ? estimatedInstallments?.items
+                                                                : donutTimestamps
+                                                            ).length
+                                                        }
+                                                    />
+                                                )
+                                            )}
                                         </div>
                                     </div>
                                     <Instructions instructions={instructions} />
