@@ -7,10 +7,11 @@ const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
 
 export const fetchTreatments = memoize(() => {
     const treatmentsIframe = document.createElement('iframe');
-    treatmentsIframe.src = `${getGlobalUrl('TREATMENTS')}?namespace=${getNamespace()}`;
+    treatmentsIframe.src = getGlobalUrl('TREATMENTS');
     treatmentsIframe.style =
         'position: absolute!important; width: 1px!important; height: 1px!important; left: -99999px!important; top: -99999px!important';
     document.body.appendChild(treatmentsIframe);
+    treatmentsIframe.contentWindow.__paypal_namespace__ = getNamespace();
 
     const receiveTreatments = event => {
         if (event.origin === getPayPalDomain() && event.data.treatmentsHash) {
@@ -40,7 +41,11 @@ export function getLocalTreatments() {
 
     if (experiments.expiration < Date.now()) {
         // use existing value, but update treatments in the background
-        fetchTreatments();
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', fetchTreatments);
+        } else {
+            fetchTreatments();
+        }
     }
 
     return experiments.treatmentsHash;

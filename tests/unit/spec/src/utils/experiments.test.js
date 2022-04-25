@@ -47,7 +47,7 @@ describe('experiments utils', () => {
 
             const iframe = document.querySelector('iframe');
             expect(iframe.src).toContain(getGlobalUrl('TREATMENTS'));
-            expect(iframe.src).toContain(`namespace=${getNamespace()}`);
+            iframe.contentWindow.__paypal_namespace__ = getNamespace();
 
             expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function));
 

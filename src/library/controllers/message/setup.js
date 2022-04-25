@@ -9,7 +9,7 @@ import {
     isZoidComponent,
     ppDebug,
     getOverflowObserver,
-    fetchTreatments
+    ensureTreatments
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -65,7 +65,7 @@ export default function setup() {
     if (!isZoidComponent()) {
         const handleContentLoaded = () => {
             // Ensure experiment treatments will be ready for the first message render
-            fetchTreatments();
+            ensureTreatments();
 
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
