@@ -272,9 +272,31 @@ export function getStandardProductOffer(offer) {
 /**
  * Get value of cookie name
  * @param name - name of cookie
+ * @returns string of url encoded string of vt and vr
  */
 export function getCookieByName(name) {
     const cookieString = document.cookie.match(`${name}=[^;]+`);
     // cookieString will return null if no match
     return cookieString ? cookieString[0] : cookieString;
+}
+
+/**
+ * Format TS Cookie
+ * @param cookie - cookie value
+ * @returns object of vt and vr
+ */
+export function formatTsCookie(cookie) {
+    return cookie
+        ? // hack to remove ts_c from the getCookieByName return value to only give us
+          // vt and vr
+          decodeURIComponent(cookie.slice(5, cookie.length))
+              .split('&')
+              .reduce((acc, currValue) => {
+                  // for example vr=2e1ab8701800ae7732f49876ffffffd7
+                  // we split at = which returns
+                  // ['vr', '2e1ab8701800ae7732f49876ffffffd7']
+                  const [key, value] = currValue.split('=');
+                  return { ...acc, [key]: value };
+              }, {})
+        : null;
 }

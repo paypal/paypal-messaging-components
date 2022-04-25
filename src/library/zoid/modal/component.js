@@ -22,7 +22,9 @@ import {
     getNonce,
     ppDebug,
     getStandardProductOffer,
-    getDevTouchpoint
+    getDevTouchpoint,
+    formatTsCookie,
+    getCookieByName
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -242,9 +244,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta.global;
 
+                            // get ts cookie value
+                            const tsCookie = formatTsCookie(getCookieByName('ts_c'));
                             return {
                                 global: {
                                     ...existingGlobal,
+                                    ts: tsCookie,
                                     // Device ID should be correctly set during message render
                                     deviceID,
                                     sessionID: getSessionID()

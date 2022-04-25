@@ -25,7 +25,8 @@ import {
     getScriptAttributes,
     getDevTouchpoint,
     getMerchantConfig,
-    getCookieByName
+    getCookieByName,
+    formatTsCookie
 } from '../../../utils';
 
 import validate from './validation';
@@ -210,21 +211,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
+
                         // get ts cookie value
-                        const tsCookieValue = getCookieByName('ts_c');
-                        const tsCookie = tsCookieValue
-                            ? // hack to remove ts_c from the getCookieByName return value to only give us
-                              // vt and vr
-                              decodeURIComponent(tsCookieValue.slice(5, tsCookieValue.length))
-                                  .split('&')
-                                  .reduce((acc, currValue) => {
-                                      // for example vr=2e1ab8701800ae7732f49876ffffffd7
-                                      // we split at = which returns
-                                      // ['vr', '2e1ab8701800ae7732f49876ffffffd7']
-                                      const [key, value] = currValue.split('=');
-                                      return { ...acc, [key]: value };
-                                  }, {})
-                            : null;
+                        const tsCookie = formatTsCookie(getCookieByName('ts_c'));
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
