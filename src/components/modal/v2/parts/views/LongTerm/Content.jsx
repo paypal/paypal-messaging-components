@@ -65,8 +65,13 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        if (views?.length >= 1) {
-            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
+        if (views?.length > 2) {
+            return (
+                <Fragment>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
+                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                </Fragment>
+            );
         }
         return <Fragment />;
     };
@@ -96,7 +101,6 @@ export const LongTerm = ({
                             ? disclosure[aprType]
                             : disclosure}
                     </div>
-                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
                     {renderCheckoutCtaButton()}
                 </div>
             </main>
