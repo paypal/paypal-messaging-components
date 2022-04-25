@@ -223,7 +223,6 @@
             }
 
             @include tablet {
-                max-width: 315px;
                 text-align: center;
 
                 @include lander {

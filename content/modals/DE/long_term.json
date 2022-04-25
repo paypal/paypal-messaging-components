@@ -18,24 +18,29 @@
         }
     },
     "content": {
-        "headline": "Pay later in 3, 6, 12, or 24 months",
-        "subheadline": "Buy today, with no down payment.",
+        "headline": "Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten",
+        "subheadline": "Noch heute kaufen – ohne Anzahlung.",
         "calculator": {
-            "title": "How much is your purchase?",
-            "inputLabel": "Cart amount",
-            "inputPlaceholder": "Enter amount",
+            "title": "Wie viel kostet Ihr Einkauf?",
+            "inputLabel": "Warenwert",
+            "inputPlaceholder": "Verfügbar ab {formattedMinAmount} - {formattedMaxAmount}",
             "inputCurrencySymbol": "€",
-            "genericError": "Something went wrong. Please try again later."
+            "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut."
         },
         "disclaimer": {
-            "nonZeroAPR": "Eff. Annual interest 9,99% p.a. <br/> Fixed borrowing rate 9,99% p.a."
+            "nonZeroAPR": "Eff. Jahreszins 9,99% p.a. <br/> Fester Sollzinssatz 9,51% p.a.",
+            "zeroAPR": "Eff. Jahreszins 0,00% p.a. <br/> Fester Sollzinssatz 0,00% p.a."
         },
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
-            "Get a decision in seconds.",
-            "Use autopay for your payments. It's easy!"
+            "Wählen Sie PayPal als Bezahlmethode aus, um später mit <strong>PayPal Ratenzahlung</strong> zu bezahlen",
+            "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
+            "Das war's! Sie können auch vorzeitig bezahlen – ohne zusätzliche Gebühren."
         ],
-        "disclosure": "Vorbehaltlich Kreditwürdigkeitsprüfung.  Repräsentatives Beispiel gem. § 6a (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.052,54 €, 12 monatliche Raten à 87,71 €, fester Sollzinssatz 9,56% p.a., eff. Jahreszins 9,99% p.a., Kreditgeber: PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg. Mehr erfahren",
-        "linkToProductList": "For another Pay Later option, see in Pay in 30 days"
+        "disclosure": {
+            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab 99 € und bis zu 5.000 € Bestellwert mit einem effektiven Jahreszins von 9,99% p.a. und einem festen Sollzinssatz von 9,48% p.a. bei 3 Monaten, von 9,48% p.a. bei 6 Monaten, von 9,50% p.a. bei 12 Monaten und von 9,51% p.a. bei 24 Monaten Laufzeit. Repräsentatives Beispiel gem. § 6a (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.101,98 €, 12 monatliche Raten à 87,67 €, fester Sollzinssatz 9.50% p.a., eff. Jahreszins 9.99% p.a. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg.",
+            "zeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung und nur für Transaktionen in Euro. Ab einem Bestellwert von {formattedMinAmount} bis {formattedMaxAmount} mit einem eff. Jahreszins von {apr}% p.a. und einem festen Sollzinssatz von {nominal_rate}% p.a. für Darlehensverträge, die im Angebotszeitraum abgeschlossen werden. Laufzeit 3, 6, 12 oder 24 Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle"
+        },
+        "navLinkPrefix": "Für andere Später Bezahlen Optionen wählen Sie",
+        "linkToProductList": "Bezahlung nach 30 tagen."
     }
 }

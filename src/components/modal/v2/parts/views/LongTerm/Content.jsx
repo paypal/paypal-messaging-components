@@ -8,10 +8,11 @@ import Instructions from '../../Instructions';
 import Button from '../../Button';
 
 export const LongTerm = ({
-    content: { calculator, disclaimer, instructions, disclosure, linkToProductList, cta },
+    content: { calculator, disclaimer, instructions, disclosure, navLinkPrefix, linkToProductList, cta },
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
+    const [aprType, setAPRType] = useState('');
     const { amount, onClick, onClose } = useXProps();
     const { views } = useServerData();
     const {
@@ -64,7 +65,7 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
-        if (views?.length > 2) {
+        if (views?.length >= 1) {
             return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
         }
         return <Fragment />;
@@ -80,6 +81,7 @@ export const LongTerm = ({
                                 setExpandedState={setExpandedState}
                                 calculator={calculator}
                                 disclaimer={disclaimer}
+                                setAPRType={setAPRType}
                             />
                         </div>
                         <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
@@ -89,7 +91,12 @@ export const LongTerm = ({
                         </div>
                     </div>
                     <Instructions instructions={instructions} expandedState={expandedState} />
-                    <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>{disclosure}</div>
+                    <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+                        {typeof disclosure !== 'string' && aprType && aprType in disclosure
+                            ? disclosure[aprType]
+                            : disclosure}
+                    </div>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
                     {renderCheckoutCtaButton()}
                 </div>
             </main>

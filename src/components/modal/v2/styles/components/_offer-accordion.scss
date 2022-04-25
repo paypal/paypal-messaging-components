@@ -1,8 +1,8 @@
 .accordion {
     &__container {
-        border: 1px solid #dbdddd;
+        border: 1px solid $light-gray;
         border-radius: 12px;
-        font-size: 14px;
+        font-size: 13px;
         width: 311px;
         color: $text-main;
         margin-bottom: 10px;
@@ -19,7 +19,7 @@
             margin-top: 35px;
         }
         &.active {
-            outline: 3px solid #1072eb;
+            outline: 3px solid $active;
             border-color: transparent;
         }
     }
@@ -27,7 +27,7 @@
     &__header-container {
         font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
         font-size: 18px;
-        color: #0c0c0d;
+        color: $terms-header;
         display: flex;
         justify-content: space-between;
         padding: 25px 18px 22px 13px;
@@ -59,14 +59,12 @@
                 padding-top: 0px;
 
                 .accordion__offer-field-title {
-                    .inline-link {
-                        font-weight: normal;
-                    }
+                    color: $light-blue;
                 }
             }
 
             .accordion__offer-apr-disclaimer {
-                color: #515354;
+                color: $terms-details;
                 line-height: 1.3;
                 padding-bottom: 9px;
             }

@@ -30,15 +30,15 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
-            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
+            "belowThreshold": "Geben Sie einen Betrag größer als {formattedMinAmount} ein.",
+            "aboveThreshold": "Geben Sie einen Betrag geringer als {formattedMaxAmount} ein. "
         },
         "termsLabel": {
-            "offerPayment": "{formattedPeriodicPayment}/mo.",
-            "offerNumInstallments": "{total_payments} Installments",
-            "eMoney": [["eMoney transaction amount", "https://www.paypal.com/us/webapps/mpp/home"]],
-            "totalInterest": "Total Interest",
-            "total": "Total Amount"
+            "offerPayment": "{formattedPeriodicPayment}/Monat",
+            "offerNumInstallments": "{total_payments} Raten",
+            "eMoney": "Transaktionsbetrag E-Geld Service",
+            "totalInterest": "Zinsbetrag",
+            "total": "Gesamtbetrag"
         }
     }
 }

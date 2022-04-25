@@ -2,7 +2,15 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue, getComputedVariables } from '../lib';
+import {
+    useCalculator,
+    useServerData,
+    useXProps,
+    delocalize,
+    getDisplayValue,
+    getComputedVariables,
+    currencyFormat
+} from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
@@ -57,7 +65,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR }, setAPRType }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country } = useServerData();
@@ -161,12 +169,26 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     if (aprArr.length > 0) {
         if (aprArr.filter(apr => apr.replace('.00', '') !== '0').length === aprArr.length) {
             aprDisclaimer = nonZeroAPR;
+            setAPRType('nonZeroAPR');
         } else if (aprArr.filter(apr => apr.replace('.00', '') === '0').length === aprArr.length) {
             aprDisclaimer = zeroAPR;
+            setAPRType('zeroAPR');
         } else {
             aprDisclaimer = mixedAPR;
         }
-    } else aprDisclaimer = zeroAPR;
+    } else {
+        /**
+         * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
+         * If no initial amount is passed in or there is an error, we default to the zeroAPR disclaimer as it is more
+         * generic. i.e. Terms may vary based on purchase amount.
+         */
+        aprDisclaimer = zeroAPR;
+        /**
+         * setAPRType is used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
+         * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
+         */
+        setAPRType('nonZeroAPR');
+    }
 
     return (
         <div className="calculator">
@@ -179,7 +201,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                     )}
                     <input
                         className={`input ${displayValue === '' ? 'empty-input' : ''}`}
-                        placeholder={inputPlaceholder}
+                        placeholder={currencyFormat(inputPlaceholder)}
                         type="tel"
                         value={displayValue}
                         onInput={onInput}

@@ -70,6 +70,9 @@
             &.empty-input {
                 padding-top: 16px;
                 padding-bottom: 16px;
+                &::placeholder {
+                    font-size: 14px;
+                }
             }
         }
     }
