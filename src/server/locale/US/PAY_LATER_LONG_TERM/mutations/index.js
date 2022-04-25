@@ -1,30 +1,27 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 // mutations import here.
-/* eslint-disable camelcase */
-import lt_nqez from './lt_nqez';
-import lt_nqgz from './lt_nqgz';
-import lt_mqez from './lt_mqez';
-import lt_mqgz from './lt_mqgz';
-import lt_sqez from './lt_sqez';
-import lt_sqgz from './lt_sqgz';
+import longTermNQEQZ from './long_term_nq_eqz';
+import longTermNQGTZ from './long_term_nq_gtz';
+import longTermMultiEQZ from './long_term_multi_eqz';
+import longTermMultiGTZ from './long_term_multi_gtz';
+import longTermSingleEQZ from './long_term_single_eqz';
+import longTermSingleGTZ from './long_term_single_gtz';
 import generic from './generic';
 
 export default function getMutations(id, type) {
     switch (id) {
         case 'LT_NQEZ':
-            return lt_nqez[type];
+            return longTermNQEQZ[type];
         case 'LT_NQGZ':
-            return lt_nqgz[type];
+            return longTermNQGTZ[type];
         case 'LT_MQEZ':
-        case 'LT_MQEZ_RB':
-            return lt_mqez[type];
+            return longTermMultiEQZ[type];
         case 'LT_MQGZ':
-            return lt_mqgz[type];
+            return longTermMultiGTZ[type];
         case 'LT_SQEZ':
-        case 'LT_SQEZ_RB':
-            return lt_sqez[type];
+            return longTermSingleEQZ[type];
         case 'LT_SQGZ':
-            return lt_sqgz[type];
+            return longTermSingleGTZ[type];
         case 'GENERIC':
         default:
             return generic[type];

@@ -1,26 +1,18 @@
-import gpl from './GPL/index';
-import ppc from './PPC/index';
-import payLaterLongTerm from './PAY_LATER_LONG_TERM/index';
+import payLaterShortTerm from './PAY_LATER_SHORT_TERM';
+import paypalCredit from './PAYPAL_CREDIT';
+import payLaterLongTerm from './PAY_LATER_LONG_TERM';
+
+import { OFFER, getStandardProductOffer } from '../../../utils/server';
 
 export default offerType => {
-    switch (offerType) {
-        case 'GPL':
-        case 'GPLQ':
-        case 'GPLNQ':
-        case 'GPLNQ_RANGE':
-            return gpl;
-        case 'GENERIC':
-        case 'LT_NQEZ':
-        case 'LT_NQGZ':
-        case 'LT_MQEZ':
-        case 'LT_MQEZ_RB':
-        case 'LT_MQGZ':
-        case 'LT_SQEZ':
-        case 'LT_SQEZ_RB':
-        case 'LT_SQGZ':
-        case 'PAY_LATER_LONG_TERM':
-            return payLaterLongTerm;
+    switch (getStandardProductOffer(offerType)) {
+        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
+        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
+            return paypalCredit;
+        case OFFER.PAY_LATER_SHORT_TERM:
+            return payLaterShortTerm;
+        case OFFER.PAY_LATER_LONG_TERM:
         default:
-            return ppc;
+            return payLaterLongTerm;
     }
 };
