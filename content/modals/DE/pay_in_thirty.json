@@ -31,7 +31,7 @@
 
         "headline": "Jetzt kaufen, später bezahlen",
         "subHeadline": "Wählen Sie PayPal, um ´Später Bezahlen´ zu nutzen.",
-        "stepsList": [
+        "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option, 30 Tage später zu bezahlen.",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
             "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
