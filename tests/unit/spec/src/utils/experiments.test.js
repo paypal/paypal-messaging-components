@@ -72,7 +72,6 @@ describe('experiments utils', () => {
     test('Handles empty treatments', () => {
         ensureTreatments();
 
-        console.log(document.body.innerHTML);
         expect(document.querySelector('iframe')).not.toBeNull();
 
         // treatments should not be marked ready
