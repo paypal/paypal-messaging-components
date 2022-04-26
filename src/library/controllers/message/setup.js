@@ -13,8 +13,11 @@ import {
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
+import { getTreatmentsComponent } from '../../zoid/treatments';
 
 export default function setup() {
+    // Load treatments component
+    getTreatmentsComponent();
     // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
     getMessageComponent();
     // Preload the overflow observer so that IE11 polyfills can be downloaded if needed
