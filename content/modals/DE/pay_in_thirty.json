@@ -1,8 +1,8 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "product": "PAY_LATER_PAY_IN_1",
         "periodicPayment": "{formattedPeriodicPayment}",
+        "product": "PAY_LATER_PAY_IN_1",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
@@ -17,29 +17,21 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
             "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
-            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
-            "apr": "${CREDIT_OFFERS_DS.apr}",
-            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}"
         }
     },
     "content": {
-        "productButton": {
-            "title": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
-            "subtitle": "Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.",
-            "icon": "ratenzahlung-calendar"
-        },
-
-        "headline": "Jetzt kaufen, später bezahlen",
-        "subHeadline": "Wählen Sie PayPal, um ´Später Bezahlen´ zu nutzen.",
+        "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
+        "subheadline": "Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.",
         "instructions": [
-            "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option, 30 Tage später zu bezahlen.",
+            "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
             "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
         ],
-
-        "switchingText": ["Um Ihren Einkauf in monatlichen Raten zu zahlen, wählen Sie die PayPal Ratenzahlung."],
-        "legalTerms": [
-            "Erhältlich für Einkäufe i.Hv. 1€ -1.000€. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
-        ]
+        "disclosure": [
+            "Erhältlich für Einkäufe i.Hv. 1€ - 1.000€. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
+        ],
+        "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
+        "linkToProductList": "wählen Sie die PayPal Ratenzahlung."
     }
 }

@@ -127,7 +127,23 @@
                     padding-top: 16px;
                 }
             }
-            
+
+            &.nav__link-prefix {
+                min-width: 315px;
+                padding: 0px;
+                margin: 1em auto -1em;
+                color: $text-main;
+                font-size: 13.33px;
+
+                @include desktop {
+                    margin-left: 30px;
+                }
+
+                @include mobile {
+                    margin-left: 0px;
+                }
+            }
+
             .learnMoreLink__container {
                 font-size: 13.33px;
 

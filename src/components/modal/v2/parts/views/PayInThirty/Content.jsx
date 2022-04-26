@@ -10,18 +10,22 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const PayInThirty = ({
-    content: { instructions, linkToProductList, disclosure, learnMoreLink },
+    content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink },
     // productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
     const { views } = useServerData();
 
     const renderProductListLink = () => {
-        return (
-            views?.length > 2 && (
-                <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
-            )
-        );
+        if (views?.length > 2) {
+            return (
+                <Fragment>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
+                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                </Fragment>
+            );
+        }
+        return <Fragment />;
     };
 
     // Optional outbound link to MPP product learn more page
@@ -45,9 +49,7 @@ export const PayInThirty = ({
                             <div className="content__row dynamic">
                                 <div className="content__col">
                                     <div className="content__row donuts">
-                                        <div className="donuts__container">
-                                            <Instructions instructions={instructions} />
-                                        </div>
+                                        <Instructions instructions={instructions} />
                                     </div>
                                 </div>
                                 <div className="content__col">
