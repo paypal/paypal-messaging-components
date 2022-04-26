@@ -3,15 +3,10 @@ import { create } from '@krakenjs/zoid/src';
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
-import {
-    getGlobalUrl,
-    createGlobalVariableGetter,
-    getMeta,
-    ppDebug,
-    getEnv,
-    getLibraryVersion,
-    getStageTag
-} from '../../../utils';
+// Direct imports to avoid import cycle by importing from ../../../utils
+import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, updateStorage } from '../../../utils/sdk';
+import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
+import { ppDebug } from '../../../utils/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
@@ -44,13 +39,31 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             namespace: {
                 type: 'string',
                 queryParam: false,
-                required: true
+                value: getNamespace
             },
 
             onReady: {
                 type: 'function',
                 queryParam: false,
-                required: true
+                value: ({ close }) => {
+                    // 1 day in milliseconds
+                    const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
+
+                    return ({ treatmentsHash, deviceID }) => {
+                        updateStorage({
+                            experiments: {
+                                treatmentsHash,
+                                // Experiments can only be maintained for 24 hours
+                                expiration: Date.now() + TREATMENTS_MAX_AGE
+                            },
+                            id: deviceID
+                        });
+
+                        globalEvent.trigger('treatments');
+
+                        close();
+                    };
+                }
             },
 
             sdkMeta: {
