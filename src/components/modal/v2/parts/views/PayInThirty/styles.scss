@@ -16,6 +16,7 @@
         }
 
         .content__row {
+
             .content__col {
                 flex-wrap: wrap;
                 flex-direction: initial;
@@ -129,6 +130,8 @@
             }
 
             &.nav__link-prefix {
+                // display: flex;
+                // justify-content: center;
                 min-width: 315px;
                 padding: 0px;
                 margin: 1em auto -1em;
