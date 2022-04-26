@@ -11,6 +11,7 @@ import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cent
 
 export const PayInThirty = ({
     content: { instructions, linkToProductList, disclosure, learnMoreLink },
+    // productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
     const { views } = useServerData();
@@ -43,7 +44,11 @@ export const PayInThirty = ({
                         <div className="dynamic__container">
                             <div className="content__row dynamic">
                                 <div className="content__col">
-                                    <Instructions instructions={instructions} />
+                                    <div className="content__row donuts">
+                                        <div className="donuts__container">
+                                            <Instructions instructions={instructions} />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="content__col">
                                     <div className="branded-image">
