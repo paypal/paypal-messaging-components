@@ -8,7 +8,7 @@ import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
-export const NI = ({
+export const NoInterest = ({
     content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
     openProductList
 }) => {

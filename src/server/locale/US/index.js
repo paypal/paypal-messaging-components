@@ -13,6 +13,8 @@ export default offerType => {
             return payLaterShortTerm;
         case OFFER.PAY_LATER_LONG_TERM:
         default:
+            // Generic message is included with the long term mutations.
+            // Default case catches GENERIC where getStandardProductOffer returns `undefined`
             return payLaterLongTerm;
     }
 };

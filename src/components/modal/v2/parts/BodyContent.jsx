@@ -11,7 +11,7 @@ import {
     useTransitionState
 } from '../lib';
 import Header from './Header';
-import { LongTerm, ShortTerm, NI, ProductList } from './views';
+import { LongTerm, ShortTerm, NoInterest, ProductList } from './views';
 
 const BodyContent = () => {
     const { views } = useServerData();
@@ -71,7 +71,7 @@ const BodyContent = () => {
         PAY_LATER_SHORT_TERM: (
             <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
         ),
-        PAYPAL_CREDIT_NO_INTEREST: <NI content={content} openProductList={openProductList} />,
+        PAYPAL_CREDIT_NO_INTEREST: <NoInterest content={content} openProductList={openProductList} />,
         PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />
     };
 
