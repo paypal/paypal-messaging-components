@@ -10,18 +10,19 @@ export default {
     DEV0000000PMZ: ['US', ['legacy_ppc_ni', 'legacy_ppc_ezp'], 'ppc_ezp_multi_eqz'],
     DEV0000000PMG: ['US', ['legacy_ppc_ni', 'legacy_ppc_ezp'], 'ppc_ezp_multi_gtz'],
     DEV000000GPLQ: ['US', ['short_term'], 'short_term_q'],
+    DEV0000000GPL: ['US', ['short_term'], 'short_term_nq'],
     DEV00000GPLNQ: ['US', ['short_term'], 'short_term_nq'],
 
     // US Long Term
     DEV0USGENERIC: ['US', ['v2_product_list'], 'generic'],
     DEV00USLTMQGZ: ['US', ['v2_long_term'], 'long_term_multi_gtz'],
     DEV00USLTMQEZ: ['US', ['v2_long_term'], 'long_term_multi_eqz'],
-    DEVUSLTMQEZRB: ['US', ['v2_long_term'], 'long_term_multi_eqz_rb'],
+    DEVUSLTMQEZRB: ['US', ['v2_long_term'], 'long_term_multi_eqz_mixed'],
     DEV00USLTNQEZ: ['US', ['v2_long_term'], 'long_term_nq_eqz'],
     DEV00USLTNQGZ: ['US', ['v2_long_term'], 'long_term_nq_gtz'],
     DEV00USLTSQGZ: ['US', ['v2_long_term'], 'long_term_single_gtz'],
     DEV00USLTSQEZ: ['US', ['v2_long_term'], 'long_term_single_eqz'],
-    DEVUSLTSQEZRB: ['US', ['v2_long_term'], 'long_term_single_eqz_rb'],
+    DEVUSLTSQEZRB: ['US', ['v2_long_term'], 'long_term_single_eqz_mixed'],
 
     // Multi product modal
     DEV00000NIGPL: ['US', ['short_term', 'ppc_ni'], 'short_term_nq'],
