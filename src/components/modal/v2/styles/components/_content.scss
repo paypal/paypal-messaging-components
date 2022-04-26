@@ -103,7 +103,6 @@
             text-align: left;
             font-size: 0.8rem;
             line-height: 1.4;
-            padding: 1rem 0 0rem;
 
             @include desktop {
                 padding-top: 0px;
@@ -122,6 +121,22 @@
                 @include desktop {
                     width: 34%;
                 }
+            }
+        }
+
+        &.nav__link-prefix {
+            min-width: 315px;
+            padding: 0px;
+            margin: 1em auto -1em;
+            color: $text-main;
+            font-size: 13.33px;
+
+            @include desktop {
+                margin-left: 30px;
+            }
+
+            @include mobile {
+                margin-left: 0px;
             }
         }
     }
