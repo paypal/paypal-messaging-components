@@ -54,5 +54,38 @@ export default {
                 }
             ]
         }
+    },
+    DEV_DE_PAY_IN_1: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'pay_in_1.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0.01,
+                template: 'pi30.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1,
+                template: 'pi30.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1000.01,
+                template: 'pi30.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        offers: {
+            totalPayents: 1,
+            apr: 9.99,
+            nominalRate: 0,
+            minAmount: 1,
+            maxAmount: 1000
+        }
     }
 };
