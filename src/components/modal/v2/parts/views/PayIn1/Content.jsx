@@ -9,9 +9,8 @@ import styles from './styles.scss';
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
-export const PayInThirty = ({
+export const PayIn1 = ({
     content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink },
-    // productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
     const { views } = useServerData();

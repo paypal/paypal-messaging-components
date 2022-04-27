@@ -11,7 +11,7 @@ import {
     useTransitionState
 } from '../lib';
 import Header from './Header';
-import { LongTerm, ShortTerm, NI, ProductList, PayInThirty } from './views';
+import { LongTerm, ShortTerm, NI, ProductList, PayIn1 } from './views';
 
 const BodyContent = () => {
     const { views } = useServerData();
@@ -73,7 +73,7 @@ const BodyContent = () => {
         ),
         PAYPAL_CREDIT_NO_INTEREST: <NI content={content} openProductList={openProductList} />,
         PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />,
-        PAY_LATER_PAY_IN_1: <PayInThirty content={content} openProductList={openProductList} />
+        PAY_LATER_PAY_IN_1: <PayIn1 content={content} openProductList={openProductList} />
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
