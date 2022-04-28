@@ -1,32 +1,32 @@
-export const DEV_US_PAY_IN_1 = {
+export const DEV_DE_PAY_IN_1 = {
     testFileName: 'payIn1',
     country: 'DE',
-    description: 'DE merchant eligible for oay in 1',
-    minAmount: 30,
-    maxAmount: 1500,
+    description: 'DE merchant eligible for pay in 1',
+    minAmount: 1,
+    maxAmount: 1000,
     amounts: [
         {
-            value: '0.00',
-            message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
+            value: '0.01',
+            message: 'Non-qualifying Pay in 1',
+            expectedValue: 'Bezahlen Sie bei Einkäufen von 1€ bis 1.000€ erst nach 30 Tagen',
             modalContent: {
-                subheadline: 'No impact on credit score and no late fee. Available for purchases of $30 to $1,500.'
+                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ -1.000€.'
             }
         },
         {
-            value: '30.00',
-            message: 'Qualifying Pay in 4',
-            expectedValue: 'Pay in 4 interest-free payments of $7.50',
+            value: '1.00',
+            message: 'Qualifying Pay in 1',
+            expectedValue: 'Bezahlen Sie nach 30 Tagen',
             modalContent: {
-                subheadline: 'Split your purchase of $30.00 into 4 with no impact on credit score and no late fees.'
+                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ -1.000€.'
             }
         },
         {
-            value: '1500.01',
-            message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
+            value: '1000.01',
+            message: 'Non-qualifying Pay in 1',
+            expectedValue: 'Bezahlen Sie bei Einkäufen von 1€ bis 1.000€ erst nach 30 Tagen',
             modalContent: {
-                subheadline: 'No impact on credit score and no late fee. Available for purchases of $30 to $1,500.'
+                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ -1.000€.'
             }
         }
     ]
