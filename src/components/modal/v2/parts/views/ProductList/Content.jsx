@@ -7,10 +7,11 @@ import styles from './styles.scss';
 export const ProductList = ({ content: { instructions, disclosure, tiles, productTiles }, setViewName }) => {
     const { views } = useServerData();
     // TODO: availableTilesCompat can be removed after release
-    const availableTilesCompat = tiles && tiles.filter(tile => views.find(view => tile.viewName === view.meta.product));
+    const availableTilesCompat =
+        tiles && tiles?.filter(tile => views.find(view => tile.viewName === view.meta.product));
     const availableTiles = {
-        payLater: productTiles?.payLater.filter(tile => views.find(view => tile.viewName === view.meta.product)),
-        credit: productTiles?.credit.filter(tile => views.find(view => tile.viewName === view.meta.product))
+        payLater: productTiles?.payLater?.filter(tile => views.find(view => tile.viewName === view.meta.product)),
+        credit: productTiles?.credit?.filter(tile => views.find(view => tile.viewName === view.meta.product))
     };
 
     return (
@@ -37,7 +38,7 @@ export const ProductList = ({ content: { instructions, disclosure, tiles, produc
                                         />
                                     ))}
                                 {productTiles &&
-                                    availableTiles.payLater.map(({ header, body, icon, viewName }) => (
+                                    availableTiles.payLater?.map(({ header, body, icon, viewName }) => (
                                         <Tile
                                             key={icon}
                                             header={header}
@@ -48,13 +49,13 @@ export const ProductList = ({ content: { instructions, disclosure, tiles, produc
                                         />
                                     ))}
 
-                                {productTiles && !!availableTiles.credit.length && (
+                                {productTiles && !!availableTiles.credit?.length && (
                                     <div className="content__row instructions">
                                         <p>{instructions.credit}</p>
                                     </div>
                                 )}
                                 {productTiles &&
-                                    availableTiles.credit.map(({ header, body, icon, viewName }) => (
+                                    availableTiles.credit?.map(({ header, body, icon, viewName }) => (
                                         <Tile
                                             key={icon}
                                             header={header}
