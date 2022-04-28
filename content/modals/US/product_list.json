@@ -6,31 +6,9 @@
         "headline": "Buy now,<br />pay over time",
         "disclosure": "Terms apply for each option. Offer availability may depend on consumer & merchant eligibility.",
         "instructions": {
-            "top": "Choose an option for more details.",
-            "bottom": "Select <strong>PayPal</strong> at checkout to <strong>Pay Later</strong>.",
             "payLater": "Choose a way to pay later",
             "credit": "Or shop with a reusable credit line."
         },
-        "tiles": [
-            {
-                "header": "Pay in 4",
-                "icon": "pay-in-four-tile",
-                "body": "Interest-free payments every 2 weeks, starting today.",
-                "viewName": "PAY_LATER_SHORT_TERM"
-            },
-            {
-                "header": "Pay monthly",
-                "icon": "pay-monthly-tile",
-                "body": "Split your purchase into equal monthly payments.",
-                "viewName": "PAY_LATER_LONG_TERM"
-            },
-            {
-                "header": "PayPal Credit",
-                "icon": "paypal-credit-tile",
-                "body": "No Interest if paid in full in 6 months for purchases of $99+.",
-                "viewName": "PAYPAL_CREDIT_NO_INTEREST"
-            }
-        ],
         "productTiles": {
             "payLater": [
                 {
