@@ -26,6 +26,7 @@
     }
 
     @include mobile {
+        min-width: 295px;
         max-width: 100%;
     }
 
