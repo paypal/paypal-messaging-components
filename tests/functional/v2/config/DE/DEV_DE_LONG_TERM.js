@@ -1,4 +1,3 @@
-// TODO: update with correct content once finalized
 export const DEV_DE_LONG_TERM = {
     testFileName: 'longTerm',
     country: 'DE',
@@ -8,35 +7,35 @@ export const DEV_DE_LONG_TERM = {
     amounts: [
         {
             value: '0.00',
-            message: 'Non-qualifying Pay Monthly',
-            expectedValue: 'Buy now, pay later.',
+            message: 'Non-qualifying DE Long Term Installments',
+            expectedValue: 'Jetzt kaufen, später bezahlen.',
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                belowMinAmountErr: 'Enter an amount of $199 or more.',
-                aprDisclaimer: 'Terms may vary based on purchase amount.'
+                belowMinAmountErr: 'Geben Sie einen Betrag größer als 99€ ein.',
+                aprDisclaimer: 'Eff. Jahreszins 9,99% p.a.'
             }
         },
         {
             value: '99.00',
-            message: 'Qualifying Pay Monthly',
-            expectedValue: 'Buy now, pay later.',
+            message: 'Qualifying DE Long Term Installments',
+            expectedValue: 'Bezahlen Sie in 3-24 monatlichen Raten.',
             modalContent: {
-                offerHeadline: '$33.17/mo. for 6 months',
-                updatedOfferHeadline: '$83.33/mo. for 6 months',
-                offerFieldValues: ['0%', '$0.00', '$199.00'],
-                aprDisclaimer: 'Terms may vary based on purchase amount.'
+                offerHeadline: '33,82€/Monat',
+                updatedOfferHeadline: '170,83€/Monat',
+                offerFieldValues: ['33,82€', '2,47€', '101,47€'],
+                aprDisclaimer: 'Eff. Jahreszins 9,99% p.a.'
             }
         },
         {
             value: '5000.01',
-            message: 'Non-qualifying Pay Monthly',
-            expectedValue: 'Buy now, pay later.',
+            message: 'Non-qualifying DE Long Term Installments',
+            expectedValue: 'Bezahlen Sie in 3-24 monatlichen Raten bei Einkäufen i.H.v. 99€-5.000€.',
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                aboveMaxAmountErr: 'Enter an amount no larger than $20,000.',
-                aprDisclaimer: 'Terms may vary based on purchase amount.'
+                aboveMaxAmountErr: 'Geben Sie einen Betrag geringer als 5.000€ ein.',
+                aprDisclaimer: 'Eff. Jahreszins 9,99% p.a.'
             }
         }
     ]
