@@ -37,7 +37,7 @@ export const ShortTerm = ({
         );
     };
 
-    const hasInstallments = Object.keys(estimatedInstallments?.items).length;
+    const hasInstallments = Object.keys(estimatedInstallments?.items ?? {}).length;
 
     const donutScreenReaderString = hasInstallments
         ? estimatedInstallments.items
