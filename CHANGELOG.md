@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.34.4](https://github.com/paypal/paypal-messaging-components/compare/v1.34.3...v1.34.4) (2022-05-03)
+
+
+### Bug Fixes
+
+* hasInstallments null length ([#806](https://github.com/paypal/paypal-messaging-components/issues/806)) ([bc9787f](https://github.com/paypal/paypal-messaging-components/commit/bc9787f3422c12d8fd8cbace88dce8aa0b0c3a18))
+
 ### [1.34.3](https://github.com/paypal/paypal-messaging-components/compare/v1.34.2...v1.34.3) (2022-05-03)
 
 
