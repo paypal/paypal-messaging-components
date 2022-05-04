@@ -66,26 +66,30 @@ export default {
         messageThresholds: [
             {
                 amount: 0.01,
-                template: 'pi30.json',
+                template: 'pi30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1,
-                template: 'pi30.json',
+                template: 'pi30q.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1000.01,
-                template: 'pi30.json',
+                template: 'pi30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
         ],
         offers: {
-            totalPayents: 1,
-            apr: 9.99,
-            nominalRate: 0,
-            minAmount: 1,
-            maxAmount: 1000
+            PAY_LATER_PAY_IN_1: [
+                {
+                    totalPayents: 1,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 1,
+                    maxAmount: 1000
+                }
+            ]
         }
     }
 };
