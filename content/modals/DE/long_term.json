@@ -41,6 +41,6 @@
             "zeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung und nur für Transaktionen in Euro. Ab einem Bestellwert von {formattedMinAmount} bis {formattedMaxAmount} mit einem eff. Jahreszins von {apr}% p.a. und einem festen Sollzinssatz von {nominal_rate}% p.a. für Darlehensverträge, die im Angebotszeitraum abgeschlossen werden. Laufzeit 3, 6, 12 oder 24 Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle"
         },
         "navLinkPrefix": "Für andere Später Bezahlen Optionen wählen Sie",
-        "linkToProductList": "Bezahlung nach 30 tagen."
+        "linkToProductList": "Bezahlung nach 30 Tagen."
     }
 }
