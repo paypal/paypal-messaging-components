@@ -209,9 +209,24 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getStandardProductOffer(offer) {
+export function getStandardProductOffer(offer, channel) {
     if (typeof offer === 'undefined') {
         return 'NONE';
+    }
+
+    if(channel === 'CHECKOUT'){
+        switch (offer.toUpperCase()) {
+            case OFFER.PAY_LATER_LONG_TERM:
+            case 'GPL':
+            case 'GPLQ':
+            case 'GPLNQ':
+            case 'GPLNQ_RANGE':
+            case 'NI':
+            case 'NI:NON-US':
+            case 'NIQ':
+            case 'NIQ:NON-US':
+                return OFFER.PAY_LATER_LONG_TERM;
+        }
     }
 
     switch (offer.toUpperCase()) {

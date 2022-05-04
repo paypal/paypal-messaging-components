@@ -91,7 +91,7 @@ const memoizedModal = memoizeOnProps(
                 renderProm = renderModal('body');
             }
 
-            const requestedProduct = getStandardProductOffer(options.offer);
+            const requestedProduct = getStandardProductOffer(options.offer, channel);
 
             if (
                 typeof options.offer !== 'undefined' &&
