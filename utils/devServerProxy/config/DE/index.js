@@ -9,12 +9,12 @@ export default {
                 product: 'PRODUCT_LIST'
             },
             {
-                template: 'pay_in_thirty.json',
+                template: 'pay_in_1.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
-                template: 'ratenzahlung.json',
-                product: 'PAYPAL_CREDIT_INSTALLMENTS'
+                template: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
             }
         ],
         messageThresholds: [
