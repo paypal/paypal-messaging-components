@@ -214,7 +214,7 @@ export function getStandardProductOffer(offer, channel) {
         return 'NONE';
     }
 
-    if(channel === 'CHECKOUT'){
+    if (channel === 'CHECKOUT') {
         switch (offer.toUpperCase()) {
             case OFFER.PAY_LATER_LONG_TERM:
             case 'GPL':
@@ -226,6 +226,8 @@ export function getStandardProductOffer(offer, channel) {
             case 'NIQ':
             case 'NIQ:NON-US':
                 return OFFER.PAY_LATER_LONG_TERM;
+            default:
+                break;
         }
     }
 
