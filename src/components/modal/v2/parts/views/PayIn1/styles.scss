@@ -123,8 +123,9 @@
             }
 
             &.disclosure {
+                margin-top: 20px;
                 @include desktop {
-                    margin-top: 20px;
+                    padding-top: 16px;
                 }
             }
 
