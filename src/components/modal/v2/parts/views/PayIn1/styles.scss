@@ -134,28 +134,6 @@
                     max-width: 315px;
                 }
             }
-
-            .learnMoreLink__container {
-                font-size: 13.33px;
-
-                a {
-                    display: flex;
-
-                    @include desktop {
-                        margin: 0px;
-                        padding-left: 30px;
-                    }
-
-                    @include tablet {
-                        margin: 1em auto;
-                        max-width: 315px;
-                    }
-
-                    @include mobile {
-                        max-width: none;
-                    }
-                }
-            }
         }
     }
 }

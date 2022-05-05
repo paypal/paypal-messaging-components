@@ -3,14 +3,13 @@
 import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
 import ProductListLink from '../../ProductListLink';
-import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const PayIn1 = ({
-    content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink },
+    content: { instructions, linkToProductList, disclosure, navLinkPrefix },
     openProductList
 }) => {
     const { views } = useServerData();
@@ -25,17 +24,6 @@ export const PayIn1 = ({
             );
         }
         return <Fragment />;
-    };
-
-    // Optional outbound link to MPP product learn more page
-    const renderLearnMoreLink = () => {
-        return (
-            learnMoreLink && (
-                <div className="learnMoreLink__container">
-                    <InlineLinks text={learnMoreLink} />
-                </div>
-            )
-        );
     };
 
     return (
@@ -62,7 +50,6 @@ export const PayIn1 = ({
                             <p> {currencyFormat(disclosure)} </p>
                         </div>
                         <div className="content__row productLink">
-                            {renderLearnMoreLink()}
                             <div className="productLink__container">{renderProductListLink()}</div>
                         </div>
                     </div>
