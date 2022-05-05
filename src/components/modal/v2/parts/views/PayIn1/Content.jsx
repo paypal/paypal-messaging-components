@@ -47,7 +47,7 @@ export const PayIn1 = ({
                         <div className="dynamic__container">
                             <div className="content__row dynamic">
                                 <div className="content__col">
-                                    <div className="content__row donuts">
+                                    <div className="content__row instructions_container">
                                         <Instructions instructions={instructions} />
                                     </div>
                                 </div>
@@ -59,9 +59,7 @@ export const PayIn1 = ({
                             </div>
                         </div>
                         <div className="content__row disclosure">
-                            <p>
-                                <InlineLinks text={currencyFormat(disclosure)} />
-                            </p>
+                            <p> {currencyFormat(disclosure)} </p>
                         </div>
                         <div className="content__row productLink">
                             {renderLearnMoreLink()}

@@ -16,13 +16,12 @@
         }
 
         .content__row {
-
             .content__col {
                 flex-wrap: wrap;
                 flex-direction: initial;
             }
 
-            .donuts {
+            .instructions__container {
                 display: flex;
                 align-items: center;
                 background-color: #ffffff;
@@ -125,7 +124,7 @@
 
             &.disclosure {
                 @include desktop {
-                    padding-top: 16px;
+                    margin-top: 20px;
                 }
             }
 
