@@ -220,11 +220,8 @@ export function getStandardProductOffer(offer, channel) {
             case 'GPL':
             case 'GPLQ':
             case 'GPLNQ':
-            case 'GPLNQ_RANGE':
             case 'NI':
-            case 'NI:NON-US':
             case 'NIQ':
-            case 'NIQ:NON-US':
                 return OFFER.PAY_LATER_LONG_TERM;
             default:
                 break;
