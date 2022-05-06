@@ -137,7 +137,7 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'ni_v2.json',
+                template: 'v2_ppc_ni.json',
                 product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             }
         ],
