@@ -15,7 +15,6 @@ const accounts = [
     'DEV0000000GPL',
     'DEV00000GPLNQ',
     'DEV000000GPLQ',
-    'DEVGPLNQRANGE',
     // pay later long term
     // 'DEV0USGENERIC',
     // 'DEV00USLTNQEZ',
