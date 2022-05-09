@@ -8,6 +8,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { getStorage } from './sdk';
 import { OFFER } from './constants';
 
 /**
@@ -270,17 +271,6 @@ export function getStandardProductOffer(offer) {
 }
 
 /**
- * Get value of cookie name
- * @param name - name of cookie
- * @returns string of url encoded string of vt and vr
- */
-export function getCookieByName(name) {
-    const cookieString = document.cookie.match(`${name}=[^;]+`);
-    // cookieString will return null if no match
-    return cookieString ? cookieString[0] : cookieString;
-}
-
-/**
  * Format TS Cookie
  * @param cookie - cookie value
  * @returns object of vt and vr
@@ -299,4 +289,23 @@ export function formatTsCookie(cookie) {
                   return { ...acc, [key]: value };
               }, {})
         : null;
+}
+
+/**
+ * Get value of cookie name
+ * @param name - name of cookie
+ * @returns string of url encoded string of vt and vr
+ */
+export function getCookieByName(name) {
+    const cookieString = document.cookie.match(`${name}=[^;]+`);
+    // cookieString will return null if no match
+    return cookieString ? formatTsCookie(cookieString[0]) : cookieString;
+}
+
+// get the ts cookie from local storage
+export function getTsCookieFromStorage() {
+    return getStorage().getState(storage => storage.ts) !== null ||
+        typeof getStorage().getState(storage => storage.ts) !== 'undefined'
+        ? getCookieByName('ts_c')
+        : getStorage().getState(storage => storage.ts);
 }

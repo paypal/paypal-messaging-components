@@ -178,11 +178,6 @@ export function getDeviceID() {
     return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
-// get the ts cookie from local storage
-export function getTsCookieFromStorage() {
-    return getStorage().getState(storage => storage.ts);
-}
-
 // Check if the current script is in the process of being destroyed since
 // the MutationObservers can fire before the SDK destroy lifecycle hook
 export const isScriptBeingDestroyed = () => {

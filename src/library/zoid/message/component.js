@@ -25,8 +25,7 @@ import {
     getScriptAttributes,
     getDevTouchpoint,
     getMerchantConfig,
-    getCookieByName,
-    formatTsCookie
+    getTsCookieFromStorage
 } from '../../../utils';
 
 import validate from './validation';
@@ -139,7 +138,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             getContainer
                         } = props;
                         const { offerType, messageRequestId } = meta;
-
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
@@ -208,15 +206,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
+                    return ({ meta, activeTags, deviceID, ts, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
-
-                        // get ts cookie value
-                        const tsCookie = formatTsCookie(getCookieByName('ts_c'));
-
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
-
+                        const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
                         // Write deviceID and ts cookie from iframe localStorage to merchant domain localStorage
                         writeToLocalStorage({ id: deviceID, ts: tsCookie });
 
@@ -235,7 +229,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 // Need to merge global attribute here due to preserve performance attributes
                                 global: {
                                     ...existingGlobal,
-                                    ts: tsCookie, // send ts cookie in log
+                                    ts: tsCookie,
                                     deviceID, // deviceID from internal iframe storage
                                     sessionID: getSessionID() // Session ID from parent local storage,
                                 },

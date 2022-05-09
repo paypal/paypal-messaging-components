@@ -4,11 +4,16 @@ import Message from 'src/components/message/Message';
 import { request, getDeviceID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
+const ts = {
+    vr: '2e1ab8701800ae7732f49876ffffffd7',
+    vt: 'a96da1cd1800ab09681c2338ff7e0278'
+};
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
     getDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     isStorageFresh: jest.fn().mockReturnValue(false),
+    getTsCookieFromStorage: jest.fn(() => ts),
     request: jest.fn(() =>
         Promise.resolve({
             data:
@@ -91,7 +96,8 @@ describe('Message', () => {
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: 123
+            requestDuration: 123,
+            ts
         });
     });
 
@@ -129,7 +135,8 @@ describe('Message', () => {
             meta: {},
             messageRequestId: originalMRID,
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: 123
+            requestDuration: 123,
+            ts
         });
 
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
@@ -176,7 +183,8 @@ describe('Message', () => {
             meta: {},
             deviceID: 'uid_1111111111_11111111111',
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
-            requestDuration: 123
+            requestDuration: 123,
+            ts
         });
         expect(getDeviceID).toHaveBeenCalled();
     });

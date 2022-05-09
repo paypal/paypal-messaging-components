@@ -23,8 +23,7 @@ import {
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint,
-    formatTsCookie,
-    getCookieByName
+    getTsCookieFromStorage
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -227,10 +226,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta, deviceID }) => {
+                    return ({ products, meta, ts, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
+
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
                         logger.addMetaBuilder(existingMeta => {
@@ -245,7 +245,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             delete existingMeta.global;
 
                             // get ts cookie value
-                            const tsCookie = formatTsCookie(getCookieByName('ts_c'));
+                            const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
                             return {
                                 global: {
                                     ...existingGlobal,
