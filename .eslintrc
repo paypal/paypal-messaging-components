@@ -1,6 +1,6 @@
 {
     "extends": ["airbnb", "prettier"],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "env": {
         "browser": true,
         "node": true
@@ -11,6 +11,8 @@
     },
     "plugins": ["prettier"],
     "rules": {
+        "arrow-body-style": "off",
+        "unicorn/prefer-spread": "off",
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",

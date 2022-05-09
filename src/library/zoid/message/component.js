@@ -1,10 +1,8 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise/src';
-
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
-
-import { uniqueID, getCurrentScriptUID } from 'belter/src';
-import { create } from 'zoid/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
+import { create } from '@krakenjs/zoid/src';
 
 import {
     getMeta,
@@ -208,9 +206,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, requestDuration }) => {
-                        const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
+                    return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
+                        const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
+                        const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
@@ -239,6 +238,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    partnerClientId,
                                     trackingDetails
                                 }
                             };

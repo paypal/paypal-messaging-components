@@ -1,5 +1,5 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';

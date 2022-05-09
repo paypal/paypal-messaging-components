@@ -4,8 +4,8 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
 import { OFFER } from './constants';
@@ -51,6 +51,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
             xhttp.withCredentials = true;
         }
 
+        // eslint-disable-next-line unicorn/prefer-add-event-listener
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
@@ -236,14 +237,13 @@ export function getStandardProductOffer(offer) {
         case 'SHORT_TERM:NO_AMOUNT':
             return OFFER.PAY_LATER_SHORT_TERM;
         case OFFER.PAY_LATER_PAY_IN_1:
-            return OFFER.PAY_LATER_PAY_IN_1;
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
-            return 'PI30';
+            return OFFER.PAY_LATER_PAY_IN_1;
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':

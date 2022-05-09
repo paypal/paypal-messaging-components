@@ -90,6 +90,8 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 23.8),
                     `.message__logo-container { width: ${textSize * 5}px }`,
+                    `@media screen and (max-width: ${textSize *
+                        23.74}px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 22, textSize, 'US'),
                     `.message__headline span:only-child { white-space: normal; }`
                 ],

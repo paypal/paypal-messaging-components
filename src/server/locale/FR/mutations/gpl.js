@@ -8,7 +8,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'FR'),
+                    textWrap(textSize * 43, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
@@ -25,7 +25,7 @@ export default {
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                styles: [setLogoTop(textSize * 34.75), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
+                styles: [setLogoTop(textSize * 40), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
                 headline: [
                     {
                         tag: 'default',
@@ -50,7 +50,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'FR'),
+                    textWrap(textSize * 34, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -72,10 +72,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['frais', 'achats'],
-                        replace: [
-                            ['€.', '€'],
-                            ['éligibles.', 'éligibles']
-                        ]
+                        replace: [['€.', '€']]
                     }
                 ]
             })
@@ -89,10 +86,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['pour'],
-                        replace: [
-                            ['€.', '€'],
-                            ['éligibles.', 'éligibles']
-                        ]
+                        replace: [['€.', '€']]
                     }
                 ]
             })

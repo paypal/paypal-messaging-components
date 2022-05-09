@@ -163,7 +163,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['plazos']
+                        br: ['plazos'],
+                        replace: [[', sin', ' sin']]
                     },
                     {
                         tag: 'xsmall',
@@ -186,7 +187,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['€,']
+                        br: ['€,'],
+                        replace: [[', sin', ' sin']]
                     },
                     {
                         tag: 'xsmall',

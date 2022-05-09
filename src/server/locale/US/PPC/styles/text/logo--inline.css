@@ -1,3 +1,7 @@
+.message__logo {
+    top: -0.15px;
+}
+
 .message__logo-container:after {
     content: '.';
 }
