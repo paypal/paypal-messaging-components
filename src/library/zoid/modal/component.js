@@ -230,6 +230,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
+                        const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
 
@@ -258,6 +259,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     type: 'modal',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    partnerClientId,
                                     trackingDetails
                                 }
                             };
