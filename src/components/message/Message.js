@@ -77,8 +77,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.fontSize = 'inherit';
     button.innerHTML = markup ?? '';
 
-    console.log(document.cookie);
-
     onReady({
         meta: serverData.meta,
         activeTags: getActiveTags(button),
