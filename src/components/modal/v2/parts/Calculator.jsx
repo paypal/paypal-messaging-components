@@ -45,15 +45,15 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     };
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
-        return belowThreshold.replace(replaceRegExp[country], '');
+        return belowThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
 
     // Checks amount against qualifying min and max ranges to determine which error message to show.
     if (amount < minAmount) {
-        return belowThreshold.replace(replaceRegExp[country], '');
+        return belowThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
     if (amount > maxAmount) {
-        return aboveThreshold.replace(replaceRegExp[country], '');
+        return aboveThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
 
     // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
@@ -190,18 +190,28 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
         setAPRType('nonZeroAPR');
     }
 
+    /**
+     * Due to slight differences in the calculator input styling between
+     * the US and DE versions of the universal modal, the function below
+     * determines when to return the inputLabel content depending on the country.
+     */
+    const renderInputLabelOnEmptyField = offerCountry => {
+        if (offerCountry === 'US') {
+            return displayValue !== '' ? inputLabel : '';
+        }
+        return inputLabel;
+    };
+
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
-                    {inputCurrencySymbol && displayValue !== '' && (
-                        <div className="input__currency-symbol">{inputCurrencySymbol}</div>
-                    )}
+                    <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
+                    {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
-                        className={`input ${displayValue === '' ? 'empty-input' : ''}`}
-                        placeholder={currencyFormat(inputPlaceholder)}
+                        className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
+                        placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="tel"
                         value={displayValue}
                         onInput={onInput}

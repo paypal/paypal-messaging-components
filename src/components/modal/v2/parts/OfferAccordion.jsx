@@ -27,7 +27,9 @@ const OfferAccordion = ({ offer: { content, meta }, aprDisclaimer, index, active
                         setOpen(open ? '' : 'open');
                     }}
                 >
-                    <div className="accordion__offer-field-header ">{termsLabel?.offerPayment}</div>
+                    <div className="accordion__offer-field-header ">
+                        {termsLabel?.offerPayment.replace(/(\s?EUR)/g, ' €')}
+                    </div>
                     <div className="accordion__offer-field-header">{termsLabel?.offerNumInstallments}</div>
                 </button>
             </div>
