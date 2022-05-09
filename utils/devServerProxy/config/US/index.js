@@ -187,7 +187,7 @@ export default {
             },
             {
                 amount: 199,
-                template: 'long_term_sq_eqz.json',
+                template: 'long_term_single_eqz.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             },
             {
