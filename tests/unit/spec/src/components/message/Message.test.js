@@ -163,7 +163,8 @@ describe('Message', () => {
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
-            requestDuration: 123
+            requestDuration: 123,
+            ts
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
