@@ -20,6 +20,11 @@ const selectBestOffer = (offers = [], amount) =>
     );
 
 const getMorsVars = (country, offer, amount) => {
+    if (!offer) {
+        // If no offer, return proxy object that always returns '-' for its variable values
+        return new Proxy({}, { get: () => '-' });
+    }
+
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
