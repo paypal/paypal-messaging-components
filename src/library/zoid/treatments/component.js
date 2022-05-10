@@ -94,6 +94,12 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 value: getEnv,
                 debug: ppDebug(`Environment: ${getEnv()}`)
             },
+            scriptUID: {
+                type: 'string',
+                queryParam: true,
+                value: getCurrentScriptUID,
+                debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
+            },
             version: {
                 type: 'string',
                 queryParam: true,

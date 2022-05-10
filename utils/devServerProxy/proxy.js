@@ -9,29 +9,33 @@ export default (app, server, compiler) => {
 
     app.get('/credit-presentment/experiments/hash', (req, res) => res.send('1daf92517fb7620b02add6943517ae0a5ca8f0a0'));
 
-    app.get('/credit-presentment/experiments/local', (req, res) =>
+    app.get('/credit-presentment/experiments/local', (req, res) => {
+        const { scriptUID } = req.query;
+        const interfaceScript = `<script>var interface = window.top.document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
+        const initializerScript = `
+            <script>
+                window.xprops.onReady({
+                    treatmentsHash: '1daf92517fb7620b02add6943517ae0a5ca8f0a0',
+                    deviceID: 'uid_e495bda3c2_mtk6mzg6mju'
+                });
+            </script>
+        `;
+
         res.send(`
             <!DOCTYPE html>
+            <html lang="en">
             <head>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>PayPal - Pay Later</title>
             </head>
             <body>
-                <script>
-                    function sendTreatments () {
-                        window.parent.postMessage({
-                            treatmentsHash: '1daf92517fb7620b02add6943517ae0a5ca8f0a0',
-                            deviceID: 'uid_e495bda3c2_mtk6mzg6mju'
-                        }, '*');
-                    }
-                        
-                    function getTreatments () {
-                        sendTreatments();
-                    }
-
-                    window.addEventListener('load', getTreatments);
-                </script>
+                ${interfaceScript}
+                ${initializerScript}
             </body>
-        `)
-    );
+            </html>
+        `);
+    });
 
     // Support versioned URLs
     app.get('/versioned/:component', (req, res) => {
