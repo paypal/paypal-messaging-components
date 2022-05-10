@@ -1,7 +1,7 @@
 import { getTreatmentsComponent } from '../library/zoid/treatments';
 import { memoize } from './functional';
 import { globalEvent } from './global';
-import { getStorage } from './sdk';
+import { getStorage, isZoidComponent } from './sdk';
 
 export const fetchTreatments = memoize(() => {
     const treatmentsComponent = getTreatmentsComponent()();
@@ -10,6 +10,10 @@ export const fetchTreatments = memoize(() => {
 });
 
 export function getLocalTreatments() {
+    if (isZoidComponent()) {
+        return null;
+    }
+
     const experiments = getStorage().getState(state => state.experiments);
 
     if (!experiments) {
