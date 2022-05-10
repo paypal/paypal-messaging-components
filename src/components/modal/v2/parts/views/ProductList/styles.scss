@@ -1,7 +1,21 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
+.header__content {
+    padding-bottom: 20px;
+
+    @include mobile {
+        padding-bottom: 0px;
+    }
+
+    h1 {
+        font-size: 2.375rem;
+    }
+}
+
 .content__container {
+    background-color: $beige-background;
+
     .content__row {
         &.dynamic {
             background-color: $beige-background;

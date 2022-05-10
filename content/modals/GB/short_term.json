@@ -27,6 +27,13 @@
         "subheadline": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. No sign-up fees or late fees.",
         "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
         "donutTimestamps": ["Today", "1 month", "2 months"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 month" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 months" }
+            ]
+        },
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 3</strong>. ",
             "Complete your purchase with the first payment today.",
