@@ -299,13 +299,10 @@ export function formatTsCookie(cookie) {
 export function getCookieByName(name) {
     const cookieString = document.cookie.match(`${name}=[^;]+`);
     // cookieString will return null if no match
-    return cookieString ? formatTsCookie(cookieString[0]) : cookieString;
+    return cookieString ?? formatTsCookie(cookieString[0]);
 }
 
 // get the ts cookie from local storage
 export function getTsCookieFromStorage() {
-    return getStorage().getState(storage => storage.ts) !== null ||
-        typeof getStorage().getState(storage => storage.ts) !== 'undefined'
-        ? getCookieByName('ts_c')
-        : getStorage().getState(storage => storage.ts);
+    return getStorage().getState(storage => storage?.ts) ?? getCookieByName('ts_c');
 }
