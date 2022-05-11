@@ -23,7 +23,7 @@ export const delocalize = (amount = '', country) => {
 };
 
 export const localize = (amount = '', country, minimumFractionDigits = 0) => {
-    const number = Number(delocalize(amount)) || 0;
+    const number = Number(amount) || 0;
     const locale = getLocale(country);
 
     return number.toLocaleString(locale, { minimumFractionDigits, maximumFractionDigits: 2 });

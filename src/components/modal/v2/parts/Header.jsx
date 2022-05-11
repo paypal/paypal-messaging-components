@@ -1,9 +1,8 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useTransitionState, useScroll, isIframe } from '../lib';
+import { isLander, useTransitionState, useScroll, isIframe, currencyFormat } from '../lib';
 import Icon from './Icon';
-import { currencyFormat } from '../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
     const [, handleClose] = useTransitionState();

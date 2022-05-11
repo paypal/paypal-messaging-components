@@ -8,7 +8,10 @@ import {
     updateTermsViaCalc,
     showCorrectOfferBreakdown,
     showCorrectAPRDisclaimer,
-    showCorrectOfferInfo
+    showCorrectOfferInfo,
+    showCorrectOfferInfoAccordion,
+    showCorrectOfferBreakdownAccordion,
+    updateOfferAccordionTermsViaCalc
 } from '../../../testFn';
 
 let modalFrame;
@@ -47,7 +50,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else {
+        } else if (amount >= minAmount && amount <= maxAmount && account !== 'DEV_DE_LONG_TERM') {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     modalFrame,
@@ -74,6 +77,31 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
 
             test(`Amount:${amount} - Displays correct APR legal disclaimer - ${viewport}`, async () => {
                 await showCorrectAPRDisclaimer(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+        }
+        if (amount >= minAmount && amount <= maxAmount && account === 'DEV_DE_LONG_TERM') {
+            test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
+                await showCorrectOfferInfoAccordion(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Offer accordion show correct payment breakdown information for amount - ${viewport}`, async () => {
+                await showCorrectOfferBreakdownAccordion(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Update offers via calculator - ${viewport}`, async () => {
+                await updateOfferAccordionTermsViaCalc(
                     modalFrame,
                     modalContent,
                     getTestName(country, integration, account, amount, viewport)
