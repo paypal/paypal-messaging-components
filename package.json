@@ -42,7 +42,6 @@
         "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
     },
     "dependencies": {
-        "@krakenjs/grumbler-scripts": "^7.0.0",
         "@paypal/common-components": "^1.0.18",
         "@paypal/sdk-client": "^4.0.80",
         "@paypal/sdk-constants": "^1.0.75",
