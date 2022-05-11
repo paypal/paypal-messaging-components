@@ -1,5 +1,26 @@
 # Changelog
 
+### [1.34.4](https://github.com/paypal/paypal-messaging-components/compare/v1.34.3...v1.34.4) (2022-05-03)
+
+
+### Bug Fixes
+
+* hasInstallments null length ([#806](https://github.com/paypal/paypal-messaging-components/issues/806)) ([bc9787f](https://github.com/paypal/paypal-messaging-components/commit/bc9787f3422c12d8fd8cbace88dce8aa0b0c3a18))
+
+### [1.34.3](https://github.com/paypal/paypal-messaging-components/compare/v1.34.2...v1.34.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* adds missing clientId and partnerClientId missing on stats event ([#790](https://github.com/paypal/paypal-messaging-components/issues/790)) ([9c742ed](https://github.com/paypal/paypal-messaging-components/commit/9c742ed7754f2fcf9cc63e172dcdfd27919e8bb9))
+* adjust GPLNQ mutations to accommodate purchase range ([#800](https://github.com/paypal/paypal-messaging-components/issues/800)) ([dc67fa3](https://github.com/paypal/paypal-messaging-components/commit/dc67fa3c5ae544640c0896f49b054abf04c6155f))
+
+
+### Code Refactoring
+
+* update product modal ([#779](https://github.com/paypal/paypal-messaging-components/issues/779)) ([31a535c](https://github.com/paypal/paypal-messaging-components/commit/31a535c9a720d1ff1673036b844e83718b64e8e6))
+* use estimated installments ([#795](https://github.com/paypal/paypal-messaging-components/issues/795)) ([6a7b2e6](https://github.com/paypal/paypal-messaging-components/commit/6a7b2e62cd9d881ac29822b774cb00b3306c418a))
+
 ### [1.34.2](https://github.com/paypal/paypal-messaging-components/compare/v1.34.1...v1.34.2) (2022-04-12)
 
 
