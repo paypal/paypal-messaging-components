@@ -3,7 +3,7 @@
         "product": "PRODUCT_LIST"
     },
     "content": {
-        "headline": "Jetzt kaufen, später bezahlen",
+        "headline": "Jetzt kaufen,<br/> später bezahlen",
         "disclosure": "Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen zur Bezahlung nach 30 Tagen oder PayPal Ratenzahlung wählen Sie eine der obigen Optionen.",
         "instructions": {
             "payLater": "Wählen Sie <strong>PayPal</strong>, um <strong>“Später Bezahlen”</strong> zu nutzen."
