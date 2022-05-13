@@ -23,7 +23,11 @@ export const ProductList = ({ content: { instructions, disclosure, tiles, produc
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content__row instructions">
-                                    <p>{instructions?.payLater ?? instructions?.top}</p>
+                                    <p /* eslint-disable-next-line react/no-danger */
+                                        dangerouslySetInnerHTML={{
+                                            __html: instructions?.payLater ?? instructions?.top
+                                        }}
+                                    />
                                 </div>
                                 {/* TODO: Can be removed after release */}
                                 {tiles &&

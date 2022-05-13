@@ -14,11 +14,28 @@ export default {
             },
             {
                 template: 'long_term.json',
+                offersTemplate: 'long_term.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
-        messageThresholds: [],
-        offers: {}
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'gpl_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_LONG_TERM: [
+                {
+                    totalPayments: 3,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                }
+            ]
+        }
     },
     DEV_DE_LONG_TERM: {
         country: 'DE',
