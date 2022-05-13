@@ -14,6 +14,7 @@ export default {
             },
             {
                 template: 'long_term.json',
+                offersTemplate: 'long_term.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

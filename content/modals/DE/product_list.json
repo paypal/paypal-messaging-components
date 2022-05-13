@@ -19,7 +19,7 @@
                 "header": "PayPal Ratenzahlung",
                 "icon": "paypal-ratenzahlung",
                 "body": "Zahlen Sie Ihren Einkauf in monatlichen Raten.",
-                "viewName": "PAYPAL_CREDIT_INSTALLMENTS"
+                "viewName": "PAY_LATER_LONG_TERM"
             }
         ],
 
