@@ -5,7 +5,7 @@
     // normalize button before styling it
     border: 0;
     margin: 0;
-    font-family: inherit;
+    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
     font-size: 100%;
     overflow: visible;
     text-align: left;
@@ -26,6 +26,7 @@
     }
 
     @include mobile {
+        min-width: 295px;
         max-width: 100%;
     }
 
@@ -35,7 +36,6 @@
         .tile__col {
             &.tile__image {
                 display: flex;
-                align-items: center;
                 margin-right: 20px;
 
                 svg {
@@ -46,15 +46,18 @@
 
             .tile__header {
                 display: flex;
-                font-size: 28px;
-                line-height: 36px;
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 24px;
                 align-items: center;
                 color: black;
             }
 
             .tile__body {
+                font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
                 margin-top: 5px;
                 font-size: 14px;
+                font-weight: 400;
                 line-height: 20px;
                 display: flex;
                 align-items: center;

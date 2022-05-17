@@ -62,6 +62,15 @@ export const selectors = {
             offerRow: '.offer__row',
             offerField: '.offer__field-col'
         },
+        // Offer accordion selectors
+        OfferAccordion: {
+            openAccordion: '.open',
+            accordionHeaderContainer: '.accordion__header-container',
+            accordionFieldHeader: '.accordion__offer-field-header',
+            accordionCollapsible: '.accordion__collapsible',
+            accordionRow: '.accordion__row',
+            accordionFieldValue: '.accordion__offer-field-value'
+        },
         // channel: CHECKOUT button "Continue with Pay Monthly"
         button: {
             checkoutCta: '.cta'

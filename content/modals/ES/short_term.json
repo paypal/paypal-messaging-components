@@ -27,6 +27,13 @@
         "subheadline": "Disponible para las compras de {formattedMinAmount} a {formattedMaxAmount}. Sin comisiones de apertura ni por pago atrasado.",
         "qualifyingSubheadline": "Divide tu compra de {formattedTotalCost} en 3 plazos, sin comisiones de apertura ni por pago atrasado.",
         "donutTimestamps": ["Hoy", "1 mes", "2 meses"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Hoy" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 mes" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 meses" }
+            ]
+        },
         "instructions": [
             "Selecciona PayPal en el proceso de pago para pagar más tarde con <strong>Paga en 3 plazos</strong>. ",
             "Completa la compra con el primer pago hoy.",

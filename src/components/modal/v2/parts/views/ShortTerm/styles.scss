@@ -104,6 +104,10 @@
                     max-width: initial;
                 }
 
+                @include mobile {
+                    padding: 0 20px;
+                }
+
                 ol.collapsed {
                     @include desktop {
                         width: 100%;
@@ -127,7 +131,7 @@
                     padding-top: 16px;
                 }
             }
-            
+
             .learnMoreLink__container {
                 font-size: 13.33px;
 

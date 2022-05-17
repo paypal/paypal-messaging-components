@@ -57,3 +57,15 @@
         }
     }
 }
+
+.accordion__container {
+    &:first-child {
+        &.shimmer {
+            margin-top: 25px;
+
+            @include mobile {
+                margin-top: 8px;
+            }
+        }
+    }
+}

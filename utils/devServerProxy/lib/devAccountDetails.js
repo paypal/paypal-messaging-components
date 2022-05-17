@@ -19,6 +19,51 @@ const selectBestOffer = (offers = [], amount) =>
         undefined
     );
 
+/**
+ * @description Get labels based on country
+ * @param {string} country
+ * @returns array of locale date labels
+ */
+const countryBasedPaymentDates = country => {
+    let dateGroup = [];
+    switch (country) {
+        case 'US':
+            dateGroup = ['Today', '2 weeks', '4 weeks', '6 weeks'];
+            break;
+        case 'IT':
+            dateGroup = ['Oggi', 'Tra 1 mese', 'Tra 2 mesi'];
+            break;
+        case 'GB':
+            dateGroup = ['Today', '1 month', '2 months'];
+            break;
+        case 'FR':
+            dateGroup = ["Aujourd'hui", '1 mois', '2 mois', '3 mois'];
+            break;
+        case 'ES':
+            dateGroup = ['Hoy', '1 mes', '2 meses'];
+            break;
+        case 'AU':
+            dateGroup = ['Today', '2 weeks', '4 weeks', '6 weeks'];
+            break;
+        default:
+            break;
+    }
+    return dateGroup;
+};
+
+/**
+ * Create estimate installments items array
+ * @param {object}
+ * @returns array of payments and date objects
+ */
+const countryBasedInstallments = ({ amount, total, totalPayments, country }) => {
+    const toLocaleCurrency = localizeCurrency(country);
+    return countryBasedPaymentDates(country).map(dateLabel => ({
+        total_payment: amount ? toLocaleCurrency(total / totalPayments) : '-',
+        payment_date: dateLabel
+    }));
+};
+
 const getMorsVars = (country, offer, amount) => {
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
@@ -44,7 +89,8 @@ const getMorsVars = (country, offer, amount) => {
         formattedTotalCost: amount ? toLocaleCurrency(total) : '-',
         formattedPeriodicPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
         formattedMonthlyPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
-        formattedTotalInterest: amount ? toLocaleCurrency(totalInterest) : '-'
+        formattedTotalInterest: amount ? toLocaleCurrency(totalInterest) : '-',
+        estimated_installments: countryBasedInstallments({ amount, total, totalPayments, country })
     };
 };
 
