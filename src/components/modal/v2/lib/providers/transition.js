@@ -22,6 +22,16 @@ export const TransitionStateProvider = ({ children }) => {
     const { onShow } = useXProps();
     const [state, setState] = useState(STATUS.OPEN);
 
+    /**
+     * Set iniitial focus on modal open to the close button.
+     * Particularly useful for those using screen readers and other accessibility functions.
+     */
+    const focusCloseBtnOnModalOpen = () => {
+        const btn = document.querySelector('.close');
+        btn.setAttribute('aria-label', 'Close');
+        btn.focus();
+    };
+
     useEffect(() => {
         // Transition accounts for the modal animating open and closed,
         // which does not apply when rendered as a lander
@@ -32,6 +42,8 @@ export const TransitionStateProvider = ({ children }) => {
                         if (entry.isIntersecting) {
                             setState(STATUS.OPEN);
                             onShow();
+
+                            focusCloseBtnOnModalOpen();
                         } else {
                             setTimeout(() => {
                                 setState(STATUS.CLOSED);

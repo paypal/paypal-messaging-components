@@ -50,10 +50,15 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
                         className="close"
-                        aria-label="Close button"
+                        aria-label="close"
                         type="button"
                         id="close-btn"
-                        onClick={() => handleClose('Close Button')}
+                        onClick={() => {
+                            // Used in screen readers to alert the user that the close button has been clicked.
+                            const btn = document.querySelector('.close');
+                            btn.setAttribute('aria-label', 'Clicked close button');
+                            handleClose('Close Button');
+                        }}
                     >
                         <Icon name="close" />
                     </button>
