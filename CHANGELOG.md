@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.34.5](https://github.com/paypal/paypal-messaging-components/compare/v1.34.4...v1.34.5) (2022-05-18)
+
+
+### Bug Fixes
+
+* pass user onShow to modal zoid component ([#808](https://github.com/paypal/paypal-messaging-components/issues/808)) ([3b3eb94](https://github.com/paypal/paypal-messaging-components/commit/3b3eb94e7db812329ed460edac54086e4a77e25a))
+* remove unneeded ampersand ([#812](https://github.com/paypal/paypal-messaging-components/issues/812)) ([f8c7e70](https://github.com/paypal/paypal-messaging-components/commit/f8c7e70cd33bd534a7c9a94f2bcc9988e37c86a0))
+
+
+### Code Refactoring
+
+* clean up US product list modal view backwards compatibility logic ([#811](https://github.com/paypal/paypal-messaging-components/issues/811)) ([25b2c92](https://github.com/paypal/paypal-messaging-components/commit/25b2c92ef995f01bb3b472547cba3b2c4e90bb7d))
+* Update DE Installments legal disclosure to use new version of the PAngV ([#810](https://github.com/paypal/paypal-messaging-components/issues/810)) ([f95b912](https://github.com/paypal/paypal-messaging-components/commit/f95b9124835da3fa0b1f3498dc888d560b3a8b7d))
+
 ### [1.34.4](https://github.com/paypal/paypal-messaging-components/compare/v1.34.3...v1.34.4) (2022-05-03)
 
 
