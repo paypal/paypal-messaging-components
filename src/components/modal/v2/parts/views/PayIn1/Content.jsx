@@ -35,7 +35,7 @@ export const PayIn1 = ({
                         <div className="dynamic__container">
                             <div className="content__row dynamic">
                                 <div className="content__col">
-                                    <div className="content__row instructions_container">
+                                    <div className="content__row instructions__container">
                                         <Instructions instructions={instructions} />
                                     </div>
                                 </div>
