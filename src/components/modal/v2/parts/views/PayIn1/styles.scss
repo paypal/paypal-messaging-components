@@ -1,6 +1,11 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
+h1 {
+    @include tablet {
+        max-width: 315px;
+    }
+}
 .content__container {
     .content__body {
         @include desktop {
@@ -21,7 +26,7 @@
                 flex-direction: initial;
             }
 
-            .instructions__container {
+            &.instructions__container {
                 display: flex;
                 align-items: center;
                 background-color: #ffffff;
