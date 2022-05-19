@@ -4,22 +4,29 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000000NI"></script>
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV00000GPLNQ"></script>
     </head>
 
     <body>
-        <div class="messages" data-pp-message></div>
+        <style>
+            .message-container {
+                background: pink;
+            }
+        </style>
+        <div class="message-container">
+            <div class="messages" data-pp-message></div>
+        </div>
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'text',
-            //             logo: {
-            //                 type: 'none'
-            //             }
-            //         }
-            //     })
-            //     .render('.messages');
+            paypal
+                .Messages({
+                    style: {
+                        layout: 'text',
+                        logo: {
+                            type: 'alternative'
+                        }
+                    }
+                })
+                .render('.messages');
         </script>
     </body>
 </html>
