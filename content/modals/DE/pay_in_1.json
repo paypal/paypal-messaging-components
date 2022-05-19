@@ -1,6 +1,37 @@
 {
     "meta": {
-        "product": "PAY_LATER_PAY_IN_1"
+        "offerCountry": "DE",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "product": "PAY_LATER_PAY_IN_1",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}"
+        }
     },
-    "content": {}
+    "content": {
+        "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
+        "subheadline": "Erhältlich für Einkäufe i.H.v. {formattedMinAmount} - {formattedMaxAmount}.",
+        "instructions": [
+            "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
+            "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
+            "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
+        ],
+        "disclosure": [
+            "Erhältlich für Einkäufe i.Hv. {formattedMinAmount} - {formattedMaxAmount}. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
+        ],
+        "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
+        "linkToProductList": "wählen Sie die PayPal Ratenzahlung."
+    }
 }

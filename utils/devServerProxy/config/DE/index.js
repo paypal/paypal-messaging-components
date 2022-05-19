@@ -26,6 +26,15 @@ export default {
             }
         ],
         offers: {
+            PAY_LATER_PAY_IN_1: [
+                {
+                    totalPayents: 1,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 1,
+                    maxAmount: 1000
+                }
+            ],
             PAY_LATER_LONG_TERM: [
                 {
                     totalPayments: 3,
@@ -33,6 +42,64 @@ export default {
                     nominalRate: 0,
                     minAmount: 99,
                     maxAmount: 5000
+                },
+                {
+                    totalPayments: 6,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                }
+            ]
+        }
+    },
+    DEV_DE_PAY_IN_1: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'pay_in_1.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0.01,
+                template: 'pi30nq.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1,
+                template: 'pi30q.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1000.01,
+                template: 'pi30nq.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        offers: {
+            PAY_LATER_PAY_IN_1: [
+                {
+                    totalPayents: 1,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 1,
+                    maxAmount: 1000
                 }
             ]
         }
