@@ -19,7 +19,7 @@
                     "viewName": "PAY_LATER_SHORT_TERM"
                 },
                 {
-                    "header": "Pay monthly",
+                    "header": "Pay Monthly",
                     "icon": "pay-monthly-tile",
                     "body": "Split your purchase into equal monthly payments.",
                     "viewName": "PAY_LATER_LONG_TERM"
