@@ -54,7 +54,8 @@ export const clickProductListTiles = async (contentWindow, modalContent) => {
     // Switch to short term view
     await switchViews(3, 'longTerm');
 
-    // Switch to no interest view. NOTE: PPC NI product tile is seprarated from the other pay later product tiles.
+    // Switch to no interest view.
+    // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
     await switchViews(5, 'noInterest');
 };
 
