@@ -277,14 +277,14 @@ export function getStandardProductOffer(offer) {
  */
 export function getCookieByName(name) {
     const cookieVal = decodeURIComponent(
-        // decode the ts_c cookie value
+        // decode the cookie value
         // get all cookies
         document.cookie
             // separate the string into an array of cookies
             .split(';')
             // find the cookie by name
             .find(cookieStr => cookieStr.startsWith(`${name}=`))
-            // use only the value for the ts_c cookie
+            // use only the value of the cookie
             .slice(5)
     );
 
