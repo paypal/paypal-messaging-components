@@ -271,35 +271,28 @@ export function getStandardProductOffer(offer) {
 }
 
 /**
- * Format TS Cookie
- * @param cookie - cookie value
- * @returns object of vt and vr
- */
-export function formatTsCookie(cookie) {
-    return cookie
-        ? // hack to remove ts_c from the getCookieByName return value to only give us
-          // vt and vr
-          decodeURIComponent(cookie.slice(5, cookie.length))
-              .split('&')
-              .reduce((acc, currValue) => {
-                  // for example vr=2e1ab8701800ae7732f49876ffffffd7
-                  // we split at = which returns
-                  // ['vr', '2e1ab8701800ae7732f49876ffffffd7']
-                  const [key, value] = currValue.split('=');
-                  return { ...acc, [key]: value };
-              }, {})
-        : null;
-}
-
-/**
  * Get value of cookie name
  * @param name - name of cookie
- * @returns string of url encoded string of vt and vr
+ * @returns object of cookie value(s)
  */
 export function getCookieByName(name) {
-    const cookieString = document.cookie.match(`${name}=[^;]+`);
-    // cookieString will return null if no match
-    return formatTsCookie(cookieString?.[0]) ?? cookieString;
+    const cookieVal = decodeURIComponent(
+        // decode the ts_c cookie value
+        // get all cookies
+        document.cookie
+            // separate the string into an array of cookies
+            .split(';')
+            // find the cookie by name
+            .find(cookieStr => cookieStr.startsWith(`${name}=`))
+            // use only the value for the ts_c cookie
+            .slice(5)
+    );
+
+    // use URLSearchParams to parse the value string into entries,
+    // and create an object from those entries
+    // disable ESLint rule since we do not support IE anymore
+    // eslint-disable-next-line compat/compat
+    return Object.fromEntries(new URLSearchParams(cookieVal).entries());
 }
 
 // get the ts cookie from local storage
