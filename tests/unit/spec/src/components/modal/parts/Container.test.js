@@ -10,8 +10,7 @@ import Container from 'src/components/modal/parts/Container';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 const mockTransitionContext = createContext(['CLOSED']);
-// document cookie mock for ts cookie
-document.cookie = 'ts_c=vr%3D2e1ab8701800ae7732f49876ffffffd7%26vt%3Ddda26ae11800a78873772249fb2eb053';
+
 jest.mock('src/components/modal/lib/logos', () => ({}));
 jest.mock('src/components/modal/lib/providers/transition', () => ({
     useTransitionState: jest.fn()

@@ -280,19 +280,19 @@ export function getCookieByName(name) {
         // decode the cookie value
         // get all cookies
         document.cookie
-            // separate the string into an array of cookies
             .split(';')
+            // separate the string into an array of cookies
             // find the cookie by name
             .find(cookieStr => cookieStr.startsWith(`${name}=`))
-            // use only the value of the cookie
-            .slice(5)
+            ?.slice(5)
+        // use only the value of the cookie
     );
 
     // use URLSearchParams to parse the value string into entries,
     // and create an object from those entries
     // disable ESLint rule since we do not support IE anymore
     // eslint-disable-next-line compat/compat
-    return Object.fromEntries(new URLSearchParams(cookieVal).entries());
+    return Object.fromEntries(new URLSearchParams(cookieVal).entries()) ?? null;
 }
 
 // get the ts cookie from local storage
