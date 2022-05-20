@@ -80,7 +80,7 @@ main {
         transition: transform 350ms ease, opacity 250ms ease;
     }
 
-    &.show .wrapper {
+    .show .wrapper {
         opacity: 1;
         transform: translateY(0%);
         transition: transform 350ms ease, opacity 250ms ease;
