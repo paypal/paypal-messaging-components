@@ -35,7 +35,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
-        merchantId: window.xprops.merchantId ?? null
+        merchantId: window.xprops.merchantId ?? null,
+        merchantConfigHash: window.xprops.merchantConfigHash ?? null
     });
 
     const [serverData, setServerData] = createState({
@@ -129,7 +130,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     env,
                     features,
                     stageTag,
-                    style
+                    style,
+                    merchantConfigHash
                 } = xprops;
 
                 setProps({
@@ -141,7 +143,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     offer,
                     payerId,
                     clientId,
-                    merchantId
+                    merchantId,
+                    merchantConfigHash
                 });
 
                 // Generate new MRID on message update.
@@ -161,7 +164,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     features,
                     version,
                     env,
-                    stageTag
+                    stageTag,
+                    merchantConfigHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
