@@ -165,7 +165,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     version,
                     env,
                     stageTag,
-                    merchantConfigHash
+                    merchant_config: merchantConfigHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
