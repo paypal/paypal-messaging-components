@@ -32,7 +32,7 @@ export const openProductListView = async (contentWindow, modalContent, testName)
 /**
  * Ensures each product tile in the product list modal takes user to correct view.
  */
-export const clickProductListTiles = async (contentWindow, modalContent) => {
+export const clickProductListTiles = async (contentWindow, modalContent, account) => {
     const switchViews = async (childNum, viewName) => {
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
@@ -48,15 +48,20 @@ export const clickProductListTiles = async (contentWindow, modalContent) => {
         await page.waitFor(2 * 1000);
     };
 
-    // Switch to long term view
-    await switchViews(2, 'shortTerm');
+    if (account !== 'DEV_DE_MULTI') {
+        // Switch to long term view
+        await switchViews(2, 'shortTerm');
 
-    // Switch to short term view
-    await switchViews(3, 'longTerm');
+        // Switch to short term view
+        await switchViews(3, 'longTerm');
 
-    // Switch to no interest view.
-    // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
-    await switchViews(5, 'noInterest');
+        // Switch to no interest view.
+        // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
+        await switchViews(5, 'noInterest');
+    } else {
+        // Switch to pay in 1 view
+        await switchViews(2, 'payIn1');
+    }
 };
 
 /**
