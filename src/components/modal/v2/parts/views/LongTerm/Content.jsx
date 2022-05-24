@@ -99,7 +99,7 @@ export const LongTerm = ({
                     <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
                         {typeof disclosure !== 'string' && aprType && aprType in disclosure
                             ? disclosure[aprType].replace(/\D00\s?EUR/g, ' €')
-                            : disclosure}
+                            : `${disclosure}`}
                     </div>
                     {renderCheckoutCtaButton()}
                 </div>

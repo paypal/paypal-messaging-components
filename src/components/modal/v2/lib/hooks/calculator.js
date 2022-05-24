@@ -44,7 +44,8 @@ const reducer = (state, action) => {
 
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
-    const { views, country, setServerData } = useServerData();
+    const serverData = useServerData();
+    const { views, country, setServerData } = serverData;
 
     // From the views retreived, find and return the view with an offers property (i.e. PAY_LATER_LONG_TERM) if there is one.
     const viewWithOffers = views.find(view => view?.offers);
@@ -111,15 +112,19 @@ export default function useCalculator({ autoSubmit = false } = {}) {
 
     // Update the offer terms in the reducer based on outside changes to serverData
     useDidUpdateEffect(() => {
+        const viewWithOffersAmount =
+            Number(viewWithOffers.offers.length > 0 && viewWithOffers.offers[0].meta.amount) / 100;
+
         // When amount xprop changes, Container.jsx will fetch new serverData (including offers)
         // If we see new offer terms, which match the amount prop, but the value in the input does not match
         // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (Number(viewWithOffers.amount) === amount && delocalize(state.inputValue, country) !== amount) {
+        if (viewWithOffersAmount === amount && delocalize(state.inputValue, country) !== amount) {
             dispatch({
                 type: 'view',
                 data: {
                     ...viewWithOffers,
+                    formattedAmount: localize(`${viewWithOffersAmount}`, country, 2),
                     autoSubmit: false
                 }
             });

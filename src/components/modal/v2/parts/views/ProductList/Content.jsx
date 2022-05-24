@@ -20,7 +20,9 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                         <div className="content__row dynamic">
                             <div className="content__col">
                                 <div className="content__row instructions">
-                                    <p>{instructions?.payLater}</p>
+                                    <p /* eslint-disable-next-line react/no-danger */
+                                        dangerouslySetInnerHTML={{ __html: instructions?.payLater }}
+                                    />
                                 </div>
                                 {productTiles &&
                                     availableTiles.payLater?.map(({ header, body, icon, viewName }) => (

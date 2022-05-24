@@ -89,6 +89,48 @@ li {
     letter-spacing: 0;
 }
 
+.content__wrapper-overflow {
+    &.loading .content__row.dynamic > * {
+        filter: blur(3px);
+        opacity: 0.6;
+    }
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    border-top: 4px solid #00ff7f;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    transform-origin: 0 0;
+    z-index: 5;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg) translate(-50%, -50%);
+    }
+    100% {
+        -webkit-transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) translate(-50%, -50%);
+    }
+    100% {
+        transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+
 // for screen readers
 .sr-only {
     border: 0 !important;

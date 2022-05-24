@@ -84,12 +84,12 @@ const Container = ({ children }) => {
 
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
-            <div className={`modal-wrapper${loading ? ' loading' : ''}`}>
+            <div className="modal-wrapper">
                 {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}
-                <div className="content__wrapper-overflow">
+                <div className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}>
                     {/* Scrollable content */}
                     <div className="content__wrapper" ref={contentWrapperRef}>
                         {children}

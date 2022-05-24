@@ -68,7 +68,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
 const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR }, setAPRType }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
-    const { country } = useServerData();
+    const { country, views } = useServerData();
     const { title, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
@@ -92,7 +92,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
         if (!hasInitialAmount) {
             setDisplayValue('');
         } else setDisplayValue(getDisplayValue(value, country));
-    }, []);
+    }, [views, value]);
 
     /**
      * expandedState determines if the desktop view of the PAY_LATER_LONG_TERM modal is expanded (i.e. a view with offers exists or has loading shimmer).
