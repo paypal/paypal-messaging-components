@@ -1,3 +1,4 @@
+import { isLocalStorageEnabled } from '@krakenjs/belter/src';
 import { getTreatmentsComponent } from '../library/zoid/treatments';
 import { memoize } from './functional';
 import { globalEvent } from './global';
@@ -10,7 +11,7 @@ export const fetchTreatments = memoize(() => {
 });
 
 export function getLocalTreatments() {
-    if (isZoidComponent()) {
+    if (isZoidComponent() || !isLocalStorageEnabled()) {
         return null;
     }
 
@@ -33,7 +34,7 @@ export function getLocalTreatments() {
 }
 
 export function ensureTreatments() {
-    if (getLocalTreatments()) {
+    if (getLocalTreatments() || !isLocalStorageEnabled()) {
         globalEvent.trigger('treatments');
         return;
     }
