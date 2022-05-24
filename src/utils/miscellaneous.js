@@ -216,14 +216,6 @@ export function getStandardProductOffer(offer) {
 
     switch (offer.toUpperCase()) {
         case OFFER.PAY_LATER_LONG_TERM:
-            return OFFER.PAY_LATER_LONG_TERM;
-        case OFFER.PAY_LATER_SHORT_TERM:
-        case 'GPL':
-        case 'GPLQ':
-        case 'GPLNQ':
-        case 'GPLNQ_RANGE':
-        case 'PL':
-        case 'PLQ':
         case 'GPL:EQZ':
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
@@ -232,6 +224,14 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+            return OFFER.PAY_LATER_LONG_TERM;
+        case OFFER.PAY_LATER_SHORT_TERM:
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
         case 'SHORT_TERM:Q':
         case 'SHORT_TERM:NQ':
         case 'SHORT_TERM:NO_AMOUNT':
