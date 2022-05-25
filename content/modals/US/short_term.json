@@ -19,7 +19,8 @@
             "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "apr": "${CREDIT_OFFERS_DS.apr}",
-            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "estimated_installments | pick(path=total_payment::payment_date) | formatCurrency(locale=en-US, path=total_payment) | formatDate(type=DURATION_IN_WEEKS, offset=0, locale=en-US, path=payment_date) | escape(count=2)": "${CREDIT_OFFERS_DS.estimated_installments}"
         }
     },
     "content": {
@@ -27,6 +28,10 @@
         "subheadline": "No impact on credit score and no late fee. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
         "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
+        "estimatedInstallments": {
+            "items__parse": "{estimated_installments | pick(path=total_payment::payment_date) | formatCurrency(locale=en-US, path=total_payment) | formatDate(type=DURATION_IN_WEEKS, offset=0, locale=en-US, path=payment_date) | escape(count=2)}"
+        },
+
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
             "Complete your purchase with a 25% down payment.",

@@ -67,7 +67,8 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 )}
             </div>
             <div className="header__content">
-                <h1>{headline}</h1>
+                {/* eslint-disable-next-line react/no-danger */}
+                <h1 dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <h2>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h2>
                 ) : (

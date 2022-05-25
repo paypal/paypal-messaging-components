@@ -206,6 +206,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags, deviceID, requestDuration }) => {
                         const { account, merchantId, index, modal, getContainer, messageRequestId } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
+                        const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
@@ -234,6 +235,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    partnerClientId,
                                     trackingDetails
                                 }
                             };
