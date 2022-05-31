@@ -123,8 +123,7 @@ export default {
                     textWrap(textSize * 37, textSize, 'US'),
                     xSmallFallback(textSize * 12.5),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    `.locale--US .message__headline > .tag--medium > span { white-space: normal }`
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
