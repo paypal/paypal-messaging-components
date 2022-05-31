@@ -9,7 +9,8 @@ import {
     isStorageFresh,
     getDeviceID,
     parseObjFromEncoding,
-    getRequestDuration
+    getRequestDuration,
+    getTsCookieFromStorage
 } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
@@ -80,8 +81,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         meta: serverData.meta,
         activeTags: getActiveTags(button),
         messageRequestId,
-        // Utility will create iframe deviceID if it doesn't exist.
+        // Utility will create iframe deviceID/ts_cookie values if it doesn't exist.
         deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        ts: getTsCookieFromStorage(),
         // getRequestDuration runs in the child component (iframe/banner message),
         // passing a value to onReady and up to the parent component to go out with
         // the other stats
@@ -199,8 +201,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 meta: data.meta ?? serverData.meta,
                                 activeTags: getActiveTags(button),
                                 messageRequestId: newMessageRequestId,
-                                // Utility will create iframe deviceID if it doesn't exist.
+                                // Utility will create iframe deviceID/ts cookie if it doesn't exist.
                                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                ts: getTsCookieFromStorage(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
                                 // passing a value to onReady and up to the parent component to go out with
                                 // the other stats
