@@ -1,4 +1,4 @@
-$PayPal-Big:PayPalSansBig, Helvetica, Arial, Sans-Serif;
+$PayPal-Big: PayPalSansBig, Helvetica, Arial, Sans-Serif;
 
 .content-wrapper {
     overflow-y: scroll;
@@ -12,8 +12,8 @@ $PayPal-Big:PayPalSansBig, Helvetica, Arial, Sans-Serif;
 }
 
 .content {
-    font-family:$PayPal-Big;
-    height:100%;
+    font-family: $PayPal-Big;
+    height: 100%;
     padding-top: 0;
     position: relative;
     z-index: 50;
@@ -30,7 +30,7 @@ $PayPal-Big:PayPalSansBig, Helvetica, Arial, Sans-Serif;
     width: 100%;
     margin: auto;
     max-width: 640px;
-    background: linear-gradient(rgba(0,0,0,0), #f7f5f0, #f7f5f0);        
+    background: linear-gradient(rgba(0, 0, 0, 0), #f7f5f0, #f7f5f0);
     display: flex;
     flex-direction: column;
 }
@@ -88,7 +88,7 @@ main {
         transition: transform 350ms ease, opacity 250ms ease;
     }
 
-    &.show .wrapper {
+    .show .wrapper {
         opacity: 1;
         transform: translateY(0%);
         transition: transform 350ms ease, opacity 250ms ease;

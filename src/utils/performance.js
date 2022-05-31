@@ -1,4 +1,4 @@
-import { getPerformance, isIE } from 'belter/src';
+import { getPerformance, isIE } from '@krakenjs/belter/src';
 
 const namespaced = name => `__paypal_messaging_performance__${name}`;
 

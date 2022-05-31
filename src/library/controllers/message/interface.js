@@ -1,5 +1,5 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
     objectMerge,
@@ -82,7 +82,8 @@ export default (options = {}) => ({
                     onClick,
                     onRender,
                     onApply,
-                    channel
+                    channel,
+                    cspNonce
                 } = merchantOptions;
 
                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -95,7 +96,8 @@ export default (options = {}) => ({
                     amount,
                     buyerCountry,
                     ignoreCache,
-                    channel
+                    channel,
+                    cspNonce
                 };
                 const modalProps = {
                     ...commonProps,

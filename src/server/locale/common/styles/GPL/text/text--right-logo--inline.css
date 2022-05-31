@@ -1,0 +1,7 @@
+.message__logo-container {
+    margin-left: 0px;
+}
+
+.message__logo:last-child {
+    margin-top: 0px;
+}

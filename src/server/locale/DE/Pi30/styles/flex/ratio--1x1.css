@@ -29,7 +29,7 @@
     max-width: 45%;
     margin-left: 3%;
 }
-@media (max-aspect-ratio: 11/10) and (max-width: 220px) {
+@media (max-aspect-ratio: 11/10) and (max-width: 260px) {
     .message__headline {
         font-size: 10vw;
     }

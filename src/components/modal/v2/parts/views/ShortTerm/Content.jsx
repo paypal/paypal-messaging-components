@@ -9,24 +9,44 @@ import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
+import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, disclosure, donutTimestamps },
+    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
     const { views } = useServerData();
 
     const renderProductListLink = () => {
-        if (views?.length > 2) {
-            return <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>;
-        }
-        return <Fragment />;
+        return (
+            views?.length > 2 && (
+                <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+            )
+        );
     };
 
-    const donutScreenReaderString = donutTimestamps
-        .map(timestamp => `${periodicPayment.replace('.00', '')} for ${timestamp}`)
-        .join(', ');
+    // Optional outbound link to MPP product learn more page
+    const renderLearnMoreLink = () => {
+        return (
+            learnMoreLink && (
+                <div className="learnMoreLink__container">
+                    <InlineLinks text={learnMoreLink} />
+                </div>
+            )
+        );
+    };
+
+    const hasInstallments = Object.keys(estimatedInstallments?.items ?? {}).length;
+
+    const donutScreenReaderString = hasInstallments
+        ? estimatedInstallments.items
+              .map(timestamp => `${timestamp.total_payment} for ${timestamp.payment_date}`)
+              .join(', ')
+        : donutTimestamps.map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`);
+
+    // regex replaces EUR with the euro symbol €
+    const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
 
     return (
         <Fragment>
@@ -42,16 +62,28 @@ export const ShortTerm = ({
                                             <span aria-hidden={qualifying !== 'true'} className="sr-only">
                                                 {donutScreenReaderString}
                                             </span>
-                                            {donutTimestamps.map((_, index) => (
-                                                <Donut
-                                                    key={index}
-                                                    qualifying={qualifying}
-                                                    periodicPayment={periodicPayment}
-                                                    currentNum={index + 1}
-                                                    timeStamp={donutTimestamps[index]}
-                                                    numOfPayments={donutTimestamps.length}
-                                                />
-                                            ))}
+                                            {(hasInstallments ? estimatedInstallments?.items : donutTimestamps).map(
+                                                (installment, index) => (
+                                                    <Donut
+                                                        key={index}
+                                                        qualifying={qualifying}
+                                                        // regex replaces EUR with the euro symbol €
+                                                        periodicPayment={
+                                                            installment?.total_payment
+                                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                                : localeFormattedPayment
+                                                        }
+                                                        currentNum={index + 1}
+                                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                                        numOfPayments={
+                                                            (hasInstallments
+                                                                ? estimatedInstallments?.items
+                                                                : donutTimestamps
+                                                            ).length
+                                                        }
+                                                    />
+                                                )
+                                            )}
                                         </div>
                                     </div>
                                     <Instructions instructions={instructions} />
@@ -65,10 +97,11 @@ export const ShortTerm = ({
                         </div>
                         <div className="content__row disclosure">
                             <p>
-                                <InlineLinks text={disclosure} />
+                                <InlineLinks text={currencyFormat(disclosure)} />
                             </p>
                         </div>
                         <div className="content__row productLink">
+                            {renderLearnMoreLink()}
                             <div className="productLink__container">{renderProductListLink()}</div>
                         </div>
                     </div>

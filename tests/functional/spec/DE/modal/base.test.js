@@ -110,7 +110,7 @@ describe.each([
 });
 
 // For dually-eligible GPL and Pi30 accounts
-const multiprodAccount = 'DEV0DEPI30GPL';
+const multiprodAccount = 'DEV000DEMULTI';
 
 describe.each([
     [viewports[0], bannerStyles[0]],

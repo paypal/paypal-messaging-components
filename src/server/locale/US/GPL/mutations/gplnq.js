@@ -64,7 +64,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 37, textSize, 'US'),
+                    textWrap(textSize * 39.5, textSize, 'US'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
@@ -73,7 +73,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on']
+                        br: ['of']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -85,7 +85,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 38),
+                    setLogoTop(textSize * 40),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -121,7 +121,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['00.', '00']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -139,7 +139,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [['00.', '00']]
                     },
                     {
                         tag: 'xsmall.2',
