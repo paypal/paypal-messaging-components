@@ -22,7 +22,8 @@ import {
     getNonce,
     ppDebug,
     getStandardProductOffer,
-    getDevTouchpoint
+    getDevTouchpoint,
+    getTsCookieFromStorage
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -225,7 +226,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta, deviceID }) => {
+                    return ({ products, meta, ts, deviceID }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
@@ -244,9 +245,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // eslint-disable-next-line no-param-reassign
                             delete existingMeta.global;
 
+                            // get ts cookie value
+                            const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
                             return {
                                 global: {
                                     ...existingGlobal,
+                                    ts: tsCookie,
                                     // Device ID should be correctly set during message render
                                     deviceID,
                                     sessionID: getSessionID()
