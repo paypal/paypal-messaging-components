@@ -8,6 +8,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { getStorage } from './sdk';
 import { OFFER } from './constants';
 
 /**
@@ -267,4 +268,35 @@ export function getStandardProductOffer(offer) {
         default:
             return undefined;
     }
+}
+
+/**
+ * Get value of cookie name
+ * @param name - name of cookie
+ * @returns object of cookie value(s)
+ */
+export function getCookieByName(name) {
+    const cookieVal = decodeURIComponent(
+        // decode the cookie value
+        // get all cookies
+        document.cookie
+            .split('; ')
+            // separate the string into an array of cookies
+            // find the cookie by name
+            .find(cookieStr => cookieStr.startsWith(`${name}=`))
+            ?.slice(5) ?? ''
+        // use only the value of the cookie
+    );
+
+    // use URLSearchParams to parse the value string into entries,
+    // and create an object from those entries
+    // disable ESLint rule since we do not support IE anymore
+    // eslint-disable-next-line compat/compat
+    return Object.keys(cookieVal).length === 0 ? null : Object.fromEntries(new URLSearchParams(cookieVal).entries());
+    // check length of cookieVal obj to make sure keys exist.
+}
+
+// get the ts cookie from local storage
+export function getTsCookieFromStorage() {
+    return getStorage().getState(storage => storage?.ts) ?? getCookieByName('ts_c');
 }

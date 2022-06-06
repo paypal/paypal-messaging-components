@@ -1,5 +1,32 @@
 # Changelog
 
+### [1.34.6](https://github.com/paypal/paypal-messaging-components/compare/v1.34.5...v1.34.6) (2022-06-01)
+
+
+### Bug Fixes
+
+* Adds merchantConfigHash to the query parameters on subsequent re-renders of message ([#817](https://github.com/paypal/paypal-messaging-components/issues/817)) ([d706275](https://github.com/paypal/paypal-messaging-components/commit/d706275a570bb4c64e91af15476d7e5589ae719f))
+* edge caching TS cookie ([#799](https://github.com/paypal/paypal-messaging-components/issues/799)) ([855ca67](https://github.com/paypal/paypal-messaging-components/commit/855ca670022afd3d0a4244fd013a433252ddcf43))
+
+
+### Tests
+
+* update DEV_US_MULTI functional test and config ([#814](https://github.com/paypal/paypal-messaging-components/issues/814)) ([f20b14a](https://github.com/paypal/paypal-messaging-components/commit/f20b14ab2a493c56b764bc3563274336328c5661))
+
+### [1.34.5](https://github.com/paypal/paypal-messaging-components/compare/v1.34.4...v1.34.5) (2022-05-18)
+
+
+### Bug Fixes
+
+* pass user onShow to modal zoid component ([#808](https://github.com/paypal/paypal-messaging-components/issues/808)) ([3b3eb94](https://github.com/paypal/paypal-messaging-components/commit/3b3eb94e7db812329ed460edac54086e4a77e25a))
+* remove unneeded ampersand ([#812](https://github.com/paypal/paypal-messaging-components/issues/812)) ([f8c7e70](https://github.com/paypal/paypal-messaging-components/commit/f8c7e70cd33bd534a7c9a94f2bcc9988e37c86a0))
+
+
+### Code Refactoring
+
+* clean up US product list modal view backwards compatibility logic ([#811](https://github.com/paypal/paypal-messaging-components/issues/811)) ([25b2c92](https://github.com/paypal/paypal-messaging-components/commit/25b2c92ef995f01bb3b472547cba3b2c4e90bb7d))
+* Update DE Installments legal disclosure to use new version of the PAngV ([#810](https://github.com/paypal/paypal-messaging-components/issues/810)) ([f95b912](https://github.com/paypal/paypal-messaging-components/commit/f95b9124835da3fa0b1f3498dc888d560b3a8b7d))
+
 ### [1.34.4](https://github.com/paypal/paypal-messaging-components/compare/v1.34.3...v1.34.4) (2022-05-03)
 
 
