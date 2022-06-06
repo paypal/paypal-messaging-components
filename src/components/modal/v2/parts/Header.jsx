@@ -53,12 +53,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                         aria-label="close"
                         type="button"
                         id="close-btn"
-                        onClick={() => {
-                            // Used in screen readers to alert the user that the close button has been clicked.
-                            const btn = document.querySelector('.close');
-                            btn.setAttribute('aria-label', 'Clicked close button');
-                            handleClose('Close Button');
-                        }}
+                        onClick={() => handleClose('Close Button')}
                     >
                         <Icon name="close" />
                     </button>
