@@ -28,7 +28,6 @@ export const TransitionStateProvider = ({ children }) => {
      */
     const focusCloseBtnOnModalOpen = () => {
         const btn = document.querySelector('.close');
-        btn.setAttribute('aria-label', 'Close');
         btn.focus();
     };
 
