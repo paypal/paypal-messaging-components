@@ -10,6 +10,7 @@ import Container from 'src/components/modal/parts/Container';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 const mockTransitionContext = createContext(['CLOSED']);
+
 jest.mock('src/components/modal/lib/logos', () => ({}));
 jest.mock('src/components/modal/lib/providers/transition', () => ({
     useTransitionState: jest.fn()

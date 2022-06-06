@@ -20,7 +20,8 @@
             "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "apr": "${CREDIT_OFFERS_DS.apr}",
-            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "estimated_installments | pick(path=total_payment::payment_date) | formatCurrency(locale=en-US, path=total_payment) | formatDate(type=DURATION_IN_WEEKS, offset=0, locale=en-US, path=payment_date) | escape(count=2)": "${CREDIT_OFFERS_DS.estimated_installments}"
         }
     },
     "content": {

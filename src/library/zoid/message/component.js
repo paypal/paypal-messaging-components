@@ -15,7 +15,7 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    writeStorageID,
+    writeToLocalStorage,
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
@@ -24,7 +24,8 @@ import {
     isScriptBeingDestroyed,
     getScriptAttributes,
     getDevTouchpoint,
-    getMerchantConfig
+    getMerchantConfig,
+    getTsCookieFromStorage
 } from '../../../utils';
 
 import validate from './validation';
@@ -137,7 +138,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             getContainer
                         } = props;
                         const { offerType, messageRequestId } = meta;
-
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
@@ -206,14 +206,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
+                    return ({ meta, activeTags, deviceID, ts, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
+                        const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
-
-                        // Write deviceID from iframe localStorage to merchant domain localStorage
-                        writeStorageID(deviceID);
+                        const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
+                        // Write deviceID and ts cookie from iframe localStorage to merchant domain localStorage
+                        writeToLocalStorage({ id: deviceID, ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -230,6 +231,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 // Need to merge global attribute here due to preserve performance attributes
                                 global: {
                                     ...existingGlobal,
+                                    ts: tsCookie,
                                     deviceID, // deviceID from internal iframe storage
                                     sessionID: getSessionID() // Session ID from parent local storage,
                                 },
@@ -237,6 +239,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    partnerClientId,
                                     trackingDetails
                                 }
                             };

@@ -156,20 +156,16 @@ function getRawStorage() {
         : {};
 }
 
-export function writeStorageID(storageID) {
-    if (isLocalStorageEnabled()) {
-        try {
-            window.localStorage?.setItem(
-                `__${getNamespace()}_storage__`,
-                JSON.stringify({
-                    ...getRawStorage(),
-                    id: storageID
-                })
-            );
-        } catch (e) {
-            // Handle Errors
-        }
-    }
+export function writeToLocalStorage(values) {
+    return isLocalStorageEnabled()
+        ? window.localStorage?.setItem(
+              `__${getNamespace()}_storage__`,
+              JSON.stringify({
+                  ...getRawStorage(),
+                  ...values
+              }) ?? '{}'
+          )
+        : {};
 }
 
 // Use the custom deviceID field, but fall back to storage ID if it is not yet present
