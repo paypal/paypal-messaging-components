@@ -1,5 +1,18 @@
 # Changelog
 
+### [1.34.6](https://github.com/paypal/paypal-messaging-components/compare/v1.34.5...v1.34.6) (2022-06-01)
+
+
+### Bug Fixes
+
+* Adds merchantConfigHash to the query parameters on subsequent re-renders of message ([#817](https://github.com/paypal/paypal-messaging-components/issues/817)) ([d706275](https://github.com/paypal/paypal-messaging-components/commit/d706275a570bb4c64e91af15476d7e5589ae719f))
+* edge caching TS cookie ([#799](https://github.com/paypal/paypal-messaging-components/issues/799)) ([855ca67](https://github.com/paypal/paypal-messaging-components/commit/855ca670022afd3d0a4244fd013a433252ddcf43))
+
+
+### Tests
+
+* update DEV_US_MULTI functional test and config ([#814](https://github.com/paypal/paypal-messaging-components/issues/814)) ([f20b14a](https://github.com/paypal/paypal-messaging-components/commit/f20b14ab2a493c56b764bc3563274336328c5661))
+
 ### [1.34.5](https://github.com/paypal/paypal-messaging-components/compare/v1.34.4...v1.34.5) (2022-05-18)
 
 

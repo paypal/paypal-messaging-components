@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
-import { getOrCreateStorageID } from '../../../../utils';
+import { getOrCreateStorageID, getTsCookieFromStorage } from '../../../../utils';
 
 import {
     useTransitionState,
@@ -53,7 +53,8 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: getOrCreateStorageID()
+                deviceID: getOrCreateStorageID(),
+                ts: getTsCookieFromStorage()
             });
         }
     }, [meta.messageRequestId]);

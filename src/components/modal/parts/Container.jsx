@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { getDeviceID, isStorageFresh } from '../../../utils';
+import { getDeviceID, isStorageFresh, getTsCookieFromStorage } from '../../../utils';
 
 import {
     useTransitionState,
@@ -60,8 +60,9 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
                 products: productNames,
                 messageRequestId,
                 meta,
-                // If storage state is brand new, use the parent deviceID, otherwise use child
-                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID()
+                // If storage state is brand new, use the parent deviceID/ts cookie, otherwise use child
+                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                ts: getTsCookieFromStorage()
             });
         }
     }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
