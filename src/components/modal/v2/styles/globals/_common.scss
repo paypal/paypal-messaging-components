@@ -90,9 +90,11 @@ li {
 }
 
 .content__wrapper-overflow {
-    &.loading .content__row.dynamic > * {
-        filter: blur(3px);
-        opacity: 0.6;
+    &.loading {
+        .calculator {
+            filter: blur(3px);
+            opacity: 0.6;
+        }
     }
 }
 
