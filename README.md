@@ -112,6 +112,10 @@ Alternatively, you can remove `-- --testPathPattern {integrationType}` and just 
 CONFIG_PATH={locale}/{account} npm run test:func:snapshots
 ```
 
+## Performance Benchmark
+
+To run performance benchmark, first run `npm run dev:standalone` in one command line instance and `npm run benchmark` in a second command line instance. The `dev:standalone` command creates static pages that the functional tests are run on. To use lighthouse benchmarking install the lighthouse cli via `npm install -g @lhci/cli`. Prior to running benchmark run `LIGHTHOUSE_URL={URL_WITH_NO_BRACKETS} lhci autorun --config=./tools/performance/config/lighthouserc-desktop.js` and `LIGHTHOUSE_URL={URL_WITH_NO_BRACKETS} lhci autorun --config=./tools/performance/config/lighthouserc-mobile.js`
+
 ## Releasing
 
 This package is published weekly, **Every Wednesday**. Please [view our Changelog](CHANGELOG.md) to stay updated with bug fixes and new features.

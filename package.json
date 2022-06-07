@@ -22,6 +22,8 @@
         "build:sandbox": "webpack --env.NODE_ENV=sandbox",
         "build:production": "webpack --env.NODE_ENV=production",
         "build:analyze": "webpack --env.analyze",
+        "build:analyzeComponents": "webpack --env.analyzeComponents",
+        "build:analyzeMComponents": "webpack --env.analyzeMessageComponents",
         "build:demo": "webpack --env.demo",
         "dev": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=sdk --env.NODE_ENV=local --env.STAGE_TAG=local",
         "dev:ci": "webpack-dev-server --config webpack.config.dev.js --env.TARGET=ci --env.NODE_ENV=local --env.STAGE_TAG=local",

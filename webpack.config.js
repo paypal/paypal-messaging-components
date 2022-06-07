@@ -87,6 +87,45 @@ module.exports = (env = {}) => {
         })
     });
 
+    const MESSAGING_COMPONENTS_CONFIG = getWebpackConfig({
+        libraryTarget: 'window',
+        modulename: 'crc',
+        web: true,
+        minify: true,
+        debug: false,
+        analyze: env.analyzeMessageComponents,
+        entry: './src/components/message/index.js',
+        filename: 'smart-credit-message.js',
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'messagingComponent'
+        })
+    });
+
+    if (process.env.BENCHMARK === 'true') {
+        COMPONENTS_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                COMPONENTS_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                COMPONENTS_CONFIG.plugins[index].opts.reportFilename = 'componentsReport.json';
+            }
+        });
+
+        MESSAGING_JS_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                MESSAGING_JS_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                MESSAGING_JS_CONFIG.plugins[index].opts.reportFilename = 'messagesReport.json';
+            }
+        });
+
+        MESSAGING_COMPONENTS_CONFIG.plugins.forEach((plugin, index) => {
+            if (plugin.constructor.name === 'BundleAnalyzerPlugin') {
+                MESSAGING_COMPONENTS_CONFIG.plugins[index].opts.analyzerMode = 'json';
+                MESSAGING_COMPONENTS_CONFIG.plugins[index].opts.reportFilename = 'messagingCompReport.json';
+            }
+        });
+    }
+
     const RENDERING_CONFIG = getWebpackConfig({
         entry: {
             renderMessage: './src/server/index.js'
