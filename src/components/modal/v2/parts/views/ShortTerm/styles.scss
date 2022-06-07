@@ -1,6 +1,10 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
+.spinner {
+    display: none;
+}
+
 .content__container {
     .content__body {
         @include desktop {

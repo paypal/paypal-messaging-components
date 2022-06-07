@@ -1,6 +1,10 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
+.spinner {
+    display: none;
+}
+
 .header__content {
     padding-bottom: 20px;
 
