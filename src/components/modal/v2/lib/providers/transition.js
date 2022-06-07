@@ -28,7 +28,7 @@ export const TransitionStateProvider = ({ children }) => {
      */
     const focusCloseBtnOnModalOpen = () => {
         const btn = document.querySelector('.close');
-        btn.focus();
+        btn?.focus();
     };
 
     useEffect(() => {
