@@ -140,7 +140,11 @@ export function logo20x1() {
  * Stop wrapping past a certain point on xsmall tag.
  */
 export function xSmallNoWrap(breakpoint) {
-    return `@media screen and (max-width: ${breakpoint}px) {.locale--DE .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
+    return `@media screen and (max-width: ${breakpoint}px) {
+        .locale--DE .message__headline .tag--xsmall > span:first-child {
+            white-space: nowrap;
+        }
+    }`;
 }
 
 /**
