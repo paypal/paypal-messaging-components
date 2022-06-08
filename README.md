@@ -36,6 +36,25 @@ Run in dev mode:
 npm start
 ```
 
+## Creating a Bundle
+
+```
+npm run build
+```
+
+Options
+- `-v` - version, optional
+- `-e` - environment, one of `production`, `sandbox` or `stage`
+- `-m` - module, optional, one of `library`, `components`, or `render`
+- `-t` - tag, optional, name of the stage tag
+- `-s` - testEnv, optional, link to a test environment
+
+The command you'll most likely need to use is
+
+```
+npm run build -- -t stage-tag-name -s test-environment-link
+```
+
 ## Scripts
 
 -   `build`

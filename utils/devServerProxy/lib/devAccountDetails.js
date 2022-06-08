@@ -65,6 +65,11 @@ const countryBasedInstallments = ({ amount, total, totalPayments, country }) => 
 };
 
 const getMorsVars = (country, offer, amount) => {
+    if (!offer) {
+        // If no offer, return proxy object that always returns '-' for its variable values
+        return new Proxy({}, { get: () => '-' });
+    }
+
     const toLocaleNumber = localizeNumber(country);
     const toLocaleCurrency = localizeCurrency(country);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
@@ -117,8 +122,9 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
         const selectedMessage =
-            messageThresholds.find(({ amount: minAmount }) => minAmount < amount) ??
-            messageThresholds[messageThresholds.length - 1];
+            messageThresholds.find(
+                ({ amount: minAmount }) => (amount === undefined && amount === minAmount) || minAmount < amount
+            ) ?? messageThresholds[messageThresholds.length - 1];
 
         const messageTemplate =
             buyerCountry && buyerCountry !== country && selectedMessage.templateXB
