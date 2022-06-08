@@ -18,7 +18,7 @@ jest.mock('@paypal/sdk-logos/src', () => {
     };
 });
 
-jest.mock('server/locale/US/PPC/mutations/niq', () => ({
+jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ni_q', () => ({
     'layout:text': [
         [
             'default',
@@ -29,22 +29,22 @@ jest.mock('server/locale/US/PPC/mutations/niq', () => ({
     ]
 }));
 
-jest.mock('server/locale/US/PPC/mutations/ni', () => ({
+jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ni_nq', () => ({
     'layout:text': ['text', 'US', 'NI'],
     'layout:flex': ['flex', 'US', 'NI']
 }));
 
-jest.mock('server/locale/US/PPC/mutations/ezp_any_eqz', () => ({
+jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ezp_nq_eqz', () => ({
     'layout:text': ['text', 'US', 'EZP:ANY:EQZ'],
     'layout:flex': ['flex', 'US', 'EZP:ANY:EQZ']
 }));
 
-jest.mock('server/locale/US/PPC/mutations/pala_single_eqz', () => ({
+jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ezp_single_eqz', () => ({
     'layout:text': ['text', 'US', 'PALA:SINGLE:EQZ'],
     'layout:flex': ['flex', 'US', 'PALA:SINGLE:EQZ']
 }));
 
-jest.mock('server/locale/US/GPL/mutations/gplq', () => ({
+jest.mock('server/locale/US/PAY_LATER_SHORT_TERM/mutations/short_term_q', () => ({
     'layout:text': ['text', 'US', 'GPLQ'],
     'layout:flex': ['flex', 'US', 'GPLQ']
 }));

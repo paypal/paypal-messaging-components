@@ -1,3 +1,4 @@
+import { OFFER } from '../../../../src/utils/constants';
 // Note that these values are solely mock structures for development purposes
 // that are not guaranteed to be reflective of what is in production
 export default {
@@ -5,42 +6,47 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'product_list.json',
+                template: 'v2_product_list.json',
                 product: 'PRODUCT_LIST'
             },
             {
-                template: 'short_term.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
-                template: 'ni_v2.json',
-                product: 'PAYPAL_CREDIT_NO_INTEREST'
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             },
             {
-                template: 'long_term.json',
-                offersTemplate: 'long_term.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
                 amount: 30,
-                template: 'gplq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
                 amount: 1500.01,
-                template: 'niq.json',
-                product: 'PAYPAL_CREDIT_NO_INTEREST'
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             }
         ],
         offers: {
-            PAY_LATER_SHORT_TERM: [
+            [OFFER.PAY_LATER_SHORT_TERM]: [
                 {
                     totalPayments: 4,
                     apr: 0,
@@ -49,7 +55,7 @@ export default {
                     maxAmount: 1500
                 }
             ],
-            PAYPAL_CREDIT_NO_INTEREST: [
+            [OFFER.PAYPAL_CREDIT_NO_INTEREST]: [
                 {
                     totalPayments: 6,
                     apr: 0,
@@ -58,7 +64,7 @@ export default {
                     maxAmount: 9999.99
                 }
             ],
-            PAY_LATER_LONG_TERM: [
+            [OFFER.PAY_LATER_LONG_TERM]: [
                 {
                     totalPayments: 6,
                     apr: 0,
@@ -94,29 +100,29 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'short_term.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             }
         ],
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
                 amount: 30,
-                template: 'gplq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
                 amount: 1500.01,
-                template: 'gplnq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
             }
         ],
         offers: {
-            PAY_LATER_SHORT_TERM: [
+            [OFFER.PAY_LATER_SHORT_TERM]: [
                 {
                     totalPayments: 4,
                     apr: 0,
@@ -131,24 +137,24 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'ni_v2.json',
-                product: 'PAYPAL_CREDIT_NO_INTEREST'
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             }
         ],
         messageThresholds: [
             {
                 amount: 0,
-                template: 'ni.json',
-                product: 'PAYPAL_CREDIT_NO_INTEREST'
+                template: 'ppc_ni_nq.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             },
             {
                 amount: 99,
-                template: 'niq.json',
-                product: 'PAYPAL_CREDIT_NO_INTEREST'
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             }
         ],
         offers: {
-            PAYPAL_CREDIT_NO_INTEREST: [
+            [OFFER.PAYPAL_CREDIT_NO_INTEREST]: [
                 {
                     totalPayments: 6,
                     apr: 0,
@@ -163,20 +169,35 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'long_term.json',
-                offersTemplate: 'long_term.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 199,
+                template: 'long_term_single_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
         offers: {
-            PAY_LATER_LONG_TERM: [
+            [OFFER.PAY_LATER_LONG_TERM]: [
                 {
                     totalPayments: 6,
                     apr: 0,
@@ -212,25 +233,25 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'long_term_xo.json',
-                offersTemplate: 'long_term.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'v2_long_term_xo.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gplnq.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'generic.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             },
             {
                 amount: 30,
-                template: 'gplq.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
         offers: {
-            PAY_LATER_LONG_TERM: [
+            [OFFER.PAY_LATER_LONG_TERM]: [
                 {
                     totalPayments: 6,
                     apr: 10,
