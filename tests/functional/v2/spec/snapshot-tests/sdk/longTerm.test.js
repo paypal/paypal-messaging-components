@@ -26,8 +26,7 @@ const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
 const descFn = runTest ? describe : describe.skip; // eslint-disable-line no-unused-vars
 console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}`); // eslint-disable-line no-console
 
-// TODO: Switch to descFn once pay monthly messages are complete
-describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
+descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - SDK Modal - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {

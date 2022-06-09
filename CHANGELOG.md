@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.35.0](https://github.com/paypal/paypal-messaging-components/compare/v1.34.6...v1.35.0) (2022-06-08)
+
+
+### Features
+
+* US Pay Monthly ([#820](https://github.com/paypal/paypal-messaging-components/issues/820)) ([7206fb9](https://github.com/paypal/paypal-messaging-components/commit/7206fb962312c5dde9d83af8a3719436c8fe6160))
+
+
+### Bug Fixes
+
+* adds 's' to 'fee' in US Pi4 subheadline ([#822](https://github.com/paypal/paypal-messaging-components/issues/822)) ([347fc23](https://github.com/paypal/paypal-messaging-components/commit/347fc233d6ed1b7de07355e6b07724611068ab87))
+* learn more modal close button a11y ([#815](https://github.com/paypal/paypal-messaging-components/issues/815)) ([db443bc](https://github.com/paypal/paypal-messaging-components/commit/db443bcf1da8ebb6869edb02c74f51795f0a8964))
+* US non-qualifying Pay in 4 message being cut off ([#816](https://github.com/paypal/paypal-messaging-components/issues/816)) ([ad382f9](https://github.com/paypal/paypal-messaging-components/commit/ad382f99c871b2675a177201d53f8148125ab6c7))
+
+
+### Code Refactoring
+
+* US Product List modal content update ([#818](https://github.com/paypal/paypal-messaging-components/issues/818)) ([da8d8fd](https://github.com/paypal/paypal-messaging-components/commit/da8d8fd1c2e68af91453d3ff9baa7c597bf3fc9f))
+
 ### [1.34.6](https://github.com/paypal/paypal-messaging-components/compare/v1.34.5...v1.34.6) (2022-06-01)
 
 
