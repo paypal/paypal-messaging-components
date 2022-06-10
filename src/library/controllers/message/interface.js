@@ -183,6 +183,7 @@ export default (options = {}) => ({
 
                     return updateProps(updatedMessageProps).then(() => globalEvent.trigger('render'));
                 } catch (err) {
+                    // eslint-disable-next-line no-console
                     console.warn(err.message);
                     return undefined;
                 }

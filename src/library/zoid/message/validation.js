@@ -119,6 +119,7 @@ export default {
                 throw new Error('offer_validation_error');
             }
         }
+        return offer;
     },
 
     // TODO: Handle server side locale specific style validation warnings passed down to client.
