@@ -40,7 +40,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer
             );
         });
 
-    setNumOffers(qualifyingOffers.length);
+    setNumOffers(qualifyingOffers.length === 0 ? undefined : qualifyingOffers.length);
 
     return <div className="offer__wrapper">{qualifyingOffers}</div>;
 };
