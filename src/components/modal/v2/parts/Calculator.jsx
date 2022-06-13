@@ -89,9 +89,11 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country), country);
 
     useEffect(() => {
-        if (!hasInitialAmount) {
+        if (!hasInitialAmount && !hasUsedInputField) {
             setDisplayValue('');
-        } else setDisplayValue(getDisplayValue(value, country));
+        } else {
+            setDisplayValue(getDisplayValue(value, country));
+        }
     }, [views, value]);
 
     /**
