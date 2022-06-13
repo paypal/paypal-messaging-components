@@ -116,7 +116,6 @@ export default {
             }
             if (!offerType.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
-                throw new Error('offer_validation_error');
             }
         }
         return offer;
