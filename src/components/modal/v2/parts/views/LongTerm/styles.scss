@@ -1,0 +1,17 @@
+.spinner {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    border-top: 4px solid #00ff7f;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    transform-origin: 0 0;
+    z-index: 5;
+}

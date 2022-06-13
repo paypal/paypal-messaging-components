@@ -1,10 +1,6 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
-.spinner {
-    display: none;
-}
-
 h1 {
     @include tablet {
         max-width: 315px;

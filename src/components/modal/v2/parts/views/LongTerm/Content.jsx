@@ -6,6 +6,7 @@ import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import Button from '../../Button';
+import styles from './styles.scss';
 
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, navLinkPrefix, linkToProductList, cta },
@@ -77,33 +78,36 @@ export const LongTerm = ({
     };
 
     return (
-        <div className="content__container">
-            <main className="main">
-                <div className="content__body">
-                    <div className="content__row dynamic">
-                        <div className="content__col">
-                            <Calculator
-                                setExpandedState={setExpandedState}
-                                calculator={calculator}
-                                disclaimer={disclaimer}
-                                setAPRType={setAPRType}
-                            />
-                        </div>
-                        <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
-                            <div className="branded-image">
-                                {/* TODO: include Icon component when desktop images are final */}
+        <Fragment>
+            <style>{styles._getCss()}</style>
+            <div className="content__container">
+                <main className="main">
+                    <div className="content__body">
+                        <div className="content__row dynamic">
+                            <div className="content__col">
+                                <Calculator
+                                    setExpandedState={setExpandedState}
+                                    calculator={calculator}
+                                    disclaimer={disclaimer}
+                                    setAPRType={setAPRType}
+                                />
+                            </div>
+                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                                <div className="branded-image">
+                                    {/* TODO: include Icon component when desktop images are final */}
+                                </div>
                             </div>
                         </div>
+                        <Instructions instructions={instructions} expandedState={expandedState} />
+                        <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+                            {typeof disclosure !== 'string' && aprType && aprType in disclosure
+                                ? disclosure[aprType].replace(/\D00\s?EUR/g, ' €')
+                                : `${disclosure}`}
+                        </div>
+                        {renderCheckoutCtaButton()}
                     </div>
-                    <Instructions instructions={instructions} expandedState={expandedState} />
-                    <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                        {typeof disclosure !== 'string' && aprType && aprType in disclosure
-                            ? disclosure[aprType].replace(/\D00\s?EUR/g, ' €')
-                            : `${disclosure}`}
-                    </div>
-                    {renderCheckoutCtaButton()}
-                </div>
-            </main>
-        </div>
+                </main>
+            </div>
+        </Fragment>
     );
 };
