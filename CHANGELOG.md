@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.36.0](https://github.com/paypal/paypal-messaging-components/compare/v1.35.0...v1.36.0) (2022-06-14)
+
+
+### Features
+
+* add DE universal modal views ([#821](https://github.com/paypal/paypal-messaging-components/issues/821)) ([b277cbd](https://github.com/paypal/paypal-messaging-components/commit/b277cbd926473cd6a4d6ced4d1b06aea26eed150))
+
+
+### Code Refactoring
+
+* address IT Pi3 donut alignment issue ([#826](https://github.com/paypal/paypal-messaging-components/issues/826)) ([1db2cf0](https://github.com/paypal/paypal-messaging-components/commit/1db2cf0ace11b197e8903fdf3aea54fc16073fab))
+
 ## [1.35.0](https://github.com/paypal/paypal-messaging-components/compare/v1.34.6...v1.35.0) (2022-06-08)
 
 
