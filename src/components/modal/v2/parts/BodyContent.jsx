@@ -11,7 +11,7 @@ import {
     useTransitionState
 } from '../lib';
 import Header from './Header';
-import { LongTerm, ShortTerm, NoInterest, ProductList } from './views';
+import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
 
 const BodyContent = () => {
     const { views } = useServerData();
@@ -67,11 +67,12 @@ const BodyContent = () => {
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
+        PAYPAL_CREDIT_NO_INTEREST: <NoInterest content={content} openProductList={openProductList} />,
         PAY_LATER_LONG_TERM: <LongTerm content={content} openProductList={openProductList} />,
+        PAY_LATER_PAY_IN_1: <PayIn1 content={content} openProductList={openProductList} />,
         PAY_LATER_SHORT_TERM: (
             <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
         ),
-        PAYPAL_CREDIT_NO_INTEREST: <NoInterest content={content} openProductList={openProductList} />,
         PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />
     };
 

@@ -1,9 +1,8 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useTransitionState, useScroll, isIframe } from '../lib';
+import { isLander, useTransitionState, useScroll, isIframe, currencyFormat } from '../lib';
 import Icon from './Icon';
-import { currencyFormat } from '../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
     const [, handleClose] = useTransitionState();
@@ -72,7 +71,8 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <h2>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h2>
                 ) : (
-                    <h2>{currencyFormat(subheadline) ?? ''}</h2>
+                    // eslint-disable-next-line react/no-danger
+                    <h2 dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }} />
                 )}
             </div>
         </Fragment>
