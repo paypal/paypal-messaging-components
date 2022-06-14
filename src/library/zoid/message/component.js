@@ -137,7 +137,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             onApply,
                             getContainer
                         } = props;
-                        const { offerType, messageRequestId } = meta;
+                        const { offerType, offerCountry, messageRequestId } = meta;
+
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
                         modal.show({
@@ -148,6 +149,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             buyerCountry,
                             onApply,
                             offer: offerType,
+                            offerCountry,
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',

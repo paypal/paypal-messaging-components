@@ -95,10 +95,15 @@ const memoizedModal = memoizeOnProps(
 
             const requestedProduct = getStandardProductOffer(options.offer);
 
+            // TODO: Remove after DE universal modal ramp is complete. Allows both old and new modals to work with DE messages while ramping.
+            const validDEProductValues = ['PAY_LATER_LONG_TERM', 'PAY_LATER_PAY_IN_1', 'PAY_LATER_SHORT_TERM'];
+            // TODO: Remove after DE universal modal ramp is complete
+            const productState = options?.offerCountry === 'DE' ? validDEProductValues : state.products;
+
             if (
-                typeof options.offer !== 'undefined' &&
+                typeof requestedProduct !== 'undefined' &&
                 Array.isArray(state.products) &&
-                !arrayFind(state.products, supportedProduct => supportedProduct === requestedProduct)
+                !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {
                     location: 'offer',

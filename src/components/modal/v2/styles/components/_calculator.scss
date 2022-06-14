@@ -51,6 +51,14 @@
             top: 0.25rem;
         }
 
+        .input__currency-symbol {
+            position: absolute;
+            right: 0;
+            margin-top: 25px;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
         .input {
             background: white;
             border: 1px solid #ccc;
@@ -62,6 +70,9 @@
             &.empty-input {
                 padding-top: 16px;
                 padding-bottom: 16px;
+                &::placeholder {
+                    font-size: 14px;
+                }
             }
         }
     }
