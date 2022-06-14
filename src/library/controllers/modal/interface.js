@@ -101,7 +101,7 @@ const memoizedModal = memoizeOnProps(
             const productState = options?.offerCountry === 'DE' ? validDEProductValues : state.products;
 
             if (
-                typeof options.offer !== 'undefined' &&
+                typeof requestedProduct !== 'undefined' &&
                 Array.isArray(state.products) &&
                 !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
             ) {
