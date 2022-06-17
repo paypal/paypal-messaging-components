@@ -36,20 +36,20 @@ export function validateType(expectedType, val) {
 }
 
 // Formalized validation logger helper functions
-export const logInvalid = memoize((location, message) =>
+const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
         location
     })
 );
-export const logInvalidType = (location, expectedType, val) => {
+const logInvalidType = (location, expectedType, val) => {
     const valType = Array.isArray(val) ? 'array' : typeof val;
     logInvalid(
         location,
         `Expected type "${expectedType.toLowerCase()}" but instead received "${valType}" (${JSON.stringify(val)}).`
     );
 };
-export const logInvalidOption = (location, options, val) =>
+const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
 export default {
