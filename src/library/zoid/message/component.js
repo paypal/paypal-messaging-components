@@ -377,7 +377,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             integrationType: {
                 type: 'string',
                 queryParam: true,
-                required: false,
                 value: () => __MESSAGES__.__TARGET__,
                 debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
             },
