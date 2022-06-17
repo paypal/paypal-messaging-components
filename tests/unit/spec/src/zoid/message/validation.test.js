@@ -107,6 +107,7 @@ describe('validate', () => {
         });
     });
 
+    // offer passed in test
     test('validates offer', () => {
         [
             'PAY_LATER_SHORT_TERM',
@@ -118,10 +119,11 @@ describe('validate', () => {
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
 
-            expect(offer).toBeUndefined();
+            expect(offer).toEqual(supportedOffer);
             expect(console.warn).not.toHaveBeenCalled();
         });
 
+        // no offer passed in test
         {
             const offer = validate.offer({ props: {} });
 
