@@ -8,7 +8,10 @@ import {
     updateTermsViaCalc,
     showCorrectOfferBreakdown,
     showCorrectAPRDisclaimer,
-    showCorrectOfferInfo
+    showCorrectOfferInfo,
+    showCorrectOfferInfoAccordion,
+    showCorrectOfferBreakdownAccordion,
+    updateOfferAccordionTermsViaCalc
 } from '../../../testFn';
 
 let modalFrame;
@@ -23,8 +26,7 @@ const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
 const descFn = runTest ? describe : describe.skip; // eslint-disable-line no-unused-vars
 console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}`); // eslint-disable-line no-console
 
-// TODO: Switch to descFn once pay monthly messages are complete
-describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
+descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - SDK Modal - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
         beforeEach(async () => {
@@ -52,7 +54,7 @@ describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else {
+        } else if (amount >= minAmount && amount <= maxAmount && account !== 'DEV_DE_LONG_TERM') {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     modalFrame,
@@ -79,6 +81,31 @@ describe.skip.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
 
             test(`Amount:${amount} - Displays correct APR legal disclaimer - ${viewport}`, async () => {
                 await showCorrectAPRDisclaimer(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+        }
+        if (amount >= minAmount && amount <= maxAmount && account === 'DEV_DE_LONG_TERM') {
+            test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
+                await showCorrectOfferInfoAccordion(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Offer accordion show correct payment breakdown information for amount - ${viewport}`, async () => {
+                await showCorrectOfferBreakdownAccordion(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Update offers via calculator - ${viewport}`, async () => {
+                await updateOfferAccordionTermsViaCalc(
                     modalFrame,
                     modalContent,
                     getTestName(country, integration, account, amount, viewport)

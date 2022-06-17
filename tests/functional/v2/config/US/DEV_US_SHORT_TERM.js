@@ -10,7 +10,7 @@ export const DEV_US_SHORT_TERM = {
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
             modalContent: {
-                subheadline: 'No impact on credit score and no late fee. Available for purchases of $30 to $1,500.',
+                subheadline: 'No impact on credit score and no late fees. Available for purchases of $30 to $1,500.',
                 periodicPayment: null
             }
         },
@@ -28,7 +28,7 @@ export const DEV_US_SHORT_TERM = {
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
             modalContent: {
-                subheadline: 'No impact on credit score and no late fee. Available for purchases of $30 to $1,500.',
+                subheadline: 'No impact on credit score and no late fees. Available for purchases of $30 to $1,500.',
                 periodicPayment: ''
             }
         }

@@ -1,4 +1,4 @@
-import { currencyFormat } from 'src/components/modal/v2/lib/hooks/currency';
+import { currencyFormat } from 'src/components/modal/v2/lib/';
 
 describe('currency format', () => {
     test('array test', () => {

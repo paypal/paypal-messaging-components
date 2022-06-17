@@ -9,7 +9,8 @@ import {
     isStorageFresh,
     getDeviceID,
     parseObjFromEncoding,
-    getRequestDuration
+    getRequestDuration,
+    getTsCookieFromStorage
 } from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
@@ -35,7 +36,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
-        merchantId: window.xprops.merchantId ?? null
+        merchantId: window.xprops.merchantId ?? null,
+        merchantConfigHash: window.xprops.merchantConfigHash ?? null
     });
 
     const [serverData, setServerData] = createState({
@@ -80,8 +82,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
         meta: serverData.meta,
         activeTags: getActiveTags(button),
         messageRequestId,
-        // Utility will create iframe deviceID if it doesn't exist.
+        // Utility will create iframe deviceID/ts_cookie values if it doesn't exist.
         deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        ts: getTsCookieFromStorage(),
         // getRequestDuration runs in the child component (iframe/banner message),
         // passing a value to onReady and up to the parent component to go out with
         // the other stats
@@ -129,7 +132,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     env,
                     features,
                     stageTag,
-                    style
+                    style,
+                    merchantConfigHash
                 } = xprops;
 
                 setProps({
@@ -141,7 +145,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     offer,
                     payerId,
                     clientId,
-                    merchantId
+                    merchantId,
+                    merchantConfigHash
                 });
 
                 // Generate new MRID on message update.
@@ -161,7 +166,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     features,
                     version,
                     env,
-                    stageTag
+                    stageTag,
+                    merchant_config: merchantConfigHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
@@ -199,8 +205,9 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                                 meta: data.meta ?? serverData.meta,
                                 activeTags: getActiveTags(button),
                                 messageRequestId: newMessageRequestId,
-                                // Utility will create iframe deviceID if it doesn't exist.
+                                // Utility will create iframe deviceID/ts cookie if it doesn't exist.
                                 deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                ts: getTsCookieFromStorage(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
                                 // passing a value to onReady and up to the parent component to go out with
                                 // the other stats

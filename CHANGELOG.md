@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.36.0](https://github.com/paypal/paypal-messaging-components/compare/v1.35.0...v1.36.0) (2022-06-14)
+
+
+### Features
+
+* add DE universal modal views ([#821](https://github.com/paypal/paypal-messaging-components/issues/821)) ([b277cbd](https://github.com/paypal/paypal-messaging-components/commit/b277cbd926473cd6a4d6ced4d1b06aea26eed150))
+
+
+### Code Refactoring
+
+* address IT Pi3 donut alignment issue ([#826](https://github.com/paypal/paypal-messaging-components/issues/826)) ([1db2cf0](https://github.com/paypal/paypal-messaging-components/commit/1db2cf0ace11b197e8903fdf3aea54fc16073fab))
+
+## [1.35.0](https://github.com/paypal/paypal-messaging-components/compare/v1.34.6...v1.35.0) (2022-06-08)
+
+
+### Features
+
+* US Pay Monthly ([#820](https://github.com/paypal/paypal-messaging-components/issues/820)) ([7206fb9](https://github.com/paypal/paypal-messaging-components/commit/7206fb962312c5dde9d83af8a3719436c8fe6160))
+
+
+### Bug Fixes
+
+* adds 's' to 'fee' in US Pi4 subheadline ([#822](https://github.com/paypal/paypal-messaging-components/issues/822)) ([347fc23](https://github.com/paypal/paypal-messaging-components/commit/347fc233d6ed1b7de07355e6b07724611068ab87))
+* learn more modal close button a11y ([#815](https://github.com/paypal/paypal-messaging-components/issues/815)) ([db443bc](https://github.com/paypal/paypal-messaging-components/commit/db443bcf1da8ebb6869edb02c74f51795f0a8964))
+* US non-qualifying Pay in 4 message being cut off ([#816](https://github.com/paypal/paypal-messaging-components/issues/816)) ([ad382f9](https://github.com/paypal/paypal-messaging-components/commit/ad382f99c871b2675a177201d53f8148125ab6c7))
+
+
+### Code Refactoring
+
+* US Product List modal content update ([#818](https://github.com/paypal/paypal-messaging-components/issues/818)) ([da8d8fd](https://github.com/paypal/paypal-messaging-components/commit/da8d8fd1c2e68af91453d3ff9baa7c597bf3fc9f))
+
+### [1.34.6](https://github.com/paypal/paypal-messaging-components/compare/v1.34.5...v1.34.6) (2022-06-01)
+
+
+### Bug Fixes
+
+* Adds merchantConfigHash to the query parameters on subsequent re-renders of message ([#817](https://github.com/paypal/paypal-messaging-components/issues/817)) ([d706275](https://github.com/paypal/paypal-messaging-components/commit/d706275a570bb4c64e91af15476d7e5589ae719f))
+* edge caching TS cookie ([#799](https://github.com/paypal/paypal-messaging-components/issues/799)) ([855ca67](https://github.com/paypal/paypal-messaging-components/commit/855ca670022afd3d0a4244fd013a433252ddcf43))
+
+
+### Tests
+
+* update DEV_US_MULTI functional test and config ([#814](https://github.com/paypal/paypal-messaging-components/issues/814)) ([f20b14a](https://github.com/paypal/paypal-messaging-components/commit/f20b14ab2a493c56b764bc3563274336328c5661))
+
 ### [1.34.5](https://github.com/paypal/paypal-messaging-components/compare/v1.34.4...v1.34.5) (2022-05-18)
 
 
