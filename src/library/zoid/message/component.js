@@ -182,12 +182,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onHover } = props;
+                    const { index, onHover } = props;
                     let hasHovered = false;
 
                     return ({ meta }) => {
-                        const { index } = props;
-
                         if (!hasHovered) {
                             hasHovered = true;
                             logger.track({
