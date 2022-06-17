@@ -183,9 +183,14 @@ export default (options = {}) => ({
 
                     return updateProps(updatedMessageProps).then(() => globalEvent.trigger('render'));
                 } catch (err) {
-                    // eslint-disable-next-line no-console
-                    console.warn(err.message);
-                    return undefined;
+                    // We only want console.warn to be called once
+                    // check for the known error offer_validation_error and if it’s not that error then we should throw the error again so it gets surfaced
+                    //  catch that known/safe error, but allow any other errors to escape through
+                    if (err.message === 'offer_validation_error') {
+                        return undefined;
+                    }
+
+                    throw err;
                 }
             })
         );
