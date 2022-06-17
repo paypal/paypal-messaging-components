@@ -1,4 +1,5 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
+import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
@@ -20,6 +21,7 @@ import {
     getFeatures,
     ppDebug,
     isScriptBeingDestroyed,
+    getScriptAttributes,
     getDevTouchpoint,
     getMerchantConfig,
     getTsCookieFromStorage
@@ -371,6 +373,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: getLibraryVersion,
                 debug: ppDebug(`Library Version: ${getLibraryVersion()}`)
             },
+            integrationType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => __MESSAGES__.__TARGET__,
+                debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
+            },
             deviceID: {
                 type: 'string',
                 queryParam: true,
@@ -421,6 +430,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: getStageTag
             },
+            partnerAttributionId: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
+                debug: ppDebug(
+                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
+                )
+            },
             devTouchpoint: {
                 type: 'boolean',
                 queryParam: true,
@@ -432,12 +450,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: true,
                 required: false,
                 value: getFeatures
-            },
-            integrationType: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: () => __MESSAGES__.__TARGET__
             }
         }
     })
