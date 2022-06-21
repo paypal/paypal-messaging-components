@@ -102,6 +102,7 @@ const memoizedModal = memoizeOnProps(
 
             if (
                 typeof requestedProduct !== 'undefined' &&
+                requestedProduct !== 'NONE' &&
                 Array.isArray(state.products) &&
                 !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
             ) {
