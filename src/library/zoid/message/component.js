@@ -27,7 +27,6 @@ import {
     getMerchantConfig,
     getTsCookieFromStorage
 } from '../../../utils';
-
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -189,7 +188,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta }) => {
                         if (!hasHovered) {
                             hasHovered = true;
-
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
