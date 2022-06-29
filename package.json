@@ -46,7 +46,7 @@
         "@krakenjs/belter": "^2.0.0",
         "@krakenjs/jsx-pragmatic": "^3.0.0",
         "@krakenjs/post-robot": "^11.0.0",
-        "@krakenjs/zalgo-promise": "^2.0.0",
+        "@krakenjs/zalgo-promise": "^2.0.1",
         "@krakenjs/zoid": "^10.0.0",
         "@paypal/common-components": "^1.0.27",
         "@paypal/sdk-client": "^4.0.166",

@@ -147,7 +147,7 @@ export const getCurrentTime = () => new Date().getTime();
 // Memoized so that the 2 return functions can be called from different modules
 export const viewportHijack = memoize(() => {
     const viewport =
-        document.head.querySelector('meta[name="viewport"]') ||
+        document.querySelector('meta[name="viewport"]') ||
         (<meta name="viewport" content="" />).render(dom({ doc: document }));
 
     // Ensure a viewport exists in the DOM
