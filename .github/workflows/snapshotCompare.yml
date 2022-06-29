@@ -17,7 +17,9 @@ jobs:
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
 
             - id: setTestPathPatterns
               name: Set test path patterns
@@ -39,7 +41,9 @@ jobs:
                 testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
 
             - name: Setup node
               uses: actions/setup-node@v1
@@ -74,7 +78,9 @@ jobs:
                 testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
 
             - name: Setup node
               uses: actions/setup-node@v1
