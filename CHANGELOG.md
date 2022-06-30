@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.36.1](https://github.com/paypal/paypal-messaging-components/compare/v1.36.0...v1.36.1) (2022-06-29)
+
+
+### Bug Fixes
+
+* account for getStandardProductOffer return value from standalone modal ([#828](https://github.com/paypal/paypal-messaging-components/issues/828)) ([b506648](https://github.com/paypal/paypal-messaging-components/commit/b506648e49700bc1deaac5abeef479dc5c4ea73c))
+* meta viewport restoration ([#829](https://github.com/paypal/paypal-messaging-components/issues/829)) ([8453add](https://github.com/paypal/paypal-messaging-components/commit/8453addafe6e9b130e84bb184fc75df6ad6d6df7))
+* prevent universal modal view switching on window resize ([#784](https://github.com/paypal/paypal-messaging-components/issues/784)) ([6b13457](https://github.com/paypal/paypal-messaging-components/commit/6b13457d4046a227c5c49546406dfde2f8f39fde))
+
+
+### Code Refactoring
+
+* enhance offer param to support more offers ([#773](https://github.com/paypal/paypal-messaging-components/issues/773)) ([67404d8](https://github.com/paypal/paypal-messaging-components/commit/67404d87918057c0d4cbf899e09749d8e372b908))
+
 ## [1.36.0](https://github.com/paypal/paypal-messaging-components/compare/v1.35.0...v1.36.0) (2022-06-14)
 
 
