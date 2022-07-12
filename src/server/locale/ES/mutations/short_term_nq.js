@@ -68,7 +68,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43, textSize, 'ES'),
+                    textWrap(textSize * 51, textSize, 'ES'),
                     xSmallFallback(textSize * 19.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -85,7 +85,7 @@ export default {
                         br: ['ahora y']
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['xsmall', 'default']
             })
         ],
         [
@@ -93,7 +93,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 43.5),
+                    setLogoTop(textSize * 51),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and (max-width: ${textSize *
@@ -138,8 +138,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 39, textSize, 'ES'),
-                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 46, textSize, 'ES'),
+                    xSmallFallback(textSize * 18),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod()
