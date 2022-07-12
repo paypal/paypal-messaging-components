@@ -42,7 +42,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default'],
+            disclaimer: ['xsmall', 'default'],
             styles: ['.message__headline .tag--medium > span:first-child:after { content: "."; }']
         }
     ],
