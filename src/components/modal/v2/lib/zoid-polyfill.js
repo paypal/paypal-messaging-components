@@ -38,6 +38,8 @@ export default function polyfillZoid() {
                 return {
                     global: {
                         ...existingGlobal,
+                        // integration_type needs to be sent or it will default to lander
+                        integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
                         // Device ID should be correctly set during message render
                         deviceID
                         // sessionID: getSessionID()
