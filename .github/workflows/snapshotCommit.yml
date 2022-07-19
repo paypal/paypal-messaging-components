@@ -15,7 +15,6 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v3
               with:
-                  persist-credentials: false
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
                   token: ${{ secrets.COMMIT_TOKEN }}
