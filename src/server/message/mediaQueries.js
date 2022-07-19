@@ -21,6 +21,10 @@ export function xSmallFallback(breakpoint) {
         display: none;
     }
 
+    .message__disclaimer .tag--xsmall {
+        display: inline;
+    }
+
     @media screen and (max-width: ${breakpoint}px) {
         .message__content {
             display: inline-flex;
@@ -36,6 +40,10 @@ export function xSmallFallback(breakpoint) {
 
         .message__headline .tag--xsmall > span {
             white-space: nowrap;
+        }
+
+        .message__disclaimer .tag--xsmall {
+            display: none;
         }
     }
 `;
@@ -84,6 +92,10 @@ export function setLogoTop(breakpoint) {
     return `
         @media screen and (max-width: ${breakpoint}px) {
             .message__content {
+                display: inline-block;
+            }
+
+            .message__messaging {
                 display: inline-block;
             }
         }
