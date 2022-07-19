@@ -24,5 +24,8 @@
 
     "subHeadline": [],
 
-    "disclaimer": [["Más información", ["default"]]]
+    "disclaimer": [
+        [["0% TAE."], ["xsmall"]],
+        [["Más información"], ["default"]]
+    ]
 }

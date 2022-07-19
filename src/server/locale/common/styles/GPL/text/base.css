@@ -3,6 +3,5 @@
 }
 
 .weak {
-    transform: translateX(-90%);
     display: inline-block;
 }
