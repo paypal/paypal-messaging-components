@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.36.2](https://github.com/paypal/paypal-messaging-components/compare/v1.36.1...v1.36.2) (2022-07-19)
+
+
+### Bug Fixes
+
+* snapshotCommit workflow ([#835](https://github.com/paypal/paypal-messaging-components/issues/835)) ([3ec72ba](https://github.com/paypal/paypal-messaging-components/commit/3ec72ba1a69ff172260f949db7d759be832886a1))
+* update ES message disclosure ([#833](https://github.com/paypal/paypal-messaging-components/issues/833)) ([955969a](https://github.com/paypal/paypal-messaging-components/commit/955969a5d012d53c84468e24fb01122052bb3c6f))
+* workflows ([#832](https://github.com/paypal/paypal-messaging-components/issues/832)) ([ba23792](https://github.com/paypal/paypal-messaging-components/commit/ba237920734b252c23cedde8ffa7f33b336f5cd6))
+
+
+### Code Refactoring
+
+* send integration type ([#834](https://github.com/paypal/paypal-messaging-components/issues/834)) ([0d88d3a](https://github.com/paypal/paypal-messaging-components/commit/0d88d3a6c3a6e6d5750f9a5c30b81e5912eae578))
+
 ### [1.36.1](https://github.com/paypal/paypal-messaging-components/compare/v1.36.0...v1.36.1) (2022-06-29)
 
 
