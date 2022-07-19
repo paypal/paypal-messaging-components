@@ -11,20 +11,20 @@
 
 .message__disclaimer {
     position: static;
+    white-space: nowrap;
 }
 
 .message__disclaimer > span {
     font-weight: 400;
     text-decoration: none;
-    white-space: normal;
+    white-space: nowrap;
 }
 
 .message__disclaimer > span > span {
     white-space: nowrap;
 }
 
-.message__disclaimer > span > span:only-child,
-.message__disclaimer > span > span.em {
+.message__disclaimer .tag--default > span.em {
     text-decoration: underline;
 }
 
