@@ -8,6 +8,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { getStorage } from './sdk';
 import { OFFER } from './constants';
 
 /**
@@ -146,7 +147,7 @@ export const getCurrentTime = () => new Date().getTime();
 // Memoized so that the 2 return functions can be called from different modules
 export const viewportHijack = memoize(() => {
     const viewport =
-        document.head.querySelector('meta[name="viewport"]') ||
+        document.querySelector('meta[name="viewport"]') ||
         (<meta name="viewport" content="" />).render(dom({ doc: document }));
 
     // Ensure a viewport exists in the DOM
@@ -215,15 +216,15 @@ export function getStandardProductOffer(offer) {
     }
 
     switch (offer.toUpperCase()) {
+        case 'LT_NQEZ':
+        case 'LT_NQGZ':
+        case 'LT_MQEZ':
+        case 'LT_MQEZ_RB':
+        case 'LT_MQGZ':
+        case 'LT_SQEZ':
+        case 'LT_SQEZ_RB':
+        case 'LT_SQGZ':
         case OFFER.PAY_LATER_LONG_TERM:
-            return OFFER.PAY_LATER_LONG_TERM;
-        case OFFER.PAY_LATER_SHORT_TERM:
-        case 'GPL':
-        case 'GPLQ':
-        case 'GPLNQ':
-        case 'GPLNQ_RANGE':
-        case 'PL':
-        case 'PLQ':
         case 'GPL:EQZ':
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
@@ -232,6 +233,14 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+            return OFFER.PAY_LATER_LONG_TERM;
+        case OFFER.PAY_LATER_SHORT_TERM:
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
         case 'SHORT_TERM:Q':
         case 'SHORT_TERM:NQ':
         case 'SHORT_TERM:NO_AMOUNT':
@@ -267,4 +276,35 @@ export function getStandardProductOffer(offer) {
         default:
             return undefined;
     }
+}
+
+/**
+ * Get value of cookie name
+ * @param name - name of cookie
+ * @returns object of cookie value(s)
+ */
+export function getCookieByName(name) {
+    const cookieVal = decodeURIComponent(
+        // decode the cookie value
+        // get all cookies
+        document.cookie
+            .split('; ')
+            // separate the string into an array of cookies
+            // find the cookie by name
+            .find(cookieStr => cookieStr.startsWith(`${name}=`))
+            ?.slice(5) ?? ''
+        // use only the value of the cookie
+    );
+
+    // use URLSearchParams to parse the value string into entries,
+    // and create an object from those entries
+    // disable ESLint rule since we do not support IE anymore
+    // eslint-disable-next-line compat/compat
+    return Object.keys(cookieVal).length === 0 ? null : Object.fromEntries(new URLSearchParams(cookieVal).entries());
+    // check length of cookieVal obj to make sure keys exist.
+}
+
+// get the ts cookie from local storage
+export function getTsCookieFromStorage() {
+    return getStorage().getState(storage => storage?.ts) ?? getCookieByName('ts_c');
 }

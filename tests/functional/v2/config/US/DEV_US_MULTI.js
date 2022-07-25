@@ -10,7 +10,7 @@ export const DEV_US_MULTI = {
             modalContent: {
                 headline: 'Buy now,\npay over time',
                 shortTerm: 'Pay in 4 interest-free payments',
-                longTerm: 'Make easy monthly payments',
+                longTerm: 'Pay with monthly installments',
                 noInterest: 'Pay over time with PayPal Credit'
             }
         }

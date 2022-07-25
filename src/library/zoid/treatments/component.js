@@ -4,7 +4,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, updateStorage } from '../../../utils/sdk';
+import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, writeToLocalStorage } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
 
@@ -50,7 +50,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
 
                     return ({ treatmentsHash, deviceID }) => {
-                        updateStorage({
+                        writeToLocalStorage({
                             experiments: {
                                 treatmentsHash,
                                 // Experiments can only be maintained for 24 hours

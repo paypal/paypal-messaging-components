@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
-import { getOrCreateStorageID } from '../../../../utils';
+import { getOrCreateStorageID, getTsCookieFromStorage } from '../../../../utils';
 
 import {
     useTransitionState,
@@ -53,7 +53,8 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: getOrCreateStorageID()
+                deviceID: getOrCreateStorageID(),
+                ts: getTsCookieFromStorage()
             });
         }
     }, [meta.messageRequestId]);
@@ -84,12 +85,12 @@ const Container = ({ children }) => {
 
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
-            <div className={`modal-wrapper${loading ? ' loading' : ''}`}>
+            <div className="modal-wrapper">
                 {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}
-                <div className="content__wrapper-overflow">
+                <div className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}>
                     {/* Scrollable content */}
                     <div className="content__wrapper" ref={contentWrapperRef}>
                         {children}

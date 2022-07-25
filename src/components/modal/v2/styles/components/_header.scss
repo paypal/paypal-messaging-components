@@ -223,7 +223,6 @@
             }
 
             @include tablet {
-                max-width: 315px;
                 text-align: center;
 
                 @include lander {
@@ -267,6 +266,10 @@
                 padding: 10px 25px 25px;
                 font-size: 1rem;
                 line-height: 20px;
+            }
+
+            span {
+                white-space: nowrap;
             }
         }
     }

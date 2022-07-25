@@ -28,7 +28,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         test(`Amount:${amount} - Product list tiles send user to correct view - ${viewport}`, async () => {
-            await clickProductListTiles(page, modalContent);
+            await clickProductListTiles(page, modalContent, account);
         });
 
         test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {

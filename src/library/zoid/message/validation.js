@@ -2,6 +2,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { logger, memoize, getEnv } from '../../../utils';
+import { OFFER } from '../../../utils/constants';
 
 export const Types = {
     ANY: 'ANY',
@@ -107,18 +108,20 @@ export default {
         return undefined;
     },
     offer: ({ props: { offer } }) => {
+        const offerType = [...Object.values(OFFER), 'NI'];
         if (typeof offer !== 'undefined') {
             if (!validateType(Types.STRING, offer)) {
                 logInvalidType('offer', Types.STRING, offer);
-            } else if (offer !== 'NI') {
+                throw new Error('offer_validation_error');
+            }
+            if (!offerType.includes(offer)) {
                 logInvalid('offer', 'Ensure valid offer type.');
-            } else {
-                return offer;
+                throw new Error('offer_validation_error');
             }
         }
-
-        return undefined;
+        return offer;
     },
+
     // TODO: Handle server side locale specific style validation warnings passed down to client.
     // Likely makes sens to pass down in the onReady callback
     style: ({ props: { style: styleInput } }) => {

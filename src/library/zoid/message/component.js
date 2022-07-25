@@ -15,7 +15,7 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    writeStorageID,
+    writeToLocalStorage,
     getOrCreateStorageID,
     getStageTag,
     getFeatures,
@@ -25,9 +25,9 @@ import {
     getScriptAttributes,
     getDevTouchpoint,
     getMerchantConfig,
-    getLocalTreatments
+    getLocalTreatments,
+    getTsCookieFromStorage
 } from '../../../utils';
-
 import validate from './validation';
 import containerTemplate from './containerTemplate';
 
@@ -137,7 +137,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             onApply,
                             getContainer
                         } = props;
-                        const { offerType, messageRequestId } = meta;
+                        const { offerType, offerCountry, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
                         // zoid components have an onClick prop that functions differently
@@ -149,6 +149,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             buyerCountry,
                             onApply,
                             offer: offerType,
+                            offerCountry,
                             refId: messageRequestId,
                             refIndex: index,
                             src: 'message_click',
@@ -188,7 +189,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta }) => {
                         if (!hasHovered) {
                             hasHovered = true;
-
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
@@ -207,18 +207,19 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, requestDuration, messageRequestId }) => {
+                    return ({ meta, activeTags, deviceID, ts, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
-                        // Write deviceID from iframe localStorage to merchant domain localStorage
+                        // Write deviceID and ts cookie from iframe localStorage to merchant domain localStorage
                         // Even though we are attempting to get this value before the initial message render (see utils/experiments.js)
                         // We still want to write it here to handle the scenario where the SDK has never been loaded
                         // and thus the inner iframe has no value for deviceID until after the first message render
-                        writeStorageID(deviceID);
+                        const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
+                        writeToLocalStorage({ id: deviceID, ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -235,6 +236,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 // Need to merge global attribute here due to preserve performance attributes
                                 global: {
                                     ...existingGlobal,
+                                    ts: tsCookie,
                                     deviceID, // deviceID from internal iframe storage
                                     sessionID: getSessionID() // Session ID from parent local storage,
                                 },

@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.34.5",
+    "version": "1.36.2",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -46,7 +46,7 @@
         "@krakenjs/belter": "^2.0.0",
         "@krakenjs/jsx-pragmatic": "^3.0.0",
         "@krakenjs/post-robot": "^11.0.0",
-        "@krakenjs/zalgo-promise": "^2.0.0",
+        "@krakenjs/zalgo-promise": "^2.0.1",
         "@krakenjs/zoid": "^10.0.0",
         "@paypal/common-components": "^1.0.27",
         "@paypal/sdk-client": "^4.0.166",

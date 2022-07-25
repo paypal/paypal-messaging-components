@@ -2,11 +2,19 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
-import { useCalculator, useServerData, useXProps, delocalize, getDisplayValue, getComputedVariables } from '../lib';
+import {
+    useCalculator,
+    useServerData,
+    useXProps,
+    delocalize,
+    getDisplayValue,
+    getComputedVariables,
+    currencyFormat
+} from '../lib';
 import TermsTable from './TermsTable';
 import Icon from './Icon';
 
-const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
+const getError = ({ offers, error = '' }, isLoading, calculator, amount, country = 'US') => {
     const {
         minAmount,
         maxAmount,
@@ -31,17 +39,21 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
         return null;
     }
 
+    const replaceRegExp = {
+        DE: /(,[0-9]*?)00/g,
+        US: /(\.[0-9]*?)00/g
+    };
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return belowThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
 
     // Checks amount against qualifying min and max ranges to determine which error message to show.
     if (amount < minAmount) {
-        return belowThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return belowThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
     if (amount > maxAmount) {
-        return aboveThreshold.replace(/(\.[0-9]*?)00/g, '');
+        return aboveThreshold.replace(replaceRegExp[country], '').replace(/(EUR)/g, '€');
     }
 
     // if we don't get back any qualifying offers, we return a generic error. - "Something went wrong, please try again later."
@@ -53,11 +65,11 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount) => {
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
+const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR }, setAPRType }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
-    const { country } = useServerData();
-    const { title, inputLabel, inputPlaceholder } = calculator;
+    const { country, views } = useServerData();
+    const { title, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
     const [hasUsedInputField, setHasUsedInputField] = useState(false);
@@ -66,7 +78,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const hasInitialAmount = typeof amount !== 'undefined';
 
     // If the person entered an amount in the calc and it is not 0.
-    const hasEnteredAmount = !(parseInt(delocalize(value || '0'), 10) === 0);
+    const hasEnteredAmount = !(parseInt(delocalize(value || '0', country), 10) === 0);
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
@@ -74,13 +86,15 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
 
     // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0'));
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country), country);
 
     useEffect(() => {
-        if (!hasInitialAmount) {
+        if (!hasInitialAmount && !hasUsedInputField) {
             setDisplayValue('');
-        } else setDisplayValue(getDisplayValue(value, country));
-    }, []);
+        } else {
+            setDisplayValue(getDisplayValue(value, country));
+        }
+    }, [views, value]);
 
     /**
      * expandedState determines if the desktop view of the PAY_LATER_LONG_TERM modal is expanded (i.e. a view with offers exists or has loading shimmer).
@@ -110,7 +124,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
         setHasUsedInputField(true);
 
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
-        const onInputValue = delocalize(targetValue);
+        const onInputValue = delocalize(targetValue, country);
         const newDisplayValue = getDisplayValue(targetValue, country);
 
         const finalValue = parseFloat(Number(onInputValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
@@ -157,22 +171,49 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     if (aprArr.length > 0) {
         if (aprArr.filter(apr => apr.replace('.00', '') !== '0').length === aprArr.length) {
             aprDisclaimer = nonZeroAPR;
+            setAPRType('nonZeroAPR');
         } else if (aprArr.filter(apr => apr.replace('.00', '') === '0').length === aprArr.length) {
             aprDisclaimer = zeroAPR;
+            setAPRType('zeroAPR');
         } else {
             aprDisclaimer = mixedAPR;
         }
-    } else aprDisclaimer = zeroAPR;
+    } else {
+        /**
+         * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
+         * If no initial amount is passed in or there is an error, we default to the zeroAPR disclaimer as it is more
+         * generic. i.e. Terms may vary based on purchase amount.
+         */
+        aprDisclaimer = zeroAPR;
+        /**
+         * setAPRType is used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
+         * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
+         */
+        setAPRType('nonZeroAPR');
+    }
+
+    /**
+     * Due to slight differences in the calculator input styling between
+     * the US and DE versions of the universal modal, the function below
+     * determines when to return the inputLabel content depending on the country.
+     */
+    const renderInputLabelOnEmptyField = offerCountry => {
+        if (offerCountry === 'US') {
+            return displayValue !== '' ? inputLabel : '';
+        }
+        return inputLabel;
+    };
 
     return (
         <div className="calculator">
             <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
-                    <div className="input__label">{displayValue !== '' ? inputLabel : ''}</div>
+                    <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
+                    {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
-                        className={`input ${displayValue === '' ? 'empty-input' : ''}`}
-                        placeholder={inputPlaceholder}
+                        className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
+                        placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="tel"
                         value={displayValue}
                         onInput={onInput}
@@ -183,14 +224,20 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             </form>
             {hasInitialAmount || hasUsedInputField ? (
                 <div className="content-column">
-                    <TermsTable view={view} isLoading={isLoading} hasError={error} />
+                    <TermsTable view={view} isLoading={isLoading} hasError={error} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (
                 <Fragment />
             )}
-            <div className={`finance-terms__disclaimer ${!(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''}`}>
-                {aprDisclaimer}
-            </div>
+            {country === 'US' && (
+                <div
+                    className={`finance-terms__disclaimer ${
+                        !(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''
+                    }`}
+                >
+                    {aprDisclaimer}
+                </div>
+            )}
         </div>
     );
 };

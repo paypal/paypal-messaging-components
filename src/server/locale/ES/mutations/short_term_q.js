@@ -42,7 +42,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default'],
+            disclaimer: ['xsmall', 'default'],
             styles: ['.message__headline .tag--medium > span:first-child:after { content: "."; }']
         }
     ],
@@ -68,7 +68,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 33, textSize, 'ES'),
+                    textWrap(textSize * 42, textSize, 'ES'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
@@ -85,7 +85,7 @@ export default {
                         br: ['ahora y']
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['xsmall', 'default']
             })
         ],
         [
@@ -94,8 +94,8 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize *
                         18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 34),
+                    xSmallFallback(textSize * 12),
+                    setLogoTop(textSize * 40),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and (max-width: ${textSize *
@@ -109,7 +109,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize *
                         18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xSmallFallback(textSize * 10.75),
+                    xSmallFallback(textSize * 12),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and (max-width: ${textSize *
@@ -132,7 +132,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'ES'),
+                    textWrap(textSize * 34, textSize, 'ES'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
