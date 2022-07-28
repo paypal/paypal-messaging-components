@@ -24,7 +24,7 @@
     },
     "content": {
         "headline": "Paga en 3 plazos sin intereses",
-        "subheadline": "Disponible para las compras de {formattedMinAmount} a {formattedMaxAmount}. Sin comisiones de apertura ni por pago atrasado.",
+        "subheadline": "Disponible para las compras de <span>{formattedMinAmount} a {formattedMaxAmount}.</span> Sin comisiones de apertura ni por pago atrasado.",
         "qualifyingSubheadline": "Divide tu compra de {formattedTotalCost} en 3 plazos, sin comisiones de apertura ni por pago atrasado.",
         "donutTimestamps": ["Hoy", "1 mes", "2 meses"],
         "estimatedInstallments": {
