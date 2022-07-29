@@ -5,7 +5,8 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallFallback,
-    logo20x1
+    logo20x1,
+    addPeriod
 } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
@@ -34,13 +35,8 @@ const flex = [
         {
             styles: [
                 logo20x1(),
-                `.message__headline .tag--medium.multi .weak {
-                    display: inline-block;
-                    transform: translateX(-100%);
-                    font-weight: 500;
-                    margin: 0px;
-                }
-                `
+                '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                '.message__headline .tag--medium .weak { display: none; }'
             ]
         }
     ],
@@ -58,8 +54,7 @@ const flex = [
             ],
             styles: [
                 '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
-                '.message__headline .tag--medium .weak { display: none; }',
-                '@media (min-aspect-ratio: 80/11) { .message__disclaimer { margin-left: 0;} }'
+                '.message__headline .tag--medium .weak { display: none; }'
             ]
         }
     ],
@@ -78,7 +73,9 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
-                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`
+                    `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
+                    `.weak { display: none}`,
+                    addPeriod()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -100,7 +97,9 @@ export default {
                     .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     xSmallFallback(textSize * 10.75),
                     setLogoTop(textSize * 32),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    addPeriod()
                 ]
             })
         ],
@@ -112,7 +111,9 @@ export default {
                         18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
                     .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     xSmallFallback(textSize * 10.75),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    addPeriod()
                 ]
             })
         ],
@@ -124,7 +125,9 @@ export default {
                     textWrap(textSize * 32, textSize, 'US'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    addPeriod()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
