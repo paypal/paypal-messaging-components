@@ -51,61 +51,51 @@ export const ShortTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__container">
-                <main className="main">
-                    <div className="content__body">
-                        <div className="dynamic__container">
-                            <div className="content__row dynamic">
-                                <div className="content__col">
-                                    <div className="content__row donuts">
-                                        <div className="donuts__container">
-                                            <span aria-hidden={qualifying !== 'true'} className="sr-only">
-                                                {donutScreenReaderString}
-                                            </span>
-                                            {(hasInstallments ? estimatedInstallments?.items : donutTimestamps).map(
-                                                (installment, index) => (
-                                                    <Donut
-                                                        key={index}
-                                                        qualifying={qualifying}
-                                                        // regex replaces EUR with the euro symbol €
-                                                        periodicPayment={
-                                                            installment?.total_payment
-                                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                                : localeFormattedPayment
-                                                        }
-                                                        currentNum={index + 1}
-                                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                                        numOfPayments={
-                                                            (hasInstallments
-                                                                ? estimatedInstallments?.items
-                                                                : donutTimestamps
-                                                            ).length
-                                                        }
-                                                    />
-                                                )
-                                            )}
-                                        </div>
-                                    </div>
-                                    <Instructions instructions={instructions} />
-                                </div>
-                                <div className="content__col">
-                                    <div className="branded-image">
-                                        {/* TODO: include Icon component when desktop images are final */}
-                                    </div>
-                                </div>
+            <div className="dynamic__container">
+                <div className="content__row dynamic">
+                    <div className="content__col">
+                        <div className="content__row donuts">
+                            <div className="donuts__container">
+                                <span aria-hidden={qualifying !== 'true'} className="sr-only">
+                                    {donutScreenReaderString}
+                                </span>
+                                {(hasInstallments ? estimatedInstallments?.items : donutTimestamps).map(
+                                    (installment, index) => (
+                                        <Donut
+                                            key={index}
+                                            qualifying={qualifying}
+                                            // regex replaces EUR with the euro symbol €
+                                            periodicPayment={
+                                                installment?.total_payment
+                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                    : localeFormattedPayment
+                                            }
+                                            currentNum={index + 1}
+                                            timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                            numOfPayments={
+                                                (hasInstallments ? estimatedInstallments?.items : donutTimestamps)
+                                                    .length
+                                            }
+                                        />
+                                    )
+                                )}
                             </div>
                         </div>
-                        <div className="content__row disclosure">
-                            <p>
-                                <InlineLinks text={currencyFormat(disclosure)} />
-                            </p>
-                        </div>
-                        <div className="content__row productLink">
-                            {renderLearnMoreLink()}
-                            <div className="productLink__container">{renderProductListLink()}</div>
+                        <Instructions instructions={instructions} />
+                    </div>
+                    <div className="content__col">
+                        <div className="branded-image">
+                            {/* TODO: include Icon component when desktop images are final */}
                         </div>
                     </div>
-                </main>
+                </div>
+            </div>
+            <div className="content__row disclosure">
+                <InlineLinks text={currencyFormat(disclosure)} />
+            </div>
+            <div className="content__row productLink">
+                {renderLearnMoreLink()}
+                <div className="productLink__container">{renderProductListLink()}</div>
             </div>
         </Fragment>
     );

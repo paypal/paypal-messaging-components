@@ -29,31 +29,21 @@ export const PayIn1 = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__container">
-                <main className="main">
-                    <div className="content__body">
-                        <div className="dynamic__container">
-                            <div className="content__row dynamic">
-                                <div className="content__col">
-                                    <div className="content__row instructions__container">
-                                        <Instructions instructions={instructions} />
-                                    </div>
-                                </div>
-                                <div className="content__col">
-                                    <div className="branded-image">
-                                        {/* TODO: include Icon component when desktop images are final */}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content__row disclosure">
-                            <p> {currencyFormat(disclosure)} </p>
-                        </div>
-                        <div className="content__row productLink">
-                            <div className="productLink__container">{renderProductListLink()}</div>
-                        </div>
+            <div className="content__row dynamic">
+                <div className="content__col">
+                    <Instructions instructions={instructions} />
+                </div>
+                <div className="content__col">
+                    <div className="branded-image">
+                        {/* TODO: include Icon component when desktop images are final */}
                     </div>
-                </main>
+                </div>
+            </div>
+            <div className="content__row disclosure">
+                <p> {currencyFormat(disclosure)} </p>
+            </div>
+            <div className="content__row productLink">
+                <div className="productLink__container">{renderProductListLink()}</div>
             </div>
         </Fragment>
     );

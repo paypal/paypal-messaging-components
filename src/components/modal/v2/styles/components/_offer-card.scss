@@ -6,10 +6,10 @@
 
         &:not(:last-child)::after {
             content: '';
-            border-bottom: 2px solid rgba(196, 196, 196, 0.2);
+            border-bottom: 2px solid transparent;
             display: block;
-            margin-top: 25px;
-            margin-bottom: 25px;
+            margin-top: 20px;
+            margin-bottom: 20px;
 
             @include mobile {
                 margin-top: 20px;
@@ -25,7 +25,7 @@
 
         @include tablet {
             &:first-child {
-                margin-top: 20px;
+                margin-top: 44px;
             }
             &:last-child {
                 margin-bottom: 20px;

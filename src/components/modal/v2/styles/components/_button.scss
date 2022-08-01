@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     .button {
+        font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
         display: inline-block;
         background: $dark-blue;
         border: none;
@@ -23,7 +24,6 @@
         &:focus {
             text-decoration: underline;
             outline: 3px solid $dark-blue;
-                  
         }
     }
 }

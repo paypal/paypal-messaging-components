@@ -1,25 +1,9 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
-.header__content {
-    padding-bottom: 20px;
-
-    @include mobile {
-        padding-bottom: 0px;
-    }
-
-    h1 {
-        font-size: 2.375rem;
-    }
-}
-
 .content__container {
-    background-color: $beige-background;
-
     .content__row {
         &.dynamic {
-            background-color: $beige-background;
-
             @include desktop {
                 height: 600px;
                 padding-left: 0px;
@@ -46,7 +30,7 @@
             }
         }
 
-        &.instructions {
+        &.instructions-2 {
             @include desktop {
                 padding-left: 0px;
             }
@@ -59,20 +43,6 @@
                 @include lander {
                     margin-top: 30px;
                 }
-            }
-        }
-
-        &.disclosure {
-            &.collapsed {
-                @include desktop {
-                    width: 45%;
-                    margin-top: 25px;
-                    margin-bottom: 50px;
-                }
-            }
-
-            @include tablet {
-                margin-bottom: 25px;
             }
         }
     }

@@ -38,6 +38,7 @@
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
+        background-color: #faf8f5;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -78,16 +79,6 @@
                 mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
             }
         }
-
-        svg {
-            width: 900px;
-            transform: translate(0, -30%);
-
-            @include apiIframe {
-                min-width: 800px;
-                width: $content-wrapper-max-width-api-iframe;
-            }
-        }
     }
 
     &__icons {
@@ -115,16 +106,14 @@
                 transition: transform 0.2s ease-out;
                 padding: 0 20px;
 
-                @include tablet {
-                    transform: translate(calc(#{$content-wrapper-max-width-tablet} / 2 - 50%), 2rem);
-                    display: flex;
-                    justify-content: center;
+                @include desktop {
+                    padding: 0px;
+                    margin-left: 48px;
                 }
 
-                @include desktop {
-                    transform: translate(calc(#{$content-wrapper-max-width-desktop} / 2 - 50%), 2rem);
-                    display: flex;
-                    justify-content: center;
+                @include tablet {
+                    padding: 0px;
+                    margin-left: 56px;
                 }
 
                 @include apiIframe {
@@ -137,28 +126,9 @@
                 }
 
                 &--scroll {
-                    transform: translate(0, 0);
-                }
-
-                .pp-logo {
-                    img {
-                        height: 30px;
-                        display: block;
-                        // Account for extra space included below the SVG logo so that
-                        // the img can be better centered automatically via flex
-                        padding-top: 20%;
-
-                        @include desktop {
-                            height: 44px;
-                        }
-
-                        @include tablet {
-                            height: 40px;
-                        }
-
-                        @include mobile {
-                            height: 35px;
-                        }
+                    transform: translate(-3rem, 0);
+                    @include mobile {
+                        transform: translate(0, 0);
                     }
                 }
             }
@@ -192,7 +162,6 @@
                 }
 
                 path {
-                    stroke: white !important;
                     stroke-width: 2.2;
                 }
             }
@@ -212,26 +181,22 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.75rem;
             line-height: 36px;
             text-align: left;
-            color: white;
-            margin: auto;
-
-            @include desktop {
-                text-align: center;
-            }
+            color: #001435;
+            margin-left: 52px;
+            margin-top: 10px;
 
             @include tablet {
-                text-align: center;
-
+                margin-left: 62px;
                 @include lander {
                     max-width: 100%;
                 }
             }
 
             @include mobile {
-                padding: 10px 25px 0px;
+                margin-left: 22px;
             }
 
             @include smallMobile {
@@ -240,22 +205,22 @@
         }
 
         h2 {
-            font-size: 1rem;
+            font-size: 18px;
             line-height: 24px;
             text-align: left;
-            color: white;
+            color: #001435;
             margin: 0px;
 
             @include desktop {
-                margin-top: 10px;
-                text-align: center;
+                margin-left: 52px;
+                margin-top: 25px;
+                margin-bottom: 100px;
             }
 
             @include tablet {
-                font-size: 1rem;
-                max-width: 315px;
-                margin: 1rem auto 0;
-                text-align: center;
+                max-width: 360px;
+                margin-left: 62px;
+                margin-bottom: 60px;
 
                 @include lander {
                     max-width: 100%;
@@ -263,8 +228,8 @@
             }
 
             @include mobile {
-                padding: 10px 25px 25px;
-                font-size: 1rem;
+                max-width: 250px;
+                padding: 10px 22px 100px;
                 line-height: 20px;
             }
 

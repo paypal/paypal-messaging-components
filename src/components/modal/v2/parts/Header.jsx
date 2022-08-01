@@ -27,14 +27,10 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
             {(!isLander || isIframe) && (
                 <Fragment>
                     <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                        <div className="header__background-wrapper header__background-wrapper--gradient">
-                            <Icon name="header-background" />
-                        </div>
+                        <div className="header__background-wrapper header__background-wrapper--gradient" />
                     </div>
                     <div aria-hidden="true" className="header__fixed-wrapper">
-                        <div className="header__background-wrapper">
-                            <Icon name="header-background" />
-                        </div>
+                        <div className="header__background-wrapper" />
                     </div>
                 </Fragment>
             )}
@@ -59,9 +55,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 )}
                 {(!isLander || isIframe) && (
                     <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                        <div className="header__background-wrapper header__background-wrapper--sticky">
-                            <Icon name="header-background" />
-                        </div>
+                        <div className="header__background-wrapper header__background-wrapper--sticky" />
                     </div>
                 )}
             </div>

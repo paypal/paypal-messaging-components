@@ -2,22 +2,27 @@
     display: flex;
     border: none;
     background: transparent;
-    margin-top: 1em;
     min-width: 315px;
     text-decoration: none;
     color: $light-blue;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
     font-weight: 600;
     cursor: pointer;
+    padding: 0;
 
     @include desktop {
-        padding-left: 30px;
+        margin: 0px 0px 20px 30px;
     }
+
     @include tablet {
-        margin: 1em auto;
-        padding: 0;
+        margin: 0px 44px 20px 44px;
     }
+
     @include mobile {
-        padding: 0;
+        margin: 20px 0px 20px 0px;
+    }
+
+    &.no-interest {
+        margin: 0px;
     }
 }

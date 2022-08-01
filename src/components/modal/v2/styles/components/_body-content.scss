@@ -50,7 +50,7 @@
     z-index: 1;
     // TODO: There appears to be a small 1px space below the content__container in windows
     // where it's background color is not showing. Is this specific to browserstack?
-    background: $instructions-background;
+    background: $disclosure-background;
 
     @include tablet {
         max-height: 90vh;
@@ -76,34 +76,5 @@
 
     @include apiIframe {
         max-height: 100%;
-    }
-
-    // Small reverse border radius hook below the header to curve the top left
-    // edge of the content below. Sticky so that content scrolls beneath it
-    &::after {
-        content: '';
-        flex: 0 0 $sticky-header-radius;
-        order: 2; // Change position above the main body content
-        width: 100%;
-        background: transparent;
-        position: sticky;
-        border-radius: $sticky-header-radius 0 0 0;
-        box-shadow: -$sticky-header-radius 0 0 0 #1334a1;
-        z-index: 1001;
-        top: $sticky-header-height-tablet-desktop;
-
-        @include mobile {
-            top: $sticky-header-height-mobile;
-        }
-
-        // Disable on the lander
-        @include lander {
-            content: none;
-        }
-    }
-
-    & > :last-child {
-        z-index: 1000;
-        order: 3; // Ensure body content is below the pseudo element above
     }
 }

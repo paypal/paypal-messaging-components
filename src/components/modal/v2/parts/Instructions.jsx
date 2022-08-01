@@ -5,7 +5,7 @@ const Instructions = ({ instructions, expandedState = false }) => {
     const renderBullet = index => {
         return (
             <div className="instructions__bullet">
-                <span>{index}</span>
+                <span>{index}.</span>
             </div>
         );
     };

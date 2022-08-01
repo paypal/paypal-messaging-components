@@ -3,7 +3,7 @@
     background: transparent;
     box-sizing: border-box;
     padding-top: 0;
-    background: $instructions-background;
+    background: $disclosure-background;
     padding-bottom: 1.5rem;
     flex-grow: 1;
     margin-top: -$sticky-header-radius;
@@ -37,14 +37,13 @@
     .content__row {
         &.dynamic {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             margin: 0 -20px;
             background: white;
             padding-bottom: 0.5rem;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
-            border-radius: 0 0 40px 0;
 
             @include lander {
                 border-radius: 100px 0px 0px 0px;
@@ -101,36 +100,30 @@
 
         &.disclosure {
             text-align: left;
-            font-size: 0.8rem;
+            font-size: 14px;
             line-height: 1.4;
 
             @include desktop {
-                padding-top: 0px;
-                padding-left: 30px;
-                width: 90%;
-                font-size: 0.8rem;
+                margin: 42px 30px 42px 30px;
             }
 
             @include tablet {
-                font-size: 0.75rem;
-                max-width: 315px;
-                margin: 0 auto;
+                margin: 42px 44px 20px 44px;
             }
 
-            &.collapsed {
-                @include desktop {
-                    width: 34%;
-                }
+            @include mobile {
+                margin-top: 42px;
             }
         }
 
         &.nav__link-prefix {
             min-width: 315px;
             padding: 0px;
-            margin: 1em auto -1em;
-            color: $text-main;
-            font-size: 13.33px;
+            font-size: 14px;
 
+            @include tablet {
+                margin: 0px 44px 0px 44px;
+            }
             @include desktop {
                 margin-left: 30px;
             }

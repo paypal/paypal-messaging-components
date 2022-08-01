@@ -17,7 +17,7 @@ html {
 
 body {
     margin: 0;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
     font-weight: 400;
     font-size: 16px;
 }
@@ -29,7 +29,7 @@ h4,
 p,
 li {
     color: $text-main;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
     font-weight: 400;
 }
 
@@ -37,7 +37,7 @@ h1 {
     font-size: 30px;
     margin-bottom: 16px;
     line-height: 42px;
-    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
     font-weight: 200;
 }
 
@@ -52,7 +52,7 @@ h3 {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 6px;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
 }
 
 svg {
@@ -66,15 +66,10 @@ h4 {
     font-weight: bold;
 }
 
-p {
-    font-size: 13px;
-    line-height: 18px;
-}
-
 a {
     text-decoration: none;
     color: $light-blue;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
     font-weight: 600;
 }
 

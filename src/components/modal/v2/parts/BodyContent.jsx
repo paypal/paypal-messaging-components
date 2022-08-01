@@ -82,13 +82,17 @@ const BodyContent = () => {
     return (
         <Fragment>
             <Header
-                logo="logo"
+                logo="v3-logo"
                 headline={headline}
                 subheadline={subheadline}
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
             />
-            {viewComponents[viewName]}
+            <div className="content__container">
+                <main className="main">
+                    <div className="content__body">{viewComponents[viewName]}</div>
+                </main>
+            </div>
         </Fragment>
     );
 };
