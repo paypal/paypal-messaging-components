@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.36.3](https://github.com/paypal/paypal-messaging-components/compare/v1.36.2...v1.36.3) (2022-08-02)
+
+
+### Bug Fixes
+
+* message period spacing ([#840](https://github.com/paypal/paypal-messaging-components/issues/840)) ([546a04f](https://github.com/paypal/paypal-messaging-components/commit/546a04f30369284cbcd8f07aa60027f49577be55))
+
+
+### Code Refactoring
+
+* € is on the same line as the min and max purchase ([#839](https://github.com/paypal/paypal-messaging-components/issues/839)) ([2afc6f0](https://github.com/paypal/paypal-messaging-components/commit/2afc6f0e2b31118a44a4c44346d99b0cf39ca012))
+
 ### [1.36.2](https://github.com/paypal/paypal-messaging-components/compare/v1.36.1...v1.36.2) (2022-07-19)
 
 
