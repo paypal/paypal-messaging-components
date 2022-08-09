@@ -38,6 +38,9 @@
         @include tablet {
             padding-bottom: 32px;
         }
+        // @include verySmallMobile {
+        //     line-height: 22px;
+        // }
 
         @include mobile {
             padding-bottom: 25px;

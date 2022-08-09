@@ -36,6 +36,10 @@
                     background-color: transparent;
                 }
 
+                @include verySmallMobile {
+                    min-height: 8em;
+                }
+
                 &__container {
                     display: flex;
                     align-items: center;
@@ -113,6 +117,10 @@
                         width: 100%;
                     }
 
+                    @include verySmallMobile {
+                        margin-bottom: 0.2rem;
+                    }
+
                     .instructions__bullet {
                         @include desktop {
                             line-height: 25px;
@@ -122,6 +130,12 @@
                     li {
                         font-size: 1.125rem;
                         line-height: 24px;
+
+                        @include verySmallMobile {
+                            line-height: 21px;
+                            font-size: 1.1rem;
+                            padding-bottom: 6px;
+                        }
                     }
                 }
             }
@@ -129,6 +143,10 @@
             &.disclosure {
                 @include desktop {
                     padding-top: 16px;
+                }
+
+                @include verySmallMobile {
+                    padding-top: 0;
                 }
             }
 
