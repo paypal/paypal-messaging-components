@@ -30,7 +30,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT,
         __DOMAIN__: {
             __LOCAL__: `https://localhost.paypal.com:${PORT}`,
-            _STAGE__: 'https://www.msmaster.qa.paypal.com',
+            __STAGE__: 'https://www.msmaster.qa.paypal.com',
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com'
         },
