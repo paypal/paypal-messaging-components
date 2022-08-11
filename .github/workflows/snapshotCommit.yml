@@ -41,16 +41,20 @@ jobs:
                             archive_format: 'zip'
                           });
                           
-                          fs.writeFileSync(`${{ github.workspace }}/${artifact.name}.zip`, Buffer.from(download.data));
+                          const tmpDir = `/tmp/${artifact.name.replace(/[^a-zA-Z0-9-_]/g, '')}`;
+                          execSync(`mkdir -p ${tmpDir}`);
+                          fs.writeFileSync(`${tmpDir}.zip`, Buffer.from(download.data));
 
                           console.log(`Checking artifact: ${artifact.name}`)
 
+                          execSync(`unzip -o ${tmpDir}.zip -d ${tmpDir}`);
+
                           if (artifact.name === 'metadata') {
-                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip`);
-                          } else if (artifact.name.includes('v2')) {
-                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/v2/snapshots`);
+                            execSync(`rsync -zavpmr --no-links --include='pull_number.txt' --exclude='*' ${tmpDir}/ ${{ github.workspace }}`);
                           } else {
-                            execSync(`unzip -o ${{ github.workspace }}/${artifact.name}.zip -d tests/functional/snapshots`);
+                            const snapshotsDir = artifact.name.includes('v2') ? 'tests/functional/v2/snapshots' : 'tests/functional/snapshots';
+
+                            execSync(`rsync -zavpmr --no-links --include='*.png' --include='*/' --exclude='*' ${tmpDir}/ ${{ github.workspace }}/${snapshotsDir}`);
                           }
                         })
                       );
@@ -68,7 +72,7 @@ jobs:
                   script: |
                       const fs = require('fs');
 
-                      const pullNumber = fs.readFileSync('./pull_number.txt', 'utf8');
+                      const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
 
                       await github.issues.removeLabel({
                         owner: context.repo.owner,
