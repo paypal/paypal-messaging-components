@@ -23,8 +23,8 @@
     }
 }
 
-@mixin verySmallMobile {
-    @media (max-width: 321px) {
+@mixin smallHeightMobile {
+    @media (max-height: 700px) {
         @content;
     }
 }

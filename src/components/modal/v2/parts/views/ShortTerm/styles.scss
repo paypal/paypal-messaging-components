@@ -36,9 +36,8 @@
                     background-color: transparent;
                 }
 
-                @include verySmallMobile {
+                @include smallHeightMobile {
                     min-height: 8em;
-                  
                 }
 
                 &__container {
@@ -118,7 +117,7 @@
                         width: 100%;
                     }
 
-                    @include verySmallMobile {
+                    @include smallHeightMobile {
                         margin-bottom: 0.2rem;
                     }
 
@@ -132,7 +131,7 @@
                         font-size: 1.125rem;
                         line-height: 24px;
 
-                        @include verySmallMobile {
+                        @include smallHeightMobile {
                             line-height: 21px;
                             font-size: 1.1rem;
                             padding-bottom: 6px;
@@ -146,7 +145,7 @@
                     padding-top: 16px;
                 }
 
-                @include verySmallMobile {
+                @include smallHeightMobile {
                     padding-top: 0;
                 }
             }
