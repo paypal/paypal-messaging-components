@@ -5,7 +5,7 @@ import OfferCard from './OfferCard';
 import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
-const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer }) => {
+const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer }) => {
     const { offerCountry } = meta;
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
@@ -14,7 +14,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, hasError, aprDisclaimer
     const [numOffers, setNumOffers] = useState();
     const [activeSelection, setActiveSelection] = useState(0);
 
-    if (isLoading || hasError) {
+    if (isLoading) {
         return (
             <div className="offer__wrapper">
                 <LoadingShimmer numOffers={offerCountry !== 'DE' ? numOffers : 4} offerCountry={offerCountry} />
