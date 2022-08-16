@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.36.4](https://github.com/paypal/paypal-messaging-components/compare/v1.36.3...v1.36.4) (2022-08-16)
+
+
+### Bug Fixes
+
+* remove shimmer boxes for non-qualifying amounts ([#843](https://github.com/paypal/paypal-messaging-components/issues/843)) ([e30cbb8](https://github.com/paypal/paypal-messaging-components/commit/e30cbb825e931e102c9e3791e18ac96304e15f43))
+
+
+### Continuous Integration
+
+* fix unzip security ([#844](https://github.com/paypal/paypal-messaging-components/issues/844)) ([ad5ab33](https://github.com/paypal/paypal-messaging-components/commit/ad5ab3317925efbe7aacbf063d0fbe3d60600576))
+
 ### [1.36.3](https://github.com/paypal/paypal-messaging-components/compare/v1.36.2...v1.36.3) (2022-08-02)
 
 
