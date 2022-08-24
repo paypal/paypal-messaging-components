@@ -27,6 +27,7 @@ export default function getMutations(id, type) {
         case 'GPL:EQZ':
             return gplEqz[type];
         case 'GENERIC':
+        case 'GENERIC:NON-DE':
         default:
             return generic[type];
     }
