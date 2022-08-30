@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.37.0](https://github.com/paypal/paypal-messaging-components/compare/v1.36.4...v1.37.0) (2022-08-30)
+
+
+### Features
+
+* Updates to DE no amount message (DTCRCMERC-1600) ([#846](https://github.com/paypal/paypal-messaging-components/issues/846)) ([ac72e09](https://github.com/paypal/paypal-messaging-components/commit/ac72e094d7629ca8e31c1ebb4201be35877e7772))
+
+
+### Code Refactoring
+
+* Updated stats payload to include render & request duration (DTCRCGEMI-360) ([#838](https://github.com/paypal/paypal-messaging-components/issues/838)) ([402666d](https://github.com/paypal/paypal-messaging-components/commit/402666dbea9d82c9de506b0c40c09854ee41e229))
+
 ### [1.36.4](https://github.com/paypal/paypal-messaging-components/compare/v1.36.3...v1.36.4) (2022-08-16)
 
 
