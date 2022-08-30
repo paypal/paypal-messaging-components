@@ -21,8 +21,8 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gpl_gtz.json',
-                product: 'PAY_LATER_LONG_TERM'
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
             }
         ],
         offers: {

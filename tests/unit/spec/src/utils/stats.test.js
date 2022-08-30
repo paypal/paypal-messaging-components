@@ -54,8 +54,6 @@ describe('stats', () => {
         index: expect.stringNumber(),
         et: 'CLIENT_IMPRESSION',
         event_type: 'stats',
-        render_duration: expect.stringNumber(),
-        request_duration: expect.stringNumber(),
         first_render_delay: expect.stringNumber()
     };
 
