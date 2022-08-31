@@ -32,7 +32,8 @@ const Container = ({ children }) => {
         version,
         env,
         stageTag,
-        channel
+        channel,
+        ecToken
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -72,7 +73,8 @@ const Container = ({ children }) => {
             version,
             env,
             stageTag,
-            channel
+            channel,
+            ecToken
         }).then(data => {
             setServerData(data);
             setLoading(false);
