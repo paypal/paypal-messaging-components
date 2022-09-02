@@ -90,7 +90,11 @@ const Container = ({ children }) => {
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}
-                <div className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}>
+                {/* Lander variant uses the div with className content__wrapper-overflow as the contentWrapperRef */}
+                <div
+                    className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}
+                    ref={!!(isLander && !isIframe) && contentWrapperRef}
+                >
                     {/* Scrollable content */}
                     <div className="content__wrapper" ref={contentWrapperRef}>
                         {children}

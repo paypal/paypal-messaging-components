@@ -64,6 +64,10 @@
                     @include tablet {
                         border-radius: 100px 0px 0px 0px;
                     }
+                    // Short term view adds small border radius to donut container on lander variant
+                    @include mobile {
+                        border-radius: 40px 0px;
+                    }
                 }
             }
 
