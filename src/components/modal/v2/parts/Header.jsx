@@ -24,18 +24,16 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
     // specific adjacent DOM structure
     return (
         <Fragment>
-            <Fragment>
-                <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                    <div className="header__background-wrapper header__background-wrapper--gradient">
-                        <Icon name="header-background" />
-                    </div>
+            <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
+                <div className="header__background-wrapper header__background-wrapper--gradient">
+                    <Icon name="header-background" />
                 </div>
-                <div aria-hidden="true" className="header__fixed-wrapper">
-                    <div className="header__background-wrapper">
-                        <Icon name="header-background" />
-                    </div>
+            </div>
+            <div aria-hidden="true" className="header__fixed-wrapper">
+                <div className="header__background-wrapper">
+                    <Icon name="header-background" />
                 </div>
-            </Fragment>
+            </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">

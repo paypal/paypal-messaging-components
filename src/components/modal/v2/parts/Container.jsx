@@ -96,7 +96,8 @@ const Container = ({ children }) => {
                     ref={!!(isLander && !isIframe) && contentWrapperRef}
                 >
                     {/* Scrollable content */}
-                    <div className="content__wrapper" ref={contentWrapperRef}>
+                    {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
+                    <div className="content__wrapper" ref={!!(!isLander || isIframe) && contentWrapperRef}>
                         {children}
                     </div>
                 </div>
