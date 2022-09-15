@@ -4,11 +4,11 @@
     display: flex;
     justify-content: center;
     .button {
-        font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
+        font-family: $paypal-open;
         display: inline-block;
         background: $dark-blue;
         border: none;
-        color: white;
+        color: $white;
         border-radius: 3rem;
         padding: 0.7em 2.5em;
         font-size: 1rem;

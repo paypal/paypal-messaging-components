@@ -38,7 +38,7 @@
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-        background-color: #faf8f5;
+        background-color: $beige;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -116,15 +116,6 @@
                     margin-left: 56px;
                 }
 
-                @include apiIframe {
-                    transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
-
-                    // copied here because apiIframe mixin has higher priority than the scroll below
-                    &--scroll {
-                        transform: translate(0, 0);
-                    }
-                }
-
                 &--scroll {
                     transform: translate(-3rem, 0);
                     @include mobile {
@@ -143,10 +134,16 @@
 
             @include desktop {
                 margin-left: auto;
+                margin-right: 2px;
             }
 
             @include tablet {
                 margin-left: auto;
+                margin-right: 2px;
+            }
+
+            @include mobile {
+                margin-right: 2px;
             }
 
             svg {
@@ -181,10 +178,11 @@
         }
 
         h1 {
-            font-size: 2.75rem;
+            font-size: 28px;
+            font-weight: 400;
             line-height: 36px;
             text-align: left;
-            color: #001435;
+            color: $text-main;
             margin-left: 52px;
             margin-top: 10px;
 
@@ -206,9 +204,10 @@
 
         h2 {
             font-size: 18px;
+            font-weight: 400;
             line-height: 24px;
             text-align: left;
-            color: #001435;
+            color: $text-main;
             margin: 0px;
 
             @include desktop {
@@ -218,7 +217,7 @@
             }
 
             @include tablet {
-                max-width: 360px;
+                max-width: 380px;
                 margin-left: 62px;
                 margin-bottom: 60px;
 

@@ -22,7 +22,7 @@ $grey600: #888;
     &.donut__qualifying_payment {
         svg {
             text {
-                color: $terms-details;
+                color: $gray;
                 transform: translate(1px, 3px);
             }
         }
@@ -34,9 +34,9 @@ $grey600: #888;
         text {
             font-size: 0.5rem;
             line-height: 20px;
-            font-family: PayPalSansBig;
+            font-family: PayPalOpen;
             font-weight: 600;
-            color: $terms-details;
+            color: $gray;
         }
 
         .donut__background {
@@ -60,7 +60,7 @@ $grey600: #888;
         }
 
         &.donut__payment {
-            font-family: PayPalSansBig;
+            font-family: PayPalOpen;
             font-weight: 600;
 
             @media all and (min-width: $webpage) {
@@ -69,8 +69,8 @@ $grey600: #888;
         }
 
         &.donut__timestamp {
-            color: $terms-details;
-            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+            color: $gray;
+            font-family: $paypal-open;
             @include desktop {
                 font-size: 1rem;
                 line-height: 22px;

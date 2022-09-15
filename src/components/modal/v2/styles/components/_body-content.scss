@@ -50,7 +50,7 @@
     z-index: 1;
     // TODO: There appears to be a small 1px space below the content__container in windows
     // where it's background color is not showing. Is this specific to browserstack?
-    background: $disclosure-background;
+    background: $white;
 
     @include tablet {
         max-height: 90vh;

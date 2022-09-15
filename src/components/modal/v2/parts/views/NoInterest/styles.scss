@@ -117,7 +117,7 @@
             }
 
             &-item {
-                color: $legal-disclaimer;
+                color: $gray;
                 margin-bottom: 20px;
                 font-size: 14px;
                 display: flex;
@@ -142,7 +142,7 @@
                 &::before {
                     /* pseudo class necessary for setting bullet color separate from font */
                     content: '\2022';
-                    color: $terms-bullet;
+                    color: $dark-gray;
                     @include mobile {
                         padding: 0px 12.5px 0px 8px;
                     }
@@ -183,7 +183,7 @@
             list-style: none;
             font-size: 14px;
             margin: 0 0 20px 0;
-            color: $legal-disclaimer;
+            color: $gray;
         }
     }
 }

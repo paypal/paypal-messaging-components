@@ -49,11 +49,11 @@
                 font-weight: 600;
                 line-height: 24px;
                 align-items: center;
-                color: black;
+                color: $text-main;
             }
 
             .tile__body {
-                font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
+                font-family: $paypal-open;
                 margin-top: 5px;
                 font-size: 14px;
                 font-weight: 400;

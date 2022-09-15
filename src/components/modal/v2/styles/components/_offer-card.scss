@@ -6,7 +6,7 @@
 
         &:not(:last-child)::after {
             content: '';
-            border-bottom: 2px solid transparent;
+            border-bottom: 0.5px solid $offer-border-gray;
             display: block;
             margin-top: 20px;
             margin-bottom: 20px;
@@ -42,21 +42,20 @@
         display: flex;
         justify-content: space-between;
         &:first-child {
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
         @include mobile {
             &:first-child {
-                padding-bottom: 15px;
+                padding-bottom: 10px;
             }
         }
     }
     &__field-header {
-        font-size: 1.2rem;
-        color: black;
-        font-weight: 800;
+        font-size: 18px;
+        color: $text-main;
         @include mobile {
-            font-size: 1.2rem;
+            font-size: 18px;
             margin-top: 16px;
         }
         @include smallMobile {
@@ -74,20 +73,20 @@
     }
 
     &__field-title {
-        font-size: 1rem;
-        color: $terms-details;
+        font-size: 18px;
+        color: $gray;
         margin: 0px;
         @include smallMobile {
-            font-size: 0.9rem;
+            font-size: 18px;
         }
     }
 
     &__field-value {
-        font-size: 1.1rem;
-        color: $terms-details;
+        font-size: 18px;
+        color: $gray;
         margin: 0px;
         @include mobile {
-            font-size: 1.1rem;
+            font-size: 18px;
         }
         @include smallMobile {
             font-size: 0.9rem;

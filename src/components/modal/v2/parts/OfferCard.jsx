@@ -23,7 +23,7 @@ const OfferCard = ({ offer: { content, meta } }) => {
                 </div>
                 <div className="offer__field-col">
                     <p className="offer__field-title">{termsLabel?.total}</p>
-                    <strong className="offer__field-value">{meta?.formattedTotalCost}</strong>
+                    <p className="offer__field-value">{meta?.formattedTotalCost}</p>
                 </div>
             </div>
         </div>

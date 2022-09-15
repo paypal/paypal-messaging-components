@@ -3,22 +3,13 @@
     background: transparent;
     box-sizing: border-box;
     padding-top: 0;
-    background: $disclosure-background;
+    background: $beige;
     padding-bottom: 1.5rem;
     flex-grow: 1;
     margin-top: -$sticky-header-radius;
 
-    @include lander {
-        margin-top: 0;
-        border-radius: 100px 0px;
-
-        @include mobile {
-            border-radius: 100px 0px 0px 0px;
-        }
-    }
-
     main {
-        color: $legal-disclaimer;
+        color: $gray;
         padding-top: 0;
         height: 100%;
         box-sizing: border-box;
@@ -40,17 +31,10 @@
             flex-direction: column;
             margin: 0 -20px;
             background: white;
-            padding-bottom: 0.5rem;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
 
-            @include lander {
-                border-radius: 100px 0px 0px 0px;
-                @include mobile {
-                    border-radius: 40px 0px;
-                }
-            }
             @include desktop {
                 height: 100%;
 
@@ -101,7 +85,7 @@
         &.disclosure {
             text-align: left;
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 20px;
 
             @include desktop {
                 margin: 42px 30px 42px 30px;
@@ -112,24 +96,7 @@
             }
 
             @include mobile {
-                margin-top: 42px;
-            }
-        }
-
-        &.nav__link-prefix {
-            min-width: 315px;
-            padding: 0px;
-            font-size: 14px;
-
-            @include tablet {
-                margin: 0px 44px 0px 44px;
-            }
-            @include desktop {
-                margin-left: 30px;
-            }
-
-            @include mobile {
-                margin-left: 0px;
+                margin-top: 28px;
             }
         }
     }

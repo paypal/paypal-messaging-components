@@ -35,10 +35,4 @@
             padding: 0px;
         }
     }
-
-    @include lander {
-        @include tablet {
-            border-radius: 100px 0px 0px 0px;
-        }
-    }
 }

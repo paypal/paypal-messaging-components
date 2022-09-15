@@ -1,4 +1,11 @@
 .calculator {
+    .loading & {
+        .content__wrapper-overflow & {
+            filter: blur(3px);
+            opacity: 0.6;
+        }
+    }
+
     transition: padding-top 0.2s ease-out;
     flex-grow: 1;
     padding-right: 25px;
@@ -28,10 +35,11 @@
     }
 
     .title {
+        color: $text-main;
+        font-weight: 400;
         font-size: 18px;
         margin-top: 0;
         margin-bottom: 10px;
-        font-weight: 500;
 
         @include desktop {
             @include lander {
@@ -62,19 +70,19 @@
         }
 
         .input {
-            font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
+            font-family: $paypal-open;
             background: white;
             border: 1px solid #ccc;
             border-radius: 3px;
             color: $text-main;
-            font-size: 1rem;
+            font-size: 18px;
             padding: 1.75rem 0.5rem 0.25rem;
 
             &.empty-input {
                 padding-top: 16px;
                 padding-bottom: 16px;
                 &::placeholder {
-                    font-family: PayPalOpen, Helvetica, Arial, Sans-Serif;
+                    font-family: $paypal-open;
                     font-size: 14px;
                 }
             }
@@ -90,7 +98,7 @@
     }
 
     &__error {
-        color: black;
+        color: $text-main;
         font-size: 0.8rem;
         margin-top: 10px;
 
@@ -120,7 +128,7 @@
     }
 
     .finance-terms__disclaimer {
-        color: #545d68;
+        color: $gray;
         font-size: 14px;
         line-height: 1.5;
 
