@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.37.0](https://github.com/paypal/paypal-messaging-components/compare/v1.36.4...v1.37.0) (2022-08-30)
+
+
+### Features
+
+* Updates to DE no amount message (DTCRCMERC-1600) ([#846](https://github.com/paypal/paypal-messaging-components/issues/846)) ([ac72e09](https://github.com/paypal/paypal-messaging-components/commit/ac72e094d7629ca8e31c1ebb4201be35877e7772))
+
+
+### Code Refactoring
+
+* Updated stats payload to include render & request duration (DTCRCGEMI-360) ([#838](https://github.com/paypal/paypal-messaging-components/issues/838)) ([402666d](https://github.com/paypal/paypal-messaging-components/commit/402666dbea9d82c9de506b0c40c09854ee41e229))
+
+### [1.36.4](https://github.com/paypal/paypal-messaging-components/compare/v1.36.3...v1.36.4) (2022-08-16)
+
+
+### Bug Fixes
+
+* remove shimmer boxes for non-qualifying amounts ([#843](https://github.com/paypal/paypal-messaging-components/issues/843)) ([e30cbb8](https://github.com/paypal/paypal-messaging-components/commit/e30cbb825e931e102c9e3791e18ac96304e15f43))
+
+
+### Continuous Integration
+
+* fix unzip security ([#844](https://github.com/paypal/paypal-messaging-components/issues/844)) ([ad5ab33](https://github.com/paypal/paypal-messaging-components/commit/ad5ab3317925efbe7aacbf063d0fbe3d60600576))
+
+### [1.36.3](https://github.com/paypal/paypal-messaging-components/compare/v1.36.2...v1.36.3) (2022-08-02)
+
+
+### Bug Fixes
+
+* message period spacing ([#840](https://github.com/paypal/paypal-messaging-components/issues/840)) ([546a04f](https://github.com/paypal/paypal-messaging-components/commit/546a04f30369284cbcd8f07aa60027f49577be55))
+
+
+### Code Refactoring
+
+* € is on the same line as the min and max purchase ([#839](https://github.com/paypal/paypal-messaging-components/issues/839)) ([2afc6f0](https://github.com/paypal/paypal-messaging-components/commit/2afc6f0e2b31118a44a4c44346d99b0cf39ca012))
+
 ### [1.36.2](https://github.com/paypal/paypal-messaging-components/compare/v1.36.1...v1.36.2) (2022-07-19)
 
 

@@ -6,6 +6,8 @@ import gplEqzNonDe from './gpl_eqz-non-de';
 import gplGtzNonDe from './gpl_gtz-non-de';
 import gplqEqzNonDe from './gplq_eqz-non-de';
 import gplqGtzNonDe from './gplq_gtz-non-de';
+import generic from './generic';
+import genericNonDe from './generic-non-de';
 
 export default function getMutations(id, type) {
     switch (id) {
@@ -24,7 +26,11 @@ export default function getMutations(id, type) {
         case 'GPLQ:GTZ:NON-DE':
             return gplqGtzNonDe[type];
         case 'GPL:EQZ':
-        default:
             return gplEqz[type];
+        case 'GENERIC:NON-DE':
+            return genericNonDe[type];
+        case 'GENERIC':
+        default:
+            return generic[type];
     }
 }

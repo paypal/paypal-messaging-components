@@ -111,6 +111,15 @@
             text-align: left;
             align-items: flex-start;
             max-width: 300px;
+            margin-left: 45px;
+
+            @include desktop {
+                margin: auto;
+            }
+
+            @include mobile {
+                margin: auto;
+            }
         }
 
         &.hide {
@@ -137,6 +146,20 @@
         }
         @include smallMobile {
             margin-top: 0px;
+        }
+
+        &.no-amount {
+            @include desktop {
+                margin-left: 26px;
+            }
+
+            @include tablet {
+                margin-left: 71px;
+            }
+
+            @include mobile {
+                margin-left: 26px;
+            }
         }
     }
 }
