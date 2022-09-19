@@ -32,6 +32,17 @@
         @include apiIframe {
             border-radius: 0;
         }
+
+        // Hide sticky header styles on the desktop and tablet variants of the Lander.
+        // These dimensions use a background that takes up the entire viewport instead.
+        @include lander {
+            @include desktop {
+                display: none;
+            }
+            @include tablet {
+                display: none;
+            }
+        }
     }
 
     &__background-wrapper {

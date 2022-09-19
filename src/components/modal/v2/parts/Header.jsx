@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useTransitionState, useScroll, isIframe, currencyFormat } from '../lib';
+import { isLander, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
 const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
@@ -24,16 +24,12 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
     // specific adjacent DOM structure
     return (
         <Fragment>
-            {(!isLander || isIframe) && (
-                <Fragment>
-                    <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                        <div className="header__background-wrapper header__background-wrapper--gradient" />
-                    </div>
-                    <div aria-hidden="true" className="header__fixed-wrapper">
-                        <div className="header__background-wrapper" />
-                    </div>
-                </Fragment>
-            )}
+            <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
+                <div className="header__background-wrapper header__background-wrapper--gradient" />
+            </div>
+            <div aria-hidden="true" className="header__fixed-wrapper">
+                <div className="header__background-wrapper" />
+            </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo" alt="PayPal Credit Logo">
@@ -53,11 +49,9 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                         <Icon name="close" />
                     </button>
                 )}
-                {(!isLander || isIframe) && (
-                    <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                        <div className="header__background-wrapper header__background-wrapper--sticky" />
-                    </div>
-                )}
+                <div className="header__fixed-wrapper header__fixed-wrapper--front">
+                    <div className="header__background-wrapper header__background-wrapper--sticky" />
+                </div>
             </div>
             <div className="header__content">
                 {/* eslint-disable-next-line react/no-danger */}
