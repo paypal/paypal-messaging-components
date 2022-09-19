@@ -32,6 +32,17 @@
         @include apiIframe {
             border-radius: 0;
         }
+
+        // Hide sticky header styles on the desktop and tablet variants of the Lander.
+        // These dimensions use a background that takes up the entire viewport instead.
+        @include lander {
+            @include desktop {
+                display: none;
+            }
+            @include tablet {
+                display: none;
+            }
+        }
     }
 
     &__background-wrapper {
@@ -128,7 +139,15 @@
                 }
 
                 @include apiIframe {
-                    transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+                    // Specifically calling out desktop and tablet dimensions here as they move the PP logo monogram from the center of the header
+                    // to the left-hand side on scroll. Mobile dimensions keep the logo to the left.
+                    @include desktop {
+                        transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+                    }
+
+                    @include tablet {
+                        transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
+                    }
 
                     // copied here because apiIframe mixin has higher priority than the scroll below
                     &--scroll {
