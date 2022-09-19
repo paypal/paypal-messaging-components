@@ -22,7 +22,7 @@
     },
     "content": {
         "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
-        "subheadline": "Erhältlich für Einkäufe i.H.v. {formattedMinAmount} - {formattedMaxAmount}.",
+        "subheadline": "Erhältlich für Einkäufe i.H.v. <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
         "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",

@@ -1,10 +1,11 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useTransitionState, useScroll, currencyFormat } from '../lib';
+import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
 const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
+    const { country } = useServerData();
     const [, handleClose] = useTransitionState();
     const [isScrolled, setScrolled] = useState(false);
 
@@ -18,6 +19,9 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
         },
         [isScrolled]
     );
+
+    // Used to specifically target styles to a specific country
+    const countryClassName = country.toLowerCase();
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
@@ -55,12 +59,17 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
             </div>
             <div className="header__content">
                 {/* eslint-disable-next-line react/no-danger */}
-                <h1 dangerouslySetInnerHTML={{ __html: headline }} />
+                <h1 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <h2>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h2>
+                    <h2 className={`subheadline-${countryClassName} qualifying`}>
+                        {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                    </h2>
                 ) : (
-                    // eslint-disable-next-line react/no-danger
-                    <h2 dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }} />
+                    <h2
+                        className={`subheadline-${countryClassName}`}
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
+                    />
                 )}
             </div>
         </Fragment>
