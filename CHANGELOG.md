@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.37.1](https://github.com/paypal/paypal-messaging-components/compare/v1.37.0...v1.37.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* universal modal lander header stickiness on mobile ([#850](https://github.com/paypal/paypal-messaging-components/issues/850)) ([057f851](https://github.com/paypal/paypal-messaging-components/commit/057f851841d7eed03b1807ca4f154c0514473312))
+
 ## [1.37.0](https://github.com/paypal/paypal-messaging-components/compare/v1.36.4...v1.37.0) (2022-08-30)
 
 
