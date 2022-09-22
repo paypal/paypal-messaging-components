@@ -17,7 +17,10 @@ const InlineLinks = ({ text }) => {
                 // if the next chunk is an array with two strings, use the second string as the href for the first
                 return (
                     // class name is singular because it is applied to a single link
+
                     <a
+                        /* task 15 */
+                        aria-label="Terms and Conditions, opens new tab."
                         target="__blank"
                         className="inline-link"
                         href={linkUrl}
