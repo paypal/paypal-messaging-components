@@ -3,6 +3,13 @@
 
 .content__body {
     .content__row {
+        padding-left: 10px;
+        padding-right: 50px;
+
+        @include mobile {
+            padding: 0px;
+        }
+
         &.nav__link-prefix {
             min-width: 315px;
             padding: 0px;

@@ -1,3 +1,8 @@
+strong {
+    font-family: $paypal-open-bold;
+    color: $text-main;
+}
+
 .offer {
     &__container {
         &:first-child {
@@ -53,7 +58,6 @@
     }
     &__field-header {
         font-size: 18px;
-        color: $text-main;
         @include mobile {
             font-size: 18px;
             margin-top: 16px;
@@ -73,11 +77,16 @@
     }
 
     &__field-title {
+        display: flex;
         font-size: 18px;
         color: $gray;
         margin: 0px;
         @include smallMobile {
             font-size: 18px;
+        }
+
+        &:is(strong) {
+            color: $text-main;
         }
     }
 
@@ -90,6 +99,10 @@
         }
         @include smallMobile {
             font-size: 0.9rem;
+        }
+
+        &:is(strong) {
+            color: $text-main;
         }
     }
 }
