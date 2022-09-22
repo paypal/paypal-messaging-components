@@ -208,10 +208,12 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
         <div className="calculator">
             <form className="form" onSubmit={submit}>
                 <h3 className="title">{title}</h3>
-                <div className="input__wrapper transitional">
+                <div role="alert" className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
+                    {/* task 12 */}
                     <input
+                        aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="tel"
