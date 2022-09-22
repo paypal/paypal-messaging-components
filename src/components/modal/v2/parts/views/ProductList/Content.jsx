@@ -34,7 +34,7 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                         ))}
 
                     {productTiles && !!availableTiles.credit?.length && (
-                        <div className="content__row instructions-2">
+                        <div className="content__row">
                             <p>{instructions.credit}</p>
                         </div>
                     )}

@@ -3,6 +3,10 @@
 
 .content__container {
     .content__row {
+        @include desktop {
+            padding-left: 0px;
+        }
+
         &.dynamic {
             @include desktop {
                 height: 600px;
@@ -30,19 +34,13 @@
             }
         }
 
-        &.instructions-2 {
-            @include desktop {
-                padding-left: 0px;
-            }
+        p {
+            margin-top: 0;
+            color: $text-main;
+            font-size: 18px;
 
-            p {
-                margin-top: 0;
-                color: $text-main;
-                font-size: 18px;
-
-                @include lander {
-                    margin-top: 30px;
-                }
+            @include lander {
+                margin-top: 30px;
             }
         }
     }
