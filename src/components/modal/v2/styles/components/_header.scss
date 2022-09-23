@@ -188,6 +188,30 @@
             padding-bottom: 40px;
         }
 
+        svg {
+            position: absolute;
+            right: 0;
+            bottom: 36px;
+
+            @include desktop {
+                &.background-mobile {
+                    display: none;
+                }
+            }
+
+            @include tablet {
+                &.background-mobile {
+                    display: none;
+                }
+            }
+
+            @include mobile {
+                &.background-desktop {
+                    display: none;
+                }
+            }
+        }
+
         h1 {
             font-size: 28px;
             font-weight: 400;
@@ -197,14 +221,27 @@
             margin-left: 52px;
             margin-top: 10px;
 
+            @include desktop {
+                margin-bottom: 10px;
+
+                br {
+                    display: none;
+                }
+            }
+
             @include tablet {
                 margin-left: 62px;
                 @include lander {
                     max-width: 100%;
                 }
+
+                br {
+                    display: none;
+                }
             }
 
             @include mobile {
+                margin-bottom: 5px;
                 margin-left: 22px;
             }
 
@@ -234,18 +271,14 @@
 
             @include desktop {
                 margin-left: 52px;
-                margin-top: 25px;
-                margin-bottom: 100px;
+                margin-top: 0px;
+                margin-bottom: 80px;
             }
 
             @include tablet {
                 max-width: 380px;
                 margin-left: 62px;
                 margin-bottom: 60px;
-
-                @include lander {
-                    max-width: 100%;
-                }
             }
 
             @include mobile {

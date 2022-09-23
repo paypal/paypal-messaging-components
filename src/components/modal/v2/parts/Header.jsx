@@ -4,7 +4,7 @@ import { useState } from 'preact/hooks';
 import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
+const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline, viewName }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
     const [isScrolled, setScrolled] = useState(false);
@@ -58,6 +58,9 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 </div>
             </div>
             <div className="header__content">
+                <Icon name={`${viewName}_desktop`} />
+                <Icon name={`${viewName}_mobile`} />
+                {/* <Icon name="background-pp-mobile" /> */}
                 {/* eslint-disable-next-line react/no-danger */}
                 <h1 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
