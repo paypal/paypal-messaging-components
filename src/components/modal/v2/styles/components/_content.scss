@@ -7,6 +7,7 @@
     padding-bottom: 1.5rem;
     flex-grow: 1;
     margin-top: -$sticky-header-radius;
+    z-index: 1000;
 
     main {
         color: $gray;

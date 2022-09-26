@@ -66,7 +66,7 @@
         &--gradient {
             // Ends right above the header text in the scenario where mask-image
             // isn't supported to prevent hiding the text on initial render
-            height: 6rem;
+            height: 10rem;
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 black,
