@@ -12,14 +12,16 @@ export const PayIn1 = ({
     content: { instructions, linkToProductList, disclosure, navLinkPrefix },
     openProductList
 }) => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
 
     const renderProductListLink = () => {
         if (views?.length > 2) {
             return (
                 <Fragment>
                     {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
                 </Fragment>
             );
         }

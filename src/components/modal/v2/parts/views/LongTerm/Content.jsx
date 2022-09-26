@@ -15,7 +15,7 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const [aprType, setAPRType] = useState('');
     const { amount, onClick, onClose } = useXProps();
-    const { views } = useServerData();
+    const { views, country } = useServerData();
     const {
         view: { offers }
     } = useCalculator();
@@ -70,7 +70,9 @@ export const LongTerm = ({
             return (
                 <Fragment>
                     {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
                 </Fragment>
             );
         }

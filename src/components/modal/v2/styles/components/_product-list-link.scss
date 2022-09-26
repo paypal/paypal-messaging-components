@@ -24,4 +24,10 @@
     &.no-interest {
         margin: 0px;
     }
+
+    &.de {
+        @include mobile {
+            margin-top: 0px;
+        }
+    }
 }

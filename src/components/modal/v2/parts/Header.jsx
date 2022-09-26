@@ -21,7 +21,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
     );
 
     // Used to specifically target styles to a specific country
-    const countryClassName = country.toLowerCase();
+    const countryClassName = country?.toLowerCase();
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
