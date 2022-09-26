@@ -58,8 +58,8 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 </div>
             </div>
             <div className="header__content">
-                <Icon name={`${viewName}_desktop`} />
-                <Icon name={`${viewName}_mobile`} />
+                <Icon name={`${viewName}-desktop`} />
+                <Icon name={`${viewName}-mobile`} />
                 {/* <Icon name="background-pp-mobile" /> */}
                 {/* eslint-disable-next-line react/no-danger */}
                 <h1 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
