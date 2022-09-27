@@ -42,6 +42,7 @@ export function getInlineOptions(container) {
         buyercountry: 'buyerCountry',
         merchantid: 'merchantId',
         cspnonce: 'cspNonce',
+        ectoken: 'ecToken',
         customerid: 'customerId',
         fontfamily: 'fontFamily',
         fontsource: 'fontSource',
