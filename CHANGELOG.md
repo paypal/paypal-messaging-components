@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.38.0](https://github.com/paypal/paypal-messaging-components/compare/v1.37.1...v1.38.0) (2022-09-27)
+
+
+### Features
+
+* add support for ec_token param ([#848](https://github.com/paypal/paypal-messaging-components/issues/848)) ([9ba7f1c](https://github.com/paypal/paypal-messaging-components/commit/9ba7f1c9def8762ab41c3f03c80e465d7cffb6cb))
+
+
+### Code Refactoring
+
+* Update Pay in 4 modal to remove ND from ineligible states disclosure (DTCRCMERC-1720) ([#855](https://github.com/paypal/paypal-messaging-components/issues/855)) ([4e76c40](https://github.com/paypal/paypal-messaging-components/commit/4e76c40cb69ce58b6286cbb4ace11a29a258b452))
+* Update Pay Monthly modal disclosure for Vermont & South Dakota (DTCRCMERC-1719) ([#853](https://github.com/paypal/paypal-messaging-components/issues/853)) ([f0f7716](https://github.com/paypal/paypal-messaging-components/commit/f0f77166b0699a746d386f759fd07d460b0ac275))
+
+### [1.37.1](https://github.com/paypal/paypal-messaging-components/compare/v1.37.0...v1.37.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* universal modal lander header stickiness on mobile ([#850](https://github.com/paypal/paypal-messaging-components/issues/850)) ([057f851](https://github.com/paypal/paypal-messaging-components/commit/057f851841d7eed03b1807ca4f154c0514473312))
+
 ## [1.37.0](https://github.com/paypal/paypal-messaging-components/compare/v1.36.4...v1.37.0) (2022-08-30)
 
 
