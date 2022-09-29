@@ -10,11 +10,10 @@ import {
     useXProps,
     useDidUpdateEffect,
     getContent,
+    setupTabTrap,
     isLander,
-    isIframe,
-    setupTabTrap
+    isIframe
 } from '../lib';
-import Icon from './Icon';
 import Overlay from './Overlay';
 
 const Container = ({ children }) => {
@@ -86,7 +85,6 @@ const Container = ({ children }) => {
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
             <div className="modal-wrapper">
-                {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}

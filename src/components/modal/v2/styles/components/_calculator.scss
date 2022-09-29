@@ -1,4 +1,11 @@
 .calculator {
+    .loading & {
+        .content__wrapper-overflow & {
+            filter: blur(3px);
+            opacity: 0.6;
+        }
+    }
+
     transition: padding-top 0.2s ease-out;
     flex-grow: 1;
     padding-right: 25px;
@@ -28,8 +35,11 @@
     }
 
     .title {
+        color: $text-main;
+        font-weight: 400;
+        font-size: 18px;
         margin-top: 0;
-        font-weight: 500;
+        margin-bottom: 10px;
 
         @include desktop {
             @include lander {
@@ -60,17 +70,19 @@
         }
 
         .input {
+            font-family: $paypal-open;
             background: white;
             border: 1px solid #ccc;
             border-radius: 3px;
             color: $text-main;
-            font-size: 1rem;
+            font-size: 18px;
             padding: 1.75rem 0.5rem 0.25rem;
 
             &.empty-input {
                 padding-top: 16px;
                 padding-bottom: 16px;
                 &::placeholder {
+                    font-family: $paypal-open;
                     font-size: 14px;
                 }
             }
@@ -81,13 +93,13 @@
         text-align: left;
 
         @include tablet {
-            text-align: center;
+            // text-align: center;
         }
     }
 
     &__error {
-        color: black;
-        font-size: 0.8rem;
+        color: $text-main;
+        font-size: 14px;
         margin-top: 10px;
 
         @include tablet {
@@ -99,7 +111,6 @@
             text-align: left;
             align-items: flex-start;
             max-width: 300px;
-            margin-left: 45px;
 
             @include desktop {
                 margin: auto;
@@ -125,32 +136,15 @@
     }
 
     .finance-terms__disclaimer {
-        font-size: 0.8rem;
+        color: $gray;
+        font-size: 14px;
         line-height: 1.5;
-        @include tablet {
-            font-size: 0.75rem;
-        }
+
         @include mobile {
-            font-size: 0.8rem;
             margin-top: 0px;
         }
         @include smallMobile {
-            font-size: 0.7rem;
             margin-top: 0px;
-        }
-
-        &.no-amount {
-            @include desktop {
-                margin-left: 26px;
-            }
-
-            @include tablet {
-                margin-left: 71px;
-            }
-
-            @include mobile {
-                margin-left: 26px;
-            }
         }
     }
 }

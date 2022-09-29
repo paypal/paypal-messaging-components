@@ -8,7 +8,7 @@ const OfferCard = ({ offer: { content, meta } }) => {
     return (
         <div className="offer__container">
             <div className="offer__row">
-                <div className="offer__field-header">{termsLabel.offerHeader}</div>
+                <strong className="offer__field-header">{termsLabel.offerHeader}</strong>
             </div>
             <div className="offer__row">
                 <div className="offer__field-col">
@@ -22,7 +22,7 @@ const OfferCard = ({ offer: { content, meta } }) => {
                     <p className="offer__field-value">{meta?.formattedTotalInterest}</p>
                 </div>
                 <div className="offer__field-col">
-                    <p className="offer__field-title">{termsLabel?.total}</p>
+                    <strong className="offer__field-title">{termsLabel?.total}</strong>
                     <strong className="offer__field-value">{meta?.formattedTotalCost}</strong>
                 </div>
             </div>
