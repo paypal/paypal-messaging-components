@@ -8,9 +8,9 @@ export const DEV_US_MULTI = {
             message: 'Product list modal functionality',
             expectedValue: 'Buy now, pay later.',
             modalContent: {
-                headline: 'Buy now,\npay over time',
+                headline: 'Buy now',
                 shortTerm: 'Pay in 4 interest-free payments',
-                longTerm: 'Pay with monthly installments',
+                longTerm: 'Pay Monthly',
                 noInterest: 'Pay over time with PayPal Credit'
             }
         }
