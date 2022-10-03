@@ -71,8 +71,12 @@
         }
     }
     &__footer {
-        padding: 25px;
+        padding-top: 25px;
         margin: 0;
+
+        ul {
+            padding-left: 0px !important;
+        }
 
         @include desktop {
             padding-left: 15px;
