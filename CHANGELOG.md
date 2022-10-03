@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.38.1](https://github.com/paypal/paypal-messaging-components/compare/v1.38.0...v1.38.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* add channel to message updates ([#852](https://github.com/paypal/paypal-messaging-components/issues/852)) ([8122e45](https://github.com/paypal/paypal-messaging-components/commit/8122e45021d170b82c562c4f8bc4551fdc5833a2))
+
 ## [1.38.0](https://github.com/paypal/paypal-messaging-components/compare/v1.37.1...v1.38.0) (2022-09-27)
 
 
