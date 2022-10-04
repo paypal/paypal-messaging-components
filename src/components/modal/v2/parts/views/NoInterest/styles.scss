@@ -104,9 +104,8 @@
             margin-bottom: 70px;
         }
         .terms {
-            ul {
-                padding-left: 0px;
-            }
+            padding-left: 0px;
+
             @include desktop {
                 margin-top: 0;
                 margin-left: 30px;
