@@ -21,6 +21,12 @@
             margin-top: -11px;
             margin-bottom: 0px;
         }
+        &.ppc {
+            @include mobile {
+                margin-top: -11px;
+                margin-bottom: 0px;
+            }
+        } 
     }
     li {
         color: $text-main;
