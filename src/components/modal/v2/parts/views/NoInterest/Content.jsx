@@ -34,7 +34,7 @@ export const NoInterest = ({
             <style>{styles._getCss()}</style>
             <div className="content__row dynamic">
                 <div className="content__col">
-                    <Instructions instructions={instructions} />
+                    <Instructions instructions={instructions} className="ppc" />
                 </div>
                 <div className="content__col">
                     <div className="branded-image">
