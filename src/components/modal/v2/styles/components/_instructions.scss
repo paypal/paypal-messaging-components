@@ -18,8 +18,17 @@
 
         @include mobile {
             padding: 0px;
+            margin-top: -11px;
+            margin-bottom: 0px;
+        }
+        &.ppc {
+            @include mobile {
+                margin-top: -11px;
+                margin-bottom: 0px;
+            }
         }
     }
+
     li {
         color: $text-main;
         list-style: none;

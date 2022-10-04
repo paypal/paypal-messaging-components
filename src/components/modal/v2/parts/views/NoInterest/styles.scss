@@ -71,7 +71,7 @@
         }
     }
     &__footer {
-        padding: 25px;
+        padding-top: 25px;
         margin: 0;
 
         @include desktop {
@@ -104,6 +104,8 @@
             margin-bottom: 70px;
         }
         .terms {
+            padding-left: 0px;
+
             @include desktop {
                 margin-top: 0;
                 margin-left: 30px;
@@ -162,12 +164,12 @@
                 margin-top: 20px;
             }
             @include desktop {
-                margin-left: 45px;
+                margin-left: 17px;
                 margin-right: 45px;
             }
 
             @include tablet {
-                margin-left: 45px;
+                margin-left: 17px;
                 margin-right: 45px;
 
                 .product-list-link {
