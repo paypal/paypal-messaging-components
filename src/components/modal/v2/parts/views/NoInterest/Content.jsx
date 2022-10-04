@@ -51,7 +51,7 @@ export const NoInterest = ({
                         </li>
                     ))}
                 </ul>
-                <ul>
+                <ul className="terms">
                     {footer.map(lineContent => {
                         return (
                             <li className="content__footer-item">
