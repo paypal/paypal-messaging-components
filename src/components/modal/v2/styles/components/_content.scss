@@ -31,10 +31,17 @@
             display: flex;
             flex-direction: column;
             margin: 0 -20px;
-            background: white;
+            background: $white;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
+
+            &.product-list {
+                @include tablet {
+                    padding-left: 65px;
+                    padding-right: 65px;
+                }
+            }
 
             @include desktop {
                 height: 100%;
@@ -80,6 +87,10 @@
                 @include smallMobile {
                     display: none;
                 }
+            }
+
+            .product-list {
+                width: 100%;
             }
         }
 
