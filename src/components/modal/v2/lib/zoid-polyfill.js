@@ -133,20 +133,23 @@ const setupWebview = props => {
             const { tracking_details: trackingDetails } = meta;
 
             sendCallbackMessage('onReady', {
+                // TODO: Determine correct solution for identifying shared fields
+                shared: {
+                    device_id: deviceID, // TODO: Need to consider modal webview device ID vs native device ID
+                    bn_code: partnerAttributionId,
+                    integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
+                    ...trackingDetails
+                },
                 et: 'CLIENT_IMPRESSION',
                 event_type: 'modal-render',
-                device_id: deviceID,
-                bn_code: partnerAttributionId,
-                products: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
-                integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
-                ...trackingDetails
+                products: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
             });
         },
         onClick: ({ linkName, src }) => {
             sendCallbackMessage('onClick', {
                 et: 'CLICK',
                 event_type: 'click',
-                linkName,
+                link_name: linkName,
                 src: src ?? linkName
             });
         },
