@@ -224,8 +224,9 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 </div>
                 {renderError(error || emptyState || isLoading)}
             </form>
+            {/* task 13 */}
             {hasInitialAmount || hasUsedInputField ? (
-                <div className="content-column">
+                <div role="alert" className="content-column">
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (

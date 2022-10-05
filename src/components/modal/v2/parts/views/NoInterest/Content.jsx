@@ -19,9 +19,10 @@ export const NoInterest = ({
     const renderProductListLinkItem = () => {
         if (views?.length > 2) {
             return (
-                <li className="content__footer-item">
+                // task 16
+                <div className="content__footer-item">
                     <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
-                </li>
+                </div>
             );
         }
         return <Fragment />;
@@ -53,16 +54,17 @@ export const NoInterest = ({
                                 </li>
                             ))}
                         </ul>
-                        <ul>
+                        {/* task 16 */}
+                        <p>
                             {footer.map(lineContent => {
                                 return (
-                                    <li className="content__footer-item">
+                                    <p className="content__footer-item">
                                         <InlineLinks text={lineContent} />
-                                    </li>
+                                    </p>
                                 );
                             })}
                             {renderProductListLinkItem()}
-                        </ul>
+                        </p>
                     </div>
                     <div className="content__body">
                         <div className="content__row dynamic">
@@ -71,7 +73,13 @@ export const NoInterest = ({
                                     <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
                                         {buttonText}
                                     </Button>
-                                    <div className="content__row content__disclaimer">{disclaimer}</div>
+                                    <div
+                                        // task 17
+                                        aria-describedby="Subject to Credit Approval"
+                                        className="content__row content__disclaimer"
+                                    >
+                                        {disclaimer}
+                                    </div>
                                 </div>
                             </div>
                         </div>
