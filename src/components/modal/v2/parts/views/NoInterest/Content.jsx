@@ -43,24 +43,24 @@ export const NoInterest = ({
                 </div>
             </div>
             <div className="content__footer">
-                <ul className="content__row terms">
+                <div className="content__row terms">
                     {terms.map(item => (
-                        <li className="terms-item">
+                        <p className="terms-item">
                             <span className="terms-bullet" />
                             <span className="terms-content">{item}</span>
-                        </li>
+                        </p>
                     ))}
-                </ul>
-                <ul className="terms">
+                </div>
+                <div className="terms">
                     {footer.map(lineContent => {
                         return (
-                            <li className="content__footer-item">
+                            <p className="content__footer-item">
                                 <InlineLinks text={lineContent} />
-                            </li>
+                            </p>
                         );
                     })}
                     {renderProductListLinkItem()}
-                </ul>
+                </div>
             </div>
             <div className="content__row dynamic">
                 <div className="button__fixed-wrapper">

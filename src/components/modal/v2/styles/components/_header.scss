@@ -249,8 +249,17 @@
                 }
 
                 @include mobile {
+                    line-height: 30px;
+                    margin-right: 50px;
                     margin-left: 0px;
                     padding: 10px 25px 0px;
+                }
+
+                @include apiIframe {
+                    max-width: 500px;
+                    @include mobile {
+                        max-width: 279px;
+                    }
                 }
             }
         }
