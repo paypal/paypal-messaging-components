@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.38.2](https://github.com/paypal/paypal-messaging-components/compare/v1.38.1...v1.38.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* update modals for legal disclosure not showing in the mobile viewport (DTCRCMERC-1565) ([#842](https://github.com/paypal/paypal-messaging-components/issues/842)) ([82577d1](https://github.com/paypal/paypal-messaging-components/commit/82577d1e563907e59ca170d01bbd210ca346ed28))
+
 ### [1.38.1](https://github.com/paypal/paypal-messaging-components/compare/v1.38.0...v1.38.1) (2022-10-03)
 
 
