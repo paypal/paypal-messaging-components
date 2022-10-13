@@ -55,15 +55,19 @@ $grey600: #888;
         line-height: 20px;
 
         @media all and (min-width: $webpage) {
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 22px;
         }
 
         &.donut__payment {
             font-family: PayPalOpen;
             font-weight: 600;
+            font-size: 0.9rem;
             margin-top: 0.3rem;
 
+            // .donut__payment:first-child {
+            //     font-weight: bold;
+            // }
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
             }
@@ -72,8 +76,8 @@ $grey600: #888;
         &.donut__timestamp {
             color: $gray;
             font-family: $paypal-open;
+            font-size: 0.9rem;
             @include desktop {
-                font-size: 1rem;
                 line-height: 22px;
             }
         }

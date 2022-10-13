@@ -36,3 +36,17 @@
         }
     }
 }
+.learnMoreLink__container {
+    @include desktop {
+        margin-left: 44px;
+    }
+
+    @include tablet {
+        margin-left: 44px; 
+    }
+
+    @include mobile {
+     margin-top: 20px;
+     margin-left: 0px;
+    }
+}
