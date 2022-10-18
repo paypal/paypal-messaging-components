@@ -36,6 +36,10 @@
                     background-color: transparent;
                 }
 
+                @include smallHeightMobile {
+                    min-height: 8em;
+                }
+
                 &__container {
                     display: flex;
                     align-items: center;
@@ -63,6 +67,10 @@
                 @include lander {
                     @include tablet {
                         border-radius: 100px 0px 0px 0px;
+                    }
+                    // Short term view adds small border radius to donut container on lander variant
+                    @include mobile {
+                        border-radius: 40px 0px;
                     }
                 }
             }
@@ -113,6 +121,10 @@
                         width: 100%;
                     }
 
+                    @include smallHeightMobile {
+                        margin-bottom: 0.2rem;
+                    }
+
                     .instructions__bullet {
                         @include desktop {
                             line-height: 25px;
@@ -122,6 +134,12 @@
                     li {
                         font-size: 1.125rem;
                         line-height: 24px;
+
+                        @include smallHeightMobile {
+                            line-height: 21px;
+                            font-size: 1.1rem;
+                            padding-bottom: 6px;
+                        }
                     }
                 }
             }
@@ -129,6 +147,10 @@
             &.disclosure {
                 @include desktop {
                     padding-top: 16px;
+                }
+
+                @include smallHeightMobile {
+                    padding-top: 0;
                 }
             }
 

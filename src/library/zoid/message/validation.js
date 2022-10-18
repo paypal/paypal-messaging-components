@@ -208,6 +208,17 @@ export default {
 
         return undefined;
     },
+    ecToken: ({ props: { ecToken } }) => {
+        if (typeof ecToken !== 'undefined') {
+            if (!validateType(Types.STRING, ecToken)) {
+                logInvalidType('ecToken', Types.STRING, ecToken);
+            } else {
+                return ecToken;
+            }
+        }
+
+        return undefined;
+    },
     cspNonce: ({ props: { cspNonce } }) => {
         if (typeof cspNonce !== 'undefined') {
             if (!validateType(Types.STRING, cspNonce)) {
