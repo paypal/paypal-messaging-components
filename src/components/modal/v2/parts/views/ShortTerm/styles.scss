@@ -19,7 +19,7 @@
         width: 100%;
         max-width: 360px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 20px 15px 20px;
 
         @include desktop {
             transform: translate(0px, 1rem);
@@ -28,9 +28,13 @@
         }
 
         @include tablet {
-            max-width: 320px;
+            max-width: 400px;
         }
 
+        @include mobile {
+            padding: 0 0 15px;
+        }
+        
         @include smallMobile {
             padding: 0px;
         }
