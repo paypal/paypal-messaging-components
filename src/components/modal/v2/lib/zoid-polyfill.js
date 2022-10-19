@@ -129,7 +129,7 @@ const setupWebview = props => {
     window.xprops = {
         onProps: listener => propListeners.add(listener),
         onReady: ({ products, meta, deviceID }) => {
-            const { offer, partnerAttributionId } = props;
+            const { offer, partnerAttributionId } = window.xprops;
             const { tracking_details: trackingDetails } = meta;
 
             sendCallbackMessage('onReady', {
@@ -142,7 +142,7 @@ const setupWebview = props => {
                 },
                 et: 'CLIENT_IMPRESSION',
                 event_type: 'modal-render',
-                products: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
+                modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
             });
         },
         onClick: ({ linkName, src }) => {
@@ -157,7 +157,7 @@ const setupWebview = props => {
             sendCallbackMessage('onCalculate', {
                 et: 'CLICK',
                 event_type: 'click',
-                link: 'Calculator',
+                link_name: 'Calculator',
                 src: 'Calculator',
                 amount: value
             });
@@ -173,7 +173,7 @@ const setupWebview = props => {
             sendCallbackMessage('onClose', {
                 et: 'CLICK',
                 event_type: 'modal-close',
-                link: linkName
+                link_name: linkName
             });
         },
         // Overridable defaults
