@@ -1,10 +1,10 @@
-import Messages from 'src/controllers/message/interface';
-import { getMessageComponent } from 'src/zoid/message';
-import { Modal } from 'src/controllers/modal';
+import Messages from 'src/library/controllers/message/interface';
+import { getMessageComponent } from 'src/library/zoid/message';
+import { Modal } from 'src/library/controllers/modal';
 import { destroyGlobalState, setGlobalState, logger } from 'src/utils';
-import destroy from 'src/controllers/message/destroy';
+import destroy from 'src/library/controllers/message/destroy';
 
-jest.mock('src/zoid/message', () => {
+jest.mock('src/library/zoid/message', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockCreateMessage = jest.fn(() => ({
@@ -18,7 +18,7 @@ jest.mock('src/zoid/message', () => {
     };
 });
 
-jest.mock('src/controllers/modal', () => {
+jest.mock('src/library/controllers/modal', () => {
     const mockRender = jest.fn(() => Promise.resolve());
     const mockUpdateProps = jest.fn(() => Promise.resolve());
     const mockShow = jest.fn(() => Promise.resolve());
@@ -309,5 +309,31 @@ describe('message interface', () => {
 
         expect(onHover).toHaveBeenCalledTimes(1);
         expect(onHover).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
+    });
+
+    // The Message component does not use the onApply function that the client attaches,
+    // but it does need to be able to accept a function for onApply so it can be passed
+    // on to the Modal component
+    test('Passes onApply handler on message', async () => {
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+        const onApply = jest.fn();
+
+        await Messages({ onApply }).render(container);
+
+        expect(getMessageComponent()).toHaveBeenCalledTimes(1);
+        expect(getMessageComponent()).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                onApply: expect.any(Function)
+            })
+        );
+        expect(onApply).not.toHaveBeenCalled();
+
+        const [[{ onApply: onApplyHandler }]] = getMessageComponent().mock.calls;
+
+        onApplyHandler({ meta: { messageRequestId: '12345' } });
+
+        expect(onApply).toHaveBeenCalledTimes(1);
+        expect(onApply).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
     });
 });

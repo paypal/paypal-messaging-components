@@ -3,7 +3,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
@@ -41,6 +41,8 @@ export function getInlineOptions(container) {
     const attributeNameOverride = {
         buyercountry: 'buyerCountry',
         merchantid: 'merchantId',
+        cspnonce: 'cspNonce',
+        customerid: 'customerId',
         fontfamily: 'fontFamily',
         fontsource: 'fontSource',
         onclick: 'onClick',

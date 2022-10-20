@@ -4,12 +4,12 @@ import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import { useTransitionState, useXProps, useScroll } from '../lib';
-import { getProductForOffer } from '../../../utils';
+import { getStandardProductOffer } from '../../../utils';
 
 // Determine pre-selected tab based on the offer type of the banner.
 const getInitialTabIndex = (offer, tabs) =>
     Math.max(
-        arrayFindIndex(tabs, ({ product }) => product === getProductForOffer(offer)),
+        arrayFindIndex(tabs, ({ product }) => getStandardProductOffer(product) === offer),
         0
     );
 
@@ -64,9 +64,9 @@ const Tabs = ({ tabs, onSelect }) => {
                         type="button"
                         onClick={() => tabClick(index)}
                         role="tab"
-                        ariaSelected={currentTab === index}
+                        aria-selected={currentTab === index}
                         id={index}
-                        ariaControls={`${index}-2`}
+                        aria-controls={`${index}-2`}
                     >
                         <span className="title">{tab.title}</span>
                     </button>
@@ -78,7 +78,7 @@ const Tabs = ({ tabs, onSelect }) => {
                         className={`tab-transition-item ${currentTab === index ? 'selected' : ''}`}
                         role="tabpanel"
                         id={`${index}-2`}
-                        ariaLabelledby={index}
+                        aria-labelledby={index}
                     >
                         {tab.body}
                     </div>

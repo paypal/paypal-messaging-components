@@ -10,7 +10,7 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 
 | Abbreviation | PStudio Name         | File Name       | Message                                                                                                                                                        |
 | ------------ | -------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GPL          | GPL                  | gpl             | Pay Later                                                                                                                                                      |
+| GPL          | GPL                  | gpl             | Pay Later, No Amount Experiment                                                                                                                                |
 | GPLQ         | GPLQ                 | gplq            | Pay Later, Qualifying Purchase                                                                                                                                 |
 | GPLNQ        | GPLNQ                | gplnq           | Pay Later, Non-Qualifying Purchase                                                                                                                             |
 | GPLNQ_RANGE  | GPLNQ Purchase Range | gplnq_range     | Pay Later, Non-Qualifying message showing the min and max purchase range. This message is limited to merchant accounts added to the appropriate customer list. |
@@ -65,6 +65,14 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 | ------------ | ------------ | --------- | ------------------------------ |
 | AUPL         | AU GPL       | gpl       | Pay Later                      |
 | AUPLQ        | AU GPLQ      | gplq      | Pay Later, Qualifying Purchase |
+
+### IT (Italy)
+
+| Abbreviation | PStudio Name     | File Name            | Message                                        |
+| ------------ | ---------------- | -------------------- | ---------------------------------------------- |
+| ITPLNA       | IT Short Term NA | short_term_no_amount | Pay Later, Short Term, No Amount               |
+| ITPLQ        | IT Short Term Q  | short_term_q         | Pay Later, Short Term, Qualifying Purchase     |
+| ITPLNQ       | IT Short Term NQ | short_term_nq        | Pay Later, Short Term, Non-Qualifying Purchase |
 
 ## Explanation
 

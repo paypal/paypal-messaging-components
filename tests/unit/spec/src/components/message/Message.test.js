@@ -1,27 +1,36 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID, createState } from 'src/utils';
+import { request, getDeviceID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
+const ts = {
+    vr: '2e1ab8701800ae7732f49876ffffffd7',
+    vt: 'a96da1cd1800ab09681c2338ff7e0278'
+};
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
-    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    getDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    isStorageFresh: jest.fn().mockReturnValue(false),
+    getTsCookieFromStorage: jest.fn(() => ts),
     request: jest.fn(() =>
         Promise.resolve({
-            data: {
-                markup: '<div>mock</div>',
-                meta: {
-                    messageRequestId: '23456'
-                },
-                parentStyles: 'body { color: blue; }',
-                warnings: []
-            }
+            data:
+                '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
         })
     ),
+    parseObjFromEncoding: jest.fn(() => ({
+        markup: '<div>mock</div>',
+        meta: {
+            messageRequestId: '23456'
+        },
+        parentStyles: 'body { color: blue; }',
+        warnings: []
+    })),
     // eslint-disable-next-line no-console
-    ppDebug: jest.fn(() => console.log('PayPal Debug Message'))
+    ppDebug: jest.fn(() => console.log('PayPal Debug Message')),
+    getRequestDuration: jest.fn(() => 123)
 }));
 
 describe('Message', () => {
@@ -36,14 +45,13 @@ describe('Message', () => {
         onReady: jest.fn(),
         onHover: jest.fn(),
         onMarkup: jest.fn(),
-        resize: jest.fn()
+        resize: jest.fn(),
+        messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx'
     });
 
     const serverData = {
         markup: '<div>test</div>',
-        meta: {
-            messageRequestId: '12345'
-        },
+        meta: {},
         parentStyles: 'body { color: black; }',
         warnings: []
     };
@@ -56,7 +64,7 @@ describe('Message', () => {
 
         createState.mockClear();
         request.mockClear();
-        getOrCreateStorageID.mockClear();
+        getDeviceID.mockClear();
         xPropsMock.clear();
     });
 
@@ -85,10 +93,11 @@ describe('Message', () => {
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+            meta: {},
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
+            ts
         });
     });
 
@@ -98,9 +107,7 @@ describe('Message', () => {
         fireEvent.click(button);
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
         expect(window.xprops.onClick).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            }
+            meta: {}
         });
     });
 
@@ -111,31 +118,30 @@ describe('Message', () => {
 
         expect(window.xprops.onHover).toHaveBeenCalledTimes(1);
         expect(window.xprops.onHover).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            }
+            meta: {}
         });
     });
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
         const messageDocument = document.body.appendChild(Message(serverData));
 
+        const originalMRID = 'uid_xxxxxxxxxx_xxxxxxxxxxx';
+
         expect(request).not.toHaveBeenCalled();
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
 
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+            meta: {},
+            messageRequestId: originalMRID,
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
+            ts
         });
 
         expect(window.xprops.onMarkup).toHaveBeenCalledTimes(1);
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
+            meta: {},
             styles: 'body { color: black; }',
             warnings: []
         });
@@ -155,7 +161,10 @@ describe('Message', () => {
             meta: {
                 messageRequestId: '23456'
             },
-            deviceID: 'uid_26a2522628_mtc6mjk6nti'
+            messageRequestId: expect.not.stringMatching(originalMRID),
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
+            ts
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
             meta: {
@@ -167,16 +176,17 @@ describe('Message', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+        getDeviceID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
-            meta: {
-                messageRequestId: '12345'
-            },
-            deviceID: 'uid_1111111111_11111111111'
+            meta: {},
+            deviceID: 'uid_1111111111_11111111111',
+            messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            requestDuration: 123,
+            ts
         });
-        expect(getOrCreateStorageID).toHaveBeenCalled();
+        expect(getDeviceID).toHaveBeenCalled();
     });
 });

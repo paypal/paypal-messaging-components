@@ -1,0 +1,7 @@
+.message__headline {
+    white-space: nowrap;
+}
+
+.weak {
+    display: inline-block;
+}

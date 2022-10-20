@@ -1,37 +1,61 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, getActiveTags, ppDebug, getOrCreateStorageID, createState } from '../../utils';
+import { uniqueID } from '@krakenjs/belter/src';
+
+import {
+    request,
+    getActiveTags,
+    ppDebug,
+    createState,
+    isStorageFresh,
+    getDeviceID,
+    parseObjFromEncoding,
+    getRequestDuration,
+    getTsCookieFromStorage
+} from '../../utils';
 
 const Message = function({ markup, meta, parentStyles, warnings }) {
-    const { onClick, onReady, onHover, onMarkup, onProps, resize } = window.xprops;
+    const {
+        onClick,
+        onReady,
+        onHover,
+        onMarkup,
+        onProps,
+        resize,
+        deviceID: parentDeviceID,
+        messageRequestId
+    } = window.xprops;
+
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
     const [props, setProps] = createState({
         amount: window.xprops.amount ?? null,
         currency: window.xprops.currency ?? null,
         buyerCountry: window.xprops.buyerCountry ?? null,
-        style: JSON.stringify(window.xprops.style),
+        ignoreCache: window.xprops.ignoreCache ?? null,
+        style: window.xprops.style,
         offer: window.xprops.offer ?? null,
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
-        merchantId: window.xprops.merchantId ?? null
+        merchantId: window.xprops.merchantId ?? null,
+        merchantConfigHash: window.xprops.merchantConfigHash ?? null
     });
 
     const [serverData, setServerData] = createState({
-        metaMessageRequestId: meta.messageRequestId ?? null,
         parentStyles,
         warnings,
-        markup
+        markup,
+        meta
     });
 
     const handleClick = () => {
         if (typeof onClick === 'function') {
-            onClick({ meta });
+            onClick({ meta: serverData.meta });
         }
     };
 
     const handleHover = () => {
         if (typeof onHover === 'function') {
-            onHover({ meta });
+            onHover({ meta: serverData.meta });
         }
     };
 
@@ -39,7 +63,6 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     const button = document.createElement('button');
 
     button.setAttribute('type', 'button');
-    button.setAttribute('aria-label', 'PayPal Pay Later Message');
 
     button.addEventListener('click', handleClick);
     button.addEventListener('mouseover', handleHover);
@@ -53,30 +76,54 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
     button.style.textAlign = window.xprops.style?.text?.align || 'left';
     button.style.fontFamily = 'inherit';
     button.style.fontSize = 'inherit';
-    button.innerHTML = markup;
+    button.innerHTML = markup ?? '';
 
     onReady({
-        meta,
+        meta: serverData.meta,
         activeTags: getActiveTags(button),
-        // Utility will create iframe deviceID if it doesn't exist.
-        deviceID: getOrCreateStorageID()
+        messageRequestId,
+        // Utility will create iframe deviceID/ts_cookie values if it doesn't exist.
+        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        ts: getTsCookieFromStorage(),
+        // getRequestDuration runs in the child component (iframe/banner message),
+        // passing a value to onReady and up to the parent component to go out with
+        // the other stats
+        requestDuration: getRequestDuration()
     });
 
-    onMarkup({ meta, styles: parentStyles, warnings });
+    onMarkup({
+        meta: serverData.meta,
+        styles: serverData.parentStyles,
+        warnings: serverData.warnings
+    });
+
+    window.addEventListener('focus', () => {
+        button.focus();
+    });
 
     if (typeof onProps === 'function') {
         onProps(xprops => {
-            const shouldRerender = Object.keys(props).some(key =>
-                typeof props[key] !== 'object'
+            const shouldRerender = Object.keys(props).some(key => {
+                // check to see if both x/props values are undefined or null
+                if (
+                    (typeof props[key] === 'undefined' || props[key] === null) &&
+                    (typeof xprops[key] === 'undefined' || xprops[key] === null)
+                ) {
+                    // x/props values are undefined or null carry on
+                    return false;
+                }
+
+                return typeof props[key] !== 'object'
                     ? props[key] !== xprops[key]
-                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key])
-            );
+                    : JSON.stringify(props[key]) !== JSON.stringify(xprops[key]);
+            });
 
             if (shouldRerender) {
                 const {
                     amount,
                     currency,
                     buyerCountry,
+                    ignoreCache,
                     offer,
                     payerId,
                     clientId,
@@ -85,25 +132,32 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     env,
                     features,
                     stageTag,
-                    style
+                    style,
+                    merchantConfigHash
                 } = xprops;
 
                 setProps({
                     amount,
                     currency,
                     buyerCountry,
-                    style: JSON.stringify(style),
+                    ignoreCache,
+                    style,
                     offer,
                     payerId,
                     clientId,
-                    merchantId
+                    merchantId,
+                    merchantConfigHash
                 });
 
+                // Generate new MRID on message update.
+                const newMessageRequestId = uniqueID();
+
                 const query = objectEntries({
-                    message_request_id: meta.messageRequestId,
+                    message_request_id: newMessageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
+                    ignore_cache: ignoreCache,
                     style,
                     credit_type: offer,
                     payer_id: payerId,
@@ -112,7 +166,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     features,
                     version,
                     env,
-                    stageTag
+                    stageTag,
+                    merchant_config: merchantConfigHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
@@ -124,8 +179,10 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
 
                 ppDebug('Updating message with new props...', { inZoid: true });
 
-                request('GET', `${window.location.origin}/credit-presentment/renderMessage?${query}`).then(
-                    ({ data }) => {
+                request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
+                    ({ data: resData }) => {
+                        const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
+                        const data = parseObjFromEncoding(encodedData);
                         button.innerHTML = data.markup ?? markup;
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
@@ -143,17 +200,19 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                         }
 
                         if (typeof onReady === 'function') {
-                            if (
-                                serverData.metaMessageRequestId !==
-                                (data.meta.messageRequestId ?? meta.messageRequestId)
-                            ) {
-                                onReady({
-                                    meta: data.meta ?? meta,
-                                    activeTags: getActiveTags(button),
-                                    // Utility will create iframe deviceID if it doesn't exist.
-                                    deviceID: getOrCreateStorageID()
-                                });
-                            }
+                            // currency, amount, payerId, clientId, merchantId, buyerCountry
+                            onReady({
+                                meta: data.meta ?? serverData.meta,
+                                activeTags: getActiveTags(button),
+                                messageRequestId: newMessageRequestId,
+                                // Utility will create iframe deviceID/ts cookie if it doesn't exist.
+                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                ts: getTsCookieFromStorage(),
+                                // getRequestDuration runs in the child component (iframe/banner message),
+                                // passing a value to onReady and up to the parent component to go out with
+                                // the other stats
+                                requestDuration: getRequestDuration()
+                            });
                         }
 
                         if (typeof onMarkup === 'function') {
@@ -164,18 +223,18 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                             ) {
                                 // resizes the parent message div
                                 onMarkup({
-                                    meta: data.meta ?? meta,
-                                    styles: data.parentStyles ?? parentStyles,
-                                    warnings: data.warnings ?? warnings
+                                    meta: data.meta ?? serverData.meta,
+                                    styles: data.parentStyles ?? serverData.parentStyles,
+                                    warnings: data.warnings ?? serverData.warnings
                                 });
                             }
                         }
 
                         setServerData({
-                            metaMessageRequestId: data.meta.messageRequestId ?? meta.messageRequestId,
-                            parentStyles: data.parentStyles ?? parentStyles,
-                            warnings: data.warnings ?? warnings,
-                            markup: data.markup ?? markup
+                            parentStyles: data.parentStyles ?? serverData.parentStyles,
+                            warnings: data.warnings ?? serverData.warnings,
+                            markup: data.markup ?? serverData.markup,
+                            meta: data.meta ?? serverData.meta
                         });
                     }
                 );

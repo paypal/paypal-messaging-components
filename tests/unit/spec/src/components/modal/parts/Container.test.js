@@ -10,13 +10,15 @@ import Container from 'src/components/modal/parts/Container';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 const mockTransitionContext = createContext(['CLOSED']);
+
 jest.mock('src/components/modal/lib/logos', () => ({}));
 jest.mock('src/components/modal/lib/providers/transition', () => ({
     useTransitionState: jest.fn()
 }));
 
 jest.mock('src/components/modal/lib/utils', () => ({
-    getContent: jest.fn().mockResolvedValue(null)
+    getContent: jest.fn().mockResolvedValue(null),
+    setupTabTrap: jest.fn().mockResolvedValue(null)
 }));
 
 describe('<Container />', () => {
@@ -68,8 +70,6 @@ describe('<Container />', () => {
     });
 
     test('scrolls to top when opening', () => {
-        window.focus = jest.fn();
-
         contentWrapper.current.scrollTop = 20;
 
         const { rerender } = render(
@@ -78,12 +78,16 @@ describe('<Container />', () => {
         );
 
         expect(contentWrapper.current.scrollTop).toBe(0);
-        expect(window.focus).not.toHaveBeenCalled();
+        window.requestAnimationFrame(() => {
+            expect(window.document.querySelector('#close-btn').focus).not.toHaveBeenCalled();
+        });
 
         rerender(<mockTransitionContext.Provider value={['OPEN']}>{content}</mockTransitionContext.Provider>);
 
         expect(contentWrapper.current.scrollTop).toBe(0);
-        expect(window.focus).toHaveBeenCalled();
+        window.requestAnimationFrame(() => {
+            expect(window.document.querySelector('#close-btn').focus).toHaveBeenCalled();
+        });
     });
 
     test('updates content when props change', async () => {

@@ -1,0 +1,109 @@
+// Windows does not clip scrollbars with overflow hidden
+// and border radius so we wrap a div around the scrollable
+// section and can clip from there
+.content__wrapper-overflow {
+    margin: auto;
+    overflow: hidden;
+    border-radius: $content-wrapper-border-radius;
+    width: 100%;
+    // This forces all nested elements that use "position: fixed" to position relative
+    // to this element instead of the normal browser window. We use this element since
+    // it contains all of the content AND does not scroll, otherwise the nested fixed
+    // elements would scroll as well.
+    transform: translate(0, 0);
+
+    @include lander {
+        // Remove the transform since the lander layout is a traditional full page with scrolling
+        transform: none;
+    }
+
+    @include mobile {
+        border-radius: 0;
+    }
+
+    @include tablet {
+        max-width: $content-wrapper-max-width-tablet;
+    }
+
+    @include desktop {
+        max-width: $content-wrapper-max-width-desktop;
+    }
+
+    @include apiIframe {
+        max-width: $content-wrapper-max-width-api-iframe;
+        border-radius: 0;
+    }
+}
+
+.content__wrapper {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // Required to minor scrolling overflow around rounded corners in Safari
+    // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b#gistcomment-2911047
+    z-index: 1;
+    // TODO: There appears to be a small 1px space below the content__container in windows
+    // where it's background color is not showing. Is this specific to browserstack?
+    background: $instructions-background;
+
+    @include tablet {
+        max-height: 90vh;
+    }
+
+    @include desktop {
+        max-height: 90vh;
+    }
+
+    @include lander {
+        height: auto;
+        max-height: none;
+        margin-bottom: 4rem;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
+
+        @include mobile {
+            min-height: 100vh;
+            margin-bottom: 0;
+        }
+    }
+
+    @include apiIframe {
+        max-height: 100%;
+    }
+
+    // Small reverse border radius hook below the header to curve the top left
+    // edge of the content below. Sticky so that content scrolls beneath it
+    &::after {
+        content: '';
+        flex: 0 0 $sticky-header-radius;
+        order: 2; // Change position above the main body content
+        width: 100%;
+        background: transparent;
+        position: sticky;
+        border-radius: $sticky-header-radius 0 0 0;
+        box-shadow: -$sticky-header-radius 0 0 0 #1334a1;
+        z-index: 1001;
+        top: $sticky-header-height-tablet-desktop;
+
+        @include mobile {
+            top: $sticky-header-height-mobile;
+        }
+
+        // Disable on the lander
+        @include lander {
+            content: none;
+        }
+    }
+
+    & > :last-child {
+        z-index: 1000;
+        order: 3; // Ensure body content is below the pseudo element above
+    }
+}

@@ -1,3 +1,4 @@
+import openModal from '../../utils/initializeModal';
 import selectors from '../../utils/selectors';
 import { logTestName } from '../../utils/logging';
 import modalSnapshot from '../../utils/modalSnapshot';
@@ -80,4 +81,63 @@ export const deModalContentAndCalc = ({ account, viewport, groupString, amount }
     }
 
     await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
+};
+
+// Switch from Product List to option 1; switch from Product list to option 2
+export const selectProductsFromList = ({ account, viewport, groupString }) => async () => {
+    const testNameParts = 'Product List buttons for PI30 and GPL click';
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
+    const modalFrame = await elementModal.contentFrame();
+
+    await modalSnapshot(`${groupString} ${testNameParts} - Product List`, viewport, account);
+
+    await modalFrame.click(selectors.button.pi30Button);
+    await page.waitFor(200);
+
+    await modalSnapshot(`${groupString} ${testNameParts} - Pi30`, viewport, account);
+
+    await modalFrame.click(selectors.button.closeBtn);
+    await page.waitFor(1000);
+    await openModal(viewport, {
+        account: 'DEV000DEMULTI',
+        style: groupString
+    });
+    await page.waitFor(1000);
+    const elementModal2 = await page.$(selectors.modal.iframe);
+    const modalFrame2 = await elementModal2.contentFrame();
+
+    await modalFrame2.waitForSelector(selectors.button.gplButton);
+    await modalFrame2.click(selectors.button.gplButton);
+    await page.waitFor(200);
+
+    await modalSnapshot(`${groupString} ${testNameParts} - GPL`, viewport, account);
+    await modalFrame2.click(selectors.button.closeBtn);
+    await page.waitFor(1000);
+};
+
+// Switch from Pi30 to GPL with link click
+export const switchProducts = ({ account, viewport, groupString }) => async () => {
+    const testNameParts = 'PI30 and GPL switch-text links click';
+    logTestName({ account, viewport, groupString, testNameParts });
+
+    const elementModal = await page.$(selectors.modal.iframe);
+    const modalFrame = await elementModal.contentFrame();
+
+    await modalFrame.click(selectors.button.pi30Button);
+    await page.waitFor(200);
+
+    await modalSnapshot(`${groupString} ${testNameParts} (Pi30 Visible)`, viewport, account);
+
+    modalFrame.click(selectors.button.switchingLink);
+    await page.waitFor(200);
+
+    await modalSnapshot(`${groupString} ${testNameParts} (GPL Visible)`, viewport, account);
+
+    modalFrame.click(selectors.button.switchingLink);
+    await page.waitFor(200);
+
+    const Pi30Headline = await modalFrame.$eval(selectors.modal.headerHeadline, element => element.innerText);
+    expect(Pi30Headline).toContain('Kaufen Sie jetzt was Sie möchten, bezahlen Sie erst in 30 Tagen');
 };

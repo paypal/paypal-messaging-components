@@ -1,10 +1,12 @@
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { memoize } from './functional';
 
 /**
  * Check whether or not the current user is running an ad blocker
  * @returns {Promise<Boolean>} Whether adblock is running or not
  */
-export function checkAdblock() {
+// eslint-disable-next-line prefer-arrow-callback
+export const checkAdblock = memoize(function check() {
     const loops = 5;
     const checkTime = 50;
 
@@ -13,10 +15,14 @@ export function checkAdblock() {
         'class',
         'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links'
     );
-    bait.setAttribute(
-        'style',
-        'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -1000px !important;'
-    );
+
+    // Using setProperty instead of setAttribute to prevent csp nonce issues
+    bait.style.setProperty('width', '1px', 'important');
+    bait.style.setProperty('height', '1px', 'important');
+    bait.style.setProperty('position', 'absolute', 'important');
+    bait.style.setProperty('left', '-10000px', 'important');
+    bait.style.setProperty('top', '-1000px', 'important');
+
     const baitStyles = window.getComputedStyle !== undefined ? window.getComputedStyle(bait) : undefined;
 
     return new ZalgoPromise(resolve => {
@@ -46,4 +52,4 @@ export function checkAdblock() {
             }, checkTime);
         })(loops);
     });
-}
+});

@@ -4,10 +4,12 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import stringIncludes from 'core-js-pure/stable/string/includes';
 import objectAssign from 'core-js-pure/stable/object/assign';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
+import { getStorage } from './sdk';
+import { OFFER } from './constants';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -50,6 +52,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
             xhttp.withCredentials = true;
         }
 
+        // eslint-disable-next-line unicorn/prefer-add-event-listener
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4) {
                 const responseHeaders = xhttp
@@ -97,6 +100,18 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
     });
 }
 
+export function parseObjFromEncoding(encodedStr) {
+    // equivalent to JSON.parse(fromBinary(atob(encodedStr))) as in initScript
+    const binary = atob(encodedStr);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    // need to use .apply instead of spread operator so IE can understand
+    const decodedStr = String.fromCharCode.apply(null, new Uint16Array(bytes.buffer));
+    return JSON.parse(decodedStr);
+}
+
 export function createEvent(name) {
     if (typeof Event === 'function') {
         return new Event(name);
@@ -132,7 +147,7 @@ export const getCurrentTime = () => new Date().getTime();
 // Memoized so that the 2 return functions can be called from different modules
 export const viewportHijack = memoize(() => {
     const viewport =
-        document.head.querySelector('meta[name="viewport"]') ||
+        document.querySelector('meta[name="viewport"]') ||
         (<meta name="viewport" content="" />).render(dom({ doc: document }));
 
     // Ensure a viewport exists in the DOM
@@ -195,18 +210,21 @@ export const getEventListenerPassiveOptionIfSupported = () => {
     return passiveIfSupported;
 };
 
-export function getProductForOffer(offer) {
+export function getStandardProductOffer(offer) {
     if (typeof offer === 'undefined') {
         return 'NONE';
     }
 
     switch (offer.toUpperCase()) {
-        case 'GPL':
-        case 'GPLQ':
-        case 'GPLNQ':
-        case 'GPLNQ_RANGE':
-        case 'PL':
-        case 'PLQ':
+        case 'LT_NQEZ':
+        case 'LT_NQGZ':
+        case 'LT_MQEZ':
+        case 'LT_MQEZ_RB':
+        case 'LT_MQGZ':
+        case 'LT_SQEZ':
+        case 'LT_SQEZ_RB':
+        case 'LT_SQGZ':
+        case OFFER.PAY_LATER_LONG_TERM:
         case 'GPL:EQZ':
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
@@ -215,7 +233,26 @@ export function getProductForOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
-            return 'GPL';
+            return OFFER.PAY_LATER_LONG_TERM;
+        case OFFER.PAY_LATER_SHORT_TERM:
+        case 'GPL':
+        case 'GPLQ':
+        case 'GPLNQ':
+        case 'GPLNQ_RANGE':
+        case 'PL':
+        case 'PLQ':
+        case 'SHORT_TERM:Q':
+        case 'SHORT_TERM:NQ':
+        case 'SHORT_TERM:NO_AMOUNT':
+            return OFFER.PAY_LATER_SHORT_TERM;
+        case OFFER.PAY_LATER_PAY_IN_1:
+        case 'PI30':
+        case 'PI30Q':
+        case 'PI30NQ':
+        case 'PI30:NON-DE':
+        case 'PI30Q:NON-DE':
+        case 'PI30NQ:NON-DE':
+            return OFFER.PAY_LATER_PAY_IN_1;
         case 'EZP':
         case 'EZP:ANY:EQZ':
         case 'EZP:ANY:GTZ':
@@ -223,14 +260,51 @@ export function getProductForOffer(offer) {
         case 'PALA:MULTI:GTZ':
         case 'PALA:SINGLE:EQZ':
         case 'PALA:SINGLE:GTZ':
-            return 'EZP';
+        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
         case 'INST':
         case 'INST:ANY:EQZ':
         case 'INST:ANY:GTZ':
         case 'PALAQ:ANY:EQZ':
         case 'PALAQ:ANY:GTZ':
-            return 'INST';
+            return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
+        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
+        case 'NI':
+        case 'NI:NON-US':
+        case 'NIQ':
+        case 'NIQ:NON-US':
+            return OFFER.PAYPAL_CREDIT_NO_INTEREST;
         default:
-            return 'NI';
+            return undefined;
     }
+}
+
+/**
+ * Get value of cookie name
+ * @param name - name of cookie
+ * @returns object of cookie value(s)
+ */
+export function getCookieByName(name) {
+    const cookieVal = decodeURIComponent(
+        // decode the cookie value
+        // get all cookies
+        document.cookie
+            .split('; ')
+            // separate the string into an array of cookies
+            // find the cookie by name
+            .find(cookieStr => cookieStr.startsWith(`${name}=`))
+            ?.slice(5) ?? ''
+        // use only the value of the cookie
+    );
+
+    // use URLSearchParams to parse the value string into entries,
+    // and create an object from those entries
+    // disable ESLint rule since we do not support IE anymore
+    // eslint-disable-next-line compat/compat
+    return Object.keys(cookieVal).length === 0 ? null : Object.fromEntries(new URLSearchParams(cookieVal).entries());
+    // check length of cookieVal obj to make sure keys exist.
+}
+
+// get the ts cookie from local storage
+export function getTsCookieFromStorage() {
+    return getStorage().getState(storage => storage?.ts) ?? getCookieByName('ts_c');
 }

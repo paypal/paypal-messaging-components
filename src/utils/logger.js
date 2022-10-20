@@ -1,6 +1,6 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
-import { Logger, LOG_LEVEL } from 'beaver-logger/src';
+import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';

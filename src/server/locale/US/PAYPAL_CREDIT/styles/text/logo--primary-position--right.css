@@ -1,0 +1,8 @@
+.message__logo > img {
+    width: 108%;
+    top: 0px;
+}
+
+.message__logo > canvas {
+    display: inline;
+}

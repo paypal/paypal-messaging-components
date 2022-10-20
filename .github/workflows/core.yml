@@ -1,0 +1,61 @@
+# Use "act" for local testing: https://github.com/nektos/act
+name: Lint, Unit, Non-snapshot tests
+on:
+    # allow for manual triggers
+    workflow_dispatch: {}
+    workflow_call: {}
+    push:
+        branches:
+            - develop
+    pull_request: {}
+
+jobs:
+    lintAndUnit:
+        name: Lint and Unit Tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Lint
+              run: npm run lint
+
+            - name: Unit Tests
+              run: npm run test
+
+    functionalNonSnapshot:
+        name: Functional Non-Snapshot Tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
+
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: ./.github/scripts/runServer.sh
+
+            - name: Functional Non-Snapshot Tests
+              run: npm run test:func:nosnaps

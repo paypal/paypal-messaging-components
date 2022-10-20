@@ -1,0 +1,26 @@
+{
+    "meta": {
+        "offerCountry": "ES",
+        "offerType": "SHORT_TERM:Q",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+        }
+    },
+
+    "headline": [
+        ["Compra ahora y paga después.", ["default", "xsmall"]],
+        [["Paga en 3 plazos de {formattedPeriodicPayment}, sin intereses"], ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [
+        [["0% TAE."], ["xsmall"]],
+        [["Más información"], ["default"]]
+    ]
+}

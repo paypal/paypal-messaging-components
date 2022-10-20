@@ -93,7 +93,8 @@
 
     .sticky-apply-now {
         position: fixed;
-
+        // prevent screen readers from reading second content
+        visibility: hidden;
         // iOS has an issue with position: fixed; elements within scrollable containers
         transform: translate3d(0, 0, 0);
 
@@ -138,6 +139,8 @@
 
         &.show {
             opacity: 1;
+            // show content. hiddened by default for screen readers
+            visibility: visible;
 
             button {
                 transform: scaleX(1) translateX(0);
@@ -150,10 +153,21 @@
         }
     }
 
+    .sticky-apply-now.show + main .description {
+        visibility: hidden;
+    }
+
     .terms {
         li {
             margin-bottom: 0.5rem;
         }
+    }
+
+    .terms-link:focus {
+        outline-color: -webkit-focus-ring-color;
+        outline-style: auto;
+        outline-offset: 1px;
+        outline-width: 5px;
     }
 
     .tab-switch-button {
@@ -179,6 +193,13 @@
             height: 0.5rem;
             top: 0.1rem;
         }
+
+        &:focus {
+            outline-color: -webkit-focus-ring-color;
+            outline-style: auto;
+            outline-offset: 2px;
+            outline-width: 5px;
+        }
     }
 
     @include desktop {
@@ -199,10 +220,24 @@
             transform: translate3d(0, 0, 0);
             top: 12rem;
             max-width: 640px;
+            button.tab:focus span {
+                text-decoration: underline; 
+            }
         }
 
+        &.sticky {
+            .call-to-action .button.apply-now {
+                visibility: hidden;
+            }
+        }
+        
         .sticky-apply-now {
             top: 12rem;
+            button.tab {
+                :focus span {
+                    text-decoration: underline; 
+                }
+            }
         }
     }
 

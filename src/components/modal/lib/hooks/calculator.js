@@ -1,7 +1,8 @@
 import { useReducer, useMemo, useRef } from 'preact/hooks';
-import { debounce } from 'belter/src';
+import { debounce } from '@krakenjs/belter/src';
 
-import { useXProps, useServerData, useDidUpdateEffect } from '../../../lib';
+import { useXProps, useServerData } from '../providers';
+import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 
 const reducer = (state, action) => {
@@ -60,7 +61,18 @@ const localize = (country, amount) => {
 export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const { terms: initialTerms, country, setServerData } = useServerData();
-    const { currency, payerId, clientId, merchantId, onCalculate, buyerCountry, amount } = useXProps();
+    const {
+        currency,
+        payerId,
+        clientId,
+        merchantId,
+        onCalculate,
+        buyerCountry,
+        ignoreCache,
+        amount,
+        stageTag,
+        devTouchpoint
+    } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
         prevValue: localize(country, initialTerms.amount),
@@ -77,7 +89,10 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             payerId,
             clientId,
             merchantId,
-            buyerCountry
+            buyerCountry,
+            ignoreCache,
+            stageTag,
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);
