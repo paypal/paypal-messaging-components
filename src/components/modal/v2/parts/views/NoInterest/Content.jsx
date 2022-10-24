@@ -55,16 +55,12 @@ export const NoInterest = ({
                             ))}
                         </ul>
                         {/* task 16 */}
-                        <p>
-                            {footer.map(lineContent => {
-                                return (
-                                    <p className="content__footer-item">
-                                        <InlineLinks text={lineContent} />
-                                    </p>
-                                );
-                            })}
-                            {renderProductListLinkItem()}
-                        </p>
+                        {footer.map(lineContent => (
+                            <p className="content__footer-item">
+                                <InlineLinks text={lineContent} />
+                            </p>
+                        ))}
+                        {renderProductListLinkItem()}
                     </div>
                     <div className="content__body">
                         <div className="content__row dynamic">
