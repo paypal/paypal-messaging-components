@@ -7,10 +7,10 @@ const Logos = ({ mutations }) => {
     const logos = Array.isArray(mutations) ? mutations : [mutations];
 
     return (
-        <div className="message__logo-container" aria-label="PayPal Credit">
+        <div className="message__logo-container" aria-hidden="true" alt="PayPal">
             {logos.map(({ src, dimensions: [width, height] }) => (
                 <div className="message__logo message__logo--svg">
-                    <img src={src} role="presentation" alt="PayPal Credit" aria-hidden="true" />
+                    <img src={src} alt="PayPal Credit" />
                     <canvas height={height} width={width} />
                 </div>
             ))}
