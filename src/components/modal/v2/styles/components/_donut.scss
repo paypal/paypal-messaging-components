@@ -46,6 +46,10 @@ $grey600: #888;
         .donut__percent {
             stroke: $green500;
         }
+
+        @include smallHeightMobile {
+            max-width: 60px;
+        }
     }
 
     span {

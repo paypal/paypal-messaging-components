@@ -16,6 +16,7 @@ export const getContent = memoize(
         stageTag,
         integrationType,
         channel,
+        ecToken,
         devTouchpoint
     }) => {
         const query = objectEntries({
@@ -31,6 +32,7 @@ export const getContent = memoize(
             stageTag,
             integrationType,
             channel,
+            ec_token: ecToken,
             devTouchpoint
         })
             .filter(([, val]) => Boolean(val))
