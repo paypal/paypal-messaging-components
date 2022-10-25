@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.38.3](https://github.com/paypal/paypal-messaging-components/compare/v1.38.2...v1.38.3) (2022-10-25)
+
+
+### Code Refactoring
+
+* pass customerId and deviceID to modalContent requests ([#866](https://github.com/paypal/paypal-messaging-components/issues/866)) ([a880be9](https://github.com/paypal/paypal-messaging-components/commit/a880be9ab3d9fdc54a8d39684540ac267b1a32af))
+
 ### [1.38.2](https://github.com/paypal/paypal-messaging-components/compare/v1.38.1...v1.38.2) (2022-10-11)
 
 
