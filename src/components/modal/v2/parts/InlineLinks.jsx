@@ -19,7 +19,6 @@ const InlineLinks = ({ text }) => {
                     // class name is singular because it is applied to a single link
 
                     <a
-                        /* task 15 */
                         aria-label="Terms and Conditions, opens new tab."
                         target="__blank"
                         className="inline-link"

@@ -211,7 +211,6 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
-                    {/* task 12 */}
                     <input
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
@@ -224,7 +223,6 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
             </form>
-            {/* task 13 */}
             {hasInitialAmount || hasUsedInputField ? (
                 <div aria-live="polite" className="content-column">
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />

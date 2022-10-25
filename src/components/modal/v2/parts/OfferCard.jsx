@@ -13,7 +13,6 @@ const OfferCard = ({ offer: { content, meta } }) => {
             </div>
             <div className="offer__row">
                 <div className="offer__field-col">
-                    {/* task 14 */}
                     {/* eslint-disable-next-line react/no-danger */}
                     <p className="offer__field-title" dangerouslySetInnerHTML={{ __html: aprFieldTitle }} />
                     <div className="offer__field-value">{aprRemoveTrailingZeros}%</div>

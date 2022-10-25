@@ -19,7 +19,6 @@ export const NoInterest = ({
     const renderProductListLinkItem = () => {
         if (views?.length > 2) {
             return (
-                // task 16
                 <div className="content__footer-item">
                     <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
                 </div>
@@ -54,7 +53,6 @@ export const NoInterest = ({
                                 </li>
                             ))}
                         </ul>
-                        {/* task 16 */}
                         {footer.map(lineContent => (
                             <p className="content__footer-item">
                                 <InlineLinks text={lineContent} />
@@ -70,7 +68,6 @@ export const NoInterest = ({
                                         {buttonText}
                                     </Button>
                                     <div
-                                        // task 17
                                         aria-describedby="Subject to Credit Approval"
                                         className="content__row content__disclaimer"
                                     >
