@@ -8,7 +8,6 @@ const Logos = ({ mutations }) => {
 
     return (
         <div className="message__logo-container" aria-label="PayPal Credit">
-            {/* task 2 */}
             {logos.map(({ src, dimensions: [width, height] }) => (
                 <div className="message__logo message__logo--svg">
                     <img src={src} role="presentation" alt="PayPal Credit" aria-hidden="true" />
