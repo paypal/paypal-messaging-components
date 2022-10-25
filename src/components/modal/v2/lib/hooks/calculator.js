@@ -2,6 +2,7 @@ import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from '@krakenjs/belter/src';
 
 import { useXProps, useServerData } from '../providers';
+import { getOrCreateStorageID } from '../../../../../utils';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 import { localize, delocalize } from '../locale';
@@ -55,6 +56,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         payerId,
         clientId,
         merchantId,
+        customerId,
         onCalculate,
         buyerCountry,
         ignoreCache,
@@ -82,13 +84,15 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             payerId,
             clientId,
             merchantId,
+            customerId,
             buyerCountry,
             ignoreCache,
             stageTag,
             integrationType,
             channel,
             ecToken,
-            devTouchpoint
+            devTouchpoint,
+            deviceID: getOrCreateStorageID()
         })
             .then(data => {
                 setServerData(data);
