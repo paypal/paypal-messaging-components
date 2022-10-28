@@ -62,6 +62,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         stageTag,
         integrationType,
         channel,
+        ecToken,
         devTouchpoint
     } = useXProps();
 
@@ -86,6 +87,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             stageTag,
             integrationType,
             channel,
+            ecToken,
             devTouchpoint
         })
             .then(data => {

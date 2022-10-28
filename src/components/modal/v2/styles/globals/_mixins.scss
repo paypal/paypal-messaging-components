@@ -23,6 +23,12 @@
     }
 }
 
+@mixin smallHeightMobile {
+    @media (max-height: 700px) {
+        @content;
+    }
+}
+
 @mixin lander {
     .lander & {
         @content;
