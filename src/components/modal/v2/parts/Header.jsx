@@ -66,7 +66,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     <h3>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h3>
                 ) : (
                     // eslint-disable-next-line react/no-danger
-                    <h2 dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }} />
+                    <h3 dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }} />
                 )}
             </div>
         </Fragment>
