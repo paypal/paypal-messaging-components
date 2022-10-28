@@ -1,7 +1,7 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
 
-h1 {
+h2 {
     @include tablet {
         max-width: 315px;
     }

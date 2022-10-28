@@ -14,8 +14,8 @@ export const selectors = {
         headerWrapper: '.header__wrapper',
         // headerContainer: '.header__container',
         headerContent: '.header__content',
-        h1: 'h1',
         h2: 'h2',
+        h3: 'h3',
 
         // Body content selectors
         contentWrapper: '.content__wrapper',

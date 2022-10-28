@@ -6,8 +6,8 @@ const {
         overlay,
         contentWrapper,
         headerContent,
-        h1,
         h2,
+        h3,
         button: { close, productList }
     },
     productList: { tile },
@@ -22,9 +22,9 @@ const {
  */
 export const openProductListView = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
-    await contentWindow.waitForSelector(`${headerContent} > ${h1}`);
+    await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
 
-    const headline = await contentWindow.$eval(h1, element => element.innerText);
+    const headline = await contentWindow.$eval(h2, element => element.innerText);
     expect(headline).toContain(modalContent.headline);
     await modalSnapshot(testName, contentWindow);
 };
@@ -39,8 +39,8 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         await contentWindow.click(`${tile}:nth-child(${childNum})`);
         await page.waitFor(2 * 1000);
 
-        await contentWindow.waitForSelector(`${headerContent} > ${h1}`);
-        const headline = await contentWindow.$eval(h1, element => element.innerText);
+        await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
+        const headline = await contentWindow.$eval(h2, element => element.innerText);
         expect(headline).toContain(modalContent[viewName]);
 
         await contentWindow.waitForSelector(productList);
@@ -73,8 +73,8 @@ export const viewsShareAmount = async (contentWindow, testName) => {
     await contentWindow.click(`${tile}:nth-child(2)`);
     await page.waitFor(2 * 1000);
 
-    await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
-    const subheadline = await contentWindow.$eval(h2, element => element.innerText);
+    await contentWindow.waitForSelector(`${headerContent} > ${h3}`);
+    const subheadline = await contentWindow.$eval(h3, element => element.innerText);
 
     await contentWindow.waitForSelector(productList);
     await contentWindow.click(productList);
