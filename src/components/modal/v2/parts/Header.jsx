@@ -45,7 +45,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
                         className="close"
-                        aria-label={`${headline} Close`}
+                        aria-label={`${headline.replace(/<[^>]*>/g, '')} Close`}
                         type="button"
                         id="close-btn"
                         onClick={() => handleClose('Close Button')}
