@@ -1,8 +1,0 @@
-.message__logo-container::before {
-    content: 'mit ';
-}
-
-.message__logo {
-    vertical-align: bottom;
-    margin-bottom: 1px;
-}
