@@ -114,7 +114,6 @@ describe('validate', () => {
             'PAY_LATER_LONG_TERM',
             'PAY_LATER_PAY_IN_1',
             'PAYPAL_CREDIT_NO_INTEREST',
-            'PAYPAL_CREDIT_INSTALLMENTS',
             'NI'
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
