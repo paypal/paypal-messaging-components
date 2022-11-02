@@ -31,9 +31,7 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 ### DE (Germany)
 
 | Abbreviation | PStudio Name    | File Name       | Message                                                                                    |
-| ------------ | --------------- | --------------- | ------------------------------------------------------------------------------------------ |
-| IAZ          | AEZ             | inst_any_eqz    | Installments, APR equal to zero                                                            |
-| IAG          | AGZ             | inst_any_gtz    | Installments, APR greater than zero                                                        |
+| ------------ | --------------- | --------------- | ------------------------------------------------------------------------------------------                                                      |
 | PQAG         | AGZP            | palaq_any_gtz   | Pay As Low As, APR greater than zero                                                       |
 | PQAZ         | AEZP            | palaq_any_eqz   | Pay As Low As, APR equal to zero                                                           |
 | DEPLEQZ      | GPL EQZ         | gpl_eqz         | Pay Later, APR equal to zero                                                               |
