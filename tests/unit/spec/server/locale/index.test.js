@@ -158,7 +158,6 @@ describe('locale methods', () => {
             ['DE', 'GPL:GTZ:NON-DE'],
             ['DE', 'GPLQ:EQZ:NON-DE'],
             ['DE', 'GPLQ:GTZ:NON-DE'],
-            ['DE', 'INST:ANY:EQZ'],
             ['DE', 'PALAQ:ANY:EQZ'],
             ['DE', 'PI30'],
             ['DE', 'PI30Q'],
