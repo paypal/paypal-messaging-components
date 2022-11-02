@@ -30,18 +30,16 @@ Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is t
 
 ### DE (Germany)
 
-| Abbreviation | PStudio Name    | File Name       | Message                                                                                    |
-| ------------ | --------------- | --------------- | ------------------------------------------------------------------------------------------                                                      |
-| PQAG         | AGZP            | palaq_any_gtz   | Pay As Low As, APR greater than zero                                                       |
-| PQAZ         | AEZP            | palaq_any_eqz   | Pay As Low As, APR equal to zero                                                           |
-| DEPLEQZ      | GPL EQZ         | gpl_eqz         | Pay Later, APR equal to zero                                                               |
-| DEPLGTZ      | GPL GTZ         | gpl_gtz         | Pay Later, APR greater than zero                                                           |
-| DEPLQEQZ     | GPLQ EQZ        | gplq_eqz        | Pay Later, Qual., APR equal to zero                                                        |
-| DEPLQGTZ     | GPLQ GTZ        | gplq_gtz        | Pay Later, Qual., APR greater than zero                                                    |
-| XBDEPLEQZ    | GPL EQZ NON-DE  | gpl_eqz-non-de  | Pay Later, APR equal to zero, Non-DE Merchants with a majority DE customer base            |
-| XBDEPLGTZ    | GPL GTZ NON-DE  | gpl_gtz-non-de  | Pay Later, APR greater than zero, Non-DE Merchants with a majority DE customer base        |
-| XBDEPLQEQZ   | GPLQ EQZ NON-DE | gplq_eqz-non-de | Pay Later, Qual., APR equal to zero, Non-DE Merchants with a majority DE customer base     |
-| XBDEPLQGTZ   | GPLQ GTZ NON-DE | gplq_gtz-non-de | Pay Later, Qual., APR greater than zero, Non-DE Merchants with a majority DE customer base |
+| Abbreviation | PStudio Name | File Name | Message |
+| ------------ | --------------- | --------------- | ------------------------------------------------------------------------------------------ | |
+| DEPLEQZ | GPL EQZ | gpl_eqz | Pay Later, APR equal to zero |
+| DEPLGTZ | GPL GTZ | gpl_gtz | Pay Later, APR greater than zero |
+| DEPLQEQZ | GPLQ EQZ | gplq_eqz | Pay Later, Qual., APR equal to zero |
+| DEPLQGTZ | GPLQ GTZ | gplq_gtz | Pay Later, Qual., APR greater than zero |
+| XBDEPLEQZ | GPL EQZ NON-DE | gpl_eqz-non-de | Pay Later, APR equal to zero, Non-DE Merchants with a majority DE customer base |
+| XBDEPLGTZ | GPL GTZ NON-DE | gpl_gtz-non-de | Pay Later, APR greater than zero, Non-DE Merchants with a majority DE customer base |
+| XBDEPLQEQZ | GPLQ EQZ NON-DE | gplq_eqz-non-de | Pay Later, Qual., APR equal to zero, Non-DE Merchants with a majority DE customer base |
+| XBDEPLQGTZ | GPLQ GTZ NON-DE | gplq_gtz-non-de | Pay Later, Qual., APR greater than zero, Non-DE Merchants with a majority DE customer base |
 
 ### GB (or UK)
 
