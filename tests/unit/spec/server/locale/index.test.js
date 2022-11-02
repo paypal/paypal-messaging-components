@@ -148,7 +148,6 @@ describe('locale methods', () => {
         test.each([
             ['US', 'NI'],
             ['US', 'EZP:ANY:EQZ'],
-            ['US', 'PALA:SINGLE:EQZ'],
             ['US', 'GPLQ'],
             ['DE', 'GPL:EQZ'],
             ['DE', 'GPL:GTZ'],
@@ -158,7 +157,6 @@ describe('locale methods', () => {
             ['DE', 'GPL:GTZ:NON-DE'],
             ['DE', 'GPLQ:EQZ:NON-DE'],
             ['DE', 'GPLQ:GTZ:NON-DE'],
-            ['DE', 'PALAQ:ANY:EQZ'],
             ['DE', 'PI30'],
             ['DE', 'PI30Q'],
             ['GB', 'PL'],
