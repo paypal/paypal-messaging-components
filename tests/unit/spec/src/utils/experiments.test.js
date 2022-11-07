@@ -20,8 +20,25 @@ jest.mock('../../../../../src/utils/functional', () => {
     };
 });
 
+jest.mock('@paypal/sdk-client/src', () => ({
+    getNamespace: () => 'paypal',
+    getPayPalDomain: () => 'localhost.paypal.com',
+    getSDKMeta: () => 'meta',
+    getEnv: () => 'local'
+}));
+
 describe('experiments utils', () => {
+    let oldTarget;
     const localStorageKey = `__${getNamespace()}_storage__`;
+    beforeAll(() => {
+        oldTarget = window.__MESSAGES__.__TARGET__;
+        window.__MESSAGES__.__TARGET__ = 'SDK';
+    });
+
+    afterAll(() => {
+        window.__MESSAGES__.__TARGET__ = oldTarget;
+    });
+
     beforeEach(() => {
         while (document.body.firstChild) {
             document.body.firstChild?.remove();
@@ -48,6 +65,17 @@ describe('experiments utils', () => {
 
         expect(document.querySelector('iframe')).toBeNull();
         expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+    });
+
+    test('Handles non-SDK integration', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+
+        ensureTreatments();
+
+        expect(document.querySelector('iframe')).toBeNull();
+        expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+
+        window.__MESSAGES__.__TARGET__ = 'SDK';
     });
 
     test('Handles expired treatments', () => {

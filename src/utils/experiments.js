@@ -34,7 +34,7 @@ export function getLocalTreatments() {
 }
 
 export function ensureTreatments() {
-    if (getLocalTreatments() || !isLocalStorageEnabled()) {
+    if (__MESSAGES__.__TARGET__ !== 'SDK' || getLocalTreatments() || !isLocalStorageEnabled()) {
         globalEvent.trigger('treatments');
         return;
     }
