@@ -27,15 +27,18 @@ const Container = ({ children }) => {
         payerId,
         clientId,
         merchantId,
+        customerId,
         buyerCountry,
         ignoreCache,
         version,
         env,
         stageTag,
-        channel
+        channel,
+        ecToken
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
+    const deviceID = getOrCreateStorageID();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -53,7 +56,7 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: getOrCreateStorageID(),
+                deviceID,
                 ts: getTsCookieFromStorage()
             });
         }
@@ -67,12 +70,15 @@ const Container = ({ children }) => {
             payerId,
             clientId,
             merchantId,
+            customerId,
             buyerCountry,
             ignoreCache,
             version,
             env,
             stageTag,
-            channel
+            channel,
+            ecToken,
+            deviceID
         }).then(data => {
             setServerData(data);
             setLoading(false);
@@ -90,9 +96,14 @@ const Container = ({ children }) => {
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}
-                <div className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}>
+                {/* Lander variant uses the div with className content__wrapper-overflow as the contentWrapperRef */}
+                <div
+                    className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}
+                    ref={!!(isLander && !isIframe) && contentWrapperRef}
+                >
                     {/* Scrollable content */}
-                    <div className="content__wrapper" ref={contentWrapperRef}>
+                    {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
+                    <div className="content__wrapper" ref={!!(!isLander || isIframe) && contentWrapperRef}>
                         {children}
                     </div>
                 </div>

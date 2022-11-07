@@ -1,0 +1,21 @@
+{
+    "meta": {
+        "offerCountry": "DE",
+        "offerType": "GENERIC",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]]],
+
+    "subHeadline": [],
+
+    "disclaimer": [["Mehr erfahren", ["default"]]]
+}

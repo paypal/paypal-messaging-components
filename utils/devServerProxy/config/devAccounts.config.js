@@ -45,6 +45,8 @@ export default {
     DEVXBDEPI30NQ: ['DE', ['pi30'], 'pi30nq-non-de'],
     DEV0XBDEPI30Q: ['DE', ['pi30'], 'pi30q-non-de'],
     DEV00XBDEPI30: ['DE', ['pi30'], 'pi30-non-de'],
+    DEV0DEGENERIC: ['DE', ['product_list'], 'generic'],
+    DEV000XBDEGEN: ['DE', ['product_list'], 'generic-non-de'],
     // Multi product modal
     DEV000DEMULTI: ['DE', ['pi30', 'gpl'], 'pi30'],
     DEV0XBDEMULTI: ['DE', ['pi30', 'gpl'], 'pi30-non-de'],

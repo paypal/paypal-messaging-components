@@ -42,7 +42,7 @@ export function addLoggerMetaMutator(index, metaMutation) {
 // Function semantically similar to runStats, but returns payload to be incorporated
 // into the meta attributes of a provided event (served, hovered, click).
 // TODO: Add requestDuration here after CPNW changes made to allow param on non-stats events
-export function buildStatsPayload({ container, activeTags, index }) {
+export function buildStatsPayload({ container, activeTags, index, requestDuration, renderDuration }) {
     // Get outer most container's page location coordinates
     const containerRect = container.getBoundingClientRect();
     const topWindow = getTopWindow();
@@ -62,7 +62,9 @@ export function buildStatsPayload({ container, activeTags, index }) {
             browser_width: (topWindow?.innerWidth).toString(),
             browser_height: (topWindow?.innerHeight).toString(),
             visible: isInViewport(container).toString(),
-            active_tags: activeTags
+            active_tags: activeTags,
+            request_duration: formatStat(requestDuration),
+            render_duration: renderDuration
         };
     });
 }
@@ -80,7 +82,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
         getViewportIntersectionObserver().then(observer => observer.observe(container));
     }
 
-    buildStatsPayload({ container, activeTags, index, requestDuration }).then(statsPayload => {
+    buildStatsPayload({ container, activeTags, index, requestDuration, renderDuration }).then(statsPayload => {
         addLoggerMetaMutator(index, { type: 'message', stats: statsPayload });
 
         // Attributes temporarily required to exist as part of the stats event
@@ -89,9 +91,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
             index,
             et: 'CLIENT_IMPRESSION',
             event_type: 'stats',
-            first_render_delay: Math.round(firstRenderDelay).toString(),
-            request_duration: formatStat(requestDuration),
-            render_duration: renderDuration
+            first_render_delay: Math.round(firstRenderDelay).toString()
         });
     });
 }

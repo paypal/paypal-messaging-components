@@ -86,6 +86,7 @@ export default (options = {}) => ({
                             onRender,
                             onApply,
                             channel,
+                            ecToken,
                             cspNonce
                         } = merchantOptions;
 
@@ -100,6 +101,7 @@ export default (options = {}) => ({
                             buyerCountry,
                             ignoreCache,
                             channel,
+                            ecToken,
                             cspNonce
                         };
                         const modalProps = {
@@ -148,6 +150,7 @@ export default (options = {}) => ({
                     currency: ${currency},
                     ignoreCache: ${ignoreCache},
                     channel: ${channel},
+                    ecToken: ${ecToken},
             
                     index: data-pp-id="${index}",
                     style: ${JSON.stringify(style)},

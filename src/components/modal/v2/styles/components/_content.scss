@@ -50,6 +50,7 @@
                 border-radius: 100px 0px 0px 0px;
                 @include mobile {
                     border-radius: 40px 0px;
+                    margin-top: -40px;
                 }
             }
             @include desktop {

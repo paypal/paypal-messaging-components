@@ -12,6 +12,8 @@ export default offerType => {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        case 'GENERIC':
+        case 'GENERIC:NON-DE':
             return gpl;
         case 'PI30':
         case 'PI30Q':

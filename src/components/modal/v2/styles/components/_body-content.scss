@@ -15,6 +15,13 @@
     @include lander {
         // Remove the transform since the lander layout is a traditional full page with scrolling
         transform: none;
+
+        // The hierarchy of elements on the lander variant requires that we set overflow-y to scroll and add a set height,
+        // otherwise position: sticky will not work when a parent is set to overflow: hidden.
+        @include mobile {
+            overflow-y: scroll;
+            height: 100vh;
+        }
     }
 
     @include mobile {
@@ -96,9 +103,18 @@
             top: $sticky-header-height-mobile;
         }
 
-        // Disable on the lander
-        @include lander {
-            content: none;
+        // Disable for the lander on desktop.
+        @include desktop {
+            @include lander {
+                content: none;
+            }
+        }
+
+        // Disable for the lander on tablet.
+        @include tablet {
+            @include lander {
+                content: none;
+            }
         }
     }
 

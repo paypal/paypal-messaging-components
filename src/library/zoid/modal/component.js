@@ -117,6 +117,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 default: () => 'UPSTREAM',
                 value: validate.channel
             },
+            ecToken: {
+                type: 'string',
+                queryParam: 'ec_token',
+                required: false,
+                value: validate.ecToken
+            },
 
             // Callbacks
             onClick: {

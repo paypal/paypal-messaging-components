@@ -206,7 +206,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
 
     return (
         <div className="calculator">
-            <form className={`form ${emptyState ? 'no-amount' : ''}`} onSubmit={submit}>
+            <form className="form" onSubmit={submit}>
                 <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
@@ -224,7 +224,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             </form>
             {hasInitialAmount || hasUsedInputField ? (
                 <div className="content-column">
-                    <TermsTable view={view} isLoading={isLoading} hasError={error} aprDisclaimer={aprDisclaimer} />
+                    <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (
                 <Fragment />
@@ -232,7 +232,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
             {country === 'US' && (
                 <div
                     className={`finance-terms__disclaimer ${
-                        !(hasInitialAmount || hasUsedInputField) ? 'no-amount' : ''
+                        !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
                     }`}
                 >
                     {aprDisclaimer}

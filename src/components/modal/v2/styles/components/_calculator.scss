@@ -99,7 +99,15 @@
             text-align: left;
             align-items: flex-start;
             max-width: 300px;
-            margin: auto;
+            margin-left: 45px;
+
+            @include desktop {
+                margin: auto;
+            }
+
+            @include mobile {
+                margin: auto;
+            }
         }
 
         &.hide {
@@ -137,7 +145,7 @@
             }
 
             @include tablet {
-                margin-left: 73px;
+                margin-left: 71px;
             }
 
             @include mobile {

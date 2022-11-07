@@ -5,6 +5,7 @@ import { useXProps, useServerData, useCalculator, getComputedVariables } from '.
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
+import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import styles from './styles.scss';
 
@@ -100,9 +101,11 @@ export const LongTerm = ({
                         </div>
                         <Instructions instructions={instructions} expandedState={expandedState} />
                         <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                            {typeof disclosure !== 'string' && aprType && aprType in disclosure
-                                ? disclosure[aprType].replace(/\D00\s?EUR/g, ' €')
-                                : `${disclosure}`}
+                            {typeof disclosure !== 'string' && aprType && aprType in disclosure ? (
+                                <InlineLinks text={disclosure[aprType].replace(/\D00\s?EUR/g, ' €')} />
+                            ) : (
+                                <InlineLinks text={disclosure} />
+                            )}
                         </div>
                         {renderCheckoutCtaButton()}
                     </div>
