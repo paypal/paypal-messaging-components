@@ -35,6 +35,10 @@
         max-width: 100%;
     }
 
+    @include smallMobile {
+        min-width: auto;
+    }
+
     &__row {
         display: flex;
 

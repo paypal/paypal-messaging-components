@@ -237,10 +237,12 @@
             @include mobile {
                 margin-bottom: 5px;
                 margin-left: 22px;
+                max-width: 84%;
             }
 
             @include smallMobile {
                 font-size: 1.7rem;
+                max-width: 81%;
             }
 
             &.headline-de {
@@ -285,9 +287,13 @@
             }
 
             @include mobile {
-                max-width: 250px;
+                max-width: 75%;
                 padding: 10px 22px 100px;
                 line-height: 20px;
+            }
+
+            @include smallMobile {
+                max-width: 67%;
             }
 
             span {
