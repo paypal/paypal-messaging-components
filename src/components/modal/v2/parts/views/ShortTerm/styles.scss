@@ -34,7 +34,7 @@
         @include mobile {
             padding: 0 0 15px;
         }
-        
+
         @include smallMobile {
             padding: 0px;
         }
@@ -46,11 +46,11 @@
     }
 
     @include tablet {
-        margin-left: 44px; 
+        margin-left: 44px;
     }
 
     @include mobile {
-     margin-top: 20px;
-     margin-left: 0px;
+        margin-top: 20px;
+        margin-left: 0px;
     }
 }
