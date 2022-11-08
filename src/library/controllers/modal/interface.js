@@ -13,9 +13,12 @@ import {
     getStandardProductOffer,
     addPerformanceMeasure,
     PERFORMANCE_MEASURE_KEYS,
-    globalEvent
+    globalEvent,
+    getTopWindow
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
+
+const SCRIPT_DELAY = 0;
 
 const memoizedModal = memoizeOnProps(
     ({
@@ -39,7 +42,8 @@ const memoizedModal = memoizeOnProps(
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
-        const { render, updateProps, state, event } = getModalComponent()({
+        // Hold onto the full object reference so we can overwite the properties, but save the object reference
+        const zoidComponent = getModalComponent()({
             account,
             merchantId,
             customerId,
@@ -59,27 +63,50 @@ const memoizedModal = memoizeOnProps(
             integrationIdentifier
         });
         // Fired from inside the default onReady callback
-        const modalReady = new ZalgoPromise(resolve => event.once('ready', resolve));
-
         let renderProm;
-        const renderModal = (selector = 'body') => {
-            state.renderStart = getCurrentTime();
+        const renderModal = (selector = 'body', newProps, options = { intent: 'render' }) => {
+            const context = getTopWindow() === window ? 'iframe' : 'popup';
 
-            if (!renderProm) {
-                const SCRIPT_DELAY = 0;
-                renderProm = awaitWindowLoad
-                    // Give priority to other merchant scripts waiting for the load event
-                    .then(() => ZalgoPromise.delay(SCRIPT_DELAY))
-                    .then(() => ZalgoPromise.all([render(selector), modalReady]))
-                    .then(() => globalEvent.trigger('modal-render'));
+            if (renderProm && context !== 'popup') {
+                return renderProm.then(() => newProps && zoidComponent.updateProps(newProps));
             }
 
-            return renderProm;
+            if (renderProm && context === 'popup') {
+                // If the context is popup, the zoid component completely destroys itself
+                // where it can't be reused and must be recreated. We can clone the destroyed
+                // instance to transfer the state and latest props to the new instance
+                Object.assign(zoidComponent, zoidComponent.clone());
+            }
+
+            const modalReady = new ZalgoPromise(resolve => zoidComponent.event.once('ready', resolve));
+
+            zoidComponent.state.renderStart = getCurrentTime();
+
+            const renderDelay =
+                options.intent === 'show'
+                    ? // Render modal immediately if the user has made a clear intent
+                      ZalgoPromise.resolve()
+                    : // Give priority to other merchant scripts waiting for the load event
+                      awaitWindowLoad.then(() => ZalgoPromise.delay(SCRIPT_DELAY));
+
+            return (
+                renderDelay
+                    // Give priority to other merchant scripts waiting for the load event
+                    .then(() =>
+                        ZalgoPromise.all([
+                            newProps && zoidComponent.updateProps(newProps),
+                            zoidComponent.render(selector, context),
+                            modalReady
+                        ])
+                    )
+                    .then(() => globalEvent.trigger('modal-render'))
+            );
         };
 
         const showModal = (options = {}) => {
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
+            // TODO: Where is this being used?
             if (isElement(options)) {
                 newOptions.src =
                     options.id ??
@@ -89,60 +116,56 @@ const memoizedModal = memoizeOnProps(
                     options.constructor?.name ??
                     'element';
             }
-            state.renderStart = getCurrentTime();
 
-            if (!renderProm) {
-                renderProm = renderModal('body');
-            }
+            renderProm = renderModal('body', newOptions, { intent: 'show' });
 
             const requestedProduct = getStandardProductOffer(options.offer);
-
-            // TODO: Remove after DE universal modal ramp is complete. Allows both old and new modals to work with DE messages while ramping.
-            const validDEProductValues = ['PAY_LATER_LONG_TERM', 'PAY_LATER_PAY_IN_1', 'PAY_LATER_SHORT_TERM'];
-            // TODO: Remove after DE universal modal ramp is complete
-            const productState = options?.offerCountry === 'DE' ? validDEProductValues : state.products;
 
             if (
                 typeof requestedProduct !== 'undefined' &&
                 requestedProduct !== 'NONE' &&
-                Array.isArray(state.products) &&
-                !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
+                Array.isArray(zoidComponent.state.products) &&
+                !arrayFind(zoidComponent.state.products, supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {
                     location: 'offer',
-                    description: `Expected one of ["${state.products.join('", "')}"] but received "${options.offer}".`
+                    description: `Expected one of ["${zoidComponent.state.products.join('", "')}"] but received "${
+                        options.offer
+                    }".`
                 });
                 return ZalgoPromise.resolve();
             }
 
             // Tells containerTemplate to show the prerender modal as soon as possible if zoid has not
             // rendered anything yet and the show/hide events are not hooked up yet
-            state.open = true;
-            event.trigger('modal-show');
-
-            return renderProm.then(() => updateProps(newOptions));
-        };
-
-        const hideModal = () => {
-            if (!renderProm) {
-                renderProm = renderModal('body');
-            }
-
-            event.trigger('modal-hide');
+            zoidComponent.state.open = true;
+            zoidComponent.event.trigger('modal-show');
 
             return renderProm;
         };
 
+        const hideModal = () => {
+            renderProm = renderModal('body');
+
+            zoidComponent.event.trigger('modal-hide');
+
+            return renderProm;
+        };
+
+        const updateModal = props => {
+            zoidComponent.updateProps(props);
+        };
+
         // Expose these functions through the computed onReady callback
         // for merchant integrations
-        state.show = showModal;
-        state.hide = hideModal;
+        zoidComponent.state.show = showModal;
+        zoidComponent.state.hide = hideModal;
         // Follow existing zoid interface
         return {
             render: renderModal,
             show: showModal,
             hide: hideModal,
-            updateProps
+            updateProps: updateModal
         };
     },
     ['account', 'merchantId', 'buyerCountry']

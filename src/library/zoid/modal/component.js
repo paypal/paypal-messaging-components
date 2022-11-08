@@ -37,6 +37,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
         domain: /\.paypal\.com(:\d+)?$/,
         containerTemplate,
         prerenderTemplate,
+        // Dimensions used by popup scenario
+        dimensions: {
+            width: '600px',
+            height: '900px'
+        },
         attributes: {
             iframe: {
                 title: 'PayPal Modal',
@@ -207,7 +212,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, event }) => {
                     const { onClose } = props;
 
-                    return ({ linkName }) => {
+                    return ({ linkName } = {}) => {
+                        // linkName is undefined when modal is closed as a popup.
+                        // TODO: We should probably change from using `onClose` the
+                        // modal only hides itself and keep `onClose` for the zoid event
+                        if (typeof linkName === 'undefined') return;
+
                         const { index, refIndex } = props;
 
                         event.trigger('modal-hide');

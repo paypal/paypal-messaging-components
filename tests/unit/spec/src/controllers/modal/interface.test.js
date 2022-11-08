@@ -52,7 +52,7 @@ describe('modal interface', () => {
 
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'iframe');
     });
 
     test('Renders a hidden modal', async () => {
@@ -69,7 +69,7 @@ describe('modal interface', () => {
 
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'iframe');
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().event.trigger).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().event.trigger).toHaveBeenLastCalledWith('modal-show');
@@ -80,7 +80,7 @@ describe('modal interface', () => {
 
         expect(getModalComponent()).toHaveBeenCalledTimes(1);
         expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
-        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body');
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'iframe');
         expect(getModalComponent()().updateProps).toHaveBeenCalledTimes(0);
     });
 

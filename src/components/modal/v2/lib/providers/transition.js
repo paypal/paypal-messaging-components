@@ -76,7 +76,7 @@ export const TransitionStateProvider = ({ children }) => {
 
 export const useTransitionState = () => {
     const { status } = useContext(TransitionContext);
-    const { onClose } = useXProps();
+    const { onClose, close } = useXProps();
 
     return [
         status,
@@ -84,6 +84,13 @@ export const useTransitionState = () => {
             // Appends a class to the modal iframe body when handleClose is fired.
             document.body.classList.add('modal-closed');
             onClose({ linkName });
+
+            if (window === window.top && typeof close === 'function') {
+                // Check to see if the modal is running running as a standalone page (i.e. popup), close the entire page
+                // `close` will only exist with zoid integrations, so this is skiped for the lander
+                // TODO: We should consider changing `onClose` to `onHide` since close has a different meaning for zoid
+                close();
+            }
         }
     ];
 };
