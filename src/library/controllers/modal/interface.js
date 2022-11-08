@@ -89,18 +89,18 @@ const memoizedModal = memoizeOnProps(
                     : // Give priority to other merchant scripts waiting for the load event
                       awaitWindowLoad.then(() => ZalgoPromise.delay(SCRIPT_DELAY));
 
-            return (
-                renderDelay
-                    // Give priority to other merchant scripts waiting for the load event
-                    .then(() =>
-                        ZalgoPromise.all([
-                            newProps && zoidComponent.updateProps(newProps),
-                            zoidComponent.render(selector, context),
-                            modalReady
-                        ])
-                    )
-                    .then(() => globalEvent.trigger('modal-render'))
-            );
+            renderProm = renderDelay
+                // Give priority to other merchant scripts waiting for the load event
+                .then(() =>
+                    ZalgoPromise.all([
+                        newProps && zoidComponent.updateProps(newProps),
+                        zoidComponent.render(selector, context),
+                        modalReady
+                    ])
+                )
+                .then(() => globalEvent.trigger('modal-render'));
+
+            return renderProm;
         };
 
         const showModal = (options = {}) => {
