@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.39.0](https://github.com/paypal/paypal-messaging-components/compare/v1.38.3...v1.39.0) (2022-11-08)
+
+
+### Features
+
+* 3.0 rebrand ([#873](https://github.com/paypal/paypal-messaging-components/issues/873)) ([9336ec7](https://github.com/paypal/paypal-messaging-components/commit/9336ec78dc8a54ccaf8620da0dc2c7a77de04bb8))
+* modal in iframe popup support ([#874](https://github.com/paypal/paypal-messaging-components/issues/874)) ([0e13d8c](https://github.com/paypal/paypal-messaging-components/commit/0e13d8c3e7b310e0e49178d4dea0b5fbc9292e28))
+
 ### [1.38.3](https://github.com/paypal/paypal-messaging-components/compare/v1.38.2...v1.38.3) (2022-10-25)
 
 
