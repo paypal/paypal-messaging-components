@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    </head>
+
+    <body>
+        <script>
+            const iframe = document.createElement('iframe');
+
+            iframe.setAttribute('width', 500);
+            iframe.setAttribute('height', 500);
+            iframe.setAttribute('name', 'message iframe'); // Used for targeting in functional tests
+            iframe.src = `https://localhost.paypal.com:8080/snapshot/banner.html${window.location.search}`;
+
+            document.body.appendChild(iframe);
+        </script>
+    </body>
+</html>
