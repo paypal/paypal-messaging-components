@@ -52,7 +52,19 @@ export const TransitionStateProvider = ({ children }) => {
 
 export const useTransitionState = () => {
     const { status } = useContext(TransitionContext);
-    const { onClose } = useXProps();
+    const { onClose, close } = useXProps();
 
-    return [status, linkName => onClose({ linkName })];
+    return [
+        status,
+        linkName => {
+            onClose({ linkName });
+
+            if (window === window.top && typeof close === 'function') {
+                // Check to see if the modal is running as a standalone page (i.e. popup), close the entire page
+                // `close` will only exist with zoid integrations, so this is skipped for the lander
+                // TODO: We should consider changing `onClose` to `onHide` since close has a different meaning for zoid
+                close();
+            }
+        }
+    ];
 };

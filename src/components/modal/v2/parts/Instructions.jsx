@@ -1,18 +1,18 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const Instructions = ({ instructions, expandedState = false }) => {
+const Instructions = ({ instructions, expandedState = false, className = '' }) => {
     const renderBullet = index => {
         return (
             <div className="instructions__bullet">
-                <span>{index}</span>
+                <span>{index}.</span>
             </div>
         );
     };
 
     return (
         <div className="content__row instructions">
-            <ol className={`${expandedState ? '' : 'collapsed'}`}>
+            <ol className={(`${expandedState ? '' : 'collapsed'}`, className)}>
                 {instructions.map((instruction, index) => {
                     return (
                         <li className="instructions__item-wrapper">

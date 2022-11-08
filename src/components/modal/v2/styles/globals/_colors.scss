@@ -1,22 +1,21 @@
-// i.e. default instructions bullet color and primary pay monthly button color
-$dark-blue: #003087;
-// i.e. default link color (used in link to product list view) and secondary pay monthly button color
-$light-blue: #0070ba;
-// i.e. color of text in the calculator input field
-$text-main: #2c2e2f;
-// i.e. instructions section background color
-$instructions-background: #f5f7fb;
-// i.e. finance terms disclaimer and legal disclosure
-$legal-disclaimer: #6b6e76;
-// i.e. main terms header ($X.XX/mo. for X months)
-$terms-header: #0c0c0c;
-// i.e. terms details (Est. APR, Interest, Total, and their associated amounts)
-$terms-details: #515354;
-// i.e. terms bullet
-$terms-bullet: #c4c4c4;
-// i.e. product list view background
-$beige-background: #f1efea;
-// i.e. border color denoting active selection for offer accordion boxes
-$active: #1072eb;
-// i.e. generic offer accordion border color
+// Primary near-black text color used throughout the modal.
+$text-main: #001435;
+// i.e. generic offer accordion border color (DE).
 $light-gray: #dbdddd;
+// i.e. Legal disclaimer text and offer text ($X.XX/mo. for X months).
+$gray: #515354;
+// i.e. terms bullets used in the No Interest view.
+$dark-gray: #545d68;
+// i.e. Pay Monthly bottom border between offer cards
+$offer-border-gray: #c6c6c6;
+// i.e. The header and footer background color.
+$beige: #faf8f5;
+// Lander background
+$lander-beige: #e6e0d9;
+// Primary Pay Monthly button color
+$dark-blue: #003087;
+// Primarily used for links and button hover color
+$light-blue: #0070e0;
+$white: white;
+$black: black;
+$spinner-green: #00ff7f;

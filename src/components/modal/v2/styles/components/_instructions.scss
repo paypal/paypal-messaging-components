@@ -8,43 +8,31 @@
 
     @include tablet {
         width: 100%;
-        display: flex;
         justify-content: center;
     }
 
     ol {
-        padding: 15px 10px 0px;
         @include desktop {
-            padding: 25px 0px 0px;
-        }
-        @include tablet {
-            max-width: 315px;
-        }
-        &.collapsed {
-            @include desktop {
-                width: 34%;
-            }
-        }
-    }
-    li {
-        color: black;
-        list-style: none;
-        font-size: 0.9rem;
-
-        @include desktop {
-            padding-bottom: 25px;
-        }
-
-        @include tablet {
-            padding-bottom: 32px;
+            padding: 0px;
         }
 
         @include mobile {
-            padding-bottom: 25px;
+            padding: 0px;
         }
-        @include smallMobile {
-            padding-bottom: 35px;
+        &.ppc {
+            @include mobile {
+                margin-top: -11px;
+                margin-bottom: 0px;
+            }
         }
+    }
+
+    li {
+        color: $text-main;
+        list-style: none;
+        line-height: 24px;
+        font-size: 18px;
+        padding-bottom: 16px;
     }
 
     .instructions__item-wrapper {
@@ -64,28 +52,13 @@
     }
 
     .instructions__bullet {
-        font-size: 15px;
-        font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
-        color: white;
-        margin-right: 1.5rem;
+        font-size: 18px;
+        color: $text-main;
+        margin-right: 0.7rem;
 
         span {
             position: relative;
             z-index: 1;
-
-            &::after {
-                content: '';
-                display: block;
-                width: 25px;
-                height: 25px;
-                background: $dark-blue;
-                border-radius: 100%;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: -1;
-            }
         }
     }
 

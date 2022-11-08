@@ -1,6 +1,11 @@
 // inline-link, Singular; the component InlineLinks provides multiple links in a wall of text,
 // but the class is applied to only one <a> element
 .inline-link {
+    text-decoration: underline;
+    color: $light-blue;
+    font-family: $paypal-open-bold;
+    font-weight: 600;
+
     &::before {
         content: ' ';
     }
