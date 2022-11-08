@@ -39,7 +39,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
         prerenderTemplate,
         // Dimensions used by popup scenario
         dimensions: {
-            width: '600px',
+            width: '460px',
             height: '900px'
         },
         attributes: {
