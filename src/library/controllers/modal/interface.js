@@ -106,7 +106,6 @@ const memoizedModal = memoizeOnProps(
         const showModal = (options = {}) => {
             const newOptions = isElement(options) ? getInlineOptions(options) : options;
 
-            // TODO: Where is this being used?
             if (isElement(options)) {
                 newOptions.src =
                     options.id ??
