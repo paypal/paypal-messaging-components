@@ -21,11 +21,11 @@
         }
     },
     "content": {
-        "headline": "Pay over time with PayPal Credit",
+        "headline": "Pay over time <br />with PayPal Credit",
         "subheadline": "Shop online with a reusable credit line.",
         "instructions": [
             "Apply now and get a decision in seconds.",
-            "Check out with PayPal and choose PayPal Credit.",
+            "Check out with PayPal and choose <strong>PayPal Credit</strong>.",
             "No Interest if paid in full in 6 months on purchases of $99+"
         ],
         "terms": [

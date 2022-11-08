@@ -3,14 +3,14 @@
 import { h } from 'preact';
 
 const Donut = ({
-    strokeWidth = 3,
+    strokeWidth = 5.8,
     strokeLinecap = 'round',
     cx = 21,
     cy = 21,
     radius = 15.91549430918954,
     viewBox = `0 0 ${2 * cx} ${2 * cy}`,
     style = { fontSize: '0.375rem' },
-    segmentStrokeWidth = 4,
+    segmentStrokeWidth = 5.8,
     currentNum = 0,
     numOfPayments = 4,
     timeStamp,
