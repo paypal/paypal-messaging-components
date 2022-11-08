@@ -1,13 +1,14 @@
 @import '../globals/mixins';
 
 $webpage: 1640px;
-$green500: #00cf92;
+$green500: #388C00;
 $grey300: #dbd8d0;
 $grey600: #888;
 
 .donut__single_payment {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     @include mobile {
         width: 70px;
@@ -22,11 +23,22 @@ $grey600: #888;
     &.donut__qualifying_payment {
         svg {
             text {
-                color: $terms-details;
+                color: $text-main;
                 transform: translate(1px, 3px);
             }
         }
     }
+
+    &:first-of-type {
+        .donut__ {
+            &payment {
+                font-family: $paypal-open-bold;
+            }
+            &timestamp {
+                font-family: $paypal-open-bold;
+            }
+        }
+    } 
 
     svg {
         width: 100%;
@@ -34,9 +46,9 @@ $grey600: #888;
         text {
             font-size: 0.5rem;
             line-height: 20px;
-            font-family: PayPalSansBig;
+            font-family: $paypal-open;
             font-weight: 600;
-            color: $terms-details;
+            color: $gray;
         }
 
         .donut__background {
@@ -59,13 +71,15 @@ $grey600: #888;
         line-height: 20px;
 
         @media all and (min-width: $webpage) {
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 22px;
         }
 
         &.donut__payment {
-            font-family: PayPalSansBig;
-            font-weight: 600;
+            font-family: $paypal-open;
+            color: $text-main;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
 
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
@@ -73,10 +87,10 @@ $grey600: #888;
         }
 
         &.donut__timestamp {
-            color: $terms-details;
-            font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
+            color: $text-main;
+            font-family: $paypal-open;
+            font-size: 0.9rem;
             @include desktop {
-                font-size: 1rem;
                 line-height: 22px;
             }
         }

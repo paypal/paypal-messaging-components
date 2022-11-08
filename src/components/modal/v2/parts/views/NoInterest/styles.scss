@@ -2,110 +2,9 @@
 @import '../../../styles/globals/mixins';
 @import '../../../styles/globals/colors';
 
-.header {
-    &__content {
-        padding-bottom: 40px;
-
-        @include apiIframe {
-            @include tablet {
-                padding-bottom: 25px;
-            }
-        }
-
-        @include mobile {
-            padding-bottom: 0px;
-        }
-
-        h1 {
-            @include apiIframe {
-                @include tablet {
-                    max-width: none;
-                }
-            }
-        }
-
-        h2 {
-            @include apiIframe {
-                @include tablet {
-                    margin-top: 0.5rem;
-                }
-            }
-        }
-    }
-}
-
 .content {
     &__container {
-        background: white;
-        color: black;
-        padding-bottom: 0px;
-        border-radius: 0px;
-
         .content__body {
-            .dynamic {
-                padding-bottom: 1.5rem;
-
-                @include tablet {
-                    padding-bottom: 0rem;
-                }
-
-                @include mobile {
-                    padding-bottom: 0rem;
-                }
-
-                @include apiIframe {
-                    @include tablet {
-                        padding-top: 1rem;
-                    }
-                }
-            }
-
-            .content__col {
-                @include desktop {
-                    &.collapsed:last-child {
-                        position: relative;
-                    }
-                }
-
-                @include tablet {
-                    margin-left: 40px;
-                    margin-right: 40px;
-                }
-            }
-
-            .instructions {
-                ol {
-                    max-width: unset;
-                    padding: 0px;
-                    margin-bottom: 0px;
-
-                    &.collapsed {
-                        width: 100%;
-                    }
-                }
-                li {
-                    font-size: 18px;
-                    &:last-child {
-                        @include apiIframe {
-                            @include tablet {
-                                padding-bottom: 25px;
-                            }
-                        }
-                    }
-                }
-
-                @include lander {
-                    margin-top: 10px;
-
-                    @include mobile {
-                        margin-top: 0px;
-                    }
-                    @include smallMobile {
-                        margin-top: 0px;
-                    }
-                }
-            }
-
             .button {
                 padding: 15px 100px 15px 100px;
 
@@ -172,8 +71,7 @@
         }
     }
     &__footer {
-        background: $instructions-background;
-        padding: 25px;
+        padding-top: 25px;
         margin: 0;
 
         @include desktop {
@@ -206,6 +104,8 @@
             margin-bottom: 70px;
         }
         .terms {
+            padding-left: 0px;
+
             @include desktop {
                 margin-top: 0;
                 margin-left: 30px;
@@ -219,7 +119,7 @@
             }
 
             &-item {
-                color: $legal-disclaimer;
+                color: $gray;
                 margin-bottom: 20px;
                 font-size: 14px;
                 display: flex;
@@ -244,7 +144,7 @@
                 &::before {
                     /* pseudo class necessary for setting bullet color separate from font */
                     content: '\2022';
-                    color: $terms-bullet;
+                    color: $dark-gray;
                     @include mobile {
                         padding: 0px 12.5px 0px 8px;
                     }
@@ -264,12 +164,12 @@
                 margin-top: 20px;
             }
             @include desktop {
-                margin-left: 45px;
+                margin-left: 17px;
                 margin-right: 45px;
             }
 
             @include tablet {
-                margin-left: 45px;
+                margin-left: 17px;
                 margin-right: 45px;
 
                 .product-list-link {
@@ -285,10 +185,7 @@
             list-style: none;
             font-size: 14px;
             margin: 0 0 20px 0;
-            color: $legal-disclaimer;
-            .product-list-link {
-                padding: 0px;
-            }
+            color: $gray;
         }
     }
 }
