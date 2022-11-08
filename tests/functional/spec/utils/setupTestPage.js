@@ -14,7 +14,9 @@ export default async function setupTestPage({ config, testPage, frameName }) {
         await bannerElement.click();
 
         const modalElement = await page.waitForSelector(selectors.modal.iframe, { visible: true });
-        const modalFrame = await modalElement.contentFrame().waitForSelector(selectors.modal.contentBody);
+        const modalFrame = await modalElement.contentFrame();
+
+        await modalFrame.waitForSelector(selectors.modal.contentBody);
 
         return { modalFrame };
     };
