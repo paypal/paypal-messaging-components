@@ -121,7 +121,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['mo.', 'mo'],
-                        replace: [['mo.', 'mo']]
+                        replace: [
+                            ['mo.', 'mo'],
+                            ['months.', 'months']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
@@ -139,7 +142,10 @@ export default {
                     {
                         tag: 'medium',
                         br: ['mo.', 'mo'],
-                        replace: [['mo.', 'mo']]
+                        replace: [
+                            ['mo.', 'mo'],
+                            ['months.', 'months']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
