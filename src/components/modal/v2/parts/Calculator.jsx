@@ -207,11 +207,12 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     return (
         <div className="calculator">
             <form className="form" onSubmit={submit}>
-                <h3 className="title">{title}</h3>
+                <h4 className="title">{title}</h4>
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
+                        aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="tel"
@@ -220,10 +221,10 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                         onKeyDown={onKeyDown}
                     />
                 </div>
-                {renderError(error || emptyState || isLoading)}
+                <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
             </form>
             {hasInitialAmount || hasUsedInputField ? (
-                <div className="content-column">
+                <div aria-live="polite" className="content-column">
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (
