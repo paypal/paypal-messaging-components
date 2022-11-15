@@ -19,11 +19,11 @@ export const NoInterest = ({
     const renderProductListLinkItem = () => {
         if (views?.length > 2) {
             return (
-                <li className="content__footer-item">
+                <div className="content__footer-item">
                     <ProductListLink className="no-interest" openProductList={openProductList}>
                         {linkToProductList}
                     </ProductListLink>
-                </li>
+                </div>
             );
         }
         return <Fragment />;
@@ -68,7 +68,9 @@ export const NoInterest = ({
                         <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
                             {buttonText}
                         </Button>
-                        <div className="content__row content__disclaimer">{disclaimer}</div>
+                        <div aria-describedby="Subject to Credit Approval" className="content__row content__disclaimer">
+                            {disclaimer}
+                        </div>
                     </div>
                 </div>
             </div>

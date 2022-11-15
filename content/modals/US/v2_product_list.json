@@ -4,7 +4,7 @@
         "offerCountry": "US"
     },
     "content": {
-        "headline": "Buy now, <br />pay over time",
+        "headline": "<span aria-hidden='true'>Buy now, <br />pay over time</span><span class='sr-only'>Buy now, pay over time</span>",
         "disclosure": "Terms apply for each option. Offer availability may depend on consumer & merchant eligibility.",
         "instructions": {
             "payLater": "Get more info on Pay Later options.",
