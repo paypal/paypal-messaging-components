@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.39.0](https://github.com/paypal/paypal-messaging-components/compare/v1.38.3...v1.39.0) (2022-11-08)
+
+
+### Features
+
+* 3.0 rebrand ([#873](https://github.com/paypal/paypal-messaging-components/issues/873)) ([9336ec7](https://github.com/paypal/paypal-messaging-components/commit/9336ec78dc8a54ccaf8620da0dc2c7a77de04bb8))
+* modal in iframe popup support ([#874](https://github.com/paypal/paypal-messaging-components/issues/874)) ([0e13d8c](https://github.com/paypal/paypal-messaging-components/commit/0e13d8c3e7b310e0e49178d4dea0b5fbc9292e28))
+
+### [1.38.3](https://github.com/paypal/paypal-messaging-components/compare/v1.38.2...v1.38.3) (2022-10-25)
+
+
+### Code Refactoring
+
+* pass customerId and deviceID to modalContent requests ([#866](https://github.com/paypal/paypal-messaging-components/issues/866)) ([a880be9](https://github.com/paypal/paypal-messaging-components/commit/a880be9ab3d9fdc54a8d39684540ac267b1a32af))
+
+### [1.38.2](https://github.com/paypal/paypal-messaging-components/compare/v1.38.1...v1.38.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* update modals for legal disclosure not showing in the mobile viewport (DTCRCMERC-1565) ([#842](https://github.com/paypal/paypal-messaging-components/issues/842)) ([82577d1](https://github.com/paypal/paypal-messaging-components/commit/82577d1e563907e59ca170d01bbd210ca346ed28))
+
+### [1.38.1](https://github.com/paypal/paypal-messaging-components/compare/v1.38.0...v1.38.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* add channel to message updates ([#852](https://github.com/paypal/paypal-messaging-components/issues/852)) ([8122e45](https://github.com/paypal/paypal-messaging-components/commit/8122e45021d170b82c562c4f8bc4551fdc5833a2))
+
+## [1.38.0](https://github.com/paypal/paypal-messaging-components/compare/v1.37.1...v1.38.0) (2022-09-27)
+
+
+### Features
+
+* add support for ec_token param ([#848](https://github.com/paypal/paypal-messaging-components/issues/848)) ([9ba7f1c](https://github.com/paypal/paypal-messaging-components/commit/9ba7f1c9def8762ab41c3f03c80e465d7cffb6cb))
+
+
+### Code Refactoring
+
+* Update Pay in 4 modal to remove ND from ineligible states disclosure (DTCRCMERC-1720) ([#855](https://github.com/paypal/paypal-messaging-components/issues/855)) ([4e76c40](https://github.com/paypal/paypal-messaging-components/commit/4e76c40cb69ce58b6286cbb4ace11a29a258b452))
+* Update Pay Monthly modal disclosure for Vermont & South Dakota (DTCRCMERC-1719) ([#853](https://github.com/paypal/paypal-messaging-components/issues/853)) ([f0f7716](https://github.com/paypal/paypal-messaging-components/commit/f0f77166b0699a746d386f759fd07d460b0ac275))
+
 ### [1.37.1](https://github.com/paypal/paypal-messaging-components/compare/v1.37.0...v1.37.1) (2022-09-21)
 
 

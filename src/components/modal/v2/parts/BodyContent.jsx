@@ -87,8 +87,13 @@ const BodyContent = () => {
                 subheadline={subheadline}
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
+                viewName={viewName}
             />
-            {viewComponents[viewName]}
+            <div className="content__container">
+                <main className="main">
+                    <div className="content__body">{viewComponents[viewName]}</div>
+                </main>
+            </div>
         </Fragment>
     );
 };

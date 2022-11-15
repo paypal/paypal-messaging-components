@@ -37,10 +37,10 @@
         },
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
-            "Complete your purchase with a 25% first payment.",
+            "Complete your purchase with an initial 25% payment.",
             "Remaining payments are taken automatically. It’s easy!"
         ],
-        "disclosure": "PayPal Pay in 4 is available for eligible purchases of {formattedMinAmount} to {formattedMaxAmount} AUD. Some seller exclusions apply and subject to customer eligibility. We may run a credit check when you apply. We don't charge late fees, but late or missed payments could impact your PayPal account and credit score. You must live in Australia, have an Australian PayPal account, and agree to all relevant terms and conditions to use Pay in 4.",
+        "disclosure": "PayPal Pay in 4 is for eligible purchases between {formattedMinAmount}-{formattedMaxAmount} AUD. It’s available to Australian residents with an Australian PayPal account. Eligibility is subject to your PayPal account status and a credit assessment, which may require a credit check. Pay in 4 is a form of credit, so consider whether you can afford the repayments as use of the product may impact your credit score.",
         "linkToProductList": "See other ways to pay later"
     }
 }

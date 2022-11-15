@@ -133,7 +133,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     features,
                     stageTag,
                     style,
-                    merchantConfigHash
+                    merchantConfigHash,
+                    channel
                 } = xprops;
 
                 setProps({
@@ -146,7 +147,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     payerId,
                     clientId,
                     merchantId,
-                    merchantConfigHash
+                    merchantConfigHash,
+                    channel
                 });
 
                 // Generate new MRID on message update.
@@ -167,7 +169,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     version,
                     env,
                     stageTag,
-                    merchant_config: merchantConfigHash
+                    merchant_config: merchantConfigHash,
+                    channel
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(

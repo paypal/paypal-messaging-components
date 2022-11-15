@@ -33,15 +33,8 @@
             border-radius: 0;
         }
 
-        // Hide sticky header styles on the desktop and tablet variants of the Lander.
-        // These dimensions use a background that takes up the entire viewport instead.
         @include lander {
-            @include desktop {
-                display: none;
-            }
-            @include tablet {
-                display: none;
-            }
+            border-radius: 0;
         }
     }
 
@@ -49,6 +42,7 @@
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
+        background-color: $beige;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -65,7 +59,7 @@
         &--gradient {
             // Ends right above the header text in the scenario where mask-image
             // isn't supported to prevent hiding the text on initial render
-            height: 6rem;
+            height: 10rem;
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 black,
@@ -87,16 +81,6 @@
                     transparent 100px
                 );
                 mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
-            }
-        }
-
-        svg {
-            width: 900px;
-            transform: translate(0, -30%);
-
-            @include apiIframe {
-                min-width: 800px;
-                width: $content-wrapper-max-width-api-iframe;
             }
         }
     }
@@ -126,58 +110,20 @@
                 transition: transform 0.2s ease-out;
                 padding: 0 20px;
 
-                @include tablet {
-                    transform: translate(calc(#{$content-wrapper-max-width-tablet} / 2 - 50%), 2rem);
-                    display: flex;
-                    justify-content: center;
-                }
-
                 @include desktop {
-                    transform: translate(calc(#{$content-wrapper-max-width-desktop} / 2 - 50%), 2rem);
-                    display: flex;
-                    justify-content: center;
+                    padding: 0px;
+                    margin-left: 48px;
                 }
 
-                @include apiIframe {
-                    // Specifically calling out desktop and tablet dimensions here as they move the PP logo monogram from the center of the header
-                    // to the left-hand side on scroll. Mobile dimensions keep the logo to the left.
-                    @include desktop {
-                        transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
-                    }
-
-                    @include tablet {
-                        transform: translate(calc(#{$content-wrapper-max-width-api-iframe} / 2 - 50%), 2rem);
-                    }
-
-                    // copied here because apiIframe mixin has higher priority than the scroll below
-                    &--scroll {
-                        transform: translate(0, 0);
-                    }
+                @include tablet {
+                    padding: 0px;
+                    margin-left: 56px;
                 }
 
                 &--scroll {
-                    transform: translate(0, 0);
-                }
-
-                .pp-logo {
-                    img {
-                        height: 30px;
-                        display: block;
-                        // Account for extra space included below the SVG logo so that
-                        // the img can be better centered automatically via flex
-                        padding-top: 20%;
-
-                        @include desktop {
-                            height: 44px;
-                        }
-
-                        @include tablet {
-                            height: 40px;
-                        }
-
-                        @include mobile {
-                            height: 35px;
-                        }
+                    transform: translate(-3rem, 0);
+                    @include mobile {
+                        transform: translate(0, 0);
                     }
                 }
             }
@@ -192,10 +138,17 @@
 
             @include desktop {
                 margin-left: auto;
+                margin-right: 2px;
             }
 
             @include tablet {
                 margin-left: auto;
+                margin-right: 2px;
+            }
+
+            @include mobile {
+                margin-top: 1px;
+                margin-right: 2px;
             }
 
             svg {
@@ -211,7 +164,6 @@
                 }
 
                 path {
-                    stroke: white !important;
                     stroke-width: 2.2;
                 }
             }
@@ -230,61 +182,118 @@
             padding-bottom: 40px;
         }
 
-        h1 {
-            font-size: 2rem;
-            line-height: 36px;
-            text-align: left;
-            color: white;
-            margin: auto;
+        svg {
+            position: absolute;
+            right: 0;
+            bottom: 36px;
 
             @include desktop {
-                text-align: center;
+                &.background-mobile {
+                    display: none;
+                }
             }
 
             @include tablet {
-                text-align: center;
-
-                @include lander {
-                    max-width: 100%;
+                &.background-mobile {
+                    display: none;
                 }
             }
 
             @include mobile {
-                padding: 10px 25px 0px;
+                &.background-desktop {
+                    display: none;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 36px;
+            text-align: left;
+            color: $text-main;
+            margin-left: 52px;
+            margin-top: 10px;
+
+            @include desktop {
+                margin-bottom: 10px;
+
+                br {
+                    display: none;
+                }
+            }
+
+            @include tablet {
+                margin-left: 62px;
+                @include lander {
+                    max-width: 100%;
+                }
+
+                br {
+                    display: none;
+                }
+            }
+
+            @include mobile {
+                margin-bottom: 5px;
+                margin-left: 22px;
+                max-width: 84%;
             }
 
             @include smallMobile {
                 font-size: 1.7rem;
+                max-width: 81%;
+            }
+
+            &.headline-de {
+                @include tablet {
+                    margin-right: 20px;
+                }
+
+                @include mobile {
+                    line-height: 30px;
+                    margin-right: 50px;
+                    margin-left: 0px;
+                    padding: 10px 25px 0px;
+                }
+
+                @include apiIframe {
+                    max-width: 500px;
+                    @include mobile {
+                        max-width: 279px;
+                    }
+                }
             }
         }
 
         h2 {
-            font-size: 1rem;
+            font-size: 18px;
+            font-weight: 400;
             line-height: 24px;
             text-align: left;
-            color: white;
+            color: $text-main;
             margin: 0px;
 
             @include desktop {
-                margin-top: 10px;
-                text-align: center;
+                margin-left: 52px;
+                margin-top: 0px;
+                margin-bottom: 80px;
             }
 
             @include tablet {
-                font-size: 1rem;
-                max-width: 315px;
-                margin: 1rem auto 0;
-                text-align: center;
-
-                @include lander {
-                    max-width: 100%;
-                }
+                max-width: 380px;
+                margin-left: 62px;
+                margin-bottom: 60px;
             }
 
             @include mobile {
-                padding: 10px 25px 25px;
-                font-size: 1rem;
+                max-width: 75%;
+                padding: 10px 22px 100px;
                 line-height: 20px;
+            }
+
+            @include smallMobile {
+                max-width: 67%;
             }
 
             span {

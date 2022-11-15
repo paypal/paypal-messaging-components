@@ -10,13 +10,16 @@ export const getContent = memoize(
         payerId,
         clientId,
         merchantId,
+        customerId,
         buyerCountry,
         ignoreCache,
+        deviceID,
         version,
         env,
         stageTag,
         integrationType,
         channel,
+        ecToken,
         devTouchpoint
     }) => {
         const query = objectEntries({
@@ -25,13 +28,16 @@ export const getContent = memoize(
             payer_id: payerId,
             client_id: clientId,
             merchant_id: merchantId,
+            customer_id: customerId,
             buyer_country: buyerCountry,
             ignore_cache: ignoreCache,
+            deviceID,
             version,
             env,
             stageTag,
             integrationType,
             channel,
+            ec_token: ecToken,
             devTouchpoint
         })
             .filter(([, val]) => Boolean(val))

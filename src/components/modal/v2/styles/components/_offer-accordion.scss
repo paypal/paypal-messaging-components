@@ -19,15 +19,15 @@
             margin-top: 35px;
         }
         &.active {
-            outline: 3px solid $active;
+            outline: 3px solid $light-blue;
             border-color: transparent;
         }
     }
 
     &__header-container {
-        font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+        font-family: $paypal-open;
         font-size: 18px;
-        color: $terms-header;
+        color: $text-main;
         display: flex;
         justify-content: space-between;
         padding: 25px 18px 22px 13px;
@@ -35,9 +35,6 @@
         border: none;
         width: 100%;
         cursor: pointer;
-        .accordion__offer-field-header:first-child {
-            font-weight: 600;
-        }
     }
 
     &__collapsible {
@@ -64,7 +61,7 @@
             }
 
             .accordion__offer-apr-disclaimer {
-                color: $terms-details;
+                color: $gray;
                 line-height: 1.3;
                 padding-bottom: 9px;
             }

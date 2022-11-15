@@ -1,10 +1,13 @@
+@import '../../../styles/globals/colors';
+@import '../../../styles/globals/mixins';
+
 .spinner {
     display: block;
     position: absolute;
     left: 50%;
     top: 50%;
     border-radius: 50%;
-    border-top: 4px solid #00ff7f;
+    border-top: 4px solid $spinner-green;
     width: 80px;
     height: 80px;
     opacity: 0;
@@ -14,4 +17,23 @@
     pointer-events: none;
     transform-origin: 0 0;
     z-index: 5;
+}
+
+.nav__link-prefix {
+    min-width: 315px;
+    padding: 0px;
+    font-size: 14px;
+    margin: 0px;
+    @include tablet {
+        margin: 0px 44px 0px 44px;
+    }
+
+    @include desktop {
+        margin-left: 30px;
+    }
+
+    @include mobile {
+        margin-top: 20px;
+        margin-left: 0px;
+    }
 }
