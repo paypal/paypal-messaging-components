@@ -1,8 +1,9 @@
-import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
+/* global Android */
+import { isAndroidWebview, isIosWebview } from '@krakenjs/belter/src';
 import { logger } from '../../../../utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
-const ANDROID_INTERFACE_NAME = 'PayPalMessageModalInterface';
+const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 
 const setupBrowser = props => {
     window.xprops = {
@@ -104,8 +105,8 @@ const setupWebview = props => {
             );
         }
 
-        if (window[ANDROID_INTERFACE_NAME]) {
-            return window[ANDROID_INTERFACE_NAME].postMessage.bind(window[ANDROID_INTERFACE_NAME]);
+        if (Android) {
+            return Android[ANDROID_INTERFACE_NAME].bind(Android);
         }
 
         // THis scenario should only ever occur when developing locally
