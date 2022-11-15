@@ -11,85 +11,16 @@ html {
     &.lander {
         // Overscroll background color since we use an SVG pattern
         // for the core background which moves with the overscroll
-        background: #1040c1;
+        background: $lander-beige;
     }
 }
 
 body {
     margin: 0;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    font-family: $paypal-open;
+    color: $text-main;
     font-weight: 400;
     font-size: 16px;
-}
-
-
-h2,
-h3,
-h4,
-p,
-li {
-    color: $text-main;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-weight: 400;
-}
-
-h2 {
-    font-size: 30px;
-    margin-bottom: 16px;
-    line-height: 42px;
-    font-family: PayPalSansBig, Helvetica, Arial, Sans-Serif;
-    font-weight: 200;
-}
-
-h3 {
-    font-size: 20px;
-    line-height: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-}
-
-svg {
-    margin: auto;
-    display: block;
-}
-
-p {
-    font-size: 13px;
-    line-height: 18px;
-}
-
-a {
-    text-decoration: none;
-    color: $light-blue;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
-    font-weight: 600;
-}
-
-ul {
-    padding-left: 0;
-}
-
-li {
-    list-style-type: disc;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: 0;
-}
-
-.content__wrapper-overflow {
-    &.loading {
-        .calculator {
-            filter: blur(3px);
-            opacity: 0.6;
-        }
-    }
 }
 
 .spinner {

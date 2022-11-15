@@ -70,7 +70,7 @@ export function toBinary(string) {
 export const createMockZoidMarkup = ({ component, scriptUID, port, encodedData }) => {
     const setupFunctionName = component === 'message' ? 'crc.setupMessage' : 'crc.setupModal';
 
-    const interfaceScript = `<script>var interface = window.top.document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
+    const interfaceScript = `<script>var interface = (window.opener ?? window.parent).document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
     const componentScript = `<script src="//localhost.paypal.com:${port}/smart-credit-${component}.js"></script>`;
     const initializerScript = `<script>${setupFunctionName}(JSON.parse(fromBinary(atob(document.firstChild.nodeValue))))</script>`;
     const utilScript = `

@@ -20,7 +20,9 @@ export const NoInterest = ({
         if (views?.length > 2) {
             return (
                 <div className="content__footer-item">
-                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                    <ProductListLink className="no-interest" openProductList={openProductList}>
+                        {linkToProductList}
+                    </ProductListLink>
                 </div>
             );
         }
@@ -30,54 +32,47 @@ export const NoInterest = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__container">
-                <main className="main">
-                    <div className="content__body">
-                        <div className="content__row dynamic">
-                            <div className="content__col">
-                                <Instructions instructions={instructions} />
-                            </div>
-                            <div className="content__col">
-                                <div className="branded-image">
-                                    {/* TODO: include Icon component when desktop images are final */}
-                                </div>
-                            </div>
-                        </div>
+            <div className="content__row dynamic">
+                <div className="content__col">
+                    <Instructions instructions={instructions} className="ppc" />
+                </div>
+                <div className="content__col">
+                    <div className="branded-image">
+                        {/* TODO: include Icon component when desktop images are final */}
                     </div>
-                    <div className="content__footer">
-                        <ul className="content__row terms">
-                            {terms.map(item => (
-                                <li className="terms-item">
-                                    <span className="terms-bullet" />
-                                    <span className="terms-content">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        {footer.map(lineContent => (
+                </div>
+            </div>
+            <div className="content__footer">
+                <div className="content__row terms">
+                    {terms.map(item => (
+                        <p className="terms-item">
+                            <span className="terms-bullet" />
+                            <span className="terms-content">{item}</span>
+                        </p>
+                    ))}
+                </div>
+                <div className="terms">
+                    {footer.map(lineContent => {
+                        return (
                             <p className="content__footer-item">
                                 <InlineLinks text={lineContent} />
                             </p>
-                        ))}
-                        {renderProductListLinkItem()}
-                    </div>
-                    <div className="content__body">
-                        <div className="content__row dynamic">
-                            <div className="button__fixed-wrapper">
-                                <div className="button__container">
-                                    <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
-                                        {buttonText}
-                                    </Button>
-                                    <div
-                                        aria-describedby="Subject to Credit Approval"
-                                        className="content__row content__disclaimer"
-                                    >
-                                        {disclaimer}
-                                    </div>
-                                </div>
-                            </div>
+                        );
+                    })}
+                    {renderProductListLinkItem()}
+                </div>
+            </div>
+            <div className="content__row dynamic">
+                <div className="button__fixed-wrapper">
+                    <div className="button__container">
+                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                            {buttonText}
+                        </Button>
+                        <div aria-describedby="Subject to Credit Approval" className="content__row content__disclaimer">
+                            {disclaimer}
                         </div>
                     </div>
-                </main>
+                </div>
             </div>
         </Fragment>
     );

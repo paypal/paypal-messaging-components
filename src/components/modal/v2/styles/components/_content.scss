@@ -3,22 +3,14 @@
     background: transparent;
     box-sizing: border-box;
     padding-top: 0;
-    background: $instructions-background;
+    background: $beige;
     padding-bottom: 1.5rem;
     flex-grow: 1;
     margin-top: -$sticky-header-radius;
-
-    @include lander {
-        margin-top: 0;
-        border-radius: 100px 0px;
-
-        @include mobile {
-            border-radius: 100px 0px 0px 0px;
-        }
-    }
+    z-index: 1000;
 
     main {
-        color: $legal-disclaimer;
+        color: $gray;
         padding-top: 0;
         height: 100%;
         box-sizing: border-box;
@@ -37,22 +29,20 @@
     .content__row {
         &.dynamic {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             margin: 0 -20px;
-            background: white;
-            padding-bottom: 0.5rem;
+            background: $white;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
-            border-radius: 0 0 40px 0;
 
-            @include lander {
-                border-radius: 100px 0px 0px 0px;
-                @include mobile {
-                    border-radius: 40px 0px;
-                    margin-top: -40px;
+            &.product-list {
+                @include tablet {
+                    padding-left: 65px;
+                    padding-right: 65px;
                 }
             }
+
             @include desktop {
                 height: 100%;
 
@@ -98,46 +88,27 @@
                     display: none;
                 }
             }
+
+            .product-list {
+                width: 100%;
+            }
         }
 
         &.disclosure {
             text-align: left;
-            font-size: 0.8rem;
-            line-height: 1.4;
+            font-size: 14px;
+            line-height: 20px;
 
             @include desktop {
-                padding-top: 0px;
-                padding-left: 30px;
-                width: 90%;
-                font-size: 0.8rem;
+                margin: 42px 30px 23px 30px;
             }
 
             @include tablet {
-                font-size: 0.75rem;
-                max-width: 315px;
-                margin: 0 auto;
-            }
-
-            &.collapsed {
-                @include desktop {
-                    width: 34%;
-                }
-            }
-        }
-
-        &.nav__link-prefix {
-            min-width: 315px;
-            padding: 0px;
-            margin: 1em auto -1em;
-            color: $text-main;
-            font-size: 13.33px;
-
-            @include desktop {
-                margin-left: 30px;
+                margin: 42px 44px 20px 44px;
             }
 
             @include mobile {
-                margin-left: 0px;
+                margin-top: 28px;
             }
         }
     }

@@ -10,11 +10,10 @@ import {
     useXProps,
     useDidUpdateEffect,
     getContent,
+    setupTabTrap,
     isLander,
-    isIframe,
-    setupTabTrap
+    isIframe
 } from '../lib';
-import Icon from './Icon';
 import Overlay from './Overlay';
 
 const Container = ({ children }) => {
@@ -27,6 +26,7 @@ const Container = ({ children }) => {
         payerId,
         clientId,
         merchantId,
+        customerId,
         buyerCountry,
         ignoreCache,
         version,
@@ -37,6 +37,7 @@ const Container = ({ children }) => {
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
+    const deviceID = getOrCreateStorageID();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -54,7 +55,7 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID: getOrCreateStorageID(),
+                deviceID,
                 ts: getTsCookieFromStorage()
             });
         }
@@ -68,13 +69,15 @@ const Container = ({ children }) => {
             payerId,
             clientId,
             merchantId,
+            customerId,
             buyerCountry,
             ignoreCache,
             version,
             env,
             stageTag,
             channel,
-            ecToken
+            ecToken,
+            deviceID
         }).then(data => {
             setServerData(data);
             setLoading(false);
@@ -88,7 +91,6 @@ const Container = ({ children }) => {
     return (
         <ScrollProvider containerRef={contentWrapperRef}>
             <div className="modal-wrapper">
-                {isLander && !isIframe && <Icon name="header-background" />}
                 <div className="spinner" style={{ opacity: loading ? '1' : '0' }} />
                 <Overlay />
                 {/* Presentational div to clip scrollbars with a rounded border */}
