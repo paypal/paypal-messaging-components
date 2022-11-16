@@ -56,8 +56,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 17.5),
-                    textWrap(textSize * 40.5, textSize, 'US'),
+                    xSmallFallback(textSize * 19),
+                    textWrap(textSize * 43, textSize, 'US'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16)
                 ],
@@ -82,7 +82,7 @@ export default {
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
                     xSmallFallback(textSize * 17.5),
-                    setLogoTop(textSize * 41),
+                    setLogoTop(textSize * 43),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -94,7 +94,7 @@ export default {
                     `@media screen and (max-width: ${textSize * 18.5}px) { 
                         .message__headline > .tag--medium > span.br:first-child { white-space: normal; } 
                     }`,
-                    xSmallFallback(textSize * 15.75),
+                    xSmallFallback(textSize * 17.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
