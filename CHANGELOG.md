@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.39.1](https://github.com/paypal/paypal-messaging-components/compare/v1.39.0...v1.39.1) (2022-11-15)
+
+
+### Code Refactoring
+
+* add dash for pay monthly checkout content ([#878](https://github.com/paypal/paypal-messaging-components/issues/878)) ([2966866](https://github.com/paypal/paypal-messaging-components/commit/29668666170aaad18ad6f393b559fe06214cf4f8))
+* adjust LT MQGZ style for inline and none ([#877](https://github.com/paypal/paypal-messaging-components/issues/877)) ([02c66b4](https://github.com/paypal/paypal-messaging-components/commit/02c66b450f7ad7f6fb3c7a34e18dee3174521e0f))
+* modal accessibility issues (DTCRCMERC-1728) ([#856](https://github.com/paypal/paypal-messaging-components/issues/856)) ([684245b](https://github.com/paypal/paypal-messaging-components/commit/684245b0550b187364e177532cad1dfdc99c137b))
+
 ## [1.39.0](https://github.com/paypal/paypal-messaging-components/compare/v1.38.3...v1.39.0) (2022-11-08)
 
 
