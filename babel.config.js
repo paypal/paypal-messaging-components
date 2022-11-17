@@ -1,5 +1,5 @@
 module.exports = {
-    extends: '@krakenjs/grumbler-scripts/config/.babelrc-browser',
+    extends: '@krakenjs/babel-config-grumbler/babelrc-browser',
     env: {
         test: {
             presets: [['@babel/env', { targets: { node: 'current' } }]]
