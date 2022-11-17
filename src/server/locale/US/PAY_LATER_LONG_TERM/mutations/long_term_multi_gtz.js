@@ -123,7 +123,7 @@ export default {
                         br: ['mo.', 'mo', 'as'],
                         replace: [
                             ['mo.', 'mo'],
-                            ['months.', 'months']
+                            ['for 6 or 12 months.', 'for 6 or 12 months']
                         ]
                     },
                     {
@@ -144,7 +144,7 @@ export default {
                         br: ['mo.', 'mo'],
                         replace: [
                             ['mo.', 'mo'],
-                            ['months.', 'months', 'as']
+                            ['for 6 or 12 months.', 'for 6 or 12 months']
                         ]
                     },
                     {
