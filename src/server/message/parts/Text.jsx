@@ -5,13 +5,13 @@ import { h, Fragment } from 'preact';
 const Text = ({ children, className, spaced }) => {
     // if (children.)
     let text = <span className={className}>{children}</span>;
+
     const hasHtml = typeof children === 'string' && children.includes('<span');
-    console.log({ hasHtml });
     if (hasHtml) {
-        console.log(children);
         // eslint-disable-next-line react/no-danger
         text = <span className={className} dangerouslySetInnerHTML={{ __html: children }} />;
     }
+
     return spaced ? <>{text} </> : text;
 };
 
