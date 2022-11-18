@@ -90,14 +90,14 @@ printf "\n\n"
 filteredModule="${filteredModule:1}"
 
 # Optional webpack args
-[[ ! -z "$tag" ]] && optionalArgs+=("--env.STAGE_TAG=$tag")
-[[ ! -z "$testEnv" ]] && optionalArgs+=("--env.TEST_ENV=https://www.$testEnv")
-[[ $devTouchpoint = true ]] && optionalArgs+=("--env.DEV_TOUCHPOINT")
+[[ ! -z "$tag" ]] && optionalArgs+=("--env STAGE_TAG=$tag")
+[[ ! -z "$testEnv" ]] && optionalArgs+=("--env TEST_ENV=https://www.$testEnv")
+[[ $devTouchpoint = true ]] && optionalArgs+=("--env DEV_TOUCHPOINT")
 
 # Build assets for each environment
 for env in "${filteredEnvArr[@]}"
 do
-    npm run --silent build:"$env" -- --env.VERSION="$version" --env.MODULE="$filteredModule" ${optionalArgs[@]} --bail --display none &> /dev/null
+    npm run --silent build:"$env" -- --env VERSION="$version" --env MODULE="$filteredModule" ${optionalArgs[@]} &> /dev/null
 
     if [ "$env" = "production" ]; then dir="js"; else dir="$env"; fi 
 
