@@ -6,6 +6,10 @@
     margin-right: 0px;
 }
 
+.message__messaging {
+    padding-right: 0px;
+}
+
 .weak {
     display: none;
 }
