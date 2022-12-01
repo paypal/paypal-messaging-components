@@ -58,7 +58,7 @@
         "@babel/eslint-parser": "^7.17.0",
         "@babel/register": "^7.10.4",
         "@babel/runtime": "7.12.18",
-        "@krakenjs/grumbler-scripts": "^8.0.6",
+        "@krakenjs/grumbler-scripts": "^8.1.1",
         "@krakenjs/webpack-config-grumbler": "^8.0.5",
         "@semantic-release/changelog": "^6.0.1",
         "@semantic-release/exec": "^6.0.3",
