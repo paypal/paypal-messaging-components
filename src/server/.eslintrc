@@ -1,5 +1,5 @@
 {
-    "extends": ["../../node_modules/@krakenjs/grumbler-scripts/config/.eslintrc-browser.js", "../../.eslintrc"],
+    "extends": ["../../node_modules/@krakenjs/eslint-config-grumbler/eslintrc-browser.js", "../../.eslintrc"],
     "rules": {
         "flowtype/require-valid-file-annotation": "off",
         "flowtype/require-return-type": "off",

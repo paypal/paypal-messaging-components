@@ -1,4 +1,4 @@
-const { getWebpackConfig } = require('@krakenjs/grumbler-scripts/config/webpack.config');
+const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
