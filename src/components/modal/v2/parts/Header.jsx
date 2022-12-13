@@ -62,13 +62,13 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 <Icon name={`${viewName}-mobile`} />
                 {/* <Icon name="background-pp-mobile" /> */}
                 {/* eslint-disable-next-line react/no-danger */}
-                <h1 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
+                <h2 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <h2 className={`subheadline-${countryClassName} qualifying`}>
+                    <h3 className={`subheadline-${countryClassName} qualifying`}>
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
-                    </h2>
+                    </h3>
                 ) : (
-                    <h2
+                    <h3
                         className={`subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}

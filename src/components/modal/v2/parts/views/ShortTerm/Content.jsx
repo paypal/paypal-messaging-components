@@ -43,7 +43,7 @@ export const ShortTerm = ({
         ? estimatedInstallments.items
               .map(timestamp => `${timestamp.total_payment} for ${timestamp.payment_date}`)
               .join(', ')
-        : donutTimestamps.map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`);
+        : donutTimestamps.map(timestamp => `${currencyFormat(periodicPayment)} for ${timestamp}`).join(', ');
 
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
