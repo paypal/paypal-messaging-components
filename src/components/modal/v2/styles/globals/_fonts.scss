@@ -1,9 +1,13 @@
 @font-face {
-    font-family: 'PayPalOpen-Bold';
+    font-family: 'PayPalOpen';
     src: url(https://www.paypalobjects.com/paypal-ui/fonts/PayPalOpen-Bold.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
 }
 
 @font-face {
     font-family: 'PayPalOpen';
     src: url(https://www.paypalobjects.com/paypal-ui/fonts/PayPalOpen-Regular.woff2) format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
