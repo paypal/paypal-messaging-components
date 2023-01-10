@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.39.3](https://github.com/paypal/paypal-messaging-components/compare/v1.39.2...v1.39.3) (2023-01-10)
+
+
+### Build System
+
+* fix optional args ([#890](https://github.com/paypal/paypal-messaging-components/issues/890)) ([b7086f7](https://github.com/paypal/paypal-messaging-components/commit/b7086f7cd0f79fb3eac9d5ac69e63ea2ee0a939e))
+
+
+### Code Refactoring
+
+* ES non-qualifying message wrapping logic ([#876](https://github.com/paypal/paypal-messaging-components/issues/876)) ([5f6dcbe](https://github.com/paypal/paypal-messaging-components/commit/5f6dcbeef46a1bc641e094698b650c30c15f08e3))
+* message banner accessibility tasks (DTCRCMERC-1788) ([#869](https://github.com/paypal/paypal-messaging-components/issues/869)) ([8254b36](https://github.com/paypal/paypal-messaging-components/commit/8254b3686fe9082a7f525554a6b617e8a5bfccb3))
+* underline "Learn More" link in message for text color = "black" (DTCRCMERC-1754) ([#887](https://github.com/paypal/paypal-messaging-components/issues/887)) ([aa32a33](https://github.com/paypal/paypal-messaging-components/commit/aa32a332d21d69268c08bc1446344de5b0c08485))
+
 ### [1.39.2](https://github.com/paypal/paypal-messaging-components/compare/v1.39.1...v1.39.2) (2022-12-07)
 
 
