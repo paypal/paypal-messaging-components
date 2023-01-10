@@ -1,4 +1,4 @@
 .message__disclaimer > span:not(.multi),
 .message__disclaimer > span.multi:last-of-type {
-    text-decoration: none;
+    text-decoration: underline;
 }
