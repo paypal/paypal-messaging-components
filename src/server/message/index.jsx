@@ -223,14 +223,14 @@ export default ({ addLog, options, markup, locale }) => {
                     {/* Promotional Messaging */}
                     <div className="message__messaging">
                         <div className="message__promo-container">
-                            <h5 className="message__headline">
+                            <div className="message__headline">
                                 <MutatedText tagData={markup.headline} options={mutationRules.headline} />
                                 {logoType === 'none' ? productNameEl : null}
                                 {logoType === 'inline' ? <> {logoEl}</> : null}
-                            </h5>{' '}
-                            <h6 className="message__sub-headline">
+                            </div>{' '}
+                            <div className="message__sub-headline">
                                 <MutatedText tagData={markup.subHeadline} options={mutationRules.subHeadline} />
-                            </h6>
+                            </div>
                         </div>{' '}
                         <p className="message__disclaimer">
                             <MutatedText tagData={markup.disclaimer} options={mutationRules.disclaimer} />
