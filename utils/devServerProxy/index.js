@@ -1,5 +1,5 @@
 require('@babel/register')({
-    extends: '@krakenjs/grumbler-scripts/config/.babelrc-node',
+    extends: '@krakenjs/babel-config-grumbler/babelrc-node',
     ignore: [/node_modules/],
     cwd: __dirname
 });
