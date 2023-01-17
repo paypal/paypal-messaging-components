@@ -6,3 +6,7 @@
 .message__logo > canvas {
     display: inline;
 }
+
+.message__messaging {
+    padding-right: 0.8rem;
+}

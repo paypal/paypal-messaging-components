@@ -9,3 +9,7 @@
 .message__content {
     align-items: center;
 }
+
+.message__messaging {
+    padding-right: 0.8rem;
+}
