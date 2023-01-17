@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.39.4](https://github.com/paypal/paypal-messaging-components/compare/v1.39.3...v1.39.4) (2023-01-17)
+
+
+### Code Refactoring
+
+* IT Pay in 3 modal "Remove Dopo" update (DTCRCMERC-1860) ([#893](https://github.com/paypal/paypal-messaging-components/issues/893)) ([4d57c50](https://github.com/paypal/paypal-messaging-components/commit/4d57c50585f74b27007e95fe3da5db952ecfb503))
+* tweak styles to remove padding-right from messages ([#886](https://github.com/paypal/paypal-messaging-components/issues/886)) ([d24e3d8](https://github.com/paypal/paypal-messaging-components/commit/d24e3d8ff7a736e581ab47f6dda193bf986b47a6))
+
 ### [1.39.3](https://github.com/paypal/paypal-messaging-components/compare/v1.39.2...v1.39.3) (2023-01-10)
 
 
