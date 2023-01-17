@@ -1,3 +1,7 @@
 .message__logo > img {
     top: -0.5px;
 }
+
+.message__messaging {
+    padding-right: 0.8rem;
+}
