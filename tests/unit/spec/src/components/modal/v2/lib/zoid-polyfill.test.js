@@ -15,7 +15,7 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
     delete window.actions;
     delete window.navigator;
     delete window.webkit;
-    delete window.PayPalMessageModalInterface;
+    delete global.Android;
 
     window.location = new URL(url);
     window.navigator = {
@@ -23,6 +23,7 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
             switch (platform) {
                 case 'web':
                     return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0';
+
                 case 'ios':
                     window.webkit = {
                         messageHandlers: {
@@ -33,12 +34,14 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
                     };
 
                     return 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148';
+
                 case 'android':
-                    window.PayPalMessageModalInterface = {
-                        postMessage: jest.fn()
+                    global.Android = {
+                        paypalMessageModalCallbackHandler: jest.fn()
                     };
 
                     return 'Mozilla/5.0 (Linux; Android 11; sdk_gphone_arm64 Build/RSR1.210722.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36';
+
                 default:
                     throw new Error(`Invalid platform: ${platform}`);
             }
@@ -256,7 +259,7 @@ describe('zoidPollyfill', () => {
                 platform: 'android'
             }
         );
-        const { postMessage } = window.PayPalMessageModalInterface;
+        const postMessage = global.Android.paypalMessageModalCallbackHandler;
 
         zoidPolyfill();
 
