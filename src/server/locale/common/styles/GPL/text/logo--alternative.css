@@ -2,6 +2,7 @@
     display: inline-block;
     white-space: normal;
     flex: 0 0 auto;
+    padding-right: 0px;
 }
 
 .message__logo-container {

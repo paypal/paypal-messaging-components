@@ -17,7 +17,9 @@ const InlineLinks = ({ text }) => {
                 // if the next chunk is an array with two strings, use the second string as the href for the first
                 return (
                     // class name is singular because it is applied to a single link
+
                     <a
+                        aria-label={`${linkText}, opens new tab.`}
                         target="__blank"
                         className="inline-link"
                         href={linkUrl}
@@ -34,7 +36,6 @@ const InlineLinks = ({ text }) => {
                 );
             }
         }
-
         // eslint-disable-next-line react/no-danger
         return <span dangerouslySetInnerHTML={{ __html: textChunk }} />;
     });

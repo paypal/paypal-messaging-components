@@ -12,7 +12,12 @@ import { createTitleGenerator, viewportHijack } from '../../../utils';
 const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce } }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce }, context }) => {
+    // We render the modal as a popup when attempting to render the modal inside another IFrame.
+    // In this scenario we can skip creating container elements and transitions since we
+    // cannot overlay across the entire screen
+    if (context === 'popup') return undefined;
+
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {

@@ -16,7 +16,7 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const [aprType, setAPRType] = useState('');
     const { amount, onClick, onClose } = useXProps();
-    const { views } = useServerData();
+    const { views, country } = useServerData();
     const {
         view: { offers }
     } = useCalculator();
@@ -71,7 +71,9 @@ export const LongTerm = ({
             return (
                 <Fragment>
                     {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList}>{linkToProductList}</ProductListLink>
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
                 </Fragment>
             );
         }
@@ -81,36 +83,30 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__container">
-                <main className="main">
-                    <div className="content__body">
-                        <div className="content__row dynamic">
-                            <div className="content__col">
-                                <Calculator
-                                    setExpandedState={setExpandedState}
-                                    calculator={calculator}
-                                    disclaimer={disclaimer}
-                                    setAPRType={setAPRType}
-                                />
-                            </div>
-                            <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
-                                <div className="branded-image">
-                                    {/* TODO: include Icon component when desktop images are final */}
-                                </div>
-                            </div>
+            <div className="content__row dynamic">
+                <div className="content__col">
+                    <Calculator
+                        setExpandedState={setExpandedState}
+                        calculator={calculator}
+                        disclaimer={disclaimer}
+                        setAPRType={setAPRType}
+                    />
+                    <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
+                        <div className="branded-image">
+                            {/* TODO: include Icon component when desktop images are final */}
                         </div>
-                        <Instructions instructions={instructions} expandedState={expandedState} />
-                        <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                            {typeof disclosure !== 'string' && aprType && aprType in disclosure ? (
-                                <InlineLinks text={disclosure[aprType].replace(/\D00\s?EUR/g, ' €')} />
-                            ) : (
-                                <InlineLinks text={disclosure} />
-                            )}
-                        </div>
-                        {renderCheckoutCtaButton()}
                     </div>
-                </main>
+                </div>
+                <Instructions instructions={instructions} expandedState={expandedState} />
             </div>
+            <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+                {typeof disclosure !== 'string' && aprType && aprType in disclosure ? (
+                    <InlineLinks text={disclosure[aprType].replace(/\D00\s?EUR/g, ' €')} />
+                ) : (
+                    <InlineLinks text={disclosure} />
+                )}
+            </div>
+            {renderCheckoutCtaButton()}
         </Fragment>
     );
 };

@@ -1,5 +1,54 @@
 # Changelog
 
+### [1.39.4](https://github.com/paypal/paypal-messaging-components/compare/v1.39.3...v1.39.4) (2023-01-17)
+
+
+### Code Refactoring
+
+* IT Pay in 3 modal "Remove Dopo" update (DTCRCMERC-1860) ([#893](https://github.com/paypal/paypal-messaging-components/issues/893)) ([4d57c50](https://github.com/paypal/paypal-messaging-components/commit/4d57c50585f74b27007e95fe3da5db952ecfb503))
+* tweak styles to remove padding-right from messages ([#886](https://github.com/paypal/paypal-messaging-components/issues/886)) ([d24e3d8](https://github.com/paypal/paypal-messaging-components/commit/d24e3d8ff7a736e581ab47f6dda193bf986b47a6))
+
+### [1.39.3](https://github.com/paypal/paypal-messaging-components/compare/v1.39.2...v1.39.3) (2023-01-10)
+
+
+### Build System
+
+* fix optional args ([#890](https://github.com/paypal/paypal-messaging-components/issues/890)) ([b7086f7](https://github.com/paypal/paypal-messaging-components/commit/b7086f7cd0f79fb3eac9d5ac69e63ea2ee0a939e))
+
+
+### Code Refactoring
+
+* ES non-qualifying message wrapping logic ([#876](https://github.com/paypal/paypal-messaging-components/issues/876)) ([5f6dcbe](https://github.com/paypal/paypal-messaging-components/commit/5f6dcbeef46a1bc641e094698b650c30c15f08e3))
+* message banner accessibility tasks (DTCRCMERC-1788) ([#869](https://github.com/paypal/paypal-messaging-components/issues/869)) ([8254b36](https://github.com/paypal/paypal-messaging-components/commit/8254b3686fe9082a7f525554a6b617e8a5bfccb3))
+* underline "Learn More" link in message for text color = "black" (DTCRCMERC-1754) ([#887](https://github.com/paypal/paypal-messaging-components/issues/887)) ([aa32a33](https://github.com/paypal/paypal-messaging-components/commit/aa32a332d21d69268c08bc1446344de5b0c08485))
+
+### [1.39.2](https://github.com/paypal/paypal-messaging-components/compare/v1.39.1...v1.39.2) (2022-12-07)
+
+
+### Bug Fixes
+
+* donut amount screen reader issue ([#888](https://github.com/paypal/paypal-messaging-components/issues/888)) ([7f281be](https://github.com/paypal/paypal-messaging-components/commit/7f281be352770696317d2bfe813020547a8e19f3))
+* inline and none for LT MQGZ message to account for updated 0% FR campaign content ([#884](https://github.com/paypal/paypal-messaging-components/issues/884)) ([d404550](https://github.com/paypal/paypal-messaging-components/commit/d404550a75a4ba555b972f16fab4e488a29031f2))
+* NQ US Pay Monthly message in Alternative style not wrapping (DTCRCMERC-1861) ([#882](https://github.com/paypal/paypal-messaging-components/issues/882)) ([c7d91e1](https://github.com/paypal/paypal-messaging-components/commit/c7d91e18e44b1d67ae06a7419c9ada18dffeedea))
+* update LT MQGZ wrapping logic to support longer FR campaign message content ([#881](https://github.com/paypal/paypal-messaging-components/issues/881)) ([8d44498](https://github.com/paypal/paypal-messaging-components/commit/8d44498e1045e8a4cd0143c9c68b477ee2d7a1f9))
+
+### [1.39.1](https://github.com/paypal/paypal-messaging-components/compare/v1.39.0...v1.39.1) (2022-11-15)
+
+
+### Code Refactoring
+
+* add dash for pay monthly checkout content ([#878](https://github.com/paypal/paypal-messaging-components/issues/878)) ([2966866](https://github.com/paypal/paypal-messaging-components/commit/29668666170aaad18ad6f393b559fe06214cf4f8))
+* adjust LT MQGZ style for inline and none ([#877](https://github.com/paypal/paypal-messaging-components/issues/877)) ([02c66b4](https://github.com/paypal/paypal-messaging-components/commit/02c66b450f7ad7f6fb3c7a34e18dee3174521e0f))
+* modal accessibility issues (DTCRCMERC-1728) ([#856](https://github.com/paypal/paypal-messaging-components/issues/856)) ([684245b](https://github.com/paypal/paypal-messaging-components/commit/684245b0550b187364e177532cad1dfdc99c137b))
+
+## [1.39.0](https://github.com/paypal/paypal-messaging-components/compare/v1.38.3...v1.39.0) (2022-11-08)
+
+
+### Features
+
+* 3.0 rebrand ([#873](https://github.com/paypal/paypal-messaging-components/issues/873)) ([9336ec7](https://github.com/paypal/paypal-messaging-components/commit/9336ec78dc8a54ccaf8620da0dc2c7a77de04bb8))
+* modal in iframe popup support ([#874](https://github.com/paypal/paypal-messaging-components/issues/874)) ([0e13d8c](https://github.com/paypal/paypal-messaging-components/commit/0e13d8c3e7b310e0e49178d4dea0b5fbc9292e28))
+
 ### [1.38.3](https://github.com/paypal/paypal-messaging-components/compare/v1.38.2...v1.38.3) (2022-10-25)
 
 

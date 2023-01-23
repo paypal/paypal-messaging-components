@@ -1,10 +1,11 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useTransitionState, useScroll, currencyFormat } from '../lib';
+import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline }) => {
+const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline, viewName }) => {
+    const { country } = useServerData();
     const [, handleClose] = useTransitionState();
     const [isScrolled, setScrolled] = useState(false);
 
@@ -19,20 +20,19 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
         [isScrolled]
     );
 
+    // Used to specifically target styles to a specific country
+    const countryClassName = country?.toLowerCase();
+
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
     return (
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                <div className="header__background-wrapper header__background-wrapper--gradient">
-                    <Icon name="header-background" />
-                </div>
+                <div className="header__background-wrapper header__background-wrapper--gradient" />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className="header__background-wrapper">
-                    <Icon name="header-background" />
-                </div>
+                <div className="header__background-wrapper" />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -54,19 +54,25 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                    <div className="header__background-wrapper header__background-wrapper--sticky">
-                        <Icon name="header-background" />
-                    </div>
+                    <div className="header__background-wrapper header__background-wrapper--sticky" />
                 </div>
             </div>
             <div className="header__content">
+                <Icon name={`${viewName}-desktop`} />
+                <Icon name={`${viewName}-mobile`} />
+                {/* <Icon name="background-pp-mobile" /> */}
                 {/* eslint-disable-next-line react/no-danger */}
-                <h1 dangerouslySetInnerHTML={{ __html: headline }} />
+                <h2 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <h2>{qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}</h2>
+                    <h3 className={`subheadline-${countryClassName} qualifying`}>
+                        {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                    </h3>
                 ) : (
-                    // eslint-disable-next-line react/no-danger
-                    <h2 dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }} />
+                    <h3
+                        className={`subheadline-${countryClassName}`}
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
+                    />
                 )}
             </div>
         </Fragment>

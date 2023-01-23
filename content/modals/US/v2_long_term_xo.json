@@ -18,7 +18,7 @@
         }
     },
     "content": {
-        "headline": "Pay with monthly installments",
+        "headline": "Pay Monthly",
         "subheadline": "Get more time to pay, with no down payment or late fees.",
         "calculator": {
             "title": "How much is your purchase?",
@@ -32,7 +32,7 @@
             "nonZeroAPR": "*APR is 9.99% to 29.99% based on your credit. Terms may vary based on purchase amount."
         },
         "instructions": [
-            "Explore plan options. No sign up fees or late fees.",
+            "Explore plan options. No sign-up fees or late fees.",
             "Choose a plan and pay nothing today.",
             "Use autopay for your payments. It's easy!"
         ],
