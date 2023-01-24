@@ -3,43 +3,6 @@ import { viewports, bannerStyles, getGroupString } from '../../utils/testStylesC
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
 import { selectProductsFromList, switchProducts } from './de_modalTestDefs';
 
-// TODO: Remove INST when GPL ramp is complete
-const instAccount = 'DEV0000000IAZ';
-
-describe.each([
-    [viewports[0], bannerStyles[0]],
-    [viewports[0], bannerStyles[1]],
-    [viewports[1], bannerStyles[1]],
-    [viewports[0], bannerStyles[0]],
-    [viewports[0], bannerStyles[1]],
-    [viewports[1], bannerStyles[1]]
-])('DE Modal Functionality Tests %o', (viewport, bannerStyle) => {
-    beforeEach(async () => {
-        await openModal(viewport, {
-            account: instAccount,
-            style: bannerStyle
-        });
-    });
-
-    const groupString = getGroupString({ account: instAccount, viewport, bannerStyle });
-
-    test(`${groupString} x button closes modal`, xClosesModal({ account: instAccount, viewport, groupString }));
-    test(
-        `${groupString} close modal on escape key press`,
-        closeModalEsc({ account: instAccount, viewport, groupString })
-    );
-    if (viewport.height === 1080) {
-        test(
-            `${groupString} close modal on click outside`,
-            clickOutsideClosesModal({ account: instAccount, viewport, groupString })
-        );
-    }
-    test(
-        `${groupString} after modal close, modal can reopen and close again`,
-        closeReopenModal({ account: instAccount, viewport, groupString })
-    );
-});
-
 const account = 'DEV000DEPLEQZ';
 
 describe.each([
