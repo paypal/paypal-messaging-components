@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.39.5](https://github.com/paypal/paypal-messaging-components/compare/v1.39.4...v1.39.5) (2023-01-24)
+
+
+### Bug Fixes
+
+* 3.0 modal font bolding ([#891](https://github.com/paypal/paypal-messaging-components/issues/891)) ([33cf776](https://github.com/paypal/paypal-messaging-components/commit/33cf7767ecb8bd483df57268974c01ad233c7160))
+* universal modal lander scroll on mobile ([#892](https://github.com/paypal/paypal-messaging-components/issues/892)) ([4770a56](https://github.com/paypal/paypal-messaging-components/commit/4770a56dee7d20ae046f4d05797b82790ea6955e))
+
+
+### Code Refactoring
+
+* add screen reader text to Pay in 4 ([#883](https://github.com/paypal/paypal-messaging-components/issues/883)) ([4630482](https://github.com/paypal/paypal-messaging-components/commit/46304820bef643197ecd3643932c26bf74495ab9))
+* cleanup old DE Installments ([#871](https://github.com/paypal/paypal-messaging-components/issues/871)) ([6062a18](https://github.com/paypal/paypal-messaging-components/commit/6062a18077173da527dfc5cba5f88abe7f5fed0c))
+
 ### [1.39.4](https://github.com/paypal/paypal-messaging-components/compare/v1.39.3...v1.39.4) (2023-01-17)
 
 
