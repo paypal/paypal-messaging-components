@@ -32,10 +32,10 @@ $grey600: #888;
     &:first-of-type {
         .donut__ {
             &payment {
-                font-family: $paypal-open-bold;
+                font-family: $paypal-open;
             }
             &timestamp {
-                font-family: $paypal-open-bold;
+                font-family: $paypal-open;
             }
         }
     } 
