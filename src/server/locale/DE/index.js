@@ -1,28 +1,15 @@
 import gpl from './GPL/index';
 import pi30 from './Pi30/index';
-import ratenzahlung from './Ratenzahlung/index';
+import { OFFER, getStandardProductOffer } from '../../../utils/server';
 
 export default offerType => {
-    switch (offerType) {
-        case 'GPL:EQZ':
-        case 'GPL:GTZ':
-        case 'GPLQ:EQZ':
-        case 'GPLQ:GTZ':
-        case 'GPL:EQZ:NON-DE':
-        case 'GPL:GTZ:NON-DE':
-        case 'GPLQ:EQZ:NON-DE':
-        case 'GPLQ:GTZ:NON-DE':
-        case 'GENERIC':
-        case 'GENERIC:NON-DE':
-            return gpl;
-        case 'PI30':
-        case 'PI30Q':
-        case 'PI30NQ':
-        case 'PI30:NON-DE':
-        case 'PI30Q:NON-DE':
-        case 'PI30NQ:NON-DE':
+    switch (getStandardProductOffer(offerType)) {
+        case OFFER.PAY_LATER_PAY_IN_1:
             return pi30;
+        case OFFER.PAY_LATER_SHORT_TERM:
         default:
-            return ratenzahlung;
+            // Generic message is included with the gpl mutations.
+            // Default case catches GENERIC where getStandardProductOffer returns `undefined`
+            return gpl;
     }
 };

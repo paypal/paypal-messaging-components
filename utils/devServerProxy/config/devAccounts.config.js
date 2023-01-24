@@ -27,10 +27,6 @@ export default {
     // Multi product modal
     DEV00000NIGPL: ['US', ['short_term', 'ppc_ni'], 'short_term_nq'],
 
-    DEV0000000IAZ: ['DE', ['inst'], 'inst_any_eqz'],
-    DEV0000000IAG: ['DE', ['inst'], 'inst_any_gtz'],
-    DEV000000PQAG: ['DE', ['inst'], 'palaq_any_gtz'],
-    DEV000000PQAZ: ['DE', ['inst'], 'palaq_any_eqz'],
     DEV000DEPLEQZ: ['DE', ['gpl'], 'gpl_eqz'],
     DEV000DEPLGTZ: ['DE', ['gpl'], 'gpl_gtz'],
     DEV00DEPLQEQZ: ['DE', ['gpl'], 'gplq_eqz'],
