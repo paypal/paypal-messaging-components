@@ -153,7 +153,7 @@ export const LongTerm = ({
                 <Instructions instructions={instructions} expandedState={expandedState} />
             </div>
             <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                {typeof disclosure === 'string' ? (
+                {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} />
                 ) : (
                     <InlineLinks text={(disclosure?.[aprType] ?? '').replace(/\D00\s?EUR/g, ' €')} />
