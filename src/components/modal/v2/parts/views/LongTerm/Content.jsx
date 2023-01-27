@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, useCalculator, getComputedVariables } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -12,7 +12,6 @@ import styles from './styles.scss';
 /**
  * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
  */
-
 const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
     const qualifyingOffers = offers.filter(offer => offer?.meta?.qualifying === 'true');
 
@@ -56,7 +55,7 @@ const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }
          */
         aprDisclaimer: zeroAPR,
         /**
-         * setAPRType is used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
+         * Used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
          * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
          */
         aprType: 'nonZeroAPR'
@@ -70,9 +69,7 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
     const { views, country } = useServerData();
-    const {
-        view: { offers }
-    } = useCalculator();
+    const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const { aprDisclaimer, aprType } = getAPRDetails({ offers, disclaimer });
 
