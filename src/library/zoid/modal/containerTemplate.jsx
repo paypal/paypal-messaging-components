@@ -1,5 +1,4 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-param-reassign */
 /** @jsx node */
 import { destroyElement } from '@krakenjs/belter/src';
