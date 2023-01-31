@@ -25,6 +25,7 @@ import {
     getScriptAttributes,
     getDevTouchpoint,
     getMerchantConfig,
+    getLocalTreatments,
     getTsCookieFromStorage
 } from '../../../utils';
 import validate from './validation';
@@ -218,8 +219,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
-                        const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
+
                         // Write deviceID and ts cookie from iframe localStorage to merchant domain localStorage
+                        // Even though we are attempting to get this value before the initial message render (see utils/experiments.js)
+                        // We still want to write it here to handle the scenario where the SDK has never been loaded
+                        // and thus the inner iframe has no value for deviceID until after the first message render
+                        const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
                         writeToLocalStorage({ id: deviceID, ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
@@ -357,6 +362,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: getMerchantConfig,
                 debug: ppDebug(`Merchant Config Hash: ${getMerchantConfig()}`)
+            },
+            treatmentsHash: {
+                type: 'string',
+                queryParam: 'treatments',
+                required: false,
+                value: getLocalTreatments,
+                debug: ppDebug(`Treatments Hash: ${getLocalTreatments()}`)
             },
             sdkMeta: {
                 type: 'string',

@@ -1,5 +1,4 @@
 /** @jsx h */
-/* eslint-disable react/no-unknown-property */
 import { h } from 'preact';
 
 const Donut = ({
@@ -63,5 +62,4 @@ const Donut = ({
     );
 };
 
-/* eslint-enable react/no-unknown-property */
 export default Donut;

@@ -8,12 +8,16 @@ import {
     getInsertionObserver,
     isZoidComponent,
     ppDebug,
-    getOverflowObserver
+    getOverflowObserver,
+    ensureTreatments
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
+import { getTreatmentsComponent } from '../../zoid/treatments';
 
 export default function setup() {
+    // Load treatments component
+    getTreatmentsComponent();
     // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
     getMessageComponent();
     // Preload the overflow observer so that IE11 polyfills can be downloaded if needed
@@ -63,6 +67,9 @@ export default function setup() {
     // Prevent auto render from firing inside zoid iframe
     if (!isZoidComponent()) {
         const handleContentLoaded = () => {
+            // Ensure experiment treatments will be ready for the first message render
+            ensureTreatments();
+
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
             if (getGlobalState().config.account) {
