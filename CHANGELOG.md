@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.40.0](https://github.com/paypal/paypal-messaging-components/compare/v1.39.5...v1.40.0) (2023-01-31)
+
+
+### Features
+
+* support edge-cached consumer-based experimentation ([#796](https://github.com/paypal/paypal-messaging-components/issues/796)) ([3626552](https://github.com/paypal/paypal-messaging-components/commit/36265522bce0592231dacbfb9763c66b7ed8db83))
+
+
+### Bug Fixes
+
+* ensure empty string for undefined message rerender ([#897](https://github.com/paypal/paypal-messaging-components/issues/897)) ([10768aa](https://github.com/paypal/paypal-messaging-components/commit/10768aaf1668aa3afffb8521f75562bd62a27701))
+* prevent DE LT view from displaying product list tiles ([#898](https://github.com/paypal/paypal-messaging-components/issues/898)) ([5ff9370](https://github.com/paypal/paypal-messaging-components/commit/5ff937040caac33fe53c3c42e8da6c4c9ed12ff4))
+
 ### [1.39.5](https://github.com/paypal/paypal-messaging-components/compare/v1.39.4...v1.39.5) (2023-01-24)
 
 
