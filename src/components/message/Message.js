@@ -186,7 +186,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     ({ data: resData }) => {
                         const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
                         const data = parseObjFromEncoding(encodedData);
-                        button.innerHTML = data.markup ?? markup;
+                        button.innerHTML = data.markup ?? markup ?? '';
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
                         // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event

@@ -43,11 +43,12 @@ npm run build
 ```
 
 Options
-- `-v` - version, optional
-- `-e` - environment, one of `production`, `sandbox` or `stage`
-- `-m` - module, optional, one of `library`, `components`, or `render`
-- `-t` - tag, optional, name of the stage tag
-- `-s` - testEnv, optional, link to a test environment
+
+-   `-v` - version, optional
+-   `-e` - environment, one of `production`, `sandbox` or `stage`
+-   `-m` - module, optional, one of `library`, `components`, or `render`
+-   `-t` - tag, optional, name of the stage tag
+-   `-s` - testEnv, optional, link to a test environment
 
 The command you'll most likely need to use is
 

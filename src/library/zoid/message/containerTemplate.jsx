@@ -74,9 +74,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
     return (
         <span id={uid}>
             <style nonce={props.cspNonce}>{baseStyles}</style>
-            {/* eslint-disable-next-line react/no-unknown-property */}
             <node el={frame} title={messageTitle} onRender={setupAutoResize} />
-            {/* eslint-disable-next-line react/no-unknown-property */}
             <node el={prerenderFrame} title={`Prerender ${messageTitle}`} />
         </span>
     ).render(dom({ doc }));

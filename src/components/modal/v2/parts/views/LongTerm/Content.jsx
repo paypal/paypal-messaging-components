@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, useCalculator, getComputedVariables } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -9,18 +9,69 @@ import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import styles from './styles.scss';
 
+/**
+ * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
+ */
+const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } }) => {
+    const qualifyingOffers = offers.filter(offer => offer?.meta?.qualifying === 'true');
+
+    if (qualifyingOffers.length > 0) {
+        let totalNonZero = 0;
+        let totalZero = 0;
+
+        qualifyingOffers.forEach(offer => {
+            if (offer?.meta?.apr?.replace?.('.00', '') === '0') {
+                totalZero += 1;
+            } else {
+                totalNonZero += 1;
+            }
+        });
+
+        if (qualifyingOffers.length === totalNonZero) {
+            return {
+                aprDisclaimer: nonZeroAPR,
+                aprType: 'nonZeroAPR'
+            };
+        }
+
+        if (qualifyingOffers.length === totalZero) {
+            return {
+                aprDisclaimer: zeroAPR,
+                aprType: 'zeroAPR'
+            };
+        }
+
+        return {
+            aprDisclaimer: mixedAPR,
+            aprType: 'mixedAPR'
+        };
+    }
+
+    return {
+        /**
+         * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
+         * If no initial amount is passed in or there is an error, we default to the zeroAPR disclaimer as it is more
+         * generic. i.e. Terms may vary based on purchase amount.
+         */
+        aprDisclaimer: zeroAPR,
+        /**
+         * Used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
+         * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
+         */
+        aprType: 'nonZeroAPR'
+    };
+};
+
 export const LongTerm = ({
     content: { calculator, disclaimer, instructions, disclosure, navLinkPrefix, linkToProductList, cta },
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const [aprType, setAPRType] = useState('');
     const { amount, onClick, onClose } = useXProps();
     const { views, country } = useServerData();
-    const {
-        view: { offers }
-    } = useCalculator();
+    const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
+    const { aprDisclaimer, aprType } = getAPRDetails({ offers, disclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
 
@@ -88,8 +139,7 @@ export const LongTerm = ({
                     <Calculator
                         setExpandedState={setExpandedState}
                         calculator={calculator}
-                        disclaimer={disclaimer}
-                        setAPRType={setAPRType}
+                        aprDisclaimer={aprDisclaimer}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
@@ -100,10 +150,10 @@ export const LongTerm = ({
                 <Instructions instructions={instructions} expandedState={expandedState} />
             </div>
             <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
-                {typeof disclosure !== 'string' && aprType && aprType in disclosure ? (
-                    <InlineLinks text={disclosure[aprType].replace(/\D00\s?EUR/g, ' €')} />
-                ) : (
+                {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} />
+                ) : (
+                    <InlineLinks text={(disclosure?.[aprType] ?? '').replace(/\D00\s?EUR/g, ' €')} />
                 )}
             </div>
             {renderCheckoutCtaButton()}
