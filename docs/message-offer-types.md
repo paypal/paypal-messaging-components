@@ -1,6 +1,6 @@
 # Message & Modal Abbreviations by Locale
 
-The following are abbreviations used in reference to various messages and files.
+The following are abbreviations used in reference to various messages and files. Local content files can be found in `content/messages`.
 
 ## Messages
 
@@ -148,3 +148,18 @@ The following are abbreviations used in reference to various messages and files.
 | Product              | PStudio Name             | File Name  | Message             |
 | -------------------- | ------------------------ | ---------- | ------------------- |
 | PAY_LATER_SHORT_TERM | [v2] ES Short Term Modal | short_term | Pay Later, Pay in 3 |
+
+## Modal Offers
+
+### **US (United States)**
+
+| Product             | PStudio Name           | File Name    | Message                                  |
+| ------------------- | ---------------------- | ------------ | ---------------------------------------- |
+| PAY_LATER_LONG_TERM | [v2] US Long Term      | v2_long_term | Pay Later, Pay Monthly, Upstream version |
+| PAY_LATER_LONG_TERM | [v2] US Long Term - XO | v2_long_term | Pay Later, Pay Monthly, Checkout version |
+
+### **DE (Germany)**
+
+| Product             | PStudio Name      | File Name | Message                                   |
+| ------------------- | ----------------- | --------- | ----------------------------------------- |
+| PAY_LATER_LONG_TERM | [v2] DE Long Term | long_term | Pay Later, Ratenzahlung, Upstream version |
