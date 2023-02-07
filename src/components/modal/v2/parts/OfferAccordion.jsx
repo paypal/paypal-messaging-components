@@ -44,7 +44,7 @@ const OfferAccordion = ({ offer: { content, meta }, aprDisclaimer, index, active
                 <div className="accordion__row">
                     <div className="accordion__offer-field-title">{termsLabel?.totalInterest}</div>
                     <div className="accordion__offer-field-value">
-                        {currencySymbolFormat(meta?.formattedTotalInterest)}
+                        {currencySymbolFormat(meta?.formattedNominalRate)}
                     </div>
                 </div>
                 <div className="accordion__row">
