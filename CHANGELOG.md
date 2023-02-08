@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.40.1](https://github.com/paypal/paypal-messaging-components/compare/v1.40.0...v1.40.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* send treatments hash on message update ([#902](https://github.com/paypal/paypal-messaging-components/issues/902)) ([9f4de0b](https://github.com/paypal/paypal-messaging-components/commit/9f4de0b25d5d3c2787a63e26856df1027b2fad93))
+
 ## [1.40.0](https://github.com/paypal/paypal-messaging-components/compare/v1.39.5...v1.40.0) (2023-01-31)
 
 
