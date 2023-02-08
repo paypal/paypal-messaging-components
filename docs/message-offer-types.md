@@ -1,104 +1,165 @@
-# Message Offer Types
+# Message & Modal Abbreviations by Locale
 
-## Abbreviations by Locale
+The following are abbreviations used in reference to various messages and files. Local content files can be found in `content/messages`.
 
-The following are abbreviations used in reference to various messages and files
+## Messages
 
-Offer Type (or `offerType` as seen in the `banners/` directory JSON files), is the same as the file name, but it is uppercased and uses a colon in place of the underscore. As an example, the file name `ezp_any_eqz` becomes the offer type `EZP:ANY:EQZ`.
+### **US (United States)**
 
-### US (United States)
+| OfferType       | PStudio Name                     | File Name                  | Message                                                                         |
+| --------------- | -------------------------------- | -------------------------- | ------------------------------------------------------------------------------- |
+| GENERIC         | Generic Message                  | generic                    | Pay Later - No Amount Message                                                   |
+| GPLQ            | Short Term - Q                   | short_term_q               | Pay Later - Pay in 4, Qualifying Purchase                                       |
+| GPLNQ           | Short Term - NQ                  | short_term_nq              | Pay Later - Pay in 4, Non-Qualifying Purchase                                   |
+| LT_MQEZ         | Long Term - MQEZ                 | long_term_multi_eqz        | Pay Later - Pay Monthly, Multiple Qualifying Offers = 0% APR                    |
+| LT_MQGZ         | Long Term - MQGZ                 | long_term_multi_gtz        | Pay Later - Pay Monthly, Multiple Qualifying Offers >0% APR                     |
+| LT_SQEZ         | Long Term - SQEZ                 | long_term_single_eqz       | Pay Later - Pay Monthly, Single Qualifying Offer = 0% APR                       |
+| LT_SQGZ         | Long Term - SQGZ                 | long_term_single_gtz       | Pay Later - Pay Monthly, Single Qualifying Offer >0% APR                        |
+| LT_NQEZ         | Long Term - NQEZ                 | long_term_nq_eqz           | Pay Later - Pay Monthly, Non-Qualifying Offers = 0% APR                         |
+| LT_NQGZ         | Long Term - NQGZ                 | long_term_nq_gtz           | Pay Later - Pay Monthly, Non-Qualifying Offers >0% APR                          |
+| LT_MQEZ_RB      | **TBD** - _Not currently in use_ | long_term_multi_eqz_mixed  | Pay Later - Pay Monthly, Multiple Qualifying Offers with risk-based pricing     |
+| LT_SQEZ_RB      | **TBD** - _Not currently in use_ | long_term_single_eqz_mixed | Pay Later - Pay Monthly, Single Qualifying Offers with risk-based pricing       |
+| NI              | NI                               | ppc_ni_nq                  | PPC - No Interest, Non-Qualifying Purchase                                      |
+| NIQ             | NIQ                              | ppc_nq_q                   | PPC - No Interest, Qualifying Purchase                                          |
+| NI:NON-US       | NI NON-US                        | ppc_ni_nq_xb               | No Interest, Non-US, Non-Qualifying Purchase                                    |
+| NIQ:NON-US      | NIQ NON-US                       | ppc_ni_q_xb                | No Interest, Non-US, Qualifying Purchase                                        |
+| EZP:ANY:EQZ     | Easy Payments - AEZ              | ppc_ezp_nq_eqz             | PPC - Easy Payments, Non-Qualifying with APR equal to zero                      |
+| EZP:ANY:GTZ     | Easy Payments - AGZ              | ppc_ezp_nq_gqz             | PPC - Easy Payments, Non-Qualifying with APR greater than zero                  |
+| PALA:SINGLE:EQZ | Easy Payments - SEZP             | ppc_ezp_single_eqz         | PayPal Credit - Easy Payments (Pay As Low As), with APR equal to zero           |
+| PALA:SINGLE:GTZ | Easy Payments - SGZP             | ppc_ezp_single_gtz         | PayPal Credit - Easy Payments (Pay As Low As), with APR greater than zero       |
+| PALA:MULTI:EQZ  | Easy Payments - MEZP             | ppc_ezp_multi_eqz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR equal to zero     |
+| PALA:MULTI:GTZ  | Easy Payments - MGZP             | ppc_ezp_multi_gtz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR greater than zero |
 
-| Abbreviation | PStudio Name         | File Name       | Message                                                                                                                                                        |
-| ------------ | -------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GPL          | GPL                  | gpl             | Pay Later, No Amount Experiment                                                                                                                                |
-| GPLQ         | GPLQ                 | gplq            | Pay Later, Qualifying Purchase                                                                                                                                 |
-| GPLNQ        | GPLNQ                | gplnq           | Pay Later, Non-Qualifying Purchase                                                                                                                             |
-| GPLNQ_RANGE  | GPLNQ Purchase Range | gplnq_range     | Pay Later, Non-Qualifying message showing the min and max purchase range. This message is limited to merchant accounts added to the appropriate customer list. |
-| NIGPL        | \*                   | \*              | Multi Product Modal with Pay Later and No Interest                                                                                                             |
-| NI           | NI                   | ni              | No Interest                                                                                                                                                    |
-| NIQ          | NIQ                  | niq             | No Interest, Qualifying Purchase                                                                                                                               |
-| NINONUS      | NI NON-US            | ni_non-us       | No Interest, Non-US Merchants with a majority US customer base                                                                                                 |
-| NINONUSQ     | NIQ NON-US           | niq_non-us      | No Interest, Qualifying Purchase, Non-US Merchants with a majority US customer base                                                                            |
-| EAZ          | AEZ                  | ezp_any_eqz     | Easy Pay, APR equal to zero                                                                                                                                    |
-| EAG          | AGZ                  | ezp_any_gqz     | Easy Pay, APR greater than zero                                                                                                                                |
-| PSZ          | SEZP                 | pala_single_eqz | Pay As Low As, APR equal to zero                                                                                                                               |
-| PSG          | SGZP                 | pala_single_gtz | Pay As Low As, APR greater than zero                                                                                                                           |
-| PMZ          | MEZP                 | pala_multi_eqz  | Pay As Low As, Multiple Offers Available, APR equal to zero                                                                                                    |
-| PMG          | MGZP                 | pala_multi_gtz  | Pay As Low As, Multiple Offers Available, APR greater than zero                                                                                                |
+**Note:**
 
-\* NIGPL is for local mocking only and has no PStudio message, nor file.
+-   "Non-US" means Non-US Merchants with a majority US customer base.
 
-### DE (Germany)
+### **DE (Germany)**
 
-| Abbreviation | PStudio Name | File Name | Message |
-| ------------ | --------------- | --------------- | ------------------------------------------------------------------------------------------ | |
-| DEPLEQZ | GPL EQZ | gpl_eqz | Pay Later, APR equal to zero |
-| DEPLGTZ | GPL GTZ | gpl_gtz | Pay Later, APR greater than zero |
-| DEPLQEQZ | GPLQ EQZ | gplq_eqz | Pay Later, Qual., APR equal to zero |
-| DEPLQGTZ | GPLQ GTZ | gplq_gtz | Pay Later, Qual., APR greater than zero |
-| XBDEPLEQZ | GPL EQZ NON-DE | gpl_eqz-non-de | Pay Later, APR equal to zero, Non-DE Merchants with a majority DE customer base |
-| XBDEPLGTZ | GPL GTZ NON-DE | gpl_gtz-non-de | Pay Later, APR greater than zero, Non-DE Merchants with a majority DE customer base |
-| XBDEPLQEQZ | GPLQ EQZ NON-DE | gplq_eqz-non-de | Pay Later, Qual., APR equal to zero, Non-DE Merchants with a majority DE customer base |
-| XBDEPLQGTZ | GPLQ GTZ NON-DE | gplq_gtz-non-de | Pay Later, Qual., APR greater than zero, Non-DE Merchants with a majority DE customer base |
+| OfferType       | PStudio Name                      | File Name       | Message                                                                                      |
+| --------------- | --------------------------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| GPLQ:EQZ:NON-DE | DE Long Term - Q EQZ NON-DE       | gplq_eqz-non-de | Pay Later - Ratenzahlung, Non-DE, Qualifying Purchase, 0% APR                                |
+| GPLQ:GTZ:NON-DE | DE Long Term - Q GTZ NON-DE       | gplq_gtz-non-de | Pay Later - Ratenzahlung, Non-DE, Qualifying Purchase, >0% APR                               |
+| GPLQ:EQZ        | DE Long Term - Q EQZ              | gplq_eqz        | Pay Later - Ratenzahlung, Qualifying Purchase, 0% APR                                        |
+| GPLQ:GTZ        | DE Long Term - Q GTZ              | gplq_gtz        | Pay Later - Ratenzahlung, Non-Qualifying Offers, >0% APR                                     |
+| PI30Q:NON-DE    | DE Pay In 1 - Q NON-DE            | pi30q-non-de    | Pay Later - Pay in 1, Non-DE, Qualifying Purchase                                            |
+| PI30Q           | DE Pay In 1 - Q                   | pi30q           | Pay Later - Pay in 1, Qualifying Purchase                                                    |
+| GENERIC:NON-DE  | DE Generic Message - NON-DE       | generic-non-de  | Pay Later - Non-DE, No Amount Message                                                        |
+| GENERIC         | DE Generic Message                | generic         | Pay Later - No Amount Message                                                                |
+| PI30NQ:NON-DE   | DE Pay In 1 - NQ NON-DE           | pi30nq-non-de   | Pay Later - Pay in 1, Non-DE, Non-Qualifying Purchase                                        |
+| PI30NQ          | DE Pay In 1 - NQ                  | pi30nq          | Pay Later - Pay in 1, Non-Qualifying Purchase                                                |
+| GPL:EQZ:NON-DE  | DE Long Term - NQ EQZ NON-DE      | gpl_eqz-non-de  | Pay Later - Ratenzahlung, Non-DE, Non-Qualifying Purchase, 0% APR                            |
+| GPL:GTZ:NON-DE  | DE Long Term - NQ GTZ NON-DE      | gpl_gtz-non-de  | Pay Later - Ratenzahlung, Non-DE, Non-Qualifying Purchase, >0% APR                           |
+| GPL:EQZ         | DE Long Term - NQ EQZ             | gpl_eqz         | Pay Later - Ratenzahlung, Non-Qualifying Purchase, 0% APR                                    |
+| GPL:GTZ         | DE Long Term - NQ GTZ             | gpl_gtz         | Pay Later - Ratenzahlung, Non-Qualifying Purchase, >0% APR                                   |
+| PI30:NON-DE     | DE Pay In 1 - NQ NON-DE Threshold | pi30-non-de     | Pay Later - Pay in 1, Non-DE, Non-Qualifying Purchase, when DE Ratenzahlung is not available |
+| PI30            | DE Pay In 1 - NQ Threshold        | pi30            | Pay Later - Pay in 1, Non-Qualifying Purchase, when DE Ratenzahlung is not available         |
 
-### GB (or UK)
+**Note:**
 
-| Abbreviation | PStudio Name | File Name | Message                        |
-| ------------ | ------------ | --------- | ------------------------------ |
-| GBPL         | Flex         | pl        | Pay Later                      |
-| GBPLQ        | Flex Q       | plq       | Pay Later, Qualifying Purchase |
+-   Ratenzahlung in DE is the long term installments product.
+-   "Non-DE" means Non-DE Merchants with a majority DE customer base.
 
-### FR (France)
+### **GB (or UK)**
 
-| Abbreviation | PStudio Name | File Name | Message                        |
-| ------------ | ------------ | --------- | ------------------------------ |
-| FRPL         | GPL          | gpl       | Pay Later                      |
-| FRPLQ        | GPLQ         | gplq      | Pay Later, Qualifying Purchase |
+| OfferType | PStudio Name       | File Name | Message                                       |
+| --------- | ------------------ | --------- | --------------------------------------------- |
+| PL        | GB Short Term - NQ | pl        | Pay Later - Pay in 3, Non-Qualifying Purchase |
+| PLQ       | GB Short Term - Q  | plq       | Pay Later - Pay in 3, Qualifying Purchase     |
 
-### AU (Australia)
+### **FR (France)**
 
-| Abbreviation | PStudio Name | File Name | Message                        |
-| ------------ | ------------ | --------- | ------------------------------ |
-| AUPL         | AU GPL       | gpl       | Pay Later                      |
-| AUPLQ        | AU GPLQ      | gplq      | Pay Later, Qualifying Purchase |
+| OfferType | PStudio Name       | File Name | Message                                       |
+| --------- | ------------------ | --------- | --------------------------------------------- |
+| GPL       | FR Short Term - NQ | gpl       | Pay Later - Pay in 4, Non-Qualifying Purchase |
+| GPLQ      | FR Short Term - Q  | gplq      | Pay Later - Pay in 4, Qualifying Purchase     |
 
-### IT (Italy)
+### **AU (Australia)**
 
-| Abbreviation | PStudio Name     | File Name            | Message                                        |
-| ------------ | ---------------- | -------------------- | ---------------------------------------------- |
-| ITPLNA       | IT Short Term NA | short_term_no_amount | Pay Later, Short Term, No Amount               |
-| ITPLQ        | IT Short Term Q  | short_term_q         | Pay Later, Short Term, Qualifying Purchase     |
-| ITPLNQ       | IT Short Term NQ | short_term_nq        | Pay Later, Short Term, Non-Qualifying Purchase |
+| OfferType | PStudio Name       | File Name | Message                                       |
+| --------- | ------------------ | --------- | --------------------------------------------- |
+| GPL       | AU Short Term - NQ | gpl       | Pay Later - Pay in 4, Non-Qualifying Purchase |
+| GPLQ      | AU Short Term - Q  | gplq      | Pay Later - Pay in 4, Qualifying Purchase     |
 
-## Explanation
+### **IT (Italy)**
 
-### Abbreviation Column
+| OfferType            | PStudio Name       | File Name            | Message                                      |
+| -------------------- | ------------------ | -------------------- | -------------------------------------------- |
+| SHORT_TERM:NO_AMOUNT | IT Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
+| SHORT_TERM:Q         | IT Short Term - Q  | short_term_q         | Pay Later, Pay in 3, Qualifying Purchase     |
+| SHORT_TERM:NQ        | IT Short Term - NQ | short_term_nq        | Pay Later, Pay in 3, Non-Qualifying Purchase |
 
--   NI, NIQ, NINONUS, NINONUSQ
-    -   NI is for No Interest
-    -   Q is for Qualifying
-    -   NONUS is for Non-US
--   PSZ, PSG, PMZ, PMG
-    -   P is for PALA
-    -   S is for Single
-    -   M is for Multi
-    -   Z is for equal to Zero
-    -   G is for Greater than zero
--   EAZ, EAG
-    -   E is for Easy Pay
-    -   A is for Any
-    -   Z is for equal to Zero
-    -   G is for Greater than zero
--   AEZ, AGZ, AEZP, AGZP
-    -   A is for Any
-    -   EZ is for Equal to Zero
-    -   GZ is for Greater than Zero
-    -   P is for PALA
+### **ES (Spain)**
 
-### PStudio Name Column
+| OfferType            | PStudio Name       | File Name            | Message                                      |
+| -------------------- | ------------------ | -------------------- | -------------------------------------------- |
+| SHORT_TERM:NO_AMOUNT | ES Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
+| SHORT_TERM:Q         | ES Short Term - Q  | short_term_q         | Pay Later, Pay in 3, Qualifying Purchase     |
+| SHORT_TERM:NQ        | ES Short Term - NQ | short_term_nq        | Pay Later, Pay in 3, Non-Qualifying Purchase |
 
-For PStudio Names, the above explanations apply except that
+## Modals
 
--   Z is now EZ for Equal to Zero
--   G is now GZ for Greater than Zero
--   Flex was a previously used name for UK/GB's version of Pay Later
+### **US (United States)**
+
+| Product                   | PStudio Name                 | File Name       | Message                                  |
+| ------------------------- | ---------------------------- | --------------- | ---------------------------------------- |
+| PRODUCT_LIST              | [v2] US Product List Modal   | v2_product_list | Product List, Multi-product              |
+| PAY_LATER_SHORT_TERM      | [v2] US Short Term Modal     | v2_short_term   | Pay Later, Pay in 4                      |
+| PAY_LATER_LONG_TERM       | [v2] US Long Term Modal      | v2_long_term    | Pay Later, Pay Monthly, Upstream version |
+| PAY_LATER_LONG_TERM       | [v2] US Long Term Modal - XO | v2_long_term_xo | Pay Later, Pay Monthly, Checkout version |
+| PAYPAL_CREDIT_NO_INTEREST | [v2] US No Interest Modal    | v2_ppc_ni       | PPC, No Interest                         |
+| EZP                       | [OLD MODAL] US EZP Modal     | legacy_ppc_ezp  | PPC, Easy Payments                       |
+| NI                        | [OLD MODAL] US NI Modal      | legacy_ppc_ni   | PPC, No Interest                         |
+
+### **DE (Germany)**
+
+| Product             | PStudio Name               | File Name    | Message                     |
+| ------------------- | -------------------------- | ------------ | --------------------------- |
+| PRODUCT_LIST        | [v2] DE Product List Modal | product_list | Product List, Multi-product |
+| PAY_LATER_LONG_TERM | [v2] DE Long Term Modal    | long_term    | Pay Later, Ratenzahlung     |
+| PAY_LATER_PAY_IN_1  | [v2] DE Pay in 1 Modal     | pay_in_1     | Pay Later, Pay in 1         |
+
+### **GB (or UK)**
+
+| Product              | PStudio Name             | File Name  | Message             |
+| -------------------- | ------------------------ | ---------- | ------------------- |
+| PAY_LATER_SHORT_TERM | [v2] GB Short Term Modal | short_term | Pay Later, Pay in 3 |
+
+### **FR (France)**
+
+| Product              | PStudio Name             | File Name  | Message             |
+| -------------------- | ------------------------ | ---------- | ------------------- |
+| PAY_LATER_SHORT_TERM | [v2] FR Short Term Modal | short_term | Pay Later, Pay in 4 |
+
+### **AU (Australia)**
+
+| Product              | PStudio Name             | File Name  | Message             |
+| -------------------- | ------------------------ | ---------- | ------------------- |
+| PAY_LATER_SHORT_TERM | [v2] AU Short Term Modal | short_term | Pay Later, Pay in 4 |
+
+### **IT (Italy)**
+
+| Product              | PStudio Name             | File Name  | Message             |
+| -------------------- | ------------------------ | ---------- | ------------------- |
+| PAY_LATER_SHORT_TERM | [v2] IT Short Term Modal | short_term | Pay Later, Pay in 3 |
+
+### **ES (Spain)**
+
+| Product              | PStudio Name             | File Name  | Message             |
+| -------------------- | ------------------------ | ---------- | ------------------- |
+| PAY_LATER_SHORT_TERM | [v2] ES Short Term Modal | short_term | Pay Later, Pay in 3 |
+
+## Modal Offers
+
+### **US (United States)**
+
+| Product             | PStudio Name           | File Name    | Message                                  |
+| ------------------- | ---------------------- | ------------ | ---------------------------------------- |
+| PAY_LATER_LONG_TERM | [v2] US Long Term      | v2_long_term | Pay Later, Pay Monthly, Upstream version |
+| PAY_LATER_LONG_TERM | [v2] US Long Term - XO | v2_long_term | Pay Later, Pay Monthly, Checkout version |
+
+### **DE (Germany)**
+
+| Product             | PStudio Name      | File Name | Message                                   |
+| ------------------- | ----------------- | --------- | ----------------------------------------- |
+| PAY_LATER_LONG_TERM | [v2] DE Long Term | long_term | Pay Later, Ratenzahlung, Upstream version |

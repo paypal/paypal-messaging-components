@@ -134,7 +134,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     style,
                     merchantConfigHash,
-                    channel
+                    channel,
+                    treatmentsHash
                 } = xprops;
 
                 setProps({
@@ -170,7 +171,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     env,
                     stageTag,
                     merchant_config: merchantConfigHash,
-                    channel
+                    channel,
+                    treatments: treatmentsHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
