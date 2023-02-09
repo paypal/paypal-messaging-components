@@ -28,7 +28,7 @@
             "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut."
         },
         "disclaimer": {
-            "nonZeroAPR": "Eff. Jahreszins 9,99% p.a., <br/> fester Sollzinssatz 9,51% p.a.",
+            "nonZeroAPR": "Eff. Jahreszins 9,99% p.a., <br/> fester Sollzinssatz {formattedNominalRate} p.a.",
             "zeroAPR": "Eff. Jahreszins 0,00% p.a., <br/> fester Sollzinssatz 0,00% p.a."
         },
         "instructions": [
