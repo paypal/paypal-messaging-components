@@ -33,7 +33,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer }) => {
                 <OfferAccordion
                     offer={offer}
                     index={idx}
-                    aprDisclaimer={aprDisclaimer}
+                    aprDisclaimer={aprDisclaimer[idx].aprDisclaimer}
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
                 />

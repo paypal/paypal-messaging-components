@@ -26,11 +26,6 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later."
         },
-        "disclaimer": {
-            "zeroAPR": "Terms may vary based on purchase amount.",
-            "mixedAPR": "*APR is 0% to 29.99% based on your credit. Terms and 0% APR may vary based on purchase amount.",
-            "nonZeroAPR": "*APR is 9.99% to 29.99% based on your credit. Terms may vary based on purchase amount."
-        },
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
             "Get a decision in seconds and complete your purchase.",
