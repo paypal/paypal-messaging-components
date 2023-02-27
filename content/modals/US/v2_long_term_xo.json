@@ -26,6 +26,7 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later."
         },
+        "genericDisclaimer": "Terms may vary based on purchase amount.",
         "instructions": [
             "Explore plan options. No sign-up fees or late fees.",
             "Choose a plan and pay nothing today.",

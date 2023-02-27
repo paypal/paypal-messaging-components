@@ -12,7 +12,7 @@ import styles from './styles.scss';
 /**
  * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
  */
-const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } = {} }) => {
+const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } = {} }) => {
     const qualifyingOffers = offers.filter(offer => offer?.meta?.qualifying === 'true');
 
     let totalNonZero = 0;
@@ -31,10 +31,10 @@ const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } =
             {
                 /**
                  * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
-                 * If no initial amount is passed in or there is an error, we default to the zeroAPR disclaimer as it is more
-                 * generic. i.e. Terms may vary based on purchase amount.
+                 * If no initial amount is passed in or there is an error, we default to a generic disclaimer.
+                 * i.e. Terms may vary based on purchase amount.
                  */
-                aprDisclaimer: zeroAPR,
+                aprDisclaimer: genericDisclaimer ?? zeroAPR,
                 /**
                  * Used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
                  * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
@@ -44,6 +44,7 @@ const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } =
         ];
     }
 
+    // TODO: Clean up backwards compatible code after release and content updates.
     return qualifyingOffers.map(({ content: { disclaimer } }) => {
         if (qualifyingOffers.length === totalNonZero) {
             return {
@@ -67,7 +68,16 @@ const getAPRDetails = ({ offers, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } =
 };
 
 export const LongTerm = ({
-    content: { calculator, disclaimer, instructions, disclosure, navLinkPrefix, linkToProductList, cta },
+    content: {
+        calculator,
+        disclaimer,
+        genericDisclaimer,
+        instructions,
+        disclosure,
+        navLinkPrefix,
+        linkToProductList,
+        cta
+    },
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -75,7 +85,7 @@ export const LongTerm = ({
     const { views, country } = useServerData();
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
-    const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer });
+    const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
 
