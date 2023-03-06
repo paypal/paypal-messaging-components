@@ -160,7 +160,9 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                          * Else, ensure the message is visible.
                          */
                         if (
-                            ((entry.intersectionRatio < 0.9 && !elementOutside(root ?? window, iframe)) ||
+                            ((entry.intersectionRatio < 0.9 &&
+                                entry.intersectionRatio > 0 &&
+                                !elementOutside(root ?? window, iframe)) ||
                                 // Round up for decimal values
                                 Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
                             !isIntersectingFallback
