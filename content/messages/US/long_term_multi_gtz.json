@@ -22,5 +22,5 @@
         [["As low as ${formattedMonthlyPayment}/mo."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
 }

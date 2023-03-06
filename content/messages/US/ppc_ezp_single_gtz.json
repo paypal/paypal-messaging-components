@@ -27,7 +27,7 @@
         ]
     ],
     "disclaimer": [
-        ["Learn more", ["default", "xsmall"]],
+        ["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default", "xsmall"]],
         [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]],
         [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium.2"]]
     ]
