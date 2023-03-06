@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, createContext } from 'preact';
-import { useEffect, useState, useContext, useCallback } from 'preact/hooks';
+import { useEffect, useRef, useContext, useCallback } from 'preact/hooks';
 import { getEventListenerPassiveOptionIfSupported } from '../../../../../utils';
 
 const ScrollContext = createContext({
@@ -10,20 +10,17 @@ const ScrollContext = createContext({
 });
 
 export const ScrollProvider = ({ children, containerRef }) => {
-    const [callbacks, setCallbacks] = useState([]);
+    const callbacksRef = useRef([]);
 
     const addScrollCallback = callback => {
-        setCallbacks(currentCallbacks => [...currentCallbacks, callback]);
+        callbacksRef.current = [...callbacksRef.current, callback];
     };
 
     const removeScrollCallback = callback => {
-        setCallbacks(currentCallbacks => {
-            const index = currentCallbacks.indexOf(callback);
-            if (index >= 0) {
-                return [...currentCallbacks.slice(0, index), ...currentCallbacks.slice(index + 1)];
-            }
-            return currentCallbacks;
-        });
+        const index = callbacksRef.current.indexOf(callback);
+        if (index >= 0) {
+            callbacksRef.current = [...callbacksRef.current.slice(0, index), ...callbacksRef.current.slice(index + 1)];
+        }
     };
 
     const scrollTo = scrollTop => {
@@ -34,7 +31,7 @@ export const ScrollProvider = ({ children, containerRef }) => {
     };
 
     useEffect(() => {
-        const handleScroll = event => callbacks.forEach(callback => callback(event));
+        const handleScroll = event => callbacksRef.current.forEach(callback => callback(event));
         const passiveOption = getEventListenerPassiveOptionIfSupported();
 
         containerRef.current.addEventListener('scroll', handleScroll, passiveOption);
@@ -42,7 +39,7 @@ export const ScrollProvider = ({ children, containerRef }) => {
         return () => {
             containerRef.current.removeEventListener('scroll', handleScroll, passiveOption);
         };
-    }, [callbacks]);
+    }, [containerRef.current]);
 
     return (
         <ScrollContext.Provider value={{ addScrollCallback, removeScrollCallback, scrollTo }}>
@@ -51,18 +48,14 @@ export const ScrollProvider = ({ children, containerRef }) => {
     );
 };
 
-export const useScroll = (cb, dependencies) => {
+export const useScroll = (cb = () => {}, dependencies) => {
     const { addScrollCallback, removeScrollCallback, scrollTo } = useContext(ScrollContext);
-    const callback = cb ? useCallback(cb, dependencies) : null;
+    const callback = useCallback(cb, dependencies);
 
     useEffect(() => {
-        if (callback) {
-            addScrollCallback(callback);
+        addScrollCallback(callback);
 
-            return () => removeScrollCallback(callback);
-        }
-
-        return () => {};
+        return () => removeScrollCallback(callback);
     }, [callback]);
 
     return { scrollTo };

@@ -65,7 +65,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR }, setAPRType }) => {
+const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
@@ -161,38 +161,6 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
     };
 
     /**
-     * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
-     */
-    const { offers } = view;
-    let aprDisclaimer = '';
-
-    const aprArr = offers.filter(offer => offer?.meta?.qualifying === 'true').map(offer => offer?.meta?.apr);
-
-    if (aprArr.length > 0) {
-        if (aprArr.filter(apr => apr.replace('.00', '') !== '0').length === aprArr.length) {
-            aprDisclaimer = nonZeroAPR;
-            setAPRType('nonZeroAPR');
-        } else if (aprArr.filter(apr => apr.replace('.00', '') === '0').length === aprArr.length) {
-            aprDisclaimer = zeroAPR;
-            setAPRType('zeroAPR');
-        } else {
-            aprDisclaimer = mixedAPR;
-        }
-    } else {
-        /**
-         * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
-         * If no initial amount is passed in or there is an error, we default to the zeroAPR disclaimer as it is more
-         * generic. i.e. Terms may vary based on purchase amount.
-         */
-        aprDisclaimer = zeroAPR;
-        /**
-         * setAPRType is used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
-         * If no initial amount is passed in, set the default legal disclosure to the nonZeroAPR disclosure.
-         */
-        setAPRType('nonZeroAPR');
-    }
-
-    /**
      * Due to slight differences in the calculator input styling between
      * the US and DE versions of the universal modal, the function below
      * determines when to return the inputLabel content depending on the country.
@@ -236,7 +204,7 @@ const Calculator = ({ setExpandedState, calculator, disclaimer: { zeroAPR, mixed
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
                     }`}
                 >
-                    {aprDisclaimer}
+                    {aprDisclaimer[0].aprDisclaimer}
                 </div>
             )}
         </div>

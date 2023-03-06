@@ -16,10 +16,10 @@
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
         [
-            "Pay in 4 interest-free payments on purchases of {formattedMinAmount}-{formattedMaxAmount}.",
+            "Pay in 4 interest-free payments on purchases of <span aria-hidden='true'>{formattedMinAmount}-{formattedMaxAmount}.</span><span class='sr-only'>{formattedMinAmount} to {formattedMaxAmount},\u00a0</span>",
             ["medium", "large", "xlarge"]
         ]
     ],
     "subHeadline": [],
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
 }

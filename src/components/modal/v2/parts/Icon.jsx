@@ -1,5 +1,4 @@
 /** @jsx h */
-/* eslint-disable react/no-unknown-property, eslint-comments/disable-enable-pair */
 import { h } from 'preact';
 
 const Icon = ({ name = '', color, content }) => {

@@ -40,6 +40,15 @@ jest.mock('src/utils/logger', () => ({
     }
 }));
 
+jest.mock('src/utils/events', () => {
+    const events = jest.requireActual('src/utils/events');
+
+    return {
+        ...events,
+        awaitTreatments: Promise.resolve()
+    };
+});
+
 jest.mock('src/utils/sdk', () => ({
     ...jest.requireActual('src/utils/sdk'),
     isScriptBeingDestroyed: () => false

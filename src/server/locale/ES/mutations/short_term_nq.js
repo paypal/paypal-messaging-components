@@ -139,7 +139,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 46, textSize, 'ES'),
-                    xSmallFallback(textSize * 18),
+                    xSmallFallback(textSize * 19),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod()
@@ -148,7 +148,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['intereses']
+                        br: ['de']
                     },
                     {
                         tag: 'xsmall',
@@ -161,7 +161,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 20),
+                    xSmallFallback(textSize * 21.6),
                     `@media screen and (max-width: ${textSize *
                         14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
                 ],
@@ -169,7 +169,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['tus']
+                        br: ['de']
                     },
                     {
                         tag: 'xsmall',
@@ -183,7 +183,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 18),
+                    xSmallFallback(textSize * 21.6),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `@media screen and (max-width: ${textSize *
                         14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -192,7 +192,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['tus']
+                        br: ['de']
                     },
                     {
                         tag: 'xsmall',

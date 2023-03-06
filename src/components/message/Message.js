@@ -134,7 +134,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     style,
                     merchantConfigHash,
-                    channel
+                    channel,
+                    treatmentsHash
                 } = xprops;
 
                 setProps({
@@ -170,7 +171,8 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     env,
                     stageTag,
                     merchant_config: merchantConfigHash,
-                    channel
+                    channel,
+                    treatments: treatmentsHash
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
@@ -186,7 +188,7 @@ const Message = function({ markup, meta, parentStyles, warnings }) {
                     ({ data: resData }) => {
                         const encodedData = resData.slice(resData.indexOf('<!--') + 4, resData.indexOf('-->'));
                         const data = parseObjFromEncoding(encodedData);
-                        button.innerHTML = data.markup ?? markup;
+                        button.innerHTML = data.markup ?? markup ?? '';
                         const buttonWidth = button.offsetWidth;
                         const buttonHeight = button.offsetHeight;
                         // Zoid will not fire a resize event if the markup has the same dimensions meaning the render event

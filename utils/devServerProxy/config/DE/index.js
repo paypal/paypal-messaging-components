@@ -39,28 +39,28 @@ export default {
                 {
                     totalPayments: 3,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.48,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 6,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.48,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.5,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.51,
                     minAmount: 99,
                     maxAmount: 5000
                 }
@@ -135,28 +135,28 @@ export default {
                 {
                     totalPayments: 3,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.48,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 6,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.48,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.5,
                     minAmount: 99,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 9.99,
-                    nominalRate: 0,
+                    nominalRate: 9.51,
                     minAmount: 99,
                     maxAmount: 5000
                 }

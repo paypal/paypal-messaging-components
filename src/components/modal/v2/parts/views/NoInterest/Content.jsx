@@ -32,8 +32,8 @@ export const NoInterest = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__row dynamic">
-                <div className="content__col">
+            <div className="content__row dynamic no-interest">
+                <div className="content__col no-interest">
                     <Instructions instructions={instructions} className="ppc" />
                 </div>
                 <div className="content__col">
@@ -62,7 +62,7 @@ export const NoInterest = ({
                     {renderProductListLinkItem()}
                 </div>
             </div>
-            <div className="content__row dynamic">
+            <div className="content__row dynamic no-interest">
                 <div className="button__fixed-wrapper">
                     <div className="button__container">
                         <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>

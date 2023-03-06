@@ -1,5 +1,75 @@
 # Changelog
 
+### [1.40.2](https://github.com/paypal/paypal-messaging-components/compare/v1.40.1...v1.40.2) (2023-03-06)
+
+
+### Bug Fixes
+
+* Accessibility Issue: Messages Space Issue for Screen Reader (DTCRCMERC-1897) ([#907](https://github.com/paypal/paypal-messaging-components/issues/907)) ([3e0bef5](https://github.com/paypal/paypal-messaging-components/commit/3e0bef59c810969c98518845f3a6467bd1876c7f))
+* prevent ScrollProvider from causing unnecessary rerender ([#899](https://github.com/paypal/paypal-messaging-components/issues/899)) ([32a5575](https://github.com/paypal/paypal-messaging-components/commit/32a557564cf58b47a8ae91c05df009f2055d1b9b))
+* Screen Reader Issue Messages Paypal Logo (DTCRCMERC-1899) ([#909](https://github.com/paypal/paypal-messaging-components/issues/909)) ([47694bf](https://github.com/paypal/paypal-messaging-components/commit/47694bf82f5269cb7d9d082eb1c989310031c577))
+
+
+### Code Refactoring
+
+* support APR disclaimer from modal offers content ([#911](https://github.com/paypal/paypal-messaging-components/issues/911)) ([ab01526](https://github.com/paypal/paypal-messaging-components/commit/ab01526b3b0a2a2b77c9e704d058f493d99f34bb))
+
+### [1.40.1](https://github.com/paypal/paypal-messaging-components/compare/v1.40.0...v1.40.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* send treatments hash on message update ([#902](https://github.com/paypal/paypal-messaging-components/issues/902)) ([9f4de0b](https://github.com/paypal/paypal-messaging-components/commit/9f4de0b25d5d3c2787a63e26856df1027b2fad93))
+
+## [1.40.0](https://github.com/paypal/paypal-messaging-components/compare/v1.39.5...v1.40.0) (2023-01-31)
+
+
+### Features
+
+* support edge-cached consumer-based experimentation ([#796](https://github.com/paypal/paypal-messaging-components/issues/796)) ([3626552](https://github.com/paypal/paypal-messaging-components/commit/36265522bce0592231dacbfb9763c66b7ed8db83))
+
+
+### Bug Fixes
+
+* ensure empty string for undefined message rerender ([#897](https://github.com/paypal/paypal-messaging-components/issues/897)) ([10768aa](https://github.com/paypal/paypal-messaging-components/commit/10768aaf1668aa3afffb8521f75562bd62a27701))
+* prevent DE LT view from displaying product list tiles ([#898](https://github.com/paypal/paypal-messaging-components/issues/898)) ([5ff9370](https://github.com/paypal/paypal-messaging-components/commit/5ff937040caac33fe53c3c42e8da6c4c9ed12ff4))
+
+### [1.39.5](https://github.com/paypal/paypal-messaging-components/compare/v1.39.4...v1.39.5) (2023-01-24)
+
+
+### Bug Fixes
+
+* 3.0 modal font bolding ([#891](https://github.com/paypal/paypal-messaging-components/issues/891)) ([33cf776](https://github.com/paypal/paypal-messaging-components/commit/33cf7767ecb8bd483df57268974c01ad233c7160))
+* universal modal lander scroll on mobile ([#892](https://github.com/paypal/paypal-messaging-components/issues/892)) ([4770a56](https://github.com/paypal/paypal-messaging-components/commit/4770a56dee7d20ae046f4d05797b82790ea6955e))
+
+
+### Code Refactoring
+
+* add screen reader text to Pay in 4 ([#883](https://github.com/paypal/paypal-messaging-components/issues/883)) ([4630482](https://github.com/paypal/paypal-messaging-components/commit/46304820bef643197ecd3643932c26bf74495ab9))
+* cleanup old DE Installments ([#871](https://github.com/paypal/paypal-messaging-components/issues/871)) ([6062a18](https://github.com/paypal/paypal-messaging-components/commit/6062a18077173da527dfc5cba5f88abe7f5fed0c))
+
+### [1.39.4](https://github.com/paypal/paypal-messaging-components/compare/v1.39.3...v1.39.4) (2023-01-17)
+
+
+### Code Refactoring
+
+* IT Pay in 3 modal "Remove Dopo" update (DTCRCMERC-1860) ([#893](https://github.com/paypal/paypal-messaging-components/issues/893)) ([4d57c50](https://github.com/paypal/paypal-messaging-components/commit/4d57c50585f74b27007e95fe3da5db952ecfb503))
+* tweak styles to remove padding-right from messages ([#886](https://github.com/paypal/paypal-messaging-components/issues/886)) ([d24e3d8](https://github.com/paypal/paypal-messaging-components/commit/d24e3d8ff7a736e581ab47f6dda193bf986b47a6))
+
+### [1.39.3](https://github.com/paypal/paypal-messaging-components/compare/v1.39.2...v1.39.3) (2023-01-10)
+
+
+### Build System
+
+* fix optional args ([#890](https://github.com/paypal/paypal-messaging-components/issues/890)) ([b7086f7](https://github.com/paypal/paypal-messaging-components/commit/b7086f7cd0f79fb3eac9d5ac69e63ea2ee0a939e))
+
+
+### Code Refactoring
+
+* ES non-qualifying message wrapping logic ([#876](https://github.com/paypal/paypal-messaging-components/issues/876)) ([5f6dcbe](https://github.com/paypal/paypal-messaging-components/commit/5f6dcbeef46a1bc641e094698b650c30c15f08e3))
+* message banner accessibility tasks (DTCRCMERC-1788) ([#869](https://github.com/paypal/paypal-messaging-components/issues/869)) ([8254b36](https://github.com/paypal/paypal-messaging-components/commit/8254b3686fe9082a7f525554a6b617e8a5bfccb3))
+* underline "Learn More" link in message for text color = "black" (DTCRCMERC-1754) ([#887](https://github.com/paypal/paypal-messaging-components/issues/887)) ([aa32a33](https://github.com/paypal/paypal-messaging-components/commit/aa32a332d21d69268c08bc1446344de5b0c08485))
+
 ### [1.39.2](https://github.com/paypal/paypal-messaging-components/compare/v1.39.1...v1.39.2) (2022-12-07)
 
 
