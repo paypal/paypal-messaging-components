@@ -29,11 +29,15 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer }) => {
             if (offerCountry !== 'DE') {
                 return <OfferCard offer={offer} index={idx} />;
             }
+            const disclaimer =
+                aprDisclaimer.length < offers.length
+                    ? aprDisclaimer[aprDisclaimer.length - 1].aprDisclaimer
+                    : aprDisclaimer[idx].aprDisclaimer;
             return (
                 <OfferAccordion
                     offer={offer}
                     index={idx}
-                    aprDisclaimer={aprDisclaimer}
+                    aprDisclaimer={disclaimer}
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
                 />
