@@ -1,5 +1,5 @@
 /* global Android */
-import { isAndroidWebview, isIosWebview } from '@krakenjs/belter/src';
+import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { logger } from '../../../../utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -105,11 +105,12 @@ const setupWebview = props => {
             );
         }
 
-        if (Android) {
+        // `Android` is not on the `window` object but rather an adjacent top level object
+        if (typeof Android !== 'undefined') {
             return Android[ANDROID_INTERFACE_NAME].bind(Android);
         }
 
-        // THis scenario should only ever occur when developing locally
+        // This scenario should only ever occur when developing locally
         return payload => console.warn('postMessage:', JSON.parse(payload));
     })();
 
@@ -129,52 +130,62 @@ const setupWebview = props => {
     };
     window.xprops = {
         onProps: listener => propListeners.add(listener),
-        onReady: ({ products, meta, deviceID }) => {
-            const { offer, partnerAttributionId } = window.xprops;
-            const { tracking_details: trackingDetails } = meta;
+
+        onReady: ({ meta }) => {
+            const { trackingDetails } = meta;
+            const performance = getPerformance();
 
             sendCallbackMessage('onReady', {
-                // TODO: Determine correct solution for identifying shared fields
-                shared: {
-                    device_id: deviceID, // TODO: Need to consider modal webview device ID vs native device ID
-                    bn_code: partnerAttributionId,
-                    integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
-                    ...trackingDetails
+                // TODO: We will need a mechanism to ensure that when a prop is updated, such as `amount`
+                // that we send an updated `__shared__` payload to the client to notify it
+                __shared__: {
+                    // Analytic Details
+                    fdata: trackingDetails.fdata,
+                    experimentation_experience_ids: trackingDetails.experimentation_experience_ids,
+                    experimentation_treatment_ids: trackingDetails.experimentation_treatment_ids,
+                    credit_product_identifiers: trackingDetails.credit_product_identifiers,
+                    offer_country_code: trackingDetails.offer_country_code,
+                    merchant_country_code: trackingDetails.merchant_country_code,
+                    views: trackingDetails.views,
+                    qualified_products: trackingDetails.qualified_products,
+                    debug_id: trackingDetails.debug_id
                 },
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-render',
-                modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`
+                event_type: 'modal_render',
+                request_duration: performance.timing.responseEnd - performance.timing.requestStart,
+                render_duration: performance.now() // TODO: Verify this is time since page loads
             });
         },
-        onClick: ({ linkName, src }) => {
+
+        onClick: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClick', {
-                et: 'CLICK',
-                event_type: 'click',
+                event_type: 'modal_click',
                 link_name: linkName,
-                src: src ?? linkName
+                link_src: src
             });
         },
+
         onCalculate: ({ value }) => {
             sendCallbackMessage('onCalculate', {
-                et: 'CLICK',
-                event_type: 'click',
+                event_type: 'modal_click',
                 link_name: 'Calculator',
-                src: 'Calculator',
-                amount: value
+                link_src: 'Calculator',
+                data: value
             });
         },
+
         onShow: () => {
             sendCallbackMessage('onShow', {
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open',
-                src: 'Show'
+                event_type: 'modal_open',
+                link_name: 'Show',
+                link_src: 'Show'
             });
         },
-        onClose: ({ linkName }) => {
+
+        onClose: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClose', {
-                et: 'CLICK',
-                event_type: 'modal-close',
-                link_name: linkName
+                event_type: 'modal_close',
+                link_name: linkName,
+                link_src: src
             });
         },
         // Overridable defaults

@@ -9,6 +9,21 @@ jest.mock('src/utils', () => ({
     }
 }));
 
+jest.mock('@krakenjs/belter/src', () => {
+    const originalModule = jest.requireActual('@krakenjs/belter/src');
+
+    return {
+        ...originalModule,
+        getPerformance: () => ({
+            timing: {
+                requestStart: 0,
+                responseEnd: 0
+            },
+            now: () => 0
+        })
+    };
+});
+
 const mockLoadUrl = (url, { platform = 'web' } = {}) => {
     delete window.location;
     delete window.xprops;
@@ -139,7 +154,7 @@ describe('zoidPollyfill', () => {
 
     test('sets up xprops for webview', () => {
         mockLoadUrl(
-            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true',
+            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&dev_touchpoint=true',
             {
                 platform: 'ios'
             }
@@ -172,83 +187,110 @@ describe('zoidPollyfill', () => {
         window.xprops.onReady({
             products: ['PRODUCT_1', 'PRODUCT_2'],
             deviceID: 'abc123',
-            meta: { trackingDetails: 'trackingDetails' }
+            meta: {
+                trackingDetails: {
+                    fdata: '123abc',
+                    credit_product_identifiers: ['PAY_LATER_LONG_TERM_US'],
+                    offer_country_code: 'US',
+                    extra_field: 'should not be present'
+                }
+            }
         });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onReady',
-            args: [
-                expect.objectContaining({
-                    event_type: 'modal-render',
-                    modal: 'product_1_product_2:PRODUCT_1'
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "__shared__": Object {
+                    "credit_product_identifiers": Array [
+                      "PAY_LATER_LONG_TERM_US",
+                    ],
+                    "fdata": "123abc",
+                    "offer_country_code": "US",
+                  },
+                  "event_type": "modal_render",
+                  "render_duration": 0,
+                  "request_duration": 0,
+                },
+              ],
+              "name": "onReady",
+            }
+        `);
         postMessage.mockClear();
 
         window.xprops.onClick({ linkName: 'test link', src: 'test src' });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onClick',
-            args: [
-                expect.objectContaining({
-                    event_type: 'click',
-                    link_name: 'test link',
-                    src: 'test src'
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "event_type": "modal_click",
+                  "link_name": "test link",
+                  "link_src": "test src",
+                },
+              ],
+              "name": "onClick",
+            }
+        `);
         postMessage.mockClear();
 
         window.xprops.onCalculate({ value: 500 });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onCalculate',
-            args: [
-                expect.objectContaining({
-                    event_type: 'click',
-                    link_name: 'Calculator',
-                    src: 'Calculator',
-                    amount: 500
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "data": 500,
+                  "event_type": "modal_click",
+                  "link_name": "Calculator",
+                  "link_src": "Calculator",
+                },
+              ],
+              "name": "onCalculate",
+            }
+        `);
         postMessage.mockClear();
 
         window.xprops.onShow();
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onShow',
-            args: [
-                expect.objectContaining({
-                    event_type: 'modal-open',
-                    src: 'Show'
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "event_type": "modal_open",
+                  "link_name": "Show",
+                  "link_src": "Show",
+                },
+              ],
+              "name": "onShow",
+            }
+        `);
         postMessage.mockClear();
 
         window.xprops.onClose({ linkName: 'Close Button' });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onClose',
-            args: [
-                expect.objectContaining({
-                    event_type: 'modal-close',
-                    link_name: 'Close Button'
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "event_type": "modal_close",
+                  "link_name": "Close Button",
+                  "link_src": "Close Button",
+                },
+              ],
+              "name": "onClose",
+            }
+        `);
         postMessage.mockClear();
     });
 
@@ -303,20 +345,37 @@ describe('zoidPollyfill', () => {
         window.xprops.onReady({
             products: ['PRODUCT_1', 'PRODUCT_2'],
             deviceID: 'abc123',
-            meta: { trackingDetails: 'trackingDetails' }
+            meta: {
+                trackingDetails: {
+                    fdata: '123abc',
+                    credit_product_identifiers: ['PAY_LATER_LONG_TERM_US'],
+                    offer_country_code: 'US',
+                    extra_field: 'should not be present'
+                }
+            }
         });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toEqual({
-            name: 'onReady',
-            args: [
-                expect.objectContaining({
-                    event_type: 'modal-render',
-                    modal: 'product_1_product_2:test'
-                })
-            ]
-        });
+        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
+                Object {
+                  "__shared__": Object {
+                    "credit_product_identifiers": Array [
+                      "PAY_LATER_LONG_TERM_US",
+                    ],
+                    "fdata": "123abc",
+                    "offer_country_code": "US",
+                  },
+                  "event_type": "modal_render",
+                  "render_duration": 0,
+                  "request_duration": 0,
+                },
+              ],
+              "name": "onReady",
+            }
+        `);
         postMessage.mockClear();
     });
 });
