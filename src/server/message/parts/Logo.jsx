@@ -10,7 +10,7 @@ const Logos = ({ mutations }) => {
         <div className="message__logo-container" aria-hidden="true" alt="PayPal">
             {logos.map(({ src, dimensions: [width, height] }) => (
                 <div className="message__logo message__logo--svg">
-                    <img src={src} alt="PayPal Credit" />
+                    <img src={src} alt="PayPal" />
                     <canvas height={height} width={width} />
                 </div>
             ))}

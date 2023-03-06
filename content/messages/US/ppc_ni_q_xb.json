@@ -28,7 +28,7 @@
             ["xlarge"]
         ],
         [["US customers only. Subject to credit approval", ["Learn more", "em"]], ["legacy-medium"]],
-        ["US only.", ["extra"]],
+        ["<span aria-hidden='true'>US only.</span><span class='sr-only'> US only.</span>", ["extra"]],
         ["US customers only.", ["extra.2"]]
     ]
 }

@@ -121,7 +121,7 @@ describe('SSR message', () => {
             expect(getByText(subHeadline)).toBeInTheDocument();
             expect(getByText(disclaimer)).toBeInTheDocument();
 
-            expect(getByAltText('PayPal Credit')).toHaveAttribute('src', logoSrc);
+            expect(getByAltText('PayPal')).toHaveAttribute('src', logoSrc);
         });
         const getMatchPattern = (cssSelector, cssValue) => {
             // convert plain string css into an array if RegExps
