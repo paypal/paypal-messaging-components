@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.40.2](https://github.com/paypal/paypal-messaging-components/compare/v1.40.1...v1.40.2) (2023-03-06)
+
+
+### Bug Fixes
+
+* Accessibility Issue: Messages Space Issue for Screen Reader (DTCRCMERC-1897) ([#907](https://github.com/paypal/paypal-messaging-components/issues/907)) ([3e0bef5](https://github.com/paypal/paypal-messaging-components/commit/3e0bef59c810969c98518845f3a6467bd1876c7f))
+* prevent ScrollProvider from causing unnecessary rerender ([#899](https://github.com/paypal/paypal-messaging-components/issues/899)) ([32a5575](https://github.com/paypal/paypal-messaging-components/commit/32a557564cf58b47a8ae91c05df009f2055d1b9b))
+* Screen Reader Issue Messages Paypal Logo (DTCRCMERC-1899) ([#909](https://github.com/paypal/paypal-messaging-components/issues/909)) ([47694bf](https://github.com/paypal/paypal-messaging-components/commit/47694bf82f5269cb7d9d082eb1c989310031c577))
+
+
+### Code Refactoring
+
+* support APR disclaimer from modal offers content ([#911](https://github.com/paypal/paypal-messaging-components/issues/911)) ([ab01526](https://github.com/paypal/paypal-messaging-components/commit/ab01526b3b0a2a2b77c9e704d058f493d99f34bb))
+
 ### [1.40.1](https://github.com/paypal/paypal-messaging-components/compare/v1.40.0...v1.40.1) (2023-02-08)
 
 

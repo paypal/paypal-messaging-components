@@ -204,7 +204,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
                     }`}
                 >
-                    {aprDisclaimer}
+                    {aprDisclaimer[0].aprDisclaimer}
                 </div>
             )}
         </div>

@@ -33,6 +33,11 @@
             "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
             "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
         },
+        "disclaimer": {
+            "zeroAPR": "Terms may vary based on purchase amount.",
+            "mixedAPR": "*APR is 0% to 29.99% based on your credit. Terms and 0% APR may vary based on purchase amount.",
+            "nonZeroAPR": "*APR is 9.99% to 29.99% based on your credit. Terms may vary based on purchase amount."
+        },
         "termsLabel": {
             "offerHeader": "{formattedPeriodicPayment}/mo. for {total_payments} months",
             "zeroApr": "APR",

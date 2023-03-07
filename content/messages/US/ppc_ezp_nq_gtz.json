@@ -22,7 +22,10 @@
     ],
     "disclaimer": [
         ["Learn more", ["default", "xsmall"]],
-        ["Min purchase required.", ["xsmall.2", "small", "medium", "large", "xlarge"]],
+        [
+            "<span aria-hidden='true'>Min purchase required.</span><span class='sr-only'> Min purchase required.</span>",
+            ["xsmall.2", "small", "medium", "large", "xlarge"]
+        ],
         [["Minimum purchase required. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium"]],
         [["Min purch req'd. Subject to credit approval.", ["Learn more", "em"]], ["legacy-medium.2"]]
     ]

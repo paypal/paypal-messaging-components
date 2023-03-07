@@ -21,5 +21,5 @@
         ["Buy now and pay later.", ["xsmall.2"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
 }

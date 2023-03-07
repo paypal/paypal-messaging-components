@@ -33,6 +33,10 @@
             "belowThreshold": "Geben Sie einen Betrag größer als {formattedMinAmount} ein.",
             "aboveThreshold": "Geben Sie einen Betrag geringer als {formattedMaxAmount} ein. "
         },
+        "disclaimer": {
+            "nonZeroAPR": "Eff. Jahreszins 9,99% p.a., <br/> fester Sollzinssatz {nominal_rate}% p.a.",
+            "zeroAPR": "Eff. Jahreszins 0,00% p.a., <br/> fester Sollzinssatz 0,00% p.a."
+        },
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment}/Monat",
             "offerNumInstallments": "{total_payments} Raten",

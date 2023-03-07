@@ -27,10 +27,6 @@
             "inputCurrencySymbol": "€",
             "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut."
         },
-        "disclaimer": {
-            "nonZeroAPR": "Eff. Jahreszins 9,99% p.a., <br/> fester Sollzinssatz 9,51% p.a.",
-            "zeroAPR": "Eff. Jahreszins 0,00% p.a., <br/> fester Sollzinssatz 0,00% p.a."
-        },
         "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus, um später mit <strong>PayPal Ratenzahlung</strong> zu bezahlen.",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
