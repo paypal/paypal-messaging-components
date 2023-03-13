@@ -72,6 +72,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'PRODUCT_LIST-desktop':
             return (
                 <svg
+                    aria-hidden="true"
                     width="338"
                     height="145"
                     viewBox="0 0 338 145"
@@ -111,6 +112,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'PRODUCT_LIST-mobile':
             return (
                 <svg
+                    aria-hidden="true"
                     width="272"
                     height="217"
                     viewBox="0 0 272 217"
@@ -152,6 +154,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'PAY_LATER_PAY_IN_1-mobile':
             return (
                 <svg
+                    aria-hidden="true"
                     width="286"
                     height="265"
                     viewBox="0 0 286 265"
@@ -194,6 +197,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'PAY_LATER_PAY_IN_1-desktop':
             return (
                 <svg
+                    aria-hidden="true"
                     width="338"
                     height="176"
                     fill="none"
@@ -232,6 +236,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'PAY_LATER_LONG_TERM-mobile':
             return (
                 <svg
+                    aria-hidden="true"
                     width="285"
                     height="196"
                     viewBox="0 0 285 196"
