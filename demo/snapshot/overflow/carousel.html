@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV0000000GPL"></script>
+    </head>
+
+    <body>
+        <!-- 
+            @name: messages inside a carousel
+            @viewport: 400x300
+        -->
+        <style>
+            html {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            .container {
+                max-width: 40rem;
+                margin: 0 auto;
+            }
+
+            * {
+                box-sizing: border-box;
+                scrollbar-color: transparent transparent;
+                scrollbar-width: 0px;
+            }
+
+            ol,
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .carousel {
+                position: relative;
+                padding-top: 75%;
+            }
+
+            .carousel__viewport {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                display: flex;
+                overflow-x: scroll;
+                scroll-behavior: smooth;
+            }
+
+            .carousel__slide {
+                position: relative;
+                flex: 0 0 100%;
+                width: 100%;
+                background-color: rgb(246, 246, 246);
+            }
+
+            .carousel__slide:before {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%, -40%, 70px);
+                color: #fff;
+            }
+
+            .carousel__content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                padding: 1rem;
+            }
+
+            .carousel::before,
+            .carousel::after,
+            .carousel__prev,
+            .carousel__next {
+                position: absolute;
+                top: 0;
+                margin-top: 38%;
+                width: 4rem;
+                height: 4rem;
+                transform: translateY(-50%);
+                font-size: 0;
+                outline: 0;
+            }
+
+            .carousel::before,
+            .carousel__prev {
+                left: -1rem;
+            }
+
+            .carousel::after,
+            .carousel__next {
+                right: -1rem;
+            }
+
+            .carousel::before,
+            .carousel::after {
+                content: '';
+                z-index: 1;
+                background-color: #333;
+                background-size: 1.5rem 1.5rem;
+                color: #fff;
+                font-size: 2.5rem;
+                line-height: 4rem;
+                text-align: center;
+                pointer-events: none;
+            }
+
+            .carousel::after {
+                content: '>';
+            }
+            .carousel::before {
+                content: '<';
+            }
+
+            .third {
+                margin-left: 560px;
+            }
+        </style>
+
+        <div class="container">
+            <section class="carousel">
+                <ol class="carousel__viewport">
+                    <li id="carousel__slide1" class="carousel__slide">
+                        <div class="carousel__content">
+                            <h1>Slide 1</h1>
+                            <!-- Regular message render in a carousel -->
+                            <div class="message first" data-pp-message data-test-visible="true"></div>
+                            <a href="#carousel__slide2" class="carousel__next">Next</a>
+                        </div>
+                    </li>
+                    <li id="carousel__slide2" class="carousel__slide">
+                        <div class="carousel__content">
+                            <h1>Slide 2</h1>
+                            <!-- 100% hidden message in a carousel renders -->
+                            <div class="message second" data-pp-message data-test-visible="true"></div>
+                            <a href="#carousel__slide1" class="carousel__prev">Previous</a>
+                            <a href="#carousel__slide3" class="carousel__next">Next</a>
+                        </div>
+                    </li>
+                    <li id="carousel__slide3" class="carousel__slide">
+                        <div class="carousel__content">
+                            <h1>Slide 3</h1>
+                            <!-- Message in a carousel is not 100% hidden -->
+                            <div class="message third" data-pp-message data-test-visible="false"></div>
+                            <a href="#carousel__slide2" class="carousel__prev">Previous</a>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+        </div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config ?? '{}');
+
+            paypal.Message.render(config, '.message');
+        </script>
+    </body>
+</html>
