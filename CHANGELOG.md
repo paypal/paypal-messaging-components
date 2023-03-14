@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.40.3](https://github.com/paypal/paypal-messaging-components/compare/v1.40.2...v1.40.3) (2023-03-14)
+
+
+### Bug Fixes
+
+* hide mobile header image from modal (DTCRCMERC-2171) ([#914](https://github.com/paypal/paypal-messaging-components/issues/914)) ([3193359](https://github.com/paypal/paypal-messaging-components/commit/3193359458dfee591b605dc7404711a27391182b))
+
+
+### Code Refactoring
+
+* update overflow detection algorithm to allow for messages that are 100% hidden ([#913](https://github.com/paypal/paypal-messaging-components/issues/913)) ([e42dda4](https://github.com/paypal/paypal-messaging-components/commit/e42dda462eae3dedb85de8c09f5fe630a1c5ffe8))
+
 ### [1.40.2](https://github.com/paypal/paypal-messaging-components/compare/v1.40.1...v1.40.2) (2023-03-06)
 
 
