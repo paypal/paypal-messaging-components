@@ -36,7 +36,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo" alt="PayPal Credit Logo">
+                    <div className="pp-logo" alt="PayPal">
                         <Icon name={logo} />
                     </div>
                 </div>
