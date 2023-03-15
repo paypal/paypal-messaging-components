@@ -16,7 +16,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
             // When you zoom in or out on a page in Chrome, the outerWidth and innerWidth calculations go out of sync.
             // The difference between them is determined by dividing the outerWidth and the innerWidth (zoomLevel).
             // To normalize this value so that the iframe does not report an incorrect width, we multiply the width that the iframe would report by the zoomLevel.
-            const zoomLevel = window.outerWidth / window.innerWidth;
+            const zoomLevel = window.parent.outerWidth / window.parent.innerWidth;
             const adjustedWidth = width * zoomLevel;
 
             if (width !== 0 || height !== 0) {
