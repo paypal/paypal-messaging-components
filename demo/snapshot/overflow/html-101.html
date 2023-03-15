@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV0000000GPL"></script>
+
+        <style>
+            html {
+                height: 101%;
+            }
+            body {
+                margin: 0;
+                padding-bottom: 5rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+            @name: messages render when html is a set height
+            @viewport: 400x300
+        -->
+        <div class="root">
+            <!-- Regular message render -->
+            <div class="message" data-test-visible="true"></div>
+
+            <!-- Container too small, above the fold -->
+            <div style="width: 100px; padding-top: 400px;">
+                <div class="message" data-test-visible="false"></div>
+            </div>
+
+            <!-- Outer container hides overflowing content, above the fold -->
+            <div style="width: 100px; overflow: hidden">
+                <div style="width: 500px;">
+                    <div class="message" data-test-visible="false"></div>
+                </div>
+            </div>
+
+            <!-- Container is too small, below the fold -->
+            <div style="width: 100px; padding-top: 400px;">
+                <div class="message" data-test-visible="false"></div>
+            </div>
+
+            <!-- Outer container is too small but inner container overflows allowing the message to be visible, below the fold -->
+            <div style="width: 100px;">
+                <div style="width: 400px;">
+                    <div class="message" data-test-visible="true"></div>
+                </div>
+            </div>
+
+            <!-- Outer container hides overflowing content, below the fold -->
+            <div style="width: 100px; overflow: hidden">
+                <div style="width: 500px;">
+                    <div class="message" data-test-visible="false"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config ?? '{}');
+
+            paypal.Message.render(config, '.message');
+        </script>
+    </body>
+</html>

@@ -411,9 +411,18 @@ export const getRoot = baseElement => {
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
-    const root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
+    let root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
 
-    ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
+    // In the case where the html is set to a fixed height (i.e. 101%), the body can extend past the
+    // height of the html element itself. When this happens, any message below the height of the html element
+    // has an incorrect intersection ratio reported.
+    if (document.querySelector('html').getBoundingClientRect().height < document.body.getBoundingClientRect().height) {
+        root = document.body;
+    }
+
+    ppDebug('Root:', {
+        debugObj: root || 'undefined. Viewport is used as the root.'
+    });
 
     return root;
 };
