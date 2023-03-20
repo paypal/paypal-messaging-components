@@ -13,12 +13,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
 
     const setupAutoResize = el => {
         event.on(EVENT.RESIZE, ({ width, height }) => {
-            // When you zoom in or out on a page in Chrome, the outerWidth and innerWidth calculations go out of sync.
-            // The difference between them is determined by dividing the outerWidth and the innerWidth (zoomLevel).
-            // To normalize this value so that the iframe does not report an incorrect width, we multiply the width that the iframe would report by the zoomLevel.
-            const zoomLevel = window.parent.outerWidth / window.parent.innerWidth;
-            const adjustedWidth = width * zoomLevel;
-
             if (width !== 0 || height !== 0) {
                 if (props.style.layout === 'flex') {
                     // Ensure height property does not exist for flex especially when swapping from text to flex
@@ -28,9 +22,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
                     el.setAttribute('data-height', 0);
                 } else {
                     // Attributes used by the overflow observer
-                    // To account for browsers where the difference between the outerWidth and innerWidth is imprecise/the zoom level is calculated
-                    // based on other means (i.e. Firefox), we add a margin of error check so that the adjustedWidth is only used if the difference is significant.
-                    el.setAttribute('data-width', zoomLevel <= 0.95 || zoomLevel >= 1.05 ? adjustedWidth : width);
+                    el.setAttribute('data-width', width);
                     el.setAttribute('data-height', height);
 
                     if (typeof height === 'number') {

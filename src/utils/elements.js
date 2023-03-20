@@ -380,16 +380,28 @@ export const getRoot = baseElement => {
         }
     }
 
+    // Find the biggest element of them all.
+    // We are using getComputedStyle to determine the height sans padding.
+    const biggestEl = domPath
+        .reverse()
+        .sort(
+            (a, b) =>
+                Number(elementWindow.getComputedStyle(b).height.replace(/px/, '')) -
+                Number(elementWindow.getComputedStyle(a).height.replace(/px/, ''))
+        )[0];
+
     const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
         const height = el.offsetHeight;
-
+        const biggestElHeight = Number(elementWindow.getComputedStyle(biggestEl).height.replace(/px/, ''));
         // window.innerHeight has a variable value on mobile based on the URL bar so
         // we are looking for the element that is larger than the window
         // TODO: This could potentially provide a false positive if a merchant is using height 100vh
-        if (height > elementWindow.innerHeight) {
+        // we are also checking to see if the height of the element we're currently on is also bigger or equal to
+        // the biggest element's height in the array.
+        if (height > elementWindow.innerHeight && height >= biggestElHeight) {
             return true;
         }
 
@@ -411,14 +423,7 @@ export const getRoot = baseElement => {
     // If the root element is entirely within the viewport then return undefined
     // so that the viewport is used as the root. This helps with position fixed
     // containers that may have content outside of the root element.
-    let root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
-
-    // In the case where the html is set to a fixed height (i.e. 101%), the body can extend past the
-    // height of the html element itself. When this happens, any message below the height of the html element
-    // has an incorrect intersection ratio reported.
-    if (document.querySelector('html').getBoundingClientRect().height < document.body.getBoundingClientRect().height) {
-        root = document.body;
-    }
+    const root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
 
     ppDebug('Root:', {
         debugObj: root || 'undefined. Viewport is used as the root.'

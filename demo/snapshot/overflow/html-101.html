@@ -9,10 +9,19 @@
         <style>
             html {
                 height: 101%;
+                border: 1px solid red;
             }
             body {
+                height: 101%;
                 margin: 0;
                 padding-bottom: 5rem;
+                border: 1px solid blue;
+            }
+            .border {
+                border: 1px solid green;
+            }
+            .root {
+                border: 1px solid peru;
             }
         </style>
     </head>
@@ -24,34 +33,34 @@
         -->
         <div class="root">
             <!-- Regular message render -->
-            <div class="message" data-test-visible="true"></div>
+            <div class="message border" data-test-visible="true"></div>
 
             <!-- Container too small, above the fold -->
-            <div style="width: 100px; padding-top: 400px;">
+            <div style="width: 95px; padding-top: 400px;" class="border">
                 <div class="message" data-test-visible="false"></div>
             </div>
 
             <!-- Outer container hides overflowing content, above the fold -->
-            <div style="width: 100px; overflow: hidden">
+            <div style="width: 100px; overflow: hidden" class="border">
                 <div style="width: 500px;">
                     <div class="message" data-test-visible="false"></div>
                 </div>
             </div>
 
             <!-- Container is too small, below the fold -->
-            <div style="width: 100px; padding-top: 400px;">
+            <div style="width: 95px; padding-top: 400px;" class="border">
                 <div class="message" data-test-visible="false"></div>
             </div>
 
             <!-- Outer container is too small but inner container overflows allowing the message to be visible, below the fold -->
-            <div style="width: 100px;">
+            <div style="width: 100px;" class="border">
                 <div style="width: 400px;">
                     <div class="message" data-test-visible="true"></div>
                 </div>
             </div>
 
             <!-- Outer container hides overflowing content, below the fold -->
-            <div style="width: 100px; overflow: hidden">
+            <div style="width: 100px; overflow: hidden;" class="border">
                 <div style="width: 500px;">
                     <div class="message" data-test-visible="false"></div>
                 </div>
