@@ -13,9 +13,6 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-    "headline": [
-        [["Payez en 4X sans frais pour les achats de {formattedMinAmount}-{formattedMaxAmount}."], ["default", "small"]]
-    ],
-    "subHeadline": [[["Payez avec PayPal et choisissez le paiement en 4X."], ["default", "small"]]],
+    "headline": [[["Payez en 4X sans frais pour les achats de 30€ à 2000€."], ["default", "small"]]],
     "disclaimer": [["En savoir plus", ["default"]]]
 }
