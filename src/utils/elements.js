@@ -383,7 +383,13 @@ export const getRoot = baseElement => {
     // Find the biggest element of them all.
     // We are using getComputedStyle to determine the height sans padding.
     const biggestEl = domPath
-        .reverse()
+        .filter(el => {
+            const parent = el.parentNode;
+            if (parent === document.documentElement || parent === document.body) {
+                return true;
+            }
+            return !(parent.scrollHeight > parent.clientHeight);
+        })
         .sort(
             (a, b) =>
                 Number(elementWindow.getComputedStyle(b).height.replace(/px/, '')) -
