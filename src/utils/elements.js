@@ -381,22 +381,21 @@ export const getRoot = baseElement => {
     }
 
     let biggestEl;
-    // We are using getComputedStyle to determine the height sans padding.
-    const elHeight = element => Number(elementWindow.getComputedStyle(element).height.replace(/px/, ''));
 
     const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
 
+        const child = elements[index + 1];
         // Check if the next element is bigger than the current element and if so, save it and move on to the next element in the array
-        if (!biggestEl || (elements[index + 1] && elHeight(el) <= elHeight(elements[index + 1]))) {
-            biggestEl = elements[index + 1];
+        if (!biggestEl || (child && el.offsetHeight <= child.offsetHeight)) {
+            biggestEl = child;
             return false;
         }
 
         const height = el.offsetHeight;
-        const biggestElHeight = elHeight(biggestEl);
+        const biggestElHeight = biggestEl.offsetHeight;
         // window.innerHeight has a variable value on mobile based on the URL bar so
         // we are looking for the element that is larger than the window
         // TODO: This could potentially provide a false positive if a merchant is using height 100vh
@@ -409,7 +408,6 @@ export const getRoot = baseElement => {
         // Use array index instead of parentNode be default because collapsed
         // elements may have been filtered out and should not be used for calculations
         const parent = elements[index - 1] ?? el.parentNode; // First element should be <html> and will have a parent of document
-        const child = elements[index + 1];
 
         // Ensure that the selected root is the larger of the parent
         // and contains the child otherwise there may not be a proper page wrapper
