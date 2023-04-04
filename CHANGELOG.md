@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.40.4](https://github.com/paypal/paypal-messaging-components/compare/v1.40.3...v1.40.4) (2023-04-04)
+
+
+### Bug Fixes
+
+* improve modal calculator long floating point amounts ([#920](https://github.com/paypal/paypal-messaging-components/issues/920)) ([37e10e1](https://github.com/paypal/paypal-messaging-components/commit/37e10e10a997d1f7e4ff8de77ec68fa0b7323869))
+* intersection observer overflow and element calculations  ([#918](https://github.com/paypal/paypal-messaging-components/issues/918)) ([bc12e53](https://github.com/paypal/paypal-messaging-components/commit/bc12e538cc88c27e62d69ecd74f4dcf4aef146c2))
+* Screen Reader Amounts in US Messages Read Incorrectly ([#915](https://github.com/paypal/paypal-messaging-components/issues/915)) ([ba954b9](https://github.com/paypal/paypal-messaging-components/commit/ba954b996ec5d0d4a6cab3a33d4e31e93ff3faee))
+
 ### [1.40.3](https://github.com/paypal/paypal-messaging-components/compare/v1.40.2...v1.40.3) (2023-03-14)
 
 
