@@ -388,14 +388,14 @@ export const getRoot = baseElement => {
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
 
+        const height = el.offsetHeight;
         const child = elements[index + 1];
         // Check if the next element is bigger than the current element and if so, save it and move on to the next element in the array
-        if (child && el.offsetHeight <= child.offsetHeight) {
+        if (child && height <= child.offsetHeight) {
             biggestEl = child;
             return false;
         }
 
-        const height = el.offsetHeight;
         const biggestElHeight = biggestEl.offsetHeight;
         // window.innerHeight has a variable value on mobile based on the URL bar so
         // we are looking for the element that is larger than the window
