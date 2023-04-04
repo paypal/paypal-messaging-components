@@ -380,16 +380,17 @@ export const getRoot = baseElement => {
         }
     }
 
-    let biggestEl;
+    domPath.reverse();
+    let biggestEl = domPath[0];
 
-    const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
+    const computedRoot = arrayFind(domPath, (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
 
         const child = elements[index + 1];
         // Check if the next element is bigger than the current element and if so, save it and move on to the next element in the array
-        if (!biggestEl || (child && el.offsetHeight <= child.offsetHeight)) {
+        if (child && el.offsetHeight <= child.offsetHeight) {
             biggestEl = child;
             return false;
         }
