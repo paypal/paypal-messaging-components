@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV0000000GPL"></script>
+
+        <style>
+            body {
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+            @name: messages render on zoom level change
+            @viewport: 400x300
+            @pageScaleFactor: 0.5
+        -->
+        <div class="root">
+            <!-- Regular message render -->
+            <div class="message" data-test-visible="true"></div>
+
+            <!-- Container is too small -->
+            <div style="width: 50px;">
+                <div class="message" data-test-visible="false"></div>
+            </div>
+
+            <!-- Outer container is too small but inner container overflows allowing the message to be visible -->
+            <div style="width: 100px;">
+                <div style="width: 400px;">
+                    <div class="message" data-test-visible="true"></div>
+                </div>
+            </div>
+
+            <!-- Outer container hides overflowing content -->
+            <div style="width: 100px; overflow: hidden">
+                <div style="width: 500px;">
+                    <div class="message" data-test-visible="false"></div>
+                </div>
+            </div>
+
+            <!-- Message is partially offscreen -->
+            <div style="position: absolute; width: 400px; left: 50%;">
+                <div class="message" data-test-visible="false"></div>
+            </div>
+
+            <!-- Message is entirely offscreen (account for sliding menus) -->
+            <div style="position: fixed; width: 400px; left: 100%;">
+                <div class="message" data-test-visible="true"></div>
+            </div>
+        </div>
+        <script>
+            console.log('sizing', window.innerWidth, window.outerWidth);
+            const query = window.location.search.substring(1);
+            const mappedParams = query.split('&').reduce((accumulator, param) => {
+                const [key, value] = param.split('=');
+                accumulator[key] = decodeURIComponent(value);
+                return accumulator;
+            }, {});
+
+            const config = JSON.parse(mappedParams.config ?? '{}');
+
+            paypal.Message.render(config, '.message');
+        </script>
+    </body>
+</html>
