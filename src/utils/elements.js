@@ -365,12 +365,20 @@ export const elementOutside = (parentEl, childEl) => {
  */
 export const getRoot = baseElement => {
     const elementWindow = getWindowFromElement(baseElement);
+    // We are using getComputedStyle to determine the height sans padding.
+    const elHeight = element => Number(elementWindow.getComputedStyle(element).height.replace(/px/, ''));
+    let biggestEl;
 
     const domPath = [];
     {
         let el = baseElement;
         // Loop up the DOM tree to the root html node
         while (el?.parentNode.nodeType === Node.ELEMENT_NODE) {
+            // Find the biggest element of them all.
+            if (!biggestEl || elHeight(el) > elHeight(biggestEl)) {
+                biggestEl = el;
+            }
+
             // Skip elements that are collapsed due to various CSS rules
             // which causes an issue with determining the root element
             if (el.parentNode.offsetHeight !== 0) {
@@ -380,28 +388,12 @@ export const getRoot = baseElement => {
         }
     }
 
-    // Find the biggest element of them all.
-    // We are using getComputedStyle to determine the height sans padding.
-    const biggestEl = domPath
-        .filter(el => {
-            const parent = el.parentNode;
-            if (parent === document.documentElement || parent === document.body) {
-                return true;
-            }
-            return !(parent.scrollHeight > parent.clientHeight);
-        })
-        .sort(
-            (a, b) =>
-                Number(elementWindow.getComputedStyle(b).height.replace(/px/, '')) -
-                Number(elementWindow.getComputedStyle(a).height.replace(/px/, ''))
-        )[0];
-
     const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
         const height = el.offsetHeight;
-        const biggestElHeight = Number(elementWindow.getComputedStyle(biggestEl).height.replace(/px/, ''));
+        const biggestElHeight = elHeight(biggestEl);
         // window.innerHeight has a variable value on mobile based on the URL bar so
         // we are looking for the element that is larger than the window
         // TODO: This could potentially provide a false positive if a merchant is using height 100vh
