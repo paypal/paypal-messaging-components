@@ -365,20 +365,12 @@ export const elementOutside = (parentEl, childEl) => {
  */
 export const getRoot = baseElement => {
     const elementWindow = getWindowFromElement(baseElement);
-    // We are using getComputedStyle to determine the height sans padding.
-    const elHeight = element => Number(elementWindow.getComputedStyle(element).height.replace(/px/, ''));
-    let biggestEl;
 
     const domPath = [];
     {
         let el = baseElement;
         // Loop up the DOM tree to the root html node
         while (el?.parentNode.nodeType === Node.ELEMENT_NODE) {
-            // Find the biggest element of them all.
-            if (!biggestEl || elHeight(el) > elHeight(biggestEl)) {
-                biggestEl = el;
-            }
-
             // Skip elements that are collapsed due to various CSS rules
             // which causes an issue with determining the root element
             if (el.parentNode.offsetHeight !== 0) {
@@ -388,10 +380,21 @@ export const getRoot = baseElement => {
         }
     }
 
+    let biggestEl;
+    // We are using getComputedStyle to determine the height sans padding.
+    const elHeight = element => Number(elementWindow.getComputedStyle(element).height.replace(/px/, ''));
+
     const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
+
+        // Check if the next element is bigger than the current element and if so, save it and move on to the next element in the array
+        if (!biggestEl || (elements[index + 1] && elHeight(el) <= elHeight(elements[index + 1]))) {
+            biggestEl = elements[index + 1];
+            return false;
+        }
+
         const height = el.offsetHeight;
         const biggestElHeight = elHeight(biggestEl);
         // window.innerHeight has a variable value on mobile based on the URL bar so
