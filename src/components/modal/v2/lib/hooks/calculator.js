@@ -188,9 +188,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                 value:
                     localize(value, country, 2).length > 9 || value.length > 9
                         ? state.inputValue
-                        : value
-                              .replace(/[^\d.,]/g, '') // Replace non-numeric characters
-                              .replace(/([.,]\d{2})\d+$/, (_, p1) => p1), // Fix decimals to 2 places
+                        : value.replace(/[^\d.,]/g, ''),
                 autoSubmit
             }
         });
