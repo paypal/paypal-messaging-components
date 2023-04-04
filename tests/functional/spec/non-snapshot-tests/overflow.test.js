@@ -1,13 +1,22 @@
 import fs from 'fs';
 import setupTestPage from '../utils/setupTestPage';
 
-const runTest = async ({ testName, testPage = 'banner.html', config, viewport }) => {
+function setWindowDimensions({ width, height, zoom = 1 }) {
+    window.innerWidth = width / zoom;
+    window.innerHeight = height / zoom;
+    window.outerWidth = width;
+    window.outerHeight = height;
+}
+
+const runTest = async ({ testName, testPage = 'banner.html', config, viewport, pageScaleFactor }) => {
     // eslint-disable-next-line no-console
     console.log(`Running test [${testName}]`);
     page.on('pageerror', error => {
         // eslint-disable-next-line no-console
         console.log(`rerender.test page error for [${testName}]`, error);
     });
+
+    await page.evaluateOnNewDocument(setWindowDimensions, { ...viewport, zoom: pageScaleFactor });
 
     await page.setViewport(viewport);
 
@@ -41,6 +50,7 @@ describe('overflow detection', () => {
         const markup = fs.readFileSync(`demo/snapshot/overflow/${scenario}`, 'utf8');
         const [, name] = markup.match(/@name: (.+)/);
         const [, width, height] = markup.match(/@viewport: (\d+)x(\d+)/);
+        const [, pageScaleFactor] = markup.match(/@pageScaleFactor: (\d+\.\d+)/) ?? [];
 
         test(name, () =>
             runTest({
@@ -50,7 +60,8 @@ describe('overflow detection', () => {
                 viewport: {
                     width: Number(width),
                     height: Number(height)
-                }
+                },
+                pageScaleFactor: Number(pageScaleFactor ?? '1')
             })
         );
     });

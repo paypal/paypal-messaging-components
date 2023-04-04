@@ -164,7 +164,8 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                 entry.intersectionRatio > 0 &&
                                 !elementOutside(root ?? window, iframe)) ||
                                 // Round up for decimal values
-                                Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
+                                // Increment calculation +1 as a margin of error to account for fractional widths.
+                                Math.ceil(iframe.getBoundingClientRect().width + 1) < minWidth) &&
                             !isIntersectingFallback
                         ) {
                             logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
