@@ -12,6 +12,6 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
         }
     },
-    "headline": [[["Payez en 4 versements de 25,00€, sans frais."], ["default", "small"]]],
+    "headline": [[["Payez en 4 versements de {formattedPeriodicPayment}, sans frais."], ["default", "small"]]],
     "disclaimer": [["En savoir plus", ["default"]]]
 }

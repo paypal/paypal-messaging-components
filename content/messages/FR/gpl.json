@@ -13,6 +13,11 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-    "headline": [[["Payez en 4X sans frais pour les achats de 30€ à 2000€."], ["default", "small"]]],
+    "headline": [
+        [
+            ["Payez en 4X sans frais pour les achats de {formattedMinAmount} à {formattedMaxAmount}."],
+            ["default", "small"]
+        ]
+    ],
     "disclaimer": [["En savoir plus", ["default"]]]
 }
