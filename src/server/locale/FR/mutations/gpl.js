@@ -72,7 +72,10 @@ export default {
                     {
                         tag: 'default',
                         br: ['frais', 'achats'],
-                        replace: [['€.', '€']]
+                        replace: [
+                            ['€.', '€'],
+                            ['éligibles.', 'éligibles']
+                        ]
                     }
                 ]
             })
@@ -86,7 +89,10 @@ export default {
                     {
                         tag: 'default',
                         br: ['pour'],
-                        replace: [['€.', '€']]
+                        replace: [
+                            ['€.', '€'],
+                            ['éligibles.', 'éligibles']
+                        ]
                     }
                 ]
             })
