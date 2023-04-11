@@ -13,5 +13,6 @@
         }
     },
     "headline": [[["Payez en 4 versements de {formattedPeriodicPayment}, sans frais."], ["default", "small"]]],
+    "subheadline": [],
     "disclaimer": [["En savoir plus", ["default"]]]
 }
