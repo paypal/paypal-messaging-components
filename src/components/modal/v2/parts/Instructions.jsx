@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
+import { currencyFormat } from '../lib';
 
 const Instructions = ({ instructions, expandedState = false, className = '' }) => {
     const renderBullet = index => {
@@ -18,7 +19,7 @@ const Instructions = ({ instructions, expandedState = false, className = '' }) =
                         <li className="instructions__item-wrapper">
                             {renderBullet(index + 1)}
                             {/* eslint-disable-next-line react/no-danger */}
-                            <div dangerouslySetInnerHTML={{ __html: instruction }} />
+                            <div dangerouslySetInnerHTML={{ __html: currencyFormat(instruction) }} />
                         </li>
                     );
                 })}

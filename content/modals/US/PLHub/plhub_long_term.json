@@ -1,0 +1,42 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "US",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay Monthly",
+        "subheadline": "Get more time to pay, with no down payment or late fees.",
+        "calculator": {
+            "title": "How much is your purchase?",
+            "inputLabel": "Purchase amount",
+            "inputPlaceholder": "Enter amount",
+            "genericError": "Something went wrong. Please try again later."
+        },
+        "genericDisclaimer": "Terms may vary based on purchase amount.",
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
+            "Get a decision in seconds and complete your purchase.",
+            "Use autopay for your payments. It's easy!"
+        ],
+        "disclosure": [
+            "Pay Monthly is subject to consumer credit approval. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Offer availability depends on the merchant and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of AK, CO, HI, MA, NE, NV, NY, or TX. You must be of legal age in your U.S. state of residence. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): CT Small Loan Licensee. RI Loan Broker Licensee. VT Loan Solicitation Licensee. VT residents:",
+            ["Find more disclosures ", "https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later"],
+            "by going to PayPal's page on Pay Later."
+        ],
+        "linkToProductList": "See other ways to pay over time"
+    }
+}
