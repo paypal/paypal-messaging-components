@@ -12,7 +12,7 @@
             "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
         }
     },
-    "headline": [[["Payez en 4 versements de {formattedPeriodicPayment}, sans frais."], ["default", "small"]]],
+    "headline": [[["Payez en 4 échéances de {formattedPeriodicPayment}, sans frais."], ["default", "small"]]],
     "subheadline": [],
     "disclaimer": [["En savoir plus", ["default"]]]
 }
