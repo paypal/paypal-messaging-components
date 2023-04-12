@@ -97,7 +97,7 @@ export default {
         [
             'ratio:1x1',
             {
-                subHeadline: [{ tag: 'small', br: ['achats'] }],
+                headline: [{ tag: 'small', br: ['de'] }],
                 styles: [
                     `@media (min-width: 140px) {.message__headline {font-size: 9.5vw;} .message__sub-headline {font-size: 6vw;}`
                 ]
@@ -106,7 +106,7 @@ export default {
         [
             'ratio:1x4',
             {
-                subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
+                headline: [{ tag: 'small', br: ['échéances'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
             }
         ],

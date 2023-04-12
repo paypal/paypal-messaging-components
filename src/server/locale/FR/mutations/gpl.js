@@ -118,25 +118,31 @@ export default {
         [
             'ratio:1x1',
             {
-                subHeadline: [{ tag: 'small', br: ['achats'] }]
+                headline: [{ tag: 'small', br: ['achats'] }]
             }
         ],
         [
             'ratio:1x4',
             {
-                subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }]
+                headline: [{ tag: 'small', br: ['pour'] }]
             }
         ],
         [
             'ratio:6x1',
             {
-                subHeadline: [{ tag: 'small', br: ['les'] }]
+                headline: [{ tag: 'small', br: ['les'] }]
+            }
+        ],
+        [
+            'ratio:8x1',
+            {
+                headline: [{ tag: 'small', br: ['les'] }]
             }
         ],
         [
             'ratio:20x1',
             {
-                headline: [{ tag: 'xsmall', br: ['les'] }],
+                headline: [{ tag: 'small', br: ['les'] }],
                 styles: [logo20x1()]
             }
         ],
