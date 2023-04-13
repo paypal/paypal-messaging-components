@@ -118,19 +118,19 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: [{ tag: 'small', br: ['achats'] }]
+                subHeadline: [{ tag: 'small', br: ['achats'] }]
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: [{ tag: 'small', br: ['pour'] }]
+                subHeadline: [{ tag: 'small', br: ['pour'] }]
             }
         ],
         [
             'ratio:6x1',
             {
-                headline: [{ tag: 'small', br: ['les'] }]
+                subHeadline: [{ tag: 'small', br: ['les'] }]
             }
         ],
         [

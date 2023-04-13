@@ -97,16 +97,23 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: [{ tag: 'small', br: ['de'] }],
+                subHeadline: [{ tag: 'small', br: ['de'] }],
                 styles: [
-                    `@media (min-width: 140px) {.message__headline {font-size: 9.5vw;} .message__sub-headline {font-size: 6vw;}`
+                    `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
                 ]
             }
         ],
         [
             'ratio:1x4',
             {
-                headline: [{ tag: 'small', br: ['échéances'] }],
+                subHeadline: [{ tag: 'small', br: ['échéances'] }],
+                styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
+            }
+        ],
+        [
+            'ratio:6x1',
+            {
+                subHeadline: [{ tag: 'small', br: ['échéances'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
             }
         ],
