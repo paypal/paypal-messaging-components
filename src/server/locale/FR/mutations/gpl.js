@@ -109,7 +109,7 @@ export default {
                         tag: 'xsmall'
                     },
                     {
-                        tag: 'medium'
+                        tag: 'default'
                     }
                 ],
                 disclaimer: ['default']
@@ -124,7 +124,8 @@ export default {
         [
             'ratio:1x4',
             {
-                subHeadline: [{ tag: 'small', br: ['pour'] }]
+                headline: [{ tag: 'small', br: ['pour'] }],
+                subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }]
             }
         ],
         [
