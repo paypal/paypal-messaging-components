@@ -1,19 +1,10 @@
 export const DEV_US_SHORT_TERM_PL2GO = {
-    testFileName: 'shortTerm',
+    testFileName: 'shortTermPL2GO',
     country: 'US',
-    description: 'US merchant eligible for short term only',
+    description: 'US merchant showing short term Pay Later to Go content',
     minAmount: 30,
     maxAmount: 1500,
     amounts: [
-        {
-            value: '0.00',
-            message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Pay in 4 interest-free payments on qualifying purchases',
-            modalContent: {
-                subheadline: 'No impact on credit score and no late fees. Available for purchases of $30 to $1,500.',
-                periodicPayment: null
-            }
-        },
         {
             value: '30.00',
             message: 'Qualifying Pay in 4',
