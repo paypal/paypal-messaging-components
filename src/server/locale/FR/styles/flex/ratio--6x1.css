@@ -103,19 +103,4 @@
     .message__logo:nth-of-type(2) {
         display: inline;
     }
-    .message__headline > .tag--xsmall {
-        font-size: 11px;
-    }
-
-    .message__headline > .tag--xsmall {
-        font-size: 11px;
-    }
-
-    .message__headline > .tag--xsmall > span > .br:first-child {
-        display: inline;
-    }
-
-    .message__headline > .tag--xsmall > span > .br:nth-child(2) {
-        display: inline;
-    }
 }
