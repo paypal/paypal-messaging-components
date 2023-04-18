@@ -28,11 +28,15 @@ const BodyContent = () => {
         }
 
         let defaultViewName;
+
         const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
+        const hasProductList = views.find(view => view?.meta?.product === 'PRODUCT_LIST');
         if (productViews?.length === 1) {
             defaultViewName = productViews[0]?.meta?.product;
-        } else if (productViews?.length > 1) {
+        } else if (productViews?.length > 1 && hasProductList) {
             defaultViewName = 'PRODUCT_LIST';
+        } else if (productViews?.length > 1 && !hasProductList) {
+            defaultViewName = productViews[0]?.meta?.product;
         }
 
         return defaultViewName;
