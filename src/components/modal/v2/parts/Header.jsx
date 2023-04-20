@@ -64,12 +64,12 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 {/* eslint-disable-next-line react/no-danger */}
                 <h2 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subhead_p subheadline-${countryClassName} qualifying`}>
+                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subhead_p subheadline-${countryClassName}`}
+                        className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
                     />
