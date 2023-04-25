@@ -35,7 +35,6 @@ const Donut = ({
 
     return (
         <div
-            aria-hidden="true"
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
@@ -56,8 +55,9 @@ const Donut = ({
                     {isQualifying}
                 </text>
             </svg>
-            {isQualifying && periodicPayment !== '-' && <span className="donut__payment">{periodicPayment}</span>}
-            <span className="donut__timestamp">{timeStamp}</span>
+            <span className="donut__payment">
+                {isQualifying && periodicPayment !== '-' ? `${periodicPayment}\n ${timeStamp}` : timeStamp}
+            </span>
         </div>
     );
 };

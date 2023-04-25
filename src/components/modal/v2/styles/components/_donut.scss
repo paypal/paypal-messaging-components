@@ -80,6 +80,7 @@ $grey600: #888;
             color: $text-main;
             font-size: 0.9rem;
             margin-top: 0.3rem;
+            white-space: pre-line;
 
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
