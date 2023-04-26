@@ -12,14 +12,15 @@ const InlineLinks = ({ text }) => {
     }
     return text.map(textChunk => {
         if (Array.isArray(textChunk)) {
-            const [linkText, linkUrl] = textChunk;
+            const [linkText, linkUrl, linkLabel] = textChunk;
             if (typeof linkUrl !== 'undefined') {
                 // if the next chunk is an array with two strings, use the second string as the href for the first
                 return (
                     // class name is singular because it is applied to a single link
 
                     <a
-                        aria-label={`${linkText}, opens new tab.`}
+                        // Fallback can be removed after all translations added to the content
+                        aria-label={linkLabel ?? `${linkText}, opens new tab.`}
                         target="__blank"
                         className="inline-link"
                         href={linkUrl}
