@@ -45,7 +45,7 @@
         ],
         "disclosure": [
             [
-                "Disponibile solo su acquisti idonei da {formattedMinAmount} a {formattedMaxAmount}. Devi essere residente in Italia e avere un conto PayPal. <strong>TAEG 0%</strong>. L’idoneità di Paga in 3 rate è soggetta ad approvazione. Consulta il "
+                "Disponibile solo su acquisti idonei da {formattedMinAmount} a {formattedMaxAmount}. Devi essere residente in Italia e avere un conto PayPal. <strong>TAEG 0%</strong>. L’idoneità di Paga in 3 rate è soggetta ad approvazione. Consulta il"
             ],
             ["foglio informativo", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=it_IT"],
             ["e i"],
