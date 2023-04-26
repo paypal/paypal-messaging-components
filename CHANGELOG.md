@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.41.0](https://github.com/paypal/paypal-messaging-components/compare/v1.40.4...v1.41.0) (2023-04-18)
+
+
+### Features
+
+* support PL2GO and the PL Hub in the universal modal ([#922](https://github.com/paypal/paypal-messaging-components/issues/922)) ([#924](https://github.com/paypal/paypal-messaging-components/issues/924)) ([6c1de75](https://github.com/paypal/paypal-messaging-components/commit/6c1de7556d8df017f88219fa74936ae9dda5e4ba))
+
 ### [1.40.4](https://github.com/paypal/paypal-messaging-components/compare/v1.40.3...v1.40.4) (2023-04-04)
 
 
