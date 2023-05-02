@@ -4,7 +4,15 @@ import { useState } from 'preact/hooks';
 import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
-const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyingSubheadline, viewName }) => {
+const Header = ({
+    headline,
+    subheadline,
+    logo,
+    isQualifying = 'false',
+    qualifyingSubheadline,
+    closeButtonLabel = 'Close',
+    viewName
+}) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
     const [isScrolled, setScrolled] = useState(false);
@@ -45,7 +53,7 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
                         className="close"
-                        aria-label="Close"
+                        aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
                         onClick={() => handleClose('Close Button')}
@@ -61,15 +69,20 @@ const Header = ({ headline, subheadline, logo, isQualifying = 'false', qualifyin
                 <Icon name={`${viewName}-desktop`} />
                 <Icon name={`${viewName}-mobile`} />
                 {/* <Icon name="background-pp-mobile" /> */}
-                {/* eslint-disable-next-line react/no-danger */}
-                <h2 className={`headline-${countryClassName}`} dangerouslySetInnerHTML={{ __html: headline }} />
+                <h2
+                    // id used for aria-labelleby on modal container element
+                    id="header__headline"
+                    className={`headline-${countryClassName}`}
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: headline }}
+                />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <h3 className={`subheadline-${countryClassName} qualifying`}>
+                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
-                    </h3>
+                    </p>
                 ) : (
-                    <h3
-                        className={`subheadline-${countryClassName}`}
+                    <p
+                        className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
                     />
