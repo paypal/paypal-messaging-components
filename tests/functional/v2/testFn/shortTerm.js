@@ -1,7 +1,7 @@
 import { selectors, modalSnapshot } from '../utils/index';
 
 const {
-    modal: { contentWrapper, contentRow, headerContent, h3 },
+    modal: { contentWrapper, contentRow, headerContent, subheadlineContent },
     shortTerm: {
         donuts: { periodicPayment }
     }
@@ -12,8 +12,8 @@ const {
  */
 export const openShortTermView = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
-    await contentWindow.waitForSelector(`${headerContent} > ${h3}`);
-    const subheadline = await contentWindow.$eval(h3, element => element.innerText);
+    await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
+    const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
     expect(subheadline).toContain(modalContent.subheadline);
     await modalSnapshot(testName, contentWindow);
