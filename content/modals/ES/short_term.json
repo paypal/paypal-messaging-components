@@ -40,14 +40,14 @@
             "Los pagos restantes se hacen automáticamente. ¡Es fácil!"
         ],
         "disclosure": [
-            "Disponible para compras de entre {formattedMinAmount} y {formattedMaxAmount}. Debes residir en España y tener una cuenta de PayPal. Ejemplo representativo: TAE 0%. TIN 0%. Importe de adquisición al contado y precio total a plazos: 165 €. Plazo: 2 meses. 3 cuotas de 55 € con vencimientos mensuales, con el primer vencimiento en el momento de la compra. Sujeto a la aprobación por parte de PayPal. Consulta",
+            "Disponible para compras de entre {formattedMinAmount} y {formattedMaxAmount}. Debes residir en España y tener una cuenta de PayPal. Ejemplo representativo: <strong>TAE 0%</strong>. TIN 0%. Importe de adquisición al contado y precio total a plazos: 165 €. Plazo: 2 meses. 3 cuotas de 55 € con vencimientos mensuales, con el primer vencimiento en el momento de la compra. Sujeto a la aprobación por parte de PayPal. Consulta",
             [
                 "el documento de información previa",
                 "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=es_ES"
             ],
             " y ",
             ["los términos y condiciones", "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-full?locale.x=es_ES"],
-            "para más información. Disponible solo para clientes mayores de 18 de años. Tienes un plazo de 14 días para desistir de tu crédito. El prestamista es PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. Un crédito es un compromiso vinculante que debe ser reembolsado. Asegúrate de verificar tu capacidad de reembolso antes de comprometerte. Esta información es proporcionada por PayPal."
+            "para más información. Disponible solo para clientes mayores de 18 años. Tienes un plazo de 14 días para desistir de tu crédito. El prestamista es PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. Un crédito es un compromiso vinculante que debe ser reembolsado y puede afectar a tu historial crediticio. Asegúrate de verificar tu capacidad de reembolso antes de comprometerte. Esta información es proporcionada por PayPal."
         ]
     }
 }
