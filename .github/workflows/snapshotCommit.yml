@@ -17,7 +17,7 @@ jobs:
               with:
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
-                  token: ${{ secrets.COMMIT_TOKEN }}
+                  token: ${{ secrets.SNAPSHOTS_PAT }}
 
             - name: Download Artifacts
               uses: actions/github-script@v3.1.0
