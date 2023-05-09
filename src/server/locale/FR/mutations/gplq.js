@@ -87,7 +87,7 @@ export default {
                         tag: 'xsmall'
                     },
                     {
-                        tag: 'medium'
+                        tag: 'default'
                     }
                 ],
                 subHeadline: [{ tag: 'small', br: ['paiement en 4X.'] }],
@@ -97,22 +97,32 @@ export default {
         [
             'ratio:1x1',
             {
+                headline: [{ tag: 'small', br: ['de'] }],
                 subHeadline: [{ tag: 'small', br: ['achats'] }],
                 styles: [
-                    `@media (min-width: 140px) {.message__headline {font-size: 9.5vw;} .message__sub-headline {font-size: 6vw;}`
+                    `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
                 ]
             }
         ],
         [
             'ratio:1x4',
             {
+                headline: [{ tag: 'small', br: ['de'] }],
                 subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
+                styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
+            }
+        ],
+        [
+            'ratio:6x1',
+            {
+                headline: [{ tag: 'small', br: ['de'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
             }
         ],
         [
             'ratio:8x1',
             {
+                headline: [{ tag: 'small', br: ['de'] }],
                 styles: [
                     `@media (min-aspect-ratio: 80/11) and (min-width: 501px) {.message__disclaimer > span > span {
                     margin-left: 4px;
@@ -123,6 +133,7 @@ export default {
         [
             'ratio:20x1',
             {
+                headline: [{ tag: 'small', br: ['de'] }],
                 styles: [logo20x1()]
             }
         ],
