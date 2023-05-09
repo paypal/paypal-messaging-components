@@ -3,6 +3,7 @@
         display: inline;
         padding-right: 0;
         margin-right: 0;
+        line-height: 2em;
     }
 
     .message__headline .tag--medium .br:first-child {
@@ -23,7 +24,6 @@
 
     .message__disclaimer {
         vertical-align: super;
-        margin-left: 4px;
     }
 }
 
@@ -61,6 +61,7 @@
 
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
     .message__headline {
+        font-size: 10px;
         line-height: 1.1rem;
     }
 }

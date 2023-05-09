@@ -72,10 +72,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['frais', 'achats'],
-                        replace: [
-                            ['€.', '€'],
-                            ['éligibles.', 'éligibles']
-                        ]
+                        replace: [['€.', '€']]
                     }
                 ]
             })
@@ -89,10 +86,7 @@ export default {
                     {
                         tag: 'default',
                         br: ['pour'],
-                        replace: [
-                            ['€.', '€'],
-                            ['éligibles.', 'éligibles']
-                        ]
+                        replace: [['€.', '€']]
                     }
                 ]
             })
@@ -109,7 +103,7 @@ export default {
                         tag: 'xsmall'
                     },
                     {
-                        tag: 'default'
+                        tag: 'medium'
                     }
                 ],
                 disclaimer: ['default']
@@ -124,7 +118,6 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: [{ tag: 'small', br: ['pour'] }],
                 subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }]
             }
         ],
@@ -135,15 +128,9 @@ export default {
             }
         ],
         [
-            'ratio:8x1',
-            {
-                headline: [{ tag: 'small', br: ['les'] }]
-            }
-        ],
-        [
             'ratio:20x1',
             {
-                headline: [{ tag: 'small', br: ['les'] }],
+                headline: [{ tag: 'xsmall', br: ['les'] }],
                 styles: [logo20x1()]
             }
         ],
