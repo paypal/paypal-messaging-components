@@ -23,11 +23,6 @@
     white-space: nowrap;
 }
 
-.message__disclaimer > span > span:only-child,
-.message__disclaimer > span > span.em {
-    text-decoration: underline;
-}
-
 .message__logo:nth-of-type(1) {
     width: 27px;
     display: inline-block;

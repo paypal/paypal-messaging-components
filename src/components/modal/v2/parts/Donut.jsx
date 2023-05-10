@@ -35,7 +35,6 @@ const Donut = ({
 
     return (
         <div
-            aria-hidden="true"
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             }`}
@@ -56,8 +55,16 @@ const Donut = ({
                     {isQualifying}
                 </text>
             </svg>
-            {isQualifying && periodicPayment !== '-' && <span className="donut__payment">{periodicPayment}</span>}
-            <span className="donut__timestamp">{timeStamp}</span>
+            {/* Required to read the payment and date details together. Spans and linebreaks cause a pause when stepping */}
+            {/* through the content. Using a p tag instead of span to cause pause in Windows */}
+            <p className="sr-only">
+                {/* Space required between periodicPayment and the comma to read the monetary value correctly */}
+                {isQualifying && periodicPayment !== '-' ? `${periodicPayment} , ${timeStamp}` : timeStamp}
+            </p>
+            <span aria-hidden="true">
+                {isQualifying && periodicPayment !== '-' && <span className="donut__payment">{periodicPayment}</span>}
+                <span className="donut__timestamp">{timeStamp}</span>
+            </span>
         </div>
     );
 };

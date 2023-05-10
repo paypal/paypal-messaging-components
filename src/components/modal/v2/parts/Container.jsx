@@ -101,7 +101,13 @@ const Container = ({ children }) => {
                 >
                     {/* Scrollable content */}
                     {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
-                    <div className="content__wrapper" ref={!!(!isLander || isIframe) && contentWrapperRef}>
+                    <div
+                        className="content__wrapper"
+                        ref={!!(!isLander || isIframe) && contentWrapperRef}
+                        role={isIframe ? 'dialog' : undefined}
+                        aria-modal={isIframe ? 'true' : undefined}
+                        aria-labelledby={isIframe ? 'header__headline' : undefined}
+                    >
                         {children}
                     </div>
                 </div>

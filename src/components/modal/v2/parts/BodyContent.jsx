@@ -46,7 +46,7 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const { headline, subheadline, qualifyingSubheadline = '' } = content;
+    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
     const isQualifying = productMeta?.qualifying;
 
     const openProductList = () => setViewName('PRODUCT_LIST');
@@ -91,6 +91,7 @@ const BodyContent = () => {
                 subheadline={subheadline}
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
+                closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
             />
             <div className="content__container">

@@ -7,7 +7,7 @@ const {
         contentWrapper,
         headerContent,
         h2,
-        h3,
+        subheadlineContent,
         button: { close, productList }
     },
     productList: { tile },
@@ -73,8 +73,8 @@ export const viewsShareAmount = async (contentWindow, testName) => {
     await contentWindow.click(`${tile}:nth-child(2)`);
     await page.waitFor(2 * 1000);
 
-    await contentWindow.waitForSelector(`${headerContent} > ${h3}`);
-    const subheadline = await contentWindow.$eval(h3, element => element.innerText);
+    await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
+    const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
     await contentWindow.waitForSelector(productList);
     await contentWindow.click(productList);
