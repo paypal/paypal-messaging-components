@@ -22,5 +22,8 @@
         ]
     ],
     "subHeadline": [],
-    "disclaimer": [["Scopri di più", ["default"]]]
+    "disclaimer": [
+        [["TAEG 0%."], ["xsmall"]],
+        ["Scopri di più", ["default"]]
+    ]
 }
