@@ -125,7 +125,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         // If we see new offer terms, which match the amount prop, but the value in the input does not match
         // This means the amount changed outside the modal, so we update the offer terms
         // we want to update the inputValue, so force autoSubmit: false
-        if (viewWithOffersAmount === amount && delocalize(state.inputValue, country) !== amount) {
+        if (
+            // Instead of comparing equality, check for a small delta difference of a cent since the amount
+            // provided could be a value resulted from JavaScript math where the value has floating point
+            // precision issues (e.g. 100.000000000001)
+            Math.abs(viewWithOffersAmount - amount) < 0.01 &&
+            Math.abs(delocalize(state.inputValue, country) - amount) >= 0.01
+        ) {
             dispatch({
                 type: 'view',
                 data: {

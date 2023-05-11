@@ -45,13 +45,13 @@
         ],
         "disclosure": [
             [
-                "Disponibile solo su acquisti idonei da {formattedMinAmount} a {formattedMaxAmount}. L’idoneità di Paga in 3 rate è soggetta ad approvazione. Consulta il"
+                "Disponibile solo su acquisti idonei da {formattedMinAmount} a {formattedMaxAmount}. Devi essere residente in Italia e avere un conto PayPal. <strong>TAEG 0%</strong>. L’idoneità di Paga in 3 rate è soggetta ad approvazione. Consulta il"
             ],
             ["foglio informativo", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=it_IT"],
             ["e i"],
             ["termini e le condizioni", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-full?locale.x=it_IT"],
             [
-                "per maggiori informazioni. Finanziamento con acconto richiesto. Disponibile solo per clienti persone fisiche residenti in Italia. Finanziamento di due mesi. Hai un periodo di 14 giorni per recedere dal tuo finanziamento. Il creditore è PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Un finanziamento è un impegno vincolante che deve essere rimborsato e può influenzare il tuo merito creditizio. Assicurati di essere in grado di ripagare prima di prendere un impegno."
+                "per maggiori informazioni. Disponibile solo per clienti persone fisiche maggiorenni. Hai un periodo di 14 giorni per recedere dal tuo finanziamento. Il creditore è PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Un finanziamento è un impegno vincolante che deve essere rimborsato e può influenzare il tuo merito creditizio. Assicurati di essere in grado di ripagare prima di prendere un impegno. Queste informazioni sono fornite da PayPal."
             ]
         ]
     }

@@ -11,13 +11,14 @@ jobs:
         name: Commit Snapshots
         if: github.event.workflow_run.conclusion == 'success'
         runs-on: ubuntu-latest
+        permissions:
+          contents: write
         steps:
             - name: Checkout repo
               uses: actions/checkout@v3
               with:
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
-                  token: ${{ secrets.COMMIT_TOKEN }}
 
             - name: Download Artifacts
               uses: actions/github-script@v3.1.0

@@ -45,11 +45,6 @@
         transform: translateY(-40px);
     }
 
-    .message__headline {
-        font-size: 20px;
-        line-height: 30px;
-    }
-
     .message__sub-headline {
         display: none;
     }
