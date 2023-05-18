@@ -92,7 +92,7 @@ describe('message interface', () => {
         container.setAttribute('data-pp-amount', 100);
 
         // // Wait for mutation event to fire
-        await new Promise(resolve => process.nextTick(resolve));
+        await new Promise(resolve => setTimeout(resolve, 250));
 
         expect(getMessageComponent()().render).toHaveBeenCalledTimes(1);
         expect(getMessageComponent()().updateProps).toHaveBeenCalledTimes(1);
