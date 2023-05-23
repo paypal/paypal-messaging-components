@@ -153,8 +153,9 @@ export default {
                     basicMediaQuery(textSize * 20),
                     altContentMediaQuery(textSize * 45),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `@media screen and (max-width: ${textSize *
-                        44.93}px) { .locale--US .message__logo > img { top:2.3px; }}`,
+                    `@media screen and (max-width: ${
+                        textSize * 44.93
+                    }px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 43, textSize, 'US'),
                     `.message__headline span:only-child { white-space: normal; }`
                 ],

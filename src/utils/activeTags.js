@@ -21,10 +21,7 @@ const getTagSize = node => {
 
     const visibleElement = arrayFind(
         arrayFrom(node.children),
-        element =>
-            getWindowFromElement(node)
-                .getComputedStyle(element)
-                .getPropertyValue('display') !== 'none'
+        element => getWindowFromElement(node).getComputedStyle(element).getPropertyValue('display') !== 'none'
     );
 
     if (!visibleElement) {

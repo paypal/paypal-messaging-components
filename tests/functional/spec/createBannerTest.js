@@ -33,10 +33,7 @@ const getConfigStrParts = (obj, keyPrefix = '') => {
     }, []);
 };
 
-const getConfigStr = obj =>
-    getConfigStrParts(obj)
-        .sort()
-        .join('_');
+const getConfigStr = obj => getConfigStrParts(obj).sort().join('_');
 
 const getTestNameParts = (locale, { account, amount, style: { layout, ...style } }) => {
     // eslint-disable-next-line no-param-reassign

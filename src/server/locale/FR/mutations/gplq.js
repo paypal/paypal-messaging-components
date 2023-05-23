@@ -41,8 +41,9 @@ export default {
                     textWrap(textSize * 32, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    `@media screen and (max-width: ${textSize *
-                        7.5}px) { message__content, .locale--FR  .message__messaging { white-space: nowrap; }}`
+                    `@media screen and (max-width: ${
+                        textSize * 7.5
+                    }px) { message__content, .locale--FR  .message__messaging { white-space: nowrap; }}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })

@@ -100,8 +100,9 @@ export default {
                     ...defaultTextStyles,
                     altContentMediaQuery(textSize * 35.8),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `@media screen and (max-width: ${textSize *
-                        35.78}px) { .locale--US .message__logo > img { top:2.3px; }}`,
+                    `@media screen and (max-width: ${
+                        textSize * 35.78
+                    }px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 33, textSize, 'US')
                 ]
             })

@@ -157,6 +157,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                 </div>
             );
         }
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <Fragment />;
     };
 
@@ -196,6 +197,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
             ) : (
+                // eslint-disable-next-line react/jsx-no-useless-fragment
                 <Fragment />
             )}
             {country === 'US' && (

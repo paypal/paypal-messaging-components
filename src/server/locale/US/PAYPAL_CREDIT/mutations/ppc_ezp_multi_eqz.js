@@ -108,8 +108,9 @@ export default {
                 styles: [
                     altContentMediaQuery(textSize * 29.1),
                     `.message__logo-container { width: ${textSize * 5}px }`,
-                    `@media screen and (max-width: ${textSize *
-                        29.08}px) { .locale--US .message__logo > img { top:2.3px; }}`,
+                    `@media screen and (max-width: ${
+                        textSize * 29.08
+                    }px) { .locale--US .message__logo > img { top:2.3px; }}`,
                     textWrap(textSize * 27, textSize, 'US')
                 ],
                 logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR

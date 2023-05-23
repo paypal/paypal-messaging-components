@@ -105,31 +105,29 @@ export const LongTerm = ({
 
         if (typeof cta !== 'undefined') {
             return (
-                <Fragment>
-                    <div className="button__container">
-                        {isQualifyingAmount ? (
-                            <Button
-                                onClick={() => {
-                                    onClick({ linkName: eligibleClickTitle });
-                                    onClose({ linkName: eligibleClickTitle });
-                                }}
-                                className="cta"
-                            >
-                                {cta.buttonTextEligible}
-                            </Button>
-                        ) : (
-                            <Button
-                                onClick={() => {
-                                    onClick({ linkName: ineligibleClickTitle });
-                                    onClose({ linkName: ineligibleClickTitle });
-                                }}
-                                className="cta"
-                            >
-                                {cta.buttonTextIneligible}
-                            </Button>
-                        )}
-                    </div>
-                </Fragment>
+                <div className="button__container">
+                    {isQualifyingAmount ? (
+                        <Button
+                            onClick={() => {
+                                onClick({ linkName: eligibleClickTitle });
+                                onClose({ linkName: eligibleClickTitle });
+                            }}
+                            className="cta"
+                        >
+                            {cta.buttonTextEligible}
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={() => {
+                                onClick({ linkName: ineligibleClickTitle });
+                                onClose({ linkName: ineligibleClickTitle });
+                            }}
+                            className="cta"
+                        >
+                            {cta.buttonTextIneligible}
+                        </Button>
+                    )}
+                </div>
             );
         }
         if (views?.length > 2) {
@@ -142,6 +140,7 @@ export const LongTerm = ({
                 </Fragment>
             );
         }
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <Fragment />;
     };
 
