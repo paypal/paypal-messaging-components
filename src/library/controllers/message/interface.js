@@ -63,6 +63,7 @@ export default (options = {}) => ({
                 validContainers.map(container => {
                     /* eslint-disable-next-line  promise/no-native, compat/compat */
                     return new Promise((resolve, reject) => {
+                        // Asynchronous code does’t work inside of a mapped array so the setTimeout is waiting for the browser to be ready
                         setTimeout(() => {
                             try {
                                 const merchantOptions = objectMerge(
