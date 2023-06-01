@@ -60,11 +60,11 @@ export default (options = {}) => ({
         return awaitTreatments.then(() =>
             /* eslint-disable-next-line  promise/no-native, compat/compat */
             Promise.all(
-                validContainers.map(container => {
+                validContainers.map((container, mapIndex) => {
                     /* eslint-disable-next-line  promise/no-native, compat/compat */
                     return new Promise((resolve, reject) => {
-                        // Asynchronous code does’t work inside of a mapped array so the setTimeout is waiting for the browser to be ready
-                        setTimeout(() => {
+                        // return resolved render and updateProps
+                        const resolvePromise = () => {
                             try {
                                 const merchantOptions = objectMerge(
                                     getGlobalState().config,
@@ -210,7 +210,24 @@ export default (options = {}) => ({
                                 }
                                 return reject(err);
                             }
-                        });
+                        };
+
+                        // use requestIdleCallback if it works
+                        const checkIdleCallback = () => {
+                            // check that requestIdleCallback is available
+                            if (window?.requestIdleCallback) {
+                                window?.requestIdleCallback(resolvePromise);
+                            } else {
+                                // Asynchronous code does’t work inside of a mapped array so the setTimeout is waiting for the browser to be ready
+                                setTimeout(resolvePromise, 1);
+                            }
+                        };
+
+                        if (mapIndex) {
+                            checkIdleCallback(resolvePromise);
+                        } else {
+                            resolvePromise();
+                        }
                     });
                 })
             )
