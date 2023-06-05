@@ -61,10 +61,10 @@ export default (options = {}) => ({
             /* eslint-disable-next-line  promise/no-native, compat/compat */
             Promise.all(
                 validContainers.map((container, mapIndex) => {
-                    /* eslint-disable-next-line  promise/no-native, compat/compat */
+                    /* eslint-disable-next-line  promise/no-native, compat/compat, consistent-return */
                     return new Promise((resolve, reject) => {
                         // return resolved render and updateProps
-                        const resolvePromise = () => {
+                        const renderOrUpdateMessage = () => {
                             try {
                                 const merchantOptions = objectMerge(
                                     getGlobalState().config,
@@ -170,9 +170,7 @@ export default (options = {}) => ({
 
                                     return render(container)
                                         .then(() => globalEvent.trigger('render'))
-                                        .then(() => {
-                                            resolve();
-                                        });
+                                        .then(resolve);
                                 }
 
                                 const { updateProps, state } = messagesMap.get(container);
@@ -198,35 +196,28 @@ export default (options = {}) => ({
 
                                 return updateProps(updatedMessageProps)
                                     .then(() => globalEvent.trigger('render'))
-                                    .then(() => {
-                                        resolve();
-                                    });
+                                    .then(resolve);
                             } catch (err) {
                                 // We only want console.warn to be called once
                                 // check for the known error offer_validation_error and if it’s not that error then we should throw the error again so it gets surfaced
                                 //  catch that known/safe error, but allow any other errors to escape through
                                 if (err.message === 'offer_validation_error') {
-                                    return undefined;
+                                    return resolve();
                                 }
                                 return reject(err);
                             }
                         };
 
-                        // use requestIdleCallback if it works
-                        const checkIdleCallback = () => {
-                            // check that requestIdleCallback is available
-                            if (window?.requestIdleCallback) {
-                                window?.requestIdleCallback(resolvePromise);
-                            } else {
-                                // Asynchronous code does’t work inside of a mapped array so the setTimeout is waiting for the browser to be ready
-                                setTimeout(resolvePromise, 1);
-                            }
-                        };
+                        if (mapIndex === 0) {
+                            return renderOrUpdateMessage();
+                        }
 
-                        if (mapIndex) {
-                            checkIdleCallback(resolvePromise);
+                        if (window.requestIdleCallback) {
+                            // check that requestIdleCallback is available
+                            window.requestIdleCallback(renderOrUpdateMessage);
                         } else {
-                            resolvePromise();
+                            // basic fallback for Safari
+                            setTimeout(renderOrUpdateMessage, mapIndex * 20);
                         }
                     });
                 })
