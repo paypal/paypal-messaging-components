@@ -68,8 +68,8 @@ describe('Message', () => {
         xPropsMock.clear();
     });
 
-    test('Renders the button with styles', async () => {
-        const button = await Message(serverData);
+    test('Renders the button with styles', () => {
+        const button = Message(serverData);
         const styles = [];
         Object.keys(button.style).forEach(row => {
             if (!Number.isNaN(Number(row)) && button.style[row] !== undefined) {
@@ -83,14 +83,13 @@ describe('Message', () => {
         );
     });
 
-    test('Renders the server markup', async () => {
-        const button = await Message(serverData);
-        const messageDocument = await document.body.appendChild(button);
+    test('Renders the server markup', () => {
+        const messageDocument = document.body.appendChild(Message(serverData));
         expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
     });
 
-    test('Fires onReady xProp after render', async () => {
-        await Message(serverData);
+    test('Fires onReady xProp after render', () => {
+        Message(serverData);
 
         expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
@@ -102,8 +101,8 @@ describe('Message', () => {
         });
     });
 
-    test('Fires onClick xProp when clicked', async () => {
-        const button = await Message(serverData);
+    test('Fires onClick xProp when clicked', () => {
+        const button = Message(serverData);
 
         fireEvent.click(button);
         expect(window.xprops.onClick).toHaveBeenCalledTimes(1);
@@ -112,8 +111,8 @@ describe('Message', () => {
         });
     });
 
-    test('Fires onHover xProp when hovered', async () => {
-        const button = await Message(serverData);
+    test('Fires onHover xProp when hovered', () => {
+        const button = Message(serverData);
 
         fireEvent.mouseOver(button);
 
@@ -124,8 +123,7 @@ describe('Message', () => {
     });
 
     test('Fires onMarkup and onReady on complete re-render', async () => {
-        const button = await Message(serverData);
-        const messageDocument = document.body.appendChild(button);
+        const messageDocument = document.body.appendChild(Message(serverData));
 
         const originalMRID = 'uid_xxxxxxxxxx_xxxxxxxxxxx';
 
@@ -177,10 +175,10 @@ describe('Message', () => {
         });
     });
 
-    test('Passed deviceID from iframe storage to callback', async () => {
+    test('Passed deviceID from iframe storage to callback', () => {
         getDeviceID.mockReturnValue('uid_1111111111_11111111111');
 
-        await Message(serverData);
+        Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {},
