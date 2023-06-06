@@ -58,11 +58,9 @@ export default (options = {}) => ({
         });
 
         return awaitTreatments.then(() =>
-            /* eslint-disable-next-line  promise/no-native, compat/compat */
-            Promise.all(
+            ZalgoPromise.all(
                 validContainers.map((container, mapIndex) => {
-                    /* eslint-disable-next-line  promise/no-native, compat/compat, consistent-return */
-                    return new Promise((resolve, reject) => {
+                    return new ZalgoPromise((resolve, reject) => {
                         // return resolved render and updateProps
                         const renderOrUpdateMessage = () => {
                             try {
@@ -209,7 +207,8 @@ export default (options = {}) => ({
                         };
 
                         if (mapIndex === 0) {
-                            return renderOrUpdateMessage();
+                            renderOrUpdateMessage();
+                            return;
                         }
 
                         if (window.requestIdleCallback) {
