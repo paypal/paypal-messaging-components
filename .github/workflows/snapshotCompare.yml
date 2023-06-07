@@ -24,12 +24,12 @@ jobs:
             - id: setTestPathPatterns
               name: Set test path patterns
               run: |
-                  echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
+                  echo "testPathPatterns=$(./.github/scripts/getTestPathPatterns.sh)" >> $GITHUB_OUTPUT
 
             - id: setTestConfigs
               name: Set test config environment variables
               run: |
-                  echo "::set-output name=testConfigs::$(./.github/scripts/getTestConfigs.sh)"
+                  echo "testConfigs=$(./.github/scripts/getTestConfigs.sh)" >> $GITHUB_OUTPUT
 
     compareSnapshots:
         name: Compare
