@@ -68,6 +68,11 @@ jobs:
               run: |
                   ./scripts/snapshot-tests/collect-diffs.sh
 
+            # - uses: devicons/public-upload-to-imgur@v2.2.2
+            #   with:
+            #       path: ./tests/functional/__diff_output__
+            #       client_id: ${{secrets.IMGUR_CLIENT_ID}}
+
     compareSnapshotsV2:
         name: Compare V2
         runs-on: ubuntu-latest
@@ -107,5 +112,5 @@ jobs:
 
             # - uses: devicons/public-upload-to-imgur@v2.2.2
             #   with:
-            #       path: ./
+            #       path: ./tests/functional/v2/__diff_output__
             #       client_id: ${{secrets.IMGUR_CLIENT_ID}}
