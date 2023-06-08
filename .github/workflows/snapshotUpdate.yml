@@ -67,6 +67,7 @@ jobs:
               uses: bahmutov/npm-install@v1
               with:
                   useLockFile: false
+                  useRollingCache: true
 
             - name: Run server
               run: |
@@ -148,6 +149,7 @@ jobs:
               uses: bahmutov/npm-install@v1
               with:
                   useLockFile: false
+                  useRollingCache: true
 
             - name: Run server
               run: |
