@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import arrayFind from 'core-js-pure/stable/array/find';
 
@@ -68,11 +68,9 @@ const Content = () => {
     const content = selectContent();
 
     return (
-        <Fragment>
-            <div className={classNames.join(' ')}>
-                <main className="main">{content}</main>
-            </div>
-        </Fragment>
+        <div className={classNames.join(' ')}>
+            <main className="main">{content}</main>
+        </div>
     );
 };
 

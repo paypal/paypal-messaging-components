@@ -140,8 +140,9 @@ export default {
                     addPeriod(),
                     `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
                     xSmallNoWrap(textSize * 8),
-                    `@media screen and (max-width: ${textSize *
-                        12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                    `@media screen and (max-width: ${
+                        textSize * 12.5
+                    }px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['nach'] },
