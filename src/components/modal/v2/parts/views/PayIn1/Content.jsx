@@ -25,8 +25,7 @@ export const PayIn1 = ({
                 </Fragment>
             );
         }
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        return <Fragment />;
+        return null;
     };
 
     return (

@@ -26,8 +26,7 @@ export const NoInterest = ({
                 </div>
             );
         }
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        return <Fragment />;
+        return null;
     };
 
     return (

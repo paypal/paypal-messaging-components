@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import {
@@ -157,8 +157,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                 </div>
             );
         }
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        return <Fragment />;
+        return null;
     };
 
     /**
@@ -196,10 +195,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                 <div aria-live="polite" className="content-column">
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
-            ) : (
-                // eslint-disable-next-line react/jsx-no-useless-fragment
-                <Fragment />
-            )}
+            ) : null}
             {country === 'US' && (
                 <div
                     className={`finance-terms__disclaimer ${
