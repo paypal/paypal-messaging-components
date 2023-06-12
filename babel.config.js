@@ -3,7 +3,7 @@ module.exports = {
     env: {
         test: {
             presets: [['@babel/env', { targets: { node: 'current' } }]],
-            plugins: ['@babel/plugin-transform-private-property-in-object', { loose: true }]
+            plugins: [['@babel/plugin-transform-private-property-in-object', { loose: true }]]
         }
     }
 };
