@@ -8,6 +8,7 @@ import { localizeCurrency, localizeNumber } from './miscellaneous';
 
 const CONTENT_PATH = path.resolve(__dirname, '../../../content');
 
+// eslint-disable-next-line default-param-last
 const selectBestOffer = (offers = [], amount) =>
     offers.reduce(
         (acc, offer) =>
@@ -77,9 +78,7 @@ const getMorsVars = (country, offer, amount) => {
     const totalInterest = total - Number(amount);
 
     return {
-        financing_code: Math.random()
-            .toString(36)
-            .slice(2),
+        financing_code: Math.random().toString(36).slice(2),
         qualifying_offer: (amount >= minAmount ?? 0) && (amount <= maxAmount ?? Infinity) ? 'true' : 'false',
         apr,
         nominal_rate: nominalRate,

@@ -109,8 +109,9 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.locale--US .message__headline > .tag--medium > span { white-space: normal }`,
-                    `@media screen and (max-width: ${textSize *
-                        12.5}px) {.locale--US .message__headline > .tag--xsmall > span { white-space: normal }}`
+                    `@media screen and (max-width: ${
+                        textSize * 12.5
+                    }px) {.locale--US .message__headline > .tag--xsmall > span { white-space: normal }}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })

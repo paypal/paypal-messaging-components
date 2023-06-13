@@ -192,8 +192,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 25.5, textSize * 29, textSize * 20.5, textSize * 15),
-                    `@media screen and (max-width: ${textSize *
-                        14}px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
+                    `@media screen and (max-width: ${
+                        textSize * 14
+                    }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

@@ -175,8 +175,9 @@ export default {
                     `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
                     `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
                     xSmallNoWrap(textSize * 15.5),
-                    `@media screen and (max-width: ${textSize *
-                        12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                    `@media screen and (max-width: ${
+                        textSize * 12.5
+                    }px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['Sie', 'Raten'] },

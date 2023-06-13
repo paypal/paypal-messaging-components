@@ -68,6 +68,8 @@ export const TransitionStateProvider = ({ children }) => {
     }, []);
 
     return (
+        // Triggers The object passed as the value prop to the Context provider (at line 12) changes every render. To fix this consider wrapping it in a useMemo hook.
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
         <TransitionContext.Provider value={{ status: state, setStatus: setState }}>
             {children}
         </TransitionContext.Provider>

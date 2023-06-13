@@ -13,7 +13,7 @@ import {
     getTsCookieFromStorage
 } from '../../utils';
 
-const Message = function({ markup, meta, parentStyles, warnings }) {
+const Message = function ({ markup, meta, parentStyles, warnings }) {
     const {
         onClick,
         onReady,

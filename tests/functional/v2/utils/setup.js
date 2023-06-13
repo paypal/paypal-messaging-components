@@ -70,9 +70,6 @@ export const getTestName = (country, integration, account, amount, viewport) => 
      * The below regex grabs the current test name and replaces spaces with underscores. Used in snapshot file naming.
      * i.e. Esc_key_closes_modal
      */
-    const testName = expect
-        .getState()
-        .currentTestName.split(' - ')[3]
-        .replace(/\s/g, '_');
+    const testName = expect.getState().currentTestName.split(' - ')[3].replace(/\s/g, '_');
     return `${country}-${integration}-${account}-${amount}-${testName}-${viewport}`;
 };

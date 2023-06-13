@@ -92,14 +92,16 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize *
-                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    `@media screen and (max-width: ${
+                        textSize * 18.5
+                    }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 12),
                     setLogoTop(textSize * 40),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    `@media screen and (max-width: ${textSize *
-                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                    `@media screen and (max-width: ${
+                        textSize * 14.5
+                    }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
                 ]
             })
         ],
@@ -107,13 +109,15 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize *
-                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    `@media screen and (max-width: ${
+                        textSize * 18.5
+                    }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 12),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    `@media screen and (max-width: ${textSize *
-                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                    `@media screen and (max-width: ${
+                        textSize * 14.5
+                    }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
                 ],
                 headline: [
                     {
@@ -156,8 +160,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 20),
-                    `@media screen and (max-width: ${textSize *
-                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                    `@media screen and (max-width: ${
+                        textSize * 14.5
+                    }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
                 ],
                 logo: false,
                 headline: [
@@ -180,8 +185,9 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 18),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    `@media screen and (max-width: ${textSize *
-                        14.5}px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
+                    `@media screen and (max-width: ${
+                        textSize * 14.5
+                    }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [

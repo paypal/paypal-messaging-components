@@ -15,6 +15,7 @@
         "unicorn/prefer-spread": "off",
         "prettier/prettier": "error",
         "no-underscore-dangle": "off",
+        "no-promise-executor-return": "off",
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": [
             "error",
@@ -23,6 +24,7 @@
         "react/jsx-indent": 0,
         "react/jsx-indent-props": 0,
         "react/prop-types": 0,
+        "react/function-component-definition": 0,
         "react/jsx-one-expression-per-line": 0,
         "react/jsx-filename-extension": 0,
         "react/jsx-curly-spacing": 0,
