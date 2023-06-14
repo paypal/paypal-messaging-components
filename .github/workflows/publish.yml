@@ -18,9 +18,6 @@ jobs:
           node-version: 14
           registry-url: "https://registry.npmjs.org"
 
-      - name: 📥 Download deps
-        run: npm run reinstall
-
       - name: Configure git user
         run: |
           git config --global user.email ${{ github.actor }}@users.noreply.github.com
