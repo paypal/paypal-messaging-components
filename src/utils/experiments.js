@@ -24,7 +24,8 @@ export function getLocalTreatments() {
     if (experiments.expiration < Date.now()) {
         // use existing value, but update treatments in the background
         if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', fetchTreatments);
+            // wrapping fetchTreatments in a function prevents memoization
+            window.addEventListener('DOMContentLoaded', () => fetchTreatments());
         } else {
             fetchTreatments();
         }
