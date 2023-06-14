@@ -45,7 +45,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ close }) => {
+                value: () => {
                     // 15 minutes in milliseconds
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
@@ -60,8 +60,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                         });
 
                         globalEvent.trigger('treatments');
-
-                        close();
                     };
                 }
             },
