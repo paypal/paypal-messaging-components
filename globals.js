@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8080;
 
 module.exports = (env = { TARGET: 'sdk' }) => ({
     __DISABLE_SET_COOKIE__: false,
+    __PAYPAL_DOMAIN__: "https://www.paypal.com",
     __ZOID__: {
         ...zoidGlobals.__ZOID__,
         __DEFAULT_CONTAINER__: true,
