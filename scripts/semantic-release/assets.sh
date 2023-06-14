@@ -154,9 +154,8 @@ if [ ! -z "$tag" ]; then
     # remove temporary file if it exists
     rm globals.js.bak &> /dev/null
     
-    printf "\nweb stage --tag $tag\n"
+    printf "web stage --tag $tag\n"
     web stage --tag "$tag"
-    printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 
     # Reset modified dist files
     git checkout -- dist

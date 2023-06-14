@@ -10,6 +10,7 @@ import MutatedText from './parts/MutatedText';
 import Styles from './parts/Styles';
 import CustomMessage from './parts/CustomMessage';
 
+const DEFAULT_FONT_SIZE = 12;
 const logMessage = val => (val !== 'string' ? JSON.stringify(val) : val);
 const logInfo = (addLog, val) => addLog('info', 'render_markup', `${logMessage(val)}`);
 const logError = (addLog, val) => addLog('error', 'render_markup', `${logMessage(val)}`);
@@ -33,7 +34,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
                 const calculatedVal =
                     typeof val === 'function'
                         ? val({
-                              textSize: style.text?.size * BASIC_FONT_FACTOR
+                              textSize: (style.text?.size ?? DEFAULT_FONT_SIZE) * BASIC_FONT_FACTOR
                           })
                         : val;
                 return type === Array ? [...accumulator, calculatedVal] : objectMerge(accumulator, calculatedVal);

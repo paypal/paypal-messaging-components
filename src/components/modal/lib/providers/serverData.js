@@ -9,6 +9,8 @@ export const ServerDataProvider = ({ children, data }) => {
 
     const setServerData = updates => _setServerData({ ...serverData, ...updates });
 
+    // Triggers The object passed as the value prop to the Context provider (at line 47) changes every render. To fix this consider wrapping it in a useMemo hook.
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     return <ServerData.Provider value={{ ...serverData, setServerData }}>{children}</ServerData.Provider>;
 };
 

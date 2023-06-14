@@ -38,6 +38,7 @@ export const ShortTerm = ({
     };
 
     const hasInstallments = Object.keys(estimatedInstallments?.items ?? {}).length;
+    const elements = hasInstallments ? estimatedInstallments?.items : donutTimestamps;
 
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
@@ -50,26 +51,21 @@ export const ShortTerm = ({
                     <div className="content__col">
                         <div className="content__row donuts">
                             <div className="donuts__container">
-                                {(hasInstallments ? estimatedInstallments?.items : donutTimestamps).map(
-                                    (installment, index) => (
-                                        <Donut
-                                            key={index}
-                                            qualifying={qualifying}
-                                            // regex replaces EUR with the euro symbol €
-                                            periodicPayment={
-                                                installment?.total_payment
-                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                    : localeFormattedPayment
-                                            }
-                                            currentNum={index + 1}
-                                            timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                            numOfPayments={
-                                                (hasInstallments ? estimatedInstallments?.items : donutTimestamps)
-                                                    .length
-                                            }
-                                        />
-                                    )
-                                )}
+                                {elements.map((installment, index) => (
+                                    <Donut
+                                        key={index}
+                                        qualifying={qualifying}
+                                        // regex replaces EUR with the euro symbol €
+                                        periodicPayment={
+                                            installment?.total_payment
+                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                : localeFormattedPayment
+                                        }
+                                        currentNum={index + 1}
+                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                        numOfPayments={elements.length}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <Instructions instructions={instructions} />

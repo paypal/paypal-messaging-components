@@ -89,8 +89,9 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize *
-                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    `@media screen and (max-width: ${
+                        textSize * 18.5
+                    }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 16),
                     setLogoTop(textSize * 37),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
@@ -102,8 +103,9 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize *
-                        18.5}px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
+                    `@media screen and (max-width: ${
+                        textSize * 18.5
+                    }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()

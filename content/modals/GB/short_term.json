@@ -39,7 +39,7 @@
             "Complete your purchase with the first payment today.",
             "Remaining payments are taken automatically."
         ],
-        "disclosure": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Pay in 3 is a form of credit, may not be suitable for everyone. Use may affect your credit score or make credit less accessible or more expensive for you. Consider if affordable for you. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal (Europe) S.à r.l. et Cie, S.C.A. 22-24 Boulevard Royal L-2449, Luxembourg.",
+        "disclosure": "Pay in 3 is a form of credit, so carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal (Europe) S.à r.l. et Cie, S.C.A. 22-24 Boulevard Royal L-2449, Luxembourg.",
         "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]
     }
 }

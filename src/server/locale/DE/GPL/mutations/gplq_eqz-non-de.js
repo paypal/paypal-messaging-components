@@ -122,10 +122,12 @@ export default {
                 styles: [
                     textWrap(textSize * 42.6, textSize, 'DE'),
                     // Wrapping of mehr erfahren separate from PayPal Konto.
-                    `@media screen and (max-width: ${textSize *
-                        19.5}px) { .message__messaging > .message__disclaimer > .tag--default { content: ''; display: block; }}`,
-                    `@media screen and (max-width: ${textSize *
-                        19.45}px) { .locale--DE .message__messaging { display: inline-block; } }`,
+                    `@media screen and (max-width: ${
+                        textSize * 19.5
+                    }px) { .message__messaging > .message__disclaimer > .tag--default { content: ''; display: block; }}`,
+                    `@media screen and (max-width: ${
+                        textSize * 19.45
+                    }px) { .locale--DE .message__messaging { display: inline-block; } }`,
                     xSmallFallback(textSize * 13.8),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -159,8 +161,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     // Prevent wrapping of amount
-                    `@media screen and (max-width: ${textSize *
-                        17.25}px) { .locale--DE .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
+                    `@media screen and (max-width: ${
+                        textSize * 17.25
+                    }px) { .locale--DE .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
                     crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
