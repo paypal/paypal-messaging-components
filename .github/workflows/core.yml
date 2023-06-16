@@ -20,14 +20,11 @@ jobs:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
-
-            - name: 📥 Download deps
-              uses: bahmutov/npm-install@v1
-              with:
-                  useLockFile: false
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
+                  cache-dependency-path: ./package.json
 
             - name: Lint
               run: npm run lint
@@ -45,14 +42,11 @@ jobs:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
-
-            - name: 📥 Download deps
-              uses: bahmutov/npm-install@v1
-              with:
-                  useLockFile: false
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
+                  cache-dependency-path: ./package.json
 
             - name: Run server
               run: ./.github/scripts/runServer.sh
