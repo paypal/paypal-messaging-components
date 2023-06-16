@@ -51,7 +51,6 @@ export const ShortTerm = ({
                     <div className="content__col">
                         <div className="content__row donuts">
                             <div className="donuts__container">
-                                {}
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}

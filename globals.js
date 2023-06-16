@@ -6,6 +6,8 @@ const { version } = require('./package.json');
 const PORT = process.env.PORT || 8080;
 
 module.exports = (env = { TARGET: 'sdk' }) => ({
+    __DISABLE_SET_COOKIE__: false,
+    __PAYPAL_DOMAIN__: 'https://www.paypal.com',
     __ZOID__: {
         ...zoidGlobals.__ZOID__,
         __DEFAULT_CONTAINER__: true,
@@ -13,7 +15,6 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __FRAMEWORK_SUPPORT__: true,
         __SCRIPT_NAMESPACE__: true
     },
-
     __POST_ROBOT__: {
         ...postRobotGlobals.__POST_ROBOT__,
         __IE_POPUP_SUPPORT__: false,

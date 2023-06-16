@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.43.0](https://github.com/paypal/paypal-messaging-components/compare/v1.42.0...v1.43.0) (2023-06-14)
+
+
+### Features
+
+* Update UK Pi3 Legal Disclosure (DTCRCMERC-2267) ([#936](https://github.com/paypal/paypal-messaging-components/issues/936)) ([a186771](https://github.com/paypal/paypal-messaging-components/commit/a1867714a4e69efd3c54d0d80976ce46356f3528))
+
+
+### Bug Fixes
+
+* add cookie global ([#951](https://github.com/paypal/paypal-messaging-components/issues/951)) ([a12ebb3](https://github.com/paypal/paypal-messaging-components/commit/a12ebb3ebbb47b2e3f65315a2236fed875ea55ee))
+
+
+### Build System
+
+* remove old stage bundle url ([#947](https://github.com/paypal/paypal-messaging-components/issues/947)) ([c669016](https://github.com/paypal/paypal-messaging-components/commit/c66901698ad0525b75916749f61ba0043f6cdabe))
+
+
+### Continuous Integration
+
+* Github action workflow npm publish ([#923](https://github.com/paypal/paypal-messaging-components/issues/923)) ([0e38156](https://github.com/paypal/paypal-messaging-components/commit/0e381568d27c0060ed174ee105b839fef7f47634))
+* remove use of deprecated set-output command ([#938](https://github.com/paypal/paypal-messaging-components/issues/938)) ([9ef6eb0](https://github.com/paypal/paypal-messaging-components/commit/9ef6eb06e77187a037b5141973dbe72ef2f37eab))
+
+
+### Code Refactoring
+
+* chunk multi-message rendering to prevent singular long task ([#939](https://github.com/paypal/paypal-messaging-components/issues/939)) ([9b1a240](https://github.com/paypal/paypal-messaging-components/commit/9b1a2408db4fffd150033dcd25c1d5eb02f5422f))
+* remove NE from US Pay Monthly modal legal disclosure ([#906](https://github.com/paypal/paypal-messaging-components/issues/906)) ([eb9ffb0](https://github.com/paypal/paypal-messaging-components/commit/eb9ffb0ee187ff41ab4494b33049e00dd6f3ff21))
+
 ## [1.42.0](https://github.com/paypal/paypal-messaging-components/compare/v1.41.0...v1.42.0) (2023-05-11)
 
 

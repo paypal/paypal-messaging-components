@@ -34,7 +34,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
                 const calculatedVal =
                     typeof val === 'function'
                         ? val({
-                              textSize: (style.text?.size || DEFAULT_FONT_SIZE) * BASIC_FONT_FACTOR
+                              textSize: (style.text?.size ?? DEFAULT_FONT_SIZE) * BASIC_FONT_FACTOR
                           })
                         : val;
                 return type === Array ? [...accumulator, calculatedVal] : objectMerge(accumulator, calculatedVal);
