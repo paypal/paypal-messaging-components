@@ -96,6 +96,7 @@ const BodyContent = () => {
             />
             <div className="content__container">
                 <main className="main">
+                    <h1>Test commit</h1>
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>
             </div>
