@@ -23,8 +23,11 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version-file: '.nvmrc'
-                  cache: 'npm'
-                  cache-dependency-path: ./package.json
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
 
             - name: Lint
               run: npm run lint
@@ -45,8 +48,11 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version-file: '.nvmrc'
-                  cache: 'npm'
-                  cache-dependency-path: ./package.json
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
 
             - name: Run server
               run: ./.github/scripts/runServer.sh
