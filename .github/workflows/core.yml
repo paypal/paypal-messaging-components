@@ -26,6 +26,9 @@ jobs:
                   cache: 'npm'
                   cache-dependency-path: ./package.json
 
+            - name: Install deps
+              run: npm i
+
             - name: Lint
               run: npm run lint
 
@@ -47,6 +50,9 @@ jobs:
                   node-version-file: '.nvmrc'
                   cache: 'npm'
                   cache-dependency-path: ./package.json
+
+            - name: Install deps
+              run: npm i
 
             - name: Run server
               run: ./.github/scripts/runServer.sh
