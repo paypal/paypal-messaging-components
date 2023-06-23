@@ -27,7 +27,7 @@ jobs:
                   cache-dependency-path: ./package.json
 
             - name: Install deps
-              run: npm i
+              run: npm i --legacy-peer-deps
 
             - name: Lint
               run: npm run lint
@@ -52,7 +52,7 @@ jobs:
                   cache-dependency-path: ./package.json
 
             - name: Install deps
-              run: npm i
+              run: npm i --legacy-peer-deps
 
             - name: Run server
               run: ./.github/scripts/runServer.sh
