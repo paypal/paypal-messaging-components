@@ -31,7 +31,6 @@
         "dev:stage": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=stage",
         "dev:sandbox": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=sandbox",
         "dev:production": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=production",
-        "install": "rm -rf node_modules && npm i",
         "lint": "eslint . --ext .js,.jsx",
         "start": "npm run dev",
         "test": "jest --verbose",
