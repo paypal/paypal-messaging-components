@@ -45,9 +45,9 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ close }) => {
-                    // 1 day in milliseconds
-                    const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
+                value: () => {
+                    // 15 minutes in milliseconds
+                    const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
                     return ({ treatmentsHash, deviceID }) => {
                         writeToLocalStorage({
@@ -60,8 +60,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                         });
 
                         globalEvent.trigger('treatments');
-
-                        close();
                     };
                 }
             },
