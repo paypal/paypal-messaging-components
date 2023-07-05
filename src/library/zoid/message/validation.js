@@ -53,6 +53,26 @@ const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
 export default {
+    disableSetCookie: ({ props: { disableSetCookie } }) => {
+        if (typeof disableSetCookie !== 'undefined') {
+            if (!validateType(Types.BOOLEAN, disableSetCookie)) {
+                logInvalidType('true', Types.BOOLEAN, disableSetCookie);
+            } else {
+                return disableSetCookie;
+            }
+        }
+        return undefined;
+    },
+    features: ({ props: { features } }) => {
+        if (typeof features !== 'undefined') {
+            if (!validateType(Types.STRING, features)) {
+                logInvalidType('disableSetCookie', Types.STRING, features);
+            } else {
+                return features;
+            }
+        }
+        return undefined;
+    },
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
             logInvalidType('account', Types.STRING, account);

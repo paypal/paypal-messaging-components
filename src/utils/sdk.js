@@ -20,6 +20,13 @@ import {
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
+export function getNewParams() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return {};
+    } else {
+        return undefined;
+    }
+}
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
