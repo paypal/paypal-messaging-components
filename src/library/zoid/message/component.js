@@ -5,6 +5,7 @@ import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
 
 import {
+    getDisableSetCookie,
     getMeta,
     getEnv,
     getGlobalUrl,
@@ -50,17 +51,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             }
         },
         props: {
+
             disableSetCookie: {
                 type: 'boolean',
-                queryParam: true,
+                queryParam: 'disable-set-cookie',
                 required: false,
-                value: validate.disableSetCookie
+                value: getDisableSetCookie
             },
             features: {
                 type: 'string',
-                queryParam: 'disableSetCookie',
+                queryParam: 'features',
                 required: false,
-                value: validate.features
+                value: getDisableSetCookie
             },
             account: {
                 type: 'string',

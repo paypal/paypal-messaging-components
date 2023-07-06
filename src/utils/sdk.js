@@ -20,7 +20,7 @@ import {
     getPayPalDomain as getSDKPayPalDomain
 } from '@paypal/sdk-client/src';
 
-export function getNewParams() {
+export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return {};
     } else {

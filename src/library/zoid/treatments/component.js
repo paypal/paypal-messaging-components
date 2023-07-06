@@ -4,7 +4,15 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, writeToLocalStorage, getNewParams } from '../../../utils/sdk';
+import {
+    getMeta,
+    getEnv,
+    getLibraryVersion,
+    getStageTag,
+    getNamespace,
+    writeToLocalStorage,
+    getDisableSetCookie
+} from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
 
@@ -38,15 +46,15 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
         props: {
             disableSetCookie: {
                 type: 'boolean',
-                queryParam: true,
+                queryParam: 'disable-set-cookie',
                 required: false,
-                value: getNewParams
+                value: getDisableSetCookie
             },
             features: {
                 type: 'string',
-                queryParam: 'disableSetCookie',
+                queryParam: 'features',
                 required: false,
-                value: getNewParams
+                value: getDisableSetCookie
             },
             namespace: {
                 type: 'string',

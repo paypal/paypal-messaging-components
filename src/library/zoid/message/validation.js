@@ -56,7 +56,7 @@ export default {
     disableSetCookie: ({ props: { disableSetCookie } }) => {
         if (typeof disableSetCookie !== 'undefined') {
             if (!validateType(Types.BOOLEAN, disableSetCookie)) {
-                logInvalidType('true', Types.BOOLEAN, disableSetCookie);
+                logInvalidType('disable-set-cookie', Types.BOOLEAN, disableSetCookie);
             } else {
                 return disableSetCookie;
             }
@@ -66,7 +66,7 @@ export default {
     features: ({ props: { features } }) => {
         if (typeof features !== 'undefined') {
             if (!validateType(Types.STRING, features)) {
-                logInvalidType('disableSetCookie', Types.STRING, features);
+                logInvalidType('features', Types.STRING, features);
             } else {
                 return features;
             }
