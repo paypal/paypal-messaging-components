@@ -47,12 +47,18 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             disableSetCookie: {
                 type: 'boolean',
                 queryParam: 'disable-set-cookie',
-                value: getDisableSetCookie().disableSetTrue
+                value: function () {
+                    const { disableSetTrue } = getDisableSetCookie();
+                    return disableSetTrue;
+                }
             },
             features: {
                 type: 'string',
                 queryParam: 'features',
-                value: getDisableSetCookie().features
+                value: function () {
+                    const { features } = getDisableSetCookie();
+                    return features;
+                }
             },
             namespace: {
                 type: 'string',
