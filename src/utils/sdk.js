@@ -21,12 +21,16 @@ import {
 } from '@paypal/sdk-client/src';
 
 export function getDisableSetCookie() {
+    return true
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return {};
+        const disableSetTrue = true;
+        const features = 'disable-set-cookie';
+        return { disableSetTrue, features };
     } else {
-        return undefined;
+        return { disableSetCookie: false, features: '' };
     }
 }
+
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
