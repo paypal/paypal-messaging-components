@@ -95,8 +95,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             ecToken,
             devTouchpoint,
             deviceID: getOrCreateStorageID(),
-            disableSetCookie: 'true',
-            features: 'disable-set-cookie'
+            disableSetCookie,
+            features
         })
             .then(data => {
                 setServerData(data);

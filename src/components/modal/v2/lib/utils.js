@@ -20,8 +20,8 @@ export const getContent = memoize(
         channel,
         ecToken,
         devTouchpoint,
-        disableSetCookie = 'true',
-        features = 'disable-set-cookie'
+        disableSetCookie,
+        features
     }) => {
         const query = objectEntries({
             currency,

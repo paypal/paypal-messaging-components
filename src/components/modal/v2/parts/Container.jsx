@@ -80,8 +80,8 @@ const Container = ({ children }) => {
             channel,
             ecToken,
             deviceID,
-            disableSetCookie: 'true',
-            features: 'disable-setcookie'
+            disableSetCookie,
+            features
         }).then(data => {
             setServerData(data);
             setLoading(false);
