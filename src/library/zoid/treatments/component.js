@@ -11,7 +11,8 @@ import {
     getStageTag,
     getNamespace,
     writeToLocalStorage,
-    getDisableSetCookie
+    getDisableSetCookie,
+    getFeatures
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
@@ -47,19 +48,12 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             disableSetCookie: {
                 type: 'boolean',
                 queryParam: 'disable-set-cookie',
-                value: function () {
-                    const { disableSetTrue } = getDisableSetCookie();
-                    return disableSetTrue;
-                }
+                value: getDisableSetCookie
             },
             features: {
                 type: 'string',
                 queryParam: 'features',
-                required: false,
-                value: function () {
-                    const { features } = getDisableSetCookie();
-                    return features;
-                }
+                value: getFeatures
             },
             namespace: {
                 type: 'string',

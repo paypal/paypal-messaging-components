@@ -53,19 +53,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             disableSetCookie: {
                 type: 'boolean',
                 queryParam: 'disable-set-cookie',
-                value: function () {
-                    const { disableSetTrue } = getDisableSetCookie();
-                    return disableSetTrue;
-                }
+                value: getDisableSetCookie
             },
             features: {
                 type: 'string',
                 queryParam: 'features',
-                required: false,
-                value: function () {
-                    const { features } = getDisableSetCookie();
-                    return features;
-                }
+                value: getFeatures
             },
             account: {
                 type: 'string',
