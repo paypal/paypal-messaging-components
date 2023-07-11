@@ -17,16 +17,15 @@ import {
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getPayPalDomain as getSDKPayPalDomain
+    getPayPalDomain as getSDKPayPalDomain,
+    getDisableSetCookie as getSDKDisableCookie
 } from '@paypal/sdk-client/src';
 
 export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        const disableSetTrue = true;
-        const features = 'disable-set-cookie';
-        return { disableSetTrue, features };
+        return getSDKDisableCookie()
     } else {
-        return { disableSetCookie: false, features: __MESSAGES__.__FEATURES__ };
+        return undefined
     }
 }
 

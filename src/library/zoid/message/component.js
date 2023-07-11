@@ -55,8 +55,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'boolean',
                 queryParam: 'disable-set-cookie',
                 value: function () {
-                    const { disableSetTrue } = getDisableSetCookie();
-                    return disableSetTrue;
+                    getDisableSetCookie === true ? true : false;
                 }
             },
             features: {
@@ -64,8 +63,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: 'features',
                 required: false,
                 value: function () {
-                    const { features } = getDisableSetCookie();
-                    return features;
+                    getDisableSetCookie === true ? 'disable-set-cookie' : __MESSAGES__.__FEATURES__;
                 }
             },
             account: {
