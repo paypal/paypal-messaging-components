@@ -10,7 +10,9 @@ import {
     getDeviceID,
     parseObjFromEncoding,
     getRequestDuration,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    disableSetCookie,
+    features
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
@@ -130,12 +132,13 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchantId,
                     version,
                     env,
-                    features,
                     stageTag,
                     style,
                     merchantConfigHash,
                     channel,
-                    treatmentsHash
+                    treatmentsHash,
+                    disableSetCookie,
+                    features
                 } = xprops;
 
                 setProps({
@@ -149,7 +152,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     clientId,
                     merchantId,
                     merchantConfigHash,
-                    channel
+                    channel,
+                    disableSetCookie,
+                    features
                 });
 
                 // Generate new MRID on message update.
@@ -172,7 +177,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
-                    treatments: treatmentsHash
+                    treatments: treatmentsHash,
+                    disableSetCookie: 'true',
+                    features: 'disable-set-cookie'
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
@@ -183,6 +190,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     .slice(1);
 
                 ppDebug('Updating message with new props...', { inZoid: true });
+           
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {

@@ -5,7 +5,7 @@ import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getLibraryVersion } from './sdk';
+import { getLibraryVersion, getDisableSetCookie } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
@@ -42,7 +42,10 @@ export const logger = Logger({
                 {}
             );
 
-        return request(method, url, {
+        const urlNew = url;
+        urlNew += getDisableSetCookie() ? '?disable-set-cookie=true&features=disable-set-cookie' : '';
+
+        return request(method, newUrl, {
             headers: {
                 'content-type': 'application/json',
                 ...headers

@@ -61,6 +61,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             features: {
                 type: 'string',
                 queryParam: 'features',
+                required: false,
                 value: function () {
                     const { features } = getDisableSetCookie();
                     return features;
@@ -422,12 +423,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: true,
                 required: false,
                 value: getDevTouchpoint
-            },
-            features: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: getFeatures
             },
             integrationType: {
                 type: 'string',

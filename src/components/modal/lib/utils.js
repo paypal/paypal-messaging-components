@@ -14,7 +14,9 @@ export const getContent = memoize(
         version,
         env,
         stageTag,
-        devTouchpoint
+        devTouchpoint,
+        disableSetCookie,
+        features
     }) => {
         const query = objectEntries({
             currency,
@@ -27,7 +29,9 @@ export const getContent = memoize(
             version,
             env,
             stageTag,
-            devTouchpoint
+            devTouchpoint,
+            disableSetCookie: 'true',
+            features: 'disable-set-cookie'
         })
             .filter(([, val]) => Boolean(val))
             .reduce(

@@ -55,6 +55,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             features: {
                 type: 'string',
                 queryParam: 'features',
+                required: false,
                 value: function () {
                     const { features } = getDisableSetCookie();
                     return features;

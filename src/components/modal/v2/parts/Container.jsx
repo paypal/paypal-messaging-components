@@ -33,7 +33,9 @@ const Container = ({ children }) => {
         env,
         stageTag,
         channel,
-        ecToken
+        ecToken,
+        disableSetCookie,
+        features
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -77,7 +79,9 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
-            deviceID
+            deviceID,
+            disableSetCookie: 'true',
+            features: 'disable-setcookie'
         }).then(data => {
             setServerData(data);
             setLoading(false);

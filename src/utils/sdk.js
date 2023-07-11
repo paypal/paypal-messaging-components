@@ -27,7 +27,7 @@ export function getDisableSetCookie() {
         const features = 'disable-set-cookie';
         return { disableSetTrue, features };
     } else {
-        return { disableSetCookie: false, features: '' };
+        return { disableSetCookie: false, features: __MESSAGES__.__FEATURES__ };
     }
 }
 
@@ -235,10 +235,3 @@ export function getDevTouchpoint() {
     }
 }
 
-export function getFeatures() {
-    if (__MESSAGES__.__FEATURES__) {
-        return __MESSAGES__.__FEATURES__;
-    } else {
-        return undefined;
-    }
-}
