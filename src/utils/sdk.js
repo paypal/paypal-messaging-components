@@ -23,9 +23,9 @@ import {
 
 export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKDisableCookie()
+        return getSDKDisableCookie();
     } else {
-        return undefined
+        return undefined;
     }
 }
 
@@ -230,5 +230,12 @@ export function getDevTouchpoint() {
         return true;
     } else {
         return undefined; // Prevent the zoid query param
+    }
+}
+export function getFeatures() {
+    if (getDisableSetCookie() == true) {
+        return 'disable-set-cookie';
+    } else {
+        return __MESSAGES__.__FEATURES__;
     }
 }
