@@ -29,9 +29,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         ignoreCache,
         version,
         deviceID: parentDeviceID,
-        stageTag,
-        disableSetCookie,
-        features
+        stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -85,9 +83,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
             ignoreCache,
             version,
             env,
-            stageTag,
-            disableSetCookie: 'true',
-            features: 'disable-set-cookie'
+            stageTag
         }).then(data => {
             setServerData(data);
             setLoading(false);

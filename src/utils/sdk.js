@@ -21,7 +21,6 @@ import {
 } from '@paypal/sdk-client/src';
 
 export function getDisableSetCookie() {
-    return true;
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         const disableSetTrue = true;
         const features = 'disable-set-cookie';

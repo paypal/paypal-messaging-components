@@ -71,9 +71,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         ignoreCache,
         amount,
         stageTag,
-        devTouchpoint,
-        disableSetCookie,
-        features
+        devTouchpoint
     } = useXProps();
     const [state, dispatch] = useReducer(reducer, {
         inputValue: localize(country, initialTerms.amount),
@@ -94,9 +92,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             buyerCountry,
             ignoreCache,
             stageTag,
-            devTouchpoint,
-            disableSetCookie: 'true',
-            features: 'disable-set-cookie'
+            devTouchpoint
         })
             .then(data => {
                 setServerData(data);
