@@ -10,9 +10,7 @@ import {
     getDeviceID,
     parseObjFromEncoding,
     getRequestDuration,
-    getTsCookieFromStorage,
-    disableSetCookie,
-    features
+    getTsCookieFromStorage
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
@@ -171,7 +169,6 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     payer_id: payerId,
                     client_id: clientId,
                     merchant_id: merchantId,
-                    features,
                     version,
                     env,
                     stageTag,
@@ -190,7 +187,6 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     .slice(1);
 
                 ppDebug('Updating message with new props...', { inZoid: true });
-           
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {

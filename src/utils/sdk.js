@@ -234,4 +234,3 @@ export function getDevTouchpoint() {
         return undefined; // Prevent the zoid query param
     }
 }
-
