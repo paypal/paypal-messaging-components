@@ -63,7 +63,7 @@ const createWebpackConfig = ({ target, protocol, hostname, port, env: buildEnv }
             __PROTOCOL__: protocol,
             __HOST__: port ? `${hostname}:${port}` : hostname,
             __SDK_HOST__: port ? `${hostname}:${port}` : hostname,
-            __STAGE_HOST__: 'msmaster.qa.paypal.com',
+            __STAGE_HOST__: 'CENSORED',
             __PORT__: port,
             __PATH__: '/sdk/js',
             __NAMESPACE__: 'paypal'
