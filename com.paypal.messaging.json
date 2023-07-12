@@ -1,7 +1,6 @@
 {
     "name": "com.paypal.messaging",
     "description": "Upstream PayPal Pay Later Messaging",
-    // TBD automatically somehow???
     "path": ".../paypal-messaging-components/nativeMessaging.js",
     "type": "stdio",
     "allowed_origins": ["chrome-extension://agdghpghddpjjpdnopcchhgidhamohio/"]
