@@ -18,7 +18,7 @@ const createWebpackConfig = ({ target, protocol, hostname, port, env: buildEnv }
         switch (target) {
             case 'sdk':
                 return {
-                    entry: './src/library/messaging.js',
+                    entry: './src/library/interface/index.js',
                     libraryTarget: 'var',
                     modulename: '__super_secret_hack__',
                     env: { TARGET: 'sdk' }
