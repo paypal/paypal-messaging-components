@@ -8,7 +8,6 @@
         "url": "https://github.com/paypal/paypal-messaging-components.git"
     },
     "main": "dist/messaging.js",
-    "module": "src/index.js",
     "files": [
         "src/library",
         "src/utils",
@@ -52,7 +51,8 @@
         "@paypal/sdk-client": "^4.0.166",
         "@paypal/sdk-constants": "^1.0.118",
         "@paypal/sdk-logos": "^2.0.0",
-        "core-js-pure": "^3.0.1"
+        "core-js-pure": "^3.0.1",
+        "memory-fs": "^0.5.0"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.17.0",

@@ -1,0 +1,7 @@
+{
+    "name": "com.paypal.messaging",
+    "description": "Upstream PayPal Pay Later Messaging",
+    "path": "/Users/judoan/Documents/paypal-messaging-components/nativeMessaging.js",
+    "type": "stdio",
+    "allowed_origins": ["chrome-extension://agdghpghddpjjpdnopcchhgidhamohio/"]
+}
