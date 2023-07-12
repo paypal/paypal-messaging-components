@@ -42,7 +42,7 @@ export const logger = Logger({
                 {}
             );
 
-        const urlNew = getDisableSetCookie() === true ? `${url}?hello=true&voice=hello` : url;
+        const urlNew = getDisableSetCookie() === true ? `${url}?disableSetCookie=true&features=disable-set-cookie` : url;
 
         return request(method, urlNew, {
             headers: {
