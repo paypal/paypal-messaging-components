@@ -22,7 +22,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         onProps,
         resize,
         deviceID: parentDeviceID,
-        messageRequestId,
+        messageRequestId
     } = window.xprops;
 
     const dimensionsRef = { current: { width: 0, height: 0 } };
