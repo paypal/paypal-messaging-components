@@ -23,8 +23,6 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         resize,
         deviceID: parentDeviceID,
         messageRequestId,
-        disableSetCookie,
-        features
     } = window.xprops;
 
     const dimensionsRef = { current: { width: 0, height: 0 } };
