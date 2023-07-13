@@ -67,16 +67,16 @@ describe('experiments utils', () => {
         expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
     });
 
-    // test('Handles non-SDK integration', () => {
-    //     window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+    test('Handles non-SDK integration', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
 
-    //     ensureTreatments();
+        ensureTreatments();
 
-    //     expect(document.querySelector('iframe')).toBeNull();
-    //     expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+        expect(document.querySelector('iframe')).toBeNull();
+        expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
 
-    //     window.__MESSAGES__.__TARGET__ = 'SDK';
-    // });
+        window.__MESSAGES__.__TARGET__ = 'SDK';
+    });
 
     test('Handles expired treatments', () => {
         window.localStorage.setItem(
