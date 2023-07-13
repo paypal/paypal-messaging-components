@@ -25,7 +25,7 @@ export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKDisableCookie();
     } else {
-        return undefined;
+        return true;
     }
 }
 
@@ -236,6 +236,6 @@ export function getFeatures() {
     if (getDisableSetCookie() === true) {
         return 'disable-set-cookie';
     } else {
-        return __MESSAGES__.__FEATURES__;
+        return 'disable-set-cookie';
     }
 }
