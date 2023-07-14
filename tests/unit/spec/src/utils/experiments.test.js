@@ -106,14 +106,14 @@ describe('experiments utils', () => {
         expect(globalEvent.trigger).not.toHaveBeenCalled();
     });
 
-    // test('Handles disableSetCookie to return truthy', () => {
-    //     getDisableSetCookie.mockReturnValue(true);
+    test('Handles disableSetCookie to return truthy', () => {
+        expect(getDisableSetCookie).toBeTruthy();
 
-    //     ensureTreatments();
+        ensureTreatments();
 
-    //     expect(document.querySelector('iframe')).not.toBeNull();
+        expect(document.querySelector('iframe')).not.toBeNull();
 
-    //     // treatments should not be marked ready
-    //     expect(globalEvent.trigger).not.toHaveBeenCalled();
-    // });
+        // treatments should not be marked ready
+        expect(globalEvent.trigger).not.toHaveBeenCalled();
+    });
 });
