@@ -41,7 +41,6 @@
         "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
     },
     "dependencies": {
-        "@babel/plugin-transform-private-property-in-object": "^7.22.5",
         "@krakenjs/beaver-logger": "^5.0.0",
         "@krakenjs/belter": "^2.0.0",
         "@krakenjs/jsx-pragmatic": "^3.0.0",
