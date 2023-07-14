@@ -1,4 +1,4 @@
-import { ensureTreatments, getNamespace, globalEvent } from '../../../../../src/utils';
+import { ensureTreatments, getNamespace, globalEvent, getDisableSetCookie } from '../../../../../src/utils';
 
 jest.mock('../../../../../src/utils/global', () => {
     const global = jest.requireActual('../../../../../src/utils/global');
@@ -24,7 +24,8 @@ jest.mock('@paypal/sdk-client/src', () => ({
     getNamespace: () => 'paypal',
     getPayPalDomain: () => 'localhost.paypal.com',
     getSDKMeta: () => 'meta',
-    getEnv: () => 'local'
+    getEnv: () => 'local',
+    getDisableSetCookie: () => 'true'
 }));
 
 describe('experiments utils', () => {
@@ -38,7 +39,6 @@ describe('experiments utils', () => {
     afterAll(() => {
         window.__MESSAGES__.__TARGET__ = oldTarget;
     });
-
     beforeEach(() => {
         while (document.body.firstChild) {
             document.body.firstChild?.remove();
@@ -105,4 +105,15 @@ describe('experiments utils', () => {
         // treatments should not be marked ready
         expect(globalEvent.trigger).not.toHaveBeenCalled();
     });
+
+    // test('Handles disableSetCookie to return truthy', () => {
+    //     getDisableSetCookie.mockReturnValue(true);
+
+    //     ensureTreatments();
+
+    //     expect(document.querySelector('iframe')).not.toBeNull();
+
+    //     // treatments should not be marked ready
+    //     expect(globalEvent.trigger).not.toHaveBeenCalled();
+    // });
 });
