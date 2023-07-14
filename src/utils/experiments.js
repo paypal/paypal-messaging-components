@@ -39,8 +39,7 @@ export function getLocalTreatments() {
 export function ensureTreatments() {
     if (
         // non-sdk integrations do not support edge caching and therefore, do not need treatmentsHash
-        // temp remove for testing
-        // __MESSAGES__.__TARGET__ !== 'SDK' ||
+        __MESSAGES__.__TARGET__ !== 'SDK' ||
         // we already have local treatments
         getLocalTreatments() ||
         // we can't get local treatments if local storage is not supported (this should be extremely rare)
