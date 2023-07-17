@@ -46,7 +46,7 @@ export const logger = Logger({
             ? `${url}?disable-set-cookie=true&features=disable-set-cookie`
             : url;
 
-        return request(method, urlNew, {
+        return request(method, urlWithCookieParams, {
             headers: {
                 'content-type': 'application/json',
                 ...headers
