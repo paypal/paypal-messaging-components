@@ -40,7 +40,7 @@ export const getContent = memoize(
             channel,
             ec_token: ecToken,
             devTouchpoint,
-            disableSetCookie,
+            'disable-set-cookie': disableSetCookie,
             features
         })
             .filter(([, val]) => Boolean(val))
