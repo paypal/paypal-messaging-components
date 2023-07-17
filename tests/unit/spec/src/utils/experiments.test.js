@@ -1,4 +1,4 @@
-import { ensureTreatments, getNamespace, globalEvent, getDisableSetCookie } from '../../../../../src/utils';
+import { ensureTreatments, getNamespace, globalEvent } from '../../../../../src/utils';
 
 jest.mock('../../../../../src/utils/global', () => {
     const global = jest.requireActual('../../../../../src/utils/global');
@@ -98,17 +98,6 @@ describe('experiments utils', () => {
     });
 
     test('Handles empty treatments', () => {
-        ensureTreatments();
-
-        expect(document.querySelector('iframe')).not.toBeNull();
-
-        // treatments should not be marked ready
-        expect(globalEvent.trigger).not.toHaveBeenCalled();
-    });
-
-    test('Handles disableSetCookie to return truthy', () => {
-        expect(getDisableSetCookie).toBeTruthy();
-
         ensureTreatments();
 
         expect(document.querySelector('iframe')).not.toBeNull();

@@ -51,18 +51,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             }
         },
         props: {
-            disableSetCookie: {
-                type: 'boolean',
-                queryParam: 'disable-set-cookie',
-                required: false,
-                value: getDisableSetCookie
-            },
-            features: {
-                type: 'string',
-                queryParam: 'features',
-                required: false,
-                value: getFeatures
-            },
             account: {
                 type: 'string',
                 queryParam: false,
@@ -477,6 +465,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 default: getNonce,
                 value: validate.cspNonce
+            },
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: 'disable-set-cookie',
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
             }
         }
     })
