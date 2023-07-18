@@ -19,7 +19,9 @@ export const getContent = memoize(
         integrationType,
         channel,
         ecToken,
-        devTouchpoint
+        devTouchpoint,
+        disableSetCookie,
+        features
     }) => {
         const query = objectEntries({
             currency,
@@ -37,7 +39,9 @@ export const getContent = memoize(
             integrationType,
             channel,
             ec_token: ecToken,
-            devTouchpoint
+            devTouchpoint,
+            'disable-set-cookie': disableSetCookie,
+            features
         })
             .filter(([, val]) => Boolean(val))
             .reduce(

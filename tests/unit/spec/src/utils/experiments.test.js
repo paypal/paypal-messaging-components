@@ -24,7 +24,8 @@ jest.mock('@paypal/sdk-client/src', () => ({
     getNamespace: () => 'paypal',
     getPayPalDomain: () => 'localhost.paypal.com',
     getSDKMeta: () => 'meta',
-    getEnv: () => 'local'
+    getEnv: () => 'local',
+    getDisableSetCookie: () => 'true'
 }));
 
 describe('experiments utils', () => {
@@ -38,7 +39,6 @@ describe('experiments utils', () => {
     afterAll(() => {
         window.__MESSAGES__.__TARGET__ = oldTarget;
     });
-
     beforeEach(() => {
         while (document.body.firstChild) {
             document.body.firstChild?.remove();

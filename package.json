@@ -32,7 +32,6 @@
         "dev:sandbox": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=sandbox",
         "dev:production": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=production",
         "lint": "eslint . --ext .js,.jsx",
-        "preinstall": "rm -rf node_modules",
         "start": "npm run dev",
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
