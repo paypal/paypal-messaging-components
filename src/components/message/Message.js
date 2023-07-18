@@ -37,7 +37,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         payerId: window.xprops.payerId ?? null,
         clientId: window.xprops.clientId ?? null,
         merchantId: window.xprops.merchantId ?? null,
-        merchantConfigHash: window.xprops.merchantConfigHash ?? null
+        merchantConfigHash: window.xprops.merchantConfigHash ?? null,
+        disableSetCookie: window.xprops.disableSetCookie ?? null,
+        features: window.xprops.features ?? null
     });
 
     const [serverData, setServerData] = createState({
@@ -130,12 +132,13 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchantId,
                     version,
                     env,
-                    features,
                     stageTag,
                     style,
                     merchantConfigHash,
                     channel,
-                    treatmentsHash
+                    treatmentsHash,
+                    disableSetCookie,
+                    features
                 } = xprops;
 
                 setProps({
@@ -149,7 +152,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     clientId,
                     merchantId,
                     merchantConfigHash,
-                    channel
+                    channel,
+                    disableSetCookie,
+                    features
                 });
 
                 // Generate new MRID on message update.
@@ -166,13 +171,14 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     payer_id: payerId,
                     client_id: clientId,
                     merchant_id: merchantId,
-                    features,
                     version,
                     env,
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
-                    treatments: treatmentsHash
+                    treatments: treatmentsHash,
+                    'disable-set-cookie': disableSetCookie,
+                    features
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(

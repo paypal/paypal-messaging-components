@@ -17,8 +17,17 @@ import {
     getNamespace as getSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getPayPalDomain as getSDKPayPalDomain
+    getPayPalDomain as getSDKPayPalDomain,
+    getDisableSetCookie as getSDKDisableCookie
 } from '@paypal/sdk-client/src';
+
+export function getDisableSetCookie() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKDisableCookie();
+    } else {
+        return false;
+    }
+}
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -223,10 +232,9 @@ export function getDevTouchpoint() {
         return undefined; // Prevent the zoid query param
     }
 }
-
 export function getFeatures() {
-    if (__MESSAGES__.__FEATURES__) {
-        return __MESSAGES__.__FEATURES__;
+    if (getDisableSetCookie()) {
+        return 'disable-set-cookie';
     } else {
         return undefined;
     }
