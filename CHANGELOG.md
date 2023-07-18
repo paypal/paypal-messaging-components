@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.44.0](https://github.com/paypal/paypal-messaging-components/compare/v1.43.1...v1.44.0) (2023-07-18)
+
+
+### Features
+
+* JS SDK Cookie Remediation - Phase 3 (DTCRCMERC-2336) ([#957](https://github.com/paypal/paypal-messaging-components/issues/957)) ([7152ab1](https://github.com/paypal/paypal-messaging-components/commit/7152ab1dab6ea31bf6c7c213b9fc8f0c0fcf0f0d))
+
 ### [1.43.1](https://github.com/paypal/paypal-messaging-components/compare/v1.43.0...v1.43.1) (2023-06-20)
 
 
