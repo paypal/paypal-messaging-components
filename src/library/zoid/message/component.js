@@ -468,7 +468,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             },
             disableSetCookie: {
                 type: 'boolean',
-                queryParam: 'disableSetCookie',
+                queryParam: true,
                 required: false,
                 value: getDisableSetCookie
             },
