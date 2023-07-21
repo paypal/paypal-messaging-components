@@ -18,7 +18,7 @@ const OfferAccordion = ({ offer: { content, meta }, aprDisclaimer, index, active
     }, []);
 
     return (
-        <div id={`${index}`} className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open}`}>
+        <div id={index} className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open}`}>
             <div className="accordion__row">
                 <button
                     className="accordion__header-container"

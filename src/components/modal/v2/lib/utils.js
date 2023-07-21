@@ -40,7 +40,6 @@ export const getContent = memoize(
             channel,
             ec_token: ecToken,
             devTouchpoint,
-            'disable-set-cookie': disableSetCookie,
             disableSetCookie,
             features
         })
