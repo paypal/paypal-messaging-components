@@ -47,7 +47,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
         props: {
             disableSetCookie: {
                 type: 'boolean',
-                queryParam: 'disable-set-cookie',
+                queryParam: 'disableSetCookie',
                 required: false,
                 value: getDisableSetCookie
             },

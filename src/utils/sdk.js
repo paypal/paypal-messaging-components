@@ -234,7 +234,7 @@ export function getDevTouchpoint() {
 }
 export function getFeatures() {
     if (getDisableSetCookie()) {
-        return 'disable-set-cookie';
+        return 'disableSetCookie';
     } else {
         return undefined;
     }
