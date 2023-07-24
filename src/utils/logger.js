@@ -43,7 +43,7 @@ export const logger = Logger({
             );
 
         const urlWithCookieParams = getDisableSetCookie()
-            ? `${url}?disable-set-cookie=true&features=disable-set-cookie`
+            ? `${url}?disableSetCookie=true&features=disable-set-cookie`
             : url;
 
         return request(method, urlWithCookieParams, {

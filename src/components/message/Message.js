@@ -177,7 +177,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchant_config: merchantConfigHash,
                     channel,
                     treatments: treatmentsHash,
-                    'disable-set-cookie': disableSetCookie,
+                    disableSetCookie,
                     features
                 })
                     .filter(([, val]) => Boolean(val))
