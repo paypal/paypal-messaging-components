@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.45.0](https://github.com/paypal/paypal-messaging-components/compare/v1.44.0...v1.45.0) (2023-07-24)
+
+
+### Features
+
+* disableSetCookie Query Param Fix (DTCRCGEMI-1239) ([#960](https://github.com/paypal/paypal-messaging-components/issues/960)) ([0c58ca4](https://github.com/paypal/paypal-messaging-components/commit/0c58ca4c4cfcaadeec9d88bd3c5b31e167f445de))
+* disableSetCookie Query Param Fix (DTCRCGEMI-1239) ([#962](https://github.com/paypal/paypal-messaging-components/issues/962)) ([771c9e6](https://github.com/paypal/paypal-messaging-components/commit/771c9e68953c7a97792ad9f5072a70f528b5fdbf))
+
 ## [1.44.0](https://github.com/paypal/paypal-messaging-components/compare/v1.43.1...v1.44.0) (2023-07-18)
 
 
