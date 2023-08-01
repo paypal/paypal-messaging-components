@@ -4,7 +4,16 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, writeToLocalStorage } from '../../../utils/sdk';
+import {
+    getMeta,
+    getEnv,
+    getLibraryVersion,
+    getStageTag,
+    getNamespace,
+    writeToLocalStorage,
+    getDisableSetCookie,
+    getFeatures
+} from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
 
@@ -36,6 +45,18 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
         },
 
         props: {
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
+            },
             namespace: {
                 type: 'string',
                 queryParam: false,
@@ -45,9 +66,9 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ close }) => {
-                    // 1 day in milliseconds
-                    const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
+                value: () => {
+                    // 15 minutes in milliseconds
+                    const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
                     return ({ treatmentsHash, deviceID }) => {
                         writeToLocalStorage({
@@ -60,8 +81,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                         });
 
                         globalEvent.trigger('treatments');
-
-                        close();
                     };
                 }
             },

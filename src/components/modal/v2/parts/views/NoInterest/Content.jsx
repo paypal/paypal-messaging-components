@@ -26,7 +26,7 @@ export const NoInterest = ({
                 </div>
             );
         }
-        return <Fragment />;
+        return null;
     };
 
     return (

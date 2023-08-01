@@ -5,6 +5,7 @@ import { create } from '@krakenjs/zoid/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 
 import {
+    getDisableSetCookie,
     getMeta,
     getEnv,
     getGlobalUrl,
@@ -406,12 +407,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: getDevTouchpoint
             },
-            features: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: getFeatures
-            },
             integrationType: {
                 type: 'string',
                 queryParam: true,
@@ -423,6 +418,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 default: getNonce,
                 value: validate.cspNonce
+            },
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
             }
         }
     })

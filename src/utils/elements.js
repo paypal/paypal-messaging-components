@@ -380,23 +380,35 @@ export const getRoot = baseElement => {
         }
     }
 
-    const computedRoot = arrayFind(domPath.reverse(), (el, index, elements) => {
+    domPath.reverse();
+    let biggestEl = domPath[0];
+
+    const computedRoot = arrayFind(domPath, (el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.
-        const height = el.offsetHeight;
 
+        const height = el.offsetHeight;
+        const child = elements[index + 1];
+        // Check if the next element is bigger than the current element and if so, save it and move on to the next element in the array
+        if (child && height <= child.offsetHeight) {
+            biggestEl = child;
+            return false;
+        }
+
+        const biggestElHeight = biggestEl.offsetHeight;
         // window.innerHeight has a variable value on mobile based on the URL bar so
         // we are looking for the element that is larger than the window
         // TODO: This could potentially provide a false positive if a merchant is using height 100vh
-        if (height > elementWindow.innerHeight) {
+        // we are also checking to see if the height of the element we're currently on is also bigger or equal to
+        // the biggest element's height in the array.
+        if (height > elementWindow.innerHeight && height >= biggestElHeight) {
             return true;
         }
 
         // Use array index instead of parentNode be default because collapsed
         // elements may have been filtered out and should not be used for calculations
         const parent = elements[index - 1] ?? el.parentNode; // First element should be <html> and will have a parent of document
-        const child = elements[index + 1];
 
         // Ensure that the selected root is the larger of the parent
         // and contains the child otherwise there may not be a proper page wrapper
@@ -413,7 +425,9 @@ export const getRoot = baseElement => {
     // containers that may have content outside of the root element.
     const root = elementContains(elementWindow, computedRoot) ? undefined : computedRoot;
 
-    ppDebug('Root:', { debugObj: root || 'undefined. Viewport is used as the root.' });
+    ppDebug('Root:', {
+        debugObj: root || 'undefined. Viewport is used as the root.'
+    });
 
     return root;
 };

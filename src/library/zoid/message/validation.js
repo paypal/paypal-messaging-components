@@ -196,11 +196,14 @@ export default {
     },
     channel: ({ props: { channel } }) => {
         if (typeof channel !== 'undefined') {
-            const options = ['UPSTREAM', 'CHECKOUT'];
+            // Acceptable values include any case-sensitive alphanumeric string with optional underscores.
+            const acceptedValues = /^[A-Z0-9_]+$/;
             if (!validateType(Types.STRING, channel)) {
                 logInvalidType('channel', Types.STRING, channel);
-            } else if (!arrayIncludes(options, channel)) {
-                logInvalidOption('channel', options, channel);
+            } else if (!acceptedValues.test(channel)) {
+                // Return undefined if supplied channel value is not an accepted value.
+                // We do not surface a warning here as we do not want instances where a channel is used in an incorrect context.
+                return undefined;
             } else {
                 return channel;
             }

@@ -24,7 +24,10 @@ export function getLocalTreatments() {
     if (experiments.expiration < Date.now()) {
         // use existing value, but update treatments in the background
         if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', fetchTreatments);
+            // This ensures that unique event objects are not passed by the event listener into fetchTreatments,
+            // which avoids the benefit of memoization, because we only want the logic inside fetchTreatments
+            // to execute once, which only occurs when fetchTreatments is always called with ()
+            window.addEventListener('DOMContentLoaded', () => fetchTreatments());
         } else {
             fetchTreatments();
         }

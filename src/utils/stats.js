@@ -59,8 +59,8 @@ export function buildStatsPayload({ container, activeTags, index, requestDuratio
             // so everything must be converted to a string to prevent unintended filtering
             pos_x: Math.round(containerRect.left).toString(),
             pos_y: Math.round(containerRect.top).toString(),
-            browser_width: (topWindow?.innerWidth).toString(),
-            browser_height: (topWindow?.innerHeight).toString(),
+            browser_width: String(topWindow?.innerWidth),
+            browser_height: String(topWindow?.innerHeight),
             visible: isInViewport(container).toString(),
             active_tags: activeTags,
             request_duration: formatStat(requestDuration),

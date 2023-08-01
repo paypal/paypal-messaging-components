@@ -33,10 +33,7 @@ const getConfigStrParts = (obj, keyPrefix = '') => {
     }, []);
 };
 
-const getConfigStr = obj =>
-    getConfigStrParts(obj)
-        .sort()
-        .join('_');
+const getConfigStr = obj => getConfigStrParts(obj).sort().join('_');
 
 const getTestNameParts = (locale, { account, amount, style: { layout, ...style } }) => {
     // eslint-disable-next-line no-param-reassign
@@ -100,6 +97,11 @@ const waitForBanner = async ({ testName, timeout, config }) => {
 
 const padDimension = number => 10 * Math.ceil(number / 10) + 5;
 
+function setWindowDimensions({ width, height }) {
+    window.outerWidth = width;
+    window.outerHeight = height;
+}
+
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
@@ -120,6 +122,8 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             });
 
             logTestName({ testName, viewport });
+
+            await page.evaluateOnNewDocument(setWindowDimensions, viewport);
             await page.setViewport(viewport);
 
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });

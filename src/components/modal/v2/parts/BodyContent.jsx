@@ -28,11 +28,15 @@ const BodyContent = () => {
         }
 
         let defaultViewName;
+
         const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
+        const hasProductList = views.find(view => view?.meta?.product === 'PRODUCT_LIST');
         if (productViews?.length === 1) {
             defaultViewName = productViews[0]?.meta?.product;
-        } else if (productViews?.length > 1) {
+        } else if (productViews?.length > 1 && hasProductList) {
             defaultViewName = 'PRODUCT_LIST';
+        } else if (productViews?.length > 1 && !hasProductList) {
+            defaultViewName = productViews[0]?.meta?.product;
         }
 
         return defaultViewName;
@@ -42,7 +46,7 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const { headline, subheadline, qualifyingSubheadline = '' } = content;
+    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
     const isQualifying = productMeta?.qualifying;
 
     const openProductList = () => setViewName('PRODUCT_LIST');
@@ -87,6 +91,7 @@ const BodyContent = () => {
                 subheadline={subheadline}
                 isQualifying={isQualifying ?? 'false'}
                 qualifyingSubheadline={qualifyingSubheadline}
+                closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
             />
             <div className="content__container">

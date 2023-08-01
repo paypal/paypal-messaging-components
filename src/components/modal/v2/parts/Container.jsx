@@ -33,7 +33,9 @@ const Container = ({ children }) => {
         env,
         stageTag,
         channel,
-        ecToken
+        ecToken,
+        disableSetCookie,
+        features
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -77,7 +79,9 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
-            deviceID
+            deviceID,
+            disableSetCookie,
+            features
         }).then(data => {
             setServerData(data);
             setLoading(false);
@@ -101,7 +105,13 @@ const Container = ({ children }) => {
                 >
                     {/* Scrollable content */}
                     {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
-                    <div className="content__wrapper" ref={!!(!isLander || isIframe) && contentWrapperRef}>
+                    <div
+                        className="content__wrapper"
+                        ref={!!(!isLander || isIframe) && contentWrapperRef}
+                        role={isIframe ? 'dialog' : undefined}
+                        aria-modal={isIframe ? 'true' : undefined}
+                        aria-labelledby={isIframe ? 'header__headline' : undefined}
+                    >
                         {children}
                     </div>
                 </div>

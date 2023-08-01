@@ -112,9 +112,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
             ])
         )
         .then(() => {
-            const firstContainer = getGlobalState()
-                .messagesMap.keys()
-                .next().value;
+            const firstContainer = getGlobalState().messagesMap.keys().next().value;
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
             const root = getRoot(firstContainer);
@@ -160,9 +158,12 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                          * Else, ensure the message is visible.
                          */
                         if (
-                            ((entry.intersectionRatio < 0.9 && !elementOutside(root ?? window, iframe)) ||
+                            ((entry.intersectionRatio < 0.9 &&
+                                entry.intersectionRatio > 0 &&
+                                !elementOutside(root ?? window, iframe)) ||
                                 // Round up for decimal values
-                                Math.ceil(iframe.getBoundingClientRect().width) < minWidth) &&
+                                // Increment calculation +1 as a margin of error to account for fractional widths.
+                                Math.ceil(iframe.getBoundingClientRect().width + 1) < minWidth) &&
                             !isIntersectingFallback
                         ) {
                             logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {

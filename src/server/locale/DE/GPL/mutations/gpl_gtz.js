@@ -145,8 +145,9 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    `@media screen and (max-width: ${textSize *
-                        14}px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
+                    `@media screen and (max-width: ${
+                        textSize * 14
+                    }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
@@ -163,8 +164,9 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 15.6),
                     logoNoneAddRatenzahlungAfterPayPal(textSize * 15.6),
-                    `@media screen and (max-width: ${textSize *
-                        14}px) {.message__headline > span:last-child {white-space: nowrap; }}`
+                    `@media screen and (max-width: ${
+                        textSize * 14
+                    }px) {.message__headline > span:last-child {white-space: nowrap; }}`
                 ],
                 logo: false,
                 headline: [

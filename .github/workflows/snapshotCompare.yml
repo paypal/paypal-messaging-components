@@ -24,12 +24,12 @@ jobs:
             - id: setTestPathPatterns
               name: Set test path patterns
               run: |
-                  echo "::set-output name=testPathPatterns::$(./.github/scripts/getTestPathPatterns.sh)"
+                  echo "testPathPatterns=$(./.github/scripts/getTestPathPatterns.sh)" >> $GITHUB_OUTPUT
 
             - id: setTestConfigs
               name: Set test config environment variables
               run: |
-                  echo "::set-output name=testConfigs::$(./.github/scripts/getTestConfigs.sh)"
+                  echo "testConfigs=$(./.github/scripts/getTestConfigs.sh)" >> $GITHUB_OUTPUT
 
     compareSnapshots:
         name: Compare
@@ -46,9 +46,9 @@ jobs:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
+                  node-version-file: '.nvmrc'
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1
@@ -83,9 +83,9 @@ jobs:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
+                  node-version-file: '.nvmrc'
 
             - name: 📥 Download deps
               uses: bahmutov/npm-install@v1

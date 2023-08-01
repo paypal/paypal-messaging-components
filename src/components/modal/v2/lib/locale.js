@@ -12,6 +12,7 @@ const setCurrency = (country, value) =>
 
 const decimalSeparator = locale => (1.1).toLocaleString(locale).replace(/\d/g, '');
 
+// eslint-disable-next-line default-param-last
 export const delocalize = (amount = '', country) => {
     const locale = getLocale(country);
     const localizedDecimalSeparator = decimalSeparator(locale);
@@ -22,6 +23,7 @@ export const delocalize = (amount = '', country) => {
     return delocalizedString;
 };
 
+// eslint-disable-next-line default-param-last
 export const localize = (amount = '', country, minimumFractionDigits = 0) => {
     const number = Number(amount) || 0;
     const locale = getLocale(country);

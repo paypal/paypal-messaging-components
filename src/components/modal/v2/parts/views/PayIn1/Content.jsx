@@ -25,7 +25,7 @@ export const PayIn1 = ({
                 </Fragment>
             );
         }
-        return <Fragment />;
+        return null;
     };
 
     return (

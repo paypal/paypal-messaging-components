@@ -8,49 +8,56 @@ export const populateTemplate = (template, variables) =>
         .replace(/\$?{(?:eval\()?[A-Z._]*([a-zA-Z_]+).*?}/g, (fullMatch, p1) => variables[p1] ?? fullMatch)
         .replace(/\r\n|\r|\n/g, '');
 
-export const localizeNumber = country => (amount, fractionDigits = 2) => {
-    const number = Number(amount) || Number(0);
+export const localizeNumber =
+    country =>
+    (amount, fractionDigits = 2) => {
+        const number = Number(amount) || Number(0);
 
-    // toLocaleString only bundled with US locale on node
-    const baseFormat = number.toLocaleString('en-US', {
-        currency: 'USD',
-        minimumFractionDigits: fractionDigits,
-        maximumFractionDigits: fractionDigits
-    });
+        // toLocaleString only bundled with US locale on node
+        const baseFormat = number.toLocaleString('en-US', {
+            currency: 'USD',
+            minimumFractionDigits: fractionDigits,
+            maximumFractionDigits: fractionDigits
+        });
 
-    switch (country) {
-        case 'DE':
-        case 'FR':
-        case 'ES':
-        case 'IT':
-            return baseFormat.replace(/^([\d,]+)(\.)(\d+)$/, (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`);
-        case 'GB':
-        case 'AU':
-        case 'US':
-        default:
-            return baseFormat;
-    }
-};
+        switch (country) {
+            case 'DE':
+            case 'FR':
+            case 'ES':
+            case 'IT':
+                return baseFormat.replace(
+                    /^([\d,]+)(\.)(\d+)$/,
+                    (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`
+                );
+            case 'GB':
+            case 'AU':
+            case 'US':
+            default:
+                return baseFormat;
+        }
+    };
 
-export const localizeCurrency = country => (amount, fractionDigits = 2) => {
-    // Handle already localized numbers
-    const localizedAmount = Number.isNaN(Number(amount)) ? amount : localizeNumber(country)(amount, fractionDigits);
+export const localizeCurrency =
+    country =>
+    (amount, fractionDigits = 2) => {
+        // Handle already localized numbers
+        const localizedAmount = Number.isNaN(Number(amount)) ? amount : localizeNumber(country)(amount, fractionDigits);
 
-    switch (country) {
-        case 'DE':
-            return `${localizedAmount}€`;
-        case 'GB':
-            return `£${localizedAmount}`;
-        case 'FR':
-        case 'ES':
-        case 'IT':
-            return `${localizedAmount} €`;
-        case 'AU':
-        case 'US':
-        default:
-            return `$${localizedAmount}`;
-    }
-};
+        switch (country) {
+            case 'DE':
+                return `${localizedAmount}€`;
+            case 'GB':
+                return `£${localizedAmount}`;
+            case 'FR':
+            case 'ES':
+            case 'IT':
+                return `${localizedAmount} €`;
+            case 'AU':
+            case 'US':
+            default:
+                return `$${localizedAmount}`;
+        }
+    };
 
 export const waitForTimeout = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
