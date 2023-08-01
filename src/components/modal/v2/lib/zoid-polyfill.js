@@ -133,11 +133,9 @@ const setupWebview = props => {
 
         onReady: ({ meta }) => {
             const { trackingDetails } = meta;
-            const performance = getPerformance();
+            const timing = getPerformance()?.getEntriesByType('navigation')[0];
 
             sendCallbackMessage('onReady', {
-                // TODO: We will need a mechanism to ensure that when a prop is updated, such as `amount`
-                // that we send an updated `__shared__` payload to the client to notify it
                 __shared__: {
                     // Analytic Details
                     fdata: trackingDetails.fdata,
@@ -151,8 +149,8 @@ const setupWebview = props => {
                     debug_id: trackingDetails.debug_id
                 },
                 event_type: 'modal_render',
-                request_duration: performance.timing.responseEnd - performance.timing.requestStart,
-                render_duration: performance.now() // TODO: Verify this is time since page loads
+                request_duration: timing && timing.responseEnd - timing.requestStart,
+                render_duration: timing && timing.loadEventEnd - timing.responseEnd
             });
         },
 

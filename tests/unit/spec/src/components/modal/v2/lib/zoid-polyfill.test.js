@@ -15,11 +15,13 @@ jest.mock('@krakenjs/belter/src', () => {
     return {
         ...originalModule,
         getPerformance: () => ({
-            timing: {
-                requestStart: 0,
-                responseEnd: 0
-            },
-            now: () => 0
+            getEntriesByType: () => [
+                {
+                    requestStart: 100,
+                    responseEnd: 200,
+                    loadEventEnd: 250
+                }
+            ]
         })
     };
 });
@@ -211,8 +213,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_render",
-                  "render_duration": 0,
-                  "request_duration": 0,
+                  "render_duration": 50,
+                  "request_duration": 100,
                 },
               ],
               "name": "onReady",
@@ -369,8 +371,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_render",
-                  "render_duration": 0,
-                  "request_duration": 0,
+                  "render_duration": 50,
+                  "request_duration": 100,
                 },
               ],
               "name": "onReady",
