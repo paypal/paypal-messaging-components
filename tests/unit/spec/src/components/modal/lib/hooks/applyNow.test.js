@@ -31,7 +31,7 @@ describe('Apply Now URL hook', () => {
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+                `https://www.${process.env.STAGE_URL}.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
             );
         });
         test('env = stage', () => {
@@ -39,7 +39,7 @@ describe('Apply Now URL hook', () => {
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+                `https://www.${process.env.STAGE_URL}.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
             );
         });
     });

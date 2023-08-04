@@ -51,7 +51,8 @@
         "@paypal/sdk-client": "^4.0.166",
         "@paypal/sdk-constants": "^1.0.118",
         "@paypal/sdk-logos": "^2.0.0",
-        "core-js-pure": "^3.0.1"
+        "core-js-pure": "^3.0.1",
+        "dotenv": "^16.3.1"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.17.0",

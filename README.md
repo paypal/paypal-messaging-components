@@ -18,6 +18,11 @@ Please feel free to follow the [Contribution Guidelines](./CONTRIBUTING.md) to c
 
 ### Quick Setup
 
+#### For PayPal Internal Testing Only:
+
+-   Make a copy of `.env.boilerplate` and rename the copy to `.env`.
+-   Set `STAGE_URL` to be the base url name for internal stage testing (exclude https://, www., and .com)
+
 Set up your env:
 
 ```bash
