@@ -159,7 +159,7 @@ export default {
     },
     placement: ({ props: { placement } }) => {
         if (typeof placement !== 'undefined') {
-            const options = ['home', 'category', 'product', 'cart', 'payment'];
+            const options = ['home', 'category', 'product', 'cart', 'payment', 'product-list'];
 
             if (!validateType(Types.STRING, placement)) {
                 logInvalidType('placement', Types.STRING, placement);
