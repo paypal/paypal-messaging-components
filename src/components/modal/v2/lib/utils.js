@@ -89,7 +89,7 @@ export function setupTabTrap() {
     window.addEventListener('keydown', trapTabKey);
 }
 
-export const formatDateByCountry = country => {
+export function formatDateByCountry(country) {
     const currentDate = new Date();
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     if (country === 'US') {
@@ -99,4 +99,5 @@ export const formatDateByCountry = country => {
     } else {
         ('invalid country code');
     }
-};
+}
+
