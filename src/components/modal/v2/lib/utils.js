@@ -96,7 +96,5 @@ export function formatDateByCountry(country) {
         return currentDate.toLocaleDateString('en-US', options);
     } else if (['IT', 'FR', 'ES', 'GB', 'DE', 'AU'].includes(country)) {
         return currentDate.toLocaleDateString('en-GB', options);
-    } else {
-        console.error(`Invalid country code: "${country}"`);
     }
 }
