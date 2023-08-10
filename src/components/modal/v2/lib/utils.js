@@ -93,11 +93,10 @@ export function formatDateByCountry(country) {
     const currentDate = new Date();
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     if (country === 'US') {
-        currentDate.toLocaleDateString('en-US', options);
+        return currentDate.toLocaleDateString('en-US', options);
     } else if (['IT', 'FR', 'ES', 'GB', 'DE', 'AU'].includes(country)) {
-        currentDate.toLocaleDateString('en-GB', options);
+        return currentDate.toLocaleDateString('en-GB', options);
     } else {
-        ('invalid country code');
+        return 'invalid country code';
     }
 }
-
