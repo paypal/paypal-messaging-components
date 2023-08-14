@@ -7,16 +7,24 @@ import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
-
+import { formatDateByCountry } from '../../../lib';
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
+    content: {
+        instructions,
+        linkToProductList,
+        estimatedInstallments,
+        disclosure,
+        donutTimestamps,
+        learnMoreLink,
+        preapproval
+    },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
 
     const renderProductListLink = () => {
         return (
@@ -42,6 +50,8 @@ export const ShortTerm = ({
 
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
+
+    const insertDatePreapprovalContent = preapproval.replace(/{current_date}/, formatDateByCountry(country));
 
     return (
         <Fragment>
@@ -77,6 +87,7 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
+            <div>{insertDatePreapprovalContent}</div>
             <div className="content__row disclosure">
                 <InlineLinks text={currencyFormat(disclosure)} />
             </div>
