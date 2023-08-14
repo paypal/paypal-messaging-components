@@ -94,7 +94,6 @@ export function formatDateByCountry(country) {
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
     if (country === 'US') {
         return currentDate.toLocaleDateString('en-US', options);
-    } else if (['IT', 'FR', 'ES', 'GB', 'DE', 'AU'].includes(country)) {
-        return currentDate.toLocaleDateString('en-GB', options);
     }
+    return currentDate.toLocaleDateString('en-GB', options);
 }
