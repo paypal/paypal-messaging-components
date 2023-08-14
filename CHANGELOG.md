@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.46.1](https://github.com/paypal/paypal-messaging-components/compare/v1.46.0...v1.46.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* lock core-js-pure dependency version ([#969](https://github.com/paypal/paypal-messaging-components/issues/969)) ([1671b07](https://github.com/paypal/paypal-messaging-components/commit/1671b0718b133ebb8af3de026b6b87932d650cf2))
+
 ## [1.46.0](https://github.com/paypal/paypal-messaging-components/compare/v1.45.0...v1.46.0) (2023-08-07)
 
 
