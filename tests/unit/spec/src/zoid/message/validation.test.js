@@ -204,7 +204,7 @@ describe('validate', () => {
     });
 
     test('validates placement', () => {
-        ['home', 'category', 'product', 'cart', 'payment'].forEach(supportedPlacement => {
+        ['home', 'category', 'product', 'cart', 'payment', 'product-list'].forEach(supportedPlacement => {
             const placement = validate.placement({ props: { placement: supportedPlacement } });
 
             expect(placement).toEqual(supportedPlacement);

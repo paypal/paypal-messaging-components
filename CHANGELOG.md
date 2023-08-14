@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.46.1](https://github.com/paypal/paypal-messaging-components/compare/v1.46.0...v1.46.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* lock core-js-pure dependency version ([#969](https://github.com/paypal/paypal-messaging-components/issues/969)) ([1671b07](https://github.com/paypal/paypal-messaging-components/commit/1671b0718b133ebb8af3de026b6b87932d650cf2))
+
+## [1.46.0](https://github.com/paypal/paypal-messaging-components/compare/v1.45.0...v1.46.0) (2023-08-07)
+
+
+### Features
+
+* add product-list placement parameter ([#965](https://github.com/paypal/paypal-messaging-components/issues/965)) ([3a94f7f](https://github.com/paypal/paypal-messaging-components/commit/3a94f7ff4971d7c921bb1392935e9416f036f614))
+
 ## [1.45.0](https://github.com/paypal/paypal-messaging-components/compare/v1.44.0...v1.45.0) (2023-07-24)
 
 
