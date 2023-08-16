@@ -10,10 +10,7 @@
 
 ## Description
 
-<!--
-    Describe your changes and what problem they solve
-    Link to any relevant documentation
--->
+<!-- Describe your changes and what problem they solve -->
 
 ## Screenshots
 
