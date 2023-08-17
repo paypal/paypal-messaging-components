@@ -51,7 +51,9 @@ export const ShortTerm = ({
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
 
-    const insertDatePreapprovalContent = preapproval.replace(/{current_date}/, formatDateByCountry(country));
+    const insertDatePreapprovalContent = preapproval
+        ? preapproval.replace(/{current_date}/, formatDateByCountry(country))
+        : null;
 
     return (
         <Fragment>
