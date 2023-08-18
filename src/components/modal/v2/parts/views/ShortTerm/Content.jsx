@@ -22,7 +22,7 @@ export const ShortTerm = ({
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
-    const { views, country } = useServerData();
+    const { views } = useServerData();
 
     const renderProductListLink = () => {
         return (

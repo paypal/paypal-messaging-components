@@ -1,10 +1,5 @@
 import { formatDateByCountry } from 'src/components/modal/v2/lib/utils';
 
-jest.mock('src/components/modal/lib/utils', () => ({
-    getContent: jest.fn().mockResolvedValue(null),
-    setupTabTrap: jest.fn().mockResolvedValue(null)
-}));
-
 describe('Date function should return correct date format based on country', () => {
     it('US country date should be formatted MM/DD/YYYY', () => {
         const result = formatDateByCountry('US');
