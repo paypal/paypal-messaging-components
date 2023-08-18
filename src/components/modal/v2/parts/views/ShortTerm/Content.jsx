@@ -11,14 +11,7 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: {
-        instructions,
-        linkToProductList,
-        estimatedInstallments,
-        disclosure,
-        donutTimestamps,
-        learnMoreLink
-    },
+    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
