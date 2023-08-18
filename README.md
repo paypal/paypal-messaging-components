@@ -134,7 +134,7 @@ CONFIG_PATH={locale}/{account} npm run test:func:snapshots
 
 ### Stage
 
-If you are looking to run against new test enviroment just change the URL in the script tag to match the new test enviroment, the script will recompile and the changes reflected. **Please note, this is only available in the staging environment.**
+If you are looking to run against an alternative environment, set the `window.__TEST_ENV__` global to override the environment. **Please note, this is only available in development environments.**
 
 ```javascript
 //Change the value of the test environment
