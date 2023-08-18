@@ -91,7 +91,7 @@ export function setupTabTrap() {
 
 export function formatDateByCountry(country) {
     const currentDate = new Date();
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     if (country === 'US') {
         return currentDate.toLocaleDateString('en-US', options);
     }
