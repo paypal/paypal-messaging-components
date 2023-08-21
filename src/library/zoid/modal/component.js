@@ -17,7 +17,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getDeviceID,
+    getOrCreateStorageID,
     getStageTag,
     getFeatures,
     getNonce,
@@ -243,7 +243,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta, ts, deviceID }) => {
+                    return ({ products, meta, ts }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
@@ -269,7 +269,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     ...existingGlobal,
                                     ts: tsCookie,
                                     // Device ID should be correctly set during message render
-                                    deviceID,
+                                    deviceID: getOrCreateStorageID(),
                                     sessionID: getSessionID()
                                 },
                                 [index]: {
@@ -368,7 +368,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getDeviceID
+                value: getOrCreateStorageID
             },
             sessionID: {
                 type: 'string',

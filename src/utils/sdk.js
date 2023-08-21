@@ -177,12 +177,6 @@ export function writeToLocalStorage(values) {
         : {};
 }
 
-// Use the custom deviceID field, but fall back to storage ID if it is not yet present
-// or does not exist (as in the child )
-export function getDeviceID() {
-    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
-}
-
 // Check if the current script is in the process of being destroyed since
 // the MutationObservers can fire before the SDK destroy lifecycle hook
 export const isScriptBeingDestroyed = () => {

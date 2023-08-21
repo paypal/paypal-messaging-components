@@ -57,7 +57,6 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID,
                 ts: getTsCookieFromStorage()
             });
         }

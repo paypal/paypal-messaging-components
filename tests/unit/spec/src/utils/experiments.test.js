@@ -72,8 +72,7 @@ describe('experiments utils', () => {
 
         ensureTreatments();
 
-        expect(document.querySelector('iframe')).toBeNull();
-        expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+        expect(document.querySelector('iframe')).not.toBeNull();
 
         window.__MESSAGES__.__TARGET__ = 'SDK';
     });

@@ -212,7 +212,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, ts, requestDuration, messageRequestId }) => {
+                    return ({ meta, activeTags, ts, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
@@ -224,7 +224,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // We still want to write it here to handle the scenario where the SDK has never been loaded
                         // and thus the inner iframe has no value for deviceID until after the first message render
                         const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
-                        writeToLocalStorage({ id: deviceID, ts: tsCookie });
+                        writeToLocalStorage({ ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -242,7 +242,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     ts: tsCookie,
-                                    deviceID, // deviceID from internal iframe storage
+                                    deviceID: getOrCreateStorageID(), // deviceID from internal iframe storage
                                     sessionID: getSessionID() // Session ID from parent local storage,
                                 },
                                 [index]: {
