@@ -10,7 +10,7 @@ const setupBrowser = props => {
         // We will never recieve new props via this integration style
         onProps: () => {},
         // TODO: Verify these callbacks are instrumented correctly
-        onReady: ({ products, meta }) => {
+        onReady: ({ products, meta, deviceID }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
             const { trackingDetails } = meta;
 
@@ -29,9 +29,9 @@ const setupBrowser = props => {
                     global: {
                         ...existingGlobal,
                         // integration_type needs to be sent or it will default to lander
-                        integration_type: props.integrationType ?? __MESSAGES__.__TARGET__
-                        // Device ID is not present for standalone modal integrations made with the presentment API
-                        // deviceID
+                        integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
+                        // Device ID should be correctly set during message render
+                        deviceID
                         // sessionID: getSessionID()
                     },
                     1: {

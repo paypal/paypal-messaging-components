@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { getTsCookieFromStorage } from '../../../utils';
+import { getOrCreateStorageID, getTsCookieFromStorage } from '../../../utils';
 
 import {
     useTransitionState,
@@ -59,6 +59,7 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
                 products: productNames,
                 messageRequestId,
                 meta,
+                deviceID: getOrCreateStorageID(),
                 ts: getTsCookieFromStorage()
             });
         }

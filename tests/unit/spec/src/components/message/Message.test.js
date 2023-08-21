@@ -95,6 +95,7 @@ describe('Message', () => {
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             requestDuration: 123,
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             ts
         });
     });
@@ -133,6 +134,7 @@ describe('Message', () => {
             meta: {},
             messageRequestId: originalMRID,
             requestDuration: 123,
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             ts
         });
 
@@ -160,6 +162,7 @@ describe('Message', () => {
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
             requestDuration: 123,
+            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             ts
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
@@ -180,6 +183,7 @@ describe('Message', () => {
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             requestDuration: 123,
+            deviceID: 'uid_1111111111_11111111111',
             ts
         });
     });
