@@ -154,10 +154,6 @@ export function getOrCreateStorageID() {
     }
 }
 
-export function isStorageFresh() {
-    return getStorage().isStateFresh();
-}
-
 // Retrieve namespaced localStorage directly
 function getRawStorage() {
     return isLocalStorageEnabled()

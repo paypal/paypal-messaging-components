@@ -12,7 +12,6 @@ jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
     getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
-    isStorageFresh: jest.fn().mockReturnValue(false),
     getTsCookieFromStorage: jest.fn(() => ts),
     request: jest.fn(() =>
         Promise.resolve({
