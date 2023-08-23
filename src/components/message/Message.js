@@ -9,7 +9,7 @@ import {
     parseObjFromEncoding,
     getRequestDuration,
     getTsCookieFromStorage,
-    getOrCreateStorageID
+    getOrCreatedDeviceID
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
@@ -76,7 +76,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         messageRequestId,
         // Utility will create iframe deviceID/ts_cookie values if it doesn't exist.
         ts: getTsCookieFromStorage(),
-        deviceID: getOrCreateStorageID(),
+        deviceID: getOrCreatedDeviceID(),
         // getRequestDuration runs in the child component (iframe/banner message),
         // passing a value to onReady and up to the parent component to go out with
         // the other stats
@@ -208,7 +208,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                                 messageRequestId: newMessageRequestId,
                                 // Utility will create iframe ts cookie if it doesn't exist.
                                 ts: getTsCookieFromStorage(),
-                                deviceID: getOrCreateStorageID(),
+                                deviceID: getOrCreatedDeviceID(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
                                 // passing a value to onReady and up to the parent component to go out with
                                 // the other stats

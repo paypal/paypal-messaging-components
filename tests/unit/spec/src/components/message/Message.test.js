@@ -1,7 +1,7 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getOrCreateStorageID, createState } from 'src/utils';
+import { request, getOrCreatedDeviceID, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 const ts = {
@@ -11,7 +11,7 @@ const ts = {
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
-    getOrCreateStorageID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    getOrCreatedDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     getTsCookieFromStorage: jest.fn(() => ts),
     request: jest.fn(() =>
         Promise.resolve({
@@ -62,7 +62,7 @@ describe('Message', () => {
 
         createState.mockClear();
         request.mockClear();
-        getOrCreateStorageID.mockClear();
+        getOrCreatedDeviceID.mockClear();
         xPropsMock.clear();
     });
 
@@ -93,8 +93,8 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
-            requestDuration: 123,
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
             ts
         });
     });
@@ -132,8 +132,8 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: originalMRID,
-            requestDuration: 123,
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
             ts
         });
 
@@ -160,8 +160,8 @@ describe('Message', () => {
                 messageRequestId: '23456'
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
-            requestDuration: 123,
             deviceID: 'uid_26a2522628_mtc6mjk6nti',
+            requestDuration: 123,
             ts
         });
         expect(window.xprops.onMarkup).toHaveBeenLastCalledWith({
@@ -174,15 +174,15 @@ describe('Message', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getOrCreateStorageID.mockReturnValue('uid_1111111111_11111111111');
+        getOrCreatedDeviceID.mockReturnValue('uid_1111111111_11111111111');
 
         Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {},
+            deviceID: 'uid_1111111111_11111111111',
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             requestDuration: 123,
-            deviceID: 'uid_1111111111_11111111111',
             ts
         });
     });
