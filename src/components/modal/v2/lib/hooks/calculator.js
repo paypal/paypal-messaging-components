@@ -2,7 +2,6 @@ import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from '@krakenjs/belter/src';
 
 import { useXProps, useServerData } from '../providers';
-import { getOrCreatedDeviceID } from '../../../../../utils';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 import { localize, delocalize } from '../locale';
@@ -65,6 +64,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         integrationType,
         channel,
         ecToken,
+        deviceID,
         devTouchpoint,
         disableSetCookie,
         features
@@ -94,7 +94,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             channel,
             ecToken,
             devTouchpoint,
-            deviceID: getOrCreatedDeviceID(),
+            deviceID,
             disableSetCookie,
             features
         })
