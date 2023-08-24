@@ -197,14 +197,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS',
-                            src
-                        });
-
-                        logger.track({
-                            index,
-                            refIndex,
-                            et: 'CLIENT_IMPRESSION',
                             event_type: 'modal-open',
                             src
                         });
@@ -296,6 +288,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             duration: getCurrentTime() - renderStart
+                        });
+
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'CLIENT_IMPRESSION',
+                            event_type: 'MORS',
                         });
 
                         logger.track({
