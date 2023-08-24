@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { currencyFormat } from '../lib';
 
 const Instructions = ({ instructions, expandedState = false, className = '' }) => {
@@ -26,9 +26,9 @@ const Instructions = ({ instructions, expandedState = false, className = '' }) =
                     })}
                 </ol>
             ) : (
-                <div className="instructions">
+                <Fragment>
                     <h2
-                        className="instructions__headline"
+                        className="instructions__item-wrapper"
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionHeadline }}
                     />
@@ -37,7 +37,7 @@ const Instructions = ({ instructions, expandedState = false, className = '' }) =
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionSubHeadline }}
                     />
-                </div>
+                </Fragment>
             )}
         </div>
     );

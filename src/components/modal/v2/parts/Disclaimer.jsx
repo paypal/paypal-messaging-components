@@ -4,9 +4,8 @@ import { currencyFormat } from '../lib';
 
 const Disclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody }) => {
     return (
-        <div className="content__row instructions">
+        <div className="content__row disclaimer">
             <h2
-                className="instructions__headline"
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{ __html: preapprovalDisclaimerHeadline }}
             />
@@ -14,7 +13,7 @@ const Disclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody }
                 <ul>
                     {preapprovalDisclaimerBody.map(disclaimer => {
                         return (
-                            <li className="instructions__item-wrapper">
+                            <li className="disclaimer__item-wrapper">
                                 {/* eslint-disable-next-line react/no-danger */}
                                 <div dangerouslySetInnerHTML={{ __html: currencyFormat(disclaimer) }} />
                             </li>

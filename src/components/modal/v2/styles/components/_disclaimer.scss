@@ -1,4 +1,4 @@
-.instructions {
+.disclaimer {
     text-align: left;
     box-sizing: border-box;
 
@@ -11,7 +11,8 @@
         justify-content: center;
     }
 
-    ol {
+    ul {
+        list-style: disc;
         @include desktop {
             padding: 0px;
         }
@@ -25,13 +26,25 @@
                 margin-bottom: 0px;
             }
         }
+        .disclaimer__item-wrapper {
+            display: list-item;
+        }
+        li {
+            margin-left: 0.6rem;
+
+            @include desktop {
+                margin-left: 0.6rem;
+            }
+            @include mobile {
+                margin-left: 1.2rem;
+            }
+        }
     }
 
     li {
-        color: $text-main;
-        list-style: none;
-        line-height: 24px;
-        font-size: 18px;
+        color: $dark-gray;
+        line-height: 20px;
+        font-size: 14px;
         padding-bottom: 16px;
     }
     h2 {
@@ -65,19 +78,18 @@
         @include mobile {
             margin-bottom: 5px;
             margin-left: 0px;
-            max-width: 84%;
         }
 
         @include smallMobile {
-            max-width: 81%;
+            font-size: 1rem;
         }
     }
     .subheadline_p {
         font-size: 14px;
-        font-weight: 400;
         line-height: 20px;
+        font-weight: 400;
         text-align: left;
-        color: $text-main;
+        color: $dark-gray;
         margin: 0px;
 
         @include desktop {
@@ -87,16 +99,20 @@
         }
 
         @include tablet {
-            margin-top: 10px;
             margin-left: 32px;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         @include mobile {
-            padding-bottom: 10px;
+            padding-bottom: 20px;
         }
+
         @include smallMobile {
-            font-size: 1rem;
+            max-width: 67%;
+        }
+
+        span {
+            white-space: nowrap;
         }
     }
     .instructions__item-wrapper {
