@@ -86,7 +86,6 @@ const BodyContent = () => {
         ),
         PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />
     };
-
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -102,7 +101,7 @@ const BodyContent = () => {
                 viewName={viewName}
                 preapprovalHeadline={preapprovalHeadline}
                 preapprovalSubHeadline={preapprovalSubHeadline}
-                isPreapproved={isPreapproved ?? 'false'}
+                isPreapproved={isPreapproved ?? false}
             />
             <div className="content__container">
                 <main className="main">

@@ -20,10 +20,9 @@ export const ShortTerm = ({
         preapproval: { preapprovalDisclaimerHeadline, preapprovalDisclaimerBody },
         disclosure,
         donutTimestamps,
-        learnMoreLink,
-        isPreapproved = 'false'
+        learnMoreLink
     },
-    productMeta: { qualifying, periodicPayment },
+    productMeta: { qualifying, periodicPayment, preapproved },
     openProductList
 }) => {
     const { views } = useServerData();
@@ -79,7 +78,7 @@ export const ShortTerm = ({
                             </div>
                         </div>
                         <Instructions instructions={instructions} />
-                        {isPreapproved && (
+                        {preapproved && (
                             <Disclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
