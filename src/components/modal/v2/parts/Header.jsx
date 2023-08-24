@@ -75,7 +75,9 @@ const Header = ({
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
-                    className={`headline-${countryClassName}`}
+                    className={
+                        isPreapproved ? `headline-${countryClassName}-preapproved` : `headline-${countryClassName}`
+                    }
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: isPreapproved ? preapprovalHeadline : headline }}
                 />

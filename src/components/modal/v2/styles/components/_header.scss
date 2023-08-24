@@ -264,6 +264,12 @@
                     }
                 }
             }
+            &.headline-gb-preapproved {
+                max-width: 84%;
+                @include smallMobile {
+                    max-width: 81%;
+                }
+            }
         }
 
         .subheadline_p {
