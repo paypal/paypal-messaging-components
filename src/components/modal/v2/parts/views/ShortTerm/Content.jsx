@@ -10,9 +10,19 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
+import Disclaimer from '../../Disclaimer';
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
+    content: {
+        instructions,
+        linkToProductList,
+        estimatedInstallments,
+        preapproval: { preapprovalDisclaimerHeadline, preapprovalDisclaimerBody },
+        disclosure,
+        donutTimestamps,
+        learnMoreLink,
+        isPreapproved = 'false'
+    },
     productMeta: { qualifying, periodicPayment },
     openProductList
 }) => {
@@ -69,6 +79,12 @@ export const ShortTerm = ({
                             </div>
                         </div>
                         <Instructions instructions={instructions} />
+                        {isPreapproved && (
+                            <Disclaimer
+                                preapprovalDisclaimerBody={preapprovalDisclaimerBody}
+                                preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">

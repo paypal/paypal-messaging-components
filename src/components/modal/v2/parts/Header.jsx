@@ -11,7 +11,10 @@ const Header = ({
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
-    viewName
+    viewName,
+    preapprovalHeadline,
+    preapprovalSubHeadline,
+    isPreapproved = 'false'
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -74,17 +77,19 @@ const Header = ({
                     id="header__headline"
                     className={`headline-${countryClassName}`}
                     // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: headline }}
+                    dangerouslySetInnerHTML={{ __html: isPreapproved ? preapprovalHeadline : headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
-                        {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                        {isPreapproved ? preapprovalSubHeadline : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
                         className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
+                        dangerouslySetInnerHTML={{
+                            __html: currencyFormat(isPreapproved ? preapprovalSubHeadline : subheadline) ?? ''
+                        }}
                     />
                 )}
             </div>

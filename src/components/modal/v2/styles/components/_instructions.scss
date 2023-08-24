@@ -26,7 +26,35 @@
             }
         }
     }
+    ul {
+        @include desktop {
+            padding: 0px;
+        }
 
+        @include mobile {
+            padding: 0px;
+        }
+        &.ppc {
+            @include mobile {
+                margin-top: -11px;
+                margin-bottom: 0px;
+            }
+        }
+        .instructions__item-wrapper {
+            display: list-item;
+            list-style: disc;
+            &:last-child {
+                li {
+                    @include tablet {
+                        padding-bottom: 0px;
+                    }
+                    @include mobile {
+                        padding-bottom: 0px;
+                    }
+                }
+            }
+        }
+    }
     li {
         color: $text-main;
         list-style: none;
@@ -34,7 +62,96 @@
         font-size: 18px;
         padding-bottom: 16px;
     }
+    h2 {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+        margin-left: 24px;
+        @include desktop {
+            margin-bottom: 10px;
 
+            br {
+                display: none;
+            }
+        }
+
+        @include tablet {
+            margin-left: 62px;
+            @include lander {
+                max-width: 100%;
+            }
+
+            br {
+                display: none;
+            }
+        }
+
+        @include mobile {
+            margin-bottom: 5px;
+            margin-left: 12px;
+            max-width: 84%;
+        }
+
+        @include smallMobile {
+            font-size: 1 rem;
+            max-width: 81%;
+        }
+
+        &.headline-de {
+            @include tablet {
+                margin-right: 20px;
+            }
+
+            @include mobile {
+                line-height: 30px;
+                margin-right: 50px;
+                margin-left: 0px;
+                padding: 10px 25px 0px;
+            }
+
+            @include apiIframe {
+                max-width: 500px;
+                @include mobile {
+                    max-width: 279px;
+                }
+            }
+        }
+    }
+    .subheadline_p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+        color: $text-main;
+        margin: 0px;
+
+        @include desktop {
+            margin-left: 52px;
+            margin-top: 0px;
+            margin-bottom: 80px;
+        }
+
+        @include tablet {
+            max-width: 380px;
+            margin-left: 62px;
+            margin-bottom: 60px;
+        }
+
+        @include mobile {
+            max-width: 75%;
+            padding: 10px 22px 100px;
+            line-height: 20px;
+        }
+
+        @include smallMobile {
+            max-width: 67%;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+    }
     .instructions__item-wrapper {
         display: flex;
         flex-direction: row;
@@ -59,6 +176,73 @@
         span {
             position: relative;
             z-index: 1;
+        }
+    }
+    &__headline {
+        padding-top: 1rem;
+        position: relative;
+
+        @include tablet {
+            width: 100%;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 36px;
+            text-align: left;
+            color: $text-main;
+            margin-left: 52px;
+            margin-top: 10px;
+
+            @include desktop {
+                margin-bottom: 10px;
+
+                br {
+                    display: none;
+                }
+            }
+
+            @include tablet {
+                margin-left: 62px;
+                @include lander {
+                    max-width: 100%;
+                }
+
+                br {
+                    display: none;
+                }
+            }
+
+            @include mobile {
+                margin-bottom: 5px;
+                margin-left: 22px;
+                max-width: 84%;
+            }
+
+            @include smallMobile {
+                font-size: 1.7rem;
+                max-width: 81%;
+            }
+
+            &.headline-de {
+                @include tablet {
+                    margin-right: 20px;
+                }
+
+                @include mobile {
+                    line-height: 30px;
+                    margin-right: 50px;
+                    margin-left: 0px;
+                    padding: 10px 25px 0px;
+                }
+
+                @include apiIframe {
+                    max-width: 500px;
+                    @include mobile {
+                        max-width: 279px;
+                    }
+                }
+            }
         }
     }
 

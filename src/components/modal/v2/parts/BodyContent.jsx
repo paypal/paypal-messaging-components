@@ -46,8 +46,15 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
+    const {
+        headline,
+        subheadline,
+        qualifyingSubheadline = '',
+        closeButtonLabel,
+        preapproval: { preapprovalHeadline, preapprovalSubHeadline }
+    } = content;
     const isQualifying = productMeta?.qualifying;
+    const isPreapproved = productMeta?.preapproved;
 
     const openProductList = () => setViewName('PRODUCT_LIST');
 
@@ -93,6 +100,9 @@ const BodyContent = () => {
                 qualifyingSubheadline={qualifyingSubheadline}
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
+                preapprovalHeadline={preapprovalHeadline}
+                preapprovalSubHeadline={preapprovalSubHeadline}
+                isPreapproved={isPreapproved ?? 'false'}
             />
             <div className="content__container">
                 <main className="main">
