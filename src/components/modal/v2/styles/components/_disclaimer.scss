@@ -115,32 +115,6 @@
             white-space: nowrap;
         }
     }
-    .instructions__item-wrapper {
-        display: flex;
-        flex-direction: row;
-
-        &:last-child {
-            li {
-                @include tablet {
-                    padding-bottom: 0px;
-                }
-                @include mobile {
-                    padding-bottom: 0px;
-                }
-            }
-        }
-    }
-
-    .instructions__bullet {
-        font-size: 18px;
-        color: $text-main;
-        margin-right: 0.7rem;
-
-        span {
-            position: relative;
-            z-index: 1;
-        }
-    }
 
     @include lander {
         @include tablet {
