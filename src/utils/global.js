@@ -59,9 +59,21 @@ export const createTitleGenerator = () => {
 /**
  * Create a URL of the requested type from Webpack global variables
  * @param {String} type URL type
+ * @param {String} [env] Environment (local, stage, sandbox, production)
+ * @param {String} [refId] Marketing Ref ID
+ * @param {String} [payerId] Payer ID
  * @returns {String} URL of requested type
  */
-export function getGlobalUrl(type) {
+export function getGlobalUrl(type, env, refId, payerId) {
+    if (env && refId && payerId) {
+        const urlBase = {
+            stage: __MESSAGES__.__DOMAIN__.__STAGE__,
+            sandbox: __MESSAGES__.__DOMAIN__.__SANDBOX__,
+            production: __MESSAGES__.__DOMAIN__.__PRODUCTION__
+        }[env];
+
+        return `${urlBase}/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=${refId}&payer_id=${payerId}`;
+    }
     return `${getPayPalDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
 }
 

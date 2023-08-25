@@ -2,7 +2,6 @@ const postRobotGlobals = require('@krakenjs/post-robot/globals');
 const zoidGlobals = require('@krakenjs/zoid/globals');
 
 const { version } = require('./package.json');
-require('dotenv').config();
 
 const PORT = process.env.PORT || 8080;
 
@@ -32,7 +31,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __DEV_TOUCHPOINT__: env.DEV_TOUCHPOINT,
         __DOMAIN__: {
             __LOCAL__: `https://localhost.paypal.com:${PORT}`,
-            __STAGE__: `https://www.${process.env.STAGE_URL}.com`,
+            __STAGE__: `https://${process.env.STAGE_URL}`,
             __SANDBOX__: 'https://www.sandbox.paypal.com',
             __PRODUCTION__: 'https://www.paypal.com'
         },

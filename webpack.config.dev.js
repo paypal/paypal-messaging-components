@@ -3,7 +3,6 @@ const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
 const { localeOptions } = require('./locales');
-require('dotenv').config();
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
@@ -89,7 +88,7 @@ module.exports = (env = {}) => {
                         __PROTOCOL__: PROTOCOL,
                         __HOST__: `${HOSTNAME}:${PORT}`,
                         __SDK_HOST__: `${HOSTNAME}:${PORT}`,
-                        __STAGE_HOST__: `${process.env.STAGE_URL}.com`,
+                        __STAGE_HOST__: `${process.env.STAGE_URL}`,
                         __PORT__: PORT,
                         __PATH__: `/${FILE_NAME}.js`,
                         __NAMESPACE__: 'paypal',
