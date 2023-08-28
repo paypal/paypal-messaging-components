@@ -204,8 +204,9 @@ export const isScriptBeingDestroyed = () => {
 };
 
 export function getPayPalDomain() {
-    if (__MESSAGES__.__TEST_ENV__) {
-        return __MESSAGES__.__TEST_ENV__;
+    const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+    if (testEnviroment && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        return testEnviroment;
     } else if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
@@ -224,9 +225,9 @@ export function getStageTag() {
         return undefined;
     }
 }
-
 export function getDevTouchpoint() {
-    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+    const devTouchpoint = window.__DEV_TOUCHPOINT__ ?? __MESSAGES__.__DEV_TOUCHPOINT__;
+    if (devTouchpoint && getEnv() !== 'production' && getEnv() !== 'sandbox') {
         return true;
     } else {
         return undefined; // Prevent the zoid query param

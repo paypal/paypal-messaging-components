@@ -1,5 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
+import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug } from '../../../../utils';
 
 export const getContent = memoize(
@@ -64,7 +65,8 @@ export const getContent = memoize(
  * @returns boolean
  */
 export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';
-export const isIframe = window.top !== window;
+const { userAgent } = window.navigator;
+export const isIframe = window.top !== window || isIosWebview(userAgent) || isAndroidWebview(userAgent);
 
 export function setupTabTrap() {
     const focusableElementsString =

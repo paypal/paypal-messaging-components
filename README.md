@@ -137,6 +137,15 @@ Alternatively, you can remove `-- --testPathPattern {integrationType}` and just 
 CONFIG_PATH={locale}/{account} npm run test:func:snapshots
 ```
 
+### Stage
+
+If you are looking to run against an alternative environment, set the `window.__TEST_ENV__` global to override the environment. **Please note, this is only available in development environments.**
+
+```javascript
+//Change the value of the test environment
+<script>window.__TEST_ENV__ = "https://www.te-test-env.com"</script>
+```
+
 ## Releasing
 
 This package is published weekly, **Every Wednesday**. Please [view our Changelog](CHANGELOG.md) to stay updated with bug fixes and new features.
