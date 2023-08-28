@@ -146,7 +146,7 @@ export function getSessionID() {
 }
 
 // Retrieves storageID. NOTE: Creates new ID if not already in local storage.
-export function getOrCreatedDeviceID() {
+export function getOrCreateDeviceID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {

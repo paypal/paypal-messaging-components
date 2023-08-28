@@ -5,6 +5,7 @@ import { useXProps, useServerData } from '../providers';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 import { localize, delocalize } from '../locale';
+import { getOrCreateDeviceID } from '../../../../../utils';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -64,7 +65,6 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         integrationType,
         channel,
         ecToken,
-        deviceID,
         devTouchpoint,
         disableSetCookie,
         features
@@ -94,7 +94,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             channel,
             ecToken,
             devTouchpoint,
-            deviceID,
+            deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features
         })

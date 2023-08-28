@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
-import { getTsCookieFromStorage } from '../../../../utils';
+import { getOrCreateDeviceID, getTsCookieFromStorage } from '../../../../utils';
 
 import {
     useTransitionState,
@@ -34,7 +34,6 @@ const Container = ({ children }) => {
         stageTag,
         channel,
         ecToken,
-        deviceID,
         disableSetCookie,
         features
     } = useXProps();
@@ -78,7 +77,7 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
-            deviceID,
+            deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features
         }).then(data => {

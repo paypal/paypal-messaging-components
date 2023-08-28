@@ -12,6 +12,7 @@ jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
     getTsCookieFromStorage: jest.fn(() => ts),
+    getOrCreateDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
             data: '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'

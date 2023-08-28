@@ -17,7 +17,7 @@ import {
     getGlobalState,
     getCurrentTime,
     writeToLocalStorage,
-    getOrCreatedDeviceID,
+    getOrCreateDeviceID,
     getStageTag,
     getFeatures,
     getNonce,
@@ -244,7 +244,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     ts: tsCookie,
                                     // deviceID from internal iframe storage
                                     // should be populated previously by the treatments component
-                                    deviceID: getOrCreatedDeviceID(),
+                                    deviceID: getOrCreateDeviceID(),
                                     // Session ID from parent local storage,
                                     sessionID: getSessionID()
                                 },
@@ -401,8 +401,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreatedDeviceID,
-                debug: ppDebug(`Device ID: ${getOrCreatedDeviceID()}`)
+                value: getOrCreateDeviceID,
+                debug: ppDebug(`Device ID: ${getOrCreateDeviceID()}`)
             },
             sessionID: {
                 type: 'string',

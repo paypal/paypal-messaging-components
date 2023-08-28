@@ -17,7 +17,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getOrCreatedDeviceID,
+    getOrCreateDeviceID,
     getStageTag,
     getFeatures,
     getNonce,
@@ -269,7 +269,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     ...existingGlobal,
                                     ts: tsCookie,
                                     // Device ID should be correctly set during message render
-                                    deviceID: getOrCreatedDeviceID(),
+                                    deviceID: getOrCreateDeviceID(),
                                     sessionID: getSessionID()
                                 },
                                 [index]: {
@@ -368,7 +368,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreatedDeviceID
+                value: getOrCreateDeviceID
             },
             sessionID: {
                 type: 'string',

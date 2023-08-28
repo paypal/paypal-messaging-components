@@ -8,7 +8,8 @@ import {
     createState,
     parseObjFromEncoding,
     getRequestDuration,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    getOrCreateDeviceID
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
@@ -164,6 +165,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
+                    deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,
                     features
