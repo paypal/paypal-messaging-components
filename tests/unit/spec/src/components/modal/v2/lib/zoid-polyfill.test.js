@@ -93,7 +93,6 @@ describe('zoidPollyfill', () => {
 
         window.xprops.onReady({
             products: ['PRODUCT_1', 'PRODUCT_2'],
-            deviceID: 'abc123',
             meta: { trackingDetails: 'trackingDetails' }
         });
 
@@ -188,7 +187,6 @@ describe('zoidPollyfill', () => {
 
         window.xprops.onReady({
             products: ['PRODUCT_1', 'PRODUCT_2'],
-            deviceID: 'abc123',
             meta: {
                 trackingDetails: {
                     fdata: '123abc',
@@ -346,7 +344,6 @@ describe('zoidPollyfill', () => {
 
         window.xprops.onReady({
             products: ['PRODUCT_1', 'PRODUCT_2'],
-            deviceID: 'abc123',
             meta: {
                 trackingDetails: {
                     fdata: '123abc',

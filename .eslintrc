@@ -7,7 +7,8 @@
     },
     "globals": {
         "__MESSAGES__": true,
-        "__MESSAGING_GLOBALS__": true
+        "__MESSAGING_GLOBALS__": true,
+        "__ENV__": true
     },
     "plugins": ["prettier"],
     "rules": {

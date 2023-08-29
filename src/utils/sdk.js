@@ -146,16 +146,12 @@ export function getSessionID() {
 }
 
 // Retrieves storageID. NOTE: Creates new ID if not already in local storage.
-export function getOrCreateStorageID() {
+export function getOrCreateDeviceID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
         return getStorage().getID();
     }
-}
-
-export function isStorageFresh() {
-    return getStorage().isStateFresh();
 }
 
 // Retrieve namespaced localStorage directly
@@ -175,12 +171,6 @@ export function writeToLocalStorage(values) {
               }) ?? '{}'
           )
         : {};
-}
-
-// Use the custom deviceID field, but fall back to storage ID if it is not yet present
-// or does not exist (as in the child )
-export function getDeviceID() {
-    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
 // Check if the current script is in the process of being destroyed since
@@ -204,8 +194,9 @@ export const isScriptBeingDestroyed = () => {
 };
 
 export function getPayPalDomain() {
-    if (__MESSAGES__.__TEST_ENV__) {
-        return __MESSAGES__.__TEST_ENV__;
+    const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+    if (testEnviroment && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        return testEnviroment;
     } else if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
@@ -224,9 +215,9 @@ export function getStageTag() {
         return undefined;
     }
 }
-
 export function getDevTouchpoint() {
-    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+    const devTouchpoint = window.__DEV_TOUCHPOINT__ ?? __MESSAGES__.__DEV_TOUCHPOINT__;
+    if (devTouchpoint && getEnv() !== 'production' && getEnv() !== 'sandbox') {
         return true;
     } else {
         return undefined; // Prevent the zoid query param

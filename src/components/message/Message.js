@@ -6,24 +6,14 @@ import {
     getActiveTags,
     ppDebug,
     createState,
-    isStorageFresh,
-    getDeviceID,
     parseObjFromEncoding,
     getRequestDuration,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    getOrCreateDeviceID
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
-    const {
-        onClick,
-        onReady,
-        onHover,
-        onMarkup,
-        onProps,
-        resize,
-        deviceID: parentDeviceID,
-        messageRequestId
-    } = window.xprops;
+    const { onClick, onReady, onHover, onMarkup, onProps, resize, messageRequestId } = window.xprops;
 
     const dimensionsRef = { current: { width: 0, height: 0 } };
 
@@ -84,8 +74,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         meta: serverData.meta,
         activeTags: getActiveTags(button),
         messageRequestId,
-        // Utility will create iframe deviceID/ts_cookie values if it doesn't exist.
-        deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+        // Utility will create iframe ts_cookie values if it doesn't exist.
         ts: getTsCookieFromStorage(),
         // getRequestDuration runs in the child component (iframe/banner message),
         // passing a value to onReady and up to the parent component to go out with
@@ -176,6 +165,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
+                    deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,
                     features
@@ -216,8 +206,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                                 meta: data.meta ?? serverData.meta,
                                 activeTags: getActiveTags(button),
                                 messageRequestId: newMessageRequestId,
-                                // Utility will create iframe deviceID/ts cookie if it doesn't exist.
-                                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
+                                // Utility will create iframe ts cookie if it doesn't exist.
                                 ts: getTsCookieFromStorage(),
                                 // getRequestDuration runs in the child component (iframe/banner message),
                                 // passing a value to onReady and up to the parent component to go out with
