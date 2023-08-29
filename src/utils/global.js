@@ -59,9 +59,6 @@ export const createTitleGenerator = () => {
 /**
  * Create a URL of the requested type from Webpack global variables
  * @param {String} type URL type
- * @param {String} [env] Environment (local, stage, sandbox, production)
- * @param {String} [refId] Marketing Ref ID
- * @param {String} [payerId] Payer ID
  * @returns {String} URL of requested type
  */
 export function getGlobalUrl(type) {
