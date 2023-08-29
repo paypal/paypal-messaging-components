@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
-import { getOrCreateStorageID, getTsCookieFromStorage } from '../../../../utils';
+import { getOrCreateDeviceID, getTsCookieFromStorage } from '../../../../utils';
 
 import {
     useTransitionState,
@@ -39,7 +39,6 @@ const Container = ({ children }) => {
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
-    const deviceID = getOrCreateStorageID();
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -57,7 +56,6 @@ const Container = ({ children }) => {
                     .filter(({ meta: productMeta }) => productMeta?.product)
                     .map(({ meta: productMeta }) => productMeta.product),
                 meta,
-                deviceID,
                 ts: getTsCookieFromStorage()
             });
         }
@@ -79,7 +77,7 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
-            deviceID,
+            deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features
         }).then(data => {
