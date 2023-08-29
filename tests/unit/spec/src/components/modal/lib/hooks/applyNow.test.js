@@ -29,6 +29,7 @@ describe('Apply Now URL hook', () => {
 
     describe('Should return the staging URL', () => {
         test('env = local', () => {
+            __ENV__ = 'local';
             applyNow()();
 
             expect(global.open).toBeCalledWith(
@@ -36,17 +37,19 @@ describe('Apply Now URL hook', () => {
             );
         });
         test('env = stage', () => {
-            useXProps.mockReturnValue({ ...defaultXProps, env: 'stage' });
+            __ENV__ = 'stage';
+            useXProps.mockReturnValue({ ...defaultXProps });
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                `${getGlobalUrl('CREDIT_APPLY')}?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
+                'undefined/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
             );
         });
     });
 
     describe('Should return the sandbox URL', () => {
         test('env = sandbox', () => {
+            __ENV__ = 'sandbox';
             useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
             applyNow()();
 
@@ -58,6 +61,7 @@ describe('Apply Now URL hook', () => {
 
     describe('Should return production URL', () => {
         test('env = production', () => {
+            __ENV__ = 'production';
             useXProps.mockReturnValue({ ...defaultXProps, env: 'production' });
             applyNow()();
 

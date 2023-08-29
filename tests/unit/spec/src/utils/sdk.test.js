@@ -7,7 +7,7 @@ describe('getPayPalDomain', () => {
         __ENV__ = 'stage';
         __MESSAGES__ = {
             __TEST_ENV__: undefined,
-            __DOMAIN__: { __SANDBOX__: 'https://www.sandbox.com', __STAGE__: 'https://www.stage.com' }
+            __DOMAIN__: { __SANDBOX__: 'https://www.sandbox.com' }
         };
     });
     test('returns message test environment if window test environment is not set', () => {
