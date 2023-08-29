@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { getDeviceID, isStorageFresh, getTsCookieFromStorage } from '../../../utils';
+import { getTsCookieFromStorage } from '../../../utils';
 
 import {
     useTransitionState,
@@ -28,7 +28,6 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
         messageRequestId,
         ignoreCache,
         version,
-        deviceID: parentDeviceID,
         stageTag
     } = useXProps();
     const [transitionState] = useTransitionState();
@@ -60,8 +59,6 @@ const Container = ({ children, contentWrapper, contentMaxWidth, contentMaxHeight
                 products: productNames,
                 messageRequestId,
                 meta,
-                // If storage state is brand new, use the parent deviceID/ts cookie, otherwise use child
-                deviceID: isStorageFresh() ? parentDeviceID : getDeviceID(),
                 ts: getTsCookieFromStorage()
             });
         }

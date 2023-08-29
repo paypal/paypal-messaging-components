@@ -1,6 +1,6 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
-import { logger } from '../../../../utils';
+import { getOrCreateDeviceID, logger } from '../../../../utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -10,7 +10,7 @@ const setupBrowser = props => {
         // We will never recieve new props via this integration style
         onProps: () => {},
         // TODO: Verify these callbacks are instrumented correctly
-        onReady: ({ products, meta, deviceID }) => {
+        onReady: ({ products, meta }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
             const { trackingDetails } = meta;
 
@@ -31,7 +31,7 @@ const setupBrowser = props => {
                         // integration_type needs to be sent or it will default to lander
                         integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
                         // Device ID should be correctly set during message render
-                        deviceID
+                        deviceID: getOrCreateDeviceID()
                         // sessionID: getSessionID()
                     },
                     1: {

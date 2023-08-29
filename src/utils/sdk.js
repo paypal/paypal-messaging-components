@@ -146,16 +146,12 @@ export function getSessionID() {
 }
 
 // Retrieves storageID. NOTE: Creates new ID if not already in local storage.
-export function getOrCreateStorageID() {
+export function getOrCreateDeviceID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
         return getStorage().getID();
     }
-}
-
-export function isStorageFresh() {
-    return getStorage().isStateFresh();
 }
 
 // Retrieve namespaced localStorage directly
@@ -175,12 +171,6 @@ export function writeToLocalStorage(values) {
               }) ?? '{}'
           )
         : {};
-}
-
-// Use the custom deviceID field, but fall back to storage ID if it is not yet present
-// or does not exist (as in the child )
-export function getDeviceID() {
-    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
 }
 
 // Check if the current script is in the process of being destroyed since
