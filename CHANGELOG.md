@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.47.0](https://github.com/paypal/paypal-messaging-components/compare/v1.46.1...v1.47.0) (2023-08-29)
+
+
+### Features
+
+* Create Messaging function to send back current date for US Pi4 Preapproval modals in XO ([#967](https://github.com/paypal/paypal-messaging-components/issues/967)) ([380656c](https://github.com/paypal/paypal-messaging-components/commit/380656ce93825152bc7d0537bd26162753cfa819))
+* native modal communication ([#851](https://github.com/paypal/paypal-messaging-components/issues/851)) ([1d30e05](https://github.com/paypal/paypal-messaging-components/commit/1d30e05e01bae2bab1c634289475f1bfbe236810))
+* runtime functionality for easier development testing ([#972](https://github.com/paypal/paypal-messaging-components/issues/972)) ([0bc86fe](https://github.com/paypal/paypal-messaging-components/commit/0bc86fe8ece39e1a2b9978957ba6177d1fed075f))
+* update nominal rate and APR in DE LT modal legal disclosure ([#974](https://github.com/paypal/paypal-messaging-components/issues/974)) ([9e937ba](https://github.com/paypal/paypal-messaging-components/commit/9e937baffdff8c5d5aa66ab0d54ce75b1ca78e17))
+
+
+### Bug Fixes
+
+* simplify handling of deviceID ([#975](https://github.com/paypal/paypal-messaging-components/issues/975)) ([42012c4](https://github.com/paypal/paypal-messaging-components/commit/42012c43a64688a3db3f0dd74b8430e1dbaa92d9))
+
 ### [1.46.1](https://github.com/paypal/paypal-messaging-components/compare/v1.46.0...v1.46.1) (2023-08-14)
 
 
