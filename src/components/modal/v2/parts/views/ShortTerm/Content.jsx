@@ -3,6 +3,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
+import Disclaimer from '../../Disclaimer';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
@@ -10,7 +11,6 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
-import Disclaimer from '../../Disclaimer';
 
 export const ShortTerm = ({
     content: {
@@ -25,7 +25,7 @@ export const ShortTerm = ({
     productMeta: { qualifying, periodicPayment, preapproved },
     openProductList
 }) => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
 
     const renderProductListLink = () => {
         return (
@@ -82,6 +82,7 @@ export const ShortTerm = ({
                             <Disclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
+                                country={country}
                             />
                         )}
                     </div>

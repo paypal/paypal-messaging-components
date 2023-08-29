@@ -38,7 +38,7 @@
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": [
                 "If you no longer meet the criteria used to select you for this offer, or give info we can’t match, pre-approval won’t apply and you may be declined for Pay in 4.",
-                "This offer starts on [date] and ends when you exit checkout, or when the session expires, or if you make another Pay in 4 purchase while this session is active.",
+                "This offer starts on {current_date} and ends when you exit checkout, or when the session expires, or if you make another Pay in 4 purchase while this session is active.",
                 "We didn't use info from a credit bureau to make this offer."
             ]
         },

@@ -1,8 +1,8 @@
 /** @jsx h */
 import { h } from 'preact';
-import { currencyFormat } from '../lib';
+import { currencyFormat, formatDateByCountry } from '../lib';
 
-const Disclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody }) => {
+const Disclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody, country }) => {
     return (
         <div className="content__row disclaimer">
             <h2
@@ -12,10 +12,11 @@ const Disclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody }
             {Array.isArray(preapprovalDisclaimerBody) ? (
                 <ul>
                     {preapprovalDisclaimerBody.map(disclaimer => {
+                        const disclaimerByLocale = disclaimer.replace(/{current_date}/, formatDateByCountry(country));
                         return (
                             <li className="disclaimer__item-wrapper">
                                 {/* eslint-disable-next-line react/no-danger */}
-                                <div dangerouslySetInnerHTML={{ __html: currencyFormat(disclaimer) }} />
+                                <div dangerouslySetInnerHTML={{ __html: currencyFormat(disclaimerByLocale) }} />
                             </li>
                         );
                     })}
