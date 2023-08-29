@@ -210,6 +210,9 @@ export function getPayPalDomain() {
     } else if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
+        if (getEnv() === 'stage') {
+            return window?.__TEST_ENV__;
+        }
         return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
     }
 }

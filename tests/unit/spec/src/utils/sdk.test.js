@@ -25,7 +25,13 @@ describe('getPayPalDomain', () => {
         __ENV__ = 'sandbox';
         expect(getPayPalDomain()).toBe('https://www.sandbox.com');
     });
-    test('returns stage domain if no test environment is set', () => {
+    test('returns undefined domain if no test environment is set', () => {
+        expect(getPayPalDomain()).toBe(undefined);
+    });
+    test('returns stage domain if set via window test env global and env is stage', () => {
+        __MESSAGES__.__TEST_ENV__ = 'https://www.stage.com';
+        window.__TEST_ENV__ = 'https://www.stage.com';
+        __ENV__ = 'stage';
         expect(getPayPalDomain()).toBe('https://www.stage.com');
     });
 });

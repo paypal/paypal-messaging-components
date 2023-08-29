@@ -13,8 +13,6 @@ jobs:
     lintAndUnit:
         name: Lint and Unit Tests
         runs-on: ubuntu-latest
-        env:
-            STAGE_URL: ${{ secrets.STAGE_URL }}
         steps:
             - name: Checkout repo
               uses: actions/checkout@v3
@@ -40,8 +38,6 @@ jobs:
     functionalNonSnapshot:
         name: Functional Non-Snapshot Tests
         runs-on: ubuntu-latest
-        env:
-            STAGE_URL: ${{ secrets.STAGE_URL }}
         steps:
             - name: Checkout repo
               uses: actions/checkout@v3
