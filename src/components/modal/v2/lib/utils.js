@@ -90,3 +90,12 @@ export function setupTabTrap() {
     }
     window.addEventListener('keydown', trapTabKey);
 }
+
+export function formatDateByCountry(country) {
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    if (country === 'US') {
+        return currentDate.toLocaleDateString('en-US', options);
+    }
+    return currentDate.toLocaleDateString('en-GB', options);
+}
