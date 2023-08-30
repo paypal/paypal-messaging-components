@@ -25,7 +25,7 @@ describe('getPayPalDomain', () => {
         __ENV__ = 'sandbox';
         expect(getPayPalDomain()).toBe('https://www.sandbox.com');
     });
-    test('returns undefined domain if no test environment is set', () => {
+    test('returns error if no test environment is set', () => {
         expect(() => getPayPalDomain()).toThrow(Error);
     });
     test('returns stage domain if set via window test env global and env is stage', () => {
