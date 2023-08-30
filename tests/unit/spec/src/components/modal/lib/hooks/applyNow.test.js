@@ -1,7 +1,6 @@
 import applyNow from 'src/components/modal/lib/hooks/applyNow';
 
 import { useXProps } from 'src/components/modal/lib/providers/xprops';
-import { getGlobalUrl } from '../../../../../../../../src/utils';
 
 global.open = jest.fn();
 
@@ -33,7 +32,7 @@ describe('Apply Now URL hook', () => {
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                `${getGlobalUrl('CREDIT_APPLY')}?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
+                `https://localhost.paypal.com:8080/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
             );
         });
         test('env = stage', () => {
