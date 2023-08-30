@@ -38,11 +38,12 @@ describe('Apply Now URL hook', () => {
         });
         test('env = stage', () => {
             __ENV__ = 'stage';
+            window.__TEST_ENV__ = 'https://www.stage.com';
             useXProps.mockReturnValue({ ...defaultXProps });
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                'undefined/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+                'https://www.stage.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
             );
         });
     });

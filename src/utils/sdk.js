@@ -210,7 +210,13 @@ export function getPayPalDomain() {
     } else if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
-        return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+        const domain = __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+
+        if (domain) {
+            return domain;
+        }
+
+        throw new Error('Missing PayPal Domain');
     }
 }
 
