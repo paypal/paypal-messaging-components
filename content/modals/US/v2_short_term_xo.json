@@ -7,7 +7,7 @@
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
         "apr": "{apr}",
-        "preapproved": true,
+        "preapproved": false,
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -42,8 +42,19 @@
                 "We didn't use info from a credit bureau to make this offer."
             ]
         },
+        "cta": {
+            "buttonTextEligible": "Continue with Pay in 4",
+            "buttonTextIneligible": "Back to Checkout",
+            "link": "https://www.paypal.com/link/to/short-term-application"
+        },
         "disclosure": [
-            "Pay in 4 is available to consumers upon approval for purchases of <span aria-hidden='true'>{formattedMinAmount}-{formattedMaxAmount}</span><span class='sr-only'>{formattedMinAmount} to {formattedMaxAmount}</span>. Pay in 4 is not currently available to residents of Missouri, Nevada, New Mexico, or North Dakota. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. When applying, a soft credit check may be needed, but will not affect your credit score. You must be of legal age in your U.S. state of residence to use Pay in 4. Loans to California residents are made or arranged pursuant to a California Financing Law License. PayPal, Inc. is a Georgia Installment Lender Licensee, NMLS #910457. Rhode Island Small Loan Lender Licensee."
+            "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 4 is currently not available to residents of <span aria-hidden='true'>MO or NV</span><span class='sr-only'>Missouri or Nevada</span>. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. When applying, a soft credit check may be needed, but will not affect your credit score. You must be 18 years old or older to apply. PayPal, Inc.: Loans to <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> residents are made or arranged pursuant to a <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> Financing Law License. <span aria-hidden='true'>GA</span><span class='sr-only'>Georgia</span> Installment Lender Licensee, NMLS #910457. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Small Loan Lender Licensee. <span aria-hidden='true'>NM</span><span class='sr-only'>New Mexico</span> residents:",
+            [
+                "Find more disclosures ",
+                "https://www.paypal.com/us/webapps/mpp/campaigns/newmexicodisclosure",
+                "Find more disclosures, opens new tab"
+            ],
+            "related to Pay in 4."
         ],
         "linkToProductList": "See other ways to pay later"
     }

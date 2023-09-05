@@ -46,15 +46,12 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const {
-        headline,
-        subheadline,
-        qualifyingSubheadline = '',
-        closeButtonLabel,
-        preapproval: { preapprovalHeadline, preapprovalSubHeadline }
-    } = content;
+    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
+
     const isQualifying = productMeta?.qualifying;
     const isPreapproved = productMeta?.preapproved;
+    const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
+    const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
 
     const openProductList = () => setViewName('PRODUCT_LIST');
 

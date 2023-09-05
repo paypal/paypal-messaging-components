@@ -7,7 +7,7 @@
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
         "apr": "{apr}",
-        "preapproved": true,
+        "preapproved": false,
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -44,6 +44,11 @@
             "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": "Pre-approval may not be valid if you make another Pay in 3 purchase before the session expires."
+        },
+        "cta": {
+            "buttonTextEligible": "Continue with Pay in 3",
+            "buttonTextIneligible": "Back to Checkout",
+            "link": "https://www.paypal.com/link/to/short-term-application"
         },
         "disclosure": "Pay in 3 is a form of credit, so carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal (Europe) S.à r.l. et Cie, S.C.A. 22-24 Boulevard Royal L-2449, Luxembourg.",
         "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]

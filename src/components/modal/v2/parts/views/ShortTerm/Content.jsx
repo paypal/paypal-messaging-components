@@ -17,7 +17,7 @@ export const ShortTerm = ({
         instructions,
         linkToProductList,
         estimatedInstallments,
-        preapproval: { preapprovalDisclaimerHeadline, preapprovalDisclaimerBody },
+        preapproval,
         disclosure,
         donutTimestamps,
         learnMoreLink
@@ -27,6 +27,8 @@ export const ShortTerm = ({
 }) => {
     const { views, country } = useServerData();
 
+    const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
+    const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
     const renderProductListLink = () => {
         return (
             views?.length > 2 && (
