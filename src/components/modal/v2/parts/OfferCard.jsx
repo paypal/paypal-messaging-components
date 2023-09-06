@@ -5,7 +5,7 @@ const OfferCard = ({ offer: { content, meta } }) => {
     const { termsLabel } = content;
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
-    const offerHeaderField = termsLabel.offerHeader;
+    const offerHeaderField = termsLabel?.offerHeader;
 
     return (
         <div className="offer__container">
