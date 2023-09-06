@@ -10,7 +10,7 @@ const OfferCard = ({ offer: { content, meta } }) => {
     return (
         <div className="offer__container">
             <div className="offer__row">
-                 {/* eslint-disable-next-line react/no-danger */}
+                {/* eslint-disable-next-line react/no-danger */}
                 <strong className="offer__field-header" dangerouslySetInnerHTML={{ __html: offerHeaderField }} />
             </div>
             <div className="offer__row">
