@@ -30,12 +30,12 @@ const Instructions = ({ instructions, expandedState = false, className = '' }) =
                     <h2
                         className="instructions__item-wrapper"
                         // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{ __html: instructions.instructionHeadline }}
+                        dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />
                     <p
                         className="subheadline_p"
                         // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{ __html: instructions.instructionSubHeadline }}
+                        dangerouslySetInnerHTML={{ __html: instructions.instructionsSubHeadline }}
                     />
                 </Fragment>
             )}

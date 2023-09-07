@@ -29,8 +29,8 @@
         "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": {
-            "instructionHeadline": "How to use Pay in 4",
-            "instructionSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
+            "instructionsHeadline": "How to use Pay in 4",
+            "instructionsSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
         },
         "preapproval": {
             "preapprovalHeadline": "You’re pre-approved",

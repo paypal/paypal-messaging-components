@@ -3,13 +3,14 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
-import Disclaimer from '../../Disclaimer';
+import PreapprovalDisclaimer from '../../PreapprovalDisclaimer';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
+import Button from '../../Button';
 import styles from './styles.scss';
 
-import { useServerData } from '../../../lib/providers';
+import { useServerData, useXProps } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
@@ -20,15 +21,60 @@ export const ShortTerm = ({
         preapproval,
         disclosure,
         donutTimestamps,
-        learnMoreLink
+        learnMoreLink,
+        cta
     },
     productMeta: { qualifying, periodicPayment, preapproved },
     openProductList
 }) => {
     const { views, country } = useServerData();
+    const { onClick, onClose } = useXProps();
+
+    const isQualifying = qualifying === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
+
+    const renderCheckoutCtaButton = () => {
+        /**
+         * Event link name used in checkout version of the modal.
+         * If initial amount is qualfying and eligible for short term in XO, use eligibleClickTitle and vice versa if ineligible.
+         */
+        const eligibleClickTitle = 'Short Term Continue';
+        const ineligibleClickTitle = 'Back to Checkout';
+
+        if (typeof cta !== 'undefined') {
+            return (
+                <div className="button__fixed-wrapper">
+                    <div className="button__container">
+                        {isQualifying ? (
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: eligibleClickTitle });
+                                    onClose({ linkName: eligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
+                                {cta.buttonTextEligible}
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: ineligibleClickTitle });
+                                    onClose({ linkName: ineligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
+                                {cta.buttonTextIneligible}
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    };
+
     const renderProductListLink = () => {
         return (
             views?.length > 2 && (
@@ -81,7 +127,7 @@ export const ShortTerm = ({
                         </div>
                         <Instructions instructions={instructions} />
                         {preapproved && (
-                            <Disclaimer
+                            <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
                                 country={country}
@@ -95,13 +141,14 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
-            <div className="content__row disclosure">
+            <div className={`content__row disclosure ${cta ? 'checkout' : ''}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
+                {renderLearnMoreLink()}
             </div>
             <div className="content__row productLink">
-                {renderLearnMoreLink()}
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );
 };

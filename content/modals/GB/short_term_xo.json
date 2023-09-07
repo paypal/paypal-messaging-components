@@ -36,8 +36,8 @@
             ]
         },
         "instructions": {
-            "instructionHeadline": "How to use Pay in 3",
-            "instructionSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
+            "instructionsHeadline": "How to use Pay in 3",
+            "instructionsSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
         },
         "preapproval": {
             "preapprovalHeadline": "Pre-approved to Pay in 3 on this purchase ",
