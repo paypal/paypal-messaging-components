@@ -94,6 +94,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.buyerCountry
             },
+            language: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.language
+            },
             offer: {
                 type: 'string',
                 queryParam: false,

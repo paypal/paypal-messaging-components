@@ -183,6 +183,17 @@ export default {
 
         return undefined;
     },
+    language: ({ props: { language } }) => {
+        if (typeof language !== 'undefined') {
+            if (!validateType(Types.STRING, language)) {
+                logInvalidType('language', Types.STRING, language);
+            } else {
+                return language;
+            }
+        }
+
+        return undefined;
+    },
     ignoreCache: ({ props: { ignoreCache } }) => {
         if (typeof ignoreCache !== 'undefined') {
             if (!validateType(Types.BOOLEAN, ignoreCache)) {
