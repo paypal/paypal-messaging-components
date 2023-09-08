@@ -1,0 +1,53 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "apr": "{apr}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay in 3 interest-free installments",
+        "subheadline": "Available on purchases from <span>{formattedMinAmount} a {formattedMaxAmount}.</span> No opening or late payment fees.",
+        "qualifyingSubheadline": "Spread your {formattedTotalCost} purchase into 3 installments, with no opening or late payment fees.",
+        "donutTimestamps": ["Today", "1 month", "2 months"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 month" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 months" }
+            ]
+        },
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>Pay in 3</strong>. ",
+            "Complete your purchase with your first payment today. ",
+            "Any remaining payments are made automatically. It's easy!"
+        ],
+        "disclosure": [
+            "Available on purchases between {formattedMinAmount} and {formattedMaxAmount}. You must reside in Spain and have a PayPal account. Representative example: <strong>TAE 0%</strong>. NIR 0%. Cash purchase amount and total installment price: €165. Term: 2 months. 3 installments of €55 due monthly, with the first installment due at the time of purchase. Subject to PayPal approval. See ",
+            [
+                "the pre-information document",
+                "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=es_ES"
+            ],
+            " and ",
+            ["terms and conditions", "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-full?locale.x=es_ES"],
+            " for more information. Only available to customers over the age of 18. You have 14 days to cancel your loan. The lender is PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. A loan is a binding commitment that needs to be refunded and may impact your credit history. Be sure to check your repayment capacity before committing yourself. This information is provided by PayPal."
+        ]
+    }
+}
