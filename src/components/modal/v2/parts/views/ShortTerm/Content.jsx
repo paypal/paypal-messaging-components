@@ -31,6 +31,7 @@ export const ShortTerm = ({
     const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
+    const isPreapproved = preapproved === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
@@ -126,7 +127,7 @@ export const ShortTerm = ({
                             </div>
                         </div>
                         <Instructions instructions={instructions} />
-                        {preapproved && (
+                        {isPreapproved && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}

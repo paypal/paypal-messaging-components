@@ -76,21 +76,26 @@ const Header = ({
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
                     className={
-                        isPreapproved ? `headline-${countryClassName}-preapproved` : `headline-${countryClassName}`
+                        isPreapproved === 'true'
+                            ? `headline-${countryClassName}-preapproved`
+                            : `headline-${countryClassName}`
                     }
                     // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: isPreapproved ? preapprovalHeadline : headline }}
+                    dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
-                        {isPreapproved ? preapprovalSubHeadline : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                        {isPreapproved === 'true'
+                            ? preapprovalSubHeadline
+                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
                         className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
-                            __html: currencyFormat(isPreapproved ? preapprovalSubHeadline : subheadline) ?? ''
+                            __html:
+                                currencyFormat(isPreapproved === 'true' ? preapprovalSubHeadline : subheadline) ?? ''
                         }}
                     />
                 )}

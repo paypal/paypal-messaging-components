@@ -98,7 +98,7 @@ const BodyContent = () => {
                 viewName={viewName}
                 preapprovalHeadline={preapprovalHeadline}
                 preapprovalSubHeadline={preapprovalSubHeadline}
-                isPreapproved={isPreapproved ?? false}
+                isPreapproved={isPreapproved ?? 'false'}
             />
             <div className="content__container">
                 <main className="main">
