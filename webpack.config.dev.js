@@ -88,7 +88,6 @@ module.exports = (env = {}) => {
                         __PROTOCOL__: PROTOCOL,
                         __HOST__: `${HOSTNAME}:${PORT}`,
                         __SDK_HOST__: `${HOSTNAME}:${PORT}`,
-                        __STAGE_HOST__: 'msmaster.qa.paypal.com',
                         __PORT__: PORT,
                         __PATH__: `/${FILE_NAME}.js`,
                         __NAMESPACE__: 'paypal',
