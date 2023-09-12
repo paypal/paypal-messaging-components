@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.48.0](https://github.com/paypal/paypal-messaging-components/compare/v1.47.0...v1.48.0) (2023-09-12)
+
+
+### Features
+
+* modal language variants ([#982](https://github.com/paypal/paypal-messaging-components/issues/982)) ([9a514fb](https://github.com/paypal/paypal-messaging-components/commit/9a514fb652d59aa379d105e1db0403949efa8dec))
+
+
+### Code Refactoring
+
+* remove stage references ([#968](https://github.com/paypal/paypal-messaging-components/issues/968)) ([d3e1c52](https://github.com/paypal/paypal-messaging-components/commit/d3e1c528f2b1a30996a69e4b5f7f8f14240231d7))
+
 ## [1.47.0](https://github.com/paypal/paypal-messaging-components/compare/v1.46.1...v1.47.0) (2023-08-29)
 
 
