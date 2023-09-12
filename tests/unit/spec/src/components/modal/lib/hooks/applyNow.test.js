@@ -28,24 +28,28 @@ describe('Apply Now URL hook', () => {
 
     describe('Should return the staging URL', () => {
         test('env = local', () => {
+            __ENV__ = 'local';
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+                `https://localhost.paypal.com:8080/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1`
             );
         });
         test('env = stage', () => {
-            useXProps.mockReturnValue({ ...defaultXProps, env: 'stage' });
+            __ENV__ = 'stage';
+            window.__TEST_ENV__ = 'https://www.stage.com';
+            useXProps.mockReturnValue({ ...defaultXProps });
             applyNow()();
 
             expect(global.open).toBeCalledWith(
-                'https://www.msmaster.qa.paypal.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
+                'https://www.stage.com/ppcreditapply/da/us?cats_id=DA_AD_UPSTREAM&actor=merchant&mktgrefid=1&payer_id=1'
             );
         });
     });
 
     describe('Should return the sandbox URL', () => {
         test('env = sandbox', () => {
+            __ENV__ = 'sandbox';
             useXProps.mockReturnValue({ ...defaultXProps, env: 'sandbox' });
             applyNow()();
 
@@ -57,6 +61,7 @@ describe('Apply Now URL hook', () => {
 
     describe('Should return production URL', () => {
         test('env = production', () => {
+            __ENV__ = 'production';
             useXProps.mockReturnValue({ ...defaultXProps, env: 'production' });
             applyNow()();
 

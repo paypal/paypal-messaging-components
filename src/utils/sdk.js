@@ -194,13 +194,29 @@ export const isScriptBeingDestroyed = () => {
 };
 
 export function getPayPalDomain() {
-    const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
-    if (testEnviroment && getEnv() !== 'production' && getEnv() !== 'sandbox') {
-        return testEnviroment;
-    } else if (__MESSAGES__.__TARGET__ === 'SDK') {
+    if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+
+        if (testEnviroment) {
+            return testEnviroment;
+        }
+
+        // eslint-disable-next-line security/detect-unsafe-regex
+        if (window.location.origin.match(/\.paypal\.com(:\d+)?$/)) {
+            return window.location.origin;
+        }
+    }
+
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
-        return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+        const domain = __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+
+        if (domain) {
+            return domain;
+        }
+
+        throw new Error('Missing PayPal Domain');
     }
 }
 

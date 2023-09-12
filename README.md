@@ -134,6 +134,15 @@ CONFIG_PATH={locale}/{account} npm run test:func:snapshots
 
 ### Stage
 
+#### For PayPal Internal Testing Only:
+
+To test against PayPal's standard stage url, ensure that the demo page contains the following script, then run `npm run dev:stage`:
+
+```javascript
+//Change the value of the url and add the script to the demo page (i.e. standalone.html)
+<script>window.__TEST_ENV__ = "https://www.{PAYPAL_STAGE_URL_HERE}.com"</script>
+```
+
 If you are looking to run against an alternative environment, set the `window.__TEST_ENV__` global to override the environment. **Please note, this is only available in development environments.**
 
 ```javascript
