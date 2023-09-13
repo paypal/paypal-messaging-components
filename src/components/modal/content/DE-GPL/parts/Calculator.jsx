@@ -110,7 +110,16 @@ const Calculator = () => {
                 {emptyState ? <h3 className="title">{title}</h3> : null}
                 <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
-                    <input className="input" type="tel" value={displayValue} onInput={onInput} onKeyDown={onKeyDown} />
+                    <input
+                        className="input"
+                        type="text"
+                        value={displayValue}
+                        onInput={onInput}
+                        onKeyDown={onKeyDown}
+                        inputmode="tel"
+                        aria-required="true"
+                        pattern="\d*"
+                    />
                 </div>
                 <div
                     className={`content-column transitional calculator__error ${
