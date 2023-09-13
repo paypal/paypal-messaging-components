@@ -46,7 +46,6 @@ export const showCorrectOfferInfo = async (contentWindow, modalContent, testName
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    // pssible innerText ro innerHTML
     expect(offerFieldHeadline).toMatch(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };
