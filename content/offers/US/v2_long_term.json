@@ -39,7 +39,7 @@
             "nonZeroAPR": "*APR is 9.99% to 29.99% based on your credit. Terms may vary based on purchase amount."
         },
         "termsLabel": {
-            "offerHeader": "{formattedPeriodicPayment}/<span aria-hidden='true'>mo. for {total_payments} months</span><span class='sr-only'>month. for {total_payments} months</span>",
+            "offerHeader": "{formattedPeriodicPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span> for {total_payments} months",
             "zeroApr": "APR",
             "nonZeroApr": "<span aria-hidden='true'>Est. APR*</span><span class='sr-only'>Estimated APR, see star for more details below.</span>",
             "totalInterest": "Interest",
