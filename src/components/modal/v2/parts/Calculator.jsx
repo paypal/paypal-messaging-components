@@ -151,7 +151,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                     }`}
                 >
                     <div>
-                        {error ? <Icon name="warning" /> : null}
+                        {error && hasUsedInputField ? <Icon name="warning" /> : null}
                         <div>{error}</div>
                     </div>
                 </div>
