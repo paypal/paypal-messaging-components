@@ -1,5 +1,4 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { isLocalStorageEnabled, getStorage as getBelterStorage } from '@krakenjs/belter/src';
@@ -20,6 +19,8 @@ import {
     getPayPalDomain as getSDKPayPalDomain,
     getDisableSetCookie as getSDKDisableCookie
 } from '@paypal/sdk-client/src';
+
+import { TAG } from './constants';
 
 export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
@@ -128,7 +129,9 @@ export function getLibraryVersion() {
 }
 
 export function isZoidComponent() {
-    return stringStartsWith(window.name, '__zoid__');
+    // Merchants may use `zoid` to place our components inside an IFrame
+    // so we ensure that we check for the tags of our components
+    return Object.values(TAG).some(tag => window.name.startsWith(`__zoid__${tag.replace(/-/g, '_')}`));
 }
 
 export function getStorage() {
