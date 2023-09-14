@@ -4,7 +4,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { TAG } from '../../../utils';
+import { TAG } from '../../../utils/constants';
 import {
     getMeta,
     getEnv,
