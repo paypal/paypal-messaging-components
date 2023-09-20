@@ -5,3 +5,9 @@ export const OFFER = {
     PAYPAL_CREDIT_INSTALLMENTS: 'PAYPAL_CREDIT_INSTALLMENTS',
     PAYPAL_CREDIT_NO_INTEREST: 'PAYPAL_CREDIT_NO_INTEREST'
 };
+
+export const TAG = {
+    MESSAGE: 'paypal-message',
+    MODAL: 'paypal-credit-modal',
+    TREATEMENTS: 'paypal-credit-treatments'
+};
