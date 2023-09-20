@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.48.1](https://github.com/paypal/paypal-messaging-components/compare/v1.48.0...v1.48.1) (2023-09-20)
+
+
+### Bug Fixes
+
+* components render inside external zoid iframes ([#986](https://github.com/paypal/paypal-messaging-components/issues/986)) ([72a1831](https://github.com/paypal/paypal-messaging-components/commit/72a183186b841d8716fd43f10e17bd3c320d96d8))
+
 ## [1.48.0](https://github.com/paypal/paypal-messaging-components/compare/v1.47.0...v1.48.0) (2023-09-12)
 
 
