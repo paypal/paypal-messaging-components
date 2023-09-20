@@ -180,6 +180,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
+                        aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="text"
@@ -187,8 +188,6 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                         onInput={onInput}
                         onKeyDown={onKeyDown}
                         inputmode="tel"
-                        aria-required="true"
-                        pattern="\d*"
                     />
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>

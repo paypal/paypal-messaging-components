@@ -111,14 +111,13 @@ const Calculator = () => {
                 <div className="input__wrapper transitional">
                     <div className="input__label">{inputLabel}</div>
                     <input
+                        aria-required="true"
                         className="input"
                         type="text"
                         value={displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
                         inputmode="tel"
-                        aria-required="true"
-                        pattern="\d*"
                     />
                 </div>
                 <div
