@@ -4,6 +4,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
+import { TAG } from '../../../utils/constants';
 import {
     getMeta,
     getEnv,
@@ -19,7 +20,7 @@ import { ppDebug } from '../../../utils/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
-        tag: 'paypal-credit-treatments',
+        tag: TAG.TREATEMENTS,
         url: getGlobalUrl('TREATMENTS'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,

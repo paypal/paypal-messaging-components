@@ -5,6 +5,7 @@ import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
 
 import {
+    TAG,
     getDisableSetCookie,
     getMeta,
     getEnv,
@@ -34,7 +35,7 @@ import containerTemplate from './containerTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
-        tag: 'paypal-message',
+        tag: TAG.MESSAGE,
         url: getGlobalUrl('MESSAGE'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
