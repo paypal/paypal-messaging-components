@@ -46,7 +46,8 @@ export const showCorrectOfferInfo = async (contentWindow, modalContent, testName
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    expect(offerFieldHeadline).toMatch(modalContent.offerHeadline);
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    expect(newOfferFieldHeadline).toContain(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };
 
@@ -79,7 +80,8 @@ export const updateTermsViaCalc = async (contentWindow, modalContent, testName) 
 
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    expect(offerFieldHeadline).toContain(modalContent.updatedOfferHeadline);
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    expect(newOfferFieldHeadline).toContain(modalContent.updatedOfferHeadline);
     await modalSnapshot(testName, contentWindow);
 };
 
@@ -101,7 +103,8 @@ export const showCorrectAPRDisclaimer = async (contentWindow, modalContent, test
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    expect(offerFieldHeadline).toContain(modalContent.offerHeadline);
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    expect(newOfferFieldHeadline).toContain(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };
 
@@ -118,7 +121,8 @@ export const showCorrectOfferInfoAccordion = async (contentWindow, modalContent,
     await contentWindow.waitForSelector(openAccordion);
     await contentWindow.waitForSelector(accordionHeaderContainer);
     const accordionOfferFieldHeadline = await contentWindow.$eval(accordionFieldHeader, element => element.innerText);
-    expect(accordionOfferFieldHeadline).toContain(modalContent.offerHeadline);
+    const newOfferFieldHeadline = accordionOfferFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    expect(newOfferFieldHeadline).toContain(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };
 
@@ -152,6 +156,7 @@ export const updateOfferAccordionTermsViaCalc = async (contentWindow, modalConte
     await contentWindow.waitForSelector(openAccordion);
     await contentWindow.waitForSelector(accordionHeaderContainer);
     const accordionOfferFieldHeadline = await contentWindow.$eval(accordionFieldHeader, element => element.innerText);
-    expect(accordionOfferFieldHeadline).toContain(modalContent.updatedOfferHeadline);
+    const newOfferFieldHeadline = accordionOfferFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    expect(newOfferFieldHeadline).toContain(modalContent.updatedOfferHeadline);
     await modalSnapshot(testName, contentWindow);
 };
