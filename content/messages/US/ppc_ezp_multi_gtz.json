@@ -15,11 +15,17 @@
     },
     "headline": [
         [
-            [["As low as", "weak"], "{formattedMonthlyPayment}/mo."],
+            [
+                ["As low as", "weak"],
+                "{formattedMonthlyPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span>"
+            ],
             ["default", "xsmall"]
         ],
         [
-            [["Pay as low as", "weak"], "{formattedMonthlyPayment}/mo."],
+            [
+                ["Pay as low as", "weak"],
+                "{formattedMonthlyPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span>"
+            ],
             ["small", "medium", "large", "xlarge"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]]

@@ -15,7 +15,10 @@
     },
     "headline": [
         [
-            [["Make {total_payments} payments of", "weak"], "{formattedMonthlyPayment}/mo."],
+            [
+                ["Make {total_payments} payments of", "weak"],
+                "{formattedMonthlyPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span>"
+            ],
             ["default", "small"]
         ],
         ["Enjoy Easy Payments.", ["legacy-xsmall"]]
