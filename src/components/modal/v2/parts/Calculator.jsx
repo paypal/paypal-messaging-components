@@ -183,10 +183,11 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
-                        type="tel"
+                        type="text"
                         value={displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
+                        inputmode="tel"
                     />
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
