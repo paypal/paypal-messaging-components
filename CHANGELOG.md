@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.49.0](https://github.com/paypal/paypal-messaging-components/compare/v1.48.1...v1.49.0) (2023-09-26)
+
+
+### Features
+
+* Screen reader /mo for messages and modals (DTCRCMERC-1941) ([#980](https://github.com/paypal/paypal-messaging-components/issues/980)) ([507709e](https://github.com/paypal/paypal-messaging-components/commit/507709e21bf2ae7020db423c5be2a4fc93eff705))
+* updated input on calculator for better accessibility ([#985](https://github.com/paypal/paypal-messaging-components/issues/985)) ([cd574dd](https://github.com/paypal/paypal-messaging-components/commit/cd574dd12ab464b48acd2a214db528f335c80400))
+
 ### [1.48.1](https://github.com/paypal/paypal-messaging-components/compare/v1.48.0...v1.48.1) (2023-09-20)
 
 
