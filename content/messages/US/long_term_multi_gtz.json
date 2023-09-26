@@ -19,7 +19,12 @@
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
-        [["As low as ${formattedMonthlyPayment}/mo."], ["small", "medium", "large", "xlarge"]]
+        [
+            [
+                "As low as ${formattedMonthlyPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span>"
+            ],
+            ["small", "medium", "large", "xlarge"]
+        ]
     ],
     "subHeadline": [],
     "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
