@@ -5,6 +5,7 @@
 [![Compare Snapshots](https://github.com/paypal/paypal-messaging-components/actions/workflows/snapshotCompare.yml/badge.svg)](https://github.com/paypal/paypal-messaging-components/actions/workflows/snapshotCompare.yml) [![dependencies Status](https://david-dm.org/paypal/paypal-messaging-components/status.svg)](https://david-dm.org/paypal/paypal-messaging-components) [![devDependencies Status](https://david-dm.org/paypal/paypal-messaging-components/dev-status.svg)](https://david-dm.org/paypal/paypal-messaging-components?type=dev)
 
 A messaging component allowing easy integration of PayPal Credit Messages onto your site.
+1
 
 ## Dev Docs
 
