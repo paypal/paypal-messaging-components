@@ -1,3 +1,36 @@
+void buildAssetsForEachEnv(env) {
+    script {
+        // Check for semantic-release commit
+        // if ("$GIT_COMMIT_MESSAGE".contains('chore(release):')) {
+        if ("$GIT_COMMIT_MESSAGE".contains('testBuild:')) {
+            echo 'stage $env assets'
+            withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+            sh '''
+                npm run build:$env
+                OUTPUT=$(web stage --json --tag $STAGE_TAG)
+                web notify $STAGE_TAG
+            '''
+            }
+        }
+        return;
+    }
+}
+
+void deployAssetsForEachEnv(env) {
+    when {
+        // branch 'release'
+        branch 'jenkinsTest'
+    }
+    script {
+        if ($env ==== "production"); {
+            dir="js"
+        }
+        sh '''
+            echo Deploying $env
+        '''
+    }
+}
+
 pipeline {
     agent {
         label 'mesos'
@@ -35,7 +68,8 @@ pipeline {
         stage('Stage Tag') {
             when {
                 not {
-                    branch 'release'
+                    // branch 'release'
+                    branch 'jenkinsTest'
                 }
             }
             steps {
@@ -49,17 +83,52 @@ pipeline {
         }
 
         // For release, stage existing build assets and send notification
-        stage('Deploy') {
+        stage('Parallel Build') {
             when {
-                branch 'release'
+                // branch 'release'
+                branch 'jenkinsTest'
             }
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                    sh '''
-                        OUTPUT=$(web stage --json --tag $STAGE_TAG)
-                        web notify $STAGE_TAG
-                    '''
-                }
+            parallel {
+                stage('Build Stage') {
+                    steps{
+                        buildAssetsForEachEnv(stage)
+                    }
+                },
+                stage('Build Sandbox') {
+                    steps{
+                        buildAssetsForEachEnv(sandbox)
+                    }
+                },
+                stage('Build Production') {
+                    steps{
+                        buildAssetsForEachEnv(production)
+                    }
+                },
+            }
+        },
+
+        // For release, deploy existing build assets
+        stage('Parallel Deploy') {
+            when {
+                // branch 'release'
+                branch 'jenkinsTest'
+            }
+            parallel {
+                stage('Deploy Stage') {
+                    steps {
+                        deployAssetsForEachEnv(stage)
+                    }
+                },
+                stage('Deploy Sandbox') {
+                    steps {
+                        deployAssetsForEachEnv(sandbox)
+                    }
+                },
+                stage('Deploy Production') {
+                    steps {
+                        deployAssetsForEachEnv(production)
+                    }
+                },
             }
         }
     }
