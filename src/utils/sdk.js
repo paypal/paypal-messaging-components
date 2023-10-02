@@ -55,7 +55,7 @@ export function getMerchantConfig() {
 export function getAccount() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         // TODO: Should we pass both up if they exist so that nodeweb can create a partner context?
-        return getMerchantID()[0] || `client-id:${getClientID()}`;
+        return getMerchantID().join(',') || `client-id:${getClientID()}`;
     } else {
         return undefined;
     }

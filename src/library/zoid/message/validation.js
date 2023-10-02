@@ -68,15 +68,22 @@ export default {
     },
     merchantId: ({ props: { merchantId } }) => {
         if (typeof merchantId !== 'undefined') {
+            let invalidId;
             if (!validateType(Types.STRING, merchantId)) {
+                console.log('not a string');
                 logInvalidType('merchantId', Types.STRING, merchantId);
-            } else if (merchantId.length !== 13 && merchantId.length !== 10) {
-                logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
-            } else {
-                return merchantId;
+                invalidId = merchantId;
             }
+            const ids = merchantId.toString().split(',');
+            ids.forEach(id => {
+                console.log('id', typeof id, id.length, id);
+                if (id.length !== 13 && id.length !== 10) {
+                    logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
+                    invalidId = id;
+                }
+            });
+            return invalidId ? undefined : merchantId;
         }
-
         return undefined;
     },
     customerId: ({ props: { customerId } }) => {
