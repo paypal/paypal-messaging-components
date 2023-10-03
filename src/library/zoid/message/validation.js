@@ -68,19 +68,16 @@ export default {
     },
     merchantId: ({ props: { merchantId } }) => {
         if (typeof merchantId !== 'undefined') {
-            let invalidId;
             if (!validateType(Types.STRING, merchantId)) {
                 logInvalidType('merchantId', Types.STRING, merchantId);
-                invalidId = merchantId;
-            }
-            const ids = merchantId.toString().split(',');
-            ids.forEach(id => {
-                if (id.length !== 13 && id.length !== 10) {
+            } else {
+                const isInvalid = merchantId.split(',').some(id => id.length !== 13 && id.length !== 10);
+                if (isInvalid) {
                     logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
-                    invalidId = id;
+                } else {
+                    return merchantId;
                 }
-            });
-            return invalidId ? undefined : merchantId;
+            }
         }
         return undefined;
     },
