@@ -10,10 +10,10 @@ import {
     getEnv,
     getLibraryVersion,
     getStageTag,
-    getNamespace,
     writeToLocalStorage,
     getDisableSetCookie,
-    getFeatures
+    getFeatures,
+    getDefaultNamespace
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
@@ -61,7 +61,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             namespace: {
                 type: 'string',
                 queryParam: false,
-                value: getNamespace
+                value: getDefaultNamespace
             },
 
             onReady: {
