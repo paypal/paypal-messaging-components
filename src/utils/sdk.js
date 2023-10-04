@@ -167,7 +167,7 @@ export function getOrCreateDeviceID() {
     }
 }
 
-export function writeToLocalStorage(values) {
+export function updateStorage(values) {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageState(storage => Object.assign(storage, values));
     } else {
