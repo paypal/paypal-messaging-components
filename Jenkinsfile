@@ -1,34 +1,9 @@
-void buildAssetsForEachEnv(env) {
-    script {
-        // Check for semantic-release commit
-        // if ("$GIT_COMMIT_MESSAGE".contains('chore(release):')) {
-        if ("$GIT_COMMIT_MESSAGE".contains('testBuild:')) {
-            echo 'stage $env assets'
-            withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-            sh '''
-                npm run build:$env
-                OUTPUT=$(web stage --json --tag $STAGE_TAG)
-                web notify $STAGE_TAG
-            '''
-            }
-        }
-        return;
-    }
-}
-
 void deployAssetsForEachEnv(env) {
-    when {
-        // branch 'release'
-        branch 'jenkinsTest'
-    }
-    script {
-        if ($env ==== "production"); {
-            dir="js"
-        }
-        sh '''
-            echo Deploying $env
-        '''
-    }
+    sh '''
+        echo Deploying $env
+        make publish
+        git reset --hard HEAD
+    '''
 }
 
 pipeline {
@@ -68,8 +43,7 @@ pipeline {
         stage('Stage Tag') {
             when {
                 not {
-                    // branch 'release'
-                    branch 'jenkinsTest'
+                    branch 'release'
                 }
             }
             steps {
@@ -82,55 +56,55 @@ pipeline {
             }
         }
 
-        // For release, stage existing build assets and send notification
-        stage('Parallel Build') {
+        // For release, deploy existing build assets
+        stage('Deploy Stage') {
             when {
-                // branch 'release'
-                branch 'jenkinsTest'
+                branch 'release'
             }
-            parallel {
-                stage('Build Stage') {
-                    steps{
-                        buildAssetsForEachEnv(stage)
+            steps {
+                script {
+                    dir('/dist/bizcomponents/"sandbox"') {
+                        deleteDir()
                     }
-                },
-                stage('Build Sandbox') {
-                    steps{
-                        buildAssetsForEachEnv(sandbox)
+                    dir('/dist/bizcomponents/"js"') {
+                        deleteDir()
                     }
-                },
-                stage('Build Production') {
-                    steps{
-                        buildAssetsForEachEnv(production)
-                    }
-                },
+                    deployAssetsForEachEnv('stage')
+                }
             }
         },
-
-        // For release, deploy existing build assets
-        stage('Parallel Deploy') {
+        stage('Deploy Sandbox') {
             when {
-                // branch 'release'
-                branch 'jenkinsTest'
+                branch 'release'
             }
-            parallel {
-                stage('Deploy Stage') {
-                    steps {
-                        deployAssetsForEachEnv(stage)
+            steps {
+                script {
+                    dir('/dist/bizcomponents/"stage"') {
+                        deleteDir()
                     }
-                },
-                stage('Deploy Sandbox') {
-                    steps {
-                        deployAssetsForEachEnv(sandbox)
+                    dir('/dist/bizcomponents/"js"') {
+                        deleteDir()
                     }
-                },
-                stage('Deploy Production') {
-                    steps {
-                        deployAssetsForEachEnv(production)
-                    }
-                },
+                    deployAssetsForEachEnv('sandbox')
+                }
             }
-        }
+        },
+        stage('Deploy Production') {
+            when {
+                branch 'release'
+            }
+            steps {
+                script {
+                    dir('/dist/bizcomponents/"stage"') {
+                        deleteDir()
+                    }
+                    dir('/dist/bizcomponents/"sandbox"') {
+                        deleteDir()
+                    }
+                    deployAssetsForEachEnv('production')
+                }
+            }
+        },
     }
 
     // Send email notification
