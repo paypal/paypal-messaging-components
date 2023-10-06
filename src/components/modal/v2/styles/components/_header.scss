@@ -191,6 +191,7 @@
             position: absolute;
             right: 0;
             bottom: 36px;
+            pointer-events: none;
 
             @include desktop {
                 &.background-mobile {
