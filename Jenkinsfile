@@ -1,18 +1,10 @@
-void deployAssetsForEachEnv(env) {
-    sh '''
-        echo Deploying $env
-        make publish
-        git reset --hard HEAD
-    '''
-}
-
 pipeline {
     agent {
         label 'mesos'
     }
 
     tools {
-        nodejs 'Node14'
+        nodejs 'Node12'
     }
 
     // STAGE_TAG will be {branch_name}_{timestamp}
@@ -43,7 +35,8 @@ pipeline {
         stage('Stage Tag') {
             when {
                 not {
-                    branch 'release'
+                    // branch 'release'
+                    branch 'jenkinsTest'
                 }
             }
             steps {
@@ -57,54 +50,75 @@ pipeline {
         }
 
         // For release, deploy existing build assets
-        stage('Deploy Stage') {
+        stage('Bundle Stage') {
             when {
                 branch 'release'
             }
             steps {
                 script {
-                    dir('/dist/bizcomponents/"sandbox"') {
-                        deleteDir()
+                    if (GIT_COMMIT_MESSAGE.contains('test')) {
+                        dir('dist/bizcomponents/sandbox') {
+                            deleteDir()
+                        }
+                        dir('dist/bizcomponents/js') {
+                            deleteDir()
+                        }
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                web stage
+                                git checkout -- dist
+                           '''
+                        }
                     }
-                    dir('/dist/bizcomponents/"js"') {
-                        deleteDir()
-                    }
-                    deployAssetsForEachEnv('stage')
                 }
             }
-        },
-        stage('Deploy Sandbox') {
+        }
+        stage('Bundle Sandbox') {
             when {
                 branch 'release'
             }
             steps {
                 script {
-                    dir('/dist/bizcomponents/"stage"') {
-                        deleteDir()
+                    if (GIT_COMMIT_MESSAGE.contains('test')) {
+                        dir('dist/bizcomponents/stage') {
+                            deleteDir()
+                        }
+                        dir('dist/bizcomponents/js') {
+                            deleteDir()
+                        }
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                web stage
+                                git checkout -- dist
+                           '''
+                        }
                     }
-                    dir('/dist/bizcomponents/"js"') {
-                        deleteDir()
-                    }
-                    deployAssetsForEachEnv('sandbox')
                 }
             }
-        },
-        stage('Deploy Production') {
+        }
+        stage('Build Production') {
             when {
                 branch 'release'
             }
             steps {
                 script {
-                    dir('/dist/bizcomponents/"stage"') {
-                        deleteDir()
+                    if (GIT_COMMIT_MESSAGE.contains('test')) {
+                        dir('dist/bizcomponents/stage') {
+                            deleteDir()
+                        }
+                        dir('dist/bizcomponents/sandbox') {
+                            deleteDir()
+                        }
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                web stage
+                                git checkout -- dist
+                           '''
+                        }
                     }
-                    dir('/dist/bizcomponents/"sandbox"') {
-                        deleteDir()
-                    }
-                    deployAssetsForEachEnv('production')
                 }
             }
-        },
+        }
     }
 
     // Send email notification
