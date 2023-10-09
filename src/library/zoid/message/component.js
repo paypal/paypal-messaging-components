@@ -1,5 +1,4 @@
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
@@ -24,11 +23,15 @@ import {
     getNonce,
     ppDebug,
     isScriptBeingDestroyed,
-    getScriptAttributes,
+    getPartnerAttributionId,
     getDevTouchpoint,
     getMerchantConfig,
     getLocalTreatments,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    MESSAGE_EVENT,
+    getDebugLevel,
+    canDebug,
+    DEBUG_CONDITIONS
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -134,6 +137,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MESSAGE.${props.index}.onClick`, { debugObj: { meta } });
+                        }
                         const {
                             modal,
                             index,
@@ -193,6 +199,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     let hasHovered = false;
 
                     return ({ meta }) => {
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MESSAGE.${index}.onHover`, { debugObj: { meta } });
+                        }
                         if (!hasHovered) {
                             hasHovered = true;
                             logger.track({
@@ -214,6 +223,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId }) => {
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MESSAGE.${props.index}.onReady`, {
+                                debugObj: { meta, activeTags, ts, requestDuration, messageRequestId }
+                            });
+                        }
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
@@ -286,10 +300,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onMarkup } = props;
 
                     return ({ styles, warnings, ...rest }) => {
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MESSAGE.${props.index}.onMarkup`);
+                        }
                         const { getContainer } = props;
 
                         if (typeof styles !== 'undefined') {
-                            event.trigger('styles', { styles });
+                            event.trigger(MESSAGE_EVENT.STYLES, { styles });
                         }
 
                         if (warnings) {
@@ -313,6 +330,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     // Handle moving the iframe around the DOM
                     return () => {
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MESSAGE.${props.index}.onDestroy`);
+                        }
                         const CLEAN_UP_DELAY = 0;
                         const { getContainer } = props;
                         const { messagesMap } = getGlobalState();
@@ -432,10 +452,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 }
             },
             debug: {
-                type: 'boolean',
+                type: 'number',
                 queryParam: 'pp_debug',
                 required: false,
-                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : undefined)
+                value: getDebugLevel
             },
             messageLocation: {
                 type: 'string',
@@ -453,10 +473,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: true,
                 required: false,
-                value: () => (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null,
-                debug: ppDebug(
-                    `Partner Attribution ID: ${(getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID]}`
-                )
+                value: getPartnerAttributionId,
+                debug: ppDebug(`Partner Attribution ID: ${getPartnerAttributionId()}`)
             },
             devTouchpoint: {
                 type: 'boolean',

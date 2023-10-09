@@ -27,8 +27,10 @@ export const TransitionStateProvider = ({ children }) => {
      * Particularly useful for those using screen readers and other accessibility functions.
      */
     const focusCloseBtnOnModalOpen = () => {
-        const btn = document.querySelector('.close');
-        btn?.focus();
+        // give the document time to update before trying to focus the close button
+        setTimeout(() => {
+            document.querySelector('.close')?.focus();
+        }, 10);
     };
 
     useEffect(() => {

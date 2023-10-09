@@ -14,7 +14,9 @@ import {
     addPerformanceMeasure,
     PERFORMANCE_MEASURE_KEYS,
     globalEvent,
-    getTopWindow
+    getTopWindow,
+    MODAL_EVENT,
+    GLOBAL_EVENT
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
@@ -81,7 +83,7 @@ const memoizedModal = memoizeOnProps(
                 Object.assign(zoidComponent, zoidComponent.clone());
             }
 
-            const modalReady = new ZalgoPromise(resolve => zoidComponent.event.once('ready', resolve));
+            const modalReady = new ZalgoPromise(resolve => zoidComponent.event.once(MODAL_EVENT.READY, resolve));
 
             zoidComponent.state.renderStart = getCurrentTime();
 
@@ -101,7 +103,7 @@ const memoizedModal = memoizeOnProps(
                         modalReady
                     ])
                 )
-                .then(() => globalEvent.trigger('modal-render'));
+                .then(() => globalEvent.trigger(GLOBAL_EVENT.MODAL_RENDER));
 
             return renderProm;
         };
@@ -146,7 +148,7 @@ const memoizedModal = memoizeOnProps(
             // Tells containerTemplate to show the prerender modal as soon as possible if zoid has not
             // rendered anything yet and the show/hide events are not hooked up yet
             zoidComponent.state.open = true;
-            zoidComponent.event.trigger('modal-show');
+            zoidComponent.event.trigger(MODAL_EVENT.MODAL_SHOW);
 
             return renderProm;
         };
@@ -154,7 +156,7 @@ const memoizedModal = memoizeOnProps(
         const hideModal = () => {
             renderProm = renderModal('body');
 
-            zoidComponent.event.trigger('modal-hide');
+            zoidComponent.event.trigger(MODAL_EVENT.MODAL_HIDE);
 
             return renderProm;
         };

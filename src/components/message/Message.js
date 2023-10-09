@@ -9,7 +9,8 @@ import {
     parseObjFromEncoding,
     getRequestDuration,
     getTsCookieFromStorage,
-    getOrCreateDeviceID
+    getOrCreateDeviceID,
+    MESSAGE_DOM_EVENT
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {
@@ -56,9 +57,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
 
     button.setAttribute('type', 'button');
 
-    button.addEventListener('click', handleClick);
-    button.addEventListener('mouseover', handleHover);
-    button.addEventListener('focus', handleHover);
+    button.addEventListener(MESSAGE_DOM_EVENT.CLICK, handleClick);
+    button.addEventListener(MESSAGE_DOM_EVENT.MOUSEOVER, handleHover);
+    button.addEventListener(MESSAGE_DOM_EVENT.FOCUS, handleHover);
 
     button.style.display = 'block';
     button.style.background = 'transparent';
@@ -88,7 +89,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         warnings: serverData.warnings
     });
 
-    window.addEventListener('focus', () => {
+    window.addEventListener(MESSAGE_DOM_EVENT.FOCUS, () => {
+        // when the iframe for the message receives focus, put the focus on the button
         button.focus();
     });
 
@@ -178,7 +180,10 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     )
                     .slice(1);
 
-                ppDebug('Updating message with new props...', { inZoid: true });
+                ppDebug('Updating message with new props...', {
+                    debugObj: { index: window.xprops.index },
+                    inZoid: true
+                });
 
                 request('GET', `${window.location.origin}/credit-presentment/smart/message?${query}`).then(
                     ({ data: resData }) => {

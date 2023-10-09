@@ -8,6 +8,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
 import { ppDebug } from './debug';
+import { PARENT_DOM_EVENT } from './constants';
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
@@ -216,7 +217,7 @@ export const appendImage = curry((container, url, alt = 'PayPal Credit', srcset 
 export const waitForElementReady = element =>
     new ZalgoPromise(resolve => {
         if (element.tagName === 'IFRAME' && element.contentWindow.document.readyState !== 'complete') {
-            element.addEventListener('load', resolve);
+            element.addEventListener(PARENT_DOM_EVENT.LOAD, resolve);
         } else {
             resolve();
         }

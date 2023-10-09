@@ -4,14 +4,32 @@
 import { destroyElement } from '@krakenjs/belter/src';
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import { EVENT } from '@krakenjs/zoid/src';
 
-import { createTitleGenerator, viewportHijack } from '../../../utils';
+import {
+    createTitleGenerator,
+    viewportHijack,
+    canDebug,
+    DEBUG_CONDITIONS,
+    ppDebug,
+    MODAL_EVENT,
+    MODAL_DOM_EVENT
+} from '../../../utils';
 
 const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce }, context }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, state, props, context }) => {
+    const { cspNonce } = props;
+    if (canDebug(DEBUG_CONDITIONS.PROPS)) {
+        ppDebug(`EVENT.MODAL.${props.index}.PROPS`, { debugObj: props });
+    }
+    if (canDebug(DEBUG_CONDITIONS.ZOID_EVENTS) && typeof event?.on !== 'undefined') {
+        // this `event` bus is identical to the one received by the prerender modal,
+        // so we don't need a debug statement for it
+        Object.entries(MODAL_EVENT).forEach(([eventId, eventName]) =>
+            event.on(eventName, data => ppDebug(`EVENT.MODAL.${props.index}.${eventId}`, { debugObj: { props, data } }))
+        );
+    }
     // We render the modal as a popup when attempting to render the modal inside another IFrame.
     // In this scenario we can skip creating container elements and transitions since we
     // cannot overlay across the entire screen
@@ -47,6 +65,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             replaceViewport();
             setTimeout(() => {
                 wrapper.classList.add(CLASS.HIDDEN);
+                wrapper.querySelector('iframe')?.blur();
             }, TRANSITION_DELAY);
         };
 
@@ -60,17 +79,20 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             ZalgoPromise.delay(TRANSITION_DELAY)
                 .then(() => overlay.classList.add(CLASS.TRANSITION))
                 .then(() => ZalgoPromise.delay(TRANSITION_DELAY))
-                .then(() => destroyElement(prerenderFrame));
+                .then(() => destroyElement(prerenderFrame))
+                .then(() => event.trigger(MODAL_EVENT.PRERENDER_MODAL_DESTROY))
+                .then(() => wrapper.querySelector('iframe')?.focus());
         };
+
         // When the show function was called before zoid had a chance to render
         if (state.open) {
             handleShow();
         }
 
-        event.on('modal-show', handleShow);
-        event.on('modal-hide', handleHide);
-        event.on(EVENT.RENDERED, handleTransition);
-        window.addEventListener('keyup', handleEscape);
+        event.on(MODAL_EVENT.MODAL_SHOW, handleShow);
+        event.on(MODAL_EVENT.MODAL_HIDE, handleHide);
+        event.on(MODAL_EVENT.RENDERED, handleTransition);
+        window.addEventListener(MODAL_DOM_EVENT.KEYUP, handleEscape);
     };
 
     const fullScreen = position =>

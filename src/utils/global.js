@@ -77,4 +77,9 @@ export const createGlobalVariableGetter = (variable, fn) => () => {
     return getGlobalState()[variable];
 };
 
+/**
+ * An event emitter for managing global events
+ * @const
+ * @name globalEvent
+ */
 export const globalEvent = eventEmitter();
