@@ -25,7 +25,11 @@ import {
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    MODAL_EVENT,
+    canDebug,
+    getDebugLevel,
+    DEBUG_CONDITIONS
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -146,6 +150,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                     return ({ linkName, src }) => {
                         const { index, refIndex } = props;
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MODAL.${index}.onClick`, { debugObj: { refIndex, linkName, src } });
+                        }
 
                         logger.track({
                             index,
@@ -174,6 +181,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                     return ({ value }) => {
                         const { index, refIndex } = props;
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MODAL.${index}.onCalculate`, { debugObj: { refIndex, value } });
+                        }
 
                         logger.track({
                             index,
@@ -199,6 +209,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                     return () => {
                         const { index, refIndex, src = 'show' } = props;
+
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MODAL.${index}.onShow`, {
+                                debugObj: { refIndex, src, focus: document.activeElement }
+                            });
+                        }
 
                         logger.track({
                             index,
@@ -227,8 +243,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         if (typeof linkName === 'undefined') return;
 
                         const { index, refIndex } = props;
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MODAL.${index}.onClose`, { debugObj: { refIndex, linkName } });
+                        }
 
-                        event.trigger('modal-hide');
+                        event.trigger(MODAL_EVENT.MODAL_HIDE);
 
                         logger.track({
                             index,
@@ -252,6 +271,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, ts }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
+                        if (canDebug(DEBUG_CONDITIONS.PROP_EVENTS)) {
+                            ppDebug(`EVENT.MODAL.${index}.onReady`, {
+                                debugObj: { offer, merchantId, account, refIndex, messageRequestId, products, meta, ts }
+                            });
+                        }
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
@@ -321,7 +345,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         // to determine if a modal is able to be displayed or not.
                         // Primary use-case is a standalone modal
                         state.products = Array.isArray(products) && products.map(getStandardProductOffer); // eslint-disable-line no-param-reassign
-                        event.trigger('ready');
+                        event.trigger(MODAL_EVENT.READY);
                     };
                 }
             },
@@ -397,10 +421,10 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 }
             },
             debug: {
-                type: 'boolean',
+                type: 'number',
                 queryParam: 'pp_debug',
                 required: false,
-                value: () => (/(\?|&)pp_debug=true(&|$)/.test(window.location.search) ? true : undefined)
+                value: getDebugLevel
             },
             stageTag: {
                 type: 'string',

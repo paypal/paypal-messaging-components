@@ -1,6 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, memoize, ppDebug } from '../../../utils';
+import { request, memoize, canDebug, DEBUG_CONDITIONS, ppDebug, MODAL_DOM_EVENT } from '../../../utils';
 
 export const getContent = memoize(
     ({
@@ -55,15 +55,31 @@ export function setupTabTrap() {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
+            let nextElement;
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
+                nextElement = tabArray[tabArray.length - 1];
+            } else if (document.activeElement === tabArray[tabArray.length - 1]) {
+                // eslint-disable-next-line prefer-destructuring
+                nextElement = tabArray[0];
+            }
+
+            if (typeof nextElement !== 'undefined') {
                 e.preventDefault();
-                tabArray[tabArray.length - 1].focus();
-            } else if (!e.shiftKey && document.activeElement === tabArray[tabArray.length - 1]) {
-                e.preventDefault();
-                tabArray[0].focus();
+                nextElement.focus();
+            }
+
+            if (canDebug(DEBUG_CONDITIONS.DOM_EVENTS)) {
+                // give the document 10ms to update before printing a debug log
+                // showing the currently selected element
+                setTimeout(() => {
+                    ppDebug(`EVENT.MODAL.${window?.xprops?.index}.KEYDOWN.${e.shiftKey ? 'SHIFT_TAB' : 'TAB'}`, {
+                        inZoid: true,
+                        debugObj: nextElement ?? document.activeElement
+                    });
+                }, 10);
             }
         }
     }
-    window.addEventListener('keydown', trapTabKey);
+    window.addEventListener(MODAL_DOM_EVENT.KEYDOWN, trapTabKey);
 }

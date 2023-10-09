@@ -1,15 +1,36 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /** @jsx node */
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { canDebug, ppDebug, DEBUG_CONDITIONS, MODAL_EVENT } from '../../../utils';
 
 export default ({ doc, props, event }) => {
+    if (canDebug(DEBUG_CONDITIONS.EVENT_EMITTERS)) {
+        ppDebug(`EVENT_EMITTER.MODAL.${props.index}`, { debugObj: event });
+    }
+    if (canDebug(DEBUG_CONDITIONS.ZOID_EVENTS) && typeof event?.on !== 'undefined') {
+        /**
+         * Because the prerender modal and modal use the same event bus,
+         * we cannot call `event.reset()` to clear the debug listeners for
+         * the prerender modal without clearing the listeners for the modal;
+         * instead, we'll use this variable to stop prerender modal logs from
+         * firing after the PRERENDER_MODAL_DESTROY event.
+         *
+         * Moreover, belter doesn't appear to provide a `removeListeners` method
+         * @see {@link https://github.com/krakenjs/belter/blob/main/src/util.js#L798 belter EventEmitter}
+         */
+        let exists = false;
+        Object.entries(MODAL_EVENT).forEach(([eventId, eventName]) => {
+            event.on(eventName, data => {
+                if (exists) {
+                    ppDebug(`EVENT.PRERENDER_MODAL.${props.index}.${eventId}`, { debugObj: data });
+                }
+            });
+        });
+        event.on(MODAL_EVENT.PRERENDER_MODAL_DESTROY, () => {
+            exists = true;
+        });
+    }
     const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
@@ -84,7 +105,6 @@ export default ({ doc, props, event }) => {
             position: relative !important;
         }
         .close-button > button {
-             background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 44 44' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
             background-color: transparent;
             width: 48px;
             height: 48px;
@@ -95,6 +115,13 @@ export default ({ doc, props, event }) => {
             position: absolute;
             z-index: 50;
             right: 0;
+            margin-right: 2px;
+            margin-top: 2px;
+        }
+
+        .close-button > button > svg {
+            width: 48px;
+            height: 48px;
         }
 
         .error{
@@ -120,19 +147,26 @@ export default ({ doc, props, event }) => {
         
     `;
 
-    const closeModal = () => event.trigger('modal-hide');
+    const closeModal = () => event.trigger(MODAL_EVENT.MODAL_HIDE);
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
+            const errorElement = element.querySelector('#errMsg');
             // check to see if modal content class exists
-            if (element.querySelector('.error')) {
+            if (errorElement) {
                 // looks like there is an error if modal content class does not exist.
                 // assign variable to state and access in UI
-                element.querySelector('.error').style.display = 'block';
-                element.querySelector('.error').textContent = 'Error loading Modal';
+                errorElement.style.display = 'block';
+                errorElement.textContent = 'Error loading Modal';
+                // TODO: should we report this failure to our log endpoint?
             }
         });
     };
-
+    const focusCloseButton = element => {
+        window.requestAnimationFrame(() => {
+            // TODO: determine how to get this to re-focus if the prerender is dismissed and re-opened
+            element.focus();
+        });
+    };
     return (
         <html lang="en">
             <head>
@@ -141,14 +175,45 @@ export default ({ doc, props, event }) => {
             </head>
             <style nonce={props.cspNonce}>{styles}</style>
             <body onRender={checkForErrors}>
-                <div class="modal">
-                    <div class="overlay" onClick={closeModal} />
+                <div class="modal" aria-errormessage="errMsg">
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+                    <div class="overlay" role="dialog" onClick={closeModal} />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">
-                            <button onClick={closeModal} type="button" />
+                            <button
+                                id="prerender-close-btn"
+                                onClick={closeModal}
+                                type="button"
+                                aria-label="Close"
+                                onRender={focusCloseButton}
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 36 36"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 0L0 12"
+                                        transform="translate(12 12)"
+                                        stroke="white"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <path
+                                        d="M0 0L12 12"
+                                        transform="translate(12 12)"
+                                        stroke="white"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                </svg>
+                            </button>
                         </div>
-                        <div class="error"></div>
+                        <div id="errMsg" class="error" />
                         <Spinner nonce={props.cspNonce} />
                     </div>
                 </div>

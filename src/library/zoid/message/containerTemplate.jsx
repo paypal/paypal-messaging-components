@@ -1,18 +1,36 @@
 /** @jsx node */
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
-import { EVENT } from '@krakenjs/zoid/src';
 
-import { getOverflowObserver, createTitleGenerator } from '../../../utils';
+import {
+    getOverflowObserver,
+    createTitleGenerator,
+    canDebug,
+    ppDebug,
+    DEBUG_CONDITIONS,
+    MESSAGE_EVENT
+} from '../../../utils';
 
 const getTitle = createTitleGenerator();
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
-    event.on(EVENT.RENDERED, () => {
+    if (canDebug(DEBUG_CONDITIONS.PROPS)) {
+        ppDebug(`EVENT.MESSAGE.${props.index}.PROPS`, { debugObj: props });
+    }
+    if (canDebug(DEBUG_CONDITIONS.EVENT_EMITTERS)) {
+        ppDebug(`EVENT_EMITTER.MESSAGE.${props.index}`, { debugObj: event });
+    }
+    if (canDebug(DEBUG_CONDITIONS.ZOID_EVENTS) && typeof event?.on !== 'undefined') {
+        Object.entries(MESSAGE_EVENT).forEach(([eventId, eventName]) =>
+            event.on(eventName, debugObj => ppDebug(`EVENT.MESSAGE.${props.index}.${eventId}`, { debugObj }))
+        );
+    }
+
+    event.on(MESSAGE_EVENT.RENDERED, () => {
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
 
     const setupAutoResize = el => {
-        event.on(EVENT.RESIZE, ({ width, height }) => {
+        event.on(MESSAGE_EVENT.RESIZE, ({ width, height }) => {
             if (width !== 0 || height !== 0) {
                 if (props.style.layout === 'flex') {
                     // Ensure height property does not exist for flex especially when swapping from text to flex
@@ -33,7 +51,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
 
                 if (el.__hasResizedBefore__) {
                     // The styles event will fire first before the resize event for the initial render
-                    event.once('styles', () => {
+                    event.once(MESSAGE_EVENT.STYLES, () => {
                         getOverflowObserver().then(observer => {
                             observer.observe(el); // The observer will immediately check the element once, then unsubscribe
                         });
@@ -60,7 +78,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, props, container }) =>
         }
     `;
 
-    event.on('styles', ({ styles }) => {
+    event.on(MESSAGE_EVENT.STYLES, ({ styles }) => {
         if (typeof styles === 'string') {
             const style = container.querySelector(`#${uid} style`);
 

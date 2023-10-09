@@ -152,7 +152,9 @@ const Content = ({ headerRef, contentWrapper }) => {
                 <div>Subject to credit approval.</div>
                 <hr className="divider" />
             </div>
-            <main className="main">{tabsContent}</main>
+            <main className="main" aria-label={`More info on the Pay Later offer${tabs.length > 1 ? 's' : ''}.`}>
+                {tabsContent}
+            </main>
         </div>
     );
 };

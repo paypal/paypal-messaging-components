@@ -28,7 +28,12 @@ jest.mock('src/utils', () => ({
     })),
     // eslint-disable-next-line no-console
     ppDebug: jest.fn(() => console.log('PayPal Debug Message')),
-    getRequestDuration: jest.fn(() => 123)
+    getRequestDuration: jest.fn(() => 123),
+    MESSAGE_DOM_EVENT: {
+        CLICK: 'click',
+        MOUSEOVER: 'mouseover',
+        FOCUS: 'focus'
+    }
 }));
 
 describe('Message', () => {

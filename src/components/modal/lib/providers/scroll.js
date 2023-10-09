@@ -1,7 +1,13 @@
 /** @jsx h */
 import { h, createContext } from 'preact';
 import { useEffect, useState, useContext, useCallback } from 'preact/hooks';
-import { getEventListenerPassiveOptionIfSupported } from '../../../../utils';
+import {
+    getEventListenerPassiveOptionIfSupported,
+    canDebug,
+    ppDebug,
+    DEBUG_CONDITIONS,
+    MODAL_DOM_EVENT
+} from '../../../../utils';
 
 const ScrollContext = createContext({
     addScrollCallback: () => {},
@@ -34,16 +40,21 @@ export const ScrollProvider = ({ children, containerRef }) => {
     };
 
     useEffect(() => {
-        const handleScroll = event => callbacks.forEach(callback => callback(event));
+        const handleScroll = event => {
+            if (canDebug(DEBUG_CONDITIONS.MOUSEOVER)) {
+                ppDebug(`EVENT.MODAL.${window?.xprops?.index}.SCROLL`, { debugObj: event });
+            }
+            callbacks.forEach(callback => callback(event));
+        };
 
         const passiveOption = getEventListenerPassiveOptionIfSupported();
 
-        containerRef.current.addEventListener('scroll', handleScroll, passiveOption);
-        containerRef.current.addEventListener('touchmove', handleScroll, passiveOption);
+        containerRef.current.addEventListener(MODAL_DOM_EVENT.SCROLL, handleScroll, passiveOption);
+        containerRef.current.addEventListener(MODAL_DOM_EVENT.TOUCHMOVE, handleScroll, passiveOption);
 
         return () => {
-            containerRef.current.removeEventListener('scroll', handleScroll, passiveOption);
-            containerRef.current.removeEventListener('touchmove', handleScroll, passiveOption);
+            containerRef.current.removeEventListener(MODAL_DOM_EVENT.SCROLL, handleScroll, passiveOption);
+            containerRef.current.removeEventListener(MODAL_DOM_EVENT.TOUCHMOVE, handleScroll, passiveOption);
         };
     }, [callbacks]);
 
