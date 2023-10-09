@@ -74,9 +74,8 @@ export default {
                 const isInvalid = merchantId.split(',').some(id => id.length !== 13 && id.length !== 10);
                 if (isInvalid) {
                     logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
-                } else {
-                    return merchantId;
                 }
+                return merchantId;
             }
         }
         return undefined;
