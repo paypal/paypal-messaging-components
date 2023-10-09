@@ -65,7 +65,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props, context 
             replaceViewport();
             setTimeout(() => {
                 wrapper.classList.add(CLASS.HIDDEN);
-                wrapper.querySelector('iframe')?.blur();
             }, TRANSITION_DELAY);
         };
 
@@ -80,8 +79,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props, context 
                 .then(() => overlay.classList.add(CLASS.TRANSITION))
                 .then(() => ZalgoPromise.delay(TRANSITION_DELAY))
                 .then(() => destroyElement(prerenderFrame))
-                .then(() => event.trigger(MODAL_EVENT.PRERENDER_MODAL_DESTROY))
-                .then(() => wrapper.querySelector('iframe')?.focus());
+                .then(() => event.trigger(MODAL_EVENT.PRERENDER_MODAL_DESTROY));
         };
 
         // When the show function was called before zoid had a chance to render

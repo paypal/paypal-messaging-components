@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 
-// useAutoFocus unused?
 export function useAutoFocus() {
     const ref = useRef();
 
