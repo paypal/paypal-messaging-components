@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, createContext } from 'preact';
 import { useEffect, useRef, useContext, useCallback } from 'preact/hooks';
-import { getEventListenerPassiveOptionIfSupported, MODAL_DOM_EVENT } from '../../../../../utils';
+import { getEventListenerPassiveOptionIfSupported } from '../../../../../utils';
 
 const ScrollContext = createContext({
     addScrollCallback: () => {},
@@ -34,10 +34,10 @@ export const ScrollProvider = ({ children, containerRef }) => {
         const handleScroll = event => callbacksRef.current.forEach(callback => callback(event));
         const passiveOption = getEventListenerPassiveOptionIfSupported();
 
-        containerRef.current.addEventListener(MODAL_DOM_EVENT.SCROLL, handleScroll, passiveOption);
+        containerRef.current.addEventListener('scroll', handleScroll, passiveOption);
 
         return () => {
-            containerRef.current.removeEventListener(MODAL_DOM_EVENT.SCROLL, handleScroll, passiveOption);
+            containerRef.current.removeEventListener('scroll', handleScroll, passiveOption);
         };
     }, [containerRef.current]);
 

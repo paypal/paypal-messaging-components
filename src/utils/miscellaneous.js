@@ -9,7 +9,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { partial, memoize } from './functional';
 import { getStorage } from './sdk';
-import { OFFER, PARENT_DOM_EVENT } from './constants';
+import { OFFER } from './constants';
 
 /**
  * Create a state object and pass back a reference and update function
@@ -128,13 +128,13 @@ export const dynamicImport = memoize(url => {
     return new ZalgoPromise(resolve => {
         const script = document.createElement('script');
         script.src = url;
-        script.addEventListener(PARENT_DOM_EVENT.LOAD, () => {
+        script.addEventListener('load', () => {
             document.body.removeChild(script);
             resolve();
         });
 
         if (document.readyState === 'loading') {
-            window.addEventListener(PARENT_DOM_EVENT.DOM_CONTENT_LOADED, () => document.body.appendChild(script));
+            window.addEventListener('DOMContentLoaded', () => document.body.appendChild(script));
         } else {
             document.body.appendChild(script);
         }

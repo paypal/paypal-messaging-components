@@ -4,7 +4,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { GLOBAL_EVENT, TREATMENTS_EVENT, TAG } from '../../../utils/constants';
+import { TAG } from '../../../utils/constants';
 import {
     getMeta,
     getEnv,
@@ -16,7 +16,7 @@ import {
     getFeatures
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
-import { canDebug, DEBUG_CONDITIONS, getDebugLevel, ppDebug } from '../../../utils/debug';
+import { ppDebug } from '../../../utils/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
@@ -25,15 +25,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
 
-        containerTemplate: ({ uid, prerenderFrame, frame, doc, event }) => {
-            if (canDebug(DEBUG_CONDITIONS.EVENT_EMITTERS)) {
-                ppDebug(`EVENT_EMITTER.TREATMENTS`, { debugObj: event });
-            }
-            if (canDebug(DEBUG_CONDITIONS.ZOID_EVENTS) && typeof event?.on !== 'undefined') {
-                Object.entries(TREATMENTS_EVENT).forEach(([eventId, eventName]) =>
-                    event?.on(eventName, debugObj => ppDebug(`EVENT.TREATMENTS.${eventId}`, { debugObj }))
-                );
-            }
+        containerTemplate: ({ uid, prerenderFrame, frame, doc }) => {
             const styles = `
                 #${uid} {
                     position: absolute!important;
@@ -80,7 +72,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
                     return ({ treatmentsHash, deviceID }) => {
-                        ppDebug(`EVENT.TREATMENTS.onReady`, { debugObj: { treatmentsHash, deviceID } });
                         writeToLocalStorage({
                             experiments: {
                                 treatmentsHash,
@@ -93,7 +84,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                             id: deviceID
                         });
 
-                        globalEvent.trigger(GLOBAL_EVENT.TREATMENTS);
+                        globalEvent.trigger('treatments');
                     };
                 }
             },
@@ -143,12 +134,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 queryParam: true,
                 value: () => __MESSAGES__.__TARGET__,
                 debug: ppDebug(`Library Integration: ${__MESSAGES__.__TARGET__}`)
-            },
-            debug: {
-                type: 'number',
-                queryParam: 'pp_debug',
-                required: false,
-                value: getDebugLevel
             }
         }
     })

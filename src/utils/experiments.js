@@ -2,7 +2,6 @@ import { isLocalStorageEnabled } from '@krakenjs/belter/src';
 import { getTreatmentsComponent } from '../library/zoid/treatments';
 import { memoize } from './functional';
 import { globalEvent } from './global';
-import { GLOBAL_EVENT, PARENT_DOM_EVENT } from './constants';
 import { getStorage, isZoidComponent } from './sdk';
 
 export const fetchTreatments = memoize(() => {
@@ -28,7 +27,7 @@ export function getLocalTreatments() {
             // This ensures that unique event objects are not passed by the event listener into fetchTreatments,
             // which avoids the benefit of memoization, because we only want the logic inside fetchTreatments
             // to execute once, which only occurs when fetchTreatments is always called with ()
-            window.addEventListener(PARENT_DOM_EVENT.DOM_CONTENT_LOADED, () => fetchTreatments());
+            window.addEventListener('DOMContentLoaded', () => fetchTreatments());
         } else {
             fetchTreatments();
         }
@@ -44,7 +43,7 @@ export function ensureTreatments() {
         // we can't get local treatments if local storage is not supported (this should be extremely rare)
         !isLocalStorageEnabled()
     ) {
-        globalEvent.trigger(GLOBAL_EVENT.TREATMENTS);
+        globalEvent.trigger('treatments');
         return;
     }
 

@@ -6,7 +6,6 @@ import Header from '../../../parts/Header';
 import Container from '../../../parts/Container';
 import Button from '../../../parts/Button';
 import { useApplyNow, useTransitionState } from '../../../lib';
-import { MODAL_DOM_EVENT } from '../../../../../utils';
 
 const ContentWrapper = () => {
     const contentWrapper = useRef();
@@ -24,12 +23,12 @@ const ContentWrapper = () => {
         const handleApplyNowShow = () => !showApplyNow && setApplyNow(true);
         const handleApplyNowHide = () => showApplyNow && setApplyNow(false);
 
-        window.addEventListener(MODAL_DOM_EVENT.APPLY_NOW_VISIBLE, handleApplyNowShow);
-        window.addEventListener(MODAL_DOM_EVENT.APPLY_NOW_HIDDEN, handleApplyNowHide);
+        window.addEventListener('apply-now-visible', handleApplyNowShow);
+        window.addEventListener('apply-now-hidden', handleApplyNowHide);
 
         return () => {
-            window.removeEventListener(MODAL_DOM_EVENT.APPLY_NOW_VISIBLE, handleApplyNowShow);
-            window.removeEventListener(MODAL_DOM_EVENT.APPLY_NOW_HIDDEN, handleApplyNowHide);
+            window.removeEventListener('apply-now-visible', handleApplyNowShow);
+            window.removeEventListener('apply-now-hidden', handleApplyNowHide);
         };
     }, [showApplyNow]);
 

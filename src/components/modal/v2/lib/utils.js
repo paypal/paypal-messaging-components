@@ -1,7 +1,7 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
-import { request, memoize, DEBUG_CONDITIONS, canDebug, ppDebug, MODAL_DOM_EVENT } from '../../../../utils';
+import { request, memoize, ppDebug } from '../../../../utils';
 
 export const getContent = memoize(
     ({
@@ -54,7 +54,7 @@ export const getContent = memoize(
             )
             .slice(1);
 
-        ppDebug('Updating modal with new props...', { inZoid: true, debugObj: { index: window?.xprops?.index } });
+        ppDebug('Updating modal with new props...', { inZoid: true });
 
         return request('GET', `${window.location.origin}/credit-presentment/modalContent?${query}`).then(
             ({ data }) => data
@@ -92,20 +92,9 @@ export function setupTabTrap() {
                 e.preventDefault();
                 nextElement.focus();
             }
-
-            if (canDebug(DEBUG_CONDITIONS.DOM_EVENTS)) {
-                // give the document 10ms to update before printing a debug log
-                // showing the currently selected element
-                setTimeout(() => {
-                    ppDebug(`EVENT.MODAL.${window?.xprops?.index}.KEYDOWN.${e.shiftKey ? 'SHIFT_TAB' : 'TAB'}`, {
-                        inZoid: true,
-                        debugObj: nextElement ?? document.activeElement
-                    });
-                }, 10);
-            }
         }
     }
-    window.addEventListener(MODAL_DOM_EVENT.KEYDOWN, trapTabKey);
+    window.addEventListener('keydown', trapTabKey);
 }
 
 export function formatDateByCountry(country) {

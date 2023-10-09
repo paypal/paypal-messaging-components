@@ -4,8 +4,7 @@ import {
     awaitDOMContentLoaded,
     getAllBySelector,
     objectMerge,
-    isZoidComponent,
-    MODAL_DOM_EVENT
+    isZoidComponent
 } from '../../../utils';
 import Modal from './interface';
 import { getModalComponent } from '../../zoid/modal';
@@ -46,7 +45,7 @@ export default function setup() {
 
                     attachEls.forEach(el => {
                         el.setAttribute('tabindex', 0);
-                        el.addEventListener(MODAL_DOM_EVENT.CLICK, () => modal.show(el));
+                        el.addEventListener('click', () => modal.show(el));
                     });
                 }
             }

@@ -116,10 +116,6 @@ export function getScriptAttributes() {
     }
 }
 
-export function getPartnerAttributionId() {
-    return (getScriptAttributes() ?? {})[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID] ?? null;
-}
-
 export function getNamespace() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKNamespace();
@@ -136,19 +132,6 @@ export function isZoidComponent() {
     // Merchants may use `zoid` to place our components inside an IFrame
     // so we ensure that we check for the tags of our components
     return Object.values(TAG).some(tag => window.name.startsWith(`__zoid__${tag.replace(/-/g, '_')}`));
-}
-
-/**
- * Determine which kind of zoid iframe we are within
- * @returns {string} result - null or one of the keys for TAG: MESSAGE, MODAL, TREATMENTS
- */
-export function whichComponent() {
-    return Object.entries(TAG).reduce((result, [component, tag]) => {
-        if (result === null && window.name.startsWith(`__zoid__${tag.replace(/-/g, '_')}`)) {
-            return component;
-        }
-        return result;
-    }, null);
 }
 
 export function getStorage() {

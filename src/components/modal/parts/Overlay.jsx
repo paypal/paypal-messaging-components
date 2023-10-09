@@ -3,7 +3,6 @@ import { h, Fragment } from 'preact';
 import { useEffect } from 'preact/hooks';
 
 import { useTransitionState } from '../lib';
-import { canDebug, DEBUG_CONDITIONS, MODAL_DOM_EVENT, ppDebug } from '../../../utils';
 
 const Overlay = ({ contentMaxWidth, contentMaxHeight }) => {
     const [, handleClose] = useTransitionState();
@@ -11,16 +10,13 @@ const Overlay = ({ contentMaxWidth, contentMaxHeight }) => {
     useEffect(() => {
         const handleEscapeKeyPress = evt => {
             if (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27) {
-                if (canDebug(DEBUG_CONDITIONS.DOM_EVENTS)) {
-                    ppDebug(`EVENT.MODAL.${window?.xprops?.index}.KEYUP.ESCAPE`, { inZoid: true, debugObj: evt });
-                }
                 handleClose('Escape Key');
             }
         };
 
-        window.addEventListener(MODAL_DOM_EVENT.KEYUP, handleEscapeKeyPress);
+        window.addEventListener('keyup', handleEscapeKeyPress);
 
-        return () => window.removeEventListener(MODAL_DOM_EVENT.KEYUP, handleEscapeKeyPress);
+        return () => window.removeEventListener('keyup', handleEscapeKeyPress);
     });
 
     // Overlay must be split because the content wrapper fills

@@ -1,6 +1,6 @@
 import arrayFrom from 'core-js-pure/stable/array/from';
 import objectEntries from 'core-js-pure/stable/object/entries';
-import { request, memoize, canDebug, DEBUG_CONDITIONS, ppDebug, MODAL_DOM_EVENT } from '../../../utils';
+import { request, memoize, ppDebug } from '../../../utils';
 
 export const getContent = memoize(
     ({
@@ -68,18 +68,7 @@ export function setupTabTrap() {
                 e.preventDefault();
                 nextElement.focus();
             }
-
-            if (canDebug(DEBUG_CONDITIONS.DOM_EVENTS)) {
-                // give the document 10ms to update before printing a debug log
-                // showing the currently selected element
-                setTimeout(() => {
-                    ppDebug(`EVENT.MODAL.${window?.xprops?.index}.KEYDOWN.${e.shiftKey ? 'SHIFT_TAB' : 'TAB'}`, {
-                        inZoid: true,
-                        debugObj: nextElement ?? document.activeElement
-                    });
-                }, 10);
-            }
         }
     }
-    window.addEventListener(MODAL_DOM_EVENT.KEYDOWN, trapTabKey);
+    window.addEventListener('keydown', trapTabKey);
 }

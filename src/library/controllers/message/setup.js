@@ -7,12 +7,9 @@ import {
     getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
-    canDebug,
     ppDebug,
-    DEBUG_CONDITIONS,
     getOverflowObserver,
-    ensureTreatments,
-    PARENT_DOM_EVENT
+    ensureTreatments
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -87,13 +84,12 @@ export default function setup() {
                 subtree: true,
                 attributeFilter: ['data-pp-message']
             });
-            if (canDebug(DEBUG_CONDITIONS.DOM_EVENTS)) {
-                ppDebug(`EVENT.GLOBAL.DOM_CONTENT_LOADED - ${new Date().toLocaleString()}`);
-            }
+
+            ppDebug(`DOMContentLoaded at ${new Date().toLocaleString()}`);
         };
 
         if (document.readyState === 'loading') {
-            window.addEventListener(PARENT_DOM_EVENT.DOM_CONTENT_LOADED, handleContentLoaded);
+            window.addEventListener('DOMContentLoaded', handleContentLoaded);
         } else {
             handleContentLoaded();
         }

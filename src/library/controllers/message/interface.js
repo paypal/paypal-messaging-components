@@ -14,8 +14,7 @@ import {
     PERFORMANCE_MEASURE_KEYS,
     globalEvent,
     ppDebug,
-    awaitTreatments,
-    GLOBAL_EVENT
+    awaitTreatments
 } from '../../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
@@ -168,7 +167,7 @@ export default (options = {}) => ({
                                     );
 
                                     return render(container)
-                                        .then(() => globalEvent.trigger(GLOBAL_EVENT.RENDER))
+                                        .then(() => globalEvent.trigger('render'))
                                         .then(resolve);
                                 }
 
@@ -194,7 +193,7 @@ export default (options = {}) => ({
                                 );
 
                                 return updateProps(updatedMessageProps)
-                                    .then(() => globalEvent.trigger(GLOBAL_EVENT.RENDER))
+                                    .then(() => globalEvent.trigger('render'))
                                     .then(resolve);
                             } catch (err) {
                                 // We only want console.warn to be called once

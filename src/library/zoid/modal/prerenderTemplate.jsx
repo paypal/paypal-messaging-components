@@ -2,35 +2,8 @@
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import { canDebug, ppDebug, DEBUG_CONDITIONS, MODAL_EVENT } from '../../../utils';
 
 export default ({ doc, props, event }) => {
-    if (canDebug(DEBUG_CONDITIONS.EVENT_EMITTERS)) {
-        ppDebug(`EVENT_EMITTER.MODAL.${props.index}`, { debugObj: event });
-    }
-    if (canDebug(DEBUG_CONDITIONS.ZOID_EVENTS) && typeof event?.on !== 'undefined') {
-        /**
-         * Because the prerender modal and modal use the same event bus,
-         * we cannot call `event.reset()` to clear the debug listeners for
-         * the prerender modal without clearing the listeners for the modal;
-         * instead, we'll use this variable to stop prerender modal logs from
-         * firing after the PRERENDER_MODAL_DESTROY event.
-         *
-         * Moreover, belter doesn't appear to provide a `removeListeners` method
-         * @see {@link https://github.com/krakenjs/belter/blob/main/src/util.js#L798 belter EventEmitter}
-         */
-        let exists = false;
-        Object.entries(MODAL_EVENT).forEach(([eventId, eventName]) => {
-            event.on(eventName, data => {
-                if (exists) {
-                    ppDebug(`EVENT.PRERENDER_MODAL.${props.index}.${eventId}`, { debugObj: data });
-                }
-            });
-        });
-        event.on(MODAL_EVENT.PRERENDER_MODAL_DESTROY, () => {
-            exists = true;
-        });
-    }
     const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
@@ -147,7 +120,7 @@ export default ({ doc, props, event }) => {
         
     `;
 
-    const closeModal = () => event.trigger(MODAL_EVENT.MODAL_HIDE);
+    const closeModal = () => event.trigger('modal-hide');
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             const errorElement = element.querySelector('#errMsg');
