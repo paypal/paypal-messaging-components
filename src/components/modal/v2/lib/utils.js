@@ -71,6 +71,10 @@ const { userAgent } = window.navigator;
 export const isIframe = window.top !== window || isIosWebview(userAgent) || isAndroidWebview(userAgent);
 
 export function setupTabTrap() {
+    if (isLander) {
+        return;
+    }
+
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
 
