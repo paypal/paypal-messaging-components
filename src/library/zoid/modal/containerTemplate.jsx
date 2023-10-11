@@ -42,6 +42,8 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                     requestAnimationFrame(() => {
                         if (renderedModal) {
                             frame.focus();
+                        } else if (window.document.activeElement !== prerenderFrame) {
+                            prerenderFrame.focus();
                         }
                     });
                 });
@@ -66,7 +68,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
         };
 
         const handleEscape = evt => {
-            if (state.open && (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27)) {
+            if (state.open && (`${evt?.key}`.toLowerCase().startsWith('esc') || evt.charCode === 27)) {
                 handleHide();
             }
         };
@@ -78,7 +80,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                 .then(() => ZalgoPromise.delay(TRANSITION_DELAY))
                 .then(() => destroyElement(prerenderFrame))
                 .then(() => {
-                    if (state.open) {
+                    if (state.open && document.activeElement !== frame) {
                         frame.focus();
                     }
                 });

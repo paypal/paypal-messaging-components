@@ -55,18 +55,14 @@ export function setupTabTrap() {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
-            let nextElement;
+
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
-                nextElement = tabArray[tabArray.length - 1];
-            } else if (document.activeElement === tabArray[tabArray.length - 1]) {
-                // eslint-disable-next-line prefer-destructuring
-                nextElement = tabArray[0];
-            }
-
-            if (typeof nextElement !== 'undefined') {
                 e.preventDefault();
-                nextElement.focus();
+                tabArray[tabArray.length - 1].focus();
+            } else if (document.activeElement === tabArray[tabArray.length - 1]) {
+                e.preventDefault();
+                tabArray[0].focus();
             }
         }
     }

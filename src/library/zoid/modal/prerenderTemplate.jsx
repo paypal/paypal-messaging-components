@@ -3,7 +3,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props, event }) => {
+export default ({ doc, props, event, state }) => {
     const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
@@ -97,15 +97,15 @@ export default ({ doc, props, event }) => {
             height: 48px;
         }
 
-        .error{
+        #modal-status{
             color: white;
-            width: 200px;
-            height: 100px;
             position: absolute;
             top: 67%;
-            left: 50%;
+            left: calc( 50% - 10px );
             margin-left: -60px;
             display: none;
+            padding: 10px;
+
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -119,27 +119,54 @@ export default ({ doc, props, event }) => {
         }
         
     `;
+    let renderedModal = false;
+    let closeBtn;
 
-    const closeModal = () => event.trigger('modal-hide');
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
-            const errorElement = element.querySelector('#errMsg');
-            // check to see if modal content class exists
-            if (errorElement) {
-                // looks like there is an error if modal content class does not exist.
+            const modalStatus = element.querySelector('#modal-status');
+            // if we have a place to put our status message,
+            // and we have not heard the 'zoid-rendered' event for the modal yet
+            if (modalStatus && !renderedModal) {
                 // assign variable to state and access in UI
-                errorElement.style.display = 'block';
-                errorElement.textContent = 'Error loading Modal';
+                modalStatus.style.display = 'block';
+                modalStatus.textContent = 'Error loading Modal';
                 // TODO: should we report this failure to our log endpoint?
             }
         });
     };
-    const focusCloseButton = element => {
-        window.requestAnimationFrame(() => {
-            // TODO: determine how to get this to re-focus if the prerender is dismissed and re-opened
-            element.focus();
+
+    const focusCloseButton = () => {
+        if (closeBtn) {
+            window.requestAnimationFrame(() => {
+                // TODO: determine how to get this to re-focus if the prerender is dismissed and re-opened
+                closeBtn.focus();
+            });
+        }
+    };
+
+    const handleClose = () => {
+        event.trigger('modal-hide');
+    };
+
+    const handleEscape = evt => {
+        if (!renderedModal && state.open && (`${evt?.key}`.toLowerCase().startsWith('esc') || evt?.charCode === 27)) {
+            handleClose();
+        }
+    };
+
+    const handleRender = element => {
+        closeBtn = element.querySelector('#prerender-close-btn');
+        focusCloseButton();
+        ZalgoPromise.delay(ERROR_DELAY).then(() => {
+            return checkForErrors(element);
         });
     };
+
+    event.on('zoid-rendered', () => {
+        renderedModal = true;
+    });
+
     return (
         <html lang="en">
             <head>
@@ -147,19 +174,25 @@ export default ({ doc, props, event }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <style nonce={props.cspNonce}>{styles}</style>
-            <body onRender={checkForErrors}>
+            <body onRender={handleRender}>
                 <div class="modal" aria-errormessage="errMsg">
-                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-                    <div class="overlay" role="dialog" onClick={closeModal} />
+                    {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+                    <div
+                        class="overlay"
+                        role="dialog"
+                        onClick={handleClose}
+                        onKeyUp={handleEscape}
+                        aria-keyshortcuts="escape"
+                    />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">
                             <button
                                 id="prerender-close-btn"
-                                onClick={closeModal}
+                                onClick={handleClose}
                                 type="button"
                                 aria-label="Close"
-                                onRender={focusCloseButton}
+                                tabindex="0"
                             >
                                 <svg
                                     aria-hidden="true"
@@ -186,7 +219,9 @@ export default ({ doc, props, event }) => {
                                 </svg>
                             </button>
                         </div>
-                        <div id="errMsg" class="error" />
+                        <span id="modal-status" aria-label="modal-status" aria-live="polite">
+                            Loading Modal
+                        </span>
                         <Spinner nonce={props.cspNonce} />
                     </div>
                 </div>
