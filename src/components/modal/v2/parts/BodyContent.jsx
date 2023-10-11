@@ -62,8 +62,9 @@ const BodyContent = () => {
 
     useDidUpdateEffect(() => {
         scrollTo(0); // Reset scroll position to top when view changes
-        const closeButton = window.document.querySelector('#close-btn');
-        if (closeButton) closeButton.focus();
+        if (transitionState === 'OPEN') {
+            window.document.querySelector('#close-btn')?.focus();
+        }
     }, [viewName]);
 
     useDidUpdateEffect(() => {
@@ -104,10 +105,7 @@ const BodyContent = () => {
                 viewName={viewName}
             />
             <div className="content__container">
-                <main
-                    className="main"
-                    aria-label={`More info on the Pay Later offer${viewName === VIEW_IDS.PRODUCT_LIST ? 's' : ''}.`}
-                >
+                <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>
             </div>

@@ -136,6 +136,10 @@
             cursor: pointer;
             z-index: 9;
 
+            &:focus {
+                outline: -webkit-focus-ring-color solid 2px;
+            }
+
             @include desktop {
                 margin-left: auto;
                 margin-right: 2px;
