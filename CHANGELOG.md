@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.49.1](https://github.com/paypal/paypal-messaging-components/compare/v1.49.0...v1.49.1) (2023-10-11)
+
+
+### Code Refactoring
+
+* enable passing multiple merchant ids ([#992](https://github.com/paypal/paypal-messaging-components/issues/992)) ([4ac100f](https://github.com/paypal/paypal-messaging-components/commit/4ac100ff1567b451a75ad40c397f747c18eb6e39))
+* update modal css ([#996](https://github.com/paypal/paypal-messaging-components/issues/996)) ([8dc900d](https://github.com/paypal/paypal-messaging-components/commit/8dc900dff59cb90860a1823827a412c666bd644c))
+* update when error icon shows in Pay Monthly modal ([#988](https://github.com/paypal/paypal-messaging-components/issues/988)) ([08c126f](https://github.com/paypal/paypal-messaging-components/commit/08c126f196afe307a82ffb7664546bd53c398e16))
+
 ## [1.49.0](https://github.com/paypal/paypal-messaging-components/compare/v1.48.1...v1.49.0) (2023-09-26)
 
 
