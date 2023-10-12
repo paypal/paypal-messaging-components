@@ -80,7 +80,6 @@ export function setupTabTrap() {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
-
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
                 e.preventDefault();

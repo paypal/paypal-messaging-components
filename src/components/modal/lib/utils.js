@@ -55,12 +55,11 @@ export function setupTabTrap() {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
-
             // SHIFT + TAB
             if (e.shiftKey && document.activeElement === tabArray[0]) {
                 e.preventDefault();
                 tabArray[tabArray.length - 1].focus();
-            } else if (document.activeElement === tabArray[tabArray.length - 1]) {
+            } else if (!e.shiftKey && document.activeElement === tabArray[tabArray.length - 1]) {
                 e.preventDefault();
                 tabArray[0].focus();
             }
