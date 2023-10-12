@@ -175,7 +175,7 @@ export default ({ doc, props, event, state }) => {
             </head>
             <style nonce={props.cspNonce}>{styles}</style>
             <body onRender={handleRender}>
-                <div class="modal" aria-errormessage="errMsg">
+                <div class="modal" aria-errormessage="modal-status">
                     {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                     <div
                         class="overlay"
