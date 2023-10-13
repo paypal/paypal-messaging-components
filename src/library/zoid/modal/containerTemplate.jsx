@@ -16,6 +16,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
     // In this scenario we can skip creating container elements and transitions since we
     // cannot overlay across the entire screen
     if (context === 'popup') return undefined;
+
     let renderedModal = false;
     let previousFocus = document.activeElement;
     const [hijackViewport, replaceViewport] = viewportHijack();
@@ -39,13 +40,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     overlay.classList.add(CLASS.MODAL_SHOW);
-                    requestAnimationFrame(() => {
-                        if (renderedModal) {
-                            frame.focus();
-                        } else if (window.document.activeElement !== prerenderFrame) {
-                            prerenderFrame.focus();
-                        }
-                    });
+                    if (renderedModal) {
+                        frame.focus();
+                    } else if (window.document.activeElement !== prerenderFrame) {
+                        prerenderFrame.focus();
+                    }
                 });
             });
         };
@@ -56,14 +55,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             replaceViewport();
             setTimeout(() => {
                 wrapper.classList.add(CLASS.HIDDEN);
-
-                requestAnimationFrame(() => {
-                    if (renderedModal) {
-                        frame.blur();
-                    } else {
-                        previousFocus.focus();
-                    }
-                });
+                if (renderedModal) {
+                    frame.blur();
+                } else {
+                    previousFocus.focus();
+                }
             }, TRANSITION_DELAY);
         };
 

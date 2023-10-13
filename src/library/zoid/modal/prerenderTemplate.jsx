@@ -2,6 +2,7 @@
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { EVENT } from '@krakenjs/zoid/src';
 
 export default ({ doc, props, event, state }) => {
     const ERROR_DELAY = 15000;
@@ -138,10 +139,7 @@ export default ({ doc, props, event, state }) => {
 
     const focusCloseButton = () => {
         if (closeBtn) {
-            window.requestAnimationFrame(() => {
-                // TODO: determine how to get this to re-focus if the prerender is dismissed and re-opened
-                closeBtn.focus();
-            });
+            closeBtn.focus();
         }
     };
 
@@ -158,12 +156,27 @@ export default ({ doc, props, event, state }) => {
     const handleRender = element => {
         closeBtn = element.querySelector('#prerender-close-btn');
         focusCloseButton();
+        // we need to give chrome a moment before we can focus the close button
+        window.requestAnimationFrame(() => {
+            focusCloseButton();
+        });
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             return checkForErrors(element);
         });
     };
 
-    event.on('zoid-rendered', () => {
+    event.on('modal-show', () => {
+        if (!renderedModal) {
+            // we need to give chrome a moment before we can focus the close button
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => {
+                    focusCloseButton();
+                });
+            });
+        }
+    });
+
+    event.on(EVENT.RENDERED, () => {
         renderedModal = true;
     });
 
@@ -174,16 +187,24 @@ export default ({ doc, props, event, state }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <style nonce={props.cspNonce}>{styles}</style>
-            <body onRender={handleRender}>
+            {/* 
+                disable jsx-a11y/no-static-element-interactions
+                    because we need handleEscape to work regardless of which element has focus,
+                    and Safari currently forbids an iframe from setting focus within its document
+                    until the user interacts with the contents of the iframe 
+            */}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <body onRender={handleRender} onKeyUp={handleEscape}>
                 <div class="modal" aria-errormessage="modal-status">
-                    {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-                    <div
-                        class="overlay"
-                        role="dialog"
-                        onClick={handleClose}
-                        onKeyUp={handleEscape}
-                        aria-keyshortcuts="escape"
-                    />
+                    {/* 
+                        disable jsx-a11y/click-events-have-key-events 
+                            because although the overlay does not have a keyup listener, the body does 
+                        disable jsx-a11y/no-static-element-interactions
+                            because if we give it `role="button"`, then it will require the overlay be 
+                            focusable, which is unnecessary given the `#prerender-close-btn`
+                    */}
+                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+                    <div class="overlay" onClick={handleClose} aria-keyshortcuts="escape" />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">

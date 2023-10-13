@@ -162,9 +162,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             refIndex: index,
                             src: 'message_click',
                             onClose: () => {
-                                window.requestAnimationFrame(() => {
-                                    getContainer().querySelector('iframe').focus();
-                                });
+                                getContainer().querySelector('iframe').focus();
                             }
                         });
 
