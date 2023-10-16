@@ -39,7 +39,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     overlay.classList.add(CLASS.MODAL_SHOW);
-                    if (state.renderedModal) {
+                    if (state.renderedModal && window.document.activeElement !== frame) {
                         frame.focus();
                     } else if (window.document.activeElement !== prerenderFrame) {
                         prerenderFrame.focus();
@@ -59,7 +59,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
         };
 
         const handleEscape = evt => {
-            if (state.open && (evt?.key === 'Escape' || evt?.key === 'Esc' || evt.charCode === 27)) {
+            if (state.open && (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27)) {
                 handleHide();
             }
         };

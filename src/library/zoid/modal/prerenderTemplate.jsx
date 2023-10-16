@@ -135,22 +135,12 @@ export default ({ doc, props, event, state }) => {
         });
     };
 
-    const focusCloseButton = () => {
-        if (closeBtn) {
-            closeBtn.focus();
-        }
-    };
-
     const handleClose = () => {
         event.trigger('modal-hide');
     };
 
     const handleEscape = evt => {
-        if (
-            !state.renderedModal &&
-            state.open &&
-            (evt?.key === 'Escape' || evt?.key === 'Esc' || evt.charCode === 27)
-        ) {
+        if (!state.renderedModal && state.open && (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27)) {
             handleClose();
         }
     };
@@ -159,7 +149,7 @@ export default ({ doc, props, event, state }) => {
         closeBtn = element.querySelector('#prerender-close-btn');
         // we need to give chrome a moment before we can focus the close button
         window.requestAnimationFrame(() => {
-            focusCloseButton();
+            closeBtn?.focus();
         });
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
             return checkForErrors(element);
@@ -171,7 +161,7 @@ export default ({ doc, props, event, state }) => {
             // we need to give chrome a moment before we can focus the close button
             window.requestAnimationFrame(() => {
                 window.requestAnimationFrame(() => {
-                    focusCloseButton();
+                    closeBtn?.focus();
                 });
             });
         }
