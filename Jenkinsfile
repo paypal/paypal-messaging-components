@@ -1,3 +1,4 @@
+//Okeith
 pipeline {
     agent {
         label 'mesos'
@@ -15,6 +16,7 @@ pipeline {
         // Assumes commit messages follow this format: chore(release): 1.49.1 [skip ci]
         VERSION = sh(returnStdout: true, script: "echo $GIT_COMMIT_MESSAGE | cut -d ':' -f2 | cut -d '[' -f1").trim()
     }
+
 
     stages {
         stage('Setup') {
