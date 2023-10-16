@@ -2,7 +2,6 @@
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import { EVENT } from '@krakenjs/zoid/src';
 
 export default ({ doc, props, event, state }) => {
     const ERROR_DELAY = 15000;
@@ -120,7 +119,6 @@ export default ({ doc, props, event, state }) => {
         }
         
     `;
-    let renderedModal = false;
     let closeBtn;
 
     const checkForErrors = element => {
@@ -128,7 +126,7 @@ export default ({ doc, props, event, state }) => {
             const modalStatus = element.querySelector('#modal-status');
             // if we have a place to put our status message,
             // and we have not heard the 'zoid-rendered' event for the modal yet
-            if (modalStatus && !renderedModal) {
+            if (modalStatus && !state.renderedModal) {
                 // assign variable to state and access in UI
                 modalStatus.style.display = 'block';
                 modalStatus.textContent = 'Error loading Modal';
@@ -148,14 +146,17 @@ export default ({ doc, props, event, state }) => {
     };
 
     const handleEscape = evt => {
-        if (!renderedModal && state.open && (`${evt?.key}`.toLowerCase().startsWith('esc') || evt?.charCode === 27)) {
+        if (
+            !state.renderedModal &&
+            state.open &&
+            (evt?.key === 'Escape' || evt?.key === 'Esc' || evt.charCode === 27)
+        ) {
             handleClose();
         }
     };
 
     const handleRender = element => {
         closeBtn = element.querySelector('#prerender-close-btn');
-        focusCloseButton();
         // we need to give chrome a moment before we can focus the close button
         window.requestAnimationFrame(() => {
             focusCloseButton();
@@ -166,7 +167,7 @@ export default ({ doc, props, event, state }) => {
     };
 
     event.on('modal-show', () => {
-        if (!renderedModal) {
+        if (!state.renderedModal) {
             // we need to give chrome a moment before we can focus the close button
             window.requestAnimationFrame(() => {
                 window.requestAnimationFrame(() => {
@@ -174,10 +175,6 @@ export default ({ doc, props, event, state }) => {
                 });
             });
         }
-    });
-
-    event.on(EVENT.RENDERED, () => {
-        renderedModal = true;
     });
 
     return (

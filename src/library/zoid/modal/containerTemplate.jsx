@@ -17,8 +17,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
     // cannot overlay across the entire screen
     if (context === 'popup') return undefined;
 
-    let renderedModal = false;
-    let previousFocus = document.activeElement;
+    state.previousFocus = document.activeElement;
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {
@@ -32,7 +31,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
 
         const handleShow = () => {
             state.open = true;
-            previousFocus = document.activeElement;
+            state.previousFocus = document.activeElement;
             wrapper.classList.remove(CLASS.HIDDEN);
             hijackViewport();
             // Browser needs to repaint otherwise the transition happens immediately
@@ -40,7 +39,7 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     overlay.classList.add(CLASS.MODAL_SHOW);
-                    if (renderedModal) {
+                    if (state.renderedModal) {
                         frame.focus();
                     } else if (window.document.activeElement !== prerenderFrame) {
                         prerenderFrame.focus();
@@ -55,22 +54,18 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
             replaceViewport();
             setTimeout(() => {
                 wrapper.classList.add(CLASS.HIDDEN);
-                if (renderedModal) {
-                    frame.blur();
-                } else {
-                    previousFocus.focus();
-                }
+                state.previousFocus.focus();
             }, TRANSITION_DELAY);
         };
 
         const handleEscape = evt => {
-            if (state.open && (`${evt?.key}`.toLowerCase().startsWith('esc') || evt.charCode === 27)) {
+            if (state.open && (evt?.key === 'Escape' || evt?.key === 'Esc' || evt.charCode === 27)) {
                 handleHide();
             }
         };
 
         const handleTransition = () => {
-            renderedModal = true;
+            state.renderedModal = true;
             ZalgoPromise.delay(TRANSITION_DELAY)
                 .then(() => overlay.classList.add(CLASS.TRANSITION))
                 .then(() => ZalgoPromise.delay(TRANSITION_DELAY))

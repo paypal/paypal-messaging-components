@@ -41,7 +41,6 @@ export const TransitionStateProvider = ({ children }) => {
                         if (entry.isIntersecting) {
                             // Removes .modal-closed class from modal iframe body when modal is open.
                             document.body.classList.remove('modal-closed');
-                            document.body.classList.add('modal-open');
                             setState(STATUS.OPEN);
                             onShow();
 
@@ -53,10 +52,7 @@ export const TransitionStateProvider = ({ children }) => {
                                  * The .modal-closed class is added via useTransitionState. If this class is not on the modal iframe body,
                                  * we know the modal is open and should not trigger the hook to reset the modal to the primary view.
                                  */
-                                if (
-                                    document.body.classList.contains('modal-closed') ||
-                                    !document.body.classList.contains('modal-open')
-                                ) {
+                                if (document.body.classList.contains('modal-closed')) {
                                     setState(STATUS.CLOSED);
                                 }
                             }, TRANSITION_DELAY);
@@ -89,7 +85,6 @@ export const useTransitionState = () => {
         linkName => {
             // Appends a class to the modal iframe body when handleClose is fired.
             document.body.classList.add('modal-closed');
-            document.body.classList.remove('modal-open');
             onClose({ linkName });
 
             if (window === window.top && typeof close === 'function') {
