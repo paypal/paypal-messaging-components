@@ -45,13 +45,6 @@ const delocalize = (country, amount) =>
     Number(country === 'DE' ? amount.replace(/\./, '').replace(/,/, '.') : amount.replace(/,/g, '')).toFixed(2);
 const localize = (country, amount) => {
     const number = Number(amount) || Number(0);
-    if (country === 'DE') {
-        return number.toLocaleString('de-DE', {
-            currency: 'EUR',
-            minimumFractionDigits: 2
-        });
-    }
-
     return number.toLocaleString('en-US', {
         currency: 'USD',
         minimumFractionDigits: 2
