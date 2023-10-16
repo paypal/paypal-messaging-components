@@ -17,7 +17,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
     // cannot overlay across the entire screen
     if (context === 'popup') return undefined;
 
-    state.previousFocus = document.activeElement;
     const [hijackViewport, replaceViewport] = viewportHijack();
 
     const CLASS = {
