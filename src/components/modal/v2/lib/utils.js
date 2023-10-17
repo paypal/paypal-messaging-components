@@ -81,7 +81,7 @@ export function setupTabTrap() {
 
     function trapTabKey(e) {
         // Check for TAB key press
-        if (e.keyCode === 9) {
+        if (e.keyCode === 9 && !document.querySelector('.modal-closed')) {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
