@@ -56,6 +56,7 @@ const Header = ({
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
+                        aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
                         <Icon name="close" />

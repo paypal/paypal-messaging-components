@@ -10,7 +10,7 @@
         "__MESSAGING_GLOBALS__": true,
         "__ENV__": true
     },
-    "plugins": ["prettier"],
+    "plugins": ["prettier","eslint-comments"],
     "rules": {
         "arrow-body-style": "off",
         "unicorn/prefer-spread": "off",
