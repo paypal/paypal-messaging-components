@@ -17,7 +17,7 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    writeToLocalStorage,
+    updateStorage,
     getOrCreateDeviceID,
     getStageTag,
     getFeatures,
@@ -212,7 +212,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // We still want to write it here to handle the scenario where the SDK has never been loaded
                         // and thus the inner iframe has no value for deviceID until after the first message render
                         const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
-                        writeToLocalStorage({ ts: tsCookie });
+                        updateStorage({ ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
