@@ -134,17 +134,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const {
-                            modal,
-                            index,
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            getContainer
-                        } = props;
+                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, offerCountry, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -160,10 +150,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offerCountry,
                             refId: messageRequestId,
                             refIndex: index,
-                            src: 'message_click',
-                            onClose: () => {
-                                getContainer().querySelector('iframe').focus();
-                            }
+                            src: 'message_click'
                         });
 
                         logger.track({
