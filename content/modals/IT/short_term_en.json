@@ -39,13 +39,13 @@
             ]
         },
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>Pay in 3. </strong>",
+            "Choose PayPal at checkout to pay later with <strong>Pay in 3 installments. </strong>",
             "Complete your purchase by making your first payment today. ",
             "The remaining payments will be taken automatically. It's easy! "
         ],
         "disclosure": [
             [
-                "Only available on eligible purchases from {formattedMinAmount} to {formattedMaxAmount}. You must be a resident of Italy and have a PayPal account. <strong>0% APR</strong>. Eligibility for Pay in 3 is subject to approval. See the "
+                "Only available on eligible purchases from {formattedMinAmount} to {formattedMaxAmount}. You must be a resident of Italy and have a PayPal account. <strong>0% APR</strong>. Eligibility for Pay in 3 installments is subject to approval. See the "
             ],
             ["information sheet", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=it_IT"],
             [" and "],
