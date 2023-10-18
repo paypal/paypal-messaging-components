@@ -1,16 +1,14 @@
 import openModal from '../../utils/initializeModal';
 import { viewports, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn, switchTabs, niContentTest } from './us_modalTestDefs';
+import { clickHereSeeTerms, applyNowBtn, switchTabs } from './us_modalTestDefs';
 
-const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
+const accounts = ['DEV0000000PSZ'];
 
 describe.each([
     [accounts[0], viewports[0]],
-    [accounts[0], viewports[1]],
-    [accounts[1], viewports[0]],
-    [accounts[1], viewports[1]]
-])('US EZP and NI basic standalone modal functionality tests %o', (account, viewport) => {
+    [accounts[0], viewports[1]]
+])('US EZP basic standalone modal functionality tests %o', (account, viewport) => {
     beforeEach(async () => {
         await openModal(viewport, { account }, 'modal-standalone.html');
     });
@@ -39,15 +37,6 @@ describe.each([
         applyNowBtn({ account, viewport, groupString })
     );
     if (account === 'DEV0000000PSZ') {
-        test(
-            `${groupString} switch between EZP and NI content by clicking tabs`,
-            switchTabs({ account, viewport, groupString })
-        );
-    }
-    if (account === 'DEV00000000NI') {
-        test(
-            `${groupString} NI content is loaded when NI message is clicked`,
-            niContentTest({ account, viewport, groupString })
-        );
+        test(`${groupString} EZP content by clicking tabs`, switchTabs({ account, viewport, groupString }));
     }
 });
