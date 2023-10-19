@@ -30,7 +30,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     const elementModal = await page.waitForSelector(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
 
-    const hasContentBody = ['DEV00000000NI', 'DEV0000000PSZ'].includes(config.account);
+    const hasContentBody = ['DEV0000000PSZ'].includes(config.account);
 
     await modalFrame.waitForSelector(hasContentBody ? selectors.modal.contentBody : selectors.modal.modalContent);
 
