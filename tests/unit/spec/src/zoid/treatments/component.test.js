@@ -19,7 +19,6 @@ describe('treatments component', () => {
 
     test('handles treatment data', () => {
         const {
-            close,
             props: { onReady }
         } = getTreatmentsComponent();
 
@@ -39,6 +38,5 @@ describe('treatments component', () => {
         });
 
         expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
-        expect(close).toHaveBeenCalled();
     });
 });

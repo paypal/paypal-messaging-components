@@ -5,6 +5,8 @@ import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 import { create } from '@krakenjs/zoid/src';
 
 import {
+    TAG,
+    getDisableSetCookie,
     getMeta,
     getEnv,
     getGlobalUrl,
@@ -15,8 +17,8 @@ import {
     getSessionID,
     getGlobalState,
     getCurrentTime,
-    writeToLocalStorage,
-    getOrCreateStorageID,
+    updateStorage,
+    getOrCreateDeviceID,
     getStageTag,
     getFeatures,
     getNonce,
@@ -33,7 +35,7 @@ import containerTemplate from './containerTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_message__', () =>
     create({
-        tag: 'paypal-message',
+        tag: TAG.MESSAGE,
         url: getGlobalUrl('MESSAGE'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
@@ -132,17 +134,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const {
-                            modal,
-                            index,
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            getContainer
-                        } = props;
+                        const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, offerCountry, messageRequestId } = meta;
 
                         // Avoid spreading message props because both message and modal
@@ -158,12 +150,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offerCountry,
                             refId: messageRequestId,
                             refIndex: index,
-                            src: 'message_click',
-                            onClose: () => {
-                                getContainer()
-                                    .querySelector('iframe')
-                                    .focus();
-                            }
+                            src: 'message_click'
                         });
 
                         logger.track({
@@ -213,7 +200,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: false,
                 value: ({ props }) => {
                     const { onReady } = props;
-                    return ({ meta, activeTags, deviceID, ts, requestDuration, messageRequestId }) => {
+                    return ({ meta, activeTags, ts, requestDuration, messageRequestId }) => {
                         const { account, merchantId, index, modal, getContainer } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
@@ -225,7 +212,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         // We still want to write it here to handle the scenario where the SDK has never been loaded
                         // and thus the inner iframe has no value for deviceID until after the first message render
                         const tsCookie = typeof ts !== 'undefined' ? ts : getTsCookieFromStorage();
-                        writeToLocalStorage({ id: deviceID, ts: tsCookie });
+                        updateStorage({ ts: tsCookie });
 
                         logger.addMetaBuilder(existingMeta => {
                             // Remove potential existing meta info
@@ -243,8 +230,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     ts: tsCookie,
-                                    deviceID, // deviceID from internal iframe storage
-                                    sessionID: getSessionID() // Session ID from parent local storage,
+                                    // deviceID from internal iframe storage
+                                    // should be populated previously by the treatments component
+                                    deviceID: getOrCreateDeviceID(),
+                                    // Session ID from parent local storage,
+                                    sessionID: getSessionID()
                                 },
                                 [index]: {
                                     type: 'message',
@@ -399,8 +389,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getOrCreateStorageID,
-                debug: ppDebug(`Device ID: ${getOrCreateStorageID()}`)
+                value: getOrCreateDeviceID,
+                debug: ppDebug(`Device ID: ${getOrCreateDeviceID()}`)
             },
             sessionID: {
                 type: 'string',
@@ -461,17 +451,23 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: getDevTouchpoint
             },
-            features: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: getFeatures
-            },
             cspNonce: {
                 type: 'string',
                 required: false,
                 default: getNonce,
                 value: validate.cspNonce
+            },
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
             }
         }
     })

@@ -1,8 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import arrayFrom from 'core-js-pure/stable/array/from';
 
-import { isLocalStorageEnabled, getStorage as getBelterStorage } from '@krakenjs/belter/src';
+import { getStorage as getBelterStorage } from '@krakenjs/belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import {
     getClientID,
@@ -15,10 +14,23 @@ import {
     getSDKQueryParam,
     getCSPNonce,
     getNamespace as getSDKNamespace,
+    getDefaultNamespace as getDefaultSDKNamespace,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
-    getPayPalDomain as getSDKPayPalDomain
+    getStorageState as getSDKStorageState,
+    getPayPalDomain as getSDKPayPalDomain,
+    getDisableSetCookie as getSDKDisableCookie
 } from '@paypal/sdk-client/src';
+
+import { TAG } from './constants';
+
+export function getDisableSetCookie() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKDisableCookie();
+    } else {
+        return false;
+    }
+}
 
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
@@ -45,7 +57,7 @@ export function getMerchantConfig() {
 export function getAccount() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         // TODO: Should we pass both up if they exist so that nodeweb can create a partner context?
-        return getMerchantID()[0] || `client-id:${getClientID()}`;
+        return getMerchantID().join(',') || `client-id:${getClientID()}`;
     } else {
         return undefined;
     }
@@ -106,11 +118,19 @@ export function getScriptAttributes() {
     }
 }
 
+export function getDefaultNamespace() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getDefaultSDKNamespace();
+    } else {
+        return 'paypal';
+    }
+}
+
 export function getNamespace() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKNamespace();
     } else {
-        return getScript()?.getAttribute('data-pp-namespace') || 'paypal';
+        return getScript()?.getAttribute('data-pp-namespace') || getDefaultNamespace();
     }
 }
 
@@ -119,7 +139,9 @@ export function getLibraryVersion() {
 }
 
 export function isZoidComponent() {
-    return stringStartsWith(window.name, '__zoid__');
+    // Merchants may use `zoid` to place our components inside an IFrame
+    // so we ensure that we check for the tags of our components
+    return Object.values(TAG).some(tag => window.name.startsWith(`__zoid__${tag.replace(/-/g, '_')}`));
 }
 
 export function getStorage() {
@@ -137,7 +159,7 @@ export function getSessionID() {
 }
 
 // Retrieves storageID. NOTE: Creates new ID if not already in local storage.
-export function getOrCreateStorageID() {
+export function getOrCreateDeviceID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKStorageID();
     } else {
@@ -145,33 +167,12 @@ export function getOrCreateStorageID() {
     }
 }
 
-export function isStorageFresh() {
-    return getStorage().isStateFresh();
-}
-
-// Retrieve namespaced localStorage directly
-function getRawStorage() {
-    return isLocalStorageEnabled()
-        ? JSON.parse(window.localStorage?.getItem(`__${getNamespace()}_storage__`) ?? '{}')
-        : {};
-}
-
-export function writeToLocalStorage(values) {
-    return isLocalStorageEnabled()
-        ? window.localStorage?.setItem(
-              `__${getNamespace()}_storage__`,
-              JSON.stringify({
-                  ...getRawStorage(),
-                  ...values
-              }) ?? '{}'
-          )
-        : {};
-}
-
-// Use the custom deviceID field, but fall back to storage ID if it is not yet present
-// or does not exist (as in the child )
-export function getDeviceID() {
-    return getStorage().getState(storage => storage.messagingDeviceID ?? storage.id);
+export function updateStorage(values) {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKStorageState(storage => Object.assign(storage, values));
+    } else {
+        return getStorage().getState(storage => Object.assign(storage, values));
+    }
 }
 
 // Check if the current script is in the process of being destroyed since
@@ -195,12 +196,29 @@ export const isScriptBeingDestroyed = () => {
 };
 
 export function getPayPalDomain() {
-    if (__MESSAGES__.__TEST_ENV__) {
-        return __MESSAGES__.__TEST_ENV__;
-    } else if (__MESSAGES__.__TARGET__ === 'SDK') {
+    if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+
+        if (testEnviroment) {
+            return testEnviroment;
+        }
+
+        // eslint-disable-next-line security/detect-unsafe-regex
+        if (window.location.origin.match(/\.paypal\.com(:\d+)?$/)) {
+            return window.location.origin;
+        }
+    }
+
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPayPalDomain();
     } else {
-        return __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+        const domain = __MESSAGES__.__DOMAIN__[`__${getEnv().toUpperCase()}__`];
+
+        if (domain) {
+            return domain;
+        }
+
+        throw new Error('Missing PayPal Domain');
     }
 }
 
@@ -215,18 +233,17 @@ export function getStageTag() {
         return undefined;
     }
 }
-
 export function getDevTouchpoint() {
-    if (__MESSAGES__.__DEV_TOUCHPOINT__ && getEnv() !== 'production' && getEnv() !== 'sandbox') {
+    const devTouchpoint = window.__DEV_TOUCHPOINT__ ?? __MESSAGES__.__DEV_TOUCHPOINT__;
+    if (devTouchpoint && getEnv() !== 'production' && getEnv() !== 'sandbox') {
         return true;
     } else {
         return undefined; // Prevent the zoid query param
     }
 }
-
 export function getFeatures() {
-    if (__MESSAGES__.__FEATURES__) {
-        return __MESSAGES__.__FEATURES__;
+    if (getDisableSetCookie()) {
+        return 'disable-set-cookie';
     } else {
         return undefined;
     }

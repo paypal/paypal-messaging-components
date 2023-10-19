@@ -70,13 +70,14 @@ export default {
         if (typeof merchantId !== 'undefined') {
             if (!validateType(Types.STRING, merchantId)) {
                 logInvalidType('merchantId', Types.STRING, merchantId);
-            } else if (merchantId.length !== 13 && merchantId.length !== 10) {
-                logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
             } else {
+                const isInvalid = merchantId.split(',').some(id => id.length !== 13 && id.length !== 10);
+                if (isInvalid) {
+                    logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
+                }
                 return merchantId;
             }
         }
-
         return undefined;
     },
     customerId: ({ props: { customerId } }) => {
@@ -159,7 +160,7 @@ export default {
     },
     placement: ({ props: { placement } }) => {
         if (typeof placement !== 'undefined') {
-            const options = ['home', 'category', 'product', 'cart', 'payment'];
+            const options = ['home', 'category', 'product', 'cart', 'payment', 'product-list'];
 
             if (!validateType(Types.STRING, placement)) {
                 logInvalidType('placement', Types.STRING, placement);
@@ -178,6 +179,17 @@ export default {
                 logInvalidType('buyerCountry', Types.STRING, buyerCountry);
             } else {
                 return buyerCountry;
+            }
+        }
+
+        return undefined;
+    },
+    language: ({ props: { language } }) => {
+        if (typeof language !== 'undefined') {
+            if (!validateType(Types.STRING, language)) {
+                logInvalidType('language', Types.STRING, language);
+            } else {
+                return language;
             }
         }
 

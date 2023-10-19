@@ -1,5 +1,140 @@
 # Changelog
 
+### [1.49.2](https://github.com/paypal/paypal-messaging-components/compare/v1.49.1...v1.49.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* prevent undefined device ID when namespace ([#994](https://github.com/paypal/paypal-messaging-components/issues/994)) ([fe91522](https://github.com/paypal/paypal-messaging-components/commit/fe915229ff060f969f7690c2c87eee11773a0336))
+* safari focus  ([#1005](https://github.com/paypal/paypal-messaging-components/issues/1005)) ([827a56d](https://github.com/paypal/paypal-messaging-components/commit/827a56d3a87dec0c491a52c241fcec46b4cfc067))
+* safari focus ([#997](https://github.com/paypal/paypal-messaging-components/issues/997)) ([5b4a823](https://github.com/paypal/paypal-messaging-components/commit/5b4a823f2abe9c046e7dd336ded6891658bcb4cd))
+
+
+### Code Refactoring
+
+* disable tab trap on api or lander ([#999](https://github.com/paypal/paypal-messaging-components/issues/999)) ([ab92760](https://github.com/paypal/paypal-messaging-components/commit/ab927609b23f31f8171c2d55994910c11399b10a))
+
+### [1.49.1](https://github.com/paypal/paypal-messaging-components/compare/v1.49.0...v1.49.1) (2023-10-11)
+
+
+### Code Refactoring
+
+* enable passing multiple merchant ids ([#992](https://github.com/paypal/paypal-messaging-components/issues/992)) ([4ac100f](https://github.com/paypal/paypal-messaging-components/commit/4ac100ff1567b451a75ad40c397f747c18eb6e39))
+* update modal css ([#996](https://github.com/paypal/paypal-messaging-components/issues/996)) ([8dc900d](https://github.com/paypal/paypal-messaging-components/commit/8dc900dff59cb90860a1823827a412c666bd644c))
+* update when error icon shows in Pay Monthly modal ([#988](https://github.com/paypal/paypal-messaging-components/issues/988)) ([08c126f](https://github.com/paypal/paypal-messaging-components/commit/08c126f196afe307a82ffb7664546bd53c398e16))
+
+## [1.49.0](https://github.com/paypal/paypal-messaging-components/compare/v1.48.1...v1.49.0) (2023-09-26)
+
+
+### Features
+
+* Screen reader /mo for messages and modals (DTCRCMERC-1941) ([#980](https://github.com/paypal/paypal-messaging-components/issues/980)) ([507709e](https://github.com/paypal/paypal-messaging-components/commit/507709e21bf2ae7020db423c5be2a4fc93eff705))
+* updated input on calculator for better accessibility ([#985](https://github.com/paypal/paypal-messaging-components/issues/985)) ([cd574dd](https://github.com/paypal/paypal-messaging-components/commit/cd574dd12ab464b48acd2a214db528f335c80400))
+
+### [1.48.1](https://github.com/paypal/paypal-messaging-components/compare/v1.48.0...v1.48.1) (2023-09-20)
+
+
+### Bug Fixes
+
+* components render inside external zoid iframes ([#986](https://github.com/paypal/paypal-messaging-components/issues/986)) ([72a1831](https://github.com/paypal/paypal-messaging-components/commit/72a183186b841d8716fd43f10e17bd3c320d96d8))
+
+## [1.48.0](https://github.com/paypal/paypal-messaging-components/compare/v1.47.0...v1.48.0) (2023-09-12)
+
+
+### Features
+
+* modal language variants ([#982](https://github.com/paypal/paypal-messaging-components/issues/982)) ([9a514fb](https://github.com/paypal/paypal-messaging-components/commit/9a514fb652d59aa379d105e1db0403949efa8dec))
+
+
+### Code Refactoring
+
+* remove stage references ([#968](https://github.com/paypal/paypal-messaging-components/issues/968)) ([d3e1c52](https://github.com/paypal/paypal-messaging-components/commit/d3e1c528f2b1a30996a69e4b5f7f8f14240231d7))
+
+## [1.47.0](https://github.com/paypal/paypal-messaging-components/compare/v1.46.1...v1.47.0) (2023-08-29)
+
+
+### Features
+
+* Create Messaging function to send back current date for US Pi4 Preapproval modals in XO ([#967](https://github.com/paypal/paypal-messaging-components/issues/967)) ([380656c](https://github.com/paypal/paypal-messaging-components/commit/380656ce93825152bc7d0537bd26162753cfa819))
+* native modal communication ([#851](https://github.com/paypal/paypal-messaging-components/issues/851)) ([1d30e05](https://github.com/paypal/paypal-messaging-components/commit/1d30e05e01bae2bab1c634289475f1bfbe236810))
+* runtime functionality for easier development testing ([#972](https://github.com/paypal/paypal-messaging-components/issues/972)) ([0bc86fe](https://github.com/paypal/paypal-messaging-components/commit/0bc86fe8ece39e1a2b9978957ba6177d1fed075f))
+* update nominal rate and APR in DE LT modal legal disclosure ([#974](https://github.com/paypal/paypal-messaging-components/issues/974)) ([9e937ba](https://github.com/paypal/paypal-messaging-components/commit/9e937baffdff8c5d5aa66ab0d54ce75b1ca78e17))
+
+
+### Bug Fixes
+
+* simplify handling of deviceID ([#975](https://github.com/paypal/paypal-messaging-components/issues/975)) ([42012c4](https://github.com/paypal/paypal-messaging-components/commit/42012c43a64688a3db3f0dd74b8430e1dbaa92d9))
+
+### [1.46.1](https://github.com/paypal/paypal-messaging-components/compare/v1.46.0...v1.46.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* lock core-js-pure dependency version ([#969](https://github.com/paypal/paypal-messaging-components/issues/969)) ([1671b07](https://github.com/paypal/paypal-messaging-components/commit/1671b0718b133ebb8af3de026b6b87932d650cf2))
+
+## [1.46.0](https://github.com/paypal/paypal-messaging-components/compare/v1.45.0...v1.46.0) (2023-08-07)
+
+
+### Features
+
+* add product-list placement parameter ([#965](https://github.com/paypal/paypal-messaging-components/issues/965)) ([3a94f7f](https://github.com/paypal/paypal-messaging-components/commit/3a94f7ff4971d7c921bb1392935e9416f036f614))
+
+## [1.45.0](https://github.com/paypal/paypal-messaging-components/compare/v1.44.0...v1.45.0) (2023-07-24)
+
+
+### Features
+
+* disableSetCookie Query Param Fix (DTCRCGEMI-1239) ([#960](https://github.com/paypal/paypal-messaging-components/issues/960)) ([0c58ca4](https://github.com/paypal/paypal-messaging-components/commit/0c58ca4c4cfcaadeec9d88bd3c5b31e167f445de))
+* disableSetCookie Query Param Fix (DTCRCGEMI-1239) ([#962](https://github.com/paypal/paypal-messaging-components/issues/962)) ([771c9e6](https://github.com/paypal/paypal-messaging-components/commit/771c9e68953c7a97792ad9f5072a70f528b5fdbf))
+
+## [1.44.0](https://github.com/paypal/paypal-messaging-components/compare/v1.43.1...v1.44.0) (2023-07-18)
+
+
+### Features
+
+* JS SDK Cookie Remediation - Phase 3 (DTCRCMERC-2336) ([#957](https://github.com/paypal/paypal-messaging-components/issues/957)) ([7152ab1](https://github.com/paypal/paypal-messaging-components/commit/7152ab1dab6ea31bf6c7c213b9fc8f0c0fcf0f0d))
+
+### [1.43.1](https://github.com/paypal/paypal-messaging-components/compare/v1.43.0...v1.43.1) (2023-06-20)
+
+
+### Continuous Integration
+
+* remove install from publish workflow ([#952](https://github.com/paypal/paypal-messaging-components/issues/952)) ([4ab58be](https://github.com/paypal/paypal-messaging-components/commit/4ab58beb0d7d036822b80906a21b747edf2ca8a7))
+
+
+### Code Refactoring
+
+* update ttl ([#948](https://github.com/paypal/paypal-messaging-components/issues/948)) ([888fc7e](https://github.com/paypal/paypal-messaging-components/commit/888fc7e3e9e974d38ca43e3afe0109da62ce37a2))
+
+## [1.43.0](https://github.com/paypal/paypal-messaging-components/compare/v1.42.0...v1.43.0) (2023-06-14)
+
+
+### Features
+
+* Update UK Pi3 Legal Disclosure (DTCRCMERC-2267) ([#936](https://github.com/paypal/paypal-messaging-components/issues/936)) ([a186771](https://github.com/paypal/paypal-messaging-components/commit/a1867714a4e69efd3c54d0d80976ce46356f3528))
+
+
+### Bug Fixes
+
+* add cookie global ([#951](https://github.com/paypal/paypal-messaging-components/issues/951)) ([a12ebb3](https://github.com/paypal/paypal-messaging-components/commit/a12ebb3ebbb47b2e3f65315a2236fed875ea55ee))
+
+
+### Build System
+
+* remove old stage bundle url ([#947](https://github.com/paypal/paypal-messaging-components/issues/947)) ([c669016](https://github.com/paypal/paypal-messaging-components/commit/c66901698ad0525b75916749f61ba0043f6cdabe))
+
+
+### Continuous Integration
+
+* Github action workflow npm publish ([#923](https://github.com/paypal/paypal-messaging-components/issues/923)) ([0e38156](https://github.com/paypal/paypal-messaging-components/commit/0e381568d27c0060ed174ee105b839fef7f47634))
+* remove use of deprecated set-output command ([#938](https://github.com/paypal/paypal-messaging-components/issues/938)) ([9ef6eb0](https://github.com/paypal/paypal-messaging-components/commit/9ef6eb06e77187a037b5141973dbe72ef2f37eab))
+
+
+### Code Refactoring
+
+* chunk multi-message rendering to prevent singular long task ([#939](https://github.com/paypal/paypal-messaging-components/issues/939)) ([9b1a240](https://github.com/paypal/paypal-messaging-components/commit/9b1a2408db4fffd150033dcd25c1d5eb02f5422f))
+* remove NE from US Pay Monthly modal legal disclosure ([#906](https://github.com/paypal/paypal-messaging-components/issues/906)) ([eb9ffb0](https://github.com/paypal/paypal-messaging-components/commit/eb9ffb0ee187ff41ab4494b33049e00dd6f3ff21))
+
 ## [1.42.0](https://github.com/paypal/paypal-messaging-components/compare/v1.41.0...v1.42.0) (2023-05-11)
 
 

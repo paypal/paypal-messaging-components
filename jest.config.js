@@ -36,19 +36,5 @@ module.exports = {
     },
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js', '<rootDir>/tests/customMatchers.js'],
     // grumbler-scripts includes babel-plugin-istanbul
-    coveragePathIgnorePatterns: ['<rootDir>'],
-    globals: {
-        __ENV__: 'test',
-        __MESSAGES__: {
-            __VERSION__: '1.0.0',
-            __DOMAIN__: {
-                __TEST__: 'http://localhost.paypal.com:8080'
-            },
-            __URI__: {
-                __MESSAGE__: '/credit-presentment/smart/message',
-                __MODAL__: '/credit-presentment/smart/modal',
-                __LOGGER__: '/credit-presentment/log'
-            }
-        }
-    }
+    coveragePathIgnorePatterns: ['<rootDir>']
 };

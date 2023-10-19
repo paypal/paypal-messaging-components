@@ -112,9 +112,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
             ])
         )
         .then(() => {
-            const firstContainer = getGlobalState()
-                .messagesMap.keys()
-                .next().value;
+            const firstContainer = getGlobalState().messagesMap.keys().next().value;
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
             const root = getRoot(firstContainer);

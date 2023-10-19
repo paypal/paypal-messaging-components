@@ -1,5 +1,5 @@
 /** @jsx h */
-import { Fragment, h } from 'preact';
+import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useContent } from '../../../lib';
 
@@ -67,12 +67,10 @@ const TermsTable = ({ isLoading, terms: { offers, formattedAmount }, hasError })
 
     return (
         <div className="finance-terms transitional">
-            <Fragment>
-                {sortedOffers.map((offer, idx) => (
-                    <OfferCard offer={offer} formattedAmount={formattedAmount} index={idx} />
-                ))}
-                <div className="finance-terms__disclaimer">{disclaimer}</div>
-            </Fragment>
+            {sortedOffers.map((offer, idx) => (
+                <OfferCard offer={offer} formattedAmount={formattedAmount} index={idx} />
+            ))}
+            <div className="finance-terms__disclaimer">{disclaimer}</div>
         </div>
     );
 };

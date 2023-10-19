@@ -1,24 +1,7 @@
 import { renderHook } from '@testing-library/preact-hooks';
-import { useAutoFocus, useDidUpdateEffect } from 'src/components/modal/lib/hooks/helpers';
+import { useDidUpdateEffect } from 'src/components/modal/lib/hooks/helpers';
 
 describe('hooks helpers', () => {
-    describe('useAutoFocus', () => {
-        test('Auto focuses the returned ref', () => {
-            const button = document.createElement('button');
-            button.focus = jest.fn();
-            const { rerender } = renderHook(() => {
-                const focustRef = useAutoFocus();
-                focustRef.current = button;
-            });
-
-            expect(button.focus).toHaveBeenCalledTimes(1);
-
-            rerender();
-
-            expect(button.focus).toHaveBeenCalledTimes(2);
-        });
-    });
-
     describe('useDidUpdateEffect', () => {
         test('Runs effect function only when dependencies update', () => {
             const effectFn = jest.fn();

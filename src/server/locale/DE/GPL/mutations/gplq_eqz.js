@@ -120,8 +120,9 @@ export default {
                     xSmallFallback(textSize * 12.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    `@media screen and (max-width: ${textSize *
-                        12.5}px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                    `@media screen and (max-width: ${
+                        textSize * 12.5
+                    }px) { .locale--DE .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['ab'] },

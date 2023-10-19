@@ -4,13 +4,23 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
-import { getMeta, getEnv, getLibraryVersion, getStageTag, getNamespace, writeToLocalStorage } from '../../../utils/sdk';
+import { TAG } from '../../../utils/constants';
+import {
+    getMeta,
+    getEnv,
+    getLibraryVersion,
+    getStageTag,
+    updateStorage,
+    getDisableSetCookie,
+    getFeatures,
+    getDefaultNamespace
+} from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
-        tag: 'paypal-credit-treatments',
+        tag: TAG.TREATEMENTS,
         url: getGlobalUrl('TREATMENTS'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
@@ -36,32 +46,45 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
         },
 
         props: {
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
+            },
             namespace: {
                 type: 'string',
                 queryParam: false,
-                value: getNamespace
+                value: getDefaultNamespace
             },
 
             onReady: {
                 type: 'function',
                 queryParam: false,
-                value: ({ close }) => {
-                    // 1 day in milliseconds
-                    const TREATMENTS_MAX_AGE = 1000 * 60 * 60 * 24;
+                value: () => {
+                    // 15 minutes in milliseconds
+                    const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
                     return ({ treatmentsHash, deviceID }) => {
-                        writeToLocalStorage({
+                        updateStorage({
                             experiments: {
                                 treatmentsHash,
-                                // Experiments can only be maintained for 24 hours
+                                // Experiments can only be maintained for 15 minutes
                                 expiration: Date.now() + TREATMENTS_MAX_AGE
                             },
+                            // Write deviceID from paypal.com localStorage to merchant domain localStorage
+                            // This should be the only place that we write to the storage.id
+                            // to prevent it getting out of sync with treatmentsHash
                             id: deviceID
                         });
 
                         globalEvent.trigger('treatments');
-
-                        close();
                     };
                 }
             },

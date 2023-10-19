@@ -37,7 +37,7 @@ if [ ! -z "$tag" ]; then
     version=$version-$(echo $tag | sed "s/_/-/g" | sed -E "s/-([0-9]+)$/.\1/")
     # Check if the CDN tag has already been used before spending time on the webpack build
     tagStatus=$(web status $tag 2>&1)
-    if [[ $tagStatus =~ "✔ Complete" ]]; then
+    if [[ $tagStatus =~ "staged" ]]; then
         printf "Stage tag already exists and must be unique ($tag)\n\n"
         exit 1
     fi
@@ -154,9 +154,8 @@ if [ ! -z "$tag" ]; then
     # remove temporary file if it exists
     rm globals.js.bak &> /dev/null
     
-    printf "\nweb stage --tag $tag\n"
+    printf "web stage --tag $tag\n"
     web stage --tag "$tag"
-    printf "\nhttps://UIDeploy--StaticContent--$tag--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list\n"
 
     # Reset modified dist files
     git checkout -- dist

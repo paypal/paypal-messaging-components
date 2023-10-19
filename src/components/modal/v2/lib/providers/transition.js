@@ -14,21 +14,21 @@ export const STATUS = {
 };
 
 const TransitionContext = createContext({
-    status: STATUS.OPEN,
+    status: STATUS.CLOSED,
     setStatus: () => {}
 });
 
 export const TransitionStateProvider = ({ children }) => {
     const { onShow } = useXProps();
-    const [state, setState] = useState(STATUS.OPEN);
+    const [state, setState] = useState(STATUS.CLOSED);
 
     /**
      * Set iniitial focus on modal open to the close button.
      * Particularly useful for those using screen readers and other accessibility functions.
      */
     const focusCloseBtnOnModalOpen = () => {
-        const btn = document.querySelector('.close');
-        btn?.focus();
+        // focus the close button
+        document.querySelector('.close')?.focus();
     };
 
     useEffect(() => {
@@ -68,6 +68,8 @@ export const TransitionStateProvider = ({ children }) => {
     }, []);
 
     return (
+        // Triggers The object passed as the value prop to the Context provider (at line 12) changes every render. To fix this consider wrapping it in a useMemo hook.
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
         <TransitionContext.Provider value={{ status: state, setStatus: setState }}>
             {children}
         </TransitionContext.Provider>

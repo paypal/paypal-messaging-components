@@ -1,15 +1,9 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /** @jsx node */
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props, event }) => {
+export default ({ doc, props, event, state }) => {
     const ERROR_DELAY = 15000;
     const styles = `
         @font-face {
@@ -84,7 +78,6 @@ export default ({ doc, props, event }) => {
             position: relative !important;
         }
         .close-button > button {
-             background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 44 44' fill='transparent' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0L0 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M0 0L12 12' transform='translate(12 12)' stroke='white' stroke-width='2' stroke-linecap='round' /%3E%3C/svg%3E");
             background-color: transparent;
             width: 48px;
             height: 48px;
@@ -95,17 +88,24 @@ export default ({ doc, props, event }) => {
             position: absolute;
             z-index: 50;
             right: 0;
+            margin-right: 2px;
+            margin-top: 2px;
         }
 
-        .error{
+        .close-button > button > svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        #modal-status{
             color: white;
-            width: 200px;
-            height: 100px;
             position: absolute;
             top: 67%;
-            left: 50%;
+            left: calc( 50% - 10px );
             margin-left: -60px;
             display: none;
+            padding: 10px;
+
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -119,19 +119,53 @@ export default ({ doc, props, event }) => {
         }
         
     `;
+    let closeBtn;
 
-    const closeModal = () => event.trigger('modal-hide');
     const checkForErrors = element => {
         ZalgoPromise.delay(ERROR_DELAY).then(() => {
-            // check to see if modal content class exists
-            if (element.querySelector('.error')) {
-                // looks like there is an error if modal content class does not exist.
+            const modalStatus = element.querySelector('#modal-status');
+            // if we have a place to put our status message,
+            // and we have not heard the 'zoid-rendered' event for the modal yet
+            if (modalStatus && !state.renderedModal) {
                 // assign variable to state and access in UI
-                element.querySelector('.error').style.display = 'block';
-                element.querySelector('.error').textContent = 'Error loading Modal';
+                modalStatus.style.display = 'block';
+                modalStatus.textContent = 'Error loading Modal';
+                // TODO: should we report this failure to our log endpoint?
             }
         });
     };
+
+    const handleClose = () => {
+        event.trigger('modal-hide');
+    };
+
+    const handleEscape = evt => {
+        if (!state.renderedModal && state.open && (evt.key === 'Escape' || evt.key === 'Esc' || evt.charCode === 27)) {
+            handleClose();
+        }
+    };
+
+    const handleRender = element => {
+        closeBtn = element.querySelector('#prerender-close-btn');
+        // we need to give chrome a moment before we can focus the close button
+        window.requestAnimationFrame(() => {
+            closeBtn?.focus();
+        });
+        ZalgoPromise.delay(ERROR_DELAY).then(() => {
+            return checkForErrors(element);
+        });
+    };
+
+    event.on('modal-show', () => {
+        if (!state.renderedModal) {
+            // we need to give chrome a moment before we can focus the close button
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => {
+                    closeBtn?.focus();
+                });
+            });
+        }
+    });
 
     return (
         <html lang="en">
@@ -140,15 +174,62 @@ export default ({ doc, props, event }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <style nonce={props.cspNonce}>{styles}</style>
-            <body onRender={checkForErrors}>
-                <div class="modal">
-                    <div class="overlay" onClick={closeModal} />
+            {/* 
+                disable jsx-a11y/no-static-element-interactions
+                    because we need handleEscape to work regardless of which element has focus,
+                    and Safari currently forbids an iframe from setting focus within its document
+                    until the user interacts with the contents of the iframe 
+            */}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <body onRender={handleRender} onKeyUp={handleEscape}>
+                <div class="modal" aria-errormessage="modal-status">
+                    {/* 
+                        disable jsx-a11y/click-events-have-key-events 
+                            because although the overlay does not have a keyup listener, the body does 
+                        disable jsx-a11y/no-static-element-interactions
+                            because if we give it `role="button"`, then it will require the overlay be 
+                            focusable, which is unnecessary given the `#prerender-close-btn`
+                    */}
+                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+                    <div class="overlay" onClick={handleClose} aria-keyshortcuts="escape" />
                     <div class="top-overlay" />
                     <div class="modal-content">
                         <div class="close-button">
-                            <button onClick={closeModal} type="button" />
+                            <button
+                                id="prerender-close-btn"
+                                onClick={handleClose}
+                                type="button"
+                                aria-label="Close"
+                                tabindex="0"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 36 36"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 0L0 12"
+                                        transform="translate(12 12)"
+                                        stroke="white"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <path
+                                        d="M0 0L12 12"
+                                        transform="translate(12 12)"
+                                        stroke="white"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                </svg>
+                            </button>
                         </div>
-                        <div class="error"></div>
+                        <span id="modal-status" aria-label="modal-status" aria-live="polite">
+                            Loading Modal
+                        </span>
                         <Spinner nonce={props.cspNonce} />
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import objectEntries from 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
+import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug } from '../../../../utils';
 
 export const getContent = memoize(
@@ -11,6 +12,7 @@ export const getContent = memoize(
         merchantId,
         customerId,
         buyerCountry,
+        language,
         ignoreCache,
         deviceID,
         version,
@@ -19,7 +21,9 @@ export const getContent = memoize(
         integrationType,
         channel,
         ecToken,
-        devTouchpoint
+        devTouchpoint,
+        disableSetCookie,
+        features
     }) => {
         const query = objectEntries({
             currency,
@@ -29,6 +33,7 @@ export const getContent = memoize(
             merchant_id: merchantId,
             customer_id: customerId,
             buyer_country: buyerCountry,
+            language,
             ignore_cache: ignoreCache,
             deviceID,
             version,
@@ -37,7 +42,9 @@ export const getContent = memoize(
             integrationType,
             channel,
             ec_token: ecToken,
-            devTouchpoint
+            devTouchpoint,
+            disableSetCookie,
+            features
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
@@ -60,15 +67,21 @@ export const getContent = memoize(
  * @returns boolean
  */
 export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';
-export const isIframe = window.top !== window;
+const { userAgent } = window.navigator;
+export const isIframe = window.top !== window || isIosWebview(userAgent) || isAndroidWebview(userAgent);
 
 export function setupTabTrap() {
+    // Disable tab trap functionality for modal lander
+    if (isLander) {
+        return;
+    }
+
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
 
     function trapTabKey(e) {
         // Check for TAB key press
-        if (e.keyCode === 9) {
+        if (e.keyCode === 9 && !document.querySelector('.modal-closed')) {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
@@ -83,4 +96,13 @@ export function setupTabTrap() {
         }
     }
     window.addEventListener('keydown', trapTabKey);
+}
+
+export function formatDateByCountry(country) {
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    if (country === 'US') {
+        return currentDate.toLocaleDateString('en-US', options);
+    }
+    return currentDate.toLocaleDateString('en-GB', options);
 }

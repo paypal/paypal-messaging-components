@@ -13,6 +13,15 @@ import {
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
 
+const VIEW_IDS = {
+    // TODO: add an error view in case we receive an invalid view?
+    PAYPAL_CREDIT_NO_INTEREST: 'PAYPAL_CREDIT_NO_INTEREST',
+    PAY_LATER_LONG_TERM: 'PAY_LATER_LONG_TERM',
+    PAY_LATER_PAY_IN_1: 'PAY_LATER_PAY_IN_1',
+    PAY_LATER_SHORT_TERM: 'PAY_LATER_SHORT_TERM',
+    PRODUCT_LIST: 'PRODUCT_LIST'
+};
+
 const BodyContent = () => {
     const { views } = useServerData();
     const { offer } = useXProps();
@@ -29,12 +38,12 @@ const BodyContent = () => {
 
         let defaultViewName;
 
-        const productViews = views.filter(view => view?.meta?.product !== 'PRODUCT_LIST');
-        const hasProductList = views.find(view => view?.meta?.product === 'PRODUCT_LIST');
+        const productViews = views.filter(view => view?.meta?.product !== VIEW_IDS.PRODUCT_LIST);
+        const hasProductList = views.find(view => view?.meta?.product === VIEW_IDS.PRODUCT_LIST);
         if (productViews?.length === 1) {
             defaultViewName = productViews[0]?.meta?.product;
         } else if (productViews?.length > 1 && hasProductList) {
-            defaultViewName = 'PRODUCT_LIST';
+            defaultViewName = VIEW_IDS.PRODUCT_LIST;
         } else if (productViews?.length > 1 && !hasProductList) {
             defaultViewName = productViews[0]?.meta?.product;
         }
@@ -49,12 +58,13 @@ const BodyContent = () => {
     const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
     const isQualifying = productMeta?.qualifying;
 
-    const openProductList = () => setViewName('PRODUCT_LIST');
+    const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
     useDidUpdateEffect(() => {
         scrollTo(0); // Reset scroll position to top when view changes
-        const closeButton = window.document.querySelector('#close-btn');
-        if (closeButton) closeButton.focus();
+        if (transitionState === 'OPEN') {
+            window.document.querySelector('#close-btn')?.focus();
+        }
     }, [viewName]);
 
     useDidUpdateEffect(() => {
@@ -71,13 +81,13 @@ const BodyContent = () => {
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
-        PAYPAL_CREDIT_NO_INTEREST: <NoInterest content={content} openProductList={openProductList} />,
-        PAY_LATER_LONG_TERM: <LongTerm content={content} openProductList={openProductList} />,
-        PAY_LATER_PAY_IN_1: <PayIn1 content={content} openProductList={openProductList} />,
-        PAY_LATER_SHORT_TERM: (
+        [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: <NoInterest content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_LONG_TERM]: <LongTerm content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_PAY_IN_1]: <PayIn1 content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
         ),
-        PRODUCT_LIST: <ProductList content={content} setViewName={setViewName} />
+        [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.

@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 import {
@@ -151,13 +151,13 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                     }`}
                 >
                     <div>
-                        {error ? <Icon name="warning" /> : null}
+                        {error && hasUsedInputField ? <Icon name="warning" /> : null}
                         <div>{error}</div>
                     </div>
                 </div>
             );
         }
-        return <Fragment />;
+        return null;
     };
 
     /**
@@ -183,10 +183,11 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
-                        type="tel"
+                        type="text"
                         value={displayValue}
                         onInput={onInput}
                         onKeyDown={onKeyDown}
+                        inputmode="tel"
                     />
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
@@ -195,9 +196,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
                 <div aria-live="polite" className="content-column">
                     <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
                 </div>
-            ) : (
-                <Fragment />
-            )}
+            ) : null}
             {country === 'US' && (
                 <div
                     className={`finance-terms__disclaimer ${

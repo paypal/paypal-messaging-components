@@ -28,6 +28,7 @@ const memoizedModal = memoizeOnProps(
         currency,
         amount,
         buyerCountry,
+        language,
         ignoreCache,
         offer,
         onReady,
@@ -50,6 +51,7 @@ const memoizedModal = memoizeOnProps(
             currency,
             amount,
             buyerCountry,
+            language,
             ignoreCache,
             offer,
             onReady,
@@ -64,6 +66,7 @@ const memoizedModal = memoizeOnProps(
         });
         // Fired from inside the default onReady callback
         let renderProm;
+        // eslint-disable-next-line default-param-last
         const renderModal = (selector = 'body', newProps, options = { intent: 'render' }) => {
             const context = getTopWindow() === window ? 'iframe' : 'popup';
 

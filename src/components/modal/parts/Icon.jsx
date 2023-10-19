@@ -309,8 +309,7 @@ const Icon = ({ name, color }) => {
                         type="text/css"
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
-                            __html:
-                                '.st0,.st1,.st2,.st3,.st7{fill-rule:evenodd;clip-rule:evenodd;fill:#67a594}.st1,.st2,.st3,.st7{fill:#8c44aa}.st2,.st3,.st7{fill:#e39aa7}.st3,.st7{fill:#fff}.st7{fill:#4ba7e4}'
+                            __html: '.st0,.st1,.st2,.st3,.st7{fill-rule:evenodd;clip-rule:evenodd;fill:#67a594}.st1,.st2,.st3,.st7{fill:#8c44aa}.st2,.st3,.st7{fill:#e39aa7}.st3,.st7{fill:#fff}.st7{fill:#4ba7e4}'
                         }}
                     />
                     <svg

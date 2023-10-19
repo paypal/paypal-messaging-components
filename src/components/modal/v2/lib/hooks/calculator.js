@@ -2,10 +2,10 @@ import { useReducer, useMemo, useRef } from 'preact/hooks';
 import { debounce } from '@krakenjs/belter/src';
 
 import { useXProps, useServerData } from '../providers';
-import { getOrCreateStorageID } from '../../../../../utils';
 import { useDidUpdateEffect } from './helpers';
 import { getContent } from '../utils';
 import { localize, delocalize } from '../locale';
+import { getOrCreateDeviceID } from '../../../../../utils';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -65,7 +65,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         integrationType,
         channel,
         ecToken,
-        devTouchpoint
+        devTouchpoint,
+        disableSetCookie,
+        features
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
@@ -92,7 +94,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             channel,
             ecToken,
             devTouchpoint,
-            deviceID: getOrCreateStorageID()
+            deviceID: getOrCreateDeviceID(),
+            disableSetCookie,
+            features
         })
             .then(data => {
                 setServerData(data);

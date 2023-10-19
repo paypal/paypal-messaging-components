@@ -1,7 +1,7 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, getDeviceID, createState } from 'src/utils';
+import { request, createState } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 const ts = {
@@ -11,13 +11,11 @@ const ts = {
 jest.mock('src/utils', () => ({
     createState: jest.fn(obj => [obj, jest.fn()]),
     getActiveTags: jest.fn(),
-    getDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
-    isStorageFresh: jest.fn().mockReturnValue(false),
     getTsCookieFromStorage: jest.fn(() => ts),
+    getOrCreateDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
     request: jest.fn(() =>
         Promise.resolve({
-            data:
-                '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
+            data: '<!--ewAiAG0AYQByAGsAdQBwACIAOgAiADwAZABpAHYAPgBtAG8AYwBrADwALwBkAGkAdgA+ACIALAAiAG0AZQB0AGEAIgA6AHsAIgBtAGUAcwBzAGEAZwBlAFIAZQBxAHUAZQBzAHQASQBkACIAOgAiADIAMwA0ADUANgAiAH0ALAAiAHAAYQByAGUAbgB0AFMAdAB5AGwAZQBzACIAOgAiAGIAbwBkAHkAIAB7ACAAYwBvAGwAbwByADoAIABiAGwAdQBlADsAIAB9ACIALAAiAHcAYQByAG4AaQBuAGcAcwAiADoAWwBdAH0A-->'
         })
     ),
     parseObjFromEncoding: jest.fn(() => ({
@@ -64,7 +62,6 @@ describe('Message', () => {
 
         createState.mockClear();
         request.mockClear();
-        getDeviceID.mockClear();
         xPropsMock.clear();
     });
 
@@ -95,7 +92,6 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
-            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             requestDuration: 123,
             ts
         });
@@ -134,7 +130,6 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: originalMRID,
-            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             requestDuration: 123,
             ts
         });
@@ -162,7 +157,6 @@ describe('Message', () => {
                 messageRequestId: '23456'
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
-            deviceID: 'uid_26a2522628_mtc6mjk6nti',
             requestDuration: 123,
             ts
         });
@@ -176,17 +170,13 @@ describe('Message', () => {
     });
 
     test('Passed deviceID from iframe storage to callback', () => {
-        getDeviceID.mockReturnValue('uid_1111111111_11111111111');
-
         Message(serverData);
 
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {},
-            deviceID: 'uid_1111111111_11111111111',
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
             requestDuration: 123,
             ts
         });
-        expect(getDeviceID).toHaveBeenCalled();
     });
 });

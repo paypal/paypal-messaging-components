@@ -5,6 +5,8 @@ import { create } from '@krakenjs/zoid/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
 
 import {
+    TAG,
+    getDisableSetCookie,
     getMeta,
     getEnv,
     getGlobalUrl,
@@ -16,7 +18,7 @@ import {
     nextIndex,
     getPerformanceMeasure,
     getSessionID,
-    getDeviceID,
+    getOrCreateDeviceID,
     getStageTag,
     getFeatures,
     getNonce,
@@ -31,7 +33,7 @@ import prerenderTemplate from './prerenderTemplate';
 
 export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
     create({
-        tag: 'paypal-credit-modal',
+        tag: TAG.MODAL,
         url: getGlobalUrl('MODAL'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
@@ -92,6 +94,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'buyer_country',
                 required: false,
                 value: validate.buyerCountry
+            },
+            language: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.language
             },
             offer: {
                 type: 'string',
@@ -242,7 +250,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 value: ({ props, state, event }) => {
                     const { onReady } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
-                    return ({ products, meta, ts, deviceID }) => {
+                    return ({ products, meta, ts }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
@@ -268,7 +276,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     ...existingGlobal,
                                     ts: tsCookie,
                                     // Device ID should be correctly set during message render
-                                    deviceID,
+                                    deviceID: getOrCreateDeviceID(),
                                     sessionID: getSessionID()
                                 },
                                 [index]: {
@@ -367,7 +375,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             deviceID: {
                 type: 'string',
                 queryParam: true,
-                value: getDeviceID
+                value: getOrCreateDeviceID
             },
             sessionID: {
                 type: 'string',
@@ -406,12 +414,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: getDevTouchpoint
             },
-            features: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: getFeatures
-            },
             integrationType: {
                 type: 'string',
                 queryParam: true,
@@ -423,6 +425,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 default: getNonce,
                 value: validate.cspNonce
+            },
+            disableSetCookie: {
+                type: 'boolean',
+                queryParam: true,
+                required: false,
+                value: getDisableSetCookie
+            },
+            features: {
+                type: 'string',
+                queryParam: 'features',
+                required: false,
+                value: getFeatures
             }
         }
     })

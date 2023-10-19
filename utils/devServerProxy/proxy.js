@@ -11,7 +11,7 @@ export default (app, server, compiler) => {
 
     app.get('/credit-presentment/experiments/local', (req, res) => {
         const { scriptUID } = req.query;
-        const interfaceScript = `<script>var interface = window.top.document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
+        const interfaceScript = `<script>var interface = (window.opener ?? window.parent).document.querySelector('[data-uid-auto="${scriptUID}"]').outerHTML; document.write(interface);</script>`;
         const initializerScript = `
             <script>
                 window.xprops.onReady({
