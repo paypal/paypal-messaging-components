@@ -3,20 +3,20 @@ import { createContext, h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { render, act } from '@testing-library/preact';
 
-import { useTransitionState } from 'src/components/modal/lib/providers/transition';
-import { getContent } from 'src/components/modal/lib/utils';
+import { useTransitionState } from 'src/components/modal/v1/lib/providers/transition';
+import { getContent } from 'src/components/modal/v1/lib/utils';
 import xPropsMock from 'utils/xPropsMock';
-import Container from 'src/components/modal/parts/Container';
+import Container from 'src/components/modal/v1/parts/Container';
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
 
 const mockTransitionContext = createContext(['CLOSED']);
 
-jest.mock('src/components/modal/lib/logos', () => ({}));
-jest.mock('src/components/modal/lib/providers/transition', () => ({
+jest.mock('src/components/modal/v1/lib/logos', () => ({}));
+jest.mock('src/components/modal/v1/lib/providers/transition', () => ({
     useTransitionState: jest.fn()
 }));
 
-jest.mock('src/components/modal/lib/utils', () => ({
+jest.mock('src/components/modal/v1/lib/utils', () => ({
     getContent: jest.fn().mockResolvedValue(null),
     setupTabTrap: jest.fn().mockResolvedValue(null)
 }));

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/preact-hooks';
-import { useAutoFocus, useDidUpdateEffect } from 'src/components/modal/lib/hooks/helpers';
+import { useAutoFocus, useDidUpdateEffect } from 'src/components/modal/v1/lib/hooks/helpers';
 
 describe('hooks helpers', () => {
     describe('useAutoFocus', () => {

@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { renderHook, act } from '@testing-library/preact-hooks';
-import { XPropsProvider, useXProps } from 'src/components/modal/lib/providers/xprops';
+import { XPropsProvider, useXProps } from 'src/components/modal/v1/lib/providers/xprops';
 
 import xPropsMock from 'utils/xPropsMock';
 
