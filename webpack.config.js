@@ -1,7 +1,6 @@
 const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 
 const globals = require('./globals');
-const { localeOptions } = require('./locales');
 
 module.exports = (env = {}) => {
     // messaging.js

@@ -2,7 +2,6 @@ const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
-const { localeOptions } = require('./locales');
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
