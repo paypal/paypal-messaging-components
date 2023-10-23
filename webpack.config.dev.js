@@ -103,16 +103,11 @@ module.exports = (env = {}) => {
     LIBRARY_DEV_CONFIG.devServer = WEBPACK_DEV_SERVER_CONFIG;
 
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
-        entry: [...localeOptions, 'US-EZP'].reduce(
-            accumulator => ({
-                ...accumulator,
-                [`smart-credit-modal-US-EZP`]: `./src/components/modal/content/US-EZP/index.js`
-            }),
-            {
-                'smart-credit-message': './src/components/message/index.js',
-                'smart-credit-modal-v2': './src/components/modal/v2/index.js'
-            }
-        ),
+        entry: {
+            'smart-credit-message': './src/components/message/index.js',
+            'smart-credit-modal-v2': './src/components/modal/v2/index.js',
+            'smart-credit-modal-v1': `./src/components/modal/v1/content/US-EZP/index.js`
+        },
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,

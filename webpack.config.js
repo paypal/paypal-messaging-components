@@ -45,16 +45,12 @@ module.exports = (env = {}) => {
 
     // zoid components
     const COMPONENTS_CONFIG = getWebpackConfig({
-        entry: [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
-            (accumulator, locale) => ({
-                ...accumulator,
-                [`smart-credit-modal-${locale}`]: `././src/components/modal/content/${locale}/index.js`
-            }),
-            {
-                'smart-credit-message': './src/components/message/index.js',
-                'smart-credit-modal-v2': './src/components/modal/v2/index.js'
-            }
-        ),
+        entry: {
+            'smart-credit-message': './src/components/message/index.js',
+            'smart-credit-modal-v2': './src/components/modal/v2/index.js',
+            'smart-credit-modal-v1': `./src/components/modal/v1/content/US-EZP/index.js`
+        },
+
         libraryTarget: 'window',
         modulename: 'crc',
         web: true,
