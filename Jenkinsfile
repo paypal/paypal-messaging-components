@@ -4,18 +4,16 @@ pipeline {
     }
 
     tools {
-        nodejs 'Node14'
+        nodejs 'Node18'
     }
 
-    // STAGE_TAG will be {branch_name}_{timestamp}
     environment {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        // sed commands in order:
-        // remove origin/ from the branch name
-        // replace any hyphens (-) with underscores (_)
-        // shorten to 18 characters to allow space for the timestamp at the end
-        STAGE_TAG = sh(returnStdout: true, script: 'echo $(echo $GIT_BRANCH | sed "s#origin/##g" | sed "s/-/_/g" | sed -e "s/(.{18}).*/$1/g")_$(date +%s)').trim()
+        GIT_COMMIT_HASH = GIT_COMMIT.take(7)
+
+        // Assumes commit messages follow this format: chore(release): 1.49.1 [skip ci]
+        VERSION = sh(returnStdout: true, script: "echo $GIT_COMMIT_MESSAGE | cut -d ':' -f2 | cut -d '[' -f1").trim()
     }
 
     stages {
@@ -26,39 +24,65 @@ pipeline {
                     echo $GIT_COMMIT_MESSAGE
                     node -v
                     npm -v
-                    npm i --reg https://npm.paypal.com -g @paypalcorp/web
+                    npm i --reg $REGISTRY -g @paypalcorp/web
                 '''
             }
         }
 
-        // For non-release, auto-generate a stage build
-        stage('Stage Tag') {
-            when {
-                not {
-                    branch 'release'
-                }
-            }
+        // For release, deploy existing build assets
+        stage('Bundle Stage') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                    sh '''
-                        npm i --reg https://npm.paypal.com
-                        npm run build -- -t $STAGE_TAG -s $TEST_ENV
-                    '''
+                script {
+                    if (GIT_COMMIT_MESSAGE.contains('chore(release)')) {
+                        // Stage tags can only contain alphnumeric characters and underscores
+                        VERSION=VERSION.replace('.', '_')
+                        env.stageBundleId='up_stage_v' + VERSION + '_' + GIT_COMMIT_HASH
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                rm -rf ./dist/bizcomponents/sandbox
+                                rm -rf ./dist/bizcomponents/js
+                                output=$(web stage --tag $stageBundleId)
+                                web notify "$stageBundleId"
+                                git checkout -- dist
+                           '''
+                        }                        
+                    }
                 }
             }
         }
-
-        // For release, stage existing build assets and send notification
-        stage('Deploy') {
-            when {
-                branch 'release'
-            }
+        stage('Bundle Sandbox') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
-                    sh '''
-                        OUTPUT=$(web stage --json --tag $STAGE_TAG)
-                        web notify $STAGE_TAG
-                    '''
+                script {
+                    if (GIT_COMMIT_MESSAGE.contains('chore(release)')) {
+                        env.sandboxBundleId='up_sb_v' + VERSION + '_' + GIT_COMMIT_HASH
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                rm -rf ./dist/bizcomponents/stage
+                                rm -rf ./dist/bizcomponents/js
+                                output=$(web stage --tag $sandboxBundleId)
+                                web notify "$sandboxBundleId"
+                                git checkout -- dist
+                           '''
+                        }
+                    }
+                }
+            }
+        }
+        stage('Build Production') {
+            steps {
+                script {
+                    if (GIT_COMMIT_MESSAGE.contains('chore(release)')) {
+                        env.productionBundleId='up_prod_v' + VERSION + '_' + GIT_COMMIT_HASH
+                        withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
+                           sh '''
+                                rm -rf ./dist/bizcomponents/stage
+                                rm -rf ./dist/bizcomponents/sandbox
+                                output=$(web stage --tag $productionBundleId)
+                                web notify "$productionBundleId"
+                                git checkout -- dist
+                           '''
+                        }
+                    }
                 }
             }
         }
@@ -72,15 +96,17 @@ pipeline {
                 // Single quotes on this so the variable makes it to the email plugin instead of Jenkins trying to replace
                 to: '$DEFAULT_RECIPIENTS',
                 subject: "paypal-messaging-components - ${BRANCH_NAME} - Build #${env.BUILD_NUMBER} - SUCCESS!",
-                // The ${FILE} similarly needs to be sent to the plugin to be replaced, so the $ is escaped
                 body: """
                     Build Succeeded!<br />
                     <br />
                     ${GIT_COMMIT_MESSAGE}<br />
-                    Build URL: ${env.BUILD_URL}<br />
-                    Stage Tag: ${STAGE_TAG}<br />
-                    CDN Bundle: https://UIDeploy--StaticContent--${STAGE_TAG}--ghe.preview.dev.paypalinc.com/upstream/bizcomponents/stage?cdn:list<br />
-                    Test Page: ${TEST_URL}${STAGE_TAG}<br />
+                    Build URL: ${BUILD_URL}<br />
+                    <br />
+                    Version ${env.VERSION} assets have been bundled and are ready for review.<br />
+                    Please approve and deploy: <br />
+                    1. Stage: ${BUNDLE_URL}${stageBundleId} <br />
+                    2. Sandbox: ${BUNDLE_URL}${sandboxBundleId} <br />
+                    3. Production: ${BUNDLE_URL}${productionBundleId} <br />
                     <br />
                     Regards,<br />
                     Your friendly neighborhood digital butler
