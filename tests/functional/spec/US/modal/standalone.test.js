@@ -36,7 +36,6 @@ describe.each([
         `${groupString} apply now button opens browser to credit application login`,
         applyNowBtn({ account, viewport, groupString })
     );
-    if (account === 'DEV0000000PSZ') {
-        test(`${groupString} EZP content by clicking tabs`, switchTabs({ account, viewport, groupString }));
-    }
+
+    test(`${groupString} EZP content by clicking tabs`, switchTabs({ account, viewport, groupString }));
 });
