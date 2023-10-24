@@ -126,6 +126,10 @@
                         transform: translate(0, 0);
                     }
                 }
+
+                .pp-logo {
+                    pointer-events: none;
+                }
             }
         }
 
@@ -135,6 +139,10 @@
             border: none;
             cursor: pointer;
             z-index: 9;
+
+            &:focus {
+                outline: -webkit-focus-ring-color solid 2px;
+            }
 
             @include desktop {
                 margin-left: auto;
@@ -154,6 +162,7 @@
             svg {
                 height: 48px;
                 width: 48px;
+                pointer-events: none;
 
                 @include desktop {
                     margin: 0px;
@@ -186,6 +195,7 @@
             position: absolute;
             right: 0;
             bottom: 36px;
+            pointer-events: none;
 
             @include desktop {
                 &.background-mobile {

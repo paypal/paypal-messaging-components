@@ -1,5 +1,28 @@
 # Changelog
 
+### [1.49.2](https://github.com/paypal/paypal-messaging-components/compare/v1.49.1...v1.49.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* prevent undefined device ID when namespace ([#994](https://github.com/paypal/paypal-messaging-components/issues/994)) ([fe91522](https://github.com/paypal/paypal-messaging-components/commit/fe915229ff060f969f7690c2c87eee11773a0336))
+* safari focus  ([#1005](https://github.com/paypal/paypal-messaging-components/issues/1005)) ([827a56d](https://github.com/paypal/paypal-messaging-components/commit/827a56d3a87dec0c491a52c241fcec46b4cfc067))
+* safari focus ([#997](https://github.com/paypal/paypal-messaging-components/issues/997)) ([5b4a823](https://github.com/paypal/paypal-messaging-components/commit/5b4a823f2abe9c046e7dd336ded6891658bcb4cd))
+
+
+### Code Refactoring
+
+* disable tab trap on api or lander ([#999](https://github.com/paypal/paypal-messaging-components/issues/999)) ([ab92760](https://github.com/paypal/paypal-messaging-components/commit/ab927609b23f31f8171c2d55994910c11399b10a))
+
+### [1.49.1](https://github.com/paypal/paypal-messaging-components/compare/v1.49.0...v1.49.1) (2023-10-11)
+
+
+### Code Refactoring
+
+* enable passing multiple merchant ids ([#992](https://github.com/paypal/paypal-messaging-components/issues/992)) ([4ac100f](https://github.com/paypal/paypal-messaging-components/commit/4ac100ff1567b451a75ad40c397f747c18eb6e39))
+* update modal css ([#996](https://github.com/paypal/paypal-messaging-components/issues/996)) ([8dc900d](https://github.com/paypal/paypal-messaging-components/commit/8dc900dff59cb90860a1823827a412c666bd644c))
+* update when error icon shows in Pay Monthly modal ([#988](https://github.com/paypal/paypal-messaging-components/issues/988)) ([08c126f](https://github.com/paypal/paypal-messaging-components/commit/08c126f196afe307a82ffb7664546bd53c398e16))
+
 ## [1.49.0](https://github.com/paypal/paypal-messaging-components/compare/v1.48.1...v1.49.0) (2023-09-26)
 
 

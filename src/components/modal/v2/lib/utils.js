@@ -71,12 +71,17 @@ const { userAgent } = window.navigator;
 export const isIframe = window.top !== window || isIosWebview(userAgent) || isAndroidWebview(userAgent);
 
 export function setupTabTrap() {
+    // Disable tab trap functionality for modal lander
+    if (isLander) {
+        return;
+    }
+
     const focusableElementsString =
         "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])";
 
     function trapTabKey(e) {
         // Check for TAB key press
-        if (e.keyCode === 9) {
+        if (e.keyCode === 9 && !document.querySelector('.modal-closed')) {
             const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
