@@ -50,8 +50,7 @@ const flex = [
             ],
             styles: [
                 '.message__headline .tag--medium > span:first-child > span:last-child:after { content: "."; }',
-                '.message__headline .tag--medium .weak { display: none; }',
-                '@media (min-aspect-ratio: 80/11) and (min-width: 501px) { .message__disclaimer { margin-left: 0; } }'
+                '.message__headline .tag--medium .weak { display: none; }'
             ]
         }
     ],
