@@ -7,7 +7,7 @@ const getContext = () => {
     return {
         selectors,
         config: {
-            account: 'DEV00000000NI',
+            account: 'DEV_US_NO_INTEREST',
             amount: 120,
             style: {
                 layout: 'text'
