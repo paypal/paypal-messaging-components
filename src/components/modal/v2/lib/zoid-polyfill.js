@@ -133,7 +133,8 @@ const setupWebview = props => {
 
         onReady: ({ meta }) => {
             const { trackingDetails } = meta;
-            const timing = getPerformance()?.getEntriesByType('navigation')[0];
+            const performance = getPerformance();
+            const timing = performance?.getEntriesByType('navigation')[0];
 
             sendCallbackMessage('onReady', {
                 __shared__: {
@@ -150,7 +151,7 @@ const setupWebview = props => {
                 },
                 event_type: 'modal_rendered',
                 request_duration: timing && timing.responseEnd - timing.requestStart,
-                render_duration: timing && timing.loadEventEnd - timing.responseEnd
+                render_duration: timing && performance.now() - timing.responseEnd
             });
         },
 

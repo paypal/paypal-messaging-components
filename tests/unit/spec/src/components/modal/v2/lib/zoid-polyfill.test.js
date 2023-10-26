@@ -15,11 +15,11 @@ jest.mock('@krakenjs/belter/src', () => {
     return {
         ...originalModule,
         getPerformance: () => ({
+            now: () => 250,
             getEntriesByType: () => [
                 {
                     requestStart: 100,
-                    responseEnd: 200,
-                    loadEventEnd: 250
+                    responseEnd: 200
                 }
             ]
         })
