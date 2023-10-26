@@ -113,13 +113,13 @@ const clickApply = async () =>
         const { selectors: select } = await getContext();
         const modalIframe = document.querySelector(select.modal.iframe);
 
-        const applyNowButtons = modalIframe.contentDocument.querySelectorAll(select.modal.applynow);
+        const applyNowButton = modalIframe.contentDocument.querySelector(select.modal.applynow);
 
         // We want to verify there is an Apply Now button to click,
         // eslint-disable-next-line no-console
-        if (applyNowButtons) {
+        if (applyNowButton) {
             console.log(`'Apply Now' Button exists`);
-            applyNowButtons.click();
+            applyNowButton.click();
         }
 
         await delay(2000);
