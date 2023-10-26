@@ -116,8 +116,8 @@ const clickApply = async () =>
         const applyNowButton = modalIframe.contentDocument.querySelector(select.modal.applynow);
 
         // We want to verify there is an Apply Now button to click,
-        // eslint-disable-next-line no-console
         if (applyNowButton) {
+            // eslint-disable-next-line no-console
             console.log(`'Apply Now' Button exists`);
             applyNowButton.click();
         }
