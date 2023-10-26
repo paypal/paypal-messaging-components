@@ -2,13 +2,20 @@ import Logo from '../../../message/logos';
 import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
+const baseWrapping = ({ textSize }) => [
+    `@media screen and (min-width: ${textSize * 11.5}px) {
+        .message__messaging span.br {
+            white-space: normal;
+        }
+    }`
+];
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43, textSize, 'FR'),
+                    textWrap(textSize * 40, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
                 ],
@@ -16,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['achats']
+                        br: ['achats', '€']
                     }
                 ],
                 disclaimer: ['default']
@@ -25,11 +32,16 @@ export default {
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                styles: [setLogoTop(textSize * 40), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
+                styles: [
+                    textWrap(textSize * 43, textSize, 'FR'),
+                    setLogoTop(textSize * 40),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    ...baseWrapping({ textSize })
+                ],
                 headline: [
                     {
                         tag: 'default',
-                        br: ['frais']
+                        br: ['frais', '€']
                     }
                 ]
             })
@@ -37,11 +49,11 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)],
+                styles: [messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25), ...baseWrapping({ textSize })],
                 headline: [
                     {
                         tag: 'default',
-                        br: ['frais']
+                        br: ['€']
                     }
                 ]
             })
@@ -50,28 +62,28 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 34, textSize, 'FR'),
+                    textWrap(textSize * 39, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_PAYPAL.COLOR[0],
+                headline: [
+                    {
+                        tag: 'default',
+                        br: ['€']
+                    }
+                ]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [
-                    `@media screen and (min-width: ${textSize * 11.5}px) {
-                        .message__messaging span.br {
-                            white-space: normal;
-                        }
-                    }`
-                ],
+                styles: [...baseWrapping({ textSize })],
                 logo: false,
                 headline: [
                     {
                         tag: 'default',
-                        br: ['frais', 'achats'],
+                        br: ['frais', 'achats', '€'],
                         replace: [
                             ['€.', '€'],
                             ['éligibles.', 'éligibles']
@@ -88,7 +100,7 @@ export default {
                 headline: [
                     {
                         tag: 'default',
-                        br: ['pour'],
+                        br: ['pour', '€'],
                         replace: [
                             ['€.', '€'],
                             ['éligibles.', 'éligibles']
