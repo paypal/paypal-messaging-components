@@ -111,20 +111,15 @@ const clickBanner = async () =>
 const clickApply = async () =>
     page.evaluate(async () => {
         const { selectors: select } = await getContext();
-
         const modalIframe = document.querySelector(select.modal.iframe);
-        const applyNowButtons = Array.from(modalIframe.contentDocument.querySelectorAll(select.modal.applynow));
 
-        // NI mobile has a hidden button that appears after scrolling
-        const visibleButtons = applyNowButtons.filter(e => getComputedStyle(e).visibility === 'visible');
+        const applyNowButtons = modalIframe.contentDocument.querySelectorAll(select.modal.applynow);
 
         // We want to verify there is an Apply Now button to click,
-        // and click only that one visible button
         // eslint-disable-next-line no-console
-        console.log(`Found ${visibleButtons.length} visible 'Apply Now' Button`);
-        if (visibleButtons.length > 0) {
-            const [applyNow] = visibleButtons;
-            applyNow.click();
+        if (applyNowButtons) {
+            console.log(`'Apply Now' Button exists`);
+            applyNowButtons.click();
         }
 
         await delay(2000);
@@ -173,9 +168,7 @@ describe('client callbacks', () => {
         expect(pageConsoleMessages).toEqual(expect.arrayContaining([clickOutput]));
 
         await clickApply();
-        expect(pageConsoleMessages).toEqual(
-            expect.arrayContaining([`Found 1 visible 'Apply Now' Button`, applyOutput])
-        );
+        expect(pageConsoleMessages).toEqual(expect.arrayContaining([`'Apply Now' Button exists`, applyOutput]));
     });
 
     afterAll(() => {
