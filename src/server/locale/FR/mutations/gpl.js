@@ -2,28 +2,26 @@ import Logo from '../../../message/logos';
 import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
-const baseWrapping = ({ textSize }) => [
-    `@media screen and (min-width: ${textSize * 11.5}px) {
-        .message__messaging span.br {
-            white-space: normal;
-        }
-    }`
-];
 export default {
     'layout:text': [
         [
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 40, textSize, 'FR'),
+                    textWrap(textSize * 43, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                        .message__messaging span.br {
+                            white-space: normal;
+                        }
+                    }`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'default',
-                        br: ['achats', '€']
+                        br: ['achats']
                     }
                 ],
                 disclaimer: ['default']
@@ -36,12 +34,16 @@ export default {
                     textWrap(textSize * 43, textSize, 'FR'),
                     setLogoTop(textSize * 40),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    ...baseWrapping({ textSize })
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                        .message__messaging span.br {
+                            white-space: normal;
+                        }
+                    }`
                 ],
                 headline: [
                     {
                         tag: 'default',
-                        br: ['frais', '€']
+                        br: ['frais']
                     }
                 ]
             })
@@ -49,11 +51,19 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25), ...baseWrapping({ textSize })],
+                styles: [
+                    // textWrap(textSize * 43, textSize, 'FR'),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                        .message__messaging span.br {
+                            white-space: normal;
+                        }
+                    }`
+                ],
                 headline: [
                     {
                         tag: 'default',
-                        br: ['€']
+                        br: ['frais']
                     }
                 ]
             })
@@ -78,7 +88,13 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [...baseWrapping({ textSize })],
+                styles: [
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                        .message__messaging span.br {
+                            white-space: normal;
+                        }
+                    }`
+                ],
                 logo: false,
                 headline: [
                     {
@@ -95,12 +111,19 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                    .message__messaging span.br {
+                        white-space: normal;
+                    }
+                }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'default',
-                        br: ['pour', '€'],
+                        br: ['pour'],
                         replace: [
                             ['€.', '€'],
                             ['éligibles.', 'éligibles']
