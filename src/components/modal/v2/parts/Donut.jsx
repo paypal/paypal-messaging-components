@@ -55,15 +55,16 @@ const Donut = ({
                     {isQualifying}
                 </text>
             </svg>
-            {/* Required to read the payment and date details together. Spans and linebreaks cause a pause when stepping */}
-            {/* through the content. Using a p tag instead of span to cause pause in Windows */}
-            <p className="sr-only">
-                {/* Space required between periodicPayment and the comma to read the monetary value correctly */}
-                {isQualifying && periodicPayment !== '-' ? `${periodicPayment} , ${timeStamp}` : timeStamp}
-            </p>
-            <span aria-hidden="true">
-                {isQualifying && periodicPayment !== '-' && <span className="donut__payment">{periodicPayment}</span>}
-                <span className="donut__timestamp">{timeStamp}</span>
+            {/* eslint-disable-next-line jsx-a11y/aria-role */}
+            <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
+                {isQualifying && periodicPayment !== '-' && (
+                    <span className="donut__payment" id={`donut__payment__${currentNum}`} aria-hidden="true">
+                        {periodicPayment}
+                    </span>
+                )}
+                <span className="donut__timestamp" id={`donut__timestamp__${currentNum}`} aria-hidden="true">
+                    {timeStamp}
+                </span>
             </span>
         </div>
     );
