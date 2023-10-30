@@ -15,11 +15,11 @@ jest.mock('@krakenjs/belter/src', () => {
     return {
         ...originalModule,
         getPerformance: () => ({
+            now: () => 250,
             getEntriesByType: () => [
                 {
                     requestStart: 100,
-                    responseEnd: 200,
-                    loadEventEnd: 250
+                    responseEnd: 200
                 }
             ]
         })
@@ -210,7 +210,7 @@ describe('zoidPollyfill', () => {
                     "fdata": "123abc",
                     "offer_country_code": "US",
                   },
-                  "event_type": "modal_render",
+                  "event_type": "modal_rendered",
                   "render_duration": 50,
                   "request_duration": 100,
                 },
@@ -228,9 +228,9 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "event_type": "modal_click",
-                  "link_name": "test link",
-                  "link_src": "test src",
+                  "event_type": "modal_clicked",
+                  "page_view_link_name": "test link",
+                  "page_view_link_source": "test src",
                 },
               ],
               "name": "onClick",
@@ -246,10 +246,10 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "data": 500,
-                  "event_type": "modal_click",
-                  "link_name": "Calculator",
-                  "link_src": "Calculator",
+                  "calculator_input": 500,
+                  "event_type": "modal_clicked",
+                  "page_view_link_name": "Calculator",
+                  "page_view_link_source": "Calculator",
                 },
               ],
               "name": "onCalculate",
@@ -265,9 +265,9 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "event_type": "modal_open",
-                  "link_name": "Show",
-                  "link_src": "Show",
+                  "event_type": "modal_viewed",
+                  "page_view_link_name": "Show",
+                  "page_view_link_source": "Show",
                 },
               ],
               "name": "onShow",
@@ -283,9 +283,9 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "event_type": "modal_close",
-                  "link_name": "Close Button",
-                  "link_src": "Close Button",
+                  "event_type": "modal_closed",
+                  "page_view_link_name": "Close Button",
+                  "page_view_link_source": "Close Button",
                 },
               ],
               "name": "onClose",
@@ -367,7 +367,7 @@ describe('zoidPollyfill', () => {
                     "fdata": "123abc",
                     "offer_country_code": "US",
                   },
-                  "event_type": "modal_render",
+                  "event_type": "modal_rendered",
                   "render_duration": 50,
                   "request_duration": 100,
                 },
