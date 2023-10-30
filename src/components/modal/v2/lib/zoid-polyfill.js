@@ -111,6 +111,7 @@ const setupWebview = props => {
         }
 
         // This scenario should only ever occur when developing locally
+        // eslint-disable-next-line no-console
         return payload => console.warn('postMessage:', JSON.parse(payload));
     })();
 
