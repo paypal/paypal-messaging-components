@@ -44,7 +44,7 @@ const Header = ({
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo" alt="PayPal">
+                    <div className="pp-logo">
                         <Icon name={logo} />
                     </div>
                 </div>

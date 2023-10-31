@@ -4,19 +4,19 @@ import { useContext } from 'preact/hooks';
 import { render, fireEvent } from '@testing-library/preact';
 
 import zoidComponentWrapper from 'utils/zoidComponentWrapper';
-import Tabs from 'src/components/modal/parts/Tabs';
+import Tabs from 'src/components/modal/v1/parts/Tabs';
 import xPropsMock from 'utils/xPropsMock';
-import { useScroll } from 'src/components/modal/lib';
-import { useTransitionState } from 'src/components/modal/lib/providers/transition';
+import { useScroll } from 'src/components/modal/v1/lib';
+import { useTransitionState } from 'src/components/modal/v1/lib/providers/transition';
 
 const mockTransitionContext = createContext([]);
-jest.mock('src/components/modal/lib/logos', () => ({}));
+jest.mock('src/components/modal/v1/lib/logos', () => ({}));
 
-jest.mock('src/components/modal/lib/providers/transition', () => ({
+jest.mock('src/components/modal/v1/lib/providers/transition', () => ({
     useTransitionState: jest.fn()
 }));
 
-jest.mock('src/components/modal/lib/providers/scroll', () => ({
+jest.mock('src/components/modal/v1/lib/providers/scroll', () => ({
     useScroll: jest.fn()
 }));
 

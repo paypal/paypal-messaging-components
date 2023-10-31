@@ -27,7 +27,7 @@ const selectors = {
         contentTermsTitle: '.content-body .terms h3',
         ezpContentHeaderTitle: '.content-header .title',
         instructions: '.instructions',
-        applynow: '.apply-now'
+        applynow: '.button.content__row'
     },
     calculator: {
         calc: '.calculator',
