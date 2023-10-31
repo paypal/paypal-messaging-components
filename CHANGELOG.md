@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.50.0](https://github.com/paypal/paypal-messaging-components/compare/v1.49.2...v1.50.0) (2023-10-31)
+
+
+### Features
+
+* update modal logo a11y ([#1009](https://github.com/paypal/paypal-messaging-components/issues/1009)) ([03bfc6c](https://github.com/paypal/paypal-messaging-components/commit/03bfc6c91c36960eb1e8af0d901b12083f3ae20c))
+
+
+### Bug Fixes
+
+* adds screenreader visual focus on donut text ([#1012](https://github.com/paypal/paypal-messaging-components/issues/1012)) ([c503af2](https://github.com/paypal/paypal-messaging-components/commit/c503af225c17e1b8609a05873ed02c3d3c0778d0))
+* au flex 8x1 spacing ([#1008](https://github.com/paypal/paypal-messaging-components/issues/1008)) ([d762500](https://github.com/paypal/paypal-messaging-components/commit/d7625000b9bdb0fa642f612364352029da99e68b))
+* screen reader for the list of ineligible states reads some state abbreviations as words instead of letters ([#943](https://github.com/paypal/paypal-messaging-components/issues/943)) ([c4c7c41](https://github.com/paypal/paypal-messaging-components/commit/c4c7c4117b53d626f7e7d6d8f87dafeb25233b36))
+
+
+### Continuous Integration
+
+* jenkins messaging bundles ([#993](https://github.com/paypal/paypal-messaging-components/issues/993)) ([36e9b3b](https://github.com/paypal/paypal-messaging-components/commit/36e9b3b5258294ad661938a3e0baa257261a9acb))
+
+
+### Code Refactoring
+
+* remove deprecated v1 modal code ([#1002](https://github.com/paypal/paypal-messaging-components/issues/1002)) ([3da52ed](https://github.com/paypal/paypal-messaging-components/commit/3da52edbfcdc3e6916c1233ed20be5f66c97f4b5))
+* update native modal event keys and values ([#1010](https://github.com/paypal/paypal-messaging-components/issues/1010)) ([71ab32e](https://github.com/paypal/paypal-messaging-components/commit/71ab32eb70f581ff959cfb8783b919203fad52a1))
+
 ### [1.49.2](https://github.com/paypal/paypal-messaging-components/compare/v1.49.1...v1.49.2) (2023-10-18)
 
 
