@@ -1,5 +1,18 @@
 # Changelog
 
+### [1.50.1](https://github.com/paypal/paypal-messaging-components/compare/v1.50.0...v1.50.1) (2023-11-07)
+
+
+### Bug Fixes
+
+* debug jenkinsFile ([#1014](https://github.com/paypal/paypal-messaging-components/issues/1014)) ([431cdab](https://github.com/paypal/paypal-messaging-components/commit/431cdabae3ce7b635d6a3deb4db67e259a11bcbe))
+* update LoadingShimmer component to use div instead of button ([#1017](https://github.com/paypal/paypal-messaging-components/issues/1017)) ([85910dc](https://github.com/paypal/paypal-messaging-components/commit/85910dc983609f63dde4b67798b04e7c836cf771))
+
+
+### Code Refactoring
+
+* [FR 4X] Update wrapping logic for inline and none logo types ([#1011](https://github.com/paypal/paypal-messaging-components/issues/1011)) ([ad7d2d7](https://github.com/paypal/paypal-messaging-components/commit/ad7d2d7810c67c7a64365fcfbb314971bd8a7a33))
+
 ## [1.50.0](https://github.com/paypal/paypal-messaging-components/compare/v1.49.2...v1.50.0) (2023-10-31)
 
 
