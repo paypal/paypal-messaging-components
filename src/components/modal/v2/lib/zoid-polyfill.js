@@ -1,5 +1,4 @@
 /* global Android */
-import { URL } from 'url';
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
 
@@ -84,8 +83,7 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
-            const targetOrigin = document.referrer ? new URL(document.referrer).origin : window.location.origin;
-
+            const targetOrigin = document.referrer ? document.referrer.origin : window.location.origin;
             window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
 
             logger.track({
