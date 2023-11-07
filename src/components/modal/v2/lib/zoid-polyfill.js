@@ -83,7 +83,18 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
-            const targetOrigin = document.referrer ? document.referrer.origin : window.location.origin;
+            function getParentOrigin(url) {
+                if (!url) return window.location.origin;
+
+                const domain = url.indexOf('/', url.indexOf('//') + 2);
+
+                if (domain > -1) {
+                    return url.slice(0, domain);
+                }
+                return url;
+            }
+
+            const targetOrigin = getParentOrigin(document.referrer);
             window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
 
             logger.track({
