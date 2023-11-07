@@ -151,6 +151,19 @@ describe('zoidPollyfill', () => {
             })
         );
         logger.track.mockClear();
+
+        window.xprops.onClose({ linkName: 'Escape Key' });
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledWith(
+            expect.objectContaining({
+                index: '1',
+                et: 'CLICK',
+                event_type: 'modal-close',
+                link: 'Escape Key'
+            })
+        );
+        logger.track.mockClear();
     });
 
     test('sets up xprops for webview', () => {
