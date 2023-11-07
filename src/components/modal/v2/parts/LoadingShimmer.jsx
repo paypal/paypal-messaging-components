@@ -17,7 +17,7 @@ const LoadingShimmer = ({ numOffers = 3, offerCountry }) => {
                     return (
                         <div id={index} className="accordion__container shimmer">
                             <div className="accordion__row">
-                                <button className="accordion__header-container" aria-label="offer" type="button">
+                                <button className="accordion__header-container" type="button" disabled>
                                     <div className="offer__field-loading" style={{ width: '60%' }} />
                                     <div className="offer__field-loading" style={{ width: '30%' }} />
                                 </button>
