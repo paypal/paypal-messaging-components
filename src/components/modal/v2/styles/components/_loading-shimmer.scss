@@ -61,13 +61,20 @@
     }
 }
 
-.accordion__container {
-    &:first-child {
-        &.shimmer {
-            margin-top: 25px;
+.accordion {
+    &__header-container {
+        &.loading {
+            width: auto;
+        }
+    }
+    &__container {
+        &:first-child {
+            &.shimmer {
+                margin-top: 25px;
 
-            @include mobile {
-                margin-top: 8px;
+                @include mobile {
+                    margin-top: 8px;
+                }
             }
         }
     }
