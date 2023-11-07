@@ -11,9 +11,6 @@ pipeline {
         BRANCH_NAME = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed "s#origin/##g"').trim()
         GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
         GIT_COMMIT_HASH = GIT_COMMIT.take(7)
-
-        // Assumes commit messages follow this format: chore(release): 1.49.1 [skip ci]
-        VERSION = sh(returnStdout: true, script: "echo $GIT_COMMIT_MESSAGE | cut -d ':' -f2 | cut -d '[' -f1").trim()
     }
 
     stages {
@@ -34,8 +31,10 @@ pipeline {
             steps {
                 script {
                     if (GIT_COMMIT_MESSAGE.contains('chore(release)')) {
+                        // Assumes commit messages follow this format: chore(release): 1.49.1 [skip ci]
+                        env.VERSION=GIT_COMMIT_MESSAGE.replaceAll(".*\\:|\\[.*", "");
                         // Stage tags can only contain alphnumeric characters and underscores
-                        VERSION=VERSION.replace('.', '_')
+                        env.VERSION=VERSION.replace('.', '_').trim();
                         env.stageBundleId='up_stage_v' + VERSION + '_' + GIT_COMMIT_HASH
                         withCredentials([usernamePassword(credentialsId: 'web-cli-creds', passwordVariable: 'SVC_ACC_PASSWORD', usernameVariable: 'SVC_ACC_USERNAME')]) {
                            sh '''
@@ -45,7 +44,7 @@ pipeline {
                                 web notify "$stageBundleId"
                                 git checkout -- dist
                            '''
-                        }                        
+                        }
                     }
                 }
             }
