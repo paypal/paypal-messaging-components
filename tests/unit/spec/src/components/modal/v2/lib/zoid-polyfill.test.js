@@ -1,5 +1,6 @@
 import zoidPolyfill from 'src/components/modal/v2/lib/zoid-polyfill';
 import { logger } from 'src/utils';
+import { isIframe } from '../../../../../../../../src/components/modal/v2/lib/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
 jest.mock('src/utils', () => ({
@@ -25,6 +26,9 @@ jest.mock('@krakenjs/belter/src', () => {
         })
     };
 });
+jest.mock('../../../../../../../../src/components/modal/v2/lib/utils', () => ({
+    isIframe: true
+}));
 
 const mockLoadUrl = (url, { platform = 'web' } = {}) => {
     delete window.location;
@@ -388,6 +392,38 @@ describe('zoidPollyfill', () => {
               "name": "onReady",
             }
         `);
+        postMessage.mockClear();
+    });
+    test('post message when ESC key is pressed on iFrame', () => {
+        mockLoadUrl(
+            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+        );
+        const postMessage = jest.fn();
+        Object.defineProperty(window.document, 'referrer', {
+            value: 'http://localhost.paypal.com:8080/lander'
+        });
+
+        zoidPolyfill();
+
+        window.parent.postMessage = postMessage;
+        window.xprops.onClose({ linkName: 'Escape Key' });
+
+        expect(isIframe).toBe(true);
+
+        expect(postMessage).toHaveBeenCalledTimes(1);
+        expect(postMessage).toBeCalledWith('paypal-messages-modal-close', 'http://localhost.paypal.com:8080');
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledWith(
+            expect.objectContaining({
+                index: '1',
+                et: 'CLICK',
+                event_type: 'modal-close',
+                link: 'Escape Key'
+            })
+        );
+
+        logger.track.mockClear();
         postMessage.mockClear();
     });
 });
