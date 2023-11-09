@@ -156,7 +156,7 @@ describe('zoidPollyfill', () => {
         );
         logger.track.mockClear();
 
-        const postMessage = jest.fn();
+        let postMessage = jest.fn();
         window.parent.postMessage = postMessage;
         window.xprops.onClose({ linkName: 'Escape Key' });
 
@@ -170,6 +170,32 @@ describe('zoidPollyfill', () => {
             })
         );
         expect(postMessage).not.toHaveBeenCalled();
+        logger.track.mockClear();
+        postMessage.mockClear();
+
+        postMessage = jest.fn();
+        Object.defineProperty(window.document, 'referrer', {
+            value: 'http://localhost.paypal.com:8080/lander'
+        });
+
+        window.parent.postMessage = postMessage;
+        window.xprops.onClose({ linkName: 'Escape Key' });
+
+        expect(isIframe).toBe(true);
+
+        expect(postMessage).toHaveBeenCalledTimes(1);
+        expect(postMessage).toBeCalledWith('paypal-messages-modal-close', 'http://localhost.paypal.com:8080');
+
+        expect(logger.track).toHaveBeenCalledTimes(1);
+        expect(logger.track).toHaveBeenCalledWith(
+            expect.objectContaining({
+                index: '1',
+                et: 'CLICK',
+                event_type: 'modal-close',
+                link: 'Escape Key'
+            })
+        );
+
         logger.track.mockClear();
         postMessage.mockClear();
     });
@@ -396,38 +422,6 @@ describe('zoidPollyfill', () => {
               "name": "onReady",
             }
         `);
-        postMessage.mockClear();
-    });
-    test('post message when ESC key is pressed on iFrame', () => {
-        mockLoadUrl(
-            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
-        );
-        const postMessage = jest.fn();
-        Object.defineProperty(window.document, 'referrer', {
-            value: 'http://localhost.paypal.com:8080/lander'
-        });
-
-        zoidPolyfill();
-
-        window.parent.postMessage = postMessage;
-        window.xprops.onClose({ linkName: 'Escape Key' });
-
-        expect(isIframe).toBe(true);
-
-        expect(postMessage).toHaveBeenCalledTimes(1);
-        expect(postMessage).toBeCalledWith('paypal-messages-modal-close', 'http://localhost.paypal.com:8080');
-
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'modal-close',
-                link: 'Escape Key'
-            })
-        );
-
-        logger.track.mockClear();
         postMessage.mockClear();
     });
 });
