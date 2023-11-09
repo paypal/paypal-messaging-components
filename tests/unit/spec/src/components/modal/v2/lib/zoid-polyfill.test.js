@@ -156,6 +156,8 @@ describe('zoidPollyfill', () => {
         );
         logger.track.mockClear();
 
+        const postMessage = jest.fn();
+        window.parent.postMessage = postMessage;
         window.xprops.onClose({ linkName: 'Escape Key' });
 
         expect(logger.track).toHaveBeenCalledTimes(1);
@@ -167,7 +169,9 @@ describe('zoidPollyfill', () => {
                 link: 'Escape Key'
             })
         );
+        expect(postMessage).not.toHaveBeenCalled();
         logger.track.mockClear();
+        postMessage.mockClear();
     });
 
     test('sets up xprops for webview', () => {
