@@ -104,6 +104,7 @@ const Container = ({ children }) => {
                     {/* Scrollable content */}
                     {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
                     <div
+                        tabindex="-1"
                         className="content__wrapper"
                         ref={!!(!isLander || isIframe) && contentWrapperRef}
                         role={isIframe ? 'dialog' : undefined}
