@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.51.0](https://github.com/paypal/paypal-messaging-components/compare/v1.50.1...v1.51.0) (2023-11-14)
+
+
+### Features
+
+* update lander modal's onClose to sends postMessage in iFrame ([#1018](https://github.com/paypal/paypal-messaging-components/issues/1018)) ([3423f9b](https://github.com/paypal/paypal-messaging-components/commit/3423f9b9a0fd55c865fd52e6218e0b8eff833f6c))
+
+
+### Bug Fixes
+
+* Improve tabbing navigation for Firefox for API modals ([#1019](https://github.com/paypal/paypal-messaging-components/issues/1019)) ([e1db181](https://github.com/paypal/paypal-messaging-components/commit/e1db181f14642c456c6b354112ddc908ff18dd9e))
+
+
+### Code Refactoring
+
+* update method to get release version number for jenkins CI ([#1020](https://github.com/paypal/paypal-messaging-components/issues/1020)) ([813d592](https://github.com/paypal/paypal-messaging-components/commit/813d592287c360edfd5d2cc1921124f8a1c3ad97))
+
 ### [1.50.1](https://github.com/paypal/paypal-messaging-components/compare/v1.50.0...v1.50.1) (2023-11-07)
 
 
