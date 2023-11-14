@@ -31,8 +31,8 @@ pipeline {
             steps {
                 script {
                     if (GIT_COMMIT_MESSAGE.contains('chore(release)')) {
-                        // include only version number section of commit message
-                        env.VERSION=GIT_COMMIT_MESSAGE.substring(GIT_COMMIT_MESSAGE.indexOf(':') + 1, GIT_COMMIT_MESSAGE.indexOf('['))
+                        // Assumes commit messages follow this format: chore(release): 1.49.1 [skip ci]
+                        env.VERSION=GIT_COMMIT_MESSAGE.replaceAll(".*\\:|\\[.*", "");
                         // Stage tags can only contain alphnumeric characters and underscores
                         env.VERSION=VERSION.replace('.', '_').trim();
                         env.stageBundleId='up_stage_v' + VERSION + '_' + GIT_COMMIT_HASH
