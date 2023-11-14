@@ -25,6 +25,9 @@ jest.mock('@krakenjs/belter/src', () => {
         })
     };
 });
+jest.mock('src/components/modal/v2/lib/utils', () => ({
+    isIframe: true
+}));
 
 const mockLoadUrl = (url, { platform = 'web' } = {}) => {
     delete window.location;
@@ -67,90 +70,109 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
 };
 
 describe('zoidPollyfill', () => {
-    test('sets up xprops for browser', () => {
-        mockLoadUrl(
-            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
-        );
+    describe('sets up xprops for browser', () => {
+        beforeAll(() => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+            );
 
-        zoidPolyfill();
-
-        expect(window.actions).toBeUndefined();
-        expect(window.xprops).toEqual(
-            expect.objectContaining({
-                onProps: expect.any(Function),
-                onReady: expect.any(Function),
-                onClick: expect.any(Function),
-                onCalculate: expect.any(Function),
-                onShow: expect.any(Function),
-                onClose: expect.any(Function),
-                integrationType: 'STANDALONE',
-                clientId: 'client_1',
-                logoType: 'inline',
-                amount: '500',
-                devTouchpoint: 'true'
-            })
-        );
-
-        window.xprops.onReady({
-            products: ['PRODUCT_1', 'PRODUCT_2'],
-            meta: { trackingDetails: 'trackingDetails' }
+            zoidPolyfill();
         });
+        afterEach(() => {
+            logger.track.mockClear();
+        });
+        test('window.xprops initalized', () => {
+            expect(window.actions).toBeUndefined();
+            expect(window.xprops).toEqual(
+                expect.objectContaining({
+                    onProps: expect.any(Function),
+                    onReady: expect.any(Function),
+                    onClick: expect.any(Function),
+                    onCalculate: expect.any(Function),
+                    onShow: expect.any(Function),
+                    onClose: expect.any(Function),
+                    integrationType: 'STANDALONE',
+                    clientId: 'client_1',
+                    logoType: 'inline',
+                    amount: '500',
+                    devTouchpoint: 'true'
+                })
+            );
+        });
+        test('onReady returns a log message', () => {
+            window.xprops.onReady({
+                products: ['PRODUCT_1', 'PRODUCT_2'],
+                meta: { trackingDetails: 'trackingDetails' }
+            });
 
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                event_type: 'modal-render',
-                modal: 'product_1_product_2:PRODUCT_1'
-            })
-        );
-        logger.track.mockClear();
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    event_type: 'modal-render',
+                    modal: 'product_1_product_2:PRODUCT_1'
+                })
+            );
+        });
+        test('onClick returning a log message', () => {
+            window.xprops.onClick({ linkName: 'test link', src: 'test src' });
 
-        window.xprops.onClick({ linkName: 'test link', src: 'test src' });
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    event_type: 'click',
+                    link: 'test link',
+                    src: 'test src'
+                })
+            );
+        });
+        test('onCalculate returning a log message', () => {
+            window.xprops.onCalculate({ value: 500 });
 
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                event_type: 'click',
-                link: 'test link',
-                src: 'test src'
-            })
-        );
-        logger.track.mockClear();
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    event_type: 'click',
+                    link: 'Calculator',
+                    src: 'Calculator',
+                    amount: 500
+                })
+            );
+        });
+        test('onShow returning a log message', () => {
+            window.xprops.onShow();
 
-        window.xprops.onCalculate({ value: 500 });
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    event_type: 'modal-open',
+                    src: 'Show'
+                })
+            );
+        });
+        test('onClose returning a log message', () => {
+            window.xprops.onClose({ linkName: 'Close Button' });
 
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                event_type: 'click',
-                link: 'Calculator',
-                src: 'Calculator',
-                amount: 500
-            })
-        );
-        logger.track.mockClear();
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    event_type: 'modal-close',
+                    link: 'Close Button'
+                })
+            );
+        });
+        test('Escape key onClose returning a log message', () => {
+            window.xprops.onClose({ linkName: 'Escape Key' });
 
-        window.xprops.onShow();
-
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                event_type: 'modal-open',
-                src: 'Show'
-            })
-        );
-        logger.track.mockClear();
-
-        window.xprops.onClose({ linkName: 'Close Button' });
-
-        expect(logger.track).toHaveBeenCalledTimes(1);
-        expect(logger.track).toHaveBeenCalledWith(
-            expect.objectContaining({
-                event_type: 'modal-close',
-                link: 'Close Button'
-            })
-        );
-        logger.track.mockClear();
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.track).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    index: '1',
+                    et: 'CLICK',
+                    event_type: 'modal-close',
+                    link: 'Escape Key'
+                })
+            );
+        });
     });
 
     test('sets up xprops for webview', () => {
@@ -376,5 +398,35 @@ describe('zoidPollyfill', () => {
             }
         `);
         postMessage.mockClear();
+    });
+
+    describe('communication with parent window on onClose ', () => {
+        beforeAll(() => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+            );
+            zoidPolyfill();
+            const postMessage = jest.fn();
+            window.parent.postMessage = postMessage;
+        });
+        afterEach(() => {
+            logger.track.mockClear();
+            postMessage.mockClear();
+        });
+        test('does not send post message to parent window when referrer not present', () => {
+            window.xprops.onClose({ linkName: 'Escape Key' });
+            expect(postMessage).not.toHaveBeenCalled();
+        });
+
+        test('sends post message to parent window when referrer is present', () => {
+            Object.defineProperty(window.document, 'referrer', {
+                value: 'http://localhost.paypal.com:8080/lander'
+            });
+
+            window.xprops.onClose({ linkName: 'Escape Key' });
+
+            expect(postMessage).toHaveBeenCalledTimes(1);
+            expect(postMessage).toBeCalledWith('paypal-messages-modal-close', 'http://localhost.paypal.com:8080');
+        });
     });
 });

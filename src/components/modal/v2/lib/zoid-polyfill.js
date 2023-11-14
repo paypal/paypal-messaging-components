@@ -1,6 +1,7 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
+import { isIframe } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -83,6 +84,10 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
+            if (isIframe && document.referrer) {
+                const targetOrigin = new window.URL(document.referrer).origin;
+                window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
+            }
             logger.track({
                 index: '1',
                 et: 'CLICK',
