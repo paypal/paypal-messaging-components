@@ -1,5 +1,91 @@
 # Changelog
 
+## [1.51.0](https://github.com/paypal/paypal-messaging-components/compare/v1.50.1...v1.51.0) (2023-11-14)
+
+
+### Features
+
+* update lander modal's onClose to sends postMessage in iFrame ([#1018](https://github.com/paypal/paypal-messaging-components/issues/1018)) ([3423f9b](https://github.com/paypal/paypal-messaging-components/commit/3423f9b9a0fd55c865fd52e6218e0b8eff833f6c))
+
+
+### Bug Fixes
+
+* Improve tabbing navigation for Firefox for API modals ([#1019](https://github.com/paypal/paypal-messaging-components/issues/1019)) ([e1db181](https://github.com/paypal/paypal-messaging-components/commit/e1db181f14642c456c6b354112ddc908ff18dd9e))
+
+
+### Code Refactoring
+
+* update method to get release version number for jenkins CI ([#1020](https://github.com/paypal/paypal-messaging-components/issues/1020)) ([813d592](https://github.com/paypal/paypal-messaging-components/commit/813d592287c360edfd5d2cc1921124f8a1c3ad97))
+
+### [1.50.1](https://github.com/paypal/paypal-messaging-components/compare/v1.50.0...v1.50.1) (2023-11-07)
+
+
+### Bug Fixes
+
+* debug jenkinsFile ([#1014](https://github.com/paypal/paypal-messaging-components/issues/1014)) ([431cdab](https://github.com/paypal/paypal-messaging-components/commit/431cdabae3ce7b635d6a3deb4db67e259a11bcbe))
+* update LoadingShimmer component to use div instead of button ([#1017](https://github.com/paypal/paypal-messaging-components/issues/1017)) ([85910dc](https://github.com/paypal/paypal-messaging-components/commit/85910dc983609f63dde4b67798b04e7c836cf771))
+
+
+### Code Refactoring
+
+* [FR 4X] Update wrapping logic for inline and none logo types ([#1011](https://github.com/paypal/paypal-messaging-components/issues/1011)) ([ad7d2d7](https://github.com/paypal/paypal-messaging-components/commit/ad7d2d7810c67c7a64365fcfbb314971bd8a7a33))
+
+## [1.50.0](https://github.com/paypal/paypal-messaging-components/compare/v1.49.2...v1.50.0) (2023-10-31)
+
+
+### Features
+
+* update modal logo a11y ([#1009](https://github.com/paypal/paypal-messaging-components/issues/1009)) ([03bfc6c](https://github.com/paypal/paypal-messaging-components/commit/03bfc6c91c36960eb1e8af0d901b12083f3ae20c))
+
+
+### Bug Fixes
+
+* adds screenreader visual focus on donut text ([#1012](https://github.com/paypal/paypal-messaging-components/issues/1012)) ([c503af2](https://github.com/paypal/paypal-messaging-components/commit/c503af225c17e1b8609a05873ed02c3d3c0778d0))
+* au flex 8x1 spacing ([#1008](https://github.com/paypal/paypal-messaging-components/issues/1008)) ([d762500](https://github.com/paypal/paypal-messaging-components/commit/d7625000b9bdb0fa642f612364352029da99e68b))
+* screen reader for the list of ineligible states reads some state abbreviations as words instead of letters ([#943](https://github.com/paypal/paypal-messaging-components/issues/943)) ([c4c7c41](https://github.com/paypal/paypal-messaging-components/commit/c4c7c4117b53d626f7e7d6d8f87dafeb25233b36))
+
+
+### Continuous Integration
+
+* jenkins messaging bundles ([#993](https://github.com/paypal/paypal-messaging-components/issues/993)) ([36e9b3b](https://github.com/paypal/paypal-messaging-components/commit/36e9b3b5258294ad661938a3e0baa257261a9acb))
+
+
+### Code Refactoring
+
+* remove deprecated v1 modal code ([#1002](https://github.com/paypal/paypal-messaging-components/issues/1002)) ([3da52ed](https://github.com/paypal/paypal-messaging-components/commit/3da52edbfcdc3e6916c1233ed20be5f66c97f4b5))
+* update native modal event keys and values ([#1010](https://github.com/paypal/paypal-messaging-components/issues/1010)) ([71ab32e](https://github.com/paypal/paypal-messaging-components/commit/71ab32eb70f581ff959cfb8783b919203fad52a1))
+
+### [1.49.2](https://github.com/paypal/paypal-messaging-components/compare/v1.49.1...v1.49.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* prevent undefined device ID when namespace ([#994](https://github.com/paypal/paypal-messaging-components/issues/994)) ([fe91522](https://github.com/paypal/paypal-messaging-components/commit/fe915229ff060f969f7690c2c87eee11773a0336))
+* safari focus  ([#1005](https://github.com/paypal/paypal-messaging-components/issues/1005)) ([827a56d](https://github.com/paypal/paypal-messaging-components/commit/827a56d3a87dec0c491a52c241fcec46b4cfc067))
+* safari focus ([#997](https://github.com/paypal/paypal-messaging-components/issues/997)) ([5b4a823](https://github.com/paypal/paypal-messaging-components/commit/5b4a823f2abe9c046e7dd336ded6891658bcb4cd))
+
+
+### Code Refactoring
+
+* disable tab trap on api or lander ([#999](https://github.com/paypal/paypal-messaging-components/issues/999)) ([ab92760](https://github.com/paypal/paypal-messaging-components/commit/ab927609b23f31f8171c2d55994910c11399b10a))
+
+### [1.49.1](https://github.com/paypal/paypal-messaging-components/compare/v1.49.0...v1.49.1) (2023-10-11)
+
+
+### Code Refactoring
+
+* enable passing multiple merchant ids ([#992](https://github.com/paypal/paypal-messaging-components/issues/992)) ([4ac100f](https://github.com/paypal/paypal-messaging-components/commit/4ac100ff1567b451a75ad40c397f747c18eb6e39))
+* update modal css ([#996](https://github.com/paypal/paypal-messaging-components/issues/996)) ([8dc900d](https://github.com/paypal/paypal-messaging-components/commit/8dc900dff59cb90860a1823827a412c666bd644c))
+* update when error icon shows in Pay Monthly modal ([#988](https://github.com/paypal/paypal-messaging-components/issues/988)) ([08c126f](https://github.com/paypal/paypal-messaging-components/commit/08c126f196afe307a82ffb7664546bd53c398e16))
+
+## [1.49.0](https://github.com/paypal/paypal-messaging-components/compare/v1.48.1...v1.49.0) (2023-09-26)
+
+
+### Features
+
+* Screen reader /mo for messages and modals (DTCRCMERC-1941) ([#980](https://github.com/paypal/paypal-messaging-components/issues/980)) ([507709e](https://github.com/paypal/paypal-messaging-components/commit/507709e21bf2ae7020db423c5be2a4fc93eff705))
+* updated input on calculator for better accessibility ([#985](https://github.com/paypal/paypal-messaging-components/issues/985)) ([cd574dd](https://github.com/paypal/paypal-messaging-components/commit/cd574dd12ab464b48acd2a214db528f335c80400))
+
 ### [1.48.1](https://github.com/paypal/paypal-messaging-components/compare/v1.48.0...v1.48.1) (2023-09-20)
 
 

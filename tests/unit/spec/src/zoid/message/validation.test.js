@@ -56,9 +56,22 @@ describe('validate', () => {
         expect(merchantId).toEqual(merchantId);
         expect(console.warn).not.toHaveBeenCalled();
 
+        merchantId = validate.merchantId({ props: { merchantId: 'DEV00000000NI,DEV00000001NI' } });
+        expect(merchantId).toEqual(merchantId);
+        expect(console.warn).not.toHaveBeenCalled();
+
+        merchantId = validate.merchantId({ props: { merchantId: 'DEV00000000,DEV00000001NI' } });
+
+        expect(merchantId).toEqual(merchantId);
+        expect(console.warn).toHaveBeenCalledTimes(1);
+        expect(console.warn).toHaveBeenLastCalledWith(
+            expect.stringContaining('invalid_option_value'),
+            expect.objectContaining({ location: 'merchantId' })
+        );
+
         merchantId = validate.merchantId({ props: { merchantId: 'client-id:test_client_id' } });
 
-        expect(merchantId).toBeUndefined();
+        expect(merchantId).toEqual(merchantId);
         expect(console.warn).toHaveBeenCalledTimes(1);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),

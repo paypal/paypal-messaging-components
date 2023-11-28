@@ -2,7 +2,6 @@ const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
-const { localeOptions } = require('./locales');
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
@@ -103,16 +102,11 @@ module.exports = (env = {}) => {
     LIBRARY_DEV_CONFIG.devServer = WEBPACK_DEV_SERVER_CONFIG;
 
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
-        entry: [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
-            (accumulator, locale) => ({
-                ...accumulator,
-                [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
-            }),
-            {
-                'smart-credit-message': './src/components/message/index.js',
-                'smart-credit-modal-v2': './src/components/modal/v2/index.js'
-            }
-        ),
+        entry: {
+            'smart-credit-message': './src/components/message/index.js',
+            'smart-credit-modal-v2': './src/components/modal/v2/index.js',
+            'smart-credit-modal-US-EZP': `./src/components/modal/v1/content/US-EZP/index.js`
+        },
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,

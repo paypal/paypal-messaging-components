@@ -1,17 +1,15 @@
 import openModal from '../../utils/initializeModal';
 import { viewports, bannerStyles, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn, switchTabs, niContentTest } from './us_modalTestDefs';
+import { clickHereSeeTerms, applyNowBtn, switchTabs } from './us_modalTestDefs';
 
-const accounts = ['DEV00000000NI', 'DEV0000000PSZ'];
+const accounts = ['DEV0000000PSZ'];
 
 describe.each([
     [accounts[0], viewports[0], bannerStyles[0]],
     [accounts[0], viewports[1], bannerStyles[0]],
-    [accounts[0], viewports[1], bannerStyles[1]],
-    [accounts[1], viewports[0], bannerStyles[0]],
-    [accounts[1], viewports[1], bannerStyles[0]]
-])('US EZP and NI basic modal functionality tests %o', (account, viewport, bannerStyle) => {
+    [accounts[0], viewports[1], bannerStyles[1]]
+])('US EZP basic modal functionality tests %o', (account, viewport, bannerStyle) => {
     beforeEach(async () => {
         await openModal(viewport, {
             account,
@@ -42,16 +40,6 @@ describe.each([
         `${groupString} apply now button opens browser to credit application login`,
         applyNowBtn({ account, viewport, groupString })
     );
-    if (account === 'DEV0000000PSZ') {
-        test(
-            `${groupString} switch between EZP and NI content by clicking tabs`,
-            switchTabs({ account, viewport, groupString })
-        );
-    }
-    if (account === 'DEV00000000NI') {
-        test(
-            `${groupString} NI content is loaded when NI message is clicked`,
-            niContentTest({ account, viewport, groupString })
-        );
-    }
+
+    test(`${groupString} EZP content by clicking tabs`, switchTabs({ account, viewport, groupString }));
 });

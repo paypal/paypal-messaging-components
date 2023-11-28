@@ -1,6 +1,7 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
+import { isIframe } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -83,6 +84,10 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
+            if (isIframe && document.referrer) {
+                const targetOrigin = new window.URL(document.referrer).origin;
+                window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
+            }
             logger.track({
                 index: '1',
                 et: 'CLICK',
@@ -111,6 +116,7 @@ const setupWebview = props => {
         }
 
         // This scenario should only ever occur when developing locally
+        // eslint-disable-next-line no-console
         return payload => console.warn('postMessage:', JSON.parse(payload));
     })();
 
@@ -133,14 +139,15 @@ const setupWebview = props => {
 
         onReady: ({ meta }) => {
             const { trackingDetails } = meta;
-            const timing = getPerformance()?.getEntriesByType('navigation')[0];
+            const performance = getPerformance();
+            const timing = performance?.getEntriesByType('navigation')[0];
 
             sendCallbackMessage('onReady', {
                 __shared__: {
                     // Analytic Details
                     fdata: trackingDetails.fdata,
-                    experimentation_experience_ids: trackingDetails.experimentation_experience_ids,
-                    experimentation_treatment_ids: trackingDetails.experimentation_treatment_ids,
+                    experimentation_experience: trackingDetails.experimentation_experience_ids,
+                    experimentation_treatment: trackingDetails.experimentation_treatment_ids,
                     credit_product_identifiers: trackingDetails.credit_product_identifiers,
                     offer_country_code: trackingDetails.offer_country_code,
                     merchant_country_code: trackingDetails.merchant_country_code,
@@ -148,42 +155,42 @@ const setupWebview = props => {
                     qualified_products: trackingDetails.qualified_products,
                     debug_id: trackingDetails.debug_id
                 },
-                event_type: 'modal_render',
+                event_type: 'modal_rendered',
                 request_duration: timing && timing.responseEnd - timing.requestStart,
-                render_duration: timing && timing.loadEventEnd - timing.responseEnd
+                render_duration: timing && performance.now() - timing.responseEnd
             });
         },
 
         onClick: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClick', {
-                event_type: 'modal_click',
-                link_name: linkName,
-                link_src: src
+                event_type: 'modal_clicked',
+                page_view_link_name: linkName,
+                page_view_link_source: src
             });
         },
 
         onCalculate: ({ value }) => {
             sendCallbackMessage('onCalculate', {
-                event_type: 'modal_click',
-                link_name: 'Calculator',
-                link_src: 'Calculator',
-                data: value
+                event_type: 'modal_clicked',
+                page_view_link_name: 'Calculator',
+                page_view_link_source: 'Calculator',
+                calculator_input: value
             });
         },
 
         onShow: () => {
             sendCallbackMessage('onShow', {
-                event_type: 'modal_open',
-                link_name: 'Show',
-                link_src: 'Show'
+                event_type: 'modal_viewed',
+                page_view_link_name: 'Show',
+                page_view_link_source: 'Show'
             });
         },
 
         onClose: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClose', {
-                event_type: 'modal_close',
-                link_name: linkName,
-                link_src: src
+                event_type: 'modal_closed',
+                page_view_link_name: linkName,
+                page_view_link_source: src
             });
         },
         // Overridable defaults

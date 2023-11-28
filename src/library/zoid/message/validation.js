@@ -70,13 +70,14 @@ export default {
         if (typeof merchantId !== 'undefined') {
             if (!validateType(Types.STRING, merchantId)) {
                 logInvalidType('merchantId', Types.STRING, merchantId);
-            } else if (merchantId.length !== 13 && merchantId.length !== 10) {
-                logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
             } else {
+                const isInvalid = merchantId.split(',').some(id => id.length !== 13 && id.length !== 10);
+                if (isInvalid) {
+                    logInvalid('merchantId', 'Ensure the correct Merchant ID has been entered.');
+                }
                 return merchantId;
             }
         }
-
         return undefined;
     },
     customerId: ({ props: { customerId } }) => {
