@@ -28,7 +28,8 @@ import {
     getDevTouchpoint,
     getMerchantConfig,
     getLocalTreatments,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    FPTI_EVENTS
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -155,14 +156,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                         logger.track({
                             index,
-                            et: 'CLICK',
-                            event_type: 'MORS'
+                            eventType: FPTI_EVENTS.MESSAGE_RENDERED
                         });
 
                         logger.track({
                             index,
-                            et: 'CLICK',
-                            event_type: 'click',
+                            eventType: FPTI_EVENTS.MESSAGE_CLICKED,
                             link: 'Banner Wrapper'
                         });
 
@@ -184,8 +183,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             hasHovered = true;
                             logger.track({
                                 index,
-                                et: 'CLIENT_IMPRESSION',
-                                event_type: 'hover'
+                                eventType: FPTI_EVENTS.MESSAGE_HOVERED
                             });
                         }
 
@@ -201,9 +199,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId }) => {
-                        const { account, merchantId, index, modal, getContainer } = props;
+                        const { account, merchantId, index, modal, getContainer, ...remainingProps } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
+                        const { pname: pageView } = trackingDetails;
+
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
+
+                        // console.log(JSON.stringify({ meta, props }, null, '    '));
+                        console.log({ meta, props });
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
@@ -237,18 +240,20 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     sessionID: getSessionID()
                                 },
                                 [index]: {
+                                    ...remainingProps,
                                     type: 'message',
                                     messageRequestId,
                                     account: merchantId || account,
-                                    partnerClientId,
-                                    trackingDetails
+                                    merchantId,
+                                    activeTags,
+                                    merchantId,
+                                    contentMeta: meta
                                 }
                             };
                         });
 
                         runStats({
                             container: getContainer(),
-                            activeTags,
                             index,
                             requestDuration
                         });
@@ -256,8 +261,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                         logger.track({
                             index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'MORS'
+                            eventType: FPTI_EVENTS.MESSAGE_RENDERED,
+                            pageView
                         });
 
                         if (typeof onReady === 'function') {

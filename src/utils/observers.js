@@ -5,6 +5,7 @@ import arrayFrom from 'core-js-pure/stable/array/from';
 import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
 import { awaitWindowLoad, awaitFirstRender } from './events';
+import { FPTI_EVENTS } from './constants';
 import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement, elementOutside } from './elements';
@@ -84,8 +85,7 @@ export const getViewportIntersectionObserver = createGlobalVariableGetter('__vie
                     if (entry.isIntersecting) {
                         logger.track({
                             index,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'scroll',
+                            eventType: FPTI_EVENTS.MESSAGE_SCROLL,
                             visible: 'true'
                         });
                         observer.unobserve(entry.target);
@@ -174,10 +174,10 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             });
                             logger.track({
                                 index,
-                                et: 'CLIENT_IMPRESSION',
-                                event_type: 'message_hidden'
+                                eventType: FPTI_EVENTS.MESSAGE_HIDDEN,
+                                duration
                             });
-                            ppDebug(`Message Hidden: true`);
+
                             state.renderComplete = true;
                             delete state.renderStart;
 

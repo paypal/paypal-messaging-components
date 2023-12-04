@@ -1,6 +1,6 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
-import { getOrCreateDeviceID, logger } from '../../../../utils';
+import { getOrCreateDeviceID, logger, FPTI_EVENTS } from '../../../../utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -13,7 +13,7 @@ const setupBrowser = props => {
         onReady: ({ products, meta }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
             const { trackingDetails } = meta;
-
+            const { pname: pageView } = trackingDetails;
             logger.addMetaBuilder(existingMeta => {
                 // Remove potential existing meta info
                 // Necessary because beaver-logger will not override an existing meta key if these values change
@@ -46,29 +46,32 @@ const setupBrowser = props => {
 
             logger.track({
                 index: '1',
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-render',
-                modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
+                eventType: FPTI_EVENTS.MODAL_RENDERED,
+                pageView,
+                // modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
+                // products,
+                // offer,
+
                 // For standalone modal the stats event does not run, so we duplicate some data here
-                bn_code: partnerAttributionId
-                // first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
-                // render_duration: Math.round(getCurrentTime() - renderStart).toString()
+                // bn_code: partnerAttributionId
+                renderDelay: Math.round(firstModalRenderDelay).toString(),
+                renderDuration: Math.round(getCurrentTime() - renderStart).toString()
             });
         },
         onClick: ({ linkName, src }) => {
-            logger.track({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'click',
-                link: linkName,
-                src: src ?? linkName
-            });
+            if (linkName || src) {
+                logger.track({
+                    index: '1',
+                    eventType: FPTI_EVENTS.MODAL_RENDERED,
+                    link: linkName,
+                    src: src ?? linkName
+                });
+            }
         },
         onCalculate: ({ value }) => {
             logger.track({
                 index: '1',
-                et: 'CLICK',
-                event_type: 'click',
+                eventType: FPTI_EVENTS.MODAL_RENDERED,
                 link: 'Calculator',
                 src: 'Calculator',
                 amount: value
@@ -77,16 +80,14 @@ const setupBrowser = props => {
         onShow: () => {
             logger.track({
                 index: '1',
-                et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open',
+                eventType: FPTI_EVENTS.MODAL_VIEWED,
                 src: 'Show'
             });
         },
         onClose: ({ linkName }) => {
             logger.track({
                 index: '1',
-                et: 'CLICK',
-                event_type: 'modal-close',
+                eventType: FPTI_EVENTS.MODAL_CLOSE,
                 link: linkName
             });
         },
@@ -148,15 +149,15 @@ const setupWebview = props => {
                     qualified_products: trackingDetails.qualified_products,
                     debug_id: trackingDetails.debug_id
                 },
-                event_type: 'modal_render',
-                request_duration: timing && timing.responseEnd - timing.requestStart,
-                render_duration: timing && timing.loadEventEnd - timing.responseEnd
+                eventType: FPTI_EVENTS.MODAL_RENDERED,
+                requestDuration: timing && timing.responseEnd - timing.requestStart,
+                renderDuration: timing && timing.loadEventEnd - timing.responseEnd
             });
         },
 
         onClick: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClick', {
-                event_type: 'modal_click',
+                eventType: FPTI_EVENTS.MODAL_RENDERED,
                 link_name: linkName,
                 link_src: src
             });
@@ -164,7 +165,7 @@ const setupWebview = props => {
 
         onCalculate: ({ value }) => {
             sendCallbackMessage('onCalculate', {
-                event_type: 'modal_click',
+                eventType: FPTI_EVENTS.MODAL_RENDERED,
                 link_name: 'Calculator',
                 link_src: 'Calculator',
                 data: value
@@ -173,7 +174,7 @@ const setupWebview = props => {
 
         onShow: () => {
             sendCallbackMessage('onShow', {
-                event_type: 'modal_open',
+                eventType: FPTI_EVENTS.MODAL_VIEWED,
                 link_name: 'Show',
                 link_src: 'Show'
             });
@@ -181,7 +182,7 @@ const setupWebview = props => {
 
         onClose: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClose', {
-                event_type: 'modal_close',
+                eventType: FPTI_EVENTS.MODAL_CLOSE,
                 link_name: linkName,
                 link_src: src
             });

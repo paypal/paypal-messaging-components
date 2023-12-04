@@ -254,5 +254,15 @@ export default {
         }
 
         return undefined;
+    },
+    pageView: ({ props: { pageView } }) => {
+        if (typeof pageView !== 'undefined') {
+            if (!validateType(Types.STRING, pageView)) {
+                return undefined;
+            }
+            return pageView;
+        }
+
+        return undefined;
     }
 };

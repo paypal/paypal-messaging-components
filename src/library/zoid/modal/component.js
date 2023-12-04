@@ -25,7 +25,8 @@ import {
     ppDebug,
     getStandardProductOffer,
     getDevTouchpoint,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    FPTI_EVENTS
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -147,14 +148,15 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     return ({ linkName, src }) => {
                         const { index, refIndex } = props;
 
-                        logger.track({
-                            index,
-                            refIndex,
-                            et: 'CLICK',
-                            event_type: 'click',
-                            link: linkName,
-                            src: src ?? linkName
-                        });
+                        if (linkName || src) {
+                            logger.track({
+                                index,
+                                refIndex,
+                                eventType: FPTI_EVENTS.MODAL_RENDERED,
+                                link: linkName,
+                                src: src ?? linkName
+                            });
+                        }
 
                         if (typeof onClick === 'function') {
                             onClick({ linkName });
@@ -178,8 +180,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         logger.track({
                             index,
                             refIndex,
-                            et: 'CLICK',
-                            event_type: 'click',
+                            eventType: FPTI_EVENTS.MODAL_RENDERED,
                             link: 'Calculator',
                             src: 'Calculator',
                             amount: value
@@ -203,8 +204,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         logger.track({
                             index,
                             refIndex,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open',
+                            eventType: FPTI_EVENTS.MODAL_VIEWED,
                             src
                         });
 
@@ -233,8 +233,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         logger.track({
                             index,
                             refIndex,
-                            et: 'CLICK',
-                            event_type: 'modal-close',
+                            eventType: FPTI_EVENTS.MODAL_CLOSE,
                             link: linkName
                         });
 
@@ -254,6 +253,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
+                        const { pname: pageView } = trackingDetails;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         ppDebug(`Modal Correlation ID: ${ppDebugId}`);
@@ -283,6 +283,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     type: 'modal',
                                     messageRequestId,
                                     account: merchantId || account,
+                                    debugId: ppDebugId,
                                     partnerClientId,
                                     trackingDetails
                                 }
@@ -300,13 +301,13 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         logger.track({
                             index,
                             refIndex,
-                            et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-render',
-                            modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
+                            eventType: FPTI_EVENTS.MODAL_RENDERED,
+
+                            pageView,
+
                             // For standalone modal the stats event does not run, so we duplicate some data here
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
-                            first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
-                            render_duration: Math.round(getCurrentTime() - renderStart).toString()
+                            renderDelay: Math.round(firstModalRenderDelay).toString(),
+                            renderDuration: Math.round(getCurrentTime() - renderStart).toString()
                         });
 
                         if (
