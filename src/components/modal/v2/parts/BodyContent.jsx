@@ -57,6 +57,7 @@ const BodyContent = () => {
 
     const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
     const isQualifying = productMeta?.qualifying;
+    const useV4Design = productMeta?.useV4Design;
 
     const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
@@ -103,6 +104,7 @@ const BodyContent = () => {
                 qualifyingSubheadline={qualifyingSubheadline}
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
+                useV4Design={useV4Design ?? 'false'}
             />
             <div className="content__container">
                 <main className="main">

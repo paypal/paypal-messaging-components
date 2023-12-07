@@ -44,6 +44,12 @@
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
         background-color: $beige;
 
+        &.v4Design {
+            @include mobile {
+                background-color: $v4-lander-beige;
+            }
+        }
+
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
         // This requires having a portion of the background with a
@@ -274,6 +280,13 @@
                     }
                 }
             }
+
+            &.v4Design {
+                @include mobile {
+                    font-size: 32px;
+                    line-height: 32px;
+                }
+            }
         }
 
         .subheadline_p {
@@ -308,6 +321,13 @@
 
             span {
                 white-space: nowrap;
+            }
+
+            &.v4Design {
+                @include mobile {
+                    font-size: 16px;
+                    line-height: 21px;
+                }
             }
         }
     }
