@@ -38,13 +38,12 @@ $donutBackground: #0070e0;
         &::after {
             content: '';
             flex-grow: 1;
-            border-top: 1px dashed black;
+            border-top: 1px dashed $grey350;
             top: 55px;
             width: 100%;
             max-width: 50px;
             position: absolute;
             transform: translateX((90%));
-            color: $grey350;
 
             @include desktop {
                 max-width: 60px;
