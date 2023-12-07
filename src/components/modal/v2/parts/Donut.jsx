@@ -7,6 +7,7 @@ const Donut = ({
     cx = 21,
     cy = 21,
     radius = 15.91549430918954,
+    radiusV4 = 5.5,
     viewBox = `0 0 ${2 * cx} ${2 * cy}`,
     style = { fontSize: '0.375rem' },
     segmentStrokeWidth = 5.8,
@@ -14,17 +15,19 @@ const Donut = ({
     numOfPayments = 4,
     timeStamp,
     periodicPayment,
-    qualifying
+    qualifying,
+    useV4Design
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
     const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
-
     const strokeDasharray = `${percentage} ${100 - percentage}`;
+    const isV4Design = useV4Design === 'true';
+
     const segments = (
         <circle
             cx={cx}
             cy={cy}
-            r={radius}
+            r={isV4Design ? radiusV4 : radius}
             className="donut__percent"
             stroke-dasharray={strokeDasharray}
             stroke-dashoffset={25}
@@ -37,7 +40,7 @@ const Donut = ({
         <div
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
-            }`}
+            } ${isV4Design && currentNum < numOfPayments && 'donut__single_payment_line'}`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                 <circle
@@ -45,10 +48,14 @@ const Donut = ({
                     cy={cy}
                     r={radius}
                     fill="transparent"
-                    className="donut__background"
+                    className={isV4Design ? 'donut__background__line' : 'donut__background'}
                     stroke-width={strokeWidth}
                 />
-                <g stroke-width={segStrokeWidth} fill="transparent" stroke-linecap={strokeLinecap}>
+                <g
+                    stroke-width={isV4Design ? 0 : segStrokeWidth}
+                    fill={isV4Design ? '#bdbdbd' : 'transparent'}
+                    stroke-linecap={strokeLinecap}
+                >
                     {segments}
                 </g>
                 <text x={cx} y={cy} text-anchor="middle">

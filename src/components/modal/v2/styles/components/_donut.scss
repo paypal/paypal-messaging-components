@@ -1,9 +1,11 @@
 @import '../globals/mixins';
 
 $webpage: 1640px;
-$green500: #388C00;
+$green500: #388c00;
 $grey300: #dbd8d0;
+$grey350: #bdbdbd;
 $grey600: #888;
+$donutBackground: #0070e0;
 
 .donut__single_payment {
     display: flex;
@@ -19,7 +21,6 @@ $grey600: #888;
     svg {
         max-width: 64px;
     }
-
     &.donut__qualifying_payment {
         svg {
             text {
@@ -28,7 +29,35 @@ $grey600: #888;
             }
         }
     }
+    &_line {
+        &:first-child {
+            svg g {
+                fill: $donutBackground;
+            }
+        }
+        &::after {
+            content: '';
+            flex-grow: 1;
+            border-top: 1px dashed black;
+            top: 55px;
+            width: 100%;
+            max-width: 50px;
+            position: absolute;
+            transform: translateX((90%));
+            color: $grey350;
 
+            @include desktop {
+                max-width: 60px;
+            }
+
+            @include mobile {
+                max-width: 45px;
+            }
+            @include smallMobile {
+                max-width: 35px;
+            }
+        }
+    }
     &:first-of-type {
         .donut__ {
             &payment {
@@ -38,7 +67,7 @@ $grey600: #888;
                 font-family: $paypal-open;
             }
         }
-    } 
+    }
 
     svg {
         width: 100%;
@@ -58,7 +87,9 @@ $grey600: #888;
         .donut__percent {
             stroke: $green500;
         }
-
+        .donut__background__line {
+            stroke: none;
+        }
         @include smallHeightMobile {
             max-width: 60px;
         }
@@ -93,6 +124,7 @@ $grey600: #888;
             @include desktop {
                 line-height: 22px;
             }
+            white-space: nowrap;
         }
     }
 }

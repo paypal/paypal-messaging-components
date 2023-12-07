@@ -13,7 +13,7 @@ import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cent
 
 export const ShortTerm = ({
     content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
-    productMeta: { qualifying, periodicPayment },
+    productMeta: { qualifying, periodicPayment, useV4Design },
     openProductList
 }) => {
     const { views } = useServerData();
@@ -54,6 +54,7 @@ export const ShortTerm = ({
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}
+                                        useV4Design={useV4Design}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
                                         periodicPayment={
