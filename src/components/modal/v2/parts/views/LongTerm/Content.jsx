@@ -78,6 +78,7 @@ export const LongTerm = ({
         linkToProductList,
         cta
     },
+    useV4Design,
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -152,6 +153,7 @@ export const LongTerm = ({
                         setExpandedState={setExpandedState}
                         calculator={calculator}
                         aprDisclaimer={offerAPRDisclaimers}
+                        useV4Design={useV4Design}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
@@ -159,7 +161,7 @@ export const LongTerm = ({
                         </div>
                     </div>
                 </div>
-                <Instructions instructions={instructions} expandedState={expandedState} />
+                <Instructions instructions={instructions} useV4Design={useV4Design} expandedState={expandedState} />
             </div>
             <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
