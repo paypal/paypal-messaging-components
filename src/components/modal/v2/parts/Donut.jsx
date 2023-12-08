@@ -35,13 +35,15 @@ const Donut = ({
     );
 
     const isQualifying = qualifying === 'true';
-    const isPi3 = numOfPayments === 3;
+    const isPi3 = isV4Design && numOfPayments === 3;
+    const isBelowNumOfPayments = currentNum < numOfPayments;
+
     return (
         <div
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
-            } ${isV4Design && currentNum < numOfPayments ? 'donut__single_payment_line' : ''} ${
-                isV4Design && isPi3 ? 'donut__single_payment_line_three' : ''
+            } ${isV4Design && isBelowNumOfPayments ? 'donut__single_payment_line' : ''} ${
+                isPi3 && isBelowNumOfPayments ? 'donut__single_payment_line__3' : ''
             }`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +73,11 @@ const Donut = ({
                         {periodicPayment}
                     </span>
                 )}
-                <span className="donut__timestamp" id={`donut__timestamp__${currentNum}`} aria-hidden="true">
+                <span
+                    className={isV4Design ? 'donut__timestamp_v4' : 'donut__timestamp'}
+                    id={`donut__timestamp__${currentNum}`}
+                    aria-hidden="true"
+                >
                     {timeStamp}
                 </span>
             </span>

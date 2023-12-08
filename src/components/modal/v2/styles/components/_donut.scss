@@ -5,7 +5,8 @@ $green500: #388c00;
 $grey300: #dbd8d0;
 $grey350: #bdbdbd;
 $grey600: #888;
-$donutBackground: #0070e0;
+$donut-background: #0070e0;
+$donut-text-v4: #545d68;
 
 .donut__single_payment {
     display: flex;
@@ -29,44 +30,7 @@ $donutBackground: #0070e0;
             }
         }
     }
-    &_line {
-        &:first-child {
-            svg g {
-                fill: $donutBackground;
-            }
-        }
-        &::after {
-            content: '';
-            flex-grow: 1;
-            border-top: 1px dashed $grey350;
-            top: 55px;
-            width: 100%;
-            max-width: 50px;
-            position: absolute;
-            transform: translateX((90%));
 
-            @include mobile {
-                max-width: 45px;
-            }
-            @include smallMobile {
-                max-width: 35px;
-            }
-        }
-        &_three::after {
-            @include tablet {
-                max-width: 85px;
-                transform: translateX((70%));
-            }
-            @include mobile {
-                max-width: 70px;
-                transform: translateX((75%));
-            }
-            @include smallMobile {
-                max-width: 55px;
-                transform: translateX((80%));
-            }
-        }
-    }
     &:first-of-type {
         .donut__ {
             &payment {
@@ -134,6 +98,52 @@ $donutBackground: #0070e0;
                 line-height: 22px;
             }
             white-space: nowrap;
+            &_v4 {
+                @extend .donut__timestamp;
+                color: $donut-text-v4;
+            }
+        }
+    }
+    &_line {
+        &:first-child {
+            svg g {
+                fill: $donut-background;
+            }
+            span.donut__timestamp_v4 {
+                color: $text-main;
+            }
+        }
+
+        &::after {
+            content: '';
+            flex-grow: 1;
+            border-top: 1px dashed $grey350;
+            top: 55px;
+            width: 100%;
+            max-width: 50px;
+            position: absolute;
+            transform: translateX((90%));
+
+            @include mobile {
+                max-width: 45px;
+            }
+            @include smallMobile {
+                max-width: 35px;
+            }
+        }
+        &__3::after {
+            @include tablet {
+                max-width: 85px;
+                transform: translateX((70%));
+            }
+            @include mobile {
+                max-width: 70px;
+                transform: translateX((75%));
+            }
+            @include smallMobile {
+                max-width: 55px;
+                transform: translateX((80%));
+            }
         }
     }
 }
