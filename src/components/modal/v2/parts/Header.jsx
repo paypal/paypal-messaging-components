@@ -83,16 +83,12 @@ const Header = ({
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p
-                        className={`subheadline_p subheadline-${countryClassName} qualifying ${
-                            useV4Design ? 'v4Design' : ''
-                        }`}
-                    >
+                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} ${useV4Design ? 'v4Design' : ''}`}
+                        className={`subheadline_p subheadline-${countryClassName}}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
                     />

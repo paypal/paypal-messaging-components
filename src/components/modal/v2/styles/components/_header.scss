@@ -36,6 +36,12 @@
         @include lander {
             border-radius: 0;
         }
+
+        .v4Design {
+            // @include mobile {
+                background-color: $v4-lander-beige;
+            // }
+        }
     }
 
     &__background-wrapper {
@@ -43,12 +49,6 @@
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
         background-color: $beige;
-
-        &.v4Design {
-            @include mobile {
-                background-color: $v4-lander-beige;
-            }
-        }
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -280,13 +280,6 @@
                     }
                 }
             }
-
-            &.v4Design {
-                @include mobile {
-                    font-size: 32px;
-                    line-height: 32px;
-                }
-            }
         }
 
         .subheadline_p {
@@ -321,13 +314,22 @@
 
             span {
                 white-space: nowrap;
+            }   
+        }
+
+        &.v4Design {
+            h2 {
+                // @include mobile {
+                    font-size: 32px;
+                    line-height: 32px;
+                // }
             }
 
-            &.v4Design {
-                @include mobile {
+            .subheadline_p {
+                // @include mobile {
                     font-size: 16px;
                     line-height: 21px;
-                }
+                // }
             }
         }
     }
