@@ -11,8 +11,7 @@ const Header = ({
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
-    viewName,
-    useV4Design
+    viewName
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -38,14 +37,10 @@ const Header = ({
     return (
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                <div
-                    className={`header__background-wrapper header__background-wrapper--gradient ${
-                        useV4Design ? 'v4Design' : ''
-                    }`}
-                />
+                <div className="header__background-wrapper header__background-wrapper--gradient" />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
+                <div className="header__background-wrapper" />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -71,7 +66,7 @@ const Header = ({
                     <div className="header__background-wrapper header__background-wrapper--sticky" />
                 </div>
             </div>
-            <div className={`header__content ${useV4Design ? 'v4Design' : ''}`}>
+            <div className="header__content">
                 <Icon name={`${viewName}-desktop`} />
                 <Icon name={`${viewName}-mobile`} />
                 {/* <Icon name="background-pp-mobile" /> */}

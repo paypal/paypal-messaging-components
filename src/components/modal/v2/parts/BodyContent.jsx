@@ -106,7 +106,6 @@ const BodyContent = () => {
                 qualifyingSubheadline={qualifyingSubheadline}
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
-                useV4Design={useV4Design}
             />
             <div className="content__container">
                 <main className="main">
