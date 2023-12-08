@@ -45,15 +45,25 @@ $donutBackground: #0070e0;
             position: absolute;
             transform: translateX((90%));
 
-            @include desktop {
-                max-width: 60px;
-            }
-
             @include mobile {
                 max-width: 45px;
             }
             @include smallMobile {
                 max-width: 35px;
+            }
+        }
+        &_three::after {
+            @include tablet {
+                max-width: 85px;
+                transform: translateX((70%));
+            }
+            @include mobile {
+                max-width: 70px;
+                transform: translateX((75%));
+            }
+            @include smallMobile {
+                max-width: 55px;
+                transform: translateX((80%));
             }
         }
     }

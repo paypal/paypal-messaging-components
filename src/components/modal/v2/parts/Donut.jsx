@@ -35,12 +35,14 @@ const Donut = ({
     );
 
     const isQualifying = qualifying === 'true';
-
+    const isPi3 = numOfPayments === 3;
     return (
         <div
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
-            } ${isV4Design && currentNum < numOfPayments && 'donut__single_payment_line'}`}
+            } ${isV4Design && currentNum < numOfPayments ? 'donut__single_payment_line' : ''} ${
+                isV4Design && isPi3 ? 'donut__single_payment_line_three' : ''
+            }`}
         >
             <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                 <circle
