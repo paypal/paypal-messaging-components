@@ -131,18 +131,21 @@ $donut-text-v4: #545d68;
                 max-width: 35px;
             }
         }
-        &__3::after {
-            @include tablet {
-                max-width: 85px;
-                transform: translateX((70%));
-            }
-            @include mobile {
-                max-width: 70px;
-                transform: translateX((75%));
-            }
-            @include smallMobile {
-                max-width: 55px;
-                transform: translateX((80%));
+        &__3 {
+            @extend .donut__single_payment_line;
+            &::after {
+                @include tablet {
+                    max-width: 85px;
+                    transform: translateX((70%));
+                }
+                @include mobile {
+                    max-width: 70px;
+                    transform: translateX((75%));
+                }
+                @include smallMobile {
+                    max-width: 55px;
+                    transform: translateX((80%));
+                }
             }
         }
     }
