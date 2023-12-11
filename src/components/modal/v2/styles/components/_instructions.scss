@@ -39,6 +39,7 @@
         display: flex;
         flex-direction: row;
 
+        
         &:last-child {
             li {
                 @include tablet {
@@ -48,6 +49,12 @@
                     padding-bottom: 0px;
                 }
             }
+        }
+    }
+
+    .v4Design {
+        strong {
+            font-weight: 400;
         }
     }
 

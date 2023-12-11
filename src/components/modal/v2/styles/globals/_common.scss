@@ -13,6 +13,14 @@ html {
         // for the core background which moves with the overscroll
         background: $lander-beige;
     }
+
+    &.v4Design {
+        background: $v4-lander-gray;
+        
+        .content__wrapper-overflow {
+            background-color: $v4-gray;
+        }
+    }
 }
 
 body {
