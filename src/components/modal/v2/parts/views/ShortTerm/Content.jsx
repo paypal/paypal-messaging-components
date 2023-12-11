@@ -69,7 +69,7 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} />
+                        <Instructions instructions={instructions} useV4Design={useV4Design} />
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
