@@ -88,6 +88,10 @@ $donut-text-v4: #545d68;
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
             }
+            &_v4 {
+                @extend .donut__payment;
+                color: $donut-text-v4;
+            }
         }
 
         &.donut__timestamp {
@@ -109,7 +113,8 @@ $donut-text-v4: #545d68;
             svg g {
                 fill: $donut-background;
             }
-            span.donut__timestamp_v4 {
+            span.donut__timestamp_v4,
+            span.donut__payment_v4 {
                 color: $text-main;
             }
         }

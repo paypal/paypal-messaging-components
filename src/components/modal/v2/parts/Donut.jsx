@@ -67,7 +67,11 @@ const Donut = ({
             {/* eslint-disable-next-line jsx-a11y/aria-role */}
             <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
                 {isQualifying && periodicPayment !== '-' && (
-                    <span className="donut__payment" id={`donut__payment__${currentNum}`} aria-hidden="true">
+                    <span
+                        className={isV4Design ? 'donut__payment_v4' : 'donut__payment'}
+                        id={`donut__payment__${currentNum}`}
+                        aria-hidden="true"
+                    >
                         {periodicPayment}
                     </span>
                 )}
