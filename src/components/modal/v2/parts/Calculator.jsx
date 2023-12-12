@@ -113,10 +113,20 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
         }
 
         // Ctrl (or Cmd) + a select all on input field.
-        const keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
-
-        if (keyComboCheck) {
+        const selectedAll = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
+        if (selectedAll) {
             evt.target.select();
+        }
+
+        // Blur the input on enter to close on-screen keyboards
+        if (
+            evt.code === 'Enter' ||
+            evt.key === 'Enter' ||
+            evt.keyCode === 13 ||
+            evt.code === 'NumpadEnter' ||
+            evt.key === 'NumpadEnter'
+        ) {
+            evt.target.blur();
         }
     };
 
