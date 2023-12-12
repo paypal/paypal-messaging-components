@@ -56,7 +56,11 @@ const BodyContent = () => {
     const productMeta = useProductMeta(viewName);
 
     const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
+
     const isQualifying = productMeta?.qualifying;
+    const isPreapproved = productMeta?.preapproved;
+    const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
+    const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
 
     const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
@@ -89,7 +93,6 @@ const BodyContent = () => {
         ),
         [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
     };
-
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -103,6 +106,9 @@ const BodyContent = () => {
                 qualifyingSubheadline={qualifyingSubheadline}
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
+                preapprovalHeadline={preapprovalHeadline}
+                preapprovalSubHeadline={preapprovalSubHeadline}
+                isPreapproved={isPreapproved ?? 'false'}
             />
             <div className="content__container">
                 <main className="main">

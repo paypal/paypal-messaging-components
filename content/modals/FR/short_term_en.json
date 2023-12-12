@@ -49,9 +49,7 @@
                 "<p>Only for private individuals residing in France. French PayPal account required. Pay in 4X is available, subject to acceptance, for purchases between {formattedMinAmount} and {formattedMaxAmount}.</p>"
             ],
 
-            [
-                "A loan is a binding commitment and must be repaid, check your repayment capacity. "
-            ],
+            ["A loan is a binding commitment and must be repaid, check your repayment capacity. "],
             ["Terms and Conditions", "https://www.paypal.com/fr/webapps/mpp/ua/pay-in-4x-full"],
             [
                 ". Credit offered by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, Trade and Companies Register of Luxembourg B 118 349, which is duly licensed as a Luxembourg credit institution and falls under the oversight of the supervisory authority of Luxembourg, Commission de Surveillance du Secteur Financier. This information is provided by PayPal."
