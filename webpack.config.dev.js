@@ -2,7 +2,6 @@ const { getWebpackConfig } = require('@krakenjs/webpack-config-grumbler');
 
 const devServerProxy = require('./utils/devServerProxy');
 const globals = require('./globals');
-const { localeOptions } = require('./locales');
 
 const FILE_NAME = 'sdk';
 const PROTOCOL = 'https';
@@ -88,7 +87,6 @@ module.exports = (env = {}) => {
                         __PROTOCOL__: PROTOCOL,
                         __HOST__: `${HOSTNAME}:${PORT}`,
                         __SDK_HOST__: `${HOSTNAME}:${PORT}`,
-                        __STAGE_HOST__: 'msmaster.qa.paypal.com',
                         __PORT__: PORT,
                         __PATH__: `/${FILE_NAME}.js`,
                         __NAMESPACE__: 'paypal',
@@ -104,16 +102,11 @@ module.exports = (env = {}) => {
     LIBRARY_DEV_CONFIG.devServer = WEBPACK_DEV_SERVER_CONFIG;
 
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
-        entry: [...localeOptions, 'US-EZP', 'DE-GPL'].reduce(
-            (accumulator, locale) => ({
-                ...accumulator,
-                [`smart-credit-modal-${locale}`]: `./src/components/modal/content/${locale}/index.js`
-            }),
-            {
-                'smart-credit-message': './src/components/message/index.js',
-                'smart-credit-modal-v2': './src/components/modal/v2/index.js'
-            }
-        ),
+        entry: {
+            'smart-credit-message': './src/components/message/index.js',
+            'smart-credit-modal-v2': './src/components/modal/v2/index.js',
+            'smart-credit-modal-US-EZP': `./src/components/modal/v1/content/US-EZP/index.js`
+        },
         libraryTarget: 'window',
         modulename: 'crc',
         debug: true,

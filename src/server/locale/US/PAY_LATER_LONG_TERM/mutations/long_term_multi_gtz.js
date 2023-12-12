@@ -65,7 +65,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['mo.', 'as']
+                        br: ['mo. <span>', 'as']
                     },
                     {
                         tag: 'xsmall'

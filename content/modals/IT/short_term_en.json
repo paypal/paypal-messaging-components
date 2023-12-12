@@ -1,0 +1,58 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "schema": "v2",
+        "offerCountry": "IT",
+        "creditProductIdentifier": "{credit_product_identifier}",
+        "creditType": "{credit_type}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay in 3 interest-free payments",
+        "subheadline": "Available for purchases from {formattedMinAmount} to {formattedMaxAmount}. No setup or late fees.",
+        "qualifyingSubheadline": "Split your purchase of {formattedTransactionAmount} into 3 with no setup or late fees.",
+        "donutTimestamps": ["Today", "1 month", "2 months"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 month" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 months" }
+            ]
+        },
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>Pay in 3 installments. </strong>",
+            "Complete your purchase by making your first payment today. ",
+            "The remaining payments will be taken automatically. It's easy! "
+        ],
+        "disclosure": [
+            [
+                "Only available on eligible purchases from {formattedMinAmount} to {formattedMaxAmount}. You must be a resident of Italy and have a PayPal account. <strong>0% APR</strong>. Eligibility for Pay in 3 installments is subject to approval. See the "
+            ],
+            ["information sheet", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-infosheet-full?locale.x=it_IT"],
+            [" and "],
+            ["terms and conditions", "https://www.paypal.com/it/webapps/mpp/ua/pay-in-3-full?locale.x=it_IT"],
+            [
+                " for more information. Available only to individual customers who are over 18 years of age. You have a 14-day period to withdraw from the financing. The creditor is PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxembourg. Financing is a binding commitment that must be repaid and may affect your credit score. Ensure you are able to repay before making a commitment. This information is provided by PayPal."
+            ]
+        ]
+    }
+}

@@ -1,6 +1,8 @@
 <!--
     PLEASE REVIEW BEFORE OPENING
     PR guidelines:
+    - Delete this comment so the preview begins with your description
+    - Make sure not to include any internal links
     - Please fill out all sections where applicable!
     - PR title should be in the format <prefix>: <short description>
         - for a reminder of what prefixes are available, see here: https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines

@@ -47,7 +47,7 @@ const Header = ({
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo" alt="PayPal">
+                    <div className="pp-logo">
                         <Icon name={logo} />
                     </div>
                 </div>
@@ -59,6 +59,7 @@ const Header = ({
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
+                        aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
                         <Icon name="close" />

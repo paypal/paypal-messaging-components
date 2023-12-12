@@ -4,22 +4,23 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { getCurrentScriptUID } from '@krakenjs/belter/src';
 
 // Direct imports to avoid import cycle by importing from ../../../utils
+import { TAG } from '../../../utils/constants';
 import {
     getMeta,
     getEnv,
     getLibraryVersion,
     getStageTag,
-    getNamespace,
-    writeToLocalStorage,
+    updateStorage,
     getDisableSetCookie,
-    getFeatures
+    getFeatures,
+    getDefaultNamespace
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
-        tag: 'paypal-credit-treatments',
+        tag: TAG.TREATEMENTS,
         url: getGlobalUrl('TREATMENTS'),
         // eslint-disable-next-line security/detect-unsafe-regex
         domain: /\.paypal\.com(:\d+)?$/,
@@ -60,7 +61,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             namespace: {
                 type: 'string',
                 queryParam: false,
-                value: getNamespace
+                value: getDefaultNamespace
             },
 
             onReady: {
@@ -71,7 +72,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
                     return ({ treatmentsHash, deviceID }) => {
-                        writeToLocalStorage({
+                        updateStorage({
                             experiments: {
                                 treatmentsHash,
                                 // Experiments can only be maintained for 15 minutes

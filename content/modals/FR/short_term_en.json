@@ -1,0 +1,59 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "apr": "{apr}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay in 4X with no fees",
+
+        "subheadline": "Available for purchases from <span>{formattedMinAmount} to {formattedMaxAmount}.</span> No administration fees or late fees.",
+        "qualifyingSubheadline": "Pay for your purchase of {formattedTransactionAmount} in 4 instalments without administration fees or late fees.",
+        "donutTimestamps": ["Today", "1 month", "2 months", "3 months"],
+        "estimatedInstallments": {
+            "items": [
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 month" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 months" },
+                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "3 months" }
+            ]
+        },
+
+        "instructions": [
+            "Choose PayPal at checkout to benefit from Pay in 4X. ",
+            "A first payment corresponding to 25% of the purchase is due today. ",
+            "The subsequent installments will be debited automatically. It's easy!"
+        ],
+
+        "disclosure": [
+            [
+                "<p>Only for private individuals residing in France. French PayPal account required. Pay in 4X is available, subject to acceptance, for purchases between {formattedMinAmount} and {formattedMaxAmount}.</p>"
+            ],
+
+            ["A loan is a binding commitment and must be repaid, check your repayment capacity. "],
+            ["Terms and Conditions", "https://www.paypal.com/fr/webapps/mpp/ua/pay-in-4x-full"],
+            [
+                ". Credit offered by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, Trade and Companies Register of Luxembourg B 118 349, which is duly licensed as a Luxembourg credit institution and falls under the oversight of the supervisory authority of Luxembourg, Commission de Surveillance du Secteur Financier. This information is provided by PayPal."
+            ]
+        ]
+    }
+}

@@ -1,6 +1,11 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-
-import { getInlineOptions, getGlobalState, awaitDOMContentLoaded, getAllBySelector, objectMerge } from '../../../utils';
+import {
+    getInlineOptions,
+    getGlobalState,
+    awaitDOMContentLoaded,
+    getAllBySelector,
+    objectMerge,
+    isZoidComponent
+} from '../../../utils';
 import Modal from './interface';
 import { getModalComponent } from '../../zoid/modal';
 
@@ -27,7 +32,7 @@ export default function setup() {
     }
 
     // Prevent auto render from firing inside zoid iframe
-    if (!stringStartsWith(window.name, '__zoid__')) {
+    if (!isZoidComponent()) {
         const handleContentLoaded = () => {
             // If merchant includes multiple SDK scripts, the 1st script will destroy itself
             // and its globalState before this runs causing the account to be undefined
