@@ -57,7 +57,9 @@ const BodyContent = () => {
     const productMeta = useProductMeta(viewName);
 
     const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
+
     const isQualifying = productMeta?.qualifying;
+
     const useV4Design = productMeta?.useV4Design === 'true';
 
     // add v4Design class to root html to update lander specific styles to v4
@@ -65,6 +67,11 @@ const BodyContent = () => {
     if (useV4Design && isLander) {
         document.documentElement.className = `${documentClassName} v4Design`;
     }
+
+    const isPreapproved = productMeta?.preapproved;
+    const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
+    const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
+
 
     const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
@@ -99,7 +106,6 @@ const BodyContent = () => {
         ),
         [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
     };
-
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -114,6 +120,9 @@ const BodyContent = () => {
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
                 useV4Design={useV4Design}
+                preapprovalHeadline={preapprovalHeadline}
+                preapprovalSubHeadline={preapprovalSubHeadline}
+                isPreapproved={isPreapproved ?? 'false'}
             />
             <div className={`content__container ${useV4Design ? 'v4Design' : ''}`}>
                 <main className="main">

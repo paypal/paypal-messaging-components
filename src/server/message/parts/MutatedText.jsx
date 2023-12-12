@@ -37,12 +37,13 @@ const MutatedText = ({ tagData, options }) => {
      */
     const currencyFormat = string => {
         let formattedStr = string;
-        const match = formattedStr.match(
+        // truncate zeros for non-qualifying messages
+        const matchNQ = formattedStr.match(
             // eslint-disable-next-line security/detect-unsafe-regex
-            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?-(\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?|((,|\.)\d\d)(.|\s*)EUR)/g
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?(-|(\s(\D{1,3})\s))(\$|£)?(\d{1,5}(\.|,|\s)){1,3}00(€|(.|\s*)EUR)?)/g
         );
-        if (match !== null) {
-            match.forEach(foundString => {
+        if (matchNQ !== null) {
+            matchNQ.forEach(foundString => {
                 const filteredString = foundString
                     .replace(/(\.|,)00-/g, '-')
                     .replace(/(\.|,)00$/g, '')
@@ -50,6 +51,14 @@ const MutatedText = ({ tagData, options }) => {
                     .replace(/(\.|,)00(.|\s*)EUR/g, '€')
                     .replace(/(\s*EUR)/g, '€');
                 formattedStr = formattedStr.replace(foundString, filteredString);
+            });
+        }
+        // replace EUR with '€' for DEFRITES qualifying messages
+        const matchQ = formattedStr.match(/\d\s*EUR/g);
+        if (matchQ !== null) {
+            matchQ.forEach(foundString => {
+                const currencySymbol = foundString.replace(/\s*EUR/g, '€');
+                formattedStr = formattedStr.replace(foundString, currencySymbol);
             });
         }
         return formattedStr;

@@ -133,6 +133,43 @@ export default {
             ]
         }
     },
+    DEV_US_SHORT_TERM_CHECKOUT: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_short_term_xo.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
     DEV_US_SHORT_TERM_PL2GO: {
         country: 'US',
         modalViews: [
