@@ -139,17 +139,16 @@ $donut-text-v4: #545d68;
         &__3 {
             @extend .donut__single_payment_line;
             &::after {
-                @include tablet {
-                    max-width: 85px;
-                    transform: translateX((70%));
-                }
+                max-width: 85px;
+                transform: translateX((70%));
+
                 @include mobile {
-                    max-width: 87px;
-                    transform: translateX((54px));
+                    max-width: min(80px, calc(100vw * 0.2));
+                    transform: translateX((67%));
                 }
                 @include smallMobile {
-                    max-width: 55px;
-                    transform: translateX((80%));
+                    max-width: min(55px, calc(100vw * 0.3));
+                    transform: translateX((75%));
                 }
             }
         }
