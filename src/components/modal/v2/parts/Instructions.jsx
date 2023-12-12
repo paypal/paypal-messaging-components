@@ -13,23 +13,14 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
 
     return (
         <div className="content__row instructions">
-            <ol
-                className={
-                    (`${expandedState ? '' : 'collapsed'}`, className, `${useV4Design === 'true' ? 'v4Design' : ''}`)
-                }
-            >
-                {instructions.map((instruction, index) => {
-                    return (
-                        <li className="instructions__item-wrapper">
-                            {renderBullet(index + 1)}
-                            {/* eslint-disable-next-line react/no-danger */}
-                            <div dangerouslySetInnerHTML={{ __html: currencyFormat(instruction) }} />
-                        </li>
-                    );
-                })}
-            </ol>
             {Array.isArray(instructions) ? (
-                <ol className={(`${expandedState ? '' : 'collapsed'}`, className)}>
+                <ol
+                    className={
+                        (`${expandedState ? '' : 'collapsed'}`,
+                        className,
+                        `${useV4Design === 'true' ? 'v4Design' : ''}`)
+                    }
+                >
                     {instructions.map((instruction, index) => {
                         return (
                             <li className="instructions__item-wrapper">
