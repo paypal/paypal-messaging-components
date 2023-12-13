@@ -8,7 +8,8 @@ import {
     useXProps,
     useScroll,
     useDidUpdateEffect,
-    useTransitionState
+    useTransitionState,
+    isLander
 } from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
@@ -58,6 +59,14 @@ const BodyContent = () => {
     const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel } = content;
 
     const isQualifying = productMeta?.qualifying;
+
+    const useV4Design = productMeta?.useV4Design === 'true';
+
+    // add v4Design class to root html to update lander specific styles to v4
+    const documentClassName = document.documentElement.className;
+    if (useV4Design && isLander) {
+        document.documentElement.className = `${documentClassName} v4Design`;
+    }
     const isPreapproved = productMeta?.preapproved;
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
@@ -86,7 +95,9 @@ const BodyContent = () => {
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
         [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: <NoInterest content={content} openProductList={openProductList} />,
-        [VIEW_IDS.PAY_LATER_LONG_TERM]: <LongTerm content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_LONG_TERM]: (
+            <LongTerm content={content} productMeta={productMeta} openProductList={openProductList} />
+        ),
         [VIEW_IDS.PAY_LATER_PAY_IN_1]: <PayIn1 content={content} openProductList={openProductList} />,
         [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm content={content} productMeta={productMeta} openProductList={openProductList} />
@@ -106,11 +117,12 @@ const BodyContent = () => {
                 qualifyingSubheadline={qualifyingSubheadline}
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
+                useV4Design={useV4Design}
                 preapprovalHeadline={preapprovalHeadline}
                 preapprovalSubHeadline={preapprovalSubHeadline}
                 isPreapproved={isPreapproved ?? 'false'}
             />
-            <div className="content__container">
+            <div className={`content__container ${useV4Design ? 'v4Design' : ''}`}>
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>

@@ -24,7 +24,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta
     },
-    productMeta: { qualifying, periodicPayment, preapproved },
+    productMeta: { qualifying, periodicPayment, useV4Design, preapproved },
     openProductList
 }) => {
     const { views, country } = useServerData();
@@ -112,6 +112,7 @@ export const ShortTerm = ({
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}
+                                        useV4Design={useV4Design}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
                                         periodicPayment={
@@ -126,7 +127,7 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} />
+                        <Instructions instructions={instructions} useV4Design={useV4Design} />
                         {isPreapproved && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
