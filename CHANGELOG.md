@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.52.0](https://github.com/paypal/paypal-messaging-components/compare/v1.51.0...v1.52.0) (2023-12-13)
+
+
+### Features
+
+* add 00 for DEFRITES qualifying messages ([#1026](https://github.com/paypal/paypal-messaging-components/issues/1026)) ([d338da6](https://github.com/paypal/paypal-messaging-components/commit/d338da6c3ac79763ee8e14d52a4fb723c2268625))
+* add blur to Calculator input ([#1015](https://github.com/paypal/paypal-messaging-components/issues/1015)) ([ee4270e](https://github.com/paypal/paypal-messaging-components/commit/ee4270e27725f4ebb0a36075909b7da5771b1835))
+* update learn more modals to support US and UK short term checkout and preapproval ([#978](https://github.com/paypal/paypal-messaging-components/issues/978)) ([fa0bca8](https://github.com/paypal/paypal-messaging-components/commit/fa0bca848dc1a5bbe8612542b4e8e1653ae07732))
+* Update PL HUB learn more modals to use QL style ([#1027](https://github.com/paypal/paypal-messaging-components/issues/1027)) ([4bc21eb](https://github.com/paypal/paypal-messaging-components/commit/4bc21ebf60c43ad2bec2d299c0a76757fffe1555))
+* update US Pi4 PL2GO legal disclosure content ([#1024](https://github.com/paypal/paypal-messaging-components/issues/1024)) ([dffd3c4](https://github.com/paypal/paypal-messaging-components/commit/dffd3c43a9a727188c7523dd0de9cc394d06c587))
+
+
+### Continuous Integration
+
+* disable custom test ([#1032](https://github.com/paypal/paypal-messaging-components/issues/1032)) ([5b89099](https://github.com/paypal/paypal-messaging-components/commit/5b890995f003987f9a8f141a97e0d5533c3081fb))
+* update custom snaps ([#1030](https://github.com/paypal/paypal-messaging-components/issues/1030)) ([e24fe98](https://github.com/paypal/paypal-messaging-components/commit/e24fe9872a543d49dae9c7080101b398a95abca5))
+
 ## [1.51.0](https://github.com/paypal/paypal-messaging-components/compare/v1.50.1...v1.51.0) (2023-11-14)
 
 
