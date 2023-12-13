@@ -65,7 +65,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
+const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
@@ -113,10 +113,20 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
         }
 
         // Ctrl (or Cmd) + a select all on input field.
-        const keyComboCheck = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
-
-        if (keyComboCheck) {
+        const selectedAll = (evt.ctrlKey && evt.key === 'a') || (evt.metaKey && evt.key === 'a');
+        if (selectedAll) {
             evt.target.select();
+        }
+
+        // Blur the input on enter to close on-screen keyboards
+        if (
+            evt.code === 'Enter' ||
+            evt.key === 'Enter' ||
+            evt.keyCode === 13 ||
+            evt.code === 'NumpadEnter' ||
+            evt.key === 'NumpadEnter'
+        ) {
+            evt.target.blur();
         }
     };
 
@@ -174,7 +184,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
 
     return (
         <div className="calculator">
-            <form className="form" onSubmit={submit}>
+            <form className={`form ${useV4Design === 'true' ? 'v4Design' : ''}`} onSubmit={submit}>
                 <h4 className="title">{title}</h4>
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
@@ -194,7 +204,12 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer }) => {
             </form>
             {hasInitialAmount || hasUsedInputField ? (
                 <div aria-live="polite" className="content-column">
-                    <TermsTable view={view} isLoading={isLoading} aprDisclaimer={aprDisclaimer} />
+                    <TermsTable
+                        view={view}
+                        isLoading={isLoading}
+                        aprDisclaimer={aprDisclaimer}
+                        useV4Design={useV4Design}
+                    />
                 </div>
             ) : null}
             {country === 'US' && (
