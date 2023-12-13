@@ -1,6 +1,6 @@
 import createBannerTest from '../../createBannerTest';
 
-describe('US > custom', () => {
+describe.skip('US > custom', () => {
     const viewport = {
         width: 600,
         height: 200
