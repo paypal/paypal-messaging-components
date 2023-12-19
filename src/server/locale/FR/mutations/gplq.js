@@ -122,7 +122,7 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: [{ tag: 'small', br: ['frais.'] }],
+                headline: [{ tag: 'small', br: ['de'] }],
                 subHeadline: [{ tag: 'small', br: ['achats'] }],
                 styles: [
                     `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
@@ -132,7 +132,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: [{ tag: 'small', br: ['frais.'] }],
+                headline: [{ tag: 'small', br: ['de'] }],
                 subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
             }
