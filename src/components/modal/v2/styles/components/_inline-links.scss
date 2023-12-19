@@ -8,9 +8,11 @@
 
     &::before {
         content: ' ';
+        visibility: hidden;
     }
 
     &::after {
         content: ' ';
+        visibility: hidden;
     }
 }
