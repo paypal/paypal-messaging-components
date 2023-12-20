@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.53.0](https://github.com/paypal/paypal-messaging-components/compare/v1.52.0...v1.53.0) (2023-12-20)
+
+
+### Features
+
+* add v4Design flag to PL2GO modals ([#1037](https://github.com/paypal/paypal-messaging-components/issues/1037)) ([da19fdb](https://github.com/paypal/paypal-messaging-components/commit/da19fdb219aaeea81309cd0db8574fd9e5a11d76))
+
+
+### Code Refactoring
+
+* update hyperlink css ([#1036](https://github.com/paypal/paypal-messaging-components/issues/1036)) ([2de17bb](https://github.com/paypal/paypal-messaging-components/commit/2de17bb6386609e60ddbe9381e7a1b1107fa0eec))
+* update spacing for FR 1x1 flex banners ([#1034](https://github.com/paypal/paypal-messaging-components/issues/1034)) ([24cc7be](https://github.com/paypal/paypal-messaging-components/commit/24cc7be463e3d9d135829d63c39f361da3eb4c77))
+
 ## [1.52.0](https://github.com/paypal/paypal-messaging-components/compare/v1.51.0...v1.52.0) (2023-12-13)
 
 
