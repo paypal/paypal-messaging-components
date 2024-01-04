@@ -90,6 +90,7 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
+                                    companionType,
                                     cspNonce
                                 } = merchantOptions;
 
@@ -105,6 +106,7 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
+                                    companionType,
                                     cspNonce
                                 };
                                 const modalProps = {
@@ -146,24 +148,25 @@ export default (options = {}) => ({
 
                                     ppDebug(
                                         `{
-                            clientID: ${account},
-                            merchantID: ${merchantId},
-                            customerID: ${customerId},
-                            offer: ${offer},
-                            currency: ${currency},
-                            ignoreCache: ${ignoreCache},
-                            channel: ${channel},
-                            ecToken: ${ecToken},
+                                    clientID: ${account},
+                                    merchantID: ${merchantId},
+                                    customerID: ${customerId},
+                                    offer: ${offer},
+                                    currency: ${currency},
+                                    ignoreCache: ${ignoreCache},
+                                    channel: ${channel},
+                                    ecToken: ${ecToken},
+                                    companionType: ${companionType},
                     
-                            index: data-pp-id="${index}",
-                            style: ${JSON.stringify(style)},
-                            amount: ${amount},
-                            buyerCountry: ${buyerCountry},
-                            placement: ${placement},
+                                    index: data-pp-id="${index}",
+                                    style: ${JSON.stringify(style)},
+                                        amount: ${amount},
+                                    buyerCountry: ${buyerCountry},
+                                    placement: ${placement},
                     
-                            renderStart: ${new Date(renderStart).toLocaleString()},
-                            renderMessageTime: ${new Date().toLocaleString()}
-                            }`
+                                    renderStart: ${new Date(renderStart).toLocaleString()},
+                                    renderMessageTime: ${new Date().toLocaleString()}
+                                    }`
                                     );
 
                                     return render(container)

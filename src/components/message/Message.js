@@ -125,6 +125,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     style,
                     merchantConfigHash,
                     channel,
+                    companionType,
                     treatmentsHash,
                     disableSetCookie,
                     features
@@ -142,6 +143,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchantId,
                     merchantConfigHash,
                     channel,
+                    companionType,
                     disableSetCookie,
                     features
                 });
@@ -165,6 +167,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
+                    companionType,
                     deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,

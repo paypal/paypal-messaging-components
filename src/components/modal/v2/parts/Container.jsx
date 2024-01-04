@@ -34,6 +34,7 @@ const Container = ({ children }) => {
         stageTag,
         channel,
         ecToken,
+        companionType,
         disableSetCookie,
         features
     } = useXProps();
@@ -77,6 +78,7 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
+            companionType,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features

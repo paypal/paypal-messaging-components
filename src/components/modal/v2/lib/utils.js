@@ -21,6 +21,7 @@ export const getContent = memoize(
         integrationType,
         channel,
         ecToken,
+        companionType,
         devTouchpoint,
         disableSetCookie,
         features
@@ -42,6 +43,7 @@ export const getContent = memoize(
             integrationType,
             channel,
             ec_token: ecToken,
+            companion_type: companionType,
             devTouchpoint,
             disableSetCookie,
             features
