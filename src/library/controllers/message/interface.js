@@ -160,7 +160,7 @@ export default (options = {}) => ({
                     
                                     index: data-pp-id="${index}",
                                     style: ${JSON.stringify(style)},
-                                        amount: ${amount},
+                                    amount: ${amount},
                                     buyerCountry: ${buyerCountry},
                                     placement: ${placement},
                     

@@ -235,7 +235,6 @@ export default {
         return undefined;
     },
     companionType: ({ props: { companionType } }) => {
-        console.log('testing companion type', companionType);
         if (typeof companionType !== 'undefined') {
             if (!validateType(Types.STRING, companionType)) {
                 logInvalidType('companionType', Types.STRING, companionType);
