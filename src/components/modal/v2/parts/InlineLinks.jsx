@@ -32,7 +32,7 @@ const InlineLinks = ({ text }) => {
                             });
                         }}
                     >
-                        {linkText}
+                        {linkText.trim()}
                     </a>
                 );
             }
