@@ -40,7 +40,12 @@ function translateMessageComponentProps(componentMeta, contentMeta, trackingDeta
         STYLE_COLOR: trackingDetails?.STYLE_COLOR ?? componentMeta?.style?.color,
         STYLE_TEXT_COLOR: trackingDetails?.STYLE_TEXT_COLOR ?? componentMeta?.style?.text?.color,
         STYLE_TEXT_SIZE: trackingDetails?.STYLE_TEXT_SIZE ?? componentMeta?.style?.text?.size,
-        STYLE_TEXT_ALIGN: trackingDetails?.STYLE_TEXT_ALIGN ?? componentMeta?.style?.text?.align
+        STYLE_TEXT_ALIGN: trackingDetails?.STYLE_TEXT_ALIGN ?? componentMeta?.style?.text?.align,
+
+        MESSAGE_TYPE: trackingDetails?.MESSAGE_TYPE ?? componentMeta?.messageType,
+        OFFER_TYPE: trackingDetails?.OFFER_TYPE ?? componentMeta?.offerType,
+        OFFER_TERM: trackingDetails?.OFFER_TERM ?? componentMeta?.offerTerm,
+        PRODUCT_FAMILY: trackingDetails?.PRODUCT_FAMILY ?? componentMeta?.productFamily
     };
 }
 
@@ -52,10 +57,22 @@ function translateModalComponentProps(componentMeta, contentMeta, trackingDetail
     const view =
         trackingDetails.VIEWS ?? trackingDetails.VIEW ?? trackingDetails.MODAL_VIEWS ?? trackingDetails.MODAL_VIEW;
 
+    // we may or may not want these to be an array of values,
+    // given we have multi product modals, whereas these would always
+    // have a singular value for a message component
+    const messageType = trackingDetails?.MESSAGE_TYPE ?? componentMeta?.messageType;
+    const offerType = trackingDetails?.OFFER_TYPE ?? componentMeta?.offerType;
+    const offerTerm = trackingDetails?.OFFER_TERM ?? componentMeta?.offerTerm;
+    const productFamily = trackingDetails?.PRODUCT_FAMILY ?? componentMeta?.productFamily;
+
     return {
         QUALIFYING_PRODUCTS: typeof qualifying === 'undefined' || Array.isArray(qualifying) ? qualifying : [qualifying],
+        VIEWS: typeof view === 'undefined' || Array.isArray(view) ? view : [view],
 
-        VIEWS: typeof view === 'undefined' || Array.isArray(view) ? view : [view]
+        MESSAGE_TYPE: messageType,
+        OFFER_TYPE: offerType,
+        OFFER_TERM: offerTerm,
+        PRODUCT_FAMILY: productFamily
     };
 }
 
@@ -71,8 +88,8 @@ function translateComponentProps(componentMeta, contentMeta, trackingDetails) {
         AMOUNT: trackingDetails?.AMOUNT ?? componentMeta?.amount,
 
         BLOCKED: componentMeta?.blocked,
-        BROWSER_WIDTH: componentMeta?.contentMeta?.pname,
-        BROWSER_HEIGHT: componentMeta?.contentMeta?.pname,
+        BROWSER_WIDTH: componentMeta?.contentMeta?.browserWidth,
+        BROWSER_HEIGHT: componentMeta?.contentMeta?.browserHeight,
         BUYER_COUNTRY_CODE:
             trackingDetails?.BUYER_COUNTRY_CODE ?? trackingDetails?.BUYER_COUNTRY ?? componentMeta?.buyerCountry,
 
@@ -88,10 +105,7 @@ function translateComponentProps(componentMeta, contentMeta, trackingDetails) {
         INSTANCE_ID:
             trackingDetails?.INSTANCE_ID ?? trackingDetails?.MESSAGE_REQUEST_ID ?? componentMeta?.messageRequestId,
 
-        MESSAGE_TYPE: trackingDetails?.MESSAGE_TYPE,
-
         OFFER_COUNTRY_CODE: trackingDetails?.OFFER_COUNTRY_CODE ?? trackingDetails?.OFFER_COUNTRY,
-        OFFER_TYPE: trackingDetails?.OFFER_TYPE ?? componentMeta?.offerType,
         ORIGINATION_INSTANCE_ID: trackingDetails?.ORIGINATION_INSTANCE_ID ?? trackingDetails?.SERVER_MESSAGE_REQUEST_ID,
 
         PAGE_NAME: componentMeta?.contentMeta?.pname,
@@ -164,7 +178,6 @@ function translateComponentEvent({
     } else if (eventType === FPTI_EVENTS.MESSAGE_RENDERED) {
         return {
             ...eventData,
-            FIRST_RENDER_DELAY: firstRenderDelay,
             RENDER_DELAY: renderDelay,
             RENDER_DURATION: renderDuration
         };
@@ -573,3 +586,6 @@ logger.addTrackingBuilder(() => {
         timestamp: new Date().getTime()
     };
 });
+
+// render_duration should include the time between our script request to when we render
+// native observability thread
