@@ -126,11 +126,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ecToken
             },
-            companionType: {
+            contextualComponent: {
                 type: 'string',
-                queryParam: 'companion_type',
+                queryParam: 'contextual_component',
                 required: false,
-                value: validate.companionType
+                value: validate.contextualComponent
             },
             // Callbacks
             onClick: {

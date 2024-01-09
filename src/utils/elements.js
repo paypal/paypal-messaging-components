@@ -43,7 +43,7 @@ export function getInlineOptions(container) {
         merchantid: 'merchantId',
         cspnonce: 'cspNonce',
         ectoken: 'ecToken',
-        companiontype: 'companionType',
+        contextualcomponent: 'contextualComponent',
         customerid: 'customerId',
         fontfamily: 'fontFamily',
         fontsource: 'fontSource',

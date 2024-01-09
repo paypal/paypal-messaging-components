@@ -52,6 +52,9 @@ const logInvalidType = (location, expectedType, val) => {
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
+const logInvalidCombination = (location, expectation, val) =>
+    logInvalid(location, `${location} mismatch. ${expectation} but received "${val}"`);
+
 export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
@@ -234,12 +237,22 @@ export default {
 
         return undefined;
     },
-    companionType: ({ props: { companionType } }) => {
-        if (typeof companionType !== 'undefined') {
-            if (!validateType(Types.STRING, companionType)) {
-                logInvalidType('companionType', Types.STRING, companionType);
+    contextualComponent: ({ props: { contextualComponent } }) => {
+        if (typeof contextualComponent !== 'undefined') {
+            const typesArray = contextualComponent.split(',');
+
+            // Check if all types are valid and of the same category (all buttons or all marks)
+            const allButtons = typesArray.every(type => type.endsWith('_button'));
+            const allMarks = typesArray.every(type => type.endsWith('_mark'));
+
+            if (!allButtons && !allMarks) {
+                logInvalidCombination(
+                    'contextualComponent',
+                    `Expected all contextualComponent values to be either of type '_button' or '_mark'`,
+                    contextualComponent
+                );
             } else {
-                return companionType;
+                return contextualComponent;
             }
         }
 
