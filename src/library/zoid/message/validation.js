@@ -239,18 +239,26 @@ export default {
     },
     contextualComponent: ({ props: { contextualComponent } }) => {
         if (typeof contextualComponent !== 'undefined') {
+            if (!validateType(Types.STRING, contextualComponent)) {
+                logInvalidType('contextualComponent', Types.STRING, contextualComponent);
+                return undefined;
+            }
+
             const typesArray = contextualComponent.split(',');
 
             // Check if all types are valid and of the same category (all buttons or all marks)
             const allButtons = typesArray.every(type => type.endsWith('_button'));
             const allMarks = typesArray.every(type => type.endsWith('_mark'));
 
+            // Ensure the merchant is only passing in contextualComponent values of the same type "_button" or "_mark"
             if (!allButtons && !allMarks) {
                 logInvalidCombination(
                     'contextualComponent',
                     `Expected all contextualComponent values to be either of type '_button' or '_mark'`,
                     contextualComponent
                 );
+            } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
+                logInvalid('contextualComponent', 'Ensure only one type of _mark value is provided.');
             } else {
                 return contextualComponent;
             }
