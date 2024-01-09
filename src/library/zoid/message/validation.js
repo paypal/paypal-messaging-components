@@ -53,7 +53,7 @@ const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
 const logInvalidCombination = (location, expectation, val) =>
-    logInvalid(location, `${location} mismatch. ${expectation} but received "${val}"`);
+    logInvalid(location, `Invalid ${location} combination. ${expectation} but received "${val}"`);
 
 export default {
     account: ({ props: { account } }) => {
@@ -244,17 +244,17 @@ export default {
                 return undefined;
             }
 
+            // contextualComponent values can either be a single string value or a comma-separated string of values
             const typesArray = contextualComponent.split(',');
 
-            // Check if all types are valid and of the same category (all buttons or all marks)
+            // Check if values are of the same type (all buttons or all marks)
             const allButtons = typesArray.every(type => type.endsWith('_button'));
             const allMarks = typesArray.every(type => type.endsWith('_mark'));
 
-            // Ensure the merchant is only passing in contextualComponent values of the same type "_button" or "_mark"
             if (!allButtons && !allMarks) {
                 logInvalidCombination(
                     'contextualComponent',
-                    `Expected all contextualComponent values to be either of type '_button' or '_mark'`,
+                    "Expected all contextualComponent values to be either of type '_button' or '_mark'",
                     contextualComponent
                 );
             } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
