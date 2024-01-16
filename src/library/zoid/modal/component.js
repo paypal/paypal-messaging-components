@@ -138,7 +138,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             },
             pageType: {
                 type: 'string',
-                queryParam: 'page-type',
+                queryParam: 'page_type',
                 required: false,
                 value: validate.pageType
             },
