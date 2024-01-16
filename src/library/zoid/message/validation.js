@@ -187,9 +187,9 @@ export default {
             ];
 
             if (!validateType(Types.STRING, pageType)) {
-                logInvalidType('placement', Types.STRING, pageType);
+                logInvalidType('pageType', Types.STRING, pageType);
             } else if (!arrayIncludes(options, pageType)) {
-                logInvalidOption('placement', options, pageType);
+                logInvalidOption('pageType', options, pageType);
             } else {
                 return pageType;
             }

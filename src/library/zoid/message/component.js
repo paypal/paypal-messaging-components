@@ -88,6 +88,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.placement
             },
+            pageType: {
+                type: 'string',
+                queryParam: 'page_type',
+                required: false,
+                value: validate.pageType
+            },
             style: {
                 type: 'object',
                 serialization: 'json',
@@ -126,12 +132,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ecToken
             },
-            pageType: {
-                type: 'string',
-                queryParam: 'page_type',
-                required: false,
-                value: validate.pageType
-            },
+
             // Callbacks
             onClick: {
                 type: 'function',
