@@ -52,6 +52,16 @@ const logInvalidType = (location, expectedType, val) => {
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
+function validateOffer(offer, offerType) {
+    if (!validateType(Types.STRING, offer)) {
+        logInvalidType('offer', Types.STRING, offer);
+        throw new Error('offer_validation_error');
+    }
+    if (!offerType.includes(offer)) {
+        logInvalid('offer', 'Ensure valid offer type.');
+        throw new Error('offer_validation_error');
+    }
+}
 export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
@@ -110,17 +120,27 @@ export default {
     },
     offer: ({ props: { offer } }) => {
         const offerType = [...Object.values(OFFER), 'NI'];
+        let validatedOffer;
         if (typeof offer !== 'undefined') {
-            if (!validateType(Types.STRING, offer)) {
-                logInvalidType('offer', Types.STRING, offer);
-                throw new Error('offer_validation_error');
-            }
-            if (!offerType.includes(offer)) {
-                logInvalid('offer', 'Ensure valid offer type.');
-                throw new Error('offer_validation_error');
+            if (Array.isArray(offer)) {
+                // Check if we are sending more then the maximum amount of offers allowed
+                if (offer.length > 2) {
+                    logInvalid('offer', 'Ensure valid offer length');
+                    throw new Error('offer_validation_error: offers cannot exceed 2');
+                }
+                // Validate each offer, then join them
+                validatedOffer = offer
+                    .map(offr => {
+                        validateOffer(offr, offerType);
+                        return offr;
+                    })
+                    .join(',');
+            } else {
+                validateOffer(offer, offerType);
+                validatedOffer = offer;
             }
         }
-        return offer;
+        return validatedOffer;
     },
 
     // TODO: Handle server side locale specific style validation warnings passed down to client.

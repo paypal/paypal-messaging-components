@@ -136,6 +136,19 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         });
 
+        // multiple offers passed in test
+
+        [
+            { offer: ['PAY_LATER', 'PAY_LATER_SHORT_TERM'], supportedOffer: 'PAY_LATER,PAY_LATER_SHORT_TERM' },
+            { offer: ['PAY_LATER', 'REWARDS'], supportedOffer: 'PAY_LATER,REWARDS' },
+            { offer: ['REWARDS', 'PAY_LATER_LONG_TERM'], supportedOffer: 'REWARDS,PAY_LATER_LONG_TERM' }
+        ].forEach(supportedOffer => {
+            const offer = validate.offer({ props: { offer: supportedOffer.offer } });
+
+            expect(offer).toEqual(supportedOffer.supportedOffer);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
+
         // no offer passed in test
         {
             const offer = validate.offer({ props: {} });
@@ -144,7 +157,8 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        ['EZP', 12345, {}, null].forEach((invalidOffer, index) => {
+        // invalid offer passed in test
+        ['EZP', 12345, {}, null, ['PAY_LATER', 'PAY_LATER_SHORT_TERM', 'NI']].forEach((invalidOffer, index) => {
             expect(() => {
                 validate.offer({ props: { offer: invalidOffer } });
             }).toThrow('offer_validation_error');
