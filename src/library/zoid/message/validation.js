@@ -175,7 +175,16 @@ export default {
     },
     pageType: ({ props: { pageType } }) => {
         if (typeof pageType !== 'undefined') {
-            const options = ['product-listing', 'search-results', 'product-details', 'mini-cart', 'cart', 'checkout'];
+            const options = [
+                'home',
+                'category',
+                'product-listing',
+                'search-results',
+                'product-details',
+                'mini-cart',
+                'cart',
+                'checkout'
+            ];
 
             if (!validateType(Types.STRING, pageType)) {
                 logInvalidType('placement', Types.STRING, pageType);
