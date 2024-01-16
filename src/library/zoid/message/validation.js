@@ -173,6 +173,21 @@ export default {
 
         return undefined;
     },
+    pageType: ({ props: { pageType } }) => {
+        if (typeof pageType !== 'undefined') {
+            const options = ['product-listing', 'search-results', 'product-details', 'mini-cart', 'cart', 'checkout'];
+
+            if (!validateType(Types.STRING, pageType)) {
+                logInvalidType('placement', Types.STRING, pageType);
+            } else if (!arrayIncludes(options, pageType)) {
+                logInvalidOption('placement', options, pageType);
+            } else {
+                return pageType;
+            }
+        }
+
+        return undefined;
+    },
     buyerCountry: ({ props: { buyerCountry } }) => {
         if (typeof buyerCountry !== 'undefined') {
             if (!validateType(Types.STRING, buyerCountry)) {

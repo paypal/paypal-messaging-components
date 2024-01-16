@@ -67,7 +67,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         ecToken,
         devTouchpoint,
         disableSetCookie,
-        features
+        features,
+        pageType
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
@@ -96,7 +97,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             devTouchpoint,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
-            features
+            features,
+            pageType
         })
             .then(data => {
                 setServerData(data);
