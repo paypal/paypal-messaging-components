@@ -260,7 +260,7 @@ export default {
             } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
                 logInvalid('contextualComponent', 'Ensure only one type of _mark value is provided.');
             } else {
-                return contextualComponent;
+                return contextualComponent.toUpperCase();
             }
         }
 
