@@ -245,11 +245,11 @@ export default {
             }
 
             // contextualComponent values can either be a single string value or a comma-separated string of values
-            const typesArray = contextualComponent.split(',');
+            const typesArray = contextualComponent.toUpperCase().split(',');
 
             // Check if values are of the same type (all buttons or all marks)
-            const allButtons = typesArray.every(type => type.endsWith('_button'));
-            const allMarks = typesArray.every(type => type.endsWith('_mark'));
+            const allButtons = typesArray.every(type => type.endsWith('_BUTTON'));
+            const allMarks = typesArray.every(type => type.endsWith('_MARK'));
 
             if (!allButtons && !allMarks) {
                 logInvalidCombination(
@@ -260,7 +260,7 @@ export default {
             } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
                 logInvalid('contextualComponent', 'Ensure only one type of _mark value is provided.');
             } else {
-                return contextualComponent.toUpperCase();
+                return contextualComponent.toUpperCase().split(',').sort().join(',');
             }
         }
 
