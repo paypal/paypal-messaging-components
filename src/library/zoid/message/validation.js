@@ -120,7 +120,6 @@ export default {
     },
     offer: ({ props: { offer } }) => {
         const offerType = [...Object.values(OFFER), 'NI'];
-        let validatedOffer;
         if (typeof offer !== 'undefined') {
             if (Array.isArray(offer)) {
                 // Check if we are sending more then the maximum amount of offers allowed
@@ -129,7 +128,7 @@ export default {
                     throw new Error('offer_validation_error: offers cannot exceed 2');
                 }
                 // Validate each offer, then join them
-                validatedOffer = offer
+                const validatedOffer = offer
                     .map(offr => {
                         validateOffer(offr, offerType);
                         return offr;
