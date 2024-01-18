@@ -135,12 +135,12 @@ export default {
                         return offr;
                     })
                     .join(',');
-            } else {
-                validateOffer(offer, offerType);
-                validatedOffer = offer;
+                return validatedOffer;
             }
+            validateOffer(offer, offerType);
+            return offer;
         }
-        return validatedOffer;
+        return offer;
     },
 
     // TODO: Handle server side locale specific style validation warnings passed down to client.
