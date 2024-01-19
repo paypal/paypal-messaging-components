@@ -35,8 +35,7 @@ const Container = ({ children }) => {
         channel,
         ecToken,
         disableSetCookie,
-        features,
-        pageType
+        features
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -80,8 +79,7 @@ const Container = ({ children }) => {
             ecToken,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
-            features,
-            pageType
+            features
         }).then(data => {
             setServerData(data);
             setLoading(false);

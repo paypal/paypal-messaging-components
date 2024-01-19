@@ -127,8 +127,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     channel,
                     treatmentsHash,
                     disableSetCookie,
-                    features,
-                    pageType
+                    features
                 } = xprops;
 
                 setProps({
@@ -144,8 +143,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchantConfigHash,
                     channel,
                     disableSetCookie,
-                    features,
-                    pageType
+                    features
                 });
 
                 // Generate new MRID on message update.
@@ -170,8 +168,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,
-                    features,
-                    pageType
+                    features
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(

@@ -23,8 +23,7 @@ export const getContent = memoize(
         ecToken,
         devTouchpoint,
         disableSetCookie,
-        features,
-        pageType
+        features
     }) => {
         const query = objectEntries({
             currency,
@@ -45,8 +44,7 @@ export const getContent = memoize(
             ec_token: ecToken,
             devTouchpoint,
             disableSetCookie,
-            features,
-            pageType
+            features
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
