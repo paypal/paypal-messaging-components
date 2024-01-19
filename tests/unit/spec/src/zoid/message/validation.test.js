@@ -153,8 +153,8 @@ describe('validate', () => {
             expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
             expect(console.warn).not.toHaveBeenCalled();
 
-            offer = validate.offer({ props: { offer: ['REWARDS', 'REWARDS'] } });
-            expect(offer).toEqual('REWARDS');
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_SHORT_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_SHORT_TERM');
             expect(console.warn).not.toHaveBeenCalled();
         }
 

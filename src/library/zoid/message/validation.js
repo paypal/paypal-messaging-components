@@ -127,14 +127,17 @@ export default {
                     logInvalid('offer', 'Ensure valid offer length');
                     throw new Error('offer_validation_error: offers cannot exceed 2');
                 }
-                // Validate each offer, then join them
-                const validatedOffer = new Set(
-                    offer.map(offr => {
-                        validateOffer(offr, offerType);
-                        return offr;
-                    })
-                );
-                return [...validatedOffer].sort().join();
+                // validate each offer
+                const validatedOffer = offer.map(offr => {
+                    validateOffer(offr, offerType);
+                    return offr;
+                });
+                // If duplicate valid offers, return the first offer
+                if (validatedOffer[0] === validatedOffer[1]) {
+                    return validatedOffer[0];
+                }
+
+                return validatedOffer.sort().join();
             }
             validateOffer(offer, offerType);
             return offer;
