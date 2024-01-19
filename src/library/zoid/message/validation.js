@@ -128,13 +128,13 @@ export default {
                     throw new Error('offer_validation_error: offers cannot exceed 2');
                 }
                 // Validate each offer, then join them
-                const validatedOffer = offer
-                    .map(offr => {
+                const validatedOffer = new Set(
+                    offer.map(offr => {
                         validateOffer(offr, offerType);
                         return offr;
                     })
-                    .join(',');
-                return validatedOffer;
+                );
+                return [...validatedOffer].sort().join();
             }
             validateOffer(offer, offerType);
             return offer;

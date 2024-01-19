@@ -128,7 +128,9 @@ describe('validate', () => {
             'PAY_LATER_PAY_IN_1',
             'PAYPAL_CREDIT_NO_INTEREST',
             'PAYPAL_CREDIT_INSTALLMENTS',
-            'NI'
+            'NI',
+            'PAY_LATER',
+            'REWARDS'
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
 
@@ -138,16 +140,23 @@ describe('validate', () => {
 
         // multiple offers passed in test
 
-        [
-            { offer: ['PAY_LATER', 'PAY_LATER_SHORT_TERM'], supportedOffer: 'PAY_LATER,PAY_LATER_SHORT_TERM' },
-            { offer: ['PAY_LATER', 'REWARDS'], supportedOffer: 'PAY_LATER,REWARDS' },
-            { offer: ['REWARDS', 'PAY_LATER_LONG_TERM'], supportedOffer: 'REWARDS,PAY_LATER_LONG_TERM' }
-        ].forEach(supportedOffer => {
-            const offer = validate.offer({ props: { offer: supportedOffer.offer } });
-
-            expect(offer).toEqual(supportedOffer.supportedOffer);
+        {
+            let offer = validate.offer({ props: { offer: ['PAY_LATER', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER,PAY_LATER_LONG_TERM');
             expect(console.warn).not.toHaveBeenCalled();
-        });
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER', 'REWARDS'] } });
+            expect(offer).toEqual('PAY_LATER,REWARDS');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['REWARDS', 'REWARDS'] } });
+            expect(offer).toEqual('REWARDS');
+            expect(console.warn).not.toHaveBeenCalled();
+        }
 
         // no offer passed in test
         {
