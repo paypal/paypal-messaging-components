@@ -8,18 +8,20 @@
     </head>
 
     <body>
-        <div class="messages" data-pp-message></div>
+        <div class="messages" data-pp-message data-pp-amount="219"></div>
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'text',
-            //             logo: {
-            //                 type: 'none'
-            //             }
-            //         },
-            //     })
-            //     .render('.messages');
+            paypal
+                .Messages({
+                    account: '2GXVAB3T52TVY',
+                    // amount: 250,
+                    style: {
+                        layout: 'text',
+                        logo: {
+                            type: 'inline'
+                        }
+                    }
+                })
+                .render('.messages');
         </script>
     </body>
 </html>
