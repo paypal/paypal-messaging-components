@@ -13,7 +13,8 @@ import {
     updateStorage,
     getDisableSetCookie,
     getFeatures,
-    getDefaultNamespace
+    getDefaultNamespace,
+    getPageType
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
@@ -104,7 +105,12 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 value: getCurrentScriptUID,
                 debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
             },
-
+            pageType: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: getPageType
+            },
             stageTag: {
                 type: 'string',
                 queryParam: true,
