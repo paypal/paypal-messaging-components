@@ -21,6 +21,7 @@ export const getContent = memoize(
         integrationType,
         channel,
         ecToken,
+        contextualComponent,
         devTouchpoint,
         disableSetCookie,
         features
@@ -42,6 +43,7 @@ export const getContent = memoize(
             integrationType,
             channel,
             ec_token: ecToken,
+            contextual_component: contextualComponent,
             devTouchpoint,
             disableSetCookie,
             features
@@ -93,6 +95,10 @@ export function setupTabTrap() {
                 e.preventDefault();
                 tabArray[0].focus();
             }
+            // auto scroll into view for focused element
+            setTimeout(() => {
+                document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 0);
         }
     }
     window.addEventListener('keydown', trapTabKey);
