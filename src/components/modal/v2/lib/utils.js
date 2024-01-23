@@ -95,6 +95,10 @@ export function setupTabTrap() {
                 e.preventDefault();
                 tabArray[0].focus();
             }
+            // auto scroll into view for focused element
+            setTimeout(() => {
+                document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 0);
         }
     }
     window.addEventListener('keydown', trapTabKey);
