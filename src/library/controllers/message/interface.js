@@ -150,21 +150,22 @@ export default (options = {}) => ({
 
                                     ppDebug(
                                         `{
-                            clientID: ${account},
-                            merchantID: ${merchantId},
-                            customerID: ${customerId},
-                            offer: ${offer},
-                            currency: ${currency},
-                            ignoreCache: ${ignoreCache},
-                            channel: ${channel},
-                            ecToken: ${ecToken},
-                    
-                            index: data-pp-id="${index}",
-                            style: ${JSON.stringify(style)},
-                            amount: ${amount},
-                            buyerCountry: ${buyerCountry},
-                            placement: ${placement},
-                            pageType: ${pageType},
+                                    clientID: ${account},
+                                    merchantID: ${merchantId},
+                                    customerID: ${customerId},
+                                    offer: ${offer},
+                                    currency: ${currency},
+                                    ignoreCache: ${ignoreCache},
+                                    channel: ${channel},
+                                    ecToken: ${ecToken},
+                                    contextualComponent: ${contextualComponent},
+                            
+                                    index: data-pp-id="${index}",
+                                    style: ${JSON.stringify(style)},
+                                    amount: ${amount},
+                                    buyerCountry: ${buyerCountry},
+                                    placement: ${placement},
+                                    pageType: ${pageType},
                     
                                     renderStart: ${new Date(renderStart).toLocaleString()},
                                     renderMessageTime: ${new Date().toLocaleString()}
