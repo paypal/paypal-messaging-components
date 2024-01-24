@@ -2,14 +2,14 @@ import objectKeys from 'core-js-pure/stable/object/keys';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 
-import { getGlobalUrl } from './global';
+import { getGlobalAPIUrl } from './global';
 import { request } from './miscellaneous';
 
 import { getLibraryVersion, getDisableSetCookie } from './sdk';
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalUrl('LOGGER'),
+    url: getGlobalAPIUrl('LOGGER'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console

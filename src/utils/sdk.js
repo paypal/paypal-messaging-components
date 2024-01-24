@@ -19,6 +19,7 @@ import {
     getStorageID as getSDKStorageID,
     getStorageState as getSDKStorageState,
     getPayPalDomain as getSDKPayPalDomain,
+    getPayPalAPIDomain as getSDKPayPalAPIDomain,
     getDisableSetCookie as getSDKDisableCookie
 } from '@paypal/sdk-client/src';
 
@@ -194,6 +195,33 @@ export const isScriptBeingDestroyed = () => {
         return false;
     }
 };
+
+export function getPayPalAPIDomain() {
+    if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+
+        if (testEnviroment) {
+            return testEnviroment;
+        }
+
+        // eslint-disable-next-line security/detect-unsafe-regex
+        if (window.location.origin.match(/\.paypal\.com(:\d+)?$/)) {
+            return window.location.origin;
+        }
+    }
+
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKPayPalAPIDomain();
+    } else {
+        const domain = __MESSAGES__.__API_DOMAIN__[`__${getEnv().toUpperCase()}__`];
+
+        if (domain) {
+            return domain;
+        }
+
+        throw new Error('Missing PayPal Domain');
+    }
+}
 
 export function getPayPalDomain() {
     if (getEnv() !== 'production' && getEnv() !== 'sandbox') {

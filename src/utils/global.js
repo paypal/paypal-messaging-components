@@ -3,7 +3,7 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from '@krakenjs/belter/src';
 
-import { getLibraryVersion, getPayPalDomain } from './sdk';
+import { getLibraryVersion, getPayPalAPIDomain, getPayPalDomain } from './sdk';
 import { createState } from './miscellaneous';
 
 // Following the global naming convention of zoid and prevent collision with merchant.js
@@ -63,6 +63,15 @@ export const createTitleGenerator = () => {
  */
 export function getGlobalUrl(type) {
     return `${getPayPalDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
+}
+
+/**
+ * Create an API URL of the requested type from Webpack global variables
+ * @param {String} type URL type
+ * @returns {String} URL of requested type
+ */
+export function getGlobalAPIUrl(type) {
+    return `${getPayPalAPIDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
 }
 
 // Return a getter function as opposed to the value itself so that it can be lazy loaded within
