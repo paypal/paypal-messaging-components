@@ -142,6 +142,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.pageType
             },
+            contextualComponent: {
+                type: 'string',
+                queryParam: 'contextual_component',
+                required: false,
+                value: validate.contextualComponent
+            },
 
             // Callbacks
             onClick: {

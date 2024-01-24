@@ -91,6 +91,7 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
+                                    contextualComponent,
                                     cspNonce
                                 } = merchantOptions;
 
@@ -106,6 +107,7 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
+                                    contextualComponent,
                                     cspNonce
                                 };
                                 const modalProps = {
@@ -164,9 +166,9 @@ export default (options = {}) => ({
                             placement: ${placement},
                             pageType: ${pageType},
                     
-                            renderStart: ${new Date(renderStart).toLocaleString()},
-                            renderMessageTime: ${new Date().toLocaleString()}
-                            }`
+                                    renderStart: ${new Date(renderStart).toLocaleString()},
+                                    renderMessageTime: ${new Date().toLocaleString()}
+                                    }`
                                     );
 
                                     return render(container)
