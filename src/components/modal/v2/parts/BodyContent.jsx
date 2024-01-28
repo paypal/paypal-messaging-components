@@ -68,7 +68,7 @@ const BodyContent = () => {
     if (useV4Design && isLander) {
         document.documentElement.className = `${documentClassName} v4Design`;
     }
-    const isPreapproved = productMeta?.preapproved;
+    const isPreapproved = productMeta?.preapproved === 'true';
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
 
