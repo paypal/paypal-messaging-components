@@ -61,6 +61,7 @@ const BodyContent = () => {
     const isQualifying = productMeta?.qualifying;
 
     const useV4Design = productMeta?.useV4Design === 'true';
+    const isQLDesign = true;
 
     // add v4Design class to root html to update lander specific styles to v4
     const documentClassName = document.documentElement.className;
@@ -118,11 +119,12 @@ const BodyContent = () => {
                 closeButtonLabel={closeButtonLabel}
                 viewName={viewName}
                 useV4Design={useV4Design}
+                isQLDesign={isQLDesign}
                 preapprovalHeadline={preapprovalHeadline}
                 preapprovalSubHeadline={preapprovalSubHeadline}
                 isPreapproved={isPreapproved ?? 'false'}
             />
-            <div className={`content__container ${useV4Design ? 'v4Design' : ''}`}>
+            <div className={`content__container ${useV4Design ? 'v4Design' : ''} ${isQLDesign ? 'qLDesign' : ''}`}>
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>

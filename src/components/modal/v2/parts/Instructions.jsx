@@ -2,7 +2,7 @@
 import { Fragment, h } from 'preact';
 import { currencyFormat } from '../lib';
 
-const Instructions = ({ instructions, expandedState = false, className = '', useV4Design }) => {
+const Instructions = ({ instructions, expandedState = false, className = '', useV4Design, isQLDesign }) => {
     const renderBullet = index => {
         return (
             <div className="instructions__bullet">
@@ -12,7 +12,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
     };
 
     return (
-        <div className="content__row instructions">
+        <div className={`content__row instructions ${isQLDesign ? 'qLDesign' : ''}`}>
             {Array.isArray(instructions) ? (
                 <ol
                     className={

@@ -40,6 +40,10 @@
         .v4Design {
             background-color: $v4-gray;
         }
+
+        .qLDesign {
+            background-color: #f1f2f3;
+        }
     }
 
     &__background-wrapper {
@@ -325,6 +329,32 @@
             span {
                 white-space: nowrap;
             }   
+        }
+
+        .qLDesign {
+            max-width: 400px;
+            @include desktop {
+                margin-bottom: 50px;
+            }
+            @include tablet {
+                margin-bottom: 0px;
+            }
+            @include mobile {
+                padding-bottom: 50px;
+            }
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            
+            .qLDesign {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                background-color: #d1e5f9;
+                border-radius: 6px;
+                padding: 2px 8px;
+                margin: 0px 0px 10px 10px;
+            }
         }
     }
 }

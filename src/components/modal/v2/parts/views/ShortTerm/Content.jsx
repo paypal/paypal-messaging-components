@@ -31,6 +31,8 @@ export const ShortTerm = ({
     const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
+    const isQLDesign = 'true';
+
     const isPreapproved = preapproved === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
@@ -47,7 +49,7 @@ export const ShortTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <div className="button__fixed-wrapper">
-                    <div className="button__container">
+                    <div className={`button__container ${isQLDesign ? 'qLDesign' : ''}`}>
                         {isQualifying ? (
                             <Button
                                 onClick={() => {
@@ -105,7 +107,7 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className="content__row dynamic">
+                <div className={`content__row dynamic ${isQLDesign ? 'qLDesign' : ''}`}>
                     <div className="content__col">
                         <div className="content__row donuts">
                             <div className="donuts__container">
@@ -127,7 +129,7 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} useV4Design={useV4Design} />
+                        <Instructions instructions={instructions} useV4Design={useV4Design} isQLDesign={isQLDesign} />
                         {isPreapproved && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}

@@ -30,6 +30,12 @@
                 padding: 0px 20px 100px 20px;
             }
         }
+
+        .dynamic__container {
+            .qLDesign {
+                background-color: #f1f2f3;
+            }
+        }
     }
 
     .content__row {
@@ -114,6 +120,10 @@
             .product-list {
                 width: 100%;
             }
+
+            .qLDesign {
+                padding-top: 20px;
+            }
         }
 
         &.disclosure {
@@ -137,5 +147,9 @@
 
     &.v4Design {
         background: $v4-gray;
+    }
+
+    &.qLDesign {
+        background-color: #f1f2f3;
     }
 }

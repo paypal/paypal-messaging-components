@@ -13,6 +13,7 @@ const Header = ({
     closeButtonLabel = 'Close',
     viewName,
     useV4Design,
+    isQLDesign,
     preapprovalHeadline,
     preapprovalSubHeadline,
     isPreapproved = 'false'
@@ -35,6 +36,20 @@ const Header = ({
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
 
+    // condition header content on design
+    // eslint-disable-next-line no-nested-ternary
+    const displayHeadline = isQLDesign ? headline.slice(0, 8) : isPreapproved ? preapprovalHeadline : headline;
+    const index = qualifyingSubheadline.length - 48;
+    const qlQualifyingSubheadlineTail = qualifyingSubheadline.slice(index);
+    let qlQualifyingSubheadline = qualifyingSubheadline.replace(/your purchase of /g, '').slice(0, index - 18);
+    qlQualifyingSubheadline = `${qlQualifyingSubheadline} interest-free payments ${qlQualifyingSubheadlineTail}`;
+    // eslint-disable-next-line no-nested-ternary
+    const displayQualifyingSubHeadline = isQLDesign
+        ? qlQualifyingSubheadline
+        : isPreapproved
+        ? preapprovalSubHeadline
+        : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €');
+
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -44,11 +59,15 @@ const Header = ({
                 <div
                     className={`header__background-wrapper header__background-wrapper--gradient ${
                         useV4Design ? 'v4Design' : ''
-                    }`}
+                    } ${isQLDesign ? 'qLDesign' : ''}`}
                 />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
+                <div
+                    className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}  ${
+                        isQLDesign ? 'qLDesign' : ''
+                    }`}
+                />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -74,30 +93,42 @@ const Header = ({
                     <div
                         className={`header__background-wrapper header__background-wrapper--sticky ${
                             useV4Design ? 'v4Design' : ''
-                        }`}
+                        } ${isQLDesign ? 'qLDesign' : ''}`}
                     />
                 </div>
             </div>
             <div className="header__content">
-                <Icon name={`${viewName}-desktop`} />
-                <Icon name={`${viewName}-mobile`} />
+                <Icon name={`${viewName}-desktop`} isQLDesign={isQLDesign} />
+                <Icon name={`${viewName}-mobile`} isQLDesign={isQLDesign} />
                 {/* <Icon name="background-pp-mobile" /> */}
-                <h2
-                    // id used for aria-labelleby on modal container element
-                    id="header__headline"
-                    className={
-                        isPreapproved === 'true'
-                            ? `headline-${countryClassName}-preapproved`
-                            : `headline-${countryClassName}`
-                    }
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
-                />
+                <div className={`${isQLDesign ? 'qLDesign' : ''}`}>
+                    <h2
+                        // id used for aria-labelleby on modal container element
+                        id="header__headline"
+                        className={
+                            isPreapproved === 'true'
+                                ? `headline-${countryClassName}-preapproved`
+                                : `headline-${countryClassName}`
+                        }
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: displayHeadline }}
+                    />
+                    {isQLDesign === true && isPreapproved === true ? (
+                        <span className="qLDesign">Pre-approved</span>
+                    ) : (
+                        ''
+                    )}
+                </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
-                        {isPreapproved === 'true'
+                    <p
+                        className={`subheadline_p subheadline-${countryClassName} qualifying  ${
+                            isQLDesign ? 'qLDesign' : ''
+                        }`}
+                    >
+                        {/* {isPreapproved === 'true'
                             ? preapprovalSubHeadline
-                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')} */}
+                        {displayQualifyingSubHeadline}
                     </p>
                 ) : (
                     <p

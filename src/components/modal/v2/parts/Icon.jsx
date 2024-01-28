@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const Icon = ({ name = '', color, content }) => {
+const Icon = ({ name = '', color, content, isQLDesign }) => {
     if (content) {
         // eslint-disable-next-line react/no-danger
         return <div aria-hidden="true" className="icon__wrapper" dangerouslySetInnerHTML={{ __html: content }} />;
@@ -169,7 +169,7 @@ const Icon = ({ name = '', color, content }) => {
                     viewBox="0 0 286 265"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="background-mobile"
+                    className={`background-mobile test ${isQLDesign ? 'icon__qLDesign' : ''}`}
                 >
                     <g clip-path="url(#clip0_793_650)">
                         <path
@@ -211,7 +211,7 @@ const Icon = ({ name = '', color, content }) => {
                     height="176"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="background-desktop"
+                    className={`background-desktop ${isQLDesign ? 'icon__qLDesign' : ''}`}
                 >
                     <g clip-path="url(#a)">
                         <path
