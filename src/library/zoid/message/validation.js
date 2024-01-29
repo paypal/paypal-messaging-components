@@ -52,6 +52,9 @@ const logInvalidType = (location, expectedType, val) => {
 const logInvalidOption = (location, options, val) =>
     logInvalid(location, `Expected one of ["${options.join('", "').replace(/\|[\w|]+/g, '')}"] but received "${val}".`);
 
+const logInvalidCombination = (location, expectation, val) =>
+    logInvalid(location, `Invalid ${location} combination. ${expectation} but received "${val}"`);
+
 function validateOffer(offer, offerType) {
     if (!validateType(Types.STRING, offer)) {
         logInvalidType('offer', Types.STRING, offer);
@@ -251,6 +254,35 @@ export default {
                 logInvalidType('ecToken', Types.STRING, ecToken);
             } else {
                 return ecToken;
+            }
+        }
+
+        return undefined;
+    },
+    contextualComponent: ({ props: { contextualComponent } }) => {
+        if (typeof contextualComponent !== 'undefined') {
+            if (!validateType(Types.STRING, contextualComponent)) {
+                logInvalidType('contextualComponent', Types.STRING, contextualComponent);
+                return undefined;
+            }
+
+            // contextualComponent values can either be a single string value or a comma-separated string of values
+            const typesArray = contextualComponent.toUpperCase().split(',');
+
+            // Check if values are of the same type (all buttons or all marks)
+            const allButtons = typesArray.every(type => type.endsWith('_BUTTON'));
+            const allMarks = typesArray.every(type => type.endsWith('_MARK'));
+
+            if (!allButtons && !allMarks) {
+                logInvalidCombination(
+                    'contextualComponent',
+                    "Expected all contextualComponent values to be either of type '_button' or '_mark'",
+                    contextualComponent
+                );
+            } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
+                logInvalid('contextualComponent', 'Ensure only one type of _mark value is provided.');
+            } else {
+                return contextualComponent.toUpperCase().split(',').sort().join(',');
             }
         }
 

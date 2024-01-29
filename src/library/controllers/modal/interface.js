@@ -38,6 +38,7 @@ const memoizedModal = memoizeOnProps(
         onClose,
         channel,
         ecToken,
+        contextualComponent,
         cspNonce,
         integrationIdentifier
     }) => {
@@ -61,6 +62,7 @@ const memoizedModal = memoizeOnProps(
             onClose,
             channel,
             ecToken,
+            contextualComponent,
             cspNonce,
             integrationIdentifier
         });
