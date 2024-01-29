@@ -270,6 +270,13 @@ describe('validate', () => {
         });
     });
     test('validates features', () => {
+        //  features passed
+        ['DEMO', 'test', 'FEATURE'].forEach(validFeatures => {
+            const features = validate.features({ props: { features: validFeatures } });
+
+            expect(features).toEqual(validFeatures);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
         // no features passed
         {
             const features = validate.features({ props: {} });
