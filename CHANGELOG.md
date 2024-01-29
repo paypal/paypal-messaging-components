@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.54.0](https://github.com/paypal/paypal-messaging-components/compare/v1.53.0...v1.54.0) (2024-01-23)
+
+
+### Features
+
+* Accessibility - Update tabbing in PPC Modal ([#1041](https://github.com/paypal/paypal-messaging-components/issues/1041)) ([da2ea52](https://github.com/paypal/paypal-messaging-components/commit/da2ea5204cbfec7f41f405d7e765b755a8993a06))
+* add support for contextual_component query parameter ([#1040](https://github.com/paypal/paypal-messaging-components/issues/1040)) ([cc39a13](https://github.com/paypal/paypal-messaging-components/commit/cc39a13ef3f987aaf21f8f0ce6f36c1fe1dee3e2))
+
+
+### Code Refactoring
+
+* add v4Design flag to US modals ([#1042](https://github.com/paypal/paypal-messaging-components/issues/1042)) ([dd86185](https://github.com/paypal/paypal-messaging-components/commit/dd86185d9a8127fb546cdb0c37451f63b92be544))
+
 ## [1.53.0](https://github.com/paypal/paypal-messaging-components/compare/v1.52.0...v1.53.0) (2023-12-20)
 
 

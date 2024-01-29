@@ -126,6 +126,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ecToken
             },
+            contextualComponent: {
+                type: 'string',
+                queryParam: 'contextual_component',
+                required: false,
+                value: validate.contextualComponent
+            },
             // Callbacks
             onClick: {
                 type: 'function',
