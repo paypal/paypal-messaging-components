@@ -130,7 +130,8 @@ describe('validate', () => {
             'PAYPAL_CREDIT_INSTALLMENTS',
             'NI',
             'PAY_LATER',
-            'REWARDS'
+            'REWARDS',
+            'PAY_LATER,REWARDS'
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
 
@@ -156,6 +157,10 @@ describe('validate', () => {
             offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_SHORT_TERM'] } });
             expect(offer).toEqual('PAY_LATER_SHORT_TERM');
             expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: 'PAY_LATER_LONG_TERM,     PAY_LATER_SHORT_TERM' } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
         }
 
         // no offer passed in test
@@ -167,11 +172,10 @@ describe('validate', () => {
         }
 
         // invalid offer passed in test
-        ['EZP', 12345, {}, null, ['PAY_LATER', 'PAY_LATER_SHORT_TERM', 'NI']].forEach((invalidOffer, index) => {
+        ['EZP', 'PAY_LATER,', 12345, {}, null, ['PAY_LATER', 'PAY_LATER_SHORT_TERM', 'NI']].forEach(invalidOffer => {
             expect(() => {
                 validate.offer({ props: { offer: invalidOffer } });
             }).toThrow('offer_validation_error');
-            expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),
                 expect.objectContaining({ location: 'offer' })

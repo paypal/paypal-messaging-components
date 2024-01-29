@@ -124,23 +124,28 @@ export default {
     offer: ({ props: { offer } }) => {
         const offerType = [...Object.values(OFFER), 'NI'];
         if (typeof offer !== 'undefined') {
-            if (Array.isArray(offer)) {
+            let validatedOffer = offer;
+            if (typeof offer === 'string' && offer.includes(',')) {
+                // If Offer list contains a comma , split it into an array
+                validatedOffer = offer.split(',').map(o => o.trim());
+            }
+
+            if (Array.isArray(validatedOffer)) {
                 // Check if we are sending more then the maximum amount of offers allowed
-                if (offer.length > 2) {
+                if (validatedOffer.length > 2) {
                     logInvalid('offer', 'Ensure valid offer length');
                     throw new Error('offer_validation_error: offers cannot exceed 2');
                 }
                 // validate each offer
-                const validatedOffer = offer.map(offr => {
+                const validatedOffers = validatedOffer.map(offr => {
                     validateOffer(offr, offerType);
                     return offr;
                 });
                 // If duplicate valid offers, return the first offer
-                if (validatedOffer[0] === validatedOffer[1]) {
-                    return validatedOffer[0];
+                if (validatedOffers[0] === validatedOffers[1]) {
+                    return validatedOffers[0];
                 }
-
-                return validatedOffer.sort().join();
+                return validatedOffers.sort().join();
             }
             validateOffer(offer, offerType);
             return offer;
