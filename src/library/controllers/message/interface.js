@@ -91,7 +91,8 @@ export default (options = {}) => ({
                                     channel,
                                     ecToken,
                                     contextualComponent,
-                                    cspNonce
+                                    cspNonce,
+                                    features
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -107,7 +108,8 @@ export default (options = {}) => ({
                                     channel,
                                     ecToken,
                                     contextualComponent,
-                                    cspNonce
+                                    cspNonce,
+                                    features
                                 };
                                 const modalProps = {
                                     ...commonProps,

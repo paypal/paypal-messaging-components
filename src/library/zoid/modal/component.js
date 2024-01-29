@@ -442,7 +442,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: getFeatures
+                value: validate.features ?? getFeatures
             }
         }
     })

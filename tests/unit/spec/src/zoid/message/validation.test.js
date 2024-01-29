@@ -269,4 +269,20 @@ describe('validate', () => {
             );
         });
     });
+    test('validates features', () => {
+        // no features passed
+        {
+            const features = validate.features({ props: {} });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).not.toHaveBeenCalled();
+        }
+        // invalid features pass
+        [12345, null, {}, ['Hi']].forEach((invalidFeature, index) => {
+            const features = validate.features({ props: { features: invalidFeature } });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).toHaveBeenCalledTimes(index + 1);
+        });
+    });
 });
