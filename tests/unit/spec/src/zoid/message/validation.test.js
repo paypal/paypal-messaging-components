@@ -268,10 +268,9 @@ describe('validate', () => {
         }
 
         [12345, 'abc', null].forEach((invalidPageType, index) => {
-            expect(() => {
-                validate.pageType({ props: { pageType: invalidPageType } });
-            }).toThrow('page_type_validation_error');
+            const pageType = validate.pageType({ props: { pageType: invalidPageType } });
 
+            expect(pageType).toBeUndefined();
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),

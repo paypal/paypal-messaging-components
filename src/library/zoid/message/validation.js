@@ -191,10 +191,8 @@ export default {
 
             if (!validateType(Types.STRING, pageType)) {
                 logInvalidType('pageType', Types.STRING, pageType);
-                throw new Error('page_type_validation_error');
             } else if (!arrayIncludes(options, pageType)) {
                 logInvalidOption('pageType', options, pageType);
-                throw new Error('page_type_validation_error');
             } else {
                 return pageType;
             }
