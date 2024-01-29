@@ -1,5 +1,9 @@
 .icon {
     &__qLDesign {
         display: none;
+
+        &__logo {
+            mix-blend-mode:soft-light;
+        }
     }
 }

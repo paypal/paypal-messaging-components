@@ -71,9 +71,7 @@ const Header = ({
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo">
-                        <Icon name={logo} />
-                    </div>
+                    <div className="pp-logo">{isQLDesign ? <Icon name="qLDesign__logo" /> : <Icon name={logo} />}</div>
                 </div>
                 {!isLander && (
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
