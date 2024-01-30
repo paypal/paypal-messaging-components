@@ -90,7 +90,7 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
-                                    contextualComponent,
+                                    contextualComponents,
                                     cspNonce
                                 } = merchantOptions;
 
@@ -106,7 +106,7 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
-                                    contextualComponent,
+                                    contextualComponents,
                                     cspNonce
                                 };
                                 const modalProps = {
@@ -156,7 +156,7 @@ export default (options = {}) => ({
                                     ignoreCache: ${ignoreCache},
                                     channel: ${channel},
                                     ecToken: ${ecToken},
-                                    contextualComponent: ${contextualComponent},
+                                    contextualComponents: ${contextualComponents},
                     
                                     index: data-pp-id="${index}",
                                     style: ${JSON.stringify(style)},
