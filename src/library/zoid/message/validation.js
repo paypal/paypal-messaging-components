@@ -286,5 +286,15 @@ export default {
         }
 
         return undefined;
+    },
+    features: ({ props: { features } }) => {
+        if (typeof features !== 'undefined') {
+            if (!validateType(Types.STRING, features)) {
+                logInvalidType('features', Types.STRING, features);
+            } else {
+                return features;
+            }
+        }
+        return undefined;
     }
 };
