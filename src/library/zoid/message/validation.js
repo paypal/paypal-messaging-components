@@ -237,15 +237,15 @@ export default {
 
         return undefined;
     },
-    contextualComponent: ({ props: { contextualComponent } }) => {
-        if (typeof contextualComponent !== 'undefined') {
-            if (!validateType(Types.STRING, contextualComponent)) {
-                logInvalidType('contextualComponent', Types.STRING, contextualComponent);
+    contextualComponents: ({ props: { contextualComponents } }) => {
+        if (typeof contextualComponents !== 'undefined') {
+            if (!validateType(Types.STRING, contextualComponents)) {
+                logInvalidType('contextualComponents', Types.STRING, contextualComponents);
                 return undefined;
             }
 
             // contextualComponent values can either be a single string value or a comma-separated string of values
-            const typesArray = contextualComponent.toUpperCase().split(',');
+            const typesArray = contextualComponents.toUpperCase().split(',');
 
             // Check if values are of the same type (all buttons or all marks)
             const allButtons = typesArray.every(type => type.endsWith('_BUTTON'));
@@ -253,14 +253,14 @@ export default {
 
             if (!allButtons && !allMarks) {
                 logInvalidCombination(
-                    'contextualComponent',
-                    "Expected all contextualComponent values to be either of type '_button' or '_mark'",
-                    contextualComponent
+                    'contextualComponents',
+                    "Expected all contextualComponents values to be either of type 'button' or 'mark'",
+                    contextualComponents
                 );
-            } else if (typesArray.filter(type => type.endsWith('_mark')).length > 1) {
-                logInvalid('contextualComponent', 'Ensure only one type of _mark value is provided.');
+            } else if (typesArray.filter(type => type.endsWith('_MARK')).length > 1) {
+                logInvalid('contextualComponents', 'Ensure only one type of mark value is provided.');
             } else {
-                return contextualComponent.toUpperCase().split(',').sort().join(',');
+                return contextualComponents.toUpperCase().split(',').sort().join(',');
             }
         }
 
