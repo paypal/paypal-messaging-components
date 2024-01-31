@@ -75,7 +75,7 @@ const Header = ({
                     }`}
                 />
             </div>
-            <div className="header__icons">
+            <div className={`header__icons ${isQLDesign ? 'qLDesign' : ''}`}>
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo">
                         {/* eslint-disable-next-line no-nested-ternary */}
@@ -92,14 +92,14 @@ const Header = ({
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
-                        className="close"
+                        className={`close ${isQLDesign ? 'qLDesign' : ''}`}
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
                         aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
-                        <Icon name="close" />
+                        {isQLDesign ? <Icon name="qLDesign__close" /> : <Icon name="close" />}
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">

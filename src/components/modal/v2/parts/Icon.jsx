@@ -89,7 +89,16 @@ const Icon = ({ name = '', color, content, isQLDesign }) => {
             );
         case 'qLDesign__pmo_logo':
             return (
-                <svg width="96" height="60" viewBox="0 0 96 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    role="img"
+                    aria-label="PayPal"
+                    width="96"
+                    height="60"
+                    viewBox="0 0 96 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <title>PayPal</title>
                     <rect width="96" height="60" rx="4" fill="#003087" />
                     <path
                         d="M53.7067 16H78.4183C80.0015 16 81.125 17.1507 81.125 18.3816V42.0526C81.125 43.2835 80.0015 44.4342 78.4183 44.4342H53.7067C52.1235 44.4342 51 43.2835 51 42.0526V18.3816C51 17.1507 52.1235 16 53.7067 16Z"
@@ -153,32 +162,25 @@ const Icon = ({ name = '', color, content, isQLDesign }) => {
                     />
                 </svg>
             );
-        // case 'qLDesign__close':
-        //     return (
-        //         <svg
-        //             aria-hidden="true"
-        //             width="36"
-        //             height="36"
-        //             viewBox="0 0 36 36"
-        //             fill="none"
-        //             xmlns="http://www.w3.org/2000/svg"
-        //         >
-        //             <path
-        //                 d="M12 0L0 12"
-        //                 transform="translate(12 12)"
-        //                 stroke={color || '#2C2E2F'}
-        //                 stroke-width="2"
-        //                 stroke-linecap="round"
-        //             />
-        //             <path
-        //                 d="M0 0L12 12"
-        //                 transform="translate(12 12)"
-        //                 stroke={color || '#2C2E2F'}
-        //                 stroke-width="2"
-        //                 stroke-linecap="round"
-        //             />
-        //         </svg>
-        //     );
+        case 'qLDesign__close':
+            return (
+                <svg
+                    aria-hidden="true"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="icon__qLDesign__close"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.203 4.79289C16.5935 5.18342 16.5935 5.81658 16.203 6.20711L9.91007 12.5L16.203 18.7929C16.5935 19.1834 16.5935 19.8166 16.203 20.2071C15.8125 20.5977 15.1793 20.5977 14.7888 20.2071L7.79582 13.2142C7.40137 12.8197 7.40142 12.1802 7.79582 11.7858L14.7888 4.79289C15.1793 4.40237 15.8125 4.40237 16.203 4.79289Z"
+                        fill="#545D68"
+                    />
+                </svg>
+            );
         case 'warning':
             return (
                 <svg
