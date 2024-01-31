@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.55.0](https://github.com/paypal/paypal-messaging-components/compare/v1.54.0...v1.55.0) (2024-01-30)
+
+
+### Features
+
+* enhance feature param ([#1048](https://github.com/paypal/paypal-messaging-components/issues/1048)) ([c879cad](https://github.com/paypal/paypal-messaging-components/commit/c879cad3f6004ebc991e02ca84d3b602854ada18))
+
+
+### Code Refactoring
+
+* update contextual_component query param to contextual_components ([#1046](https://github.com/paypal/paypal-messaging-components/issues/1046)) ([a898583](https://github.com/paypal/paypal-messaging-components/commit/a89858369f56c28706b67802d945e801edd76cc1))
+
 ## [1.54.0](https://github.com/paypal/paypal-messaging-components/compare/v1.53.0...v1.54.0) (2024-01-23)
 
 

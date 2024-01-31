@@ -90,8 +90,9 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
-                                    contextualComponent,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -106,8 +107,9 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
-                                    contextualComponent,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 };
                                 const modalProps = {
                                     ...commonProps,
@@ -156,7 +158,7 @@ export default (options = {}) => ({
                                     ignoreCache: ${ignoreCache},
                                     channel: ${channel},
                                     ecToken: ${ecToken},
-                                    contextualComponent: ${contextualComponent},
+                                    contextualComponents: ${contextualComponents},
                     
                                     index: data-pp-id="${index}",
                                     style: ${JSON.stringify(style)},
