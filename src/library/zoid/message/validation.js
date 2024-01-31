@@ -177,8 +177,9 @@ export default {
         return undefined;
     },
     pageType: ({ props: { pageType } }) => {
-        if (getPageType() && getPageType() !== '') {
-            return getPageType();
+        const sdkPageType = getPageType();
+        if (sdkPageType) {
+            return sdkPageType;
         }
         if (typeof pageType !== 'undefined') {
             const options = [
