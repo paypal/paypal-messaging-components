@@ -30,12 +30,6 @@
                 padding: 0px 20px 100px 20px;
             }
         }
-
-        .dynamic__container {
-            .qLDesign {
-                background-color: #f1f2f3;
-            }
-        }
     }
 
     .content__row {
@@ -70,6 +64,10 @@
                     width: 50%;
                 }
             }
+        }
+
+        &.qLDesign {
+            background-color: $ql-gray;
         }
 
         .content__col {
@@ -150,6 +148,6 @@
     }
 
     &.qLDesign {
-        background-color: #f1f2f3;
+        background-color: $ql-gray;
     }
 }

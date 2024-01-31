@@ -82,13 +82,14 @@ export const LongTerm = ({
     openProductList
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { amount, onClick, onClose } = useXProps();
+    const { amount, onClick, onClose, features } = useXProps();
     const { views, country } = useServerData();
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
+    const isQLDesign = features === 'ql-design';
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -106,7 +107,7 @@ export const LongTerm = ({
 
         if (typeof cta !== 'undefined') {
             return (
-                <div className="button__container">
+                <div className={`button__container ${isQLDesign ? 'qLDesign' : ''}`}>
                     {isQualifyingAmount ? (
                         <Button
                             onClick={() => {
@@ -147,7 +148,7 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__row dynamic">
+            <div className={`content__row dynamic ${isQLDesign ? 'qLDesign' : ''}`}>
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
@@ -161,7 +162,12 @@ export const LongTerm = ({
                         </div>
                     </div>
                 </div>
-                <Instructions instructions={instructions} useV4Design={useV4Design} expandedState={expandedState} />
+                <Instructions
+                    instructions={instructions}
+                    useV4Design={useV4Design}
+                    isQLDesign={isQLDesign}
+                    expandedState={expandedState}
+                />
             </div>
             <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (

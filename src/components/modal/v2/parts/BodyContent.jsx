@@ -25,7 +25,7 @@ const VIEW_IDS = {
 
 const BodyContent = () => {
     const { views } = useServerData();
-    const { offer } = useXProps();
+    const { offer, features } = useXProps();
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
     const primaryViewName = useMemo(() => {
@@ -61,7 +61,7 @@ const BodyContent = () => {
     const isQualifying = productMeta?.qualifying;
 
     const useV4Design = productMeta?.useV4Design === 'true';
-    const isQLDesign = true;
+    const isQLDesign = features === 'ql-design';
 
     // add v4Design class to root html to update lander specific styles to v4
     const documentClassName = document.documentElement.className;

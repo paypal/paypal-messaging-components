@@ -28,10 +28,10 @@ export const ShortTerm = ({
     openProductList
 }) => {
     const { views, country } = useServerData();
-    const { onClick, onClose } = useXProps();
+    const { onClick, onClose, features } = useXProps();
 
     const isQualifying = qualifying === 'true';
-    const isQLDesign = 'true';
+    const isQLDesign = features === 'ql-design';
 
     const isPreapproved = preapproved === 'true';
 

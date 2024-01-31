@@ -37,12 +37,18 @@ const Header = ({
     const countryClassName = country?.toLowerCase();
 
     // condition header content on design
-    // eslint-disable-next-line no-nested-ternary
-    const displayHeadline = isQLDesign ? headline.slice(0, 8) : isPreapproved ? preapprovalHeadline : headline;
+    const displayHeadline =
+        // eslint-disable-next-line no-nested-ternary
+        isQLDesign && headline !== 'Pay Monthly'
+            ? headline.slice(0, 8)
+            : isPreapproved
+            ? preapprovalHeadline
+            : headline;
     const index = qualifyingSubheadline.length - 48;
     const qlQualifyingSubheadlineTail = qualifyingSubheadline.slice(index);
     let qlQualifyingSubheadline = qualifyingSubheadline.replace(/your purchase of /g, '').slice(0, index - 18);
     qlQualifyingSubheadline = `${qlQualifyingSubheadline} interest-free payments ${qlQualifyingSubheadlineTail}`;
+
     // eslint-disable-next-line no-nested-ternary
     const displayQualifyingSubHeadline = isQLDesign
         ? qlQualifyingSubheadline
@@ -71,7 +77,16 @@ const Header = ({
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo">{isQLDesign ? <Icon name="qLDesign__logo" /> : <Icon name={logo} />}</div>
+                    <div className="pp-logo">
+                        {/* eslint-disable-next-line no-nested-ternary */}
+                        {isQLDesign && headline !== 'Pay Monthly' ? (
+                            <Icon name="qLDesign__pi4_logo" />
+                        ) : isQLDesign ? (
+                            <Icon name="qLDesign__pmo_logo" />
+                        ) : (
+                            <Icon name={logo} />
+                        )}
+                    </div>
                 </div>
                 {!isLander && (
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
@@ -120,7 +135,7 @@ const Header = ({
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p
                         className={`subheadline_p subheadline-${countryClassName} qualifying  ${
-                            isQLDesign ? 'qLDesign' : ''
+                            isQLDesign ? 'qLDesign_subheadline' : ''
                         }`}
                     >
                         {/* {isPreapproved === 'true'

@@ -42,7 +42,7 @@
         }
 
         .qLDesign {
-            background-color: #f1f2f3;
+            background-color: $ql-gray;
         }
     }
 
@@ -333,15 +333,6 @@
 
         .qLDesign {
             max-width: 400px;
-            @include desktop {
-                margin-bottom: 50px;
-            }
-            @include tablet {
-                margin-bottom: 0px;
-            }
-            @include mobile {
-                padding-bottom: 50px;
-            }
             display: flex;
             align-items: center;
             flex-direction: row;
@@ -354,6 +345,18 @@
                 border-radius: 6px;
                 padding: 2px 8px;
                 margin: 0px 0px 10px 10px;
+            }
+        }
+
+        .qLDesign_subheadline {
+            @include desktop {
+                margin-bottom: 50px;
+            }
+            @include tablet {
+                margin-bottom: 0px;
+            }
+            @include mobile {
+                padding: 10px 22px 50px;
             }
         }
     }
