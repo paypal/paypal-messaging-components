@@ -26,6 +26,7 @@ import {
     getStandardProductOffer,
     getDevTouchpoint,
     getTsCookieFromStorage
+    // getPageType
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';

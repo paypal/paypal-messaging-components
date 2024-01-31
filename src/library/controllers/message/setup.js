@@ -9,8 +9,7 @@ import {
     isZoidComponent,
     ppDebug,
     getOverflowObserver,
-    ensureTreatments,
-    getPageType
+    ensureTreatments
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -35,7 +34,6 @@ export default function setup() {
             account: partnerAccount || getAccount(),
             merchantId: partnerAccount && getAccount(),
             currency: getCurrency(),
-            pageType: getPageType(),
             ...inlineScriptOptions
         });
     }

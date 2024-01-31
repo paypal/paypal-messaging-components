@@ -1,7 +1,7 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { logger, memoize, getEnv } from '../../../utils';
+import { logger, memoize, getEnv, getPageType } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
 export const Types = {
@@ -177,6 +177,9 @@ export default {
         return undefined;
     },
     pageType: ({ props: { pageType } }) => {
+        if (getPageType() && getPageType() !== '') {
+            return getPageType();
+        }
         if (typeof pageType !== 'undefined') {
             const options = [
                 'home',
@@ -197,7 +200,6 @@ export default {
                 return pageType;
             }
         }
-
         return undefined;
     },
     buyerCountry: ({ props: { buyerCountry } }) => {
