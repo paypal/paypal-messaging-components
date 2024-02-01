@@ -143,11 +143,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.pageType
             },
-            contextualComponent: {
+            contextualComponents: {
                 type: 'string',
-                queryParam: 'contextual_component',
+                queryParam: 'contextual_components',
                 required: false,
-                value: validate.contextualComponent
+                value: validate.contextualComponents
             },
 
             // Callbacks
@@ -449,7 +449,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: getFeatures
+                value: validate.features ?? getFeatures
             }
         }
     })

@@ -132,11 +132,11 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.ecToken
             },
-            contextualComponent: {
+            contextualComponents: {
                 type: 'string',
-                queryParam: 'contextual_component',
+                queryParam: 'contextual_components',
                 required: false,
-                value: validate.contextualComponent
+                value: validate.contextualComponents
             },
             // Callbacks
             onClick: {
@@ -479,7 +479,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: getFeatures
+                value: validate.features ?? getFeatures
             }
         }
     })

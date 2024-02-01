@@ -305,4 +305,27 @@ describe('validate', () => {
             );
         });
     });
+    test('validates features', () => {
+        //  features passed
+        ['DEMO', 'test', 'FEATURE'].forEach(validFeatures => {
+            const features = validate.features({ props: { features: validFeatures } });
+
+            expect(features).toEqual(validFeatures);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
+        // no features passed
+        {
+            const features = validate.features({ props: {} });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).not.toHaveBeenCalled();
+        }
+        // invalid features pass
+        [12345, null, {}, ['Hi']].forEach((invalidFeature, index) => {
+            const features = validate.features({ props: { features: invalidFeature } });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).toHaveBeenCalledTimes(index + 1);
+        });
+    });
 });
