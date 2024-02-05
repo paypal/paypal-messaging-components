@@ -215,38 +215,13 @@ describe('validate', () => {
             );
         });
     });
-
-    test('validates placement', () => {
-        ['home', 'category', 'product', 'cart', 'payment', 'product-list'].forEach(supportedPlacement => {
-            const placement = validate.placement({ props: { placement: supportedPlacement } });
-
-            expect(placement).toEqual(supportedPlacement);
-            expect(console.warn).not.toHaveBeenCalled();
-        });
-
-        {
-            const placement = validate.placement({ props: {} });
-
-            expect(placement).toBeUndefined();
-            expect(console.warn).not.toHaveBeenCalled();
-        }
-
-        [12345, 'abc', null].forEach((invalidPlacement, index) => {
-            const placement = validate.placement({ props: { placement: invalidPlacement } });
-
-            expect(placement).toBeUndefined();
-            expect(console.warn).toHaveBeenCalledTimes(index + 1);
-            expect(console.warn).toHaveBeenLastCalledWith(
-                expect.stringContaining('invalid_option_value'),
-                expect.objectContaining({ location: 'placement' })
-            );
-        });
-    });
-
-    test('validates pageType', () => {
+    test('validates pageType with placement values added', () => {
         [
             'home',
             'category',
+            'product',
+            'payment',
+            'product-list',
             'product-listing',
             'search-results',
             'product-details',

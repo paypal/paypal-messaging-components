@@ -1,7 +1,7 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { logger, memoize, getEnv, getPageType } from '../../../utils';
+import { logger, memoize, getEnv } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
 export const Types = {
@@ -161,30 +161,14 @@ export default {
 
         return undefined;
     },
-    placement: ({ props: { placement } }) => {
-        if (typeof placement !== 'undefined') {
-            const options = ['home', 'category', 'product', 'cart', 'payment', 'product-list'];
-
-            if (!validateType(Types.STRING, placement)) {
-                logInvalidType('placement', Types.STRING, placement);
-            } else if (!arrayIncludes(options, placement)) {
-                logInvalidOption('placement', options, placement);
-            } else {
-                return placement;
-            }
-        }
-
-        return undefined;
-    },
     pageType: ({ props: { pageType } }) => {
-        const sdkPageType = getPageType();
-        if (sdkPageType) {
-            return sdkPageType;
-        }
         if (typeof pageType !== 'undefined') {
             const options = [
                 'home',
                 'category',
+                'product',
+                'payment',
+                'product-list',
                 'product-listing',
                 'search-results',
                 'product-details',
