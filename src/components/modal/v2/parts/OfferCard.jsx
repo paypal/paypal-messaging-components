@@ -24,7 +24,11 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useNewCheckoutDesign
                     <p className="offer__field-value">{meta?.formattedTotalInterest}</p>
                 </div>
                 <div className="offer__field-col">
-                    <strong className={`offer__field-title ${useV4Design === 'true' ? 'v4Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                    <strong
+                        className={`offer__field-title ${useV4Design === 'true' ? 'v4Design' : ''} ${
+                            useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                        }`}
+                    >
                         {termsLabel?.total}
                     </strong>
                     <strong className="offer__field-value">{meta?.formattedTotalCost}</strong>

@@ -184,7 +184,12 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
 
     return (
         <div className="calculator">
-            <form className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`} onSubmit={submit}>
+            <form
+                className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                }`}
+                onSubmit={submit}
+            >
                 <h4 className="title">{title}</h4>
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
