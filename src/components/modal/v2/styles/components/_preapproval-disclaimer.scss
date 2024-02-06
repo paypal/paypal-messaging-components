@@ -1,6 +1,7 @@
 .preapproval-disclaimer {
     text-align: left;
     box-sizing: border-box;
+    margin-top: 20px;
 
     @include desktop {
         padding-left: 30px;
@@ -28,7 +29,6 @@
         }
         .preapproval-disclaimer__item-wrapper {
             display: list-item;
-            padding-bottom: 0px;
         }
         li {
             margin-left: 0.6rem;

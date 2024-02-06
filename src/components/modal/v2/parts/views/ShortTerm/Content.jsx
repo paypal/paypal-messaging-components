@@ -25,13 +25,13 @@ export const ShortTerm = ({
         cta
     },
     productMeta: { qualifying, periodicPayment, useV4Design, preapproved },
-    openProductList
+    openProductList,
+    useNewCheckoutDesign
 }) => {
     const { views, country } = useServerData();
-    const { onClick, onClose, features } = useXProps();
+    const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
-    const isQLDesign = features === 'ql-design';
 
     const isPreapproved = preapproved === 'true';
 
@@ -49,7 +49,7 @@ export const ShortTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <div className="button__fixed-wrapper">
-                    <div className={`button__container ${isQLDesign ? 'qLDesign' : ''}`}>
+                    <div className={`button__container ${useNewCheckoutDesign ? 'checkout' : ''}`}>
                         {isQualifying ? (
                             <Button
                                 onClick={() => {
@@ -107,7 +107,7 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className={`content__row dynamic ${isQLDesign ? 'qLDesign' : ''}`}>
+                <div className={`content__row dynamic ${useNewCheckoutDesign ? 'checkout' : ''}`}>
                     <div className="content__col">
                         <div className="content__row donuts">
                             <div className="donuts__container">
@@ -129,7 +129,6 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} useV4Design={useV4Design} isQLDesign={isQLDesign} />
                         {isPreapproved && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
@@ -137,6 +136,11 @@ export const ShortTerm = ({
                                 country={country}
                             />
                         )}
+                        <Instructions
+                            instructions={instructions}
+                            useV4Design={useV4Design}
+                            useNewCheckoutDesign={useNewCheckoutDesign}
+                        />
                     </div>
                     <div className="content__col">
                         <div className="branded-image">

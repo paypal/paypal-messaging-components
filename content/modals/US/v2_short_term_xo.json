@@ -25,13 +25,17 @@
         }
     },
     "content": {
-        "headline": "Pay in 4 interest-free payments",
+        "headline": "Pay in 4",
         "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
-        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
+        "qualifyingSubheadline": "Split {formattedTotalCost} into {total_payments} interest-free payments with no impact on credit score and no late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": {
-            "instructionsHeadline": "How to use Pay in 4",
-            "instructionsSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
+            "instructionsHeadline": "How Pay in 4 works",
+            "instructionsSubHeadline": [
+                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
+                "Complete your purchase with a 25% down payment.",
+                "Use autopay for the rest of your payments. It's easy!"
+            ]
         },
         "preapproval": {
             "preapprovalHeadline": "You’re pre-approved",

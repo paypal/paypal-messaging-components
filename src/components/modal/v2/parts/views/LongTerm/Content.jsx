@@ -79,17 +79,17 @@ export const LongTerm = ({
         cta
     },
     productMeta: { useV4Design },
-    openProductList
+    openProductList,
+    useNewCheckoutDesign
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { amount, onClick, onClose, features } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const { views, country } = useServerData();
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
-    const isQLDesign = features === 'ql-design';
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -107,7 +107,7 @@ export const LongTerm = ({
 
         if (typeof cta !== 'undefined') {
             return (
-                <div className={`button__container ${isQLDesign ? 'qLDesign' : ''}`}>
+                <div className={`button__container ${useNewCheckoutDesign ? 'checkout' : ''}`}>
                     {isQualifyingAmount ? (
                         <Button
                             onClick={() => {
@@ -148,13 +148,14 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className={`content__row dynamic ${isQLDesign ? 'qLDesign' : ''}`}>
+            <div className={`content__row dynamic ${useNewCheckoutDesign ? 'checkout' : ''}`}>
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
                         calculator={calculator}
                         aprDisclaimer={offerAPRDisclaimers}
                         useV4Design={useV4Design}
+                        useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
@@ -165,7 +166,7 @@ export const LongTerm = ({
                 <Instructions
                     instructions={instructions}
                     useV4Design={useV4Design}
-                    isQLDesign={isQLDesign}
+                    useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
                 />
             </div>
