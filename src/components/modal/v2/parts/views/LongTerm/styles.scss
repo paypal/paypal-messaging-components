@@ -1,5 +1,6 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
+@import '../../../styles/globals/variables';
 
 .spinner {
     display: block;
@@ -36,4 +37,60 @@
         margin-top: 20px;
         margin-left: 0px;
     }
+}
+
+.button__fixed-wrapper {
+    @include fixedWrapper;
+    bottom: 0;
+    z-index: 1;
+
+    @include tablet {
+        border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
+        overflow: hidden;
+
+        @include lander {
+            border-radius: 0;
+        }
+    }
+}
+
+.button__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include tablet {
+        margin-bottom: 0;
+        max-width: $content-wrapper-max-width-tablet;
+        padding: 15px 0;
+        .button {
+            width: calc(80%);
+        }
+    }
+
+    @include mobile {
+        margin-bottom: 0;
+        max-width: $content-wrapper-max-width-tablet;
+        padding: 15px 0;
+        .button {
+            width: calc(80%);
+        }
+    }
+
+    @include apiIframe {
+        max-width: $content-wrapper-max-width-api-iframe;
+    }
+
+    &.checkout {
+        .button {
+            @include tablet {
+                width: auto;
+            }
+        }
+    }
+
+}
+
+.checkout {
+    background: $ql-gray;
 }

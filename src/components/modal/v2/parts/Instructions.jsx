@@ -80,7 +80,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
     };
 
     return (
-        <div className={`content__row instructions ${useNewCheckoutDesign ? 'checkout' : ''}`}>
+        <div className={`content__row instructions ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
             {renderInstructionsContent()}
         </div>
     );

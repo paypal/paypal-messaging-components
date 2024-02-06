@@ -39,6 +39,7 @@
         },
         "preapproval": {
             "preapprovalHeadline": "You’re pre-approved",
+            "preapprovalLabel": "Pre-approved",
             "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": [

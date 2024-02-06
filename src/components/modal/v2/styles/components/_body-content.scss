@@ -42,6 +42,12 @@
         max-width: $content-wrapper-max-width-api-iframe;
         border-radius: 0;
     }
+
+    &.checkout {
+        @include tablet {
+            max-width: $content-wrapper-max-width-tablet-checkout;
+        }
+    }
 }
 
 .content__wrapper {

@@ -373,7 +373,7 @@
             svg {
                 position: relative;
                 bottom: 0px;
-                right: -62px;
+                right: -20px;
 
                 @include mobile {
                     right: -22px;
@@ -383,6 +383,10 @@
             h2 {
                 margin-top: 20px;
                 margin-bottom: 0px;
+
+                @include tablet {
+                    margin-left: 20px;
+                }
             }
     
             .subheadline_p {
@@ -393,6 +397,8 @@
                 }
                 @include tablet {
                     margin-bottom: 10px;
+                    margin-left: 20px;
+                    padding: 0px 10px 0px 0px;
                 }
                 @include mobile {
                     padding: 10px 22px 50px;

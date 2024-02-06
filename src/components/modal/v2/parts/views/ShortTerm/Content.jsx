@@ -134,6 +134,7 @@ export const ShortTerm = ({
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
                                 country={country}
+                                useNewCheckoutDesign={useNewCheckoutDesign}
                             />
                         )}
                         <Instructions

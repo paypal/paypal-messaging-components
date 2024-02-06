@@ -183,7 +183,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
     };
 
     return (
-        <div className="calculator">
+        <div className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
             <form
                 className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''

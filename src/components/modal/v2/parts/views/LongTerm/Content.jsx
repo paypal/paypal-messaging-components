@@ -179,7 +179,7 @@ export const LongTerm = ({
                 />
             </div>
             <div
-                className={`content__row disclosure ${expandedState ? '' : 'collapsed'}  ${
+                className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 }`}
             >
