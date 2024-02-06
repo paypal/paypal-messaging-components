@@ -26,4 +26,17 @@
             outline: 3px solid $dark-blue;
         }
     }
+
+    &.checkout {
+        border-top: 1px solid $ql-dark-gray;
+        box-shadow: 0px 0px 2px $ql-dark-gray;
+        .button {
+            background: $ql-blue;
+
+            &:hover,
+            &:focus {
+                background: $light-blue;
+            }
+        }
+    }
 }

@@ -118,10 +118,6 @@
             .product-list {
                 width: 100%;
             }
-
-            .qLDesign {
-                padding-top: 20px;
-            }
         }
 
         &.disclosure {
@@ -139,6 +135,18 @@
 
             @include mobile {
                 margin-top: 28px;
+            }
+        }
+
+        &.checkout {
+            &.disclosure {
+                @include desktop {
+                    margin: 0px 30px 23px 30px;
+                }
+
+                @include tablet {
+                    margin: 0px 44px 20px 44px;
+                }
             }
         }
     }

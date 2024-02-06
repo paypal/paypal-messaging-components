@@ -107,7 +107,7 @@ export const LongTerm = ({
 
         if (typeof cta !== 'undefined') {
             return (
-                <div className={`button__container ${useNewCheckoutDesign ? 'checkout' : ''}`}>
+                <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     {isQualifyingAmount ? (
                         <Button
                             onClick={() => {
@@ -145,10 +145,18 @@ export const LongTerm = ({
         return null;
     };
 
+    // New checkout modal designs utilize a sticky button
+    const conditionalStickyButton =
+        useNewCheckoutDesign === 'true' ? (
+            <div className="button__fixed-wrapper">{renderCheckoutCtaButton()}</div>
+        ) : (
+            renderCheckoutCtaButton()
+        );
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className={`content__row dynamic ${useNewCheckoutDesign ? 'checkout' : ''}`}>
+            <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
@@ -170,7 +178,11 @@ export const LongTerm = ({
                     expandedState={expandedState}
                 />
             </div>
-            <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+            <div
+                className={`content__row disclosure ${expandedState ? '' : 'collapsed'}  ${
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                }`}
+            >
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} />
                 ) : (
@@ -179,7 +191,7 @@ export const LongTerm = ({
                     />
                 )}
             </div>
-            {renderCheckoutCtaButton()}
+            {conditionalStickyButton}
         </Fragment>
     );
 };

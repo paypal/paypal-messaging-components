@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const Icon = ({ name = '', color, content, useNewCheckoutDesign }) => {
+const Icon = ({ name = '', color, content }) => {
     if (content) {
         // eslint-disable-next-line react/no-danger
         return <div aria-hidden="true" className="icon__wrapper" dangerouslySetInnerHTML={{ __html: content }} />;
@@ -263,7 +263,7 @@ const Icon = ({ name = '', color, content, useNewCheckoutDesign }) => {
                     viewBox="0 0 286 265"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`background-mobile ${useNewCheckoutDesign ? 'checkout' : ''}`}
+                    className="background-mobile"
                 >
                     <g clip-path="url(#clip0_793_650)">
                         <path
@@ -305,7 +305,7 @@ const Icon = ({ name = '', color, content, useNewCheckoutDesign }) => {
                     height="176"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`background-desktop ${useNewCheckoutDesign ? 'checkout' : ''}`}
+                    className="background-desktop"
                 >
                     <g clip-path="url(#a)">
                         <path
@@ -345,7 +345,7 @@ const Icon = ({ name = '', color, content, useNewCheckoutDesign }) => {
                     viewBox="0 0 285 196"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className={`background-mobile ${useNewCheckoutDesign ? 'checkout' : ''}`}
+                    className="background-mobile"
                 >
                     <g clip-path="url(#clip0_793_1319)">
                         <path

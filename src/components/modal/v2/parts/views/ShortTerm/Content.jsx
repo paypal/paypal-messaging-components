@@ -49,7 +49,7 @@ export const ShortTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <div className="button__fixed-wrapper">
-                    <div className={`button__container ${useNewCheckoutDesign ? 'checkout' : ''}`}>
+                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                         {isQualifying ? (
                             <Button
                                 onClick={() => {
@@ -107,7 +107,7 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className={`content__row dynamic ${useNewCheckoutDesign ? 'checkout' : ''}`}>
+                <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     <div className="content__col">
                         <div className="content__row donuts">
                             <div className="donuts__container">

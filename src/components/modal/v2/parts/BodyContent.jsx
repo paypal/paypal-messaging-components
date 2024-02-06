@@ -72,6 +72,7 @@ const BodyContent = () => {
     const isPreapproved = productMeta?.preapproved === 'true';
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
+    const preapprovalLabel = content?.preapproval?.preapprovalLabel;
 
     const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
@@ -131,6 +132,7 @@ const BodyContent = () => {
                     viewName={viewName}
                     preapprovalHeadline={preapprovalHeadline}
                     preapprovalSubHeadline={preapprovalSubHeadline}
+                    preapprovalLabel={preapprovalLabel}
                     // toggles preapproval content
                     isPreapproved={isPreapproved ?? 'false'}
                 />
@@ -148,7 +150,7 @@ const BodyContent = () => {
             )}
             <div
                 className={`content__container ${useV4Design ? 'v4Design' : ''} ${
-                    useNewCheckoutDesign ? 'checkout' : ''
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 }`}
             >
                 <main className="main">

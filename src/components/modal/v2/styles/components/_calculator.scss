@@ -34,110 +34,119 @@
         margin-top: 15px;
     }
 
-    .title {
-        color: $text-main;
-        font-weight: 400;
-        font-size: 18px;
-        margin-top: 0;
-        margin-bottom: 10px;
-
-        @include desktop {
-            @include lander {
-                margin-top: 20px;
-            }
-        }
-    }
-
-    .input__wrapper {
-        position: relative;
-        display: inline-block;
-        font-size: 0.9rem;
-        text-align: left;
-        margin-bottom: 0.25rem;
-
-        .input__label {
-            position: absolute;
-            left: 0.5rem;
-            top: 0.25rem;
-        }
-
-        .input__currency-symbol {
-            position: absolute;
-            right: 0;
-            margin-top: 25px;
-            font-size: 18px;
-            margin-right: 10px;
-        }
-
-        .input {
-            font-family: $paypal-open;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+    .form {
+        .title {
             color: $text-main;
+            font-weight: 400;
             font-size: 18px;
-            padding: 1.75rem 0.5rem 0.25rem;
+            margin-top: 0;
+            margin-bottom: 10px;
 
-            &.empty-input {
-                padding-top: 16px;
-                padding-bottom: 16px;
-                &::placeholder {
-                    font-family: $paypal-open;
-                    font-size: 14px;
+            @include desktop {
+                @include lander {
+                    margin-top: 20px;
                 }
             }
         }
-    }
 
-    .form {
-        text-align: left;
-
-        @include tablet {
-            // text-align: center;
-        }
-    }
-
-    .v4Design, .checkout {
-        h4 {
-            font-weight: 700;
-        }
-    }
-
-    &__error {
-        color: $text-main;
-        font-size: 14px;
-        margin-top: 10px;
-
-        @include tablet {
-            display: flex;
-        }
-
-        & > div {
-            display: inline-flex;
+        .input__wrapper {
+            position: relative;
+            display: inline-block;
+            font-size: 0.9rem;
             text-align: left;
-            align-items: flex-start;
-            max-width: 300px;
+            margin-bottom: 0.25rem;
 
-            @include desktop {
-                margin: auto;
+            .input__label {
+                position: absolute;
+                left: 0.5rem;
+                top: 0.25rem;
             }
 
-            @include mobile {
-                margin: auto;
+            .input__currency-symbol {
+                position: absolute;
+                right: 0;
+                margin-top: 25px;
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .input {
+                font-family: $paypal-open;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                color: $text-main;
+                font-size: 18px;
+                padding: 1.75rem 0.5rem 0.25rem;
+
+                &.empty-input {
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                    &::placeholder {
+                        font-family: $paypal-open;
+                        font-size: 14px;
+                    }
+                }
             }
         }
 
-        &.hide {
-            margin-top: -20px;
+        .v4Design, .checkout {
+            h4 {
+                font-weight: 700;
+            }
+        }
+
+        &.checkout {
+            .input__wrapper {
+                @include mobile {
+                    width: 100%;
+                }
+            }
+
+            .input {
+                border-radius: 8px;
+                @include mobile {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__error {
+            color: $text-main;
+            font-size: 14px;
+            margin-top: 10px;
+
+            @include tablet {
+                display: flex;
+            }
 
             & > div {
-                height: 0;
-                overflow: hidden;
-            }
-        }
+                display: inline-flex;
+                text-align: left;
+                align-items: flex-start;
+                max-width: 300px;
 
-        svg {
-            margin: 0 0.3rem 0 0;
+                @include desktop {
+                    margin: auto;
+                }
+
+                @include mobile {
+                    margin: auto;
+                }
+            }
+
+            &.hide {
+                margin-top: -20px;
+
+                & > div {
+                    height: 0;
+                    overflow: hidden;
+                }
+            }
+
+            svg {
+                margin: 0 0.3rem 0 0;
+            }
         }
     }
 

@@ -13,6 +13,7 @@ const CheckoutHeader = ({
     viewName,
     preapprovalHeadline,
     preapprovalSubHeadline,
+    preapprovalLabel,
     isPreapproved = 'false'
 }) => {
     const { country } = useServerData();
@@ -68,7 +69,6 @@ const CheckoutHeader = ({
                     <Icon name={viewName === 'PAY_LATER_LONG_TERM' ? 'pay-monthly-card' : 'pay-in-4-card'} />
                 </div>
                 <div className="preapproved">
-                    {/* className={`${useNewCheckoutDesign ? 'checkout' : ''}`} */}
                     <h2
                         // id used for aria-labelleby on modal container element
                         id="header__headline"
@@ -80,7 +80,7 @@ const CheckoutHeader = ({
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
                     />
-                    {isPreapproved === true ? <span className="preapproved">Pre-approved</span> : ''}
+                    {isPreapproved === true ? <span className="preapproved-label">{preapprovalLabel}</span> : ''}
                 </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
