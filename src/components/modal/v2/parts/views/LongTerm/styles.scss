@@ -80,15 +80,6 @@
     @include apiIframe {
         max-width: $content-wrapper-max-width-api-iframe;
     }
-
-    &.checkout {
-        .button {
-            @include tablet {
-                width: auto;
-            }
-        }
-    }
-
 }
 
 .checkout {

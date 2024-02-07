@@ -3,8 +3,9 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props, event, state }) => {
+export default ({ doc, props: { cspNonce, features }, event, state }) => {
     const ERROR_DELAY = 15000;
+    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
     const styles = `
         @font-face {
             font-family: 'PayPalSansBig';
@@ -60,12 +61,39 @@ export default ({ doc, props, event, state }) => {
         .modal{
             overflow-y: scroll;
         }
-        .overlay{
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%;
+        ${
+            useNewCheckoutDesign === 'true'
+                ? ` @media (min-device-width: 640px) {
+                    .overlay {
+                        background-color: white;        
+                        position: fixed;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 424px;
+                        height: 90vh;
+                        border-radius: 32px;
+                        border: 1px solid #cdd0d4;
+                    }
+                }
+                @media (max-device-width: 639px) {
+                    .overlay {
+                        background-color: white;
+                        position: fixed;
+                        left: 0;
+                        top: 0;
+                        width: 100%; 
+                        height: 100%;
+                    }
+                }
+            `
+                : `.overlay {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%; 
+                height: 100%;
+            }`
         }
         .modal-content {
             position: relative;
@@ -73,6 +101,30 @@ export default ({ doc, props, event, state }) => {
             height: 100%;
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
+        }
+        ${
+            useNewCheckoutDesign === 'true' &&
+            `
+                @media screen and (min-device-width: 640px) {
+                    #prerender-close-btn {
+                        position: relative;
+                    }
+                    .close-button {
+                        position: absolute;
+                        width: 424px;
+                        transform: translate(-50%, -50%);
+                        top: 85px;
+                        left: 50%;
+                        padding-left: 25px;
+                        z-index: 50;
+                    }
+                }
+                @media screen and (max-device-width: 639px) {
+                    #prerender-close-btn {
+                        left: 0;
+                    }
+                }
+            `
         }
         .spinner{
             position: relative !important;
@@ -97,15 +149,26 @@ export default ({ doc, props, event, state }) => {
             height: 48px;
         }
 
-        #modal-status{
-            color: white;
-            position: absolute;
-            top: 67%;
-            left: calc( 50% - 10px );
-            margin-left: -60px;
-            display: none;
-            padding: 10px;
-
+        ${
+            useNewCheckoutDesign === 'true'
+                ? `#modal-status {
+                    color: #545D68;
+                    position: absolute;
+                    top: 58%;
+                    left: calc( 50% - 10px );
+                    margin-left: -60px;
+                    display: none;
+                    padding: 10px;
+                }`
+                : `#modal-status{
+                    color: white;
+                    position: absolute;
+                    top: 67%;
+                    left: calc( 50% - 10px );
+                    margin-left: -60px;
+                    display: none;
+                    padding: 10px;
+            }`
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -167,13 +230,15 @@ export default ({ doc, props, event, state }) => {
         }
     });
 
+    const svgColor = useNewCheckoutDesign === 'true' ? '#545D68' : 'white';
+
     return (
         <html lang="en">
             <head>
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <style nonce={props.cspNonce}>{styles}</style>
+            <style nonce={cspNonce}>{styles}</style>
             {/* 
                 disable jsx-a11y/no-static-element-interactions
                     because we need handleEscape to work regardless of which element has focus,
@@ -213,14 +278,14 @@ export default ({ doc, props, event, state }) => {
                                     <path
                                         d="M12 0L0 12"
                                         transform="translate(12 12)"
-                                        stroke="white"
+                                        stroke={svgColor}
                                         stroke-width="2"
                                         stroke-linecap="round"
                                     />
                                     <path
                                         d="M0 0L12 12"
                                         transform="translate(12 12)"
-                                        stroke="white"
+                                        stroke={svgColor}
                                         stroke-width="2"
                                         stroke-linecap="round"
                                     />
@@ -230,7 +295,7 @@ export default ({ doc, props, event, state }) => {
                         <span id="modal-status" aria-label="modal-status" aria-live="polite">
                             Loading Modal
                         </span>
-                        <Spinner nonce={props.cspNonce} />
+                        <Spinner nonce={cspNonce} />
                     </div>
                 </div>
             </body>

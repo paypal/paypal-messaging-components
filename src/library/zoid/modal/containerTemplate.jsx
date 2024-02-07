@@ -118,8 +118,12 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                         ${fullScreen('fixed')}
                     }
 
-                    #${uid} > div.${CLASS.MODAL_SHOW} {
-                        background: rgba(108, 115, 120, 0.85);
+                    ${
+                        features !== 'new-checkout-design'
+                            ? `#${uid} > div.${CLASS.MODAL_SHOW} {
+                                background: rgba(108, 115, 120, 0.85);
+                            }`
+                            : ''
                     }
 
                     #${uid} > div > iframe {

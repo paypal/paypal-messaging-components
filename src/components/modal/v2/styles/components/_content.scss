@@ -136,6 +136,12 @@
             @include mobile {
                 margin-top: 28px;
             }
+
+            &.checkout {
+                @include mobile {
+                     margin-bottom: 60px;
+                 }
+            }
         }
 
         &.checkout {

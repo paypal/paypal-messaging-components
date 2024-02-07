@@ -98,20 +98,16 @@
 
         &.checkout {
             .input__wrapper {
-                // @include mobile {
-                    width: 100%;
-                // }
+                width: 100%;
             }
 
             .input {
                 border-radius: 8px;
-                // @include mobile {
-                    width: 97%;
-                // }
+                width: 97%;
             }
         }
 
-        &__error {
+        .calculator__error {
             color: $text-main;
             font-size: 14px;
             margin-top: 10px;

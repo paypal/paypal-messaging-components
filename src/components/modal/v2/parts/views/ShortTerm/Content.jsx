@@ -150,7 +150,7 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${cta ? 'checkout' : ''}`}>
+            <div className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>
