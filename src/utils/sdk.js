@@ -33,6 +33,14 @@ export function getDisableSetCookie() {
     }
 }
 
+export function getNativeModal() {
+    if (typeof __MESSAGES__.__NATIVE_MODAL__ !== 'undefined') {
+        return __MESSAGES__.__NATIVE_MODAL__;
+    }
+
+    return false;
+}
+
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
@@ -270,9 +278,14 @@ export function getDevTouchpoint() {
     }
 }
 export function getFeatures() {
+    const results = [];
     if (getDisableSetCookie()) {
-        return 'disable-set-cookie';
-    } else {
-        return undefined;
+        results.push('disable-set-cookie');
     }
+    if (getNativeModal()) {
+        results.push('native-modal');
+        return 'native-modal';
+    }
+
+    return results.length === 0 ? undefined : results.join(',');
 }

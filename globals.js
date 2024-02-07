@@ -26,6 +26,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
         __VERSION__: env.VERSION || version,
         __FEATURES__: 'no-common',
         __DEMO__: !!env.demo,
+        __NATIVE_MODAL__: true,
         __TARGET__: env.TARGET.toUpperCase().replace(/-/g, '_'),
         __STAGE_TAG__: env.STAGE_TAG,
         __TEST_ENV__: env.TEST_ENV,

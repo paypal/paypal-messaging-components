@@ -151,9 +151,9 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLICK',
-                            event_type: 'click',
-                            link: linkName,
-                            src: src ?? linkName
+                            event_type: 'modal_rendered',
+                            page_view_link_name: linkName,
+                            page_view_link_source: src ?? linkName
                         });
 
                         if (typeof onClick === 'function') {
@@ -179,10 +179,10 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLICK',
-                            event_type: 'click',
-                            link: 'Calculator',
-                            src: 'Calculator',
-                            amount: value
+                            event_type: 'modal_rendered',
+                            page_view_link_name: 'Calculator',
+                            page_view_link_source: 'Calculator',
+                            calculator_input: value
                         });
 
                         if (typeof onCalculate === 'function') {
@@ -204,7 +204,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-open',
+                            event_type: 'modal_viewed',
                             src
                         });
 
@@ -234,8 +234,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLICK',
-                            event_type: 'modal-close',
-                            link: linkName
+                            event_type: 'modal_close',
+                            page_view_link_name: linkName
                         });
 
                         if (typeof onClose === 'function') {
@@ -301,7 +301,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             index,
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
-                            event_type: 'modal-render',
+                            event_type: 'modal_rendered',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],

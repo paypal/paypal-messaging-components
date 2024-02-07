@@ -150,7 +150,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             offerCountry,
                             refId: messageRequestId,
                             refIndex: index,
-                            src: 'message_click'
+                            page_view_link_source: 'message_click'
                         });
 
                         logger.track({
@@ -162,8 +162,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         logger.track({
                             index,
                             et: 'CLICK',
-                            event_type: 'click',
-                            link: 'Banner Wrapper'
+                            event_type: 'message_clicked',
+                            page_view_link_name: 'Banner Wrapper'
                         });
 
                         if (typeof onClick === 'function') {
@@ -185,7 +185,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
-                                event_type: 'hover'
+                                event_type: 'message_hovered'
                             });
                         }
 

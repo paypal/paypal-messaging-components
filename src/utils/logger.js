@@ -1,11 +1,131 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable camelcase */
 import objectKeys from 'core-js-pure/stable/object/keys';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
+import { ZalgoPromise } from 'zalgo-promise';
 
 import { getGlobalAPIUrl } from './global';
 import { request } from './miscellaneous';
 
 import { getLibraryVersion, getDisableSetCookie } from './sdk';
+
+function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
+    const { deviceID, sessionID, integration_type, messaging_version } = meta.global ?? {};
+
+    let clientID;
+    if (account.startsWith('client-id:')) {
+        clientID = account.slice('client-id:');
+    }
+
+    let merchant_profile_hash;
+    let buyer_profile_hash;
+    let buyer_profile_valid;
+    let partner_attribution_id;
+    let events = [];
+
+    const pageLoadedEvents = tracking.filter(event => event.event_type === 'page_loaded');
+    if (pageLoadedEvents.length > 0) {
+        events = events.concat(pageLoadedEvents);
+    }
+
+    const components = Object.entries(meta)
+        .filter(([, component]) => component.account === account)
+        .map(([index, component]) => {
+            const { type, messageRequestId, stats = {}, trackingDetails } = component;
+
+            const { clickUrl } = trackingDetails;
+            delete trackingDetails.clickUrl;
+
+            // We expect these to be the same for every event so just take one
+            merchant_profile_hash = merchant_profile_hash ?? trackingDetails.MERCHANT_CONFIG_HASH;
+            buyer_profile_hash = buyer_profile_hash ?? trackingDetails.BUYER_PROFILE_HASH;
+            buyer_profile_valid = buyer_profile_valid ?? trackingDetails.BUYER_PROFILE_VALID;
+            partner_attribution_id = partner_attribution_id ?? stats.bn_code;
+
+            const componentEvents = tracking.filter(event => event.index === index);
+
+            // Stats payload
+            const { render_duration, request_duration } = stats;
+            delete stats.render_duration;
+            delete stats.request_duration;
+
+            // disable ESLint rule since we do not support IE anymore
+            // eslint-disable-next-line compat/compat
+            const clickUrlParams = new URLSearchParams(clickUrl);
+            const fdata = clickUrlParams.get('fdata');
+
+            return {
+                component_type: type,
+                instance_id: messageRequestId,
+                fdata,
+                merchant_events: bizEvents.filter(event => event.payload?.index === index),
+                ...trackingDetails,
+                ...stats,
+
+                component_events: componentEvents
+                    .filter(({ event_type }) => event_type !== 'MORS')
+                    .map(event => {
+                        return {
+                            ...event,
+                            render_duration,
+                            request_duration
+                        };
+                    })
+            };
+        });
+
+    return {
+        specversion: '1.0',
+        type: 'com.paypal.credit.upstream-presentment.v1',
+        source: 'urn:paypal:event-src:js-sdk:messages',
+        datacontenttype: 'application/json',
+        dataschema:
+            'ppaas:events.credit.FinancingPresentmentAsyncAPISpecification/v1/schema/json/credit_upstream_presentment_event.json',
+        data: {
+            // Integration Details
+            client_id: clientID,
+            merchant_id: account,
+            partner_attribution_id,
+            merchant_profile_hash,
+            buyer_profile_hash,
+            buyer_profile_valid,
+
+            // Global Details
+            device_id: deviceID,
+            session_id: sessionID,
+            integration_type,
+            lib_version: messaging_version,
+            events,
+            components
+        }
+    };
+}
+
+/**
+ * Translate the meta, events, and tracking into payloads for the
+ * endpoint `/v1/credit/upstream-messaging-events`
+ * @param {Object} data - the data the logger wishes to send
+ * @param {Object} data.meta - the data the logger wishes to send
+ * @param {Object[]} data.events - the data captured by logger.{debug|info|warn|error} calls
+ * @param {Object[]} data.tracking - the data captured by logger.track calls
+ * @returns {Object[]} result - the data we wish to send as request bodies
+ * @returns {Object} result.[] - the data we wish to report the components and events for a single merchant
+ */
+function translateLogData({ meta, events, tracking }) {
+    const uniqueAccounts = Array.from(
+        new Set(
+            Object.values(meta)
+                .map(({ account }) => account)
+                .filter(Boolean)
+        )
+    );
+
+    return uniqueAccounts.reduce(
+        (payloads, uniqueAccount) => [...payloads, generateLogPayload(uniqueAccount, { meta, events, tracking })],
+        []
+    );
+}
 
 export const logger = Logger({
     // Url to send logs to
@@ -42,22 +162,25 @@ export const logger = Logger({
                 {}
             );
 
+        const trimmedLog = json;
+        trimmedLog.meta = trimmedMeta;
+
         const urlWithCookieParams = getDisableSetCookie()
             ? `${url}?disableSetCookie=true&features=disable-set-cookie`
             : url;
 
-        return request(method, urlWithCookieParams, {
-            headers: {
-                'content-type': 'application/json',
-                ...headers
-            },
-            data: {
-                meta: trimmedMeta,
-                events: json.events,
-                tracking: json.tracking
-            },
-            withCredentials: true
-        });
+        return ZalgoPromise.all(
+            translateLogData(trimmedLog).map(data => {
+                return request(method, urlWithCookieParams, {
+                    headers: {
+                        'content-type': 'application/json',
+                        ...headers
+                    },
+                    data,
+                    withCredentials: true
+                });
+            })
+        );
     }
 });
 
