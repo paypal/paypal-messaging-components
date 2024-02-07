@@ -109,7 +109,7 @@ export const ShortTerm = ({
             <div className="dynamic__container">
                 <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     <div className="content__col">
-                        <div className="content__row donuts">
+                        <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
                                 {elements.map((installment, index) => (
                                     <Donut
