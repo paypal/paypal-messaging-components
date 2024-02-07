@@ -143,6 +143,8 @@
     }
 
     &.checkout {
+        margin-top: 20px;
+            
         h2 {
             @include tablet {
                 margin-left: 0px;
