@@ -1,5 +1,4 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable react/no-array-index-key */
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import arrayFrom from 'core-js-pure/stable/array/from';
