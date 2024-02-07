@@ -17,7 +17,11 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useV4Des
     if (isLoading) {
         return (
             <div className="offer__wrapper">
-                <LoadingShimmer numOffers={offerCountry !== 'DE' ? numOffers : 4} offerCountry={offerCountry} />
+                <LoadingShimmer
+                    numOffers={offerCountry !== 'DE' ? numOffers : 4}
+                    offerCountry={offerCountry}
+                    useNewCheckoutDesign={useNewCheckoutDesign}
+                />
             </div>
         );
     }
