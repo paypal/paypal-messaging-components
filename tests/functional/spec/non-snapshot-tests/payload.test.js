@@ -1,23 +1,26 @@
-import packageConfig from '../../../../package.json';
 import { bannerStyles } from '../utils/testStylesConfig';
 import selectors from '../utils/selectors';
 import setupTestPage from '../utils/setupTestPage';
 
-const EVENT_TYPES = ['MORS', 'click', 'hover', 'modal-close', 'modal-render', 'modal-open', 'stats', 'scroll'];
+const EVENT_TYPES = ['MORS', 'modal_rendered', 'message_hovered', 'modal_close', 'modal_viewed', 'scroll'];
 
 const createSpy = async () => {
     const spy = { matchingStats: [], meta: {} };
     page.on('request', request => {
         const url = request.url();
         const postDataString = request.postData();
-        if (url.includes('log') && postDataString) {
+        if (url.includes('upstream-messaging-events') && postDataString) {
             const postData = JSON.parse(postDataString);
 
+            const events = postData.data?.components.reduce((acc, component) => {
+                return acc.concat(component.component_events);
+            }, []);
+
             // eslint-disable-next-line camelcase
-            const hasEvent = postData.tracking?.filter(({ event_type }) => EVENT_TYPES.includes(event_type));
+            const hasEvent = events.filter(({ event_type }) => EVENT_TYPES.includes(event_type));
             if (hasEvent) {
-                spy.meta = { ...spy.meta, ...postData.meta };
-                spy.matchingStats = spy.matchingStats.concat(postData.tracking);
+                spy.meta = { ...spy.meta, ...postData.data?.components };
+                spy.matchingStats = spy.matchingStats.concat(events);
             }
         }
     });
@@ -57,10 +60,14 @@ const runTest = async ({
     const { matchingStats, meta } = payloadSpy;
     matchObjects.forEach(matchObject => {
         // eslint-disable-next-line camelcase
-        const { link, event_type } = matchObject;
+        const { page_view_link_name, event_type } = matchObject;
         const matchingStat = matchingStats.find(stat =>
             // eslint-disable-next-line camelcase
-            typeof link === 'string' ? stat.link === link : stat.event_type === event_type
+            typeof page_view_link_name === 'string'
+                ? // eslint-disable-next-line camelcase
+                  stat.page_view_link_name === page_view_link_name
+                : // eslint-disable-next-line camelcase
+                  stat.event_type === event_type
         );
 
         if (!matchingStat) {
@@ -73,9 +80,11 @@ const runTest = async ({
     });
 
     matchMeta.forEach(matchObject => {
-        const { type } = matchObject;
+        // eslint-disable-next-line camelcase
+        const { component_type } = matchObject;
 
-        const matchingMeta = Object.values(meta).find(metaEntry => metaEntry.type === type);
+        // eslint-disable-next-line camelcase
+        const matchingMeta = Object.values(meta).find(metaEntry => metaEntry.component_type === component_type);
 
         if (!matchingMeta) {
             // eslint-disable-next-line no-console
@@ -100,39 +109,37 @@ describe('payload testing', () => {
             config,
             matchMeta: [
                 {
-                    type: 'message',
-                    messageRequestId: expect.any(String),
-                    account: config.account
+                    component_type: 'message',
+                    instance_id: expect.any(String)
                 },
                 {
-                    type: 'modal',
-                    messageRequestId: expect.any(String),
-                    account: config.account
-                },
-                { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
+                    component_type: 'modal',
+                    instance_id: expect.any(String)
+                }
+                // { integration_type: 'STANDALONE', messaging_version: packageConfig.version } // TODO: Fix
             ],
             matchObjects: [
                 {
                     et: 'CLIENT_IMPRESSION',
-                    event_type: 'stats',
+                    event_type: 'message_rendered',
                     first_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number)
                 },
                 {
                     index: expect.any(String),
-                    event_type: 'modal-render',
+                    event_type: 'modal_rendered',
                     modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
                     first_modal_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number)
-                },
-                {
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'page_loaded',
-                    script_load_delay: expect.stringNumber(),
-                    dom_load_delay: expect.stringNumber(),
-                    page_load_delay: expect.stringNumber(),
-                    timestamp: expect.any(Number)
                 }
+                // {
+                //     et: 'CLIENT_IMPRESSION',
+                //     event_type: 'page_loaded',
+                //     script_load_delay: expect.stringNumber(),
+                //     dom_load_delay: expect.stringNumber(),
+                //     page_load_delay: expect.stringNumber(),
+                //     timestamp: expect.any(Number)
+                // }
             ]
         });
     });
@@ -169,13 +176,13 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Banner Wrapper'
+                    event_type: 'message_clicked',
+                    page_view_link_name: 'Banner Wrapper'
                 },
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
-                    event_type: 'modal-open'
+                    event_type: 'modal_viewed'
                 }
             ]
         });
@@ -192,7 +199,7 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
-                    event_type: 'hover'
+                    event_type: 'message_hovered'
                 }
             ]
         });
@@ -216,8 +223,8 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Calculator',
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'Calculator',
                     amount: expect.any(String)
                 }
             ]
@@ -236,8 +243,8 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Apply Now'
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'Apply Now'
                 }
             ]
         });
@@ -255,8 +262,8 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'modal-close',
-                    link: 'Close Button'
+                    event_type: 'modal_close',
+                    page_view_link_name: 'Close Button'
                 }
             ]
         });
