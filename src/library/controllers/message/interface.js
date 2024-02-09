@@ -20,7 +20,7 @@ import {
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
 
-function getMyOptions(jsOptions, container) {
+function getMerchantOptions(jsOptions, container) {
     const globalOptions = getGlobalState().config;
     const inlineOptions = getInlineOptions(container);
 
@@ -83,7 +83,7 @@ export default (options = {}) => ({
                         // return resolved render and updateProps
                         const renderOrUpdateMessage = () => {
                             try {
-                                const merchantOptions = getMyOptions(options, container);
+                                const merchantOptions = getMerchantOptions(options, container);
 
                                 if (!container.hasAttribute('data-pp-id')) {
                                     container.setAttribute('data-pp-id', nextIndex());
