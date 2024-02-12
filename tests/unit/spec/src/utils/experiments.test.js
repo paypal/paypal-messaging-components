@@ -26,7 +26,8 @@ jest.mock('@paypal/sdk-client/src', () => ({
     getSDKMeta: () => 'meta',
     getEnv: () => 'local',
     getDisableSetCookie: () => 'true',
-    getDefaultNamespace: () => 'paypal'
+    getDefaultNamespace: () => 'paypal',
+    getPageType: () => 'home'
 }));
 
 describe('experiments utils', () => {

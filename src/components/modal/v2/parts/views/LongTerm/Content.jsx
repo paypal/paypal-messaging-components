@@ -79,7 +79,8 @@ export const LongTerm = ({
         cta
     },
     productMeta: { useV4Design },
-    openProductList
+    openProductList,
+    useNewCheckoutDesign
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
@@ -106,7 +107,7 @@ export const LongTerm = ({
 
         if (typeof cta !== 'undefined') {
             return (
-                <div className="button__container">
+                <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     {isQualifyingAmount ? (
                         <Button
                             onClick={() => {
@@ -144,16 +145,25 @@ export const LongTerm = ({
         return null;
     };
 
+    // New checkout modal designs utilize a sticky button
+    const conditionalStickyButton =
+        useNewCheckoutDesign === 'true' ? (
+            <div className="button__fixed-wrapper">{renderCheckoutCtaButton()}</div>
+        ) : (
+            renderCheckoutCtaButton()
+        );
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__row dynamic">
+            <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
                         calculator={calculator}
                         aprDisclaimer={offerAPRDisclaimers}
                         useV4Design={useV4Design}
+                        useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
@@ -161,9 +171,18 @@ export const LongTerm = ({
                         </div>
                     </div>
                 </div>
-                <Instructions instructions={instructions} useV4Design={useV4Design} expandedState={expandedState} />
+                <Instructions
+                    instructions={instructions}
+                    useV4Design={useV4Design}
+                    useNewCheckoutDesign={useNewCheckoutDesign}
+                    expandedState={expandedState}
+                />
             </div>
-            <div className={`content__row disclosure ${expandedState ? '' : 'collapsed'}`}>
+            <div
+                className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                }`}
+            >
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} />
                 ) : (
@@ -172,7 +191,7 @@ export const LongTerm = ({
                     />
                 )}
             </div>
-            {renderCheckoutCtaButton()}
+            {conditionalStickyButton}
         </Fragment>
     );
 };

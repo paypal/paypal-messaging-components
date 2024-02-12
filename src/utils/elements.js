@@ -50,6 +50,7 @@ export function getInlineOptions(container) {
         onclick: 'onClick',
         onapply: 'onApply',
         onrender: 'onRender',
+        pagetype: 'pageType',
         'style-text-fontfamily': 'style-text-fontFamily',
         'style-text-fontsource': 'style-text-fontSource'
     };

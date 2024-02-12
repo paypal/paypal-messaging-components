@@ -2,9 +2,14 @@
 import { h } from 'preact';
 import { currencyFormat, formatDateByCountry } from '../lib';
 
-const PreapprovalDisclaimer = ({ preapprovalDisclaimerHeadline, preapprovalDisclaimerBody, country }) => {
+const PreapprovalDisclaimer = ({
+    preapprovalDisclaimerHeadline,
+    preapprovalDisclaimerBody,
+    country,
+    useNewCheckoutDesign
+}) => {
     return (
-        <div className="content__row preapproval-disclaimer">
+        <div className={`content__row preapproval-disclaimer ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
             <h2
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{ __html: preapprovalDisclaimerHeadline }}

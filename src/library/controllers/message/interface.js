@@ -81,6 +81,7 @@ export default (options = {}) => ({
                                     currency,
                                     amount,
                                     placement,
+                                    pageType,
                                     style,
                                     offer,
                                     buyerCountry,
@@ -119,6 +120,7 @@ export default (options = {}) => ({
                                     ...commonProps,
                                     index,
                                     placement,
+                                    pageType,
                                     style,
                                     offer,
                                     onClick,
@@ -165,6 +167,7 @@ export default (options = {}) => ({
                                     amount: ${amount},
                                     buyerCountry: ${buyerCountry},
                                     placement: ${placement},
+                                    pageType: ${pageType},
                     
                                     renderStart: ${new Date(renderStart).toLocaleString()},
                                     renderMessageTime: ${new Date().toLocaleString()}
