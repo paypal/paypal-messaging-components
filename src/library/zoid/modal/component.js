@@ -26,6 +26,7 @@ import {
     getStandardProductOffer,
     getDevTouchpoint,
     getTsCookieFromStorage
+    // getPageType
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -135,6 +136,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'ec_token',
                 required: false,
                 value: validate.ecToken
+            },
+            pageType: {
+                type: 'string',
+                queryParam: 'page_type',
+                required: false,
+                value: validate.pageType
             },
             contextualComponents: {
                 type: 'string',

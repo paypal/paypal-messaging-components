@@ -270,6 +270,42 @@ describe('validate', () => {
         });
     });
 
+    test('validates pageType', () => {
+        [
+            'home',
+            'category',
+            'product-listing',
+            'search-results',
+            'product-details',
+            'mini-cart',
+            'cart',
+            'checkout'
+        ].forEach(supportedPageType => {
+            const pageType = validate.pageType({ props: { pageType: supportedPageType } });
+
+            expect(pageType).toEqual(supportedPageType);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
+
+        {
+            const pageType = validate.pageType({ props: {} });
+
+            expect(pageType).toBeUndefined();
+            expect(console.warn).not.toHaveBeenCalled();
+        }
+
+        [12345, 'abc', null].forEach((invalidPageType, index) => {
+            const pageType = validate.pageType({ props: { pageType: invalidPageType } });
+
+            expect(pageType).toBeUndefined();
+            expect(console.warn).toHaveBeenCalledTimes(index + 1);
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'pageType' })
+            );
+        });
+    });
+
     test('validates buyerCountry', () => {
         ['US', 'DE', 'FR', 'GB', 'AU'].forEach(supportedBuyerCountry => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: supportedBuyerCountry } });

@@ -1,7 +1,7 @@
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import numberIsNaN from 'core-js-pure/stable/number/is-nan';
 import stringStartsWith from 'core-js-pure/stable/string/starts-with';
-import { logger, memoize, getEnv } from '../../../utils';
+import { logger, memoize, getEnv, getPageType } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
 export const Types = {
@@ -201,6 +201,33 @@ export default {
             }
         }
 
+        return undefined;
+    },
+    pageType: ({ props: { pageType } }) => {
+        const sdkPageType = getPageType();
+        if (sdkPageType) {
+            return sdkPageType;
+        }
+        if (typeof pageType !== 'undefined') {
+            const options = [
+                'home',
+                'category',
+                'product-listing',
+                'search-results',
+                'product-details',
+                'mini-cart',
+                'cart',
+                'checkout'
+            ];
+
+            if (!validateType(Types.STRING, pageType)) {
+                logInvalidType('pageType', Types.STRING, pageType);
+            } else if (!arrayIncludes(options, pageType)) {
+                logInvalidOption('pageType', options, pageType);
+            } else {
+                return pageType;
+            }
+        }
         return undefined;
     },
     buyerCountry: ({ props: { buyerCountry } }) => {
