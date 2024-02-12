@@ -19,7 +19,8 @@ export const DEV_US_SHORT_TERM_CHECKOUT = {
             message: 'Qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments of $7.50',
             modalContent: {
-                subheadline: 'Split your purchase of $30.00 into 4 with no impact on credit score and no late fees.',
+                subheadline:
+                    'Split $30.00 into 4 interest-free payments with no impact on credit score and no late fees.',
                 periodicPayment: '$7.50'
             }
         },

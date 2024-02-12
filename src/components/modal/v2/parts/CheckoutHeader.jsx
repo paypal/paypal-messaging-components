@@ -4,15 +4,17 @@ import { useState } from 'preact/hooks';
 import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
 import Icon from './Icon';
 
-const Header = ({
+const CheckoutHeader = ({
     headline,
     subheadline,
-    logo,
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
     viewName,
-    useV4Design
+    preapprovalHeadline,
+    preapprovalSubHeadline,
+    preapprovalLabel,
+    isPreapproved = 'false'
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -38,21 +40,12 @@ const Header = ({
     return (
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                <div
-                    className={`header__background-wrapper header__background-wrapper--gradient ${
-                        useV4Design ? 'v4Design' : ''
-                    }`}
-                />
+                <div className="checkout header__background-wrapper header__background-wrapper--gradient" />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
+                <div className=" checkout header__background-wrapper" />
             </div>
-            <div className="header__icons">
-                <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo">
-                        <Icon name={logo} />
-                    </div>
-                </div>
+            <div className="checkout header__icons">
                 {!isLander && (
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
@@ -64,38 +57,44 @@ const Header = ({
                         aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
-                        <Icon name="close" />
+                        <Icon name="chevron-left" />
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                    <div
-                        className={`header__background-wrapper header__background-wrapper--sticky ${
-                            useV4Design ? 'v4Design' : ''
-                        }`}
-                    />
+                    <div className="checkout header__background-wrapper header__background-wrapper--sticky" />
                 </div>
             </div>
-            <div className="header__content">
-                <Icon name={`${viewName}-desktop`} />
-                <Icon name={`${viewName}-mobile`} />
-                {/* <Icon name="background-pp-mobile" /> */}
-                <h2
-                    // id used for aria-labelleby on modal container element
-                    id="header__headline"
-                    className={`headline-${countryClassName}`}
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: headline }}
-                />
+            <div className="checkout header__content">
+                <div className="header__card-container">
+                    <Icon name={viewName === 'PAY_LATER_LONG_TERM' ? 'pay-monthly-card' : 'pay-in-4-card'} />
+                </div>
+                <div className="preapproved">
+                    <h2
+                        // id used for aria-labelleby on modal container element
+                        id="header__headline"
+                        className={
+                            isPreapproved === 'true'
+                                ? `headline-${countryClassName}-preapproved`
+                                : `headline-${countryClassName}`
+                        }
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
+                    />
+                    {isPreapproved === true ? <span className="preapproved-label">{preapprovalLabel}</span> : ''}
+                </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
-                        {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                        {isPreapproved === 'true'
+                            ? preapprovalSubHeadline
+                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
                         className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
-                            __html: currencyFormat(subheadline) ?? ''
+                            __html:
+                                currencyFormat(isPreapproved === 'true' ? preapprovalSubHeadline : subheadline) ?? ''
                         }}
                     />
                 )}
@@ -104,4 +103,4 @@ const Header = ({
     );
 };
 
-export default Header;
+export default CheckoutHeader;
