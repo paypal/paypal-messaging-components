@@ -273,6 +273,10 @@ export function getStandardProductOffer(offer) {
         case 'NIQ':
         case 'NIQ:NON-US':
             return OFFER.PAYPAL_CREDIT_NO_INTEREST;
+        case OFFER.PAY_LATER:
+            return OFFER.PAY_LATER;
+        case OFFER.REWARDS:
+            return OFFER.REWARDS;
         default:
             return undefined;
     }

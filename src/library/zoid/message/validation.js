@@ -55,6 +55,16 @@ const logInvalidOption = (location, options, val) =>
 const logInvalidCombination = (location, expectation, val) =>
     logInvalid(location, `Invalid ${location} combination. ${expectation} but received "${val}"`);
 
+function validateOffer(offer, offerType) {
+    if (!validateType(Types.STRING, offer)) {
+        logInvalidType('offer', Types.STRING, offer);
+        throw new Error('offer_validation_error');
+    }
+    if (!offerType.includes(offer)) {
+        logInvalid('offer', 'Ensure valid offer type.');
+        throw new Error('offer_validation_error');
+    }
+}
 export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
@@ -114,14 +124,31 @@ export default {
     offer: ({ props: { offer } }) => {
         const offerType = [...Object.values(OFFER), 'NI'];
         if (typeof offer !== 'undefined') {
-            if (!validateType(Types.STRING, offer)) {
-                logInvalidType('offer', Types.STRING, offer);
-                throw new Error('offer_validation_error');
+            let validatedOffer = offer;
+            if (typeof offer === 'string' && offer.includes(',')) {
+                // If Offer list contains a comma , split it into an array
+                validatedOffer = offer.split(',').map(o => o.trim());
             }
-            if (!offerType.includes(offer)) {
-                logInvalid('offer', 'Ensure valid offer type.');
-                throw new Error('offer_validation_error');
+
+            if (Array.isArray(validatedOffer)) {
+                // Check if we are sending more then the maximum amount of offers allowed
+                if (validatedOffer.length > 2) {
+                    logInvalid('offer', 'Ensure valid offer length');
+                    throw new Error('offer_validation_error: offers cannot exceed 2');
+                }
+                // validate each offer
+                const validatedOffers = validatedOffer.map(offr => {
+                    validateOffer(offr, offerType);
+                    return offr;
+                });
+                // If duplicate valid offers, return the first offer
+                if (validatedOffers[0] === validatedOffers[1]) {
+                    return validatedOffers[0];
+                }
+                return validatedOffers.sort().join();
             }
+            validateOffer(offer, offerType);
+            return offer;
         }
         return offer;
     },
