@@ -45,6 +45,10 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
 
             const componentEvents = tracking.filter(event => event.index === index);
 
+            // bn_code does not live in stats for standalone modal
+            partner_attribution_id =
+                partner_attribution_id ?? componentEvents.find(event => event.bn_code !== undefined)?.bn_code;
+
             // Stats payload
             const { render_duration, request_duration } = stats;
             delete stats.render_duration;
@@ -67,9 +71,9 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                     .filter(({ event_type }) => event_type !== 'MORS')
                     .map(event => {
                         return {
-                            ...event,
                             render_duration,
-                            request_duration
+                            request_duration,
+                            ...event
                         };
                     })
             };
