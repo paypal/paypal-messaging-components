@@ -104,7 +104,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 value: getCurrentScriptUID,
                 debug: ppDebug(`ScriptUID: ${getCurrentScriptUID()}`)
             },
-
             stageTag: {
                 type: 'string',
                 queryParam: true,

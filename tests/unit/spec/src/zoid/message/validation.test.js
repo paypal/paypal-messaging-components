@@ -128,13 +128,40 @@ describe('validate', () => {
             'PAY_LATER_PAY_IN_1',
             'PAYPAL_CREDIT_NO_INTEREST',
             'PAYPAL_CREDIT_INSTALLMENTS',
-            'NI'
+            'NI',
+            'PAY_LATER',
+            'REWARDS',
+            'PAY_LATER,REWARDS'
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
 
             expect(offer).toEqual(supportedOffer);
             expect(console.warn).not.toHaveBeenCalled();
         });
+
+        // multiple offers passed in test
+
+        {
+            let offer = validate.offer({ props: { offer: ['PAY_LATER', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER,PAY_LATER_LONG_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER', 'REWARDS'] } });
+            expect(offer).toEqual('PAY_LATER,REWARDS');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_SHORT_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: 'PAY_LATER_LONG_TERM,     PAY_LATER_SHORT_TERM' } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+        }
 
         // no offer passed in test
         {
@@ -144,11 +171,11 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        ['EZP', 12345, {}, null].forEach((invalidOffer, index) => {
+        // invalid offer passed in test
+        ['EZP', 'PAY_LATER,', 12345, {}, null, ['PAY_LATER', 'PAY_LATER_SHORT_TERM', 'NI']].forEach(invalidOffer => {
             expect(() => {
                 validate.offer({ props: { offer: invalidOffer } });
             }).toThrow('offer_validation_error');
-            expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),
                 expect.objectContaining({ location: 'offer' })
@@ -243,6 +270,42 @@ describe('validate', () => {
         });
     });
 
+    test('validates pageType', () => {
+        [
+            'home',
+            'category',
+            'product-listing',
+            'search-results',
+            'product-details',
+            'mini-cart',
+            'cart',
+            'checkout'
+        ].forEach(supportedPageType => {
+            const pageType = validate.pageType({ props: { pageType: supportedPageType } });
+
+            expect(pageType).toEqual(supportedPageType);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
+
+        {
+            const pageType = validate.pageType({ props: {} });
+
+            expect(pageType).toBeUndefined();
+            expect(console.warn).not.toHaveBeenCalled();
+        }
+
+        [12345, 'abc', null].forEach((invalidPageType, index) => {
+            const pageType = validate.pageType({ props: { pageType: invalidPageType } });
+
+            expect(pageType).toBeUndefined();
+            expect(console.warn).toHaveBeenCalledTimes(index + 1);
+            expect(console.warn).toHaveBeenLastCalledWith(
+                expect.stringContaining('invalid_option_value'),
+                expect.objectContaining({ location: 'pageType' })
+            );
+        });
+    });
+
     test('validates buyerCountry', () => {
         ['US', 'DE', 'FR', 'GB', 'AU'].forEach(supportedBuyerCountry => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: supportedBuyerCountry } });
@@ -267,6 +330,29 @@ describe('validate', () => {
                 expect.stringContaining('invalid_option_value'),
                 expect.objectContaining({ location: 'buyerCountry' })
             );
+        });
+    });
+    test('validates features', () => {
+        //  features passed
+        ['DEMO', 'test', 'FEATURE'].forEach(validFeatures => {
+            const features = validate.features({ props: { features: validFeatures } });
+
+            expect(features).toEqual(validFeatures);
+            expect(console.warn).not.toHaveBeenCalled();
+        });
+        // no features passed
+        {
+            const features = validate.features({ props: {} });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).not.toHaveBeenCalled();
+        }
+        // invalid features pass
+        [12345, null, {}, ['Hi']].forEach((invalidFeature, index) => {
+            const features = validate.features({ props: { features: invalidFeature } });
+
+            expect(features).toBeUndefined();
+            expect(console.warn).toHaveBeenCalledTimes(index + 1);
         });
     });
 });

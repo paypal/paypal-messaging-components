@@ -12,10 +12,7 @@ const Header = ({
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
     viewName,
-    useV4Design,
-    preapprovalHeadline,
-    preapprovalSubHeadline,
-    isPreapproved = 'false'
+    useV4Design
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -85,27 +82,20 @@ const Header = ({
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
-                    className={
-                        isPreapproved === 'true'
-                            ? `headline-${countryClassName}-preapproved`
-                            : `headline-${countryClassName}`
-                    }
+                    className={`headline-${countryClassName}`}
                     // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
+                    dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
-                        {isPreapproved === 'true'
-                            ? preapprovalSubHeadline
-                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                        {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
                         className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
-                            __html:
-                                currencyFormat(isPreapproved === 'true' ? preapprovalSubHeadline : subheadline) ?? ''
+                            __html: currencyFormat(subheadline) ?? ''
                         }}
                     />
                 )}

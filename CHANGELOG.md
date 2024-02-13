@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.56.0](https://github.com/paypal/paypal-messaging-components/compare/v1.55.0...v1.56.0) (2024-02-12)
+
+
+### Features
+
+* Add support for new pageType query parameter ([#1043](https://github.com/paypal/paypal-messaging-components/issues/1043)) ([f076eea](https://github.com/paypal/paypal-messaging-components/commit/f076eea96a3fb26630b84365fab1bd8d5cfb0dce))
+* initial addition of new offer and updated validation ([#1044](https://github.com/paypal/paypal-messaging-components/issues/1044)) ([f1b12b3](https://github.com/paypal/paypal-messaging-components/commit/f1b12b35c4152c126094802d8ad01c1299e3a18c))
+* Update xo modals ql design ([#1047](https://github.com/paypal/paypal-messaging-components/issues/1047)) ([b8f8dfa](https://github.com/paypal/paypal-messaging-components/commit/b8f8dfa9ec2b6eb6720019df3218cda3854dcf05))
+
+## [1.55.0](https://github.com/paypal/paypal-messaging-components/compare/v1.54.0...v1.55.0) (2024-01-30)
+
+
+### Features
+
+* enhance feature param ([#1048](https://github.com/paypal/paypal-messaging-components/issues/1048)) ([c879cad](https://github.com/paypal/paypal-messaging-components/commit/c879cad3f6004ebc991e02ca84d3b602854ada18))
+
+
+### Code Refactoring
+
+* update contextual_component query param to contextual_components ([#1046](https://github.com/paypal/paypal-messaging-components/issues/1046)) ([a898583](https://github.com/paypal/paypal-messaging-components/commit/a89858369f56c28706b67802d945e801edd76cc1))
+
+## [1.54.0](https://github.com/paypal/paypal-messaging-components/compare/v1.53.0...v1.54.0) (2024-01-23)
+
+
+### Features
+
+* Accessibility - Update tabbing in PPC Modal ([#1041](https://github.com/paypal/paypal-messaging-components/issues/1041)) ([da2ea52](https://github.com/paypal/paypal-messaging-components/commit/da2ea5204cbfec7f41f405d7e765b755a8993a06))
+* add support for contextual_component query parameter ([#1040](https://github.com/paypal/paypal-messaging-components/issues/1040)) ([cc39a13](https://github.com/paypal/paypal-messaging-components/commit/cc39a13ef3f987aaf21f8f0ce6f36c1fe1dee3e2))
+
+
+### Code Refactoring
+
+* add v4Design flag to US modals ([#1042](https://github.com/paypal/paypal-messaging-components/issues/1042)) ([dd86185](https://github.com/paypal/paypal-messaging-components/commit/dd86185d9a8127fb546cdb0c37451f63b92be544))
+
 ## [1.53.0](https://github.com/paypal/paypal-messaging-components/compare/v1.52.0...v1.53.0) (2023-12-20)
 
 

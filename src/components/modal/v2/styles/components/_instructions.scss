@@ -141,4 +141,18 @@
             margin: 0px;
         }
     }
+
+    &.checkout {    
+        h2 {
+            @include tablet {
+                margin-left: 0px;
+            }
+        }
+
+        ol {
+            @include tablet {
+                padding-left: 5px;
+            }
+        }
+    }
 }

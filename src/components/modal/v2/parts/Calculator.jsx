@@ -65,7 +65,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design }) => {
+const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, useNewCheckoutDesign }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
@@ -183,8 +183,13 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design }
     };
 
     return (
-        <div className="calculator">
-            <form className={`form ${useV4Design === 'true' ? 'v4Design' : ''}`} onSubmit={submit}>
+        <div className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <form
+                className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                }`}
+                onSubmit={submit}
+            >
                 <h4 className="title">{title}</h4>
                 <div className="input__wrapper transitional">
                     <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
@@ -209,6 +214,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design }
                         isLoading={isLoading}
                         aprDisclaimer={aprDisclaimer}
                         useV4Design={useV4Design}
+                        useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 </div>
             ) : null}

@@ -81,6 +81,7 @@ export default (options = {}) => ({
                                     currency,
                                     amount,
                                     placement,
+                                    pageType,
                                     style,
                                     offer,
                                     buyerCountry,
@@ -90,7 +91,9 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -105,7 +108,9 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 };
                                 const modalProps = {
                                     ...commonProps,
@@ -115,6 +120,7 @@ export default (options = {}) => ({
                                     ...commonProps,
                                     index,
                                     placement,
+                                    pageType,
                                     style,
                                     offer,
                                     onClick,
@@ -146,24 +152,26 @@ export default (options = {}) => ({
 
                                     ppDebug(
                                         `{
-                            clientID: ${account},
-                            merchantID: ${merchantId},
-                            customerID: ${customerId},
-                            offer: ${offer},
-                            currency: ${currency},
-                            ignoreCache: ${ignoreCache},
-                            channel: ${channel},
-                            ecToken: ${ecToken},
+                                    clientID: ${account},
+                                    merchantID: ${merchantId},
+                                    customerID: ${customerId},
+                                    offer: ${offer},
+                                    currency: ${currency},
+                                    ignoreCache: ${ignoreCache},
+                                    channel: ${channel},
+                                    ecToken: ${ecToken},
+                                    contextualComponents: ${contextualComponents},
                     
-                            index: data-pp-id="${index}",
-                            style: ${JSON.stringify(style)},
-                            amount: ${amount},
-                            buyerCountry: ${buyerCountry},
-                            placement: ${placement},
+                                    index: data-pp-id="${index}",
+                                    style: ${JSON.stringify(style)},
+                                    amount: ${amount},
+                                    buyerCountry: ${buyerCountry},
+                                    placement: ${placement},
+                                    pageType: ${pageType},
                     
-                            renderStart: ${new Date(renderStart).toLocaleString()},
-                            renderMessageTime: ${new Date().toLocaleString()}
-                            }`
+                                    renderStart: ${new Date(renderStart).toLocaleString()},
+                                    renderMessageTime: ${new Date().toLocaleString()}
+                                    }`
                                     );
 
                                     return render(container)
