@@ -479,7 +479,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: validate.features ?? getFeatures
+                value: ({ props }) => getFeatures(validate.features({ props }))
             }
         }
     })

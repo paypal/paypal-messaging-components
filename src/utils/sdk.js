@@ -284,15 +284,19 @@ export function getDevTouchpoint() {
         return undefined; // Prevent the zoid query param
     }
 }
-export function getFeatures() {
-    const results = [];
-    if (getDisableSetCookie()) {
-        results.push('disable-set-cookie');
-    }
+
+// Combine static features and input features into single string
+export function getFeatures(featureProps) {
+    const staticFeatures = [];
+
     if (getNativeModal()) {
-        results.push('native-modal');
-        return 'native-modal';
+        staticFeatures.push('native-modal');
     }
 
-    return results.length === 0 ? undefined : results.join(',');
+    let newFeatures = featureProps || '';
+    if (staticFeatures.length > 0) {
+        newFeatures += newFeatures ? `,${staticFeatures.join(',')}` : staticFeatures.join(',');
+    }
+
+    return featureProps === undefined && newFeatures === '' ? undefined : newFeatures;
 }

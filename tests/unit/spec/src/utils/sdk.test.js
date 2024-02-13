@@ -1,4 +1,4 @@
-import { getPayPalDomain, getPayPalAPIDomain, getDevTouchpoint } from '../../../../../src/utils/sdk';
+import { getPayPalDomain, getPayPalAPIDomain, getDevTouchpoint, getFeatures } from '../../../../../src/utils/sdk';
 
 describe('getPayPalDomain', () => {
     beforeEach(() => {
@@ -107,5 +107,35 @@ describe('getDevTouchpoint', () => {
         window.__DEV_TOUCHPOINT__ = true;
         __ENV__ = 'sandbox';
         expect(getDevTouchpoint()).toBe(undefined);
+    });
+});
+
+describe('getFeatures', () => {
+    it('should return "native-modal" when input features are undefined and getNativeModal is true', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: true
+        };
+        expect(getFeatures()).toBe('native-modal');
+    });
+
+    it('should return "new-feature,other-new-feature,native-modal" when input features are "new-feature,other-new-feature" and getNativeModal is true', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: true
+        };
+        expect(getFeatures('new-feature,other-new-feature')).toBe('new-feature,other-new-feature,native-modal');
+    });
+
+    it('should return only "new-feature,other-new-feature,native-modal" when getNativeModal is false', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: false
+        };
+        expect(getFeatures('new-feature,other-new-feature')).toBe('new-feature,other-new-feature');
+    });
+
+    it('should return undefined input features are undefined and both getNativeModal is false', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: false
+        };
+        expect(getFeatures()).toBe(undefined);
     });
 });
