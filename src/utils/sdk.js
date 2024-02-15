@@ -216,7 +216,23 @@ export function getPayPalAPIDomain() {
         const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
 
         if (testEnviroment) {
-            return testEnviroment;
+            try {
+                const url = new URL(testEnviroment);
+                const parts = url.hostname.split('.');
+
+                // Check if the first part is 'www', and if so, insert 'api' after it
+                if (parts[0] === 'www') {
+                    parts.splice(1, 0, 'api'); // Insert 'api' at the correct position
+                } else {
+                    // If 'www' is not part of the domain, we prepend 'api' directly
+                    parts.splice(0, 0, 'api');
+                }
+
+                url.hostname = parts.join('.');
+                return url.pathname === '/' ? url.origin : url.toString();
+            } catch (error) {
+                return testEnviroment;
+            }
         }
 
         // eslint-disable-next-line security/detect-unsafe-regex
