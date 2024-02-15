@@ -218,18 +218,15 @@ export function getPayPalAPIDomain() {
         if (testEnviroment) {
             try {
                 const url = new URL(testEnviroment);
-                const parts = url.hostname.split('.');
 
-                // Check if the first part is 'www', and if so, insert 'api' after it
-                if (parts[0] === 'www') {
-                    parts.splice(1, 0, 'api'); // Insert 'api' at the correct position
+                // Check if the hostname starts with 'www.' and replace it with 'api.'
+                if (url.hostname.startsWith('www.')) {
+                    url.hostname = url.hostname.replace('www.', 'api.');
                 } else {
-                    // If 'www' is not part of the domain, we prepend 'api' directly
-                    parts.splice(0, 0, 'api');
+                    // If 'www' is not part of the domain, prepend 'api.' directly
+                    url.hostname = `api.${url.hostname}`;
                 }
-
-                url.hostname = parts.join('.');
-                return url.pathname === '/' ? url.origin : url.toString();
+                return url.pathname === '/' && !url.search ? url.origin : url.href;
             } catch (error) {
                 return testEnviroment;
             }
