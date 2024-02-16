@@ -175,17 +175,17 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'gpl_gtz.json',
+                template: 'gpl_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 99,
-                template: 'gplq_gtz.json',
+                template: 'gplq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 5000.01,
-                template: 'gpl_gtz.json',
+                template: 'gpl_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
