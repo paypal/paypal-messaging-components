@@ -187,7 +187,7 @@ export const LongTerm = ({
                     <InlineLinks text={disclosure} />
                 ) : (
                     <InlineLinks
-                        text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?EUR/g, ' €')}
+                        text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?(EUR|€)/g, ' €')}
                     />
                 )}
             </div>
