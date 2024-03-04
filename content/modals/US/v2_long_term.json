@@ -27,7 +27,7 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later."
         },
-        "genericDisclaimer": "Terms may vary based on purchase amount.",
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
             "Get a decision in seconds and complete your purchase.",

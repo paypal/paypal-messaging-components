@@ -27,7 +27,7 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later."
         },
-        "genericDisclaimer": "Terms may vary based on purchase amount.",
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [
             "Apply for Pay Monthly. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
             "Shop almost anywhere after receiving a single-use virtual card number.",
