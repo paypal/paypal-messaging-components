@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.57.0](https://github.com/paypal/paypal-messaging-components/compare/v1.56.0...v1.57.0) (2024-03-05)
+
+
+### Features
+
+* update DE LT disclaimer ([#1053](https://github.com/paypal/paypal-messaging-components/issues/1053)) ([7c34362](https://github.com/paypal/paypal-messaging-components/commit/7c343624ff194791b96fb0bf88791bc3978781a7))
+* update pm legal disclaimer and disclosure ([#1054](https://github.com/paypal/paypal-messaging-components/issues/1054)) ([be9563f](https://github.com/paypal/paypal-messaging-components/commit/be9563feb5d57dfebf2be23275d2fdfe24d38b0e))
+
 ## [1.56.0](https://github.com/paypal/paypal-messaging-components/compare/v1.55.0...v1.56.0) (2024-02-12)
 
 
