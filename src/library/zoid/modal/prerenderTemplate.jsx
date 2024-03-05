@@ -65,7 +65,7 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
             useNewCheckoutDesign === 'true'
                 ? ` @media (min-device-width: 640px) {
                     .overlay {
-                        background-color: white;        
+                        background-color: #f1f2f3;        
                         position: fixed;
                         left: 50%;
                         top: 50%;
@@ -78,7 +78,7 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
                 }
                 @media (max-device-width: 639px) {
                     .overlay {
-                        background-color: white;
+                        background-color: #f1f2f3;
                         position: fixed;
                         left: 0;
                         top: 0;
@@ -124,6 +124,23 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
                         left: 0;
                     }
                 }
+
+                .spinnerImage{
+                    display: none;
+                }
+                .loader {
+                    width: 44px !important;
+                    height: 44px !important;
+                    margin: 0 0 0 -22px !important;
+                    background-color: transparent !important;
+                    animation: rotation 1.3s infinite linear !important;
+                    border-left: 3px solid #0544b5 !important;
+                    border-right: 3px solid #0544b5 !important;
+                    border-bottom: 3px solid transparent !important;
+                    border-top: 3px solid #0544b5 !important;
+                    border-radius: 100% !important;
+                    top: 20;
+                    }
             `
         }
         .spinner{
@@ -230,7 +247,45 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
         }
     });
 
-    const svgColor = useNewCheckoutDesign === 'true' ? '#545D68' : 'white';
+    const renderCloseButton = () => {
+        if (useNewCheckoutDesign === 'true') {
+            return (
+                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.203 4.793a1 1 0 0 1 0 1.414L9.91 12.5l6.293 6.293a1 1 0 0 1-1.414 1.414l-6.993-6.993a1.01 1.01 0 0 1 0-1.428l6.993-6.993a1 1 0 0 1 1.414 0Z"
+                        fill="#545D68"
+                    />
+                </svg>
+            );
+        }
+        return (
+            <svg
+                aria-hidden="true"
+                width="36"
+                height="36"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M12 0L0 12"
+                    transform="translate(12 12)"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                />
+                <path
+                    d="M0 0L12 12"
+                    transform="translate(12 12)"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                />
+            </svg>
+        );
+    };
 
     return (
         <html lang="en">
@@ -267,29 +322,7 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
                                 aria-label="Close"
                                 tabindex="0"
                             >
-                                <svg
-                                    aria-hidden="true"
-                                    width="36"
-                                    height="36"
-                                    viewBox="0 0 36 36"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 0L0 12"
-                                        transform="translate(12 12)"
-                                        stroke={svgColor}
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                    />
-                                    <path
-                                        d="M0 0L12 12"
-                                        transform="translate(12 12)"
-                                        stroke={svgColor}
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                    />
-                                </svg>
+                                {renderCloseButton()}
                             </button>
                         </div>
                         <span id="modal-status" aria-label="modal-status" aria-live="polite">
