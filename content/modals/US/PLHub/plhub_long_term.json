@@ -27,14 +27,14 @@
             "inputPlaceholder": "Enter amount",
             "genericError": "Something went wrong. Please try again later."
         },
-        "genericDisclaimer": "Terms may vary based on purchase amount.",
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
             "Get a decision in seconds and complete your purchase.",
             "Use autopay for your payments. It's easy!"
         ],
         "disclosure": [
-            "Pay Monthly is subject to consumer credit approval. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Offer availability depends on the merchant and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, CO, HI, MA, NV, NY, or TX</span><span class='sr-only'>Alaska, Colorado, Hawaii, Massachusetts, Nevada, New York, or Texas</span>. You must be of legal age in your U.S. state of residence. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>CT</span><span class='sr-only'>Connecticut</span> Small Loan Licensee. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",
+            "Pay Monthly is subject to consumer credit approval. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Availability depends on the merchant and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, HI, or NV</span><span class='sr-only'>Alaska, Hawaii, or Nevada</span>. You must be 18 years old or older to apply. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>CT</span><span class='sr-only'>Connecticut</span> Small Loan Licensee. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",
             ["Find more disclosures ", "https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later"],
             "by going to PayPal's page on Pay Later."
         ],

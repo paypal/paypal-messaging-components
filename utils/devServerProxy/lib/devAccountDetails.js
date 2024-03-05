@@ -87,6 +87,7 @@ const getMorsVars = (country, offer, amount) => {
         total_payments: totalPayments,
         transaction_amount: amount ? amount.toString() : '-',
         formattedAPR: toLocaleNumber(apr),
+        formattedNominalRatePrecision2: toLocaleNumber(nominalRate),
         formattedMinAmount: toLocaleCurrency(minAmount),
         formattedMaxAmount: toLocaleCurrency(maxAmount),
         formattedTransactionAmount: amount ? toLocaleCurrency(amount) : '-',

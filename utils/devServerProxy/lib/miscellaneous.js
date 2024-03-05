@@ -5,7 +5,7 @@ export const populateTemplate = (template, variables) =>
         // ${CREDIT_OFFERS_DS.total_payments} => total_payments
         // {transaction_amount} => transaction_amount
         // {aprEntry.apr} => aprEntry.apr
-        .replace(/\$?{(?:eval\()?[A-Z._]*([a-zA-Z_]+).*?}/g, (fullMatch, p1) => variables[p1] ?? fullMatch)
+        .replace(/\$?{(?:eval\()?[A-Z._]*([a-zA-Z0-9_]+).*?}/g, (fullMatch, p1) => variables[p1] ?? fullMatch)
         .replace(/\r\n|\r|\n/g, '');
 
 export const localizeNumber =
