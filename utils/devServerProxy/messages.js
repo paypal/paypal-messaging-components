@@ -24,7 +24,15 @@ const passthroughMessageReq = async req => {
 };
 
 const getMessageData = async (req, compiler) => {
-    const { amount, client_id: clientId, payer_id: payerId, merchant_id: merchantId, style, buyerCountry } = req.query;
+    const {
+        amount,
+        client_id: clientId,
+        payer_id: payerId,
+        merchant_id: merchantId,
+        style,
+        buyerCountry,
+        contextual_components: contextualComponents
+    } = req.query;
     const account = merchantId || clientId || payerId;
 
     const { message } = getDevAccountDetails({ account, amount, buyerCountry });
@@ -46,7 +54,8 @@ const getMessageData = async (req, compiler) => {
             warnings.push.bind(warnings),
             JSON.parse(style),
             populatedBanner.meta.offerCountry,
-            populatedBanner.meta.offerType
+            populatedBanner.meta.offerType,
+            contextualComponents
         );
 
         let customMarkup = '';
@@ -63,7 +72,7 @@ const getMessageData = async (req, compiler) => {
         }
 
         const markup = render(
-            { style: validatedStyle, amount, customMarkup },
+            { style: validatedStyle, amount, customMarkup, contextualComponents },
             populatedBanner,
             warnings.push.bind(warnings)
         );

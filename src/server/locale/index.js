@@ -6,7 +6,7 @@ import ES from './ES';
 import AU from './AU';
 import IT from './IT';
 
-const getLocaleSettings = (offerCountry, offerType) => {
+const getLocaleSettings = (offerCountry, offerType, contextualComponents) => {
     switch (offerCountry) {
         case 'DE':
             return DE(offerType);
@@ -22,25 +22,25 @@ const getLocaleSettings = (offerCountry, offerType) => {
             return IT;
         case 'US':
         default:
-            return US(offerType);
+            return US(offerType, contextualComponents);
     }
 };
 
-export function getLocaleClass(locale, offerType) {
-    return getLocaleSettings(locale, offerType).localeClass;
+export function getLocaleClass(locale, offerType, contextualComponents) {
+    return getLocaleSettings(locale, offerType, contextualComponents).localeClass;
 }
 
-export function getLocaleProductName(locale, offerType) {
-    return getLocaleSettings(locale, offerType).productName;
+export function getLocaleProductName(locale, offerType, contextualComponents) {
+    return getLocaleSettings(locale, offerType, contextualComponents).productName;
 }
 
-export function getValidOptions(locale, offerType) {
-    return getLocaleSettings(locale, offerType).validOptions;
+export function getValidOptions(locale, offerType, contextualComponents) {
+    return getLocaleSettings(locale, offerType, contextualComponents).validOptions;
 }
 
-export function getMutations(locale, offerType, type) {
+export function getMutations(locale, offerType, type, contextualComponents) {
     if (type === 'layout:custom') return {};
-    const mutations = getLocaleSettings(locale, offerType)
+    const mutations = getLocaleSettings(locale, offerType, contextualComponents)
         .getMutations(offerType, type)
         .map(mutation => {
             if (mutation[1].styles) {
@@ -49,7 +49,10 @@ export function getMutations(locale, offerType, type) {
                     {
                         ...mutation[1],
                         styles: mutation[1].styles.map(style =>
-                            style.replace(/\.message/g, `.${getLocaleClass(locale, offerType)} .message`)
+                            style.replace(
+                                /\.message/g,
+                                `.${getLocaleClass(locale, offerType, contextualComponents)} .message`
+                            )
                         )
                     }
                 ];
@@ -65,6 +68,10 @@ export function getLogos(locale, offerType) {
     return getLocaleSettings(locale, offerType).logos;
 }
 
-export function getLocaleStyles(locale, layout, offerType) {
-    return (getLocaleSettings(locale, offerType).styles && getLocaleSettings(locale, offerType).styles[layout]) ?? [];
+export function getLocaleStyles(locale, layout, offerType, contextualComponents) {
+    return (
+        (getLocaleSettings(locale, offerType, contextualComponents).styles &&
+            getLocaleSettings(locale, offerType, contextualComponents).styles[layout]) ??
+        []
+    );
 }

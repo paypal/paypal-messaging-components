@@ -1,0 +1,26 @@
+{
+    "meta": {
+        "id": "d8dbfe8b-0bb8-44b1-ae07-6f32816fafe6",
+        "offerCountry": "US",
+        "offerType": "ST_SQ",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+    "headline": [
+        ["Pay in full or Pay Later", ["default", "xsmall"]],
+        [["Pay in full or Pay Later"], ["xsmall.2"]],
+        [["Pay in full or 4 interest-free payments of {formattedPeriodicPayment}"], ["medium", "large", "xlarge"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
+}
