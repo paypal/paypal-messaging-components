@@ -200,13 +200,16 @@ export function primaryWrap(breakpoint) {
 }
 
 /**
- * Used to hide "Learn more" disclaimer for fallback messages.
- * Specifically used in Buttons and Marks fallback messages where we do not want to show the disclaimer
+ * Used to hide "Learn more" disclaimer for fallback messages and disables pointer events on the message.
+ * Specifically used in Buttons and Marks fallback messages where we do not want to show the "Learn more" disclaimer link.
  */
 export function hideDisclaimer(breakpoint) {
     return `@media screen and (max-width: ${breakpoint}px) {
        .message__disclaimer > .tag--default {
             display: none;
+        }
+        button {
+            pointer-events: none; 
         }
     }`;
 }
