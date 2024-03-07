@@ -1,0 +1,14 @@
+{
+    "meta": {
+        "variables": {
+            "financing_code": "GENERIC"
+        },
+        "id": "",
+        "offerCountry": "US",
+        "offerType": "GENERIC_PL_BNPL",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal"
+    },
+    "headline": [["Buy now, pay later", ["default", "xsmall"]]],
+    "subHeadline": [],
+    "disclaimer": []
+}

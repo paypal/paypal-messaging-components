@@ -1,0 +1,14 @@
+{
+    "meta": {
+        "variables": {
+            "financing_code": "GENERIC"
+        },
+        "id": "",
+        "offerCountry": "US",
+        "offerType": "GENERIC_PAYPAL",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal"
+    },
+    "headline": [["A safer, easier way to pay", ["default", "xsmall"]]],
+    "subHeadline": [],
+    "disclaimer": []
+}
