@@ -4,7 +4,8 @@ import {
     awaitDOMContentLoaded,
     getAllBySelector,
     objectMerge,
-    isZoidComponent
+    isZoidComponent,
+    setupGlobalState
 } from '../../../utils';
 import Modal from './interface';
 import { getModalComponent } from '../../zoid/modal';
@@ -12,6 +13,8 @@ import { getModalComponent } from '../../zoid/modal';
 export default function setup() {
     // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
     getModalComponent();
+
+    setupGlobalState();
 
     const { namespace } = getGlobalState().config;
 

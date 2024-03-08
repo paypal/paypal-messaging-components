@@ -1,15 +1,11 @@
 import {
-    getInlineOptions,
     getGlobalState,
-    getScript,
-    getAccount,
-    getCurrency,
-    getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
     ppDebug,
     getOverflowObserver,
-    ensureTreatments
+    ensureTreatments,
+    setupGlobalState
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -23,20 +19,7 @@ export default function setup() {
     // Preload the overflow observer so that IE11 polyfills can be downloaded if needed
     getOverflowObserver();
 
-    // Populate global config options
-    const script = getScript();
-    if (script) {
-        ppDebug('Script:', { debugObj: script });
-        const inlineScriptOptions = getInlineOptions(script);
-        const partnerAccount = getPartnerAccount();
-
-        Messages.setGlobalConfig({
-            account: partnerAccount || getAccount(),
-            merchantId: partnerAccount && getAccount(),
-            currency: getCurrency(),
-            ...inlineScriptOptions
-        });
-    }
+    setupGlobalState();
 
     const { namespace } = getGlobalState().config;
 

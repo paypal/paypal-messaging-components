@@ -2,7 +2,7 @@ import setup from 'src/library/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
 import Messages from 'src/library/controllers/message/interface';
-import { getGlobalState } from 'src/utils';
+import { getGlobalState, setGlobalState } from 'src/utils';
 import destroy from 'src/library/controllers/message/destroy';
 
 jest.mock('src/library/zoid/message');
@@ -89,6 +89,30 @@ describe('message setup', () => {
                 style: {
                     layout: 'flex'
                 }
+            })
+        );
+
+        removeMockScript();
+    });
+
+    test('Does not setup global state each time for same script', () => {
+        const removeMockScript = insertMockScript({ account: 'DEV00000000NI' });
+
+        setup();
+
+        expect(getGlobalState().config).toEqual(
+            expect.objectContaining({
+                account: 'DEV00000000NI'
+            })
+        );
+        // Update state to check if it gets overwritten
+        setGlobalState({ config: { account: 'other' } });
+
+        setup();
+        // The state should not setup again since it's already run against the script
+        expect(getGlobalState().config).toEqual(
+            expect.objectContaining({
+                account: 'other'
             })
         );
 
