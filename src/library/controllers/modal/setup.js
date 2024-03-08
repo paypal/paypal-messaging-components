@@ -19,7 +19,7 @@ export default function setup() {
     const { namespace } = getGlobalState().config;
 
     // Allow specified global namespace override
-    if (namespace) {
+    if (namespace && namespace !== 'paypal') {
         window[namespace] = {
             ...(window[namespace] || {}),
             MessagesModal: Modal
