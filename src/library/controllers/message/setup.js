@@ -5,7 +5,8 @@ import {
     ppDebug,
     getOverflowObserver,
     ensureTreatments,
-    setupGlobalState
+    setupGlobalState,
+    getNamespace
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -21,29 +22,13 @@ export default function setup() {
 
     setupGlobalState();
 
-    const { namespace } = getGlobalState().config;
+    if (__MESSAGES__.__TARGET__ !== 'SDK') {
+        const namespace = getNamespace();
 
-    // Allow specified global namespace override
-    if (namespace && namespace !== 'paypal') {
-        window[namespace] = {
-            ...(window[namespace] || {}),
-            Messages
-        };
-
-        if (window.paypal) {
-            delete window.paypal.Messages;
-            delete window.paypal.Message;
-
-            if (Object.keys(window.paypal).length === 0) {
-                delete window.paypal;
-            }
-        }
-    }
-
-    // When importing the library directly using UMD, window.paypal will not exist
-    if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
+        window[namespace] = window[namespace] ?? {};
+        window[namespace].Messages = Messages;
         // Alias for pilot merchant support
-        window.paypal.Message = Messages;
+        window[namespace].Message = Messages;
     }
 
     // Requires a merchant account to render a message

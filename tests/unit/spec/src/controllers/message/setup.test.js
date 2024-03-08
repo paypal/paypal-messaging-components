@@ -27,6 +27,7 @@ describe('message setup', () => {
         Messages.mockClear();
         Messages().render.mockClear();
         destroy();
+        delete window.paypal;
     });
 
     test('Supports pilot window.Message', () => {
@@ -62,7 +63,7 @@ describe('message setup', () => {
     test('Renames the global namespace', () => {
         const removeMockScript = insertMockScript({ account: 'DEV00000000NI', namespace: 'paypal2' });
 
-        expect(window.paypal).toEqual(expect.any(Object));
+        expect(window.paypal).toBeUndefined();
 
         setup();
 
@@ -123,12 +124,12 @@ describe('message setup', () => {
         test('Renders message on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -147,12 +148,12 @@ describe('message setup', () => {
         test('Renders message on dynamic insertion when attribute is on a child element', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -172,12 +173,12 @@ describe('message setup', () => {
         test('Renders multiple messages on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -198,12 +199,12 @@ describe('message setup', () => {
         test('Does not render message with misspelled attribute on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
