@@ -69,6 +69,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     textWrap(textSize * 32, textSize, 'US'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    `.message__headline .tag--xsmall > span {white-space: normal;}`,
                     hideDisclaimer(textSize * 14.25)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
