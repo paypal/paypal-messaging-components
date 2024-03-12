@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.58.0](https://github.com/paypal/paypal-messaging-components/compare/v1.57.0...v1.58.0) (2024-03-12)
+
+
+### Features
+
+* logic to handle merchant including placement and page-type parameters the SDK ([#1050](https://github.com/paypal/paypal-messaging-components/issues/1050)) ([f109fc7](https://github.com/paypal/paypal-messaging-components/commit/f109fc7db0db9215ab888100ff19480e3ffc7345))
+
 ## [1.57.0](https://github.com/paypal/paypal-messaging-components/compare/v1.56.0...v1.57.0) (2024-03-05)
 
 
