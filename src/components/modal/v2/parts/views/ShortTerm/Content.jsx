@@ -25,12 +25,14 @@ export const ShortTerm = ({
         cta
     },
     productMeta: { qualifying, periodicPayment, useV4Design, preapproved },
-    openProductList
+    openProductList,
+    useNewCheckoutDesign
 }) => {
     const { views, country } = useServerData();
     const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
+
     const isPreapproved = preapproved === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
@@ -47,7 +49,7 @@ export const ShortTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <div className="button__fixed-wrapper">
-                    <div className="button__container">
+                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                         {isQualifying ? (
                             <Button
                                 onClick={() => {
@@ -105,9 +107,9 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className="content__row dynamic">
+                <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     <div className="content__col">
-                        <div className="content__row donuts">
+                        <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
                                 {elements.map((installment, index) => (
                                     <Donut
@@ -127,14 +129,19 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} useV4Design={useV4Design} />
                         {isPreapproved && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
                                 country={country}
+                                useNewCheckoutDesign={useNewCheckoutDesign}
                             />
                         )}
+                        <Instructions
+                            instructions={instructions}
+                            useV4Design={useV4Design}
+                            useNewCheckoutDesign={useNewCheckoutDesign}
+                        />
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
@@ -143,7 +150,7 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${cta ? 'checkout' : ''}`}>
+            <div className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>

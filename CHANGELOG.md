@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.57.0](https://github.com/paypal/paypal-messaging-components/compare/v1.56.0...v1.57.0) (2024-03-05)
+
+
+### Features
+
+* update DE LT disclaimer ([#1053](https://github.com/paypal/paypal-messaging-components/issues/1053)) ([7c34362](https://github.com/paypal/paypal-messaging-components/commit/7c343624ff194791b96fb0bf88791bc3978781a7))
+* update pm legal disclaimer and disclosure ([#1054](https://github.com/paypal/paypal-messaging-components/issues/1054)) ([be9563f](https://github.com/paypal/paypal-messaging-components/commit/be9563feb5d57dfebf2be23275d2fdfe24d38b0e))
+
+## [1.56.0](https://github.com/paypal/paypal-messaging-components/compare/v1.55.0...v1.56.0) (2024-02-12)
+
+
+### Features
+
+* Add support for new pageType query parameter ([#1043](https://github.com/paypal/paypal-messaging-components/issues/1043)) ([f076eea](https://github.com/paypal/paypal-messaging-components/commit/f076eea96a3fb26630b84365fab1bd8d5cfb0dce))
+* initial addition of new offer and updated validation ([#1044](https://github.com/paypal/paypal-messaging-components/issues/1044)) ([f1b12b3](https://github.com/paypal/paypal-messaging-components/commit/f1b12b35c4152c126094802d8ad01c1299e3a18c))
+* Update xo modals ql design ([#1047](https://github.com/paypal/paypal-messaging-components/issues/1047)) ([b8f8dfa](https://github.com/paypal/paypal-messaging-components/commit/b8f8dfa9ec2b6eb6720019df3218cda3854dcf05))
+
 ## [1.55.0](https://github.com/paypal/paypal-messaging-components/compare/v1.54.0...v1.55.0) (2024-01-30)
 
 

@@ -28,7 +28,6 @@
         }
         .preapproval-disclaimer__item-wrapper {
             display: list-item;
-            padding-bottom: 0px;
         }
         li {
             margin-left: 0.6rem;
@@ -123,6 +122,15 @@
         }
         @include mobile {
             margin: 0px;
+        }
+    }
+    &.checkout {
+        h2 {
+            margin-left: 0px;
+        }
+
+        ul {
+            padding-left: 5px;
         }
     }
 }

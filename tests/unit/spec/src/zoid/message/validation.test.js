@@ -128,13 +128,40 @@ describe('validate', () => {
             'PAY_LATER_PAY_IN_1',
             'PAYPAL_CREDIT_NO_INTEREST',
             'PAYPAL_CREDIT_INSTALLMENTS',
-            'NI'
+            'NI',
+            'PAY_LATER',
+            'REWARDS',
+            'PAY_LATER,REWARDS'
         ].forEach(supportedOffer => {
             const offer = validate.offer({ props: { offer: supportedOffer } });
 
             expect(offer).toEqual(supportedOffer);
             expect(console.warn).not.toHaveBeenCalled();
         });
+
+        // multiple offers passed in test
+
+        {
+            let offer = validate.offer({ props: { offer: ['PAY_LATER', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER,PAY_LATER_LONG_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER', 'REWARDS'] } });
+            expect(offer).toEqual('PAY_LATER,REWARDS');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_LONG_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: ['PAY_LATER_SHORT_TERM', 'PAY_LATER_SHORT_TERM'] } });
+            expect(offer).toEqual('PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+
+            offer = validate.offer({ props: { offer: 'PAY_LATER_LONG_TERM,     PAY_LATER_SHORT_TERM' } });
+            expect(offer).toEqual('PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM');
+            expect(console.warn).not.toHaveBeenCalled();
+        }
 
         // no offer passed in test
         {
@@ -144,11 +171,11 @@ describe('validate', () => {
             expect(console.warn).not.toHaveBeenCalled();
         }
 
-        ['EZP', 12345, {}, null].forEach((invalidOffer, index) => {
+        // invalid offer passed in test
+        ['EZP', 'PAY_LATER,', 12345, {}, null, ['PAY_LATER', 'PAY_LATER_SHORT_TERM', 'NI']].forEach(invalidOffer => {
             expect(() => {
                 validate.offer({ props: { offer: invalidOffer } });
             }).toThrow('offer_validation_error');
-            expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),
                 expect.objectContaining({ location: 'offer' })
@@ -253,7 +280,6 @@ describe('validate', () => {
             );
         });
     });
-
     test('validates buyerCountry', () => {
         ['US', 'DE', 'FR', 'GB', 'AU'].forEach(supportedBuyerCountry => {
             const buyerCountry = validate.buyerCountry({ props: { buyerCountry: supportedBuyerCountry } });
