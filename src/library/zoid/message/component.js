@@ -82,12 +82,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.currency
             },
-            placement: {
-                type: 'string',
-                queryParam: true,
-                required: false,
-                value: validate.placement
-            },
             pageType: {
                 type: 'string',
                 queryParam: 'page_type',
