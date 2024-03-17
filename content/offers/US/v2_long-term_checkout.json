@@ -1,0 +1,43 @@
+{
+    "meta": {
+        "variables": { "$ref": "common/variables.json#/sdk" },
+
+        "id": "bc4ba880-4ebc-49bd-bc97-27c334e5f19a",
+        "schema": "v2",
+        "offerCountry": "US",
+        "creditProductIdentifier": "{credit_product_identifier}",
+        "creditType": "{credit_type}",
+        "product": "PAY_LATER_LONG_TERM",
+
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "apr": "{apr}",
+        "total_payments": "{total_payments}",
+
+        "formattedMinAmount": "{formattedMinAmount}",
+        "formattedMaxAmount": "{formattedMaxAmount}",
+        "formattedTotalCost": "{formattedTotalCost}",
+        "formattedTotalInterest": "{formattedTotalInterest}"
+    },
+    "content": {
+        "calculator": {
+            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
+            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
+        },
+        "disclaimer": {
+            "zeroAPR": "Terms vary based on purchase amount and your credit.",
+            "mixedAPR": "*Fixed APR is 0% to 35.99%. Terms and rates vary based on purchase amount and your credit.",
+            "nonZeroAPR": "*Fixed APR is 9.99% to 35.99%. Terms and rates vary based on purchase amount and your credit."
+        },
+        "termsLabel": {
+            "offerHeader": "{formattedPeriodicPayment}<span aria-hidden='true'>/mo.</span><span class='sr-only'>per month</span> for {total_payments} months",
+            "zeroApr": "APR",
+            "nonZeroApr": "<span aria-hidden='true'>Est. APR*</span><span class='sr-only'>Estimated APR, see star for more details below.</span>",
+            "totalInterest": "Interest",
+            "total": "Total"
+        }
+    }
+}

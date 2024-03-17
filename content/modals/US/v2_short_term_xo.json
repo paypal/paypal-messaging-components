@@ -32,7 +32,7 @@
         "instructions": {
             "instructionsHeadline": "How Pay in 4 works",
             "instructionsSubHeadline": [
-                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
+                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong><span aria-hidden='true'>.</span>",
                 "Complete your purchase with a 25% down payment.",
                 "Use autopay for the rest of your payments. It's easy!"
             ]
