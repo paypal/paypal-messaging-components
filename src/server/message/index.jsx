@@ -9,11 +9,9 @@ import Logo from './parts/Logo';
 import MutatedText from './parts/MutatedText';
 import Styles from './parts/Styles';
 import CustomMessage from './parts/CustomMessage';
+import { getFontRules } from './font';
 
 const DEFAULT_FONT_SIZE = 12;
-const logMessage = val => (val !== 'string' ? JSON.stringify(val) : val);
-const logInfo = (addLog, val) => addLog('info', 'render_markup', `${logMessage(val)}`);
-const logError = (addLog, val) => addLog('error', 'render_markup', `${logMessage(val)}`);
 
 /**
  * Get all applicable rules based on user flattened options
@@ -45,100 +43,8 @@ const applyCascade = curry((style, flattened, type, rules) =>
         type === Array ? [] : {}
     )
 );
-const getfontSourceRule = (addLog, fontSource) => {
-    if (!fontSource) {
-        return '';
-    }
-    const fontFormats = {
-        woff: 'woff', // woff
-        woff2: 'woff2', // woff2
-        ttf: 'ttf', // truetype
-        otf: 'otf', // opentype
-        eot: 'eot', // embedded opentype
-        svg: 'svg' // svg
-    };
-    const urlPattern = RegExp(`^(https?://.+?.(${[...Object.values(fontFormats)].join('|')}))$`);
-    const payload = {
-        fontSource,
-        validValues: []
-    };
-    try {
-        const ruleVal = (Array.isArray(fontSource) ? fontSource : [fontSource])
-            .map(url => {
-                const extension = urlPattern.exec(url)?.[2];
-                const format = fontFormats[extension];
-                if (format) {
-                    payload.validValues.push(url);
-                    return `url('${url}') format('${format}')`;
-                }
-                return '';
-            })
-            .filter(Boolean)
-            .join(', ');
-        logInfo(addLog, payload);
-        return ruleVal ? `src: ${ruleVal};` : '';
-    } catch (err) {
-        payload.error = err.stack;
-        logError(addLog, payload);
-        return '';
-    }
-};
-const getFontFamilyRule = (addLog, val) => {
-    if (!val) {
-        return '';
-    }
-    const payload = {
-        fontFamily: val,
-        validValue: null
-    };
-    const genericFamilies = {
-        // using a generic family requires the value not be quoted
-        serif: 'serif',
-        'sans-serif': 'sans-serif',
-        monospace: 'monospace',
-        cursive: 'cursive',
-        fantasy: 'fantasy',
-        'system-ui': 'system-ui',
-        'ui-serif': 'ui-serif',
-        'ui-sans-serif': 'ui-sans-serif',
-        'ui-monospace': 'ui-monospace'
-    };
-    const fontFamily = genericFamilies[val] ?? `'${val}'`;
-    if (fontFamily) {
-        payload.validValue = fontFamily;
-        logInfo(addLog, payload);
-        return `font-family: ${fontFamily}, Helvetica, Arial, sans-serif; `;
-    }
-    payload.validValue = '';
-    logInfo(addLog, payload);
-    return '';
-};
-const getFontRules = (addLog, style) => {
-    const rules = [];
-    const textSize = style.layout === 'flex' ? undefined : style?.text?.size;
-    const fontSource = style?.text?.fontSource;
-    const fontFamily = fontSource ? 'MerchantCustomFont' : style?.text?.fontFamily;
 
-    const fontSelector = [
-        '.message__messaging', // text layout
-        '.message__messaging .message__headline span', // flex layout
-        '.message__messaging .message__sub-headline span',
-        '.message__messaging .message__disclaimer span'
-    ].join(',\n');
-
-    const textSizeRule = Number.isNaN(textSize) ? '' : `font-size: ${textSize}px; `;
-    const fontFamilyRule = getFontFamilyRule(addLog, fontFamily);
-    const fontSourceRule = getfontSourceRule(addLog, fontSource);
-
-    if (fontSource) {
-        rules.push(`@font-face {font-family: '${fontFamily}'; ${fontSourceRule}}`);
-    }
-    if (fontFamilyRule || textSizeRule) {
-        rules.push(`${fontSelector}{ ${fontFamilyRule}${textSizeRule} }`);
-    }
-    return rules;
-};
-export default ({ addLog, options, markup, locale }) => {
+export default ({ options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
     const { style } = options;
 
@@ -162,7 +68,7 @@ export default ({ addLog, options, markup, locale }) => {
         rule.replace(/\.message/g, `.${localeClass} .message`)
     );
     const mutationStyleRules = mutationRules.styles ?? [];
-    const customFontStyleRules = getFontRules(addLog, style);
+    const customFontStyleRules = getFontRules(style);
     const miscStyleRules = [];
 
     // Set boundaries on the width of the message text to ensure proper line counts
