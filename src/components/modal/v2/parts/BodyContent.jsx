@@ -69,7 +69,7 @@ const BodyContent = () => {
     if (useV4Design && isLander) {
         document.documentElement.className = `${documentClassName} v4Design`;
     }
-    const isPreapproved = productMeta?.preapproved === 'true';
+    const isPreapproved = productMeta?.preapproved;
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
     const preapprovalLabel = content?.preapproval?.preapprovalLabel;
@@ -126,7 +126,7 @@ const BodyContent = () => {
                 <CheckoutHeader
                     headline={headline}
                     subheadline={subheadline}
-                    isQualifying={isQualifying ? 'true' : 'false'}
+                    isQualifying={isQualifying ?? 'false'}
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}
                     viewName={viewName}
@@ -134,7 +134,7 @@ const BodyContent = () => {
                     preapprovalSubHeadline={preapprovalSubHeadline}
                     preapprovalLabel={preapprovalLabel}
                     // toggles preapproval content
-                    isPreapproved={isPreapproved ? 'true' : 'false'}
+                    isPreapproved={isPreapproved ?? 'false'}
                 />
             ) : (
                 <Header
