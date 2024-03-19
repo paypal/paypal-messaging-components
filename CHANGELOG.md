@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.59.0](https://github.com/paypal/paypal-messaging-components/compare/v1.58.0...v1.59.0) (2024-03-19)
+
+
+### Features
+
+* fix preapproval pi4 xo modal ([#1062](https://github.com/paypal/paypal-messaging-components/issues/1062)) ([2448735](https://github.com/paypal/paypal-messaging-components/commit/244873576fbf4535f042c40bc49a2c61bf8f590c))
+
 ## [1.58.0](https://github.com/paypal/paypal-messaging-components/compare/v1.57.0...v1.58.0) (2024-03-12)
 
 
