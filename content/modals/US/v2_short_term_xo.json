@@ -38,7 +38,7 @@
             ]
         },
         "preapproval": {
-            "preapprovalHeadline": "You’re pre-approved",
+            "preapprovalHeadline": "Pay in 4",
             "preapprovalLabel": "Pre-approved",
             "preapprovalSubHeadline": "Split {formattedTotalCost} into {total_payments} interest-free payments with no impact on credit score and no late fees.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
