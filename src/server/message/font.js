@@ -46,16 +46,10 @@ const formatFontFamilyName = val => {
  * @returns {undefined|string} result
  */
 const parseTextSize = ({ layout, size }) => {
-    if (layout === 'flex') {
-        return undefined;
+    if (layout !== 'flex' && typeof size !== 'undefined' && !Number.isNaN(size) && size >= 10 && size <= 16) {
+        return `${size}`;
     }
-    if (Number.isNaN(size)) {
-        return undefined;
-    }
-    if (size < 10 || size > 16) {
-        return undefined;
-    }
-    return `${size}`;
+    return undefined;
 };
 
 /**
