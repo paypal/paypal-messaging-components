@@ -80,7 +80,7 @@ const CheckoutHeader = ({
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: isPreapproved === 'true' ? preapprovalHeadline : headline }}
                     />
-                    {isPreapproved === true ? <span className="preapproved-label">{preapprovalLabel}</span> : ''}
+                    {isPreapproved === 'true' ? <span className="preapproved-label">{preapprovalLabel}</span> : ''}
                 </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
