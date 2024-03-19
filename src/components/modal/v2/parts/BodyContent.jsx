@@ -126,7 +126,7 @@ const BodyContent = () => {
                 <CheckoutHeader
                     headline={headline}
                     subheadline={subheadline}
-                    isQualifying={isQualifying ?? 'false'}
+                    isQualifying={isQualifying ? 'true' : 'false'}
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}
                     viewName={viewName}
@@ -134,7 +134,7 @@ const BodyContent = () => {
                     preapprovalSubHeadline={preapprovalSubHeadline}
                     preapprovalLabel={preapprovalLabel}
                     // toggles preapproval content
-                    isPreapproved={isPreapproved ?? 'false'}
+                    isPreapproved={isPreapproved ? 'true' : 'false'}
                 />
             ) : (
                 <Header

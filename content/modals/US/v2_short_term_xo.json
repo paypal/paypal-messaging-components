@@ -40,7 +40,7 @@
         "preapproval": {
             "preapprovalHeadline": "You’re pre-approved",
             "preapprovalLabel": "Pre-approved",
-            "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
+            "preapprovalSubHeadline": "Split {formattedTotalCost} into {total_payments} interest-free payments with no impact on credit score and no late fees.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": [
                 "If you no longer meet the criteria used to select you for this offer, or give info we can’t match, pre-approval won’t apply and you may be declined for Pay in 4.",
