@@ -25,13 +25,24 @@ export default {
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
-                styles: [setLogoTop(textSize * 24), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    textWrap(textSize * 31, textSize, 'FR'),
+                    setLogoTop(textSize * 24),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                    .message__messaging span.br {
+                        white-space: normal;
+                    }
+                }`
+                ]
             })
         ],
         [
@@ -50,8 +61,14 @@ export default {
         ],
         [
             'logo.type:none',
-            () => ({
-                styles: [],
+            ({ textSize }) => ({
+                styles: [
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                    .message__messaging span.br {
+                        white-space: normal;
+                    }
+                }`
+                ],
                 logo: false,
                 headline: [
                     {
@@ -65,7 +82,14 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [`.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `@media screen and (min-width: ${textSize * 11.5}px) {
+                    .message__messaging span.br {
+                        white-space: normal;
+                    }
+                }`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
@@ -98,7 +122,7 @@ export default {
         [
             'ratio:1x1',
             {
-                headline: [{ tag: 'small', br: ['de'] }],
+                headline: [{ tag: 'small', br: ['frais.'] }],
                 subHeadline: [{ tag: 'small', br: ['achats'] }],
                 styles: [
                     `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
@@ -108,7 +132,7 @@ export default {
         [
             'ratio:1x4',
             {
-                headline: [{ tag: 'small', br: ['de'] }],
+                headline: [{ tag: 'small', br: ['frais.'] }],
                 subHeadline: [{ tag: 'small', br: ['avec', 'et', 'paiement en'] }],
                 styles: [`@media (aspect-ratio: 1/2) {.message__sub-headline { display: inline;}}`]
             }

@@ -162,5 +162,64 @@ export default {
                 }
             ]
         }
+    },
+    DEV_DE_LONG_TERM_0APR: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'long_term.json',
+                offersTemplate: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'gpl_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 99,
+                template: 'gplq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'gpl_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_LONG_TERM: [
+                {
+                    totalPayments: 3,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                }
+            ]
+        }
     }
 };

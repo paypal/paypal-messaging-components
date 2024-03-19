@@ -65,6 +65,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         integrationType,
         channel,
         ecToken,
+        contextualComponents,
         devTouchpoint,
         disableSetCookie,
         features
@@ -93,6 +94,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             integrationType,
             channel,
             ecToken,
+            contextualComponents,
             devTouchpoint,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,

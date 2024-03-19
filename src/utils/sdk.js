@@ -19,7 +19,8 @@ import {
     getStorageID as getSDKStorageID,
     getStorageState as getSDKStorageState,
     getPayPalDomain as getSDKPayPalDomain,
-    getDisableSetCookie as getSDKDisableCookie
+    getDisableSetCookie as getSDKDisableCookie,
+    getPageType as getSDKPageType
 } from '@paypal/sdk-client/src';
 
 import { TAG } from './constants';
@@ -62,7 +63,13 @@ export function getAccount() {
         return undefined;
     }
 }
-
+export function getPageType() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getSDKPageType();
+    } else {
+        return undefined;
+    }
+}
 export function getNonce() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getCSPNonce();

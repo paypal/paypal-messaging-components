@@ -43,12 +43,14 @@ export function getInlineOptions(container) {
         merchantid: 'merchantId',
         cspnonce: 'cspNonce',
         ectoken: 'ecToken',
+        contextualcomponents: 'contextualComponents',
         customerid: 'customerId',
         fontfamily: 'fontFamily',
         fontsource: 'fontSource',
         onclick: 'onClick',
         onapply: 'onApply',
         onrender: 'onRender',
+        pagetype: 'pageType',
         'style-text-fontfamily': 'style-text-fontFamily',
         'style-text-fontsource': 'style-text-fontSource'
     };

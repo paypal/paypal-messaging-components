@@ -3,7 +3,15 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from '@krakenjs/belter/src';
 
-import { getAccount, getCurrency, getLibraryVersion, getPartnerAccount, getPayPalDomain, getScript } from './sdk';
+import {
+    getAccount,
+    getCurrency,
+    getLibraryVersion,
+    getPageType,
+    getPartnerAccount,
+    getPayPalDomain,
+    getScript
+} from './sdk';
 import { createState } from './miscellaneous';
 import { ppDebug } from './debug';
 import { getInlineOptions } from './elements';
@@ -104,6 +112,7 @@ export const setupGlobalState = () => {
                 account: partnerAccount || getAccount(),
                 merchantId: partnerAccount && getAccount(),
                 currency: getCurrency(),
+                pageType: getPageType(),
                 // Fields pulled from `data-pp-*` attributes
                 ...inlineScriptOptions
             }

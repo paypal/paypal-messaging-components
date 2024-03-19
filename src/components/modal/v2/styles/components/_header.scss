@@ -36,13 +36,17 @@
         @include lander {
             border-radius: 0;
         }
+
+        .v4Design {
+            background-color: $v4-gray;
+        }
     }
 
     &__background-wrapper {
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-        background-color: $beige;
+        background-color: $beige;    
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -82,6 +86,10 @@
                 );
                 mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
             }
+        }
+
+        &.checkout {
+            background-color: $ql-gray;
         }
     }
 
@@ -174,6 +182,21 @@
 
                 path {
                     stroke-width: 2.2;
+                }
+            }
+        }
+
+        &.checkout {
+            flex-direction: column-reverse;
+            align-items: baseline;
+            text-align: left;
+            
+            .close {
+                margin: 10px auto 0px 10px;
+                padding-left: 0px;
+    
+                @include mobile {
+                    margin-left: 15px;
                 }
             }
         }
@@ -274,6 +297,18 @@
                     }
                 }
             }
+            &.headline-gb-preapproved {
+                max-width: 50%;
+                @include mobile {
+                    max-width: 75%;
+                }
+            }
+
+            &.headline-us-preapproved {
+                @include smallMobile {
+                    max-width: 75%;
+                }
+            }
         }
 
         .subheadline_p {
@@ -308,6 +343,66 @@
 
             span {
                 white-space: nowrap;
+            }   
+        }
+
+        .preapproved {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            
+            .preapproved-label {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                background-color: #d1e5f9;
+                border-radius: 6px;
+                padding: 2px 8px;
+                margin: 0px 0px -20px 10px;
+
+                @include mobile {
+                    margin: 10px 0px -10px 10px;
+                }
+            }
+        }
+
+        &.checkout {
+            background-color: $ql-gray;
+
+            // logo icons
+            svg {
+                position: relative;
+                bottom: 0px;
+                right: -20px;
+
+                @include mobile {
+                    right: -22px;
+                }
+            }
+
+            h2 {
+                margin-top: 20px;
+                margin-bottom: 0px;
+
+                @include tablet {
+                    margin-left: 20px;
+                }
+            }
+    
+            .subheadline_p {
+                max-width: 400px;
+
+                @include desktop {
+                    margin-bottom: 0px;
+                }
+                @include tablet {
+                    margin-bottom: 10px;
+                    margin-left: 20px;
+                    padding: 0px 10px 0px 0px;
+                }
+                @include mobile {
+                    padding: 10px 22px 50px;
+                }
             }
         }
     }

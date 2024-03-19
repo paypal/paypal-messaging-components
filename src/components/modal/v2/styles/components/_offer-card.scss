@@ -74,6 +74,11 @@ strong {
         &:not(:last-child) {
             flex-grow: 1;
         }
+
+        .v4Design, .checkout {
+            color: $dark-gray;
+            font-weight: 400;
+        }
     }
 
     &__field-title {

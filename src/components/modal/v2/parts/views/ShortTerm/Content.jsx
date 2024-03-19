@@ -3,20 +3,80 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
+import PreapprovalDisclaimer from '../../PreapprovalDisclaimer';
 import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
+import Button from '../../Button';
 import styles from './styles.scss';
 
-import { useServerData } from '../../../lib/providers';
+import { useServerData, useXProps } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
-    content: { instructions, linkToProductList, estimatedInstallments, disclosure, donutTimestamps, learnMoreLink },
-    productMeta: { qualifying, periodicPayment },
-    openProductList
+    content: {
+        instructions,
+        linkToProductList,
+        estimatedInstallments,
+        preapproval,
+        disclosure,
+        donutTimestamps,
+        learnMoreLink,
+        cta
+    },
+    productMeta: { qualifying, periodicPayment, useV4Design, preapproved },
+    openProductList,
+    useNewCheckoutDesign
 }) => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
+    const { onClick, onClose } = useXProps();
+
+    const isQualifying = qualifying === 'true';
+
+    const isPreapproved = preapproved === 'true';
+
+    const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
+    const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
+
+    const renderCheckoutCtaButton = () => {
+        /**
+         * Event link name used in checkout version of the modal.
+         * If initial amount is qualfying and eligible for short term in XO, use eligibleClickTitle and vice versa if ineligible.
+         */
+        const eligibleClickTitle = 'Short Term Continue';
+        const ineligibleClickTitle = 'Back to Checkout';
+
+        if (typeof cta !== 'undefined') {
+            return (
+                <div className="button__fixed-wrapper">
+                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                        {isQualifying ? (
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: eligibleClickTitle });
+                                    onClose({ linkName: eligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
+                                {cta.buttonTextEligible}
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={() => {
+                                    onClick({ linkName: ineligibleClickTitle });
+                                    onClose({ linkName: ineligibleClickTitle });
+                                }}
+                                className="cta"
+                            >
+                                {cta.buttonTextIneligible}
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    };
 
     const renderProductListLink = () => {
         return (
@@ -47,13 +107,14 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className="content__row dynamic">
+                <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                     <div className="content__col">
-                        <div className="content__row donuts">
+                        <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}
+                                        useV4Design={useV4Design}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
                                         periodicPayment={
@@ -68,7 +129,19 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        <Instructions instructions={instructions} />
+                        {isPreapproved && (
+                            <PreapprovalDisclaimer
+                                preapprovalDisclaimerBody={preapprovalDisclaimerBody}
+                                preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
+                                country={country}
+                                useNewCheckoutDesign={useNewCheckoutDesign}
+                            />
+                        )}
+                        <Instructions
+                            instructions={instructions}
+                            useV4Design={useV4Design}
+                            useNewCheckoutDesign={useNewCheckoutDesign}
+                        />
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
@@ -77,13 +150,14 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
-            <div className="content__row disclosure">
+            <div className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
+                {renderLearnMoreLink()}
             </div>
             <div className="content__row productLink">
-                {renderLearnMoreLink()}
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );
 };

@@ -66,6 +66,10 @@
             }
         }
 
+        &.checkout {
+            background-color: $ql-gray;
+        }
+
         .content__col {
             height: 100%;
             display: flex;
@@ -132,6 +136,32 @@
             @include mobile {
                 margin-top: 28px;
             }
+
+            &.checkout {
+                @include mobile {
+                     margin-bottom: 60px;
+                 }
+            }
         }
+
+        &.checkout {
+            &.disclosure {
+                @include desktop {
+                    margin: 0px 30px 23px 30px;
+                }
+
+                @include tablet {
+                    margin: 0px 10px 70px 10px;
+                }
+            }
+        }
+    }
+
+    &.v4Design {
+        background: $v4-gray;
+    }
+
+    &.checkout {
+        background-color: $ql-gray;
     }
 }

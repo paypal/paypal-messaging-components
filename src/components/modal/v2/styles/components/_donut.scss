@@ -1,9 +1,12 @@
 @import '../globals/mixins';
 
 $webpage: 1640px;
-$green500: #388C00;
+$green500: #388c00;
 $grey300: #dbd8d0;
+$grey350: #bdbdbd;
 $grey600: #888;
+$donut-background: #0070e0;
+$donut-text-v4: #545d68;
 
 .donut__single_payment {
     display: flex;
@@ -19,7 +22,6 @@ $grey600: #888;
     svg {
         max-width: 64px;
     }
-
     &.donut__qualifying_payment {
         svg {
             text {
@@ -38,7 +40,7 @@ $grey600: #888;
                 font-family: $paypal-open;
             }
         }
-    } 
+    }
 
     svg {
         width: 100%;
@@ -58,7 +60,9 @@ $grey600: #888;
         .donut__percent {
             stroke: $green500;
         }
-
+        .donut__background__line {
+            stroke: none;
+        }
         @include smallHeightMobile {
             max-width: 60px;
         }
@@ -84,6 +88,10 @@ $grey600: #888;
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
             }
+            &_v4 {
+                @extend .donut__payment;
+                color: $donut-text-v4;
+            }
         }
 
         &.donut__timestamp {
@@ -92,6 +100,56 @@ $grey600: #888;
             font-size: 0.9rem;
             @include desktop {
                 line-height: 22px;
+            }
+            white-space: nowrap;
+            &_v4 {
+                @extend .donut__timestamp;
+                color: $donut-text-v4;
+            }
+        }
+    }
+    &_line {
+        &:first-child {
+            svg g {
+                fill: $donut-background;
+            }
+            span.donut__timestamp_v4,
+            span.donut__payment_v4 {
+                color: $text-main;
+            }
+        }
+
+        &::after {
+            content: '';
+            flex-grow: 1;
+            border-top: 1px dashed $grey350;
+            top: 55px;
+            width: 100%;
+            max-width: 50px;
+            position: absolute;
+            transform: translateX((90%));
+
+            @include mobile {
+                max-width: 45px;
+            }
+            @include smallMobile {
+                max-width: 35px;
+            }
+        }
+        &__3 {
+            @extend .donut__single_payment_line;
+            &::after {
+                max-width: 85px;
+                transform: translateX((70%));
+
+                @include mobile {
+                    max-width: min(80px, calc(100vw * 0.2));
+                    transform: translateX((67%));
+                }
+                @include smallMobile {
+                    max-width: min(55px, calc(100vw * 0.3));
+                    transform: translateX((75%));
+                }
             }
         }
     }

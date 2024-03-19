@@ -49,7 +49,12 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else if (amount >= minAmount && amount <= maxAmount && account !== 'DEV_DE_LONG_TERM') {
+        } else if (
+            amount >= minAmount &&
+            amount <= maxAmount &&
+            account !== 'DEV_DE_LONG_TERM' &&
+            account !== 'DEV_DE_LONG_TERM_0APR'
+        ) {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     page,
@@ -83,6 +88,32 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             });
         }
         if (amount >= minAmount && amount <= maxAmount && account === 'DEV_DE_LONG_TERM') {
+            test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
+                await showCorrectOfferInfoAccordion(
+                    page,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Offer accordion show correct payment breakdown information for amount - ${viewport}`, async () => {
+                await showCorrectOfferBreakdownAccordion(
+                    page,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+
+            test(`Amount:${amount} - Update offers via calculator - ${viewport}`, async () => {
+                await updateOfferAccordionTermsViaCalc(
+                    page,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
+        }
+
+        if (amount >= minAmount && amount <= maxAmount && account === 'DEV_DE_LONG_TERM_0APR') {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     page,

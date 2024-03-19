@@ -34,11 +34,13 @@ const Container = ({ children }) => {
         stageTag,
         channel,
         ecToken,
+        contextualComponents,
         disableSetCookie,
         features
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
+    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {
@@ -77,6 +79,7 @@ const Container = ({ children }) => {
             stageTag,
             channel,
             ecToken,
+            contextualComponents,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features
@@ -98,12 +101,15 @@ const Container = ({ children }) => {
                 {/* Presentational div to clip scrollbars with a rounded border */}
                 {/* Lander variant uses the div with className content__wrapper-overflow as the contentWrapperRef */}
                 <div
-                    className={`content__wrapper-overflow ${loading ? 'loading' : ''}`}
+                    className={`content__wrapper-overflow ${loading ? 'loading' : ''}${
+                        useNewCheckoutDesign === 'true' && !isLander ? 'checkout' : ''
+                    }`}
                     ref={!!(isLander && !isIframe) && contentWrapperRef}
                 >
                     {/* Scrollable content */}
                     {/* Iframe variants use the div with className content__wrapper as the contentWrapperRef */}
                     <div
+                        tabindex="-1"
                         className="content__wrapper"
                         ref={!!(!isLander || isIframe) && contentWrapperRef}
                         role={isIframe ? 'dialog' : undefined}

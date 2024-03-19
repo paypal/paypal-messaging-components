@@ -61,14 +61,35 @@
     }
 }
 
-.accordion__container {
-    &:first-child {
-        &.shimmer {
-            margin-top: 25px;
+.accordion {
+    &__header-container {
+        &.loading {
+            width: auto;
+        }
+    }
+    &__container {
+        &:first-child {
+            &.shimmer {
+                margin-top: 25px;
 
-            @include mobile {
-                margin-top: 8px;
+                @include mobile {
+                    margin-top: 8px;
+                }
             }
         }
+    }
+}
+
+.checkout {
+    .offer__field-loading {
+        height: 500px;
+        position: relative;
+        background: #eee;
+        height: 20px;
+        margin: 4px 0;
+        animation: shimmer 2s linear infinite;
+        background: linear-gradient(to bottom right, #cdd0d4 21%, #e9e9e9 25%, #cdd0d4 29%);
+        background-size: 3000px 1000px;
+        width: 85%;
     }
 }

@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import { XPropsProvider, ServerDataProvider } from 'src/components/modal/lib';
+import { XPropsProvider, ServerDataProvider } from 'src/components/modal/v1/lib';
 
 const wrapper = serverData =>
     function xpropsProvider({ children }) {

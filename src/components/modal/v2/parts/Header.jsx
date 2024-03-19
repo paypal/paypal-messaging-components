@@ -11,7 +11,8 @@ const Header = ({
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
-    viewName
+    viewName,
+    useV4Design
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -37,14 +38,18 @@ const Header = ({
     return (
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                <div className="header__background-wrapper header__background-wrapper--gradient" />
+                <div
+                    className={`header__background-wrapper header__background-wrapper--gradient ${
+                        useV4Design ? 'v4Design' : ''
+                    }`}
+                />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className="header__background-wrapper" />
+                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
-                    <div className="pp-logo" alt="PayPal">
+                    <div className="pp-logo">
                         <Icon name={logo} />
                     </div>
                 </div>
@@ -63,7 +68,11 @@ const Header = ({
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                    <div className="header__background-wrapper header__background-wrapper--sticky" />
+                    <div
+                        className={`header__background-wrapper header__background-wrapper--sticky ${
+                            useV4Design ? 'v4Design' : ''
+                        }`}
+                    />
                 </div>
             </div>
             <div className="header__content">
@@ -85,7 +94,9 @@ const Header = ({
                     <p
                         className={`subheadline_p subheadline-${countryClassName}`}
                         // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{ __html: currencyFormat(subheadline) ?? '' }}
+                        dangerouslySetInnerHTML={{
+                            __html: currencyFormat(subheadline) ?? ''
+                        }}
                     />
                 )}
             </div>

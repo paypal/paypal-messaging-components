@@ -26,6 +26,7 @@ import {
     getStandardProductOffer,
     getDevTouchpoint,
     getTsCookieFromStorage
+    // getPageType
 } from '../../../utils';
 import validate from '../message/validation';
 import containerTemplate from './containerTemplate';
@@ -103,7 +104,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             },
             offer: {
                 type: 'string',
-                queryParam: false,
+                queryParam: 'credit_type',
                 required: false,
                 decorate: ({ value }) => getStandardProductOffer(value)
             },
@@ -135,6 +136,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'ec_token',
                 required: false,
                 value: validate.ecToken
+            },
+            pageType: {
+                type: 'string',
+                queryParam: 'page_type',
+                required: false,
+                value: validate.pageType
+            },
+            contextualComponents: {
+                type: 'string',
+                queryParam: 'contextual_components',
+                required: false,
+                value: validate.contextualComponents
             },
 
             // Callbacks
@@ -436,7 +449,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: getFeatures
+                value: validate.features ?? getFeatures
             }
         }
     })

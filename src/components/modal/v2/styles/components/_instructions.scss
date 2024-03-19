@@ -34,11 +34,76 @@
         font-size: 18px;
         padding-bottom: 16px;
     }
+    h2 {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: left;
+        color: $text-main;
+        margin-left: 42px;
+        margin-top: 10px;
 
+        @include desktop {
+            margin-bottom: 10px;
+
+            br {
+                display: none;
+            }
+        }
+
+        @include tablet {
+            margin-left: 32px;
+            @include lander {
+                max-width: 100%;
+            }
+
+            br {
+                display: none;
+            }
+        }
+
+        @include mobile {
+            margin-bottom: 5px;
+            margin-left: 0px;
+            max-width: 84%;
+        }
+
+        @include smallMobile {
+            max-width: 81%;
+        }
+    }
+    .subheadline_p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        color: $text-main;
+        margin: 0px;
+
+        @include desktop {
+            margin-top: 0px;
+            margin-left: 32px;
+            margin-bottom: 30px;
+        }
+
+        @include tablet {
+            margin-top: 10px;
+            margin-left: 32px;
+            margin-bottom: 10px;
+        }
+
+        @include mobile {
+            padding-bottom: 10px;
+        }
+        @include smallMobile {
+            font-size: 1rem;
+        }
+    }
     .instructions__item-wrapper {
         display: flex;
         flex-direction: row;
 
+        
         &:last-child {
             li {
                 @include tablet {
@@ -48,6 +113,12 @@
                     padding-bottom: 0px;
                 }
             }
+        }
+    }
+
+    .v4Design {
+        strong {
+            font-weight: 400;
         }
     }
 
@@ -68,6 +139,20 @@
         }
         @include mobile {
             margin: 0px;
+        }
+    }
+
+    &.checkout {    
+        h2 {
+            @include tablet {
+                margin-left: 0px;
+            }
+        }
+
+        ol {
+            @include tablet {
+                padding-left: 5px;
+            }
         }
     }
 }

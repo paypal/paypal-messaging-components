@@ -20,6 +20,25 @@ import {
 import { getMessageComponent } from '../../zoid/message';
 import { Modal } from '../modal';
 
+function getMerchantOptions(jsOptions, container) {
+    const globalOptions = getGlobalState().config;
+    const inlineOptions = getInlineOptions(container);
+
+    // Use the spread operator to clone jsOptions and inlineOptions, while directly overriding and deleting properties as needed
+    const mergedOptions = {
+        ...globalOptions,
+        ...jsOptions,
+        ...inlineOptions,
+        // Override pageType if not set in jsOptions but set in placement, prioritize inlineOptions' pageType if available
+        pageType: inlineOptions.pageType || jsOptions.pageType || inlineOptions.placement || jsOptions.placement
+    };
+
+    // Explicitly delete the placement property from the final mergedOptions
+    delete mergedOptions.placement;
+
+    return mergedOptions;
+}
+
 export default (options = {}) => ({
     render: (selector = '[data-pp-message]') => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_RENDER_DELAY);
@@ -64,10 +83,7 @@ export default (options = {}) => ({
                         // return resolved render and updateProps
                         const renderOrUpdateMessage = () => {
                             try {
-                                const merchantOptions = objectMerge(
-                                    getGlobalState().config,
-                                    objectMerge(options, getInlineOptions(container))
-                                );
+                                const merchantOptions = getMerchantOptions(options, container);
 
                                 if (!container.hasAttribute('data-pp-id')) {
                                     container.setAttribute('data-pp-id', nextIndex());
@@ -80,7 +96,7 @@ export default (options = {}) => ({
                                     customerId,
                                     currency,
                                     amount,
-                                    placement,
+                                    pageType,
                                     style,
                                     offer,
                                     buyerCountry,
@@ -90,7 +106,9 @@ export default (options = {}) => ({
                                     onApply,
                                     channel,
                                     ecToken,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -105,7 +123,9 @@ export default (options = {}) => ({
                                     ignoreCache,
                                     channel,
                                     ecToken,
-                                    cspNonce
+                                    contextualComponents,
+                                    cspNonce,
+                                    features
                                 };
                                 const modalProps = {
                                     ...commonProps,
@@ -114,7 +134,7 @@ export default (options = {}) => ({
                                 const messageProps = {
                                     ...commonProps,
                                     index,
-                                    placement,
+                                    pageType,
                                     style,
                                     offer,
                                     onClick,
@@ -146,24 +166,25 @@ export default (options = {}) => ({
 
                                     ppDebug(
                                         `{
-                            clientID: ${account},
-                            merchantID: ${merchantId},
-                            customerID: ${customerId},
-                            offer: ${offer},
-                            currency: ${currency},
-                            ignoreCache: ${ignoreCache},
-                            channel: ${channel},
-                            ecToken: ${ecToken},
+                                    clientID: ${account},
+                                    merchantID: ${merchantId},
+                                    customerID: ${customerId},
+                                    offer: ${offer},
+                                    currency: ${currency},
+                                    ignoreCache: ${ignoreCache},
+                                    channel: ${channel},
+                                    ecToken: ${ecToken},
+                                    contextualComponents: ${contextualComponents},
                     
-                            index: data-pp-id="${index}",
-                            style: ${JSON.stringify(style)},
-                            amount: ${amount},
-                            buyerCountry: ${buyerCountry},
-                            placement: ${placement},
+                                    index: data-pp-id="${index}",
+                                    style: ${JSON.stringify(style)},
+                                    amount: ${amount},
+                                    buyerCountry: ${buyerCountry},
+                                    pageType: ${pageType},
                     
-                            renderStart: ${new Date(renderStart).toLocaleString()},
-                            renderMessageTime: ${new Date().toLocaleString()}
-                            }`
+                                    renderStart: ${new Date(renderStart).toLocaleString()},
+                                    renderMessageTime: ${new Date().toLocaleString()}
+                                    }`
                                     );
 
                                     return render(container)

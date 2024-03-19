@@ -8,14 +8,16 @@ import { EVENT } from '@krakenjs/zoid/src';
 
 import { createTitleGenerator, viewportHijack } from '../../../utils';
 
-const TRANSITION_DELAY = 300;
 const getTitle = createTitleGenerator();
 
-export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce }, context }) => {
+export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNonce, features }, context }) => {
     // We render the modal as a popup when attempting to render the modal inside another IFrame.
     // In this scenario we can skip creating container elements and transitions since we
     // cannot overlay across the entire screen
     if (context === 'popup') return undefined;
+
+    const TRANSITION_DELAY = features === 'new-checkout-design' ? 100 : 300;
+    const transitionPercent = features === 'new-checkout-design' ? 0 : 5;
 
     const [hijackViewport, replaceViewport] = viewportHijack();
 
@@ -116,13 +118,17 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                         ${fullScreen('fixed')}
                     }
 
-                    #${uid} > div.${CLASS.MODAL_SHOW} {
-                        background: rgba(108, 115, 120, 0.85);
+                    ${
+                        features !== 'new-checkout-design'
+                            ? `#${uid} > div.${CLASS.MODAL_SHOW} {
+                                background: rgba(108, 115, 120, 0.85);
+                            }`
+                            : ''
                     }
 
                     #${uid} > div > iframe {
                         transition: all ${TRANSITION_DELAY}ms;
-                        transform: translateY(5%);
+                        transform: translateY(${transitionPercent}%);
                         opacity: 0;
                     }
 

@@ -3,8 +3,9 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props, event, state }) => {
+export default ({ doc, props: { cspNonce, features }, event, state }) => {
     const ERROR_DELAY = 15000;
+    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
     const styles = `
         @font-face {
             font-family: 'PayPalSansBig';
@@ -60,12 +61,39 @@ export default ({ doc, props, event, state }) => {
         .modal{
             overflow-y: scroll;
         }
-        .overlay{
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%;
+        ${
+            useNewCheckoutDesign === 'true'
+                ? ` @media (min-device-width: 640px) {
+                    .overlay {
+                        background-color: #f1f2f3;        
+                        position: fixed;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 424px;
+                        height: 90vh;
+                        border-radius: 32px;
+                        border: 1px solid #cdd0d4;
+                    }
+                }
+                @media (max-device-width: 639px) {
+                    .overlay {
+                        background-color: #f1f2f3;
+                        position: fixed;
+                        left: 0;
+                        top: 0;
+                        width: 100%; 
+                        height: 100%;
+                    }
+                }
+            `
+                : `.overlay {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%; 
+                height: 100%;
+            }`
         }
         .modal-content {
             position: relative;
@@ -73,6 +101,47 @@ export default ({ doc, props, event, state }) => {
             height: 100%;
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
+        }
+        ${
+            useNewCheckoutDesign === 'true' &&
+            `
+                @media screen and (min-device-width: 640px) {
+                    #prerender-close-btn {
+                        position: relative;
+                    }
+                    .close-button {
+                        position: absolute;
+                        width: 424px;
+                        transform: translate(-50%, -50%);
+                        top: 85px;
+                        left: 50%;
+                        padding-left: 25px;
+                        z-index: 50;
+                    }
+                }
+                @media screen and (max-device-width: 639px) {
+                    #prerender-close-btn {
+                        left: 0;
+                    }
+                }
+
+                .spinnerImage{
+                    display: none;
+                }
+                .loader {
+                    width: 44px !important;
+                    height: 44px !important;
+                    margin: 0 0 0 -22px !important;
+                    background-color: transparent !important;
+                    animation: rotation 1.3s infinite linear !important;
+                    border-left: 3px solid #0544b5 !important;
+                    border-right: 3px solid #0544b5 !important;
+                    border-bottom: 3px solid transparent !important;
+                    border-top: 3px solid #0544b5 !important;
+                    border-radius: 100% !important;
+                    top: 20;
+                    }
+            `
         }
         .spinner{
             position: relative !important;
@@ -97,15 +166,26 @@ export default ({ doc, props, event, state }) => {
             height: 48px;
         }
 
-        #modal-status{
-            color: white;
-            position: absolute;
-            top: 67%;
-            left: calc( 50% - 10px );
-            margin-left: -60px;
-            display: none;
-            padding: 10px;
-
+        ${
+            useNewCheckoutDesign === 'true'
+                ? `#modal-status {
+                    color: #545D68;
+                    position: absolute;
+                    top: 58%;
+                    left: calc( 50% - 10px );
+                    margin-left: -60px;
+                    display: none;
+                    padding: 10px;
+                }`
+                : `#modal-status{
+                    color: white;
+                    position: absolute;
+                    top: 67%;
+                    left: calc( 50% - 10px );
+                    margin-left: -60px;
+                    display: none;
+                    padding: 10px;
+            }`
         }
 
         @media (max-width: 639px), (max-height: 539px){
@@ -167,13 +247,53 @@ export default ({ doc, props, event, state }) => {
         }
     });
 
+    const renderCloseButton = () => {
+        if (useNewCheckoutDesign === 'true') {
+            return (
+                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.203 4.793a1 1 0 0 1 0 1.414L9.91 12.5l6.293 6.293a1 1 0 0 1-1.414 1.414l-6.993-6.993a1.01 1.01 0 0 1 0-1.428l6.993-6.993a1 1 0 0 1 1.414 0Z"
+                        fill="#545D68"
+                    />
+                </svg>
+            );
+        }
+        return (
+            <svg
+                aria-hidden="true"
+                width="36"
+                height="36"
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M12 0L0 12"
+                    transform="translate(12 12)"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                />
+                <path
+                    d="M0 0L12 12"
+                    transform="translate(12 12)"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                />
+            </svg>
+        );
+    };
+
     return (
         <html lang="en">
             <head>
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <style nonce={props.cspNonce}>{styles}</style>
+            <style nonce={cspNonce}>{styles}</style>
             {/* 
                 disable jsx-a11y/no-static-element-interactions
                     because we need handleEscape to work regardless of which element has focus,
@@ -202,35 +322,13 @@ export default ({ doc, props, event, state }) => {
                                 aria-label="Close"
                                 tabindex="0"
                             >
-                                <svg
-                                    aria-hidden="true"
-                                    width="36"
-                                    height="36"
-                                    viewBox="0 0 36 36"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 0L0 12"
-                                        transform="translate(12 12)"
-                                        stroke="white"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                    />
-                                    <path
-                                        d="M0 0L12 12"
-                                        transform="translate(12 12)"
-                                        stroke="white"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                    />
-                                </svg>
+                                {renderCloseButton()}
                             </button>
                         </div>
                         <span id="modal-status" aria-label="modal-status" aria-live="polite">
                             Loading Modal
                         </span>
-                        <Spinner nonce={props.cspNonce} />
+                        <Spinner nonce={cspNonce} />
                     </div>
                 </div>
             </body>

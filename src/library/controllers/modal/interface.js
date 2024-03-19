@@ -38,8 +38,10 @@ const memoizedModal = memoizeOnProps(
         onClose,
         channel,
         ecToken,
+        contextualComponents,
         cspNonce,
-        integrationIdentifier
+        integrationIdentifier,
+        features
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
@@ -61,8 +63,10 @@ const memoizedModal = memoizeOnProps(
             onClose,
             channel,
             ecToken,
+            contextualComponents,
             cspNonce,
-            integrationIdentifier
+            integrationIdentifier,
+            features
         });
         // Fired from inside the default onReady callback
         let renderProm;

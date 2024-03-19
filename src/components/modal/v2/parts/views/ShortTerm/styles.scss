@@ -1,56 +1,155 @@
 @import '../../../styles/globals/colors';
 @import '../../../styles/globals/mixins';
+@import '../../../styles/globals/variables';
 
-.donuts {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-    @include desktop {
-        min-height: 5em;
-        top: 0;
-        margin-bottom: 0px;
-    }
-
-    &__container {
+.content__body {
+    .donuts {
         display: flex;
         align-items: center;
-        justify-content: space-evenly;
         width: 100%;
-        max-width: 360px;
-        margin: 0 auto;
-        padding: 0 20px 15px 20px;
 
         @include desktop {
-            transform: translate(0px, 1rem);
-            position: relative;
-            top: 30px;
+            min-height: 5em;
+            top: 0;
+            margin-bottom: 0px;
         }
 
+        &__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 0 20px 15px 20px;
+
+            @include desktop {
+                transform: translate(0px, 1rem);
+                position: relative;
+                top: 30px;
+            }
+
+            @include tablet {
+                max-width: 400px;
+            }
+
+            @include mobile {
+                padding: 0 0 15px;
+            }
+
+            @include smallMobile {
+                padding: 0px;
+            }
+        }
+
+        &.checkout {
+            margin-bottom: 20px;
+        }
+    }
+
+    .learnMoreLink__container {
+        font-size: 14px;
+
         @include tablet {
-            max-width: 400px;
+            margin-top: 10px;
         }
 
         @include mobile {
-            padding: 0 0 15px;
-        }
-
-        @include smallMobile {
-            padding: 0px;
+            margin-top: 20px;
+            margin-left: 0px;
         }
     }
-}
-.learnMoreLink__container {
-    @include desktop {
-        margin-left: 44px;
+    .button {
+        padding: 15px 100px 15px 100px;
+
+        @include mobile {
+            padding: 15px 70px 15px 70px;
+            width: 100%;
+        }
+    }
+    .button__fixed-wrapper {
+        @include fixedWrapper;
+        bottom: 0;
+        z-index: 1;
+
+        @include tablet {
+            border-radius: 0 0 $content-wrapper-border-radius $content-wrapper-border-radius;
+            overflow: hidden;
+
+            @include lander {
+                border-radius: 0;
+            }
+        }
     }
 
-    @include tablet {
-        margin-left: 44px;
+    .button__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include tablet {
+            background: white;
+            margin-bottom: 0;
+            max-width: $content-wrapper-max-width-tablet;
+            padding: 15px 0;
+            .button {
+                width: calc(80%);
+            }
+        }
+
+        @include mobile {
+            background: white;
+            margin-bottom: 0;
+            max-width: $content-wrapper-max-width-tablet;
+            padding: 15px 0;
+            .button {
+                width: calc(80%);
+            }
+        }
+
+        @include apiIframe {
+            max-width: $content-wrapper-max-width-api-iframe;
+        }
+
+        &.checkout {
+            .button {
+                @include tablet {
+                    width: auto;
+                }
+            }
+        }
     }
 
-    @include mobile {
-        margin-top: 20px;
-        margin-left: 0px;
+    .checkout {
+        background: $ql-gray;
+
+        .donuts__container {
+            margin-top: -30px;
+            padding-bottom: 0px;
+            ::after {
+                margin-top: -30px;
+            }
+        }
+    }
+
+    .button,
+    .content__disclaimer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content__disclaimer {
+        margin-top: 10px;
+    }
+
+    .disclosure {
+        &.checkout {
+            padding-bottom: 60px;
+            @include mobile {
+                margin-top: 20px;
+                padding-bottom: 100px;
+            }
+        }
     }
 }

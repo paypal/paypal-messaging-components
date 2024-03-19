@@ -1,6 +1,7 @@
 {
     "meta": {
         "product": "PRODUCT_LIST",
+        "useV4Design": "false",
         "offerCountry": "US"
     },
     "content": {

@@ -1,0 +1,136 @@
+.preapproval-disclaimer {
+    text-align: left;
+    box-sizing: border-box;
+
+    @include desktop {
+        padding-left: 30px;
+    }
+
+    @include tablet {
+        width: 100%;
+        justify-content: center;
+    }
+
+    ul {
+        list-style: disc;
+        @include desktop {
+            padding: 0px;
+        }
+
+        @include mobile {
+            padding: 0px;
+        }
+        &.ppc {
+            @include mobile {
+                margin-top: -11px;
+                margin-bottom: 0px;
+            }
+        }
+        .preapproval-disclaimer__item-wrapper {
+            display: list-item;
+        }
+        li {
+            margin-left: 0.6rem;
+
+            @include desktop {
+                margin-left: 0.6rem;
+            }
+            @include mobile {
+                margin-left: 1.2rem;
+            }
+        }
+    }
+
+    li {
+        color: $dark-gray;
+        line-height: 20px;
+        font-size: 14px;
+        padding-bottom: 16px;
+    }
+    h2 {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: left;
+        color: $text-main;
+        margin-left: 42px;
+        margin-top: 10px;
+
+        @include desktop {
+            margin-bottom: 10px;
+
+            br {
+                display: none;
+            }
+        }
+
+        @include tablet {
+            margin-left: 32px;
+            @include lander {
+                max-width: 100%;
+            }
+
+            br {
+                display: none;
+            }
+        }
+
+        @include mobile {
+            margin-bottom: 5px;
+            margin-left: 0px;
+        }
+
+        @include smallMobile {
+            font-size: 1rem;
+        }
+    }
+    .subheadline_p {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        text-align: left;
+        color: $dark-gray;
+        margin: 0px;
+
+        @include desktop {
+            margin-top: 0px;
+            margin-left: 32px;
+            margin-bottom: 30px;
+        }
+
+        @include tablet {
+            margin-left: 32px;
+            margin-bottom: 30px;
+        }
+
+        @include mobile {
+            padding-bottom: 20px;
+        }
+
+        @include smallMobile {
+            max-width: 67%;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+    }
+
+    @include lander {
+        @include tablet {
+            margin: 0px;
+        }
+        @include mobile {
+            margin: 0px;
+        }
+    }
+    &.checkout {
+        h2 {
+            margin-left: 0px;
+        }
+
+        ul {
+            padding-left: 5px;
+        }
+    }
+}
