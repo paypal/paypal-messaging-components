@@ -1,26 +1,32 @@
 {
     "meta": {
-        "variables": { "$ref": "common/variables.json#/sdk" },
-
-        "id": "bc4ba880-4ebc-49bd-bc97-27c334e5f19a",
-        "schema": "v2",
-        "offerCountry": "US",
-        "creditProductIdentifier": "{credit_product_identifier}",
-        "creditType": "{credit_type}",
         "product": "PAY_LATER_LONG_TERM",
-
+        "offerCountry": "US",
         "periodicPayment": "{formattedPeriodicPayment}",
-        "qualifying": "{qualifying_offer}",
-        "amount": "{transaction_amount}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",
-        "apr": "{apr}",
-        "total_payments": "{total_payments}",
-
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
         "formattedMinAmount": "{formattedMinAmount}",
         "formattedMaxAmount": "{formattedMaxAmount}",
+        "apr": "{apr}",
+        "total_payments": "{total_payments}",
         "formattedTotalCost": "{formattedTotalCost}",
-        "formattedTotalInterest": "{formattedTotalInterest}"
+        "formattedTotalInterest": "{formattedTotalInterest}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
     },
     "content": {
         "calculator": {
