@@ -156,8 +156,8 @@ const setupWebview = props => {
                     debug_id: trackingDetails.debug_id
                 },
                 event_type: 'modal_rendered',
-                request_duration: timing && timing.responseEnd - timing.requestStart,
-                render_duration: timing && performance.now() - timing.responseEnd
+                request_duration: timing && Math.round(timing.responseEnd - timing.requestStart).toString(),
+                render_duration: timing && Math.round(performance.now() - timing.responseEnd).toString()
             });
         },
 
