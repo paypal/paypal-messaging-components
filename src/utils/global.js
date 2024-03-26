@@ -3,8 +3,18 @@ import objectAssign from 'core-js-pure/stable/object/assign';
 import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from '@krakenjs/belter/src';
 
-import { getLibraryVersion, getPayPalDomain } from './sdk';
+import {
+    getAccount,
+    getCurrency,
+    getLibraryVersion,
+    getPageType,
+    getPartnerAccount,
+    getPayPalDomain,
+    getScript
+} from './sdk';
 import { createState } from './miscellaneous';
+import { ppDebug } from './debug';
+import { getInlineOptions } from './elements';
 
 // Following the global naming convention of zoid and prevent collision with merchant.js
 const NAMESPACE = `__paypal_messages_${getLibraryVersion().replace(/[.-]/g, '_')}__`;
@@ -78,3 +88,36 @@ export const createGlobalVariableGetter = (variable, fn) => () => {
 };
 
 export const globalEvent = eventEmitter();
+
+/**
+ * Sets up the internal global state based on SDK script options and inline `data-pp-*` script options.
+ * @returns {void}
+ */
+export const setupGlobalState = () => {
+    const script = getScript();
+    // Ensure the script state has not already been initialized. Protects against this code firing
+    // inside both the message and modal setup funtions. It's called in both since modals can
+    // exist by themselves.
+    if (script && !script[NAMESPACE]) {
+        ppDebug('Script:', { debugObj: script });
+
+        const inlineScriptOptions = getInlineOptions(script);
+        const partnerAccount = getPartnerAccount();
+
+        setGlobalState({
+            config: {
+                // Global state from previous scripts (e.g. accidental inclusion of multiple SDK scripts)
+                ...getGlobalState().config,
+                // Fields pulled from SDK query params and attributes
+                account: partnerAccount || getAccount(),
+                merchantId: partnerAccount && getAccount(),
+                currency: getCurrency(),
+                pageType: getPageType(),
+                // Fields pulled from `data-pp-*` attributes
+                ...inlineScriptOptions
+            }
+        });
+
+        script[NAMESPACE] = true; // Script state has been initialized
+    }
+};

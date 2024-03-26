@@ -1,16 +1,12 @@
 import {
-    getInlineOptions,
     getGlobalState,
-    getScript,
-    getAccount,
-    getCurrency,
-    getPartnerAccount,
     getInsertionObserver,
     isZoidComponent,
     ppDebug,
     getOverflowObserver,
     ensureTreatments,
-    getPageType
+    setupGlobalState,
+    getNamespace
 } from '../../../utils';
 import Messages from './adapter';
 import { getMessageComponent } from '../../zoid/message';
@@ -24,45 +20,15 @@ export default function setup() {
     // Preload the overflow observer so that IE11 polyfills can be downloaded if needed
     getOverflowObserver();
 
-    // Populate global config options
-    const script = getScript();
-    if (script) {
-        ppDebug('Script:', { debugObj: script });
-        const inlineScriptOptions = getInlineOptions(script);
-        const partnerAccount = getPartnerAccount();
+    setupGlobalState();
 
-        Messages.setGlobalConfig({
-            account: partnerAccount || getAccount(),
-            merchantId: partnerAccount && getAccount(),
-            currency: getCurrency(),
-            pageType: getPageType(),
-            ...inlineScriptOptions
-        });
-    }
+    if (__MESSAGES__.__TARGET__ !== 'SDK') {
+        const namespace = getNamespace();
 
-    const { namespace } = getGlobalState().config;
-
-    // Allow specified global namespace override
-    if (namespace) {
-        window[namespace] = {
-            ...(window[namespace] || {}),
-            Messages
-        };
-
-        if (window.paypal) {
-            delete window.paypal.Messages;
-            delete window.paypal.Message;
-
-            if (Object.keys(window.paypal).length === 0) {
-                delete window.paypal;
-            }
-        }
-    }
-
-    // When importing the library directly using UMD, window.paypal will not exist
-    if (__MESSAGES__.__TARGET__ !== 'SDK' && window.paypal) {
+        window[namespace] = window[namespace] ?? {};
+        window[namespace].Messages = Messages;
         // Alias for pilot merchant support
-        window.paypal.Message = Messages;
+        window[namespace].Message = Messages;
     }
 
     // Requires a merchant account to render a message

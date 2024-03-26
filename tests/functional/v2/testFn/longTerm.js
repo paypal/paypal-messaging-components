@@ -46,7 +46,7 @@ export const showCorrectOfferInfo = async (contentWindow, modalContent, testName
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace('per month', '').replace(/\n/g, '');
     expect(newOfferFieldHeadline).toContain(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };
@@ -80,7 +80,7 @@ export const updateTermsViaCalc = async (contentWindow, modalContent, testName) 
 
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace('per month', '').replace(/\n/g, '');
     expect(newOfferFieldHeadline).toContain(modalContent.updatedOfferHeadline);
     await modalSnapshot(testName, contentWindow);
 };
@@ -103,7 +103,7 @@ export const showCorrectAPRDisclaimer = async (contentWindow, modalContent, test
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
-    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace(/\n/g, '');
+    const newOfferFieldHeadline = offerFieldHeadline.replace('month.', '').replace('per month', '').replace(/\n/g, '');
     expect(newOfferFieldHeadline).toContain(modalContent.offerHeadline);
     await modalSnapshot(testName, contentWindow);
 };

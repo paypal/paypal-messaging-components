@@ -345,7 +345,7 @@ export default {
         modalViews: [
             {
                 template: 'v2_long_term_xo.json',
-                offersTemplate: 'v2_long_term.json',
+                offersTemplate: 'v2_long-term_checkout.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
