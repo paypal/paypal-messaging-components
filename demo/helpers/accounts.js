@@ -38,7 +38,20 @@ const accounts = [
     // 'DEVBTNLTSQGTZ',
     // 'DEVBTNLTSQEQZ',
     // 'DEV00BTNSTSNQ',
-    // 'DEV000BTNSTSQ'
+    // 'DEV000BTNSTSQ',
+
+    // US Marks Messages
+    // 'DEV00MRKGENPL',
+    // 'DEVMRKGENBNPL',
+    // 'DEVMRKGENPYPL',
+    // 'DEVMRKLTMQGTZ',
+    // 'DEVMRKLTMQEQZ',
+    // 'DEVMRKLTNQGTZ',
+    // 'DEVMRKLTNQEQZ',
+    // 'DEVMRKLTSQGTZ',
+    // 'DEVMRKLTSQEQZ',
+    // 'DEV00MRKSTSNQ',
+    // 'DEV000MRKSTSQ',
 
    // DE
     // 'DEV000DEPLEQZ',

@@ -48,6 +48,30 @@ export default {
     // Buttons ST Q
     DEV000BTNSTSQ: ['US', ['v2_short_term'], 'buttons/short_term_q'],
 
+    // Marks Messages
+    // generic pay later
+    DEV00MRKGENPL: ['US', ['v2_product_list'], 'marks/generic_pay_later'],
+    // generic pay later - bnpl
+    DEVMRKGENBNPL: ['US', ['v2_product_list'], 'marks/generic_pay_later_bnpl'],
+    // generic paypal
+    DEVMRKGENPYPL: ['US', ['v2_product_list'], 'marks/generic_paypal'],
+    // Buttons LT MQ GTZ
+    DEVMRKLTMQGTZ: ['US', ['v2_long_term'], 'marks/long_term_multi_gtz'],
+    // Buttons LT MQ EQZ
+    DEVMRKLTMQEQZ: ['US', ['v2_long_term'], 'marks/long_term_multi_eqz'],
+    // Buttons LT NQ GTZ
+    DEVMRKLTNQGTZ: ['US', ['v2_long_term'], 'marks/long_term_nq_gtz'],
+    // Buttons LT MQ EQZ
+    DEVMRKLTNQEQZ: ['US', ['v2_long_term'], 'marks/long_term_nq_eqz'],
+    // Buttons LT SQ GTZ
+    DEVMRKLTSQGTZ: ['US', ['v2_long_term'], 'marks/long_term_single_gtz'],
+    // Buttons LT SQ EQZ
+    DEVMRKLTSQEQZ: ['US', ['v2_long_term'], 'marks/long_term_single_eqz'],
+    // Buttons ST NQ
+    DEV00MRKSTSNQ: ['US', ['v2_short_term'], 'marks/short_term_nq'],
+    // Buttons ST Q
+    DEV000MRKSTSQ: ['US', ['v2_short_term'], 'marks/short_term_q'],
+
     // Multi product modal
     DEV00000NIGPL: ['US', ['v2_short_term', 'v2_ppc_ni'], 'short_term_nq'],
 
