@@ -7,54 +7,15 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
     const ERROR_DELAY = 15000;
     const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
     const styles = `
-        @font-face {
-            font-family: 'PayPalSansBig';
-            font-weight: 600;
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot);
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.eot?#iefix)
-                    format('embedded-opentype'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.woff)
-                    format('woff'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Medium.svg) format('svg');
-        }
-        
-        @font-face {
-            font-family: 'PayPalSansBig';
-            font-weight: 200;
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot);
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.eot?#iefix)
-                    format('embedded-opentype'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.woff)
-                    format('woff'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansBig-Light.svg) format('svg');
-        }
-        
-        @font-face {
-            font-family: 'PayPalSansSmall';
-            font-weight: 400;
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot);
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.eot?#iefix)
-                    format('embedded-opentype'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.woff)
-                    format('woff'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Regular.svg)
-                    format('svg');
-        }
-        
-        @font-face {
-            font-family: 'PayPalSansSmall';
-            font-weight: 600;
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot);
-            src: url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.eot?#iefix)
-                    format('embedded-opentype'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.woff)
-                    format('woff'),
-                url(https://www.paypalobjects.com/webstatic/mktg/2014design/font/PP-Sans/PayPalSansSmall-Medium.svg)
-                    format('svg');
+         @font-face {
+            font-family: 'PayPalOpen';
+            src: url(https://www.paypalobjects.com/paypal-ui/fonts/PayPalOpen-Regular.woff2) format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
         html {
             color: #2d2d2d;
-            font-family: PayPal-Sans, Helvetica, Arial, sans-serif;
+            font-family: PayPalOpen, Helvetica, Arial, sans-serif;
             font-size: 14px;
             font-weight: 400;
         }
@@ -146,6 +107,7 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
         .spinner{
             position: relative !important;
         }
+
         .close-button > button {
             background-color: transparent;
             width: 48px;
@@ -166,26 +128,48 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
             height: 48px;
         }
 
+        #modal-status {
+            color: white;
+            position: absolute;
+            top: 67%;
+            left: calc( 50% - 10px );
+            margin-left: -60px;
+            display: none;
+            padding: 10px;
+        }
+        
         ${
-            useNewCheckoutDesign === 'true'
-                ? `#modal-status {
-                    color: #545D68;
-                    position: absolute;
-                    top: 58%;
-                    left: calc( 50% - 10px );
-                    margin-left: -60px;
-                    display: none;
-                    padding: 10px;
-                }`
-                : `#modal-status{
-                    color: white;
-                    position: absolute;
-                    top: 67%;
-                    left: calc( 50% - 10px );
-                    margin-left: -60px;
-                    display: none;
-                    padding: 10px;
-            }`
+            useNewCheckoutDesign === 'true' &&
+            `
+        .close-button > button {
+            background-color: transparent;
+            width: 44px;
+            height: 44px;
+        }
+
+        .close-button > button > svg {
+            margin-top: -20px;
+            margin-left: -20px;
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-device-width: 639px) {
+            .close-button > button > svg {
+                margin-top: auto;
+                margin-left: auto;
+            }
+        }
+
+        #modal-status {
+            color: #545D68;
+            position: absolute;
+            top: 52%;
+            margin-left: -60px;
+            display: none;
+            padding: 10px;
+        }
+        `
         }
 
         @media (max-width: 639px), (max-height: 539px){
