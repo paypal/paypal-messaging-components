@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.60.0](https://github.com/paypal/paypal-messaging-components/compare/v1.59.0...v1.60.0) (2024-03-26)
+
+
+### Features
+
+* improve ql xo ax ([#1065](https://github.com/paypal/paypal-messaging-components/issues/1065)) ([a6e3d4f](https://github.com/paypal/paypal-messaging-components/commit/a6e3d4fabd64333e62966fde92a56438593a3791))
+
+
+### Bug Fixes
+
+* modified DE header margin so it will not overlap with the svg ([#1060](https://github.com/paypal/paypal-messaging-components/issues/1060)) ([b6e5374](https://github.com/paypal/paypal-messaging-components/commit/b6e53740b5946d113911416267550177be7f013a))
+* setup global state from script in modal setup ([#1058](https://github.com/paypal/paypal-messaging-components/issues/1058)) ([18ff80e](https://github.com/paypal/paypal-messaging-components/commit/18ff80eb5e00efdadc94d1baeb489410b0126f7d))
+
+
+### Code Refactoring
+
+* tweak close styles ([#1064](https://github.com/paypal/paypal-messaging-components/issues/1064)) ([4df4302](https://github.com/paypal/paypal-messaging-components/commit/4df430262dcfbe6b974572fbc432e7b19f321bf2))
+
 ## [1.59.0](https://github.com/paypal/paypal-messaging-components/compare/v1.58.0...v1.59.0) (2024-03-19)
 
 
