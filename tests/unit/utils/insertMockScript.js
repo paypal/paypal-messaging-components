@@ -8,7 +8,5 @@ export default function insertMockScript(attributes = {}) {
 
     document.head.appendChild(script);
 
-    window.paypal = window.paypal ?? {};
-
     return () => document.head.removeChild(script);
 }

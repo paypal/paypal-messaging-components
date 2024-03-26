@@ -2,7 +2,7 @@ import setup from 'src/library/controllers/message/setup';
 
 import insertMockScript from 'utils/insertMockScript';
 import Messages from 'src/library/controllers/message/interface';
-import { getGlobalState } from 'src/utils';
+import { getGlobalState, setGlobalState } from 'src/utils';
 import destroy from 'src/library/controllers/message/destroy';
 
 jest.mock('src/library/zoid/message');
@@ -27,6 +27,7 @@ describe('message setup', () => {
         Messages.mockClear();
         Messages().render.mockClear();
         destroy();
+        delete window.paypal;
     });
 
     test('Supports pilot window.Message', () => {
@@ -62,7 +63,7 @@ describe('message setup', () => {
     test('Renames the global namespace', () => {
         const removeMockScript = insertMockScript({ account: 'DEV00000000NI', namespace: 'paypal2' });
 
-        expect(window.paypal).toEqual(expect.any(Object));
+        expect(window.paypal).toBeUndefined();
 
         setup();
 
@@ -95,16 +96,40 @@ describe('message setup', () => {
         removeMockScript();
     });
 
+    test('Does not setup global state each time for same script', () => {
+        const removeMockScript = insertMockScript({ account: 'DEV00000000NI' });
+
+        setup();
+
+        expect(getGlobalState().config).toEqual(
+            expect.objectContaining({
+                account: 'DEV00000000NI'
+            })
+        );
+        // Update state to check if it gets overwritten
+        setGlobalState({ config: { account: 'other' } });
+
+        setup();
+        // The state should not setup again since it's already run against the script
+        expect(getGlobalState().config).toEqual(
+            expect.objectContaining({
+                account: 'other'
+            })
+        );
+
+        removeMockScript();
+    });
+
     describe('dynamic insertion', () => {
         test('Renders message on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
+
+            setup();
 
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -123,12 +148,12 @@ describe('message setup', () => {
         test('Renders message on dynamic insertion when attribute is on a child element', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -148,12 +173,12 @@ describe('message setup', () => {
         test('Renders multiple messages on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
@@ -174,12 +199,12 @@ describe('message setup', () => {
         test('Does not render message with misspelled attribute on dynamic insertion', async () => {
             const removeMockScript = insertMockScript();
 
+            setup();
+
             const mockRender = jest.fn();
             window.paypal.Messages = jest.fn(() => ({
                 render: mockRender
             }));
-
-            setup();
 
             await new Promise(resolve => setTimeout(resolve, 0));
 
