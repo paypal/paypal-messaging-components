@@ -38,6 +38,10 @@
             @include mobile {
                 margin-left: 1.2rem;
             }
+
+            &:last-child {
+                padding-bottom: 0px;
+            }
         }
     }
 
@@ -54,7 +58,7 @@
         text-align: left;
         color: $text-main;
         margin-left: 42px;
-        margin-top: 10px;
+        margin-top: 22px;
 
         @include desktop {
             margin-bottom: 10px;

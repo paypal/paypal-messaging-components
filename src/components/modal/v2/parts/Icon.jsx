@@ -37,6 +37,7 @@ const Icon = ({ name = '', color, content }) => {
         case 'pay-in-4-card':
             return (
                 <svg width="96" height="96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>PayPal</title>
                     <rect y="18" width="96" height="60" rx="4" fill="#003087" />
                     <rect x="19.199" y="31" width="57.6" height="33.75" rx="4" fill="#003087" />
                     <path
