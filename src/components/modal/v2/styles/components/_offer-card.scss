@@ -16,6 +16,11 @@ strong {
             margin-top: 20px;
             margin-bottom: 20px;
 
+            .checkout & {
+                margin-top: 15px;
+                border-bottom: 1px solid $dark-gray;
+            }
+
             @include mobile {
                 margin-top: 20px;
                 margin-bottom: 5px;
@@ -31,15 +36,27 @@ strong {
         @include tablet {
             &:first-child {
                 margin-top: 35px;
+
+                .checkout & {
+                    margin-top: 25px;
+                }
             }
             &:last-child {
                 margin-bottom: 20px;
+
+                .checkout & {
+                    margin-bottom: 32px;
+                }
             }
         }
 
         @include mobile {
             &:last-child {
                 margin-bottom: 20px;
+
+                .checkout & {
+                    margin-bottom: 32px;
+                }
             }
         }
     }
@@ -55,6 +72,10 @@ strong {
                 padding-bottom: 10px;
             }
         }
+
+        .checkout & {
+            justify-content: flex-start;
+        }
     }
     &__field-header {
         font-size: 18px;
@@ -64,6 +85,10 @@ strong {
         }
         @include smallMobile {
             font-size: 1rem;
+        }
+
+        .checkout & {
+            font-size: 16px;
         }
     }
 
@@ -75,7 +100,8 @@ strong {
             flex-grow: 1;
         }
 
-        .v4Design, .checkout {
+        .v4Design,
+        .checkout {
             color: $dark-gray;
             font-weight: 400;
         }
@@ -93,6 +119,10 @@ strong {
         &:is(strong) {
             color: $text-main;
         }
+
+        .checkout & {
+            font-size: 14px;
+        }
     }
 
     &__field-value {
@@ -107,6 +137,11 @@ strong {
         }
 
         &:is(strong) {
+            color: $text-main;
+        }
+
+        .checkout & {
+            font-size: 16px;
             color: $text-main;
         }
     }

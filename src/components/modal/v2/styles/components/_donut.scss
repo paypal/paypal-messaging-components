@@ -20,7 +20,7 @@ $donut-text-v4: #545d68;
     width: 80px;
 
     svg {
-        max-width: 64px;
+        max-width: 50px;
     }
     &.donut__qualifying_payment {
         svg {
@@ -74,6 +74,10 @@ $donut-text-v4: #545d68;
         font-size: 1rem;
         line-height: 20px;
 
+        .checkout & {
+            line-height: 17px;
+        }
+
         @media all and (min-width: $webpage) {
             font-size: 0.9rem;
             line-height: 22px;
@@ -91,6 +95,11 @@ $donut-text-v4: #545d68;
             &_v4 {
                 @extend .donut__payment;
                 color: $donut-text-v4;
+            }
+
+            .checkout & {
+                font-size: 16px;
+                margin-top: -0.5rem;
             }
         }
 
@@ -122,7 +131,7 @@ $donut-text-v4: #545d68;
         &::after {
             content: '';
             flex-grow: 1;
-            border-top: 1px dashed $grey350;
+            border-top: 1px dashed $dark-gray;
             top: 55px;
             width: 100%;
             max-width: 50px;
