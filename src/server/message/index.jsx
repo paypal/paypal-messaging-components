@@ -140,7 +140,7 @@ const getFontRules = (addLog, style) => {
 };
 export default ({ addLog, options, markup, locale }) => {
     const offerType = markup?.meta?.offerType;
-    const { style } = options;
+    const { style, contextualComponents } = options;
 
     const { layout } = style;
 
@@ -150,17 +150,18 @@ export default ({ addLog, options, markup, locale }) => {
     const mutationRules =
         options.style.layout === 'custom'
             ? { logo: false, styles: [], headline: [], disclaimer: '' }
-            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`));
+            : applyCascadeRules(Object, getMutations(locale, offerType, `layout:${layout}`, contextualComponents));
 
     const layoutProp = `layout:${layout}`;
 
     const globalStyleRules = applyCascadeRules(Array, allStyles[layoutProp]);
 
-    const localeClass = getLocaleClass(locale, offerType);
+    const localeClass = getLocaleClass(locale, offerType, contextualComponents);
     // Scope all locale-specific styles to the selected locale
-    const localeStyleRules = applyCascadeRules(Array, getLocaleStyles(locale, layoutProp, offerType)).map(rule =>
-        rule.replace(/\.message/g, `.${localeClass} .message`)
-    );
+    const localeStyleRules = applyCascadeRules(
+        Array,
+        getLocaleStyles(locale, layoutProp, offerType, contextualComponents)
+    ).map(rule => rule.replace(/\.message/g, `.${localeClass} .message`));
     const mutationStyleRules = mutationRules.styles ?? [];
     const customFontStyleRules = getFontRules(addLog, style);
     const miscStyleRules = [];
@@ -179,7 +180,7 @@ export default ({ addLog, options, markup, locale }) => {
     const logoType = style.logo?.type;
     const logoEl = <Logo mutations={mutationRules.logo} />;
 
-    const [withText, productName] = getLocaleProductName(locale, offerType);
+    const [withText, productName] = getLocaleProductName(locale, offerType, contextualComponents);
 
     const productNameEl = (
         <span>
