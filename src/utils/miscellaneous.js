@@ -241,6 +241,8 @@ export function getStandardProductOffer(offer) {
         case 'GPLNQ_RANGE':
         case 'PL':
         case 'PLQ':
+        case 'ST_SQ':
+        case 'ST_NQ':
         case 'SHORT_TERM:Q':
         case 'SHORT_TERM:NQ':
         case 'SHORT_TERM:NO_AMOUNT':

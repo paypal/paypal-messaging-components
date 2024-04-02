@@ -521,5 +521,1066 @@ export default {
                 }
             ]
         }
+    },
+    // contextualComponents local dev test accounts
+    // PayPal Button only
+    DEV_US_PAYPAL_BUTTON_MULTI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_PAYPAL_BUTTON_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_PAYPAL_BUTTON_LONG_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 199,
+                template: '/buttons/long_term_single_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 500,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    // Pay Later Button Only
+    DEV_US_PL_BUTTON_MULTI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_PL_BUTTON_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_PL_BUTTON_LONG_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 199,
+                template: '/buttons/long_term_single_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 500,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    // // PayPal Button + Pay Later Button
+    DEV_US_BUTTON_STACK_MULTI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_BUTTON_STACK_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/buttons/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_BUTTON_STACK_LONG_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/buttons/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/buttons/generc_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 199,
+                template: '/buttons/long_term_single_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 500,
+                template: '/buttons/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/buttons/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    // PayPal Mark only
+    DEV_US_PAYPAL_MARK_MULTI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/marks/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/marks/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_PAYPAL_MARK_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 30,
+                template: '/marks/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 10000.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_PAYPAL_MARK_LONG_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 199,
+                template: '/marks/long_term_single_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 500,
+                template: '/marks/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/marks/generic_paypal.json',
+                product: 'PRODUCT_LIST'
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    // Pay Later Mark Only
+    DEV_US_PL_MARK_MULTI: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: '/marks/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/marks/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/marks/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_PL_MARK_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: '/marks/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: '/marks/short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_PL_MARK_LONG_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_long_term.json',
+                offersTemplate: 'v2_long_term.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: '/marks/generic_pay_later_bnpl.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: '/marks/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 199,
+                template: '/marks/long_term_single_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 500,
+                template: '/marks/long_term_multi_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: '/marks/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
     }
 };
