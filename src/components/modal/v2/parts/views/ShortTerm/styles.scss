@@ -21,6 +21,7 @@
             width: 100%;
             max-width: 360px;
             margin: 0 auto;
+            padding: 0 20px 15px 20px;
 
             @include desktop {
                 transform: translate(0px, 1rem);
@@ -37,6 +38,10 @@
             }
 
             @include smallMobile {
+                padding: 0px;
+            }
+
+            .checkout & {
                 padding: 0px;
             }
         }
