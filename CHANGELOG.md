@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.61.0](https://github.com/paypal/paypal-messaging-components/compare/v1.60.0...v1.61.0) (2024-04-02)
+
+
+### Features
+
+* add support for buttons messages ([#1057](https://github.com/paypal/paypal-messaging-components/issues/1057)) ([b3700c9](https://github.com/paypal/paypal-messaging-components/commit/b3700c968afb486fef6809bc948a20194fc049d2))
+
 ## [1.60.0](https://github.com/paypal/paypal-messaging-components/compare/v1.59.0...v1.60.0) (2024-03-26)
 
 
