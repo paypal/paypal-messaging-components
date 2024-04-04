@@ -58,6 +58,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         merchantId,
         customerId,
         onCalculate,
+        onError,
         buyerCountry,
         ignoreCache,
         amount,
@@ -113,6 +114,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                 });
             })
             .catch(() => {
+                // Call the onError handler provided via xprops
+                if (onError) {
+                    onError({
+                        message: 'Failed to fetch modal offers'
+                    });
+                }
+
                 dispatch({
                     type: 'view',
                     data: {

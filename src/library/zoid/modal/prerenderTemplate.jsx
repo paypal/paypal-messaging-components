@@ -3,7 +3,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props: { cspNonce, features }, event, state }) => {
+export default ({ doc, props: { cspNonce, features, onError }, event, state }) => {
     const ERROR_DELAY = 15000;
     const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
     const styles = `
@@ -194,7 +194,13 @@ export default ({ doc, props: { cspNonce, features }, event, state }) => {
                 // assign variable to state and access in UI
                 modalStatus.style.display = 'block';
                 modalStatus.textContent = 'Error loading Modal';
-                // TODO: should we report this failure to our log endpoint?
+
+                // Call the onError handler provided via xprops
+                if (onError) {
+                    onError({
+                        message: modalStatus.textContent
+                    });
+                }
             }
         });
     };
