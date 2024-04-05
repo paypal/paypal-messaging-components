@@ -17,14 +17,14 @@ document.documentElement.className = [isLander && !isIframe && 'lander', isLande
 const Modal = ({ serverData, children }) => {
     return (
         <XPropsProvider>
-            <ServerDataProvider data={serverData}>
-                <TransitionStateProvider>
-                    <ErrorBoundary>
+            <ErrorBoundary>
+                <ServerDataProvider data={serverData}>
+                    <TransitionStateProvider>
                         <style>{styles._getCss()}</style>
                         <Container>{children}</Container>
-                    </ErrorBoundary>
-                </TransitionStateProvider>
-            </ServerDataProvider>
+                    </TransitionStateProvider>
+                </ServerDataProvider>
+            </ErrorBoundary>
         </XPropsProvider>
     );
 };
