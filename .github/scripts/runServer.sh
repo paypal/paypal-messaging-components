@@ -8,6 +8,8 @@ sleep 40
 error_count=$(grep -i error server.log | wc -l)
 echo "Errors Found: $error_count"
 if [[ $error_count -gt 0 ]]; then
+    echo "Errors found in server.log:"
+    grep -i error server.log   # Print out the errors found
     echo "Exiting server"
     kill $(<pid.log)
     exit 1
