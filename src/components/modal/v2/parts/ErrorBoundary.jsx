@@ -1,39 +1,35 @@
-// import { Component } from 'preact';
-import * as React from 'preact';
-// import { useXProps } from '../lib';
+import { Component } from 'preact';
+import { useXProps } from '../lib';
 
-const ErrorBoundary = () => {
-    return <div>Test</div>;
-};
+class ErrorBoundary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { error: null };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { error: error.message };
+    }
+
+    componentDidCatch(error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        this.setState({ error: error.message });
+    }
+
+    render() {
+        const { onError } = useXProps();
+        const {
+            state: { error },
+            props: { children }
+        } = this;
+        if (error && onError) {
+            onError({
+                message: 'Preact modal rendering error'
+            });
+        }
+        return children;
+    }
+}
+
 export default ErrorBoundary;
-
-// class ErrorBoundary extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {};
-//     }
-
-//     // componentDidCatch(error, errorInfo) {
-//     //     this.setState();
-//     //     // eslint-disable-next-line no-console
-//     //     console.error('Error caught by ErrorBoundary:', error, errorInfo);
-//     // }
-
-//     render() {
-//         // const { onError } = useXProps();
-//         const {
-//             // state: { hasError },
-//             props: { children }
-//         } = this;
-
-//         // Call the onError handler provided via xprops
-//         // if (hasError && onError) {
-//         //     onError({
-//         //         message: 'Preact modal rendering error'
-//         //     });
-//         // }
-//         return children;
-//     }
-// }
-
-// export default ErrorBoundary;
