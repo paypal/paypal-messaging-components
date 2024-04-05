@@ -7,11 +7,11 @@ class ErrorBoundary extends Component {
         this.state = {};
     }
 
-    componentDidCatch(error, errorInfo) {
-        this.setState();
-        // eslint-disable-next-line no-console
-        console.error('Error caught by ErrorBoundary:', error, errorInfo);
-    }
+    // componentDidCatch(error, errorInfo) {
+    //     this.setState();
+    //     // eslint-disable-next-line no-console
+    //     console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    // }
 
     render() {
         // const { onError } = useXProps();
