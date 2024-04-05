@@ -132,12 +132,12 @@ jest.mock('server/locale/AU/mutations/gplq', () => ({
 describe('locale methods', () => {
     describe('getMutations', () => {
         test('returns empty value for custom message', () => {
-            const mutations = getMutations('US', 'NI', 'layout:custom', {});
+            const mutations = getMutations('US', 'NI', 'layout:custom');
             expect(mutations).toEqual({});
         });
 
         test('adds locale class to styles', () => {
-            const mutations = getMutations('US', 'NIQ', 'layout:text', {});
+            const mutations = getMutations('US', 'NIQ', 'layout:text');
 
             expect(mutations[0][1].styles).toEqual([
                 '.locale--US .message { style1 }',
@@ -167,10 +167,10 @@ describe('locale methods', () => {
             ['AU', 'GPL'],
             ['AU', 'GPLQ']
         ])('returns correct mutations %s %s', (locale, offerType) => {
-            const textMutations = getMutations(locale, offerType, 'layout:text', {});
+            const textMutations = getMutations(locale, offerType, 'layout:text');
             expect(textMutations).toEqual(['text', locale, offerType]);
 
-            const flexMutations = getMutations(locale, offerType, 'layout:flex', {});
+            const flexMutations = getMutations(locale, offerType, 'layout:flex');
             expect(flexMutations).toEqual(['flex', locale, offerType]);
         });
     });

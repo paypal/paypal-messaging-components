@@ -1,10 +1,21 @@
 import payLaterShortTerm from './PAY_LATER_SHORT_TERM';
 import paypalCredit from './PAYPAL_CREDIT';
 import payLaterLongTerm from './PAY_LATER_LONG_TERM';
+import Buttons from './CONTEXTUAL_COMPONENTS/BUTTONS';
+import Marks from './CONTEXTUAL_COMPONENTS/MARKS';
 
 import { OFFER, getStandardProductOffer } from '../../../utils/server';
 
-export default offerType => {
+export default (offerType, contextualComponents) => {
+    // Buttons messages
+    if (contextualComponents?.includes('BUTTON')) {
+        return Buttons;
+    }
+    // Marks messages
+    if (contextualComponents?.includes('MARK')) {
+        return Marks;
+    }
+    // Non-contextualComponents messages
     switch (getStandardProductOffer(offerType)) {
         case OFFER.PAYPAL_CREDIT_NO_INTEREST:
         case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
