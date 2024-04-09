@@ -55,7 +55,7 @@ const Donut = ({
                 />
                 <g
                     stroke-width={isV4Design ? 0 : segStrokeWidth}
-                    fill={isV4Design ? '#bdbdbd' : 'transparent'}
+                    fill={isV4Design ? '#545D68' : 'transparent'}
                     stroke-linecap={strokeLinecap}
                 >
                     {segments}

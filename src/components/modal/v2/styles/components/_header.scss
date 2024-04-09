@@ -216,6 +216,12 @@
             padding-bottom: 40px;
         }
 
+        .checkout & {
+            @include tablet {
+                padding-bottom: 44px;
+            }
+        }
+
         svg {
             position: absolute;
             right: 0;

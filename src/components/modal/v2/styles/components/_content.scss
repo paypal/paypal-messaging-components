@@ -134,13 +134,13 @@
             }
 
             @include mobile {
-                margin-top: 28px;
+                margin-top: 10px;
             }
 
             &.checkout {
                 @include mobile {
-                     margin-bottom: 60px;
-                 }
+                    margin-bottom: 60px;
+                }
             }
         }
 
