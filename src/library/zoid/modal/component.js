@@ -204,6 +204,29 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     };
                 }
             },
+            onError: {
+                type: 'function',
+                queryParam: false,
+                value: ({ props }) => {
+                    const { onError } = props;
+
+                    return ({ message }) => {
+                        const { index, refIndex } = props;
+
+                        logger.track({
+                            index,
+                            refIndex,
+                            et: 'ERROR',
+                            event_type: 'error',
+                            message
+                        });
+
+                        if (typeof onError === 'function') {
+                            onError({ message });
+                        }
+                    };
+                }
+            },
             onShow: {
                 type: 'function',
                 queryParam: false,

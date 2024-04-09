@@ -2,6 +2,7 @@
 import { h } from 'preact';
 
 import { TransitionStateProvider, XPropsProvider, ServerDataProvider, isLander, isIframe } from '../lib';
+import ErrorBoundary from './ErrorBoundary';
 import Container from './Container';
 
 import styles from '../styles/index.scss';
@@ -16,12 +17,14 @@ document.documentElement.className = [isLander && !isIframe && 'lander', isLande
 const Modal = ({ serverData, children }) => {
     return (
         <XPropsProvider>
-            <ServerDataProvider data={serverData}>
-                <TransitionStateProvider>
-                    <style>{styles._getCss()}</style>
-                    <Container>{children}</Container>
-                </TransitionStateProvider>
-            </ServerDataProvider>
+            <ErrorBoundary>
+                <ServerDataProvider data={serverData}>
+                    <TransitionStateProvider>
+                        <style>{styles._getCss()}</style>
+                        <Container>{children}</Container>
+                    </TransitionStateProvider>
+                </ServerDataProvider>
+            </ErrorBoundary>
         </XPropsProvider>
     );
 };
