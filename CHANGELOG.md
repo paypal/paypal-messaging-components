@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.62.0](https://github.com/paypal/paypal-messaging-components/compare/v1.61.0...v1.62.0) (2024-04-09)
+
+
+### Features
+
+* support onError modal callback ([#1070](https://github.com/paypal/paypal-messaging-components/issues/1070)) ([8a0a2eb](https://github.com/paypal/paypal-messaging-components/commit/8a0a2eb88d275a8cc6cb5215c683b08e696940de))
+
+
+### Code Refactoring
+
+* update QL checkout Pay Monthly and Pay in 4 modals ([#1068](https://github.com/paypal/paypal-messaging-components/issues/1068)) ([18d4a6a](https://github.com/paypal/paypal-messaging-components/commit/18d4a6a400577f5cceb73acaf71a534c29f1cdc6))
+
 ## [1.61.0](https://github.com/paypal/paypal-messaging-components/compare/v1.60.0...v1.61.0) (2024-04-02)
 
 
