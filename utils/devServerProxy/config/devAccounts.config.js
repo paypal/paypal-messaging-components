@@ -31,6 +31,8 @@ export default {
     DEV000GENBNPL: ['US', ['v2_product_list'], 'buttons/generic_pay_later_bnpl'],
     // generic paypal
     DEV000GENPYPL: ['US', ['v2_product_list'], 'buttons/generic_paypal'],
+    // paypal purchase protection
+    DEV0BTNPYPLPP: ['US', ['v2_product_list'], 'buttons/purchase_protection'],
     // Buttons LT MQ GTZ
     DEVBTNLTMQGTZ: ['US', ['v2_long_term'], 'buttons/long_term_multi_gtz'],
     // Buttons LT MQ EQZ
@@ -55,6 +57,8 @@ export default {
     DEVMRKGENBNPL: ['US', ['v2_product_list'], 'marks/generic_pay_later_bnpl'],
     // generic paypal
     DEVMRKGENPYPL: ['US', ['v2_product_list'], 'marks/generic_paypal'],
+    // paypal purchase protection
+    DEV0MRKPYPLPP: ['US', ['v2_product_list'], 'buttons/purchase_protection'],
     // Buttons LT MQ GTZ
     DEVMRKLTMQGTZ: ['US', ['v2_long_term'], 'marks/long_term_multi_gtz'],
     // Buttons LT MQ EQZ
