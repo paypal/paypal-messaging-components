@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.63.0](https://github.com/paypal/paypal-messaging-components/compare/v1.62.0...v1.63.0) (2024-04-16)
+
+
+### Features
+
+* update DE long term modal apr ([#1072](https://github.com/paypal/paypal-messaging-components/issues/1072)) ([4bfbb4d](https://github.com/paypal/paypal-messaging-components/commit/4bfbb4d5a88ecf8df6fac62060c09b70fc283c42))
+
+
+### Code Refactoring
+
+* update calculator padding for XO modal ([#1073](https://github.com/paypal/paypal-messaging-components/issues/1073)) ([9903198](https://github.com/paypal/paypal-messaging-components/commit/9903198c3da4fdd59ef68063cd640256e5a970af))
+
 ## [1.62.0](https://github.com/paypal/paypal-messaging-components/compare/v1.61.0...v1.62.0) (2024-04-09)
 
 
