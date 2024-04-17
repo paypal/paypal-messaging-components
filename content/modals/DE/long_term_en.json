@@ -1,0 +1,43 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "DE",
+        "language": "en-DE",
+        "useV4Design": "false",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "formattedNominalRatePrecision2": "${CREDIT_OFFERS_DS.formattedNominalRatePrecision2}"
+        }
+    },
+    "content": {
+        "headline": "Pay later in monthly installments",
+        "subheadline": "Buy today, with no down payment.",
+        "calculator": {
+            "title": "How much is your purchase?",
+            "inputLabel": "Value of goods",
+            "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
+            "inputCurrencySymbol": "€",
+            "genericError": "Something went wrong. Please try later."
+        },
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>PayPal Ratenzahlung</strong>.",
+            "Complete your purchase in a few easy steps.",
+            "That’s it! Pay early if you like, with no extra cost."
+        ],
+        "disclosure": {
+            "nonZeroAPR": "Subject to credit approval. Terms of 3, 6, 12, or 24 months. Starting from {formattedMinAmount} up to {formattedMaxAmount} order value. For terms of 3, 6, and 12 months, an annual percentage rate (APR) of 12.99% applies, with a fixed nominal interest rate of 12.19% p.a. for 3 months, 12.21% p.a. for 6 months, and 12.22% p.a. for 12 months. For the 24-month term, an APR of 11.99% applies, with a fixed nominal interest rate of 11.33% p.a. Representative example according to § 17 (4) PAngV: Net loan amount €1,000, total amount €1,067.79, 12 monthly installments of €88.98 each, fixed nominal interest rate 12.99% p.a., effective APR 12.22% p.a. The lender is PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg.",
+            "zeroAPR": "Subject to credit approval and only for transactions in Euro. From an order value of {formattedMinAmount} up to {formattedMaxAmount} with an effective annual percentage rate (APR) of {formattedAPR}% p.a. and a fixed nominal interest rate of {formattedNominalRatePrecision2}% p.a. for loan agreements concluded during the promotional period. Terms of 3, 6, 12, or 24 months. The lender is PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. As a consumer, you have a right of withdrawal according to § 514 BGB for gratuitous loan agreements from a financing amount of €200. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal personal account with a confirmed bank account as a payment source. Subject to availability. Terms may vary in certain use cases."
+        }
+    }
+}

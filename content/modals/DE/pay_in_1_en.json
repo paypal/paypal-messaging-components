@@ -1,6 +1,7 @@
 {
     "meta": {
         "offerCountry": "DE",
+        "language": "en-DE",
         "useV4Design": "false",
         "periodicPayment": "{formattedPeriodicPayment}",
         "product": "PAY_LATER_PAY_IN_1",
@@ -22,17 +23,15 @@
         }
     },
     "content": {
-        "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
-        "subheadline": "Erhältlich für Einkäufe i.H.v. <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
+        "headline": "Buy what you love now. Pay in 30 Days.",
+        "subheadline": "Available for purchases of <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
         "instructions": [
-            "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
-            "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
-            "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
+            "Choose PayPal at checkout to use <strong> Pay in 30 Days.</strong>",
+            "Complete your purchase in a few quick steps.",
+            "Need more than 30 days? Postpone once for a fee."
         ],
         "disclosure": [
-            "Erhältlich für Einkäufe i.Hv. {formattedMinAmount} - {formattedMaxAmount}. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
-        ],
-        "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
-        "linkToProductList": "wählen Sie die PayPal Ratenzahlung."
+            "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal private account with a bank account as a funding instrument. Learn more"
+        ]
     }
 }

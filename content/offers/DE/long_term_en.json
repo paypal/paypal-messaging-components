@@ -1,0 +1,48 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "DE",
+        "formattedPeriodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "formattedMinAmount": "{formattedMinAmount}",
+        "formattedMaxAmount": "{formattedMaxAmount}",
+        "apr": "{apr}",
+        "total_payments": "{total_payments}",
+        "formattedTotalCost": "{formattedTotalCost}",
+        "formattedTotalInterest": "{formattedTotalInterest}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "calculator": {
+            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
+            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}"
+        },
+        "disclaimer": {
+            "nonZeroAPR": "Eff. Annual interest rate 9,99% p.a., <br/> fixed borrowing rate {nominal_rate}% p.a.",
+            "zeroAPR": "Eff. Annual interest rate 0,00% p.a., <br/> fixed borrowing rate 0,00% p.a."
+        },
+        "termsLabel": {
+            "offerPayment": "{formattedPeriodicPayment} / month",
+            "offerNumInstallments": "{total_payments} installments",
+            "eMoney": "Transaction amount e-money service",
+            "totalInterest": "Interest amount",
+            "total": "Total amount"
+        }
+    }
+}
