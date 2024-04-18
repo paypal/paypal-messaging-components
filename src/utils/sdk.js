@@ -255,3 +255,7 @@ export function getFeatures() {
         return undefined;
     }
 }
+
+export function getURIPopup(lander, label) {
+    return window.open(lander, label, 'width=460,height=900');
+}
