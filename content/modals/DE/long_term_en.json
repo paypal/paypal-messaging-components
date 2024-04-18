@@ -31,7 +31,7 @@
             "genericError": "Something went wrong. Please try later."
         },
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>PayPal Ratenzahlung</strong>.",
+            "Choose PayPal at checkout to pay later with<strong> PayPal Ratenzahlung</strong>.",
             "Complete your purchase in a few easy steps.",
             "That’s it! Pay early if you like, with no extra cost."
         ],

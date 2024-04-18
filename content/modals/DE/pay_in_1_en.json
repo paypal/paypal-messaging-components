@@ -31,7 +31,7 @@
             "Need more than 30 days? Postpone once for a fee."
         ],
         "disclosure": [
-            "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal private account with a bank account as a funding instrument. Learn more"
+            "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal private account with a bank account as a funding instrument."
         ]
     }
 }

@@ -104,6 +104,43 @@ export default {
             ]
         }
     },
+    DEV_DE_PAY_IN_1_EN: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'pay_in_1_en.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0.01,
+                template: 'pi30nq.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1,
+                template: 'pi30q.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1000.01,
+                template: 'pi30nq.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        offers: {
+            PAY_LATER_PAY_IN_1: [
+                {
+                    totalPayents: 1,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 1,
+                    maxAmount: 1000
+                }
+            ]
+        }
+    },
     DEV_DE_LONG_TERM: {
         country: 'DE',
         modalViews: [
@@ -163,12 +200,130 @@ export default {
             ]
         }
     },
+    DEV_DE_LONG_TERM_EN: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'long_term_en.json',
+                offersTemplate: 'long_term_en.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'gpl_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 99,
+                template: 'gplq_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'gpl_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_LONG_TERM: [
+                {
+                    totalPayments: 3,
+                    apr: 9.99,
+                    nominalRate: 9.48,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 6,
+                    apr: 9.99,
+                    nominalRate: 9.48,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 9.99,
+                    nominalRate: 9.5,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 9.99,
+                    nominalRate: 9.51,
+                    minAmount: 99,
+                    maxAmount: 5000
+                }
+            ]
+        }
+    },
     DEV_DE_LONG_TERM_0APR: {
         country: 'DE',
         modalViews: [
             {
                 template: 'long_term.json',
                 offersTemplate: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'gpl_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 99,
+                template: 'gplq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'gpl_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_LONG_TERM: [
+                {
+                    totalPayments: 3,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 99,
+                    maxAmount: 5000
+                }
+            ]
+        }
+    },
+    DEV_DE_LONG_TERM_EN_0APR: {
+        country: 'DE',
+        modalViews: [
+            {
+                template: 'long_term_en.json',
+                offersTemplate: 'long_term_en.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
