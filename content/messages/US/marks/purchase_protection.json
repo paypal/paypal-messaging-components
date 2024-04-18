@@ -6,7 +6,7 @@
         "id": "",
         "offer_country_code": "US",
         "offerType": "PURCHASE_PROTECTION",
-        "lander": "https://www.paypal.com/us/legalhub/buyer-protection"
+        "lander": "https://www.paypal.com/us/digital-wallet/buyer-purchase-protection"
     },
     "headline": [
         ["A safer, easier way to pay", ["default", "xsmall"]],
