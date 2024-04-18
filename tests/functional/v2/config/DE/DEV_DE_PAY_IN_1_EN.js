@@ -1,6 +1,6 @@
 export const DEV_DE_PAY_IN_1_EN = {
     testFileName: 'payIn1',
-    country: 'en_DE',
+    country: 'DE',
     description: 'DE merchant eligible for pay in 1',
     minAmount: 1,
     maxAmount: 1000,
@@ -10,7 +10,7 @@ export const DEV_DE_PAY_IN_1_EN = {
             message: 'Non-qualifying Pay in 1',
             expectedValue: 'Bezahlen Sie bei Einkäufen von 1€ bis 1.000€ erst nach 30 Tagen',
             modalContent: {
-                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.'
+                subheadline: 'Available for purchases of 1€ - 1.000€.'
             }
         },
         {
@@ -18,7 +18,7 @@ export const DEV_DE_PAY_IN_1_EN = {
             message: 'Qualifying Pay in 1',
             expectedValue: 'Bezahlen Sie nach 30 Tagen',
             modalContent: {
-                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.'
+                subheadline: 'Available for purchases of 1€ - 1.000€.'
             }
         },
         {
@@ -26,7 +26,7 @@ export const DEV_DE_PAY_IN_1_EN = {
             message: 'Non-qualifying Pay in 1',
             expectedValue: 'Bezahlen Sie bei Einkäufen von 1€ bis 1.000€ erst nach 30 Tagen',
             modalContent: {
-                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.'
+                subheadline: 'Available for purchases of 1€ - 1.000€.'
             }
         }
     ]

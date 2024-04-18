@@ -32,6 +32,8 @@
         ],
         "disclosure": [
             "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal private account with a bank account as a funding instrument."
-        ]
+        ],
+        "navLinkPrefix": "For monthly Pay Later Options,",
+        "linkToProductList": "see PayPal Ratenzahlung."
     }
 }

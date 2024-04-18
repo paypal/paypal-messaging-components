@@ -12,8 +12,8 @@ export const DEV_DE_LONG_TERM_EN_0APR = {
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                belowMinAmountErr: 'Geben Sie einen Betrag größer als 99€ ein.',
-                aprDisclaimer: 'Eff. Jahreszins 0,00% p.a.'
+                belowMinAmountErr: 'Enter an amount of 99€ or more.',
+                aprDisclaimer: 'Eff. Annual interest rate 0,00% p.a.'
             }
         },
         {
@@ -21,10 +21,10 @@ export const DEV_DE_LONG_TERM_EN_0APR = {
             message: 'Qualifying DE Long Term Installments',
             expectedValue: 'Bezahlen Sie in 3-24 monatlichen Raten.',
             modalContent: {
-                offerHeadline: '33,00€/Monat',
-                updatedOfferHeadline: '166,67€/Monat',
+                offerHeadline: '33,00€ / Month',
+                updatedOfferHeadline: '166,67€ / Month',
                 offerFieldValues: ['33,00€', '0,00€', '99,00€'],
-                aprDisclaimer: 'Eff. Jahreszins 0,00% p.a.'
+                aprDisclaimer: 'Eff. Annual interest rate 0,00% p.a.'
             }
         },
         {
@@ -34,8 +34,8 @@ export const DEV_DE_LONG_TERM_EN_0APR = {
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                aboveMaxAmountErr: 'Geben Sie einen Betrag geringer als 5.000€ ein.',
-                aprDisclaimer: 'Eff. Jahreszins 0,00% p.a.'
+                aboveMaxAmountErr: 'Enter an amount no larger than 5.000€',
+                aprDisclaimer: 'Eff. Annual interest rate 0,00% p.a.'
             }
         }
     ]
