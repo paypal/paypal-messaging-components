@@ -15,19 +15,14 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
 
     let clientID;
     if (account.startsWith('client-id:')) {
-        clientID = account.slice('client-id:');
+        clientID = account.slice(10);
     }
 
     let merchant_profile_hash;
+    let merchant_profile_valid;
     let buyer_profile_hash;
     let buyer_profile_valid;
     let partner_attribution_id;
-    let events = [];
-
-    const pageLoadedEvents = tracking.filter(event => event.event_type === 'page_loaded');
-    if (pageLoadedEvents.length > 0) {
-        events = events.concat(pageLoadedEvents);
-    }
 
     const components = Object.entries(meta)
         .filter(([, component]) => component.account === account)
@@ -38,7 +33,8 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             delete trackingDetails.clickUrl;
 
             // We expect these to be the same for every event so just take one
-            merchant_profile_hash = merchant_profile_hash ?? trackingDetails.MERCHANT_CONFIG_HASH;
+            merchant_profile_hash = merchant_profile_hash ?? trackingDetails.MERCHANT_PROFILE_HASH;
+            merchant_profile_valid = merchant_profile_valid ?? trackingDetails.MERCHANT_PROFILE_VALID;
             buyer_profile_hash = buyer_profile_hash ?? trackingDetails.BUYER_PROFILE_HASH;
             buyer_profile_valid = buyer_profile_valid ?? trackingDetails.BUYER_PROFILE_VALID;
             partner_attribution_id = partner_attribution_id ?? stats.bn_code;
@@ -92,6 +88,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             merchant_id: account,
             partner_attribution_id,
             merchant_profile_hash,
+            merchant_profile_valid,
             buyer_profile_hash,
             buyer_profile_valid,
 
@@ -99,8 +96,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             device_id: deviceID,
             session_id: sessionID,
             integration_type,
-            lib_version: messaging_version,
-            events,
+            integration_version: messaging_version,
             components
         }
     };
