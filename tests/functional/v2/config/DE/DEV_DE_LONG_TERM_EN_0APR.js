@@ -21,8 +21,8 @@ export const DEV_DE_LONG_TERM_EN_0APR = {
             message: 'Qualifying DE Long Term Installments',
             expectedValue: 'Bezahlen Sie in 3-24 monatlichen Raten.',
             modalContent: {
-                offerHeadline: '33,00€ / Month',
-                updatedOfferHeadline: '166,67€ / Month',
+                offerHeadline: '33,00€ / month',
+                updatedOfferHeadline: '166,67€ / month',
                 offerFieldValues: ['33,00€', '0,00€', '99,00€'],
                 aprDisclaimer: 'Eff. Annual interest rate 0,00% p.a.'
             }
