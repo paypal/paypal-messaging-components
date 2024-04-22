@@ -77,7 +77,10 @@ const uploadToImgur = async subDir => {
     await collectDiffs();
 
     const [bannerDiffs, modalDiffs] = await Promise.all([uploadToImgur('modal'), uploadToImgur('banner')]).catch(
-        error => console.error(error) // eslint-disable-line no-console
+        error => {
+            console.error(error); // eslint-disable-line no-console
+            return [0, 0];
+        }
     );
 
     if (bannerDiffs + modalDiffs > 0) {
