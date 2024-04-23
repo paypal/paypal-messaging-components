@@ -137,6 +137,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.ecToken
             },
+            buttonSessionId: {
+                type: 'string',
+                queryParam: 'button_session_id',
+                required: false,
+                value: validate.buttonSessionId
+            },
             pageType: {
                 type: 'string',
                 queryParam: 'page_type',
