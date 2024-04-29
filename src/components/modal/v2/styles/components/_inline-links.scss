@@ -6,6 +6,10 @@
     font-family: $paypal-open;
     font-weight: 600;
 
+    &.checkout {
+        font-weight: 400;
+    }
+
     &::before {
         content: ' ';
         visibility: hidden;

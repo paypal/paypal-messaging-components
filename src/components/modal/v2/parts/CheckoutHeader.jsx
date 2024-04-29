@@ -83,14 +83,14 @@ const CheckoutHeader = ({
                     {isPreapproved === 'true' ? <span className="preapproved-label">{preapprovalLabel}</span> : ''}
                 </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
+                    <p className={`subheadline_p subheadline-${countryClassName} qualifying checkout`}>
                         {isPreapproved === 'true'
                             ? preapprovalSubHeadline
                             : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName}`}
+                        className={`subheadline_p subheadline-${countryClassName} checkout`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html:

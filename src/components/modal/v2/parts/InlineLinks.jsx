@@ -4,7 +4,7 @@ import { h } from 'preact';
 import { useXProps } from '../lib';
 
 // Create text with links scattered within it
-const InlineLinks = ({ text }) => {
+const InlineLinks = ({ text, useNewCheckoutDesign }) => {
     const { onClick } = useXProps();
 
     if (!Array.isArray(text)) {
@@ -22,7 +22,8 @@ const InlineLinks = ({ text }) => {
                         // Fallback can be removed after all translations added to the content
                         aria-label={linkLabel ?? `${linkText}, opens new tab.`}
                         target="__blank"
-                        className="inline-link"
+                        // className="inline-link"
+                        className={`inline-link ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                         href={linkUrl}
                         onClick={() => {
                             onClick({
