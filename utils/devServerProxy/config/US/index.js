@@ -553,7 +553,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -568,7 +568,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -634,7 +634,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -644,12 +644,12 @@ export default {
             },
             {
                 amount: 1500.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
                 amount: 10000.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -686,7 +686,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -701,7 +701,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -948,7 +948,7 @@ export default {
             ]
         }
     },
-    // // PayPal Button + Pay Later Button
+    // PayPal Button + Pay Later Button
     DEV_US_BUTTON_STACK_MULTI: {
         country: 'US',
         modalViews: [
@@ -978,7 +978,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -993,7 +993,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -1059,7 +1059,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -1069,7 +1069,7 @@ export default {
             },
             {
                 amount: 1500.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -1121,7 +1121,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/buttons/generic_paypal.json',
+                template: '/buttons/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -1188,7 +1188,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -1203,7 +1203,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -1269,7 +1269,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -1279,12 +1279,12 @@ export default {
             },
             {
                 amount: 1500.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
                 amount: 10000.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
@@ -1321,7 +1321,7 @@ export default {
             },
             {
                 amount: 0.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -1336,7 +1336,7 @@ export default {
             },
             {
                 amount: 10000.01,
-                template: '/marks/generic_paypal.json',
+                template: '/marks/purchase_protection.json',
                 product: 'PRODUCT_LIST'
             }
         ],
