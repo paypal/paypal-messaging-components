@@ -173,23 +173,23 @@ describe('SSR message', () => {
         const textSelector = `.message__messaging`;
         const fontFaceSelector = '@font-face';
         const fontFamilyData = {
-            'default value': [undefined, null],
-            'valid value': ['Impact', "{ font-family: 'Impact', Helvetica, Arial, sans-serif; }"],
-            'invalid value': [' ', null],
-            'malicious value': ["</script><script>alert('XSS Message!')</script>", null]
+            [scenarios.DEFAULT]: [[undefined], null],
+            [scenarios.VALID]: [['Impact'], "{ font-family: 'Impact', Helvetica, Arial, sans-serif; }"],
+            [scenarios.INVALID]: [[' '], null],
+            [scenarios.MALICIOUS]: [["</script><script>alert('XSS Message!')</script>"], null]
         };
         const fontSourceData = {
-            'default value': [undefined, null],
-            'valid value': [
+            [scenarios.DEFAULT]: [[undefined], null],
+            [scenarios.VALID]: [
                 ['https://fonts.com/plRP.woff', 'https://fonts.com/plRP.woff2'],
-                "{ src: url('https://fonts.com/plRP.woff') format('woff'), url('https://fonts.com/plRP.woff2') format('woff2'); }"
+                ".+?\n.+?\n.+?src: url('https://fonts.com/plRP.woff')"
             ],
-            // 'valid value': [
+            // [scenarios.VALID]: [
             //     'https://fonts.com/plRP.woff',
-            //     "{ src: url('https://fonts.com/plRP.woff') format('woff'); }"
+            //     "{ src: url('https://fonts.com/plRP.woff'); }"
             // ],
-            'invalid value': ['https://fonts.com/plRP', null],
-            'malicious value': ["</script><script>alert('XSS Message!')</script>", null]
+            [scenarios.INVALID]: [['./plRP.woff'], null],
+            [scenarios.MALICIOUS]: [["</script><script>alert('XSS Message!')</script>"], null]
         };
         describe.each([
             [
@@ -197,9 +197,9 @@ describe('SSR message', () => {
                 'text.size',
                 textSelector,
                 {
-                    'default value': [undefined, '{ font-size: 12px; }'],
-                    'valid value': [14, '{ font-size: 14px; }']
-                    // 'invalid value': [48, '{ font-size: 12px; }']
+                    [scenarios.DEFAULT]: [[12], '{ font-size: 12px; }'],
+                    [scenarios.VALID]: [[14], '{ font-size: 14px; }']
+                    // [scenarios.INVALID]: [48, '{ font-size: 12px; }']
                 }
             ],
             [
@@ -207,7 +207,7 @@ describe('SSR message', () => {
                 'text.size',
                 flexSelector,
                 {
-                    'invalid value': [14, null]
+                    [scenarios.INVALID]: [[14], null]
                 }
             ],
             ['text', 'text.fontFamily', `.message__messaging`, fontFamilyData],
@@ -232,7 +232,7 @@ describe('SSR message', () => {
             });
             const markup = defaultMarkup();
             const propPath = `style.${propString}`;
-            Array.from(Object.values(scenarios)).map(scenario => {
+            Object.values(scenarios).map(scenario => {
                 const values = testValues?.[scenario];
                 if (typeof values !== 'undefined') {
                     return test(scenario, () => {

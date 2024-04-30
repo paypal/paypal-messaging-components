@@ -255,3 +255,8 @@ export function getFeatures() {
         return undefined;
     }
 }
+
+// open mini-browser with message lander url
+export function getURIPopup(lander, label) {
+    return window.open(lander, label, 'width=460,height=900');
+}

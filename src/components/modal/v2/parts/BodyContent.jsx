@@ -106,7 +106,9 @@ const BodyContent = () => {
                 openProductList={openProductList}
             />
         ),
-        [VIEW_IDS.PAY_LATER_PAY_IN_1]: <PayIn1 content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_PAY_IN_1]: (
+            <PayIn1 productMeta={productMeta} content={content} openProductList={openProductList} />
+        ),
         [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm
                 content={content}

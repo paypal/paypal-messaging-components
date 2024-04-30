@@ -69,7 +69,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         contextualComponents,
         devTouchpoint,
         disableSetCookie,
-        features
+        features,
+        language
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
@@ -99,7 +100,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             devTouchpoint,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
-            features
+            features,
+            language
         })
             .then(data => {
                 setServerData(data);
