@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.64.0](https://github.com/paypal/paypal-messaging-components/compare/v1.63.0...v1.64.0) (2024-04-30)
+
+
+### Features
+
+* purchase protection messsage ([#1075](https://github.com/paypal/paypal-messaging-components/issues/1075)) ([c90c280](https://github.com/paypal/paypal-messaging-components/commit/c90c28024c8743104a0497602692626a496bbd99))
+* Update DE Pi30 and Ratenzahlung modals to have EN variants ([#1076](https://github.com/paypal/paypal-messaging-components/issues/1076)) ([c428184](https://github.com/paypal/paypal-messaging-components/commit/c428184c75f20b28b16aa34a0e5ab8149bde3294))
+
+
+### Code Refactoring
+
+* allow mod XO learn more modal inside iframe ([#1079](https://github.com/paypal/paypal-messaging-components/issues/1079)) ([5884791](https://github.com/paypal/paypal-messaging-components/commit/5884791a79c014604a1ac4bc9506753d912925d3))
+* font feature ([#1061](https://github.com/paypal/paypal-messaging-components/issues/1061)) ([282c7fe](https://github.com/paypal/paypal-messaging-components/commit/282c7fe66b3b28fe183b6825868882fe56139707))
+
 ## [1.63.0](https://github.com/paypal/paypal-messaging-components/compare/v1.62.0...v1.63.0) (2024-04-16)
 
 
