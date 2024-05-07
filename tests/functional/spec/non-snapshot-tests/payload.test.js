@@ -3,21 +3,27 @@ import { bannerStyles } from '../utils/testStylesConfig';
 import selectors from '../utils/selectors';
 import setupTestPage from '../utils/setupTestPage';
 
-const EVENT_TYPES = ['MORS', 'click', 'hover', 'modal-close', 'modal-render', 'modal-open', 'stats', 'scroll'];
+const EVENT_TYPES = ['MORS', 'modal_rendered', 'message_hovered', 'modal_close', 'modal_viewed', 'scroll'];
 
 const createSpy = async () => {
-    const spy = { matchingStats: [], meta: {} };
+    const spy = { components: {}, matchingComponentEvents: [] };
     page.on('request', request => {
         const url = request.url();
         const postDataString = request.postData();
-        if (url.includes('log') && postDataString) {
+        if (url.includes('upstream-messaging-events') && postDataString) {
             const postData = JSON.parse(postDataString);
 
+            const events = postData.data?.components.reduce((acc, component) => {
+                return acc.concat(component.component_events);
+            }, []);
+
             // eslint-disable-next-line camelcase
-            const hasEvent = postData.tracking?.filter(({ event_type }) => EVENT_TYPES.includes(event_type));
+            const hasEvent = events.filter(({ event_type }) => EVENT_TYPES.includes(event_type));
             if (hasEvent) {
-                spy.meta = { ...spy.meta, ...postData.meta };
-                spy.matchingStats = spy.matchingStats.concat(postData.tracking);
+                spy.components = { ...spy.components, ...postData.data?.components };
+                spy.data = postData.data;
+                spy.matchingEvents = postData.data?.events;
+                spy.matchingComponentEvents = spy.matchingComponentEvents.concat(events);
             }
         }
     });
@@ -36,8 +42,10 @@ const runTest = async ({
     statName,
     config,
     callback,
-    matchObjects = [],
-    matchMeta = []
+    matchData = {},
+    matchEvents = [],
+    matchComponents = [],
+    matchComponentEvents = []
 }) => {
     // eslint-disable-next-line no-console
     console.log(`Running test [${testName}]`);
@@ -54,36 +62,66 @@ const runTest = async ({
     if (callback) await callback({ bannerFrame, modalFrame });
     await page.waitFor(15 * 1000);
 
-    const { matchingStats, meta } = payloadSpy;
-    matchObjects.forEach(matchObject => {
-        // eslint-disable-next-line camelcase
-        const { link, event_type } = matchObject;
-        const matchingStat = matchingStats.find(stat =>
-            // eslint-disable-next-line camelcase
-            typeof link === 'string' ? stat.link === link : stat.event_type === event_type
-        );
+    const { data, matchingEvents, components, matchingComponentEvents } = payloadSpy;
 
-        if (!matchingStat) {
+    expect(data).toBeDefined();
+    expect(data).toMatchObject(matchData);
+
+    matchEvents.forEach(matchEvent => {
+        // eslint-disable-next-line camelcase
+        const { event_type } = matchEvent;
+        // eslint-disable-next-line camelcase
+        const matchingEvent = matchingEvents.find(event => event.event_type === event_type);
+
+        if (!matchingEvent) {
             // eslint-disable-next-line no-console
-            console.error(`[${statName || testName}] stat not found, sent stats:`, matchingStats);
+            console.error(`[${testName}] event not found, sent events:`, matchingEvents);
         }
 
-        expect(matchingStat).toBeDefined();
-        expect(matchingStat).toMatchObject(matchObject);
+        expect(matchingEvent).toBeDefined();
+        expect(matchingEvent).toMatchObject(matchEvent);
     });
 
-    matchMeta.forEach(matchObject => {
-        const { type } = matchObject;
+    matchComponentEvents.forEach(matchObject => {
+        // eslint-disable-next-line camelcase
+        const { page_view_link_name, event_type } = matchObject;
+        const matchingComponentEvent = matchingComponentEvents.find(stat =>
+            // eslint-disable-next-line camelcase
+            typeof page_view_link_name === 'string'
+                ? // eslint-disable-next-line camelcase
+                  stat.page_view_link_name === page_view_link_name
+                : // eslint-disable-next-line camelcase
+                  stat.event_type === event_type
+        );
 
-        const matchingMeta = Object.values(meta).find(metaEntry => metaEntry.type === type);
-
-        if (!matchingMeta) {
+        if (!matchingComponentEvent) {
             // eslint-disable-next-line no-console
-            console.error(`[${statName || testName}] meta not found, sent meta:`, meta);
+            console.error(
+                `[${statName || testName}] component_event not found, sent component_events:`,
+                matchingComponentEvents
+            );
         }
 
-        expect(matchingMeta).toBeDefined();
-        expect(matchingMeta).toMatchObject(matchObject);
+        expect(matchingComponentEvent).toBeDefined();
+        expect(matchingComponentEvent).toMatchObject(matchObject);
+    });
+
+    matchComponents.forEach(matchObject => {
+        // eslint-disable-next-line camelcase
+        const { component_type } = matchObject;
+
+        const matchingComponent = Object.values(components).find(
+            // eslint-disable-next-line camelcase
+            componentEntry => componentEntry.component_type === component_type
+        );
+
+        if (!matchingComponent) {
+            // eslint-disable-next-line no-console
+            console.error(`[${statName || testName}] component not found, sent components:`, matchingComponent);
+        }
+
+        expect(matchingComponent).toBeDefined();
+        expect(matchingComponent).toMatchObject(matchObject);
     });
 };
 
@@ -98,33 +136,12 @@ describe('payload testing', () => {
         await runTest({
             testName: 'initial payload',
             config,
-            matchMeta: [
-                {
-                    type: 'message',
-                    messageRequestId: expect.any(String),
-                    account: config.account
-                },
-                {
-                    type: 'modal',
-                    messageRequestId: expect.any(String),
-                    account: config.account
-                },
-                { integration_type: 'STANDALONE', messaging_version: packageConfig.version }
-            ],
-            matchObjects: [
-                {
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'stats',
-                    first_render_delay: expect.stringNumber(),
-                    timestamp: expect.any(Number)
-                },
-                {
-                    index: expect.any(String),
-                    event_type: 'modal-render',
-                    modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
-                    first_modal_render_delay: expect.stringNumber(),
-                    timestamp: expect.any(Number)
-                },
+            matchData: {
+                merchant_id: config.account,
+                lib_version: packageConfig.version,
+                integration_type: 'STANDALONE'
+            },
+            matchEvents: [
                 {
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'page_loaded',
@@ -132,6 +149,34 @@ describe('payload testing', () => {
                     dom_load_delay: expect.stringNumber(),
                     page_load_delay: expect.stringNumber(),
                     timestamp: expect.any(Number)
+                }
+            ],
+            matchComponents: [
+                {
+                    component_type: 'message',
+                    instance_id: expect.any(String)
+                },
+                {
+                    component_type: 'modal',
+                    instance_id: expect.any(String)
+                }
+            ],
+            matchComponentEvents: [
+                {
+                    et: 'CLIENT_IMPRESSION',
+                    event_type: 'message_rendered',
+                    first_render_delay: expect.stringNumber(),
+                    timestamp: expect.any(Number),
+                    render_duration: expect.any(String),
+                    request_duration: expect.any(String)
+                },
+                {
+                    index: expect.any(String),
+                    event_type: 'modal_rendered',
+                    modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
+                    first_modal_render_delay: expect.stringNumber(),
+                    timestamp: expect.any(Number),
+                    render_duration: expect.any(String)
                 }
             ]
         });
@@ -147,12 +192,15 @@ describe('payload testing', () => {
                 await page.evaluate(() => window.scrollBy(0, 1000));
                 await page.waitFor(5 * 1000);
             },
-            matchObjects: [
+            matchComponentEvents: [
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'scroll',
-                    visible: 'true'
+                    visible: 'true',
+                    timestamp: expect.any(Number),
+                    render_duration: expect.any(String),
+                    request_duration: expect.any(String)
                 }
             ]
         });
@@ -165,17 +213,21 @@ describe('payload testing', () => {
             callback: async ({ bannerFrame }) => {
                 await clickBanner(bannerFrame);
             },
-            matchObjects: [
+            matchComponentEvents: [
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Banner Wrapper'
+                    event_type: 'message_clicked',
+                    page_view_link_name: 'Banner Wrapper',
+                    timestamp: expect.any(Number),
+                    render_duration: expect.any(String),
+                    request_duration: expect.any(String)
                 },
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
-                    event_type: 'modal-open'
+                    event_type: 'modal_viewed',
+                    timestamp: expect.any(Number)
                 }
             ]
         });
@@ -188,11 +240,14 @@ describe('payload testing', () => {
             callback: async ({ bannerFrame }) => {
                 await bannerFrame.hover('.message__messaging');
             },
-            matchObjects: [
+            matchObjematchComponentEventscts: [
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
-                    event_type: 'hover'
+                    event_type: 'message_hovered',
+                    timestamp: expect.any(Number),
+                    render_duration: expect.any(String),
+                    request_duration: expect.any(String)
                 }
             ]
         });
@@ -216,9 +271,10 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Calculator',
-                    amount: expect.any(String)
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'Calculator',
+                    amount: expect.any(String),
+                    render_duration: expect.any(String)
                 }
             ]
         });
@@ -232,12 +288,13 @@ describe('payload testing', () => {
                 await clickBanner(bannerFrame);
                 await modalFrame.click(selectors.button.contentHeader);
             },
-            matchObjects: [
+            matchComponentEvents: [
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'click',
-                    link: 'Apply Now'
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'Apply Now',
+                    timestamp: expect.any(Number)
                 }
             ]
         });
@@ -251,12 +308,12 @@ describe('payload testing', () => {
                 await clickBanner(bannerFrame);
                 await modalFrame.click(selectors.button.closeBtn);
             },
-            matchObjects: [
+            matchComponentEvents: [
                 {
                     index: expect.any(String),
                     et: 'CLICK',
-                    event_type: 'modal-close',
-                    link: 'Close Button'
+                    event_type: 'modal_close',
+                    page_view_link_name: 'Close Button'
                 }
             ]
         });
