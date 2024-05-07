@@ -48,7 +48,7 @@ const setupBrowser = props => {
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-render',
+                event_type: 'modal_rendered',
                 modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                 // For standalone modal the stats event does not run, so we duplicate some data here
                 bn_code: partnerAttributionId
@@ -60,27 +60,27 @@ const setupBrowser = props => {
             logger.track({
                 index: '1',
                 et: 'CLICK',
-                event_type: 'click',
-                link: linkName,
-                src: src ?? linkName
+                event_type: 'modal_rendered',
+                page_view_link_name: linkName,
+                page_view_link_source: src ?? linkName
             });
         },
         onCalculate: ({ value }) => {
             logger.track({
                 index: '1',
                 et: 'CLICK',
-                event_type: 'click',
-                link: 'Calculator',
-                src: 'Calculator',
-                amount: value
+                event_type: 'modal_rendered',
+                page_view_link_name: 'Calculator',
+                page_view_link_source: 'Calculator',
+                calculator_input: value
             });
         },
         onShow: () => {
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
-                event_type: 'modal-open',
-                src: 'Show'
+                event_type: 'modal_viewed',
+                page_view_link_source: 'Show'
             });
         },
         onClose: ({ linkName }) => {
@@ -91,8 +91,8 @@ const setupBrowser = props => {
             logger.track({
                 index: '1',
                 et: 'CLICK',
-                event_type: 'modal-close',
-                link: linkName
+                event_type: 'modal_close',
+                page_view_link_name: linkName
             });
         },
         // Overridable defaults
