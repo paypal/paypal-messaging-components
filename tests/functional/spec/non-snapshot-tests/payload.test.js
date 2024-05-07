@@ -138,19 +138,10 @@ describe('payload testing', () => {
             config,
             matchData: {
                 merchant_id: config.account,
-                lib_version: packageConfig.version,
+                integration_version: packageConfig.version,
                 integration_type: 'STANDALONE'
             },
-            matchEvents: [
-                {
-                    et: 'CLIENT_IMPRESSION',
-                    event_type: 'page_loaded',
-                    script_load_delay: expect.stringNumber(),
-                    dom_load_delay: expect.stringNumber(),
-                    page_load_delay: expect.stringNumber(),
-                    timestamp: expect.any(Number)
-                }
-            ],
+            matchEvents: [],
             matchComponents: [
                 {
                     component_type: 'message',
