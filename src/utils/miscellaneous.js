@@ -177,7 +177,9 @@ export const viewportHijack = memoize(() => {
             document.body.style.setProperty('-ms-overflow-style', 'scrollbar');
         },
         () => {
-            viewport.setAttribute('content', viewport.__pp_prev_content__);
+            if (viewport.__pp_prev_content__) {
+                viewport.setAttribute('content', viewport.__pp_prev_content__);
+            }
             delete viewport.__pp_prev_content__;
 
             document.body.style.setProperty('overflow', document.body.__pp_prev_overflow__);
