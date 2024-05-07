@@ -53,20 +53,22 @@ describe('stats', () => {
     const statsEvent = {
         index: expect.stringNumber(),
         et: 'CLIENT_IMPRESSION',
-        event_type: 'stats',
+        event_type: 'message_rendered',
         first_render_delay: expect.stringNumber()
     };
 
     const defaultProps = {
         index,
-        pos_x: '100',
-        pos_y: '30',
+        position_in_page_x: '100',
+        position_in_page_y: '30',
         browser_width: '1024',
         browser_height: '768',
-        adblock: 'true',
+        ad_blocker: 'true',
         blocked: 'true',
-        visible: 'true',
-        active_tags: expect.any(String),
+        in_viewport: 'true',
+        headline: expect.any(String),
+        sub_headline: expect.any(String),
+        disclaimer: expect.any(String),
         render_duration: expect.stringNumber(),
         request_duration: expect.stringNumber(),
         first_render_delay: expect.stringNumber()
