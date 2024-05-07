@@ -154,7 +154,7 @@ export default ({ doc, props: { cspNonce, features, onError }, event, state }) =
             height: 24px;
         }
 
-        @media (max-width: 639px) {
+        @media screen and (max-width: 639px) {
             .close-button > button > svg {
                 margin-top: auto;
                 margin-left: auto;
@@ -172,7 +172,7 @@ export default ({ doc, props: { cspNonce, features, onError }, event, state }) =
         `
         }
 
-        @media (max-width: 639px), (max-height: 539px){
+        @media screen and (max-width: 639px), (max-height: 539px){
             .modal{
                 overflow-y: hidden;
             }
