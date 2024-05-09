@@ -44,26 +44,28 @@ const Donut = ({
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             } ${isV4Design && isBelowNumOfPayments ? isPi3 : ''} `}
         >
-            <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
-                <circle
-                    cx={cx}
-                    cy={cy}
-                    r={radius}
-                    fill="transparent"
-                    className={isV4Design ? 'donut__background__line' : 'donut__background'}
-                    stroke-width={strokeWidth}
-                />
-                <g
-                    stroke-width={isV4Design ? 0 : segStrokeWidth}
-                    fill={isV4Design ? '#545D68' : 'transparent'}
-                    stroke-linecap={strokeLinecap}
-                >
-                    {segments}
-                </g>
-                <text x={cx} y={cy} text-anchor="middle">
-                    {isQualifying}
-                </text>
-            </svg>
+            <span className="svg">
+                <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
+                    <circle
+                        cx={cx}
+                        cy={cy}
+                        r={radius}
+                        fill="transparent"
+                        className={isV4Design ? 'donut__background__line' : 'donut__background'}
+                        stroke-width={strokeWidth}
+                    />
+                    <g
+                        stroke-width={isV4Design ? 0 : segStrokeWidth}
+                        fill={isV4Design ? '#545D68' : 'transparent'}
+                        stroke-linecap={strokeLinecap}
+                    >
+                        {segments}
+                    </g>
+                    <text x={cx} y={cy} text-anchor="middle">
+                        {isQualifying}
+                    </text>
+                </svg>
+            </span>
             {/* eslint-disable-next-line jsx-a11y/aria-role */}
             <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
                 {isQualifying && periodicPayment !== '-' && (
