@@ -5,7 +5,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 export default ({ doc, props: { cspNonce, features, onError }, event, state }) => {
     const ERROR_DELAY = 15000;
-    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
+    const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
     const styles = `
          @font-face {
             font-family: 'PayPalOpen';
