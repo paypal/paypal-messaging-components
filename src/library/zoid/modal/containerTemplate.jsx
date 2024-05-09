@@ -16,8 +16,8 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
     // cannot overlay across the entire screen
     if (context === 'popup') return undefined;
 
-    const TRANSITION_DELAY = features === 'new-checkout-design' ? 100 : 300;
-    const transitionPercent = features === 'new-checkout-design' ? 0 : 5;
+    const TRANSITION_DELAY = features?.includes('new-checkout-design') ? 100 : 300;
+    const transitionPercent = features?.includes('new-checkout-design') ? 0 : 5;
 
     const [hijackViewport, replaceViewport] = viewportHijack();
 

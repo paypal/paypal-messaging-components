@@ -62,7 +62,7 @@ const BodyContent = () => {
     const isQualifying = productMeta?.qualifying;
 
     const useV4Design = productMeta?.useV4Design === 'true';
-    const useNewCheckoutDesign = features.includes('new-checkout-design') ? 'true' : 'false';
+    const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
     // add v4Design class to root html to update lander specific styles to v4
     const documentClassName = document.documentElement.className;
@@ -124,7 +124,7 @@ const BodyContent = () => {
     // specific adjacent DOM structure
     return (
         <Fragment>
-            {typeof cta !== 'undefined' && features.includes('new-checkout-design') ? (
+            {typeof cta !== 'undefined' && features?.includes('new-checkout-design') ? (
                 <CheckoutHeader
                     headline={headline}
                     subheadline={subheadline}
