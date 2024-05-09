@@ -237,6 +237,8 @@ export function getPayPalAPIDomain() {
         }
     }
 
+    // Not using `getPayPalAPIDomain` function call here because it outputs 'cors.api.paypal.com'
+    // The domain with prefixed 'cors' does not route to logging application.
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         if (getEnv() === 'sandbox') {
             return 'https://api.sandbox.paypal.com';
