@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.64.2](https://github.com/paypal/paypal-messaging-components/compare/v1.64.1...v1.64.2) (2024-05-09)
+
+
+### Bug Fixes
+
+* update API domain ([#1087](https://github.com/paypal/paypal-messaging-components/issues/1087)) ([f3e52c6](https://github.com/paypal/paypal-messaging-components/commit/f3e52c6081d658b828ed7fed54c58acd68f25676))
+* update xo features conditional to allow for multiple features flags ([#1086](https://github.com/paypal/paypal-messaging-components/issues/1086)) ([a674430](https://github.com/paypal/paypal-messaging-components/commit/a674430d2faa553c79a791db6dd2e995902aea7c))
+
 ### [1.64.1](https://github.com/paypal/paypal-messaging-components/compare/v1.64.0...v1.64.1) (2024-05-07)
 
 
