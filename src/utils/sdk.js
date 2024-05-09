@@ -20,8 +20,7 @@ import {
     getStorageState as getSDKStorageState,
     getPayPalDomain as getSDKPayPalDomain,
     getDisableSetCookie as getSDKDisableCookie,
-    getPageType as getSDKPageType,
-    getPayPalAPIDomain as getSDKPayPalAPIDomain
+    getPageType as getSDKPageType
 } from '@paypal/sdk-client/src';
 
 import { TAG } from './constants';
@@ -239,7 +238,10 @@ export function getPayPalAPIDomain() {
     }
 
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return getSDKPayPalAPIDomain();
+        if (getEnv() === 'sandbox') {
+            return 'https://api.sandbox.paypal.com';
+        }
+        return 'https://api.paypal.com';
     } else {
         const domain = __MESSAGES__.__API_DOMAIN__[`__${getEnv().toUpperCase()}__`];
 
