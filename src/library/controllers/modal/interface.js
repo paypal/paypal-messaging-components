@@ -75,7 +75,7 @@ const memoizedModal = memoizeOnProps(
         // eslint-disable-next-line default-param-last
         const renderModal = (selector = 'body', newProps, options = { intent: 'render' }) => {
             // TODO: determine a more flexible way to handle iframe vs. popup scenarios for our various entrypoints
-            const context = getTopWindow() === window || features === 'new-checkout-design' ? 'iframe' : 'popup';
+            const context = getTopWindow() === window || features?.includes('new-checkout-design') ? 'iframe' : 'popup';
 
             if (renderProm && context !== 'popup') {
                 return renderProm.then(() => newProps && zoidComponent.updateProps(newProps));
