@@ -1,7 +1,7 @@
 import createBannerTest from '../../createBannerTest';
 import accounts from '../accounts';
 
-const logoTypes = ['primary', 'alternative', 'inline', 'none'];
+const logoTypes = ['inline', 'none'];
 const colors = ['black', 'white', 'monochrome', 'grayscale'];
 
 const tests = [].concat(
